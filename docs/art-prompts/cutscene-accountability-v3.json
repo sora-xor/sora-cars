@@ -1,0 +1,78 @@
+{
+  "mode": "built-in image_gen",
+  "useCase": "illustration-story",
+  "created": "2026-09-22",
+  "scope": "Chapter 7 victory: Ren's public accountability at the Yokohama harbor gathering.",
+  "generated": [
+    {
+      "id": "public-confession",
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v3.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b8-80e2-7dd2-91eb-55cf7d860578/exec-29b9beaf-4ae7-405a-a37e-9116fa55bc57.png",
+      "prompt": "Use case: illustration-story.\nAsset type: new full-frame 16:9 narrative cutscene for the game SORA CARS, chapter 7 victory, public confession. Generate a new camera composition.\nReferences: images 1–3 are harbor environment, palette, crisp pixel-cluster technique, and period wardrobe references; image 4 locks the identities of Aki and Ren and the emotional gravity of Ren's betrayal. Do not copy the friends' cheerful poses from harbor references.\nScene: Yokohama harbor, Japan, August 1986, a temporary public gathering outside an old corrugated warehouse. Indigo-violet dusk, cranes and moored ship in the distance, wet asphalt, warm amber utility lamps.\nSubject and story: adult Ren Sorai, age 23, wavy dark hair, cream denim jacket over dark shirt and blue jeans, stands left of center at a borrowed wired microphone. He is visibly remorseful but speaking clearly, eyebrows troubled, mouth slightly open, no smile. He admits publicly that he secretly gave the sponsor everyone's relay locations. His right hand rests by an open folder on a waist-high plain borrowed table containing a signed sponsor agreement and a separate relay-location list; visible paper forms and handwritten marks, no readable prose needed. A small portable cassette recorder and amplifier connect to the microphone. Adult Aki, age 24, straight chin-length black bob, white T-shirt and red mechanics overalls tied at the waist, stands apart on the right behind the table, arms at her sides, listening with a guarded wounded expression. She has not forgiven him; no touching, comfort, smile or reconciliation. Several out-of-focus-in-pixel-clusters adult local listeners frame the far sides, attention directed toward Ren.\nComposition: wide landscape 16:9, restrained medium-wide left camera composition, Ren and his microphone the focal point in the upper-left/center, Aki fully identifiable upper-right, open documents clearly visible in the middle band. Keep all faces and essential microphone/document storytelling props within the upper 72% of the canvas. Bottom quarter is quiet dark asphalt/table-front foreground for a future game dialogue overlay. Nothing rendered as UI.\nStyle: match the references' sophisticated 1980s Japanese adventure-game pixel-art still, precise square pixel clusters, dithered shadow color, hand-placed hard-edged highlights, detailed drawn faces with pixel contours; no smooth airbrushing or photorealism. Violet/navy shadows with restrained amber light, red and cream wardrobe accents.\nConstraints: one continuous scene, new composition, all people adults; period analog electronics only. No speech balloons, subtitle, frame, watermark, poster typography, celebratory trophy, smiling crowd, raised victory fists or weapons. Small subtle SORA patch okay; don't invent large text.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-left-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-right-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-wide-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ],
+      "sha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2464885,
+      "intendedDialogue": {
+        "chapterId": 7,
+        "phase": "victory",
+        "lineIndices": [
+          0,
+          1
+        ]
+      },
+      "inspection": {
+        "method": "Viewed built-in output and saved PNG with view_image.",
+        "accepted": true,
+        "findings": [
+          "Remorseful adult Ren speaks at a borrowed wired microphone; signed-style papers and relay diagram are on the table.",
+          "Aki stands apart, guarded and unsmiling; crowd remains serious.",
+          "Faces and microphone occupy upper frame; papers occupy middle/lower band before dialogue-safe foreground.",
+          "New composition matches harbor dusk palette and established pixel clusters.",
+          "Aki's red bib is worn up, matching harbor references, rather than tied down as requested. This minor wardrobe variation is disclosed; identities and narrative remain clear."
+        ]
+      }
+    },
+    {
+      "id": "public-confession-reverse",
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-reverse-v3.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b8-80e2-7dd2-91eb-55cf7d860578/exec-152fe556-677f-4b00-b184-2ca70bb8e187.png",
+      "prompt": "Use case: illustration-story.\nAsset type: new full-frame 16:9 narrative cutscene for the game SORA CARS, chapter 7 victory, community questions after Ren's public confession. Make a true REVERSE camera composition, not a crop.\nReference roles: image 1 is the preceding confession shot; preserve its dusk light, wet Yokohama harbor location, borrowed table and analog microphone, remorseful Ren in cream denim, and Aki's short black bob/red mechanics workwear. Image 2 establishes harbor environment and crisp pixel art; image 3 shows Yui, the adult engineer with black ponytail and mustard work jacket. Image 4 reinforces Aki and Ren's character identities. Faces should share this drawn pixel-art production style.\nScene: outside a corrugated harbor warehouse in Japan, August 1986, violet dusk and amber utility lamps, parked boxy Japanese coupes and borrowed repair supplies at the periphery.\nStory: Ren has admitted secretly giving the sponsor everyone's relay locations, and has promised to answer every question about whether he should remain on air. Show the listeners taking their turn at a portable wired microphone: the central foreground subject is a middle-aged Japanese woman shopkeeper in a plain dark cardigan and practical cream apron, firm angry but controlled expression, mouth open as she asks a serious question, one hand holding a receipt; next to her a middle-aged male courier in a muted blue delivery jacket holds a paper list and waits, troubled eyebrows. Behind them a believable orderly queue of several other adult local shopkeepers and couriers, mixed ages, visibly concerned or stern, no cheering or smiles. These are ordinary community members with agency, not a cheering audience. At right middle ground Yui, age 27, black ponytail, mustard work jacket and pale work trousers, concentrates on organizing coiled extension leads and a borrowed toolbox on a crate; this also shows the community coordinating what people can lend. A small handwritten lending ledger lies near her work, no readable prose necessary.\nComposition: from behind Ren's cream-jacketed shoulder at far left edge, looking outward from the speaking table toward the questioning crowd, with just a thin dark-bob/red-workwear edge of Aki at far right. Ren is a partial rear view only. The queue and speaking shopkeeper occupy upper-middle/right; questioning face and wired microphone clearly readable. Cranes, docked ship and amber lights recede behind the crowd. Keep all faces and key story props within upper 72%, bottom quarter mainly quiet dark table edge and wet foreground, ready for game dialogue later. Visually distinct from the preceding shot; table's signed papers may show as partial sheets near upper edge of foreground.\nStyle: sophisticated detailed 1980s Japanese adventure-game pixel-art still, crisp visible square clusters, dithered navy/violet shadows and amber pixel highlights, restrained red/mustard/cream costume accents; match reference scale and finish.\nConstraints: one continuous scene, all adults, no violence or raised fists, no celebration, romance, cheering, weapons, modern devices, speech balloons, subtitle, UI, watermark or poster typography. Serious accountable public listening, not a riot or a press spectacle.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v3.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-wide-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-right-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ],
+      "sha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2455496,
+      "intendedDialogue": {
+        "chapterId": 7,
+        "phase": "victory",
+        "lineIndices": [
+          2,
+          3
+        ]
+      },
+      "inspection": {
+        "method": "Viewed built-in output and saved PNG with view_image.",
+        "accepted": true,
+        "findings": [
+          "True reverse composition behind Ren and Aki, focused on a stern adult shopkeeper at the microphone and courier holding documents.",
+          "Concerned adult community members queue behind them without violence or celebration.",
+          "Yui in mustard work jacket organizes extension leads and borrowed supplies at right.",
+          "Faces and key community props remain in upper 75%; table edge forms quiet lower foreground.",
+          "Matches preceding confession's pixel treatment, 1986 harbor setting and dusk lighting."
+        ]
+      }
+    }
+  ]
+}

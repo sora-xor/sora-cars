@@ -1,0 +1,19 @@
+{
+  "schema": "sora-cars.native-street-layout-copy.v1",
+  "source": {
+    "key": "crates/iroha_data_model/src/street_v1/layout.rs",
+    "sha256": "5edaf32e145fbcc2457112b9b2a7ee62ef6c7dfc243d27960b32d8ed503b6761",
+    "bytes": 6466
+  },
+  "rust": {
+    "path": "world/native/generated/street_layout_v1.rs",
+    "sha256": "5edaf32e145fbcc2457112b9b2a7ee62ef6c7dfc243d27960b32d8ed503b6761",
+    "bytes": 6466
+  },
+  "browser": {
+    "path": "src/game/street/generated/layout-v1.ts",
+    "sha256": "4d3d763aa6c45cfbeb5849034ae85bd6d3e581b75a9fbfd32df78ac80a9619f4",
+    "bytes": 599
+  },
+  "scope": "Shared layout metadata; no profile registration, proof admission or removal authority."
+}

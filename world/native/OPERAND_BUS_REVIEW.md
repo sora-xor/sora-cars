@@ -1,0 +1,46 @@
+# Operand representation review
+
+> Historical laboratory record. The standalone raw-constraint implementation and its runners have been retired. Current implementation and test obligations live in Iroha Core; see the [current foundation goals](../../docs/zk-foundations-goals.md). Source hashes and measurements below describe the original reviewed revision and do not qualify the current verifier.
+
+September 8, 2026. Independent review of the native, compiler-owned operand representation described in [the bounded prototype plan](STREET_OPERAND_BUS_PLAN.md). The inspected source and bounded tests show no remaining concrete acceptance defect within this raw-representation scope. This review does not establish an authenticated operand bus, a STARK, accepted-input authority, ledger settlement, or a cryptographic security target.
+
+## Required preservation boundary
+
+The staged export is immutable and contains every original equation slot after singleton substitution. The operand compiler must preserve those slots, including zero identities and nonzero constant contradictions; all ordered linear and quadratic terms; every fixed original wire; all ordered range and ROM occurrences; the complete ROM column catalog; and every aliased input/output port. No source-hint recipe may determine verification. Stage columns must resolve through unique, closed original-wire lifetimes, because a later reuse of one column is a different wire.
+
+The complete boundary adapter must construct its operand core from the exact `ExecutionBoundaryAir::stage_air()` used by the boundary and terminal exports. A shape comparison would not be sufficient. Its persistent descriptor must commit the actual core relation, actions, genesis state, carry maps, final output claims, first-terminal predicates, address scope and new representation's row/padding policy. Independently supplied source programs cannot be attached merely because their widths and ports agree.
+
+Old staged carry equalities become repeated reads of one original-wire table entry. Old zero cells have no dynamic table entry. This is a representation change: it does not prove a supplied old dense matrix had zero padding. The new table, read, accumulator and boundary rows need their own complete inactive-cell and global-padding checks.
+
+## Adversarial checks to inspect
+
+- Coherent alternate arithmetic and a disconnected false assertion; a contradictory original singleton equation must survive as a nonzero constant residual.
+- Exact range widths, signed canonical residues, the fixed range subset, duplicate ROM occurrences, namespace/table changes and one wrong index/value tuple after every polynomial passes.
+- Changed raw fixed cells, omitted or duplicated canonical value rows, wrong table/address association, read edits with coherent accumulators, accumulator resets and nonzero inactive cells.
+- A coherent valid tick from the wrong previous state, public action replacement, contradictory duplicate final aliases and mismatched fixed public ports.
+- A valid nonterminal prefix presented as complete execution, an absorbing or other locally valid step after first halt, cursor changes and actual source-wire aliases of halt/cursor ports.
+- Missing or extra core/boundary/padding rows, wrong row shapes, noncanonical values, overflow or scope reuse, and attempts to recover after a rejected streaming row.
+
+The final evidence must identify which checks were actually executed. Raw equality/table reads cannot substitute for an authenticated multiset argument. Static multiplicities must count every dynamic read occurrence, including repeated operands and the boundary/terminal additions, rather than merely unique addresses or the core polynomial reads.
+
+## Corrections made during review
+
+The initial boundary descriptor omitted the selected new raw padding lengths, and its one-step expansion did not distinguish unused carry maps. The final adapter exposes `layout_descriptor(core_padded_rows, boundary_padding)` and encodes all original input source records in addition to the exact expanded equalities. It also counts per-step descriptor framing even for a zero-port program. The independent tests exercise all three cases.
+
+The original core descriptor writer used geometric vector growth while accounting for only a bounded descriptor allocation. It now performs a count-only serialization pass and reserves the exact final length for a second pass over the same immutable program. Tight byte-budget tests cover the corrected path. The census also separates the conditional honest quotient bound `2n−3` from the degree `2n−1` admitted by two ordinary degree-`<n` chunks; its resulting conditional malicious OODS comparison bound is `3n−1`.
+
+## Executed evidence
+
+Reviewed [operand_program.rs](../../output/qualification/raw-execution-retirement-20261018/preimage/app/world/native/operand_program.rs), SHA-256 `94339bb02543baf1a1f72a36a563036c2a5791814c1ebc90c022f704c9eafe61`, and [operand_execution.rs](../../output/qualification/raw-execution-retirement-20261018/preimage/app/world/native/operand_execution.rs), SHA-256 `4a2b57d6fcb2380a946b854ca8284ef51cb3cd3da60c59d9afd2df70d3d19c5d`. The core constructor accepts only the immutable native AIR export; the execution adapter constructs its core internally from the same boundary export. Read-only accessors cannot install replacement equations, sources, placements, tables or multiplicities. The raw core checks the complete canonical value table before any copied operand is consumed; every enabled row's four cells have an explicit role or zero constraint. Failures permanently poison both streams.
+
+The [core report](../../output/qualification/operand-program/report.json), SHA-256 `b53f3cb076a60b60f834cdd223f09321efc882c57f648c63bfe8725d2c9a6b6d`, records twelve passing tests, including eighty individual row-cell mutations, coherent wrong reads/outputs, accumulator resets, a disconnected contradiction, changed eliminated fixed cells, exact range aliases and foreign ROM contents. These are raw verifier tests, including cases where every original polynomial passes but a retained membership fails.
+
+The independently authored [public-API harness](../../output/qualification/raw-execution-retirement-20261018/preimage/app/scripts/native/operand_execution_audit.rs) and [runner](../../output/qualification/raw-execution-retirement-20261018/preimage/app/scripts/test-operand-execution-audit.py) pass five further tests. The [audit report](../../output/qualification/operand-execution-audit/report.json), SHA-256 `44dcf4765eec4eece4a33d2f1d7d3b6aac78a4889ecb4546541640d75e2845eb`, pins eight sources and fourteen files. They cover a valid complete signed-arithmetic/ROM trace; locally valid coherent stale states and changed public actions; contradictory duplicate final aliases; fixed public contradictions; valid prefixes and locally valid ticks after first halt; all boundary and padding cell edits; permanent poison, missing/extra rows; exact boundary multiplicities and address bounds; different one-step carry maps; same-shaped different core relations; different layouts/scopes; and a 128-step zero-port program. The harness uses public APIs only. All retained file and current/frozen source hashes were independently checked.
+
+The final [complete Street census](../../output/qualification/street-operand-census/report.json), SHA-256 `b7600867dc748b7b64f51ff988fe44a089196b33a47964a236a94e5c4a152031`, pins twenty-eight sources and sixty files. All hashes matched on independent inspection. Its six configurations cover two/eight cars with 8/12/16-bit limbs. Every original coefficient, constant, equation slot, fixed source, range/ROM record and port is compared with the original export; multiplicities are independently reconstructed through live original-wire identities. Each case verifies three native technical-win ticks with complete core, outer, first-terminal and new padding checks. The numerical forfeits are synthetic fixtures, not consensus evidence.
+
+The six cases check 27,131,904 raw operand rows and 2,418 raw boundary rows in total. Their 144 duration/layout projections are explicitly conditional models. They separately report all mandatory table rows, fixed membership table domain minima, active/padded row counts, packed base-field versus current extension-field matrices, proposed auxiliary columns, and lower bounds for one existing codec shape. The exact fixed-polynomial inventory, authenticated shard joins, full prover allocations and a compiled bus AIR remain unavailable. No layout is qualified from these arithmetic projections alone.
+
+## Remaining proof obligation
+
+The raw check currently enforces each copied value by comparing it directly with the retained canonical table. An eventual proof must enforce that association cryptographically, bind the complete descriptor and statement before challenges, account for every boundary/terminal multiplicity, constrain all disabled cells and close every multiset sum. The proposed tuple and challenge support in the plan have not been implemented or proved here. Full-race proving, accepted-history authentication, shard composition, cryptographic soundness and settlement remain separate unfinished work.

@@ -1,0 +1,220 @@
+{
+  "sourceSha256": "cc67905d1d492bf0d2eb8fc632f9baa812449770801a7eea4f7a3b50d02057e0",
+  "method": "cosine-weighted hemisphere ray casts against exact opaque source triangles",
+  "normalization": {
+    "scale": 0.009935386732455635,
+    "sourceCenterBlender": [
+      0.005580902099609375,
+      2.0655136108398438,
+      64.3378677368164
+    ],
+    "sourceMinBlenderZ": 0.5689296722412109
+  },
+  "resolution": [
+    512,
+    512
+  ],
+  "samplesPerPixel": 256,
+  "widthMeters": 5.0,
+  "depthMeters": 7.6,
+  "originHeightMeters": 0.001,
+  "rayDistanceMeters": 1.4,
+  "distanceWeight": "1 - (distance / 1.4)^2",
+  "colorSpace": "linear, no color transform",
+  "channels": "RGB visibility; 1 white means no occlusion; opacity = 1 - red",
+  "uv": {
+    "u0": "-X",
+    "u1": "+X",
+    "v0": "-Z",
+    "v1": "+Z",
+    "pngTop": "+Z"
+  },
+  "triangleCount": 669538,
+  "included": [
+    {
+      "name": "CarBody_LicensePlate_0",
+      "triangles": 458
+    },
+    {
+      "name": "CarBody_Mirror_0",
+      "triangles": 504
+    },
+    {
+      "name": "CarBody_Primary_0",
+      "triangles": 29376
+    },
+    {
+      "name": "CarBody_Reflector_0",
+      "triangles": 8588
+    },
+    {
+      "name": "CarBody_Secondary_0",
+      "triangles": 13594
+    },
+    {
+      "name": "CarBody_Shadow_0",
+      "triangles": 180
+    },
+    {
+      "name": "CarBody_TailightFrame_0",
+      "triangles": 3056
+    },
+    {
+      "name": "CarBody_Trim1_0",
+      "triangles": 77104
+    },
+    {
+      "name": "CarBody_Trim2_0",
+      "triangles": 29879
+    },
+    {
+      "name": "CarBody_Trueno_0",
+      "triangles": 167
+    },
+    {
+      "name": "FL_Caliper_BrakeCaliper_0",
+      "triangles": 8096
+    },
+    {
+      "name": "FL_Wheel_Brake Disc_0",
+      "triangles": 4272
+    },
+    {
+      "name": "FL_Wheel_RimMaterial_0",
+      "triangles": 18160
+    },
+    {
+      "name": "FL_Wheel_TireMaterial_0",
+      "triangles": 38168
+    },
+    {
+      "name": "FR_Caliper_BrakeCaliper_0",
+      "triangles": 8096
+    },
+    {
+      "name": "FR_Wheel_Brake Disc_0",
+      "triangles": 4272
+    },
+    {
+      "name": "FR_Wheel_RimMaterial_0",
+      "triangles": 18160
+    },
+    {
+      "name": "FR_Wheel_TireMaterial_0",
+      "triangles": 38168
+    },
+    {
+      "name": "Headlights_Primary_0",
+      "triangles": 2404
+    },
+    {
+      "name": "Headlights_Reflector_0",
+      "triangles": 2228
+    },
+    {
+      "name": "Headlights_Trim2_0",
+      "triangles": 10510
+    },
+    {
+      "name": "Interior_Interior_0",
+      "triangles": 71408
+    },
+    {
+      "name": "Interior_InteriorPlastic2_0",
+      "triangles": 19592
+    },
+    {
+      "name": "Interior_InteriorPlastic_0",
+      "triangles": 102390
+    },
+    {
+      "name": "Interior_Seatbelt_0",
+      "triangles": 8472
+    },
+    {
+      "name": "RL_Caliper_BrakeCaliper_0",
+      "triangles": 8096
+    },
+    {
+      "name": "RL_Wheel_Brake Disc_0",
+      "triangles": 4272
+    },
+    {
+      "name": "RL_Wheel_RimMaterial_0",
+      "triangles": 18160
+    },
+    {
+      "name": "RL_Wheel_TireMaterial_0",
+      "triangles": 38168
+    },
+    {
+      "name": "RR_Caliper_BrakeCaliper_0",
+      "triangles": 8096
+    },
+    {
+      "name": "RR_Wheel_Brake Disc_0",
+      "triangles": 4272
+    },
+    {
+      "name": "RR_Wheel_RimMaterial_0",
+      "triangles": 18160
+    },
+    {
+      "name": "RR_Wheel_TireMaterial_0",
+      "triangles": 38168
+    },
+    {
+      "name": "SteeringWheel_SteeringWheel_0",
+      "triangles": 14844
+    }
+  ],
+  "excluded": [
+    "CarBody_LampCovers_0",
+    "CarBody_Windows_0",
+    "Headlights_LampCovers_0"
+  ],
+  "minimumVisibility": 4.1319478327750403e-07,
+  "meanVisibility": 0.8162865709801079,
+  "minimumEdgeVisibility": 1.0,
+  "elapsedSeconds": 34.27293212490622,
+  "blenderVersion": "5.2.1 LTS",
+  "textureSha256": "c35ec6e59ee453aeee387b6cd6df0d60bd9fba312cadf667c97d4eb7bac925ce",
+  "tyreContacts": [
+    {
+      "name": "FL_Wheel_TireMaterial_0",
+      "point": [
+        0.7079112827777863,
+        5.6850737450986344e-08,
+        1.238034337759018
+      ],
+      "visibilityAtGroundContact": 0.02404654771089554
+    },
+    {
+      "name": "FR_Wheel_TireMaterial_0",
+      "point": [
+        -0.7080168426036835,
+        0.0,
+        1.2379574179649353
+      ],
+      "visibilityAtGroundContact": 0.024416707456111908
+    },
+    {
+      "name": "RL_Wheel_TireMaterial_0",
+      "point": [
+        0.7079112827777863,
+        5.6850737450986344e-08,
+        -1.1356209218502045
+      ],
+      "visibilityAtGroundContact": 0.02429809793829918
+    },
+    {
+      "name": "RR_Wheel_TireMaterial_0",
+      "point": [
+        -0.7080168426036835,
+        0.0,
+        -1.135696679353714
+      ],
+      "visibilityAtGroundContact": 0.02445710450410843
+    }
+  ]
+}

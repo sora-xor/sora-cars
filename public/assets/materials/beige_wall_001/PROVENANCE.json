@@ -1,0 +1,46 @@
+{
+  "retrievedAt": "2026-09-13T00:02:05.891238+00:00",
+  "license": "CC0-1.0",
+  "licenseSource": "https://polyhaven.com/license",
+  "assets": [
+    {
+      "id": "beige_wall_001",
+      "source": "https://polyhaven.com/a/beige_wall_001",
+      "metadata": "https://api.polyhaven.com/info/beige_wall_001",
+      "files": "https://api.polyhaven.com/files/beige_wall_001",
+      "dimensionsMm": [
+        3000,
+        3000.000238418579
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "asset": "beige_wall_001",
+      "map": "Diffuse",
+      "path": "public/assets/materials/beige_wall_001/color.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_diff_2k.jpg",
+      "bytes": 235868,
+      "md5": "c927ac1136767f1df758ae064f50a2d1",
+      "sha256": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e"
+    },
+    {
+      "asset": "beige_wall_001",
+      "map": "nor_gl",
+      "path": "public/assets/materials/beige_wall_001/normal.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_nor_gl_2k.jpg",
+      "bytes": 815507,
+      "md5": "127b2f5f2f8c2e57b1f08b263c0690bd",
+      "sha256": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc"
+    },
+    {
+      "asset": "beige_wall_001",
+      "map": "arm",
+      "path": "public/assets/materials/beige_wall_001/arm.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/beige_wall_001/beige_wall_001_arm_2k.jpg",
+      "bytes": 437640,
+      "md5": "4b2733ac3dba7944316915e180a70a24",
+      "sha256": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431"
+    }
+  ]
+}

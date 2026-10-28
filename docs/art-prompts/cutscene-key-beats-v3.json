@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "created": "2026-09-22",
+  "tool": "Built-in image_gen.imagegen",
+  "assets": [
+    {
+      "id": "boardroom-key-offer",
+      "file": "public/assets/story/beats/boardroom-key-offer-v3.png",
+      "status": "complete",
+      "prompt": "Use case: precise-object-edit. Edit this existing SORA CARS pixel-art cutscene illustration for safe in-game framing. Preserve exactly the two adult characters' faces, hairstyles, white/ivory wardrobes, sunset palette, pixel-cluster rendering, boardroom environment and the story action: Celeste in ivory offers the brass key on a cream envelope, Aki has not accepted. Change ONLY the staging/framing of the table and hand action so the key, envelope and Celeste's active hand all move much HIGHER in the composition, approximately centered at 52 percent image height, and entirely within the upper 62 percent. This can be done by raising/receding the tabletop perspective and bringing the envelope back toward Celeste while she offers it. Key stays the clear focal point and remains exposed on envelope; Aki's withdrawn hand also must be above 65 percent. Preserve faces fully in frame above. Leave the entire bottom 35 percent as quiet empty dark walnut tabletop for the separate UI dialogue box, with no important story props in it. Keep one uninterrupted wide 16:9 image, no new text, no UI, no captions, no borders, no new characters. Keep warm amber and violet 1986 pixel-art continuity. This is the OFFER, not acceptance or returning the key.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-0b90632a-88e4-408e-b446-f74ecc4d9444.png"
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-d3404a25-902f-42ab-bf9a-a30f73372148.png",
+      "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+      "width": 1672,
+      "height": 941,
+      "inspection": "Revised with built-in image edit after first inspection found key too low. Final image inspected: key, envelope and offering hand now above 63% image height, with empty dark table below; Celeste and Aki identity, wardrobe, action and 16-bit style preserved. Aki has not accepted. No new UI or text.",
+      "attempts": [
+        {
+          "id": "boardroom-key-offer",
+          "file": "public/assets/story/beats/boardroom-key-offer-v3.png",
+          "status": "complete",
+          "prompt": "Use case: illustration-story.\nAsset type: full-frame 16:9 cutscene illustration for the 1986 narrative racing game SORA CARS, new asset boardroom-key-offer-v3.png.\nPrimary request: Draw a NEW original composition showing Celeste offering Aki the physical workshop key, still resting in an open cream paper envelope, as the price of control over the exchange network. This is the tense offer before Aki makes her decision; Aki has NOT accepted it.\nInput images: Image 1 boardroom-right-v2.png is visual reference for Celeste's face, champagne-blond curled shoulder-length 1980s hair, ivory business suit, white blouse, pearls, and the violet/amber sunset boardroom. Image 2 boardroom-left-v2.png is reference for Aki's face, short straight black bob, plain white short-sleeved T-shirt, red mechanic coveralls tied at waist. These are continuity/style references only; make a completely different camera composition.\nComposition: intimate oblique tabletop insert looking from just behind Aki's side toward Celeste across the polished dark wood. Celeste's ivory-sleeved hand deliberately slides an open ivory envelope toward Aki. A single ordinary brass cylinder-lock key on a small plain ring rests ON the envelope, fully exposed, readable by silhouette, central in the upper-middle image. The key and envelope are the clear focal point. Celeste's composed adult face appears in the upper right midground; Aki's cautious adult face in three-quarter profile at the upper left edge, her hand held back near her own side rather than touching the offer. Strong triangular staging face / key / face. Contracts and a soft partial redevelopment map can sit off to the side. A rotary phone and 1986 Tokyo skyline can be understated background detail. The lower 25% is quiet table foreground for the game's dialogue overlay; key, hands and both faces must be entirely above that band.\nStyle: closely match the reference paintings' refined pixel-art clusters, crisp stepped outlines, restrained dithering, rich 16-bit visual-novel character rendering, no smooth airbrush or photorealism. Violet shadows, burnt amber sunset rim light, warm ivory highlights, dark reflective walnut. No motion blur.\nStory/continuity: Aki is a 24-year-old Japanese adult woman, not a child. Celeste is a 32-year-old European adult woman, elegant and controlled. Preserve wardrobe/identities from references. No other major characters needed. A small existing SORA mark on Aki's sleeve is fine; avoid giant logos.\nConstraints: landscape 16:9, single uninterrupted illustration, no panels, no collage, no captions, no subtitle box, no UI, no watermark, no prominent readable text. Key must unmistakably be offered by Celeste and NOT already accepted by Aki. Anatomically natural hands. This is a new scene, not a crop of the reference.",
+          "referenced_image_paths": [
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-right-v2.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-left-v2.png"
+          ],
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-0b90632a-88e4-408e-b446-f74ecc4d9444.png",
+          "sha256": "0e5f59dd81fb61bcefcdd41e2e86b1f6d367e364bd2b3057e7badfa163cec713",
+          "width": 1672,
+          "height": 941,
+          "inspection": "Inspected generated full image: Celeste extends the envelope with brass key visible; Aki keeps her hand back. Correct adult character faces and existing ivory/white-red wardrobes, analog boardroom skyline and crisp pixel style. Key is entirely within upper 75 percent and no UI or caption is drawn. Envelope flap rests flat rather than remaining visibly open; offered key itself is fully visible and action is clear."
+        }
+      ],
+      "toolReferencedPaths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-offer-v3.png"
+      ]
+    },
+    {
+      "id": "boardroom-key-return",
+      "file": "public/assets/story/beats/boardroom-key-return-v3.png",
+      "status": "complete",
+      "prompt": "Use case: precise-object-edit. Edit the existing SORA CARS boardroom key RETURN illustration. Preserve the adult characters' faces, hairstyles and exact clothing, amber-violet sunset, pixel-cluster rendering and narrative action: Aki, the Japanese woman with black bob and white T-shirt, firmly pushes the cream envelope with brass key BACK toward the ivory-suited Celeste. Change ONLY table/action framing: move Aki's active pushing hand, envelope and fully visible brass key much HIGHER in the image so the key is centered near 50 percent image height and the entire envelope is above 62 percent image height. Raise and recede the tabletop perspective as needed. The main action should sit just below Aki's chest around the middle of the frame, not near the bottom. Keep Aki's hand behind the envelope pushing it away from her toward Celeste. Preserve her determined expression and the over-Celeste-shoulder reverse composition. Keep the small notebook on Aki's side and have her non-pushing hand near it. The bottom 35 percent of the image must be plain dark walnut table with no important props, ready for a separate dialogue overlay. Faces, the active hand and entire key must stay fully above this safe area. Same single full-frame wide 16:9 composition. No text, captions, dialogue box, UI, watermark, extra characters, modern objects or photorealism. This is Aki RETURNING the key to Celeste, not accepting it.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-2faa434c-ae50-454b-a833-520ae977c4c8.png"
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-010cf6b2-737d-4432-80a9-e6c4bff737cb.png",
+      "sha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c",
+      "width": 1672,
+      "height": 941,
+      "inspection": "Revised using built-in image edit after the original key was too low. Final full image inspected: Aki pushes key and envelope back to Celeste in distinct reverse composition; key centered about 58% image height and entire key/active hand safely above 63%, with empty dark tabletop below. Adult characters, correct wardrobe, returned-key continuity and crisp 16-bit palette preserved. No generated UI or prominent text.",
+      "attempts": [
+        {
+          "id": "boardroom-key-return",
+          "file": "public/assets/story/beats/boardroom-key-return-v3.png",
+          "status": "complete",
+          "prompt": "Use case: illustration-story.\nAsset type: full-frame 16:9 cutscene illustration for the 1986 narrative racing game SORA CARS, new asset boardroom-key-return-v3.png.\nPrimary request: Draw a NEW original composition showing Aki firmly returning the workshop key to Celeste across the boardroom table. This is Aki's decisive refusal: saving only her own garage is not worth controlling everyone else's lives. Aki is composed, resolved, neither shouting nor smiling. The returned key and the direction of her gesture must carry the scene.\nInput images: Image 1 boardroom-left-v2.png is reference for Aki's short straight black bob, adult Japanese face, plain white T-shirt and red mechanic coveralls tied at waist. Image 2 boardroom-right-v2.png is reference for Celeste's champagne-blond shoulder-length curls, ivory 1980s business suit, white blouse, pearls and mature adult face. Image 3 boardroom-key-offer-v3.png establishes the exact ordinary brass cylinder-lock key on a small ring, cream paper envelope and sunset mood. References are continuity inputs only; compose an entirely NEW camera angle, not a crop or flipped copy.\nComposition: Reverse angle from just beside Celeste's chair, looking toward Aki across the polished walnut table. Aki's upper body and resolute face dominate the left-center upper half; she leans slightly forward and stretches a naturally drawn open hand to push the same cream envelope with the brass key resting on it BACK toward Celeste, who is cropped as a recognizable ivory-sleeved shoulder and partial stern profile at the near right edge. Make Aki's action unmistakable: her fingers are behind the far edge of the envelope, pushing it away from herself; she does not keep, pocket or grasp the key. Place the envelope and prominent key near the center of the image around 55–60 percent height, all above the lower quarter. Her other hand rests by an old handwritten notebook on her own side, a subtle connection to her father's lesson. The table is longer diagonally, with empty space between the two women; show their disagreement through posture and stillness. Window sunset and 1986 Tokyo rooftops on the left, dark wood shelves on the rear wall, a modest land map and rotary telephone pushed aside. The lower 25% is quiet table surface, suitable behind a separate dialogue UI.\nStyle: match the references' refined 16-bit pixel-art clusters, crisp stepped linework, restrained dithering, rich visual-novel character rendering. Violet shadows, amber edge light, ivory fabrics, dark reflective walnut. No photorealism, soft-airbrushed faces or modern props.\nContinuity: Aki is 24 and Celeste is 32, both clearly adult. Exact clothing and key continuity. Only those two characters need be present. Small existing SORA sleeve insignia is fine; no giant branding.\nConstraints: single uninterrupted wide landscape 16:9 illustration. No collage or split panels. No subtitles, dialogue box, game UI, caption, watermark or prominent readable text. Aki's face, active hand, returned key and envelope must remain entirely within the upper 75 percent. This is the refusal and return AFTER the earlier offer, not another depiction of Celeste offering or Aki accepting.",
+          "referenced_image_paths": [
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-left-v2.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-right-v2.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-offer-v3.png"
+          ],
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7b7-3fb9-7da0-949a-31b7f021872f/exec-2faa434c-ae50-454b-a833-520ae977c4c8.png",
+          "sha256": "3092292be83650400c2b7ccaf120bcfb40c2c0e0c541ad02962d66f8da4be34d",
+          "width": 1672,
+          "height": 941,
+          "inspection": "Inspected generated full image: new reverse angle toward Aki, whose fingers push the envelope and same brass key toward Celeste rather than grasping it. Resolute expression, correct white tee/red coveralls, ivory business-suit reverse, notebook on Aki side and same warm violet/amber pixel palette. Faces and pushing hand are high in composition; key occupies roughly 70–76 percent image height, so validate dialogue overlay framing when integrated. No generated UI or prominent text."
+        }
+      ],
+      "toolReferencedPaths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-return-v3.png"
+      ]
+    }
+  ],
+  "status": "complete"
+}

@@ -1,0 +1,10 @@
+import { releaseClubCatalog } from '../src/chain/catalog';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { resolve, dirname } from 'node:path';
+import { CLUB_ITEMS, clubItemMetadata } from '../src/game/catalog';
+const [applicationId, xorAssetDefinition, collectionJson, outputPath] = process.argv.slice(2);
+if (!outputPath || process.argv.length !== 6) throw new Error('Usage: npm run assets:catalog -- <pinned-application-hash> <XOR-asset-definition> <collection-JSON> <output.json>');
+const catalog = releaseClubCatalog(collectionJson, applicationId, xorAssetDefinition)!;
+const output = { version: 1, kind: 'sora-cars-reviewed-collection-input', catalog, items: CLUB_ITEMS.map(item => ({ sku: item.sku, metadata: clubItemMetadata(item, catalog.applicationId), content_hash: catalog.items.find(entry => entry.sku === item.sku)!.contentHash })), note: 'Offline metadata only. No NFTs minted, sale offers published, ownership granted or live qualification implied.' };
+const path = resolve(outputPath); await mkdir(dirname(path), { recursive: true }); await writeFile(path, JSON.stringify(output, null, 2) + '\n');
+console.log(path);

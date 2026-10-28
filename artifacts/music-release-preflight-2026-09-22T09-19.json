@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-09-22T09:24:17.171Z",
+  "previousGoalTurn": "Progress: corrected and audited all25 covers, final metadata bindings and full local browser/download/build checks completed.",
+  "releaseConfigured": false,
+  "environmentFiles": [
+    ".env.example"
+  ],
+  "sourceHashes": {
+    "src/ui/music-store.ts": "18041c0e31684f8d5af7525b97186d36f4e6b28780ce391d1d6eb061a95e409d",
+    "src/ui/music-store.css": "463403aaed87593f500bdba18caf80f9da0416a8a5683751fa45d7e72dfeb94d",
+    "src/main.ts": "ab7dd5bdc433dfe30fdc89c53e07ae9bcb9f844cacb6d9665db696fe49dce130",
+    "src/game/music-catalog.ts": "6492bd06ab2d43b288448defe1a543e158144275e993a28c26394de7377353ec",
+    "src/game/music-assets.generated.json": "92d6709947585078681ebb5452e662c3d06c62f05231a9e9be2f57bd2c84f309",
+    "src/chain/catalog.ts": "4508e2154f6f8ca7af98c316bf65da394485a970900e819d256cf9a3aac8b285",
+    "src/chain/inventory.ts": "1165600deaddf76fb0a6e38d32ff5aec12de9bebef9f8e1d93453bc53b91498f",
+    "src/chain/client.ts": "f1ff5137b50faa37b9e91162fbf26e7348531e2b65ced1ded356f969b0beb05c",
+    "scripts/test-music-static.mjs": "f6451e5e5bec3850b732986bf867a20653ff45908657a3f42c7f55e35b6c185f"
+  },
+  "publicReads": [
+    {
+      "checkedAt": "2026-09-22T09:19:56.510Z",
+      "url": "https://taira.sora.org/v1/nft-offers/capabilities",
+      "status": 502,
+      "bytes": 150,
+      "bodySha256": "61b30d408583991fd69f3dec694e154cb652471e663328ad9c8482c9021ab5db"
+    },
+    {
+      "checkedAt": "2026-09-22T09:19:57.308Z",
+      "url": "https://taira.sora.org/status",
+      "status": 502,
+      "bytes": 150,
+      "bodySha256": "61b30d408583991fd69f3dec694e154cb652471e663328ad9c8482c9021ab5db"
+    }
+  ],
+  "nodeChecks": {
+    "command": "npx tsx --test tests/music-market.test.ts tests/catalog.test.ts tests/inventory.test.ts",
+    "exitStatus": 1,
+    "passed": false,
+    "reason": "ERR_IROHA_NATIVE_BINDING / source_provenance_error: installed sibling host binding differs from dirty SDK source; no provenance bypass or sibling edit."
+  },
+  "pending": [
+    "Named licensor, public seller wallet and collection domain",
+    "Reviewed application/XOR/market release identities and native qualification",
+    "Issued NFTs and open offers",
+    "Real ledger purchase/delivery and website publication"
+  ],
+  "scope": "Read-only release preflight. No mint, payment, listing, deployment or account creation occurred."
+}

@@ -1,0 +1,150 @@
+{
+  "cutoff": "2026-09-08",
+  "interpretation": "Cryptography for native reusable Iroha execution proofs, not cryptocurrency prices.",
+  "localEvidence": {
+    "artifacts/native-operand-raw.json": "a781c85e842ff5bb0230146534aef31bb1933b804bb1c6c29d1c2c664326c143",
+    "artifacts/native-rom-lookup-proof.json": "2d4554052b07325f2f934d1252017b6f53c2c9948a8a6e8868862e1b6a12d44d",
+    "output/qualification/street-operand-census/report.json": "b7600867dc748b7b64f51ff988fe44a089196b33a47964a236a94e5c4a152031",
+    "output/research/2026-09-08-proof-security/manifest.json": "39725107f6dbe83d32ea7901d6bb7989584eadbe8b0e1f4ab6d6e79fa924d282"
+  },
+  "method": "Primary-source literature and source inspection. Published benchmarks/cryptanalysis/formalizations were not reproduced. Dynamic URL entries record inspected dates, not retained bytes.",
+  "pinnedImplementation": {
+    "commit": "f525cddea38bb605304d3a8e6394dda10ac64b4a",
+    "commitDate": "2026-09-01T05:06:49Z",
+    "readmeBytes": 27247,
+    "readmeSha256": "f24b1efa028def2cca4962a646f7aa25c6bc892c9749febad5ead2318d414c49",
+    "readmeUrl": "https://raw.githubusercontent.com/ethereum/spartan-whir/f525cddea38bb605304d3a8e6394dda10ac64b4a/README.md",
+    "repository": "https://github.com/ethereum/spartan-whir",
+    "securitySource": "https://github.com/ethereum/spartan-whir/blob/f525cddea38bb605304d3a8e6394dda10ac64b4a/src/security.rs"
+  },
+  "references": [
+    {
+      "inspectedVersion": "2024-11-21 ePrint revision; EUROCRYPT 2025 publication is recorded in earlier survey",
+      "title": "WHIR",
+      "url": "https://eprint.iacr.org/2024/1586"
+    },
+    {
+      "inspectedVersion": "Manuscript cover 2026-03-13",
+      "title": "SWIRL",
+      "url": "https://openvm.dev/swirl.pdf"
+    },
+    {
+      "inspectedVersion": "Author publication record: CRYPTO 2026; older ePrint metadata differs",
+      "title": "Twist/Shout",
+      "url": "https://www.microsoft.com/en-us/research/publication/twist-and-shout-faster-memory-checking-arguments-via-one-hot/"
+    },
+    {
+      "inspectedVersion": "Received 2025-05-24; informal preprint",
+      "title": "Logup*",
+      "url": "https://eprint.iacr.org/2025/946"
+    },
+    {
+      "inspectedVersion": "Manuscript 2025-10-30",
+      "title": "Hash-based Twist/Shout adaptation",
+      "url": "https://www.powdr.org/papers/twist_shout_logup_star.pdf"
+    },
+    {
+      "inspectedVersion": "Final proceedings, USENIX Security, 2026-08-12 through 2026-08-14; inspected sections 4–6",
+      "title": "PIPFRI / DEPIPFRI",
+      "url": "https://www.usenix.org/system/files/usenixsecurity26-li-weihan.pdf"
+    },
+    {
+      "inspectedVersion": "Final proceedings, USENIX Security, 2026-08-12 through 2026-08-14; inspected sections 9–10",
+      "title": "Scribe",
+      "url": "https://www.usenix.org/system/files/usenixsecurity26-baweja.pdf"
+    },
+    {
+      "inspectedVersion": "TCC 2025; ePrint revision 2026-02-25",
+      "title": "Time-Space Trade-Offs for Sumcheck",
+      "url": "https://eprint.iacr.org/2025/1473"
+    },
+    {
+      "inspectedVersion": "CRYPTO 2026; full ePrint revision 2026-06-13",
+      "title": "GAPP",
+      "url": "https://eprint.iacr.org/2024/1685"
+    },
+    {
+      "inspectedVersion": "2026-08-17; verification-complexity statement differs from full ePrint revision",
+      "title": "GAPP author conference record",
+      "url": "https://research.ibm.com/publications/gapp-generic-aggregation-of-polynomial-protocols"
+    },
+    {
+      "inspectedVersion": "Cover 2026-08-30; received 2026-08-31; approved 2026-09-01; preprint",
+      "title": "Generated-R1CS Fiat-Shamir limitations",
+      "url": "https://eprint.iacr.org/2026/1838"
+    },
+    {
+      "inspectedVersion": "Received 2026-08-21; approved 2026-08-22; preprint",
+      "title": "Midpoint Reset",
+      "url": "https://eprint.iacr.org/2026/1760"
+    },
+    {
+      "inspectedVersion": "Received 2025-11-05; revised 2025-12-19; preprint",
+      "title": "Reed-Solomon proximity conjecture counterexamples",
+      "url": "https://eprint.iacr.org/2025/2046"
+    },
+    {
+      "inspectedVersion": "Received 2026-01-20; revised 2026-07-22; record lists ACM CCS 2026",
+      "title": "The Billion Dollar Merkle Tree",
+      "url": "https://eprint.iacr.org/2026/089"
+    },
+    {
+      "inspectedVersion": "Received 2026-08-26; revised 2026-08-29; preprint; abstract/record inspected, full PDF unavailable via web reader",
+      "title": "PikkuFold",
+      "url": "https://eprint.iacr.org/2026/1809"
+    },
+    {
+      "inspectedVersion": "Received 2026-02-25; preprint",
+      "title": "Zero-Knowledge IOPPs for Constrained Interleaved Codes",
+      "url": "https://eprint.iacr.org/2026/391"
+    },
+    {
+      "inspectedVersion": "Page updated 2026-08-05; distinguishes standards from selected algorithms",
+      "title": "NIST selected algorithms",
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization/selected-algorithms"
+    },
+    {
+      "inspectedVersion": "Final status report 2026-05-14; nine third-round candidates",
+      "title": "NIST additional signature evaluation",
+      "url": "https://csrc.nist.gov/pubs/ir/8610/final"
+    },
+    {
+      "inspectedVersion": "Received 2026-08-03; last revision 2026-08-17; disputed preprint",
+      "title": "Simon DCP algorithm claim",
+      "url": "https://eprint.iacr.org/2026/1591"
+    },
+    {
+      "inspectedVersion": "Received 2026-08-15; revised 2026-09-01; preprint; formalization not independently checked",
+      "title": "DCP algorithm refutation",
+      "url": "https://eprint.iacr.org/2026/1693"
+    }
+  ],
+  "researchDocuments": {
+    "docs/research/2026-09-08-backend-notes.md": "5ab2ea66bcc7f165c5ba41b723cb5251f99e31b443bfbfb7fb9b33a752c1d193",
+    "docs/research/2026-09-08-cryptography-update.md": "3ee223a5b2f28f30b550581a7b12091908addd11fa8b45d5a7ae99ba65dc3123",
+    "docs/research/2026-09-08-memory-proofs-notes.md": "b9f1a3f732bc63a08dfa59e98452c7ef4392cc347d4e7773d4a14a43ddeca88a",
+    "docs/research/2026-09-08-proof-security-notes.md": "1a449b6d5e35c9c084032850c61f5ac074a9c4c6cef171b75322c2b70d654fca"
+  },
+  "schema": "sora-cars.cryptography-reading-index.v1",
+  "supplementalExternalUrls": [
+    "https://blog.zksecurity.xyz/posts/simple-rbr-fri/",
+    "https://cs.nyu.edu/~zd2131/papers/26-587.pdf",
+    "https://datatracker.ietf.org/doc/draft-irtf-cfrg-fiat-shamir/03/",
+    "https://eprint.iacr.org/2023/1216",
+    "https://eprint.iacr.org/2024/1685.pdf",
+    "https://eprint.iacr.org/2025/105",
+    "https://eprint.iacr.org/2025/1993",
+    "https://eprint.iacr.org/2025/611",
+    "https://eprint.iacr.org/2025/719",
+    "https://eprint.iacr.org/2026/1792",
+    "https://eprint.iacr.org/2026/306",
+    "https://eprint.iacr.org/2026/587",
+    "https://eprint.iacr.org/2026/861",
+    "https://github.com/ethereum/spartan-whir/blob/f525cddea38bb605304d3a8e6394dda10ac64b4a/README.md",
+    "https://github.com/ethereum/spartan-whir/blob/f525cddea38bb605304d3a8e6394dda10ac64b4a/SPARTAN_LC_UPGRADE_PLAN.md",
+    "https://github.com/ethereum/spartan-whir/blob/f525cddea38bb605304d3a8e6394dda10ac64b4a/src/security.rs",
+    "https://github.com/zksecurity/simple-rbr-fri",
+    "https://jolt.a16zcrypto.com/how/appendix/pcs.html",
+    "https://jolt.a16zcrypto.com/how/architecture/ram.html"
+  ]
+}

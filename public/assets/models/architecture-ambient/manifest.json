@@ -1,0 +1,4360 @@
+{
+  "schemaVersion": 1,
+  "inputSha256": "b946fe1079899fc81b01764309b41d196dd7dd66fe2566c17372349db3ccf277",
+  "binary": "geometry.bin",
+  "endianness": "little",
+  "settings": {
+    "maxEdgeMeters": 0.55,
+    "thinMaxEdgeMeters": 1.1,
+    "thinTriangleCriterion": "area < 0.06 m^2 and shortest altitude < 0.08 m",
+    "hemisphereSamples": 128,
+    "maxDistanceMeters": 4.0,
+    "normalOffsetMeters": 0.005,
+    "sampling": "cosine-golden-angle-v1",
+    "sourceOccluders": "opaque-only",
+    "occlusionFalloff": "max(0, 1 - (hitDistance / maxDistanceMeters)^2)"
+  },
+  "templates": [
+    {
+      "id": "detailed-neighborhood-0",
+      "sourceTriangleCount": 38852,
+      "occluderTriangleCount": 38648,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 3170,
+          "triangleCount": 4800,
+          "sourceVertexCount": 1116,
+          "sourceUniqueVertexCount": 624,
+          "sourceTriangleCount": 372,
+          "sourceHash": "af1970f5de9b35f4d2f03190581395ad93d6d594c971c409c666d541b4f80249",
+          "bounds": {
+            "min": [
+              -4.599999904632568,
+              3.5762786065873797e-09,
+              -3.5899999141693115
+            ],
+            "max": [
+              4.599999904632568,
+              4.320000171661377,
+              3.049999952316284
+            ]
+          },
+          "sourceSurfaceArea": 144.4312870242589,
+          "outputSurfaceArea": 144.4312893061359,
+          "attributes": {
+            "position": {
+              "byteOffset": 0,
+              "count": 3170,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 38040,
+              "count": 3170,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 76080,
+              "count": 3170,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 101440,
+              "count": 3170,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 114120,
+            "count": 14400,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.528603081582884e-05,
+            1.0
+          ],
+          "meanVisibility": 0.6315742589590773,
+          "rays": 405760,
+          "seconds": 0.311
+        },
+        {
+          "id": "1",
+          "materialKind": "weathered-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 8565,
+          "triangleCount": 14196,
+          "sourceVertexCount": 948,
+          "sourceUniqueVertexCount": 590,
+          "sourceTriangleCount": 316,
+          "sourceHash": "8b42dc6df18a51494a9a57790560262fc1b3f17817d6d7a9b06ff56f3fe55927",
+          "bounds": {
+            "min": [
+              -4.489999771118164,
+              -4.7683716530855236e-08,
+              -3.1500000953674316
+            ],
+            "max": [
+              4.489999771118164,
+              7.949999809265137,
+              3.049999952316284
+            ]
+          },
+          "sourceSurfaceArea": 490.8915883843944,
+          "outputSurfaceArea": 490.89158987432023,
+          "attributes": {
+            "position": {
+              "byteOffset": 171720,
+              "count": 8565,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 274500,
+              "count": 8565,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 377280,
+              "count": 8565,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 445800,
+              "count": 8565,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 480060,
+            "count": 42588,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.40388326540819347,
+          "rays": 1096320,
+          "seconds": 1.383
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 298,
+          "triangleCount": 392,
+          "sourceVertexCount": 108,
+          "sourceUniqueVertexCount": 72,
+          "sourceTriangleCount": 36,
+          "sourceHash": "7b46c6bdf860a2e0aa09bc504d19bce85f2787986dd8bc3ba17745dfbcc40db6",
+          "bounds": {
+            "min": [
+              -3.997499942779541,
+              0.9100000262260437,
+              -2.5975000858306885
+            ],
+            "max": [
+              3.380000114440918,
+              5.980000019073486,
+              -0.7600000500679016
+            ]
+          },
+          "sourceSurfaceArea": 15.274321061569006,
+          "outputSurfaceArea": 15.274321284727735,
+          "attributes": {
+            "position": {
+              "byteOffset": 650412,
+              "count": 298,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 653988,
+              "count": 298,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 657564,
+              "count": 298,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 659948,
+              "count": 298,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 661140,
+            "count": 1176,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0034898588133515976,
+            0.7556518701683375
+          ],
+          "meanVisibility": 0.3164050283182052,
+          "rays": 38144,
+          "seconds": 0.057
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 7746,
+          "triangleCount": 11124,
+          "sourceVertexCount": 2052,
+          "sourceUniqueVertexCount": 1368,
+          "sourceTriangleCount": 684,
+          "sourceHash": "2a4285a4381d1b47a8b446de3590d0ff65831e632952c762d58bc7ee673b423b",
+          "bounds": {
+            "min": [
+              -4.784999847412109,
+              -4.7683716530855236e-08,
+              -3.3893778324127197
+            ],
+            "max": [
+              4.784999847412109,
+              7.987326622009277,
+              3.3893778324127197
+            ]
+          },
+          "sourceSurfaceArea": 275.4964077500407,
+          "outputSurfaceArea": 275.4964137510252,
+          "attributes": {
+            "position": {
+              "byteOffset": 665844,
+              "count": 7746,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 758796,
+              "count": 7746,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 851748,
+              "count": 7746,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 913716,
+              "count": 7746,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 944700,
+            "count": 33372,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            9.139618961829933e-08,
+            1.0
+          ],
+          "meanVisibility": 0.2245922318756301,
+          "rays": 991488,
+          "seconds": 1.34
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2040,
+          "triangleCount": 1500,
+          "sourceVertexCount": 2196,
+          "sourceUniqueVertexCount": 1464,
+          "sourceTriangleCount": 732,
+          "sourceHash": "73dedbe09dd04d29cb7d7262fe428b08ce9d11765e993ccfa1f80bc93c0061f2",
+          "bounds": {
+            "min": [
+              -4.527500152587891,
+              0.7124999761581421,
+              -3.390000104904175
+            ],
+            "max": [
+              4.527500152587891,
+              5.945000171661377,
+              2.0190000534057617
+            ]
+          },
+          "sourceSurfaceArea": 11.93930388392876,
+          "outputSurfaceArea": 11.939303894298417,
+          "attributes": {
+            "position": {
+              "byteOffset": 1078188,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1102668,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1127148,
+              "count": 2040,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1143468,
+              "count": 2040,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1151628,
+            "count": 4500,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.1171205606620942e-06,
+            1.0
+          ],
+          "meanVisibility": 0.2587187436527064,
+          "rays": 261120,
+          "seconds": 0.326
+        },
+        {
+          "id": "5",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 408,
+          "triangleCount": 204,
+          "sourceVertexCount": 612,
+          "sourceUniqueVertexCount": 408,
+          "sourceTriangleCount": 204,
+          "sourceHash": "023dd61b97161d30876cb4731f28a737681286ee4b73c738a9f7ea560583d38b",
+          "bounds": {
+            "min": [
+              -4.431000232696533,
+              0.9700000286102295,
+              -3.055500030517578
+            ],
+            "max": [
+              4.431000232696533,
+              5.920000076293945,
+              2.0274999141693115
+            ]
+          },
+          "sourceSurfaceArea": 34.907559616601525,
+          "outputSurfaceArea": 34.907559616601525,
+          "attributes": {
+            "position": {
+              "byteOffset": 1169628,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1174524,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1179420,
+              "count": 408,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1182684,
+              "count": 408,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1184316,
+            "count": 612,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.001
+        },
+        {
+          "id": "6",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 9436,
+          "triangleCount": 14600,
+          "sourceVertexCount": 3552,
+          "sourceUniqueVertexCount": 1814,
+          "sourceTriangleCount": 1184,
+          "sourceHash": "57566870a4e20df1334a36e10a321c1b20c2fcc38965c2c4c80e8e5b3e2f69fb",
+          "bounds": {
+            "min": [
+              -4.744999885559082,
+              0.40000009536743164,
+              -3.4630000591278076
+            ],
+            "max": [
+              4.744999885559082,
+              6.628330230712891,
+              3.4630000591278076
+            ]
+          },
+          "sourceSurfaceArea": 19.460443164468522,
+          "outputSurfaceArea": 19.460442578459993,
+          "attributes": {
+            "position": {
+              "byteOffset": 1186764,
+              "count": 9436,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1299996,
+              "count": 9436,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1413228,
+              "count": 9436,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1488716,
+              "count": 9436,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1526460,
+            "count": 43800,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            4.068944511562476e-07,
+            1.0
+          ],
+          "meanVisibility": 0.35835653783602117,
+          "rays": 1204480,
+          "seconds": 1.502
+        },
+        {
+          "id": "7",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 634,
+          "triangleCount": 456,
+          "sourceVertexCount": 672,
+          "sourceUniqueVertexCount": 456,
+          "sourceTriangleCount": 224,
+          "sourceHash": "dbf30173de5ea164660d729abf21bacfaf5f6c423beb1555bec5cf3367876984",
+          "bounds": {
+            "min": [
+              -4.119999885559082,
+              0.9599999785423279,
+              -3.432499885559082
+            ],
+            "max": [
+              4.119999885559082,
+              5.929999828338623,
+              2.0350000858306885
+            ]
+          },
+          "sourceSurfaceArea": 7.443676997120035,
+          "outputSurfaceArea": 7.443677129228867,
+          "attributes": {
+            "position": {
+              "byteOffset": 1701660,
+              "count": 634,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1709268,
+              "count": 634,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1716876,
+              "count": 634,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1721948,
+              "count": 634,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1724484,
+            "count": 1368,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0303699617786172e-05,
+            0.9288952011531206
+          ],
+          "meanVisibility": 0.3038308349587952,
+          "rays": 81152,
+          "seconds": 0.111
+        },
+        {
+          "id": "8",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2470,
+          "triangleCount": 4208,
+          "sourceVertexCount": 252,
+          "sourceUniqueVertexCount": 168,
+          "sourceTriangleCount": 84,
+          "sourceHash": "b9947079e6d3b55fc6c3f2b0fe6c7a423523986ff4b71bddc55e81a6a9a95d15",
+          "bounds": {
+            "min": [
+              -4.25,
+              0.31999996304512024,
+              -2.9000000953674316
+            ],
+            "max": [
+              4.25,
+              5.980000019073486,
+              2.9000000953674316
+            ]
+          },
+          "sourceSurfaceArea": 175.72584696092557,
+          "outputSurfaceArea": 175.72584727913343,
+          "attributes": {
+            "position": {
+              "byteOffset": 1729956,
+              "count": 2470,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1759596,
+              "count": 2470,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1789236,
+              "count": 2470,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1808996,
+              "count": 2470,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1818876,
+            "count": 12624,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            9.020807828055737e-05,
+            0.8971406521952388
+          ],
+          "meanVisibility": 0.396122859513848,
+          "rays": 316160,
+          "seconds": 0.395
+        },
+        {
+          "id": "9",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 250,
+          "triangleCount": 340,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "9086b00006ee019671749bfb6868a32153d35cf5b62d7126be69391532cef77c",
+          "bounds": {
+            "min": [
+              0.2199999839067459,
+              2.7699999809265137,
+              -4.158257961273193
+            ],
+            "max": [
+              4.179999828338623,
+              3.181100845336914,
+              -2.761741876602173
+            ]
+          },
+          "sourceSurfaceArea": 13.921597881428788,
+          "outputSurfaceArea": 13.921598412021437,
+          "attributes": {
+            "position": {
+              "byteOffset": 1869372,
+              "count": 250,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1872372,
+              "count": 250,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1875372,
+              "count": 250,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1877372,
+              "count": 250,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1878372,
+            "count": 1020,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.894428498805495e-07,
+            1.0
+          ],
+          "meanVisibility": 0.5111898892532051,
+          "rays": 32000,
+          "seconds": 0.031
+        },
+        {
+          "id": "10",
+          "materialKind": "emissive",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 48,
+          "triangleCount": 24,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "8b1d04e504273994ab935143a379a59bd571f4f6e51df941d76bf8b1d804169b",
+          "bounds": {
+            "min": [
+              -2.236999988555908,
+              2.7774999141693115,
+              -3.365000009536743
+            ],
+            "max": [
+              1.4249999523162842,
+              2.802500009536743,
+              -3.174999952316284
+            ]
+          },
+          "sourceSurfaceArea": 0.23400023207656026,
+          "outputSurfaceArea": 0.23400023207656026,
+          "attributes": {
+            "position": {
+              "byteOffset": 1882452,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 1883028,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 1883604,
+              "count": 48,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 1883988,
+              "count": 48,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 1884180,
+            "count": 72,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        },
+        {
+          "id": "11",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 56620,
+          "triangleCount": 34944,
+          "sourceVertexCount": 104832,
+          "sourceUniqueVertexCount": 56620,
+          "sourceTriangleCount": 34944,
+          "sourceHash": "e9afd2afaa582fb5f640caf7dd577bc88596d3fe01024514fffc03bd422a6eef",
+          "bounds": {
+            "min": [
+              -4.809999942779541,
+              6.690962314605713,
+              -3.412609815597534
+            ],
+            "max": [
+              4.809999942779541,
+              8.182034492492676,
+              3.412609815597534
+            ]
+          },
+          "sourceSurfaceArea": 122.02206080821522,
+          "outputSurfaceArea": 122.02206080821522,
+          "attributes": {
+            "position": {
+              "byteOffset": 1884468,
+              "count": 56620,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 2563908,
+              "count": 56620,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 3243348,
+              "count": 56620,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 3696308,
+              "count": 56620,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 3922788,
+            "count": 104832,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            9.000874297504488e-06,
+            1.0
+          ],
+          "meanVisibility": 0.32256377911416967,
+          "rays": 5491456,
+          "seconds": 8.275
+        },
+        {
+          "id": "12",
+          "materialKind": "period-shop-sign-0",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 24,
+          "triangleCount": 12,
+          "sourceVertexCount": 24,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "e3e844ae45a621ce7db253a4903cc8966e56aee1c926a36b9d7245b094d45505",
+          "bounds": {
+            "min": [
+              -3.5369999408721924,
+              3.140000104904175,
+              -3.2300000190734863
+            ],
+            "max": [
+              -0.6869999766349792,
+              3.7200000286102295,
+              -3.1500000953674316
+            ]
+          },
+          "sourceSurfaceArea": 3.8547990149153417,
+          "outputSurfaceArea": 3.8547990149153417,
+          "attributes": {
+            "position": {
+              "byteOffset": 4342116,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 4342404,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 4342692,
+              "count": 24,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 4342884,
+              "count": 24,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 4342980,
+            "count": 36,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.003
+        },
+        {
+          "id": "13",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 24,
+          "triangleCount": 12,
+          "sourceVertexCount": 24,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "e3e844ae45a621ce7db253a4903cc8966e56aee1c926a36b9d7245b094d45505",
+          "bounds": {
+            "min": [
+              -3.377000093460083,
+              3.3949999809265137,
+              -3.255500078201294
+            ],
+            "max": [
+              -3.1070001125335693,
+              3.5850000381469727,
+              -3.2304999828338623
+            ]
+          },
+          "sourceSurfaceArea": 0.12560011474670346,
+          "outputSurfaceArea": 0.12560011474670346,
+          "attributes": {
+            "position": {
+              "byteOffset": 4343124,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 4343412,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 4343700,
+              "count": 24,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 4343892,
+              "count": 24,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 4343988,
+            "count": 36,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        }
+      ],
+      "seconds": 13.869
+    },
+    {
+      "id": "detailed-neighborhood-1",
+      "sourceTriangleCount": 37680,
+      "occluderTriangleCount": 37476,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2488,
+          "triangleCount": 3540,
+          "sourceVertexCount": 1116,
+          "sourceUniqueVertexCount": 624,
+          "sourceTriangleCount": 372,
+          "sourceHash": "168112b85eb6a685e4c59c8d5d0bbfe4503f3b0735d175fd04037383c4018c6d",
+          "bounds": {
+            "min": [
+              -4.150000095367432,
+              3.5762786065873797e-09,
+              -3.890000104904175
+            ],
+            "max": [
+              4.150000095367432,
+              4.820000171661377,
+              3.3499999046325684
+            ]
+          },
+          "sourceSurfaceArea": 142.26414626374418,
+          "outputSurfaceArea": 142.26414814565317,
+          "attributes": {
+            "position": {
+              "byteOffset": 4344132,
+              "count": 2488,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 4373988,
+              "count": 2488,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 4403844,
+              "count": 2488,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 4423748,
+              "count": 2488,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 4433700,
+            "count": 10620,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.528602981436441e-05,
+            1.0
+          ],
+          "meanVisibility": 0.5960931294105135,
+          "rays": 318464,
+          "seconds": 0.249
+        },
+        {
+          "id": "1",
+          "materialKind": "painted-plaster-#abc0c5",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 7021,
+          "triangleCount": 11436,
+          "sourceVertexCount": 948,
+          "sourceUniqueVertexCount": 590,
+          "sourceTriangleCount": 316,
+          "sourceHash": "6d83ad70e1bda0f36b855c8690245eeb5c674cbdd2e2496a54789a0033cd2a8c",
+          "bounds": {
+            "min": [
+              -4.039999961853027,
+              -4.7683716530855236e-08,
+              -3.450000047683716
+            ],
+            "max": [
+              4.039999961853027,
+              8.949999809265137,
+              3.3499999046325684
+            ]
+          },
+          "sourceSurfaceArea": 525.0027525806107,
+          "outputSurfaceArea": 525.0027470480081,
+          "attributes": {
+            "position": {
+              "byteOffset": 4476180,
+              "count": 7021,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 4560432,
+              "count": 7021,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 4644684,
+              "count": 7021,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 4700852,
+              "count": 7021,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 4728936,
+            "count": 34308,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.4259875238060405,
+          "rays": 898176,
+          "seconds": 1.007
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2434,
+          "triangleCount": 4000,
+          "sourceVertexCount": 324,
+          "sourceUniqueVertexCount": 216,
+          "sourceTriangleCount": 108,
+          "sourceHash": "243f27b709bba5cbba67dd044a29dda8cefce00b639f5333ae80a7586ed2245f",
+          "bounds": {
+            "min": [
+              -3.799999952316284,
+              0.31999996304512024,
+              -3.200000047683716
+            ],
+            "max": [
+              3.799999952316284,
+              6.480000019073486,
+              3.200000047683716
+            ]
+          },
+          "sourceSurfaceArea": 177.354623706121,
+          "outputSurfaceArea": 177.3546243911478,
+          "attributes": {
+            "position": {
+              "byteOffset": 4866168,
+              "count": 2434,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 4895376,
+              "count": 2434,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 4924584,
+              "count": 2434,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 4944056,
+              "count": 2434,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 4953792,
+            "count": 12000,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            9.020819025474832e-05,
+            0.9682330102568294
+          ],
+          "meanVisibility": 0.39181806563832006,
+          "rays": 311552,
+          "seconds": 0.333
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 7186,
+          "triangleCount": 9560,
+          "sourceVertexCount": 2736,
+          "sourceUniqueVertexCount": 1824,
+          "sourceTriangleCount": 912,
+          "sourceHash": "6f1c0fa12506dfcfaa225e2a513cade07a3c6ae8f10b7e4b9a5287bc34a70655",
+          "bounds": {
+            "min": [
+              -4.335000038146973,
+              -4.7683716530855236e-08,
+              -3.692594528198242
+            ],
+            "max": [
+              4.335000038146973,
+              8.985922813415527,
+              3.692594528198242
+            ]
+          },
+          "sourceSurfaceArea": 294.4267457029153,
+          "outputSurfaceArea": 294.42674519975265,
+          "attributes": {
+            "position": {
+              "byteOffset": 5001792,
+              "count": 7186,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5088024,
+              "count": 7186,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5174256,
+              "count": 7186,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5231744,
+              "count": 7186,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5260488,
+            "count": 28680,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.23365570614823233,
+          "rays": 919808,
+          "seconds": 1.198
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2040,
+          "triangleCount": 1500,
+          "sourceVertexCount": 2196,
+          "sourceUniqueVertexCount": 1464,
+          "sourceTriangleCount": 732,
+          "sourceHash": "8fa7186eeb1d5f42ec2209b6e91121eeb7da5edd2c34d12fc7ac9254f4210c41",
+          "bounds": {
+            "min": [
+              -4.077499866485596,
+              0.7124999761581421,
+              -3.690000057220459
+            ],
+            "max": [
+              4.077499866485596,
+              6.445000171661377,
+              2.1600000858306885
+            ]
+          },
+          "sourceSurfaceArea": 11.764869785197131,
+          "outputSurfaceArea": 11.764869714447356,
+          "attributes": {
+            "position": {
+              "byteOffset": 5375208,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5399688,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5424168,
+              "count": 2040,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5440488,
+              "count": 2040,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5448648,
+            "count": 4500,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.8189219236792565e-07,
+            1.0
+          ],
+          "meanVisibility": 0.23014430930217514,
+          "rays": 261120,
+          "seconds": 0.343
+        },
+        {
+          "id": "5",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 408,
+          "triangleCount": 204,
+          "sourceVertexCount": 612,
+          "sourceUniqueVertexCount": 408,
+          "sourceTriangleCount": 204,
+          "sourceHash": "ab7d3748e9b4a58fa58081e9671dfcc6f2b11c3e5abddcdc4ee50ebb3081019b",
+          "bounds": {
+            "min": [
+              -3.9809999465942383,
+              0.9700000286102295,
+              -3.3554999828338623
+            ],
+            "max": [
+              3.9809999465942383,
+              6.420000076293945,
+              2.1684999465942383
+            ]
+          },
+          "sourceSurfaceArea": 33.25364991881477,
+          "outputSurfaceArea": 33.25364991881477,
+          "attributes": {
+            "position": {
+              "byteOffset": 5466648,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5471544,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5476440,
+              "count": 408,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5479704,
+              "count": 408,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5481336,
+            "count": 612,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.001
+        },
+        {
+          "id": "6",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 6030,
+          "triangleCount": 7316,
+          "sourceVertexCount": 4776,
+          "sourceUniqueVertexCount": 2630,
+          "sourceTriangleCount": 1592,
+          "sourceHash": "cdea1c82e05b6ade7140073c3349a1274bb3641adff51d20db67fd49eb05a484",
+          "bounds": {
+            "min": [
+              -4.295000076293945,
+              0.33500000834465027,
+              -4.184999942779541
+            ],
+            "max": [
+              4.295000076293945,
+              7.128330230712891,
+              3.763000011444092
+            ]
+          },
+          "sourceSurfaceArea": 31.975174161158392,
+          "outputSurfaceArea": 31.97517451358685,
+          "attributes": {
+            "position": {
+              "byteOffset": 5483784,
+              "count": 6030,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5556144,
+              "count": 6030,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5628504,
+              "count": 6030,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5676744,
+              "count": 6030,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5700864,
+            "count": 21948,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.646804047577015e-06,
+            1.0
+          ],
+          "meanVisibility": 0.32896338439690387,
+          "rays": 768512,
+          "seconds": 0.978
+        },
+        {
+          "id": "7",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 1132,
+          "triangleCount": 1220,
+          "sourceVertexCount": 780,
+          "sourceUniqueVertexCount": 516,
+          "sourceTriangleCount": 260,
+          "sourceHash": "84da8a9a28a702e02def664f31ede852ee991efe60a157145c7d3965eb116d0f",
+          "bounds": {
+            "min": [
+              -3.6700000762939453,
+              0.9599999785423279,
+              -4.195000171661377
+            ],
+            "max": [
+              3.6700000762939453,
+              6.429999828338623,
+              2.1760001182556152
+            ]
+          },
+          "sourceSurfaceArea": 23.835208179452223,
+          "outputSurfaceArea": 23.835208288686186,
+          "attributes": {
+            "position": {
+              "byteOffset": 5788656,
+              "count": 1132,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5802240,
+              "count": 1132,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5815824,
+              "count": 1132,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5824880,
+              "count": 1132,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5829408,
+            "count": 3660,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            7.14960086624369e-06,
+            1.0
+          ],
+          "meanVisibility": 0.271517872531738,
+          "rays": 144896,
+          "seconds": 0.186
+        },
+        {
+          "id": "8",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 110,
+          "triangleCount": 152,
+          "sourceVertexCount": 36,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "ff6b9d9c0d2cbc77a64904bf8bcebd7b9af70464ff01ae22be41eb18538c106e",
+          "bounds": {
+            "min": [
+              -3.19950008392334,
+              4.759999752044678,
+              -2.8975000381469727
+            ],
+            "max": [
+              -1.6984999179840088,
+              6.480000019073486,
+              -2.862499952316284
+            ]
+          },
+          "sourceSurfaceArea": 5.388911802187905,
+          "outputSurfaceArea": 5.388911842585803,
+          "attributes": {
+            "position": {
+              "byteOffset": 5844048,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5845368,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5846688,
+              "count": 110,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5847568,
+              "count": 110,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5848008,
+            "count": 456,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0045334823495211075,
+            0.7377561797931471
+          ],
+          "meanVisibility": 0.30008352585681175,
+          "rays": 14080,
+          "seconds": 0.022
+        },
+        {
+          "id": "9",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 250,
+          "triangleCount": 340,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "fa8178e478cdd91f93bb37699b416adfacfe06a3a55c840f23ecf672ff60ac0a",
+          "bounds": {
+            "min": [
+              0.19749996066093445,
+              2.7699999809265137,
+              -4.458258152008057
+            ],
+            "max": [
+              3.752500057220459,
+              3.181100845336914,
+              -3.061741828918457
+            ]
+          },
+          "sourceSurfaceArea": 12.516250827043903,
+          "outputSurfaceArea": 12.516251027537713,
+          "attributes": {
+            "position": {
+              "byteOffset": 5849832,
+              "count": 250,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5852832,
+              "count": 250,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5855832,
+              "count": 250,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5857832,
+              "count": 250,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5858832,
+            "count": 1020,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.900873718531133e-07,
+            1.0
+          ],
+          "meanVisibility": 0.4467351897726306,
+          "rays": 32000,
+          "seconds": 0.031
+        },
+        {
+          "id": "10",
+          "materialKind": "emissive",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 48,
+          "triangleCount": 24,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "c541c8dcbaf5ee18a915758b51b3ca345240f60ff32e3d56f1a374025ef88bef",
+          "bounds": {
+            "min": [
+              -2.0209999084472656,
+              2.7774999141693115,
+              -3.6649999618530273
+            ],
+            "max": [
+              1.2000000476837158,
+              2.802500009536743,
+              -3.4749999046325684
+            ]
+          },
+          "sourceSurfaceArea": 0.2340002052397679,
+          "outputSurfaceArea": 0.2340002052397679,
+          "attributes": {
+            "position": {
+              "byteOffset": 5862912,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 5863488,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 5864064,
+              "count": 48,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 5864448,
+              "count": 48,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 5864640,
+            "count": 72,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        },
+        {
+          "id": "11",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 53684,
+          "triangleCount": 33112,
+          "sourceVertexCount": 99336,
+          "sourceUniqueVertexCount": 53684,
+          "sourceTriangleCount": 33112,
+          "sourceHash": "ea342cc10c5a31e104ee7931444525eb290068a2875fbb144473de6c967e07a8",
+          "bounds": {
+            "min": [
+              -4.360000133514404,
+              7.1894211769104,
+              -3.721024990081787
+            ],
+            "max": [
+              4.360000133514404,
+              9.182034492492676,
+              3.721024990081787
+            ]
+          },
+          "sourceSurfaceArea": 121.73852523180167,
+          "outputSurfaceArea": 121.73852523180167,
+          "attributes": {
+            "position": {
+              "byteOffset": 5864928,
+              "count": 53684,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 6509136,
+              "count": 53684,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 7153344,
+              "count": 53684,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 7582816,
+              "count": 53684,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 7797552,
+            "count": 99336,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.6954477548968828e-05,
+            1.0
+          ],
+          "meanVisibility": 0.3243706142380765,
+          "rays": 5205760,
+          "seconds": 7.145
+        },
+        {
+          "id": "12",
+          "materialKind": "period-shop-sign-1",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 24,
+          "triangleCount": 12,
+          "sourceVertexCount": 24,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "e3e844ae45a621ce7db253a4903cc8966e56aee1c926a36b9d7245b094d45505",
+          "bounds": {
+            "min": [
+              -3.321000099182129,
+              3.140000104904175,
+              -3.5299999713897705
+            ],
+            "max": [
+              -0.47099998593330383,
+              3.7200000286102295,
+              -3.450000047683716
+            ]
+          },
+          "sourceSurfaceArea": 3.8547991918272384,
+          "outputSurfaceArea": 3.8547991918272384,
+          "attributes": {
+            "position": {
+              "byteOffset": 8194896,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 8195184,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 8195472,
+              "count": 24,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 8195664,
+              "count": 24,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 8195760,
+            "count": 36,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.003
+        }
+      ],
+      "seconds": 11.593
+    },
+    {
+      "id": "detailed-neighborhood-2",
+      "sourceTriangleCount": 49768,
+      "occluderTriangleCount": 49564,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 3434,
+          "triangleCount": 5232,
+          "sourceVertexCount": 1116,
+          "sourceUniqueVertexCount": 624,
+          "sourceTriangleCount": 372,
+          "sourceHash": "329d18c9c8b0fb6e421130e6071c9d22c1593c5a4e641aba63efd447749dde9a",
+          "bounds": {
+            "min": [
+              -5.300000190734863,
+              3.5762786065873797e-09,
+              -3.640000104904175
+            ],
+            "max": [
+              5.300000190734863,
+              4.019999980926514,
+              3.0999999046325684
+            ]
+          },
+          "sourceSurfaceArea": 165.49839015131738,
+          "outputSurfaceArea": 165.49838846758908,
+          "attributes": {
+            "position": {
+              "byteOffset": 8195904,
+              "count": 3434,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 8237112,
+              "count": 3434,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 8278320,
+              "count": 3434,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 8305792,
+              "count": 3434,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 8319528,
+            "count": 15696,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.7876552300766264e-05,
+            1.0
+          ],
+          "meanVisibility": 0.5891500107264858,
+          "rays": 439552,
+          "seconds": 0.398
+        },
+        {
+          "id": "1",
+          "materialKind": "painted-plaster-#bec5ad",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 9063,
+          "triangleCount": 14972,
+          "sourceVertexCount": 984,
+          "sourceUniqueVertexCount": 606,
+          "sourceTriangleCount": 328,
+          "sourceHash": "f38f5a15ed5b773004496ea0a2cef8ff7fb4c0ad05dfa952d198cc7d32bb5e13",
+          "bounds": {
+            "min": [
+              -5.190000057220459,
+              4.7683716530855236e-08,
+              -4.216937065124512
+            ],
+            "max": [
+              5.190000057220459,
+              7.650000095367432,
+              3.0999999046325684
+            ]
+          },
+          "sourceSurfaceArea": 537.8228277511421,
+          "outputSurfaceArea": 537.822823490024,
+          "attributes": {
+            "position": {
+              "byteOffset": 8382312,
+              "count": 9063,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 8491068,
+              "count": 9063,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 8599824,
+              "count": 9063,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 8672328,
+              "count": 9063,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 8708580,
+            "count": 44916,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.3764298621840012,
+          "rays": 1160064,
+          "seconds": 1.57
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 3624,
+          "triangleCount": 6120,
+          "sourceVertexCount": 360,
+          "sourceUniqueVertexCount": 240,
+          "sourceTriangleCount": 120,
+          "sourceHash": "b948a22c47a92c4f1b7c67093a6e934950ce23a216d4654d8acfd6e2e0ab3a2b",
+          "bounds": {
+            "min": [
+              -4.949999809265137,
+              0.31999996304512024,
+              -2.950000047683716
+            ],
+            "max": [
+              4.949999809265137,
+              5.679999828338623,
+              2.950000047683716
+            ]
+          },
+          "sourceSurfaceArea": 220.34115245244095,
+          "outputSurfaceArea": 220.3411489786115,
+          "attributes": {
+            "position": {
+              "byteOffset": 8888244,
+              "count": 3624,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 8931732,
+              "count": 3624,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 8975220,
+              "count": 3624,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 9004212,
+              "count": 3624,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 9018708,
+            "count": 18360,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.2200607543560654e-05,
+            0.852089844361557
+          ],
+          "meanVisibility": 0.37170223618414633,
+          "rays": 463872,
+          "seconds": 0.654
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 9188,
+          "triangleCount": 13120,
+          "sourceVertexCount": 2520,
+          "sourceUniqueVertexCount": 1680,
+          "sourceTriangleCount": 840,
+          "sourceHash": "3fbecc949680dfce8b9f00a1c8b22f26ae30451fe42fa7475c8fe4706c9cc8ae",
+          "bounds": {
+            "min": [
+              -5.485000133514404,
+              4.7683716530855236e-08,
+              -3.439194440841675
+            ],
+            "max": [
+              7.119999885559082,
+              7.68739652633667,
+              3.439194440841675
+            ]
+          },
+          "sourceSurfaceArea": 388.6753633233841,
+          "outputSurfaceArea": 388.67535164463845,
+          "attributes": {
+            "position": {
+              "byteOffset": 9092148,
+              "count": 9188,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 9202404,
+              "count": 9188,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 9312660,
+              "count": 9188,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 9386164,
+              "count": 9188,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 9422916,
+            "count": 39360,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.23501204924711996,
+          "rays": 1176064,
+          "seconds": 1.688
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2040,
+          "triangleCount": 1500,
+          "sourceVertexCount": 2196,
+          "sourceUniqueVertexCount": 1464,
+          "sourceTriangleCount": 732,
+          "sourceHash": "96f346b31ef3cab40e348ba83515c32af778ffcaf8bdabecec94cd5240c48c45",
+          "bounds": {
+            "min": [
+              -5.227499961853027,
+              0.7124999761581421,
+              -3.440000057220459
+            ],
+            "max": [
+              5.227499961853027,
+              5.644999980926514,
+              2.0425000190734863
+            ]
+          },
+          "sourceSurfaceArea": 12.210601829136133,
+          "outputSurfaceArea": 12.210602122956477,
+          "attributes": {
+            "position": {
+              "byteOffset": 9580356,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 9604836,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 9629316,
+              "count": 2040,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 9645636,
+              "count": 2040,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 9653796,
+            "count": 4500,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.1534602993265777e-07,
+            1.0
+          ],
+          "meanVisibility": 0.24879424901551841,
+          "rays": 261120,
+          "seconds": 0.351
+        },
+        {
+          "id": "5",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 408,
+          "triangleCount": 204,
+          "sourceVertexCount": 612,
+          "sourceUniqueVertexCount": 408,
+          "sourceTriangleCount": 204,
+          "sourceHash": "3b974352ae06348ce5432c12f8401bce7b4e29fb4a5593c4f410385bf6736faf",
+          "bounds": {
+            "min": [
+              -5.13100004196167,
+              0.9700000286102295,
+              -3.1054999828338623
+            ],
+            "max": [
+              5.13100004196167,
+              5.619999885559082,
+              2.0510001182556152
+            ]
+          },
+          "sourceSurfaceArea": 37.48031576643083,
+          "outputSurfaceArea": 37.48031576643083,
+          "attributes": {
+            "position": {
+              "byteOffset": 9671796,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 9676692,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 9681588,
+              "count": 408,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 9684852,
+              "count": 408,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 9686484,
+            "count": 612,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.001
+        },
+        {
+          "id": "6",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 10930,
+          "triangleCount": 16288,
+          "sourceVertexCount": 4836,
+          "sourceUniqueVertexCount": 2502,
+          "sourceTriangleCount": 1612,
+          "sourceHash": "28873a9dc9fc13a09806dc8ffb6cdf7d5e6c93bb5f4655dc6e2594f44a39db17",
+          "bounds": {
+            "min": [
+              -5.445000171661377,
+              0.33500000834465027,
+              -3.513000011444092
+            ],
+            "max": [
+              7.079999923706055,
+              6.328330039978027,
+              3.513000011444092
+            ]
+          },
+          "sourceSurfaceArea": 25.88601408780385,
+          "outputSurfaceArea": 25.886013445235896,
+          "attributes": {
+            "position": {
+              "byteOffset": 9688932,
+              "count": 10930,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 9820092,
+              "count": 10930,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 9951252,
+              "count": 10930,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 10038692,
+              "count": 10930,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 10082412,
+            "count": 48864,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            3.830886480254937e-09,
+            1.0
+          ],
+          "meanVisibility": 0.3287293729071341,
+          "rays": 1395712,
+          "seconds": 1.832
+        },
+        {
+          "id": "7",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 622,
+          "triangleCount": 444,
+          "sourceVertexCount": 672,
+          "sourceUniqueVertexCount": 456,
+          "sourceTriangleCount": 224,
+          "sourceHash": "52e7243e31d367170adcdfe5e0e7d51afbc5609c74b45a5d5795ea8a6af72693",
+          "bounds": {
+            "min": [
+              -4.820000171661377,
+              0.9599999785423279,
+              -3.4825000762939453
+            ],
+            "max": [
+              4.820000171661377,
+              5.630000114440918,
+              2.058500051498413
+            ]
+          },
+          "sourceSurfaceArea": 7.126794467763828,
+          "outputSurfaceArea": 7.126794583284394,
+          "attributes": {
+            "position": {
+              "byteOffset": 10277868,
+              "count": 622,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 10285332,
+              "count": 622,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 10292796,
+              "count": 622,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 10297772,
+              "count": 622,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 10300260,
+            "count": 1332,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0303704597860105e-05,
+            0.9067092521601665
+          ],
+          "meanVisibility": 0.2693757819722152,
+          "rays": 79616,
+          "seconds": 0.136
+        },
+        {
+          "id": "8",
+          "materialKind": "emissive",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 48,
+          "triangleCount": 24,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "9f834b1a408b3783bd2aa333add7ec37af7386cde1f088b81ac6d05352844086",
+          "bounds": {
+            "min": [
+              -2.572999954223633,
+              2.7774999141693115,
+              -3.4149999618530273
+            ],
+            "max": [
+              1.774999976158142,
+              2.802500009536743,
+              -3.2249999046325684
+            ]
+          },
+          "sourceSurfaceArea": 0.23400023207656026,
+          "outputSurfaceArea": 0.23400023207656026,
+          "attributes": {
+            "position": {
+              "byteOffset": 10305588,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 10306164,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 10306740,
+              "count": 48,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 10307124,
+              "count": 48,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 10307316,
+            "count": 72,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        },
+        {
+          "id": "9",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 73556,
+          "triangleCount": 45300,
+          "sourceVertexCount": 135900,
+          "sourceUniqueVertexCount": 73556,
+          "sourceTriangleCount": 45300,
+          "sourceHash": "473a9718e06653503d3b39d32e6896afedba73838e2df427d9c0936de695d1b7",
+          "bounds": {
+            "min": [
+              -5.510000228881836,
+              3.072396755218506,
+              -3.462130308151245
+            ],
+            "max": [
+              7.144999980926514,
+              7.8820343017578125,
+              3.462130308151245
+            ]
+          },
+          "sourceSurfaceArea": 161.03059417379043,
+          "outputSurfaceArea": 161.03059417379043,
+          "attributes": {
+            "position": {
+              "byteOffset": 10307604,
+              "count": 73556,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 11190276,
+              "count": 73556,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 12072948,
+              "count": 73556,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 12661396,
+              "count": 73556,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 12955620,
+            "count": 135900,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.31901737372522e-06,
+            1.0
+          ],
+          "meanVisibility": 0.3122342904532433,
+          "rays": 7138816,
+          "seconds": 11.048
+        },
+        {
+          "id": "10",
+          "materialKind": "period-shop-sign-2",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 24,
+          "triangleCount": 12,
+          "sourceVertexCount": 24,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "e3e844ae45a621ce7db253a4903cc8966e56aee1c926a36b9d7245b094d45505",
+          "bounds": {
+            "min": [
+              -3.872999906539917,
+              3.140000104904175,
+              -3.2799999713897705
+            ],
+            "max": [
+              -1.0230000019073486,
+              3.7200000286102295,
+              -3.200000047683716
+            ]
+          },
+          "sourceSurfaceArea": 3.8547990149153417,
+          "outputSurfaceArea": 3.8547990149153417,
+          "attributes": {
+            "position": {
+              "byteOffset": 13499220,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 13499508,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 13499796,
+              "count": 24,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 13499988,
+              "count": 24,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 13500084,
+            "count": 36,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.006
+        }
+      ],
+      "seconds": 17.809
+    },
+    {
+      "id": "detailed-neighborhood-3",
+      "sourceTriangleCount": 3784,
+      "occluderTriangleCount": 3580,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 3170,
+          "triangleCount": 4800,
+          "sourceVertexCount": 1116,
+          "sourceUniqueVertexCount": 624,
+          "sourceTriangleCount": 372,
+          "sourceHash": "e15f19ef436c62148314e5f41ca157b02a5841fbae920699f1281cd2e3902309",
+          "bounds": {
+            "min": [
+              -4.849999904632568,
+              3.5762786065873797e-09,
+              -3.740000009536743
+            ],
+            "max": [
+              4.849999904632568,
+              5.019999980926514,
+              3.200000047683716
+            ]
+          },
+          "sourceSurfaceArea": 157.03924616386203,
+          "outputSurfaceArea": 157.03924477090297,
+          "attributes": {
+            "position": {
+              "byteOffset": 13500228,
+              "count": 3170,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 13538268,
+              "count": 3170,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 13576308,
+              "count": 3170,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 13601668,
+              "count": 3170,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 13614348,
+            "count": 14400,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.1032557361429413e-05,
+            1.0
+          ],
+          "meanVisibility": 0.6330253131472481,
+          "rays": 405760,
+          "seconds": 0.317
+        },
+        {
+          "id": "1",
+          "materialKind": "painted-plaster-#c9bdb5",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 12458,
+          "triangleCount": 20500,
+          "sourceVertexCount": 1392,
+          "sourceUniqueVertexCount": 900,
+          "sourceTriangleCount": 464,
+          "sourceHash": "5314cba3ed92a3f927ca3fb3f77f77f3198f0535153d192b67d7fb03663841be",
+          "bounds": {
+            "min": [
+              -4.824999809265137,
+              4.7683716530855236e-08,
+              -4.316937446594238
+            ],
+            "max": [
+              4.824999809265137,
+              9.005000114440918,
+              3.325000047683716
+            ]
+          },
+          "sourceSurfaceArea": 637.792294341226,
+          "outputSurfaceArea": 637.7922946699586,
+          "attributes": {
+            "position": {
+              "byteOffset": 13671948,
+              "count": 12458,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 13821444,
+              "count": 12458,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 13970940,
+              "count": 12458,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14070604,
+              "count": 12458,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 14120436,
+            "count": 61500,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.5141471648721159e-15,
+            1.0
+          ],
+          "meanVisibility": 0.5136717076382642,
+          "rays": 1594624,
+          "seconds": 1.295
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 3514,
+          "triangleCount": 5968,
+          "sourceVertexCount": 324,
+          "sourceUniqueVertexCount": 216,
+          "sourceTriangleCount": 108,
+          "sourceHash": "4fd9f0d1f8ad79bbdf6ce10f544e66f5fd3cee5dd7b7af4acb14ccbc1e5d9c38",
+          "bounds": {
+            "min": [
+              -4.5,
+              0.31999996304512024,
+              -3.049999952316284
+            ],
+            "max": [
+              4.5,
+              6.679999828338623,
+              3.049999952316284
+            ]
+          },
+          "sourceSurfaceArea": 199.9339277349091,
+          "outputSurfaceArea": 199.93392919404417,
+          "attributes": {
+            "position": {
+              "byteOffset": 14366436,
+              "count": 3514,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 14408604,
+              "count": 3514,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 14450772,
+              "count": 3514,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14478884,
+              "count": 3514,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 14492940,
+            "count": 17904,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            5.2600199617346366e-05,
+            0.9589594834927566
+          ],
+          "meanVisibility": 0.3916238349416287,
+          "rays": 449792,
+          "seconds": 0.459
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 4606,
+          "triangleCount": 5760,
+          "sourceVertexCount": 1908,
+          "sourceUniqueVertexCount": 1272,
+          "sourceTriangleCount": 636,
+          "sourceHash": "af1e00749d6cc5eea64c6db34d71029597f77303981f5381cdf2dd6ec3af9bac",
+          "bounds": {
+            "min": [
+              -4.730000019073486,
+              4.7683716530855236e-08,
+              -3.2899999618530273
+            ],
+            "max": [
+              4.730000019073486,
+              7.349999904632568,
+              3.0899999141693115
+            ]
+          },
+          "sourceSurfaceArea": 128.0824140028606,
+          "outputSurfaceArea": 128.0824076432675,
+          "attributes": {
+            "position": {
+              "byteOffset": 14564556,
+              "count": 4606,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 14619828,
+              "count": 4606,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 14675100,
+              "count": 4606,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14711948,
+              "count": 4606,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 14730372,
+            "count": 17280,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0,
+            1.0
+          ],
+          "meanVisibility": 0.2598710045918518,
+          "rays": 589568,
+          "seconds": 0.608
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2040,
+          "triangleCount": 1500,
+          "sourceVertexCount": 2196,
+          "sourceUniqueVertexCount": 1464,
+          "sourceTriangleCount": 732,
+          "sourceHash": "982dfa145c92aa7d56c45c6e900b379763abcb784c86762add64782bda83709b",
+          "bounds": {
+            "min": [
+              -4.777500152587891,
+              0.7124999761581421,
+              -3.5399999618530273
+            ],
+            "max": [
+              4.777500152587891,
+              6.644999980926514,
+              2.0894999504089355
+            ]
+          },
+          "sourceSurfaceArea": 12.036185221554332,
+          "outputSurfaceArea": 12.036185322885451,
+          "attributes": {
+            "position": {
+              "byteOffset": 14799492,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 14823972,
+              "count": 2040,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 14848452,
+              "count": 2040,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14864772,
+              "count": 2040,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 14872932,
+            "count": 4500,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.1171205423848224e-06,
+            1.0
+          ],
+          "meanVisibility": 0.25207858156294327,
+          "rays": 261120,
+          "seconds": 0.28
+        },
+        {
+          "id": "5",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 408,
+          "triangleCount": 204,
+          "sourceVertexCount": 612,
+          "sourceUniqueVertexCount": 408,
+          "sourceTriangleCount": 204,
+          "sourceHash": "87f0a85ec1158622e93c8dd552ff7aec2a5cac3911a1c54d6024a20cd33ef047",
+          "bounds": {
+            "min": [
+              -4.681000232696533,
+              0.9700000286102295,
+              -3.2054998874664307
+            ],
+            "max": [
+              4.681000232696533,
+              6.619999885559082,
+              2.0980000495910645
+            ]
+          },
+          "sourceSurfaceArea": 35.826409730450706,
+          "outputSurfaceArea": 35.826409730450706,
+          "attributes": {
+            "position": {
+              "byteOffset": 14890932,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 14895828,
+              "count": 408,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 14900724,
+              "count": 408,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14903988,
+              "count": 408,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 14905620,
+            "count": 612,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.001
+        },
+        {
+          "id": "6",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2772,
+          "triangleCount": 3056,
+          "sourceVertexCount": 2880,
+          "sourceUniqueVertexCount": 1534,
+          "sourceTriangleCount": 960,
+          "sourceHash": "f3ab628761d089cbb5fc02019e427ddb2fd24e711dac145afb4b546cfcedf5ad",
+          "bounds": {
+            "min": [
+              -4.760000228881836,
+              0.33500000834465027,
+              -4.034999847412109
+            ],
+            "max": [
+              4.760000228881836,
+              9.095000267028809,
+              3.2100000381469727
+            ]
+          },
+          "sourceSurfaceArea": 36.65400757365617,
+          "outputSurfaceArea": 36.65400655213573,
+          "attributes": {
+            "position": {
+              "byteOffset": 14908068,
+              "count": 2772,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 14941332,
+              "count": 2772,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 14974596,
+              "count": 2772,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 14996772,
+              "count": 2772,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15007860,
+            "count": 9168,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.7036356988634586e-06,
+            1.0
+          ],
+          "meanVisibility": 0.346633531811369,
+          "rays": 351488,
+          "seconds": 0.315
+        },
+        {
+          "id": "7",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 1156,
+          "triangleCount": 1244,
+          "sourceVertexCount": 780,
+          "sourceUniqueVertexCount": 516,
+          "sourceTriangleCount": 260,
+          "sourceHash": "9b8dbe84a9c842f5f0f0534654907aa1861da3b16e76a9b83c0377c2f5642fd6",
+          "bounds": {
+            "min": [
+              -4.369999885559082,
+              0.9599999785423279,
+              -4.045000076293945
+            ],
+            "max": [
+              4.369999885559082,
+              6.630000114440918,
+              2.1054999828338623
+            ]
+          },
+          "sourceSurfaceArea": 20.303390739989375,
+          "outputSurfaceArea": 20.30339063572884,
+          "attributes": {
+            "position": {
+              "byteOffset": 15044532,
+              "count": 1156,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 15058404,
+              "count": 1156,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 15072276,
+              "count": 1156,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 15081524,
+              "count": 1156,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15086148,
+            "count": 3732,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0303688120630038e-05,
+            1.0
+          ],
+          "meanVisibility": 0.35302851883955294,
+          "rays": 147968,
+          "seconds": 0.158
+        },
+        {
+          "id": "8",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 110,
+          "triangleCount": 152,
+          "sourceVertexCount": 36,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "1b7236705daa506911097d423916e40c8058940c0a7c570d3953422ecb71a0ce",
+          "bounds": {
+            "min": [
+              1.999500036239624,
+              4.960000038146973,
+              -2.747499942779541
+            ],
+            "max": [
+              3.7664999961853027,
+              6.679999828338623,
+              -2.7125000953674316
+            ]
+          },
+          "sourceSurfaceArea": 6.322568194444389,
+          "outputSurfaceArea": 6.322568083608651,
+          "attributes": {
+            "position": {
+              "byteOffset": 15101076,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 15102396,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 15103716,
+              "count": 110,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 15104596,
+              "count": 110,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15105036,
+            "count": 456,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.004008076447149598,
+            0.7777884691300522
+          ],
+          "meanVisibility": 0.39594031241135863,
+          "rays": 14080,
+          "seconds": 0.017
+        },
+        {
+          "id": "9",
+          "materialKind": "emissive",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 48,
+          "triangleCount": 24,
+          "sourceVertexCount": 72,
+          "sourceUniqueVertexCount": 48,
+          "sourceTriangleCount": 24,
+          "sourceHash": "eb5a7380cc7973076db6976e5e79dd3ce5c9cadd8a84a7762776af0c8ef1a5cd",
+          "bounds": {
+            "min": [
+              -2.3570001125335693,
+              2.7774999141693115,
+              -3.515000104904175
+            ],
+            "max": [
+              1.5499999523162842,
+              2.802500009536743,
+              -3.325000047683716
+            ]
+          },
+          "sourceSurfaceArea": 0.23400023207656026,
+          "outputSurfaceArea": 0.23400023207656026,
+          "attributes": {
+            "position": {
+              "byteOffset": 15106860,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 15107436,
+              "count": 48,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 15108012,
+              "count": 48,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 15108396,
+              "count": 48,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15108588,
+            "count": 72,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        },
+        {
+          "id": "10",
+          "materialKind": "period-shop-sign-3",
+          "opaque": true,
+          "baked": false,
+          "vertexCount": 24,
+          "triangleCount": 12,
+          "sourceVertexCount": 24,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "e3e844ae45a621ce7db253a4903cc8966e56aee1c926a36b9d7245b094d45505",
+          "bounds": {
+            "min": [
+              -3.6570000648498535,
+              3.140000104904175,
+              -3.380000114440918
+            ],
+            "max": [
+              -0.8069999814033508,
+              3.7200000286102295,
+              -3.299999952316284
+            ]
+          },
+          "sourceSurfaceArea": 3.8548008402862965,
+          "outputSurfaceArea": 3.8548008402862965,
+          "attributes": {
+            "position": {
+              "byteOffset": 15108876,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 15109164,
+              "count": 24,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 15109452,
+              "count": 24,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 15109644,
+              "count": 24,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15109740,
+            "count": 36,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.0
+        }
+      ],
+      "seconds": 3.471
+    },
+    {
+      "id": "detailed-apartment-0",
+      "sourceTriangleCount": 12316,
+      "occluderTriangleCount": 11548,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 8082,
+          "triangleCount": 11020,
+          "sourceVertexCount": 3888,
+          "sourceUniqueVertexCount": 2232,
+          "sourceTriangleCount": 1296,
+          "sourceHash": "16f121b6e7f9df7038735688463436b3285678c52466328ddbd8b0a68282a9d8",
+          "bounds": {
+            "min": [
+              -6.574999809265137,
+              -2.9802322831784522e-09,
+              -5.394999980926514
+            ],
+            "max": [
+              6.574999809265137,
+              10.279999732971191,
+              4.5
+            ]
+          },
+          "sourceSurfaceArea": 328.6256676934809,
+          "outputSurfaceArea": 328.6256613174752,
+          "attributes": {
+            "position": {
+              "byteOffset": 15109884,
+              "count": 8082,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 15206868,
+              "count": 8082,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 15303852,
+              "count": 8082,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 15368508,
+              "count": 8082,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 15400836,
+            "count": 33060,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            3.168880222519237e-06,
+            1.0
+          ],
+          "meanVisibility": 0.37815239914472915,
+          "rays": 1034496,
+          "seconds": 0.958
+        },
+        {
+          "id": "1",
+          "materialKind": "painted-plaster-#abc0c5",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 41586,
+          "triangleCount": 65336,
+          "sourceVertexCount": 7368,
+          "sourceUniqueVertexCount": 4814,
+          "sourceTriangleCount": 2456,
+          "sourceHash": "e43b0c1004bc416212d3b91589da8293f4b61373c935a76b26dffdcab1be9e1e",
+          "bounds": {
+            "min": [
+              -6.625,
+              9.536743306171047e-08,
+              -4.65500020980835
+            ],
+            "max": [
+              6.625,
+              14.800000190734863,
+              4.599999904632568
+            ]
+          },
+          "sourceSurfaceArea": 1814.0390955085163,
+          "outputSurfaceArea": 1814.0390687398303,
+          "attributes": {
+            "position": {
+              "byteOffset": 15533076,
+              "count": 41586,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 16032108,
+              "count": 41586,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 16531140,
+              "count": 41586,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 16863828,
+              "count": 41586,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 17030172,
+            "count": 196008,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            3.6128595797121414e-07,
+            1.0
+          ],
+          "meanVisibility": 0.42148204472501377,
+          "rays": 5319424,
+          "seconds": 4.824
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 10610,
+          "triangleCount": 17824,
+          "sourceVertexCount": 1260,
+          "sourceUniqueVertexCount": 840,
+          "sourceTriangleCount": 420,
+          "sourceHash": "e31cc65b90c56200c7541e0ce4c2319fcbb3c055393f02650e49a6d367f696bd",
+          "bounds": {
+            "min": [
+              -6.199999809265137,
+              0.32499998807907104,
+              -2.7174999713897705
+            ],
+            "max": [
+              6.199999809265137,
+              12.005000114440918,
+              4.289999961853027
+            ]
+          },
+          "sourceSurfaceArea": 878.1538797963939,
+          "outputSurfaceArea": 878.1538927109239,
+          "attributes": {
+            "position": {
+              "byteOffset": 17814204,
+              "count": 10610,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 17941524,
+              "count": 10610,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 18068844,
+              "count": 10610,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 18153724,
+              "count": 10610,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 18196164,
+            "count": 53472,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.0010918560242270466,
+            0.8601642876400353
+          ],
+          "meanVisibility": 0.4342398028757355,
+          "rays": 1358080,
+          "seconds": 1.488
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 110,
+          "triangleCount": 152,
+          "sourceVertexCount": 36,
+          "sourceUniqueVertexCount": 24,
+          "sourceTriangleCount": 12,
+          "sourceHash": "1d27f05b95c6dec03915e4d604159818f5d6ad0598c58be23aeaaf2586c3a00b",
+          "bounds": {
+            "min": [
+              -5.823999881744385,
+              0.9049999713897705,
+              -2.697499990463257
+            ],
+            "max": [
+              -3.7760000228881836,
+              2.8550000190734863,
+              -2.6624999046325684
+            ]
+          },
+          "sourceSurfaceArea": 8.26706047954029,
+          "outputSurfaceArea": 8.267060444559272,
+          "attributes": {
+            "position": {
+              "byteOffset": 18410052,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 18411372,
+              "count": 110,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 18412692,
+              "count": 110,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 18413572,
+              "count": 110,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 18414012,
+            "count": 456,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.005820990223147983,
+            0.652400207581463
+          ],
+          "meanVisibility": 0.3370570472430957,
+          "rays": 14080,
+          "seconds": 0.018
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 5668,
+          "triangleCount": 5908,
+          "sourceVertexCount": 3852,
+          "sourceUniqueVertexCount": 2568,
+          "sourceTriangleCount": 1284,
+          "sourceHash": "abbedca00a46f78038bb5839a2022c4eb1fed423cd65dcbf2329ef87d463efc0",
+          "bounds": {
+            "min": [
+              -6.449999809265137,
+              0.8450000286102295,
+              -3.180000066757202
+            ],
+            "max": [
+              6.449999809265137,
+              12.0649995803833,
+              2.4574999809265137
+            ]
+          },
+          "sourceSurfaceArea": 173.47286689753662,
+          "outputSurfaceArea": 173.47287021791396,
+          "attributes": {
+            "position": {
+              "byteOffset": 18415836,
+              "count": 5668,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 18483852,
+              "count": 5668,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 18551868,
+              "count": 5668,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 18597212,
+              "count": 5668,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 18619884,
+            "count": 17724,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.234840183475423e-05,
+            1.0
+          ],
+          "meanVisibility": 0.18951912200223822,
+          "rays": 725504,
+          "seconds": 0.905
+        },
+        {
+          "id": "5",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 9506,
+          "triangleCount": 9464,
+          "sourceVertexCount": 7872,
+          "sourceUniqueVertexCount": 5160,
+          "sourceTriangleCount": 2624,
+          "sourceHash": "1f97f1ac14e5853a4df21b0927a5f847eceb407736ec1a449c4d1228d63d8fc6",
+          "bounds": {
+            "min": [
+              -6.5,
+              0.18125830590724945,
+              -4.642499923706055
+            ],
+            "max": [
+              6.5,
+              12.539999961853027,
+              2.4574999809265137
+            ]
+          },
+          "sourceSurfaceArea": 96.61957347947681,
+          "outputSurfaceArea": 96.61957572636767,
+          "attributes": {
+            "position": {
+              "byteOffset": 18690780,
+              "count": 9506,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 18804852,
+              "count": 9506,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 18918924,
+              "count": 9506,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 18994972,
+              "count": 9506,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 19032996,
+            "count": 28392,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.5088020217072374e-15,
+            1.0
+          ],
+          "meanVisibility": 0.22940896457906432,
+          "rays": 1216768,
+          "seconds": 1.39
+        },
+        {
+          "id": "6",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 1536,
+          "triangleCount": 768,
+          "sourceVertexCount": 2304,
+          "sourceUniqueVertexCount": 1536,
+          "sourceTriangleCount": 768,
+          "sourceHash": "c445a9f5610de72fd35ebaffe7ec2f8698d213da6aea61f355e535421cddde8a",
+          "bounds": {
+            "min": [
+              -6.426000118255615,
+              0.5750000476837158,
+              -3.13100004196167
+            ],
+            "max": [
+              6.426000118255615,
+              11.944999694824219,
+              2.387500047683716
+            ]
+          },
+          "sourceSurfaceArea": 174.76103688628208,
+          "outputSurfaceArea": 174.76103688628208,
+          "attributes": {
+            "position": {
+              "byteOffset": 19146564,
+              "count": 1536,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 19164996,
+              "count": 1536,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 19183428,
+              "count": 1536,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 19195716,
+              "count": 1536,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 19201860,
+            "count": 2304,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.004
+        },
+        {
+          "id": "7",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 4854,
+          "triangleCount": 4008,
+          "sourceVertexCount": 6864,
+          "sourceUniqueVertexCount": 3764,
+          "sourceTriangleCount": 2288,
+          "sourceHash": "bc2f0f7fa10e07387da25fcd9cfb8ec23cd4607cbb4c2ada53c4f6d0ed561dba",
+          "bounds": {
+            "min": [
+              -6.505000114440918,
+              0.8774999976158142,
+              -4.614999771118164
+            ],
+            "max": [
+              6.505000114440918,
+              14.895000457763672,
+              2.625
+            ]
+          },
+          "sourceSurfaceArea": 53.73064928906605,
+          "outputSurfaceArea": 53.730648360979295,
+          "attributes": {
+            "position": {
+              "byteOffset": 19211076,
+              "count": 4854,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 19269324,
+              "count": 4854,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 19327572,
+              "count": 4854,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 19366404,
+              "count": 4854,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 19385820,
+            "count": 12024,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0649755479703575e-05,
+            1.0
+          ],
+          "meanVisibility": 0.19834571720648705,
+          "rays": 614656,
+          "seconds": 0.621
+        },
+        {
+          "id": "8",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 2410,
+          "triangleCount": 2204,
+          "sourceVertexCount": 3504,
+          "sourceUniqueVertexCount": 1727,
+          "sourceTriangleCount": 1168,
+          "sourceHash": "355d428999b576099f78682ccb94bb5a462419cffc41f8446c452834d240ad4c",
+          "bounds": {
+            "min": [
+              -6.171599864959717,
+              0.9549999833106995,
+              -4.052499771118164
+            ],
+            "max": [
+              5.798999786376953,
+              15.699999809265137,
+              2.3499999046325684
+            ]
+          },
+          "sourceSurfaceArea": 48.51607001877976,
+          "outputSurfaceArea": 48.51607077230575,
+          "attributes": {
+            "position": {
+              "byteOffset": 19433916,
+              "count": 2410,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 19462836,
+              "count": 2410,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 19491756,
+              "count": 2410,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 19511036,
+              "count": 2410,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 19520676,
+            "count": 6612,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            5.7542567065076616e-05,
+            1.0
+          ],
+          "meanVisibility": 0.27186149509987984,
+          "rays": 308480,
+          "seconds": 0.376
+        }
+      ],
+      "seconds": 10.616
+    },
+    {
+      "id": "detailed-apartment-1",
+      "sourceTriangleCount": 18804,
+      "occluderTriangleCount": 17652,
+      "meshes": [
+        {
+          "id": "0",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 12784,
+          "triangleCount": 18252,
+          "sourceVertexCount": 5616,
+          "sourceUniqueVertexCount": 3192,
+          "sourceTriangleCount": 1872,
+          "sourceHash": "7059423f984060c4069d33c1a4ba2cc3689d6205fe74cc9d23dbb85116af5b90",
+          "bounds": {
+            "min": [
+              -7.675000190734863,
+              -2.9802322831784522e-09,
+              -5.994999885559082
+            ],
+            "max": [
+              7.675000190734863,
+              16.3799991607666,
+              5.099999904632568
+            ]
+          },
+          "sourceSurfaceArea": 454.15273554602027,
+          "outputSurfaceArea": 454.1527380724108,
+          "attributes": {
+            "position": {
+              "byteOffset": 19547124,
+              "count": 12784,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 19700532,
+              "count": 12784,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 19853940,
+              "count": 12784,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 19956212,
+              "count": 12784,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 20007348,
+            "count": 54756,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            5.549057416587935e-06,
+            1.0
+          ],
+          "meanVisibility": 0.3692514494668538,
+          "rays": 1636352,
+          "seconds": 1.609
+        },
+        {
+          "id": "1",
+          "materialKind": "painted-plaster-#d7d3c8",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 71944,
+          "triangleCount": 112064,
+          "sourceVertexCount": 15984,
+          "sourceUniqueVertexCount": 10025,
+          "sourceTriangleCount": 5328,
+          "sourceHash": "810825e29af492500ca0b053ac5eaff9219a99a1dc0f67e9e497e6faf75f427d",
+          "bounds": {
+            "min": [
+              -7.724999904632568,
+              3.814697322468419e-07,
+              -5.255000114440918
+            ],
+            "max": [
+              7.724999904632568,
+              21.799999237060547,
+              5.199999809265137
+            ]
+          },
+          "sourceSurfaceArea": 3013.201073699853,
+          "outputSurfaceArea": 3013.200992647329,
+          "attributes": {
+            "position": {
+              "byteOffset": 20226372,
+              "count": 71944,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 21089700,
+              "count": 71944,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 21953028,
+              "count": 71944,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 22528580,
+              "count": 71944,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 22816356,
+            "count": 336192,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            4.808334800015101e-07,
+            1.0
+          ],
+          "meanVisibility": 0.4369689049210209,
+          "rays": 9208832,
+          "seconds": 9.103
+        },
+        {
+          "id": "2",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 16898,
+          "triangleCount": 28312,
+          "sourceVertexCount": 1836,
+          "sourceUniqueVertexCount": 1224,
+          "sourceTriangleCount": 612,
+          "sourceHash": "8fd1e2c493be493653fd3d2bff5dda6b0ed777a4f918036ab8d1461bfec707ca",
+          "bounds": {
+            "min": [
+              -7.300000190734863,
+              0.32499998807907104,
+              -3.317500114440918
+            ],
+            "max": [
+              7.300000190734863,
+              18.104999542236328,
+              4.889999866485596
+            ]
+          },
+          "sourceSurfaceArea": 1725.5003275915433,
+          "outputSurfaceArea": 1725.5003147636132,
+          "attributes": {
+            "position": {
+              "byteOffset": 24161124,
+              "count": 16898,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 24363900,
+              "count": 16898,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 24566676,
+              "count": 16898,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 24701860,
+              "count": 16898,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 24769452,
+            "count": 84936,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.001091854775341443,
+            0.8671645816480795
+          ],
+          "meanVisibility": 0.46404147908306487,
+          "rays": 2162944,
+          "seconds": 2.639
+        },
+        {
+          "id": "3",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 10484,
+          "triangleCount": 12324,
+          "sourceVertexCount": 5868,
+          "sourceUniqueVertexCount": 3912,
+          "sourceTriangleCount": 1956,
+          "sourceHash": "bc779e76bb2be1b0553cc601fd2ddbcb3c5fd8eec375d7208ae952c77e9b0e2b",
+          "bounds": {
+            "min": [
+              -7.550000190734863,
+              0.8450000286102295,
+              -3.7799999713897705
+            ],
+            "max": [
+              7.550000190734863,
+              18.165000915527344,
+              2.697499990463257
+            ]
+          },
+          "sourceSurfaceArea": 282.52288413404665,
+          "outputSurfaceArea": 282.52287981532004,
+          "attributes": {
+            "position": {
+              "byteOffset": 25109196,
+              "count": 10484,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 25235004,
+              "count": 10484,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 25360812,
+              "count": 10484,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 25444684,
+              "count": 10484,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 25486620,
+            "count": 36972,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            2.234822927922688e-05,
+            1.0
+          ],
+          "meanVisibility": 0.19343720972706935,
+          "rays": 1341952,
+          "seconds": 1.809
+        },
+        {
+          "id": "4",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 18410,
+          "triangleCount": 21420,
+          "sourceVertexCount": 11616,
+          "sourceUniqueVertexCount": 7656,
+          "sourceTriangleCount": 3872,
+          "sourceHash": "da973ed710009fdda1688593eb0b41bf566e4c63191e74c35e0f46f80c759460",
+          "bounds": {
+            "min": [
+              -7.599999904632568,
+              0.18125830590724945,
+              -5.242499828338623
+            ],
+            "max": [
+              7.599999904632568,
+              18.64000129699707,
+              2.697499990463257
+            ]
+          },
+          "sourceSurfaceArea": 153.6374830798941,
+          "outputSurfaceArea": 153.6374834290182,
+          "attributes": {
+            "position": {
+              "byteOffset": 25634508,
+              "count": 18410,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 25855428,
+              "count": 18410,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 26076348,
+              "count": 18410,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 26223628,
+              "count": 18410,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 26297268,
+            "count": 64260,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            6.002494638329165e-08,
+            1.0
+          ],
+          "meanVisibility": 0.2604553320581887,
+          "rays": 2356480,
+          "seconds": 2.862
+        },
+        {
+          "id": "5",
+          "materialKind": "glass",
+          "opaque": false,
+          "baked": false,
+          "vertexCount": 2304,
+          "triangleCount": 1152,
+          "sourceVertexCount": 3456,
+          "sourceUniqueVertexCount": 2304,
+          "sourceTriangleCount": 1152,
+          "sourceHash": "0b60a38e791134509b3682b14790a1229e7764367064bd72d185dc37b4dfee3f",
+          "bounds": {
+            "min": [
+              -7.526000022888184,
+              0.5750000476837158,
+              -3.7309999465942383
+            ],
+            "max": [
+              7.526000022888184,
+              18.045000076293945,
+              2.627500057220459
+            ]
+          },
+          "sourceSurfaceArea": 292.9333954651915,
+          "outputSurfaceArea": 292.9333954651915,
+          "attributes": {
+            "position": {
+              "byteOffset": 26554308,
+              "count": 2304,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 26581956,
+              "count": 2304,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 26609604,
+              "count": 2304,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 26628036,
+              "count": 2304,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 26637252,
+            "count": 3456,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0,
+            1.0
+          ],
+          "meanVisibility": 1.0,
+          "rays": 0,
+          "seconds": 0.006
+        },
+        {
+          "id": "6",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 7770,
+          "triangleCount": 6208,
+          "sourceVertexCount": 11928,
+          "sourceUniqueVertexCount": 6328,
+          "sourceTriangleCount": 3976,
+          "sourceHash": "a4854a4416edb5653f9abc2bd034bbeb39004f0bea9dd17daa2a0c7a5d62a0df",
+          "bounds": {
+            "min": [
+              -7.605000019073486,
+              0.167231023311615,
+              -5.215000152587891
+            ],
+            "max": [
+              7.605000019073486,
+              20.9950008392334,
+              2.625
+            ]
+          },
+          "sourceSurfaceArea": 67.13746944922597,
+          "outputSurfaceArea": 67.13747133917764,
+          "attributes": {
+            "position": {
+              "byteOffset": 26651076,
+              "count": 7770,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 26744316,
+              "count": 7770,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 26837556,
+              "count": 7770,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 26899716,
+              "count": 7770,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 26930796,
+            "count": 18624,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            1.0649753551914238e-05,
+            1.0
+          ],
+          "meanVisibility": 0.1834967733300151,
+          "rays": 981248,
+          "seconds": 1.102
+        },
+        {
+          "id": "7",
+          "materialKind": "opaque",
+          "opaque": true,
+          "baked": true,
+          "vertexCount": 498,
+          "triangleCount": 720,
+          "sourceVertexCount": 108,
+          "sourceUniqueVertexCount": 72,
+          "sourceTriangleCount": 36,
+          "sourceHash": "f8ff3f85ef12207c00a734b347ad75c83d80c4d2b93ab85d1fea32d13cadb3ca",
+          "bounds": {
+            "min": [
+              -3.075000047683716,
+              10.055000305175781,
+              -3.297499895095825
+            ],
+            "max": [
+              6.824999809265137,
+              18.104999542236328,
+              -3.262500047683716
+            ]
+          },
+          "sourceSurfaceArea": 28.993492911717333,
+          "outputSurfaceArea": 28.9934924137725,
+          "attributes": {
+            "position": {
+              "byteOffset": 27005292,
+              "count": 498,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "normal": {
+              "byteOffset": 27011268,
+              "count": 498,
+              "itemSize": 3,
+              "type": "float32"
+            },
+            "uv": {
+              "byteOffset": 27017244,
+              "count": 498,
+              "itemSize": 2,
+              "type": "float32"
+            },
+            "visibility": {
+              "byteOffset": 27021228,
+              "count": 498,
+              "itemSize": 1,
+              "type": "float32"
+            }
+          },
+          "index": {
+            "byteOffset": 27023220,
+            "count": 2160,
+            "itemSize": 1,
+            "type": "uint32"
+          },
+          "visibilityRange": [
+            0.00461014395225465,
+            0.6955854312532584
+          ],
+          "meanVisibility": 0.3805072596007724,
+          "rays": 63744,
+          "seconds": 0.079
+        }
+      ],
+      "seconds": 19.262
+    }
+  ],
+  "binaryByteLength": 27031860,
+  "binarySha256": "84dc6acfe22072491cd8cbe8de69bcd888811e06cc8648107cf889380fcc6990",
+  "seconds": 77.851
+}

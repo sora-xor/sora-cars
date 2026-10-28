@@ -1,0 +1,1248 @@
+{
+  "version": 1,
+  "year": 1986,
+  "researchedAt": "2026-09-07",
+  "scope": "Japanese prefecture codes 01–23; source-backed candidate corridors, not playable track definitions",
+  "evidencePolicy": {
+    "ja": "レース名と経路はゲーム向けの設計案。地理と年表の事実は各項目の一次資料に結び付ける。現代の観光・自治体ページだけで1986年の車線、標高、交通規制、建物外観を認定しない。座標は未生成。空の除外配列は近代施設が存在しないという意味ではない。",
+    "en": "Race names and corridors are proposed game designs. Geographic and chronological facts are tied to listed primary sources. Modern visitor or government pages do not qualify 1986 lanes, elevations, traffic rules or building appearances. No coordinates are generated. An empty exclusion list does not establish absence of modern additions."
+  },
+  "entries": [
+    {
+      "code": "01",
+      "prefecture": {
+        "ja": "北海道",
+        "en": "Hokkaido"
+      },
+      "proposedTitle": {
+        "ja": "北の空、運河の夜明け",
+        "en": "Northern Sky: Canal Dawn"
+      },
+      "corridor": {
+        "ja": "設計案：小樽運河沿いの臨港線で浅草橋側から中央橋側へ進み、倉庫街の市街路へ折れる。運河と港の間の道路を走り、歩行者用散策路は車道に置き換えない。",
+        "en": "Proposed design: follow the Rinko road beside Otaru Canal from the Asakusa Bridge area toward Chuo Bridge, then turn into warehouse-district streets. Use the road between canal and port, not the pedestrian promenade."
+      },
+      "geography": {
+        "ja": "小樽運河は海岸の埋立てで造られた、緩く湾曲する港湾水路。倉庫と水面を近景の軸にできる。",
+        "en": "Otaru Canal curves along reclaimed waterfront rather than an excavated inland channel. Warehouses and water provide close-range visual anchors."
+      },
+      "periodNotes": {
+        "ja": "市の記録では運河は1923年完成、1986年に一部埋立てと道路・散策路整備が行われた。1986年の工事前後を混在させず、開催月と臨港線開通時の写真を確認する。橋周辺の接続・車線・店舗は未確認。",
+        "en": "The city dates completion to 1923 and partial infill, road and promenade works to 1986. Select a race month and check opening-period photographs instead of mixing pre- and post-work appearances. Junctions, lanes and storefronts remain unverified."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.otaru.lg.jp/docs/2020100900367",
+          "title": "小樽市：小樽運河",
+          "support": {
+            "ja": "運河の形状、1923年完成、1986年の一部埋立てと道路・散策路整備。個別の1986年車線配置の証明ではない。",
+            "en": "Canal shape, 1923 completion and 1986 infill/road/promenade works; not a 1986 lane survey."
+          }
+        },
+        {
+          "url": "https://www.city.otaru.lg.jp/docs/2023082200029/file_contents/koho-otaruR0509-1.pdf",
+          "title": "広報おたる：小樽運河100年",
+          "support": {
+            "ja": "1986年5月8日の道道臨港線開通式を記録。",
+            "en": "Records the May 8, 1986 Rinko road opening ceremony."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "02",
+      "prefecture": {
+        "ja": "青森県",
+        "en": "Aomori"
+      },
+      "proposedTitle": {
+        "ja": "奥入瀬、緑の電流",
+        "en": "Oirase: Green Current"
+      },
+      "corridor": {
+        "ja": "設計案：焼山の集落から奥入瀬渓流に沿う既存道路を子ノ口・十和田湖方面へたどる区間レース。全渓流を無理に圧縮せず、資料確認後に一続きの区間を選ぶ。",
+        "en": "Proposed design: a stage from Yakeyama along the streamside road toward Nenokuchi and Lake Towada. Select a contiguous section after archival review instead of compressing the entire gorge."
+      },
+      "geography": {
+        "ja": "十和田湖から流れ出る奥入瀬川には、森・岩・滝と並行する道路がある。樹林による見通しの変化をコーナーの読み取りに使う。",
+        "en": "The Oirase outflow from Lake Towada runs through forest, rocks and falls with a parallel road. Changing forest sightlines can inform corner readability."
+      },
+      "periodNotes": {
+        "ja": "環境省の周遊案内は道路と渓流の関係を確認できる現代資料。1986年の路線番号、橋、拡幅前の線形は航空写真と道路台帳で確認が必要。青橅山バイパスを1986年の近道にしない。",
+        "en": "The Environment Ministry itinerary establishes the modern road-stream relationship. Verify 1986 route numbering, bridges and pre-widening alignment with aerials and road records. The later Aobunayama bypass cannot be a 1986 shortcut."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "奥入瀬（青橅山）バイパス",
+          "en": "Oirase Aobunayama bypass",
+          "reason": {
+            "ja": "2013年度以降の事業を1986年の開通道路として描かない。",
+            "en": "Do not depict a project implemented from fiscal 2013 as an open 1986 road."
+          },
+          "sourceUrl": "https://www.thr.mlit.go.jp/aomori/road/oirase/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.env.go.jp/nature/nationalparks/list/towada-hachimantai/course/09/",
+          "title": "環境省：十和田湖、奥入瀬、八甲田周遊コース",
+          "support": {
+            "ja": "十和田湖・奥入瀬渓流・八甲田の関係と渓流沿いの国道102号。1986年線形は示さない。",
+            "en": "Lake Towada–Oirase–Hakkoda relationship and present Route 102 beside the gorge, not 1986 alignment."
+          }
+        },
+        {
+          "url": "https://www.thr.mlit.go.jp/aomori/road/oirase/",
+          "title": "国土交通省：奥入瀬（青橅山）バイパス",
+          "support": {
+            "ja": "2013年度からの国直轄権限代行事業という時期。",
+            "en": "Dates national delegated implementation to fiscal 2013."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "03",
+      "prefecture": {
+        "ja": "岩手県",
+        "en": "Iwate"
+      },
+      "proposedTitle": {
+        "ja": "石垣と中津川の空",
+        "en": "Sky Over Nakatsu River"
+      },
+      "corridor": {
+        "ja": "設計案：岩手公園外周の内丸から、中の橋・中津川沿い・上ノ橋周辺の城下町街路へ。石垣は背景とし、公園内部を道路化しない。橋と交差点で速度を切り替える。",
+        "en": "Proposed design: link Uchimaru outside Iwate Park with Nakanohashi, the Nakatsu riverfront and Kaminohashi streets. Keep castle walls as scenery rather than routing through the park. Bridges and junctions create pace changes."
+      },
+      "geography": {
+        "ja": "城跡は旧北上川と中津川の合流部の丘陵に立つ。中津川は市街地を南西に流れる北上川の支流で、石垣・河岸・城下町が組み合わさる。",
+        "en": "The castle occupies a hill at the former Kitakami–Nakatsu confluence. The Nakatsu flows southwest through the city as a Kitakami tributary, joining riverbanks, masonry and the old town."
+      },
+      "periodNotes": {
+        "ja": "城跡の公園整備は1906年。1986年の案内表示には当時の「岩手公園」を用い、2006年に付いた「盛岡城跡公園」という愛称を遡及させない。橋の構造・欄干・河岸道路は1986年資料待ち。",
+        "en": "The park was established in 1906. Use Iwate Park on period signs; the Morioka Castle Site Park alias dates to 2006. The 1986 bridge structures, parapets and bank roads still require evidence."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "「盛岡城跡公園」の現代愛称看板",
+          "en": "Modern Morioka Castle Site Park alias signs",
+          "reason": {
+            "ja": "愛称は2006年。城跡自体は除外しない。",
+            "en": "The alias dates to 2006; retain the castle site itself."
+          },
+          "sourceUrl": "https://www.city.morioka.iwate.jp/kurashi/midori/koen/1010491"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.morioka.iwate.jp/kurashi/midori/koen/1010491",
+          "title": "盛岡市：盛岡城跡公園（岩手公園）",
+          "support": {
+            "ja": "城と川の地形、1906年の公園整備、2006年の愛称、中津川・上ノ橋の解説。",
+            "en": "Castle/river geography, 1906 park establishment, 2006 alias and Nakatsu/Kaminohashi context."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "04",
+      "prefecture": {
+        "ja": "宮城県",
+        "en": "Miyagi"
+      },
+      "proposedTitle": {
+        "ja": "杜の空、欅のパルス",
+        "en": "Sendai: Zelkova Pulse"
+      },
+      "corridor": {
+        "ja": "設計案：定禅寺通の西公園側から勾当台側へ進み、都心街路で青葉通につなぐ。並木の直線と市街地の直角コーナーを組み合わせる。接続路は当時の地図で確定する。",
+        "en": "Proposed design: run Jozenji-dori from Nishi Park toward Kotodai, linking downtown streets to Aoba-dori. Combine tree-lined straights with right-angle city corners; select connectors from period maps."
+      },
+      "geography": {
+        "ja": "定禅寺通は西公園と勾当台公園を結ぶ。青葉通と定禅寺通のケヤキ並木は戦後の緑化で形成された都市の骨格。",
+        "en": "Jozenji-dori links Nishi and Kotodai parks. Its zelkova rows and those on Aoba-dori form an urban structure created by postwar greening."
+      },
+      "periodNotes": {
+        "ja": "青葉通の植樹開始は1950年、定禅寺通は1958年。1982年には地下鉄工事に伴う移植があり、地下鉄開業は1987年。1986年の工事囲い・木の本数・公園配置を現代写真から決めない。",
+        "en": "Aoba plantings began in 1950 and Jozenji plantings in 1958. Subway works required tree relocation in 1982; the subway opened in 1987. Modern photographs cannot establish 1986 hoardings, tree counts or park layout."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "開業済みの仙台地下鉄南北線表示",
+          "en": "Operating Sendai Namboku subway signs",
+          "reason": {
+            "ja": "開業は1987年。1986年の工事状態は個別確認。",
+            "en": "The line opened in 1987; verify its 1986 construction state separately."
+          },
+          "sourceUrl": "https://www.city.sendai.jp/hyakunen-chose/kurashi/shizen/midori/shinse/kids/konjaku.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.sendai.jp/hyakunen-chose/kurashi/shizen/midori/shinse/kids/konjaku.html",
+          "title": "仙台市：緑の歴史・今昔",
+          "support": {
+            "ja": "植樹年、1982年の移植、1987年の地下鉄開業。",
+            "en": "Planting dates, 1982 tree relocation and 1987 subway opening."
+          }
+        },
+        {
+          "url": "https://www.city.sendai.jp/ryokuchihozen/kurashi/shizen/midori/reiwa100sen/aoba/jozenjidori.html",
+          "title": "仙台市：定禅寺通のケヤキ並木",
+          "support": {
+            "ja": "西公園と勾当台公園を結ぶ位置関係。現在の木の本数は1986年の証拠ではない。",
+            "en": "The corridor between Nishi and Kotodai parks; current tree counts are not 1986 evidence."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "05",
+      "prefecture": {
+        "ja": "秋田県",
+        "en": "Akita"
+      },
+      "proposedTitle": {
+        "ja": "角館、黒板塀の残響",
+        "en": "Kakunodate: Black Fence Echo"
+      },
+      "corridor": {
+        "ja": "設計案：角館の武家屋敷通りで石黒家・青柳家周辺から火除けを経て商人町側へ移る街路レース。黒板塀の連続と町並みが開ける地点で曲がり方を変える。",
+        "en": "Proposed design: follow Kakunodate samurai-district streets around the Ishiguro and Aoyagi houses, through the firebreak toward the merchant district. Alternate enclosed black-fence frontage with open street transitions."
+      },
+      "geography": {
+        "ja": "角館には道路沿いの黒板塀、武家住宅、広い敷地と樹木が残る。石黒家は市の解説では1853年に現在地へ移ったとされる。",
+        "en": "Kakunodate retains roadside black board fences, samurai houses, generous plots and trees. The city describes the Ishiguro household moving to its present site in 1853."
+      },
+      "periodNotes": {
+        "ja": "保存地区選定は1976年。現在の観光施設の看板・用途・舗装が1986年と同じとは限らない。当時の角館町の住宅地図と街路写真で店先と接続路を確認する。",
+        "en": "The preservation district was selected in 1976. Present visitor signage, uses and paving cannot be assumed for 1986. Period Kakunodate town maps and photographs are needed for shopfronts and connectors."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.semboku.akita.jp/sightseeing/spot/07_buke.html",
+          "title": "仙北市：武家屋敷 観光情報",
+          "support": {
+            "ja": "石黒家・青柳家等の位置と建築的特徴、石黒家の1853年移転の家伝。道路線形の年代資料ではない。",
+            "en": "House locations and architecture, including the Ishiguro family account of its 1853 move; not dated road geometry."
+          }
+        },
+        {
+          "url": "https://www.city.semboku.akita.jp/citizens/12_07.html",
+          "title": "仙北市：文化財・角館火除け地調査",
+          "support": {
+            "ja": "1976年保存地区選定と武家町・商人町の境界の火除け。発掘された江戸時代路面は1986年の高さを示さない。",
+            "en": "1976 preservation selection and the firebreak boundary; excavated Edo road levels do not establish 1986 levels."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "06",
+      "prefecture": {
+        "ja": "山形県",
+        "en": "Yamagata"
+      },
+      "proposedTitle": {
+        "ja": "酒田、米と海の約束",
+        "en": "Sakata: Grain and Sea"
+      },
+      "corridor": {
+        "ja": "設計案：山居倉庫の道路側から新井田川沿いへ出て、港側の市街路に折れる。荷捌き風景を近景に、川沿いの見通しから短い街角へ移る。",
+        "en": "Proposed design: start on the road side of Sankyo Warehouses, follow the Niida riverfront and turn toward port streets. Loading scenery leads from open river views into short urban corners."
+      },
+      "geography": {
+        "ja": "山居倉庫は最上川河口に近い新井田川左岸に位置し、庄内米と港湾輸送を結ぶ場所だった。倉庫西側のケヤキは風と西日への対策として植えられた。",
+        "en": "Sankyo Warehouses stand on the Niida left bank near the Mogami mouth, linking Shonai rice and shipping. Zelkova planting west of the warehouses helped shield them from wind and afternoon sun."
+      },
+      "periodNotes": {
+        "ja": "建設は1893年に始まる。米穀物流を1986年の演出軸とするが、当年の荷役車種・店舗用途・岸壁と橋は未確認。近年の観光センターを当時の建物用途として描かない。",
+        "en": "Construction began in 1893. Rice logistics is the proposed 1986 theme, while period handling vehicles, building uses, quays and bridges remain unverified. Do not backdate the recent visitor-center use."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "山居倉庫インフォメーションセンターの現代看板",
+          "en": "Modern Sankyo information-center signs",
+          "reason": {
+            "ja": "センター開館は2025年。歴史的倉庫自体は残す。",
+            "en": "The center opened in 2025; retain the historical warehouses."
+          },
+          "sourceUrl": "https://www.city.sakata.lg.jp/mobile/bunka/bunkazai/bunkazaishisetsu/sankyosouko.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.sakata.lg.jp/bunka/bunkazai/bunkazaiinkai.files/seibisiryo1.pdf",
+          "title": "酒田市：山居倉庫 史跡の概要",
+          "support": {
+            "ja": "1893年からの建設、最上川河口と新井田川左岸の立地。",
+            "en": "Construction from 1893 and the Niida left-bank site by the Mogami mouth."
+          }
+        },
+        {
+          "url": "https://www.city.sakata.lg.jp/mobile/bunka/bunkazai/bunkazaishisetsu/syounaimai_siryoukan.html",
+          "title": "酒田市：庄内米歴史資料館",
+          "support": {
+            "ja": "ケヤキと二重屋根による米倉庫の防風・日射・湿気対策。",
+            "en": "Zelkova and double-roof measures protecting stored rice."
+          }
+        },
+        {
+          "url": "https://www.city.sakata.lg.jp/mobile/bunka/bunkazai/bunkazaishisetsu/sankyosouko.html",
+          "title": "酒田市：山居倉庫",
+          "support": {
+            "ja": "インフォメーションセンターの2025年4月14日開館。",
+            "en": "Information-center opening on April 14, 2025."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "07",
+      "prefecture": {
+        "ja": "福島県",
+        "en": "Fukushima"
+      },
+      "proposedTitle": {
+        "ja": "磐梯、黄金の上昇",
+        "en": "Bandai: Golden Climb"
+      },
+      "corridor": {
+        "ja": "設計案：会津側の磐梯町からゴールドラインを上り、猪苗代湖を振り返る山湖台方面と八方台に至る連続区間を選ぶ。集落の街路から森林のコーナーへ変化させる。",
+        "en": "Proposed design: climb Gold Line from Bandai on the Aizu side, selecting a continuous stage toward Sankodai and Happodai. Village streets transition to linked forest corners with Lake Inawashiro views."
+      },
+      "geography": {
+        "ja": "ゴールドラインは会津と磐梯高原を結び、猪苗代湖や磐梯山の火口壁を望む。八方台は道路の最高地点として案内されている。",
+        "en": "Gold Line connects Aizu and the Bandai highlands with views of Lake Inawashiro and Bandai crater walls. Happodai is identified as the road high point."
+      },
+      "periodNotes": {
+        "ja": "磐梯町の年表は開通を1970年に記録する。1986年の料金所・路肩・展望所を確認するまで現代設備は採用しない。急勾配や方位を捏造せず、区間選択で長さを調整する。",
+        "en": "Bandai town records the road opening in 1970. Check 1986 tollgates, shoulders and overlooks before adopting modern fixtures. Adjust length by selecting sections rather than inventing grades or orientation."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.fukushima.lg.jp/sec/41350a/goldline.html",
+          "title": "福島県：磐梯山ゴールドライン",
+          "support": {
+            "ja": "会津・磐梯高原を結ぶ道路と猪苗代湖、火口壁、八方台の地理。",
+            "en": "Road, Lake Inawashiro, crater-wall and Happodai geography."
+          }
+        },
+        {
+          "url": "https://www.town.bandai.fukushima.jp/site/machizukuri/nenpyo.html",
+          "title": "磐梯町：町制50年の歩み",
+          "support": {
+            "ja": "1970年のゴールドライン開通。",
+            "en": "Records Gold Line opening in 1970."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "08",
+      "prefecture": {
+        "ja": "茨城県",
+        "en": "Ibaraki"
+      },
+      "proposedTitle": {
+        "ja": "千波湖、梅の電波",
+        "en": "Senba Lake: Plum Radio"
+      },
+      "corridor": {
+        "ja": "設計案：千波湖の車道側から偕楽園下の道路へ回り、湖畔と市街路を接続する。梅林を遠景に置き、湖の歩行者園路を広い車道として創作しない。",
+        "en": "Proposed design: use carriageways around Lake Senba and below Kairakuen, linking waterfront and city streets. Keep the plum grove in the background and do not invent a road over lakeside footpaths."
+      },
+      "geography": {
+        "ja": "偕楽園は千波湖を望む北西側に位置し、湖と庭園を一体の眺めとして扱う。低い水面と台地側の緑の高さを走行画面に残す。",
+        "en": "Kairakuen lies northwest of Lake Senba and incorporates lake views into its setting. Preserve the contrast between low water and the higher green garden edge."
+      },
+      "periodNotes": {
+        "ja": "偕楽園は1842年開園。千波湖周辺整備計画は1986年に策定されたため、計画後の整備結果を完成済みとして使わない。1986年の湖岸形状・道路・遊園地周辺は追加調査が必要。",
+        "en": "Kairakuen opened in 1842. A Lake Senba improvement plan was adopted in 1986, so later completed works cannot be assumed for the race year. Period shorelines, roads and amusement-park surroundings require more research."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.mito.lg.jp/site/education/3717.html",
+          "title": "水戸市：常磐公園（偕楽園）",
+          "support": {
+            "ja": "1842年開園と千波湖を取り込む庭園景観。",
+            "en": "1842 opening and the garden relationship to Lake Senba."
+          }
+        },
+        {
+          "url": "https://www.city.mito.lg.jp/site/senbako/55226.html",
+          "title": "水戸市：千波湖と徳川家との関わり",
+          "support": {
+            "ja": "偕楽園が千波湖の北西に位置すること。",
+            "en": "Places Kairakuen northwest of Lake Senba."
+          }
+        },
+        {
+          "url": "https://www.city.mito.lg.jp/page/4397.html",
+          "title": "水戸市：偕楽園公園整備基本計画",
+          "support": {
+            "ja": "1986年策定の千波湖周辺整備計画。完成年の証明ではない。",
+            "en": "Dates the Lake Senba plan to 1986; does not establish completion dates."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "09",
+      "prefecture": {
+        "ja": "栃木県",
+        "en": "Tochigi"
+      },
+      "proposedTitle": {
+        "ja": "いろは、空への四十八",
+        "en": "Iroha: Forty-eight to the Sky"
+      },
+      "corridor": {
+        "ja": "設計案：馬返側から第二いろは坂を上り、中禅寺湖側で第一いろは坂に接続する山岳コース。全周を時間内に押し込めず、登りと下りを正しい方向で扱える区間か周回構成を調査する。",
+        "en": "Proposed design: ascend the Second Irohazaka from the Umagaeshi side and connect near Lake Chuzenji to the First Irohazaka descent. Research a feasible stage or loop while preserving road directions rather than compressing the entire route."
+      },
+      "geography": {
+        "ja": "いろは坂は日光から奥日光に上がる屈曲の多い山岳道路。県は第一・第二を合わせたカーブ数48と全長15.8kmを紹介している。",
+        "en": "Irohazaka is the winding mountain approach from Nikko toward Oku-Nikko. The prefecture describes 48 bends across the two roads and a combined 15.8 km length."
+      },
+      "periodNotes": {
+        "ja": "第一の全面改修は1954年、第二の開通は1965年。48という数は看板だけに使わず、当年の実線形を確認して配列を作る。1986年の交通方向・分岐・料金施設は別途確認する。",
+        "en": "The first road was rebuilt in 1954 and the second opened in 1965. Establish the period corner sequence from alignment evidence rather than using 48 only as decoration. Confirm 1986 directions, junctions and toll facilities separately."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.tochigi.lg.jp/h53/system/desaki/desaki/1182157078006.html",
+          "title": "栃木県：神々に通じる道「いろは坂」",
+          "support": {
+            "ja": "1954年改修、1965年第二開通、カーブ数と道路史。測量座標は示さない。",
+            "en": "1954 rebuilding, 1965 second-road opening, bend count and road history; no surveyed corner coordinates."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "10",
+      "prefecture": {
+        "ja": "群馬県",
+        "en": "Gunma"
+      },
+      "proposedTitle": {
+        "ja": "榛名、湯けむりの切り返し",
+        "en": "Haruna: Steam Switchback"
+      },
+      "corridor": {
+        "ja": "設計案：伊香保温泉街の車道から榛名湖へ向かう山道を上り、湖畔で視界が開ける区間を選ぶ。石段街は車道ではなく、脇の温泉街の人物・提灯・湯気の背景とする。",
+        "en": "Proposed design: climb from Ikaho carriageways toward Lake Haruna, ending where the lakeshore opens the view. The stone-step street remains scenery with people, lanterns and steam rather than a drivable staircase."
+      },
+      "geography": {
+        "ja": "伊香保は榛名山麓の温泉地。榛名湖は榛名富士などの山々と広葉樹林に囲まれる。温泉街の密度から湖岸の開放感への変化が候補の特徴。",
+        "en": "Ikaho is a hot-spring settlement below Mount Haruna. Lake Haruna is enclosed by wooded peaks including Haruna Fuji. The candidate contrasts dense resort streets with an open lakeshore."
+      },
+      "periodNotes": {
+        "ja": "現代の365段の石段をそのまま使わない。市の2010年記録は315段から365段への延伸を明記する。1986年の山道の接続、旅館看板、石段下部は航空写真・温泉街資料で確認する。",
+        "en": "Do not copy the modern 365-step arrangement. A 2010 city record documents extension from 315 to 365 steps. Verify 1986 road connections, inn signs and the lower staircase using aerials and resort records."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "365段に延伸された石段下部",
+          "en": "Extended lower section of the 365-step staircase",
+          "reason": {
+            "ja": "延伸完成は2010年。",
+            "en": "The extension was completed in 2010."
+          },
+          "sourceUrl": "https://www.city.shibukawa.lg.jp/manage/contents/upload/5f6d370444daa.pdf"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.shibukawa.lg.jp/kankou/000357/000360/p000311.html",
+          "title": "渋川市：榛名湖・榛名山",
+          "support": {
+            "ja": "湖と周囲の山・広葉樹林という地形。",
+            "en": "Lake, surrounding peaks and broadleaf-forest setting."
+          }
+        },
+        {
+          "url": "https://www.city.shibukawa.lg.jp/manage/contents/upload/5f6d36b2751f8.pdf",
+          "title": "渋川市：新市建設計画 伊香保地域",
+          "support": {
+            "ja": "榛名山麓の温泉保養地という立地。",
+            "en": "Hot-spring settlement at the foot of Haruna."
+          }
+        },
+        {
+          "url": "https://www.city.shibukawa.lg.jp/manage/contents/upload/5f6d370444daa.pdf",
+          "title": "渋川市議会だより：2010年8月1日",
+          "support": {
+            "ja": "2010年7月4日の石段延伸完成記念、315段から365段への変更。",
+            "en": "July 4, 2010 extension ceremony and change from 315 to 365 steps."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "11",
+      "prefecture": {
+        "ja": "埼玉県",
+        "en": "Saitama"
+      },
+      "proposedTitle": {
+        "ja": "長瀞、岩畳の周波数",
+        "en": "Nagatoro: Stone Frequencies"
+      },
+      "corridor": {
+        "ja": "設計案：長瀞駅周辺の街路から荒川沿いの長瀞・親鼻方面の既存道路へつなぐ。岩畳を川越しや街路の隙間に見せ、岩畳や川下り歩道を車道として走らせない。",
+        "en": "Proposed design: link streets around Nagatoro Station with existing roads toward Oyahana along the Arakawa. Reveal Iwadatami rocks across the river or through street gaps without driving over rock terraces or river-tour paths."
+      },
+      "geography": {
+        "ja": "町は荒川両岸に広がり、旧親鼻橋から旧高砂橋に至る区間には岩石段丘・岩畳を持つ渓谷がある。峡谷の側壁と小さな市街地の境を活かす。",
+        "en": "The town spans the Arakawa, with rock terraces and the Iwadatami gorge in the reach between the former Oyahana and Takasago bridges. Use the transition between gorge walls and compact settlement."
+      },
+      "periodNotes": {
+        "ja": "町の沿革は自然地形と保護区域の位置を支えるが、1986年の橋の位置・架替え時期・交通規制を確定しない。駅前商店と鉄道設備を当時の資料で確認し、現代の観光装飾を遡及させない。",
+        "en": "The town history supports landforms and the protected reach, not 1986 bridge positions, reconstruction dates or traffic rules. Check period station shops and railway structures rather than backdating modern tourist decoration."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.town.nagatoro.saitama.jp/nagatoro-2/rekishi/",
+          "title": "長瀞町：町の位置・歴史・町章",
+          "support": {
+            "ja": "荒川両岸の地理、旧親鼻橋〜旧高砂橋の保存区域、岩畳。",
+            "en": "Arakawa geography, the protected former Oyahana–Takasago reach and rock terraces."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "12",
+      "prefecture": {
+        "ja": "千葉県",
+        "en": "Chiba"
+      },
+      "proposedTitle": {
+        "ja": "犬吠埼、太平洋の白線",
+        "en": "Inubosaki: Pacific White Line"
+      },
+      "corridor": {
+        "ja": "設計案：君ケ浜沿いの道路から犬吠埼灯台の外周車道へ回り、外川の漁港側街路へ下る海岸区間。灯台の門内や遊歩道ではなく、実在する車道の接続を調査する。",
+        "en": "Proposed design: follow the Kimigahama coast road outside Inubosaki Lighthouse, then descend toward Tokawa fishing-port streets. Research real carriageway connections, not lighthouse grounds or footpaths."
+      },
+      "geography": {
+        "ja": "犬吠埼灯台は銚子の太平洋岸に立つレンガ造の灯台。岬、海岸、漁港へ移る地形を、横風区間と締まった町角の対比に使う。",
+        "en": "The brick Inubosaki Lighthouse stands on the Pacific coast of Choshi. The cape-to-coast-to-port setting supports a proposed contrast between crosswind stretches and tight town corners."
+      },
+      "periodNotes": {
+        "ja": "灯台は1874年点灯、戦後のレンズ復旧は1951年。1987年の基礎耐震補強、2006年の灯器免震装置を1986年の仕様と混同しない。沿岸道路と当時の漁港施設は未確定。",
+        "en": "The lighthouse first lit in 1874, with lens restoration in 1951. Do not confuse its 1986 state with 1987 foundation strengthening or 2006 lens isolation works. Period coastal roads and port fixtures remain unverified."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "2006年に設置された灯器免震装置",
+          "en": "Lens isolation equipment installed in 2006",
+          "reason": {
+            "ja": "内部を描く場合も1986年へ遡及させない。",
+            "en": "Do not backdate this equipment even in interior artwork."
+          },
+          "sourceUrl": "https://www.kaiho.mlit.go.jp/03kanku/choshi/inubo/menshin/index.htm"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.kaiho.mlit.go.jp/03kanku/choshi/inubo/140th/index.html",
+          "title": "銚子海上保安部：犬吠埼灯台点灯140周年",
+          "support": {
+            "ja": "1874年点灯と1987年の灯塔基礎耐震補強。",
+            "en": "1874 first lighting and 1987 foundation reinforcement."
+          }
+        },
+        {
+          "url": "https://www.kaiho.mlit.go.jp/03kanku/choshi/inubo/menshin/index.htm",
+          "title": "銚子海上保安部：犬吠埼灯台 免震装置",
+          "support": {
+            "ja": "1951年レンズ復旧と2006年免震装置工事。",
+            "en": "1951 lens restoration and 2006 isolation installation."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "13",
+      "prefecture": {
+        "ja": "東京都",
+        "en": "Tokyo"
+      },
+      "proposedTitle": {
+        "ja": "靖國神社で会おう",
+        "en": "Meet Me at Yasukuni"
+      },
+      "corridor": {
+        "ja": "既存案を維持：俎橋→靖国通り→靖国神社前→九段坂上→千鳥ヶ淵西側→半蔵門→三宅坂→国会議事堂正面の街路→霞が関→日比谷→内堀東側→竹橋→俎橋。world/authoring/tokyo-1986.json と同じ候補で、神社・国会の敷地内は通らない。",
+        "en": "Preserve the existing candidate: Manaita-bashi → Yasukuni-dori → shrine frontage → Kudanzakaue → west Chidorigafuchi → Hanzomon → Miyakezaka → street facing the Diet → Kasumigaseki → Hibiya → east moat → Takebashi → Manaita-bashi. This is world/authoring/tokyo-1986.json; it does not enter shrine or Diet grounds."
+      },
+      "geography": {
+        "ja": "九段坂の上り、濠沿いの曲線、三宅坂の下り、永田町の台地と日比谷側の低地をつなぐ都心の地形。",
+        "en": "The central-city corridor links the Kudanzaka climb, moat bends, Miyakezaka descent and transition from higher Nagatacho toward Hibiya."
+      },
+      "periodNotes": {
+        "ja": "第一鳥居は1974年再建、遊就館は1986年7月再開、国会議事堂は1936年完成。編集中ジオメトリは概略で、1984〜1986年航空写真による全接続・標高・幅員確認は未完了。指定音源254.952秒に合わせる設計を引き継ぐ。",
+        "en": "The first torii was rebuilt in 1974, Yushukan reopened in July 1986, and the Diet was completed in 1936. Authored geometry remains approximate; full junction, elevation and width checks against 1984–1986 aerials are incomplete. Preserve the supplied 254.952-second music target."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "遊就館の2002年新館",
+          "en": "Yushukan wing completed in 2002",
+          "reason": {
+            "ja": "新館新築工事は2002年7月竣工。",
+            "en": "The new wing was completed in July 2002."
+          },
+          "sourceUrl": "https://www.yasukuni.or.jp/history/history.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.chiyoda.lg.jp/koho/kuse/gaiyo/yokoso/saka.html",
+          "title": "千代田区：千代田区内の坂",
+          "support": {
+            "ja": "九段坂・三宅坂・茱萸坂等の位置と傾斜方向。",
+            "en": "Positions and slope directions of Kudanzaka, Miyakezaka and Gumizaka."
+          }
+        },
+        {
+          "url": "https://www.yasukuni.or.jp/history/history.html",
+          "title": "靖國神社：靖國神社史",
+          "support": {
+            "ja": "1974年鳥居再建、1986年7月遊就館再開、2002年新館。",
+            "en": "1974 torii rebuilding, July 1986 Yushukan reopening and 2002 new wing."
+          }
+        },
+        {
+          "url": "https://www.shugiin.go.jp/internet/itdb_annai.nsf/html/statics/kokkai/sisetu.htm",
+          "title": "衆議院：国会施設案内",
+          "support": {
+            "ja": "1936年完成と建物寸法。道路測量は含まない。",
+            "en": "1936 completion and building dimensions; not a road survey."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "14",
+      "prefecture": {
+        "ja": "神奈川県",
+        "en": "Kanagawa"
+      },
+      "proposedTitle": {
+        "ja": "横浜、港の約束",
+        "en": "Yokohama: Harbor Promise"
+      },
+      "corridor": {
+        "ja": "設計案：山下公園通りを軸に日本大通り・関内側へ折れ、港に戻る都市レース。海際の直線、官庁街の交差点、倉庫側のコーナーを組み合わせる。",
+        "en": "Proposed design: use Yamashita Park Street as the spine, turn into Nihon-odori and Kannai streets, then return toward the port. Combine waterfront straights, civic-district intersections and warehouse-side corners."
+      },
+      "geography": {
+        "ja": "山下公園は震災復興の埋立てで造られた臨海公園。公園と日本大通りに面する街区は港町の歴史的な中心を構成する。",
+        "en": "Yamashita Park is reclaimed waterfront created during earthquake reconstruction. Blocks facing it and Nihon-odori form part of the historic port center."
+      },
+      "periodNotes": {
+        "ja": "山下公園は1930年開園。横浜ベイブリッジは1989年開通で、完成形を1986年の背景に置かない。埠頭・倉庫の用途や山下臨港線の扱いは1986年航空写真で確認する。",
+        "en": "Yamashita Park opened in 1930. The completed Bay Bridge, opened in 1989, cannot appear as an operating 1986 bridge. Verify wharf and warehouse uses and the Yamashita freight-line setting with period aerials."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "開通済みの横浜ベイブリッジ",
+          "en": "Completed operating Yokohama Bay Bridge",
+          "reason": {
+            "ja": "開通は1989年。1986年の建設状態には別資料が必要。",
+            "en": "It opened in 1989; depicting 1986 construction requires separate evidence."
+          },
+          "sourceUrl": "https://www.city.yokohama.lg.jp/city-info/yokohamashi/gaiyo/ayumi/chronological-table.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.yokohama.lg.jp/kurashi/machizukuri-kankyo/midori-koen/koen/koen/daihyoteki/kouen008.html",
+          "title": "横浜市：山下公園",
+          "support": {
+            "ja": "震災復興による埋立てと1930年開園。現代の花壇・設備は別。",
+            "en": "Reclamation history and 1930 opening, separate from modern planting and fixtures."
+          }
+        },
+        {
+          "url": "https://www.city.yokohama.lg.jp/kurashi/machizukuri-kankyo/toshiseibi/toshin/kannaikangai/kannai.html",
+          "title": "横浜市：関内・関外周辺地区",
+          "support": {
+            "ja": "山下公園・日本大通りを軸にした街区関係。",
+            "en": "District relationship around Yamashita Park and Nihon-odori."
+          }
+        },
+        {
+          "url": "https://www.city.yokohama.lg.jp/city-info/yokohamashi/gaiyo/ayumi/chronological-table.html",
+          "title": "横浜市：横浜市のあゆみ 略年表",
+          "support": {
+            "ja": "横浜ベイブリッジ開通は1989年。",
+            "en": "Dates Bay Bridge opening to 1989."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "15",
+      "prefecture": {
+        "ja": "新潟県",
+        "en": "Niigata"
+      },
+      "proposedTitle": {
+        "ja": "萬代、川風のアーチ",
+        "en": "Bandai: Riverwind Arches"
+      },
+      "corridor": {
+        "ja": "設計案：萬代橋で信濃川を渡り、両岸の市街路に鋭い接続コーナーを置く。橋を短縮せず、古町側と駅側の街路から資料で確認できる閉路を選ぶ。",
+        "en": "Proposed design: cross the Shinano on Bandai Bridge with sharp connecting corners on city streets at each bank. Preserve the bridge span and research a closed route through the Furumachi and station sides."
+      },
+      "geography": {
+        "ja": "萬代橋は信濃川下流の両岸を結ぶ。大河津分水後の改修で川幅が縮まり、現在につながる三代目の橋が建設された。",
+        "en": "Bandai Bridge connects the lower Shinano banks. River works following the Okozu diversion narrowed the channel and enabled the third bridge."
+      },
+      "periodNotes": {
+        "ja": "三代目は1929年完成。2004年に建設当初の意匠へ復元された照明灯・橋側灯を1986年の姿と誤認しない。当年の塗装、道路標示、河岸整備、建物の高さは写真資料待ち。",
+        "en": "The third bridge was completed in 1929. Lighting restored to original designs in 2004 does not prove its 1986 appearance. Paint, markings, embankments and building heights need period photographs."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "2004年復元仕様の萬代橋照明を無検証で使用",
+          "en": "Unverified use of Bandai lighting restored in 2004",
+          "reason": {
+            "ja": "1929年意匠への復元で、1986年に同じ照明があった証明ではない。",
+            "en": "Restoration to 1929 designs does not prove those fixtures existed in 1986."
+          },
+          "sourceUrl": "https://www.hrr.mlit.go.jp/niikoku/bandaibridge/about2.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.hrr.mlit.go.jp/niikoku/bandaibridge/about2.html",
+          "title": "国土交通省：萬代橋の概要と歴史",
+          "support": {
+            "ja": "信濃川の改修、1929年三代目竣工、2004年照明復元。",
+            "en": "River modification, 1929 third-bridge completion and 2004 lighting restoration."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "16",
+      "prefecture": {
+        "ja": "富山県",
+        "en": "Toyama"
+      },
+      "proposedTitle": {
+        "ja": "新湊、内川の合図",
+        "en": "Shinminato: Uchikawa Signal"
+      },
+      "corridor": {
+        "ja": "設計案：内川沿い、八幡町・中新湊の街路から漁港側へ抜ける小さな港町コース。橋を使う場合は各橋の1986年構造を確認し、現代の装飾橋を自動採用しない。",
+        "en": "Proposed design: connect Uchikawa-side streets in Hachimanmachi and Nakashinminato toward the fishing harbor. Any crossing requires evidence of the 1986 bridge structure rather than automatic use of modern decorative bridges."
+      },
+      "geography": {
+        "ja": "内川の両岸には漁船が係留され、港の仕事と住宅街が近接する。水路と家並みの間隔が近い街路を主題にする。",
+        "en": "Fishing boats moor on both Uchikawa banks, bringing working waterfront and residential streets together. The candidate emphasizes close canal-and-house spacing."
+      },
+      "periodNotes": {
+        "ja": "1986年の地域名は新湊側を用いる。新湊大橋は1986年に港湾計画決定、車道開通は2012年。計画中の橋を完成済みとして描かず、古い内川の橋と漁船を個別調査する。",
+        "en": "Use period Shinminato locality naming. The bridge port plan dates to 1986 and road opening to 2012. Do not turn a planned bridge into completed scenery; research older Uchikawa bridges and fishing craft individually."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "新湊大橋",
+          "en": "Shinminato Bridge",
+          "reason": {
+            "ja": "車道開通は2012年。",
+            "en": "The road deck opened in 2012."
+          },
+          "sourceUrl": "https://www.pref.toyama.jp/1545/kendodukuri/dourokouwan/kouwan/kj00020637.html"
+        },
+        {
+          "ja": "海王丸パークの展示景観",
+          "en": "Kaiwomaru Park display setting",
+          "reason": {
+            "ja": "公園開業は1992年。",
+            "en": "The park opened in 1992."
+          },
+          "sourceUrl": "https://www.city.imizu.toyama.jp/guide/svguidedtl.aspx?servno=4897"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.imizu.toyama.jp/appupload/EDIT/126/126559.pdf",
+          "title": "射水市：観光ガイド 内川",
+          "support": {
+            "ja": "両岸の漁船と生活に近い港町という地理。現代観光施設は年代資料ではない。",
+            "en": "Boats on both banks and working-port geography; contemporary visitor facilities are not period evidence."
+          }
+        },
+        {
+          "url": "https://www.pref.toyama.jp/1545/kendodukuri/dourokouwan/kouwan/kj00020637.html",
+          "title": "富山県：新湊大橋",
+          "support": {
+            "ja": "1986年港湾計画決定、2012年9月23日車道開通。",
+            "en": "1986 port-plan decision and September 23, 2012 road opening."
+          }
+        },
+        {
+          "url": "https://www.city.imizu.toyama.jp/guide/svguidedtl.aspx?servno=4897",
+          "title": "射水市：富山新港のあゆみ",
+          "support": {
+            "ja": "海王丸パークは1992年7月5日開業。",
+            "en": "Kaiwomaru Park opened on July 5, 1992."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "17",
+      "prefecture": {
+        "ja": "石川県",
+        "en": "Ishikawa"
+      },
+      "proposedTitle": {
+        "ja": "金沢、犀川の鉄の空",
+        "en": "Kanazawa: Steel Sky"
+      },
+      "corridor": {
+        "ja": "設計案：片町から犀川大橋を渡り、野町・千日町側へ折れる市街地レース。橋のトラスを速度の基準にし、街角で減速させる。閉路の戻りは当時の道路図から選ぶ。",
+        "en": "Proposed design: cross Saigawa Ohashi from Katamachi, turning into Nomachi and Sennichimachi streets. Use the truss as a speed reference and corners for braking; choose the return link from period road maps."
+      },
+      "geography": {
+        "ja": "犀川大橋は片町と野町・千日町を結ぶ国道157号のトラス橋。川と商業街が接する位置で、構造物をくぐる感覚を作れる。",
+        "en": "Saigawa Ohashi is the Route 157 truss bridge linking Katamachi with Nomachi and Sennichimachi where river and commercial streets meet."
+      },
+      "periodNotes": {
+        "ja": "鉄橋は1924年完成。現在の青色グラデーション、ベンチ等を備えた歩道、レトロ調照明は1994年改修の記録と区別する。1986年の橋色と商店の外観を古写真で確認する。",
+        "en": "The steel bridge was completed in 1924. Distinguish the 1994 blue-gradient paint, sidewalk amenities and retro lighting from the period target. Confirm 1986 bridge color and shop facades using historical photographs."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "1994年改修後の犀川大橋の色・歩道意匠",
+          "en": "Post-1994 Saigawa bridge paint and sidewalk design",
+          "reason": {
+            "ja": "青色グラデーションと歩道設備は1994年改修の説明。",
+            "en": "The source associates the blue gradient and sidewalk amenities with the 1994 alterations."
+          },
+          "sourceUrl": "https://www.hrr.mlit.go.jp/kanazawa/road/saigawa/about/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.hrr.mlit.go.jp/kanazawa/road/saigawa/about/",
+          "title": "国土交通省：犀川大橋について",
+          "support": {
+            "ja": "1924年竣工、所在地と路線、1994年の色と歩道・照明改修。",
+            "en": "1924 completion, location/route and 1994 paint, sidewalk and lighting alterations."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "18",
+      "prefecture": {
+        "ja": "福井県",
+        "en": "Fukui"
+      },
+      "proposedTitle": {
+        "ja": "五湖、海へほどける空",
+        "en": "Five Lakes: Opening to the Sea"
+      },
+      "corridor": {
+        "ja": "設計案：レインボーラインの旧日向料金所側から梅丈岳山麓を経て海山側へ進む区間レース。湖と若狭湾が交互に現れる稜線を使い、山頂公園の園路は走らない。",
+        "en": "Proposed design: take the old Hiruga tollgate side of Rainbow Line around Mount Baijodake toward Umiyama. Alternate lake and Wakasa Bay views on the ridge; do not drive summit-park paths."
+      },
+      "geography": {
+        "ja": "三方五湖は久々子湖・日向湖・三方湖・水月湖・菅湖で構成され、若狭湾のリアス海岸と隣り合う。湖側と海側の視界の切替えが特徴。",
+        "en": "The five lakes are Kugushi, Hiruga, Mikata, Suigetsu and Suga beside the ria coast of Wakasa Bay. The landscape alternates lake-facing and sea-facing views."
+      },
+      "periodNotes": {
+        "ja": "レインボーライン完成は1968年5月。2022年の無料化・終点延長後の案内を1986年の条件にしない。旧料金所と当時の道路幅・防護柵の資料を確認する。",
+        "en": "Rainbow Line was completed in May 1968. Its 2022 toll removal and endpoint extension cannot define 1986 conditions. Verify old tollgates, widths and barriers from period records."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "2022年延長後の終点・無料道路案内",
+          "en": "Post-2022 endpoint and toll-free signage",
+          "reason": {
+            "ja": "終点延長と無料化は2022年。",
+            "en": "The extension and toll removal date to 2022."
+          },
+          "sourceUrl": "https://www.pref.fukui.lg.jp/doc/douken/rainbowline.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.pref.fukui.lg.jp/doc/koueikigyo/ayumi.html",
+          "title": "福井県：公営企業のあゆみ",
+          "support": {
+            "ja": "1968年5月の三方五湖有料道路完成。",
+            "en": "Dates completion of the toll road to May 1968."
+          }
+        },
+        {
+          "url": "https://www.pref.fukui.lg.jp/doc/douken/rainbowline.html",
+          "title": "福井県：レインボーラインの通行料無料化",
+          "support": {
+            "ja": "湖・海岸・道路の関係、2022年無料化と田井への終点延長。",
+            "en": "Lake/coast/road relationship, 2022 toll removal and endpoint extension to Tai."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "19",
+      "prefecture": {
+        "ja": "山梨県",
+        "en": "Yamanashi"
+      },
+      "proposedTitle": {
+        "ja": "河口湖、富士の反射",
+        "en": "Kawaguchiko: Fuji Reflection"
+      },
+      "corridor": {
+        "ja": "設計案：河口湖大橋を渡り、湖東部の湖岸道路と船津側の街路をつなぐ。橋の見通しから旅館街のコーナーへ切り替え、富士山は道路方位に応じた位置に置く。",
+        "en": "Proposed design: cross Kawaguchiko Ohashi and connect eastern lakeshore roads with Funatsu streets. Transition from bridge sightlines to resort-town corners, placing Mount Fuji according to road orientation."
+      },
+      "geography": {
+        "ja": "富士山北麓の河口湖を軸に、湖面・橋・山麓の町を組み合わせる候補。山の方位と遮蔽は地形図で確定する必要がある。",
+        "en": "The candidate combines Lake Kawaguchi at the northern foot of Fuji with its bridge and foothill town. Exact mountain orientation and occlusion require topographic confirmation."
+      },
+      "periodNotes": {
+        "ja": "河口湖大橋は1971年4月19日開通。橋の存在は1986年に適合するが、接続道路・料金設備・ホテルの高さは別資料が必要。1966年の河口湖町史は追加調査先で、本文は未調査。",
+        "en": "The bridge opened on April 19, 1971. Its existence fits 1986, but connectors, toll facilities and hotel heights need separate evidence. The 1966 town history is a further lead, not a reviewed source for geometry."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.yamanashi.jp/info/01492231835.html",
+          "title": "山梨県：山梨の歴史 1970〜1980年",
+          "support": {
+            "ja": "1971年4月19日の河口湖大橋開通。",
+            "en": "Records the April 19, 1971 bridge opening."
+          }
+        },
+        {
+          "url": "https://www.env.go.jp/park/fujihakone/data/files/enlight_flyer02.pdf",
+          "title": "環境省：富士山北麓（河口湖・西湖周辺）の国立公園 地種区分図",
+          "support": {
+            "ja": "河口湖を富士山北麓に位置付ける地理。現代の公園区分は1986年の指定状況を示さない。",
+            "en": "Places Lake Kawaguchi at the northern foot of Fuji; current park zoning does not establish 1986 designations."
+          }
+        },
+        {
+          "url": "https://digi.lib.pref.yamanashi.jp/da/detail?tilcod=0000000016-YMNS0120208",
+          "title": "山梨県立図書館：河口湖町史 書誌",
+          "support": {
+            "ja": "1966年刊の町史の存在のみ確認。本文や図版は未確認。",
+            "en": "Catalog confirms a 1966 town history; its text and illustrations have not been reviewed."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "20",
+      "prefecture": {
+        "ja": "長野県",
+        "en": "Nagano"
+      },
+      "proposedTitle": {
+        "ja": "霧ヶ峰、雲を切る音",
+        "en": "Kirigamine: Sound Above Clouds"
+      },
+      "corridor": {
+        "ja": "設計案：白樺湖側からビーナスラインで車山高原・霧ヶ峰へ向かう連続区間。湖畔の建物から高原の開けたカーブに移り、長すぎる場合は実在する区間を切り出す。",
+        "en": "Proposed design: follow a continuous Venus Line section from Lake Shirakaba toward Kurumayama and Kirigamine. Lakeside buildings give way to exposed highland bends; select a real subsection if it is too long."
+      },
+      "geography": {
+        "ja": "ビーナスラインは白樺湖から車山高原、霧ヶ峰、美ヶ原へ通じる山岳観光道路として建設された。森林と草原の境目、稜線の起伏を重視する。",
+        "en": "Venus Line was built from Lake Shirakaba through Kurumayama and Kirigamine toward Utsukushigahara. Emphasize the forest–grassland edge and rolling ridges."
+      },
+      "periodNotes": {
+        "ja": "県企業局の記録では霧ヶ峰線の全線開通は1968年。現在の無料道路状態や駐車場設備を遡及させず、1986年の料金所、眺望を遮る樹木、道路幅を確認する。",
+        "en": "The enterprise bureau dates the full Kirigamine-line opening to 1968. Do not backdate modern toll-free conditions or parking facilities; verify 1986 gates, vegetation and widths."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.nagano.lg.jp/kigyo/kensei/soshiki/soshiki/kencho/kigyokyoku/sogojoho/documents/07_60thhensen.pdf",
+          "title": "長野県企業局：霧ヶ峰有料道路／ビーナスライン",
+          "support": {
+            "ja": "白樺湖・車山・霧ヶ峰の道路関係、1968年霧ヶ峰線全通、有料道路史。",
+            "en": "Road relationship from Shirakaba through Kurumayama and Kirigamine, 1968 full opening and toll-road history."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "21",
+      "prefecture": {
+        "ja": "岐阜県",
+        "en": "Gifu"
+      },
+      "proposedTitle": {
+        "ja": "飛騨、格子戸のビート",
+        "en": "Hida: Lattice Beat"
+      },
+      "corridor": {
+        "ja": "設計案：高山の三町の外縁から宮川沿い・本町側の道路に出る街路レース。低い軒、短い交差点、川を渡る視界を組み合わせる。狭い保存地区をレーン数だけ広げて再現しない。",
+        "en": "Proposed design: connect the edge of Sanmachi to Miyagawa-side and Honmachi roads. Combine low-eaved houses, short junctions and river-crossing views without widening heritage streets into invented multilane roads."
+      },
+      "geography": {
+        "ja": "高山の城下町は宮川と江名子川に囲まれて形成され、東の高台と西の低地で街の性格が異なる。三町には低い軒を連ねる町家が残る。",
+        "en": "The castle town developed between the Miyagawa and Enako rivers with contrasting eastern high ground and western lowland. Sanmachi retains rows of low-eaved townhouses."
+      },
+      "periodNotes": {
+        "ja": "三町の国選定は1979年。市はその後の修景・防災・無電柱化を記録しているため、現代の電線の無い観光景観をそのまま1986年に移さない。電柱・橋・商店用途を古写真で照合する。",
+        "en": "Sanmachi was selected for national preservation in 1979. The city describes later restoration, fire-safety and utility undergrounding, so modern wire-free streets cannot simply stand for 1986. Cross-check poles, bridges and shop uses."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.takayama.lg.jp/kurashi/1000021/1000119/1023241/index.html",
+          "title": "高山市：伝統的建造物群保存地区",
+          "support": {
+            "ja": "1979年三町選定、町家の特徴、その後の修景・無電柱化。",
+            "en": "1979 selection, townhouse characteristics and later restoration/undergrounding."
+          }
+        },
+        {
+          "url": "https://www.city.takayama.lg.jp/_res/projects/default_project/_page_/001/023/241/sanmachi_hozonkeikaku.pdf",
+          "title": "高山市：三町伝統的建造物群保存地区保存計画",
+          "support": {
+            "ja": "宮川・江名子川、東側高地・西側低地の城下町地理。",
+            "en": "Castle-town geography between the Miyagawa and Enako, with eastern high ground and western lowland."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "22",
+      "prefecture": {
+        "ja": "静岡県",
+        "en": "Shizuoka"
+      },
+      "proposedTitle": {
+        "ja": "伊豆、二つの海の空",
+        "en": "Izu: Sky Between Two Seas"
+      },
+      "corridor": {
+        "ja": "設計案：熱海峠から伊豆スカイラインに入り、滝知山・玄岳方面へ進む区間。稜線のカーブと切通しを組み合わせる。熱海市街からの接続を加える場合は距離と当時の道路を別途調査する。",
+        "en": "Proposed design: enter Izu Skyline at Atami Pass and choose a stage toward Takichiyama and Kurotake. Combine ridge bends and cuttings; adding an Atami-town approach requires separate period-road and distance research."
+      },
+      "geography": {
+        "ja": "伊豆スカイラインは熱海峠から天城高原へ延び、相模湾・駿河湾・富士山を望む。二つの湾の方向を交換せず、尾根による遮蔽と視界の開閉を反映する。",
+        "en": "Izu Skyline runs from Atami Pass toward Amagi Highlands with views of Sagami Bay, Suruga Bay and Fuji. Preserve the bay directions and ridge occlusion when opening and closing views."
+      },
+      "periodNotes": {
+        "ja": "県立図書館は1965年の「伊豆スカイラインの建設記録」を、完成道路を記録した作品として収蔵する。書誌のみ確認済みで映像は未見。1986年の線形・料金所は道路台帳と航空写真で確定する。",
+        "en": "The prefectural library catalogs the 1965 Izu Skyline construction record as documenting the completed road. Only the catalog was reviewed, not the film. Establish 1986 alignment and tollgates from road records and aerials."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.siz-road.or.jp/road/izusk/",
+          "title": "静岡県道路公社：伊豆スカイラインのご案内",
+          "support": {
+            "ja": "熱海峠・滝知山・玄岳の順序と両湾・富士山の地理。現代設備は1986年未確認。",
+            "en": "Atami Pass–Takichiyama–Kurotake sequence and two-bay/Fuji geography; modern facilities remain unverified for 1986."
+          }
+        },
+        {
+          "url": "https://www.tosyokan.pref.shizuoka.jp/licsxp-opac/WOpacTifTilListToTifTilDetailAction.do?tilcod=3006000000466&urlNotFlag=1",
+          "title": "静岡県立図書館：伊豆スカイラインの建設記録",
+          "support": {
+            "ja": "1965年、静岡県広報協会制作、16mm映像の媒体変換資料という書誌。未視聴。",
+            "en": "Catalog dates the prefectural publicity association production to 1965 and identifies a transferred 16 mm film; footage not reviewed."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "23",
+      "prefecture": {
+        "ja": "愛知県",
+        "en": "Aichi"
+      },
+      "proposedTitle": {
+        "ja": "名古屋、テレビ塔の空",
+        "en": "Nagoya: Television Sky"
+      },
+      "corridor": {
+        "ja": "設計案：名古屋テレビ塔を望む久屋大通から、錦通・広小路通側へ折れる都心レース。中央緑地を挟む道路と直角コーナーで加速と制動の差を明確にする。",
+        "en": "Proposed design: run Hisaya-odori in view of Nagoya TV Tower, turning into streets toward Nishiki-dori and Hirokoji-dori. Carriageways around the green strip and right-angle corners emphasize acceleration and braking."
+      },
+      "geography": {
+        "ja": "テレビ塔は久屋大通の中央に位置し、戦後の大通りと公園が都心を縦断する。高い塔と広い街路を、近接する店舗・バス停の大きさと対比させる。",
+        "en": "The TV tower stands in the middle of the postwar Hisaya-odori boulevard and park axis. Contrast tower and broad street with nearby shops and bus stops."
+      },
+      "periodNotes": {
+        "ja": "テレビ塔は1954年完成・開業。栄公園再整備の覚書は1986年だが、オアシス21は2002年開業。旧栄公園、旧文化会館、当時の放送会館の位置を1986年資料で確定し、再整備後の配置を使わない。",
+        "en": "The TV tower opened in 1954. The Sakae redevelopment memorandum dates to 1986, but Oasis 21 opened in 2002. Verify the old park, cultural hall and broadcasting-building locations from period evidence instead of using rearranged sites."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "オアシス21・水の宇宙船",
+          "en": "Oasis 21 and its Water Spaceship roof",
+          "reason": {
+            "ja": "2002年完成・開業。",
+            "en": "Completed and opened in 2002."
+          },
+          "sourceUrl": "https://www.sakaepark.co.jp/company/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.nagoya.jp/naka/miryoku/1021146/1033230/1035924.html",
+          "title": "名古屋市中区：名古屋テレビ塔",
+          "support": {
+            "ja": "1954年完成・開業と久屋大通のテレビ塔史。",
+            "en": "1954 completion/opening and the tower history at Hisaya-odori."
+          }
+        },
+        {
+          "url": "https://www.city.nagoya.jp/shisei/keikaku/1009818/1009928/1010025/1010026.html",
+          "title": "名古屋市：オアシス21",
+          "support": {
+            "ja": "1986年再整備覚書と旧公園・文化施設の敷地交換。",
+            "en": "1986 redevelopment memorandum and relocation of old park/cultural-facility sites."
+          }
+        },
+        {
+          "url": "https://www.sakaepark.co.jp/company/",
+          "title": "栄公園振興株式会社：会社概要",
+          "support": {
+            "ja": "施設運営者による2002年10月開業記録。",
+            "en": "Facility operator records opening in October 2002."
+          }
+        }
+      ],
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    }
+  ]
+}

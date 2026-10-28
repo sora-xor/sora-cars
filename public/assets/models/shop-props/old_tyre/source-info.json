@@ -1,0 +1,58 @@
+{
+  "donated": true,
+  "name": "Old Tyre",
+  "type": 2,
+  "authors": {
+    "MP": "All"
+  },
+  "info": null,
+  "date_published": 1698624000,
+  "staging": null,
+  "categories": [
+    "industrial",
+    "props",
+    "collection: hidden_alley"
+  ],
+  "tags": [
+    "wheels",
+    "wheel",
+    "trash",
+    "garbage",
+    "garage",
+    "scrapyard",
+    "junkyard",
+    "abandoned",
+    "automotive",
+    "car",
+    "vehicle"
+  ],
+  "max_resolution": [
+    4096,
+    4096
+  ],
+  "polycount": 2880,
+  "texel_density": 3402.509610901198,
+  "dimensions": [
+    600.0000238418579,
+    164.99999910593033,
+    600.0000238418579
+  ],
+  "files_hash": "8b7362724dd9d54081fe99703e32f434f75d1f0e",
+  "description": "Free 4K model of an old tyre with worn tread, scuffs, dirt and realistic rubber sidewall detail, stamped markings and gritty, abandoned-junkyard character.",
+  "category_id": "78bb232f-513b-5e0f-b2dd-bd5f71a191b5",
+  "category": "Vehicles & Transport/Parts & Accessories/Wheels & Tyres",
+  "collections": [
+    "hidden_alley"
+  ],
+  "attributes": {
+    "condition": [
+      "worn"
+    ],
+    "material": [
+      "rubber"
+    ]
+  },
+  "img_version": "3d683bbf",
+  "download_count": 23085,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/old_tyre.png?width=256&height=256&v=3d683bbf"
+}

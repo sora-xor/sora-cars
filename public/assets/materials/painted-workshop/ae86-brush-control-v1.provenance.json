@@ -1,0 +1,14 @@
+{
+  "created": "2026-09-22",
+  "tool": "built-in image_gen.imagegen",
+  "source": "/Users/takemiyamakoto/.codex/generated_images/01a095d7-2e3f-76c0-be76-890e7c7ca671/exec-87f0d531-d50d-4676-b15d-c6dc612589d1.png",
+  "sha256": "12a3936a06f889d9aaeda9979608d7431dbfc74f7e650fd24184b73cd4349897",
+  "prompt": "ae86-brush-control-v1.prompt.txt",
+  "references": [
+    "ae86-enamel-v1.png",
+    "../../story/angles/garage-wide-v2.png"
+  ],
+  "purpose": "A separate UV-attached brush coverage field, sampled as non-color data. Real 3D illumination determines pigment values; this is not a rendered-scene background.",
+  "observedOutput": "1254x1254 RGBA. Requested opaque gray background was not followed: generated transparency is retained and must gate all strokes. Opaque-pixel grayscale quantiles 5/50/95 percent: 83/146/194. Existing island layout is visually retained; projected coverage still requires GPU inspection.",
+  "status": "rejected for default use after projected 3D inspection; retained as experimental coverage data"
+}

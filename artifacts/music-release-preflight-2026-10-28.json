@@ -1,0 +1,69 @@
+{
+  "schema": "sora-cars.music-release-preflight.v2",
+  "checkedAt": "2026-10-28T04:24:55.830260+00:00",
+  "releaseReady": false,
+  "artist": "SORA Cars",
+  "licensor": "SORA Cars",
+  "editionCount": 26,
+  "includesApprovedTokyoSong": true,
+  "priceXor": "1",
+  "collectionDomain": "soracars.universal",
+  "candidate": {
+    "path": "output/music-release/taira-20261028/candidate.json",
+    "sha256": "5c8949f3a1c95b939cbc1a4c90ee499a39bcb434a89286ce4b23c5dc64b6c6f5"
+  },
+  "account": {
+    "path": "artifacts/music-artist-account-2026-10-28.json",
+    "sha256": "6074e64468a5af307392890bc8e973fe88e7370b2a5357c8d34a6efd36d51170"
+  },
+  "collectionAuthority": {
+    "path": "artifacts/music-collection-authority-2026-10-28.json",
+    "sha256": "2416d509af058e69ec9031e000375c903616db07698270cc6f52bbc087d308f8"
+  },
+  "currentFrontend": {
+    "path": "output/qualification/frontend/soundtrack-2026-10-28-current/report.json",
+    "sha256": "56478aa55242c9475830fa682be69002954acb08c6ab8cfa4e6c032e45073f16"
+  },
+  "visualInspection": {
+    "path": "output/qualification/frontend/soundtrack-2026-10-28-current/visual-inspection.json",
+    "sha256": "7e266da466862889e1ffd6c8ab192ab420dde24ec568776b17c32f2077a2b81f"
+  },
+  "nativeModelParity": {
+    "path": "output/qualification/music-rust-parity-2026-10-28/report.json",
+    "sha256": "b3c38fb88cb45026908bb9a13c16aa5a7f6f766ab12ac27e49968ebd5cb8aac7"
+  },
+  "identityChecks": {
+    "path": "output/qualification/music-account-identity-fix-2026-10-28/report-inventory.json",
+    "sha256": "a41baba75e3de816e2cc1046aec0c5fd5cc56df0b61a2ca9b78e7393b8d2a59a"
+  },
+  "exactIssuedMediaMatchCurrentBuild": true,
+  "uniqueAssetsBound": 105,
+  "browserChecks": 122,
+  "completed": [
+    "26 full WAV/MP3 recordings, previews, generated sleeves and matching license commitments.",
+    "Registered/funded artist account with owner-only saved key files; registered collection ownership.",
+    "All26 unsigned native edition metadata and exact1XOR offers prepared and independently Rust-verified.",
+    "Canonical account identity authorization and owned inventory/download behavior verified using local Connect.",
+    "Current bilingual storefront build, three viewports, 920 exact public-file copies and104 music assets verified."
+  ],
+  "remainingRequirements": [
+    "Qualified marketplace deployment and reviewed matching release configuration.",
+    "Admitted signed issuer workflow, fresh on-chain collection/ID/expiry checks, actual NFT registrations and offer submission.",
+    "Current configured frontend packaging, native verification, live provider publication and remote byte retrieval.",
+    "A real1XOR purchase, finalized NFT ownership and verified full-song/license downloads."
+  ],
+  "localStorageQualification": {
+    "scope": "Complete historical October23 payload only",
+    "packPassed": true,
+    "independentVerification": "running in resumed process",
+    "providerRestartReadback": "not yet run",
+    "statePath": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/status.json",
+    "registrationAllowed": false
+  },
+  "nftsIssued": false,
+  "offersSubmitted": false,
+  "published": false,
+  "livePurchaseVerified": false,
+  "nodeAddonPublished": false,
+  "pendingUserQuestions": []
+}

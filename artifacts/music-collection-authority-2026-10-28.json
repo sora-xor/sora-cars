@@ -1,0 +1,55 @@
+{
+  "schema": "sora-cars.music-collection-authority.v1",
+  "verifiedAt": "2026-10-28T03:06:27.262Z",
+  "artist": "SORA Cars",
+  "licensor": "SORA Cars",
+  "endpoint": "https://taira.sora.org",
+  "networkId": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+  "collectionDomain": "soracars.universal",
+  "owner": "testuﾛ1PｶﾇPwjtｻﾊKﾗﾑｱｻeEｴEHｿhuｺuヰpﾉﾘﾜKﾂヱ1vdHﾍs5PDK5VR",
+  "status": "registered_active",
+  "transactionHash": "9ca9343db51233b01d2eb590660e32df5dbb956fd7a1a6e1308dced08f8eabc9",
+  "blockHeight": 5508,
+  "lease": {
+    "termYears": 1,
+    "registeredAt": "2026-10-28T03:03:41.234Z",
+    "expiresAt": "2027-10-28T03:03:41.234Z",
+    "priceXor": "0.5",
+    "transactionFeeXor": "0.0074",
+    "totalDebitXor": "0.5074"
+  },
+  "balance": {
+    "asset": "6TEAJqbb8oEPmLncoNiMRbLEK6tw",
+    "quantity": "24999.4926",
+    "testnet": true
+  },
+  "nftsIssued": false,
+  "liveOffers": 0,
+  "publication": false,
+  "evidence": [
+    {
+      "path": "output/qualification/music-collection-2026-10-28/namespace-policy.json",
+      "sha256": "bf5d1338a62ff18c51ec00f4128af6cec6e556f5279b694eabe142997f231ee8"
+    },
+    {
+      "path": "output/qualification/music-collection-2026-10-28/parent-registration.json",
+      "sha256": "c15e676b56fb4748f0e56b3bcbc60060c4c283ec312d39f090b0bc2066ef9eba"
+    },
+    {
+      "path": "output/qualification/music-collection-2026-10-28/domain-intent.json",
+      "sha256": "84c558dae3815578fde11e1e212fdd2fb8107a4fa4893d4ae67086f23a853d19"
+    },
+    {
+      "path": "output/qualification/music-collection-2026-10-28/domain-plan.json",
+      "sha256": "5a6804cb9c85c5cc4d094006b32cb4714f9cd25dd916fa3aa7e2a352d63857ab"
+    },
+    {
+      "path": "output/qualification/music-collection-2026-10-28/domain-apply-result.json",
+      "sha256": "c2dc580199c106bce2467fd6be99fcaaf9b0cf7a576c6c5654f765a2297ef312"
+    },
+    {
+      "path": "output/qualification/music-collection-2026-10-28/domain-readback.json",
+      "sha256": "d96c4bed9c51774eb72c229e2b6e074ab34a4696fbcd5bea62ce205cd9186fcd"
+    }
+  ]
+}

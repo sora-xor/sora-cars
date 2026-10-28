@@ -1,0 +1,44 @@
+# Node dependencies, Vite builds and TypeScript caches
+node_modules/
+dist/
+.vite/
+.vite-temp/
+*.tsbuildinfo
+
+# Test reports and coverage
+test-results/
+playwright-report/
+blob-report/
+coverage/
+.nyc_output/
+
+# Local captures, qualification snapshots and scratch work
+/output/
+/.playwright-cli/
+/tmp/*
+# The music-store browser check currently loads these fixtures from tmp/.
+!/tmp/music-store-qa/
+/tmp/music-store-qa/*
+!/tmp/music-store-qa/fixture.html
+!/tmp/music-store-qa/fixture.ts
+# Keep artifacts/ visible: it contains retained provenance and audit inputs.
+
+# Local environment overrides; keep configuration templates available
+.env
+.env.*
+!.env.example
+!.env.*.example
+/.claude/settings.local.json
+
+# Python tooling caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+
+# Logs, macOS metadata and editor temporary files
+*.log
+.DS_Store
+*.swp
+*.swo
+*~

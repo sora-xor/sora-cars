@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22T11:04:48.639Z",
+  "tool": "builtin image_gen__imagegen",
+  "useCase": "precise-object-edit",
+  "request": "Replace approximate emblems in two existing SORA CARS cutscene assets using the supplied exact red/white SORA emblem.",
+  "acceptance": "At least one clearly recognizable supplied geometric emblem per image; straight parallel bars, central stem, and two straight lower channels opening through the red circle edge. Normal perspective and scene lighting accepted. Tiny incidental secondary marks need not be individually exact.",
+  "scope": "No code, runtime mappings, source manifests, frozen release outputs, or native worktrees changed. Original v3 images retained.",
+  "emblem": {
+    "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "bytes": 104489,
+    "width": 1678,
+    "height": 1432
+  },
+  "assets": [
+    {
+      "id": "boardroom-key-offer",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-offer-v3.png",
+        "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+        "bytes": 2211408,
+        "width": 1672,
+        "height": 941
+      },
+      "accepted": false,
+      "acceptedPath": null,
+      "status": "unresolved_after_three_builtin_attempts",
+      "visualNotes": "All three generated sleeve badges retained curved/tapered glyph-like lower strokes. White patch changes alone did not reproduce the reference geometry. None promoted to a runtime v4 asset.",
+      "attempts": [
+        {
+          "number": 1,
+          "prompt": "Use case: precise-object-edit. Asset type: SORA CARS illustrated cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert. Change ONLY the red-and-white embroidered round emblem on the near woman's upper sleeve at the lower left. Replace its current font-like 天 with the supplied exact geometric emblem from image 2: red disk, two thick straight equal-width white horizontal bars joined centrally by a short straight vertical white stem, and two straight diagonal white legs extending through and opening the bottom sides of the red disk, leaving the red bottom wedge. The white legs must meet the outer background at the disk edge rather than stop inside the disk. Copy the logo silhouette and geometry faithfully, scaled and gently perspective-adjusted to the existing sleeve patch. Keep the patch at its existing position and size, with fabric/shadow treatment. Do not use a typed character or approximate calligraphic mark. Preserve the entire scene and existing 16:9 composition, all characters, faces, poses, fingers, clothes except patch symbol, key and envelope, furniture, sunset, skyline, textures, lighting, color, and camera framing unchanged. No new text, objects, logos elsewhere, border, or watermark. Output one image.",
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/boardroom-attempt-1-rejected.png",
+          "sha256": "5eff0bd96b37e70907c6d972974e20b13a70b9f72786b25a7be9497678d0059e",
+          "bytes": 2113925,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-5db73b9c-d112-468f-829c-fe577154501d.png",
+          "accepted": false,
+          "visualNotes": "Scene preserved; emblem remained substantially unchanged and font-like."
+        },
+        {
+          "number": 2,
+          "prompt": "Use case: precise-object-edit. Image 1 is the existing illustrated cutscene. Image 2 is the exact SORA emblem master, NOT a font character. Make a very localized change on the near woman's sleeve: completely REMOVE the old dark red badge and its curved glyph. In exactly that location, sew on a clean OPAQUE WHITE circular cloth patch, modestly enlarged to about 100 pixels diameter for legibility. On the white patch print a crisp copy of the red-and-white emblem from Image 2. The visible white outer patch creates the white background needed for the emblem. Exact logo geometry: saturated red circle; two equally wide straight thick white parallel bars; short centered white rectangular connection; two straight thick diagonal white bands from the lower bar center to the outside bottom-left/bottom-right circle edge. The diagonal white bands must connect to the outside WHITE patch and create separate red lower wedge. Do not draw any curved stroke or type a Chinese character. Think of pasting the exact provided artwork as a printed logo on the white sleeve patch. Keep the original scene otherwise unchanged: all faces/hair, people/clothes outside patch, poses and hands, key/envelope, desk/phone/cups/window/skyline, color lighting, pixel illustration texture, camera/crop. No new objects or text. One full 1672x941 scene.",
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/boardroom-attempt-2-rejected.png",
+          "sha256": "f4887cd0db7717118f65fe3ab760c970d9c1b3fb73f4bb55a56761d7d5ee86af",
+          "bytes": 2108919,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-1b6e9685-d47f-446e-975f-d019947ffedf.png",
+          "accepted": false,
+          "visualNotes": "White circular cloth patch added, but lower logo strokes remain curved/tapered."
+        },
+        {
+          "number": 3,
+          "prompt": "Use case: precise-object-edit. Image 1 is the cutscene to edit. Image 2 is the exact finished SORA logo artwork. Fix only the near woman's small red sleeve badge, which is currently drawn incorrectly. Completely erase that old badge. Replace it at the same sleeve location with an opaque white rectangular cloth label about 135 pixels wide and 120 pixels tall, and print the provided Image 2 logo artwork on that label. Make the printed red disk about 95 pixels wide. EXACTLY reproduce Image 2, with its two equal-width thick rectangular white bars and its pair of perfectly straight, constant-width white diagonal cuts extending OUT through the circle edge. Each diagonal is a geometric straight strip, no curves, no bent or tapered tips. There are THREE disconnected red shapes in the emblem: the large upper circular part and the red bottom wedge separated by the white diagonal channels (the upper region's side lobes join over the top). No surrounding red ring should connect across either white diagonal cut. It must match the reference like a printed reproduction, not a handdrawn letter. White label is bright enough to distinguish logo edge but naturally shaded on sleeve. Preserve absolutely all composition and all other pixels as closely as possible: faces, hair, poses, hands, key and envelope, clothes outside this one badge, desk, phone, mugs, plants, windows, sunset city, pixel illustration style, camera. No new text or extra marks. One full-frame image, 1672x941.",
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/boardroom-attempt-3-rejected.png",
+          "sha256": "d811ca0937593600433aaea1548358d57022604384278d5570481aa15247cf2b",
+          "bytes": 2109408,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-93a1d860-5543-4068-97bc-5f71d63dca5c.png",
+          "accepted": false,
+          "visualNotes": "White rectangular cloth patch added, but inner glyph still incorrect; rejected."
+        }
+      ]
+    },
+    {
+      "id": "public-confession-reverse",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-reverse-v3.png",
+        "sha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2",
+        "bytes": 2455496,
+        "width": 1672,
+        "height": 941
+      },
+      "accepted": true,
+      "acceptedPath": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-reverse-v4.png",
+      "acceptedSha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "width": 1672,
+      "height": 941,
+      "visualNotes": "Warehouse sign now clearly reproduces reference geometry: equal straight horizontal bars, central stem, straight diagonal channels opening through lower circle edge with separate red lower wedge. Opaque pale sign and jacket patch preserve scene lighting. Main emblem is high above dialogue region. SORA wordmark and other scene lettering, characters, microphone, papers, cars, port, and camera composition remain visually consistent. Jacket mark improved; small car logo remains simplified and is not certified independently exact.",
+      "attempts": [
+        {
+          "number": 1,
+          "prompt": "Use case: precise-object-edit. Image 1 is the SORA CARS cutscene edit target. Image 2 is the EXACT logo artwork to insert. Replace ONLY the three incorrect red/white emblems already in Image 1: large warehouse wall circle above SORA at upper-left center, small circle on white car door mid-right, and small badge on yellow jacket at right. Their current insides resemble a typed character and are wrong. Copy Image 2 as a geometric logo decal into those same three areas, preserving each circle's position/size and physical perspective. Essential geometry from Image 2: TWO WHITE RECTANGULAR horizontal bars of EQUAL WIDTH joined by a short central vertical rectangular stem. The bottom bar transitions into TWO STRAIGHT WHITE DIAGONAL STRIPS forming an inverted V whose legs CUT THROUGH THE LOWER OUTSIDE EDGE OF THE RED DISK, splitting off a red bottom wedge. The diagonal strips must be straight, not curved or calligraphic, and must open through the outside edge of the circle. Do not type 天 or any other font character. Use the EXACT mark in Image 2. Keep every other part of Image 1 unchanged: illustration/pixel texture, 16:9 framing, all faces, bodies, poses, clothing, objects, cars, paper, microphone, foreground witnesses, crowd, dusk port cranes/ship, lighting, and all current text including SORA, 港運倉庫, and みなと丸. No additional emblems, text, border, or watermark. Output one corrected cutscene image.",
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/public-confession-attempt-1-superseded.png",
+          "sha256": "8d1efd2216bffa1b34877e230abce8bad1b93189f26a249ec44e9b3ba2d18403",
+          "bytes": 2292781,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-9f2edff1-fa55-402e-9b40-da267a026930.png",
+          "accepted": false,
+          "visualNotes": "Warehouse emblem improved, but selected second attempt for clearer opaque sign and patch."
+        },
+        {
+          "number": 2,
+          "prompt": "Use case: precise-object-edit. Asset: full illustrated SORA CARS cutscene. Image 1 is the edit target; Image 2 is the exact emblem master to COPY AS ARTWORK. Completely replace the existing incorrect logo art at THREE locations with opaque white printed patches/sign panels displaying an exact print of Image 2: (1) large logo above the word SORA on warehouse wall; (2) logo on the white car door directly above SORA; (3) logo on yellow jacket at right. Preserve SORA wordmarks. Use modestly larger white patches at car and jacket so the actual geometric logo is clearly legible. The master consists of the red circle plus its white cutouts, with white background: preserve that exact silhouette. TWO EQUALLY LONG WHITE RECTANGULAR BARS, a short centered white connector, two THICK PERFECTLY STRAIGHT WHITE DIAGONAL CHANNELS that cut entirely THROUGH the lower circumference of the red circle to the white outside. These channels leave a SEPARATE RED LOWER WEDGE. No curved legs, no tapered strokes, no red circular outline closing across the white channels. Do not type 天. The reference is a custom geometric drawing, not typography. Copy it directly into the three white patches. Preserve all characters, faces, hands, clothes outside these patches, scenery, foreground people, microphone and papers, warehouse lettering 港運倉庫, ship label みなと丸, cars, cranes, sunset, and image framing. Change ONLY those three old emblems. Keep illustration texture, perspective and warm dusk lighting. One full 1672x941 image.",
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/public-confession-attempt-2-accepted.png",
+          "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+          "bytes": 2318564,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-97584f12-6cc2-4ae1-a7da-73a609c9b71e.png",
+          "accepted": true,
+          "visualNotes": "Selected final as above; copied byte-for-byte to public v4 sibling."
+        },
+        {
+          "number": 3,
+          "prompt": "Precise localized logo correction. Image 1 is the target scene. Image 2 is the exact emblem artwork. The warehouse sign and yellow jacket patch already show the correct geometric logo: KEEP THEM COMPLETELY UNCHANGED. ONLY replace the small incorrect red logo on the white car door, around x1072 y467 in this 1672x941 image, directly above the text SORA. Clear the old car-door mark and place an exact, flat printed copy of Image 2's red-and-white logo there, approximately 34 pixels across so its geometry can be read. Preserve the SORA word underneath. It should match the LARGE CORRECT SIGN ON THE WAREHOUSE in Image 1: straight white parallel bars and two straight diagonal white channels opening through the bottom edge of the red disk, leaving a separate red lower wedge. The cutouts must be wide enough to read at this size. Copy the provided artwork; do not substitute a font glyph or draw curved legs. Preserve every other aspect of Image 1, including the existing corrected warehouse and jacket marks, all human faces/hair/poses/hands, cars, details, lettering, lighting, background, papers/microphone, palette, illustration style, crop, framing, resolution. Change ONLY the small car logo. One full-frame image.",
+          "inputTarget": {
+            "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/public-confession-attempt-2-accepted.png",
+            "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+            "bytes": 2318564,
+            "width": 1672,
+            "height": 941
+          },
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-beats-v4/public-confession-attempt-3-superseded.png",
+          "sha256": "ff1ca379fc1ba3bd9ceade4a0a674795b629c955f62814b04e4ff2bbfc809dca",
+          "bytes": 2240568,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-5cdac9e0-de46-48a7-a6c4-15a41b6b321c.png",
+          "accepted": false,
+          "visualNotes": "Car-specific final pass did not materially improve tiny car emblem, so earlier accepted image retained to minimize accumulated texture changes."
+        }
+      ]
+    }
+  ]
+}

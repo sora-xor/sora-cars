@@ -1,0 +1,158 @@
+{
+  "provider": "Poly Haven",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "retrieved": "2026-09-12",
+  "assets": [
+    {
+      "id": "asphalt_02",
+      "source": "https://polyhaven.com/a/asphalt_02",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://polyhaven.com/license",
+      "resolution": "2k",
+      "files": [
+        {
+          "kind": "color",
+          "path": "public/assets/materials/asphalt_02/color.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_02/asphalt_02_diff_2k.jpg",
+          "bytes": 3075676,
+          "sha256": "28f5ba8690553f192c0e5e1a5ff40f34765b4b93f4cc7059b1a3e9c795b6c28c"
+        },
+        {
+          "kind": "normal",
+          "path": "public/assets/materials/asphalt_02/normal.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_02/asphalt_02_nor_gl_2k.jpg",
+          "bytes": 4943950,
+          "sha256": "ffe49db71a0fd34c1e259625df66a302a237597d6ef655307987ec4e45bc6f21"
+        },
+        {
+          "kind": "arm",
+          "path": "public/assets/materials/asphalt_02/arm.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/asphalt_02/asphalt_02_arm_2k.jpg",
+          "bytes": 1299186,
+          "sha256": "ed70e88640e4ed51cf1c3e57cb20db26983599b20b867c2526439e3a2c849fea"
+        }
+      ]
+    },
+    {
+      "id": "japanese_cedar_planks",
+      "source": "https://polyhaven.com/a/japanese_cedar_planks",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://polyhaven.com/license",
+      "resolution": "2k",
+      "files": [
+        {
+          "kind": "color",
+          "path": "public/assets/materials/japanese_cedar_planks/color.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_cedar_planks/japanese_cedar_planks_diff_2k.jpg",
+          "bytes": 2812544,
+          "sha256": "92fd3742f4744e6262e8093c5dfb919a6bbabac48fe672734d4cba7bc5a4aea3"
+        },
+        {
+          "kind": "normal",
+          "path": "public/assets/materials/japanese_cedar_planks/normal.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_cedar_planks/japanese_cedar_planks_nor_gl_2k.jpg",
+          "bytes": 3776186,
+          "sha256": "8f9d6194b9345b9a89702a0a146edf70728a2dc2d23050b60260a1442a2df526"
+        },
+        {
+          "kind": "arm",
+          "path": "public/assets/materials/japanese_cedar_planks/arm.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_cedar_planks/japanese_cedar_planks_arm_2k.jpg",
+          "bytes": 2782361,
+          "sha256": "48b6a27493efc3b691ee4d3bbca74779f55480ca8a87626d5cf0f4ebd68119be"
+        }
+      ]
+    },
+    {
+      "id": "japanese_stone_wall",
+      "source": "https://polyhaven.com/a/japanese_stone_wall",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://polyhaven.com/license",
+      "resolution": "2k",
+      "files": [
+        {
+          "kind": "color",
+          "path": "public/assets/materials/japanese_stone_wall/color.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_stone_wall/japanese_stone_wall_diff_2k.jpg",
+          "bytes": 4623186,
+          "sha256": "a411d298f552c62f9cce4aab216f1cff06391955c5e0e187c6cfae446523a583"
+        },
+        {
+          "kind": "normal",
+          "path": "public/assets/materials/japanese_stone_wall/normal.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_stone_wall/japanese_stone_wall_nor_gl_2k.jpg",
+          "bytes": 4093483,
+          "sha256": "9d3486706b09e1860864de236d082f5949dfb16979b5c789202a21b5a3b5e363"
+        },
+        {
+          "kind": "arm",
+          "path": "public/assets/materials/japanese_stone_wall/arm.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/japanese_stone_wall/japanese_stone_wall_arm_2k.jpg",
+          "bytes": 3112816,
+          "sha256": "4b39741e972e46393ec8e18687a25309e51461a83f2fc754fe896f02881046f5"
+        }
+      ]
+    },
+    {
+      "id": "grey_plaster_03",
+      "source": "https://polyhaven.com/a/grey_plaster_03",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://polyhaven.com/license",
+      "resolution": "2k",
+      "files": [
+        {
+          "kind": "color",
+          "path": "public/assets/materials/grey_plaster_03/color.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_plaster_03/grey_plaster_03_diff_2k.jpg",
+          "bytes": 2284426,
+          "sha256": "5d0fa0b107b1fe6513701d3e2606cce25da4f0f1c4290dc063cd2c8f88196039"
+        },
+        {
+          "kind": "normal",
+          "path": "public/assets/materials/grey_plaster_03/normal.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_plaster_03/grey_plaster_03_nor_gl_2k.jpg",
+          "bytes": 2572971,
+          "sha256": "c02be4797ae113e83899981986eefc0b4e6baa64b41a723bd26e639547603ba7"
+        },
+        {
+          "kind": "arm",
+          "path": "public/assets/materials/grey_plaster_03/arm.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_plaster_03/grey_plaster_03_arm_2k.jpg",
+          "bytes": 921597,
+          "sha256": "c87e8b0ed9cb84eb5e7a70db41979cfaa8669323b7f74d68948c03a889e87d1f"
+        }
+      ]
+    },
+    {
+      "id": "forest_ground_04",
+      "source": "https://polyhaven.com/a/forest_ground_04",
+      "license": "CC0-1.0",
+      "licenseUrl": "https://polyhaven.com/license",
+      "resolution": "2k",
+      "files": [
+        {
+          "kind": "color",
+          "path": "public/assets/materials/forest_ground_04/color.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/forest_ground_04/forest_ground_04_diff_2k.jpg",
+          "bytes": 4529321,
+          "sha256": "24b8aaf4c8547305d80b0e029ec365219ab1b90748d4ca5651bdc9e75bfde5e6"
+        },
+        {
+          "kind": "normal",
+          "path": "public/assets/materials/forest_ground_04/normal.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/forest_ground_04/forest_ground_04_nor_gl_2k.jpg",
+          "bytes": 5288849,
+          "sha256": "b37ac799ed410976541e0011c246fca254e74eaa3f096ae7a7d74178db5a6d9b"
+        },
+        {
+          "kind": "arm",
+          "path": "public/assets/materials/forest_ground_04/arm.jpg",
+          "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/forest_ground_04/forest_ground_04_arm_2k.jpg",
+          "bytes": 3418726,
+          "sha256": "a6086cb5611fabcc3dd4c9ac74bcf6cf8ed5d07e136ebe51255a5a3bea9e42c6"
+        }
+      ]
+    }
+  ]
+}

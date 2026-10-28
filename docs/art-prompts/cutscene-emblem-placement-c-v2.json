@@ -1,0 +1,297 @@
+{
+  "schema": "sora-cars.generated-emblem-placement-c.v1",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "method": "built-in imagegen only",
+  "assets": [
+    {
+      "id": "ch06-victory-cut07",
+      "source": "public/assets/story/scenes/ch06-victory-cut07.png",
+      "output": "public/assets/story/scenes/ch06-victory-cut07-center-v2.png",
+      "sourceSha256": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T14:19:51.404Z",
+      "status": "accepted",
+      "prompt": "Precise local placement correction. Image1 exact scene; image2 exact SORA geometric logo reference. Move the small red-white badge from the far-right of the white car's tailgate to the physical CENTER of that SAME tailgate sheet above the license plate. Its center should align above the license plate center aroundx196,y341, replacing old positionx356,y341. Keep the same modest30\u201335px size and follow rear-panel perspective/vehicle centerline. Remove old far-right badge and restore white metal there. Preserve exact supplied paired white bars/stem and diagonal channels reaching red disk edge. Keep ALL other scene details: woman, open car door, taillights, other lettering, workshop, wall sign, coastline and camera. FULLY OPAQUE PNG like original, alpha255 throughout including dark foreground, no transparency.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-4c4d6d8a-324c-4a94-a45d-6013ebeab80b.png",
+      "generatedSha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "sourceCurrentHash": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "sourceStable": true,
+      "outputSha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:30:36.178Z",
+        "detail": "original",
+        "observation": "Full original-detail view: rear badge moved from far-right corner into tailgate central zone above license plate, preserving material plane and modest scale. Recognizable straight reference geometry; scene, woman, open door, rain and garage preserved. Badge center is about 14 px right of plate center, within the central tailgate zone; root should confirm exact centering tolerance.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch07-intro-cut08",
+      "source": "public/assets/story/scenes/ch07-intro-cut08.png",
+      "output": "public/assets/story/scenes/ch07-intro-cut08-center-v2.png",
+      "sourceSha256": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 1,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T14:19:51.463Z",
+      "status": "accepted",
+      "prompt": "Precise local placement correction. Image1 exact scene, image2 exact SORA logo reference. Move only the car door's small red-white badge LEFT roughly30pixels on the SAME door face, fromcenterx1046 tocenterx1015 atsamey518. Physically center it between the actual rear/front vertical door seams below window and above black side trim. Keep its size, follow perspective and material plane, preserve paired white bars/stem and diagonal channels to red circle edge from exact reference. Restore white paint at old badge location. Preserve man chest logo and wall logo, faces, hand on shoulder, poses, props, harbor, cargeometry and exact framing. CRITICAL preserve actual PNG alpha and its broad strong bottom fade to genuine transparency, sourcealpha1\u2013253; no opaque flattening, no cutouts/holes/background removal/checkerboard. Full original scenery remains present.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-611764fd-8dfe-4f76-b170-808207f0e6a0.png",
+      "generatedSha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "sourceCurrentHash": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "sourceStable": true,
+      "outputSha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 254,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 49933
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:30:39.867Z",
+        "detail": "original",
+        "observation": "Full original-detail view: door badge moved into the center between vertical door seams below the window and follows the door plane. Characters, hand-on-shoulder gesture, signage, chest emblem and car preserved. Actual bottom fade is retained with no meaningful scenery lost. Reference mark remains recognizable at small pixel scale.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch08-intro-cut05",
+      "source": "public/assets/story/scenes/ch08-intro-cut05.png",
+      "output": "public/assets/story/scenes/ch08-intro-cut05-center-v3.png",
+      "status": "accepted",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "method": "built-in-imagegen",
+      "placementIntent": "Fender physical center above wheel arch approximately1400,565; remove old1542,550 badge.",
+      "sourceSha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 4,
+        "max": 251,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T14:38:01.995Z",
+      "prompt": "Use case: precise-object-edit. Image1 is the edit target, full pixel-art garage scene. Image2 is the exact supplied SORA emblem geometry reference only. Change ONLY the physical position of the small red-and-white badge on the white car's visible FRONT FENDER. Erase its old rearward placement near the door seam at approximately (1542,550), restoring matching white paint and highlight. Place the same modest 50px badge centered on the fender sheet directly above the wheel arch, around (1400,565) in this 1672x941 scene; center relative to the actual fender surface, with projected plane and internal vertical axis following that panel. Use the exact reference mark: two straight equal parallel bars, central stem and long straight lower diagonal channels opening through the red disk edge, separated lower red wedge; no enclosed curved legs. Preserve every other pixel-art subject, two characters, faces, poses, cable coil, red toolbox, towel, engine/raised hood, tools, wall sign and existing chest badge, Japanese labels, lighting, camera framing and scene content. Preserve the existing genuine PNG transparency/bottom foreground fade only, with the full scene intact. Transparent background flag is for preserving that real alpha, not removing the garage. No checkerboard drawn into the image, no white background, no new cutouts, no compositional changes.\n CRITICAL: the original source is genuinely translucent, every pixel alpha between4 and251. The output must have actual PNG alpha retaining that translucency and smooth bottom foreground fade. Do not flatten to opaque. Preserve full scene content with genuine partially transparent pixels; do not draw a checkerboard.",
+      "sourceCurrentHash": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "sourceStable": true,
+      "attempts": [
+        {
+          "id": "ch08-intro-cut05",
+          "source": "public/assets/story/scenes/ch08-intro-cut05.png",
+          "output": "public/assets/story/scenes/ch08-intro-cut05-center-v2.png",
+          "status": "rejected-alpha",
+          "reference": "public/assets/branding/sora-emblem-source.png",
+          "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "method": "built-in-imagegen",
+          "placementIntent": "Fender physical center above wheel arch approximately1400,565; remove old1542,550 badge.",
+          "sourceSha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 4,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T14:33:56.437Z",
+          "prompt": "Use case: precise-object-edit. Image1 is the edit target, full pixel-art garage scene. Image2 is the exact supplied SORA emblem geometry reference only. Change ONLY the physical position of the small red-and-white badge on the white car's visible FRONT FENDER. Erase its old rearward placement near the door seam at approximately (1542,550), restoring matching white paint and highlight. Place the same modest 50px badge centered on the fender sheet directly above the wheel arch, around (1400,565) in this 1672x941 scene; center relative to the actual fender surface, with projected plane and internal vertical axis following that panel. Use the exact reference mark: two straight equal parallel bars, central stem and long straight lower diagonal channels opening through the red disk edge, separated lower red wedge; no enclosed curved legs. Preserve every other pixel-art subject, two characters, faces, poses, cable coil, red toolbox, towel, engine/raised hood, tools, wall sign and existing chest badge, Japanese labels, lighting, camera framing and scene content. Preserve the existing genuine PNG transparency/bottom foreground fade only, with the full scene intact. Transparent background flag is for preserving that real alpha, not removing the garage. No checkerboard drawn into the image, no white background, no new cutouts, no compositional changes.\n",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-5075c882-3808-4f36-bd57-adb6670fa075.png",
+          "generatedSha256": "f80b1c9857be79eba6bbdae0627cf24a4d6a9bf57527e0c768c4723000c221ed",
+          "sourceCurrentHash": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+          "sourceStable": true,
+          "outputSha256": "f80b1c9857be79eba6bbdae0627cf24a4d6a9bf57527e0c768c4723000c221ed",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Fender position materially improved, but generated file is completely opaque, losing genuine source alpha4\u2013251. Reject."
+          }
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-d7031089-2b83-44e0-be5f-370cb44dde10.png",
+      "generatedSha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "outputSha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 1448
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:42:16.277Z",
+        "detail": "original",
+        "observation": "Full original-detail output view: badge relocated above front wheel arch into fender central sheet at about1386,558, with old rearward badge erased. Correct straight reference channels remain recognizable. Characters, cable, toolbox, raised hood and tools preserved. Genuine alpha0\u2013253 retained; small transparent region remains confined to already faded bottom foreground, no meaningful scenery lost.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch08-intro-cut10",
+      "source": "public/assets/story/scenes/ch08-intro-cut10.png",
+      "output": "public/assets/story/scenes/ch08-intro-cut10-center-v2.png",
+      "status": "accepted",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "method": "built-in-imagegen",
+      "placementIntent": "Right mechanic back patch projected spine around1475,275; car front fender mark physical center even when occluded by foreground mechanic.",
+      "sourceSha256": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 38,
+        "max": 244,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T14:43:51.587Z",
+      "prompt": "Use case: precise-object-edit. Image1 is exact pixel-art cutscene edit target; Image2 supplied SORA emblem geometry reference. Make ONLY two physically centered badge placement corrections. (1) On the right standing mechanic in red cap, move the existing upper-back emblem LEFT by about40px from(1515,275) to(1475,275), below rear collar and between shoulder blades along projected spine. Same size and height, follow the tilted back fabric, not screen rectangle. Erase old location, restore navy cloth. (2) Existing white-car FRONT FENDER emblem at(1310,480) is near rear edge; restore plain white paint there and place the same modest badge at the physical full-fender center, approximately(1180,480). Most of this corrected position is naturally OCCLUDED by the foreground bent mechanic; keep that person in front and do not move badge into a visible gap just to show it. Use two straight paired bars and long straight diagonal channels open through the red disk edge per exact reference. Preserve all characters, faces, cap, poses, clothes, wall emblem, engine, raised hood, car details, papers, red toolbox, reflections, port cranes, lighting, full wide framing and pixel style. CRITICAL genuine PNG alpha: input alpha38\u2013244 over full scene, every pixel translucent. Preserve this actual partial alpha and existing dark foreground fade, full garage image visible, no deleted scenery or subject-only cutout, no checkerboard pixels. Never flatten opaque. Output same full1672x941 composition with native alpha.\n",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7942cbc4-ba44-403c-9f6a-800ab346b396.png",
+      "generatedSha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "sourceCurrentHash": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "sourceStable": true,
+      "outputSha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 3,
+        "max": 252,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:48:43.985Z",
+        "detail": "original",
+        "observation": "Full original-detail review: standing mechanic back patch moved left into projected spine zone below collar; follows fabric tilt, same level/scale. White-car fender badge moved toward physical panel center and now is mostly occluded by foreground mechanic as expected; old rearward location restored. Exact recognizable mark, characters/engine/port composition preserved. Native alpha3\u2013252, all pixels still nonopaque with full scene retained, no transparent holes or checkerboard.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut06",
+      "source": "public/assets/story/scenes/ch11-intro-cut06-logo-v3.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut06-center-v2.png",
+      "status": "accepted",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "method": "built-in-imagegen",
+      "supersedes": {
+        "path": "public/assets/story/scenes/ch11-intro-cut06-logo-v3.png",
+        "sha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66"
+      },
+      "prompt": "Use case: precise-object-edit. Image1 is exact scene edit target. Image2 is the supplied exact SORA geometric emblem reference. Shift ONLY the existing large red-and-white car DOOR badge exactly30pixels LEFT, from center(247,638) to center(217,638), so it is physically centered between the door panel vertical seams. Keep its size, vertical height, red disk proportions, paired straight bars, central stem and long straight diagonal channels opening through disk edge. Follow the existing door material perspective, not screen vertical. Restore white paint wherever old right-hand part was; leave exactly one door mark. Preserve all other pixels and scene content: woman handing sealed envelope to messenger, their expressions/hands/posture, clothing, shoulder bag and rolled map, car/windows/interior, background harbor/cars/people and posted route charts, lighting, pixel-art texture, full1671x941 camera framing. CRITICAL: this exact source is FULLY OPAQUE PNG alpha255 throughout, including its dark foreground. Preserve full opacity; no transparency, no checkerboard, no cutouts, no changes to dark foreground.\n",
+      "transparentBackground": false,
+      "placementIntent": "Door badge center217,638 instead of247,638 between vertical seams; same size/plane.",
+      "sourceSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "sourceDimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T14:57:15.721Z",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-83a5b9ec-6181-4f5e-8645-b4a84a0284d9.png",
+      "generatedSha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "sourceCurrentHash": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "sourceStable": true,
+      "outputSha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "outputDimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:59:47.654Z",
+        "detail": "original",
+        "observation": "Full original-detail view: the door badge has shifted left into the physical center between vertical seams, estimated center208,638. Balanced visible panel margins, same size/height and door-plane orientation, supplied straight reference channels recognizable. Old rightward location restored, exactly one badge. Full envelope handoff, faces, props, car, harbor and framing preserved; fully opaque native alpha255 matches actual v3 source.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "supersedesCurrentHash": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "supersedesStable": true
+    }
+  ],
+  "updatedAt": "2026-09-26T14:59:47.657Z"
+}

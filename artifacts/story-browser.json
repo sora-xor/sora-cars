@@ -1,0 +1,5033 @@
+{
+  "passed": true,
+  "testedAt": "2026-09-22T07:12:30.408Z",
+  "origin": "http://127.0.0.1:5212",
+  "sourcesBefore": {
+    "scripts/test-story.mjs": "cfcb8b81e5a0664a67aafaa3e57a3546434295f65dc8486dbca661c70fbb2d2b",
+    "src/main.ts": "2a407d08fe0a57b2edca00a7de9d2a0d9b0352adc4ccb5822d0664a6033bdd3d",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-dialogue.ts": "afdd939a504b642cf5b653f4d468e0a0094ab11a09ffddc549472327e7849d71",
+    "src/game/story-campaign.ts": "e0125f696767a86ff016ea1d64a9ace13da5611d6c73e13079b465c65502408d",
+    "src/game/story-campaign-act1.ts": "6a40a6be45d77785cb239682a432da9da21e4f32992d7aa70983f65d7a9eefbc",
+    "src/game/story-campaign-act2.ts": "ec541989ff2e82828d7d99440e93753fad57bfb6ba724bedf8d615e41801b1d3",
+    "src/game/story-campaign-act3.ts": "9316b41c7f0921ddb203ec6ad40768be8129964698e8a5400c57739aa3742f62",
+    "src/game/story-scenes.ts": "849ad082572e451b7c82892ef14c17febfdae31c04ef695dba7856c086ad971e",
+    "src/game/story-cinema.ts": "62742873f99255aa63974803cbb3019f790e3abe5e279e32ffee62db461babb7",
+    "src/game/story-workshop.ts": "6d919d567d3027547f292dde39cdee082eac9c8b5530ad4a14a6fe072c7fc503",
+    "src/ui/story.ts": "5fbcf8a46bbf10eb5bc7229cbacec9f59e26a9b26f13c890d1e82fc58218ceed",
+    "src/ui/story.css": "3e3f24b7084a0193e857e4e4fe037c939ed64435778ad72212df00ec833f6a05",
+    "src/style.css": "ba9dce96a17088746476a608b938bc56311016c17d4c2cd3aec8e1dbd70eca5d",
+    "src/ui/story-workshop.ts": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128",
+    "src/ui/story-workshop.css": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec",
+    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
+    "src/game/music-score.ts": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513",
+    "src/game/music-themes.ts": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488",
+    "src/game/music-cues.ts": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7"
+  },
+  "sourcesAfter": {
+    "scripts/test-story.mjs": "cfcb8b81e5a0664a67aafaa3e57a3546434295f65dc8486dbca661c70fbb2d2b",
+    "src/main.ts": "2a407d08fe0a57b2edca00a7de9d2a0d9b0352adc4ccb5822d0664a6033bdd3d",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-dialogue.ts": "afdd939a504b642cf5b653f4d468e0a0094ab11a09ffddc549472327e7849d71",
+    "src/game/story-campaign.ts": "e0125f696767a86ff016ea1d64a9ace13da5611d6c73e13079b465c65502408d",
+    "src/game/story-campaign-act1.ts": "6a40a6be45d77785cb239682a432da9da21e4f32992d7aa70983f65d7a9eefbc",
+    "src/game/story-campaign-act2.ts": "ec541989ff2e82828d7d99440e93753fad57bfb6ba724bedf8d615e41801b1d3",
+    "src/game/story-campaign-act3.ts": "9316b41c7f0921ddb203ec6ad40768be8129964698e8a5400c57739aa3742f62",
+    "src/game/story-scenes.ts": "849ad082572e451b7c82892ef14c17febfdae31c04ef695dba7856c086ad971e",
+    "src/game/story-cinema.ts": "62742873f99255aa63974803cbb3019f790e3abe5e279e32ffee62db461babb7",
+    "src/game/story-workshop.ts": "6d919d567d3027547f292dde39cdee082eac9c8b5530ad4a14a6fe072c7fc503",
+    "src/ui/story.ts": "5fbcf8a46bbf10eb5bc7229cbacec9f59e26a9b26f13c890d1e82fc58218ceed",
+    "src/ui/story.css": "3e3f24b7084a0193e857e4e4fe037c939ed64435778ad72212df00ec833f6a05",
+    "src/style.css": "ba9dce96a17088746476a608b938bc56311016c17d4c2cd3aec8e1dbd70eca5d",
+    "src/ui/story-workshop.ts": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128",
+    "src/ui/story-workshop.css": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec",
+    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
+    "src/game/music-score.ts": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513",
+    "src/game/music-themes.ts": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488",
+    "src/game/music-cues.ts": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7"
+  },
+  "primaryLanguage": "ja",
+  "subtitles": "en",
+  "crew": 6,
+  "rivals": 3,
+  "chapters": [
+    {
+      "id": 0,
+      "introLines": 16,
+      "track": "Midnight Circuit",
+      "opponent": "SORAゲスト",
+      "victoryLines": 10
+    },
+    {
+      "id": 1,
+      "introLines": 16,
+      "track": "Harbor Run",
+      "opponent": "SORAゲスト",
+      "victoryLines": 10
+    },
+    {
+      "id": 2,
+      "introLines": 16,
+      "track": "Midnight Circuit",
+      "opponent": "SORAゲスト",
+      "victoryLines": 10
+    },
+    {
+      "id": 3,
+      "introLines": 16,
+      "track": "Sakura Pass",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 4,
+      "introLines": 14,
+      "track": "Harbor Run",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 5,
+      "introLines": 14,
+      "track": "Sakura Pass",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 6,
+      "introLines": 14,
+      "track": "Midnight Circuit",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 7,
+      "introLines": 15,
+      "track": "Harbor Run",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 8,
+      "introLines": 14,
+      "track": "Sakura Pass",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 9,
+      "introLines": 14,
+      "track": "Midnight Circuit",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 10,
+      "introLines": 14,
+      "track": "Harbor Run",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 10
+    },
+    {
+      "id": 11,
+      "introLines": 14,
+      "track": "Sakura Pass",
+      "opponent": "天宮（あまみや）トオル",
+      "victoryLines": 11
+    }
+  ],
+  "checks": [
+    "Real intro → deterministic AI race → outcome → result → chapter retry; animation, back, log, pause, frozen physics.",
+    "Real touch events advance/back/log/skip into touch driving; a gamepad counterpart exercises A edge detection.",
+    "All 12 introductions, 8 scene assets, 9 speakers, three acts and unlocked clue file; actual rival grid and reduced-motion pixels.",
+    "Every intro/victory caption checked against its line and scene; finale recorded-morning → now → ordinary Nikko captions survive Next, Back and the 320px log without leaking unseen dialogue.",
+    "Every victory line and callback tested with isolated real CutscenePlayer fixture; animated radio canvas inspected.",
+    "Every intro/victory line resolves the authored music cue; held dialogue, camera angles, Back, log and motion pause preserve transport; race transitions restore course songs.",
+    "Pivotal chapter 5 romance, chapter 7 betrayal and chapter 12 mutual romance captured in isolated real-player fixtures at desktop, 390px and 320px; complete Japanese/English text and scroll reachability checked."
+  ],
+  "captures": [
+    "campaign-menu",
+    "garage-desktop",
+    "ledger-desktop",
+    "dialogue-log",
+    "ledger-mobile",
+    "garage-script-desktop",
+    "garage-script-mobile",
+    "ledger-script-desktop",
+    "ledger-script-mobile",
+    "harbor-script-desktop",
+    "harbor-script-mobile",
+    "radio-script-desktop",
+    "radio-script-mobile",
+    "office-script-desktop",
+    "office-script-mobile",
+    "boardroom-script-desktop",
+    "boardroom-script-mobile",
+    "community-script-desktop",
+    "community-script-mobile",
+    "sunrise-script-desktop",
+    "sunrise-script-mobile",
+    "touch-dialogue-log",
+    "fixture-ch05-rain-near-confession-desktop",
+    "fixture-ch05-rain-near-confession-mobile-390",
+    "fixture-ch05-rain-near-confession-mobile-320",
+    "fixture-ch07-betrayal-confession-desktop",
+    "fixture-ch07-betrayal-confession-mobile-390",
+    "fixture-ch07-betrayal-confession-mobile-320",
+    "fixture-ch08-public-confession-desktop",
+    "fixture-ch08-public-confession-mobile-390",
+    "fixture-ch08-public-confession-mobile-320",
+    "fixture-ch08-public-confession-reverse-desktop",
+    "fixture-ch08-public-confession-reverse-mobile-390",
+    "fixture-ch08-public-confession-reverse-mobile-320",
+    "fixture-ch12-jun-premiere-desktop",
+    "fixture-ch12-jun-premiere-mobile-390",
+    "fixture-ch12-jun-premiere-mobile-320",
+    "fixture-ch12-jun-premiere-reverse-desktop",
+    "fixture-ch12-jun-premiere-reverse-mobile-390",
+    "fixture-ch12-jun-premiere-reverse-mobile-320",
+    "fixture-ch12-romance-confession-now-desktop",
+    "fixture-ch12-romance-confession-now-mobile-390",
+    "fixture-ch12-romance-confession-now-mobile-320",
+    "fixture-ch12-romance-consent-question-desktop",
+    "fixture-ch12-romance-consent-question-mobile-390",
+    "fixture-ch12-romance-consent-question-mobile-320",
+    "fixture-ch12-romance-consent-answer-desktop",
+    "fixture-ch12-romance-consent-answer-mobile-390",
+    "fixture-ch12-romance-consent-answer-mobile-320",
+    "fixture-ch12-romance-first-kiss-desktop",
+    "fixture-ch12-romance-first-kiss-mobile-390",
+    "fixture-ch12-romance-first-kiss-mobile-320",
+    "finale-recorded-caption-log-mobile-320",
+    "finale-now-caption-log-mobile-320",
+    "radio-animated"
+  ],
+  "pivotalScenes": [
+    {
+      "chapter": 4,
+      "name": "rain-near-confession",
+      "line": 4,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "ren",
+        "ja": "アキ。冗談にしないで言いたいことが……ああ、こんな時に電話か。",
+        "en": "Aki. There is something I want to say without making a joke… Of course the phone rings now.",
+        "displayedSetting": {
+          "ja": "SORA レコード・放送室",
+          "en": "SORA RECORDS · RADIO ROOM"
+        }
+      },
+      "shot": {
+        "scene": "radio",
+        "shot": "right"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 577.921875,
+                "width": 329,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 584.921875,
+                "right": 361,
+                "bottom": 620.921875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 150.859375,
+            "bottom": 143,
+            "width": 134.859375,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 568.53125,
+                "width": 259,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 575.53125,
+                "right": 291,
+                "bottom": 629.53125,
+                "width": 259,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 150.859375,
+            "bottom": 143,
+            "width": 134.859375,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "name": "betrayal-confession",
+      "line": 3,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "ren",
+        "ja": "僕が渡した。母の返済を待ってもらう代わりに。機材を置いた人には、契約も住所を渡すことも知らせなかった。",
+        "en": "I gave them the list to buy time for my mother’s debt. I never told the hosts about the contract or that I shared their addresses.",
+        "shot": "left",
+        "art": "radio-betrayal-reverse",
+        "displayedSetting": {
+          "ja": "SORA レコード・放送室",
+          "en": "SORA RECORDS · RADIO ROOM"
+        }
+      },
+      "shot": {
+        "scene": "radio",
+        "shot": "left"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 605.96875,
+                "width": 329,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 612.96875,
+                "right": 361,
+                "bottom": 666.96875,
+                "width": 329,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 150.859375,
+            "bottom": 143,
+            "width": 134.859375,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 591.359375,
+                "width": 259,
+                "height": 106.96875
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 598.359375,
+                "right": 291,
+                "bottom": 667,
+                "width": 259,
+                "height": 68.640625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 150.859375,
+            "bottom": 143,
+            "width": 134.859375,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 7,
+      "name": "public-confession",
+      "line": 0,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "ren",
+        "ja": "SORAラジオの空井レンです。中継先の情報を、皆さんに知らせずスポンサーに渡しました。",
+        "en": "This is Ren Sorai of SORA Radio. I gave the sponsor your relay details without telling you.",
+        "scene": "harbor",
+        "shot": "left",
+        "art": "public-confession",
+        "displayedSetting": {
+          "ja": "横浜・港の集会所",
+          "en": "YOKOHAMA · HARBOR MEET"
+        }
+      },
+      "shot": {
+        "scene": "harbor",
+        "shot": "left"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 605.96875,
+                "width": 329,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 612.96875,
+                "right": 361,
+                "bottom": 648.96875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 131.15625,
+            "bottom": 143,
+            "width": 115.15625,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 568.53125,
+                "width": 259,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 575.53125,
+                "right": 291,
+                "bottom": 629.53125,
+                "width": 259,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 131.15625,
+            "bottom": 143,
+            "width": 115.15625,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 7,
+      "name": "public-confession-reverse",
+      "line": 2,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "mei",
+        "ja": "マイクを受け取る人の列、長いね。怒っている人もいる。今日は途中で切らないよ。",
+        "en": "That is a long queue for the microphone. Some people are angry. We will not cut them off.",
+        "shot": "right",
+        "art": "public-confession-reverse",
+        "displayedSetting": {
+          "ja": "横浜・港の集会所",
+          "en": "YOKOHAMA · HARBOR MEET"
+        }
+      },
+      "shot": {
+        "scene": "harbor",
+        "shot": "right"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 577.921875,
+                "width": 329,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 584.921875,
+                "right": 361,
+                "bottom": 620.921875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 131.15625,
+            "bottom": 143,
+            "width": 115.15625,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 568.53125,
+                "width": 259,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 575.53125,
+                "right": 291,
+                "bottom": 629.53125,
+                "width": 259,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 131.15625,
+            "bottom": 143,
+            "width": 115.15625,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "jun-premiere",
+      "line": 3,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "jun",
+        "ja": "SORAラジオをお聴きのみんなへ。長く待たせた新曲です。今度は、最後まで弾くよ。",
+        "en": "To everyone listening to SORA Radio: a new song, a long time coming. This time, I am playing it through.",
+        "scene": "radio",
+        "shot": "wide",
+        "art": "radio-jun-premiere",
+        "setting": {
+          "ja": "前日の朝の録音・SORA放送室",
+          "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+        },
+        "displayedSetting": {
+          "ja": "前日の朝の録音・SORA放送室",
+          "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+        }
+      },
+      "shot": {
+        "scene": "radio",
+        "shot": "wide"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 605.96875,
+                "width": 329,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 612.96875,
+                "right": 361,
+                "bottom": 648.96875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 228.265625,
+            "bottom": 143,
+            "width": 212.265625,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 568.53125,
+                "width": 259,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 575.53125,
+                "right": 291,
+                "bottom": 629.53125,
+                "width": 259,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 228.265625,
+            "bottom": 143,
+            "width": 212.265625,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "jun-premiere-reverse",
+      "line": 4,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "ren",
+        "ja": "この番組は録音です。今ごろ僕も日光で聴いているはず。今日だけは、曲のあとに黙ってみようと思います。",
+        "en": "This show is recorded. I should be listening at Nikko too. Just for today, I think I will leave some silence after the song.",
+        "scene": "radio",
+        "shot": "left",
+        "art": "radio-jun-premiere-reverse",
+        "setting": {
+          "ja": "前日の朝の録音・SORA放送室",
+          "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+        },
+        "displayedSetting": {
+          "ja": "前日の朝の録音・SORA放送室",
+          "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+        }
+      },
+      "shot": {
+        "scene": "radio",
+        "shot": "left"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 605.96875,
+                "width": 329,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 612.96875,
+                "right": 361,
+                "bottom": 666.96875,
+                "width": 329,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 228.265625,
+            "bottom": 143,
+            "width": 212.265625,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 591.359375,
+                "width": 259,
+                "height": 106.96875
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 598.359375,
+                "right": 291,
+                "bottom": 667,
+                "width": 259,
+                "height": 68.640625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 228.265625,
+            "bottom": 143,
+            "width": 212.265625,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "romance-confession-now",
+      "line": 5,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "aki",
+        "ja": "本当に黙っちゃった。……レン、好きだよ。工房で会うだけじゃ、足りなくなった。次の休み、二人で出かけたい。",
+        "en": "You really did go quiet. Ren, I love you. Seeing you at the garage is not enough anymore. I want our next day off to be just us.",
+        "scene": "sunrise",
+        "shot": "right",
+        "setting": {
+          "ja": "いま・日光の展望台",
+          "en": "NOW · NIKKO OVERLOOK"
+        },
+        "displayedSetting": {
+          "ja": "いま・日光の展望台",
+          "en": "NOW · NIKKO OVERLOOK"
+        }
+      },
+      "shot": {
+        "scene": "sunrise",
+        "shot": "right"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 605.96875,
+                "width": 329,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 612.96875,
+                "right": 361,
+                "bottom": 666.96875,
+                "width": 329,
+                "height": 54
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 124,
+            "bottom": 143,
+            "width": 108,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 591.359375,
+                "width": 259,
+                "height": 106.96875
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 598.359375,
+                "right": 291,
+                "bottom": 667,
+                "width": 259,
+                "height": 68.640625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 124,
+            "bottom": 143,
+            "width": 108,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "romance-consent-question",
+      "line": 7,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "aki",
+        "ja": "今、キスしてもいい？ ……この答えは、放送には乗せないでね。",
+        "en": "May I kiss you? And please keep this answer off the air.",
+        "shot": "right",
+        "displayedSetting": {
+          "ja": "日光・峠の展望台",
+          "en": "NIKKO · MOUNTAIN OVERLOOK"
+        }
+      },
+      "shot": {
+        "scene": "sunrise",
+        "shot": "right"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 577.921875,
+                "width": 329,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 584.921875,
+                "right": 361,
+                "bottom": 620.921875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 540.484375,
+                "width": 259,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 547.484375,
+                "right": 291,
+                "bottom": 583.484375,
+                "width": 259,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "romance-consent-answer",
+      "line": 8,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "ren",
+        "ja": "うん。僕も、そうしたい。ほら、マイクは持ってない。テープも、まだ止まってる。",
+        "en": "Yes. I want that too. Look, no microphone. And the tape is still stopped.",
+        "shot": "left",
+        "displayedSetting": {
+          "ja": "日光・峠の展望台",
+          "en": "NIKKO · MOUNTAIN OVERLOOK"
+        }
+      },
+      "shot": {
+        "scene": "sunrise",
+        "shot": "left"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 577.921875,
+                "width": 329,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 584.921875,
+                "right": 361,
+                "bottom": 620.921875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 568.53125,
+                "width": 259,
+                "height": 84.140625
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 575.53125,
+                "right": 291,
+                "bottom": 611.53125,
+                "width": 259,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "name": "romance-first-kiss",
+      "line": 9,
+      "phase": "victory",
+      "evidence": "Isolated real CutscenePlayer with current campaign dialogue; no race win or campaign unlock earned.",
+      "dialogue": {
+        "speaker": "aki",
+        "ja": "……録音、押すね。お腹すいた。最初の一言、こんなのでいい？",
+        "en": "I am pressing record now. I am hungry. Is that all right for the first thing on side B?",
+        "shot": "right",
+        "art": "sunrise-kiss",
+        "displayedSetting": {
+          "ja": "日光・峠の展望台",
+          "en": "NIKKO · MOUNTAIN OVERLOOK"
+        }
+      },
+      "shot": {
+        "scene": "sunrise",
+        "shot": "right"
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 446.828125,
+            "right": 378,
+            "bottom": 830,
+            "width": 366,
+            "height": 383.171875
+          },
+          "panelScrollHeight": 381,
+          "panelClientHeight": 381,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 521.828125,
+                "right": 361,
+                "bottom": 577.921875,
+                "width": 329,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 584.921875,
+                "right": 361,
+                "bottom": 620.921875,
+                "width": 329,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 446.828125,
+                "right": 378,
+                "bottom": 830,
+                "width": 366,
+                "height": 383.171875
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        },
+        {
+          "width": 320,
+          "height": 740,
+          "documentOverflow": false,
+          "panel": {
+            "left": 12,
+            "top": 409.390625,
+            "right": 308,
+            "bottom": 726,
+            "width": 296,
+            "height": 316.609375
+          },
+          "panelScrollHeight": 315,
+          "panelClientHeight": 315,
+          "texts": [
+            {
+              "selector": "#scene-japanese",
+              "rect": {
+                "left": 32,
+                "top": 484.390625,
+                "right": 291,
+                "bottom": 540.484375,
+                "width": 259,
+                "height": 56.09375
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "17px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            },
+            {
+              "selector": ".scene-subtitle",
+              "rect": {
+                "left": 32,
+                "top": 547.484375,
+                "right": 291,
+                "bottom": 583.484375,
+                "width": 259,
+                "height": 36
+              },
+              "panel": {
+                "left": 12,
+                "top": 409.390625,
+                "right": 308,
+                "bottom": 726,
+                "width": 296,
+                "height": 316.609375
+              },
+              "scrollTop": 0,
+              "fontSize": "12px",
+              "fullyReachable": true,
+              "horizontalOverflow": false
+            }
+          ],
+          "location": {
+            "left": 16,
+            "top": 99,
+            "right": 143.8125,
+            "bottom": 143,
+            "width": 127.8125,
+            "height": 44
+          },
+          "locationOverflow": false
+        }
+      ]
+    }
+  ],
+  "musicChecks": [
+    {
+      "cue": "0:intro:0:garage:wide",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:0:garage:wide",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:0:garage:wide",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:3:ledger:wide",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:ledger:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "0:intro:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "0:intro:0:garage:wide",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "The garage and the blank cassette",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:intro:3:ledger:wide",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:ledger:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:3:ledger:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:3:ledger:detail",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:3:ledger:detail",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:3:garage:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "The repayment deadline",
+      "arrangement": "tense:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:intro:8:harbor:wide",
+      "title": "Milk Crates at Midnight",
+      "narrative": "The crown reaches the harbor",
+      "arrangement": "tense:harbor:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "0:intro:9:radio:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "An invitation to the airwaves",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "0:intro:9:radio:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "An invitation to the airwaves",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "0:intro:9:radio:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "An invitation to the airwaves",
+      "arrangement": "hope:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "0:intro:9:garage:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "An invitation to the airwaves",
+      "arrangement": "hope:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "0:intro:9:garage:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "An invitation to the airwaves",
+      "arrangement": "hope:garage:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "0:intro:14:garage:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "The weight of her father’s workshop",
+      "arrangement": "tender:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "0:intro:14:garage:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "The weight of her father’s workshop",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "1:intro:0:harbor:wide",
+      "title": "Milk Crates at Midnight",
+      "narrative": "The depot wakes the city",
+      "arrangement": "warm:harbor:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "1:intro:0:harbor:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "The depot wakes the city",
+      "arrangement": "warm:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "1:intro:0:harbor:detail",
+      "title": "Milk Crates at Midnight",
+      "narrative": "The depot wakes the city",
+      "arrangement": "warm:harbor:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "1:intro:3:harbor:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "People outside the redevelopment picture",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "1:intro:3:harbor:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "People outside the redevelopment picture",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "1:intro:3:harbor:left",
+      "title": "Three Weeks of Paper",
+      "narrative": "People outside the redevelopment picture",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "1:intro:3:harbor:left",
+      "title": "Three Weeks of Paper",
+      "narrative": "People outside the redevelopment picture",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "1:intro:7:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "A postcard about sleepless nights",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "1:intro:7:harbor:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "A postcard about sleepless nights",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "1:intro:7:harbor:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "A postcard about sleepless nights",
+      "arrangement": "tender:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "1:intro:7:harbor:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "A postcard about sleepless nights",
+      "arrangement": "tender:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "1:intro:11:harbor:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Repair the brakes first",
+      "arrangement": "hope:harbor:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:intro:11:harbor:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Repair the brakes first",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:intro:11:radio:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Repair the brakes first",
+      "arrangement": "hope:radio:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:intro:11:harbor:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Repair the brakes first",
+      "arrangement": "hope:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:intro:11:harbor:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Repair the brakes first",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "2:intro:0:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Reading Rei’s signed assessment",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "2:intro:0:office:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Reading Rei’s signed assessment",
+      "arrangement": "tense:office:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "2:intro:0:office:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Reading Rei’s signed assessment",
+      "arrangement": "tense:office:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "2:intro:0:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Reading Rei’s signed assessment",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "2:intro:4:boardroom:wide",
+      "title": "Crown on the Grid",
+      "narrative": "The CROWN withdrawal plan",
+      "arrangement": "tense:boardroom:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "2:intro:4:boardroom:detail",
+      "title": "Crown on the Grid",
+      "narrative": "The CROWN withdrawal plan",
+      "arrangement": "tense:boardroom:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "2:intro:4:boardroom:left",
+      "title": "Crown on the Grid",
+      "narrative": "The CROWN withdrawal plan",
+      "arrangement": "tense:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "2:intro:4:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The CROWN withdrawal plan",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "2:intro:4:garage:left",
+      "title": "Crown on the Grid",
+      "narrative": "The CROWN withdrawal plan",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "2:intro:9:garage:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Yui reveals SORA X.O.R.",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "2:intro:9:garage:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Yui reveals SORA X.O.R.",
+      "arrangement": "hope:garage:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "2:intro:9:garage:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Yui reveals SORA X.O.R.",
+      "arrangement": "hope:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "2:intro:12:ledger:detail",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s borrowed vise",
+      "arrangement": "tender:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "2:intro:12:ledger:detail",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s borrowed vise",
+      "arrangement": "tender:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "2:intro:12:ledger:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s borrowed vise",
+      "arrangement": "tender:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "2:intro:15:garage:wide",
+      "title": "No Master Key",
+      "narrative": "Aki offers to handle the repair questions",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "3:intro:0:boardroom:wide",
+      "title": "Glass Permission",
+      "narrative": "Six lifts behind the glass",
+      "arrangement": "warm:boardroom:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "3:intro:0:boardroom:left",
+      "title": "Glass Permission",
+      "narrative": "Six lifts behind the glass",
+      "arrangement": "warm:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "3:intro:0:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Six lifts behind the glass",
+      "arrangement": "warm:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "3:intro:0:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Six lifts behind the glass",
+      "arrangement": "warm:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "3:intro:4:boardroom:wide",
+      "title": "Crown on the Grid",
+      "narrative": "Exclusive rights and a master switch",
+      "arrangement": "tense:boardroom:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "3:intro:4:boardroom:detail",
+      "title": "Crown on the Grid",
+      "narrative": "Exclusive rights and a master switch",
+      "arrangement": "tense:boardroom:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "3:intro:4:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "Exclusive rights and a master switch",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "3:intro:4:boardroom:left",
+      "title": "Crown on the Grid",
+      "narrative": "Exclusive rights and a master switch",
+      "arrangement": "tense:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "3:intro:8:boardroom:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Toru remembers the factory closing",
+      "arrangement": "grief:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "3:intro:8:boardroom:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Toru remembers the factory closing",
+      "arrangement": "grief:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "3:intro:8:boardroom:left",
+      "title": "Three Weeks of Paper",
+      "narrative": "Toru remembers the factory closing",
+      "arrangement": "grief:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "3:intro:8:boardroom:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Toru remembers the factory closing",
+      "arrangement": "grief:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "3:intro:12:boardroom:left",
+      "title": "No Master Key",
+      "narrative": "The sign is not for sale",
+      "arrangement": "hope:boardroom:left",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 5
+    },
+    {
+      "cue": "3:intro:12:boardroom:detail",
+      "title": "No Master Key",
+      "narrative": "The sign is not for sale",
+      "arrangement": "hope:boardroom:detail",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 5
+    },
+    {
+      "cue": "3:intro:12:boardroom:right",
+      "title": "No Master Key",
+      "narrative": "The sign is not for sale",
+      "arrangement": "hope:boardroom:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 5
+    },
+    {
+      "cue": "3:intro:12:garage:wide",
+      "title": "No Master Key",
+      "narrative": "The sign is not for sale",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 5
+    },
+    {
+      "cue": "4:intro:0:radio:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Receipts, breakfast and a rainy forecast",
+      "arrangement": "warm:radio:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "4:intro:0:radio:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Receipts, breakfast and a rainy forecast",
+      "arrangement": "warm:radio:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "4:intro:0:radio:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Receipts, breakfast and a rainy forecast",
+      "arrangement": "warm:radio:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "4:intro:0:radio:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Receipts, breakfast and a rainy forecast",
+      "arrangement": "warm:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "4:intro:0:radio:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Receipts, breakfast and a rainy forecast",
+      "arrangement": "warm:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "4:intro:5:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Move your chair closer",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "4:intro:5:radio:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Move your chair closer",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "4:intro:5:radio:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Move your chair closer",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "4:intro:8:radio:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Admitting what they fear losing",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "4:intro:8:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Admitting what they fear losing",
+      "arrangement": "grief:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "4:intro:10:radio:left",
+      "title": "Blank Side Promise",
+      "narrative": "I came looking for you",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "4:intro:10:radio:detail",
+      "title": "Blank Side Promise",
+      "narrative": "I came looking for you",
+      "arrangement": "tender:radio:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "4:intro:12:radio:detail",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "The long way home becomes a date",
+      "arrangement": "tender:radio:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "4:intro:12:harbor:wide",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "The long way home becomes a date",
+      "arrangement": "tender:harbor:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "5:intro:0:boardroom:wide",
+      "title": "Crown on the Grid",
+      "narrative": "The Council demands a public retraction",
+      "arrangement": "tense:boardroom:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "5:intro:0:boardroom:left",
+      "title": "Crown on the Grid",
+      "narrative": "The Council demands a public retraction",
+      "arrangement": "tense:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "5:intro:0:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The Council demands a public retraction",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "5:intro:0:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The Council demands a public retraction",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "5:intro:4:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Cooperation on the Council’s terms",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "5:intro:4:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Cooperation on the Council’s terms",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "5:intro:4:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Cooperation on the Council’s terms",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "5:intro:7:boardroom:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The photograph cropped out its people",
+      "arrangement": "grief:boardroom:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:7:boardroom:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The photograph cropped out its people",
+      "arrangement": "grief:boardroom:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:7:boardroom:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The photograph cropped out its people",
+      "arrangement": "grief:boardroom:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:10:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei retains the implementation schedule",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:10:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei retains the implementation schedule",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:10:office:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei retains the implementation schedule",
+      "arrangement": "tense:office:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "5:intro:13:garage:wide",
+      "title": "Two A.M. Relay",
+      "narrative": "Carry the originals separately",
+      "arrangement": "urgent:garage:wide",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 5
+    },
+    {
+      "cue": "6:intro:0:radio:detail",
+      "title": "Two A.M. Relay",
+      "narrative": "The two a.m. tape is cued",
+      "arrangement": "urgent:radio:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "6:intro:0:radio:left",
+      "title": "Two A.M. Relay",
+      "narrative": "The two a.m. tape is cued",
+      "arrangement": "urgent:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "6:intro:0:radio:right",
+      "title": "Two A.M. Relay",
+      "narrative": "The two a.m. tape is cued",
+      "arrangement": "urgent:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "6:intro:0:radio:right",
+      "title": "Two A.M. Relay",
+      "narrative": "The two a.m. tape is cued",
+      "arrangement": "urgent:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "6:intro:4:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "A promise to record side B",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "6:intro:5:ledger:wide",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The originals and the lost desk key",
+      "arrangement": "tense:ledger:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "6:intro:5:office:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The originals and the lost desk key",
+      "arrangement": "tense:office:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "6:intro:5:garage:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The originals and the lost desk key",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "6:intro:5:garage:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The originals and the lost desk key",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "6:intro:9:garage:detail",
+      "title": "Two A.M. Relay",
+      "narrative": "One recovery key and a fragile relay",
+      "arrangement": "urgent:garage:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "6:intro:9:garage:detail",
+      "title": "Two A.M. Relay",
+      "narrative": "One recovery key and a fragile relay",
+      "arrangement": "urgent:garage:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "6:intro:11:garage:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Promise to listen before the broadcast",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 6
+    },
+    {
+      "cue": "6:intro:11:garage:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Promise to listen before the broadcast",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 6
+    },
+    {
+      "cue": "6:intro:13:garage:wide",
+      "title": "Two A.M. Relay",
+      "narrative": "Return together before the broadcast",
+      "arrangement": "urgent:garage:wide",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 7
+    },
+    {
+      "cue": "7:intro:0:garage:wide",
+      "title": "Dead Air Confession",
+      "narrative": "Can a broken night be repaired",
+      "arrangement": "grief:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "7:intro:0:garage:wide",
+      "title": "Dead Air Confession",
+      "narrative": "Can a broken night be repaired",
+      "arrangement": "grief:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "7:intro:2:ledger:detail",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s notebook of people to thank",
+      "arrangement": "tender:ledger:detail",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:2:ledger:detail",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s notebook of people to thank",
+      "arrangement": "tender:ledger:detail",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:2:ledger:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s notebook of people to thank",
+      "arrangement": "tender:ledger:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:2:ledger:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s notebook of people to thank",
+      "arrangement": "tender:ledger:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:6:garage:wide",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Aki finally asks for help",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 128,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:6:garage:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Aki finally asks for help",
+      "arrangement": "hope:garage:left",
+      "entryBeat": 128,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "7:intro:8:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Giving up the single recovery key",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "7:intro:8:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Giving up the single recovery key",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "7:intro:8:ledger:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Giving up the single recovery key",
+      "arrangement": "hope:ledger:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "7:intro:11:garage:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren waits outside and tells the truth",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "7:intro:11:garage:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren waits outside and tells the truth",
+      "arrangement": "tense:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "7:intro:11:garage:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren waits outside and tells the truth",
+      "arrangement": "tense:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "7:intro:14:harbor:wide",
+      "title": "The Frequency Home",
+      "narrative": "Ask for help in SORA’s name",
+      "arrangement": "hope:harbor:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "8:intro:0:ledger:detail",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A rota that gets Daichi home",
+      "arrangement": "warm:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "8:intro:0:ledger:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A rota that gets Daichi home",
+      "arrangement": "warm:ledger:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "8:intro:0:ledger:right",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A rota that gets Daichi home",
+      "arrangement": "warm:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "8:intro:3:ledger:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Names checked and addresses covered",
+      "arrangement": "warm:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "8:intro:3:ledger:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Names checked and addresses covered",
+      "arrangement": "warm:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "8:intro:5:community:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "A better plan in somebody else’s handwriting",
+      "arrangement": "hope:community:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "8:intro:5:community:left",
+      "title": "Open Circuit Breakfast",
+      "narrative": "A better plan in somebody else’s handwriting",
+      "arrangement": "hope:community:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "8:intro:5:community:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "A better plan in somebody else’s handwriting",
+      "arrangement": "hope:community:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "8:intro:8:radio:wide",
+      "title": "The Frequency Home",
+      "narrative": "Learning to keep smaller promises",
+      "arrangement": "tender:radio:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "8:intro:8:radio:right",
+      "title": "The Frequency Home",
+      "narrative": "Learning to keep smaller promises",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "8:intro:8:radio:left",
+      "title": "The Frequency Home",
+      "narrative": "Learning to keep smaller promises",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "8:intro:8:radio:left",
+      "title": "The Frequency Home",
+      "narrative": "Learning to keep smaller promises",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "8:intro:12:sunrise:wide",
+      "title": "The Frequency Home",
+      "narrative": "Handing the next leg to other drivers",
+      "arrangement": "hope:sunrise:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "8:intro:12:sunrise:right",
+      "title": "The Frequency Home",
+      "narrative": "Handing the next leg to other drivers",
+      "arrangement": "hope:sunrise:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "9:intro:0:boardroom:wide",
+      "title": "Glass Permission",
+      "narrative": "The key offered before the answer",
+      "arrangement": "tense:boardroom:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 2
+    },
+    {
+      "cue": "9:intro:0:boardroom:detail",
+      "title": "Glass Permission",
+      "narrative": "The key offered before the answer",
+      "arrangement": "tense:boardroom:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 2
+    },
+    {
+      "cue": "9:intro:2:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The Council decides above her",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "9:intro:2:boardroom:left",
+      "title": "Crown on the Grid",
+      "narrative": "The Council decides above her",
+      "arrangement": "tense:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "9:intro:2:boardroom:left",
+      "title": "Crown on the Grid",
+      "narrative": "The Council decides above her",
+      "arrangement": "tense:boardroom:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "9:intro:5:boardroom:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Remembering the guarded workshop key",
+      "arrangement": "tender:boardroom:left",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 4
+    },
+    {
+      "cue": "9:intro:5:boardroom:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Remembering the guarded workshop key",
+      "arrangement": "tender:boardroom:left",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 4
+    },
+    {
+      "cue": "9:intro:5:boardroom:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Remembering the guarded workshop key",
+      "arrangement": "tender:boardroom:left",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 4
+    },
+    {
+      "cue": "9:intro:8:boardroom:detail",
+      "title": "No Master Key",
+      "narrative": "Aki returns the key",
+      "arrangement": "hope:boardroom:detail",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 5
+    },
+    {
+      "cue": "9:intro:8:boardroom:detail",
+      "title": "No Master Key",
+      "narrative": "Aki returns the key",
+      "arrangement": "hope:boardroom:detail",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 5
+    },
+    {
+      "cue": "9:intro:10:radio:wide",
+      "title": "Two A.M. Relay",
+      "narrative": "Spare transmitters replace the lost line",
+      "arrangement": "urgent:radio:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 6
+    },
+    {
+      "cue": "9:intro:10:radio:left",
+      "title": "Two A.M. Relay",
+      "narrative": "Spare transmitters replace the lost line",
+      "arrangement": "urgent:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 6
+    },
+    {
+      "cue": "9:intro:10:radio:detail",
+      "title": "Two A.M. Relay",
+      "narrative": "Spare transmitters replace the lost line",
+      "arrangement": "urgent:radio:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 6
+    },
+    {
+      "cue": "9:intro:13:garage:wide",
+      "title": "No Master Key",
+      "narrative": "The last race before the public hearing",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 7
+    },
+    {
+      "cue": "10:intro:0:harbor:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Toru offers only his own purchase options",
+      "arrangement": "tense:harbor:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "10:intro:0:harbor:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Toru offers only his own purchase options",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "10:intro:2:harbor:right",
+      "title": "Outrun the Dawn",
+      "narrative": "The challenge spoken before everyone",
+      "arrangement": "urgent:harbor:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 3
+    },
+    {
+      "cue": "10:intro:2:harbor:right",
+      "title": "Outrun the Dawn",
+      "narrative": "The challenge spoken before everyone",
+      "arrangement": "urgent:harbor:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 3
+    },
+    {
+      "cue": "10:intro:2:harbor:right",
+      "title": "Outrun the Dawn",
+      "narrative": "The challenge spoken before everyone",
+      "arrangement": "urgent:harbor:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 3
+    },
+    {
+      "cue": "10:intro:2:harbor:detail",
+      "title": "Outrun the Dawn",
+      "narrative": "The challenge spoken before everyone",
+      "arrangement": "urgent:harbor:detail",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 3
+    },
+    {
+      "cue": "10:intro:6:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The Council’s other contracts remain",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "10:intro:6:harbor:left",
+      "title": "Crown on the Grid",
+      "narrative": "The Council’s other contracts remain",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "10:intro:8:garage:detail",
+      "title": "Outrun the Dawn",
+      "narrative": "Leave a line back out of the corner",
+      "arrangement": "urgent:garage:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "10:intro:8:garage:left",
+      "title": "Outrun the Dawn",
+      "narrative": "Leave a line back out of the corner",
+      "arrangement": "urgent:garage:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "10:intro:8:garage:left",
+      "title": "Outrun the Dawn",
+      "narrative": "Leave a line back out of the corner",
+      "arrangement": "urgent:garage:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 5
+    },
+    {
+      "cue": "10:intro:11:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "Ren leaves the microphone for the grid",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 6
+    },
+    {
+      "cue": "10:intro:11:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "Ren leaves the microphone for the grid",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 6
+    },
+    {
+      "cue": "10:intro:13:harbor:wide",
+      "title": "Outrun the Dawn",
+      "narrative": "To the final grid",
+      "arrangement": "urgent:harbor:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 7
+    },
+    {
+      "cue": "11:intro:0:garage:wide",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Knock if you have something to repair",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 2
+    },
+    {
+      "cue": "11:intro:0:garage:left",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Knock if you have something to repair",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 2
+    },
+    {
+      "cue": "11:intro:0:garage:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Knock if you have something to repair",
+      "arrangement": "warm:garage:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 2
+    },
+    {
+      "cue": "11:intro:3:ledger:detail",
+      "title": "The Frequency Home",
+      "narrative": "A workshop that works when she is away",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 3
+    },
+    {
+      "cue": "11:intro:3:ledger:detail",
+      "title": "The Frequency Home",
+      "narrative": "A workshop that works when she is away",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 3
+    },
+    {
+      "cue": "11:intro:3:community:wide",
+      "title": "The Frequency Home",
+      "narrative": "A workshop that works when she is away",
+      "arrangement": "hope:community:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 3
+    },
+    {
+      "cue": "11:intro:3:community:left",
+      "title": "The Frequency Home",
+      "narrative": "A workshop that works when she is away",
+      "arrangement": "hope:community:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 3
+    },
+    {
+      "cue": "11:intro:7:radio:detail",
+      "title": "Jun: The First Light",
+      "narrative": "Jun finishes his abandoned song",
+      "arrangement": "hope:radio:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "11:intro:7:radio:left",
+      "title": "Jun: The First Light",
+      "narrative": "Jun finishes his abandoned song",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 4
+    },
+    {
+      "cue": "11:intro:9:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "The cassette is hers to choose",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 5
+    },
+    {
+      "cue": "11:intro:9:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "The cassette is hers to choose",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 5
+    },
+    {
+      "cue": "11:intro:9:radio:detail",
+      "title": "Blank Side Promise",
+      "narrative": "The cassette is hers to choose",
+      "arrangement": "tender:radio:detail",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 5
+    },
+    {
+      "cue": "11:intro:12:sunrise:wide",
+      "title": "The Frequency Home",
+      "narrative": "Invitations from the next towns",
+      "arrangement": "hope:sunrise:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 6
+    },
+    {
+      "cue": "11:intro:12:sunrise:left",
+      "title": "The Frequency Home",
+      "narrative": "Invitations from the next towns",
+      "arrangement": "hope:sunrise:left",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 6
+    },
+    {
+      "cue": "0:victory:0:garage:wide",
+      "title": "Blank Side Promise",
+      "narrative": "A small victory at the workshop",
+      "arrangement": "warm:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 1
+    },
+    {
+      "cue": "0:victory:0:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "A small victory at the workshop",
+      "arrangement": "warm:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 1
+    },
+    {
+      "cue": "0:victory:0:radio:wide",
+      "title": "Blank Side Promise",
+      "narrative": "A small victory at the workshop",
+      "arrangement": "warm:radio:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 1
+    },
+    {
+      "cue": "0:victory:3:harbor:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A brother and an unfinished car",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:victory:3:harbor:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A brother and an unfinished car",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:victory:3:harbor:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "A brother and an unfinished car",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 2
+    },
+    {
+      "cue": "0:victory:6:ledger:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Two doors bear the same crown",
+      "arrangement": "tense:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:victory:6:ledger:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Two doors bear the same crown",
+      "arrangement": "tense:ledger:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 3
+    },
+    {
+      "cue": "0:victory:8:garage:right",
+      "title": "Blank Side Promise",
+      "narrative": "Save a song on side B",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "0:victory:8:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "Save a song on side B",
+      "arrangement": "tender:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 4
+    },
+    {
+      "cue": "1:victory:0:harbor:wide",
+      "title": "Milk Crates at Midnight",
+      "narrative": "Warm coffee and the returned keys",
+      "arrangement": "warm:harbor:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:victory:0:harbor:left",
+      "title": "Milk Crates at Midnight",
+      "narrative": "Warm coffee and the returned keys",
+      "arrangement": "warm:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:victory:0:harbor:detail",
+      "title": "Milk Crates at Midnight",
+      "narrative": "Warm coffee and the returned keys",
+      "arrangement": "warm:harbor:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 5
+    },
+    {
+      "cue": "1:victory:3:community:wide",
+      "title": "The Frequency Home",
+      "narrative": "The shopkeepers find a voice",
+      "arrangement": "hope:community:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "1:victory:3:radio:left",
+      "title": "The Frequency Home",
+      "narrative": "The shopkeepers find a voice",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "1:victory:3:harbor:left",
+      "title": "The Frequency Home",
+      "narrative": "The shopkeepers find a voice",
+      "arrangement": "hope:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 6
+    },
+    {
+      "cue": "1:victory:6:harbor:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names her own signature",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 7
+    },
+    {
+      "cue": "1:victory:6:harbor:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names her own signature",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 7
+    },
+    {
+      "cue": "1:victory:6:harbor:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names her own signature",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 7
+    },
+    {
+      "cue": "1:victory:6:harbor:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names her own signature",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 7
+    },
+    {
+      "cue": "2:victory:0:garage:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "The prototype leaves the desk",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 8
+    },
+    {
+      "cue": "2:victory:0:garage:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "The prototype leaves the desk",
+      "arrangement": "hope:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 8
+    },
+    {
+      "cue": "2:victory:2:garage:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Who holds the recovery key",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 9
+    },
+    {
+      "cue": "2:victory:2:garage:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Who holds the recovery key",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 9
+    },
+    {
+      "cue": "2:victory:2:ledger:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Who holds the recovery key",
+      "arrangement": "tense:ledger:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 9
+    },
+    {
+      "cue": "2:victory:2:ledger:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Who holds the recovery key",
+      "arrangement": "tense:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 9
+    },
+    {
+      "cue": "2:victory:6:radio:left",
+      "title": "Glass Permission",
+      "narrative": "An invitation to a perfect workshop",
+      "arrangement": "tense:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 10
+    },
+    {
+      "cue": "2:victory:6:garage:left",
+      "title": "Glass Permission",
+      "narrative": "An invitation to a perfect workshop",
+      "arrangement": "tense:garage:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 10
+    },
+    {
+      "cue": "2:victory:8:garage:right",
+      "title": "Blank Side Promise",
+      "narrative": "An unfinished promise",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 11
+    },
+    {
+      "cue": "2:victory:8:garage:detail",
+      "title": "Blank Side Promise",
+      "narrative": "An unfinished promise",
+      "arrangement": "tender:garage:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 11
+    },
+    {
+      "cue": "3:victory:0:sunrise:wide",
+      "title": "No Master Key",
+      "narrative": "A public answer from the podium",
+      "arrangement": "hope:sunrise:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 12
+    },
+    {
+      "cue": "3:victory:0:sunrise:left",
+      "title": "No Master Key",
+      "narrative": "A public answer from the podium",
+      "arrangement": "hope:sunrise:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 12
+    },
+    {
+      "cue": "3:victory:0:sunrise:left",
+      "title": "No Master Key",
+      "narrative": "A public answer from the podium",
+      "arrangement": "hope:sunrise:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 12
+    },
+    {
+      "cue": "3:victory:3:sunrise:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "One more working terminal",
+      "arrangement": "warm:sunrise:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 13
+    },
+    {
+      "cue": "3:victory:3:sunrise:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "One more working terminal",
+      "arrangement": "warm:sunrise:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 13
+    },
+    {
+      "cue": "3:victory:3:sunrise:wide",
+      "title": "Open Circuit Breakfast",
+      "narrative": "One more working terminal",
+      "arrangement": "warm:sunrise:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 13
+    },
+    {
+      "cue": "3:victory:6:sunrise:left",
+      "title": "Blank Side Promise",
+      "narrative": "Two voices shaking at sunrise",
+      "arrangement": "tender:sunrise:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 14
+    },
+    {
+      "cue": "3:victory:6:sunrise:right",
+      "title": "Blank Side Promise",
+      "narrative": "Two voices shaking at sunrise",
+      "arrangement": "tender:sunrise:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 14
+    },
+    {
+      "cue": "3:victory:6:sunrise:left",
+      "title": "Blank Side Promise",
+      "narrative": "Two voices shaking at sunrise",
+      "arrangement": "tender:sunrise:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 14
+    },
+    {
+      "cue": "3:victory:6:sunrise:wide",
+      "title": "Blank Side Promise",
+      "narrative": "Two voices shaking at sunrise",
+      "arrangement": "tender:sunrise:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 14
+    },
+    {
+      "cue": "4:victory:0:harbor:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "One umbrella at the harbor",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 15
+    },
+    {
+      "cue": "4:victory:0:harbor:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "One umbrella at the harbor",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 15
+    },
+    {
+      "cue": "4:victory:0:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "One umbrella at the harbor",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 15
+    },
+    {
+      "cue": "4:victory:0:radio:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "One umbrella at the harbor",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 15
+    },
+    {
+      "cue": "4:victory:4:radio:right",
+      "title": "Blank Side Promise",
+      "narrative": "Almost saying it aloud",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 16
+    },
+    {
+      "cue": "4:victory:5:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "The sponsor calls about his mother",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 17
+    },
+    {
+      "cue": "4:victory:5:radio:detail",
+      "title": "Glass Permission",
+      "narrative": "The sponsor calls about his mother",
+      "arrangement": "tense:radio:detail",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 17
+    },
+    {
+      "cue": "4:victory:5:radio:right",
+      "title": "Glass Permission",
+      "narrative": "The sponsor calls about his mother",
+      "arrangement": "tense:radio:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 17
+    },
+    {
+      "cue": "4:victory:8:radio:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Ren hides the shaking hands",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 18
+    },
+    {
+      "cue": "4:victory:8:radio:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Ren hides the shaking hands",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 18
+    },
+    {
+      "cue": "5:victory:0:sunrise:wide",
+      "title": "The Frequency Home",
+      "narrative": "Ask how people wish to be remembered",
+      "arrangement": "warm:sunrise:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 19
+    },
+    {
+      "cue": "5:victory:0:sunrise:left",
+      "title": "The Frequency Home",
+      "narrative": "Ask how people wish to be remembered",
+      "arrangement": "warm:sunrise:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 19
+    },
+    {
+      "cue": "5:victory:0:sunrise:left",
+      "title": "The Frequency Home",
+      "narrative": "Ask how people wish to be remembered",
+      "arrangement": "warm:sunrise:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 19
+    },
+    {
+      "cue": "5:victory:3:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Leave copies in two places",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 20
+    },
+    {
+      "cue": "5:victory:3:ledger:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Leave copies in two places",
+      "arrangement": "tense:ledger:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 20
+    },
+    {
+      "cue": "5:victory:5:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "The agreement exposes Ren’s betrayal",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 21
+    },
+    {
+      "cue": "5:victory:5:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "The agreement exposes Ren’s betrayal",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 21
+    },
+    {
+      "cue": "5:victory:5:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "The agreement exposes Ren’s betrayal",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 21
+    },
+    {
+      "cue": "5:victory:8:radio:left",
+      "title": "Dead Air Confession",
+      "narrative": "The confession he still has not made",
+      "arrangement": "grief:radio:left",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 22
+    },
+    {
+      "cue": "5:victory:8:garage:wide",
+      "title": "Dead Air Confession",
+      "narrative": "The confession he still has not made",
+      "arrangement": "grief:garage:wide",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 22
+    },
+    {
+      "cue": "6:victory:0:radio:wide",
+      "title": "Dead Air Confession",
+      "narrative": "Blackout: every relay falls silent",
+      "arrangement": "grief:radio:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:0:garage:detail",
+      "title": "Dead Air Confession",
+      "narrative": "Blackout: every relay falls silent",
+      "arrangement": "grief:garage:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:0:radio:right",
+      "title": "Dead Air Confession",
+      "narrative": "Blackout: every relay falls silent",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:3:radio:left",
+      "title": "Dead Air Confession",
+      "narrative": "Ren admits giving away the locations",
+      "arrangement": "tense:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:3:radio:left",
+      "title": "Dead Air Confession",
+      "narrative": "Ren admits giving away the locations",
+      "arrangement": "tense:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:3:radio:left",
+      "title": "Dead Air Confession",
+      "narrative": "Ren admits giving away the locations",
+      "arrangement": "tense:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:6:radio:right",
+      "title": "Dead Air Confession",
+      "narrative": "The choice Aki was denied",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:6:radio:detail",
+      "title": "Dead Air Confession",
+      "narrative": "The choice Aki was denied",
+      "arrangement": "grief:radio:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 23
+    },
+    {
+      "cue": "6:victory:8:ledger:wide",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The records survived the shutdown",
+      "arrangement": "tense:ledger:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 24
+    },
+    {
+      "cue": "6:victory:9:garage:right",
+      "title": "Dead Air Confession",
+      "narrative": "Side B cannot be recorded tonight",
+      "arrangement": "grief:garage:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 25
+    },
+    {
+      "cue": "7:victory:0:harbor:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren’s public admission",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 26
+    },
+    {
+      "cue": "7:victory:0:harbor:left",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren’s public admission",
+      "arrangement": "tense:harbor:left",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 26
+    },
+    {
+      "cue": "7:victory:0:harbor:right",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Ren’s public admission",
+      "arrangement": "tense:harbor:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 26
+    },
+    {
+      "cue": "7:victory:3:harbor:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Borrowed tools and shared responsibility",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 27
+    },
+    {
+      "cue": "7:victory:4:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Separate terminals, surviving records",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 28
+    },
+    {
+      "cue": "7:victory:4:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Separate terminals, surviving records",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 28
+    },
+    {
+      "cue": "7:victory:4:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Separate terminals, surviving records",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 28
+    },
+    {
+      "cue": "7:victory:7:garage:left",
+      "title": "Blank Side Promise",
+      "narrative": "Tomorrow’s work starts at eight",
+      "arrangement": "tender:garage:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 29
+    },
+    {
+      "cue": "7:victory:7:garage:right",
+      "title": "Blank Side Promise",
+      "narrative": "Tomorrow’s work starts at eight",
+      "arrangement": "tender:garage:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 29
+    },
+    {
+      "cue": "7:victory:9:garage:wide",
+      "title": "Jun: The First Light",
+      "narrative": "Jun plays the first note on borrowed power",
+      "arrangement": "hope:garage:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 30
+    },
+    {
+      "cue": "8:victory:0:sunrise:wide",
+      "title": "The Frequency Home",
+      "narrative": "Signed handoffs beside the toolboxes",
+      "arrangement": "hope:sunrise:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 31
+    },
+    {
+      "cue": "8:victory:0:sunrise:detail",
+      "title": "The Frequency Home",
+      "narrative": "Signed handoffs beside the toolboxes",
+      "arrangement": "hope:sunrise:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 31
+    },
+    {
+      "cue": "8:victory:0:sunrise:left",
+      "title": "The Frequency Home",
+      "narrative": "Signed handoffs beside the toolboxes",
+      "arrangement": "hope:sunrise:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 31
+    },
+    {
+      "cue": "8:victory:3:community:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Room for people to say no",
+      "arrangement": "warm:community:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 32
+    },
+    {
+      "cue": "8:victory:3:community:right",
+      "title": "Open Circuit Breakfast",
+      "narrative": "Room for people to say no",
+      "arrangement": "warm:community:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 32
+    },
+    {
+      "cue": "8:victory:5:office:wide",
+      "title": "Carbon Copy Testimony",
+      "narrative": "The public hearing has a date",
+      "arrangement": "hope:office:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 33
+    },
+    {
+      "cue": "8:victory:6:radio:detail",
+      "title": "The Frequency Home",
+      "narrative": "Keep the uncomfortable correction visible",
+      "arrangement": "tender:radio:detail",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 34
+    },
+    {
+      "cue": "8:victory:6:radio:right",
+      "title": "The Frequency Home",
+      "narrative": "Keep the uncomfortable correction visible",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 34
+    },
+    {
+      "cue": "8:victory:6:radio:left",
+      "title": "The Frequency Home",
+      "narrative": "Keep the uncomfortable correction visible",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 34
+    },
+    {
+      "cue": "8:victory:9:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "Coffee after the show",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 35
+    },
+    {
+      "cue": "9:victory:0:community:wide",
+      "title": "The Frequency Home",
+      "narrative": "The hearing fills the venue",
+      "arrangement": "hope:community:wide",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 36
+    },
+    {
+      "cue": "9:victory:1:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names the fuel costs she omitted",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 37
+    },
+    {
+      "cue": "9:victory:1:office:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Rei names the fuel costs she omitted",
+      "arrangement": "tense:office:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 37
+    },
+    {
+      "cue": "9:victory:3:radio:left",
+      "title": "Jun: The First Light",
+      "narrative": "Jun stays on the stage",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 38
+    },
+    {
+      "cue": "9:victory:3:radio:right",
+      "title": "Jun: The First Light",
+      "narrative": "Jun stays on the stage",
+      "arrangement": "hope:radio:right",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 38
+    },
+    {
+      "cue": "9:victory:3:community:left",
+      "title": "Jun: The First Light",
+      "narrative": "Jun stays on the stage",
+      "arrangement": "hope:community:left",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 38
+    },
+    {
+      "cue": "9:victory:6:community:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Toru remembers his father paying for fuel",
+      "arrangement": "tender:community:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 39
+    },
+    {
+      "cue": "9:victory:6:community:right",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Toru remembers his father paying for fuel",
+      "arrangement": "tender:community:right",
+      "entryBeat": 128,
+      "requestedEntryBeat": 128,
+      "transitions": 39
+    },
+    {
+      "cue": "9:victory:8:harbor:wide",
+      "title": "Outrun the Dawn",
+      "narrative": "The terms before the final harbor meet",
+      "arrangement": "urgent:harbor:wide",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 40
+    },
+    {
+      "cue": "9:victory:8:harbor:wide",
+      "title": "Outrun the Dawn",
+      "narrative": "The terms before the final harbor meet",
+      "arrangement": "urgent:harbor:wide",
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
+      "transitions": 40
+    },
+    {
+      "cue": "10:victory:0:harbor:wide",
+      "title": "Outrun the Dawn",
+      "narrative": "Aki returns ahead of Toru",
+      "arrangement": "hope:harbor:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 41
+    },
+    {
+      "cue": "10:victory:0:harbor:right",
+      "title": "Outrun the Dawn",
+      "narrative": "Aki returns ahead of Toru",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 41
+    },
+    {
+      "cue": "10:victory:2:harbor:detail",
+      "title": "Carbon Copy Testimony",
+      "narrative": "Original documents and a kept promise",
+      "arrangement": "hope:harbor:detail",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 42
+    },
+    {
+      "cue": "10:victory:3:community:wide",
+      "title": "No Master Key",
+      "narrative": "CROWN is suspended at the harbor",
+      "arrangement": "hope:community:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 43
+    },
+    {
+      "cue": "10:victory:4:boardroom:right",
+      "title": "Crown on the Grid",
+      "narrative": "The next city still faces the Council",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 44
+    },
+    {
+      "cue": "10:victory:5:harbor:left",
+      "title": "The Frequency Home",
+      "narrative": "The next town receives the records",
+      "arrangement": "hope:harbor:left",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 45
+    },
+    {
+      "cue": "10:victory:5:harbor:right",
+      "title": "The Frequency Home",
+      "narrative": "The next town receives the records",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 45
+    },
+    {
+      "cue": "10:victory:5:harbor:right",
+      "title": "The Frequency Home",
+      "narrative": "The next town receives the records",
+      "arrangement": "hope:harbor:right",
+      "entryBeat": 96,
+      "requestedEntryBeat": 96,
+      "transitions": 45
+    },
+    {
+      "cue": "10:victory:8:radio:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "The harbor is quiet enough to talk",
+      "arrangement": "tender:radio:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 46
+    },
+    {
+      "cue": "10:victory:8:radio:right",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "The harbor is quiet enough to talk",
+      "arrangement": "tender:radio:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 46
+    },
+    {
+      "cue": "11:victory:0:sunrise:wide",
+      "title": "The Frequency Home",
+      "narrative": "A final podium and breakfast from his brother",
+      "arrangement": "warm:sunrise:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 47
+    },
+    {
+      "cue": "11:victory:0:sunrise:left",
+      "title": "The Frequency Home",
+      "narrative": "A final podium and breakfast from his brother",
+      "arrangement": "warm:sunrise:left",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 47
+    },
+    {
+      "cue": "11:victory:2:ledger:detail",
+      "title": "Open Circuit Breakfast",
+      "narrative": "SORA X.O.R. outgrows the desk",
+      "arrangement": "hope:ledger:detail",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 48
+    },
+    {
+      "cue": "11:victory:3:radio:wide",
+      "title": "Jun: The First Light",
+      "narrative": "Jun’s recorded premiere reaches Nikko",
+      "arrangement": "hope:radio:wide",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 49
+    },
+    {
+      "cue": "11:victory:3:radio:left",
+      "title": "Jun: The First Light",
+      "narrative": "Jun’s recorded premiere reaches Nikko",
+      "arrangement": "hope:radio:left",
+      "entryBeat": 192,
+      "requestedEntryBeat": 192,
+      "transitions": 49
+    },
+    {
+      "cue": "11:victory:5:sunrise:right",
+      "title": "Side B: Press Record",
+      "narrative": "Aki and Ren say I love you",
+      "arrangement": "tender:sunrise:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    },
+    {
+      "cue": "11:victory:5:sunrise:left",
+      "title": "Side B: Press Record",
+      "narrative": "Aki and Ren say I love you",
+      "arrangement": "tender:sunrise:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    },
+    {
+      "cue": "11:victory:7:sunrise:right",
+      "title": "Side B: Press Record",
+      "narrative": "Their first kiss stays off the air",
+      "arrangement": "tender:sunrise:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    },
+    {
+      "cue": "11:victory:7:sunrise:left",
+      "title": "Side B: Press Record",
+      "narrative": "Their first kiss stays off the air",
+      "arrangement": "tender:sunrise:left",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    },
+    {
+      "cue": "11:victory:9:sunrise:right",
+      "title": "Side B: Press Record",
+      "narrative": "Press record: the rest can wait until breakfast",
+      "arrangement": "warm:sunrise:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    },
+    {
+      "cue": "11:victory:9:sunrise:wide",
+      "title": "Side B: Press Record",
+      "narrative": "Press record: the rest can wait until breakfast",
+      "arrangement": "warm:sunrise:wide",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 50
+    }
+  ],
+  "captionChecks": [
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 3,
+      "navigation": "next",
+      "displayedSetting": {
+        "ja": "前日の朝の録音・SORA放送室",
+        "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+      },
+      "seenLogLines": 4,
+      "layout": {
+        "width": 320,
+        "height": 740,
+        "documentOverflow": false,
+        "panel": {
+          "left": 12,
+          "top": 409.390625,
+          "right": 308,
+          "bottom": 726,
+          "width": 296,
+          "height": 316.609375
+        },
+        "panelScrollHeight": 315,
+        "panelClientHeight": 315,
+        "texts": [
+          {
+            "selector": "#scene-japanese",
+            "rect": {
+              "left": 32,
+              "top": 484.390625,
+              "right": 291,
+              "bottom": 568.53125,
+              "width": 259,
+              "height": 84.140625
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "17px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          },
+          {
+            "selector": ".scene-subtitle",
+            "rect": {
+              "left": 32,
+              "top": 575.53125,
+              "right": 291,
+              "bottom": 629.53125,
+              "width": 259,
+              "height": 54
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "12px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          }
+        ],
+        "location": {
+          "left": 16,
+          "top": 99,
+          "right": 228.265625,
+          "bottom": 143,
+          "width": 212.265625,
+          "height": 44
+        },
+        "locationOverflow": false
+      },
+      "logSettingLayout": {
+        "top": 442.296875,
+        "bottom": 509.96875,
+        "listTop": 152.59375,
+        "listBottom": 638.390625,
+        "horizontalOverflow": false
+      }
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 4,
+      "navigation": "next",
+      "displayedSetting": {
+        "ja": "前日の朝の録音・SORA放送室",
+        "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+      },
+      "seenLogLines": 5,
+      "layout": {
+        "width": 320,
+        "height": 740,
+        "documentOverflow": false,
+        "panel": {
+          "left": 12,
+          "top": 409.390625,
+          "right": 308,
+          "bottom": 726,
+          "width": 296,
+          "height": 316.609375
+        },
+        "panelScrollHeight": 315,
+        "panelClientHeight": 315,
+        "texts": [
+          {
+            "selector": "#scene-japanese",
+            "rect": {
+              "left": 32,
+              "top": 484.390625,
+              "right": 291,
+              "bottom": 591.359375,
+              "width": 259,
+              "height": 106.96875
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "17px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          },
+          {
+            "selector": ".scene-subtitle",
+            "rect": {
+              "left": 32,
+              "top": 598.359375,
+              "right": 291,
+              "bottom": 667,
+              "width": 259,
+              "height": 68.640625
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "12px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          }
+        ],
+        "location": {
+          "left": 16,
+          "top": 99,
+          "right": 228.265625,
+          "bottom": 143,
+          "width": 212.265625,
+          "height": 44
+        },
+        "locationOverflow": false
+      },
+      "logSettingLayout": {
+        "top": 401.515625,
+        "bottom": 469.1875,
+        "listTop": 152.59375,
+        "listBottom": 638.390625,
+        "horizontalOverflow": false
+      }
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 5,
+      "navigation": "next",
+      "displayedSetting": {
+        "ja": "いま・日光の展望台",
+        "en": "NOW · NIKKO OVERLOOK"
+      },
+      "seenLogLines": 6,
+      "layout": {
+        "width": 320,
+        "height": 740,
+        "documentOverflow": false,
+        "panel": {
+          "left": 12,
+          "top": 409.390625,
+          "right": 308,
+          "bottom": 726,
+          "width": 296,
+          "height": 316.609375
+        },
+        "panelScrollHeight": 315,
+        "panelClientHeight": 315,
+        "texts": [
+          {
+            "selector": "#scene-japanese",
+            "rect": {
+              "left": 32,
+              "top": 484.390625,
+              "right": 291,
+              "bottom": 591.359375,
+              "width": 259,
+              "height": 106.96875
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "17px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          },
+          {
+            "selector": ".scene-subtitle",
+            "rect": {
+              "left": 32,
+              "top": 598.359375,
+              "right": 291,
+              "bottom": 667,
+              "width": 259,
+              "height": 68.640625
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "12px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          }
+        ],
+        "location": {
+          "left": 16,
+          "top": 99,
+          "right": 124,
+          "bottom": 143,
+          "width": 108,
+          "height": 44
+        },
+        "locationOverflow": false
+      },
+      "logSettingLayout": {
+        "top": 421.421875,
+        "bottom": 469.296875,
+        "listTop": 152.59375,
+        "listBottom": 638.390625,
+        "horizontalOverflow": false
+      }
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 6,
+      "navigation": "next",
+      "displayedSetting": {
+        "ja": "日光・峠の展望台",
+        "en": "NIKKO · MOUNTAIN OVERLOOK"
+      },
+      "seenLogLines": 7,
+      "layout": {
+        "width": 320,
+        "height": 740,
+        "documentOverflow": false,
+        "panel": {
+          "left": 12,
+          "top": 409.390625,
+          "right": 308,
+          "bottom": 726,
+          "width": 296,
+          "height": 316.609375
+        },
+        "panelScrollHeight": 315,
+        "panelClientHeight": 315,
+        "texts": [
+          {
+            "selector": "#scene-japanese",
+            "rect": {
+              "left": 32,
+              "top": 484.390625,
+              "right": 291,
+              "bottom": 568.53125,
+              "width": 259,
+              "height": 84.140625
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "17px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          },
+          {
+            "selector": ".scene-subtitle",
+            "rect": {
+              "left": 32,
+              "top": 575.53125,
+              "right": 291,
+              "bottom": 629.53125,
+              "width": 259,
+              "height": 54
+            },
+            "panel": {
+              "left": 12,
+              "top": 409.390625,
+              "right": 308,
+              "bottom": 726,
+              "width": 296,
+              "height": 316.609375
+            },
+            "scrollTop": 0,
+            "fontSize": "12px",
+            "fullyReachable": true,
+            "horizontalOverflow": false
+          }
+        ],
+        "location": {
+          "left": 16,
+          "top": 99,
+          "right": 143.8125,
+          "bottom": 143,
+          "width": 127.8125,
+          "height": 44
+        },
+        "locationOverflow": false
+      }
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 5,
+      "navigation": "back",
+      "displayedSetting": {
+        "ja": "いま・日光の展望台",
+        "en": "NOW · NIKKO OVERLOOK"
+      },
+      "seenLogLines": 7
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "line": 4,
+      "navigation": "back",
+      "displayedSetting": {
+        "ja": "前日の朝の録音・SORA放送室",
+        "en": "RECORDED THE PREVIOUS MORNING · SORA RADIO"
+      },
+      "seenLogLines": 7
+    }
+  ],
+  "chapterSelectionFixture": true,
+  "victorySceneFixture": true,
+  "fullHumanCampaignPlaythrough": false,
+  "localStoryResult": {
+    "unlockedChapter": 1,
+    "activeChapter": null,
+    "resultChapter": 0,
+    "cutscene": null
+  },
+  "nftOrXorAwarded": false,
+  "errors": []
+}

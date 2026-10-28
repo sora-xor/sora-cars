@@ -1,0 +1,136 @@
+{
+  "schema": "sora-cars.music-release-preflight.v2",
+  "checkedAt": "2026-10-23T13:58:00.331259+00:00",
+  "releaseReady": false,
+  "scope": "Local application/media verification and anonymous endpoint observations. No signing, minting, purchase, remote publication, new trust pin or native-source/build mutation.",
+  "catalog": {
+    "composedTunes": 25,
+    "audioFiles": 75,
+    "covers": 25,
+    "catalogBoundFiles": 100,
+    "manifest": {
+      "path": "src/game/music-assets.generated.json",
+      "sha256": "92d6709947585078681ebb5452e662c3d06c62f05231a9e9be2f57bd2c84f309"
+    },
+    "license": {
+      "path": "public/assets/music/sora-music-license-v1.txt",
+      "sha256": "f492695f1c9ce7fe4534400dd047af97aa14d587410d152b5249f9efedd20b57"
+    },
+    "additionalSuppliedTokyoRecording": "Outside the composed catalog. Explicit inclusion in the same sale/license remains unanswered."
+  },
+  "currentFrontend": {
+    "freeze": {
+      "path": "output/qualification/frontend/soundtrack-2026-10-23-current/freeze.json",
+      "sha256": "350eee1ebec363136d3263a8ecc55ab943a4544e94f6a63b3b64577d686f5c57"
+    },
+    "publicInputFiles": 916,
+    "outputFiles": 927,
+    "outputPayloadBytes": 2504553834,
+    "configuredRelease": false,
+    "published": false,
+    "sourceInputsUnchanged": true,
+    "allPublicInputsMatchOutput": true,
+    "staticCheck": {
+      "path": "artifacts/music-static-2026-10-23/report.json",
+      "sha256": "f67c7fc41f335ee1f565d03ddac33f99d0c4fa5492bb854fe3ceab5a8a92b515"
+    },
+    "staticCheckedAt": "2026-10-23T13:56:18.713Z",
+    "viewports": 3,
+    "packagedMusicFiles": 100
+  },
+  "browserVerification": {
+    "store": {
+      "path": "artifacts/music-store-browser.json",
+      "sha256": "78d16022cd970d17284f1a9d4f4754e916980c5e5e366b930565305c7b3bc7bf"
+    },
+    "storeGroups": 17,
+    "protocol": {
+      "path": "artifacts/music-market-browser.json",
+      "sha256": "80987bc439f985e48fe9a7e80100a263e71436cf98012b2081354055a7581817"
+    },
+    "protocolChecks": 52,
+    "playback": {
+      "path": "output/audio/soundtrack/browser-playback.json",
+      "sha256": "4fbc7ffdf49aa095d24d85a859c3a40dc92b2c3836cfc6a620498145ee27c3ec"
+    },
+    "decodedPreviews": 25,
+    "testFixtureScope": "Actual MusicStore/controller/styles and real rendered asset bytes. Explicit synthetic issuer/NFTs/ledger/wallet transport; does not certify live network issuance or wallet settlement.",
+    "currentReportSourcesMatch": true
+  },
+  "marketObservation": {
+    "evidence": {
+      "path": "artifacts/music-release-public-read-2026-10-23.json",
+      "sha256": "c7853aba98be6a81baed43e6845f2504fea4dfba3b2da87ce2de898abb0d1013"
+    },
+    "checkedAt": "2026-10-23T13:43:58.949Z",
+    "httpStatus": 200,
+    "nativeMarketReported": true,
+    "qualifiedReported": false,
+    "endpointReportedNetwork": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+    "retainedReviewedNetwork": "hash:0466DA18C70CA8CBD51B8CC60B1D4A4802FC5D7F928D505806D7CD6CB61D60EF#BA85",
+    "matchesRetainedNetwork": false,
+    "observedNetworkAdopted": false,
+    "corroboratingLocalPinSources": [
+      {
+        "path": "src/chain/taira.ts",
+        "sha256": "18c8108f1045caa522a02d092fac584c4f06fa83b8b4e84c959fa5134a0a7050",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": ".env.example",
+        "sha256": "39e1ef6888ae8f6018f806019054fe8cf2dbb7f569baa5bcd65164163f86837f",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha/configs/soranexus/taira/explorer.runtime-config.json",
+        "sha256": "447dca96b56d99873a090a88fabf8cd8e1d6d4254556c109fe39899c8e6c93f5",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha/scripts/taira_constants.py",
+        "sha256": "da175be387ca6865cece98177799b901ee5cca238ca4a67266fb7323c717fdba",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha-sora-cars-native/configs/soranexus/taira/explorer.runtime-config.json",
+        "sha256": "447dca96b56d99873a090a88fabf8cd8e1d6d4254556c109fe39899c8e6c93f5",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha-sora-cars-native/scripts/taira_constants.py",
+        "sha256": "da175be387ca6865cece98177799b901ee5cca238ca4a67266fb7323c717fdba",
+        "containsRetainedNetworkOrGenesis": true
+      }
+    ]
+  },
+  "issuerRuntime": {
+    "evidence": {
+      "path": "output/qualification/music-node-revalidation-2026-10-23/command.json",
+      "sha256": "51f262a989ecb9af9bedff5c28661747d586fc4f42f45bebd662170cc12b898e"
+    },
+    "finishedAt": "2026-10-23T13:44:54.223Z",
+    "exitStatus": 1,
+    "classification": "ERR_IROHA_NATIVE_BINDING / source_provenance_error before test assertions",
+    "sourceFilesUnchanged": true,
+    "nativeBuildPerformed": false
+  },
+  "historicalStorage": {
+    "evidence": {
+      "path": "artifacts/music-provider-local-qualification-2026-09-26.json",
+      "sha256": "e8470e636452584dddd4a079affb1fc9376777f9b63fe37fee6acb373c7c179b"
+    },
+    "scope": "September 22 frozen frontend locally packed and verified with full-size local provider admission/restart/readback on September 26. Its 1,487,166,105-byte payload differs from the current build; no current-build or remote publication qualification inferred."
+  },
+  "remainingRequirements": [
+    "Owner-supplied public seller account, collection domain and named licensor.",
+    "Independently reviewed application, XOR asset and native-market profile/network identities; resolve the observed network mismatch without trusting an arbitrary endpoint as release authority.",
+    "Matching qualified native market and source-matched qualified issuer runtime.",
+    "Current configured build; full current-payload packing/verification and real manifest/provider publication with remote retrieval evidence.",
+    "Actual authorized NFT registration, exact metadata/ownership readback, open 1-XOR offers covering all 25 songs, and observed real wallet purchase/NFT delivery/download."
+  ],
+  "pendingUserQuestions": [
+    "Public seller account, collection domain and legal licensor name.",
+    "Whether the separate supplied Tokyo song should join the same sale/license."
+  ],
+  "continuation": "This turn made concrete progress: responsive checkout defect fixed, full current frontend rebuilt/inventoried and tested, and current endpoint/issuer status established. Do not repeat unchanged local verification or modify the frozen native lane merely to continue; next dependent work needs reviewed release inputs or external qualification changes."
+}

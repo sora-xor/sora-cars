@@ -1,0 +1,48 @@
+[
+  {
+    "file": "scenes/ch10-intro-cut07.png",
+    "prompt": "Use case: identity-preserve. Asset: camera cut ch10 intro cut07, SORA CARS 1986 pixel art. Image 1 is EDIT TARGET; keep its excellent composition, nighttime radio studio, analog console, handheld phone, pointer and map of relay connections. Correct the main person to Ren, an adult Japanese MAN age 27, with short tousled black hair ending above his collar, angular masculine face, no lipstick, cream overshirt. Image 2 shows Ren from behind at right, use for male hair, build and clothes continuity only. He explains station handoffs into the phone, pointing to the map. Replace the large invented blue back patch with a small authentic red/white SORA badge from Image 3. Remove prominent pseudo-writing from notebook and wall pages; use blank boxes, small abstract marks and route lines only. Preserve exact 1672x941 landscape, crisp 16-bit pixel style, lighting, low-detail bottom dialogue space. No other text, subtitles or UI.",
+    "references": [
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch10-intro-cut07.png",
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/radio-right-v2.png",
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+    ],
+    "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-d960-7e50-a066-ffe815c61470/exec-2b1513df-26fd-48b1-b438-6b55b550e681.png",
+    "tool": "built-in image_gen",
+    "reviewed": true,
+    "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch10-intro-cut07.png",
+    "sha256": "aa3f77c4e3b048d052b2c366fdcc2dc666903182aad312b22cb768db2db30a70",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "file": "scenes/ch09-victory-cut06.png",
+    "prompt": "Use case: precise-object-edit. Edit target Image 1. Preserve Ren, an adult Japanese man with short tousled dark hair and cream overshirt, the studio, angle, hand anatomy, red pencil, evening lighting and exact crisp pixel style. Repair only the paperwork: replace the prominent fake cursive handwriting and pseudo-letters with blank form boxes, short nonverbal rows and two prominent red X marks crossing two day boxes, so he is correcting the omitted two days of work on his account. Keep the original account beside it visible. No legible invented writing. On the existing plain coffee mug add the exact small red/white SORA emblem from image2. Maintain original landscape dimensions and quiet bottom30%. No new characters or composition changes.",
+    "references": [
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-victory-cut06.png",
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+    ],
+    "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-d960-7e50-a066-ffe815c61470/exec-b4a022a1-78f7-48bf-9a06-495400adbb4a.png",
+    "tool": "built-in image_gen",
+    "reviewed": true,
+    "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-victory-cut06.png",
+    "sha256": "634b84b19e419fcc2479044f06908d83cca4935e9507a93a1c37df850af71993",
+    "width": 1672,
+    "height": 941
+  },
+  {
+    "file": "scenes/ch11-victory-cut02.png",
+    "prompt": "Use case: precise-object-edit. Edit target Image 1. Preserve the two adult Japanese characters, Aki in red coveralls with black bob and Toru in dark racing suit, exact faces, handoff composition, post-race harbor dawn, trophy podium, cars and crisp pixel style. Repair only the document held between them: it must show Toru releasing his personal purchase options on workshop and harbor plots. Replace the racing checkerboard and car diagram printed on the paper with a small simple harbor parcel map, rectangular property outlines, neutral blank contract boxes and a signature line under his pen. Do not add club emblems to legal papers, no prominent writing or invented text. Keep the existing SORA patches matched to the exact emblem in Image2. Preserve landscape dimensions and quiet lower30%.",
+    "references": [
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch11-victory-cut02.png",
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+    ],
+    "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-d960-7e50-a066-ffe815c61470/exec-4a382d6a-8b73-4075-841b-ba33ae681efc.png",
+    "tool": "built-in image_gen",
+    "reviewed": true,
+    "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch11-victory-cut02.png",
+    "sha256": "2c3881412d0a0f4187d9662e9998bf03a3e18e01d54c30186fc9610bc0acf196",
+    "width": 1672,
+    "height": 941
+  }
+]

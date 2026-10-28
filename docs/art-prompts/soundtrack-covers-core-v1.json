@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22",
+  "tool": "builtin image_gen.imagegen",
+  "generationMode": "One separate builtin image_gen edit per asset using the original cover and supplied SORA logo; accepted generated PNG copied byte-for-byte. Initial generation provenance is retained separately.",
+  "series": "SORA CARS — core score sleeves",
+  "assets": [
+    {
+      "index": 0,
+      "file": "midnight-transistor",
+      "name": "Midnight Transistor",
+      "destination": "public/assets/music/covers/midnight-transistor-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-0e36ce50-c8ac-4fbb-ba3b-ce8ab42214d5.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/midnight-transistor-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Chrome transistor, three curving elevated leads/roads, ivory coupe, coral sun, cyan circuits and square composition preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2354219,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c8ea8bb5-9c3e-46dd-b2d6-a79a2525559c.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "rejectedLogoDraft": {
+        "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-9380a8b8-dd91-4316-8c47-2a4da8395b02.png",
+        "prompt": "Use case: compositing. Edit the first reference image, an existing square SORA CARS music NFT album sleeve. Image 1 is the edit target; image 2 is the exact supplied SORA emblem to insert. Preserve the entire existing illustration, composition, square framing, colors, print texture, objects and small SORA lettering. The only change: add the supplied red circular SORA emblem with its precise white geometric knockout faithfully as a small flat printed record-label badge in the upper-left quiet corner, immediately below the existing SORA wordmark. Emblem diameter about 12% of the full cover width, inset about 4% from the left, with a small clean white square plaque behind it if needed for faithful white knockout readability. Copy the specific geometry from reference image 2 accurately; it is a logo, do not retype a kanji, substitute another symbol, invent a mark, or merely write SORA. Keep the circle red and the symbol white and make the entire emblem clearly recognizable at thumbnail size. Do not regenerate or crop the artwork. No other added text, no watermark. Output a single complete square PNG cover at original resolution or at least 1024x1024.",
+        "reason": "Free-standing emblem draft was replaced with white plaque for stronger fidelity to supplied lower circle cutouts."
+      },
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 1,
+      "file": "harbor-signals",
+      "name": "Harbor Signals",
+      "destination": "public/assets/music/covers/harbor-signals-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-81840fa9-f410-422a-a4bc-544b95a86de4.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/harbor-signals-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Coral radio buoy, transmission rings, harbor cranes, sun and water reflections preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2338992,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-15360ceb-b326-4678-a524-0de61fa44b9c.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "rejectedLogoDraft": {
+        "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-ab5d1fad-9c0c-4749-b9de-c82d050cc6c0.png",
+        "prompt": "Use case: compositing. Edit the first reference image, an existing square SORA CARS music NFT album sleeve. Image 1 is the edit target; image 2 is the exact supplied SORA emblem to insert. Preserve the entire existing illustration, composition, square framing, colors, print texture, objects and small SORA lettering. The only change: add the supplied red circular SORA emblem with its precise white geometric knockout faithfully as a small flat printed record-label badge in the upper-left quiet corner, immediately below the existing SORA wordmark. Emblem diameter about 12% of the full cover width, inset about 4% from the left, with a small clean white square plaque behind it if needed for faithful white knockout readability. Copy the specific geometry from reference image 2 accurately; it is a logo, do not retype a kanji, substitute another symbol, invent a mark, or merely write SORA. Keep the circle red and the symbol white and make the entire emblem clearly recognizable at thumbnail size. Do not regenerate or crop the artwork. No other added text, no watermark. Output a single complete square PNG cover at original resolution or at least 1024x1024.",
+        "reason": "Free-standing emblem draft was replaced with white plaque for stronger fidelity to supplied lower circle cutouts."
+      },
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 2,
+      "file": "sakura-express",
+      "name": "Sakura Express",
+      "destination": "public/assets/music/covers/sakura-express-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-45314d43-89c5-4d25-891b-47af0339e5bb.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/sakura-express-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Curving coral express train, ivory coupe, pink cherry petals and sun composition preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2848680,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5a167d86-74d6-4c86-abfe-6cc1398eaf27.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 3,
+      "file": "soramotos-workshop",
+      "name": "Soramotos Workshop",
+      "destination": "public/assets/music/covers/soramotos-workshop-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-2e554029-08b9-4558-a18c-5bf9543c9aa8.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/soramotos-workshop-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Amber mechanic workshop, ivory coupe, red lamp and chrome foreground wrench preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2335687,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-313c61ab-5d94-44e8-bd03-1b7c06861a2f.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 4,
+      "file": "paper-towers",
+      "name": "Paper Towers",
+      "destination": "public/assets/music/covers/paper-towers-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-cc1e629c-c35d-4ab7-873e-784181f67112.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/paper-towers-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Folded ivory paper skyscrapers, coral page, cyan drafting grid and long shadows preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2118312,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-bb1fab3b-4c1a-422e-bd70-387b56a6a053.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 5,
+      "file": "a-future-we-build",
+      "name": "A Future We Build",
+      "destination": "public/assets/music/covers/a-future-we-build-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-e9f2943d-9449-4bb7-8465-00cf06f29b6b.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/a-future-we-build-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Assembled coral sun, floating cream pieces, two collaborators and cyan circuit garden preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2568468,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5b31d00f-ea56-4c13-8d76-8c78c84f1db5.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 6,
+      "file": "after-the-last-train",
+      "name": "After the Last Train",
+      "destination": "public/assets/music/covers/after-the-last-train-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-0fe0ed37-3474-4421-a0a0-0f6a3da7f7b6.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/after-the-last-train-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Empty platform bench, portable cassette player, receding rails, moon and distant train lights preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2616922,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-9985ef4b-a8ad-43f4-88d7-ea56d6777b14.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 7,
+      "file": "credit-line",
+      "name": "Credit Line",
+      "destination": "public/assets/music/covers/credit-line-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-2a542b6c-7db0-43f3-a208-76b717408995.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/credit-line-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Coral pencil bridge, curled receipt, concrete platforms and cyan winding road preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2330533,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5cdbb305-febd-44ec-8cd0-9d28b39aaeeb.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "index": 8,
+      "file": "sora-dawn-broadcast",
+      "name": "SORA Dawn Broadcast",
+      "destination": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-6fba-78d0-88c7-0f5624006d03/exec-d51c06b0-82ad-4165-b213-b63442ed57fd.png",
+      "prompt": "Use case: compositing. Image 1 is the existing square music NFT sleeve to edit; image 2 is the exact SORA logo to insert. Preserve the entire first illustration, full square composition, framing, colors, all scene objects, print texture, and existing SORA wordmark. Change only the upper-left empty corner: add an opaque white square printed label immediately below the existing SORA wordmark, inset 4% from the left. The white square label is 14% of the full cover width, and inside it the red circular emblem itself is 12% of the cover width with a narrow white margin. Reproduce the exact supplied logo from image 2, not a text character: pure red circular silhouette, exact thick white horizontal bars and central connection, with the two thick diagonal white strokes reaching all the way through the lower circle circumference so there are two white openings in the red circle's lower edge and a red wedge between them. Preserve the specific reference geometry and proportions, no font substitution. The circular emblem must be complete, high contrast, crisp and recognizable at thumbnail size. Absolutely no changes anywhere else, no new text, no titles, no watermark, no restyling or cropping the cover. Output one complete square PNG at original resolution or at least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/sora-dawn-broadcast-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "inspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Cream radio dial, numerals, cyan transmission rings, indigo lake, antenna and coffee cup preserved. Image edit preserves composition but may slightly alter print grain.",
+      "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2336613,
+      "sourceBytesMatch": true,
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-d92cca34-5e84-4771-9ec2-7591b3a41ff7.png",
+      "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+      "preservedLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "logoReferenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    }
+  ],
+  "updatedAt": "2026-09-22",
+  "editUseCase": "compositing",
+  "initialProvenance": "docs/art-prompts/soundtrack-covers-core-initial-v1.json",
+  "suppliedLogo": {
+    "originalSuppliedPath": "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png",
+    "preservedCopy": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "bytes": 104489,
+    "width": 1678,
+    "height": 1432,
+    "sourceBytesMatch": true
+  }
+}

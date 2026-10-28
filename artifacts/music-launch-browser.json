@@ -1,0 +1,306 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-23T14:41:39.426Z",
+  "checks": [
+    "All 26 exact local metadata bindings and open one-XOR editions satisfy launch coverage",
+    "Launch coverage includes the supplied Tokyo recording",
+    "Success retains explicit endpoint-reported scope without freshness or finality claim",
+    "Launch stock is held by the quoted native sale custody",
+    "A missing song cannot launch the complete collection",
+    "An empty snapshot lists every missing song",
+    "Distinct replenishment editions for a covered SKU are permitted",
+    "Repeated NFT snapshot entries fail even when all SKUs are covered",
+    "One offer ID cannot represent two editions",
+    "Declared SKU must match the NFT exact metadata",
+    "Expiry 19 does not provide stock beyond observed height 20",
+    "Expiry 20 does not provide stock beyond observed height 20",
+    "Future-created records cannot belong to the supplied snapshot",
+    "Buyer-reserved stock cannot satisfy the public launch",
+    "Wrong price cannot satisfy one-XOR launch coverage",
+    "Changed offer metadata commitment cannot satisfy launch coverage",
+    "Direct seller ownership is not open sale custody",
+    "Closed offers cannot cover launch stock",
+    "Coherently substituted catalog and NFT master hashes still fail this build’s actual assets",
+    "Missing release qualification cannot confer readiness",
+    "Endpoint capability must match the qualified release network",
+    "An unqualified endpoint cannot confer readiness",
+    "Invalid observation height 020 is rejected",
+    "Invalid observation height 18446744073709551616 is rejected",
+    "Incomplete reviewed catalog cannot confer readiness",
+    "Duplicate catalog SKU cannot confer readiness",
+    "Unknown music catalog SKU is rejected",
+    "Malformed NFT and quote produce a bounded failure report",
+    "Unknown candidate fields cannot silently alter snapshot interpretation",
+    "Candidate review is bounded at 1000 explicit editions",
+    "Malformed top-level input produces a failure report",
+    "Offline single-edition replenishment remains permitted independently of launch coverage",
+    "CLI rejects usage with exit 2",
+    "CLI rejects malformed JSON with exit 2",
+    "CLI rejects size bound with exit 2",
+    "CLI rejects regular file with exit 2",
+    "CLI emits a rejected-snapshot report and exit 1 for invalid JSON shape",
+    "CLI preserves native runtime admission instead of presenting runtime failure as endpoint evidence"
+  ],
+  "errors": [],
+  "sources": {
+    "src/chain/music-launch.ts": "0a19ed36a38156f216f7a706e5faf21202a65dc6cbb4b72f61d6e852d0fb110f",
+    "src/chain/inventory.ts": "1165600deaddf76fb0a6e38d32ff5aec12de9bebef9f8e1d93453bc53b91498f",
+    "src/chain/catalog.ts": "4508e2154f6f8ca7af98c316bf65da394485a970900e819d256cf9a3aac8b285",
+    "src/chain/music-release.ts": "533088bb063901fe6b36730e446ca89c9870a60f00b75a1143f6faaa3a18be55",
+    "src/game/music-catalog.ts": "227719ac056eb1f8c3d7be7408db9948dd4ae00261ef6a60a61dfedd1555d763",
+    "src/game/music-assets.generated.json": "3cf69489dd46759525724ea0b9ca045968424e8519bbf8bae36460c572837264",
+    "tests/fixtures/music-launch.ts": "5410e3ac80079791cec322530c369aaf290e5e2bc93bbd266c036a3461e9add0",
+    "scripts/check-music-launch.ts": "6ae4a53b758866d99690b005a3340847be3654b8106c2775b8070711918a4c13",
+    "scripts/test-music-launch.mjs": "cfa0dbcd544cdf12c92dcb445c8e2f80085756b9d0c97a9fd2bef1d92652ffc9"
+  },
+  "readyReport": {
+    "version": 1,
+    "kind": "sora-records-launch-review",
+    "ready": true,
+    "verification": "endpoint_reported",
+    "scope": "Local review of supplied endpoint observations only. No independent finality, freshness, issuance, transaction submission or publication is established.",
+    "networkId": "hash:AB3913667610E8ADEA6DF0D8788881C59346F5AED67E32164A010FD3AA0CDDFB#C188",
+    "observedHeight": "20",
+    "requiredSkus": 26,
+    "coveredSkus": 26,
+    "coverage": [
+      {
+        "sku": "music-midnight-transistor",
+        "nftIds": [
+          "music_launch_1_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:F3F4243FCAF95B0D0AF9EF138F93C1AEB7C8EA06997F8C6489D036E05B452C25#D0CD"
+        ]
+      },
+      {
+        "sku": "music-harbor-signals",
+        "nftIds": [
+          "music_launch_2_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:85BA0AB4FF6EC7B937CC32BC7C1CC28CE732AF322D8E09FBA8951BEF8F82D69B#DA3F"
+        ]
+      },
+      {
+        "sku": "music-sakura-express",
+        "nftIds": [
+          "music_launch_3_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:5B2280C5D4B5EAB2A87EA1EB64660B8034FF74CACEB1F184EB565B4304E33D55#E9F6"
+        ]
+      },
+      {
+        "sku": "music-soramotos-workshop",
+        "nftIds": [
+          "music_launch_4_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:3A99F792C117244A1155EBB68111594F3753F31C82769280D27E1EFA2F542FC7#BE2C"
+        ]
+      },
+      {
+        "sku": "music-paper-towers",
+        "nftIds": [
+          "music_launch_5_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:34AAE8DCB2773CDB2B52268A1541613E2446D5F6ABC146FB3DBD6E77A4609CFD#8FED"
+        ]
+      },
+      {
+        "sku": "music-a-future-we-build",
+        "nftIds": [
+          "music_launch_6_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:76ADD4CAD5F48694722CBA267FD447E60D04F42E26F8C54B98AEF5268895A97B#57C0"
+        ]
+      },
+      {
+        "sku": "music-after-the-last-train",
+        "nftIds": [
+          "music_launch_7_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:C1362651961D0855512394CFAB039363C066BEE7B5DE9ABB5EF5531BA0BDAB65#527E"
+        ]
+      },
+      {
+        "sku": "music-credit-line",
+        "nftIds": [
+          "music_launch_8_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:A28E6794F16FEBDD198735AD91DE3A91BB28D5443E49D169FD49297FA2A3EEAD#12A3"
+        ]
+      },
+      {
+        "sku": "music-sora-dawn-broadcast",
+        "nftIds": [
+          "music_launch_9_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:CA36D4C1698F98B4AD391B974567F4D15BAA86B73F08A7B065CAC61B1E84F72D#2568"
+        ]
+      },
+      {
+        "sku": "music-blank-side-promise",
+        "nftIds": [
+          "music_launch_10_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:D2B16F638A26EEA8CB18F34FC2DFCC05F8E54CB46C293E1D0D3A702BBD1B478F#4F54"
+        ]
+      },
+      {
+        "sku": "music-three-weeks-of-paper",
+        "nftIds": [
+          "music_launch_11_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:51AB3ED2F3C992B9ECB8829A63A7220E30717412AEA4E9EB5247343C23CE60BF#C28C"
+        ]
+      },
+      {
+        "sku": "music-milk-crates-at-midnight",
+        "nftIds": [
+          "music_launch_12_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:63D41A4F349FCD58032113BCA7759415E440FCEB57E087E88A4CC546C1493E65#744C"
+        ]
+      },
+      {
+        "sku": "music-carbon-copy-testimony",
+        "nftIds": [
+          "music_launch_13_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:085F5818D9F169EBD8DE97A5D92F7A7931AB593D63574CA38B5CD07DEE018973#A91F"
+        ]
+      },
+      {
+        "sku": "music-crown-on-the-grid",
+        "nftIds": [
+          "music_launch_14_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:49B2871993E097EDC19E7E79F613282B345F7AC60FE93DEF040C5F8AACECB033#D4A0"
+        ]
+      },
+      {
+        "sku": "music-open-circuit-breakfast",
+        "nftIds": [
+          "music_launch_15_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:14320A01EA54FACE90C51AB7C7F7542426EDD02E94253A20E984933CA146650B#2685"
+        ]
+      },
+      {
+        "sku": "music-one-umbrella-two-chairs",
+        "nftIds": [
+          "music_launch_16_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:28E3C8E28AD0A972A505461F9B95B4EF956982AF3BB66ED3EBA98CE32F626915#585B"
+        ]
+      },
+      {
+        "sku": "music-glass-permission",
+        "nftIds": [
+          "music_launch_17_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:C9CD15F00A7B8490B817E2044B9C22698DBEFF3C763A51952E8A3D53203DE5A7#7C8F"
+        ]
+      },
+      {
+        "sku": "music-two-am-relay",
+        "nftIds": [
+          "music_launch_18_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:CABF8D219D005294626FC97ADE202BA1A67152246D88F4E362F60EEB09AE815D#5955"
+        ]
+      },
+      {
+        "sku": "music-dead-air-confession",
+        "nftIds": [
+          "music_launch_19_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:21E37C47A42F38126C427C23287815325DE2C85F79878792A922411C5CFB75BF#0268"
+        ]
+      },
+      {
+        "sku": "music-borrowed-power-waltz",
+        "nftIds": [
+          "music_launch_20_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:EEFBFC5C459EF3FA1D5F3A6010FAF3EF2A20C8B970C2A8CBCE8E29A85A68F609#DEED"
+        ]
+      },
+      {
+        "sku": "music-the-frequency-home",
+        "nftIds": [
+          "music_launch_21_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:47B4B387B4EFF888BF85F9963D6ACEC39AEC193D98E839FAB94D21370BF66D8F#8925"
+        ]
+      },
+      {
+        "sku": "music-no-master-key",
+        "nftIds": [
+          "music_launch_22_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:F0599430F816FCB8B143B616D2C55B2272DD3CD26B22943F37B40E2ECD3CBE91#AC2E"
+        ]
+      },
+      {
+        "sku": "music-outrun-the-dawn",
+        "nftIds": [
+          "music_launch_23_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:D7FFA906E9ADC6B674E09E31E3178E22B86172847F39E45BE74B6569EF94C24D#C857"
+        ]
+      },
+      {
+        "sku": "music-jun-the-first-light",
+        "nftIds": [
+          "music_launch_24_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:92100B0B5743FCD7CA5C81E9B51A5A154EE08739C1D0856030E1ED6AF36CF307#DD34"
+        ]
+      },
+      {
+        "sku": "music-side-b-press-record",
+        "nftIds": [
+          "music_launch_25_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:3B46CB727FD3EF6334C8A66354373D423DC38C67FCF86463C3B8128B7803D889#476E"
+        ]
+      },
+      {
+        "sku": "music-meet-me-at-yasukuni",
+        "nftIds": [
+          "music_launch_26_1$sora_cars.universal"
+        ],
+        "offerIds": [
+          "hash:628970724033DFAFD715BAC73B6501787506B0C981FB385EEF87A41541CA0ED7#4A6F"
+        ]
+      }
+    ],
+    "issues": []
+  },
+  "nodeRuntime": "Node runtime blocked at native binding/source provenance admission; browser results do not certify Node execution.",
+  "scope": "Production browser adapter and real local metadata, synthetic endpoint observations only. No live NFT issuance, offer, wallet, publication, endpoint qualification or finality claim."
+}

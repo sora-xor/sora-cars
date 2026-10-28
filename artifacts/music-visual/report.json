@@ -1,0 +1,837 @@
+{
+  "createdAt": "2026-09-22T08:45:10.144Z",
+  "viewports": [
+    {
+      "label": "desktop",
+      "rowCount": 25,
+      "dimensions": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "documentWidth": 1440,
+        "shopWidth": 1440,
+        "shopScrollWidth": 1440,
+        "overflows": [],
+        "controls": [
+          {
+            "action": "home",
+            "width": 156.484375,
+            "height": 24
+          },
+          {
+            "action": "home",
+            "width": 56.484375,
+            "height": 87
+          },
+          {
+            "action": "garage",
+            "width": 68.09375,
+            "height": 87
+          },
+          {
+            "action": "story",
+            "width": 62.296875,
+            "height": 87
+          },
+          {
+            "action": "soundtrack",
+            "width": 62.296875,
+            "height": 87
+          },
+          {
+            "action": "history",
+            "width": 73.890625,
+            "height": 87
+          },
+          {
+            "action": "proofs",
+            "width": 68.09375,
+            "height": 87
+          },
+          {
+            "action": "music",
+            "width": 0,
+            "height": 0
+          },
+          {
+            "action": "wallet",
+            "width": 214,
+            "height": 63.59375
+          },
+          {
+            "action": "preview",
+            "width": 179.125,
+            "height": 61.390625
+          },
+          {
+            "action": "select:music-midnight-transistor",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-harbor-signals",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-sakura-express",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-soramotos-workshop",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-paper-towers",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-a-future-we-build",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-after-the-last-train",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-credit-line",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-sora-dawn-broadcast",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-blank-side-promise",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-three-weeks-of-paper",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-milk-crates-at-midnight",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-carbon-copy-testimony",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-crown-on-the-grid",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-open-circuit-breakfast",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-one-umbrella-two-chairs",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-glass-permission",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-two-am-relay",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-dead-air-confession",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-borrowed-power-waltz",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-the-frequency-home",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-no-master-key",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-outrun-the-dawn",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-jun-the-first-light",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "select:music-side-b-press-record",
+            "width": 1267.21875,
+            "height": 89
+          },
+          {
+            "action": "preview",
+            "width": 44,
+            "height": 44
+          }
+        ]
+      },
+      "state": {
+        "selected": "music-side-b-press-record",
+        "tracks": 25,
+        "owned": [],
+        "loading": false,
+        "downloading": false,
+        "preview": {
+          "sku": null,
+          "playing": false,
+          "seconds": 0
+        },
+        "purchase": null
+      }
+    },
+    {
+      "label": "mobile",
+      "rowCount": 25,
+      "dimensions": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "documentWidth": 390,
+        "shopWidth": 390,
+        "shopScrollWidth": 390,
+        "overflows": [],
+        "controls": [
+          {
+            "action": "home",
+            "width": 121.53125,
+            "height": 19
+          },
+          {
+            "action": "home",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "garage",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "story",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "soundtrack",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "history",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "proofs",
+            "width": 58.5,
+            "height": 44
+          },
+          {
+            "action": "music",
+            "width": 0,
+            "height": 0
+          },
+          {
+            "action": "wallet",
+            "width": 164.953125,
+            "height": 51.59375
+          },
+          {
+            "action": "preview",
+            "width": 153.125,
+            "height": 58
+          },
+          {
+            "action": "select:music-midnight-transistor",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-harbor-signals",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-sakura-express",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-soramotos-workshop",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-paper-towers",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-a-future-we-build",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-after-the-last-train",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-credit-line",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-sora-dawn-broadcast",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-blank-side-promise",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-three-weeks-of-paper",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-milk-crates-at-midnight",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-carbon-copy-testimony",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-crown-on-the-grid",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-open-circuit-breakfast",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-one-umbrella-two-chairs",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-glass-permission",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-two-am-relay",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-dead-air-confession",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-borrowed-power-waltz",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-the-frequency-home",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-no-master-key",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-outrun-the-dawn",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-jun-the-first-light",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "select:music-side-b-press-record",
+            "width": 343.21875,
+            "height": 71
+          },
+          {
+            "action": "preview",
+            "width": 44,
+            "height": 44
+          }
+        ]
+      },
+      "state": {
+        "selected": "music-side-b-press-record",
+        "tracks": 25,
+        "owned": [],
+        "loading": false,
+        "downloading": false,
+        "preview": {
+          "sku": null,
+          "playing": false,
+          "seconds": 0
+        },
+        "purchase": null
+      }
+    },
+    {
+      "label": "narrow",
+      "rowCount": 25,
+      "dimensions": {
+        "viewport": {
+          "width": 320,
+          "height": 740
+        },
+        "documentWidth": 320,
+        "shopWidth": 320,
+        "shopScrollWidth": 320,
+        "overflows": [],
+        "controls": [
+          {
+            "action": "home",
+            "width": 121.53125,
+            "height": 19
+          },
+          {
+            "action": "home",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "garage",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "story",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "soundtrack",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "history",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "proofs",
+            "width": 48,
+            "height": 44
+          },
+          {
+            "action": "music",
+            "width": 0,
+            "height": 0
+          },
+          {
+            "action": "wallet",
+            "width": 164.953125,
+            "height": 51.59375
+          },
+          {
+            "action": "preview",
+            "width": 151.703125,
+            "height": 71.78125
+          },
+          {
+            "action": "select:music-midnight-transistor",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-harbor-signals",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-sakura-express",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-soramotos-workshop",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-paper-towers",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-a-future-we-build",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-after-the-last-train",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-credit-line",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-sora-dawn-broadcast",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-blank-side-promise",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-three-weeks-of-paper",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-milk-crates-at-midnight",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-carbon-copy-testimony",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-crown-on-the-grid",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-open-circuit-breakfast",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-one-umbrella-two-chairs",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-glass-permission",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-two-am-relay",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-dead-air-confession",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-borrowed-power-waltz",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-the-frequency-home",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-no-master-key",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-outrun-the-dawn",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-jun-the-first-light",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "select:music-side-b-press-record",
+            "width": 281.625,
+            "height": 71
+          },
+          {
+            "action": "preview",
+            "width": 44,
+            "height": 44
+          }
+        ]
+      },
+      "state": {
+        "selected": "music-side-b-press-record",
+        "tracks": 25,
+        "owned": [],
+        "loading": false,
+        "downloading": false,
+        "preview": {
+          "sku": null,
+          "playing": false,
+          "seconds": 0
+        },
+        "purchase": null
+      }
+    }
+  ],
+  "errors": [],
+  "navigation": [
+    {
+      "label": "desktop",
+      "homeAndBack": true,
+      "selectedBeforeNav": "music-side-b-press-record",
+      "selectedAfterNav": "music-side-b-press-record"
+    },
+    {
+      "label": "mobile",
+      "homeAndBack": true,
+      "selectedBeforeNav": "music-side-b-press-record",
+      "selectedAfterNav": "music-side-b-press-record"
+    },
+    {
+      "label": "narrow",
+      "homeAndBack": true,
+      "selectedBeforeNav": "music-side-b-press-record",
+      "selectedAfterNav": "music-side-b-press-record"
+    }
+  ],
+  "trackSelections": [
+    {
+      "action": "select:music-midnight-transistor",
+      "selected": "select:music-midnight-transistor",
+      "player": "真夜中のトランジスタ\nMidnight Transistor"
+    },
+    {
+      "action": "select:music-harbor-signals",
+      "selected": "select:music-harbor-signals",
+      "player": "港のシグナル\nHarbor Signals"
+    },
+    {
+      "action": "select:music-sakura-express",
+      "selected": "select:music-sakura-express",
+      "player": "桜エクスプレス\nSakura Express"
+    },
+    {
+      "action": "select:music-soramotos-workshop",
+      "selected": "select:music-soramotos-workshop",
+      "player": "空本工房の灯り\nSoramotos Workshop"
+    },
+    {
+      "action": "select:music-paper-towers",
+      "selected": "select:music-paper-towers",
+      "player": "紙の摩天楼\nPaper Towers"
+    },
+    {
+      "action": "select:music-a-future-we-build",
+      "selected": "select:music-a-future-we-build",
+      "player": "私たちがつくる明日\nA Future We Build"
+    },
+    {
+      "action": "select:music-after-the-last-train",
+      "selected": "select:music-after-the-last-train",
+      "player": "終電のあとで\nAfter the Last Train"
+    },
+    {
+      "action": "select:music-credit-line",
+      "selected": "select:music-credit-line",
+      "player": "信用の向こう側\nCredit Line"
+    },
+    {
+      "action": "select:music-sora-dawn-broadcast",
+      "selected": "select:music-sora-dawn-broadcast",
+      "player": "SORA 夜明けの放送\nSORA Dawn Broadcast"
+    },
+    {
+      "action": "select:music-blank-side-promise",
+      "selected": "select:music-blank-side-promise",
+      "player": "空白のB面\nBlank Side Promise"
+    },
+    {
+      "action": "select:music-three-weeks-of-paper",
+      "selected": "select:music-three-weeks-of-paper",
+      "player": "三週間の紙\nThree Weeks of Paper"
+    },
+    {
+      "action": "select:music-milk-crates-at-midnight",
+      "selected": "select:music-milk-crates-at-midnight",
+      "player": "真夜中の牛乳箱\nMilk Crates at Midnight"
+    },
+    {
+      "action": "select:music-carbon-copy-testimony",
+      "selected": "select:music-carbon-copy-testimony",
+      "player": "複写紙の証言\nCarbon Copy Testimony"
+    },
+    {
+      "action": "select:music-crown-on-the-grid",
+      "selected": "select:music-crown-on-the-grid",
+      "player": "回路の王冠\nCrown on the Grid"
+    },
+    {
+      "action": "select:music-open-circuit-breakfast",
+      "selected": "select:music-open-circuit-breakfast",
+      "player": "朝食の回路\nOpen Circuit Breakfast"
+    },
+    {
+      "action": "select:music-one-umbrella-two-chairs",
+      "selected": "select:music-one-umbrella-two-chairs",
+      "player": "ひとつの傘、ふたつの椅子\nOne Umbrella, Two Chairs"
+    },
+    {
+      "action": "select:music-glass-permission",
+      "selected": "select:music-glass-permission",
+      "player": "硝子の許可\nGlass Permission"
+    },
+    {
+      "action": "select:music-two-am-relay",
+      "selected": "select:music-two-am-relay",
+      "player": "午前二時のリレー\nTwo A.M. Relay"
+    },
+    {
+      "action": "select:music-dead-air-confession",
+      "selected": "select:music-dead-air-confession",
+      "player": "無音の告白\nDead Air Confession"
+    },
+    {
+      "action": "select:music-borrowed-power-waltz",
+      "selected": "select:music-borrowed-power-waltz",
+      "player": "借りた電気のワルツ\nBorrowed Power Waltz"
+    },
+    {
+      "action": "select:music-the-frequency-home",
+      "selected": "select:music-the-frequency-home",
+      "player": "帰り道の周波数\nThe Frequency Home"
+    },
+    {
+      "action": "select:music-no-master-key",
+      "selected": "select:music-no-master-key",
+      "player": "王様のいない鍵\nNo Master Key"
+    },
+    {
+      "action": "select:music-outrun-the-dawn",
+      "selected": "select:music-outrun-the-dawn",
+      "player": "夜明けを追い越せ\nOutrun the Dawn"
+    },
+    {
+      "action": "select:music-jun-the-first-light",
+      "selected": "select:music-jun-the-first-light",
+      "player": "ジュン・最初の光\nJun: The First Light"
+    },
+    {
+      "action": "select:music-side-b-press-record",
+      "selected": "select:music-side-b-press-record",
+      "player": "B面・録音を押して\nSide B: Press Record"
+    }
+  ],
+  "audio": [
+    {
+      "label": "desktop",
+      "playing": {
+        "sku": "music-side-b-press-record",
+        "playing": true,
+        "seconds": 0.204904
+      },
+      "paused": {
+        "sku": "music-side-b-press-record",
+        "playing": false,
+        "seconds": 0.231456
+      },
+      "afterRouteLeave": {
+        "sku": null,
+        "playing": false,
+        "seconds": 0
+      }
+    },
+    {
+      "label": "mobile",
+      "playing": {
+        "sku": "music-side-b-press-record",
+        "playing": true,
+        "seconds": 0.216147
+      },
+      "paused": {
+        "sku": "music-side-b-press-record",
+        "playing": false,
+        "seconds": 0.280182
+      },
+      "afterRouteLeave": {
+        "sku": null,
+        "playing": false,
+        "seconds": 0
+      }
+    },
+    {
+      "label": "narrow",
+      "playing": {
+        "sku": "music-side-b-press-record",
+        "playing": true,
+        "seconds": 0.221721
+      },
+      "paused": {
+        "sku": "music-side-b-press-record",
+        "playing": false,
+        "seconds": 0.292389
+      },
+      "afterRouteLeave": {
+        "sku": null,
+        "playing": false,
+        "seconds": 0
+      }
+    }
+  ],
+  "origin": "http://127.0.0.1:64658"
+}

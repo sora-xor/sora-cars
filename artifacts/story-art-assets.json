@@ -1,0 +1,48 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": "docs/art-prompts/story-expansion-v1.json",
+  "files": [
+    {
+      "file": "public/assets/story/ledger-night-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-eb4b8729-a1d0-461a-9aeb-eabcfb34a338.png",
+      "bytes": 2681737,
+      "sha256": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e"
+    },
+    {
+      "file": "public/assets/story/radio-rain-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-c567ef96-f60b-4a7f-b770-7ffdc2ee1ec5.png",
+      "bytes": 2708878,
+      "sha256": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517"
+    },
+    {
+      "file": "public/assets/story/tower-boardroom-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-cc08e20b-7db2-4f2e-b7b6-69aecefbbe00.png",
+      "bytes": 2655904,
+      "sha256": "bc9b5deff0f48747121790fc639f18e32e8fc4c385bbc675f0dce08221909965"
+    },
+    {
+      "file": "public/assets/story/community-dawn-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-725de99a-385a-478b-839a-d10131dba83b.png",
+      "bytes": 2866155,
+      "sha256": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00"
+    },
+    {
+      "file": "public/assets/story/harbor-1986-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-07a6bccc-d066-44aa-b93b-9c7c119748fb.png",
+      "bytes": 2171878,
+      "sha256": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91"
+    },
+    {
+      "file": "public/assets/story/credit-office-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-6dbc4d9a-407c-4d03-a70a-9c37da732428.png",
+      "bytes": 2541490,
+      "sha256": "fdb0d25f47ea2e46705a7d91d438224374de291e1a574b9e6de650c8efb2a33f"
+    },
+    {
+      "file": "public/assets/story/sunrise-crew-branded-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a07008-f57b-7740-9d79-869e950a916d/exec-453ec516-4162-409a-9697-6a11f1c789bb.png",
+      "bytes": 2481442,
+      "sha256": "20ed109b23b7f2a659e9508be07cf7c816d2c3dc58e3841d373723cb5ea7d2da"
+    }
+  ]
+}

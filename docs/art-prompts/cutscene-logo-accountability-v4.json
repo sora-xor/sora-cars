@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22T11:13:55.591Z",
+  "agent": "provider_fullsize",
+  "purpose": "Correct two cutscene artworks to include the supplied SORA emblem geometry.",
+  "tool": "image_gen.imagegen",
+  "skill": "/Users/takemiyamakoto/.codex/skills/.system/imagegen/SKILL.md",
+  "sourceReference": {
+    "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "inspection": "Viewed at original resolution before editing. Red disk; equal straight white horizontal bars; central stem; broad straight white diagonal channels cut through lower disk circumference."
+  },
+  "policy": {
+    "originalsPreserved": true,
+    "runtimeIntegrated": false,
+    "method": "Each edit used original cutscene plus supplied logo as referenced local images. Final files are byte-for-byte copies of accepted built-in generated PNG outputs. No manual compositing, resizing, recoloring or raster processing.",
+    "acceptance": "At least one clearly recognizable supplied geometric emblem in each artwork, allowing scene perspective and lighting. No pixel-identical source-logo claim; generated interpretations remain painterly.",
+    "scope": "Only two new versioned PNGs and this provenance; runtime references left to parent integration."
+  },
+  "assets": [
+    {
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-return-v3.png",
+      "sourceSha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c",
+      "output": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-return-v4.png",
+      "outputSha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "outputBytes": 2054314,
+      "width": 1672,
+      "height": 941,
+      "pngColorType": 2,
+      "opaqueRgb": true,
+      "attempts": [
+        {
+          "number": 1,
+          "prompt": "Use case: compositing. Asset: existing wide anime cutscene, precise local branding correction. Image 1 is the edit target; image 2 is the exact supplied SORA emblem to insert. Preserve the entire image 1 composition, framing, people, faces, clothing, returned brass key resting on the cream envelope, notebook, table, sunset windows, colors and painterly texture. Correct the small wrong font-like symbol on the woman's visible sleeve: place a neat white rectangular printed fabric badge on that same sleeve, with the supplied image-2 red circular emblem reproduced faithfully and clearly at its center. It must be the reference's geometric mark: two equal-length, square-ended straight white bars, central vertical joining stem, two straight white diagonal openings that cut through the lower boundary of the red disk. Do not substitute the kanji 天 or any font glyph, do not curve the legs or close the lower openings. Match the sleeve angle and warm light while keeping the logo's geometry crisply readable. This is a logo insert only; no other new objects, no extra text, no narrative or camera changes. Preserve wide landscape aspect ratio.",
+          "referencedImagePaths": [
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-return-v3.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+          ],
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8a4-b4f3-76a1-95f9-1f95b678a330/exec-57502829-ef15-4113-bea4-f294f162fd8d.png",
+          "sha256": "100245ae324072e6a3ebe5eae6ab1ce9864fa12e3ade29d6b90ee7fdfcfbaac5",
+          "accepted": false,
+          "reason": "Lower white strokes ended inside an unbroken red circle, retaining the inaccurate font-like construction. Also added a stronger bottom vignette. Preserved as rejected generation."
+        },
+        {
+          "number": 2,
+          "prompt": "Use case: compositing. Image 1 is the edit target; image 2 is the supplied exact SORA emblem. Make one localized branding correction, preserving the original wide anime scene: identities, faces, clothing, gestures, returned brass key on cream envelope, notebook, cups, table, background books, sunset view, colors, original texture and framing. Replace only the wrong white font-glyph circle on the woman's visible upper sleeve with a neat white rectangular printed cloth badge, slightly larger than the current mark so its geometry is clear. On this white badge reproduce image 2 exactly in recognizable shape, with a red disk and TWO equally long, straight WHITE rectangular horizontal bars, joined by a short straight WHITE central stem. The lower mark is two broad straight WHITE diagonal channels that must extend THROUGH the red circle perimeter into the white badge background. The red circumference must be visibly BROKEN at about 4 o'clock and 8 o'clock: a separate red triangular bottom sector is bounded by the two white channels. There must NOT be an unbroken red ring around the white lower legs. Do not render the character 天, curved legs or a font substitute. Make the white channels visibly reach the badge's white background, as in image 2. Match the sleeve perspective and warm sunset light. Do not change any other art, do not add text, do not add vignette, preserve the original landscape composition.",
+          "referencedImagePaths": [
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-return-v3.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+          ],
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8a4-b4f3-76a1-95f9-1f95b678a330/exec-96289ba9-3ab2-4270-a836-e2919640c9a7.png",
+          "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+          "accepted": true,
+          "reason": "White rectangular sleeve patch contains a clear red disk and white equal straight bars/stem with straight diagonal channels reaching the lower circumference. Cloth angle/light accepted; geometry is generated, not a pixel copy."
+        }
+      ],
+      "visualReview": {
+        "method": "view_image, original detail, accepted generated artifact inspected again before exact copy",
+        "placement": "Woman's visible upper sleeve at left of frame.",
+        "scenePreserved": "Original camera, sunset office, faces, clothing, table and returned brass key on cream envelope retained.",
+        "limitations": "Small emblem affected by sleeve perspective; recognizable reference geometry rather than literal copied pixels."
+      }
+    },
+    {
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v3.png",
+      "sourceSha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff",
+      "output": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v4.png",
+      "outputSha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "outputBytes": 2237061,
+      "width": 1671,
+      "height": 941,
+      "pngColorType": 2,
+      "opaqueRgb": true,
+      "attempts": [
+        {
+          "number": 1,
+          "prompt": "Use case: compositing. Edit target = image 1; exact SORA logo insert = image 2. Preserve this existing wide anime public-confession cutscene: both speakers' faces and body positions, microphone, open papers, crowd, two cars, harbor cranes, sunset/night palette, camera and all story details. Correct only the large logo above SORA on the warehouse wall. Replace the wrong font-character medallion there with a rectangular white printed sign bearing the actual image-2 logo. Reproduce image 2 faithfully on that sign: red disk, two equal-length straight rectangular WHITE horizontal bars, short WHITE centered vertical stem, two straight broad WHITE diagonals going all the way THROUGH the red disk boundary into the surrounding white sign. There MUST be visible white breaks in the red circumference near 4 o'clock and 8 o'clock; the lower red triangular sector is separated from the rest of the red disk by those diagonal white channels. Do not use the Chinese/Japanese glyph 天, curved strokes, tapered calligraphy, or a complete red circular border surrounding the lower legs. Match the wall perspective and scene light, but keep the inserted emblem clean and clearly visible. Keep the SORA lettering below it and all other image content unchanged. No camera change, no new people, no other additions. Preserve landscape aspect ratio.",
+          "referencedImagePaths": [
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v3.png",
+            "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+          ],
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8a4-b4f3-76a1-95f9-1f95b678a330/exec-72cc9f45-e4b3-4d2e-81d3-feb420866db8.png",
+          "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+          "accepted": true,
+          "reason": "Large white warehouse sign now bears red disk with two equal straight white bars and stem, broad straight diagonal openings through circumference, and separate bottom red triangular sector."
+        }
+      ],
+      "visualReview": {
+        "method": "view_image, original detail, accepted generated artifact inspected again before exact copy",
+        "placement": "Large warehouse sign above SORA lettering near upper center.",
+        "scenePreserved": "Two speakers, microphone, papers, crowd, both cars, harbor cranes and sunset/night palette retained.",
+        "limitations": "Generated width is 1671 instead of source 1672 pixels; preserved output without resampling. Incidental small marks remain stylistic; principal sign contains required geometry."
+      }
+    }
+  ]
+}

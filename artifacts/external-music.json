@@ -1,0 +1,17 @@
+{
+  "kind": "actual-synth-pcm-handoff",
+  "sources": {
+    "src/game/audio.ts": "2f41ec2f8864405fa7aa4ee93a6bd873c6afd43d36ae3e6071ee2f429c41afee",
+    "scripts/test-external-music.mjs": "ce7e74d9549867c22421c23a45684dfc8d8e6c230a9bb795a8c5a61b398a5a56"
+  },
+  "metrics": {
+    "midiPeak": 0.07576144486665726,
+    "ownedPeak": 0,
+    "toggledPeak": 0,
+    "resumedPeak": 0.11198335140943527,
+    "settings": {
+      "enabled": true,
+      "volume": 0.65
+    }
+  }
+}

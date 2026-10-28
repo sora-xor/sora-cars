@@ -1,0 +1,46 @@
+[data-view="prove"] .world-shade { background: #171320f5; }
+[data-view="prove"] #screen { overflow-y: auto; }
+.native-proof-room { max-width: 1280px; padding-bottom: 56px; }
+.native-proof-room * { min-width: 0; }
+.native-proof-room small[lang="en"] { display: block; font: 11px/1.65 monospace; color: #b8aac6; letter-spacing: .015em; margin-top: 6px; }
+.native-proof-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.native-proof-heading h1 { font-size: clamp(28px, 4vw, 48px); letter-spacing: -.04em; }
+.native-proof-heading h1 small { font-size: 12px; letter-spacing: .08em; margin-top: 12px; }
+.native-proof-heading img { width: 78px; image-rendering: pixelated; }
+.native-proof-intro { font-size: 16px; line-height: 1.9; margin: 22px 0 34px; max-width: 680px; }
+.native-proof-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .8fr); gap: 48px; align-items: start; }
+.native-proof-room fieldset { border: 0; padding: 0; margin: 0; }
+.native-proof-room legend, .native-proof-room h2 { font-size: 18px; font-weight: 650; padding: 0; margin: 0 0 16px; }
+.native-proof-room h2 { padding-top: 30px; margin-top: 28px; border-top: 1px solid #ba94c438; }
+.native-proof-room p { line-height: 1.85; font-size: 13px; }
+.native-proof-file { display: block; border-bottom: 1px solid #ba94c438; padding: 19px 0; font-size: 14px; }
+.native-proof-file input { display: block; width: 100%; font: 11px monospace; margin-top: 14px; }
+.native-proof-file input::file-selector-button { border: 1px solid #867092; border-radius: 0; padding: 11px; background: #342640; color: #fff3de; cursor: pointer; margin-right: 10px; }
+.native-proof-file>span { display: block; overflow-wrap: anywhere; font: 10px/1.7 monospace; color: #bbacc8; margin-top: 8px; }
+.native-selection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+.native-field { display: block; font-size: 12px; margin-top: 23px; }
+.native-field input, .native-field select, .native-cli textarea { display: block; margin-top: 10px; width: 100%; background: #281e34; color: #fff4df; padding: 12px; font: 12px/1.65 monospace; border: 1px solid #826b8b80; border-radius: 0; }
+.native-field input:focus, .native-field select:focus, .native-cli textarea:focus { outline: 2px solid #f56476; outline-offset: 2px; }
+.native-proof-review { display: flex; gap: 14px; align-items: start; font-size: 13px; margin-top: 28px; line-height: 1.85; }
+.native-proof-review input { width: 18px; height: 18px; flex-shrink: 0; margin-top: 4px; accent-color: #f44553; }
+.native-proof-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.native-proof-room .primary, .native-proof-room .small-button { display: flex; flex-direction: column; align-items: start; gap: 2px; font-size: 14px; white-space: normal; }
+.native-proof-room button small[lang="en"] { color: inherit; font-size: 10px; }
+.native-proof-room .native-proof-note { font-size: 12px; color: #c5b5cd; margin-top: 20px; }
+.native-proof-console { position: sticky; top: 0; border-top: 4px solid #ee4052; padding: 24px; background: #251b30; box-shadow: 8px 8px 0 #0e0a15; }
+.native-proof-lamps { display: flex; gap: 6px; margin: 22px 0; }
+.native-proof-lamps i { width: 12px; height: 8px; background: #f66470; box-shadow: 0 0 12px #f4555340; }
+.native-proof-lamps i:nth-child(2) { background: #edc579; }.native-proof-lamps i:nth-child(3) { background: #9acbba; }
+#native-proof-status strong { font-size: 17px; line-height: 1.7; }
+#native-proof-status[data-phase="running"]:before, #native-proof-status[data-phase="uploading"]:before, #native-proof-status[data-phase="downloading"]:before { content: ''; display: block; width: 24px; height: 4px; background: #edc579; margin-bottom: 14px; animation: native-proof-pulse 1.4s steps(3) infinite; }
+.native-proof-assurance { color: #efc57d; border-block: 1px solid #ba94c438; padding: 16px 0; margin: 22px 0; }
+#native-proof-error { color: #ffb3b5; overflow-wrap: anywhere; }#native-proof-error small { color: #ffc9c9; }
+#native-proof-report dl { margin: 15px 0 24px; }#native-proof-report dl>div { display: flex; gap: 10px; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid #ba94c424; font-size: 12px; }
+#native-proof-report dd { font: 12px monospace; color: #ded0e2; }#native-proof-report small { font-size: 9px; margin-top: 3px; }
+#native-proof-saved { font: 11px/1.8 monospace; overflow-wrap: anywhere; color: #b8d7c8; }
+.native-cli { margin: 24px 0; }.native-cli summary { cursor: pointer; font-size: 14px; }.native-cli textarea { font-size: 10px; resize: vertical; }.native-cli code { overflow-wrap: anywhere; }
+.native-proof-console>a { font-size: 13px; display: block; border-top: 1px solid #ba94c438; padding-top: 20px; }
+@keyframes native-proof-pulse { 0%,100% { opacity: .3; transform: translateX(0); } 50% { opacity: 1; transform: translateX(12px); } }
+@media (prefers-reduced-motion: reduce) { #native-proof-status:before { animation: none !important; } }
+@media (max-width: 850px) { .native-proof-layout { grid-template-columns: 1fr; gap: 36px; }.native-proof-console { position: static; }.native-proof-heading img { width: 52px; } }
+@media (max-width: 480px) { .native-selection-grid { grid-template-columns: 1fr; }.native-proof-console { padding: 19px; }.native-proof-room .native-proof-heading .eyebrow { font-size: 9px; line-height: 1.8; }.native-proof-room .primary { width: 100%; } }

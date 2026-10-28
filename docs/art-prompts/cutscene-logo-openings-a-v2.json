@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "method": "built-in image_gen",
+  "useCase": "compositing",
+  "createdAt": "2026-09-26T01:09:31.799689+00:00",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "notes": [
+    "Non-destructive sibling files. Original source bytes are rechecked after generation before accepting each output.",
+    "Only one clear faithful physical emblem is required per scene; exact pixels are not claimed."
+  ],
+  "assets": [
+    {
+      "id": "ch01-victory",
+      "source": "public/assets/story/scenes/ch01-victory-opening.png",
+      "sourceSha256": "966fc33649ca1ffd09bb083d14cbfc54aa7ff98fb32d23fe1519d1a0833b19e0",
+      "output": "public/assets/story/scenes/ch01-victory-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add a clear red-and-white SORA club emblem as a painted circular decal on the white car front fender, in the open white panel above and ahead of the wheel at approximately x=79%, y=44%. The decal should be approximately 5% of image width in diameter, follow the slight fender perspective and retain existing reflections and pixel-art paint texture. Do not obscure the wheel, headlights, hood, hands or tools. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Prominent fender decal at x=78%, y=42% has paired straight bars, central stem and straight diagonal channels opening through the lower red disk edge, naturally foreshortened on the white bodywork. Character expressions, camera, car parts and tools preserved.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-b8930a9b-9f18-4f3f-866d-e30a0806dbd8.png",
+      "outputSha256": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "bytes": 2162156,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "966fc33649ca1ffd09bb083d14cbfc54aa7ff98fb32d23fe1519d1a0833b19e0",
+        "after": "966fc33649ca1ffd09bb083d14cbfc54aa7ff98fb32d23fe1519d1a0833b19e0",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.809587+00:00"
+    },
+    {
+      "id": "ch02-victory",
+      "source": "public/assets/story/scenes/ch02-victory-opening.png",
+      "sourceSha256": "42e10eab8a0759b038350ce564b59f0a6a1e0ee7cacb7e9900ae1cc2ca7e66a4",
+      "output": "public/assets/story/scenes/ch02-victory-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add a clearly visible red-and-white SORA emblem as a sewn round patch on the black-haired mechanic’s visible white T-shirt sleeve at approximately x=64%, y=44%. Keep the entire circle on the fabric, about 3.5% of image width across, with crisp faithful geometric bars and diagonal openings. Preserve her arm pose, drink, companions and harbor. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Clear white-shirt sleeve patch at x=65%, y=45% has equal straight bars, central stem and straight diagonals opening through the circle edge. All four figures, their drinks and night harbor composition retained.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-9d994e91-5a66-4ce4-9816-6df0f8dfae88.png",
+      "outputSha256": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "bytes": 2306348,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "42e10eab8a0759b038350ce564b59f0a6a1e0ee7cacb7e9900ae1cc2ca7e66a4",
+        "after": "42e10eab8a0759b038350ce564b59f0a6a1e0ee7cacb7e9900ae1cc2ca7e66a4",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.817204+00:00"
+    },
+    {
+      "id": "ch03-victory",
+      "source": "public/assets/story/scenes/ch03-victory-opening.png",
+      "sourceSha256": "acfdb2a967c25e5423da90af101d236f8e5cc1271b6bb72fcdc5786a165f6b45",
+      "output": "public/assets/story/scenes/ch03-victory-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add a clearly visible red-and-white SORA emblem as a sewn round patch on the mint-green jacket sleeve of the male electronics technician at approximately x=54%, y=29%, above his forearm and clear of his hand. Keep the entire emblem on the fabric, about 4% of image width across. Preserve the entire electronics repair bench and all instruments, all characters and the sunset doorway. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Mint-jacket sleeve patch at x=54%, y=30% has straight paired bars, central stem and straight edge-opening diagonals. Faces, repair actions, every principal electronic instrument and sunset doorway retained.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-528e8fe5-a27a-4330-8848-d04933adc44a.png",
+      "outputSha256": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "bytes": 2085279,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "acfdb2a967c25e5423da90af101d236f8e5cc1271b6bb72fcdc5786a165f6b45",
+        "after": "acfdb2a967c25e5423da90af101d236f8e5cc1271b6bb72fcdc5786a165f6b45",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.823101+00:00"
+    },
+    {
+      "id": "ch04-intro",
+      "source": "public/assets/story/scenes/ch04-intro-opening.png",
+      "sourceSha256": "1be4bcc0718ae75d5ac30d2db12d6f67db5c4cfc9fe253fecbb5bd4745903a8d",
+      "output": "public/assets/story/scenes/ch04-intro-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add a clearly visible red-and-white SORA circular decal to the outer black surface of the open driver door, centered approximately x=22%, y=44%, below the window and clear of the door handle. Make the emblem approximately 4.5% of image width across, with the subtle perspective of the door panel and existing wet reflections. Preserve the open door, man, woman, car geometry, tower and rainy dusk lighting. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Clear red-and-white door decal at x=22%, y=46% preserves equal straight bars, central stem and open lower diagonal channels. Door molding, wet reflections, car, characters and tower composition retained.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-1f4a91a2-c8a8-4b69-9e39-fae224465d33.png",
+      "outputSha256": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "bytes": 2227102,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "1be4bcc0718ae75d5ac30d2db12d6f67db5c4cfc9fe253fecbb5bd4745903a8d",
+        "after": "1be4bcc0718ae75d5ac30d2db12d6f67db5c4cfc9fe253fecbb5bd4745903a8d",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.831911+00:00"
+    },
+    {
+      "id": "ch04-victory",
+      "source": "public/assets/story/scenes/ch04-victory-opening.png",
+      "sourceSha256": "6d0f2cccca2f7269cfee14943eaaaeaa643b50a8415ee0c036fcf659dce016b1",
+      "output": "public/assets/story/scenes/ch04-victory-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add the exact SORA emblem as a large printed mark on the tall red cloth flag at the upper left, centered approximately x=11%, y=22%. Use a pale cream circular field with the logo geometry in red, a faithful reversed-color version of image 2: two equal straight red bars and a centered stem with straight diagonal channels opening through the pale circle boundary. Fit the whole circular mark inside the existing flag width, with natural fabric texture and folds. Preserve all people, podium, cars, mountain lake and dawn lighting. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Large reversed-color logo on upper-left red flag at x=11%, y=24% has equal straight bars, central stem and diagonal channels opening through the pale circular field. Crowd, podium, cars, dawn lake and flag shape retained.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-693af286-fac1-4a4c-95f6-9479bc192b94.png",
+      "outputSha256": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "bytes": 2009520,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "6d0f2cccca2f7269cfee14943eaaaeaa643b50a8415ee0c036fcf659dce016b1",
+        "after": "6d0f2cccca2f7269cfee14943eaaaeaa643b50a8415ee0c036fcf659dce016b1",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.837075+00:00"
+    },
+    {
+      "id": "ch05-victory",
+      "source": "public/assets/story/scenes/ch05-victory-opening.png",
+      "sourceSha256": "65d7c7389af35f93317096c53534b25536571cf586f810fbc8975926b9a47c76",
+      "output": "public/assets/story/scenes/ch05-victory-opening-logo-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated narrative game cutscene. Input image 1 is the edit target; image 2 is the exact SORA emblem reference, not a scene. Add only the specified physical emblem. Preserve the complete original 16:9 camera composition, every face, expression, pose, hairstyle and hand; preserve all clothing shapes, story objects, architecture, sky, lighting, palette and detailed painterly pixel-art texture. Copy the supplied emblem geometry faithfully: a red disk with two equally long thick straight white horizontal bars, a central vertical white stem between them, and two thick straight-edged white diagonal channels extending from the middle through the lower edge of the disk, leaving a red wedge between them. This is a geometric logo, not the font character 天. No curved calligraphic strokes, no separate closed-circle font glyph, no watermark, no UI overlay and no new text. Keep the whole logo clearly visible above the lower quarter of the frame; match the existing perspective and material without changing the emblem geometry. Add a clearly visible red-and-white SORA emblem as a sewn circular club patch on the navy jacket of the smiling red-headband courier at right, on his upper left chest at approximately x=82%, y=32%, above the breast pocket and clear of his hands and cans. Make the emblem approximately 4% of image width across, with a crisp geometric mark and the jacket’s rain-damp texture. Preserve the couple’s expressions, every hand and can, and the rainy harbor background. Change nothing else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "method": "Individual visual comparison of original source, supplied emblem and generated full image",
+        "notes": "Clear red-and-white courier chest patch at x=82%, y=35% has paired straight bars, central stem and straight diagonal channels reaching the disk edge. Faces, couple pose, hands, cans, rain and harbor composition retained.",
+        "atLeastOneMarkAboveLowerQuarter": true,
+        "pixelIdenticalCopyClaimed": false
+      },
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-c56dabcf-f472-4014-a8b1-76beccbfbb43.png",
+      "outputSha256": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "bytes": 2494847,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceHashGuard": {
+        "before": "65d7c7389af35f93317096c53534b25536571cf586f810fbc8975926b9a47c76",
+        "after": "65d7c7389af35f93317096c53534b25536571cf586f810fbc8975926b9a47c76",
+        "unchanged": true
+      },
+      "acceptedAt": "2026-09-26T01:16:27.844490+00:00"
+    }
+  ]
+}

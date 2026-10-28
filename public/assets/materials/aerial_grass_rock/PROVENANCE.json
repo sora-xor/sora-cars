@@ -1,0 +1,32 @@
+{
+  "id": "aerial_grass_rock",
+  "source": "https://polyhaven.com/a/aerial_grass_rock",
+  "author": "Rob Tuytel",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "physicalWidthMetres": 15,
+  "physicalHeightMetres": 15,
+  "files": [
+    {
+      "path": "color.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/aerial_grass_rock/aerial_grass_rock_diff_2k.jpg",
+      "bytes": 2624635,
+      "md5": "024018554c0002620127749d1f585f3d",
+      "sha256": "1a2ddfa4652adbe00447b940c40019d46f4b88245bc1b341cdf622c2110b7bc5"
+    },
+    {
+      "path": "normal.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/aerial_grass_rock/aerial_grass_rock_nor_gl_2k.jpg",
+      "bytes": 3799025,
+      "md5": "0c5423ce365169df7c242933b5137696",
+      "sha256": "c6aa14b042ce243f93a6ca807f46a085711c23ad316b104578e92df7770ee285"
+    },
+    {
+      "path": "arm.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/aerial_grass_rock/aerial_grass_rock_arm_2k.jpg",
+      "bytes": 945301,
+      "md5": "1491ee517b5cf713639f3add1b91c933",
+      "sha256": "a7daabd9aa877f861ced2830b792709f31a399324db47df2bdac256c0414fc14"
+    }
+  ]
+}

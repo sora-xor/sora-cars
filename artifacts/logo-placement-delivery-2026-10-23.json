@@ -1,0 +1,197 @@
+{
+  "createdAt": "2026-10-23T13:37:25.907066+00:00",
+  "tool": "Built-in image_gen; no raster compositing or code alpha edits",
+  "scope": "18 cut references and sunrise base newly integrated in this continuation; already-corrected jacket retained and reverified. Twenty historical placement flags resolved; not a new blanket placement audit.",
+  "assets": [
+    {
+      "path": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+      "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact opaque 1672x941 story scene to edit. Image 2 is the authoritative emblem geometry reference only. Change one tiny detail: restore a small circular white fabric badge with the red reference mark at the CENTER of the red jumpsuit thigh pocket, approximately x748,y737, diameter 29 pixels. This is the red cloth tied around the mechanic woman's waist, near the bottom middle of the image. Keep the badge on the pocket panel and match its cloth tilt and pixel illustration texture. Preserve the already centered car door decal EXACTLY in its present position behind the woman: only its left red crescent and white bar fragments should remain visible near x665,y733; do NOT move it into the blank white door area. Do not change any other emblem. Preserve every person, pose, face, hand, tool, cassette label, car contour, door seam, engine, background, lighting and framing. Whole scene must remain fully opaque, same dimensions. The only edit is adding the 29 pixel pocket badge.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json",
+      "source": "public/assets/story/angles/garage-left-v2.png",
+      "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-4f98a1e0-61f5-49c3-abc2-b53a7fe38d75.png"
+    },
+    {
+      "path": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+      "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact opaque 1672x941 story scene to edit. Image 2 is the authoritative emblem geometry reference. Move ONLY the car's existing large red emblem and SORA wordmark into one smaller complete centered lockup on its actual door panel. Remove the old large emblem beside the wheel arch at x373,y238 and old SORA text at x430,y287, restoring cream paint. Preserve the original black door handle at x413,y236 EXACTLY, and preserve the original vertical door/fender seam near x392, the wheel arch, stripe, all car contours and every other detail. Place the small new lockup on the cream door face BELOW the black handle, centered about x434,y282: red emblem disk around x434,y270 approximately 32 pixels wide and 40 pixels high in this perspective, and small SORA wordmark immediately below around y300. Keep the entire lockup right of the vertical seam and above the black stripe, with balanced margins on this narrow door face. Follow the door's strong foreshortening. The red-disk emblem has equal straight white bars joined by a stem and white diagonal channels opening through its lower boundary, as in image 2. Preserve all people, faces, hands, clothes, other badges, tools, documents and their text, framing, lighting, background, and full opaque scene. Do not remove the handle, move panel seams, alter the wheel arch, or redraw the scene.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json",
+      "source": "public/assets/story/angles/garage-detail-v2.png",
+      "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-d47755f6-b547-4597-8097-b379e1409bbc.png"
+    },
+    {
+      "path": "public/assets/story/sunrise-crew-branded-v2-centered-v2.png",
+      "sha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY the red car hood decal. Remove its remaining off-center arc and SORA wordmark to the right of the seated blue woman, restore red paint. Reposition whole lockup on red hood longitudinal centerline at approximately x840,y468 of1672x941 image, BEHIND her seated body and legs. Near-total occlusion is correct. Do not put a fragment on exposed right side to make it visible. Preserve current mint hood decal, white hood decal and every other mark exactly. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "source": "public/assets/story/sunrise-crew-branded-v2.png",
+      "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-e4ce7bf1-d287-4222-90f8-a32b1bc2de2b.png"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+      "sha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "prompt": "Use case: precise-object-edit. Image1 is exact original scene target; image2 authoritative SORA emblem reference. Only relocate the car hood logo. Erase the large red-disk and SORA lockup beside right headlight at x1140,y720, restore plain cream paint. Add SMALL red disk emblem+SORA wordmark together to main hood surface centered approximately x790,y580. Full lockup must fit within rectangle x710..890 and y525..630, above the existing diagonal hood leading seam. This requires much smaller decal, about140px-wide disk and120px-wide wordmark. Preserve that EXACT ORIGINAL seam: it runs roughly from270,750 to1290,604. Do not move, remove, redraw, or bend seam to fit logo. Do not put any logo on header strip in front of seam. Existing notes/cassette/leaf may occlude the decal naturally; preserve them and every prop, all hands, garment marks, reflections, lighting, hood contours, headlights, frame and scenery exactly. White logo double bars/stem/lower diagonal channels must follow supplied reference and hood perspective. Full opaque PNG scene.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "source": "public/assets/story/angles/sunrise-detail-v3.png",
+      "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-66564842-48fa-458d-bb6a-ca0311318109.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "sha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY sewn upper-back patch placement. Shift patch65pixels LEFT and27pixels DOWN so patch center is about1515,460 in1672x941 image. Keep same size, shape and back-plane perspective, clear of sleeve seam. Restore cream cloth where patch was. Do not move any garment seam or change garment geometry. Preserve mug logo. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "source": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "sourceSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-fa709b75-8eb0-402b-ab3b-40a253b34961.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "sha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "prompt": "Use case: precise-object-edit. Image 1 is exact scene to edit, image 2 is the authoritative SORA emblem reference. Keep all characters, faces, hands, props, scenery, printed documents, lighting, exact crop, all geometry and fully opaque PNG background unchanged. Match existing pixel-art texture and red disk/paired white bars/stem/diagonal channels opening at disk edge of reference. Move ONLY the existing SORA patch on the yellow jacket. Erase current patch near shoulder x515,y565, restore yellow cloth and original folds. Put this patch centered on projected spine below ponytail, center approximately x390,y565 in1672x941 image. Her hair may naturally overlap the upper patch edge. Follow the upper-back cloth angle; keep wholly on the back panel, far from near sleeve seam. Preserve two receipts and their printed icons/text, exact pose and hands, ponytail, cat, desk equipment and rest of scene.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "source": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+      "sourceSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-34f831d6-76e8-4def-a277-c3f653ad7f35.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut06-center-v2.png",
+      "sha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "prompt": "Use case: precise-object-edit. Image1 is exact scene edit target. Image2 is the supplied exact SORA geometric emblem reference. Shift ONLY the existing large red-and-white car DOOR badge exactly30pixels LEFT, from center(247,638) to center(217,638), so it is physically centered between the door panel vertical seams. Keep its size, vertical height, red disk proportions, paired straight bars, central stem and long straight diagonal channels opening through disk edge. Follow the existing door material perspective, not screen vertical. Restore white paint wherever old right-hand part was; leave exactly one door mark. Preserve all other pixels and scene content: woman handing sealed envelope to messenger, their expressions/hands/posture, clothing, shoulder bag and rolled map, car/windows/interior, background harbor/cars/people and posted route charts, lighting, pixel-art texture, full1671x941 camera framing. CRITICAL: this exact source is FULLY OPAQUE PNG alpha255 throughout, including its dark foreground. Preserve full opacity; no transparency, no checkerboard, no cutouts, no changes to dark foreground.\n",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "source": "public/assets/story/scenes/ch11-intro-cut06-logo-v3.png",
+      "sourceSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-83a5b9ec-6181-4f5e-8645-b4a84a0284d9.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut11-center-root-v3.png",
+      "sha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "prompt": "Edit image1, an OPAQUE full-scene pixel illustration. Rotate ONLY the large red-and-white hood emblem in the foreground by180degrees in its own surface plane. Retain its existing oval footprint, center, paint texture and scale. The logo should now be UPSIDE DOWN to this camera, because the camera is behind the car windshield. The two horizontal white bars belong at the NEAR lower-left windshield side of the oval; the two white opening diagonals point toward the FAR upper-right crew/bumper side. Match the car hood perspective. Do not change any people, papers, maps, wipers, hood borders, scenery or lighting. Preserve exact bright original colors and full edge-to-edge illustration. Every output pixel must remain fully opaque, no transparency or fading, no removal of lower hood. Image2 is the emblem reference only; orient its pattern as specified on the hood.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "source": "public/assets/story/scenes/ch12-intro-cut11.png",
+      "sourceSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-d5689a42-d80a-415c-ae67-6ea60569a976.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut09-logo-v7.png",
+      "sha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "prompt": "Use case: precise-object-edit. Image1 is the complete scene artwork to preserve. Restore its true PNG alpha transparency ONLY in the empty black lower margin, below the illustrated tabletop. Preserve every scenic pixel above y700 including wall, windows, city, characters, jacket badge, equipment, car picture and the corrected SORA Nexus emblem on the framed wall poster. Keep that poster emblem's shape and centered placement exactly. The bottom black margin from about y760 to y941 must become genuinely transparent; smoothly fade the narrow dark tabletop edge into it, but do not remove any prop, person, equipment or background. Image2 is the original scene and its genuine lower alpha reference. Keep image1's corrected poster geometry, not image2's old logo. Full 1672x941 PNG. No opaque black simulated transparency, no checkerboards, no upper-background cutouts.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "source": "public/assets/story/scenes/ch09-intro-cut09.png",
+      "sourceSha256": "09343581abaff0b755e218b77edd862b5ea77f76726c22a5b1014170cbebd093",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-8b7f7462-ad0f-440b-82bf-e4f753d5801a.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut03-center-root-v3.png",
+      "sha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "prompt": "Use case: precise-object-edit. Image1 is the target opaque pixel-art garage scene. Move ONLY the red SORA Nexus emblem on the white door of the distant red-and-white coupe at far LEFT about 27 pixels RIGHT, from center approximately (129,521) to (156,521) on the original 1672x941 canvas. This centers the badge on the actual car door, whose front/right section is hidden behind the stacked black tool cases and the seated man. Keep the same badge size, paint texture, and projected door plane. The black cases must naturally OCCLUDE the newly positioned badge's lower-right portion; do not move, erase, make transparent, or paint over the tool cases or man. Remove the previous badge cleanly and restore matching door paint there. Do not change car body seams or any other marks, mugs, people, facial expressions, clothes, props, sunlight, framing, or composition. Image2 is the exact emblem geometry reference, with paired equal white horizontal bars, central white stem, and two long white diagonal openings cutting fully through the red disk edge. Every output pixel must remain fully opaque, full scene, no transparency, fading, cutouts, or checkerboards.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "source": "public/assets/story/scenes/ch12-intro-cut03.png",
+      "sourceSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-7527b472-c691-4407-b0e6-67bfacf00ebf.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut08-logo-v5.png",
+      "sha256": "846e610b04b8a056b8bfed8f21d16a1447541e1988dcf663c21a3b8fe0c0e836",
+      "prompt": "Precise RGBA alpha repair. Image1 is the edit target and MUST keep its existing small SORA embroidery in exactly the same centered position on the jacket back. Image2 is the original scene showing the required transparency and fade; image3 is logo reference, do not redraw logo. Preserve ALL image1 artwork, faces, mirror, workshop objects and framing. Restore genuine alpha transparency to match image2: full illustrated background is retained, upper scene is subtly translucent (alpha roughly 220 of255), lower foreground smoothly fades further toward transparent (roughly alpha50 near bottom). This is a full scene with a soft transparent bottom edge, NOT a character cutout. Write actual alpha into the output PNG. Do not paint a checkerboard, black field or gray fake transparency into pixels. Never remove meaningful scenery. Keep 1672x941 composition, pixel-art texture, and the centered patch unchanged. Only alpha/transparency repair.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch03-victory-cut08.png",
+      "sourceSha256": "ae996cfbafb73604b7c2fa3bbdd9eb182fe153854629861c91008e94ebf46308",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-de3001e2-8676-485c-bc20-ca2547e38101.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut02-center-root-v2.png",
+      "sha256": "f763b72ee4d325b0817ef14ef98217ae3f3c98689e0241111c53c8ce72b71a0b",
+      "prompt": "Use case: precise-object-edit. Image1 is the target pixel-art illustration; image2 is the exact SORA emblem reference. Center the existing red badge on the white car door at left, midway between the two door seams below its window. Move it about25px to the right from its current center298,y568 to323,y568. Preserve size and projected plane. Remove the old displaced logo cleanly. Do not change any other logos or scene elements. Preserve the exact full composition, identities, faces, clothing seams, props, lighting and pixel-art style. Preserve the original genuine PNG alpha/translucency including any existing bottom fade. Do not remove background, crop, paint checkerboard or flatten transparency. The SORA shape has two white horizontal bars, central stem and long straight diagonal white channels that open fully through the red circle lower boundary; bottom red wedge detached. Use the reference, not a font substitute.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch12-intro-cut02.png",
+      "sourceSha256": "3bf711a5bef55dbfa0f26032105189b8c52f150f6648e3a0194dffd021b9f039",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-dd1bf397-89b8-44f0-968f-47a7d110468c.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut07-center-root-v2.png",
+      "sha256": "9807d2be5c8764c727db72e10d25ff6669101aef0adac312f01f11dc4d832187",
+      "prompt": "Use case: precise-object-edit. Image1 is the target pixel-art illustration; image2 is the exact SORA emblem reference. Move the large red badge from the right end of the synthesizer front face into the center of that whole black trapezoidal front panel, midway between the two end metal borders. Current center1260,y725; desired center about1125,y722. Preserve its foreshortened plane and size, all keys/knobs, the hands and sleeve badge. Remove the old displaced logo cleanly. Do not change any other logos or scene elements. Preserve the exact full composition, identities, faces, clothing seams, props, lighting and pixel-art style. Preserve the original genuine PNG alpha/translucency including any existing bottom fade. Do not remove background, crop, paint checkerboard or flatten transparency. The SORA shape has two white horizontal bars, central stem and long straight diagonal white channels that open fully through the red circle lower boundary; bottom red wedge detached. Use the reference, not a font substitute.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch12-intro-cut07.png",
+      "sourceSha256": "31fe92b413a3273a36a8da236fa599edde948afb29b589e52f65e8a8332a893e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-9e3873fb-0413-4ccf-b7a2-abd2ecf30518.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut05-center-root-v2.png",
+      "sha256": "bb2b1410c7484e7becd698c3426e3b18efa9c04fd79cb3c1b0001ae696b792e8",
+      "prompt": "Use case: precise-object-edit. Image1 is the target pixel-art illustration; image2 is the exact SORA emblem reference. Move the small red SORA badge from the near-right corner of the top black binder cover to the perspective center of that same cover. Current center1526,y489; desired center about1490,y432. Project it flat onto the binder top plane, matching the cover edges and the foreshortening. Preserve entire binder stack and all other objects. Remove the old displaced logo cleanly. Do not change any other logos or scene elements. Preserve the exact full composition, identities, faces, clothing seams, props, lighting and pixel-art style. Preserve the original genuine PNG alpha/translucency including any existing bottom fade. Do not remove background, crop, paint checkerboard or flatten transparency. The SORA shape has two white horizontal bars, central stem and long straight diagonal white channels that open fully through the red circle lower boundary; bottom red wedge detached. Use the reference, not a font substitute.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch04-intro-cut05.png",
+      "sourceSha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-7d2ef15c-75ad-4386-9bca-60efe3bd9c4e.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut08-logo-v6.png",
+      "sha256": "8bf3655a11af4efd5b945ef8c7b7f1928d10ffa6b4ccb11081ee5455b71893ab",
+      "prompt": "Edit image1 to restore genuine PNG alpha only: the empty black lower margin should be TRANSPARENT, with the existing illustrated foreground softly fading into that true alpha margin. Keep the whole upper scenic illustration unchanged, including every window, wall, sky, person, object and corrected SORA logo. Preserve the current emblem geometry and placement exactly. Do not crop or cut out any scenic content; only the empty dark bottom foreground fades away. Output full-size PNG with genuine transparent pixels; never checkerboard, never solid black transparency simulation. Image2 is the emblem reference; do not redraw it since the current geometry is correct.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch09-intro-cut08.png",
+      "sourceSha256": "01c338cbf4d7fbcbb39174b3aea93912d59ccb2bba236a5f697233dadd64db5e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-8246350c-9072-4ca2-b4f4-e9f78906c498.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut03-logo-v9.png",
+      "sha256": "3702a15429be57e8204b36cd1b5f6713f5e917934142816d4a88919914823372",
+      "prompt": "Edit image1 to restore genuine PNG alpha only: the empty black lower margin should be TRANSPARENT, with the existing illustrated foreground softly fading into that true alpha margin. Keep the whole upper scenic illustration unchanged, including every window, wall, sky, person, object and corrected SORA logo. Preserve the current emblem geometry and placement exactly. Do not crop or cut out any scenic content; only the empty dark bottom foreground fades away. Output full-size PNG with genuine transparent pixels; never checkerboard, never solid black transparency simulation. Image2 is the emblem reference; do not redraw it since the current geometry is correct.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch09-intro-cut03.png",
+      "sourceSha256": "f33f7833f4804774c87d1e19079b19d8c6a915b7a9b7eae2f725ad20dd59fba2",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-73ba8b28-2b34-4951-8d0e-e47021e8f4fd.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut07-logo-v12.png",
+      "sha256": "6f20b9a8e8132476c3ccb28ebe0d156d2b1ea0234df91a5be3c9b6aff9721bdd",
+      "prompt": "Restore genuine alpha in image1 only. Keep the car hood decal EXACTLY where it is now, centered left of the headlamp seam, same small size and down-left perspective. Keep all characters, car, hood seams, sky and garage unchanged. Replace ONLY the empty black bottom margin with real PNG alpha transparency, blending the illustrated dark floor into that alpha margin. Do not remove or change the upper95percent scenery, no checkerboards or solid black simulated transparency. Full1672x941 PNG with actual transparent pixels in empty bottom margin. Image2 is logo reference; current logo shape is already correct.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "source": "public/assets/story/scenes/ch03-victory-cut07.png",
+      "sourceSha256": "9e9aef125bb1341a2a837913461f0f090606111cd72bcd32405b2b948c0d084e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-15452023-56b1-4fde-afe0-0bb7d4135abf.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut02-center-v4.png",
+      "sha256": "146672929f6ffd68314c45b47449a001552dbafbfb89981408a669c10aaaee5c",
+      "prompt": "One very small placement correction only. Both images show the same scene. On the BLACK TOOL CASE at lower right, image1's red-white badge is a little too far LEFT, and image2's badge is a little too far RIGHT. Put that badge exactly HALFWAY BETWEEN these two positions. That midpoint is the physical center of the same long case face, around(1435,598) on the1672x941canvas. Preserve the badge's exact size, circular shape, glyph and plane angle. Preserve case shape, surface highlights and the white cloth occluding its lower edge. Restore the vacated black surface. Everything else remains unchanged. Fully opaque image, alpha255 throughout; no transparency, fake checkerboard or scene redesign.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "source": "public/assets/story/scenes/ch03-victory-cut02.png",
+      "sourceSha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0ddc3-0639-72c2-bb4f-f953162c9a0e/exec-9942b7d6-f8f4-425f-93be-c51107cca483.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut05-center-v2.png",
+      "sha256": "ffb7216f73a72b0ebe007d30ac6511bd12161efff1d78755459038d8c31ca0d1",
+      "prompt": "Precise local object centering edit. Image1 is original scene, image2 exact SORA emblem reference. Move ONLY the small red-white badge on the upright beige folder front at lower left from center approximately(199,555) to(160,555),39 pixels left. Center on the physical cover face between its left and right edges; preserve same modest size, paired bars, open diagonal channels and the folder-plane perspective. Keep all people, actions, faces, hands, props, lettering, other emblems, background, lighting, pixel-art material, framing and full original canvas exactly. Do not enlarge or redesign the designated logo. Restore only its vacated surface and preserve natural occlusions. Original is fully opaque; output must remain fully opaque PNG, alpha255 throughout, including the dark lower foreground. No transparency or checkerboard.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "source": "public/assets/story/scenes/ch03-victory-cut05.png",
+      "sourceSha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0ddc3-0639-72c2-bb4f-f953162c9a0e/exec-df87b60a-8074-44b0-9c31-752b59e126c0.png"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut05-center-v3.png",
+      "sha256": "8709b34e8cb98afe107090b55d8788f1354b2784122060c14c68ede7aeb513de",
+      "prompt": "Repair actual PNG alpha only. Image1 is the artwork to retain, with its correctly centered mug emblem. Image2 is original scene and transparency reference. Preserve image1 logos, all figures/props/scenery, colors, perspective, framing and original size. Restore image2's true partial RGBA opacity and transparent lower foreground fade. Upper scene remains nearly opaque; bottom dark empty foreground smoothly fades toward transparent as in image2. Do not remove illustrated background or cut out objects. Do NOT paint checkerboards or black/gray fake transparency. Return actual PNG alpha. Keep the corrected mug emblem exactly centered on the cup body as in image1, naturally occluded by telephone/cord; no artwork changes.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "source": "public/assets/story/scenes/ch06-intro-cut05.png",
+      "sourceSha256": "58a856f585ff3f80d21684842a5698109152acd1fb86e14dfc8727e036fc0730",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0ddc3-0639-72c2-bb4f-f953162c9a0e/exec-8da986b1-8d25-4e24-bdb3-3730f2827f23.png"
+    }
+  ],
+  "checks": {
+    "emblemCoverage": "artifacts/story-emblem-coverage-current.json",
+    "placementClosure": "artifacts/story-placement-closure-2026-10-23.json",
+    "runtime37Images111Screens": "output/browser/logo-alignment-final-oct23/report.json",
+    "layout44Cases": "output/browser/cutscene-layout/report.json",
+    "keyboard": "output/browser/logo-alignment-final-keyboard-oct23/state-0.json",
+    "typeScript": "passed",
+    "focusedTests": "16 passed"
+  },
+  "releaseGoal": "NFT release remains active; no live issuance, sale or remote publication claimed."
+}

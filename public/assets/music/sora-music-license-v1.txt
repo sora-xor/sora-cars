@@ -1,0 +1,53 @@
+SORA MUSIC — UNLIMITED USE LICENSE
+Version 1.0 · 22 September 2026
+
+1. The work and the licensor
+The licensor is the person or organization identified by `license.licensor` in the authenticated NFT metadata. The licensed material is the composition, sound recording and cover artwork identified by that metadata's file paths and SHA-256 hashes. The NFT's license hash identifies this exact text. Publishing an NFT with these terms is the licensor's offer of this license for that material. The licensor must have authority to grant these rights.
+
+2. Who receives the license
+A person who lawfully receives the genuine collection NFT receives this license when the NFT is delivered to their wallet. A payment request, pending transaction, downloaded file, copied metadata or imitation NFT alone does not establish that grant. Each lawful subsequent owner receives the same license. The licensor also permits anyone to listen to the site's previews without buying.
+
+3. Unlimited use
+The licensor grants the licensee a worldwide, non-exclusive, perpetual, irrevocable, fully paid and royalty-free license, for the duration of all applicable rights, to use, copy, perform, display, distribute, sell, broadcast, stream, synchronize, adapt, edit, remix and otherwise exploit the licensed material, in any medium or format, for personal or commercial purposes. The grant covers both the musical composition and its supplied master recording, as well as the supplied cover artwork, to the extent of the licensor's rights.
+
+There are no limits on projects, clients, users, copies, audience size, revenue or time. Uses include films, videos, games, podcasts, advertisements, live events, broadcasts, social media, remixes and standalone releases. You may permit clients, collaborators, distributors and platforms to use the material as needed for those uses. No additional royalty, attribution, registration or per-use approval is required. Optional credit: “SORA CARS — [song title]”.
+
+4. The license survives an NFT transfer
+Selling, gifting or otherwise transferring the NFT does not revoke a license already granted to you. You may continue existing and future uses and keep your downloaded files. A new lawful owner receives their own non-exclusive license. The website may use current wallet ownership to locate available downloads; this does not limit the continuing license or guarantee permanent hosting. Keep a copy of the music, this text, the NFT metadata and your delivery record.
+
+5. What ownership means
+The NFT is a collectible and a record associated with this license. It does not transfer copyright, authorship, exclusive rights, a trademark or an investment return. Multiple NFTs and licenses for the same music may be issued. Do not claim exclusive ownership of the supplied material or register it in an automated rights-enforcement system in a way that prevents the licensor or other lawful licensees from using it. You own any original contributions you add, subject to others' existing rights. No endorsement by SORA or by any other person is granted.
+
+6. Price and evidence
+The collection's primary sale price is 1 XOR per NFT; separately displayed network fees are not royalties. Retain the exact NFT identifier, network, metadata and transaction record as evidence. A website display is not a replacement for the underlying transaction. Copies of this license are public so its terms can be read before purchase.
+
+7. Existing rights
+This license grants only rights the licensor can grant. It does not restrict fair use, public-domain material, statutory exceptions or mandatory consumer rights. It does not authorize unlawful conduct or use of unrelated third-party material. No promise of exclusive copyright protection, uninterrupted file hosting or compatibility with every service is made. A future website or license revision does not narrow a license already granted under this version.
+
+日本語 — 無制限利用ライセンス
+バージョン1.0 · 2026年9月22日
+
+1. 対象と許諾者
+許諾者は、真正なNFTのメタデータ内の `license.licensor` に記載された個人または法人です。対象は、そのメタデータのパスとSHA-256で特定された楽曲、音源およびジャケット画像です。ライセンスのハッシュは本書の同一性を示します。この条件を付したNFTの公開は、許諾者による利用許諾の申出となります。許諾者は、記載した権利を許諾する権限を有する必要があります。
+
+2. 許諾の成立
+真正なコレクションNFTを適法に受け取った人は、ウォレットへの受渡し時に本ライセンスを取得します。支払要求、未完了の取引、ファイルの入手、メタデータの複製、模倣NFTだけでは成立しません。その後の適法な所有者にも同じライセンスが付与されます。サイトの試聴は購入前から利用できます。
+
+3. 利用範囲
+許諾者は、対象に関して許諾できる権利の範囲内で、全世界、非独占、永続的、取消不能、対価支払済み、追加ロイヤリティ不要の利用を許諾します。適用される権利の存続期間中、個人・商用を問わず、あらゆる媒体や形式で、使用、複製、演奏、展示、配布、販売、放送、配信、映像との同期、翻案、編集、リミックス、その他の利用ができます。楽曲そのもの、提供された原盤音源およびジャケット画像を含みます。
+
+作品数、顧客数、利用人数、複製数、視聴者数、収益、期間に上限はありません。映画、動画、ゲーム、ポッドキャスト、広告、ライブ、放送、SNS、リミックス、音源単独での公開・販売などに利用できます。これらの利用に必要な範囲で、顧客、共同制作者、配給者、プラットフォームへ利用を許可できます。追加料金、クレジット表記、登録、個別承認は不要です。任意の表記例：「SORA CARS — 曲名」。
+
+4. NFT譲渡後も続く利用
+NFTを売却・贈与・譲渡しても、取得済みの利用許諾は取り消されません。既存・将来の作品への利用と保存済みファイルの保持を続けられます。次の適法な所有者にも非独占の利用許諾が付与されます。サイトのダウンロード案内に現在の所有確認を使う場合がありますが、それは取得済みライセンスを制限せず、永続的な配信保管を保証するものでもありません。音源、本書、メタデータ、受取記録を保存してください。
+
+5. 所有の意味
+NFTは収集品および本許諾に関連する記録です。著作権、著作者の地位、独占権、商標権や投資収益を移転・保証するものではありません。同じ楽曲のNFTとライセンスを複数発行できます。提供された素材について独占権を主張したり、他の適法な利用者や許諾者の利用を妨げる形で自動権利管理サービスへ登録したりしないでください。自分で追加した独自の創作部分に関する権利は、他者の既存の権利に従い、あなたに帰属します。SORAその他の人物による推薦・公認を意味しません。
+
+6. 価格と記録
+一次販売価格はNFT1点につき1 XORです。別途表示されるネットワーク手数料はロイヤリティではありません。NFT識別子、ネットワーク、メタデータ、取引記録を保存してください。サイトの表示だけが取引自体の代わりになるわけではありません。本書は購入前から読めるよう公開します。
+
+7. 既存の権利
+許諾者が許諾できる権利のみが対象です。フェアユース、公有の素材、法定例外、強行的な消費者の権利を制限しません。違法行為や無関係な第三者の素材の使用を許可しません。独占的な著作権保護、途切れないファイル配信、すべてのサービスとの互換性を保証しません。将来のサイトや条件の変更で、本バージョンに基づき取得済みの許諾を狭めることはありません。
+
+Both language versions describe the same grant. / 両言語版は同じ利用許諾を記載しています。

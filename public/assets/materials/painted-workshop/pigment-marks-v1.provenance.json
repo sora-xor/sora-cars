@@ -1,0 +1,13 @@
+{
+  "asset": "public/assets/materials/painted-workshop/pigment-marks-v1.png",
+  "source": "OpenAI built-in image generation",
+  "reference": "public/assets/story/angles/garage-wide-v2.png",
+  "referenceRole": "Style only; no scene projection",
+  "purpose": "Achromatic painterly material data for real 3D shading normals and pigment variation",
+  "prompt": "pigment-marks-v1.prompt.txt",
+  "generatedFile": "/Users/takemiyamakoto/.codex/generated_images/01a095d7-2e3f-76c0-be76-890e7c7ca671/exec-0177c4f9-87b7-4949-ae73-38fafb6ffff6.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "f6fa485aa19ded2d598c4581b8cb17c447e6c6b323279c43133af3f55632e5e4",
+  "edits": "Original generation copied unchanged"
+}

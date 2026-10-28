@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-26T02:38:06.246Z",
+  "passed": true,
+  "contactSheetsReviewed": 29,
+  "compositionsReviewed": 228,
+  "reviewedWidths": [
+    1440,
+    390,
+    320
+  ],
+  "scope": "Cutscene imagery, cast continuity, dialogue framing and controls; browser fixture uses the production CutscenePlayer.",
+  "corrections": [
+    "Jun and Daichi identities in chapter 12",
+    "Ren identity in chapter 10",
+    "Aki as the listener in chapter 10 boardroom reverse",
+    "Document prop cleanup in act 3"
+  ],
+  "latestCorrection": "scenes/ch10-intro-cut03.png",
+  "latestCorrectionVerified": true,
+  "distinctAssetPaths": 228,
+  "distinctAssetHashes": 228,
+  "all159NewCutImagesMatchRecoveredGeneratedSources": true,
+  "productionAssetsMatchInventory": true,
+  "sourcePinsUnchanged": true,
+  "remainingTaskIssues": []
+}

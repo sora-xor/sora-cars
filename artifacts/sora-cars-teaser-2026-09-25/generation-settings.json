@@ -1,0 +1,20 @@
+{
+  "service": "OpenArt",
+  "browser": "Safari",
+  "tool_url": "https://openart.ai/suite/create-video/byte-plus-seedance-2-5",
+  "model": "Seedance 2.5",
+  "duration_seconds": 30,
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "audio_generation": false,
+  "auto_polish": false,
+  "image_reference_count": 6,
+  "audio_reference": "Outrun the Dawn (existing 30-second preview; OpenArt trimmed reference to 29.92 seconds)",
+  "generation_count": 1,
+  "credits_charged": 9625,
+  "credits_before": 99755,
+  "credits_after": 90130,
+  "status": "completed",
+  "downloaded_source": "/Users/takemiyamakoto/Downloads/openart-cgt-20260925180515-cb0s2_1790331164495_1d999b57.mp4",
+  "final_output": "/Users/takemiyamakoto/dev/sora-cars/artifacts/sora-cars-teaser-2026-09-25/sora-cars-teaser-30s.mp4"
+}

@@ -1,0 +1,15 @@
+{
+  "nativeProfile": "c6b9b7536ca0a1d7c3f25ad67208927d36e79b5385af516cb93177a82eabc925",
+  "captureDirectory": "output/browser/eight-peer-full-c6b9b7536ca0",
+  "command": "SORA_CARS_TEST_TICKS=5400 node scripts/test-mesh.mjs",
+  "contexts": 8,
+  "webrtcLinks": 28,
+  "certifiedTick": 5400,
+  "identicalNativeCheckpoints": true,
+  "authenticatedCosmetics": true,
+  "signedTranscriptFrames": 5400,
+  "browserErrors": 0,
+  "identicalTerminalState": true,
+  "inputScenario": "Drift and boost for 360 ticks, then braking to retain all eight players through the 5400-tick timeout.",
+  "note": "Eight real Chromium contexts, native generated physics, same Canvas renderer, drift/boost inputs. Local transport evidence; native proof and deployment qualification are separate."
+}

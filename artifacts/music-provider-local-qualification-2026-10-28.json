@@ -1,0 +1,55 @@
+{
+  "schema": "sora-cars.local-provider-qualification.v1",
+  "checkedAt": "2026-10-28T06:27:50.008324+00:00",
+  "status": "passed",
+  "completedAt": "2026-10-28T06:22:20.559054+00:00",
+  "scope": "Local full frozen October23 payload storage qualification only. Not the latest configured frontend, live availability, publication or NFT issuance. Manifest retention_epoch86400 is excluded from registration.",
+  "fileCount": 931,
+  "payloadBytes": 2563048355,
+  "carBytes": 2565767696,
+  "chunkCount": 20228,
+  "nativeReport": {
+    "path": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/report.json",
+    "bytes": 1843,
+    "sha256": "ca6505ae08e7520b0ffc33258455421c651bf0cdc005cbbb19a4a7b351ad7f6c"
+  },
+  "stageReceipts": {
+    "pack": {
+      "path": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/pack/command.json",
+      "bytes": 7156,
+      "sha256": "a6d2a508fab4f86457a5d246405f7369ba712b5432eebb731ad437273030b5b4"
+    },
+    "verify-resume-1": {
+      "path": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/verify-resume-1/command.json",
+      "bytes": 7475,
+      "sha256": "1e6362fa592c02bc1e3efa1dfe6032b0746b15be3d9d4209ed22252fa9a89e49"
+    },
+    "provider": {
+      "path": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/provider/command.json",
+      "bytes": 7928,
+      "sha256": "b3fddc33b9538c2be6d1466efe1adf5988694ed3c34b0e1d473522c55a2fc594"
+    }
+  },
+  "stageElapsedSeconds": {
+    "pack": 1075.9904663750203,
+    "verify": 1292.3282302080188,
+    "provider": 6029.795410374994
+  },
+  "providerMaximumResidentBytes": 164134912,
+  "allFrozenFilesUnchanged": true,
+  "packageUnchanged": true,
+  "selectedSourcesAndBinariesUnchanged": true,
+  "independentReceiptAndLogAuditPassed": true,
+  "checks": [
+    "Exact-capacity admission and insufficient-capacity rejection",
+    "Corrupted-source and duplicate-admission rejection",
+    "Complete file/chunk/CAR readback before and after reopening storage",
+    "Proof sampling and three-pass reader allowance",
+    "Corrupted stored-copy read and restart rejection"
+  ],
+  "retentionEpoch": 86400,
+  "registrationAllowed": false,
+  "published": false,
+  "remoteAvailability": false,
+  "currentCorrectedFrontendQualifiedByThisTest": false
+}

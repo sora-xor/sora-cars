@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "mode": "builtin image_gen edit",
+  "art": "boardroom-key-offer",
+  "prompt": "Use case: compositing. Image1 is the original boardroom key-offer cutscene; Image2 is the exact supplied SORA geometric logo. Preserve the full original 16:9 scene, adult women, faces, identities, poses, hair, wardrobes, sunset, table, reflections, key and envelope, notebook, phone, cups, perspective, pixel-art rendering and all framing. Make only this precise garment branding correction: remove the existing inaccurate font-character red badge from the LOW part of Aki's near white sleeve (around x=21%, y=72%), restoring plain white fabric there. Put a NEW clearly readable small white square sewn patch HIGHER on the broad flat upper sleeve/back-shoulder of the same shirt, centered around x=20%, y=57%, above the dialogue area. Patch width about7% of the full frame; faithfully print image2 inside it with narrow white margin. Reproduce exactly the red circle and white straight geometric bars: two equal long thick horizontal rectangular bars, short vertical rectangular center connection, and two thick STRAIGHT diagonal white channels running from below the lower bar completely through the circle's lower circumference, with two open gaps and a red triangle between them. Absolutely no calligraphic/font \u5929, no curved or tapered legs, no red enclosure closing the white gaps. This is a geometric printed logo, not a character. Keep the complete scene unchanged elsewhere, no new props/text/UI/captions/borders/watermark and no crop. Original wide resolution.",
+  "inputs": [
+    "public/assets/story/beats/boardroom-key-offer-v3.png",
+    "public/assets/branding/sora-emblem-source.png"
+  ],
+  "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-dfc2c647-3148-4f87-bda4-9b816daa9a84.png",
+  "file": "public/assets/story/beats/boardroom-key-offer-v4.png",
+  "visualInspection": "Accepted after individual inspection. The old curved sleeve glyph is removed, and a higher white sewn patch carries the red circle with straight bars, central connection and two straight diagonal channels opening through the lower edge. Patch is tilted naturally with fabric. Faces, key/envelope, hands, sunset boardroom and composition are preserved. Fine texture changes and painted perspective are not pixel-identical preservation.",
+  "runtimeIntegrated": false,
+  "identities": [
+    {
+      "path": "public/assets/story/beats/boardroom-key-offer-v3.png",
+      "bytes": 2211408,
+      "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "public/assets/branding/sora-emblem-source.png",
+      "bytes": 104489,
+      "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "width": 1678,
+      "height": 1432
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-offer-v4.png",
+      "bytes": 2144461,
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-dfc2c647-3148-4f87-bda4-9b816daa9a84.png",
+      "bytes": 2144461,
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}

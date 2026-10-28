@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "method": "builtin-imagegen",
+  "useCase": "precise-object-edit",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "scope": "Only assigned five per-cut images; originals preserved. No runtime files, tests or shared manifests modified by this artwork task.",
+  "alphaMethod": "Actual pixel alpha decoded using pngjs before editing and after generation; all five input PNGs are fully opaque, so transparent_background=false.",
+  "pixelIdenticalCopyClaimed": false,
+  "assets": [
+    {
+      "id": "ch09-victory-cut08",
+      "placement": "Add an ivory square embroidered patch on the adult man's visible upper sleeve, centred around x40% y39% of the whole frame, about 6% of scene width. Print the exact reference emblem on it, naturally following the jacket fabric. Do not change either record cover illustration or his hands.",
+      "source": "public/assets/story/scenes/ch09-victory-cut08.png",
+      "output": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the finished SORA CARS cutscene to edit. Image 2 is the authoritative logo artwork, to copy as a physical print. Add an ivory square embroidered patch on the adult man's visible upper sleeve, centred around x40% y39% of the whole frame, about 6% of scene width. Print the exact reference emblem on it, naturally following the jacket fabric. Do not change either record cover illustration or his hands.\nThe mark must reproduce the supplied artwork, not a text glyph: red circular field; two exactly equal-length thick STRAIGHT white rectangular horizontal bars joined by a central white stem; two thick STRAIGHT diagonal white channels that cut completely THROUGH the bottom-left and bottom-right perimeter. Keep both lower gaps visibly OPEN, with a separate red lower wedge between them. Do not curve the strokes or join the lower red rim across the gaps. Match cloth perspective and local lighting without changing the geometric silhouette.\nPreserve the full original 1672x941 camera framing, all adult faces/hair/hands, expressions, gestures and poses, all clothing outside the local mark, every narrative prop, original scene lighting/palette and sharp pixel-anime texture. Preserve the original dark lower dialogue area exactly in position and appearance. This original is fully opaque, so keep the result fully opaque. Only edit the requested logo region. No added people, no unrelated objects, no text, no crop, no restyling, no extra vignette or blur, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-35eb0c68-f7d8-48f2-89aa-9f8d8fb24ba6.png",
+      "accepted": true,
+      "visualQA": "Accepted: cream upper-sleeve patch clearly shows equal straight horizontal bars, central stem and straight diagonal channels open through the red perimeter. Adult face, two record-cover illustrations, hands, shelves, radio equipment, city window, lighting and dark lower dialogue field remain consistent.",
+      "transparentBackgroundRequested": false,
+      "sourceIdentity": {
+        "path": "public/assets/story/scenes/ch09-victory-cut08.png",
+        "sha256": "8dabd420358e1005ddf2a2892ddec27b4c2d9b41d7154ac51836e960ccbb15b5",
+        "bytes": 1939177,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "generatedIdentity": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-35eb0c68-f7d8-48f2-89aa-9f8d8fb24ba6.png",
+        "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+        "bytes": 1885376,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "outputIdentity": {
+        "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+        "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+        "bytes": 1885376,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "sourceSha256": "8dabd420358e1005ddf2a2892ddec27b4c2d9b41d7154ac51836e960ccbb15b5",
+      "outputSha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "generatedSha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "acceptedAt": "2026-09-26T01:51:28.699Z"
+    },
+    {
+      "id": "ch10-intro-cut03",
+      "placement": "Replace only the indistinct rectangular insignia on the foreground adult man's visible navy sleeve at x28% y67% with a neat ivory fabric patch containing a clear reproduction of the exact reference logo, about 5% of scene width. Keep the patch above y74% so it is visible above the existing dark dialogue area. Match the angle and light on the sleeve.",
+      "source": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "output": "public/assets/story/scenes/ch10-intro-cut03-logo-v2.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the finished SORA CARS cutscene to edit. Image 2 is the authoritative logo artwork, to copy as a physical print. Replace only the indistinct rectangular insignia on the foreground adult man's visible navy sleeve at x28% y67% with a neat ivory fabric patch containing a clear reproduction of the exact reference logo, about 5% of scene width. Keep the patch above y74% so it is visible above the existing dark dialogue area. Match the angle and light on the sleeve.\nThe mark must reproduce the supplied artwork, not a text glyph: red circular field; two exactly equal-length thick STRAIGHT white rectangular horizontal bars joined by a central white stem; two thick STRAIGHT diagonal white channels that cut completely THROUGH the bottom-left and bottom-right perimeter. Keep both lower gaps visibly OPEN, with a separate red lower wedge between them. Do not curve the strokes or join the lower red rim across the gaps. Match cloth perspective and local lighting without changing the geometric silhouette.\nPreserve the full original 1672x941 camera framing, all adult faces/hair/hands, expressions, gestures and poses, all clothing outside the local mark, every narrative prop, original scene lighting/palette and sharp pixel-anime texture. Preserve the original dark lower dialogue area exactly in position and appearance. This original is fully opaque, so keep the result fully opaque. Only edit the requested logo region. No added people, no unrelated objects, no text, no crop, no restyling, no extra vignette or blur, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-2573832e-d74b-4464-a9be-c240095dd31e.png",
+      "accepted": true,
+      "visualQA": "Accepted: navy-sleeve patch reproduces recognizable geometric bars, stem and open lower straight channels, naturally rotated with the sleeve. Key on envelope, document stacks, hand placement, both adult characters, boardroom details, sunset and framing preserved. Logo sits above the dark dialogue area.",
+      "transparentBackgroundRequested": false,
+      "sourceIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+        "sha256": "416606674d62e242b0853a8bb9e6b06701fdc192add22972ea144f0de89198b4",
+        "bytes": 1790968,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "generatedIdentity": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-2573832e-d74b-4464-a9be-c240095dd31e.png",
+        "sha256": "aa18198c648ac62199500a14f10e0a0e51daab77e31fa0cafd20bad2d7a802f1",
+        "bytes": 1778805,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "outputIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut03-logo-v2.png",
+        "sha256": "aa18198c648ac62199500a14f10e0a0e51daab77e31fa0cafd20bad2d7a802f1",
+        "bytes": 1778805,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "sourceSha256": "416606674d62e242b0853a8bb9e6b06701fdc192add22972ea144f0de89198b4",
+      "outputSha256": "aa18198c648ac62199500a14f10e0a0e51daab77e31fa0cafd20bad2d7a802f1",
+      "generatedSha256": "aa18198c648ac62199500a14f10e0a0e51daab77e31fa0cafd20bad2d7a802f1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "acceptedAt": "2026-09-26T01:51:29.526Z"
+    },
+    {
+      "id": "ch10-intro-cut04",
+      "placement": "Add a clean red-and-white geometric logo print to the adult woman's white T-shirt, centred on her visible chest around x23% y35% of the whole frame, about 4.5% of frame width. It is a physical shirt print following the fabric folds. Preserve the shirt and all body shapes; no face, hand, model-building or blueprint changes.",
+      "source": "public/assets/story/scenes/ch10-intro-cut04.png",
+      "output": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the finished SORA CARS cutscene to edit. Image 2 is the authoritative logo artwork, to copy as a physical print. Add a clean red-and-white geometric logo print to the adult woman's white T-shirt, centred on her visible chest around x23% y35% of the whole frame, about 4.5% of frame width. It is a physical shirt print following the fabric folds. Preserve the shirt and all body shapes; no face, hand, model-building or blueprint changes.\nThe mark must reproduce the supplied artwork, not a text glyph: red circular field; two exactly equal-length thick STRAIGHT white rectangular horizontal bars joined by a central white stem; two thick STRAIGHT diagonal white channels that cut completely THROUGH the bottom-left and bottom-right perimeter. Keep both lower gaps visibly OPEN, with a separate red lower wedge between them. Do not curve the strokes or join the lower red rim across the gaps. Match cloth perspective and local lighting without changing the geometric silhouette.\nPreserve the full original 1672x941 camera framing, all adult faces/hair/hands, expressions, gestures and poses, all clothing outside the local mark, every narrative prop, original scene lighting/palette and sharp pixel-anime texture. Preserve the original dark lower dialogue area exactly in position and appearance. This original is fully opaque, so keep the result fully opaque. Only edit the requested logo region. No added people, no unrelated objects, no text, no crop, no restyling, no extra vignette or blur, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-c4bd28f1-44ce-4bf0-ae45-073503cb0576.png",
+      "accepted": true,
+      "visualQA": "Accepted: red shirt print has equal straight white bars, center stem and broad straight diagonal cutouts open through the lower disk edge. Adult woman's expression and outstretched hand, architectural model, blueprint rolls, board members, nighttime tower view and lower dialogue field preserved.",
+      "transparentBackgroundRequested": false,
+      "sourceIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut04.png",
+        "sha256": "576295465f7783622215052d3559f454818c75c6332e44638ba054b47cf19038",
+        "bytes": 1905164,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "generatedIdentity": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-c4bd28f1-44ce-4bf0-ae45-073503cb0576.png",
+        "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+        "bytes": 1861957,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "outputIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+        "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+        "bytes": 1861957,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "sourceSha256": "576295465f7783622215052d3559f454818c75c6332e44638ba054b47cf19038",
+      "outputSha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "generatedSha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "acceptedAt": "2026-09-26T01:53:08.809Z"
+    },
+    {
+      "id": "ch10-intro-cut06",
+      "placement": "Add a clean ivory rectangular stitched cloth badge to the back of the seated adult technician's seafoam shirt, centred around x56% y44% of the whole frame, about 7% of frame width. Print the exact reference emblem clearly inside it, following the shirt perspective. Preserve the visible shirt folds around it.",
+      "source": "public/assets/story/scenes/ch10-intro-cut06.png",
+      "output": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the finished SORA CARS cutscene to edit. Image 2 is the authoritative logo artwork, to copy as a physical print. Add a clean ivory rectangular stitched cloth badge to the back of the seated adult technician's seafoam shirt, centred around x56% y44% of the whole frame, about 7% of frame width. Print the exact reference emblem clearly inside it, following the shirt perspective. Preserve the visible shirt folds around it.\nThe mark must reproduce the supplied artwork, not a text glyph: red circular field; two exactly equal-length thick STRAIGHT white rectangular horizontal bars joined by a central white stem; two thick STRAIGHT diagonal white channels that cut completely THROUGH the bottom-left and bottom-right perimeter. Keep both lower gaps visibly OPEN, with a separate red lower wedge between them. Do not curve the strokes or join the lower red rim across the gaps. Match cloth perspective and local lighting without changing the geometric silhouette.\nPreserve the full original 1672x941 camera framing, all adult faces/hair/hands, expressions, gestures and poses, all clothing outside the local mark, every narrative prop, original scene lighting/palette and sharp pixel-anime texture. Preserve the original dark lower dialogue area exactly in position and appearance. This original is fully opaque, so keep the result fully opaque. Only edit the requested logo region. No added people, no unrelated objects, no text, no crop, no restyling, no extra vignette or blur, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-56c77157-e194-4710-a426-a78153dbec9e.png",
+      "accepted": true,
+      "visualQA": "Accepted: large ivory back patch carries equal straight bars, stem and straight open lower diagonals with separate red lower wedge. All three adult technicians, radio equipment and cables, carried amplifier, tools, guitar, doorway framing, dusk light and dark dialogue area preserved.",
+      "transparentBackgroundRequested": false,
+      "sourceIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut06.png",
+        "sha256": "5c33f0f0d8fc27df75533364a9c92eb9a1cdac590e6b4abb068960ac5772a68b",
+        "bytes": 1803727,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "generatedIdentity": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-56c77157-e194-4710-a426-a78153dbec9e.png",
+        "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+        "bytes": 1818312,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "outputIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+        "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+        "bytes": 1818312,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "sourceSha256": "5c33f0f0d8fc27df75533364a9c92eb9a1cdac590e6b4abb068960ac5772a68b",
+      "outputSha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "generatedSha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "acceptedAt": "2026-09-26T01:53:10.304Z"
+    },
+    {
+      "id": "ch10-intro-cut07",
+      "placement": "Add a clean ivory rectangular stitched patch on the adult woman's visible right upper sleeve, around x46% y43% of the whole frame, about 5% of frame width. Print the exact reference emblem clearly inside it, naturally following the sleeve perspective. Preserve the existing large blue scenic patch on the back of her jacket; do not cover her hand, face or the route map.",
+      "source": "public/assets/story/scenes/ch10-intro-cut07.png",
+      "output": "public/assets/story/scenes/ch10-intro-cut07-logo-v2.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the finished SORA CARS cutscene to edit. Image 2 is the authoritative logo artwork, to copy as a physical print. Add a clean ivory rectangular stitched patch on the adult woman's visible right upper sleeve, around x46% y43% of the whole frame, about 5% of frame width. Print the exact reference emblem clearly inside it, naturally following the sleeve perspective. Preserve the existing large blue scenic patch on the back of her jacket; do not cover her hand, face or the route map.\nThe mark must reproduce the supplied artwork, not a text glyph: red circular field; two exactly equal-length thick STRAIGHT white rectangular horizontal bars joined by a central white stem; two thick STRAIGHT diagonal white channels that cut completely THROUGH the bottom-left and bottom-right perimeter. Keep both lower gaps visibly OPEN, with a separate red lower wedge between them. Do not curve the strokes or join the lower red rim across the gaps. Match cloth perspective and local lighting without changing the geometric silhouette.\nPreserve the full original 1672x941 camera framing, all adult faces/hair/hands, expressions, gestures and poses, all clothing outside the local mark, every narrative prop, original scene lighting/palette and sharp pixel-anime texture. Preserve the original dark lower dialogue area exactly in position and appearance. This original is fully opaque, so keep the result fully opaque. Only edit the requested logo region. No added people, no unrelated objects, no text, no crop, no restyling, no extra vignette or blur, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-7e8a11ca-9056-4c1d-ac79-c081fad5a81a.png",
+      "accepted": true,
+      "visualQA": "Accepted: upper-sleeve patch has straight geometric bars/stem and open straight lower channels, rotated naturally with the sleeve. Existing blue scenic back patch is preserved. Adult face/phone pose, pointing hand and pencil, route lines and portraits on map, open notebook, desk equipment, evening lighting and dialogue-safe framing remain consistent.",
+      "transparentBackgroundRequested": false,
+      "sourceIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut07.png",
+        "sha256": "73572668b7854013301009bdda972bd35d0c9348c3e0813e67bcbb56b82c106b",
+        "bytes": 2002770,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "generatedIdentity": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-7e8a11ca-9056-4c1d-ac79-c081fad5a81a.png",
+        "sha256": "957dbb286b0f38690862febf29d9b7302ad085905aba590bac7ee591519c7f70",
+        "bytes": 1900378,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "outputIdentity": {
+        "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v2.png",
+        "sha256": "957dbb286b0f38690862febf29d9b7302ad085905aba590bac7ee591519c7f70",
+        "bytes": 1900378,
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "fullyTransparentPixels": 0,
+          "partiallyTransparentPixels": 0,
+          "fullyOpaque": true
+        }
+      },
+      "sourceSha256": "73572668b7854013301009bdda972bd35d0c9348c3e0813e67bcbb56b82c106b",
+      "outputSha256": "957dbb286b0f38690862febf29d9b7302ad085905aba590bac7ee591519c7f70",
+      "generatedSha256": "957dbb286b0f38690862febf29d9b7302ad085905aba590bac7ee591519c7f70",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "acceptedAt": "2026-09-26T01:53:11.340Z"
+    }
+  ],
+  "reviewedCount": 5
+}

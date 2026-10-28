@@ -1,0 +1,25 @@
+{
+  "schema": "sora-cars.music-provider-local-qualification.v1",
+  "passed": true,
+  "checkedAt": "2026-09-26T02:44:27.715171+00:00",
+  "commandReceipt": {
+    "path": "output/qualification/music-streaming-build-lane/full-build-provider-1/command.json",
+    "sha256": "4f6c266653ed46564e74171128b7a8348c6389a660a7e4054520463f64381765"
+  },
+  "controllerVerification": {
+    "path": "output/qualification/music-streaming-build-lane/full-build-provider-1-verified.json",
+    "sha256": "993188d04a156bb22753450e809452c4fd3accb0a55a41dd29f53c1e8777660f"
+  },
+  "files": 444,
+  "chunks": 11700,
+  "payloadBytes": 1487166105,
+  "carBytes": 1488725912,
+  "maxResidentBytes": 84754432,
+  "elapsedSeconds": 3111.4297099579126,
+  "sourcesUnchanged": true,
+  "packageAndFrozenInputsVerified": true,
+  "scope": "Full-size local provider admission, byte readback and restart plus negative capacity/corruption/duplicate checks; frozen September22 frontend predates latest artwork and lacks live configuration.",
+  "remoteAvailability": false,
+  "published": false,
+  "nftsIssued": false
+}

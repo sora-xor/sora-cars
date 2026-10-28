@@ -1,0 +1,26 @@
+{
+  "step": 0.12,
+  "sourceComponents": 30250,
+  "cards": 2870,
+  "report": [
+    {
+      "material": "tree_small_02_branches",
+      "triangles": 3124,
+      "error": 0.0016183443367481232
+    },
+    {
+      "material": "tree_small_02_leaves",
+      "cards": 2870,
+      "triangles": 5740
+    },
+    {
+      "material": "tree_small_02_trunk",
+      "triangles": 980,
+      "error": 0.0045644002966582775
+    }
+  ],
+  "cardExpansion": 1.345,
+  "activationDistanceMeters": 150,
+  "trianglesTotal": 9844,
+  "sourceLeafCardsRemainFixedIn3d": true
+}

@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-23T14:42:22.440Z",
+  "checks": [
+    "Actual 26-track desktop and 390px/320px mobile storefront is readable without horizontal overflow",
+    "Bilingual checkout remains horizontally contained and the wallet button is reachable at desktop, 390px and 320px",
+    "1 XOR checkout shows exact license issuer and separate fee; consent required; receipt alone grants no download",
+    "Qualification loss and malformed fee cannot reach mocked wallet purchase",
+    "Listing refresh cannot replace the frozen quote displayed for approval",
+    "Replacing or closing a displayed checkout invalidates its detached controls",
+    "A pending review cannot overwrite a newer shared modal",
+    "Changed wallet/client omits a delayed purchase receipt and notification",
+    "Leaving and reentering the store invalidates a delayed purchase completion",
+    "Reconnecting the same account invalidates the previous session purchase completion",
+    "Ownership still loads when sale listings fail, while an inventory failure removes download access",
+    "Real MP3, WAV and artwork bytes download with exact hashes; license certificate retains the pinned grant and issuer",
+    "Supplied Tokyo recording previews its own cover/audio, purchases for one XOR in the fixture, and delivers all four exact downloads",
+    "Corrupted or oversized assets cannot become downloads",
+    "Ownership loss after fetching a valid master blocks the final download",
+    "Refreshing unchanged inventory during an owned download preserves delivery and file integrity",
+    "Wallet changes during an ownership lookup or file transfer cancel download delivery",
+    "A late inventory reply cannot repopulate a changed wallet or departed store"
+  ],
+  "errors": [],
+  "sources": {
+    "src/ui/music-store.ts": "79fe18a5c37666cb5a75fbcf6516e337bba1bb92e199fa668af0d76cafa2ede8",
+    "src/ui/music-store.css": "b2305b86d6978aa02291671eb0bc0f435183782030bc6d353212b255d99409a6",
+    "src/game/music-catalog.ts": "227719ac056eb1f8c3d7be7408db9948dd4ae00261ef6a60a61dfedd1555d763",
+    "src/game/music-assets.generated.json": "3cf69489dd46759525724ea0b9ca045968424e8519bbf8bae36460c572837264",
+    "src/chain/inventory.ts": "1165600deaddf76fb0a6e38d32ff5aec12de9bebef9f8e1d93453bc53b91498f",
+    "src/chain/client.ts": "d95ebbb469f265b4a2cfbe4fa0731166acf3d81e4f379e276d8166f1b48b6058",
+    "tmp/music-store-qa/fixture.ts": "d71597d477c8078a5412b18ec514652ac2529f103e4bf9cb2bbf6259a1c51f39",
+    "tmp/music-store-qa/fixture.html": "8dc2a99f6352d0147fa2904bafc290c92bf1147c8bed20a80dd86d80aac961f1",
+    "scripts/test-music-store.mjs": "70bf3540820d5bd6a09773d7a832c03132b0cf9ebad4a2b8ed04f911d64afe77"
+  },
+  "scope": "Actual MusicStore/controller/styles and real rendered asset bytes. Explicit synthetic issuer/NFTs/ledger/wallet transport; does not certify live network issuance or wallet settlement."
+}

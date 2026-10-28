@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "browserContexts": 4,
+  "drivers": 2,
+  "observers": 2,
+  "lateObserver": true,
+  "certifiedTick": 180,
+  "realWebRtcAndWebSocket": true,
+  "sameCertifiedStatesAndAppearances": true,
+  "observersHaveGameplayOrWalletKeys": false,
+  "authoritativeLedger": false,
+  "errors": []
+}

@@ -1,0 +1,343 @@
+{
+  "schema": "sora-cars.research-source-inventory.v1",
+  "cutoff": "2026-09-26",
+  "createdUtc": "2026-09-26T01:00:58.424610+00:00",
+  "scope": "Selected primary records, selected full-paper sections and upstream source inspection; no reproduced external benchmarks or cryptographic qualification.",
+  "artifacts": [
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2025-1993.pdf",
+      "bytes": 515841,
+      "sha256": "15a2f3ec6fc693147c193a8f6a9be184c3cb28f47fe247ea5b4efb82314c3cb7"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2025-1993.txt",
+      "bytes": 101031,
+      "sha256": "1913e28d6c987037c162d314fb84ad9962328cec59d8e0a5c12ef0a376b7f01d"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-1782.pdf",
+      "bytes": 788195,
+      "sha256": "a2ce19f2994ef5c00179df1b75f0a9fc4e7bc8cce2ee9cd42ac536a7bab1fa67"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-1782.txt",
+      "bytes": 165644,
+      "sha256": "7ea9bf9f95ce999809683b393965e76f007e007858c59c68509571d6162d5d07"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2141-p5.png",
+      "bytes": 330577,
+      "sha256": "4e3729f5d8f496129ba2acb0890dc13da64981876075d18d63df7d173c7e319d"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2141-p76.png",
+      "bytes": 312399,
+      "sha256": "4cac1c2d8d092e038b5f457b0228c5b317464907eb112dd07465303445e77b48"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2141.pdf",
+      "bytes": 1227900,
+      "sha256": "7155de72ad4a114f5686cf280e1539b4c6bf9bacb8c3317c89584f3bbee0046c"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2141.txt",
+      "bytes": 315934,
+      "sha256": "eb1616167694ef49bb383e25e0b5b53cfbd994c0cd9883940942eb432fa4e6eb"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2147-p27.png",
+      "bytes": 171611,
+      "sha256": "422559cf9a25be21f15526a4ca4e7b4d100e26e8cc70f09ddc27945c5150c03f"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2147.pdf",
+      "bytes": 867784,
+      "sha256": "acca3702cdbdebd73c5734eaf148e172acb2b1d65e7b2f14fce824815bc9511c"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2026-2147.txt",
+      "bytes": 132698,
+      "sha256": "2482802a540532a91b993d8ca80e3c03cba2043cc184ebd0b84b90a14feaaded"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2103.html",
+      "bytes": 17395,
+      "sha256": "c3614f58d388ef12b2291dacd5b736aa3613111b0bcfbdcb4caaddb22a727d1c"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2112.html",
+      "bytes": 15128,
+      "sha256": "5e373ca75000c5d7fd1c85b17f94c56fbbcc7e107991492bdbff79f66b79ae21"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/2160.html",
+      "bytes": 16917,
+      "sha256": "fc052ccb00c0d8a30ef0d09d2c8c6479e0ca036155a3e5fd5b2cab10817d789a"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/7.html",
+      "bytes": 282724,
+      "sha256": "34f7c7e8d5b967c97238fe937b28f5130a5609a8b5aad6b758a30ba180879466"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/pdf-download-retrievals.json",
+      "bytes": 956,
+      "sha256": "4d09a691a34b7b41d2fa22bd133eec0208fd4716d7c8ec08060aac37263d0d05"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/pdf-retrievals.json",
+      "bytes": 411,
+      "sha256": "3accad8d609aadf2a3397e9d03c960538e8cff99e2b8059fd1288cc42961678e"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-root-sources/retrievals.json",
+      "bytes": 1379,
+      "sha256": "09ff0dc9532f7ed4f1f7e7b09ae2d16d82ac844c1d246b7b060cfb5be0107314"
+    }
+  ],
+  "independentReviews": [
+    {
+      "path": "tmp/crypto-2026-09-26-agent-review/findings.md",
+      "bytes": 6976,
+      "sha256": "a27c726d21e30de448b2d0edc1ce2a43962833e9d625be51ca684382c499e77c"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-agent-review/manifest.json",
+      "bytes": 6455,
+      "sha256": "adfdf815ce98dd8de94bd09d37b5f6e21c904ecae498fdbb3936659c1710a899"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-upstream-review/review.md",
+      "bytes": 7269,
+      "sha256": "09e8514f6e2882415611b4fefbbcf9af39e60850b705e6185a85e99b21fb8259"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-upstream-review/review-manifest.json",
+      "bytes": 5794,
+      "sha256": "b8cffddb49f1517b8cf6911e6f7a07f6ad9221c198996deb0931027a3ce000a1"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-paper-crosscheck/review.md",
+      "bytes": 4606,
+      "sha256": "65793a143f13e26c655ff6b4c0b8c9e80e0f9762aee4613e005a263228cda872"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-paper-crosscheck/review.json",
+      "bytes": 2382,
+      "sha256": "b549f10a1b779fe53b435b18a438e31a0e5f3fda98f1792bccfdc785df034690"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-afternoon-review/review.md",
+      "bytes": 6743,
+      "sha256": "f9f7c089105422fa1b9d59470a0c33445645df1e9fd62b77c796f8956f2cf894"
+    },
+    {
+      "path": "tmp/crypto-2026-09-26-afternoon-review/source-descriptors.json",
+      "bytes": 3958,
+      "sha256": "f7aaa4758461beac2f9d6b0ce6ca1c13cf0d12db929e2d61089212a68f359c15"
+    }
+  ],
+  "additionalPrimaryPagesChecked": [
+    "https://eprint.iacr.org/2025/737",
+    "https://eprint.iacr.org/2025/753",
+    "https://eprint.iacr.org/2026/2056",
+    "https://eprint.iacr.org/2026/1838",
+    "https://eprint.iacr.org/2026/242",
+    "https://eprint.iacr.org/2026/1635",
+    "https://eprint.iacr.org/2026/1561",
+    "https://www.microsoft.com/en-us/research/publication/twist-and-shout-faster-memory-checking-arguments-via-one-hot/",
+    "https://csrc.nist.gov/projects/post-quantum-cryptography"
+  ],
+  "nativeIntegrationProposal": {
+    "status": "Design and measured-path specification only; no accumulator implemented or new native experiment executed. Identity-parity clarification incorporated after source review.",
+    "artifacts": [
+      {
+        "path": "tmp/native-complete-history-accumulation-design/experiment.md",
+        "bytes": 21519,
+        "sha256": "88df5a4d736e8f4fdbd736012f8d6878eb4726171a080ca6f20fcddb29b842fd"
+      },
+      {
+        "path": "tmp/native-complete-history-accumulation-design/NEXT_PATCH.md",
+        "bytes": 5759,
+        "sha256": "3b2e5c5318b2614743ad481f1774f12ae061bcebe99981db2f80c164e9dcdb86"
+      },
+      {
+        "path": "tmp/native-complete-history-accumulation-design/manifest.json",
+        "bytes": 7915,
+        "sha256": "35bf9d11642fb9ee3fc1f7ca5da017f41cb32cc271ea450817dd85539d85b0ac"
+      },
+      {
+        "path": "tmp/native-complete-history-accumulation-design/cost-evidence.json",
+        "bytes": 14751,
+        "sha256": "619aaa9e441b3a6bd05e749f2b435e5626cb4382d04f3480daf087a35488e4a3"
+      },
+      {
+        "path": "tmp/native-complete-history-accumulation-independent-review/review.md",
+        "bytes": 4705,
+        "sha256": "6abd25cfcb2af5909eb1e93414881808c17b4eb6601ffc72d57b39088b647080"
+      },
+      {
+        "path": "tmp/native-complete-history-accumulation-independent-review/review.json",
+        "bytes": 7265,
+        "sha256": "17683a582f6556a51328e75683a85f0482e1bc7abc97bdcf6f40c1480d2c166e"
+      }
+    ]
+  },
+  "nativeSubfieldFollowup": [
+    {
+      "path": "tmp/native-base-subfield-review-work/review.md",
+      "bytes": 10448,
+      "sha256": "5e488508cdb2824d1bc33375250d88b4c7a856984330f9b0bdd62f93a1ec4a54"
+    },
+    {
+      "path": "tmp/native-base-subfield-review-work/source-pins.json",
+      "bytes": 2529,
+      "sha256": "4a1776d99a2c7479459e90799c180340ebcd0fa82b7113c2944e6fe7d8b5fd05"
+    },
+    {
+      "path": "tmp/native-base-subfield-review-work/check_math.py",
+      "bytes": 4067,
+      "sha256": "b5bbf8867c4a6a2ef57b8e17ecfc6fe1b1451d67ad57025510a276ff7cfbeffa"
+    },
+    {
+      "path": "tmp/native-base-subfield-review-work/math-check-report.json",
+      "bytes": 414,
+      "sha256": "19b723b2ac8b9b77bf0e46b064fe9b649736ef919f3a1bb466972a7d07f4e6c1"
+    },
+    {
+      "path": "tmp/native-base-subfield-review-work/manifest.json",
+      "bytes": 1131,
+      "sha256": "07b89c910e3a354e570cbfdf17c4b14eb384ab0a32431379287e9c5b773d56d6"
+    },
+    {
+      "path": "tmp/native-base-subfield-review-work/root-review.json",
+      "bytes": 467,
+      "sha256": "748c6744dc7078b1f84d145e4abc40063187aa757f837140ce1a1093892681c2"
+    }
+  ],
+  "nativeMeasurementFollowup": {
+    "status": "Source-reviewed candidate only; unapplied, uncompiled, no native proof, timing, RSS, parity or performance result.",
+    "artifacts": [
+      {
+        "path": "tmp/native-membership-cost-meter-work/candidate-manifest.json",
+        "bytes": 5450,
+        "sha256": "6b615c5bd6fd9dc633f53262a7c730c1be1de3ba048afe2328c19bf32c9ee3cc"
+      },
+      {
+        "path": "tmp/native-membership-cost-meter-work/HANDOFF.md",
+        "bytes": 9872,
+        "sha256": "014e23497a032370e3ea387078036fc4a5bdbbd6e7aea0893628e995c8dcfd16"
+      },
+      {
+        "path": "tmp/native-membership-cost-meter-independent-review/review.md",
+        "bytes": 8647,
+        "sha256": "bfc845d43ae2529da73d743234c357341e6106bec97ea1dfe73031cf5112b6de"
+      },
+      {
+        "path": "tmp/native-membership-cost-meter-independent-review/review.json",
+        "bytes": 1638,
+        "sha256": "c6b79598d6d27722c3d4a5faca3b2aa3f0062f9e3353ee9e7d359117f165ecf3"
+      }
+    ]
+  },
+  "nativeStagedLinearFollowup": {
+    "status": "Exact algebraic relation and full-witness decider specification only. No native implementation, compact accumulator, theorem instantiation or security qualification.",
+    "artifacts": [
+      {
+        "path": "tmp/native-staged-linear-reduction-review-work/reduction.md",
+        "bytes": 18120,
+        "sha256": "6415c6666ea37c29bf98aefc2655e300ee24e6e88c6eadbd941f13855016a72f"
+      },
+      {
+        "path": "tmp/native-staged-linear-reduction-review-work/source-pins.json",
+        "bytes": 4841,
+        "sha256": "eb595ae9dda5e9533ac6c0b430bf1f24e3a0205fad494f8a9960ab07f45a645b"
+      },
+      {
+        "path": "tmp/native-staged-linear-reduction-review-work/manifest.json",
+        "bytes": 1861,
+        "sha256": "46071ddb620f46df47f363272a9a1da0a55702f96bca2cac530f6a73f90bbfe2"
+      },
+      {
+        "path": "tmp/native-staged-linear-reduction-review-work/root-review.json",
+        "bytes": 757,
+        "sha256": "daadfb34620769379ad1c58f3b88b96de0856f307b8c20cbfc4de845b82269ef"
+      }
+    ]
+  },
+  "nativeCanonicalityFollowup": {
+    "scope": "Read-only comparison of unused proof-payload canonicality and complete compiled-program binding; no new test execution or security qualification.",
+    "artifacts": [
+      {
+        "path": "tmp/native-september-canonicality-review-work/review.md",
+        "bytes": 6303,
+        "sha256": "d6ef7748cf4a2c220f85e3f2580f75b135bbda2a78c689dd6ae37556e33e9c44"
+      },
+      {
+        "path": "tmp/native-september-canonicality-review-work/manifest.json",
+        "bytes": 5934,
+        "sha256": "53246c7689bfb885b5d3cc5c6672af7929677c344f7aee38f04b44c4209e16f9"
+      }
+    ]
+  },
+  "nativeMeasurementCodecRevision": {
+    "status": "Scratch Norito tagged-phase correction, exact22-field census and added serialization regression; native compilation and measurement remain unexecuted. Supersedes the earlier uncompiled candidate for future application.",
+    "artifacts": [
+      {
+        "path": "tmp/native-membership-cost-meter-v2-work/candidate-manifest.json",
+        "bytes": 6494,
+        "sha256": "6c7f5579b29ce7df2055cf98650b4c0401336e808170e9a9f7cc07728359d79c"
+      },
+      {
+        "path": "tmp/native-membership-cost-meter-v2-work/HANDOFF.md",
+        "bytes": 11441,
+        "sha256": "50177c11d9a129d8998414cf072fbec6f898ef33f49c75dba9bb23068e3e6990"
+      }
+    ]
+  },
+  "selectedPrimaryRecordRecheck": {
+    "checkedUtc": "2026-09-26T12:55:14.890988+00:00",
+    "scope": "Selected live primary records and existing retained research artifacts. Not an exhaustive archive search, new benchmark or cryptographic qualification.",
+    "previousArtifactIdentitiesChecked": 48,
+    "previousArtifactMismatches": [],
+    "pages": [
+      "https://eprint.iacr.org/2026/2141",
+      "https://eprint.iacr.org/2026/2147",
+      "https://eprint.iacr.org/2026/2056",
+      "https://eprint.iacr.org/2025/737",
+      "https://eprint.iacr.org/2025/753",
+      "https://eprint.iacr.org/2026/242",
+      "https://eprint.iacr.org/2026/1838",
+      "https://www.microsoft.com/en-us/research/publication/twist-and-shout-faster-memory-checking-arguments-via-one-hot/",
+      "https://eprint.iacr.org/2026/306",
+      "https://eprint.iacr.org/2026/1792",
+      "https://eprint.iacr.org/2025/902",
+      "https://eprint.iacr.org/2026/1591",
+      "https://eprint.iacr.org/2026/1693",
+      "https://www.nist.gov/pqc",
+      "https://csrc.nist.gov/projects/post-quantum-cryptography",
+      "https://csrc.nist.gov/pubs/fips/204/final",
+      "https://eprint.iacr.org/2025/719"
+    ],
+    "accessLimit": "The web tool could not retrieve the fresh weekly ePrint listing or BitZ PDF in this pass. Previously retained paper evidence remains available; no exhaustive new-publication claim.",
+    "result": "Dates and main priorities retained. Clarified DKT above-Johnson versus beyond-Johnson premises; linked exact-instance hash review, composition theorem, HAWK withdrawal, DCP refutation and FIPS204 errata. Added Packed Sumcheck September14 ASIACRYPT2026 revision as secondary arithmetic comparator; requires matrix-weighted opening relation."
+  },
+  "nativeBindingBudgetFollowup": {
+    "checkedUtc": "2026-09-26T13:44:18.346792+00:00",
+    "scope": "Source inspection and ideal-output collision-budget calculation; no cryptanalytic attack or security qualification.",
+    "sources": [
+      {
+        "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_crypto/src/hash.rs",
+        "bytes": 32555,
+        "sha256": "4b2edf8d706cafe3a79a121d90db36fbbcea0e01f77e11415344e514b296f3c0"
+      },
+      {
+        "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_core/src/execution_proofs/guarded/accepted_history.rs",
+        "bytes": 43982,
+        "sha256": "b700b6b12b3540d3450e7c7bf7fb25976e4fd73ad1ebf0bde3ebcec363699e72"
+      }
+    ],
+    "finding": "Hash marker fixes one of 256 bits; output space has 255 variable bits, so its ideal birthday scale is 2^127.5. Wider rehashing cannot restore collision binding already lost at this boundary.",
+    "productionChange": false
+  }
+}

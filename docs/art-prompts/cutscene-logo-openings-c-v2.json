@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "method": "builtin-imagegen",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "scope": "Two additional opening artworks only; runtime integration left to parent task.",
+  "assets": [
+    {
+      "id": "ch11-victory-opening",
+      "source": "public/assets/story/scenes/ch11-victory-opening.png",
+      "output": "public/assets/story/scenes/ch11-victory-opening-logo-v2.png",
+      "placement": "Print the exact logo from image 2 on the currently blank LEFT ivory hanging banner. Center it around x14% y17% of the whole scene, roughly 5% of scene width, large and clearly legible within the banner. It is real ink on the existing fabric, gently following its folds, with no added banner or lettering.",
+      "prompt": "Use case: precise-object-edit. Image 1 is the original finished SORA CARS opening cutscene. Image 2 is the supplied SORA emblem artwork, to reproduce faithfully as a physical print. Print the exact logo from image 2 on the currently blank LEFT ivory hanging banner. Center it around x14% y17% of the whole scene, roughly 5% of scene width, large and clearly legible within the banner. It is real ink on the existing fabric, gently following its folds, with no added banner or lettering.\nCopy the exact geometric logo from image 2: a red circular field with two equally wide straight white horizontal bars, a straight central vertical stem, and two thick STRAIGHT white diagonal channels opening completely THROUGH the lower-left and lower-right red circumference. The lower red wedge is visibly separated by those open white channels. Do not use a font character, curved strokes, closed lower edges, a surrounding red rim, or invented lettering. Maintain clear straight geometric construction while matching the physical surface and lighting.\nPreserve the original composition and 1672x941 framing, all adult characters, faces, hair, expressions, poses, hands, clothes outside the patch, all props, car, background, original lighting and palette, crisp pixel-art/anime texture. Only add the requested physical emblem; no added people or extra objects, no crop, no haze, no vignette, no text, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-18e661a6-ff91-4f5e-befc-f7d6aec5c577.png",
+      "visualQA": "Accepted after individual full-image inspection: left banner carries a clear red SORA emblem with two equal straight white bars, centered stem and straight lower channels opening through the lower perimeter; no enclosing red rim. Physical cloth perspective and folds retained. Speaker's adult face, gesture, microphone, all people, podium, cars, harbor ships/cranes, sunset lighting, composition and dialogue-safe lower area preserved.",
+      "accepted": true,
+      "sourceSha256": "db1180b738e00dbca922abb651751532312b8f150f87c574d8ba3c16c2317c0c",
+      "outputSha256": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2132922,
+      "acceptedAt": "2026-09-26T01:18:00.131766+00:00"
+    },
+    {
+      "id": "retry-opening",
+      "source": "public/assets/story/scenes/retry-opening.png",
+      "output": "public/assets/story/scenes/retry-opening-logo-v2.png",
+      "placement": "Primary emblem is a physical decal on the ivory car rear quarter, just right of the fuel door, around x40% y36%.",
+      "prompt": "Make one extremely localized edit to image 1. Preserve the original lighting, colour and contrast over the entire frame; no darkening, haze, blur, vignette or cinematic colour grade. Keep the foreground road as crisply detailed and as bright as image 1. Add only one clear SORA car decal on the white rear side panel to the right of the fuel door, centred about x40% y36%, 65\u201375 pixels across. Image 2 supplies the exact logo artwork. Image 3 shows the correct car-decal position and clear geometry, but its global darkening is WRONG: use image 1 as the untouched base, and transfer only the local decal idea. The emblem must reproduce image 2: two equally long straight rectangular white bars, central stem, thick straight diagonal WHITE channels opening THROUGH both lower edges of the red disk, separated bottom red wedge. The red rim must not close either diagonal gap. It is a printed geometric icon, no font substitute or curved strokes. Surface perspective and subtle local shading okay. All other pixels should remain as close to original image 1 as possible. All three adult people, faces, gestures, notebook curve, clothing, car, toolboxes, mountain, lamplight, sharp retro pixel-art texture, framing and composition unchanged. Do not add any other badge, sign, letters, border, or watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-f7ba2652-ce3b-40dc-be20-2d4f3796cb23.png",
+      "accepted": true,
+      "visualQA": "Accepted after individual full-image comparison: ivory rear-quarter decal contains equal straight bars, central stem and two straight open diagonal channels separating the red bottom wedge. Corrected output restores bright lamplight and crisp foreground detail from original rather than the rejected darkened pass. All three adult people, faces, hands, gestures, notebook route curve, open door, car geometry, toolboxes, night palette and framing remain consistent. Logo sits clearly above the bottom dialogue quarter. Fine generated texture variation is not a pixel-identical preservation claim.",
+      "supportingPlacementReference": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-ec281f11-a661-47fb-8c68-29f279d360ea.png",
+      "rejectedAttempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Image 1 is the original finished SORA CARS opening cutscene. Image 2 is the supplied SORA emblem artwork, to reproduce faithfully as a physical print. Add a cream rectangular stitched cloth patch to the red-headband man's navy jacket left chest, at viewer-right around x70% y33%, above his bent forearm. The patch should be about 5% of scene width, with the exact red-and-white image-2 emblem filling most of it, naturally following the jacket angle. Keep every hand and facial feature unchanged.\nCopy the exact geometric logo from image 2: a red circular field with two equally wide straight white horizontal bars, a straight central vertical stem, and two thick STRAIGHT white diagonal channels opening completely THROUGH the lower-left and lower-right red circumference. The lower red wedge is visibly separated by those open white channels. Do not use a font character, curved strokes, closed lower edges, a surrounding red rim, or invented lettering. Maintain clear straight geometric construction while matching the physical surface and lighting.\nPreserve the original composition and 1672x941 framing, all adult characters, faces, hair, expressions, poses, hands, clothes outside the patch, all props, car, background, original lighting and palette, crisp pixel-art/anime texture. Only add the requested physical emblem; no added people or extra objects, no crop, no haze, no vignette, no text, no watermark.",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-b48fa0c8-8ff3-4498-b3c8-a94f269341ed.png",
+          "reason": "Jacket mark was too small and retained a character-like construction.",
+          "sha256": "f59f987935badbfc20e93b6e25974fd5f1b708a11909de333ac9d4ed50a9409b"
+        },
+        {
+          "prompt": "Precise local compositing edit. IMAGE 1 is the scene to preserve. IMAGE 2 is the exact finished logo graphic to insert, not text. On the blank IVORY CAR REAR SIDE PANEL, just to the RIGHT of its square fuel door and to the LEFT of the seated woman's elbow, print the image-2 red logo as a physical car decal. Logo centre around x40% y36% of the whole scene, roughly 75 pixels diameter. It should be large enough to read clearly within that blank car panel without covering the fuel door or woman. Reproduce image 2 faithfully: equal-width straight rectangular white bars and stem; two thick straight white diagonal gaps continuing ALL THE WAY THROUGH the bottom left and bottom right edges of the red circle, separating the lower red wedge. No curved calligraphy, no short enclosed legs, no text or letters. Actual supplied geometric emblem, not a character substitute. Surface perspective and subtle local shading okay. Preserve every other scene detail unchanged: adult characters, expressions, hair, hands, seated poses, headband, jackets, diagram notebook, open door, all car contours and lamps, toolboxes, night sky and mountains. Preserve original sharp pixel-art texture, lighting and 1672x941 frame. Only add the requested car decal. Do not add a jacket badge, no border, no vignette, no watermark.",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-ec281f11-a661-47fb-8c68-29f279d360ea.png",
+          "reason": "Car decal geometry accepted, but unwanted global darkening and vignette caused rejection as final artwork; used only as placement reference for final edit.",
+          "sha256": "a4cc4dc8ba00422798982bf9c2321b76cf59697a86918a9a8ee31cd1724a1a80"
+        }
+      ],
+      "sourceSha256": "6e2164b881e097d095f185b7134c160ff78e74449065143ed6564d8f8a4d2012",
+      "outputSha256": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 1970163,
+      "acceptedAt": "2026-09-26T01:23:17.107654+00:00",
+      "supportingPlacementReferenceSha256": "a4cc4dc8ba00422798982bf9c2321b76cf59697a86918a9a8ee31cd1724a1a80"
+    }
+  ],
+  "reviewedCount": 2,
+  "originalsPreserved": true
+}

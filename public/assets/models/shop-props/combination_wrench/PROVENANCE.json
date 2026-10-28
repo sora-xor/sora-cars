@@ -1,0 +1,106 @@
+{
+  "asset": "combination_wrench",
+  "name": "Combination Wrench",
+  "provider": "Poly Haven",
+  "sourcePage": "https://polyhaven.com/a/combination_wrench",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "legalCodeUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "authors": {
+    "BKS": "All"
+  },
+  "retrievedAt": "2026-09-12T17:06:38.179Z",
+  "resolution": "1k",
+  "selectionReason": "1K PBR maps retain ample detail at the physical size of this small workshop prop.",
+  "entryPoint": "combination_wrench_1k.gltf",
+  "sourceFilesHash": "66f73753979a340ab6fa34460f7e4085ca7c861a",
+  "advertisedDimensionsMillimetres": [
+    56.58109299838543,
+    336.9841277599335,
+    21.513011306524277
+  ],
+  "advertisedTriangleCount": 1986,
+  "expectedAssetBytes": 1456881,
+  "actualAssetBytes": 1456881,
+  "dependenciesRecursivelyVerified": true,
+  "declaredUris": [
+    "textures/combination_wrench_nor_gl_1k.jpg",
+    "textures/combination_wrench_diff_1k.jpg",
+    "textures/combination_wrench_arm_1k.jpg",
+    "combination_wrench.bin"
+  ],
+  "files": [
+    {
+      "path": "combination_wrench_1k.gltf",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/combination_wrench/combination_wrench_1k.gltf",
+      "bytes": 2828,
+      "sourceMd5": "0db7a2ced7322780480923a532c860fa",
+      "md5": "0db7a2ced7322780480923a532c860fa",
+      "sha256": "9a04c36b03f25550495c32e36522b603b23b30ad4eb5f55c1bb20cfc41d64444",
+      "unchanged": true
+    },
+    {
+      "path": "textures/combination_wrench_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/combination_wrench/combination_wrench_nor_gl_1k.jpg",
+      "bytes": 462374,
+      "sourceMd5": "9c193ca77a5c5228c2f932d35357cbd4",
+      "md5": "9c193ca77a5c5228c2f932d35357cbd4",
+      "sha256": "08bcbb3b7ff3690c55b5368341843b43b2e8f7a1276315f38e1d7ec37107d8dd",
+      "unchanged": true
+    },
+    {
+      "path": "textures/combination_wrench_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/combination_wrench/combination_wrench_diff_1k.jpg",
+      "bytes": 463822,
+      "sourceMd5": "6566783fa1e6904fce6862988a1a8db3",
+      "md5": "6566783fa1e6904fce6862988a1a8db3",
+      "sha256": "5cbfc5a8603d95cd310e299042d7e7a458e287dd6ca74a53228ff70c22d96071",
+      "unchanged": true
+    },
+    {
+      "path": "textures/combination_wrench_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/combination_wrench/combination_wrench_arm_1k.jpg",
+      "bytes": 462181,
+      "sourceMd5": "c628f3cfd49e98cdff1ffd3024221ff1",
+      "md5": "c628f3cfd49e98cdff1ffd3024221ff1",
+      "sha256": "ab406ce49461fa36e197ded4fa7950ab5947237f7f6c17ed289271b51e493403",
+      "unchanged": true
+    },
+    {
+      "path": "combination_wrench.bin",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/combination_wrench/combination_wrench.bin",
+      "bytes": 65676,
+      "sourceMd5": "3091a90fc9d13c3faf92abfa6a815070",
+      "md5": "3091a90fc9d13c3faf92abfa6a815070",
+      "sha256": "799674a7f462991b17badd71e32d51fe92b3f8d88156ad38663c1da8d441e8c3",
+      "unchanged": true
+    }
+  ],
+  "metadataFiles": [
+    {
+      "path": "source-info.json",
+      "url": "https://api.polyhaven.com/info/combination_wrench",
+      "bytes": 1205,
+      "md5": "df84260fef6f989188db46a3fdcb5ca0",
+      "sha256": "6ab6796376bfb88357961ff7934b4e401097f328c83a648a9b8145e6f6bcb7b6",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    },
+    {
+      "path": "source-files.json",
+      "url": "https://api.polyhaven.com/files/combination_wrench",
+      "bytes": 30964,
+      "md5": "761aa0858fecea50d713a23e54ffe141",
+      "sha256": "d5d6a3ad9a6a3ead7439ba09f90078cd499ecceb993663c125a9a9cf905d294f",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    }
+  ],
+  "derivedFiles": [
+    {
+      "path": "geometry-report.json",
+      "bytes": 2678,
+      "md5": "e7b566dcabc23ca9213143cf5b40e8b0",
+      "sha256": "062fd9cb6f9177d62cd0a68e1f38dc091b8595e27cbfae01d53b03412c0eed4f",
+      "source": "Local Three.js geometry inspection of the preserved source glTF; see inspectionMethod in this file."
+    }
+  ]
+}

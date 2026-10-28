@@ -1,0 +1,151 @@
+{
+  "schema": "sora-cars.imagegen-provenance.v1",
+  "createdAt": "2026-10-23T13:22:19.429Z",
+  "tool": "image_gen.imagegen built-in",
+  "reviewer": "/root/placement_review",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "assets": [
+    {
+      "id": "garage-left",
+      "source": "public/assets/story/angles/garage-left-v2.png",
+      "editTarget": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-95ccfa7a-1d2a-4157-8087-0fb13864eca9.png",
+      "output": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact opaque 1672x941 story scene to edit. Image 2 is the authoritative emblem geometry reference only. Change one tiny detail: restore a small circular white fabric badge with the red reference mark at the CENTER of the red jumpsuit thigh pocket, approximately x748,y737, diameter 29 pixels. This is the red cloth tied around the mechanic woman's waist, near the bottom middle of the image. Keep the badge on the pocket panel and match its cloth tilt and pixel illustration texture. Preserve the already centered car door decal EXACTLY in its present position behind the woman: only its left red crescent and white bar fragments should remain visible near x665,y733; do NOT move it into the blank white door area. Do not change any other emblem. Preserve every person, pose, face, hand, tool, cassette label, car contour, door seam, engine, background, lighting and framing. Whole scene must remain fully opaque, same dimensions. The only edit is adding the 29 pixel pocket badge.",
+      "expectedSourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-4f98a1e0-61f5-49c3-abc2-b53a7fe38d75.png",
+      "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "sourceInfo": {
+        "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "editTargetSha256": "e0b5341ae33a8979c275876c74a4b84d64f35ee4d428866cadb53e0463c67e0d",
+      "editTargetInfo": {
+        "sha256": "e0b5341ae33a8979c275876c74a4b84d64f35ee4d428866cadb53e0463c67e0d",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "generatedSha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "generatedInfo": {
+        "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+        "width": 1671,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "outputSha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "outputInfo": {
+        "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+        "width": 1671,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/angles/garage-left-v2.png",
+        "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e"
+      },
+      "transparentBackground": false,
+      "status": "accepted",
+      "visualQA": "Full scene, centered occluded door mark and pocket boundaries retained. Small inverse-color badge now centered within red thigh-pocket panel at about 762,748. No other physical-placement regression visible.",
+      "reviewedAt": "2026-10-23T13:25:36.465Z",
+      "rootReview": {
+        "accepted": true,
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "observation": "Door logo centered on its physical panel and naturally occluded behind Aki. Small inverse-color badge restored at center of jumpsuit pocket; full opaque scene preserved."
+      }
+    },
+    {
+      "id": "garage-detail",
+      "source": "public/assets/story/angles/garage-detail-v2.png",
+      "editTarget": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/garage-detail-v2.png",
+      "output": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact opaque 1672x941 story scene to edit. Image 2 is the authoritative emblem geometry reference. Move ONLY the car's existing large red emblem and SORA wordmark into one smaller complete centered lockup on its actual door panel. Remove the old large emblem beside the wheel arch at x373,y238 and old SORA text at x430,y287, restoring cream paint. Preserve the original black door handle at x413,y236 EXACTLY, and preserve the original vertical door/fender seam near x392, the wheel arch, stripe, all car contours and every other detail. Place the small new lockup on the cream door face BELOW the black handle, centered about x434,y282: red emblem disk around x434,y270 approximately 32 pixels wide and 40 pixels high in this perspective, and small SORA wordmark immediately below around y300. Keep the entire lockup right of the vertical seam and above the black stripe, with balanced margins on this narrow door face. Follow the door's strong foreshortening. The red-disk emblem has equal straight white bars joined by a stem and white diagonal channels opening through its lower boundary, as in image 2. Preserve all people, faces, hands, clothes, other badges, tools, documents and their text, framing, lighting, background, and full opaque scene. Do not remove the handle, move panel seams, alter the wheel arch, or redraw the scene.",
+      "expectedSourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-d47755f6-b547-4597-8097-b379e1409bbc.png",
+      "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceInfo": {
+        "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "editTargetSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "editTargetInfo": {
+        "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "generatedSha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "generatedInfo": {
+        "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "outputSha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "outputInfo": {
+        "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/angles/garage-detail-v2.png",
+        "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7"
+      },
+      "transparentBackground": false,
+      "status": "accepted",
+      "visualQA": "Original door handle and original fender seam/wheel arch retained. Smaller full emblem and wordmark now centered together below handle and above stripe on one narrow door panel. No physical-placement regression visible.",
+      "reviewedAt": "2026-10-23T13:25:36.882Z",
+      "rootReview": {
+        "accepted": true,
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "observation": "Complete smaller door logo and wordmark fit centered below original door handle and above stripe; handle, seam and wheel arch preserved, fully opaque."
+      }
+    }
+  ],
+  "updatedAt": "2026-10-23T13:25:36.882Z"
+}

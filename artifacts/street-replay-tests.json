@@ -1,0 +1,196 @@
+{
+  "schema": "sora-cars.street-replay-test-qualification.v1",
+  "status": "pass",
+  "recorded_at_utc": "2026-09-07T12:23:55.437093+00:00",
+  "working_directory": "/Users/takemiyamakoto/dev/sora-cars",
+  "evidence": {
+    "kind": "observed_completed_tool_output",
+    "test_output_observed_date": "2026-09-07",
+    "raw_machine_log_retained": false,
+    "raw_machine_log_path": null,
+    "note": "This report transcribes the completed test-tool output observed in the agent session. No standalone TAP/stdout log was retained. Source and asset hashes were freshly rechecked while writing this report; the tests were not rerun for report creation."
+  },
+  "commands": [
+    {
+      "command": "./node_modules/.bin/tsx --test tests/street-replay.test.ts tests/street-assets.test.ts",
+      "exit_code": 0,
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "duration_seconds": 206.2,
+      "duration_precision_seconds": 0.1,
+      "duration_basis": "Completed combined test output, rounded to one decimal second in retained session notes."
+    },
+    {
+      "command": "./node_modules/.bin/tsc --noEmit --pretty false",
+      "exit_code": 0,
+      "diagnostics": 0,
+      "duration_seconds": null
+    }
+  ],
+  "tests": [
+    {
+      "name": "packaged street admission rejects failures before caching and brands only frozen hash-checked assets",
+      "status": "pass"
+    },
+    {
+      "name": "street music retries bad bytes and serves the admitted Blob without an unchecked second fetch",
+      "status": "pass"
+    },
+    {
+      "name": "street replay canonical roundtrip is bounded and contains controls plus every native outcome",
+      "status": "pass"
+    },
+    {
+      "name": "only loader-admitted computations and completed zero-forfeit sessions can export or verify",
+      "status": "pass"
+    },
+    {
+      "name": "full reexecution permits only private verified checkpoints and reproduces arbitrary seek order",
+      "status": "pass"
+    },
+    {
+      "name": "a valid-looking full outcome edit is rejected after exact reexecution",
+      "status": "pass"
+    },
+    {
+      "name": "controls remain bound to the complete outcome and verification cancellation yields no playable result",
+      "status": "pass"
+    }
+  ],
+  "fixture": {
+    "route_id": "tokyo-1986",
+    "roster": 8,
+    "ticks": 9000,
+    "maximum_ticks": 9000,
+    "player_slot": 2,
+    "controls": "Eight ordinary native-driver control streams for the first 700 ticks, then zero controls until the genuine 9000-tick cap; no shortened rules, imported state restoration, or consensus forfeits.",
+    "comparison": "Every native graph output, including object broken masks, yaw, lifecycle and fractional finish fields; private replay checkpoints every 30 ticks.",
+    "seek_order": [
+      9000,
+      0,
+      31,
+      8999,
+      300,
+      1,
+      700,
+      29,
+      301,
+      30,
+      699,
+      701,
+      299
+    ],
+    "checkpoint_step_edges": [
+      [
+        29,
+        30
+      ],
+      [
+        8999,
+        9000
+      ]
+    ]
+  },
+  "scope_and_adversaries": [
+    "Canonical bounded JSON roundtrip; rejected whitespace/pretty printing, duplicate keys, alternate number spelling, malformed JSON and over-limit text.",
+    "Rejected supplied graph/forfeit fields, extra control columns, non-six-bit or noninteger controls, negative zero, excessive frames, nonterminal or wrong-tick outcomes, unsafe integers and malformed metadata.",
+    "Rejected unknown route/computation hash, forged loader-admission objects, unfinished or forfeited exports, changed computation metadata, forged verified-playback token, wrong roster and missing/extra outcome fields.",
+    "Full 9000-tick reexecution rejected a structurally valid changed worldBrokenMask and a changed final control with the original outcome.",
+    "Arbitrary forward/backward checkpoint seeking matched all captured native outputs; invalid seeks did not change playback; presentation snapshots could not mutate retained output state.",
+    "Cancellation after verification progress rejected with AbortError and produced no playable verified result.",
+    "Loader rejected unavailable, truncated, oversized and same-length hash-corrupted bytes; failed loads were retryable, concurrent loads shared one request, admitted bundles were deeply frozen, and structural brand forgery failed.",
+    "Music corruption was rejected; the cached Blob contained exactly the hash-checked bytes and playback required no second unchecked asset fetch. Fetch redirect policy was checked as error."
+  ],
+  "source_pins_rechecked_now": {
+    "src/game/street/replay.ts": {
+      "sha256": "816999aa9f64a22fe8c0d8db337c9c00fb5e0fc6ca55098a7b2e335273d514b1",
+      "bytes": 14458
+    },
+    "src/game/street/assets.ts": {
+      "sha256": "635c748aab36d357ad828b5f6da5f5f390b4215047213989f1d8a443b1c01d67",
+      "bytes": 3406
+    },
+    "src/game/street/asset-manifest.ts": {
+      "sha256": "fc342259f6c90a208d84e0e103e73df80edd81425bf7dc22d42fe00052379342",
+      "bytes": 741
+    },
+    "src/game/street/session.ts": {
+      "sha256": "127aea42019443a6b6b0cc80ffc803ee45cb13fc22317d2d2cdd0c4c4b349ce6",
+      "bytes": 10858
+    },
+    "src/game/street/graph.ts": {
+      "sha256": "fbf3b52547ec5e6864cfc0097461355ec5a95c3432fe324fdbfe908c78988d4d",
+      "bytes": 15504
+    },
+    "src/game/street/track.ts": {
+      "sha256": "9d868f33c0d508491d32b280461a53c90bf0bd7bb4e9c71261e3bbdd3960bf84",
+      "bytes": 4595
+    },
+    "src/game/street/objects.ts": {
+      "sha256": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+      "bytes": 7874
+    },
+    "src/game/street/test-driver.ts": {
+      "sha256": "8c80b8ed38bcd10e39bcf4d4a7373277cea7d4848dac3222e33761615aecfc50",
+      "bytes": 5295
+    },
+    "tests/street-replay.test.ts": {
+      "sha256": "18fe7d4996306c373363c7abe31d98131b1cb5fdace0d9b89a3359d4b427ffd1",
+      "bytes": 9972
+    },
+    "tests/street-assets.test.ts": {
+      "sha256": "22651e2b6f8ff2393b0970adbd2f4d0942f5b7d434822532dd2eecd2f6f7ba1b",
+      "bytes": 3969
+    },
+    "package.json": {
+      "sha256": "bba342a16f97f2d0e79160ea71571e2115697c5b316749d43868e25fcc5e0fec",
+      "bytes": 3188
+    },
+    "package-lock.json": {
+      "sha256": "524920ddb93e8c98dd6ca778771aceaf397285a8235eef9b567dfb8001da9c42",
+      "bytes": 68529
+    },
+    "tsconfig.json": {
+      "sha256": "a2b4e32510eb199624b4d20f84de6bedc5800a822b729ed7e0ece31b297c63cf",
+      "bytes": 527
+    }
+  },
+  "known_post_test_pins_match_now": {
+    "src/game/street/replay.ts": true,
+    "tests/street-replay.test.ts": true,
+    "tests/street-assets.test.ts": true
+  },
+  "asset_pins_rechecked_now": {
+    "bundle": {
+      "path": "public/assets/street/tokyo-92da95c575ba50ab42e940702ec110173b44e19030ad006a800893eacd4592ca.json",
+      "sha256": "92da95c575ba50ab42e940702ec110173b44e19030ad006a800893eacd4592ca",
+      "bytes": 6701987,
+      "matches_manifest": true
+    },
+    "music": {
+      "path": "public/assets/street/yasukuni-85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6.m4a",
+      "sha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+      "bytes": 6215027,
+      "matches_manifest": true
+    }
+  },
+  "qualifications": {
+    "local_reexecution_fixture_passed": true,
+    "cryptographic_execution_proof": false,
+    "stark_security_128_bits": false,
+    "ledger_inclusion": false,
+    "consensus_finality": false,
+    "wallet_or_input_signature_authentication": false,
+    "human_participation": false,
+    "xor_or_nft_entitlement": false,
+    "live_taira_rollout": false,
+    "sorafs_publication_or_availability": false
+  },
+  "limits": [
+    "These tests exercise the TypeScript interpreter against the pinned native-produced computation bundle. They do not independently qualify Rust parity, an AIR/STARK, or proof-system soundness.",
+    "The capped fixture drives for 700 ticks and idles thereafter; it is not an observed human playthrough, a complete eight-human race, or a full-speed 9000-tick performance benchmark.",
+    "Asset requests are mocked with actual packaged bytes; network/CDN/provider behavior, browser autoplay, UI lifecycle and camera captures are outside these seven tests.",
+    "Dependency and source hashes other than the three explicitly compared post-test pins were recorded at report creation; no historical standalone source snapshot or raw TAP log is asserted."
+  ]
+}

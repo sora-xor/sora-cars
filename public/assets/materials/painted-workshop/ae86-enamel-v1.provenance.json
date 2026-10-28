@@ -1,0 +1,29 @@
+{
+  "asset": "public/assets/materials/painted-workshop/ae86-enamel-v1.png",
+  "source": "OpenAI built-in image generation",
+  "references": [
+    "output/fidelity/car-uv-audit/primary-painting-guide-2048.png",
+    "public/assets/story/angles/garage-wide-v2.png"
+  ],
+  "referenceRoles": [
+    "Normalized full-domain UV placement guide: x=u, y=1-v",
+    "Style and pigment reference"
+  ],
+  "purpose": "Unique UV-bound enamel underpainting for the actual 3D car body; light remains evaluated in 3D",
+  "prompt": "ae86-enamel-v1.prompt.txt",
+  "generatedFile": "/Users/takemiyamakoto/.codex/generated_images/01a095d7-2e3f-76c0-be76-890e7c7ca671/exec-946675fb-c671-4dcc-9b2d-064bd1cb9afc.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "aacdf659a89c8176e9527ea81af6c8f69aef451888c1ebb02160ff38956863e3",
+  "edits": "Original generation copied unchanged; alpha is composited against the neutral underpainting in the shader",
+  "opaqueMedianSRGB": [
+    0.9411764705882353,
+    0.8941176470588236,
+    0.8156862745098039
+  ],
+  "opaqueMedianLinear": [
+    0.8713671191987972,
+    0.7758222183174236,
+    0.6307571363461468
+  ]
+}

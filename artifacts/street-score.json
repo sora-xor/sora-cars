@@ -1,0 +1,53 @@
+{
+  "kind": "sora-cars.tokyo-soundtrack-presentation.v1",
+  "sources": {
+    "src/ui/street-practice.ts": "d499cad99d51107c851952cd87a425b7aaca585f66b44eb3c1fe408dc84b8503",
+    "src/game/street/presentation.ts": "b26667c7054c4394e8ce4ec33fd19d0c041190b9aecd59cd01205bf597060de9",
+    "src/game/street/soundtrack-clock.ts": "76ad53d136a94fe9ca7abc3f01c2bd34f2b46c74a2fb4512b07db5873dac7f11",
+    "src/game/street/renderer.ts": "0b3c112be34003dc001364eb74792d92739d3bae7610eb1f58923b347dd879d1",
+    "scripts/test-street-score.mjs": "4da7c7276d26f2da1271da9f79b628f3cdd4bd43d2bddfe1b6cefba2197583a7"
+  },
+  "browserReports": [
+    {
+      "path": "output/browser/street-score-attempt2/report.json",
+      "sha256": "11d62b35db51fdc37513cc8975038e47cc73ebc85374c4dc7e31c7b1200ebf64",
+      "checks": 56
+    },
+    {
+      "path": "output/browser/street-score-live/report.json",
+      "sha256": "5e0586b44f8c1cc3c23d5b8aae7b365ef12911ddf5934de86525b871e8f48cab",
+      "checks": 10
+    }
+  ],
+  "captures": {
+    "output/browser/street-score-attempt2/desktop-chapter-1.png": "374cf8fd9fb76a290d64679d74eea78f151aa8583d9ecd8083991a645ae6d786",
+    "output/browser/street-score-attempt2/desktop-chapter-2.png": "73041a32a3398d6f32c008b975640b29296fd21b1a4822ba9f78d1d82bf72772",
+    "output/browser/street-score-attempt2/desktop-chapter-3.png": "35c80b1a7d25b3f8b8fd639962712cb12fe85a71d93fd2b249d24af611042b89",
+    "output/browser/street-score-attempt2/desktop-chapter-4.png": "ec97ed88b49cbaefde1343181c1b5a1915867037f1534ffe9d5543c380e20840",
+    "output/browser/street-score-attempt2/desktop-chapter-5.png": "26b43bfec6cde97848aa4da0f4e9bedb03eb6a5bd98928940cdc713aed264e10",
+    "output/browser/street-score-attempt2/mobile-dawn-no-preference.png": "84eb4ca271a4106b5b676a5e2df5bd59328cd89076d931e884c815aae4abed59",
+    "output/browser/street-score-attempt2/mobile-dawn-reduce.png": "056e3ec52a828f64108fc8798d75765394d3b3d1664f23a04dc59ba1d46b7c0e",
+    "output/browser/street-score-live/driving.png": "c4852c6bbc060fe02932b8eee15b4e6b3d0304d33b8d1da92980ee55337795ac",
+    "output/browser/street-score-skill-attempt2/shot-0.png": "28e356c8183cb7df3a68c89ab537d9cd29f601ad2c155e60714a93db1d384444"
+  },
+  "skillClientSha256": "e95c3bcbdc0d15eb08fd3a6021283ec32f715b51f1e5847d3db20df526be5996",
+  "skillState": {
+    "path": "output/browser/street-score-skill-attempt2/state-0.json",
+    "sha256": "198993a5ed6b85051cc25c2e31f680298a6f4aa0878375d927a29995dbf03b52"
+  },
+  "typescriptCheckPassed": true,
+  "focusedTests": {
+    "presentation": 6,
+    "soundtrackClock": 7,
+    "replayAssetsMusicRegression": 8
+  },
+  "productionBuildPassed": false,
+  "productionBuildFailure": "Stale sibling Iroha SDK dist: package browser map targets missing dist/address.browser.js; complete build:dist and wallet regressions remain required.",
+  "nativeReportSha256": "70df4eb620120621b0611641d251c2d92cba0c0025db38c2494d455322947fc1",
+  "nativeSourcePinsUnchanged": 59,
+  "physicsChanged": false,
+  "humanRaceDurationQualified": false,
+  "historicalSceneryQualified": false,
+  "musicalOnsetsMeasured": false,
+  "settlementEnabled": false
+}

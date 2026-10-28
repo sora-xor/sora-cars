@@ -1,0 +1,121 @@
+{
+  "asset": "combination_wrench",
+  "entryPoint": "combination_wrench_1k.gltf",
+  "units": "metres",
+  "upAxis": "Y (glTF scene after all node transforms)",
+  "meshCount": 1,
+  "materialCount": 1,
+  "triangleCount": 1986,
+  "vertexCount": 1680,
+  "skinCount": 0,
+  "animationCount": 0,
+  "sceneBoundsMetres": {
+    "min": [
+      -0.02849267,
+      -0.0059432,
+      -0.17555131
+    ],
+    "max": [
+      0.02808842,
+      0.01556981,
+      0.16143282
+    ],
+    "size": [
+      0.05658109,
+      0.02151301,
+      0.33698413
+    ],
+    "center": [
+      -0.00020213,
+      0.00481331,
+      -0.00705925
+    ]
+  },
+  "restOnGroundTranslation": [
+    0,
+    0.0059432,
+    0
+  ],
+  "centerXZAndRestOnGroundTranslation": [
+    0.00020213,
+    0.0059432,
+    0.00705925
+  ],
+  "materialDefinitions": [
+    {
+      "doubleSided": true,
+      "name": "combination_wrench",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    }
+  ],
+  "rootNodes": [
+    {
+      "index": 0,
+      "mesh": 0,
+      "name": "combination_wrench"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "combination_wrench",
+      "skinned": false,
+      "vertices": 1680,
+      "triangles": 1986,
+      "materials": [
+        "combination_wrench"
+      ],
+      "worldBoundsMetres": {
+        "min": [
+          -0.02849267,
+          -0.0059432,
+          -0.17555131
+        ],
+        "max": [
+          0.02808842,
+          0.01556981,
+          0.16143282
+        ],
+        "size": [
+          0.05658109,
+          0.02151301,
+          0.33698413
+        ]
+      },
+      "worldMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "maximumSkinDisplacementMetres": 0
+    }
+  ],
+  "inspectionMethod": "Original glTF loaded in Three.js with textures omitted in memory only; bounds iterate Mesh.getVertexPosition, including bind-pose skin transforms, then matrixWorld. Source files unchanged.",
+  "placementNotes": {
+    "orientation": "Lies flat in XZ; length follows Z; thickness follows Y.",
+    "placement": "Add 0.0059432 m to Y to rest its lowest point on a work surface."
+  },
+  "materialIntegrationNotes": "All sources use one double-sided material with diffuse, normal, and packed ARM textures. The glTF references ARM for roughness/metalness but omits occlusionTexture; AO can be restored at runtime from the same ARM image red channel without changing the source assets."
+}

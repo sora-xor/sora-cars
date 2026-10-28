@@ -1,0 +1,106 @@
+{
+  "asset": "old_tyre",
+  "name": "Old Tyre",
+  "provider": "Poly Haven",
+  "sourcePage": "https://polyhaven.com/a/old_tyre",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "legalCodeUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "authors": {
+    "MP": "All"
+  },
+  "retrievedAt": "2026-09-12T17:06:37.629Z",
+  "resolution": "1k",
+  "selectionReason": "The 0.6 m roadside tyre retains the original geometry and 1K PBR maps; avoids an additional 6.4 MB of 2K texture transfer for a small prop.",
+  "entryPoint": "old_tyre_1k.gltf",
+  "sourceFilesHash": "8b7362724dd9d54081fe99703e32f434f75d1f0e",
+  "advertisedDimensionsMillimetres": [
+    600.0000238418579,
+    164.99999910593033,
+    600.0000238418579
+  ],
+  "advertisedTriangleCount": 2880,
+  "expectedAssetBytes": 2237203,
+  "actualAssetBytes": 2237203,
+  "dependenciesRecursivelyVerified": true,
+  "declaredUris": [
+    "textures/old_tyre_nor_gl_1k.jpg",
+    "textures/old_tyre_diff_1k.jpg",
+    "textures/old_tyre_arm_1k.jpg",
+    "old_tyre.bin"
+  ],
+  "files": [
+    {
+      "path": "old_tyre_1k.gltf",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/old_tyre/old_tyre_1k.gltf",
+      "bytes": 2734,
+      "sourceMd5": "e29d7aee130a850f2224ac0dd103617b",
+      "md5": "e29d7aee130a850f2224ac0dd103617b",
+      "sha256": "ba7b417eb3dc747c356ac3cd1f125754755684eb664737a9f1fc9e490c0b766e",
+      "unchanged": true
+    },
+    {
+      "path": "textures/old_tyre_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/old_tyre/old_tyre_diff_1k.jpg",
+      "bytes": 650708,
+      "sourceMd5": "f52b712b8373b1d1a7c46702613f76cb",
+      "md5": "f52b712b8373b1d1a7c46702613f76cb",
+      "sha256": "0e34ce658c0844c0c94022233226d495930d514c917a5fa15ffee4760567439e",
+      "unchanged": true
+    },
+    {
+      "path": "textures/old_tyre_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/old_tyre/old_tyre_arm_1k.jpg",
+      "bytes": 776823,
+      "sourceMd5": "c9256d0d7cac005512cba4744ab29ab4",
+      "md5": "c9256d0d7cac005512cba4744ab29ab4",
+      "sha256": "3bcf192f5b99a7a574f9e21e75927043e6726c601a5da15e3210a31db05e12d4",
+      "unchanged": true
+    },
+    {
+      "path": "old_tyre.bin",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/old_tyre/old_tyre.bin",
+      "bytes": 84160,
+      "sourceMd5": "e29bd9703ad64da8883d8389b0cfb797",
+      "md5": "e29bd9703ad64da8883d8389b0cfb797",
+      "sha256": "659e7982c2de92ca1d13194c97bf112b6dec22d91daecc88e3912d37ce1b7252",
+      "unchanged": true
+    },
+    {
+      "path": "textures/old_tyre_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/old_tyre/old_tyre_nor_gl_1k.jpg",
+      "bytes": 722778,
+      "sourceMd5": "e5eb6dd2cf7a8e80813bbc1bc21a6d3d",
+      "md5": "e5eb6dd2cf7a8e80813bbc1bc21a6d3d",
+      "sha256": "34b716e140408985ddbab7d4bf1d8d430edf834cd2fd4639d82b14cb393fa73e",
+      "unchanged": true
+    }
+  ],
+  "metadataFiles": [
+    {
+      "path": "source-info.json",
+      "url": "https://api.polyhaven.com/info/old_tyre",
+      "bytes": 1297,
+      "md5": "42bc08d399ae12ad3f7eb2139bbac3fb",
+      "sha256": "5bcb95992a9d7196825b8f1d736849c4b2c127fb0d0a917590907bdd2c90ce13",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    },
+    {
+      "path": "source-files.json",
+      "url": "https://api.polyhaven.com/files/old_tyre",
+      "bytes": 23931,
+      "md5": "37570bfffbe330e45e8000ea3074c21c",
+      "sha256": "f96481f7d2c42a757f274fab1e48e1818c771e1f2e568b34174c283ec8d69910",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    }
+  ],
+  "derivedFiles": [
+    {
+      "path": "geometry-report.json",
+      "bytes": 2660,
+      "md5": "0d6a36267826ea568901411924e3eb2a",
+      "sha256": "5f90703ffbd47999055118da7b0f3b8cc6c4b591e6723831d8c27ac99323177e",
+      "source": "Local Three.js geometry inspection of the preserved source glTF; see inspectionMethod in this file."
+    }
+  ]
+}

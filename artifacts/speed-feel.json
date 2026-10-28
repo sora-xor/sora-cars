@@ -1,0 +1,74 @@
+{
+  "date": "2026-09-07T10:54:02.804Z",
+  "scope": "Local production game speed presentation: camera projection, distance-driven peripheral pavement and pixel trails, opponent scale, high-speed wind. No physics/profile or ledger changes.",
+  "sources": {
+    "src/game/renderer.ts": "41de04b1ec2e8be438b49354728bff9e865d530cd496aede4032afd636db076c",
+    "src/game/audio.ts": "136159edc75e0eadc15f316a3ef2800d7dc3ddbd83d1ad15fc882c4c091ea1c6",
+    "src/game/presentation.ts": "615b1e4f5eaf0415dbe0fa23f9cc83db1f74235db999421b4a6523ccac22738f",
+    "src/main.ts": "d908570e40a94c38107469da013f6f63eb49911432d2c6a63e1dcd6227215545",
+    "scripts/test-speed-feel.mjs": "cb31c91c0f3c6f1b0350e92f372a26b23f6280a7ab110f4dfe890bba25010e5f",
+    "scripts/test-audio.mjs": "09207982d92c1c23f7456461360f8a9e13aab5d8a992bb97619b6f12c1933e1c",
+    "scripts/test-track-objects.mjs": "dfde7138c37993655facb35a710bcc80186254d597fd201e46c89f9017ceb56f",
+    "scripts/test-replay-cameras.mjs": "36e7f23a6d3b82f65b485bf3a07450cb2cd0697f2f00e204e61803807b1d85bb",
+    "scripts/test-live-driving-lifecycle.mjs": "cce4775c3e35bdfe082ed78ae91b9a0f424099578f450004793c94773f5c2edb"
+  },
+  "evidence": {
+    "output/browser/speed-feel/report.json": "3fe123a4c1b8f8c94d0daf53240305f7be6ac72ba3a720e65ab306d8e69569ca",
+    "output/browser/speed-feel/realtime-distance.json": "35b20c636124889db9e732a3c1d8d55caba26d2535dca2cbb7a6b9f24acd5fe9",
+    "output/browser/speed-feel/realtime-driving.webm": "660a6b4b9ef428e64e36bcd52520a986cd6641be06b474c0a37b0766f622f42d",
+    "output/browser/speed-feel/no-preference-fast.png": "5a61af9cf8a86668234e698044c789eb0807ad17f1bf0cd0647a3ac8cf011902",
+    "output/browser/speed-feel/no-preference-boost.png": "43eb9bf4af44095b184d2b8729975c15787a2202d5dce518125db9a9f1281db0",
+    "output/browser/speed-feel/no-preference-mobile.png": "1fdd737d37abf514cf77af7ec0a0a5b3037d01f76510ae192966949f5d10db15",
+    "output/browser/speed-feel/realtime-boost.png": "4528d39050204a8303545ec5dbd68c66dc64ce1227ef0c38ff5386717e5afca1",
+    "output/audio/drive-synth/report.json": "0d0fe13863776d6a02da9679279b9d62cfc8579c81aeba74431bea62dfff1f9b",
+    "output/audio/drive-synth/speed-air-comparison.json": "2f1a7723c79285b20c58716949a58577f5900c6dc9927c9e04cea96de8abcf02",
+    "output/browser/track-objects/report.json": "6cf3f05c006368b9ea8259961a04d6056e63ea80e14565673ab89af08b34a1db",
+    "output/browser/replay-cameras/report.json": "0fa5c9d30680228bc5e23f5055967a8b4d6419902d2d7cc2f512bdde5f4bbc49",
+    "output/browser/live-driving-lifecycle/report.json": "e75a39ddd214704f5837354e929c2c1b615b91fb4a01b6f273513f5735b998cb",
+    "output/web-game/speed-rush/client.mjs": "e95c3bcbdc0d15eb08fd3a6021283ec32f715b51f1e5847d3db20df526be5996",
+    "output/web-game/speed-rush/shot-0.png": "4e8577f7d35e9eaa46e9312e88553d11a6115c92dc2fdd4dbd7f124a70b7716c",
+    "output/web-game/speed-rush/state-0.json": "8fb97da45d48da5b39544a41675cef9e537a7c83d9e850d5c159bc102e3ca24d"
+  },
+  "build": {
+    "dist/index.html": "e3bd72525fb71721e9b8b77f42bdaa2fcb41e6aadc4778f2a7e86e9369e16459",
+    "dist/assets/index-DadK8Vjl.css": "1344c0c94e9ea413933242dc7f8c0f7ddf0fb024d090edb83fb4add320c1291b",
+    "dist/assets/index-sf6Ajr4R.js": "086843d420b7a8a70042481bac44fc77d594c4123320bec0b435130a62c768af"
+  },
+  "metrics": {
+    "cadence": {
+      "frames": 122,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 16.80000000000109
+    },
+    "seconds": 2.0165,
+    "ticks": 60,
+    "distanceMm": 144000,
+    "expectedMm": 145187.9999999999,
+    "renderedMm": 145219.29600063086,
+    "boostKmh": 311.04
+  },
+  "checks": [
+    "Actual 250+ km/h acceleration, boost and brake",
+    "Identical normal/reduced-motion physics",
+    "Desktop and mobile capture",
+    "60 motion frames at 30 FPS",
+    "Real-time interpolation path: displayed and simulated travel agree with speedometer, 300+ km/h boost, braking and silent pause"
+  ],
+  "additionalChecks": [
+    "TypeScript and production build passed",
+    "3 presentation tests passed",
+    "Tree/sign/oil/rain/mobile browser checks passed",
+    "3 replay cameras preserve race state",
+    "4 live UI lifecycle checks passed using explicit test network fixture",
+    "OfflineAudioContext synth: 15 voices, exact silent stop, high-speed coasting brightness and headroom",
+    "Unchanged develop-web-game skill client: actual keyboard driving from start",
+    "Root and independent agent inspected actual desktop/boost/mobile screenshots"
+  ],
+  "qualification": {
+    "localPresentation": true,
+    "completeNativeProof": false,
+    "liveLedgerSettlement": false,
+    "fullPlanComplete": false
+  }
+}

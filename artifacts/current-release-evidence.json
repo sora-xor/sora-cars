@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "kind": "sora-cars-local-release-evidence",
+  "scope": "frozen audio/environment build before generic equipment/admission integration",
+  "working_tree_matches_frozen_release": false,
+  "in_progress": "required immutable admission body, returnable equipment custody, canonical SDK migration and current-source requalification",
+  "build": "NF89bGDp",
+  "profile_id": "7355d48b98d89b7bc3ab00d27a51c4578f17e8de7d010450e7a4940fac5594d5",
+  "rules_hash": "6e4eb15b6de811994ec894d8b128b2828f83274940a272355f73d01be2380401",
+  "application_tests": {
+    "passed": 116,
+    "failed": 0,
+    "log": "output/qualification/frontend/NF89bGDp/application-tests.log"
+  },
+  "audio": {
+    "fixed_voices": 15,
+    "stop_rms": 0,
+    "impact_stop_rms": 0,
+    "report": "output/audio/drive-synth/report.json"
+  },
+  "native_proof": {
+    "players": 8,
+    "ticks": 5400,
+    "status": "proved_and_independently_verified",
+    "prove_and_internal_verify_seconds": 521.759,
+    "wall_seconds": 521.89,
+    "maximum_rss_bytes": 27530870784,
+    "envelope_bytes": 3094011,
+    "independent_verify_seconds": 2.621,
+    "independent_verify_rss_bytes": 620134400,
+    "envelope_sha256": "4c7f66459d0240c6a75d901ff75dbf7e5cafd72dbb9781c4a8043d1b51cfc204",
+    "qualified": false,
+    "report": "output/qualification/native-proof/first-release/qualification.json"
+  },
+  "multiplayer": {
+    "nativeProfile": "7355d48b98d89b7bc3ab00d27a51c4578f17e8de7d010450e7a4940fac5594d5",
+    "captureDirectory": "output/browser/eight-peer-full-7355d48b98d8",
+    "command": "SORA_CARS_TEST_TICKS=5400 node scripts/test-mesh.mjs",
+    "contexts": 8,
+    "webrtcLinks": 28,
+    "certifiedTick": 5400,
+    "identicalNativeCheckpoints": true,
+    "authenticatedCosmetics": true,
+    "signedTranscriptFrames": 5400,
+    "browserErrors": 0,
+    "identicalTerminalState": true,
+    "inputScenario": "Drift and boost for 360 ticks, then braking to retain all eight players through the 5400-tick timeout.",
+    "note": "Full-duration mesh precedes presentation-only snapshot/contact propagation. Final propagation is covered by actual signed controller/spectator tests and four-peer WebRTC withholding checks; physics/profile is unchanged."
+  },
+  "rendering": [
+    {
+      "mode": "normal",
+      "seconds": 8.003399999991059,
+      "frames_per_second": 59.97451083296302,
+      "simulation_hz": 29.98725541648151,
+      "p95_frame_ms": 16.700000000000728,
+      "p95_callback_ms": 3.1000000089406967,
+      "errors": [],
+      "bundle_sha256": "f4e8ced191bbf5825c42ad319927aa1ab38258a6eaf47b2a1c4eec38cc5dd08c",
+      "test_canvas_override": false,
+      "limitation": "Headless Chromium on this machine. CPU callback time excludes asynchronous GPU presentation; rAF cadence and canvas submission are measured, not display scanout. Concurrent host work is recorded separately.",
+      "concurrent_work": "Parent reported a possible brief overlap with the final static/objects browser check (session 40999, expected ~3 seconds). This was not a fully isolated whole-machine performance run. No other benchmark or skill client ran concurrently from this agent."
+    },
+    {
+      "mode": "swiftshader",
+      "seconds": 8.00210000000894,
+      "frames_per_second": 59.98425413322299,
+      "simulation_hz": 29.867159870500615,
+      "p95_frame_ms": 16.700000000000728,
+      "p95_callback_ms": 2.9000000059604645,
+      "errors": [],
+      "bundle_sha256": "f4e8ced191bbf5825c42ad319927aa1ab38258a6eaf47b2a1c4eec38cc5dd08c",
+      "test_canvas_override": false,
+      "limitation": "Headless Chromium on this machine. CPU callback time excludes asynchronous GPU presentation; rAF cadence and canvas submission are measured, not display scanout. Concurrent host work is recorded separately.",
+      "concurrent_work": "Parent reported a possible brief overlap with the final static/objects browser check (session 40999, expected ~3 seconds). This was not a fully isolated whole-machine performance run. No other benchmark or skill client ran concurrently from this agent."
+    }
+  ],
+  "static_cid_path_passed": true,
+  "provider_storage": {
+    "passed": true,
+    "report": "output/qualification/sorafs-provider/NF89bGDp/report.json",
+    "root_cid_hex": "01711f20a3d51650b836f62572c188386715db573edbdff7db1dc209d5405496f9124701",
+    "files": 22,
+    "chunks": 201,
+    "car_bytes": 24279435
+  },
+  "live_stakes_enabled": false,
+  "published": false,
+  "pending": [
+    "independent cryptographic security review",
+    "current Core and four-validator runtime qualification",
+    "equipment/performance-class integration",
+    "deployed wallet interoperability",
+    "healthy Taira finality and activation",
+    "governed provider source wiring, finalized publication and remote replica availability"
+  ],
+  "sorafs_gateway": {
+    "tests_passed": 34,
+    "report": "output/qualification/native-cargo/gateway/report.json",
+    "scope": "Current focused Cargo gateway suite; complete payload pagination, native integrity, malformed CID, redirect, corruption and truncation checks."
+  },
+  "sorafs_source_leaf": {
+    "tests_passed": 38,
+    "report": "output/qualification/sorafs-source/report.json",
+    "scope": "Exact source snapshots and native types against an immutable coherent Node dependency closure; excludes full current daemon composition, live TLS and governance."
+  },
+  "integration_progress": {
+    "at": "2026-09-06T12:54:10.833045+00:00",
+    "sdk_native_fixture_rows": 40,
+    "sdk_affected_tests_passed": 80,
+    "sdk_framed_followup_tests_passed": 46,
+    "model_focused_cargo_tests_passed": 10,
+    "model_fixture_exports_already_passed": 2,
+    "model_admission_fixture_tests": {
+      "before_fix": {
+        "passed": 0,
+        "failed": 4,
+        "reason": "all-zero Ed25519 test seed"
+      },
+      "fix": "nonzero test-only input key seeds",
+      "after_fix": "4/4 pass from exact repaired test source against retained native Cargo model; whole model libtest not rebuilt"
+    },
+    "native_source_provenance_regressions_passed": 2,
+    "reports": [
+      "output/equipment-integration/qualification.json",
+      "output/qualification/native-equipment/20260906T120924Z/native-model-current-report.json",
+      "output/qualification/native-equipment/20260906T120924Z/native-game-model-admission-report.json",
+      "output/qualification/native-equipment/core30/report.json",
+      "output/qualification/native-equipment/20260906T120924Z/admission-fixture-repair/report.json",
+      "output/qualification/frontend/admission-c6b9/report.json"
+    ],
+    "current_profile_proof": "pending",
+    "live_activation": false,
+    "current_profile": "c6b9b7536ca0a1d7c3f25ad67208927d36e79b5385af516cb93177a82eabc925",
+    "normal_core_tests_passed": 54,
+    "optimized_native_execution_tests_passed": 49,
+    "application_tests_passed": 118,
+    "current_frontend": "output/qualification/frontend/admission-c6b9/dist",
+    "stock_envelope_bound": 3659186,
+    "stock_typed_settlement_bound": 3659497
+  }
+}

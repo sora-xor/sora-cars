@@ -1,0 +1,566 @@
+{
+  "schema": "sora-cutscene-physical-placement-audit-v1",
+  "createdAt": "2026-09-26T14:26:04.401Z",
+  "reviewer": "expanded_logo_audit_a",
+  "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+  "provenanceSha256": "867c7b1b0e553cc716cd4ee44c03059bb6f63c15e4ac9430643c893057fe573d",
+  "runtimeCatalogSha256": "a90097359c996b22bcc4a38c0f0f653b1b9ea359a8674eb011d38bf821149f21",
+  "files": [
+    {
+      "index": 1,
+      "id": "ch01-victory-cut06",
+      "path": "public/assets/story/scenes/ch01-victory-cut06-logo-v2.png",
+      "sha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "provenanceSha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "White T-shirt emblem is centered on its outer upper-sleeve panel.",
+      "visuallyInspected": true,
+      "currentHash": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.942Z"
+    },
+    {
+      "index": 2,
+      "id": "ch01-victory-cut07",
+      "path": "public/assets/story/scenes/ch01-victory-cut07-logo-v2.png",
+      "sha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "provenanceSha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Cream jacket emblem is centered on the left-chest panel beside the open closure.",
+      "visuallyInspected": true,
+      "currentHash": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.951Z"
+    },
+    {
+      "index": 3,
+      "id": "ch01-victory-cut08",
+      "path": "public/assets/story/scenes/ch01-victory-cut08-logo-v2.png",
+      "sha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "provenanceSha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Cream jacket back emblem is centered below the collar along the projected spine between shoulder blades.",
+      "visuallyInspected": true,
+      "currentHash": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.954Z"
+    },
+    {
+      "index": 4,
+      "id": "ch02-intro-cut03",
+      "path": "public/assets/story/scenes/ch02-intro-cut03-logo-v2.png",
+      "sha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "provenanceSha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Navy jacket emblem is centered on the upper-sleeve panel and follows the arm tilt.",
+      "visuallyInspected": true,
+      "currentHash": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.956Z"
+    },
+    {
+      "index": 5,
+      "id": "ch02-intro-cut04",
+      "path": "public/assets/story/scenes/ch02-intro-cut04-logo-v2.png",
+      "sha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "provenanceSha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Denim jacket emblem is centered on the visible upper-sleeve panel.",
+      "visuallyInspected": true,
+      "currentHash": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.959Z"
+    },
+    {
+      "index": 6,
+      "id": "ch02-intro-cut05",
+      "path": "public/assets/story/scenes/ch02-intro-cut05-logo-v2.png",
+      "sha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "provenanceSha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "White T-shirt emblem is centered on the small outer-sleeve panel.",
+      "visuallyInspected": true,
+      "currentHash": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.964Z"
+    },
+    {
+      "index": 7,
+      "id": "ch02-intro-cut07",
+      "path": "public/assets/story/scenes/ch02-intro-cut07-logo-v2.png",
+      "sha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "provenanceSha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "White T-shirt emblem occupies a natural centered left-chest region.",
+      "visuallyInspected": true,
+      "currentHash": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.969Z"
+    },
+    {
+      "index": 8,
+      "id": "ch02-intro-cut08",
+      "path": "public/assets/story/scenes/ch02-intro-cut08-logo-v2.png",
+      "sha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "provenanceSha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Teal jacket emblem is centered on the upper-sleeve panel and follows its angle.",
+      "visuallyInspected": true,
+      "currentHash": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:28:42.974Z"
+    },
+    {
+      "index": 9,
+      "id": "ch02-intro-cut09",
+      "path": "public/assets/story/scenes/ch02-intro-cut09-logo-v2.png",
+      "sha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "provenanceSha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "White shirt upper-sleeve badge is centered on its sewn sleeve panel.",
+      "visuallyInspected": true,
+      "currentHash": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.157Z"
+    },
+    {
+      "index": 10,
+      "id": "ch02-intro-cut10",
+      "path": "public/assets/story/scenes/ch02-intro-cut10-logo-v2.png",
+      "sha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "provenanceSha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Navy short-sleeve badge sits centrally on the upper-sleeve panel.",
+      "visuallyInspected": true,
+      "currentHash": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.172Z"
+    },
+    {
+      "index": 11,
+      "id": "ch02-intro-cut11",
+      "path": "public/assets/story/scenes/ch02-intro-cut11-logo-v2.png",
+      "sha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "provenanceSha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Cream jacket patch is centered on the upper-sleeve panel of the extended arm.",
+      "visuallyInspected": true,
+      "currentHash": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.189Z"
+    },
+    {
+      "index": 12,
+      "id": "ch02-intro-cut12",
+      "path": "public/assets/story/scenes/ch02-intro-cut12-logo-v2.png",
+      "sha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "provenanceSha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Toolbox badge is centered on its visible red front panel.",
+      "visuallyInspected": true,
+      "currentHash": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.197Z"
+    },
+    {
+      "index": 13,
+      "id": "ch02-victory-cut02",
+      "path": "public/assets/story/scenes/ch02-victory-cut02-logo-v2.png",
+      "sha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "provenanceSha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Wall plaque emblem and red trouser-pocket badge are centered on their owning surfaces.",
+      "visuallyInspected": true,
+      "currentHash": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.202Z"
+    },
+    {
+      "index": 14,
+      "id": "ch02-victory-cut03",
+      "path": "public/assets/story/scenes/ch02-victory-cut03-logo-v2.png",
+      "sha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "provenanceSha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Correct marks remain centered on upper-sleeve panel and key-fob disk; full sky retained.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 15,
+      "id": "ch02-victory-cut05",
+      "path": "public/assets/story/scenes/ch02-victory-cut05-logo-v2.png",
+      "sha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "provenanceSha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Cream sleeve badge and cassette case emblem are centered on their panels.",
+      "visuallyInspected": true,
+      "currentHash": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.204Z"
+    },
+    {
+      "index": 16,
+      "id": "ch02-victory-cut06",
+      "path": "public/assets/story/scenes/ch02-victory-cut06-logo-v2.png",
+      "sha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "provenanceSha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Large emblem follows projected central shirt back below collar between shoulder blades; wrong pocket glyph removed and wall plaque retained plain.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 17,
+      "id": "ch02-victory-cut08",
+      "path": "public/assets/story/scenes/ch02-victory-cut08-logo-v2.png",
+      "sha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "provenanceSha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Centered on the white shirt torso, following angled fabric; above bottom quarter.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 18,
+      "id": "ch05-intro-cut02",
+      "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+      "sha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "provenanceSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "materialMisalignment": true,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Yellow jacket back patch sits toward the near shoulder seam on the right of the visible back panel, materially away from the projected spine below the ponytail and collar. Center it between the shoulder blades without moving the character.",
+      "visuallyInspected": true,
+      "currentHash": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.207Z"
+    },
+    {
+      "index": 19,
+      "id": "ch05-intro-cut08",
+      "path": "public/assets/story/scenes/ch05-intro-cut08-logo-v2.png",
+      "sha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "provenanceSha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Gray equipment-case badge is centered on the owning front panel.",
+      "visuallyInspected": true,
+      "currentHash": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:38:02.210Z"
+    },
+    {
+      "index": 20,
+      "id": "ch05-intro-cut07",
+      "path": "public/assets/story/scenes/ch05-intro-cut07-logo-v2.png",
+      "sha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "provenanceSha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Cream upper-sleeve emblem is centered within the sleeve panel below its shoulder seam.",
+      "visuallyInspected": true,
+      "currentHash": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:39:22.627Z"
+    },
+    {
+      "index": 21,
+      "id": "ch05-victory-cut04",
+      "path": "public/assets/story/scenes/ch05-victory-cut04-logo-v2.png",
+      "sha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "provenanceSha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Small pin is centered within the intended lapel area and avoids the fold.",
+      "visuallyInspected": true,
+      "currentHash": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:39:22.641Z"
+    },
+    {
+      "index": 22,
+      "id": "ch03-intro-cut12",
+      "path": "public/assets/story/scenes/ch03-intro-cut12-logo-v2.png",
+      "sha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "provenanceSha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Reference disk centered on visible front cabinet face; paired bars and edge-reaching diagonal channels recognizable.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 23,
+      "id": "ch03-intro-cut13",
+      "path": "public/assets/story/scenes/ch03-intro-cut13-logo-v2.png",
+      "sha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "provenanceSha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Tool-pot mark is centered on the visible front face.",
+      "visuallyInspected": true,
+      "currentHash": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:39:22.647Z"
+    },
+    {
+      "index": 24,
+      "id": "ch03-intro-cut14",
+      "path": "public/assets/story/scenes/ch03-intro-cut14-logo-v2.png",
+      "sha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "provenanceSha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Centered on visible mug face with balanced margins; reference geometry recognizable.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 25,
+      "id": "ch03-victory-cut03",
+      "path": "public/assets/story/scenes/ch03-victory-cut03-logo-v2.png",
+      "sha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "provenanceSha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Individually viewed at original detail for physical placement",
+      "observation": "Tool-cabinet emblem is centered on its intended lower drawer panel.",
+      "visuallyInspected": true,
+      "currentHash": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:39:22.654Z"
+    },
+    {
+      "index": 26,
+      "id": "ch03-victory-cut04",
+      "path": "public/assets/story/scenes/ch03-victory-cut04-logo-v2.png",
+      "sha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "provenanceSha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Emblem centered in existing upper sleeve panel with a thin stitched border; channels extend to that border.",
+      "visuallyInspected": true
+    },
+    {
+      "index": 27,
+      "id": "ch02-intro-cut13-centered-v3",
+      "path": "public/assets/story/scenes/ch02-intro-cut13-logo-v3.png",
+      "sha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "provenanceSha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "runtimeActive": true,
+      "classification": "pass",
+      "materialMisalignment": false,
+      "reviewMethod": "Reuse individual post-centering original-detail placement QA with matching output hash",
+      "observation": "Correctly centered on projected spine of white T-shirt back, below collar between shoulder blades. Previous off-center fender decal removed. Hood remains unbranded and unaltered.",
+      "visuallyInspected": true
+    }
+  ],
+  "updatedAt": "2026-09-26T14:39:22.654Z",
+  "counts": {
+    "pass": 26,
+    "pending": 0,
+    "needs-correction": 1
+  },
+  "status": "complete",
+  "finalFileGuards": [
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut06-logo-v2.png",
+      "currentHash": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "sha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut07-logo-v2.png",
+      "currentHash": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "sha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut08-logo-v2.png",
+      "currentHash": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "sha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut03-logo-v2.png",
+      "currentHash": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "sha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut04-logo-v2.png",
+      "currentHash": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "sha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut05-logo-v2.png",
+      "currentHash": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "sha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut07-logo-v2.png",
+      "currentHash": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "sha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut08-logo-v2.png",
+      "currentHash": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "sha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut09-logo-v2.png",
+      "currentHash": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "sha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut10-logo-v2.png",
+      "currentHash": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "sha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut11-logo-v2.png",
+      "currentHash": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "sha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut12-logo-v2.png",
+      "currentHash": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "sha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut02-logo-v2.png",
+      "currentHash": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "sha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut03-logo-v2.png",
+      "currentHash": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "sha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut05-logo-v2.png",
+      "currentHash": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "sha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut06-logo-v2.png",
+      "currentHash": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "sha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut08-logo-v2.png",
+      "currentHash": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "sha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+      "currentHash": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut08-logo-v2.png",
+      "currentHash": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "sha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut07-logo-v2.png",
+      "currentHash": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "sha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-cut04-logo-v2.png",
+      "currentHash": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "sha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut12-logo-v2.png",
+      "currentHash": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "sha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut13-logo-v2.png",
+      "currentHash": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "sha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut14-logo-v2.png",
+      "currentHash": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "sha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut03-logo-v2.png",
+      "currentHash": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "sha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut04-logo-v2.png",
+      "currentHash": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "sha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut13-logo-v3.png",
+      "currentHash": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "sha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c"
+    }
+  ],
+  "allFilesUnchanged": true
+}

@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "mode": "builtin image_gen edit",
+  "assets": [
+    {
+      "art": "office-wide",
+      "prompt": "Use case: compositing. Image 1 is the existing 16:9 SORA CARS pixel-art credit-office cutscene; image 2 is the exact supplied SORA logo. Preserve the complete composition, every character face/pose/clothing, book, desk, lamp, window/rain, room, and ALL existing Japanese/English sign text. Add ONLY one new small physical printed decal on the foreground frosted glass panel at the left: place a white square decal centered around x=9%, y=58% of the full frame, below the existing 1986 text and above the panel bottom. Decal width about 7% of full frame, so it is clearly visible and above the bottom dialogue band. Inside, reproduce image 2's exact RED circle and WHITE geometric knockout emblem with a narrow white margin: two equally long thick perfectly STRAIGHT horizontal bars, short thick vertical connection at center, two thick perfectly straight diagonal white channels that extend THROUGH the lower circumference, creating two separate open gaps and a red triangular wedge between. It is a geometric icon, never substitute the font character \u5929, no curved/flaring legs, and never close the bottom circle gaps. Match the decal's perspective and subtle pixel texture to the frosted-glass surface, while keeping the brand silhouette clean. Do not change other existing emblems or text. No new people/props except this logo decal, no border/UI/caption/watermark, no crop or restyle. Output the complete wide image at original resolution.",
+      "inputs": [
+        "public/assets/story/angles/office-wide-v2.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-40f84367-324b-421e-81fe-06786ca549c6.png",
+      "file": "public/assets/story/angles/office-wide-v3.png",
+      "visualInspection": "Accepted: foreground glass carries a legible printed SORA decal with straight parallel bars, central stem and diagonal channels opening through the lower circle edge. Perspective and frosted surface texture are natural. Characters, props, story text, scene framing and lighting are preserved; pixel-identical fine texture is not claimed.",
+      "runtimeIntegrated": false,
+      "identities": [
+        {
+          "path": "public/assets/story/angles/office-wide-v2.png",
+          "bytes": 2329619,
+          "sha256": "2a32a7d5b0c1dc21a70aad3f613a0c68dbffe59ab48db4364844c30e07ba7770",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/assets/branding/sora-emblem-source.png",
+          "bytes": 104489,
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "width": 1678,
+          "height": 1432
+        },
+        {
+          "path": "public/assets/story/angles/office-wide-v3.png",
+          "bytes": 2168048,
+          "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-40f84367-324b-421e-81fe-06786ca549c6.png",
+          "bytes": 2168048,
+          "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    },
+    {
+      "file": "public/assets/story/angles/office-left-v3.png",
+      "prompt": "Use case: compositing. Image 1 is the existing full 16:9 pixel-art SORA CARS credit-office scene. Image 2 is the exact supplied SORA brand emblem. Preserve the entire first scene, all character identities/poses/wardrobes, all story props, readable text, framing and lighting. Make ONLY the specified local emblem/decal change. Reproduce image 2's RED circular silhouette with the exact WHITE geometric knockout: two equal-length thick straight horizontal bars, their short straight vertical central connection, then two thick STRAIGHT diagonal white channels that reach THROUGH the bottom circumference leaving two open white gaps and a red wedge. This is a geometric logo, NOT a font character \u5929: no curved or tapered legs, no closed lower circle. Make a crisp printed emblem naturally on its surface with subtle existing pixel texture. A narrow WHITE square backing helps preserve accurate geometry. No extra text, crop, reframe, changed faces, UI, captions, watermark or restyling. Return the whole wide scene, original resolution. Replace ONLY the red circular approximate symbol at the TOP of the vertical hanging flag visible through the window at far upper left, above the existing word SORA. Keep all flag lettering below unchanged. Make the replacement emblem fill the existing top flag area, centered x=6.5%, y=11.5%, about 5% of the full image width, so its geometric shape is clearly readable. Do not change the small sleeve/mug symbols.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-13e86d6f-ee36-46bb-b683-040ca046a889.png",
+      "visualInspection": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+      "runtimeIntegrated": false,
+      "inputs": [
+        "public/assets/story/angles/office-left-v2.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "art": "officeLeft",
+      "identities": [
+        {
+          "path": "public/assets/story/angles/office-left-v2.png",
+          "bytes": 2296692,
+          "sha256": "728e853692a1584c574c655edf5737d5ab9ceaa594f7cd598eca852eb7b2f8ec",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/assets/branding/sora-emblem-source.png",
+          "bytes": 104489,
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "width": 1678,
+          "height": 1432
+        },
+        {
+          "path": "public/assets/story/angles/office-left-v3.png",
+          "bytes": 2163787,
+          "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-13e86d6f-ee36-46bb-b683-040ca046a889.png",
+          "bytes": 2163787,
+          "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    },
+    {
+      "file": "public/assets/story/angles/office-right-v3.png",
+      "prompt": "Use case: compositing. Image 1 is the existing full 16:9 pixel-art SORA CARS credit-office scene. Image 2 is the exact supplied SORA brand emblem. Preserve the entire first scene, all character identities/poses/wardrobes, all story props, readable text, framing and lighting. Make ONLY the specified local emblem/decal change. Reproduce image 2's RED circular silhouette with the exact WHITE geometric knockout: two equal-length thick straight horizontal bars, their short straight vertical central connection, then two thick STRAIGHT diagonal white channels that reach THROUGH the bottom circumference leaving two open white gaps and a red wedge. This is a geometric logo, NOT a font character \u5929: no curved or tapered legs, no closed lower circle. Make a crisp printed emblem naturally on its surface with subtle existing pixel texture. A narrow WHITE square backing helps preserve accurate geometry. No extra text, crop, reframe, changed faces, UI, captions, watermark or restyling. Return the whole wide scene, original resolution. Add ONE physical small white square printed logo decal centered on the broad green front shade of the banker lamp at the right, centered approximately x=78%, y=41.5% of the image. Decal width about 4% of full image width, fit entirely within the green shade, not across its lit bottom rim or surrounding objects. The accurate red/white emblem fills the white decal with a narrow margin. Preserve other small garment/mug symbols.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-d7b47bd8-324e-4477-8435-11386ff86086.png",
+      "visualInspection": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+      "runtimeIntegrated": false,
+      "inputs": [
+        "public/assets/story/angles/office-right-v2.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "art": "officeRight",
+      "identities": [
+        {
+          "path": "public/assets/story/angles/office-right-v2.png",
+          "bytes": 2399207,
+          "sha256": "a639d92b0236c8eb3ca4fd478e9812a78a5ab4c1ac078ef2566a851a606bee73",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/assets/branding/sora-emblem-source.png",
+          "bytes": 104489,
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "width": 1678,
+          "height": 1432
+        },
+        {
+          "path": "public/assets/story/angles/office-right-v3.png",
+          "bytes": 2258808,
+          "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-d7b47bd8-324e-4477-8435-11386ff86086.png",
+          "bytes": 2258808,
+          "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    },
+    {
+      "file": "public/assets/story/angles/office-detail-v3.png",
+      "prompt": "Use case: compositing. Image 1 is the existing full 16:9 pixel-art SORA CARS credit-office scene. Image 2 is the exact supplied SORA brand emblem. Preserve the entire first scene, all character identities/poses/wardrobes, all story props, readable text, framing and lighting. Make ONLY the specified local emblem/decal change. Reproduce image 2's RED circular silhouette with the exact WHITE geometric knockout: two equal-length thick straight horizontal bars, their short straight vertical central connection, then two thick STRAIGHT diagonal white channels that reach THROUGH the bottom circumference leaving two open white gaps and a red wedge. This is a geometric logo, NOT a font character \u5929: no curved or tapered legs, no closed lower circle. Make a crisp printed emblem naturally on its surface with subtle existing pixel texture. A narrow WHITE square backing helps preserve accurate geometry. No extra text, crop, reframe, changed faces, UI, captions, watermark or restyling. Return the whole wide scene, original resolution. Replace ONLY the approximate cream circular brand symbol near the TOP of the RED CLOSED FOLDER on the right with the accurate reference emblem printed on a small white square label. Center it at the same location, about x=91%, y=40%. Preserve all SORA and Japanese folder text below it. The label should be about 6% of full frame width and follow the book perspective; make the two bottom circle openings obvious. Do not change notebooks, handwriting, hands, stamps, calculator or other logos.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-a320772b-4fd0-4f2e-8ece-799560ff5a65.png",
+      "visualInspection": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+      "runtimeIntegrated": false,
+      "inputs": [
+        "public/assets/story/angles/office-detail-v2.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "art": "officeDetail",
+      "identities": [
+        {
+          "path": "public/assets/story/angles/office-detail-v2.png",
+          "bytes": 2809526,
+          "sha256": "3c4717775afa2be596656a5038a5534dc4aeeccef3be046da63b6846e49ea6b8",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/assets/branding/sora-emblem-source.png",
+          "bytes": 104489,
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "width": 1678,
+          "height": 1432
+        },
+        {
+          "path": "public/assets/story/angles/office-detail-v3.png",
+          "bytes": 2555597,
+          "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-a320772b-4fd0-4f2e-8ece-799560ff5a65.png",
+          "bytes": 2555597,
+          "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    },
+    {
+      "file": "public/assets/story/credit-office-v2.png",
+      "prompt": "Use case: compositing. Image 1 is the existing full 16:9 pixel-art SORA CARS credit-office scene. Image 2 is the exact supplied SORA brand emblem. Preserve the entire first scene, all character identities/poses/wardrobes, all story props, readable text, framing and lighting. Make ONLY the specified local emblem/decal change. Reproduce image 2's RED circular silhouette with the exact WHITE geometric knockout: two equal-length thick straight horizontal bars, their short straight vertical central connection, then two thick STRAIGHT diagonal white channels that reach THROUGH the bottom circumference leaving two open white gaps and a red wedge. This is a geometric logo, NOT a font character \u5929: no curved or tapered legs, no closed lower circle. Make a crisp printed emblem naturally on its surface with subtle existing pixel texture. A narrow WHITE square backing helps preserve accurate geometry. No extra text, crop, reframe, changed faces, UI, captions, watermark or restyling. Return the whole wide scene, original resolution. Add ONE small physical white square printed SORA emblem decal centered on the broad GREEN front shade of the banker lamp between the two women, centered approximately x=50%, y=32% of the full image. Decal width about 4% of full frame width, fitting entirely on the green shade, above its lit bottom edge. The red/white geometric emblem fills the white label with a narrow margin. Preserve every other text, symbol and scene detail, especially the notebook numbers and gestures.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-0041cd8c-b6fd-47cc-9835-5287eccf37b4.png",
+      "visualInspection": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+      "runtimeIntegrated": false,
+      "inputs": [
+        "public/assets/story/credit-office-v1.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "art": "officeBase",
+      "identities": [
+        {
+          "path": "public/assets/story/credit-office-v1.png",
+          "bytes": 2541490,
+          "sha256": "fdb0d25f47ea2e46705a7d91d438224374de291e1a574b9e6de650c8efb2a33f",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "public/assets/branding/sora-emblem-source.png",
+          "bytes": 104489,
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+          "width": 1678,
+          "height": 1432
+        },
+        {
+          "path": "public/assets/story/credit-office-v2.png",
+          "bytes": 2304760,
+          "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+          "width": 1672,
+          "height": 941
+        },
+        {
+          "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-0041cd8c-b6fd-47cc-9835-5287eccf37b4.png",
+          "bytes": 2304760,
+          "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+          "width": 1672,
+          "height": 941
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,615 @@
+{
+  "midnight-transistor": {
+    "wav": {
+      "path": "assets/music/audio/midnight-transistor.wav",
+      "bytes": 19271742,
+      "sha256": "27294a688410d66332bb442d4928a050dc07168b2a9fbe5c3a3ce970b94e55a3"
+    },
+    "mp3": {
+      "path": "assets/music/audio/midnight-transistor.mp3",
+      "bytes": 4373124,
+      "sha256": "30bddfee95b113e854b56aaf58f5a65f93aba52380634a23a00f8b08ebc391c6"
+    },
+    "preview": {
+      "path": "assets/music/audio/midnight-transistor-preview.mp3",
+      "bytes": 721800,
+      "sha256": "bc643860c2ff641e5634c7c166c734a4908928c9212f48844d40f8e91c7ac925"
+    },
+    "cover": {
+      "path": "assets/music/covers/midnight-transistor-v1.png",
+      "bytes": 2354219,
+      "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6"
+    },
+    "durationSeconds": 109.24902494331066
+  },
+  "harbor-signals": {
+    "wav": {
+      "path": "assets/music/audio/harbor-signals.wav",
+      "bytes": 21694722,
+      "sha256": "6a1ff55f726697bcbac014828e4700bebef50be7084e43bd3dbf1053a7950b9e"
+    },
+    "mp3": {
+      "path": "assets/music/audio/harbor-signals.mp3",
+      "bytes": 4922735,
+      "sha256": "831553b832d0a23e029a2155e063ee830d0795114b37397ef117c7baaf62feb2"
+    },
+    "preview": {
+      "path": "assets/music/audio/harbor-signals-preview.mp3",
+      "bytes": 721795,
+      "sha256": "d999d6f534992fb6e73cfcc40feeaae9577f44beb987d05af7487e5778826cae"
+    },
+    "cover": {
+      "path": "assets/music/covers/harbor-signals-v1.png",
+      "bytes": 2338992,
+      "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02"
+    },
+    "durationSeconds": 122.98476190476191
+  },
+  "sakura-express": {
+    "wav": {
+      "path": "assets/music/audio/sakura-express.wav",
+      "bytes": 17559338,
+      "sha256": "436050b70385817e8b3e9ee1dd3d86c4247806a009b1d039d9be7b7cfa96b25e"
+    },
+    "mp3": {
+      "path": "assets/music/audio/sakura-express.mp3",
+      "bytes": 3984417,
+      "sha256": "849d91f6181c9d0570c500c3e8c1b3a4b3af8d3ef0ea44ca6e73fb3dbca4f001"
+    },
+    "preview": {
+      "path": "assets/music/audio/sakura-express-preview.mp3",
+      "bytes": 721795,
+      "sha256": "faca733305fc533f03e61093f6c683310ad5dc917e1d680eba0f7e19ca8ae50b"
+    },
+    "cover": {
+      "path": "assets/music/covers/sakura-express-v1.png",
+      "bytes": 2848680,
+      "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf"
+    },
+    "durationSeconds": 99.54154195011338
+  },
+  "soramotos-workshop": {
+    "wav": {
+      "path": "assets/music/audio/soramotos-workshop.wav",
+      "bytes": 28414730,
+      "sha256": "e78130bb485fa409dfda7b9d84e51adeda47ddd96b801c8641c97a0b68d89007"
+    },
+    "mp3": {
+      "path": "assets/music/audio/soramotos-workshop.mp3",
+      "bytes": 6446200,
+      "sha256": "f86911ec694e36e0cec74891913a18c6b733050f3b1e2283cee1b31d8bc75cca"
+    },
+    "preview": {
+      "path": "assets/music/audio/soramotos-workshop-preview.mp3",
+      "bytes": 721799,
+      "sha256": "5f35b82a042557522ceaff88275a9315ce1124d0b606494a8722628a2fceec56"
+    },
+    "cover": {
+      "path": "assets/music/covers/soramotos-workshop-v1.png",
+      "bytes": 2335687,
+      "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910"
+    },
+    "durationSeconds": 161.08002267573696
+  },
+  "paper-towers": {
+    "wav": {
+      "path": "assets/music/audio/paper-towers.wav",
+      "bytes": 24382720,
+      "sha256": "1856bbf848c0eda5e5baeb975ae9b7a1eb7b384e05a38c928edbc660ccde2ff2"
+    },
+    "mp3": {
+      "path": "assets/music/audio/paper-towers.mp3",
+      "bytes": 5531908,
+      "sha256": "f1186383867d0e0c87b6ff1021770fe2f588a1ae1add621c4ffefdb96eaa797b"
+    },
+    "preview": {
+      "path": "assets/music/audio/paper-towers-preview.mp3",
+      "bytes": 721793,
+      "sha256": "809e449edaee12de483c8759b40d830b66a81069ecdf2836ac1b58ca57d0b36c"
+    },
+    "cover": {
+      "path": "assets/music/covers/paper-towers-v1.png",
+      "bytes": 2118312,
+      "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717"
+    },
+    "durationSeconds": 138.22285714285715
+  },
+  "a-future-we-build": {
+    "wav": {
+      "path": "assets/music/audio/a-future-we-build.wav",
+      "bytes": 23152624,
+      "sha256": "18018a252e8101f83fbd363658c534ce2f5f57f9d06018cb21e7f05c42ed1d2d"
+    },
+    "mp3": {
+      "path": "assets/music/audio/a-future-we-build.mp3",
+      "bytes": 5252926,
+      "sha256": "fbab3742c02d5500a7d44f14398eba367c76ea9e028da31fc7bbc44ec73dbdf8"
+    },
+    "preview": {
+      "path": "assets/music/audio/a-future-we-build-preview.mp3",
+      "bytes": 721798,
+      "sha256": "18c2f8d0a29c6353269256e1acb52b5993946bc784c4665d34b77b3e0233a0c2"
+    },
+    "cover": {
+      "path": "assets/music/covers/a-future-we-build-v1.png",
+      "bytes": 2568468,
+      "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b"
+    },
+    "durationSeconds": 131.24950113378685
+  },
+  "after-the-last-train": {
+    "wav": {
+      "path": "assets/music/audio/after-the-last-train.wav",
+      "bytes": 26754496,
+      "sha256": "42685bc29b703a075f34d87688cf36954a3703d91e758248620917887a62e747"
+    },
+    "mp3": {
+      "path": "assets/music/audio/after-the-last-train.mp3",
+      "bytes": 6070039,
+      "sha256": "93652644c5371e897c53199553f92b25afe4a85627ec44f130882a169966f9bc"
+    },
+    "preview": {
+      "path": "assets/music/audio/after-the-last-train-preview.mp3",
+      "bytes": 721801,
+      "sha256": "9009aeb9ded7f4bd0519559c2fb0165175b70a4efc685604d810bd07f99be5fd"
+    },
+    "cover": {
+      "path": "assets/music/covers/after-the-last-train-v1.png",
+      "bytes": 2616922,
+      "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd"
+    },
+    "durationSeconds": 151.66825396825396
+  },
+  "credit-line": {
+    "wav": {
+      "path": "assets/music/audio/credit-line.wav",
+      "bytes": 20113542,
+      "sha256": "86f3d81ff9b095f7219c013c6217201154c68a6f49627244f237e2d9b2e7762e"
+    },
+    "mp3": {
+      "path": "assets/music/audio/credit-line.mp3",
+      "bytes": 4563287,
+      "sha256": "af2629c99b3073c6f8ddff87382cf71408ef388f6fa19aa68d1d7ac7e9b6e143"
+    },
+    "preview": {
+      "path": "assets/music/audio/credit-line-preview.mp3",
+      "bytes": 721792,
+      "sha256": "2e551a818dfa4c0327e2a4bf0f3fd47155d576f66d3aa6fecfd81b703836ad22"
+    },
+    "cover": {
+      "path": "assets/music/covers/credit-line-v1.png",
+      "bytes": 2330533,
+      "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2"
+    },
+    "durationSeconds": 114.021179138322
+  },
+  "sora-dawn-broadcast": {
+    "wav": {
+      "path": "assets/music/audio/sora-dawn-broadcast.wav",
+      "bytes": 21358726,
+      "sha256": "99a60012e96169bc97d63ee6d73a310293bb62c42bc063a80a43e233947040db"
+    },
+    "mp3": {
+      "path": "assets/music/audio/sora-dawn-broadcast.mp3",
+      "bytes": 4846462,
+      "sha256": "0f9ef6fdc0fe30191f6efdc5a4f68465a175ca173aa9bf7c274a4d2466796628"
+    },
+    "preview": {
+      "path": "assets/music/audio/sora-dawn-broadcast-preview.mp3",
+      "bytes": 721800,
+      "sha256": "0404f55e7a4e279802e8af6813206d66a20b6cd456b75926e17c172896b08554"
+    },
+    "cover": {
+      "path": "assets/music/covers/sora-dawn-broadcast-v1.png",
+      "bytes": 2336613,
+      "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3"
+    },
+    "durationSeconds": 121.08
+  },
+  "blank-side-promise": {
+    "wav": {
+      "path": "assets/music/audio/blank-side-promise.wav",
+      "bytes": 26243650,
+      "sha256": "8a38374be2f6236fac9f25ff54af6c34195ec68fc364160235e1d54d0ff602f0"
+    },
+    "mp3": {
+      "path": "assets/music/audio/blank-side-promise.mp3",
+      "bytes": 5954054,
+      "sha256": "d232714b65bb4208b7695664db191dd504576618314a49223f5f2b95cecd4e6f"
+    },
+    "preview": {
+      "path": "assets/music/audio/blank-side-promise-preview.mp3",
+      "bytes": 721800,
+      "sha256": "6c18988b00ddbb0e2d73cdd46de489e28b21130d96966be48bedaee1a80ad98b"
+    },
+    "cover": {
+      "path": "assets/music/covers/blank-side-promise-v1.png",
+      "bytes": 2218749,
+      "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100"
+    },
+    "durationSeconds": 148.77231292517007
+  },
+  "three-weeks-of-paper": {
+    "wav": {
+      "path": "assets/music/audio/three-weeks-of-paper.wav",
+      "bytes": 29641860,
+      "sha256": "43f8d7d32934dc06fedc4fa21d0e0304c681176436cadf66037bd77fa1b3688a"
+    },
+    "mp3": {
+      "path": "assets/music/audio/three-weeks-of-paper.mp3",
+      "bytes": 6724146,
+      "sha256": "2d74c9bb2ce3255d625adad3acd0b550cad3c085784dd4d7bec49a8ed9190b8d"
+    },
+    "preview": {
+      "path": "assets/music/audio/three-weeks-of-paper-preview.mp3",
+      "bytes": 721802,
+      "sha256": "4f68e3f9b46c977809332ede0e355b8c9cdf0c50e31af5a4522ce4478a0ff93f"
+    },
+    "cover": {
+      "path": "assets/music/covers/three-weeks-of-paper-v1.png",
+      "bytes": 2080279,
+      "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0"
+    },
+    "durationSeconds": 168.0365306122449
+  },
+  "milk-crates-at-midnight": {
+    "wav": {
+      "path": "assets/music/audio/milk-crates-at-midnight.wav",
+      "bytes": 23548526,
+      "sha256": "c4ed12eda5262473e5ade21703ac38098f15e9aa2fcddf84a12b8e49278ddc1a"
+    },
+    "mp3": {
+      "path": "assets/music/audio/milk-crates-at-midnight.mp3",
+      "bytes": 5342794,
+      "sha256": "8619d8cb9487139586d23bc16e31b70f56b60a5ab74bf23e3b82efe76528e79e"
+    },
+    "preview": {
+      "path": "assets/music/audio/milk-crates-at-midnight-preview.mp3",
+      "bytes": 721805,
+      "sha256": "4b335f7398e4b6311d89e38b0048ea781916629a18d6a388c5135c1237368e82"
+    },
+    "cover": {
+      "path": "assets/music/covers/milk-crates-at-midnight-v1.png",
+      "bytes": 2382636,
+      "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5"
+    },
+    "durationSeconds": 133.49380952380952
+  },
+  "carbon-copy-testimony": {
+    "wav": {
+      "path": "assets/music/audio/carbon-copy-testimony.wav",
+      "bytes": 25278732,
+      "sha256": "fc5deb39f2de261d30a70892e1d5e80501a96aa9153844da0c18ed8a620bbf8c"
+    },
+    "mp3": {
+      "path": "assets/music/audio/carbon-copy-testimony.mp3",
+      "bytes": 5734629,
+      "sha256": "48484c70a10e2fc9cddb0cc21a6dd8bc063f38246e0d8b7ca8407d6d617b3e40"
+    },
+    "preview": {
+      "path": "assets/music/audio/carbon-copy-testimony-preview.mp3",
+      "bytes": 721803,
+      "sha256": "85b2542e1954efc669f7e42ef299a3eaa81efe9056fd8741f54456ba648f3cb7"
+    },
+    "cover": {
+      "path": "assets/music/covers/carbon-copy-testimony-v1.png",
+      "bytes": 2473380,
+      "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a"
+    },
+    "durationSeconds": 143.30224489795918
+  },
+  "crown-on-the-grid": {
+    "wav": {
+      "path": "assets/music/audio/crown-on-the-grid.wav",
+      "bytes": 22769928,
+      "sha256": "2d2209aa001fb25ed67b25ad855596f1ea628c12287d4bf41a5e5175a857624b"
+    },
+    "mp3": {
+      "path": "assets/music/audio/crown-on-the-grid.mp3",
+      "bytes": 5166200,
+      "sha256": "e674ea8a545a83fef6f67efa92b0081497a032717a7ecfcbdd0f3a47044a6397"
+    },
+    "preview": {
+      "path": "assets/music/audio/crown-on-the-grid-preview.mp3",
+      "bytes": 721799,
+      "sha256": "2baca27ac7808a3420bcadf24229e1eb665cc5e2a148c90b575944794ece288f"
+    },
+    "cover": {
+      "path": "assets/music/covers/crown-on-the-grid-v1.png",
+      "bytes": 2193821,
+      "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456"
+    },
+    "durationSeconds": 129.08002267573696
+  },
+  "open-circuit-breakfast": {
+    "wav": {
+      "path": "assets/music/audio/open-circuit-breakfast.wav",
+      "bytes": 22041570,
+      "sha256": "f1edc8cee402f4116ac416b5874f934d8cdf5a0e528314cabd733a386ff47b8e"
+    },
+    "mp3": {
+      "path": "assets/music/audio/open-circuit-breakfast.mp3",
+      "bytes": 5001111,
+      "sha256": "430c36fdb708ece0d47f1e7801ad4dcfd32842f8d358f637d47a22d4f3370804"
+    },
+    "preview": {
+      "path": "assets/music/audio/open-circuit-breakfast-preview.mp3",
+      "bytes": 721804,
+      "sha256": "7c3d5e0ea536bf98727ce6aff3f2dc323d0b91c736604a71dec80df978b354e4"
+    },
+    "cover": {
+      "path": "assets/music/covers/open-circuit-breakfast-v1.png",
+      "bytes": 2530287,
+      "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3"
+    },
+    "durationSeconds": 124.95097505668934
+  },
+  "one-umbrella-two-chairs": {
+    "wav": {
+      "path": "assets/music/audio/one-umbrella-two-chairs.wav",
+      "bytes": 33233464,
+      "sha256": "a852d0e0ad9c21799fdabbec5a924b998298739d122ff767a837de8d02ca67f9"
+    },
+    "mp3": {
+      "path": "assets/music/audio/one-umbrella-two-chairs.mp3",
+      "bytes": 7539170,
+      "sha256": "4a8f8b1be31869ccd757b3d3e6f43ca229fdc7ceadb87a71b50e2ba0847c38ff"
+    },
+    "preview": {
+      "path": "assets/music/audio/one-umbrella-two-chairs-preview.mp3",
+      "bytes": 721806,
+      "sha256": "0831dfc310746a78d64180881bfc6c931181878f1e4c56538a47373bbb16ea4d"
+    },
+    "cover": {
+      "path": "assets/music/covers/one-umbrella-two-chairs-v1.png",
+      "bytes": 2897486,
+      "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb"
+    },
+    "durationSeconds": 188.39707482993197
+  },
+  "glass-permission": {
+    "wav": {
+      "path": "assets/music/audio/glass-permission.wav",
+      "bytes": 27838728,
+      "sha256": "81881da162ee5cd8f5ab7db4fcb3c468ba3608ed9e5ca8be0780694a53da560d"
+    },
+    "mp3": {
+      "path": "assets/music/audio/glass-permission.mp3",
+      "bytes": 6315587,
+      "sha256": "a9a494c9d525c33916f6a8dfde376030b4934954b50a65b8b6cb9b0a3aed7098"
+    },
+    "preview": {
+      "path": "assets/music/audio/glass-permission-preview.mp3",
+      "bytes": 721798,
+      "sha256": "c77bcc34bceb320948b0b50b908917e207ce9c38991a0fd28661c8c38cf0ad47"
+    },
+    "cover": {
+      "path": "assets/music/covers/glass-permission-v1.png",
+      "bytes": 1891730,
+      "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a"
+    },
+    "durationSeconds": 157.81471655328798
+  },
+  "two-am-relay": {
+    "wav": {
+      "path": "assets/music/audio/two-am-relay.wav",
+      "bytes": 20717270,
+      "sha256": "5c88954ce46777218bb8cfa37530c7f9e5712ee1980cc909000358fbdd015abf"
+    },
+    "mp3": {
+      "path": "assets/music/audio/two-am-relay.mp3",
+      "bytes": 4700173,
+      "sha256": "5cf741609ee77f9c6d7f6c9484e2fe6243af7c34363e60c5ba3c4d4a06a73057"
+    },
+    "preview": {
+      "path": "assets/music/audio/two-am-relay-preview.mp3",
+      "bytes": 721796,
+      "sha256": "89cdd779608e9b2d3b2dbacbdb3e9548bad905d1dc764d4b0497efb5f9cec085"
+    },
+    "cover": {
+      "path": "assets/music/covers/two-am-relay-v1.png",
+      "bytes": 2672184,
+      "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778"
+    },
+    "durationSeconds": 117.44365079365079
+  },
+  "dead-air-confession": {
+    "wav": {
+      "path": "assets/music/audio/dead-air-confession.wav",
+      "bytes": 40036374,
+      "sha256": "1980273dff717caae02daf2b80bf67c49dd479599648edb5ddf70943d877cd0d"
+    },
+    "mp3": {
+      "path": "assets/music/audio/dead-air-confession.mp3",
+      "bytes": 9081435,
+      "sha256": "524168ebdf2c5dbe76e42835d2c5f94e254ad90e2d0d5d48540edc15e3d116df"
+    },
+    "preview": {
+      "path": "assets/music/audio/dead-air-confession-preview.mp3",
+      "bytes": 721801,
+      "sha256": "6abdc04ad19717525fd543c1b36990a304275115f9fbc66bd0777b2982f6cc36"
+    },
+    "cover": {
+      "path": "assets/music/covers/dead-air-confession-v1.png",
+      "bytes": 2118375,
+      "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46"
+    },
+    "durationSeconds": 226.96235827664398
+  },
+  "borrowed-power-waltz": {
+    "wav": {
+      "path": "assets/music/audio/borrowed-power-waltz.wav",
+      "bytes": 29015240,
+      "sha256": "5c97019705b38e8637487a4ecab3bdc47c18efa673e400a501fb1e18b4bd0121"
+    },
+    "mp3": {
+      "path": "assets/music/audio/borrowed-power-waltz.mp3",
+      "bytes": 6582040,
+      "sha256": "b0e540dfb2f0c686dc8685bd730e5ce0eb1a6fc2c8a2ebe767e421486dc6fdf9"
+    },
+    "preview": {
+      "path": "assets/music/audio/borrowed-power-waltz-preview.mp3",
+      "bytes": 721802,
+      "sha256": "9b323a9c8ac3222131a579a99366b574201065b3600247505a9f0f93b2007da1"
+    },
+    "cover": {
+      "path": "assets/music/covers/borrowed-power-waltz-v1.png",
+      "bytes": 2350260,
+      "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858"
+    },
+    "durationSeconds": 164.48426303854876
+  },
+  "the-frequency-home": {
+    "wav": {
+      "path": "assets/music/audio/the-frequency-home.wav",
+      "bytes": 24822582,
+      "sha256": "782493a3b669cadccbe8d94021ad64ddab2e025a8f65900ec2c18188010744b2"
+    },
+    "mp3": {
+      "path": "assets/music/audio/the-frequency-home.mp3",
+      "bytes": 5631181,
+      "sha256": "87f563b3144b1e86e2bd579b27ff712c27dbfbbcfdb2f3701d4db0bcbbfb76ca"
+    },
+    "preview": {
+      "path": "assets/music/audio/the-frequency-home-preview.mp3",
+      "bytes": 721800,
+      "sha256": "f878f1404109c21d220035c4cc7f8e711a0db33bb35f72f69797aa35465a09cf"
+    },
+    "cover": {
+      "path": "assets/music/covers/the-frequency-home-v1.png",
+      "bytes": 2198962,
+      "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388"
+    },
+    "durationSeconds": 140.71637188208618
+  },
+  "no-master-key": {
+    "wav": {
+      "path": "assets/music/audio/no-master-key.wav",
+      "bytes": 22399772,
+      "sha256": "dcf4cf52cb7a2ee96412961cc0894dbecc1ac5c87d5f9d76266b7d0ed49ef461"
+    },
+    "mp3": {
+      "path": "assets/music/audio/no-master-key.mp3",
+      "bytes": 5082604,
+      "sha256": "dc6c7dfc7c0a6c2ec777c4b2d85c25fcdbc489264ededf98400185304d6d6dcb"
+    },
+    "preview": {
+      "path": "assets/music/audio/no-master-key-preview.mp3",
+      "bytes": 721795,
+      "sha256": "a3288d372d4c5c3974c5ff9fa89cba3daff2f10f7af1756ac658b9a1ff0e09cc"
+    },
+    "cover": {
+      "path": "assets/music/covers/no-master-key-v1.png",
+      "bytes": 1996528,
+      "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2"
+    },
+    "durationSeconds": 126.98165532879818
+  },
+  "outrun-the-dawn": {
+    "wav": {
+      "path": "assets/music/audio/outrun-the-dawn.wav",
+      "bytes": 18498182,
+      "sha256": "e2a92be3bbe28fa1085a093d44225ac3dad899f5d06489b39c9fb51dc4be208a"
+    },
+    "mp3": {
+      "path": "assets/music/audio/outrun-the-dawn.mp3",
+      "bytes": 4197578,
+      "sha256": "ff3ed9b28c1534e92f8c3d7ef5d16f46d6eeb283c8f06f296c64de028d2fa06b"
+    },
+    "preview": {
+      "path": "assets/music/audio/outrun-the-dawn-preview.mp3",
+      "bytes": 721797,
+      "sha256": "5ccb82315feb753073fc5b0ddb344c7759c9dc014d6935dea306c8a75d6a3d04"
+    },
+    "cover": {
+      "path": "assets/music/covers/outrun-the-dawn-v1.png",
+      "bytes": 2538570,
+      "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db"
+    },
+    "durationSeconds": 104.86378684807256
+  },
+  "jun-the-first-light": {
+    "wav": {
+      "path": "assets/music/audio/jun-the-first-light.wav",
+      "bytes": 23958308,
+      "sha256": "ad3845acb40faad265a3387ede7f57eeadec3295bdd58a68ab3c1f57fe550704"
+    },
+    "mp3": {
+      "path": "assets/music/audio/jun-the-first-light.mp3",
+      "bytes": 5435787,
+      "sha256": "e63ace3dc5ae87188bb618027e9a3c630f0811fc09ff34ff35069f51682986a9"
+    },
+    "preview": {
+      "path": "assets/music/audio/jun-the-first-light-preview.mp3",
+      "bytes": 721802,
+      "sha256": "6f3efe2e7a20c2b8d36c5d3cedf7d649fdc0a61e278e828ddd99af81167fa90a"
+    },
+    "cover": {
+      "path": "assets/music/covers/jun-the-first-light-v1.png",
+      "bytes": 2589444,
+      "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3"
+    },
+    "durationSeconds": 135.81684807256235
+  },
+  "side-b-press-record": {
+    "wav": {
+      "path": "assets/music/audio/side-b-press-record.wav",
+      "bytes": 30980548,
+      "sha256": "1bbefa87deea7ed835f283d069c079ab52300a042c56000dc2843a336f42e1a6"
+    },
+    "mp3": {
+      "path": "assets/music/audio/side-b-press-record.mp3",
+      "bytes": 7028211,
+      "sha256": "28c553a7c7d0bf0febfb5a145399dcc2602f531c25597d4239db4ac5c7ce7dd5"
+    },
+    "preview": {
+      "path": "assets/music/audio/side-b-press-record-preview.mp3",
+      "bytes": 721802,
+      "sha256": "3b00da398d386b6e3d16ee6e79053c83db97e15147327e6b403fd217e8fb4fa5"
+    },
+    "cover": {
+      "path": "assets/music/covers/side-b-press-record-v1.png",
+      "bytes": 2343732,
+      "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef"
+    },
+    "durationSeconds": 175.6254648526077
+  },
+  "meet-me-at-yasukuni": {
+    "wav": {
+      "path": "assets/music/audio/meet-me-at-yasukuni.wav",
+      "bytes": 44973850,
+      "sha256": "a37a17d5e63593aeb1707ed36aaa0438866bde5f06b6a9f02b23c78a8d98d3a7"
+    },
+    "mp3": {
+      "path": "assets/music/audio/meet-me-at-yasukuni.mp3",
+      "bytes": 10200630,
+      "sha256": "c3e451faaa9a510cbc8dbcb1961f541ddb4e64e1ddd68c38dd5ae01fbbca1aed"
+    },
+    "preview": {
+      "path": "assets/music/audio/meet-me-at-yasukuni-preview.mp3",
+      "bytes": 721942,
+      "sha256": "37bfece69e271271ad289db0fa38ffd9af790efb4324102c273844b371f7bc6f"
+    },
+    "cover": {
+      "path": "assets/music/covers/meet-me-at-yasukuni-v1.png",
+      "bytes": 2467854,
+      "sha256": "82b3c145977e19744fe2c18ef934c4a4b322d54df45dbf6c133afe26ccc9be24"
+    },
+    "durationSeconds": 254.951995,
+    "provenance": {
+      "kind": "supplied-lossy-recording",
+      "source": {
+        "path": "world/audio/yasukuni-1986.m4a",
+        "publishedPath": "assets/street/yasukuni-85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6.m4a",
+        "bytes": 6215027,
+        "sha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+        "codec": "aac",
+        "sampleRate": 48000,
+        "channels": 2,
+        "durationSeconds": 254.952,
+        "lossy": true
+      },
+      "note": "User-supplied AAC recording. WAV is a decoded and resampled distribution copy of a lossy source, not an original lossless master. MP3 and preview are derived from that copy; no new composition or synthesized score is claimed."
+    }
+  }
+}

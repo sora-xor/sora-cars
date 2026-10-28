@@ -1,0 +1,54 @@
+{
+  "inputBytes": 17060848,
+  "outputBytes": 8839740,
+  "sha256": "aedf174a5e8160a3bedc9b9522bb8e243e7979df87369e5c2a4b0b413a64ce7d",
+  "colorMaps": [
+    {
+      "image": "young_lightskinned_male_diffuse3",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sourceBytes": 3593099,
+      "outputBytes": 888607,
+      "meanAbsoluteErrorRGB": [
+        0.7790937423706055,
+        0.6521773338317871,
+        0.8505656719207764
+      ],
+      "sourceSha256": "f50016a5507fc687dc8df06599c8ea48de950cd185de33a71cafc1319ddab4d5"
+    },
+    {
+      "image": "male_casualsuit01_diffuse",
+      "dimensions": [
+        2048,
+        2048
+      ],
+      "sourceBytes": 5531728,
+      "outputBytes": 939859,
+      "meanAbsoluteErrorRGB": [
+        0.9044251441955566,
+        0.6861553192138672,
+        0.9691948890686035
+      ],
+      "sourceSha256": "3fd0bba5dcbdea0ac427f644a6c7c298938f7369b8f96626621ce1e88989394e"
+    },
+    {
+      "image": "shoes01_diffuse",
+      "dimensions": [
+        1024,
+        1024
+      ],
+      "sourceBytes": 1335772,
+      "outputBytes": 410885,
+      "meanAbsoluteErrorRGB": [
+        1.3653059005737305,
+        1.1429967880249023,
+        1.4299640655517578
+      ],
+      "sourceSha256": "50c9a406a7f1cb6aa7b42912348e78f09d0252aa3963c8229cf18dfe8353cdbf"
+    }
+  ],
+  "geometryChanged": false,
+  "textureDimensionsChanged": false
+}

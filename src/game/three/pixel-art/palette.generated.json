@@ -1,0 +1,4047 @@
+{
+ "version": 1,
+ "description": "SORA CARS pixel-art race palette: cutscene-derived, hue-shifted ramps plus livery ramps. Generated; do not edit by hand.",
+ "generator": "scripts/build-pixel-palette.mjs",
+ "command": "node scripts/build-pixel-palette.mjs",
+ "method": [
+  "Cell-interior samples (3x3 max channel diff <= 22, stride 2) of every input",
+  "6-bit/channel histogram; bins with >= 3 samples",
+  "weighted OKLab k-means (weight sqrt(count) * (1 + chroma / 0.1), a/b x1.15, k-means++ seed 12345), K=74, centroids snapped to the nearest observed colour",
+  "anchors: the renderer's fixed entries verbatim (CAR_COLOURS.plateRamp, CAR_COLOURS.lampRed, OIL_COLOURS, LAMP_HEAD_CORE); its measured colours (CAR_COLOURS, LINEWORK_COLOURS, FOLIAGE_GLINTS, SPARKLE_COLOURS, C >= 0.03) and the style spec's named cutscene colours within 0.015; a missing one replaces the nearest core entry within 0.03, else it is added",
+  "hue-shifted livery ramps for every race livery and club skin (two dark same-hue steps below L 0.36, dark end leaning toward indigo/violet, light end toward amber/cream; teal follows the cutscene teal car: sage-teal mid band, amber highlight), reusing close entries",
+  "greedy max-distance gap fill to 128 from cutscene material ramps, lamp/sun glow rings, accent regions and the 8-band sky strata of 7 cutscene skies"
+ ],
+ "parameters": {
+  "sampleStride": 2,
+  "cellInteriorMaxChannelDiff": 22,
+  "histogramBits": 6,
+  "minBinCount": 3,
+  "weight": "sqrt(count) * (1 + chroma / 0.1)",
+  "abWeight": 1.15,
+  "coreClusters": 74,
+  "kmeansSeed": 12345,
+  "kmeansIterations": 40,
+  "paletteSize": 128,
+  "minGapFill": 8,
+  "anchorSnap": 0.03,
+  "specCover": 0.015,
+  "rendererCoverMinChroma": 0.03,
+  "skyBands": 8,
+  "skyBandMaxSpreadL": 0.25,
+  "regionRampClusters": 7,
+  "regionRampMinShare": 0.01,
+  "glowRingStepPx": 3,
+  "accentTopFraction": 0.03,
+  "liveryRampLightness": [
+   0.19,
+   0.31,
+   0.44,
+   0.56,
+   0.69,
+   0.82
+  ],
+  "liveryShiftTaper": "shift x min(1, step / 2): the darkest step never moves",
+  "liveryShadowHue": 295,
+  "liveryHighlightHue": 75,
+  "liveryMaxShadowRotationDeg": 20,
+  "liveryShadowRotationExponent": 1.5,
+  "liveryShadowChromaLoss": 0.35,
+  "liveryMaxHighlightRotationDeg": 22,
+  "liveryMaxChroma": 0.16,
+  "liveryChromaFloorAtDark": 0.035,
+  "liveryChromaPerLightness": 0.25,
+  "liveryReuseLightness": 0.055,
+  "liveryReuseHueDeg": 14,
+  "liveryReuseDarkHueDeg": 12,
+  "liveryReuseDarkLightness": 0.035,
+  "liveryReuseDarkBelowL": 0.36,
+  "liveryReuseMinChromaRatio": 0.55,
+  "neutralLiveryChroma": 0.045,
+  "tealHueRange": [
+   160,
+   215
+  ],
+  "tealSampleMinChroma": 0.02,
+  "tealSampleHalfWindowL": 0.06,
+  "tealChromaQuantile": 0.75,
+  "tealHighlight": [
+   75,
+   0.075
+  ],
+  "qualityStride": 9,
+  "coreClustersRequested": 98
+ },
+ "statistics": {
+  "inputs": 79,
+  "sampled": 31003550,
+  "cellInteriors": 21548035,
+  "occupiedBins": 58277,
+  "points": 46904,
+  "coreEntries": 57,
+  "anchors": {
+   "present": 18,
+   "moved": 17,
+   "added": 17
+  },
+  "liveryEntries": 29,
+  "gapFilled": 8
+ },
+ "quantizationErrorOKLab": {
+  "mean": 0.0213,
+  "median": 0.0205,
+  "p90": 0.0329,
+  "p99": 0.0479,
+  "note": "nearest palette entry, plain OKLab distance, every pixel at stride 9 over all inputs"
+ },
+ "inputs": [
+  {
+   "file": "public/assets/story/angles/boardroom-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "c4ba2063e5e3f3b150f0437716aafac15e23cad9fba0c1188a8e5bfff36ff9a9"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-detail-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "4107da2789da5eebc464437f014b23aac95a0dbdd334384d1eee3bbb27e1f4d2"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-left-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "0e06e1d8e8e59ad3ea6c7652601e5f90e7df0c58928c9a8a5cae7d0c63f0850f"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-right-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "e817a03b77b71868f99ec251ccb5504a59de286a3a7e45b8345b9d85ce1ebb1f"
+  },
+  {
+   "file": "public/assets/story/angles/boardroom-wide-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b"
+  },
+  {
+   "file": "public/assets/story/angles/community-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec"
+  },
+  {
+   "file": "public/assets/story/angles/community-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b"
+  },
+  {
+   "file": "public/assets/story/angles/community-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f"
+  },
+  {
+   "file": "public/assets/story/angles/community-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667"
+  },
+  {
+   "file": "public/assets/story/angles/garage-detail-v2-centered-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2c4422168f848666e350a592221a06495472ea089ffb67cbb492de03c6b93626"
+  },
+  {
+   "file": "public/assets/story/angles/garage-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7"
+  },
+  {
+   "file": "public/assets/story/angles/garage-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e"
+  },
+  {
+   "file": "public/assets/story/angles/garage-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd"
+  },
+  {
+   "file": "public/assets/story/angles/garage-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "ee6aeef6396f2179d0f498545ce1fefb14b79998f558ad49c836c06469cddee5"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-detail-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "de62a70d1e5396c1bffd2c4e68e4b67a7cc5c5c8e716e6654888d9b752a7c810"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-left-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "c25abcf6d0d10478e03548c0a74d6f52cbf7b43616aabb98c5f1b76dd6218536"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-right-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "666cb4a98ed1994f4e14fa5ecab68f97a59f22a1ddb0dcb70eb40961e48fc753"
+  },
+  {
+   "file": "public/assets/story/angles/harbor-wide-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20"
+  },
+  {
+   "file": "public/assets/story/angles/ledger-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109"
+  },
+  {
+   "file": "public/assets/story/angles/ledger-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c"
+  },
+  {
+   "file": "public/assets/story/angles/ledger-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809"
+  },
+  {
+   "file": "public/assets/story/angles/ledger-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533"
+  },
+  {
+   "file": "public/assets/story/angles/office-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "3c4717775afa2be596656a5038a5534dc4aeeccef3be046da63b6846e49ea6b8"
+  },
+  {
+   "file": "public/assets/story/angles/office-detail-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba"
+  },
+  {
+   "file": "public/assets/story/angles/office-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "728e853692a1584c574c655edf5737d5ab9ceaa594f7cd598eca852eb7b2f8ec"
+  },
+  {
+   "file": "public/assets/story/angles/office-left-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296"
+  },
+  {
+   "file": "public/assets/story/angles/office-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "a639d92b0236c8eb3ca4fd478e9812a78a5ab4c1ac078ef2566a851a606bee73"
+  },
+  {
+   "file": "public/assets/story/angles/office-right-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8"
+  },
+  {
+   "file": "public/assets/story/angles/office-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2a32a7d5b0c1dc21a70aad3f613a0c68dbffe59ab48db4364844c30e07ba7770"
+  },
+  {
+   "file": "public/assets/story/angles/office-wide-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d"
+  },
+  {
+   "file": "public/assets/story/angles/radio-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce"
+  },
+  {
+   "file": "public/assets/story/angles/radio-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d"
+  },
+  {
+   "file": "public/assets/story/angles/radio-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913"
+  },
+  {
+   "file": "public/assets/story/angles/radio-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6d5061c72794378b16222475ef193d5bcd044c74586ec0bb662ceca38913ddf9"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-detail-v3-centered-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "85fb577572820f7853e993771e6358f2a25308b6c16a1dcd0856850fd04b7b91"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-detail-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-left-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "4e32b538d19668bce9c1db0402fa9ab96c2e891a2330ab695a48c08b67d3a80a"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-left-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-right-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "374e52ff44d6965a4babd4454900b36e07cd3116076894f4997805d6a7be6229"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-right-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-wide-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "11f82c03f61b329818f5b8bbf30798e34a7d212a29a26e3755a91dda7848a1e5"
+  },
+  {
+   "file": "public/assets/story/angles/sunrise-wide-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc"
+  },
+  {
+   "file": "public/assets/story/beats/boardroom-key-offer-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a"
+  },
+  {
+   "file": "public/assets/story/beats/boardroom-key-offer-v4.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467"
+  },
+  {
+   "file": "public/assets/story/beats/boardroom-key-return-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c"
+  },
+  {
+   "file": "public/assets/story/beats/boardroom-key-return-v4.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8"
+  },
+  {
+   "file": "public/assets/story/beats/fathers-notebook-reaction-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992"
+  },
+  {
+   "file": "public/assets/story/beats/fathers-notebook-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8"
+  },
+  {
+   "file": "public/assets/story/beats/garage-blackout-detail-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127"
+  },
+  {
+   "file": "public/assets/story/beats/garage-blackout-reverse-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "c969377934766db6e5958704d01b41d74489fdfc876bae7321a02900c18e3c3f"
+  },
+  {
+   "file": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430"
+  },
+  {
+   "file": "public/assets/story/beats/garage-blackout-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72"
+  },
+  {
+   "file": "public/assets/story/beats/public-confession-reverse-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2"
+  },
+  {
+   "file": "public/assets/story/beats/public-confession-reverse-v4.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be"
+  },
+  {
+   "file": "public/assets/story/beats/public-confession-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff"
+  },
+  {
+   "file": "public/assets/story/beats/public-confession-v4.png",
+   "width": 1671,
+   "height": 941,
+   "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574"
+  },
+  {
+   "file": "public/assets/story/beats/radio-betrayal-reverse-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54"
+  },
+  {
+   "file": "public/assets/story/beats/radio-betrayal-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f"
+  },
+  {
+   "file": "public/assets/story/beats/radio-blackout-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d"
+  },
+  {
+   "file": "public/assets/story/beats/radio-contract-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0"
+  },
+  {
+   "file": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d"
+  },
+  {
+   "file": "public/assets/story/beats/radio-jun-premiere-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe"
+  },
+  {
+   "file": "public/assets/story/beats/radio-near-confession-reverse-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15"
+  },
+  {
+   "file": "public/assets/story/beats/radio-near-confession-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379"
+  },
+  {
+   "file": "public/assets/story/beats/radio-phone-threat-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2"
+  },
+  {
+   "file": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6"
+  },
+  {
+   "file": "public/assets/story/beats/radio-umbrella-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8"
+  },
+  {
+   "file": "public/assets/story/beats/shared-prototype-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c"
+  },
+  {
+   "file": "public/assets/story/beats/sunrise-kiss-v2.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "977b499a27eaf12f4d7aa906021bba8f58133d9a40d1f98431eb563a6783ec13"
+  },
+  {
+   "file": "public/assets/story/beats/sunrise-kiss-v3.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0"
+  }
+ ],
+ "liverySources": [
+  {
+   "file": "src/game/rules.ts",
+   "sha256": "b64d0fcc5e189ad84bbf7b411ec5e9cac05bf4fe113492a85e9012fe700cfd19"
+  },
+  {
+   "file": "src/game/catalog.ts",
+   "sha256": "9b8304ac64d06dc8cb8b54ce00e5dd36f6e5431db982a6342c4266d20835c7e3"
+  }
+ ],
+ "rendererEntrySources": [
+  {
+   "file": "src/game/three/pixel-art/cars.ts",
+   "what": "CAR_COLOURS.plateRamp",
+   "exact": true,
+   "colours": [
+    "#7a5d62",
+    "#926d61",
+    "#a2817f",
+    "#bd9a85",
+    "#d1ae91"
+   ],
+   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+  },
+  {
+   "file": "src/game/three/pixel-art/cars.ts",
+   "what": "CAR_COLOURS.lampRed",
+   "exact": true,
+   "colours": [
+    "#d13d32"
+   ],
+   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+  },
+  {
+   "file": "src/game/three/pixel-art/surfaces.ts",
+   "what": "OIL_COLOURS",
+   "exact": true,
+   "colours": [
+    "#161625",
+    "#222239",
+    "#0a0d1d",
+    "#819eed",
+    "#c1c5ff",
+    "#312631",
+    "#413241",
+    "#161112",
+    "#fab15a",
+    "#fee192"
+   ],
+   "sha256": "5786501cf7cf59e7a92bee316411394a02d4f2d3c7b30dd89cc96968b59d406e"
+  },
+  {
+   "file": "src/game/three/pixel-art/linework.ts",
+   "what": "LAMP_HEAD_CORE",
+   "exact": true,
+   "colours": [
+    "#fbf5d2"
+   ],
+   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+  },
+  {
+   "file": "src/game/three/pixel-art/cars.ts",
+   "what": "CAR_COLOURS",
+   "exact": false,
+   "colours": [
+    "#fdf5d5",
+    "#fee59a",
+    "#ef915c",
+    "#7a5d62",
+    "#926d61",
+    "#a2817f",
+    "#bd9a85",
+    "#d1ae91",
+    "#d13d32",
+    "#95211e",
+    "#d13d32",
+    "#e24a3a",
+    "#b65d2e",
+    "#fab15a",
+    "#fdd176",
+    "#bd9a85",
+    "#e7d3bb",
+    "#fbf5d2"
+   ],
+   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+  },
+  {
+   "file": "src/game/three/pixel-art/linework.ts",
+   "what": "LINEWORK_COLOURS",
+   "exact": false,
+   "colours": [
+    "#fdf5d5",
+    "#fee59a",
+    "#fdd176",
+    "#f5c28d",
+    "#fee9ae",
+    "#fab55a",
+    "#f4e9d9"
+   ],
+   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+  },
+  {
+   "file": "src/game/three/pixel-art/linework.ts",
+   "what": "FOLIAGE_GLINTS",
+   "exact": false,
+   "colours": [
+    "#fab55a",
+    "#fdd176"
+   ],
+   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+  },
+  {
+   "file": "src/game/three/pixel-art/surfaces.ts",
+   "what": "SPARKLE_COLOURS",
+   "exact": false,
+   "colours": [
+    "#fab55a",
+    "#fdd176",
+    "#9e8ad9",
+    "#f4e9d9"
+   ],
+   "sha256": "5786501cf7cf59e7a92bee316411394a02d4f2d3c7b30dd89cc96968b59d406e"
+  }
+ ],
+ "colors": [
+  {
+   "rgb": [
+    1,
+    0,
+    1
+   ],
+   "hex": "#010001",
+   "oklab": [
+    0.04716,
+    0.01845,
+    -0.01137
+   ],
+   "L": 0.0472,
+   "C": 0.0217,
+   "h": 328.4,
+   "family": "ink",
+   "origin": "ramp:white_blackout_cool"
+  },
+  {
+   "rgb": [
+    3,
+    4,
+    10
+   ],
+   "hex": "#03040a",
+   "oklab": [
+    0.10933,
+    0.00085,
+    -0.01813
+   ],
+   "L": 0.1093,
+   "C": 0.0181,
+   "h": 272.7,
+   "family": "ink",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    13,
+    10,
+    14
+   ],
+   "hex": "#0d0a0e",
+   "oklab": [
+    0.15057,
+    0.00723,
+    -0.00659
+   ],
+   "L": 0.1506,
+   "C": 0.0098,
+   "h": 317.7,
+   "family": "ink",
+   "origin": "spec:ink"
+  },
+  {
+   "rgb": [
+    22,
+    17,
+    18
+   ],
+   "hex": "#161112",
+   "oklab": [
+    0.1843,
+    0.00849,
+    0.00066
+   ],
+   "L": 0.1843,
+   "C": 0.0085,
+   "h": 4.4,
+   "family": "ink",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    22,
+    22,
+    37
+   ],
+   "hex": "#161625",
+   "oklab": [
+    0.20804,
+    0.00692,
+    -0.02874
+   ],
+   "L": 0.208,
+   "C": 0.0296,
+   "h": 283.5,
+   "family": "neutral-grey",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    37,
+    29,
+    34
+   ],
+   "hex": "#251d22",
+   "oklab": [
+    0.24222,
+    0.01444,
+    -0.00514
+   ],
+   "L": 0.2422,
+   "C": 0.0153,
+   "h": 340.4,
+   "family": "neutral-grey",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    49,
+    38,
+    49
+   ],
+   "hex": "#312631",
+   "oklab": [
+    0.2857,
+    0.02093,
+    -0.01401
+   ],
+   "L": 0.2857,
+   "C": 0.0252,
+   "h": 326.2,
+   "family": "neutral-grey",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    10,
+    13,
+    29
+   ],
+   "hex": "#0a0d1d",
+   "oklab": [
+    0.16563,
+    0.00242,
+    -0.03382
+   ],
+   "L": 0.1656,
+   "C": 0.0339,
+   "h": 274.1,
+   "family": "indigo-navy",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    22,
+    13,
+    42
+   ],
+   "hex": "#160d2a",
+   "oklab": [
+    0.18983,
+    0.0237,
+    -0.05149
+   ],
+   "L": 0.1898,
+   "C": 0.0567,
+   "h": 294.7,
+   "family": "indigo-navy",
+   "origin": "livery:Murasaki"
+  },
+  {
+   "rgb": [
+    21,
+    18,
+    57
+   ],
+   "hex": "#151239",
+   "oklab": [
+    0.21316,
+    0.01481,
+    -0.07149
+   ],
+   "L": 0.2132,
+   "C": 0.073,
+   "h": 281.7,
+   "family": "indigo-navy",
+   "origin": "spec:night sky"
+  },
+  {
+   "rgb": [
+    29,
+    26,
+    77
+   ],
+   "hex": "#1d1a4d",
+   "oklab": [
+    0.25618,
+    0.01652,
+    -0.08946
+   ],
+   "L": 0.2562,
+   "C": 0.091,
+   "h": 280.5,
+   "family": "indigo-navy",
+   "origin": "spec:night sky"
+  },
+  {
+   "rgb": [
+    34,
+    34,
+    57
+   ],
+   "hex": "#222239",
+   "oklab": [
+    0.26366,
+    0.00966,
+    -0.04155
+   ],
+   "L": 0.2637,
+   "C": 0.0427,
+   "h": 283.1,
+   "family": "indigo-navy",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    54,
+    38,
+    90
+   ],
+   "hex": "#36265a",
+   "oklab": [
+    0.31624,
+    0.03791,
+    -0.08155
+   ],
+   "L": 0.3162,
+   "C": 0.0899,
+   "h": 294.9,
+   "family": "indigo-navy",
+   "origin": "livery:Murasaki"
+  },
+  {
+   "rgb": [
+    45,
+    37,
+    118
+   ],
+   "hex": "#2d2576",
+   "oklab": [
+    0.32932,
+    0.0246,
+    -0.13039
+   ],
+   "L": 0.3293,
+   "C": 0.1327,
+   "h": 280.7,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    54,
+    57,
+    93
+   ],
+   "hex": "#36395d",
+   "oklab": [
+    0.35909,
+    0.00987,
+    -0.0614
+   ],
+   "L": 0.3591,
+   "C": 0.0622,
+   "h": 279.1,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    57,
+    46,
+    145
+   ],
+   "hex": "#392e91",
+   "oklab": [
+    0.37974,
+    0.02974,
+    -0.15292
+   ],
+   "L": 0.3797,
+   "C": 0.1558,
+   "h": 281,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    70,
+    73,
+    122
+   ],
+   "hex": "#46497a",
+   "oklab": [
+    0.42586,
+    0.01363,
+    -0.07965
+   ],
+   "L": 0.4259,
+   "C": 0.0808,
+   "h": 279.7,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    78,
+    61,
+    169
+   ],
+   "hex": "#4e3da9",
+   "oklab": [
+    0.44318,
+    0.04167,
+    -0.16008
+   ],
+   "L": 0.4432,
+   "C": 0.1654,
+   "h": 284.6,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    94,
+    72,
+    182
+   ],
+   "hex": "#5e48b6",
+   "oklab": [
+    0.48582,
+    0.05073,
+    -0.15852
+   ],
+   "L": 0.4858,
+   "C": 0.1664,
+   "h": 287.7,
+   "family": "indigo-navy",
+   "origin": "spec:dusk violet"
+  },
+  {
+   "rgb": [
+    101,
+    94,
+    137
+   ],
+   "hex": "#655e89",
+   "oklab": [
+    0.50596,
+    0.02457,
+    -0.06322
+   ],
+   "L": 0.506,
+   "C": 0.0678,
+   "h": 291.2,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    100,
+    106,
+    199
+   ],
+   "hex": "#646ac7",
+   "oklab": [
+    0.56442,
+    0.01984,
+    -0.14034
+   ],
+   "L": 0.5644,
+   "C": 0.1417,
+   "h": 278,
+   "family": "indigo-navy",
+   "origin": "livery:jun-transistor"
+  },
+  {
+   "rgb": [
+    193,
+    197,
+    255
+   ],
+   "hex": "#c1c5ff",
+   "oklab": [
+    0.84027,
+    0.01605,
+    -0.07943
+   ],
+   "L": 0.8403,
+   "C": 0.081,
+   "h": 281.4,
+   "family": "indigo-navy",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    35,
+    7,
+    29
+   ],
+   "hex": "#23071d",
+   "oklab": [
+    0.1892,
+    0.05413,
+    -0.02308
+   ],
+   "L": 0.1892,
+   "C": 0.0588,
+   "h": 336.9,
+   "family": "violet-plum",
+   "origin": "livery:mei-sakura-film"
+  },
+  {
+   "rgb": [
+    58,
+    22,
+    44
+   ],
+   "hex": "#3a162c",
+   "oklab": [
+    0.26334,
+    0.06277,
+    -0.01696
+   ],
+   "L": 0.2633,
+   "C": 0.065,
+   "h": 344.9,
+   "family": "violet-plum",
+   "origin": "ramp:red_blackout_night"
+  },
+  {
+   "rgb": [
+    62,
+    37,
+    81
+   ],
+   "hex": "#3e2551",
+   "oklab": [
+    0.31759,
+    0.05043,
+    -0.06289
+   ],
+   "L": 0.3176,
+   "C": 0.0806,
+   "h": 308.7,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    65,
+    50,
+    65
+   ],
+   "hex": "#413241",
+   "oklab": [
+    0.33965,
+    0.02733,
+    -0.01824
+   ],
+   "L": 0.3396,
+   "C": 0.0329,
+   "h": 326.3,
+   "family": "violet-plum",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    78,
+    49,
+    97
+   ],
+   "hex": "#4e3161",
+   "oklab": [
+    0.36988,
+    0.05617,
+    -0.06537
+   ],
+   "L": 0.3699,
+   "C": 0.0862,
+   "h": 310.7,
+   "family": "violet-plum",
+   "origin": "spec:plum"
+  },
+  {
+   "rgb": [
+    78,
+    45,
+    118
+   ],
+   "hex": "#4e2d76",
+   "oklab": [
+    0.37685,
+    0.06364,
+    -0.10309
+   ],
+   "L": 0.3769,
+   "C": 0.1212,
+   "h": 301.7,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    81,
+    65,
+    89
+   ],
+   "hex": "#514159",
+   "oklab": [
+    0.40155,
+    0.03101,
+    -0.0318
+   ],
+   "L": 0.4015,
+   "C": 0.0444,
+   "h": 314.3,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    102,
+    49,
+    118
+   ],
+   "hex": "#663176",
+   "oklab": [
+    0.41356,
+    0.09139,
+    -0.08285
+   ],
+   "L": 0.4136,
+   "C": 0.1234,
+   "h": 317.8,
+   "family": "violet-plum",
+   "origin": "spec:plum"
+  },
+  {
+   "rgb": [
+    117,
+    78,
+    121
+   ],
+   "hex": "#754e79",
+   "oklab": [
+    0.48311,
+    0.06587,
+    -0.04875
+   ],
+   "L": 0.4831,
+   "C": 0.082,
+   "h": 323.5,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    110,
+    73,
+    165
+   ],
+   "hex": "#6e49a5",
+   "oklab": [
+    0.49113,
+    0.07111,
+    -0.12484
+   ],
+   "L": 0.4911,
+   "C": 0.1437,
+   "h": 299.7,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    138,
+    88,
+    130
+   ],
+   "hex": "#8a5882",
+   "oklab": [
+    0.53014,
+    0.0783,
+    -0.04052
+   ],
+   "L": 0.5301,
+   "C": 0.0882,
+   "h": 332.6,
+   "family": "violet-plum",
+   "origin": "ramp:white_umbrella_night"
+  },
+  {
+   "rgb": [
+    141,
+    85,
+    169
+   ],
+   "hex": "#8d55a9",
+   "oklab": [
+    0.54751,
+    0.09505,
+    -0.10045
+   ],
+   "L": 0.5475,
+   "C": 0.1383,
+   "h": 313.4,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    137,
+    109,
+    142
+   ],
+   "hex": "#896d8e",
+   "oklab": [
+    0.57351,
+    0.04651,
+    -0.03737
+   ],
+   "L": 0.5735,
+   "C": 0.0597,
+   "h": 321.2,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    134,
+    96,
+    198
+   ],
+   "hex": "#8660c6",
+   "oklab": [
+    0.57485,
+    0.07383,
+    -0.13512
+   ],
+   "L": 0.5748,
+   "C": 0.154,
+   "h": 298.7,
+   "family": "violet-plum",
+   "origin": "livery:Murasaki"
+  },
+  {
+   "rgb": [
+    181,
+    94,
+    161
+   ],
+   "hex": "#b55ea1",
+   "oklab": [
+    0.60661,
+    0.12822,
+    -0.05571
+   ],
+   "L": 0.6066,
+   "C": 0.1398,
+   "h": 336.5,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    175,
+    121,
+    174
+   ],
+   "hex": "#af79ae",
+   "oklab": [
+    0.64884,
+    0.08296,
+    -0.05334
+   ],
+   "L": 0.6488,
+   "C": 0.0986,
+   "h": 327.3,
+   "family": "violet-plum",
+   "origin": "accent:rain streak lavender"
+  },
+  {
+   "rgb": [
+    158,
+    133,
+    213
+   ],
+   "hex": "#9e85d5",
+   "oklab": [
+    0.67115,
+    0.05464,
+    -0.10495
+   ],
+   "L": 0.6711,
+   "C": 0.1183,
+   "h": 297.5,
+   "family": "violet-plum",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    205,
+    186,
+    247
+   ],
+   "hex": "#cdbaf7",
+   "oklab": [
+    0.82552,
+    0.04167,
+    -0.07589
+   ],
+   "L": 0.8255,
+   "C": 0.0866,
+   "h": 298.8,
+   "family": "violet-plum",
+   "origin": "livery:jun-transistor"
+  },
+  {
+   "rgb": [
+    228,
+    181,
+    241
+   ],
+   "hex": "#e4b5f1",
+   "oklab": [
+    0.83438,
+    0.07245,
+    -0.06334
+   ],
+   "L": 0.8344,
+   "C": 0.0962,
+   "h": 318.8,
+   "family": "violet-plum",
+   "origin": "livery:Murasaki"
+  },
+  {
+   "rgb": [
+    39,
+    6,
+    16
+   ],
+   "hex": "#270610",
+   "oklab": [
+    0.18899,
+    0.05672,
+    0.00516
+   ],
+   "L": 0.189,
+   "C": 0.057,
+   "h": 5.2,
+   "family": "rose-crimson",
+   "origin": "livery:Akai"
+  },
+  {
+   "rgb": [
+    62,
+    13,
+    18
+   ],
+   "hex": "#3e0d12",
+   "oklab": [
+    0.24783,
+    0.07173,
+    0.02469
+   ],
+   "L": 0.2478,
+   "C": 0.0759,
+   "h": 19,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    83,
+    38,
+    62
+   ],
+   "hex": "#53263e",
+   "oklab": [
+    0.33906,
+    0.07285,
+    -0.01472
+   ],
+   "L": 0.3391,
+   "C": 0.0743,
+   "h": 348.6,
+   "family": "rose-crimson",
+   "origin": "livery:mei-sakura-film"
+  },
+  {
+   "rgb": [
+    113,
+    50,
+    73
+   ],
+   "hex": "#713249",
+   "oklab": [
+    0.4094,
+    0.09277,
+    -0.00162
+   ],
+   "L": 0.4094,
+   "C": 0.0928,
+   "h": 359,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    106,
+    85,
+    93
+   ],
+   "hex": "#6a555d",
+   "oklab": [
+    0.47341,
+    0.02996,
+    -0.00343
+   ],
+   "L": 0.4734,
+   "C": 0.0302,
+   "h": 353.5,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    145,
+    62,
+    106
+   ],
+   "hex": "#913e6a",
+   "oklab": [
+    0.48801,
+    0.12129,
+    -0.02215
+   ],
+   "L": 0.488,
+   "C": 0.1233,
+   "h": 349.6,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    122,
+    93,
+    98
+   ],
+   "hex": "#7a5d62",
+   "oklab": [
+    0.50944,
+    0.03826,
+    0.00469
+   ],
+   "L": 0.5094,
+   "C": 0.0385,
+   "h": 7,
+   "family": "rose-crimson",
+   "origin": "renderer:CAR_COLOURS.plateRamp"
+  },
+  {
+   "rgb": [
+    165,
+    78,
+    109
+   ],
+   "hex": "#a54e6d",
+   "oklab": [
+    0.54149,
+    0.11938,
+    -0.00134
+   ],
+   "L": 0.5415,
+   "C": 0.1194,
+   "h": 359.4,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    189,
+    82,
+    89
+   ],
+   "hex": "#bd5259",
+   "oklab": [
+    0.57703,
+    0.13095,
+    0.04383
+   ],
+   "L": 0.577,
+   "C": 0.1381,
+   "h": 18.5,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    190,
+    113,
+    122
+   ],
+   "hex": "#be717a",
+   "oklab": [
+    0.63497,
+    0.09537,
+    0.02148
+   ],
+   "L": 0.635,
+   "C": 0.0978,
+   "h": 12.7,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    225,
+    98,
+    141
+   ],
+   "hex": "#e1628d",
+   "oklab": [
+    0.66484,
+    0.16323,
+    0.00383
+   ],
+   "L": 0.6648,
+   "C": 0.1633,
+   "h": 1.3,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    194,
+    129,
+    158
+   ],
+   "hex": "#c2819e",
+   "oklab": [
+    0.67815,
+    0.08725,
+    -0.01325
+   ],
+   "L": 0.6781,
+   "C": 0.0883,
+   "h": 351.4,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    252,
+    93,
+    117
+   ],
+   "hex": "#fc5d75",
+   "oklab": [
+    0.69225,
+    0.18698,
+    0.04943
+   ],
+   "L": 0.6922,
+   "C": 0.1934,
+   "h": 14.8,
+   "family": "rose-crimson",
+   "origin": "spec:rose/neon"
+  },
+  {
+   "rgb": [
+    250,
+    202,
+    201
+   ],
+   "hex": "#facac9",
+   "oklab": [
+    0.88048,
+    0.05151,
+    0.01838
+   ],
+   "L": 0.8805,
+   "C": 0.0547,
+   "h": 19.6,
+   "family": "rose-crimson",
+   "origin": "livery:mei-sakura-film"
+  },
+  {
+   "rgb": [
+    37,
+    11,
+    0
+   ],
+   "hex": "#250b00",
+   "oklab": [
+    0.18967,
+    0.03342,
+    0.0384
+   ],
+   "L": 0.1897,
+   "C": 0.0509,
+   "h": 49,
+   "family": "red-vermilion",
+   "origin": "livery:aki-first-light"
+  },
+  {
+   "rgb": [
+    57,
+    34,
+    29
+   ],
+   "hex": "#39221d",
+   "oklab": [
+    0.27992,
+    0.03104,
+    0.02005
+   ],
+   "L": 0.2799,
+   "C": 0.037,
+   "h": 32.9,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    90,
+    17,
+    21
+   ],
+   "hex": "#5a1115",
+   "oklab": [
+    0.31011,
+    0.09619,
+    0.0411
+   ],
+   "L": 0.3101,
+   "C": 0.1046,
+   "h": 23.1,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    73,
+    42,
+    30
+   ],
+   "hex": "#492a1e",
+   "oklab": [
+    0.32122,
+    0.0379,
+    0.03389
+   ],
+   "L": 0.3212,
+   "C": 0.0508,
+   "h": 41.8,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    114,
+    21,
+    22
+   ],
+   "hex": "#721516",
+   "oklab": [
+    0.36217,
+    0.11433,
+    0.05546
+   ],
+   "L": 0.3622,
+   "C": 0.1271,
+   "h": 25.9,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    97,
+    49,
+    34
+   ],
+   "hex": "#613122",
+   "oklab": [
+    0.37237,
+    0.05821,
+    0.04562
+   ],
+   "L": 0.3724,
+   "C": 0.074,
+   "h": 38.1,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    130,
+    25,
+    26
+   ],
+   "hex": "#82191a",
+   "oklab": [
+    0.39756,
+    0.12584,
+    0.06134
+   ],
+   "L": 0.3976,
+   "C": 0.14,
+   "h": 26,
+   "family": "red-vermilion",
+   "origin": "spec:car red"
+  },
+  {
+   "rgb": [
+    94,
+    66,
+    57
+   ],
+   "hex": "#5e4239",
+   "oklab": [
+    0.40762,
+    0.03284,
+    0.02619
+   ],
+   "L": 0.4076,
+   "C": 0.042,
+   "h": 38.6,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    118,
+    57,
+    34
+   ],
+   "hex": "#763922",
+   "oklab": [
+    0.41934,
+    0.07012,
+    0.06044
+   ],
+   "L": 0.4193,
+   "C": 0.0926,
+   "h": 40.8,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    149,
+    33,
+    30
+   ],
+   "hex": "#95211e",
+   "oklab": [
+    0.44129,
+    0.13561,
+    0.06971
+   ],
+   "L": 0.4413,
+   "C": 0.1525,
+   "h": 27.2,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    138,
+    65,
+    38
+   ],
+   "hex": "#8a4126",
+   "oklab": [
+    0.46439,
+    0.08194,
+    0.06952
+   ],
+   "L": 0.4644,
+   "C": 0.1075,
+   "h": 40.3,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    121,
+    78,
+    61
+   ],
+   "hex": "#794e3d",
+   "oklab": [
+    0.46787,
+    0.04757,
+    0.04333
+   ],
+   "L": 0.4679,
+   "C": 0.0643,
+   "h": 42.3,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    169,
+    41,
+    38
+   ],
+   "hex": "#a92926",
+   "oklab": [
+    0.4864,
+    0.14726,
+    0.07467
+   ],
+   "L": 0.4864,
+   "C": 0.1651,
+   "h": 26.9,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    150,
+    81,
+    46
+   ],
+   "hex": "#96512e",
+   "oklab": [
+    0.51051,
+    0.07209,
+    0.0753
+   ],
+   "L": 0.5105,
+   "C": 0.1042,
+   "h": 46.2,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    134,
+    97,
+    89
+   ],
+   "hex": "#866159",
+   "oklab": [
+    0.52866,
+    0.04235,
+    0.02698
+   ],
+   "L": 0.5287,
+   "C": 0.0502,
+   "h": 32.5,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    170,
+    81,
+    42
+   ],
+   "hex": "#aa512a",
+   "oklab": [
+    0.53925,
+    0.09417,
+    0.08703
+   ],
+   "L": 0.5393,
+   "C": 0.1282,
+   "h": 42.7,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    198,
+    54,
+    42
+   ],
+   "hex": "#c6362a",
+   "oklab": [
+    0.55061,
+    0.15969,
+    0.08897
+   ],
+   "L": 0.5506,
+   "C": 0.1828,
+   "h": 29.1,
+   "family": "red-vermilion",
+   "origin": "spec:car red"
+  },
+  {
+   "rgb": [
+    146,
+    109,
+    97
+   ],
+   "hex": "#926d61",
+   "oklab": [
+    0.56859,
+    0.03975,
+    0.03187
+   ],
+   "L": 0.5686,
+   "C": 0.0509,
+   "h": 38.7,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS.plateRamp"
+  },
+  {
+   "rgb": [
+    182,
+    93,
+    46
+   ],
+   "hex": "#b65d2e",
+   "oklab": [
+    0.5765,
+    0.08991,
+    0.09399
+   ],
+   "L": 0.5765,
+   "C": 0.1301,
+   "h": 46.3,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    209,
+    61,
+    50
+   ],
+   "hex": "#d13d32",
+   "oklab": [
+    0.5773,
+    0.16394,
+    0.08924
+   ],
+   "L": 0.5773,
+   "C": 0.1867,
+   "h": 28.6,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS.lampRed"
+  },
+  {
+   "rgb": [
+    226,
+    74,
+    58
+   ],
+   "hex": "#e24a3a",
+   "oklab": [
+    0.62013,
+    0.16623,
+    0.09419
+   ],
+   "L": 0.6201,
+   "C": 0.1911,
+   "h": 29.5,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    217,
+    94,
+    74
+   ],
+   "hex": "#d95e4a",
+   "oklab": [
+    0.63281,
+    0.13586,
+    0.08244
+   ],
+   "L": 0.6328,
+   "C": 0.1589,
+   "h": 31.2,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    162,
+    129,
+    127
+   ],
+   "hex": "#a2817f",
+   "oklab": [
+    0.63394,
+    0.03793,
+    0.01558
+   ],
+   "L": 0.6339,
+   "C": 0.041,
+   "h": 22.3,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS.plateRamp"
+  },
+  {
+   "rgb": [
+    206,
+    109,
+    50
+   ],
+   "hex": "#ce6d32",
+   "oklab": [
+    0.63665,
+    0.09307,
+    0.10707
+   ],
+   "L": 0.6366,
+   "C": 0.1419,
+   "h": 49,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    177,
+    138,
+    121
+   ],
+   "hex": "#b18a79",
+   "oklab": [
+    0.66585,
+    0.03829,
+    0.03791
+   ],
+   "L": 0.6659,
+   "C": 0.0539,
+   "h": 44.7,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    242,
+    113,
+    54
+   ],
+   "hex": "#f27136",
+   "oklab": [
+    0.69382,
+    0.12753,
+    0.11866
+   ],
+   "L": 0.6938,
+   "C": 0.1742,
+   "h": 42.9,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    225,
+    130,
+    129
+   ],
+   "hex": "#e18281",
+   "oklab": [
+    0.70884,
+    0.1096,
+    0.04225
+   ],
+   "L": 0.7088,
+   "C": 0.1175,
+   "h": 21.1,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    251,
+    121,
+    124
+   ],
+   "hex": "#fb797c",
+   "oklab": [
+    0.72817,
+    0.14916,
+    0.0555
+   ],
+   "L": 0.7282,
+   "C": 0.1591,
+   "h": 20.4,
+   "family": "red-vermilion",
+   "origin": "accent:kissaten red neon"
+  },
+  {
+   "rgb": [
+    215,
+    152,
+    149
+   ],
+   "hex": "#d79895",
+   "oklab": [
+    0.73992,
+    0.07074,
+    0.02877
+   ],
+   "L": 0.7399,
+   "C": 0.0764,
+   "h": 22.1,
+   "family": "red-vermilion",
+   "origin": "accent:amber window"
+  },
+  {
+   "rgb": [
+    239,
+    145,
+    92
+   ],
+   "hex": "#ef915c",
+   "oklab": [
+    0.74443,
+    0.08701,
+    0.10055
+   ],
+   "L": 0.7444,
+   "C": 0.133,
+   "h": 49.1,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    242,
+    149,
+    122
+   ],
+   "hex": "#f2957a",
+   "oklab": [
+    0.75972,
+    0.09523,
+    0.07169
+   ],
+   "L": 0.7597,
+   "C": 0.1192,
+   "h": 37,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    32,
+    15,
+    0
+   ],
+   "hex": "#200f00",
+   "oklab": [
+    0.18909,
+    0.01722,
+    0.03846
+   ],
+   "L": 0.1891,
+   "C": 0.0421,
+   "h": 65.9,
+   "family": "orange-amber",
+   "origin": "livery:Kiiro"
+  },
+  {
+   "rgb": [
+    84,
+    45,
+    0
+   ],
+   "hex": "#542d00",
+   "oklab": [
+    0.34045,
+    0.03668,
+    0.06918
+   ],
+   "L": 0.3405,
+   "C": 0.0783,
+   "h": 62.1,
+   "family": "orange-amber",
+   "origin": "livery:aki-first-light"
+  },
+  {
+   "rgb": [
+    138,
+    86,
+    0
+   ],
+   "hex": "#8a5600",
+   "oklab": [
+    0.49986,
+    0.03779,
+    0.10175
+   ],
+   "L": 0.4999,
+   "C": 0.1085,
+   "h": 69.6,
+   "family": "orange-amber",
+   "origin": "livery:aki-first-light"
+  },
+  {
+   "rgb": [
+    158,
+    105,
+    74
+   ],
+   "hex": "#9e694a",
+   "oklab": [
+    0.56984,
+    0.05151,
+    0.06318
+   ],
+   "L": 0.5698,
+   "C": 0.0815,
+   "h": 50.8,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    181,
+    122,
+    85
+   ],
+   "hex": "#b57a55",
+   "oklab": [
+    0.63193,
+    0.05482,
+    0.0715
+   ],
+   "L": 0.6319,
+   "C": 0.0901,
+   "h": 52.5,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    209,
+    133,
+    74
+   ],
+   "hex": "#d1854a",
+   "oklab": [
+    0.68433,
+    0.0656,
+    0.1002
+   ],
+   "L": 0.6843,
+   "C": 0.1198,
+   "h": 56.8,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    201,
+    146,
+    110
+   ],
+   "hex": "#c9926e",
+   "oklab": [
+    0.70477,
+    0.04871,
+    0.06738
+   ],
+   "L": 0.7048,
+   "C": 0.0831,
+   "h": 54.1,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    189,
+    154,
+    133
+   ],
+   "hex": "#bd9a85",
+   "oklab": [
+    0.71263,
+    0.03122,
+    0.04083
+   ],
+   "L": 0.7126,
+   "C": 0.0514,
+   "h": 52.6,
+   "family": "orange-amber",
+   "origin": "renderer:CAR_COLOURS.plateRamp"
+  },
+  {
+   "rgb": [
+    241,
+    133,
+    58
+   ],
+   "hex": "#f1853a",
+   "oklab": [
+    0.72333,
+    0.09735,
+    0.12405
+   ],
+   "L": 0.7233,
+   "C": 0.1577,
+   "h": 51.9,
+   "family": "orange-amber",
+   "origin": "spec:amber"
+  },
+  {
+   "rgb": [
+    221,
+    158,
+    105
+   ],
+   "hex": "#dd9e69",
+   "oklab": [
+    0.7485,
+    0.05048,
+    0.08883
+   ],
+   "L": 0.7485,
+   "C": 0.1022,
+   "h": 60.4,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    209,
+    174,
+    145
+   ],
+   "hex": "#d1ae91",
+   "oklab": [
+    0.77444,
+    0.02722,
+    0.05006
+   ],
+   "L": 0.7744,
+   "C": 0.057,
+   "h": 61.5,
+   "family": "orange-amber",
+   "origin": "renderer:CAR_COLOURS.plateRamp"
+  },
+  {
+   "rgb": [
+    250,
+    177,
+    90
+   ],
+   "hex": "#fab15a",
+   "oklab": [
+    0.8135,
+    0.04853,
+    0.12442
+   ],
+   "L": 0.8135,
+   "C": 0.1336,
+   "h": 68.7,
+   "family": "orange-amber",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    233,
+    186,
+    149
+   ],
+   "hex": "#e9ba95",
+   "oklab": [
+    0.82188,
+    0.03706,
+    0.06349
+   ],
+   "L": 0.8219,
+   "C": 0.0735,
+   "h": 59.7,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    245,
+    194,
+    141
+   ],
+   "hex": "#f5c28d",
+   "oklab": [
+    0.84738,
+    0.0349,
+    0.08301
+   ],
+   "L": 0.8474,
+   "C": 0.09,
+   "h": 67.2,
+   "family": "orange-amber",
+   "origin": "renderer:LINEWORK_COLOURS"
+  },
+  {
+   "rgb": [
+    231,
+    211,
+    187
+   ],
+   "hex": "#e7d3bb",
+   "oklab": [
+    0.87698,
+    0.01189,
+    0.0373
+   ],
+   "L": 0.877,
+   "C": 0.0391,
+   "h": 72.3,
+   "family": "orange-amber",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    26,
+    19,
+    0
+   ],
+   "hex": "#1a1300",
+   "oklab": [
+    0.19011,
+    -0.0015,
+    0.03887
+   ],
+   "L": 0.1901,
+   "C": 0.0389,
+   "h": 92.2,
+   "family": "gold-cream",
+   "origin": "livery:yui-solar-grid"
+  },
+  {
+   "rgb": [
+    76,
+    50,
+    0
+   ],
+   "hex": "#4c3200",
+   "oklab": [
+    0.3394,
+    0.01589,
+    0.06919
+   ],
+   "L": 0.3394,
+   "C": 0.071,
+   "h": 77.1,
+   "family": "gold-cream",
+   "origin": "livery:Kiiro"
+  },
+  {
+   "rgb": [
+    125,
+    94,
+    0
+   ],
+   "hex": "#7d5e00",
+   "oklab": [
+    0.50002,
+    0.00702,
+    0.10211
+   ],
+   "L": 0.5,
+   "C": 0.1023,
+   "h": 86.1,
+   "family": "gold-cream",
+   "origin": "livery:Kiiro"
+  },
+  {
+   "rgb": [
+    170,
+    126,
+    0
+   ],
+   "hex": "#aa7e00",
+   "oklab": [
+    0.6197,
+    0.01349,
+    0.1265
+   ],
+   "L": 0.6197,
+   "C": 0.1272,
+   "h": 83.9,
+   "family": "gold-cream",
+   "origin": "livery:Kiiro"
+  },
+  {
+   "rgb": [
+    220,
+    162,
+    70
+   ],
+   "hex": "#dca246",
+   "oklab": [
+    0.75051,
+    0.03093,
+    0.12349
+   ],
+   "L": 0.7505,
+   "C": 0.1273,
+   "h": 75.9,
+   "family": "gold-cream",
+   "origin": "livery:Kiiro"
+  },
+  {
+   "rgb": [
+    253,
+    209,
+    118
+   ],
+   "hex": "#fdd176",
+   "oklab": [
+    0.88032,
+    0.01238,
+    0.11969
+   ],
+   "L": 0.8803,
+   "C": 0.1203,
+   "h": 84.1,
+   "family": "gold-cream",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    254,
+    225,
+    146
+   ],
+   "hex": "#fee192",
+   "oklab": [
+    0.91651,
+    -0.00012,
+    0.1031
+   ],
+   "L": 0.9165,
+   "C": 0.1031,
+   "h": 90.1,
+   "family": "gold-cream",
+   "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    253,
+    237,
+    177
+   ],
+   "hex": "#fdedb1",
+   "oklab": [
+    0.94474,
+    -0.00676,
+    0.07808
+   ],
+   "L": 0.9447,
+   "C": 0.0784,
+   "h": 94.9,
+   "family": "gold-cream",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    251,
+    245,
+    210
+   ],
+   "hex": "#fbf5d2",
+   "oklab": [
+    0.96589,
+    -0.00732,
+    0.04539
+   ],
+   "L": 0.9659,
+   "C": 0.046,
+   "h": 99.2,
+   "family": "gold-cream",
+   "origin": "renderer:LAMP_HEAD_CORE"
+  },
+  {
+   "rgb": [
+    63,
+    57,
+    0
+   ],
+   "hex": "#3f3900",
+   "oklab": [
+    0.34009,
+    -0.01597,
+    0.06967
+   ],
+   "L": 0.3401,
+   "C": 0.0715,
+   "h": 102.9,
+   "family": "olive-lime",
+   "origin": "livery:yui-solar-grid"
+  },
+  {
+   "rgb": [
+    102,
+    104,
+    8
+   ],
+   "hex": "#666808",
+   "oklab": [
+    0.49916,
+    -0.03836,
+    0.09966
+   ],
+   "L": 0.4992,
+   "C": 0.1068,
+   "h": 111.1,
+   "family": "olive-lime",
+   "origin": "livery:yui-solar-grid"
+  },
+  {
+   "rgb": [
+    139,
+    139,
+    53
+   ],
+   "hex": "#8b8b35",
+   "oklab": [
+    0.61924,
+    -0.03556,
+    0.1022
+   ],
+   "L": 0.6192,
+   "C": 0.1082,
+   "h": 109.2,
+   "family": "olive-lime",
+   "origin": "livery:yui-solar-grid"
+  },
+  {
+   "rgb": [
+    148,
+    146,
+    121
+   ],
+   "hex": "#949279",
+   "oklab": [
+    0.65473,
+    -0.0084,
+    0.0348
+   ],
+   "L": 0.6547,
+   "C": 0.0358,
+   "h": 103.6,
+   "family": "olive-lime",
+   "origin": "ramp:teal_sunrise_hood"
+  },
+  {
+   "rgb": [
+    187,
+    176,
+    104
+   ],
+   "hex": "#bbb068",
+   "oklab": [
+    0.75037,
+    -0.01745,
+    0.09224
+   ],
+   "L": 0.7504,
+   "C": 0.0939,
+   "h": 100.7,
+   "family": "olive-lime",
+   "origin": "livery:yui-solar-grid"
+  },
+  {
+   "rgb": [
+    206,
+    196,
+    115
+   ],
+   "hex": "#cec473",
+   "oklab": [
+    0.81082,
+    -0.02185,
+    0.10082
+   ],
+   "L": 0.8108,
+   "C": 0.1032,
+   "h": 102.2,
+   "family": "olive-lime",
+   "origin": "accent:teal jacket"
+  },
+  {
+   "rgb": [
+    34,
+    54,
+    45
+   ],
+   "hex": "#22362d",
+   "oklab": [
+    0.31261,
+    -0.02945,
+    0.00804
+   ],
+   "L": 0.3126,
+   "C": 0.0305,
+   "h": 164.7,
+   "family": "sage-green",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    70,
+    94,
+    82
+   ],
+   "hex": "#465e52",
+   "oklab": [
+    0.45854,
+    -0.0334,
+    0.01024
+   ],
+   "L": 0.4585,
+   "C": 0.0349,
+   "h": 163,
+   "family": "sage-green",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    93,
+    114,
+    93
+   ],
+   "hex": "#5d725d",
+   "oklab": [
+    0.52869,
+    -0.03349,
+    0.02348
+   ],
+   "L": 0.5287,
+   "C": 0.0409,
+   "h": 145,
+   "family": "sage-green",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    113,
+    141,
+    110
+   ],
+   "hex": "#718d6e",
+   "oklab": [
+    0.61289,
+    -0.04429,
+    0.03418
+   ],
+   "L": 0.6129,
+   "C": 0.0559,
+   "h": 142.3,
+   "family": "sage-green",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    49,
+    73,
+    70
+   ],
+   "hex": "#314946",
+   "oklab": [
+    0.3847,
+    -0.02984,
+    -0.0033
+   ],
+   "L": 0.3847,
+   "C": 0.03,
+   "h": 186.3,
+   "family": "teal-cyan",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    70,
+    108,
+    101
+   ],
+   "hex": "#466c65",
+   "oklab": [
+    0.50053,
+    -0.04466,
+    -0.00123
+   ],
+   "L": 0.5005,
+   "C": 0.0447,
+   "h": 181.6,
+   "family": "teal-cyan",
+   "origin": "livery:Midori"
+  },
+  {
+   "rgb": [
+    104,
+    144,
+    134
+   ],
+   "hex": "#689086",
+   "oklab": [
+    0.62075,
+    -0.04669,
+    0.00204
+   ],
+   "L": 0.6207,
+   "C": 0.0467,
+   "h": 177.5,
+   "family": "teal-cyan",
+   "origin": "livery:Midori"
+  },
+  {
+   "rgb": [
+    146,
+    184,
+    171
+   ],
+   "hex": "#92b8ab",
+   "oklab": [
+    0.75101,
+    -0.04458,
+    0.00613
+   ],
+   "L": 0.751,
+   "C": 0.045,
+   "h": 172.2,
+   "family": "teal-cyan",
+   "origin": "livery:Midori"
+  },
+  {
+   "rgb": [
+    31,
+    47,
+    96
+   ],
+   "hex": "#1f2f60",
+   "oklab": [
+    0.32043,
+    -0.00378,
+    -0.08926
+   ],
+   "L": 0.3204,
+   "C": 0.0893,
+   "h": 267.6,
+   "family": "steel-blue",
+   "origin": "livery:Aoi"
+  },
+  {
+   "rgb": [
+    44,
+    86,
+    157
+   ],
+   "hex": "#2c569d",
+   "oklab": [
+    0.46152,
+    -0.02117,
+    -0.12293
+   ],
+   "L": 0.4615,
+   "C": 0.1247,
+   "h": 260.2,
+   "family": "steel-blue",
+   "origin": "livery:Aoi"
+  },
+  {
+   "rgb": [
+    75,
+    121,
+    201
+   ],
+   "hex": "#4b79c9",
+   "oklab": [
+    0.58162,
+    -0.02148,
+    -0.1317
+   ],
+   "L": 0.5816,
+   "C": 0.1334,
+   "h": 260.7,
+   "family": "steel-blue",
+   "origin": "livery:Aoi"
+  },
+  {
+   "rgb": [
+    129,
+    158,
+    237
+   ],
+   "hex": "#819eed",
+   "oklab": [
+    0.70989,
+    -0.00435,
+    -0.12049
+   ],
+   "L": 0.7099,
+   "C": 0.1206,
+   "h": 267.9,
+   "family": "steel-blue",
+   "origin": "renderer:OIL_COLOURS"
+  }
+ ],
+ "ramps": [
+  {
+   "name": "ink",
+   "kind": "family",
+   "indices": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "name": "neutral-grey",
+   "kind": "family",
+   "indices": [
+    4,
+    5,
+    6
+   ]
+  },
+  {
+   "name": "indigo-navy/muted",
+   "kind": "family",
+   "indices": [
+    7,
+    8,
+    9,
+    11,
+    14,
+    16,
+    19
+   ]
+  },
+  {
+   "name": "indigo-navy/vivid",
+   "kind": "family",
+   "indices": [
+    10,
+    12,
+    13,
+    15,
+    17,
+    18,
+    20,
+    21
+   ]
+  },
+  {
+   "name": "violet-plum/muted",
+   "kind": "family",
+   "indices": [
+    22,
+    23,
+    24,
+    25,
+    26,
+    28,
+    30,
+    34,
+    39
+   ]
+  },
+  {
+   "name": "violet-plum/vivid",
+   "kind": "family",
+   "indices": [
+    27,
+    29,
+    31,
+    32,
+    33,
+    35,
+    36,
+    37,
+    38,
+    40
+   ]
+  },
+  {
+   "name": "rose-crimson/muted",
+   "kind": "family",
+   "indices": [
+    41,
+    42,
+    43,
+    45,
+    47,
+    52,
+    54
+   ]
+  },
+  {
+   "name": "rose-crimson/vivid",
+   "kind": "family",
+   "indices": [
+    44,
+    46,
+    48,
+    49,
+    50,
+    51,
+    53
+   ]
+  },
+  {
+   "name": "red-vermilion/muted",
+   "kind": "family",
+   "indices": [
+    55,
+    56,
+    57,
+    58,
+    60,
+    62,
+    63,
+    65,
+    66,
+    68,
+    69,
+    72,
+    77,
+    79,
+    83
+   ]
+  },
+  {
+   "name": "red-vermilion/vivid",
+   "kind": "family",
+   "indices": [
+    59,
+    61,
+    64,
+    67,
+    70,
+    71,
+    73,
+    74,
+    75,
+    76,
+    78,
+    80,
+    81,
+    82,
+    84,
+    85
+   ]
+  },
+  {
+   "name": "orange-amber/muted",
+   "kind": "family",
+   "indices": [
+    86,
+    87,
+    89,
+    93,
+    96,
+    98,
+    100
+   ]
+  },
+  {
+   "name": "orange-amber/vivid",
+   "kind": "family",
+   "indices": [
+    88,
+    90,
+    91,
+    92,
+    94,
+    95,
+    97,
+    99
+   ]
+  },
+  {
+   "name": "gold-cream",
+   "kind": "family",
+   "indices": [
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109
+   ]
+  },
+  {
+   "name": "olive-lime",
+   "kind": "family",
+   "indices": [
+    110,
+    111,
+    112,
+    113,
+    114,
+    115
+   ]
+  },
+  {
+   "name": "sage-green",
+   "kind": "family",
+   "indices": [
+    116,
+    117,
+    118,
+    119
+   ]
+  },
+  {
+   "name": "teal-cyan",
+   "kind": "family",
+   "indices": [
+    120,
+    121,
+    122,
+    123
+   ]
+  },
+  {
+   "name": "steel-blue",
+   "kind": "family",
+   "indices": [
+    124,
+    125,
+    126,
+    127
+   ]
+  },
+  {
+   "name": "livery/Shiro",
+   "kind": "livery",
+   "indices": [
+    24,
+    28,
+    69,
+    79,
+    96,
+    100
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Shiro",
+    "hex": "#f0e9dc"
+   }
+  },
+  {
+   "name": "livery/Akai",
+   "kind": "livery",
+   "indices": [
+    41,
+    57,
+    64,
+    49,
+    80,
+    98
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Akai",
+    "hex": "#f33739"
+   }
+  },
+  {
+   "name": "livery/Midori",
+   "kind": "livery",
+   "indices": [
+    3,
+    116,
+    121,
+    122,
+    123,
+    99
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Midori",
+    "hex": "#4ac8ba"
+   }
+  },
+  {
+   "name": "livery/Murasaki",
+   "kind": "livery",
+   "indices": [
+    8,
+    12,
+    31,
+    35,
+    38,
+    40
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Murasaki",
+    "hex": "#9672df"
+   }
+  },
+  {
+   "name": "livery/Kiiro",
+   "kind": "livery",
+   "indices": [
+    86,
+    102,
+    103,
+    104,
+    105,
+    99
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Kiiro",
+    "hex": "#f8c646"
+   }
+  },
+  {
+   "name": "livery/Aoi",
+   "kind": "livery",
+   "indices": [
+    9,
+    124,
+    125,
+    126,
+    127,
+    21
+   ],
+   "livery": {
+    "source": "LIVERIES",
+    "name": "Aoi",
+    "hex": "#578cde"
+   }
+  },
+  {
+   "name": "livery/aki-first-light",
+   "kind": "livery",
+   "indices": [
+    55,
+    87,
+    88,
+    104,
+    105,
+    100
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "aki-first-light",
+    "hex": "#f2b56a"
+   }
+  },
+  {
+   "name": "livery/ren-radio-night",
+   "kind": "livery",
+   "indices": [
+    8,
+    11,
+    12,
+    16,
+    35,
+    38
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "ren-radio-night",
+    "hex": "#453e7e"
+   }
+  },
+  {
+   "name": "livery/mei-sakura-film",
+   "kind": "livery",
+   "indices": [
+    22,
+    43,
+    46,
+    50,
+    81,
+    54
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "mei-sakura-film",
+    "hex": "#f2a8c1"
+   }
+  },
+  {
+   "name": "livery/daichi-harbor-line",
+   "kind": "livery",
+   "indices": [
+    3,
+    116,
+    121,
+    122,
+    123,
+    99
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "daichi-harbor-line",
+    "hex": "#7bcfc7"
+   }
+  },
+  {
+   "name": "livery/yui-solar-grid",
+   "kind": "livery",
+   "indices": [
+    101,
+    110,
+    111,
+    112,
+    114,
+    107
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "yui-solar-grid",
+    "hex": "#dce28a"
+   }
+  },
+  {
+   "name": "livery/jun-transistor",
+   "kind": "livery",
+   "indices": [
+    8,
+    12,
+    16,
+    20,
+    38,
+    39
+   ],
+   "livery": {
+    "source": "CLUB_ITEMS",
+    "name": "jun-transistor",
+    "hex": "#727ddd"
+   }
+  }
+ ],
+ "measured": {
+  "materialRamps": {
+   "red_sunrise_hood": {
+    "src": "angles/sunrise-wide-v2.png",
+    "rect": [
+     655,
+     455,
+     115,
+     40
+    ],
+    "darkToLight": [
+     "#0a0605",
+     "#491915",
+     "#99221f",
+     "#ae2e2b",
+     "#c23935",
+     "#d1423f",
+     "#ef915c"
+    ]
+   },
+   "red_harbor_night": {
+    "src": "angles/harbor-wide-v2.png",
+    "rect": [
+     624,
+     370,
+     56,
+     40
+    ],
+    "darkToLight": [
+     "#070201",
+     "#410905",
+     "#610e09",
+     "#6c110b",
+     "#82150d",
+     "#a02111",
+     "#d14c29"
+    ]
+   },
+   "red_garage_distant": {
+    "src": "angles/garage-wide-v2.png",
+    "rect": [
+     910,
+     466,
+     55,
+     30
+    ],
+    "darkToLight": [
+     "#0c080f",
+     "#3e1a1c",
+     "#64191c",
+     "#6e1b1e",
+     "#781f20",
+     "#8c2a21",
+     "#b2412a"
+    ]
+   },
+   "red_blackout_night": {
+    "src": "beats/garage-blackout-v2.png",
+    "rect": [
+     880,
+     362,
+     45,
+     12
+    ],
+    "darkToLight": [
+     "#150816",
+     "#2c1024",
+     "#351327",
+     "#3a162c",
+     "#471c30",
+     "#5c2739",
+     "#46305c"
+    ]
+   },
+   "red_confession_hood": {
+    "src": "beats/public-confession-v4.png",
+    "rect": [
+     850,
+     470,
+     150,
+     50
+    ],
+    "darkToLight": [
+     "#10090b",
+     "#4b0d0c",
+     "#6b0e0e",
+     "#801210",
+     "#941f16",
+     "#ab422d",
+     "#c16f4a"
+    ]
+   },
+   "white_sunrise_rear": {
+    "src": "angles/sunrise-wide-v2.png",
+    "rect": [
+     42,
+     430,
+     70,
+     35
+    ],
+    "darkToLight": [
+     "#1a161a",
+     "#463732",
+     "#8e694f",
+     "#aa8163",
+     "#b58a6b",
+     "#cfa37f",
+     "#ecbd93"
+    ]
+   },
+   "white_harbor_hood": {
+    "src": "angles/harbor-wide-v2.png",
+    "rect": [
+     200,
+     425,
+     110,
+     33
+    ],
+    "darkToLight": [
+     "#cf8f5a",
+     "#db9e6a",
+     "#e4a56b",
+     "#f0ae6c",
+     "#fac87c"
+    ]
+   },
+   "white_garage_body": {
+    "src": "angles/garage-wide-v2.png",
+    "rect": [
+     255,
+     488,
+     45,
+     30
+    ],
+    "darkToLight": [
+     "#685249",
+     "#aa8368",
+     "#b38a6c",
+     "#c7996f",
+     "#d8a36c",
+     "#f1c380"
+    ]
+   },
+   "white_blackout_cool": {
+    "src": "beats/garage-blackout-v2.png",
+    "rect": [
+     210,
+     440,
+     150,
+     47
+    ],
+    "darkToLight": [
+     "#010001",
+     "#0a080f",
+     "#1e1a2b",
+     "#372e46",
+     "#433651",
+     "#4f3e56",
+     "#614d60"
+    ]
+   },
+   "white_umbrella_night": {
+    "src": "beats/radio-umbrella-v2.png",
+    "rect": [
+     0,
+     495,
+     250,
+     30
+    ],
+    "darkToLight": [
+     "#231a3c",
+     "#553461",
+     "#774d88",
+     "#8a5882",
+     "#af7086",
+     "#da938f",
+     "#f9c8a4"
+    ]
+   },
+   "teal_sunrise_hood": {
+    "src": "angles/sunrise-wide-v2.png",
+    "rect": [
+     1220,
+     473,
+     110,
+     60
+    ],
+    "darkToLight": [
+     "#09090a",
+     "#363230",
+     "#606b5e",
+     "#718778",
+     "#949279",
+     "#c2a57a",
+     "#eac587"
+    ]
+   },
+   "teal_harbor_hood": {
+    "src": "angles/harbor-wide-v2.png",
+    "rect": [
+     1400,
+     442,
+     95,
+     75
+    ],
+    "darkToLight": [
+     "#100b08",
+     "#432619",
+     "#67674d",
+     "#737e60",
+     "#808c68",
+     "#bca75c",
+     "#eed564"
+    ]
+   },
+   "blue_harbor_door": {
+    "src": "angles/harbor-wide-v2.png",
+    "rect": [
+     1080,
+     414,
+     90,
+     56
+    ],
+    "darkToLight": [
+     "#050303",
+     "#201715",
+     "#343031",
+     "#424041",
+     "#60524b",
+     "#7f685c",
+     "#ca8f48"
+    ]
+   }
+  },
+  "glowRamps": {
+   "streetlamp_dusk_harbor": {
+    "src": "angles/harbor-wide-v2.png",
+    "centre": [
+     458,
+     48
+    ],
+    "ringStepPx": 3,
+    "coreToBackground": [
+     "#f1c996",
+     "#d59b64",
+     "#ae7a59",
+     "#8f634d",
+     "#704b42",
+     "#573636",
+     "#402935",
+     "#352537",
+     "#2b1f35",
+     "#241c35"
+    ]
+   },
+   "streetlamp_rain_umbrella": {
+    "src": "beats/radio-umbrella-v2.png",
+    "centre": [
+     249,
+     205
+    ],
+    "ringStepPx": 3,
+    "coreToBackground": [
+     "#fee8ae",
+     "#fde6ae",
+     "#e4c299",
+     "#c29e8b",
+     "#ab847e",
+     "#8f6b71",
+     "#795567",
+     "#633959",
+     "#4e2b53",
+     "#3f2351"
+    ]
+   },
+   "distant_lamp_night": {
+    "src": "beats/garage-blackout-v2.png",
+    "centre": [
+     743,
+     245
+    ],
+    "ringStepPx": 3,
+    "coreToBackground": [
+     "#e7d3bb",
+     "#a27b68",
+     "#483246",
+     "#2d2444",
+     "#231c3c"
+    ]
+   },
+   "sun_disc_sunrise": {
+    "src": "angles/sunrise-wide-v2.png",
+    "centre": [
+     548,
+     142
+    ],
+    "ringStepPx": 3,
+    "coreToBackground": [
+     "#fef1c3",
+     "#fdf0c2",
+     "#fdefc0",
+     "#fdecb9",
+     "#fdde9d",
+     "#fdd38c",
+     "#fcc77a",
+     "#fcbd6d",
+     "#fbb364",
+     "#f8ab63"
+    ]
+   }
+  },
+  "skyRamps": {
+   "dusk_violet_garage": {
+    "src": "angles/garage-wide-v2.png",
+    "rect": [
+     650,
+     112,
+     690,
+     150
+    ],
+    "topToHorizon": [
+     "#36339d",
+     "#3d36a2",
+     "#4b3aa0",
+     "#6440a0",
+     "#784195",
+     "#9a4895",
+     "#b9508f",
+     "#9a4988"
+    ],
+    "spreadL": [
+     0.092,
+     0.063,
+     0.102,
+     0.199,
+     0.188,
+     0.217,
+     0.276,
+     0.498
+    ]
+   },
+   "dusk_confession": {
+    "src": "beats/public-confession-v4.png",
+    "rect": [
+     0,
+     0,
+     330,
+     190
+    ],
+    "topToHorizon": [
+     "#282278",
+     "#342379",
+     "#452779",
+     "#5a2d76",
+     "#733270",
+     "#923a69",
+     "#c84b54",
+     "#e15646"
+    ],
+    "spreadL": [
+     0.023,
+     0.086,
+     0.092,
+     0.104,
+     0.135,
+     0.14,
+     0.151,
+     0.472
+    ]
+   },
+   "sunrise_orange": {
+    "src": "angles/sunrise-wide-v2.png",
+    "rect": [
+     600,
+     0,
+     420,
+     140
+    ],
+    "topToHorizon": [
+     "#e2837c",
+     "#e98a79",
+     "#ef8e74",
+     "#f2916f",
+     "#f4936b",
+     "#fcad67",
+     "#fcae64",
+     "#f79066"
+    ],
+    "spreadL": [
+     0.137,
+     0.129,
+     0.099,
+     0.106,
+     0.116,
+     0.081,
+     0.09,
+     0.407
+    ]
+   },
+   "sunrise_orange_v3": {
+    "src": "angles/sunrise-wide-v3.png",
+    "rect": [
+     600,
+     0,
+     420,
+     140
+    ],
+    "topToHorizon": [
+     "#df847b",
+     "#e48778",
+     "#eb8b72",
+     "#ee8e6c",
+     "#f1906a",
+     "#faa866",
+     "#faaa64",
+     "#f38e66"
+    ],
+    "spreadL": [
+     0.122,
+     0.121,
+     0.096,
+     0.1,
+     0.106,
+     0.078,
+     0.088,
+     0.387
+    ]
+   },
+   "community_sunset": {
+    "src": "angles/community-wide-v2.png",
+    "rect": [
+     380,
+     0,
+     240,
+     150
+    ],
+    "topToHorizon": [
+     "#866cad",
+     "#aa789e",
+     "#b77586",
+     "#b36991",
+     "#d47678",
+     "#f88f71",
+     "#fba574",
+     "#fba17a"
+    ],
+    "spreadL": [
+     0.415,
+     0.229,
+     0.398,
+     0.201,
+     0.487,
+     0.32,
+     0.162,
+     0.339
+    ]
+   },
+   "night_harbor": {
+    "src": "angles/harbor-wide-v2.png",
+    "rect": [
+     150,
+     0,
+     300,
+     120
+    ],
+    "topToHorizon": [
+     "#0d133a",
+     "#0f133b",
+     "#12143c",
+     "#14153e",
+     "#1a1843",
+     "#1b1945",
+     "#201b46",
+     "#2d1c1b"
+    ],
+    "spreadL": [
+     0.015,
+     0.016,
+     0.03,
+     0.064,
+     0.044,
+     0.049,
+     0.08,
+     0.245
+    ]
+   },
+   "night_rain_blackout": {
+    "src": "beats/garage-blackout-v2.png",
+    "rect": [
+     790,
+     205,
+     300,
+     50
+    ],
+    "topToHorizon": [
+     "#2c2681",
+     "#2d2683",
+     "#2f2785",
+     "#322889",
+     "#362b8b",
+     "#473299",
+     "#3f2e88",
+     "#1b1b57"
+    ],
+    "spreadL": [
+     0.302,
+     0.134,
+     0.199,
+     0.226,
+     0.243,
+     0.259,
+     0.278,
+     0.283
+    ]
+   }
+  },
+  "specAnchors": {
+   "ink": [
+    "#0d0a0e",
+    "#191215"
+   ],
+   "night sky": [
+    "#151239",
+    "#1d1a4d"
+   ],
+   "dusk violet": [
+    "#362e95",
+    "#493aa6",
+    "#5e48b6"
+   ],
+   "plum": [
+    "#4e3161",
+    "#663176"
+   ],
+   "rose/neon": [
+    "#de618e",
+    "#fc5d75"
+   ],
+   "car red": [
+    "#82191a",
+    "#95211e",
+    "#aa2921",
+    "#c6362a"
+   ],
+   "vermilion": [
+    "#e14231"
+   ],
+   "amber": [
+    "#f1853a",
+    "#fab55a"
+   ],
+   "cream": [
+    "#fdd176",
+    "#fee59a",
+    "#fdf5d5"
+   ],
+   "sage": [
+    "#5d7661",
+    "#718d6e"
+   ]
+  },
+  "tealCar": {
+   "regions": [
+    [
+     "teal_car_sunrise_v2",
+     "angles/sunrise-wide-v2.png",
+     1150,
+     440,
+     480,
+     170
+    ],
+    [
+     "teal_car_sunrise_v3",
+     "angles/sunrise-wide-v3.png",
+     1180,
+     440,
+     480,
+     170
+    ]
+   ],
+   "byLightness": [
+    {
+     "L": 0.25,
+     "C": 0.0271,
+     "h": 179.7
+    },
+    {
+     "L": 0.35,
+     "C": 0.037,
+     "h": 181
+    },
+    {
+     "L": 0.45,
+     "C": 0.0429,
+     "h": 178.3
+    },
+    {
+     "L": 0.55,
+     "C": 0.0461,
+     "h": 175.5
+    },
+    {
+     "L": 0.65,
+     "C": 0.0454,
+     "h": 173.1
+    }
+   ]
+  }
+ }
+}

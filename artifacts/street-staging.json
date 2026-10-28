@@ -1,0 +1,178 @@
+{
+  "schema": "sora-cars.street-staging-qualification.v1",
+  "date": "2026-09-07T12:51:27.920177+00:00",
+  "scope": "Compiled polynomial stages and generic multi-tick boundary relation. Raw field witness verification only; not a STARK, registered execution profile, authenticated dispute tape, or settlement.",
+  "sources": {
+    "world/native/street_graph.rs": "e93077c4bbe99c4bbc6322dd12ab6f993d17ebe8ffff458d832952879958c196",
+    "world/native/street_geometry.rs": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+    "world/native/street_handling.rs": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+    "world/native/street_lifecycle.rs": "4b5d7af573002ba56c620871e5c9227bf2d41392acc1bed8c8aee8c2250dd2b5",
+    "world/native/street_contacts.rs": "aa4b64eeae0d77eb6f0ec27215c4657ce3c876126290c158da7028c7b12b5e94",
+    "world/native/street_race.rs": "57d2acefc5a5617c957e21475ca327f5c97fec9d5b82465da8d5630cf8d05a74",
+    "scripts/lib/street-track-compiler.ts": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+    "world/native/street_hazards.rs": "55c282b57d3031e8caa24b147fd9e5c9c0da3353992f3f00ee808f4c4f932e2d",
+    "scripts/lib/street-object-compiler.ts": "364362e4b7c4378269c9eb57f0abec664150479a96fc6edffa85e2376f239c39",
+    "src/game/street/objects.ts": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+    "world/authoring/tokyo-1986.objects.json": "d1fc9d00eba89adddb92d1d1624470b590b1202f34a61377bb7a0b11603e95cf",
+    "world/authoring/tokyo-1986.json": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+    "scripts/generate-street-race.ts": "092d024b7dd085c3ea3de4bbecc244ab3e5e728df23dd6631ea38754cc14ee72",
+    "world/native/street_constraint_plan.rs": "4918c13f657da7331dc522235def3b1163f96117f2108854d9e3fc7206e3b7fa",
+    "scripts/generate-street-constraint-plan.ts": "6058cd1a18edb6ceb3db296b8d43f00565f3df82bf3ddbaaca853976d427765c",
+    "world/native/checked_constraints.rs": "60bd62892db2140522e862bd9cfe774b2242c66e8f0355cd7da3d526b5da68a5",
+    "world/native/street_checked_lowering.rs": "c3215c84a7f779b98ee80e9e29bdd2cd87d892e107fdaf947f9d6526e7f2fcaf",
+    "world/native/fixed_rom.rs": "8d1d3f8b2bb40e65c44b42839bff1acc87edac53be3596606f6d43c5e6011fb5",
+    "world/native/street_geometry_constraints.rs": "977e2dcf77ce56e836b2973d334fc40388bdd8a05b194fd8c4f1e1bc9b60a34e",
+    "world/native/staged_constraints.rs": "c40ed5a6801da0ac53ce966d8e21260b2188171f576d7b0bb22d0c0089b91e49",
+    "world/native/execution_trace.rs": "7aec3b33b0e4ee9da94259b7c3e2a7bee464270a879a99c6b9656aa039b03efb",
+    "scripts/test-street-staging.ts": "f07f31d2ba5783ab46bb574fe010de8dcb02f1ce440f406aff77992e9efce6f4"
+  },
+  "documents": {
+    "world/native/STAGED_CONSTRAINTS.md": "3d58e4488f7afc2535d79e83f2739461623a5686dc1eab92a17d9f83999332d6",
+    "world/native/STAGED_CONSTRAINT_REVIEW.md": "3f3125b68027edb746b62633e545375a045dc65199ee269109f6ebae66925191",
+    "world/native/STAGED_IMPLEMENTATION_REVIEW.md": "0b71213e2d6107b747b7c33839e9d39a0c0a007138ded42526a2924cbbf6ff18",
+    "world/native/SCALAR_CONSTRAINTS.md": "f798f6af7c21eafba238e73594feaea6006785d0bf185348815ac9d0a4b85d6e",
+    "world/native/COMPILED_GEOMETRY.md": "1f2d74192a32b1d79916f110b166cf4b7f2cb87bc3830ee91c95b71bc7b3ec04",
+    "world/native/GEOMETRY_AIR.md": "2ce84ec895f761d71d6b1998fe137dcb2e805bac92275a9a31622250d3eee6e8"
+  },
+  "evidence": {
+    "output/qualification/street-staging/report.json": "a022de4c4e5074b54fdd57e9dd77a2ead03cb7f06b59a4e196f57590d559e4bc",
+    "output/qualification/street-staging-audit/report.json": "1ba709a11008be7311e497d874d15ff8a3d485dbad481b781a60599060f49126",
+    "output/qualification/street-staging/staging_cli.rs": "3333e4b6841b23086c3668dc6baf5419c900c1a671e174675b88a8fe0e7da1f6",
+    "output/qualification/street-staging/staging_cli": "b83f40da4c2edbbaaa5ceef43720633ed5efd45f12c4297bc2b42968c0d481bd",
+    "output/qualification/street-staging/staging_tests": "1a8f3e7125695bb3e10af1ed5f101e1c3a593825238ab3b99cec27ce012ad227",
+    "output/qualification/street-staging/unit-tests.log": "bb780d664a4cc027f990f8b128c9a1d9c2aa104a91ad59aa31082dc45a07c45e",
+    "output/qualification/street-staging/run-2.log": "7c0dd383718ba313783992faa6767c18794d6bfe07519cc534f2a04be7364de3",
+    "output/qualification/street-staging/run-8.log": "fd11c643f7701e56d12c1d3bee2e7863d2f0ab3a23fb17cacae4ebce3df36760",
+    "output/qualification/street-staging-audit/README.md": "b59c967c84f159696d694a0f7e6a6f09760a52c1aeddc772c8e7fa993f25cc58",
+    "output/qualification/street-staging-audit/analyze.py": "b7a136090da50393fe222f0256e2f00c0f41d30d350bda06a0dc16ba3637760e",
+    "output/qualification/street-staging-audit/measurement.rs": "15a29bae2308d006fef70b1b7b48e0eb98957335596f092656ff86a8ffe45e90",
+    "output/qualification/street-staging-audit/audit_cli.rs": "22303d51343f293ce5657988be395e58261bf9d858ebe877f1cb7a719c8a076f",
+    "output/qualification/street-staging-audit/audit_cli": "3474dbe9af03711ba81c8f04f1839d1362ebca75911afca592e9a3d05865e21c",
+    "output/qualification/street-staging-audit/run-2.log": "50ca1aeb3ba9d58c0907c256cf98ff1e4258fc93c2bbfc21ea45f462591271af",
+    "output/qualification/street-staging-audit/run-8.log": "ef9bbd5b7499a925f9b14a092982027e912dcc956f6f0e495faae3c2447002cb"
+  },
+  "frozenSourceRoot": "output/qualification/street-staging/source",
+  "stageConfig": {
+    "equationsPerStage": 16384,
+    "maxStages": 20000,
+    "maxWidth": 100000,
+    "maxDenseCells": 100000000,
+    "maxConstraints": 200000000
+  },
+  "measurements": [
+    {
+      "roster": 2,
+      "rawWires": 286655,
+      "inputPorts": 29,
+      "outputPorts": 112,
+      "actionColumns": 4,
+      "rowsPerTick": 29,
+      "width": 21689,
+      "localConstraints": 459907,
+      "carryConstraints": 156598,
+      "paddingConstraints": 185728,
+      "boundaryConstraints": 141,
+      "totalConstraints": 802374,
+      "denseCellsPerTick": 628981,
+      "witnessCellDegree": 2,
+      "verifiedConsecutiveTicks": 3,
+      "boundaryAttacksRejected": 4,
+      "constructionMs": 44.178000000000004,
+      "honestVerificationMs": 26.698415999999998,
+      "maximumResidentBytes": 229261312,
+      "raw9000TickBytes": 45286632000
+    },
+    {
+      "roster": 8,
+      "rawWires": 2294085,
+      "inputPorts": 107,
+      "outputPorts": 244,
+      "actionColumns": 16,
+      "rowsPerTick": 189,
+      "width": 22118,
+      "localConstraints": 3095060,
+      "carryConstraints": 1204769,
+      "paddingConstraints": 681448,
+      "boundaryConstraints": 351,
+      "totalConstraints": 4981628,
+      "denseCellsPerTick": 4180302,
+      "witnessCellDegree": 2,
+      "verifiedConsecutiveTicks": 3,
+      "boundaryAttacksRejected": 4,
+      "constructionMs": 349.391083,
+      "honestVerificationMs": 193.921166,
+      "maximumResidentBytes": 1721827328,
+      "raw9000TickBytes": 300981744000
+    }
+  ],
+  "independentAccountingComparison": [
+    {
+      "roster": 2,
+      "matchedFields": [
+        "rawWires",
+        "localConstraints",
+        "rowsPerTick",
+        "width",
+        "carryConstraints",
+        "paddingConstraints",
+        "denseCellsPerTick",
+        "raw9000TickBytes"
+      ],
+      "exactCountIdentity": true
+    },
+    {
+      "roster": 8,
+      "matchedFields": [
+        "rawWires",
+        "localConstraints",
+        "rowsPerTick",
+        "width",
+        "carryConstraints",
+        "paddingConstraints",
+        "denseCellsPerTick",
+        "raw9000TickBytes"
+      ],
+      "exactCountIdentity": true
+    }
+  ],
+  "validation": {
+    "primitiveHelperTests": 17,
+    "schedulerTests": 12,
+    "executionTraceTests": 3,
+    "totalTests": 32,
+    "consecutiveTicksPerRoster": 3,
+    "rosters": [
+      2,
+      8
+    ],
+    "boundaryAttacksPerRoster": 4,
+    "codeReview": "world/native/STAGED_IMPLEMENTATION_REVIEW.md",
+    "allLiveAndFrozenSourcePinsMatch": true,
+    "allRawLogAndBinaryPinsMatch": true,
+    "usesMaintainedIrohaSourceOrCargoBuild": false,
+    "fullRaceTraceAllocated": false
+  },
+  "qualification": {
+    "stagedPolynomialPreservation": true,
+    "rawBoundaryContinuity": true,
+    "fullRace": false,
+    "practicalFullTrace": false,
+    "airPolynomialDegreeAccounting": false,
+    "stark": false,
+    "soundness128Bit": false,
+    "consensus": false
+  },
+  "nextRequiredWork": [
+    "Smaller authenticated ROM lookup and range/Boolean representation with semantic equivalence.",
+    "Actual AIR selectors, vanishing sets, complete degree accounting, transcript/public/terminal bindings.",
+    "Native STARK integration and new >=128-bit soundness analysis with independent cryptographic review.",
+    "Full eight-car proving resource and supported-target/accelerated-path qualification.",
+    "Generic game ledger admission, custody/disputes/finality and Taira/SoraFS release gates."
+  ],
+  "priorEvidence": {
+    "artifacts/street-constraints.json": "d631a7a86f4ec053731ceb96f3cbdcd8c160aff232aa674d81bcf40165e0dcbb",
+    "artifacts/street-geometry-constraints.json": "26505c00423b2344c8ad19dbe8224143c98b2d46f8dc48292fbb63eafbacc926"
+  },
+  "priorEvidenceScope": "Prior manifests remain historical at their recorded exact source versions. checked_constraints.rs added only a readonly ownership validator; removing the exact delta recorded in the economics audit reproduces the preceding scalar helper. Documentation has advanced; previous documentation pins are not current-source assertions. No prior tests are relabeled as a new run.",
+  "frontendScope": "Frontend source/assets, dist and browser server processes were unchanged by this native qualification."
+}

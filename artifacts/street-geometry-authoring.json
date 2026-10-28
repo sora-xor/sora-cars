@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-07",
+  "sources": {
+    "scripts/lib/street-track-compiler.ts": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+    "src/game/street/track.ts": "9d868f33c0d508491d32b280461a53c90bf0bd7bb4e9c71261e3bbdd3960bf84",
+    "world/native/street_geometry.rs": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+    "world/authoring/tokyo-1986.json": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+    "scripts/test-street-native.ts": "0aa87019922a2aaff3c176a0336d811d56187c4bebaf0ca88076763b6c4b3791",
+    "scripts/check-world-catalog.ts": "d91f4305cd4e03a4ee8bb2c2b1c1a67fb06caf204131d832c01d5a3c1194d619",
+    "tests/street-tracks.test.ts": "a703966af3714663726463d5674eb79b2713778883263325de0e2f742fbfe22f",
+    "world/research/japan-east-1986.json": "a8aafaf869334941caf48d205134a1231bfc62857ff4fda22edbbef141e47ceb",
+    "world/research/japan-west-special-1986.json": "75c2bd057d8ebb91d36744927ba8c37cac33812483280fdd8383d7fb2a9efe60"
+  },
+  "tokyo": {
+    "version": 1,
+    "id": "tokyo-1986",
+    "authoringSha256": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+    "compiledSha256": "26fb72e697fd01e7d983f22fae53931b74dcd3fbbecbdf604079eca31ae3a378",
+    "rustSha256": "f21d848ed5271ee3cce37614c18832c2806101ff9bfdda42e63c522d822b8378",
+    "soundSha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+    "lengthMm": 7013328,
+    "laps": 2,
+    "targetMs": 254952,
+    "maxTicks": 9000,
+    "averageTargetKmh": 198.06,
+    "samples": 1404,
+    "gates": 13,
+    "qualification": {
+      "historicalAlignment": false,
+      "nativeParity": false,
+      "proof": false
+    }
+  },
+  "scope": "Circuit/sprint scalar geometry and historical research; no new playable track, AIR, proof or live deployment",
+  "nativeReport": "output/qualification/street-geometry/report.json",
+  "nativeComparisons": [
+    {
+      "id": "tokyo-1986",
+      "topology": "circuit",
+      "reversed": false,
+      "lengthMm": 7013328,
+      "samples": 1404,
+      "winding": -1000000,
+      "lookups": 16841,
+      "changes": 16840
+    },
+    {
+      "id": "tokyo-1986",
+      "topology": "circuit",
+      "reversed": true,
+      "lengthMm": 7013328,
+      "samples": 1404,
+      "winding": 1000000,
+      "lookups": 16841,
+      "changes": 16840
+    },
+    {
+      "id": "tokyo-sprint-fixture",
+      "topology": "sprint",
+      "reversed": false,
+      "lengthMm": 2724953,
+      "samples": 546,
+      "winding": -239680,
+      "lookups": 6544,
+      "changes": 6543
+    }
+  ],
+  "research": {
+    "locations": 49,
+    "sourceReferences": 106,
+    "allQualified": false
+  },
+  "checks": {
+    "typeScript": true,
+    "compilerTests": 12,
+    "nativeTestGroups": 3,
+    "catalogCoverage": true,
+    "circuitPreviewPreviouslyInspected": true,
+    "sprintPreviewInspected": false
+  },
+  "nativeReportSha256": "6f3d7f9f5d2a292c6d079c6e51bea8288ade1cc07fd4a678c0d22bf56d6a3808"
+}

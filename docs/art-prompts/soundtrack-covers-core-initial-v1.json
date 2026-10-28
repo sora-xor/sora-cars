@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22",
+  "tool": "builtin image_gen.imagegen",
+  "generationMode": "one separate generation per asset using the first story sleeve as a style-only reference; original PNG copied byte-for-byte",
+  "series": "SORA CARS — core score sleeves",
+  "assets": [
+    {
+      "index": 0,
+      "file": "midnight-transistor",
+      "name": "Midnight Transistor",
+      "destination": "public/assets/music/covers/midnight-transistor-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c8ea8bb5-9c3e-46dd-b2d6-a79a2525559c.png",
+      "prompt": "Create one square NFT record sleeve for the original SORA CARS electronic song 'Midnight Transistor' (142 BPM). Use the attached sleeve ONLY as reference for cohesive print texture, quiet small SORA lettering and sophisticated 1980s Japanese record design. Completely new subject and composition: a monumental chrome transistor with three elegant bent leads becomes an elevated winding midnight road; one tiny cream 1986 Japanese coupe and red tail lights, saturated indigo night, electric cyan circuit lines, a vivid coral sun peeking behind the transistor. Surreal analog technology, poised architectural geometry, tactile airbrush gradients and fine screen-print grain, cream highlights, strong silhouette at thumbnail size. Premium original album artwork, full bleed square image. The ONLY lettering should be a small restrained 'SORA' in the top left; no song title or mock UI, no NFT icons, no existing band names/logos, no copied commercial cover. Maintain dimensional clarity and negative space, not a busy collage. At least 1024x1024.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: monumental three-lead transistor becomes an elevated road with a tiny ivory coupe; clear analog-electronic silhouette, cohesive indigo/coral print texture and small SORA mark.",
+      "sha256": "61a7701b360084a81fe04331e9cc2325f036689f9dc878d77b1675cb2c3e028b",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2740963,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 1,
+      "file": "harbor-signals",
+      "name": "Harbor Signals",
+      "destination": "public/assets/music/covers/harbor-signals-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-15360ceb-b326-4678-a524-0de61fa44b9c.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'Harbor Signals'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A sculptural vermilion harbor signal buoy doubles as a tiny analog radio. Its concentric cyan signal rings hover above still cobalt harbor water; geometric cranes at the distant horizon, cream reflection and a single orange beacon. Broad calm water and spare industrial geometry. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: sculptural coral buoy with an integrated radio and concentric cyan transmission arcs; harbor cranes and reflections support the song without crowding the main object.",
+      "sha256": "a71d757abfecdc53978df338a63527339dd1ff5b34c8dcbe2edf3500cde6f8f6",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2644992,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 2,
+      "file": "sakura-express",
+      "name": "Sakura Express",
+      "destination": "public/assets/music/covers/sakura-express-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5a167d86-74d6-4c86-abfe-6cc1398eaf27.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'Sakura Express'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A long coral-red elevated express railway curves through vast stylized pale pink cherry petals that float like sound-wave arcs. Tiny ivory 1980s coupe on a parallel road, electric indigo sky, black-plum and cream palette with one luminous pink orb. Fast diagonal flow, no transistor or cassette. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: diagonal express train, parallel coupe and sweeping cherry petals produce strong speed and springtime identity; original stylized futuristic train silhouette, no commercial railway branding.",
+      "sha256": "d307ad853155659570d111561a3b2207c4f0c4ffb1655e1351d7834ded6baf7c",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 3104276,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 3,
+      "file": "soramotos-workshop",
+      "name": "Soramotos Workshop",
+      "destination": "public/assets/music/covers/soramotos-workshop-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-313c61ab-5d94-44e8-bd03-1b7c06861a2f.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'Soramotos Workshop'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A small beloved Japanese mechanic workshop with a half-open shutter glows warm amber in a quiet deep teal dusk. A chrome wrench on the foreground workbench transforms into a curved horizon, tiny cream coupe inside, one red enamel lamp. Intimate patient mood, wood grain and solder smoke, restrained cozy geometry. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: warmly lit garage and ivory coupe behind a large chrome wrench; amber/teal intimacy distinguishes this sleeve from the darker race themes.",
+      "sha256": "73f08ce2fe53d6f8fc667cd91e96660d0aa4750255f8f1fcd4c3c5c9ae5bea8e",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2603189,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 4,
+      "file": "paper-towers",
+      "name": "Paper Towers",
+      "destination": "public/assets/music/covers/paper-towers-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-bb1fab3b-4c1a-422e-bd70-387b56a6a053.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'Paper Towers'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: Monumental folded ivory paper skyscrapers stand on a midnight-blue drafting grid. One coral page is lifting off into the sky like a bird. Beautiful long indigo shadows, thin cyan ledger rulings, surreal paper finance architecture, austere elegant mystery, no currency or readable legal text. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: folded ivory paper skyscrapers, cyan drafting grid and a lifting coral page; architectural forms are readable and maintain the restrained series palette.",
+      "sha256": "882d0ab2c6485a6d3e42db2a63fecc6e1fae07f5cd10beb81150c49213af46c5",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2526257,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 5,
+      "file": "a-future-we-build",
+      "name": "A Future We Build",
+      "destination": "public/assets/music/covers/a-future-we-build-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5b31d00f-ea56-4c13-8d76-8c78c84f1db5.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'A Future We Build'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A luminous coral sun being assembled from floating cream geometric pieces above a small shared workshop and a garden of cyan circuit traces. Two tiny human silhouettes carry a connector together. Hopeful spacious optimistic horizon, warm mint/ivory with dark teal anchors, elegantly dimensional airbrush. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: a coral sun assembled from cream geometric pieces above two tiny collaborators and a circuit garden; hopeful cooperative image with a legible large central motif.",
+      "sha256": "60c27ad9046e243525211d9d0accfda3973a32b3651c17a9d4ffd694957d3531",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2977898,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 6,
+      "file": "after-the-last-train",
+      "name": "After the Last Train",
+      "destination": "public/assets/music/covers/after-the-last-train-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-9985ef4b-a8ad-43f4-88d7-ea56d6777b14.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'After the Last Train'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: One empty Japanese train-platform bench at night with a small portable cassette player, a geometric canopy and a receding rail line. Last train lights are two tiny coral dots at horizon. Electric-blue dusk, muted ivory moon, deeply quiet spacious composition, no people, no title text. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: empty station bench with portable cassette player, receding rails and two distant train lights; spacious moonlit composition communicates the intended quiet aftermath.",
+      "sha256": "385f58cb0a3564a6bdd3bdf561ba0706b41ff35a82744ed56ca62b888c9d1ad7",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2900686,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 7,
+      "file": "credit-line",
+      "name": "Credit Line",
+      "destination": "public/assets/music/covers/credit-line-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5cdbb305-febd-44ec-8cd0-9d28b39aaeeb.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'Credit Line'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A vermilion drafting pencil bridges two distant concrete platforms across an indigo void, its fine cyan drawn line becoming a winding road. Ivory paper receipt spirals into one restrained arch. Tense precise constructivist composition, analog measurement details without readable labels, strong spare central silhouette. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: coral pencil bridges two concrete platforms above a drawn cyan road; a curled receipt completes the analog finance metaphor without readable legal text.",
+      "sha256": "4fa4bc022347f0472aa5bb36385e5b1408f3bba40e6d757dec96571f15fa099a",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2753456,
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 8,
+      "file": "sora-dawn-broadcast",
+      "name": "SORA Dawn Broadcast",
+      "destination": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-d92cca34-5e84-4771-9ec2-7591b3a41ff7.png",
+      "prompt": "Create one square original NFT record sleeve for the SORA CARS electronic composition 'SORA Dawn Broadcast'. Reference image is ONLY for cohesion of tasteful 1980s Japanese record-sleeve art, tactile airbrush and silkscreen grain, and a small quiet SORA wordmark. Make a completely distinct new composition: A giant elegant cream analog radio dial rises as a coral sunrise above an inland indigo lake. Fine concentric cyan transmission rings echo the rising sun, a tiny roof aerial and a silver coffee cup in foreground. Radiant open geometry, nostalgic morning air, warm light, no performers or cassette. Premium original surreal analog-electronic album illustration, strong thumbnail silhouette, carefully limited colors and cream highlights, full bleed square 1024x1024 or larger. The only text is one small restrained 'SORA' in the upper left. No song title, no border or mock UI, no band names, no copied commercial album, no NFT/crypto icons. Do not copy the cassette or layout from the reference.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png"
+      ],
+      "inspection": "Accepted after individual view_image inspection: enormous cream radio dial rises over an indigo lake, with cyan transmission rings, aerial and coffee cup. Decorative FM numerals are readable and suitable to the analog-radio object; this is an album illustration, not a specified broadcast-frequency diagram.",
+      "sha256": "01e81ba2cb5424bfbb8eec81fa863de82b75d148d72c4d6b8f4e1473ab61aad0",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2755919,
+      "sourceBytesMatch": true
+    }
+  ]
+}

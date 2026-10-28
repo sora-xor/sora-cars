@@ -1,0 +1,633 @@
+{
+  "schema": "sora-cars.cutscene-logo-opening-edits.v2",
+  "method": "built-in image_gen.imagegen",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "scope": "Five additional opening scene edits only; original sources retained; runtime mapping handled separately. Two other requested edits delegated before generation.",
+  "status": "complete_after_alpha_correction",
+  "images": [
+    {
+      "name": "ch06-intro",
+      "prompt": "Use case: compositing and transparency preservation. Edit the attached full landscape boardroom cutscene while preserving its three characters, poses, faces, camera, documents, lamps, entire sunset Tokyo skyline, pixel-art style and dimensions. Add the exact red-and-white geometric SORA logo from image 2 as one embroidered patch on the foreground mechanic's upper back, as in the requested branding edit. The main technical requirement is an RGBA PNG with REAL SEMITRANSPARENT ALPHA, preserving the original scene's lower fade. The original image is nearly opaque throughout its upper half, fades gently around 60–70% of image height, becomes mostly transparent through 75–90%, and reaches almost fully transparent at the bottom edge. Preserve that real transparency distribution: the bottom black-looking region is transparent background, NOT solid black pixels. Keep the full visible upper boardroom scene, then make the lower edge softly fade to transparent alpha. Do not output an entirely opaque image. Do not paint a checkerboard. Do not remove the skyline or cut out individual people. Do not render the transparency as black paint. Logo geometry must copy reference image 2: red disk, two equal straight white bars, centered straight stem and two straight open diagonal cutouts continuing through the lower red circle edge, no generic typographic glyph. Keep the SORA emblem fully visible above the fade.",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch06-intro-opening.png",
+      "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+      "logo": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+      "status": "accepted_after_visual_and_alpha_QA",
+      "sourceEvidence": {
+        "path": "public/assets/story/scenes/ch06-intro-opening.png",
+        "sha256": "b4529883ade5ae02f0c898d3d570a0a7518dcf73940f5699a5fe655283644950",
+        "bytes": 2054938,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 6,
+        "opaque": false,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 0,
+          "max": 253,
+          "nonOpaquePixels": 1573352,
+          "fullyTransparentPixels": 132,
+          "meanByVerticalDecile": [
+            251.5071324951644,
+            251.77868904611626,
+            251.7899954189148,
+            251.69203018426143,
+            251.7952763921409,
+            249.9225542095083,
+            203.49021429298585,
+            71.31996335131834,
+            19.04984475211239,
+            2.135853689247041
+          ]
+        }
+      },
+      "outputEvidence": {
+        "path": "public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+        "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+        "bytes": 2043881,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 6,
+        "opaque": false,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 0,
+          "max": 253,
+          "nonOpaquePixels": 1573352,
+          "fullyTransparentPixels": 91340,
+          "meanByVerticalDecile": [
+            252.43271531100478,
+            252.6624503715769,
+            252.57956454240048,
+            252.51809528657233,
+            252.53087778682684,
+            252.03708133971293,
+            231.17784790797108,
+            110.2553382367912,
+            11.975930214801995,
+            0.45219088390833545
+          ]
+        }
+      },
+      "generatedSource": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-06751f59-b778-4ac4-b7f2-66754136b33a.png",
+        "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+        "bytes": 2043881,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 6,
+        "opaque": false,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 0,
+          "max": 253,
+          "nonOpaquePixels": 1573352,
+          "fullyTransparentPixels": 91340,
+          "meanByVerticalDecile": [
+            252.43271531100478,
+            252.6624503715769,
+            252.57956454240048,
+            252.51809528657233,
+            252.53087778682684,
+            252.03708133971293,
+            231.17784790797108,
+            110.2553382367912,
+            11.975930214801995,
+            0.45219088390833545
+          ]
+        }
+      },
+      "qa": {
+        "inputsInspectedWithViewImage": true,
+        "outputInspectedWithViewImage": true,
+        "detail": "original",
+        "referenceGeometryRecognizable": true,
+        "logoFullyAboveBottomQuarter": true,
+        "sceneIdentityAndCameraPreserved": true,
+        "sourceHashMatchesOriginalAudit": true,
+        "workspaceCopyMatchesGeneratedBytes": true,
+        "pixelIdenticalLogoClaimed": false,
+        "transparencyPreserved": true,
+        "pixelIdenticalAlphaClaimed": false,
+        "notes": {
+          "placement": "Foreground mechanic upper-back patch, approximately x=21.5%, y=35%.",
+          "geometry": "Two near-equal straight white bars, centered stem and open straight diagonals continue to the red circular edge; lower red wedge retained.",
+          "scene": "All three characters, sunset boardroom camera, skyline, hands, documents and props preserved.",
+          "alpha": "Actual decoded alpha0..253. Upper scene remains nearly opaque; lower scene fades smoothly to real transparency. Decile means are recorded for both source and output; gradient shape is similar but not pixel-identical. No software alpha transfer or compositing used."
+        }
+      },
+      "history": [
+        {
+          "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Keep the final image opaque and the same wide composition.\nSpecific edit: Add one clearly legible circular red-and-white embroidered SORA patch, about 100 pixels across at this image scale, to the broad visible upper back of the foreground bob-haired mechanic's white T-shirt, around x=23%, y=34%. It must look sewn onto the shirt and fit its folds. Preserve the suited blonde across the boardroom table, the photographer on the left, every document, and sunset city window.",
+          "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch06-intro-opening-logo-v2.png",
+          "generatedSource": {
+            "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-ff407a84-9800-4c72-9e54-4edf112b5aae.png",
+            "sha256": "1dd385970d96dceb15acee42372cfc135556bbd105371a48d04b9da886e16a8c",
+            "bytes": 1699897,
+            "dimensions": {
+              "width": 1672,
+              "height": 941
+            },
+            "pngBitDepth": 8,
+            "pngColorType": 2,
+            "opaque": true,
+            "alpha": {
+              "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+              "min": 255,
+              "max": 255,
+              "nonOpaquePixels": 0,
+              "fullyTransparentPixels": 0,
+              "opaque": true
+            }
+          },
+          "outputEvidence": {
+            "path": "public/assets/story/scenes/ch06-intro-opening-logo-v2.png",
+            "sha256": "1dd385970d96dceb15acee42372cfc135556bbd105371a48d04b9da886e16a8c",
+            "bytes": 1699897,
+            "dimensions": {
+              "width": 1672,
+              "height": 941
+            },
+            "pngBitDepth": 8,
+            "pngColorType": 2,
+            "opaque": true,
+            "alpha": {
+              "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+              "min": 255,
+              "max": 255,
+              "nonOpaquePixels": 0,
+              "fullyTransparentPixels": 0,
+              "opaque": true
+            }
+          },
+          "status": "superseded_alpha_flattened",
+          "qa": {
+            "inputsInspectedWithViewImage": true,
+            "outputInspectedWithViewImage": true,
+            "detail": "original",
+            "referenceGeometryRecognizable": true,
+            "logoFullyAboveBottomQuarter": true,
+            "sceneIdentityAndCameraPreserved": true,
+            "sourceHashMatchesOriginalAudit": true,
+            "workspaceCopyMatchesGeneratedBytes": true,
+            "pixelIdenticalLogoClaimed": false,
+            "notes": {
+              "placement": "Foreground mechanic upper-back shirt patch, approximately x=22%, y=34%.",
+              "geometry": "Two near-equal straight white bars, centered stem and straight diagonal openings meet the red disk edge; embroidered border is a physical patch edge.",
+              "scene": "Preserved the three characters, sunset boardroom camera, documents, hands and dark lower dialogue region."
+            },
+            "transparencyPreserved": false,
+            "acceptanceCorrection": "Scene and emblem geometry accepted visually, but v2 flattened source transparency and must not be used as the final correction."
+          }
+        },
+        {
+          "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Preserve the original image's existing transparency and the same wide composition. The original is an RGBA image: keep its complete scene and its original soft lower transparency gradient; do not flatten that gradient to opaque black. Do not remove any background scenery, furniture, window skyline or character. Output transparent PNG only where the original has transparency, preserving the overall original alpha treatment.\nSpecific edit: Add one clearly legible circular red-and-white embroidered SORA patch, about 100 pixels across at this image scale, to the broad visible upper back of the foreground bob-haired mechanic's white T-shirt, around x=23%, y=34%. It must look sewn onto the shirt and fit its folds. Preserve the suited blonde across the boardroom table, the photographer on the left, every document, and sunset city window.\nTransparency preservation is essential: this is a full cutscene edit with the original lower-edge alpha fade, not a character cutout or a new transparent background replacing the room. Keep the entire sunset boardroom scene intact. Only add the same clearly visible SORA patch to the foreground mechanic's upper back.",
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-8869190b-e58c-478e-81a0-80be918ff568.png",
+          "transparent_background": true,
+          "status": "rejected_alpha_flattened",
+          "outputEvidence": {
+            "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-8869190b-e58c-478e-81a0-80be918ff568.png",
+            "sha256": "95c9826cf1afad542b21a55a07930c2835b16c7feaa77f2d03b7bc5d9886c080",
+            "bytes": 1664529,
+            "dimensions": {
+              "width": 1672,
+              "height": 941
+            },
+            "pngBitDepth": 8,
+            "pngColorType": 2,
+            "opaque": true,
+            "alpha": {
+              "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+              "min": 255,
+              "max": 255,
+              "nonOpaquePixels": 0,
+              "fullyTransparentPixels": 0,
+              "meanByVerticalDecile": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          }
+        },
+        {
+          "prompt": "Use case: compositing and transparency preservation. Edit the attached full landscape boardroom cutscene while preserving its three characters, poses, faces, camera, documents, lamps, entire sunset Tokyo skyline, pixel-art style and dimensions. Add the exact red-and-white geometric SORA logo from image 2 as one embroidered patch on the foreground mechanic's upper back, as in the requested branding edit. The main technical requirement is an RGBA PNG with REAL SEMITRANSPARENT ALPHA, preserving the original scene's lower fade. The original image is nearly opaque throughout its upper half, fades gently around 60–70% of image height, becomes mostly transparent through 75–90%, and reaches almost fully transparent at the bottom edge. Preserve that real transparency distribution: the bottom black-looking region is transparent background, NOT solid black pixels. Keep the full visible upper boardroom scene, then make the lower edge softly fade to transparent alpha. Do not output an entirely opaque image. Do not paint a checkerboard. Do not remove the skyline or cut out individual people. Do not render the transparency as black paint. Logo geometry must copy reference image 2: red disk, two equal straight white bars, centered straight stem and two straight open diagonal cutouts continuing through the lower red circle edge, no generic typographic glyph. Keep the SORA emblem fully visible above the fade.",
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-06751f59-b778-4ac4-b7f2-66754136b33a.png",
+          "transparent_background": true,
+          "status": "accepted_real_alpha_gradient",
+          "outputEvidence": {
+            "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-06751f59-b778-4ac4-b7f2-66754136b33a.png",
+            "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+            "bytes": 2043881,
+            "dimensions": {
+              "width": 1672,
+              "height": 941
+            },
+            "pngBitDepth": 8,
+            "pngColorType": 6,
+            "opaque": false,
+            "alpha": {
+              "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+              "min": 0,
+              "max": 253,
+              "nonOpaquePixels": 1573352,
+              "fullyTransparentPixels": 91340,
+              "meanByVerticalDecile": [
+                252.43271531100478,
+                252.6624503715769,
+                252.57956454240048,
+                252.51809528657233,
+                252.53087778682684,
+                252.03708133971293,
+                231.17784790797108,
+                110.2553382367912,
+                11.975930214801995,
+                0.45219088390833545
+              ]
+            }
+          }
+        }
+      ],
+      "transparent_background": true
+    },
+    {
+      "name": "ch06-victory",
+      "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Keep the final image opaque and the same wide composition.\nSpecific edit: Add one clearly legible circular red-and-white embroidered SORA patch, about 90 pixels across at this image scale, to the photographer's visible denim upper sleeve at x=35%, y=38%. Preserve the photograph exchange, five people, camera, cars, map board, mountains and sunset.",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch06-victory-opening.png",
+      "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+      "logo": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+      "status": "accepted_after_visual_QA",
+      "sourceEvidence": {
+        "path": "public/assets/story/scenes/ch06-victory-opening.png",
+        "sha256": "c0d48abe1f9523247b152cd0ce793a3e2a543539826b71615d5e2e8f497be7bb",
+        "bytes": 2439821,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "outputEvidence": {
+        "path": "public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+        "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+        "bytes": 2290115,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "generatedSource": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-cb87c28a-0d79-4ae9-ae9e-cad754564e8b.png",
+        "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+        "bytes": 2290115,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "qa": {
+        "inputsInspectedWithViewImage": true,
+        "outputInspectedWithViewImage": true,
+        "detail": "original",
+        "referenceGeometryRecognizable": true,
+        "logoFullyAboveBottomQuarter": true,
+        "sceneIdentityAndCameraPreserved": true,
+        "sourceHashMatchesOriginalAudit": true,
+        "workspaceCopyMatchesGeneratedBytes": true,
+        "pixelIdenticalLogoClaimed": false,
+        "notes": {
+          "placement": "Photographer denim upper-sleeve patch, approximately x=35.5%, y=38%.",
+          "geometry": "Paired straight white bars and a centered stem remain recognizable with slight sleeve perspective; straight diagonal openings meet the red disk edge.",
+          "scene": "Preserved the photograph exchange, five characters, camera, route boards, cars and sunset mountains."
+        }
+      }
+    },
+    {
+      "name": "ch09-intro",
+      "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Keep the final image opaque and the same wide composition.\nSpecific edit: Add one clearly legible circular red-and-white embroidered SORA patch, about 95 pixels across at this image scale, to the courier's dark blue jacket chest on the viewer's right, centered near x=44%, y=35%. Preserve the headband, expression, hands, pencil, all detailed route maps, radio, moonlit harbor and van.",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-opening.png",
+      "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+      "logo": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+      "status": "accepted_after_visual_QA",
+      "sourceEvidence": {
+        "path": "public/assets/story/scenes/ch09-intro-opening.png",
+        "sha256": "b95a70df1251d494aca31742ecfdae60d88dc2ab8fd364c70eb7d335f13e0cbe",
+        "bytes": 2249668,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "outputEvidence": {
+        "path": "public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+        "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+        "bytes": 2145158,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "generatedSource": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-0c7df795-9c5a-4503-a0bb-8f07127d20cd.png",
+        "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+        "bytes": 2145158,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "qa": {
+        "inputsInspectedWithViewImage": true,
+        "outputInspectedWithViewImage": true,
+        "detail": "original",
+        "referenceGeometryRecognizable": true,
+        "logoFullyAboveBottomQuarter": true,
+        "sceneIdentityAndCameraPreserved": true,
+        "sourceHashMatchesOriginalAudit": true,
+        "workspaceCopyMatchesGeneratedBytes": true,
+        "pixelIdenticalLogoClaimed": false,
+        "notes": {
+          "placement": "Courier jacket chest patch, approximately x=42.5%, y=40%.",
+          "geometry": "Pixel-art red disk with near-equal straight white bars, centered stem and two straight diagonal openings through its lower red edge.",
+          "scene": "Preserved the headband, facial expression, pencil and hands, route maps, radio, moonlit harbor and van."
+        }
+      }
+    },
+    {
+      "name": "ch09-victory",
+      "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Keep the final image opaque and the same wide composition.\nSpecific edit: Add one clearly legible circular red-and-white SORA patch, about 110 pixels across at this image scale, to the broad visible upper back of the foreground mechanic's white T-shirt, centered near x=15%, y=43%. Preserve her pose, every workcrew member, toolboxes, sealed envelopes, cars and sunset lake view.",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-victory-opening.png",
+      "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+      "logo": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+      "status": "accepted_after_visual_QA",
+      "sourceEvidence": {
+        "path": "public/assets/story/scenes/ch09-victory-opening.png",
+        "sha256": "23cac0181b40d009b203849e09555a898c2fe0b42aa68169a8275b49e7f99377",
+        "bytes": 2559353,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "outputEvidence": {
+        "path": "public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+        "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+        "bytes": 2460715,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "generatedSource": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-a3071322-43cf-4f83-a6e1-7ae358fda51c.png",
+        "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+        "bytes": 2460715,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "qa": {
+        "inputsInspectedWithViewImage": true,
+        "outputInspectedWithViewImage": true,
+        "detail": "original",
+        "referenceGeometryRecognizable": true,
+        "logoFullyAboveBottomQuarter": true,
+        "sceneIdentityAndCameraPreserved": true,
+        "sourceHashMatchesOriginalAudit": true,
+        "workspaceCopyMatchesGeneratedBytes": true,
+        "pixelIdenticalLogoClaimed": false,
+        "notes": {
+          "placement": "Foreground mechanic upper-back shirt print, approximately x=13%, y=46%.",
+          "geometry": "Prominent equal-width straight white bars, central stem and straight open diagonal cutouts through the red circle; lower red wedge retained.",
+          "scene": "Preserved foreground pose, six workcrew characters, toolboxes, envelopes, cars and sunset lake."
+        }
+      }
+    },
+    {
+      "name": "ch10-intro",
+      "prompt": "Use case: compositing. Asset type: 16:9 pixel-art game cutscene. Image 1 is the edit target. Image 2 is the exact SORA emblem supporting insert reference. Edit image 1 only. Preserve its exact camera, crop, characters, facial identities, clothing, actions, all story props, perspective, scenery, time of day, pixel-art texture and lower dialogue-safe shading. Make one precise addition: a faithful physical SORA emblem integrated into the named surface. Reproduce image 2's geometry, not a typeset kanji: red circular disk with two equal-length straight white horizontal bars, a centered straight white vertical stem, and two straight white diagonal cutouts that continue openly through the lower circular edge, leaving the red central lower wedge. Match the reference's proportions; no curved calligraphy, no short upper bar, no generic 天 glyph, no enclosed lower white legs, no added text. Render the emblem cleanly and recognizably in the scene's pixel-art language with surface-consistent lighting. Keep it fully above the lower 25% dialogue region. Keep the final image opaque and the same wide composition.\nSpecific edit: Add one clearly legible red-and-white circular SORA badge on a small flat physical enamel plaque fixed to the front of the dark wooden credenza along the left wall, around x=15%, y=25%, about 85 pixels across at this image scale. Use the existing empty wooden panel space below the flowers and decorative objects. Preserve both women's clothes and poses, every contract and drawing on the table, the rain, city lights and camera framing.",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch10-intro-opening.png",
+      "destination": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+      "logo": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+      "status": "accepted_after_visual_QA",
+      "sourceEvidence": {
+        "path": "public/assets/story/scenes/ch10-intro-opening.png",
+        "sha256": "2e5e461be3ff8126a1a781f84618cb5df8ea9a6083fffa35ad6420fa31cdb556",
+        "bytes": 2340983,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "outputEvidence": {
+        "path": "public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+        "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+        "bytes": 2209433,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "generatedSource": {
+        "path": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-bed6-73e2-b125-d93bc5a3533e/exec-3d895f87-943e-4a31-aee9-bde283ea948a.png",
+        "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+        "bytes": 2209433,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngBitDepth": 8,
+        "pngColorType": 2,
+        "opaque": true,
+        "alpha": {
+          "method": "pngjs decoded RGBA pixels; read-only alpha inspection",
+          "min": 255,
+          "max": 255,
+          "nonOpaquePixels": 0,
+          "fullyTransparentPixels": 0,
+          "opaque": true
+        }
+      },
+      "qa": {
+        "inputsInspectedWithViewImage": true,
+        "outputInspectedWithViewImage": true,
+        "detail": "original",
+        "referenceGeometryRecognizable": true,
+        "logoFullyAboveBottomQuarter": true,
+        "sceneIdentityAndCameraPreserved": true,
+        "sourceHashMatchesOriginalAudit": true,
+        "workspaceCopyMatchesGeneratedBytes": true,
+        "pixelIdenticalLogoClaimed": false,
+        "notes": {
+          "placement": "Physical round enamel plaque on left credenza front, approximately x=14.7%, y=29.5%.",
+          "geometry": "Paired near-equal straight white bars, centered stem and straight diagonal openings reach the red disk edge inside a thin physical plaque rim.",
+          "scene": "Preserved both women, gestures, table plans and contracts, furniture, rain, city skyline and framing."
+        }
+      }
+    }
+  ],
+  "delegated": {
+    "images": [
+      "ch11-victory",
+      "retry"
+    ],
+    "agent": "/root/remaining_sunrise_art",
+    "provenance": "docs/art-prompts/cutscene-logo-openings-c-v2.json"
+  },
+  "referenceEvidence": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "bytes": 104489,
+    "dimensions": {
+      "width": 1678,
+      "height": 1432
+    },
+    "pngBitDepth": 8,
+    "pngColorType": 6,
+    "opaque": false
+  },
+  "savedAt": "2026-09-26T01:17:00.885789+00:00",
+  "checkedAt": "2026-09-26T01:31:18.721Z",
+  "referenceInspectedWithViewImage": true,
+  "alphaAuditCorrection": {
+    "checkedAt": "2026-09-26T01:23:55.867Z",
+    "reason": "Corrected opacity inspection to inspect decoded alpha values rather than infer from PNG color type. Four source RGBA PNGs have alpha 255 everywhere. ch06-intro source has alpha range 0..253 and its v2 output incorrectly flattened transparency.",
+    "outcome": "Other four source PNGs confirmed fully opaque through decoded alpha. ch06-intro v2 is retained but superseded by v3 from a built-in transparent edit. First transparent attempt was rejected for all255 alpha; targeted follow-up produced a real lower alpha gradient."
+  }
+}

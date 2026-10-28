@@ -1,0 +1,181 @@
+{
+  "schema": "sora-cars.opening-emblem-audit.v1",
+  "passed": true,
+  "checkedAt": "2026-09-26T01:37:44.269128+00:00",
+  "reference": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+  },
+  "scope": "The 15 opening artworks audited before further per-cut expansion, with 13 corrected and two already carrying the supplied emblem. This is not an audit of all additional per-cut illustrations being authored concurrently.",
+  "originalAudit": {
+    "path": "tmp/music-native-release/art-scope-review/extra-cut-emblem-audit.json",
+    "sha256": "15bcb355b8f0883265bf328f10f8b0bf29df9649df7ee08898e1cf0542294ffd"
+  },
+  "mapping": {
+    "path": "tmp/music-native-release/opening-logo-replacements.json",
+    "sha256": "f8f8072ddf07947f685d0340f824d8cea06433f81690c96507a2358e79cacb1f"
+  },
+  "browser": {
+    "path": "output/browser/cutscene-logo-38/report.json",
+    "sha256": "0b71c79809cfef1eaf777393741ffef7c937bdadf32f3374b85674e8e0a113f5",
+    "checkedCorrectedCutsceneImages": 35,
+    "widths": [
+      1440,
+      390,
+      320
+    ]
+  },
+  "files": [
+    {
+      "path": "public/assets/story/scenes/ch01-victory-opening-logo-v2.png",
+      "sha256": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch01-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-opening-logo-v2.png",
+      "sha256": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch02-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-opening-logo-v2.png",
+      "sha256": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch03-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-opening-logo-v2.png",
+      "sha256": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch04-intro-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-opening-logo-v2.png",
+      "sha256": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch04-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-opening-logo-v2.png",
+      "sha256": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch05-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-a-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+      "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch06-intro-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-b-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+      "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch06-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-b-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+      "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-intro-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-b-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+      "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-b-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+      "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch10-intro-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-b-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-opening-logo-v2.png",
+      "sha256": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch11-victory-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-c-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-opening.png",
+      "sha256": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "observation": "Large upper facade SORA sign has a pale disk with near-equal straight red bars, central stem and straight diagonals opening through the lower disk boundary. The recognizable reference geometry is clearly visible above the lower quarter.",
+      "placement": "Upper garage fascia sign at x=73%, y=6%."
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-opening.png",
+      "sha256": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "observation": "Large red-and-white patch on the photographer\u2019s back has paired straight bars, a central stem and straight diagonal openings through the lower circle edge. It is clearly visible above the lower quarter. Smaller car and crew emblems are secondary and looser; their fidelity is not needed for this classification.",
+      "placement": "Photographer\u2019s back at x=93%, y=62%."
+    },
+    {
+      "path": "public/assets/story/scenes/retry-opening-logo-v2.png",
+      "sha256": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/retry-opening.png",
+      "originalUnchanged": true,
+      "provenance": "docs/art-prompts/cutscene-logo-openings-c-v2.json",
+      "pixelIdenticalLogoClaimed": false
+    }
+  ],
+  "limitations": [
+    "Scene perspective, lighting and pixel texture affect the emblem; pixel-identical logo reproduction is not claimed.",
+    "ch06 intro retains actual transparency and lower fade; exact alpha pixels differ as recorded in its provenance.",
+    "Newly authored per-cut illustrations require their own emblem review."
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "assets": [
+    {
+      "id": "fern_02",
+      "authors": [
+        "Rico Cilliers (modeling)",
+        "Rob Tuytel (scanning)"
+      ],
+      "source": "https://polyhaven.com/a/fern_02"
+    },
+    {
+      "id": "grass_medium_01",
+      "authors": [
+        "Rico Cilliers (modeling)",
+        "Rob Tuytel (photography)"
+      ],
+      "source": "https://polyhaven.com/a/grass_medium_01"
+    }
+  ],
+  "adaptation": "Original authored plant geometry and 2K PBR maps. Catalog translations removed at runtime. Individual fern/grass specimens are instanced as 3D plants. No whole-plant camera-facing billboard. The source glTF JPEG diffuse maps omit alpha; original PNG opacity maps are explicitly restored on individual fronds and blades. Shared original normal/roughness maps are retained.",
+  "files": [
+    {
+      "path": "fern_02/fern_02_2k.gltf",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/fern_02/fern_02_2k.gltf",
+      "bytes": 6899,
+      "md5": "904c73900125e017f5e76ac1cdd906fe",
+      "sha256": "50540d37531f93fd693d5340d5b3095c9d6d2834fa05c74bea797d54f290cb6a"
+    },
+    {
+      "path": "fern_02/textures/fern_02_diff_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_diff_2k.jpg",
+      "bytes": 993703,
+      "md5": "ba8bbb9dc9ff55bdc081565cd926d776",
+      "sha256": "9ee18172170728050871772e2cd6d8d37b52f9138e61b49b04486623f9caf84b"
+    },
+    {
+      "path": "fern_02/textures/fern_02_arm_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_arm_2k.jpg",
+      "bytes": 850856,
+      "md5": "7f7b46e813a3cb4811405191de0ecdce",
+      "sha256": "1eaf9bd29e2d83a77ca5d89bdddebcd9216b8b4ba244644580fe5b89bbe713f1"
+    },
+    {
+      "path": "fern_02/fern_02.bin",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/fern_02/fern_02.bin",
+      "bytes": 176176,
+      "md5": "c061e9255f7d36ae9ce0e92ef3e100b2",
+      "sha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c"
+    },
+    {
+      "path": "fern_02/textures/fern_02_nor_gl_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/fern_02/fern_02_nor_gl_2k.jpg",
+      "bytes": 1365615,
+      "md5": "00936dff4661dc9fe1f2fbe6c000615a",
+      "sha256": "dfe1ac4a428d21f7c134411500177d66b8dd800c8fec6f0040c50f44414a777b"
+    },
+    {
+      "path": "grass_medium_01/grass_medium_01_2k.gltf",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/grass_medium_01/grass_medium_01_2k.gltf",
+      "bytes": 27110,
+      "md5": "784c287f7828f8e30c4d28ebcbd90f6e",
+      "sha256": "aed63929a83fb694e6884e3a5c0fdb962ab8cf9153830247c8201a482ff02664"
+    },
+    {
+      "path": "grass_medium_01/textures/grass_medium_01_nor_gl_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/grass_medium_01/grass_medium_01_nor_gl_2k.jpg",
+      "bytes": 3530394,
+      "md5": "7c75ce52a121de1fc00422672584f757",
+      "sha256": "245349ce6d1910b3b7474da6013452a5be993f9058be78e17171a0866a6889e9"
+    },
+    {
+      "path": "grass_medium_01/textures/grass_medium_01_diff_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/grass_medium_01/grass_medium_01_diff_2k.jpg",
+      "bytes": 1166527,
+      "md5": "000814eb2149add70695cf71bfb52c4b",
+      "sha256": "f768aa68daf14f37a92dd96621628a5252b169f4d94b4d1cc830d62cd3ac9e68"
+    },
+    {
+      "path": "grass_medium_01/textures/grass_medium_01_arm_2k.jpg",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/grass_medium_01/grass_medium_01_arm_2k.jpg",
+      "bytes": 2256355,
+      "md5": "a530c693ba3d08be15fcbce33dc5dabe",
+      "sha256": "7b593b1c470c1817b937bb3ca00da7e4b27ca00120e98b06b43bb3a7d5810aa1"
+    },
+    {
+      "path": "grass_medium_01/grass_medium_01.bin",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/grass_medium_01/grass_medium_01.bin",
+      "bytes": 1006632,
+      "md5": "e0527a0561c2dae5b7b5c1b478d8c6bf",
+      "sha256": "f4587cabdb96a2e96d8be644923dc954a248edfaaa717a0ff224cacb898bee1f"
+    },
+    {
+      "path": "fern_02/textures/fern_02_alpha_2k.png",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/fern_02/fern_02_alpha_2k.png",
+      "bytes": 230089,
+      "md5": "ff18f7e8e869c58eac8f9c7d7c519f4a",
+      "sha256": "f51eb9b8f9f4b25a882f8fe12d1ef53ba69448bac7e71396ec1f05b684e9ea75"
+    },
+    {
+      "path": "grass_medium_01/textures/grass_medium_01_alpha_2k.png",
+      "source": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/grass_medium_01/grass_medium_01_alpha_2k.png",
+      "bytes": 1580653,
+      "md5": "0810166131307c1094d37e73a8490542",
+      "sha256": "4af2c3d5ebf167764ad3746f8c925dc4fbe28f0df023656599123cb593b793dd"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "computation": "ClassedRaceV1",
+  "classId": {
+    "kind": "touring_s1",
+    "value": null
+  },
+  "transitions": 816,
+  "compiledIntoNativeRegistry": false,
+  "generator": {
+    "scriptSha256": "878bbddb80c867b527e2e55b7a6344661b49c18f4d77ab23120453e529914a57",
+    "lifecycleSha256": "53abb0aac5008f57a78f85d7aab4ad3c29ae422de5f54659d91a4b8788477a9f",
+    "sourceVerifierSha256": "54ebc7321b4e964ee5f1f1a7d202e794a7cac5ca2caebe92f0551821771daf4e",
+    "boundedIoSha256": "520092e89fdcc9a4ba872c10238dea9ebc21289b897094cc4b9edaaa13f42531",
+    "nativeLauncherSha256": "7a27cad34c4085dc89edf92749d7e140cb2741ec116646b6c704ac8acef6e9dc"
+  },
+  "nativeCliSha256": "f681726784e4f533ae684c9bb071febeb6af336481935c9d78fe8d381241d188",
+  "nativeRoot": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
+  "capturedBinary": {
+    "path": "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
+    "bytes": 127423808,
+    "sha256": "f681726784e4f533ae684c9bb071febeb6af336481935c9d78fe8d381241d188",
+    "launcher": {
+      "source": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/javascript/iroha_js/verify-pinned-native.mjs",
+      "retained": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/native-launcher.mjs",
+      "bytes": 6187,
+      "sha256": "7a27cad34c4085dc89edf92749d7e140cb2741ec116646b6c704ac8acef6e9dc"
+    }
+  },
+  "exportEvidenceDir": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final",
+  "commands": [
+    {
+      "argv": [
+        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
+        "--machine",
+        "app",
+        "execution",
+        "export-touring-kernels",
+        "--output-file",
+        "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/classed-race-v1-kernels.json"
+      ],
+      "cwd": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
+      "pid": 13410,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false
+    },
+    {
+      "argv": [
+        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
+        "--machine",
+        "app",
+        "execution",
+        "export-touring-parity",
+        "--output-file",
+        "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/native-classed-race-v1.json"
+      ],
+      "cwd": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
+      "pid": 13412,
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false
+    }
+  ],
+  "rulesHash": "f510a7897ed4469cc896297336188630710b4dd6a4110e91e01b84a6d8d69fab",
+  "profileId": "c5326256b3d4fa93059fe1ae7ad3c3b783538e654be3b48b330a5a913cee2ca7",
+  "sources": {
+    "environment.rs": "484e90c7a818edc08a52dd381ac1cb129eb94e20fc80952aff82a88e931ddbd2",
+    "environment_air.rs": "12cd1876844cdf738fe39438c835ffb724a8a32ab85080492be0dadffa41ee3c",
+    "integer_air.rs": "1a5c4b233641943bbcf08faa5f987ce9385438bc71cbc4cd9ca6f1b558ee85cb",
+    "race_air.rs": "3469d92662156330d0170b57667bf07ac7fa9ffba149cce238fc102d588747da",
+    "reference.rs": "279663cd41d2faf59cad0e6d19fbeec72a76874e8458de972cf5e2e48e98a0e6",
+    "rules.rs": "d162f4e8ccc8e75d47b11f4a5b8f047278498a58e4f8fd7228b5686933efe33b"
+  },
+  "profileSources": {
+    "crates/fastpq_isi/src/assets/poseidon_goldilocks_width3_v1.bin": "7b30fe50faeddb74a7433bc65a43b7c6b46484b36eab5a65869e08894166dfde",
+    "crates/fastpq_isi/src/params.rs": "a760177d05cd9efab983772837cfe1bfe7a541b24cbd7334ebe633a5f0b585b1",
+    "crates/fastpq_isi/src/poseidon.rs": "1cf89ff798f7b029462b278429aa44e36eb4cf61ef7032e8fb2813bed4dabb84",
+    "crates/fastpq_isi/src/poseidon_digest384.rs": "c5a17d1b2315b31ab6056a4f2f0637188525d88a1178a39c3dd0bc6b9f764a6a",
+    "crates/iroha_core/src/execution_proofs/checked_integer_air.rs": "b579ccc43663fc8a0377b2937395ff4e1148f39eb9b45b07274d95899b78a6a1",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/admission.rs": "f46f486766c5f01e462588e37ab430511926405596fa80907c1cbf1fb10b591e",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/environment.rs": "484e90c7a818edc08a52dd381ac1cb129eb94e20fc80952aff82a88e931ddbd2",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/environment_air.rs": "12cd1876844cdf738fe39438c835ffb724a8a32ab85080492be0dadffa41ee3c",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/history.rs": "309ebdc65d4d56d879207a26c625bfdd3ecffc1c2e4174cbdac9edcf98466533",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/proof.rs": "3f2d7d65126b4e037792f87f93c49a911732ae5a59c33fff3c72286eb1a70142",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/race_air.rs": "3469d92662156330d0170b57667bf07ac7fa9ffba149cce238fc102d588747da",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/reference.rs": "279663cd41d2faf59cad0e6d19fbeec72a76874e8458de972cf5e2e48e98a0e6",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/rules.rs": "d162f4e8ccc8e75d47b11f4a5b8f047278498a58e4f8fd7228b5686933efe33b",
+    "crates/iroha_core/src/execution_proofs/classed_race_v1/staged_race_air.rs": "f6c83a5328cc725d0ffada322687e84cd3f18dc12fa48a829c88ebdf636ac2a9",
+    "crates/iroha_core/src/execution_proofs/game_binding.rs": "f2ccfc765fc10cb83ef8cda272bd5899e7e6d54acad6a4128e8c1bb9de2e5a73",
+    "crates/iroha_core/src/execution_proofs/guarded/accepted_history.rs": "f15c1566bcbb3fab7ecafb175f2ed266d9de890431b06c66853785f9f5756d34",
+    "crates/iroha_core/src/execution_proofs/integer_air.rs": "1a5c4b233641943bbcf08faa5f987ce9385438bc71cbc4cd9ca6f1b558ee85cb",
+    "crates/iroha_core/src/execution_proofs/integer_air/weighted.rs": "88dbc69ba8c82a4412794fbda24d53d92c9410a0b1be0d97dfbbc7e0aa94d982",
+    "crates/iroha_core/src/execution_proofs/poseidon2.rs": "9aad7c0defb7352b590b8eafa421dd0e8c38cf0940bfa56b3b206f49d37a7b48",
+    "crates/iroha_core/src/execution_proofs/poseidon2_constants.rs": "d2f0c4f1aed8bfb516ff4bf16beec08d69603c9031cc1e25ec1de670063cdaa1",
+    "crates/iroha_core/src/execution_proofs/record_binding.rs": "7e065d4bbbfd13cb5e87694ae3a33b08026dd2856c52522cb7e80c7726a5c6b2",
+    "crates/iroha_core/src/execution_proofs/stark/aggregate_stark.rs": "ded7b1c215fc0b7e110db352db146b82e6721dc16c779777b9d1ed9612ca3947",
+    "crates/iroha_core/src/execution_proofs/stark/fft.rs": "f4b37049590deb7fc5d34a347fb3698ce586712597b6517a464b9591d58db502",
+    "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark.rs": "1b19d2e07d4053e3bf9e2f13e63fd0c13aa5f81f4184a827027b38d45418a486",
+    "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_deep_air.rs": "50aeb650ca5860f6ed8fc5981e2813155a9ee2b2cc4f95d2ea0f2343e6b32248",
+    "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_execution_fixed.rs": "572deae5b8eae7167e610d63613f52afffcc313a9b2babf3f0894fb03b98c75e",
+    "crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs": "f39239c7a85496af6bd42bee1d6d0815d48bcc17aa70546b589c5dd4a819734b",
+    "crates/iroha_core/src/privacy_engines/transparent_stark.rs": "c51b2752fda6b4638a0a85a63b5661ceab8a798bbfb41b0cb9a04c0a55da36b5",
+    "crates/iroha_crypto/src/lib.rs": "0abaf3365686e40ccbc871e1061ba3f1b3af48978176bcaf61036a0ed39b69c0",
+    "crates/iroha_crypto/src/sha3_384.rs": "68df417212fb126d312440b81ba171351468123f3747f80376d3bcc772818f23",
+    "crates/iroha_crypto/src/signature/ed25519.rs": "400351f3a0337b1b40a560b33b3aaf4b8b77080ca93e4b1a2d449b41fa81a7dc",
+    "crates/iroha_crypto/src/signature/mod.rs": "18d8bc87eca9284b9786fe5f323af1f3ae92fc34c4cdc5080eff38495c3ebabe",
+    "crates/iroha_data_model/src/classed_race_v1.rs": "ce5339186f407a941600079ae555d35765665636165ff5c0274090b9b175a490",
+    "crates/iroha_data_model/src/execution_proofs.rs": "77d9995a66df5e807324e0eb0d3ca6847833b47d5007f903781225e6a7a5812f",
+    "crates/iroha_data_model/src/execution_proofs/game_bundle.rs": "1f53ac205e73d0d87179651a3fc754b31b062062f3720c34c314ec2aec4dc5f3",
+    "crates/iroha_data_model/src/game.rs": "98e537537747166ab78a577985d6609b00c6c0521c0e9108a449e75d1d7e9091",
+    "crates/iroha_data_model/src/game_certificates.rs": "1ed680512ea26ab194c73feee437c7f0ede13ef12901ea04806af456b431aacd",
+    "crates/iroha_data_model/src/game_certificates/gameplay.rs": "e0c536f970387aed78ef024aedbd71bbd1fc1ce926880091041d50f74ee14a5a",
+    "crates/iroha_data_model/src/game_certificates/history.rs": "1adf85cb3b03ada716bf821cb460543cacaef7bc9e9409ac73beff92be8e1786",
+    "crates/iroha_data_model/src/game_certificates/history/transcript.rs": "8dcf8e992e4466781b00cddcf46591a1177f072e02e0f9a2fe49b3a9608af015",
+    "crates/iroha_data_model/src/game_certificates/lifecycle.rs": "8f17d5351deb07749f61774b8065345f81984b97a045420a55ca93acfb8306a7",
+    "crates/iroha_data_model/src/game_resources.rs": "fa5ac9ca9ec7864a9cc2924169fe88fb914892cd53c73e65fe4e8e9e27969458",
+    "crates/iroha_data_model/src/game_retention.rs": "29c082c23a6f05ca906144e7b3d55ce8e671b09906478afc95e7f11f39255137"
+  },
+  "grids": 21,
+  "cryptographicQualification": false
+}

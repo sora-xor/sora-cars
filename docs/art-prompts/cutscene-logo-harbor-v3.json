@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22T11:17:56.099Z",
+  "tool": "builtin image_gen__imagegen",
+  "useCase": "precise-object-edit",
+  "request": "Give all four harbor cutscene angles at least one faithful rendering of the supplied geometric SORA emblem above the bottom dialogue band, preserving narrative composition.",
+  "sourceEmblem": {
+    "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "bytes": 104489,
+    "width": 1678,
+    "height": 1432
+  },
+  "acceptance": "Manual individual full-image inspection. At least one clear supplied geometric mark per image, with straight bars, stem and two lower openings. Natural perspective/lighting are accepted. Tiny incidental secondary marks are not certified individually exact. This is visual fidelity, not pixel-identical compositing.",
+  "constraints": "Original v2 source assets retained. No code, runtime mappings, manifests, native worktree, or frozen release outputs changed.",
+  "assets": [
+    {
+      "angle": "wide",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-wide-v2.png",
+        "sha256": "666cb4a98ed1994f4e14fa5ecab68f97a59f22a1ddb0dcb70eb40961e48fc753",
+        "bytes": 2625335,
+        "width": 1672,
+        "height": 941
+      },
+      "result": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-wide-v3.png",
+        "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+        "bytes": 2399257,
+        "width": 1672,
+        "height": 941
+      },
+      "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-16abc44c-10f9-4429-8711-1ca8d7fb8f71.png",
+      "accepted": true,
+      "prompt": "Use case: precise-object-edit. Image 1 is the illustrated SORA CARS harbor cutscene to edit. Image 2 is the exact SORA emblem artwork. Change only the LARGE LOGO on the warehouse wall at upper center, directly above the black SORA letters. Replace its current approximate red character circle with a clean printed white sign panel containing an exact reproduction of Image 2, at that same location and about the same size. Preserve the SORA word below unchanged. The supplied emblem is geometric: two equally wide straight thick white bars linked by one short central white stem, then two broad straight diagonal white channels that OPEN THROUGH the lower outer circle edge, leaving a separate red bottom wedge. Reproduce this provided artwork, not a font character; no curved or tapered strokes, no red ring connecting across the bottom openings. Keep all other scene details unchanged: every character, face/hair/hand/pose and clothes, all cars, engine, tools, port water/cranes/ship, other signs and exact existing lettering, lighting and palette, pixel texture, composition and 1672x941 camera frame. Other small badges can stay as they are. Only the prominent warehouse emblem is corrected; no new scene objects, border, or watermark. One full-frame image.",
+      "inspection": {
+        "method": "view_image original detail, source then saved accepted output",
+        "visualNotes": "Accepted: prominent upper-center warehouse panel carries the reference silhouette with straight parallel bars, center stem, and open straight lower channels. Existing SORA and Japanese lettering remain visible. Characters, cars, harbor composition, and narrative action are preserved.",
+        "logoAboveBottom25Percent": true
+      }
+    },
+    {
+      "angle": "left",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-left-v2.png",
+        "sha256": "de62a70d1e5396c1bffd2c4e68e4b67a7cc5c5c8e716e6654888d9b752a7c810",
+        "bytes": 2566241,
+        "width": 1672,
+        "height": 941
+      },
+      "result": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-left-v3.png",
+        "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+        "bytes": 2367724,
+        "width": 1672,
+        "height": 941
+      },
+      "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-7c9da596-bd9b-401a-956c-d84d57f99a34.png",
+      "accepted": true,
+      "prompt": "Use case: precise-object-edit. Image 1 is the SORA CARS harbor conversation cutscene. Image 2 is the exact SORA emblem artwork to reproduce. Add ONLY one modest wall-mounted square WHITE printed logo panel to the free corrugated warehouse wall just LEFT of the red-headband man's head/shoulder and ABOVE the cardboard parts box, approximately centered x804,y307 in this 1672x941 image. It must not cover any character or existing words. Panel approximately 95x105 pixels, naturally following wall perspective and warm dusk lighting. On this white panel print a crisp faithful copy of Image 2's red-circle SORA emblem. The geometry must be exactly the reference: two equally wide straight thick white horizontal bars linked by a short central white stem; two perfectly straight diagonal white channels OPEN THROUGH the red circle's lower edge into the white background, leaving a separate red bottom wedge. No curved/tapered strokes, no red circular border closing across the two lower white openings. This is copied custom logo artwork, not a typed character. Keep the existing scene entirely unchanged otherwise: all three people, their faces/hair/hands/poses/clothing, brake parts and box, cars and existing car decals, warehouse signs and Japanese/Latin text, cranes/ship/water, skyline, camera, lighting, pixel-art illustration texture. Do not alter existing badges; the new faithful mark is the only edit. No caption, border, or watermark. Output one full scene.",
+      "inspection": {
+        "method": "view_image original detail, source then saved accepted output",
+        "visualNotes": "Accepted: a pale emblem panel on the warehouse wall beside the headband character provides a recognizable geometric reference mark without covering faces or existing text. Upper placement remains above the dialogue band. Existing secondary badges were preserved.",
+        "logoAboveBottom25Percent": true
+      }
+    },
+    {
+      "angle": "right",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-right-v2.png",
+        "sha256": "c25abcf6d0d10478e03548c0a74d6f52cbf7b43616aabb98c5f1b76dd6218536",
+        "bytes": 2307804,
+        "width": 1672,
+        "height": 941
+      },
+      "result": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-right-v3.png",
+        "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+        "bytes": 2182528,
+        "width": 1672,
+        "height": 941
+      },
+      "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-71ff8686-cd03-4489-b145-27f9bb64a0a5.png",
+      "accepted": true,
+      "prompt": "Use case: precise-object-edit. Image 1 is the target SORA CARS illustrated harbor reverse angle. Image 2 is the exact SORA emblem artwork. Change ONLY the prominent red circular emblem in the warehouse sign at the upper center-right, immediately left of the large red word SORA. Completely replace that approximate glyph with an exact reproduction of Image 2's geometric emblem on a small opaque pale/white printed square panel in the SAME location, size, and wall perspective. Preserve the SORA word and all Japanese text. The supplied mark has two equal-width straight thick white bars joined with a short central white stem, and two thick perfectly straight diagonal white channels that OPEN THROUGH the lower outside edge of the red circle into the pale background, leaving a separate red lower wedge. No curved/tapered glyph strokes and no outer red ring crossing those bottom white openings. Copy the supplied artwork, don't type a character. Leave all other image elements unchanged: every person/face/hair/hand/pose/clothing, photographs and camera, radio, every car and minor badges, giant foreground hood, port cranes/ship, buildings, background lettering, warm dusk light, texture, camera perspective and 1672x941 framing. Other incidental badges can remain. No extra objects, text, border, or watermark. One corrected full scene.",
+      "inspection": {
+        "method": "view_image original detail, source then saved accepted output",
+        "visualNotes": "Accepted: the corrected pale panel immediately left of the large warehouse SORA wordmark clearly shows straight bars, stem, and lower openings. Main figures, photo envelope, radio, warehouse text, foreground hood and port composition remain visually consistent.",
+        "logoAboveBottom25Percent": true
+      }
+    },
+    {
+      "angle": "detail",
+      "source": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-detail-v2.png",
+        "sha256": "ee6aeef6396f2179d0f498545ce1fefb14b79998f558ad49c836c06469cddee5",
+        "bytes": 2424904,
+        "width": 1672,
+        "height": 941
+      },
+      "result": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/harbor-detail-v3.png",
+        "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+        "bytes": 2095400,
+        "width": 1672,
+        "height": 941
+      },
+      "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-7f138d1e-d01a-4d04-ac42-3859d8b1b0e4.png",
+      "accepted": true,
+      "prompt": "Precise tiny geometric correction. Image 1 is the cutscene to edit. Image 2 is the true emblem reference. Focus ONLY on the red disk printed on the WHITE thermos label in the upper right, centered around x1266 y226. Its two white diagonal bands are currently TOO SHORT: they end inside the red disk. EXTEND BOTH EXISTING WHITE DIAGONAL BANDS OUTWARD IN STRAIGHT LINES all the way THROUGH the red disk's lower-left and lower-right circumference until they meet the white label outside. Widen them to the same substantial thickness as the top bars. Remove the small red connections at both diagonal tips. The result must have a clearly DISCONNECTED RED BOTTOM WEDGE, separated from the upper red disk by white channels, exactly as in Image 2. Keep the two white horizontal bars and central stem straight. This is the entire requested edit. Don't repaint the rest of the scene, move the label, redraw objects, change lettering/photographs/technical drawings/hands/tools/cars, or modify any other logo. The thermos's current printed label position/size is good; only extend the white diagonals through the circle to correct their geometry. Preserve original full image dimensions and lighting. One full scene.",
+      "inspection": {
+        "method": "view_image original detail, source then saved accepted output",
+        "visualNotes": "Accepted after one targeted retry: the thermos label shows straight bars/stem and extended diagonal channels through the lower circle edge with a separate red lower wedge. Logo is in the upper-right quadrant, above dialogue. Notebook story evidence, pointing hands, tools, parts, cassette and car composition remain visually consistent; ordinary generated texture differences are present.",
+        "logoAboveBottom25Percent": true
+      },
+      "inputTarget": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-harbor-v3/harbor-detail-attempt-1-rejected.png",
+        "sha256": "f76afd1c2cea17cda9100b392808c7152bd51d31fc7d4e9091863f6e3812ce6a",
+        "bytes": 2216137,
+        "width": 1672,
+        "height": 941,
+        "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-4e24822b-a52a-475b-b0a9-c3e2927dced9.png"
+      },
+      "priorAttempts": [
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/imagegen/cutscene-logo-harbor-v3/harbor-detail-attempt-1-rejected.png",
+          "sha256": "f76afd1c2cea17cda9100b392808c7152bd51d31fc7d4e9091863f6e3812ce6a",
+          "bytes": 2216137,
+          "width": 1672,
+          "height": 941,
+          "generatedPath": "/Users/takemiyamakoto/.codex/generated_images/01a0c8c0-1106-73a0-ac0b-b347dd01632e/exec-4e24822b-a52a-475b-b0a9-c3e2927dced9.png",
+          "prompt": "Use case: precise-object-edit. Image 1 is the existing harbor-detail SORA CARS cutscene. Image 2 is the exact SORA emblem artwork. Change ONLY the small red logo on the silver THERMOS at the upper right (around x1255,y215). Completely erase the old font-like red-circle mark. At its same location, add a clean opaque WHITE printed label about 82 pixels wide by 90 pixels tall, with a faithful reproduction of Image 2's red-circle SORA emblem about 64 pixels wide. Match the thermos perspective gently while keeping logo crisp and legible. Exact supplied logo geometry: two equally long thick straight WHITE HORIZONTAL BARS joined by a short centered white stem; two thick perfectly STRAIGHT white diagonal channels opening fully THROUGH the lower circle circumference to the white label outside, leaving a separate red bottom wedge. The channels cannot end inside the disk; no red ring closing the openings; no curved or tapered strokes. Use the exact provided custom artwork, not a typed character. Preserve every other detail unchanged: the notebook's technical drawings and photos, handwritten text, both hands and sleeves, brake disc/caliper/pads, box with SORA GENUINE PARTS text, socket wrench, cassette, car/rain droplets, thermos shape/material/reflections, warehouse signage and lighting, composition, illustration texture, and full 1672x941 frame. Other tiny logos stay unchanged. No extra objects, new text, watermark, or border. Output one full scene.",
+          "accepted": false,
+          "visualNotes": "Initial thermos logo had straight bars and legs, but white diagonal channels ended inside the red disk. Retained rejected version; following edit extended them through the circumference."
+        }
+      ]
+    }
+  ]
+}

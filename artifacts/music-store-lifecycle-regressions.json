@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "checked_at": "2026-09-22T09:07:15.317Z",
+  "checks": [
+    "Delayed purchase after leave and reenter does not add receipt, notify, or report a stale error",
+    "Delayed purchase after disconnect and reconnect same wallet does not add receipt, notify, or report a stale error",
+    "Refreshing unchanged inventory during gated ownership lookup preserves a real MP3 download with exact SHA-256 and size and both ownership checks"
+  ],
+  "sources": {
+    "src/ui/music-store.ts": "18041c0e31684f8d5af7525b97186d36f4e6b28780ce391d1d6eb061a95e409d",
+    "src/game/music-assets.generated.json": "6066f69666b12b01f1effb90b807ed9a40560fa38165fea867b30f84db2fbfe7",
+    "scripts/test-music-store.mjs": "569a8822e2fcdc5aedf4a1c5aa27e24495ef01bfd42c0e442bbe14721920eb73",
+    "tmp/music-store-qa/fixture.ts": "d6d3fc052037eb9a94fe1eda270d504f573aeb9e3b926f43e4d00c69f459cf9a"
+  },
+  "downloaded": {
+    "path": "assets/music/audio/midnight-transistor.mp3",
+    "bytes": 4373124,
+    "sha256": "30bddfee95b113e854b56aaf58f5a65f93aba52380634a23a00f8b08ebc391c6"
+  },
+  "scope": "Focused lifecycle regressions against actual MusicStore/controller and fixture, with real first-track MP3 bytes; explicit mocked wallet and endpoint only. Full storefront suite intentionally deferred until final artwork manifest."
+}

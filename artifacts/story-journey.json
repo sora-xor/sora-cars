@@ -1,0 +1,105 @@
+{
+  "kind": "alternate-1986-story-rewrite",
+  "testedAt": "2026-09-07T11:49:43.733403+00:00",
+  "preview": "http://127.0.0.1:5178/#/story",
+  "sourceTestOrigin": "http://127.0.0.1:5173",
+  "chapters": 12,
+  "acts": 3,
+  "introLines": 177,
+  "aftermathLines": 121,
+  "primaryLanguage": "ja",
+  "subtitles": "en",
+  "narrative": {
+    "framework": "Hero journey: departure, initiation, return",
+    "reference": "https://en.wikipedia.org/wiki/Hero%27s_journey",
+    "protagonist": "Aki Soramoto",
+    "romance": "Aki and Ren; betrayal, accountability, renewed trust, mutual confession",
+    "antagonist": "Fictional Meridian Council and its CROWN project",
+    "alternative": "SORA X.O.R. public token network in alternate-history 1986",
+    "existingProgressPreserved": true,
+    "lockedSynopsesHidden": true
+  },
+  "validation": {
+    "storyUnitTests": {
+      "passed": 4,
+      "failed": 0
+    },
+    "typecheck": true,
+    "productionBuild": true,
+    "sourceBrowser": true,
+    "productionPreview": true,
+    "nestedCidStaticPaths": true,
+    "browserErrors": 0,
+    "fullApplicationSuite": {
+      "passed": 198,
+      "failed": 2,
+      "failures": [
+        {
+          "test": "Touring browser artifacts match their distinct complete current native relation",
+          "reason": "Native Touring export is stale for crates/iroha_core/src/privacy_engines/transparent_stark.rs."
+        },
+        {
+          "test": "parity fixtures are pinned to the current native reference and verifier sources",
+          "reason": "Native CLI is stale for crates/iroha_core/src/privacy_engines/transparent_stark.rs; regeneration requires the maintained Iroha build lane."
+        }
+      ],
+      "nativeGateBypassed": false
+    }
+  },
+  "build": {
+    "bundle": "index-CWEXibAF.js",
+    "root": "output/qualification/frontend/story-journey/dist",
+    "manifest": "output/qualification/frontend/story-journey/build-manifest.json",
+    "previewInstall": "output/qualification/frontend/story-journey/preview-install.json",
+    "previousPreviewBuild": "output/qualification/frontend/story-journey/previous-dist",
+    "serversRestarted": false
+  },
+  "sources": {
+    "scripts/test-story.mjs": "d00af4a9af89f76e2246fc6f5a93072c96aedfa6a9be0e5afed77605e2464a21",
+    "src/main.ts": "d908570e40a94c38107469da013f6f63eb49911432d2c6a63e1dcd6227215545",
+    "src/game/story.ts": "c42688b0e92e9cfa9841816b716a6dec9ed10142d323c7c70e6b8bb435bbf0db",
+    "src/game/story-dialogue.ts": "e694ebc39705ff276843f4e094be5f2bd37c6ada2173465d4a9e1973ecee2bc1",
+    "src/game/story-campaign.ts": "e0125f696767a86ff016ea1d64a9ace13da5611d6c73e13079b465c65502408d",
+    "src/game/story-campaign-act1.ts": "38aded3d5859d8c4039ab66ef1391c696c9aeab801e4adfa91951386f4f15a8f",
+    "src/game/story-campaign-act2.ts": "ebe78b496224abde056f0880e36762bfac8f2b811edd7f50bdc8b6637b762ad8",
+    "src/game/story-campaign-act3.ts": "a7e92eb9f8e551f5e43b088343f7d8c7639d2b5644e712d881c21debc3b6008c",
+    "src/game/story-scenes.ts": "bab52210bead8790b9bc6e627e5496a4dbe7188c2a293483fa46cecb522889cb",
+    "src/game/story-cinema.ts": "aed38e13e1d13c52cdc4fde6e9a1ef7092861e6a490b122777e5a6071f4e7f34",
+    "src/game/story-workshop.ts": "117a60f132aa4bc924fa1346f4791bbf14797ba0ecf2ca127e77bc10c2467d28",
+    "src/ui/story.ts": "95f2665b5808e5d7104a63c9d7d77d4ec9defdfebec063e2761e0069001bec86",
+    "src/ui/story.css": "fe21f8bda972150a62d691f15af3204780382a9ac08997c77c9520b4abab675e",
+    "src/style.css": "b23894baa9aead0b5bde4236d7430b9429f5da120afa335d556f06002b56e4db",
+    "src/ui/story-workshop.ts": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128",
+    "src/ui/story-workshop.css": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec",
+    "src/game/audio.ts": "136159edc75e0eadc15f316a3ef2800d7dc3ddbd83d1ad15fc882c4c091ea1c6"
+  },
+  "evidence": {
+    "artifacts/story-browser.json": "a96d345b151732c20bc24215a4b8812be8c4d51a51d71a07c6f776e5d57266ab",
+    "artifacts/static-cid-path.json": "627195627b9ae1862fc5fbc54c472da7c12ab792a4b56a4df647bd4d80903dc4",
+    "docs/story-bible.md": "10a0632f875b915af45bd5b0832fde42cfcff3bb605809e83bd3c34aa09b5e84",
+    "docs/story-review.md": "fa8a401da79d2ebb41a211bca476a06608e17684f57032f1e73db135b8d20c31",
+    "output/browser/story/visual-review.json": "6a6f7014adca5b8d2818a9be04350559680767ad9284e42367f2da0592a2d24f",
+    "output/web-game/story-journey/preview-smoke.json": "17a96f0f6693860aa5b4c8ba0891fd485d6087db95608ebf31185aebd602b06b",
+    "output/qualification/frontend/story-journey/build-manifest.json": "d246202aa1be9b4b799ec67200825cf1175fb8c433b428de226dfbf6d90a6723",
+    "output/qualification/frontend/story-journey/preview-install.json": "fbb0e99663e6c407017967145eecc78954357e996b5e1cb38f926966268cbc0e"
+  },
+  "skillClient": {
+    "original": "/Users/takemiyamakoto/.codex/skills/develop-web-game/scripts/web_game_playwright_client.js",
+    "copy": "output/web-game/story-journey/client.mjs",
+    "sha256": "e95c3bcbdc0d15eb08fd3a6021283ec32f715b51f1e5847d3db20df526be5996",
+    "unaltered": true,
+    "storyTextState": "output/web-game/story-journey/captures",
+    "drivingCapture": "output/web-game/story-journey/driving",
+    "limitation": "Client retains the main road canvas selected before opening a cutscene; its story screenshots show that dormant canvas. Actual full-page story screenshots and exact dialogue checks are in the source browser and preview-smoke evidence."
+  },
+  "limits": {
+    "fullHumanCampaignPlaythrough": false,
+    "newArtworkGenerated": false,
+    "kissDepictedInArtwork": false,
+    "retainedArtLimitation": "The existing radio artwork remains illuminated during the described blackout; scenes use the current eight paintings and existing animation.",
+    "liveXorOrNftAwarded": false,
+    "nativeProofQualified": false,
+    "sorafsPublished": false,
+    "fullGoalComplete": false
+  }
+}

@@ -1,0 +1,127 @@
+{
+  "schema": "sora-cars.tokyo-correction-delivery.v1",
+  "checkedAt": "2026-10-28T05:21:27.371283+00:00",
+  "localCorrectionsComplete": true,
+  "title": "靖國神社で会おう",
+  "englishTitle": "Meet Me at Yasukuni",
+  "artist": "SORA Cars",
+  "cover": {
+    "path": "public/assets/music/covers/meet-me-at-yasukuni-v1.png",
+    "bytes": 2467854,
+    "sha256": "82b3c145977e19744fe2c18ef934c4a4b322d54df45dbf6c133afe26ccc9be24"
+  },
+  "artworkMethod": "Built-in generated edit; no programmatic compositing",
+  "coverCorrections": [
+    "Large straight-beamed 神明鳥居",
+    "Skytree removed",
+    "SORA emblem centered within its existing sleeve label"
+  ],
+  "titleAppliedTo": [
+    "Storefront",
+    "Preview player",
+    "Street-practice song label",
+    "WAV, full MP3 and preview title tags",
+    "Unsigned NFT metadata",
+    "Editable route-planning documents"
+  ],
+  "encodedAudioAndDecodedPcmUnchanged": true,
+  "other25EditionsUnchanged": true,
+  "checks": {
+    "assetAndAudioTests": 9,
+    "metadataRecoveryTests": 7,
+    "browserExportChecks": 426,
+    "boundFilesVerified": 105,
+    "packagedMusicFiles": 104,
+    "responsiveViewports": 3,
+    "publicFilesCopiedByteIdentically": 920
+  },
+  "evidence": [
+    {
+      "path": "output/imagegen/yasukuni-1986-correction/report.json",
+      "bytes": 2172,
+      "sha256": "969043f37ee53ad33b1f5d2f408ebf9a8a17917fccbb8a7f80422ee493887f69"
+    },
+    {
+      "path": "output/imagegen/yasukuni-1986-correction/prompt.txt",
+      "bytes": 2220,
+      "sha256": "3fe343ccc4a52d5aef1e1f417b0f1b4f578a4c880fe2225d8eeeb5e3dca9b86d"
+    },
+    {
+      "path": "output/qualification/tokyo-title-2026-10-28/report.json",
+      "bytes": 2813,
+      "sha256": "4412324191f0bde3cffc116aba518b933e835b20de5eb3cf79fc1b6aeff589dc"
+    },
+    {
+      "path": "output/audio/soundtrack/supplied-metadata-update-report.json",
+      "bytes": 3054,
+      "sha256": "167d736c9619c176c7924a22d00e309aacac6c53463ff6efa561eab0c69ff56c"
+    },
+    {
+      "path": "output/qualification/tokyo-title-2026-10-28/transaction-repair/report.json",
+      "bytes": 1989,
+      "sha256": "41b1f800e96fd35e261fd8191ca0ecaa64f91f5b0024367faf2ccb3d8c5b04d5"
+    },
+    {
+      "path": "output/qualification/tokyo-title-2026-10-28/transaction-repair/music-assets.result.json",
+      "bytes": 303,
+      "sha256": "04c041c70cbf4aaf3161dd44a538868b5752623f8fd589b7ff792541b1329900"
+    },
+    {
+      "path": "output/qualification/tokyo-title-2026-10-28/transaction-repair/music-assets.stdout.log",
+      "bytes": 1118,
+      "sha256": "67570d0692f50e6aed4042a011593f6cd34e525fd3895621be90107e27e7f814"
+    },
+    {
+      "path": "output/qualification/frontend/soundtrack-2026-10-28-yasukuni-final-recovery/report.json",
+      "bytes": 1196,
+      "sha256": "d4c45959f2501e053f590e904666a08aba1a4a433c5791f7c4b5798d2cf48f17"
+    },
+    {
+      "path": "output/qualification/frontend/soundtrack-2026-10-28-yasukuni-final-recovery/visual-review.json",
+      "bytes": 1271,
+      "sha256": "bbd4c259e903397b5cfba43931c51febc7c25595b358953accb1491955d40925"
+    },
+    {
+      "path": "output/qualification/frontend/soundtrack-2026-10-28-yasukuni-final-recovery/dist-manifest.json",
+      "bytes": 151426,
+      "sha256": "e548efccee08576d817b0fd533e77b22d76523f1f79c914edaa456912f206440"
+    },
+    {
+      "path": "output/music-release/taira-20261028-yasukuni/candidate.json",
+      "bytes": 1944,
+      "sha256": "d5b55efb3d9dc0bd25625dfef24bfb8a69c67c9f3301aa249802dbf582b78a6f"
+    },
+    {
+      "path": "output/qualification/music-offer-instructions-2026-10-28-yasukuni/report.json",
+      "bytes": 12254,
+      "sha256": "6d737f43ef1d444daccdb052f7a7087d7888fc65480207356eee38162f2413eb"
+    },
+    {
+      "path": "src/game/music-assets.generated.json",
+      "bytes": 22392,
+      "sha256": "4a455582055d2f9e2d03fa22507317d1ee68a7863184b916fbe28423ea4e3164"
+    },
+    {
+      "path": "public/assets/music/audio/manifest.json",
+      "bytes": 47867,
+      "sha256": "54bb34cdd807309120c31ecff9bf3ed03663b582950ee07eabbd007ba59da411"
+    },
+    {
+      "path": "scripts/export-supplied-soundtrack.mjs",
+      "bytes": 18122,
+      "sha256": "4468260d534a2da011e71298c58803ac77493151e55340653109fd2bff2b8b3b"
+    }
+  ],
+  "releaseReady": false,
+  "published": false,
+  "nftsIssued": false,
+  "offersSubmitted": false,
+  "realPurchaseVerified": false,
+  "remaining": [
+    "Qualified marketplace and reviewed matching release configuration",
+    "Current configured publication with usable provider endpoint and verified remote retrieval",
+    "Fresh issuer/domain/balance/edition/expiry checks and native signed issuance",
+    "Real 1 XOR purchase, ownership readback and verified downloads"
+  ],
+  "historicalEvidence": "Previous candidates, generated prompts, native-bound authoring/graph files and frozen builds are retained. The running historical full-payload provider test is separate from this final corrected frontend."
+}

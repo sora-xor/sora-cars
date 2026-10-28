@@ -1,0 +1,446 @@
+{
+  "version": 1,
+  "topology": "circuit",
+  "id": "tokyo-1986",
+  "name": {
+    "ja": "靖国ジンジャで会おう",
+    "en": "Meet Me at Yasukuni"
+  },
+  "year": 1986,
+  "points": [
+    {
+      "id": "manaita-bridge",
+      "positionE7": [
+        1397531200,
+        356958700
+      ],
+      "elevationMm": 6000,
+      "halfWidthMm": 6200,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "kudanshita-east",
+      "positionE7": [
+        1397517800,
+        356956200
+      ],
+      "elevationMm": 7000,
+      "halfWidthMm": 6200,
+      "sector": 0,
+      "gate": false,
+      "cornerTrimMm": 15000
+    },
+    {
+      "id": "kudanshita",
+      "positionE7": [
+        1397512800,
+        356953700
+      ],
+      "elevationMm": 10000,
+      "halfWidthMm": 6200,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "kudanzaka",
+      "positionE7": [
+        1397495500,
+        356952100
+      ],
+      "elevationMm": 19000,
+      "halfWidthMm": 5800,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "shrine-front",
+      "positionE7": [
+        1397476600,
+        356946600
+      ],
+      "elevationMm": 25000,
+      "halfWidthMm": 5800,
+      "sector": 1,
+      "gate": true,
+      "cornerTrimMm": 18000
+    },
+    {
+      "id": "kudanzakaue",
+      "positionE7": [
+        1397464900,
+        356944500
+      ],
+      "elevationMm": 27000,
+      "halfWidthMm": 5400,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 22000
+    },
+    {
+      "id": "chidorigafuchi-north",
+      "positionE7": [
+        1397462400,
+        356935200
+      ],
+      "elevationMm": 27000,
+      "halfWidthMm": 4400,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "moat-west",
+      "positionE7": [
+        1397454700,
+        356905200
+      ],
+      "elevationMm": 25000,
+      "halfWidthMm": 4500,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 35000
+    },
+    {
+      "id": "daikancho-crossing",
+      "positionE7": [
+        1397453100,
+        356891000
+      ],
+      "elevationMm": 25000,
+      "halfWidthMm": 5300,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "hanzomon-north",
+      "positionE7": [
+        1397445400,
+        356851200
+      ],
+      "elevationMm": 25000,
+      "halfWidthMm": 5600,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "hanzomon",
+      "positionE7": [
+        1397443700,
+        356839500
+      ],
+      "elevationMm": 25000,
+      "halfWidthMm": 6000,
+      "sector": 3,
+      "gate": true,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "hayabusacho",
+      "positionE7": [
+        1397447500,
+        356814200
+      ],
+      "elevationMm": 22000,
+      "halfWidthMm": 6000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "miyakezaka",
+      "positionE7": [
+        1397453000,
+        356797100
+      ],
+      "elevationMm": 18000,
+      "halfWidthMm": 6000,
+      "sector": 3,
+      "gate": true,
+      "cornerTrimMm": 24000
+    },
+    {
+      "id": "diet-north-approach",
+      "positionE7": [
+        1397461300,
+        356794000
+      ],
+      "elevationMm": 22000,
+      "halfWidthMm": 4800,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 18000
+    },
+    {
+      "id": "diet-front-north",
+      "positionE7": [
+        1397464600,
+        356778000
+      ],
+      "elevationMm": 27000,
+      "halfWidthMm": 4800,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 18000
+    },
+    {
+      "id": "diet-front",
+      "positionE7": [
+        1397467900,
+        356761500
+      ],
+      "elevationMm": 28000,
+      "halfWidthMm": 4800,
+      "sector": 4,
+      "gate": true,
+      "cornerTrimMm": 18000
+    },
+    {
+      "id": "diet-south",
+      "positionE7": [
+        1397471900,
+        356743900
+      ],
+      "elevationMm": 23000,
+      "halfWidthMm": 4800,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "finance-corner",
+      "positionE7": [
+        1397500800,
+        356734400
+      ],
+      "elevationMm": 16000,
+      "halfWidthMm": 5200,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 23000
+    },
+    {
+      "id": "kasumigaseki",
+      "positionE7": [
+        1397511300,
+        356750000
+      ],
+      "elevationMm": 13000,
+      "halfWidthMm": 5900,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 22000
+    },
+    {
+      "id": "sakuradamon",
+      "positionE7": [
+        1397532500,
+        356777200
+      ],
+      "elevationMm": 7000,
+      "halfWidthMm": 6200,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "hibiya-moat",
+      "positionE7": [
+        1397567900,
+        356762000
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 6500,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "hibiya-turn",
+      "positionE7": [
+        1397592200,
+        356753000
+      ],
+      "elevationMm": 4000,
+      "halfWidthMm": 6500,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "babakimon",
+      "positionE7": [
+        1397606900,
+        356785200
+      ],
+      "elevationMm": 4000,
+      "halfWidthMm": 6500,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "kokyogaien-east",
+      "positionE7": [
+        1397614700,
+        356802600
+      ],
+      "elevationMm": 4000,
+      "halfWidthMm": 6500,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "wadakura",
+      "positionE7": [
+        1397623700,
+        356830000
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 6500,
+      "sector": 7,
+      "gate": true,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "otemachi",
+      "positionE7": [
+        1397618700,
+        356852200
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 6200,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "hirakawamon-east",
+      "positionE7": [
+        1397587300,
+        356882700
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 6000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 35000
+    },
+    {
+      "id": "takebashi",
+      "positionE7": [
+        1397563700,
+        356904100
+      ],
+      "elevationMm": 6000,
+      "halfWidthMm": 5700,
+      "sector": 7,
+      "gate": true,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "nishikicho",
+      "positionE7": [
+        1397564500,
+        356917300
+      ],
+      "elevationMm": 6000,
+      "halfWidthMm": 5300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "kanda-moat-east",
+      "positionE7": [
+        1397557900,
+        356930000
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 5300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 22000
+    },
+    {
+      "id": "manaita-east-approach",
+      "positionE7": [
+        1397545900,
+        356950000
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 5600,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 25000
+    },
+    {
+      "id": "manaita-east-turn",
+      "positionE7": [
+        1397543900,
+        356960200
+      ],
+      "elevationMm": 5000,
+      "halfWidthMm": 6000,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 25000
+    }
+  ],
+  "laps": 2,
+  "maxTicks": 9000,
+  "targetMs": 254952,
+  "sound": {
+    "asset": "yasukuni-1986.m4a",
+    "sha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+    "durationMs": 254952,
+    "cuesMs": [
+      0,
+      48000,
+      116000,
+      168000,
+      214000
+    ]
+  },
+  "authoringNotes": {
+    "status": "approximate corridor traced against GSI 1984–1986 aerial layer; not surveyed or native-qualified",
+    "closedCircuit": "Manaita bridge → Yasukuni-dori → Kudanzakaue → Chidorigafuchi → Hanzomon → Diet frontage → Kasumigaseki → Hibiya → moat east side → Takebashi → Manaita bridge",
+    "lapsReason": "Two laps provide a candidate distance for the supplied 254.952-second song without stretching the real geography. Actual expert driving time must be calibrated in the new relation.",
+    "elevationsAndWidths": "Provisional authored estimates; not historical survey measurements. Verify alignment, lane widths and 1986 traffic furniture before qualification.",
+    "musicCues": "Provisional creative jo/ha/kyu arrangement markers; actual onset listening and driving synchronization remain to qualify.",
+    "notForProfile": "Current RaceV1 accepts only3tracks/5400ticks. This input cannot be submitted to it.",
+    "cornerGeometry": "Quadratic tangent trims in millimetres, not physical circular radii. The first start gate lies at the midpoint of its cyclic fillet."
+  },
+  "sources": [
+    {
+      "url": "https://maps.gsi.go.jp/#17/35.6953/139.7494/&base=gazo3&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected1984–1986 north corridor, Manaita bridge and uphill Yasukuni-dori."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/35.6892/139.7474/&base=gazo3&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected1984–1986 Chidorigafuchi west corridor."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/35.6766/139.7491/&base=gazo3&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected1984–1986 Diet frontage, Kasumigaseki and south moat."
+    },
+    {
+      "url": "https://www.city.chiyoda.lg.jp/koho/kuse/gaiyo/yokoso/saka.html",
+      "usedFor": "Kudanzaka rises from Kudanshita along the south of Yasukuni."
+    },
+    {
+      "url": "https://www.yasukuni.or.jp/history/history.html",
+      "usedFor": "First torii rebuilt1974; Yushukan reopenedJuly1986. Avoid later buildings and2018paint treatment."
+    },
+    {
+      "url": "https://www.shugiin.go.jp/internet/itdb_annai.nsf/html/statics/kokkai/sisetu.htm",
+      "usedFor": "Diet construction and facade predate1986."
+    }
+  ]
+}

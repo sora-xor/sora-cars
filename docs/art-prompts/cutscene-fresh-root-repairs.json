@@ -1,0 +1,24 @@
+{
+  "images": [
+    {
+      "file": "scenes/ch12-intro-cut02.png",
+      "direction": "The speaking man on the RIGHT is JUN the synthesizer repairer: adult Japanese man age28, short dark hair, MINT GREEN lightweight windbreaker over white shirt, NO headband and clean-shaven. Replace the current navy/red-headband Daichi with Jun. Keep the woman Aki (short straight black bob, white shirt, red coveralls tied at waist) on LEFT listening. Jun gestures towards missing tools on the wall, talking about Aki's late father. Preserve the new composition and warm garage atmosphere, but make distant exterior a coastal town instead of an implausible lake overlook if possible.",
+      "prompt": "Edit this single SORA CARS cutscene image to fix character identity. The speaking man on the RIGHT is JUN the synthesizer repairer: adult Japanese man age28, short dark hair, MINT GREEN lightweight windbreaker over white shirt, NO headband and clean-shaven. Replace the current navy/red-headband Daichi with Jun. Keep the woman Aki (short straight black bob, white shirt, red coveralls tied at waist) on LEFT listening. Jun gestures towards missing tools on the wall, talking about Aki's late father. Preserve the new composition and warm garage atmosphere, but make distant exterior a coastal town instead of an implausible lake overlook if possible. Keep the crisp detailed pixel illustration, 16:9 landscape, upper face/action placement, quiet lower30% for dialogue, amber/violet lighting and period props. Image2 is the EXACT geometric SORA logo reference. Replace any incorrect kanji-like logo with this red disk containing white straight bars and diagonal cuts through the lower circumference; preserve its shape and use it plausibly on a patch/sign. No text overlays or subtitles, no collage.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db28-5e18-79b0-a52d-ec73d4fca4a3/exec-be021e28-2954-4bc3-8b9e-c97865769000.png",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut02.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ]
+    },
+    {
+      "file": "scenes/ch12-intro-cut07.png",
+      "direction": "The sole speaking musician is JUN the synthesizer repairer: adult Japanese man age28, short dark hair, MINT GREEN lightweight windbreaker over white shirt, NO headband and clean-shaven. Replace the current navy/red-headband Daichi with Jun. Preserve this unique composition: Jun gently plays his just-finished song on the vintage synthesizer in the radio studio, proud and vulnerable, 1986 Japan. Do not add other people.",
+      "prompt": "Edit this single SORA CARS cutscene image to fix character identity. The sole speaking musician is JUN the synthesizer repairer: adult Japanese man age28, short dark hair, MINT GREEN lightweight windbreaker over white shirt, NO headband and clean-shaven. Replace the current navy/red-headband Daichi with Jun. Preserve this unique composition: Jun gently plays his just-finished song on the vintage synthesizer in the radio studio, proud and vulnerable, 1986 Japan. Do not add other people. Keep the crisp detailed pixel illustration, 16:9 landscape, upper face/action placement, quiet lower30% for dialogue, amber/violet lighting and period props. Image2 is the EXACT geometric SORA logo reference. Replace any incorrect kanji-like logo with this red disk containing white straight bars and diagonal cuts through the lower circumference; preserve its shape and use it plausibly on a patch/sign. No text overlays or subtitles, no collage.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db28-5e18-79b0-a52d-ec73d4fca4a3/exec-3731b388-920b-4544-bda5-19da27b85d10.png",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut07.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ]
+    }
+  ]
+}

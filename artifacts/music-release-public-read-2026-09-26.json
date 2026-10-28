@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-09-26T00:45:42.403050+00:00",
+  "scope": "Anonymous bounded read-only public ingress observations and local public release configuration presence. No authentication, signing, minting, listing, transfer, SDK rebuild, provenance bypass or deployment occurred.",
+  "environmentFiles": [
+    ".env.example"
+  ],
+  "runtimePublicVariablePresence": {
+    "VITE_TAIRA_NETWORK_ID": false,
+    "VITE_MUSIC_COLLECTION": false,
+    "VITE_XOR_ASSET_DEFINITION": false,
+    "VITE_GAME_APPLICATION_ID": false,
+    "VITE_NFT_MARKET_PROFILE_ID": false,
+    "VITE_NFT_MARKET_QUALIFIED": false
+  },
+  "configuredEnvironmentFilePresent": false,
+  "mcpTairaToolAvailable": false,
+  "sourceHashes": {
+    "docs/music-market.md": "e1d969a9b9709a86601cb31aaa8db42cbcc05f76c326da108243f861d8adfbde",
+    "src/chain/music-release.ts": "533088bb063901fe6b36730e446ca89c9870a60f00b75a1143f6faaa3a18be55",
+    "src/chain/music-launch.ts": "0a19ed36a38156f216f7a706e5faf21202a65dc6cbb4b72f61d6e852d0fb110f",
+    ".env.example": "e353d7d10b3f32edf3cab16ed9de45b05efe08a064e81325cb081d64c56d87ea"
+  },
+  "reads": [
+    {
+      "checkedAt": "2026-09-26T00:45:41.607389+00:00",
+      "url": "https://taira.sora.org/v1/nft-offers/capabilities",
+      "method": "GET",
+      "authentication": "none",
+      "timeoutSeconds": 20,
+      "bodyLimitBytes": 262144,
+      "status": 502,
+      "bytes": 150,
+      "bodySha256": "61b30d408583991fd69f3dec694e154cb652471e663328ad9c8482c9021ab5db",
+      "contentType": "text/html",
+      "bodyTruncated": false,
+      "classification": "public_ingress_or_rollout_health_degradation",
+      "completedAt": "2026-09-26T00:45:42.400611+00:00"
+    },
+    {
+      "checkedAt": "2026-09-26T00:45:41.608090+00:00",
+      "url": "https://taira.sora.org/status",
+      "method": "GET",
+      "authentication": "none",
+      "timeoutSeconds": 20,
+      "bodyLimitBytes": 262144,
+      "status": 502,
+      "bytes": 150,
+      "bodySha256": "61b30d408583991fd69f3dec694e154cb652471e663328ad9c8482c9021ab5db",
+      "contentType": "text/html",
+      "bodyTruncated": false,
+      "classification": "public_ingress_or_rollout_health_degradation",
+      "completedAt": "2026-09-26T00:45:42.382576+00:00"
+    }
+  ],
+  "priorIssuerObservation": {
+    "artifact": "artifacts/music-release-preflight-2026-09-22T09-19.json",
+    "observedAt": "2026-09-22T09:24:17.171Z",
+    "status": "ERR_IROHA_NATIVE_BINDING / source_provenance_error",
+    "currentRevalidation": "Not rerun; prior installed native binding/source provenance failure is historical evidence only."
+  }
+}

@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="./assets/sora-flag.png">
+<meta name="color-scheme" content="dark"><title>SORA CARS · 東京走行開発室</title>
+<style>@font-face{font-family:LabJP;src:url('./assets/fonts/noto-sans-jp.ttf')}@font-face{font-family:LabSora;src:url('./assets/sora-extrabold.woff2')}</style></head>
+<body><main id="street-lab"><header><a href="./#/" aria-label="SORA CARS ホーム"><img src="./assets/sora-flag.png" alt="SORA"><b>SORA CARS</b></a><span>東京走行開発室<small>TOKYO STREET DRIVING LAB</small></span><em>ローカル練習 · 賭け金なし<small>LOCAL PRACTICE · NO STAKES</small></em></header>
+<section class="lab-drive"><canvas id="street-canvas" aria-label="東京の８台ストリートレース"></canvas>
+<div id="lab-status" role="status">ネイティブ走行データを読込中…<small>Loading native driving data…</small></div>
+<div class="lab-controls"><button id="lab-start" disabled>走り出そう<small>START</small></button><button id="lab-pause" disabled>一時停止<small>PAUSE</small></button><button id="lab-reset" disabled>もう一度<small>REMATCH</small></button><button id="lab-auto" aria-pressed="false" disabled>自動運転<small>TEST DRIVER</small></button><button id="lab-music" aria-pressed="true">音楽<small>YASUKUNI THEME</small></button><button id="lab-download" disabled>記録を保存<small>SAVE REPLAY</small></button></div>
+<div class="lab-touch"><button data-key="ArrowLeft">◀<small>LEFT</small></button><button data-key="ArrowRight">▶<small>RIGHT</small></button><button data-key="ArrowDown">制動<small>BRAKE</small></button><button data-key="Space">流す<small>DRIFT</small></button><button data-key="ShiftLeft">過給<small>BOOST</small></button><button data-key="ArrowUp">加速<small>GAS</small></button></div></section>
+<footer><p>↑ 加速 / ↓ 制動 / ← → 操舵 / SPACE ドリフト / SHIFT 過給 / P 一時停止<small>Accelerate · brake · steer · drift · boost · pause</small></p><p id="lab-detail">俎橋 → 靖国通り → 国会議事堂<small>Manaita-bashi → Yasukuni-dori → National Diet</small></p></footer></main>
+<script type="module" src="./src/game/street/lab.ts"></script></body></html>

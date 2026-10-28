@@ -1,0 +1,26 @@
+[
+  {
+    "file": "meet-me-at-yasukuni",
+    "name": "Meet Me at Yasukuni",
+    "japanese": "靖國神社で会おう",
+    "artist": "SORA Cars",
+    "bpm": null,
+    "collection": "Tokyo Routes",
+    "description": {
+      "ja": "東京ルートを彩る、待ち合わせの一曲。",
+      "en": "A song for a rendezvous along the Tokyo route."
+    },
+    "source": {
+      "path": "world/audio/yasukuni-1986.m4a",
+      "publishedPath": "assets/street/yasukuni-85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6.m4a",
+      "bytes": 6215027,
+      "sha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+      "codec": "aac",
+      "sampleRate": 48000,
+      "channels": 2,
+      "durationSeconds": 254.952,
+      "lossy": true
+    },
+    "previewStartSeconds": 30
+  }
+]

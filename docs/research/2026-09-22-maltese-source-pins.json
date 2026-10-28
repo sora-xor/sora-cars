@@ -1,0 +1,78 @@
+{
+  "schema": "sora-cars.maltese-source-pins.v1",
+  "reviewed_as_of": "2026-09-22",
+  "primary_urls": [
+    "https://eprint.iacr.org/2026/2067",
+    "https://eprint.iacr.org/2026/2067.pdf",
+    "https://c.rypto.systems/publications/",
+    "https://homes.cs.washington.edu/~tyagi/publications/"
+  ],
+  "sources": [
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/maltese.pdf",
+      "bytes": 992111,
+      "sha256": "a345f54a7ab317b00664377ac89b41c149e83e5f71649fa1ad258b699f6c84c1"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/maltese.txt",
+      "bytes": 512698,
+      "sha256": "7ff3a0f71f7c9c59f17bd9bae6f8f7fe1c3618cf804d35708b65ce1dfb604a7b"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/response-headers.txt",
+      "bytes": 702,
+      "sha256": "0c3c7f84ce0b2afc45e2b720dbd1679e8fc05011bfc095021355b2a00e15ee7c"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/eprint-page.html",
+      "bytes": 16307,
+      "sha256": "d22996dec23d78e5acc02b6def1df16afc756930576e39795811e2ad0deb3164"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/wilson-publications.html",
+      "bytes": 12008,
+      "sha256": "58096107aa8d4233c5b6aeb63c6e20af58baaf53ee3ffb695ca4c350aed49024"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/tyagi-publications.html",
+      "bytes": 10821,
+      "sha256": "347a06afc60c1f078393190f77eb76130c44875a4efb2c24fbaf33652b9a957a"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/pdfs/maltese-2026-09-22/parameters-page46.png",
+      "bytes": 421801,
+      "sha256": "99f20586f4d0c166d5b2f9555378524a121748f5b22ed3af1578c71e99b7ac59"
+    }
+  ],
+  "native_read_only_comparison": [
+    {
+      "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_core/src/execution_proofs/arithmetic/checked_constraints.rs",
+      "bytes": 120108,
+      "sha256": "7689b45d60fafaa326aceaa04829e8cc266b3024ec04eb3b653afef993046396"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_core/src/execution_proofs/guarded/whir_commitment.rs",
+      "bytes": 32568,
+      "sha256": "213b877efc7b39c90ffd6850d83fafa81c781206976997c0ed93d05bc23ee109"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs",
+      "bytes": 51991,
+      "sha256": "28ad4b1bfb2e359eb371ffbf3cc77d6f6559623636b0e02e91ef535d1529b0b6"
+    },
+    {
+      "path": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/crates/iroha_core/src/privacy_engines/transparent_stark.rs",
+      "bytes": 113331,
+      "sha256": "a1425266d801ca69b52b4f4bdac045307e73b988eea3aeb402e16da749558192"
+    }
+  ],
+  "notes": {
+    "path": "/Users/takemiyamakoto/dev/sora-cars/docs/research/2026-09-22-maltese-native-fit.md",
+    "bytes": 7113,
+    "sha256": "8000ccdccc956b939f3148bf32a3afba828a6d83fdb51768fa38c49e67901b54"
+  },
+  "executed_benchmarks": [],
+  "implementation_found": false,
+  "full_security_review": false,
+  "adoption": false
+}

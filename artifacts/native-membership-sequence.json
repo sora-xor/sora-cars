@@ -1,0 +1,2979 @@
+{
+  "schema": "sora-cars.native-membership-sequence-evidence.v1",
+  "scope": "Ordered native full-genesis component proofs; no authenticated accepted history, terminal adjudication, extraction/security theorem, integer execution, finalized ledger or settlement qualification.",
+  "files": {
+    "output/qualification/street-commitments/native-adapter/report.json": {
+      "sha256": "831d8e660f3f8838701a507a15e3d7c4bf5ab6d0cae636d299a936e9f7450c05",
+      "bytes": 96230
+    },
+    "output/qualification/street-commitments/native-adapter/adapter.rs": {
+      "sha256": "cd3cb384d4e354ecfe0f8f5a0d9cbab4f238f9e1f1a34ad1a5b08ed32293345b",
+      "bytes": 14299
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/privacy_engines/transparent_stark.rs": {
+      "sha256": "a1425266d801ca69b52b4f4bdac045307e73b988eea3aeb402e16da749558192",
+      "bytes": 113331
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/poseidon2.rs": {
+      "sha256": "a6af6d9a59a6df6fd8f211386707d413d68062201af0c35a85dd84b86780e118",
+      "bytes": 12341
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/poseidon2_constants.rs": {
+      "sha256": "d2f0c4f1aed8bfb516ff4bf16beec08d69603c9031cc1e25ec1de670063cdaa1",
+      "bytes": 5885
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs": {
+      "sha256": "86f684bddd22e4f59f328a6096c6cf647b142b917c6773444e5f11c692b481cd",
+      "bytes": 57382
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark.rs": {
+      "sha256": "b16e8e505a1bcbc99584807ef06f66ad723cfc95ee9fa0c618a7914f0f28db0d",
+      "bytes": 213546
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark/retained_polynomial_tests.rs": {
+      "sha256": "66fa7078636480a1ea08b323a524101fbb26a790b75f8f76ce251f4095404097",
+      "bytes": 4434
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/POSEIDON2_PROVENANCE.md": {
+      "sha256": "f93483701b12a5b874bac1d0f1445e6cb68078f68e835673ef4e055bb0b7bc46",
+      "bytes": 4369
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-MIT": {
+      "sha256": "d6543a1b0a0a51d10b5f8c389324c7dfeba556b7f39815efd292927bde808700",
+      "bytes": 1086
+    },
+    "output/qualification/street-commitments/native-adapter/source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-APACHE": {
+      "sha256": "3708458dee7f359ac6c9c5558023ed481be87e5372c43ebd7f2ca7ad23c12026",
+      "bytes": 10848
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsorafs_car-64b9280f3519badd.rlib": {
+      "sha256": "7ea46656eaacdc75290996dd676baf2929db3e5e963c7553622ac891f641268f",
+      "bytes": 8188744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhex-21cb65e42ca4455e.rlib": {
+      "sha256": "6e8ad4279f7139d219108f9cb66aac028a2d74b191520ca0d1193b5f6a888d9b",
+      "bytes": 374136
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde-13c228950231e1fa.rlib": {
+      "sha256": "9f4b787fcf64e244562c518d4fa2832c189a31693880ef7f6f57a440f03b23ae",
+      "bytes": 944848
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_derive-8ed651a6b43db270.dylib": {
+      "sha256": "ec6766e9ca08564d8d0de724ce985726d4c747bc85fb681baa78a26a4949e543",
+      "bytes": 4077584
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libproc_macro2-936882d091100298.rlib": {
+      "sha256": "16e376db229f5806916ff509d9c9c9ee45b391bd66b000306584beadd11dff47",
+      "bytes": 986184
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libunicode_ident-dcb99b3234079cf0.rlib": {
+      "sha256": "a57a73ae4609845bef5f8afe61179f69bd89a86ead2b1137df9ecdec91690d06",
+      "bytes": 56360
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsyn-bc0153952ef8ee9d.rlib": {
+      "sha256": "f93a4bbb585f992fcdb28fdd48a238281940c9b0665f97d205a5484ef116a6eb",
+      "bytes": 10429640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libquote-3b5b2208f7ac8225.rlib": {
+      "sha256": "9523442710b518cfb641984a792f5831bdf497bbcfc624fc5df62ea36e9f399a",
+      "bytes": 481808
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_core-75b91f4a7a88f997.rlib": {
+      "sha256": "a1fc1b13efbb99901e2aa5f6a98cecfbf450cafff90deb5056497390dbd98db5",
+      "bytes": 4905328
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liburl-bfd5ba9da28e97dc.rlib": {
+      "sha256": "e54d96445a30fbe4360273da54709bd453352b02107048354e2877ed9868c0c7",
+      "bytes": 1029568
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libform_urlencoded-4b8eefa2297b579b.rlib": {
+      "sha256": "6d71adb3d02111a8ddc6dd1f9bff4114a7355c23c53d497327a6f2a584b9c876",
+      "bytes": 100656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpercent_encoding-8adb361b4e1491a3.rlib": {
+      "sha256": "c595e2807be0ce731da5a4ce125b2807734292fd1e1fcac6434cae01d7d1bea4",
+      "bytes": 139376
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libidna-657b980f6da2c507.rlib": {
+      "sha256": "d6f014aad1c5981f211a27b0cf36f231399177b5be83a31e8bcd50970e561dda",
+      "bytes": 1031304
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsmallvec-6fe6294e44b71a37.rlib": {
+      "sha256": "a052cec3f726ccf6fc0bba9ebf97cb15f744ea1b3e1b7ac95430f950a18da4d5",
+      "bytes": 221968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libutf8_iter-c5f102dcfae16604.rlib": {
+      "sha256": "01a412ff093b86f783905b0c35ce53cee7eae0952763a8a53cccb7fcfd329785",
+      "bytes": 74192
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libidna_adapter-6fddb423bd53b950.rlib": {
+      "sha256": "b344994056c20f497bb86bf93d4ecf4f06e21137b2147b2ca5d539ff2803161d",
+      "bytes": 75008
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_normalizer-4dd1c23d3988169b.rlib": {
+      "sha256": "25a15167cdd70ac9a30d1204beaa647bfa671cf7122df91a5fc2d35b5e750d18",
+      "bytes": 1401112
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_collections-441b73d7edde658f.rlib": {
+      "sha256": "fc2093bb7400096ff913836ea28306d2f92abc108c8646697207882c95f9e398",
+      "bytes": 865272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdisplaydoc-415ca96c5aaf44ce.dylib": {
+      "sha256": "2864aa5c74b8bb13005a3a9f1ca46464478168d2f82208565b79f78b83411ee2",
+      "bytes": 2837024
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerovec-5bd72fa0c7165d51.rlib": {
+      "sha256": "e0e268e38e339b5000f799ce22509b14ac17a9fb4a954ce1b7f9eaa9d757b603",
+      "bytes": 1120352
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libyoke-04db6a0ce06f3b1b.rlib": {
+      "sha256": "a36d284503d110727c70c5b46fbe0f658a8f620f3b156b110440af96599bbd5d",
+      "bytes": 234152
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerofrom-d092b13fdccee68a.rlib": {
+      "sha256": "a0bacdcec224871f0623739e3ba4b047d3d0002f106c6d6affebcb47887bea9f",
+      "bytes": 95304
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerofrom_derive-ab80987d0af74032.dylib": {
+      "sha256": "b1a536581ddc602ccb47ece30750750e5cb853dce0e068c57d9b1bfdbbcde698",
+      "bytes": 3728992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsynstructure-9cd8d712af4c837f.rlib": {
+      "sha256": "630020f2db6f9fbb1f056a005fcd13900af41690e8f56beb28d379513b5ea0bd",
+      "bytes": 1065320
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstable_deref_trait-9f1f149a5608d752.rlib": {
+      "sha256": "db6d1a2364b2a589da7e6ed1773ad43a1203f92f522cb09ebe7648a98056b85d",
+      "bytes": 11136
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libyoke_derive-8025f30ef19368ba.dylib": {
+      "sha256": "07814e94f79f7c0aa510c9eb283b0be89875e23ca7e00f9a0a1e82a16a5fb487",
+      "bytes": 3468336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerovec_derive-f6983f7834072b08.dylib": {
+      "sha256": "fcab678c3889a751ce33c4d9ed03382f0993d30e1011910aa4d73000af1581f5",
+      "bytes": 3179824
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpotential_utf-45d1135316990b3d.rlib": {
+      "sha256": "e611ffc5fd38ac9214395a5acf17cc3fa2ae24e7772b9336a01018d9bace5e92",
+      "bytes": 92048
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_provider-a269688cc263c75d.rlib": {
+      "sha256": "42c2b85d7bb66c4a6055f5c2ab58883173533df7dbf0902d80af55e73f9c02b6",
+      "bytes": 579520
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_locale_core-204838680c0b33c5.rlib": {
+      "sha256": "9660d517850d20e03ba40705328bf20bb82b154fb34789154d0c47931388909b",
+      "bytes": 2441488
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblitemap-672247e486005f47.rlib": {
+      "sha256": "2539fc3214cb8ab4bf8faf139d146c73dda5581409226d123ab60be3a3d130c9",
+      "bytes": 256224
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwriteable-425bae69f042d34e.rlib": {
+      "sha256": "3c2e3f86aa12c690a4de0d59f5b0fce068a8df703f2d8854ffae4c49c5afd04c",
+      "bytes": 219528
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtinystr-8222d59718f5af4f.rlib": {
+      "sha256": "e6dda22341c21615a3d586fa041896cefc0c5fb866a53904c516cc91b5c341aa",
+      "bytes": 358696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerotrie-b5c5c748d60dbcce.rlib": {
+      "sha256": "a39685e00ab463c6e445d107cee0ece6693e2eac350319cb023cab85653ed2d1",
+      "bytes": 533336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_normalizer_data-f04946f8491d508d.rlib": {
+      "sha256": "7c9f8d1eb77bbae7d3f118f4bd5c6827f21d86a2dce659c0e2aef1f6bf276fa6",
+      "bytes": 434840
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_properties-c8ca7ee2098afd47.rlib": {
+      "sha256": "d9cb3fdd0055fe4ebcc0aaeafe0edbd684d26e0824a2eb5fede1545f13f17cc2",
+      "bytes": 3773656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libicu_properties_data-38c41ea25e3b38c8.rlib": {
+      "sha256": "1c0b4b2a219e05f98281346ca0f289d62e34fb3a75562f8c6e1e02747c355455",
+      "bytes": 1823408
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_data_model-b39a5773d3b6116c.rlib": {
+      "sha256": "4039ccc3328f969a2e2f2dca23b8fc8420b6afd33a49a696cbf5262d4d30763c",
+      "bytes": 448845536
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libderive_more-61d09170f3c947b5.rlib": {
+      "sha256": "0565af669426777f320481a7ba9c277e8a4cc72701f207216cbd8108845c3412",
+      "bytes": 113784
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libderive_more_impl-74f236d829f1395e.dylib": {
+      "sha256": "cf9414d34fafdd5b010e820084af6a132d8abbeb3774776d040bc4b3e08b66e6",
+      "bytes": 6177904
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libconvert_case-a5c49a385442585c.rlib": {
+      "sha256": "581f4d272c16f464cd7ec9499a85aa92beaa24187c377cceb10e52185670c1f5",
+      "bytes": 500032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libunicode_segmentation-a0770b5357d21180.rlib": {
+      "sha256": "f94d9bda36a123993a7e492905eab0c73f2776112ddd8801e6ce439891ce1a22",
+      "bytes": 1313808
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libunicode_xid-abb0ea6e5ae40001.rlib": {
+      "sha256": "92fdb9318d5f6f93cce73cdcc9b24e6b7ef692ef900fe0a0c1475a7e97a117b2",
+      "bytes": 48912
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgetset-c13f9b012956b6d5.dylib": {
+      "sha256": "81ab6135aeb629c750735eaf91261a90f041aa18326eb61904c28306bae5f19f",
+      "bytes": 2801696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libproc_macro_error2-5a0056deed7a7f79.rlib": {
+      "sha256": "e21b3f742cef1560465c889c7497bc03800cba56fa75c63357c1d234db19936b",
+      "bytes": 370920
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libproc_macro_error_attr2-9a1b73c85ce30661.dylib": {
+      "sha256": "57aff51fde1b534f515aec9cab91ff1f19ec73ea4f2ca33e3f5cf88e77bc05b4",
+      "bytes": 701616
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_macro-154c70b6f54ec15c.rlib": {
+      "sha256": "114dcb7a03929c03975db7e4763cb544330e87937fdf7482b2002697ccf391a9",
+      "bytes": 13808
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_derive-4b4199c2162d4f8f.dylib": {
+      "sha256": "3303c80743b8a0a14888fd51e1a4c8696917f26eabc1814c071e22dc3fabd24e",
+      "bytes": 2571456
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmanyhow-a88980c522925200.rlib": {
+      "sha256": "72aefc44a4a4acd8c90ad3d5e2cf6bf0640cd3d8f4263d83067031bd756cbb64",
+      "bytes": 410272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdarling_core-913531c2ad6fb404.rlib": {
+      "sha256": "6f6cc7743a78b3b8afa57f08163331cf94b3ad6860cb73a4d718f69884e68de9",
+      "bytes": 4694000
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfnv-e0417e1a2cec639e.rlib": {
+      "sha256": "7743765144b3656fa3ad21d3d85754f6c52a1bb334dd180f87bdfe8f6f38948b",
+      "bytes": 11712
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libident_case-2f503edc5e0e88f5.rlib": {
+      "sha256": "c07e1d0999a52ba0463158495f33a9928ba57460ea93e0cfd4762094f2755029",
+      "bytes": 20920
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmanyhow_macros-21b64a677009ec37.dylib": {
+      "sha256": "a1b76998b27d899239802b1f48c53bfca6a463b52e487b7e7c664096de658ce3",
+      "bytes": 831024
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libproc_macro_utils-82952aabfd9966f4.rlib": {
+      "sha256": "522fc09ba8aa480322088ed78de16f58c40d3f6951975987ee039b7aa3a06a0d",
+      "bytes": 1131984
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsmallvec-6120fc535d6f35de.rlib": {
+      "sha256": "d2cf2829692b85b88f90a6daafaf085283de3b29d76c03a636cdc4232e36d752",
+      "bytes": 217264
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_derive_primitives-95cf1dcbc3ba9720.rlib": {
+      "sha256": "ed2491d80bff41316226c38c28d04829cf534ced8145b02ec82ae912438eab4a",
+      "bytes": 24896
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdrop_bomb-2fbdd4f4465aaa22.rlib": {
+      "sha256": "c2c4830f2253f42580ce484c2dde498f5a2955893e015484c7f584517be5e27a",
+      "bytes": 31912
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthiserror-1970069e6c330e75.rlib": {
+      "sha256": "9bdfe4989ac9b62444dbb34497c0a7351cf38a7d088f442261cf382601be92f8",
+      "bytes": 30152
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthiserror_impl-5ee044148db7f441.dylib": {
+      "sha256": "972d5d468b7da83ec7fe0e048cff0b28d2bafd983bb3e4ebf1174806739fd75d",
+      "bytes": 3258960
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_data_model_derive-5524e87f7d1571a9.dylib": {
+      "sha256": "909a25fffe7ed1f1391ca9a4552f48964f61c687ba266801d0ba60040c4f7eff",
+      "bytes": 3867680
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdarling-94db1154d5d02e6d.rlib": {
+      "sha256": "880873d3fa1e53d0de211af934c6b48e32c7cf2d38966ccec52f2dd50c7a1e53",
+      "bytes": 18872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdarling_core-0dea17ba9498cf1e.rlib": {
+      "sha256": "79c172af72e5af41614060077ff0844438e3d68f4cefc633d9a28ecbf72e0bcc",
+      "bytes": 5125496
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstrsim-f6108380e40979a2.rlib": {
+      "sha256": "15d527b33eb52d06dc1f9247d99027788fa66f7311508eacad51b2595138ccec",
+      "bytes": 407176
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdarling_macro-9db9bfb740597079.dylib": {
+      "sha256": "25541b42c91ae3f553d239b41cf8bfbb146fabe52ec976bf8e61c303cdb30d8c",
+      "bytes": 4041280
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnorito-65486b5e4e9de81c.rlib": {
+      "sha256": "339bdacc0e38873d90b036fecfd7a44571464f38d4b7e92127fb49d034732dcd",
+      "bytes": 18950416
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libchacha20poly1305-bc9ba0159f8e02da.rlib": {
+      "sha256": "b8f41e1466f083af5d556f0773b8ef6ead18a086ec0db9a02c0ae705587d63b5",
+      "bytes": 48656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpoly1305-702392fed72b0f18.rlib": {
+      "sha256": "a861b4ab72811adb0d874053a0fa388f0bdcfa16131b78c5a318a7695be5c6d8",
+      "bytes": 82200
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libuniversal_hash-f53186bb0b695914.rlib": {
+      "sha256": "750653f3c6af1b1419b9fc6a00f2858b62a3b5737be6320a7887af4eb0cac6d4",
+      "bytes": 28136
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrypto_common-0bafd1a4fab5b6dc.rlib": {
+      "sha256": "14b4d533997cf35dfd4b19eb227acf53160c773513e03259542f84deb7ecaf2f",
+      "bytes": 1287800
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhybrid_array-751e74af0148ca48.rlib": {
+      "sha256": "11b9747f1a143713e7183e292fbe2318be196d646c3adb8cde9c75a7d1181350",
+      "bytes": 1207392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtypenum-e219177cba9d58b7.rlib": {
+      "sha256": "65e925e0c67044388282fcdabeb290ee296f6dfd711626ff8c161b9118592adc",
+      "bytes": 3611640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgetrandom-4c148bf8cc04ef0e.rlib": {
+      "sha256": "9dd91c8ab954d17fc47811756db9c0a3ca5579a4d484a016931e6e346e657e1f",
+      "bytes": 114352
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblibc-69b65d0c9438576a.rlib": {
+      "sha256": "f11d3b73311918362ce4465ca6cb941094ca899a42b8188b25beaafdba42ca71",
+      "bytes": 2157104
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcfg_if-edb695a20a3e19f0.rlib": {
+      "sha256": "0b5a51b66d2c3edf846510fe7dcd43020215af9f847d65465620456809bad481",
+      "bytes": 6256
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_core-b2d9ea9ec30a2acb.rlib": {
+      "sha256": "f58a9989e5edf209956c478fb1dc8b08b7afc9aa0c9457f83f99d007c4160227",
+      "bytes": 124760
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libctutils-84e12c7b7153a7a0.rlib": {
+      "sha256": "330acf94d2cda7066acd41ad45b1234c60d435e138f17d90d03ce50c7c513ab7",
+      "bytes": 355344
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcmov-66faef77ec505e6b.rlib": {
+      "sha256": "255e4225fbcf3c8158c282f3ae0e1c5ef13b165beb249ae4c8afe8dfb93f3f06",
+      "bytes": 280640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcipher-8c2f2149829fc5a6.rlib": {
+      "sha256": "e861a10c6ce7ddbdad7fd202207330ed9a6abb8720d4e553ca53d99f52c4d9cc",
+      "bytes": 294128
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblock_buffer-4d229e7fd6266b84.rlib": {
+      "sha256": "3ac1c8a7e355112e46de2d9c9e877ee121b811d3891a6caf4b6639e24d672021",
+      "bytes": 80968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libinout-7b0a3866a49e1d2b.rlib": {
+      "sha256": "f94c09f55ae590661b40c43d0b01411c99ac3ba08cb3a6c683ebe0c78015b261",
+      "bytes": 73808
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libchacha20-f4b7849843f468b2.rlib": {
+      "sha256": "ae0d36ebf01a4b0e6c2eb606bf00785d71afbbced43aadb2279c2f11eab46edb",
+      "bytes": 316160
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzeroize-52df5dd8a103b91c.rlib": {
+      "sha256": "700d33a400cae6f031035e1837678d3e5832675cbb12b9d88664646e154829dc",
+      "bytes": 356608
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzeroize_derive-915f8d13e6b72c39.dylib": {
+      "sha256": "c27e5c7f7305b7c000e3230f63a9d0c1306a7aebfee76b4ac7fdaacd97dd37a5",
+      "bytes": 2977392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libaead-501c798727dc0483.rlib": {
+      "sha256": "108875c55a60e9036347823c5b5a219b6e9130b331053f7a76578148adec91c0",
+      "bytes": 97432
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbyteorder-eea4a0bd7c55c226.rlib": {
+      "sha256": "e6da1cb45e48af4b95ac6b82eda23e19e5142dee1a0f6f70674602dde0c83a9a",
+      "bytes": 285152
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzstd-569a9d7fc97c7063.rlib": {
+      "sha256": "f2124638c3076fb04dad76bf48ab954e1d00c43e7e0d31f5023c8125747ff9da",
+      "bytes": 351864
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzstd_safe-83b01b0e1c70905c.rlib": {
+      "sha256": "33ceb4739a32a57ebbf8d47210e9598225ff99a4b006f6d31714ae38c998ea42",
+      "bytes": 235352
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzstd_sys-4746f0ca871b4dcd.rlib": {
+      "sha256": "e450dd1b3c8e7b2491670faaaff45aad0cd88f7116a551d1035eacd99b8f655b",
+      "bytes": 2611224
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_audio-8d91104d8618dbba.rlib": {
+      "sha256": "d72f04588209940f6f7cb3797d97d07ad9cb13bfcc063c2ab7008c026a3b5069",
+      "bytes": 262392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libryu-45d8b59f013c3af0.rlib": {
+      "sha256": "82bc921a1092c03fa0e9f6ab9b9eed0dc6808007ce0338f395ca98d7d7a73661",
+      "bytes": 164720
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnorito_derive-7bd7255954c3e235.dylib": {
+      "sha256": "486586affe31cbb4f23635e4a2cc4e7bab349e9527d392310326a6144ef0f7bc",
+      "bytes": 3605424
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libheck-2ddb6d2622106f98.rlib": {
+      "sha256": "bfc3d07220411d071ff1ba28eff9534b6f6559ca2ac91be24c6aaccc12a859bf",
+      "bytes": 315040
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsimdutf8-c10b3b6b86d73300.rlib": {
+      "sha256": "3f8e32a21df0574430baec62052e141c217253bbaf0d64b92cf582ef5a986dd5",
+      "bytes": 190192
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsha2-e7ced235378905fe.rlib": {
+      "sha256": "c95f7b5f0dfd65bfd9344396803f1a6a5cce9b68bb518210ca52d7c7c3292bf9",
+      "bytes": 217040
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdigest-7a1f3e0b1e3c37ca.rlib": {
+      "sha256": "a7dfd811336ead18200c428b2af1847465fac45bde53ce2429e352d1cfca546f",
+      "bytes": 212752
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrypto_common-b34b1129eecde729.rlib": {
+      "sha256": "6053dcdfb19df289262f2f45143cf58eb9d08c22decfc9f0a7eb7177306b16b2",
+      "bytes": 29504
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgeneric_array-c7ced6f384705c05.rlib": {
+      "sha256": "1ea17c527e122fc8589c702cf1505b5e3e9103864fb8d6a67ee6123705d88559",
+      "bytes": 875816
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libconst_oid-819ff054b7a621cc.rlib": {
+      "sha256": "7dc85fdcff0d5e990a9107e831ec70253fae782c37dd697a0a36c36285499498",
+      "bytes": 176232
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblock_buffer-85d0bb4a896e3aff.rlib": {
+      "sha256": "e7da51dc5c02131e5eb540c185e20c94e1a5b75fc6cab62ab145c9f4a9b555bd",
+      "bytes": 52664
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsubtle-0c9f8bdcf5404e48.rlib": {
+      "sha256": "2ed041f09ce1a65626248d32f150f797e9a97d49e29a90ef54d61fc33278b9a3",
+      "bytes": 132480
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcpufeatures-d24019f8b876fad9.rlib": {
+      "sha256": "3aec7e22a5a604727b4f3ed7437fb15f0d4ad6cde2910df11685b7345cc3e52a",
+      "bytes": 34184
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrc64fast-1e9a1237975ec8a9.rlib": {
+      "sha256": "ead5c9540ce1f7ef228e2a6384ab4d2e307a3a8f5eccb5841560929e0c306dbf",
+      "bytes": 319576
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsha3-f24827975ef6c6ca.rlib": {
+      "sha256": "dbed5f445c2b2ff82013c65abff8f29fc8c27c2862c0a41425178d7c5a91c68d",
+      "bytes": 373560
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libkeccak-fdb336f957b6e682.rlib": {
+      "sha256": "b9fd079c5f613cad8c4ae693c8ee0fe89bb9c79bc884dbf9571f1934419270a0",
+      "bytes": 331080
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librayon-37a4611317eb21b6.rlib": {
+      "sha256": "54f44981a61612d38163b0c229392e5ae4c0d30db857b11724d9f89c1ebdafe0",
+      "bytes": 4308296
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librayon_core-0bb392529cc8918d.rlib": {
+      "sha256": "18a8e4b451d642a62bacfa9ec403166e2043023bfab582d810f4e504285fe64b",
+      "bytes": 1218544
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam_utils-2fe80fe7ec303b0b.rlib": {
+      "sha256": "70e52d819fc08116b2e71835edef1d30a99e096ff88710eade813ce02f8bb940",
+      "bytes": 988528
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam_deque-94ffbf4002e31dd9.rlib": {
+      "sha256": "4d564dbbec15a0917096a0331f2e458b6eed6d11457808c775248448f76f7dbe",
+      "bytes": 182568
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam_epoch-a2b150944bcf4b0c.rlib": {
+      "sha256": "7d30df81d2eb38193fa612c0f7ef8a1e86e20931a966e363bb740089498a8cef",
+      "bytes": 519600
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libeither-360e57bfb44d3955.rlib": {
+      "sha256": "0f74a7d6a7f3cc4440c7c6a08577e308022984225cbed18a9e1b5dc4e3dc209f",
+      "bytes": 240696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml-247e4cc1f614d28c.rlib": {
+      "sha256": "dcf51ec182327043d4ad93e61a280aba5d1ec2c13845fcd19ecc36146472df27",
+      "bytes": 2561264
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwinnow-3edb68887b62e1c4.rlib": {
+      "sha256": "366ba8c051e0d2e34be69f0d6600f5952509b798d5604e86181ba6939877e860",
+      "bytes": 3622032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_parser-32aa797e8bb82d76.rlib": {
+      "sha256": "4737bc47ffbafb036d3ac54f44492e4065a374ee3cda38ddf2180e9079128a38",
+      "bytes": 833480
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwinnow-ca9a6c6b0365ce11.rlib": {
+      "sha256": "6454c02008be1e17d91f6622d49eb598d9aa7a2bbd8a7af864b999abd49817af",
+      "bytes": 716608
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_datetime-bf774ae0254bf96f.rlib": {
+      "sha256": "f75e9e82533c51f2cff2f3b04aebfdbc3bd7f6467efc35dafa74a3e021f58089",
+      "bytes": 338328
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_spanned-a970b615eda09340.rlib": {
+      "sha256": "464a14030c6538a75fa3fd7708dad561e4f3f683a1fd776c3333027df101699e",
+      "bytes": 59768
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_writer-7077a18a13da155e.rlib": {
+      "sha256": "18a7c85fe41aebeb160fef703da8ea456885aec7567267862d68388f9ad8e568",
+      "bytes": 207576
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhkdf-3204580b9e8cc974.rlib": {
+      "sha256": "43bc439f959fb52ef292678ce4541b83caaaaacb1de67f4821da4a43892538ed",
+      "bytes": 50872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhmac-fdac7bd731be5cd0.rlib": {
+      "sha256": "2d6c4df5f75c47e15b7c0dbdbb8439212f035e9251df08323e3d3112462cdffd",
+      "bytes": 48504
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_schema-2fd8543e8d1891ed.rlib": {
+      "sha256": "0812122672e412efe58519a504e6fd314098797851033b529957c0b2a6a6e2bd",
+      "bytes": 582736
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_schema_derive-15fc266f82fbdc3e.dylib": {
+      "sha256": "40760da9de0638aa523431d8a064877de6f41ebbb316a39e8738e73105129887",
+      "bytes": 3751344
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblake3-739440c6b1d965f2.rlib": {
+      "sha256": "65f3fd90b49d42160ca2893341be6f41b89f534259e81d3fd07d4fa8b3d60009",
+      "bytes": 767080
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libarrayref-6495590404d103ad.rlib": {
+      "sha256": "ae260b469cdc671953e11c7fe98a50a3bd9fd57466aa725dda5232759d9d74b9",
+      "bytes": 17736
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libarrayvec-d0c449e0009d335f.rlib": {
+      "sha256": "c78760c66b94f0e523c964aadb208752d8c3d2c51aa29d2fd8ef6eb11db420c6",
+      "bytes": 246792
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libconstant_time_eq-0f1abc74ab5f1549.rlib": {
+      "sha256": "a6ec6191934f09a4ef85cd550d81bb541f2ee998bc7ae4e79f90f0c7cc3b4bfc",
+      "bytes": 278960
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_primitives-80453e1b3e0e27bc.rlib": {
+      "sha256": "cbf744ee765ee490bbf37003720c69c1056ee5f106279204273b611044a824bb",
+      "bytes": 3881336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_traits-0d65a231700cbab2.rlib": {
+      "sha256": "67376854e53ba8b414d5fa48f90f318e289361974f711b02951d9f2f15a5a8a4",
+      "bytes": 1851432
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_primitives_derive-1aae5dc292cb29d3.dylib": {
+      "sha256": "bab44263778dc4579c632c85ca4b21342cf1bcdf09ba4ffa9ea7c01cae136079",
+      "bytes": 2494320
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_bigint-822fb0cc4c4e1378.rlib": {
+      "sha256": "aac9e4892825a6f7e0295308c39349eaea786ec00dfe0f665c6494ffbddc709f",
+      "bytes": 2732808
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_integer-e180c72926f18281.rlib": {
+      "sha256": "f4e07d35ccb96ae60179783bd2402f1f3e12c95868ffb87402639b33315bedaa",
+      "bytes": 432520
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libparking_lot-63aedf11f295b4f1.rlib": {
+      "sha256": "63ca0370acbb1e0742e86e5ce0f2668db7b94340f10a826386cf94c7ac1aee4e",
+      "bytes": 520144
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblock_api-eb5d587bf817e127.rlib": {
+      "sha256": "19c74c964c4cc7c1cc3e1bde4743f9fe1a921b70b3a117d8346740f055fda9ed",
+      "bytes": 380488
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libscopeguard-ba82747a722f02c7.rlib": {
+      "sha256": "ed56725d83064fb9ef0ecab64ec9a7d68f5d288a192d37d13c100b99d12f4868",
+      "bytes": 26344
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libparking_lot_core-a5b6fc256dd01d38.rlib": {
+      "sha256": "225447ac3d72f980851ec03d8b9815f7c40a8f8c36b2df7d00ceb052816458a8",
+      "bytes": 1122032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbacktrace-3d6452c8449332d0.rlib": {
+      "sha256": "e40b18d2a6422539813b1061f8b0122bfb2f7f26ab9c262b78c34342d89014f5",
+      "bytes": 2366704
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libminiz_oxide-c40138a5ef46ea25.rlib": {
+      "sha256": "960c17f33d5beb89cf6879fe2cf1f200d480f0f3887af76a1f9b5da81546d5f9",
+      "bytes": 941824
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsimd_adler32-f85c0ecb14b7c21d.rlib": {
+      "sha256": "4d39e46f40223b059f46cadc21fa0f0295f2552b1bfd5d805134de05062f6ee9",
+      "bytes": 259872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libadler2-d3a73fcdb01c350b.rlib": {
+      "sha256": "820185bd409db016e68895b14593f71a39f665be235d4b991d89a511499589d7",
+      "bytes": 51088
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustc_demangle-d0ca137367267aa5.rlib": {
+      "sha256": "c0e5074402838e7356bd0ecc1522924eb7b8b16a427a23e4dc434b2553dc0a1e",
+      "bytes": 440776
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libobject-dca20a09c93d5196.rlib": {
+      "sha256": "bdf0e6baf0ec67e40840572846d316af11baaba3738e37fc1143cb9c0215897d",
+      "bytes": 7235032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmemchr-c785f10babc8cf4c.rlib": {
+      "sha256": "8c0fa2fb7992693156c86836296b346da68d8fe3b49ac12b2ccd75f84d5980fc",
+      "bytes": 1082328
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libaddr2line-15096aa2d6b42298.rlib": {
+      "sha256": "6e6f22ae3892cf11b2f4b9b0961042f95af737e2aec3bc1640893d8d44c55b1a",
+      "bytes": 388472
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgimli-c8d6525c61eeba96.rlib": {
+      "sha256": "4107684aec205ceeca7a319418ce40a22f2ae82402b92f8b4115ee0f7afdc5f8",
+      "bytes": 4701032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpetgraph-dc6ac963120854c8.rlib": {
+      "sha256": "bcd3d14f9375a90e993a7616611ce4fbf9eab65db6b6a04eea2a648d3b7484e2",
+      "bytes": 3013496
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libindexmap-cae3143f0cdabb72.rlib": {
+      "sha256": "0cf6e8e81a4e326926e1032a210900594f34c223c82806959449f9161024e86e",
+      "bytes": 1266104
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhashbrown-e23e1d63d86ff547.rlib": {
+      "sha256": "1a03d5cc82812b4266e8042ea59fa5ef33772180e02feff9767b9cacbf548ffd",
+      "bytes": 1261192
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libequivalent-00f1e72a4a97b813.rlib": {
+      "sha256": "b33c737aa57e7fa955f5e3f9fc38857711c21f01b2d71427d8e4daca3e78ea88",
+      "bytes": 8872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfixedbitset-59efdc7a80306b9f.rlib": {
+      "sha256": "8fc53a00940704cc1ef07b44b648d2f9c0c5c9a80c4b03a710ad57324d13f856",
+      "bytes": 202408
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_bigint-2d0d383e939f3e42.rlib": {
+      "sha256": "a3d4262a0f72e4b326bd00b79f82ff621d4f1711089c940462c94917831fcbb2",
+      "bytes": 2769968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand-5705b5c95ad0677c.rlib": {
+      "sha256": "da85cbec04fd97c91dc4b809894a3fb4ca172f90a83f93ebdde6ae32882458d3",
+      "bytes": 1461504
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_chacha-8de985d1f4f8115f.rlib": {
+      "sha256": "ff7f98b7ace122f2d4e9d76e828e2b3b8d7133fcc3fea44bc47545c5bad77015",
+      "bytes": 413112
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libppv_lite86-cc715dcb153bd77c.rlib": {
+      "sha256": "3965f6b670ba5281cd2d043e83afb94a2d2d5e37f4500c1fcef12b6d5c046b99",
+      "bytes": 418784
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerocopy-13fcd04005de0da7.rlib": {
+      "sha256": "ba7b2d2bcb43e68d43a0892df795d634b6d223c7f74fc02df09f9eb525f3982a",
+      "bytes": 15186632
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzerocopy_derive-e8a74c1fcda43dab.dylib": {
+      "sha256": "82978db0107588cf72ae689c8a06fec1f07456f443420bf7506dd3e26443fdc6",
+      "bytes": 3338048
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_core-3b9ba67873877583.rlib": {
+      "sha256": "c4cc3a05383ba0c7010b4906a375a3ffa18e32d84d20a2de2a45684871505c34",
+      "bytes": 211008
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgetrandom-0cf50b84d7b381b1.rlib": {
+      "sha256": "7253fe156b3bf100dab6c2a9e0033aa23d1ed6ee5c5b6567fe6ace7ee4b344b9",
+      "bytes": 111688
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librust_decimal-376a73a0694b6fec.rlib": {
+      "sha256": "5caa123a066e5b762b4799cb40083088265a7592505c682cb2ecd7996051690a",
+      "bytes": 1110304
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsmallstr-8a906071448b4bfc.rlib": {
+      "sha256": "a062d688731cb84703d85392256333e825af1737f8fc47699fa7680a35b79266",
+      "bytes": 113560
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_zkp_halo2-35e4aa17759166cc.rlib": {
+      "sha256": "27e932404f8dbdb92142d6ca99fa8e7a33c5722fb5a124cbe29639f1c65bf6b9",
+      "bytes": 40205632
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhalo2curves-f48db1da6e726160.rlib": {
+      "sha256": "6aed8640454dbb4666a8c0c9c762e38420fa030988d4f90a232d19a0785c8b7f",
+      "bytes": 20449208
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpairing-ded165944f12a74a.rlib": {
+      "sha256": "07ba2c709016a6d7295d6286701b135e8d52d5a06829d54c9e77b9b719fa2b6e",
+      "bytes": 13720
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgroup-eb06ec02e3114978.rlib": {
+      "sha256": "e2f2f102bb7232abc6f5d2fa4abfe74269a4c97a9a9342536e39f802125ed243",
+      "bytes": 184936
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmemuse-ff5dc0147748d108.rlib": {
+      "sha256": "221fe32ced2b1364fd02b6f3585b22b755de03a021d4776a42eb3386bcf3c655",
+      "bytes": 132944
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libff-1b188af674c459e2.rlib": {
+      "sha256": "60fde7528f34d72deac9c83c5197106558e839a65b152bd21b0f377432bb459e",
+      "bytes": 74328
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libff_derive-ced30011c03859a0.dylib": {
+      "sha256": "66dd53ca0e15c50438731c106c0cb40f5663876a415becf69cb775b04021fdfe",
+      "bytes": 2866032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsyn-e87ea2a9acf87d85.rlib": {
+      "sha256": "5a0f9444fd3d1d1328bf50d62d4431c2393b5940cc6800928afa1612424ba52c",
+      "bytes": 9876552
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libaddchain-36753c65e531986a.rlib": {
+      "sha256": "c281c32ab3eea90cb0da0e4173e93fbf70cf8291e186d3b2fd1c38599f26c30f",
+      "bytes": 135016
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_bigint-df7f177b346c666c.rlib": {
+      "sha256": "a99f895a4dbbb2c5aa370ebdb9ab1d04d1b23ac44e1e6d68613925dd37c322af",
+      "bytes": 2749112
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbitvec-7e32834c92bd9615.rlib": {
+      "sha256": "fda2ddfb425e4062dc04464bf66e3241f7f311d126e781d83711d1fbb173b4c8",
+      "bytes": 3494328
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfunty-dd0e089a0a559ddf.rlib": {
+      "sha256": "c89a8b763c143c3f193c7350613d39b754039eb12068196b8213d38833336faa",
+      "bytes": 1042336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtap-7b46137fea97f701.rlib": {
+      "sha256": "8bf65708acbd3e5cf8bc41e406e9f0579e6769963a60130bf9a1965403985d8d",
+      "bytes": 76576
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwyz-731244eae86f869a.rlib": {
+      "sha256": "a46d672e12c7db9b344434036370086331dc0b682360fe60689205a82b57581e",
+      "bytes": 284848
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libradium-c444c9b92fece0ab.rlib": {
+      "sha256": "b4f76850ed7d20bb7a07d487842cdebf7eb4b3c67d2adc43222d2e59ccac1c55",
+      "bytes": 293264
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_xorshift-567584055e18d475.rlib": {
+      "sha256": "66d5326b595b44928ea05ea456d67f74e3a76bb86f5825dbb5e8f82f938d5ec3",
+      "bytes": 62976
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblibm-fce7d0d0610ab503.rlib": {
+      "sha256": "c1ae6a3d816f4555c6b9da9b9fa9fb82f6d94f5e9e4a231fe08e5cd4964e1f27",
+      "bytes": 2039880
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhalo2derive-ad1b7e80ddeb6c19.dylib": {
+      "sha256": "b2dee61c4462582913c44e6b7142877fa0709ac01ebfc6e1f7008e51944afb42",
+      "bytes": 1524000
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libplonky2_maybe_rayon-ad4cf2f9434e69d7.rlib": {
+      "sha256": "efcafb966a1e29fafcc32534819c82fc9f700d2b7d84e737402245f13cf6d0f9",
+      "bytes": 22720
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstatic_assertions-01026de26c37de01.rlib": {
+      "sha256": "053cf12d9cf9107262029bd4217b0942ec9da929d82c748728d4a8924be8a3fb",
+      "bytes": 50792
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpaste-3ba43b4c6eaf0dea.dylib": {
+      "sha256": "8e0f26180d3960cc599d551fc3529569ab8dc91400a2da628eb653dd82cd795f",
+      "bytes": 663760
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblazy_static-5b92383688d7401b.rlib": {
+      "sha256": "0f423428831bf7fd802992733174a096a8c4b90512ac8d9273e04f52bc2c2414",
+      "bytes": 15472
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libspin-f6c0081b08c5d223.rlib": {
+      "sha256": "fbd86c3091e471b9c357b65e9d236014a29741078065bff6f4aa1eaf7de9e1c9",
+      "bytes": 65696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtiny_keccak-76d2f2fd326627fc.rlib": {
+      "sha256": "f93296d15a710ad3abe9ca4a463917453a18eddfa632d55c72c00bf4124180be",
+      "bytes": 157160
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrunchy-6659cadd059a4ffd.rlib": {
+      "sha256": "e3dc1aec1de86546f5ebb6e4423cbbac36e8b762be21e5e37aaf11e9221f38f8",
+      "bytes": 85496
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libonce_cell-1f36d41f74e7fb47.rlib": {
+      "sha256": "8ca1ed70a6cbede36cd6095c0f10f7c15094f7a827582f958480a7bf892c4cf1",
+      "bytes": 226240
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libposeidon_primitives-0f7486124eab7d36.rlib": {
+      "sha256": "1b035d237f0115697582104088514eb2565f4968ef64f23eb4b422834da1671d",
+      "bytes": 185984
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthiserror-80858481aa804d02.rlib": {
+      "sha256": "7855dfcf82aa57ba5ffeaa556cac666b44c841ca1e28615fae548a8c23055536",
+      "bytes": 25240
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthiserror_impl-66da317bee3bcefe.dylib": {
+      "sha256": "e70a30863968816955e8e3b08ac6760efe071f241b610f20f9b20ca968703e21",
+      "bytes": 3195392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblog-5e06f0145ae48b75.rlib": {
+      "sha256": "3806676df86342522abb010aa561c6b4503dea481fac4e191b24505d36db23be",
+      "bytes": 228728
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnonzero_ext-861aaddfb45f2a2b.rlib": {
+      "sha256": "4bbfe8893e558efd7fb236e3977671ac8e2427c3fa492c77196b865ca7e747c9",
+      "bytes": 78272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbs58-c50fc6272ce05f87.rlib": {
+      "sha256": "c3b0b08f6cab53543e781959cd29b9fb19a1978ffe2a30904ad6ef33fc45bf96",
+      "bytes": 188416
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_version-eed34f61ff7d069b.rlib": {
+      "sha256": "6b5899ac5985201bb7e52b2e2b0c49c752665d2147b593ac19381db59db9aaec",
+      "bytes": 261000
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_version_derive-01b6586a14f4ec28.dylib": {
+      "sha256": "5360b2365c05fe23096f07bcefafcc4e0f99ae550ca73f68727bd180a584520b",
+      "bytes": 3097616
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbech32-4c4b5309e8bc3e93.rlib": {
+      "sha256": "0bc5fa2cce110d4db10b1571bd81e95b8338fab1be88a1f3c8778d64b8045762",
+      "bytes": 821968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfastpq_isi-c6541e3092a3e95f.rlib": {
+      "sha256": "aec79ab8db830a27d5ac15abbcdfd800c01de39f5a5ed9a9ea891d5109e0bd75",
+      "bytes": 731720
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustc_hash-5afa02e42d1bad36.rlib": {
+      "sha256": "4234c5b74afc2e8f91a2af57637b9885e85f7677224514a3385e885d7db61151",
+      "bytes": 31544
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblake2-07672556c50f65e3.rlib": {
+      "sha256": "0d73c3fa8f75b03c5d9907523e559e5c6a555193a1ad7f5cf98374e2f41eb2f5",
+      "bytes": 447792
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtime-735df126f02fc898.rlib": {
+      "sha256": "f0f91c3468c1df882cb3dde9f794613c7a3c510d3784a26b1e3903d4b9f0a8d1",
+      "bytes": 3980040
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_conv-b4264f8bd7d3d5fc.rlib": {
+      "sha256": "5743293fbd678dd3121cf84bb8de18b996b96950e8d7b067b171af31f2f18b8e",
+      "bytes": 200112
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libitoa-2350959f6995db20.rlib": {
+      "sha256": "5f17cd43d4a57ec86bedad68536fe69b0cf60529f44afc45d3f2371cb1695f68",
+      "bytes": 124880
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpowerfmt-52d6d8561de23c46.rlib": {
+      "sha256": "1b0d2438062c15847cb36782c375ade5a25c8952feec27c11c36bc41a184ebbf",
+      "bytes": 215104
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtime_macros-609a050a66c7f9de.dylib": {
+      "sha256": "fa0e76db85bd042c457ec8389134cb552ceb2ff4e494b8581bc98b215becc574",
+      "bytes": 1065584
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtime_core-95962e76adceae4f.rlib": {
+      "sha256": "5d2b15b44f2f9f823861945e73d6c8c56f7b9a8f0e911b9a6d1f4697e4db9757",
+      "bytes": 254032
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libderanged-074daa915ab959d5.rlib": {
+      "sha256": "f2869e27aff424b39179e6168ca836e08a3c144ff57d96822605e04f3bdd6eb7",
+      "bytes": 3570792
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libderive_where-6371dd0d0da0d7d9.dylib": {
+      "sha256": "112f7b5246a4bd4b5e7f1cc6c7f42d8ec9168acf0c4169ca5807d1ebed7e4167",
+      "bytes": 3431056
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsorafs_manifest-347e9288c2e360b5.rlib": {
+      "sha256": "2ec38a6632abda9c63c96500abd01789f438aeba4903cb6aac2ae713292f5712",
+      "bytes": 58756624
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhttp-3c8908bd73f213ea.rlib": {
+      "sha256": "d3b15d904740e3dd7325cb6612da57a36696acc020bc918b6d75ab79de1a2f28",
+      "bytes": 2068368
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbytes-88cd10ffc784b906.rlib": {
+      "sha256": "14e390425e769987e9a6c49153dfa2a49d19cb2961e1c118c135e75209f8b949",
+      "bytes": 1150064
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand-37a31a842e76b64d.rlib": {
+      "sha256": "ad0cfb180b4ecba67b52fedd3c2e32c0f0ee4fb98056ec4a16f9ffb27770fd97",
+      "bytes": 1161144
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_chacha-b002578ea9dbc40d.rlib": {
+      "sha256": "0bb120b9e994d593eb95f143b78ef86a716c4bbc5fbc9ff04b3410a094378726",
+      "bytes": 391560
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librand_core-1f5ea3c7a51027f1.rlib": {
+      "sha256": "2cedca634d716847414a067f5b9bc1dd38267aec4894c80dd81bb10846a0e17f",
+      "bytes": 209120
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libgetrandom-83055f255c215303.rlib": {
+      "sha256": "1b9413673db16702b5c1c36553b1fed56d513b997c1a96a8e8d977cdbdc40d60",
+      "bytes": 134840
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libed25519_dalek-fa721c3d89072eb0.rlib": {
+      "sha256": "913329387a5664f50fb5b8657050f4a889c23d7339af4e997f7ef9528d853f22",
+      "bytes": 715272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmerlin-5a453f5f06072142.rlib": {
+      "sha256": "11d163e0a56b7eb826eeb6ef2877d8c3655ebd620790b46492b885dc8bc2cbae",
+      "bytes": 83456
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcurve25519_dalek-f6c1879809d5c6da.rlib": {
+      "sha256": "54c85a139ce5c3840e1c30b3f74a1c55dd818d11d947c32c8a7193e29ef1fcfc",
+      "bytes": 1502712
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libed25519-a32d21f278c91d51.rlib": {
+      "sha256": "619a99d2ebc937a79f9106b05e2c8ec134d2ffd707001fcb752f669bb73366ef",
+      "bytes": 124888
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsignature-329ac8552f8e0091.rlib": {
+      "sha256": "a08557f7fe0e3e69def9f77f77b258ecb950e4d9c7a327083b251a6330bb204a",
+      "bytes": 75968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhalo2_axiom-ee8afc5e175a9f81.rlib": {
+      "sha256": "79cbcfc34de9fc263d1a9a0f1b90f1ee1e3d674603da5905244e99330fe70281",
+      "bytes": 5791824
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhalo2curves_axiom-7daf79b2ed922c9c.rlib": {
+      "sha256": "031cd6feb14d6e456aa0eb6dc524549c5ceb7b497a7404b44c4f3a95e0d2e5dd",
+      "bytes": 26336744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpasta_curves-9726b275384c0c1d.rlib": {
+      "sha256": "0a6c1be8a5b02960a0b471caa8b7452866b2815863c5e77112db446874e58123",
+      "bytes": 1774608
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblake2b_simd-357501c39564e9be.rlib": {
+      "sha256": "9713c4c596fc7b253c109fb8ae8eb9808bcd82a6b9c0b271d0eb939d3113b4eb",
+      "bytes": 439632
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libunroll-70538a0d6cddc718.dylib": {
+      "sha256": "64384071be4b909fc3ce0a2fa70d66e1fa9c2b3838d1327ae21ed492cdc3b579",
+      "bytes": 2572128
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_arrays-41d3a224e15cd754.rlib": {
+      "sha256": "14c7eaaf2f507fa8673897f1e2edd0eca5393600b94cb6406eab0d4ee086fae7",
+      "bytes": 18800
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtracing-258f6be24c8be867.rlib": {
+      "sha256": "4de70b674ecd1c314c018090548004ca9c6bbcf324ae8e2b4847f8a8205b0597",
+      "bytes": 704840
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpin_project_lite-0eaf853709cd5c90.rlib": {
+      "sha256": "e0759147df06f672154231fe60f60a3c36cf30e9cf00723fb75e219063e1ece1",
+      "bytes": 95440
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtracing_attributes-019b54e305ecd96b.dylib": {
+      "sha256": "e12fba79d8df5635359023911a450c3300b0b241948dddc318e9349d815b9f02",
+      "bytes": 3551184
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtracing_core-e50ea0b399151753.rlib": {
+      "sha256": "8d2a23b74677c05326b4b1db314853f98dee984c6648c732b5ae62d1f5cacce0",
+      "bytes": 1080672
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libitertools-566e0cfe5e46e8dc.rlib": {
+      "sha256": "1cfd12162bcbb58d4efe934bdbeb6e541f1b8e1faf1097ad1c3e284ca602dea2",
+      "bytes": 2421784
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustc_hash-67df016011d5a1b0.rlib": {
+      "sha256": "0d2e4f3b1943d36e05867e5774396ee6aa11ef04b4bff928aa45473b76916e65",
+      "bytes": 15648
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmaybe_rayon-d90108c98d25f344.rlib": {
+      "sha256": "ff3d0e3cc195fe761b0beb9771aadf3f18cf41cc24ca7d01e62a3551dc346de9",
+      "bytes": 4992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam-9617d5ae50a13d23.rlib": {
+      "sha256": "c0001898f91513c98ff1394aed50ac783f9cf8a3a9adf9a2a38e9101b2c8e43f",
+      "bytes": 7312
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam_queue-5fca41565457c39b.rlib": {
+      "sha256": "60a9bc6534ee4a7785a18062a82610b9bf0379ffd3a65a38cd4d239b559c8d10",
+      "bytes": 104520
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrossbeam_channel-eb870937e2762c6b.rlib": {
+      "sha256": "e862c5b066432704c40d7ac3d2c9888c3c9a0be675969255409fcfda106f685a",
+      "bytes": 920848
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsorafs_chunker-077dde3e7cd550c4.rlib": {
+      "sha256": "f038b803932cccd8cc1b758c2ef0ee73b3ba0d3a9270fb6b3a7a60c48cfb6aa1",
+      "bytes": 356928
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_crypto-31dff7662a6f4365.rlib": {
+      "sha256": "a4bb56c519a82e6e0fb0481eff5a72736e4888a8d0586bb0b6e8848beed4a2b1",
+      "bytes": 41660072
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm4-d47781156028c1c3.rlib": {
+      "sha256": "762b4d575a2d5a049f4bd087a0bdeb2bd614f6bc981c2acaa0d5d61b7e1c2ed8",
+      "bytes": 78648
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcipher-9edb4530db5c3393.rlib": {
+      "sha256": "065d835947d92f881e3c2f304aabfc3d9789d3d3fd6b6ae8876020880f4a1dec",
+      "bytes": 200912
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libinout-6f1c9f3e886ab1c5.rlib": {
+      "sha256": "7251def44851f300ebe4ab2cff034f1083c2a4a4df08d52f9259a54a074626e8",
+      "bytes": 70696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpqcrypto_mldsa-746af2113d7d3be8.rlib": {
+      "sha256": "066657ea5224fae5cf6b844d7e1e2e722cb22c843511447dc6b41d463f2fe640",
+      "bytes": 586448
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpqcrypto_internals-d5226399fdf52b84.rlib": {
+      "sha256": "cf91abba1ab10c540a5613fdb9c32e7e97d55a4d8c8b18fb40eedd3702a78f11",
+      "bytes": 24080
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpqcrypto_traits-8719ad8c1153b502.rlib": {
+      "sha256": "807a63c9350a6d165af207af20dd644aaac5a908ab3c19d9093a8cc024450f44",
+      "bytes": 31928
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libk256-d3875e0086542ace.rlib": {
+      "sha256": "8f343c88cb450e5533416cc1cc19dc8ef0e64f8e0d328df088bcd91180fdd476",
+      "bytes": 1236656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libecdsa-fa22a4b4dd41a182.rlib": {
+      "sha256": "038a9a6368bf415cc39686f1cc3a64e5f290aac48341a837d6904801137d6dc5",
+      "bytes": 375104
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librfc6979-06b4a7eeec75a6c9.rlib": {
+      "sha256": "da3848bdb9960af3ba3654725b85fc4c675c29146960057caae2401ddc93cfe0",
+      "bytes": 27744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libelliptic_curve-0ea489da94e1838b.rlib": {
+      "sha256": "cfdbf8f741793c9c22d0c87064613fd4bca47460a0e66f60cbed5a20141d87b6",
+      "bytes": 485440
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsec1-63a6c8d35ba11f31.rlib": {
+      "sha256": "3f97fd9d74cdad4ff255feabae9f3bbea8839b9672e9ee9d64cfc4753b68c813",
+      "bytes": 309736
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libder-06c6444e5bf14826.rlib": {
+      "sha256": "d8550b28cdc89cae0d39d4859c3b3f41e801f760ebbe3728c5f5a1c048263230",
+      "bytes": 2803824
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpem_rfc7468-001587aff8fcb419.rlib": {
+      "sha256": "76213f7e05c45bcc692722ded19d0248d8a40b5bcf79a26e7a20ff99d6054480",
+      "bytes": 360392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbase64ct-f106ab705cf93076.rlib": {
+      "sha256": "6844a1c5b151399b97e233bc065bd014cffca5466b15b7fa5831c92977476a88",
+      "bytes": 386016
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbase16ct-71a726be342f7608.rlib": {
+      "sha256": "20d4c8072103c5383e8477c98d029c0a7557d0347808745833a6cb3767562fe5",
+      "bytes": 138712
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpkcs8-3bc29ab8416cf915.rlib": {
+      "sha256": "506379cbddbd08da3f39e09c02dba1888d2e1b71aef23f3712db251e8c25a06f",
+      "bytes": 349544
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libspki-5a1c4ee0a4414fda.rlib": {
+      "sha256": "4b07dd24e0bc7f1214723ef2d7bf787a65ac31f6eb03ccc4448ac0d03e24c8f1",
+      "bytes": 167336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrypto_bigint-f2258f431402a9fa.rlib": {
+      "sha256": "a53e048543434f1fdf35a2f3e526025cf60b74863dbd648b44c26fd642b218d4",
+      "bytes": 3006224
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblst-a52f517cc1241cc6.rlib": {
+      "sha256": "1e953b2e3371a79e6841e8b6afb7b9730f3a1783b5ecab009898a54d9bb059a1",
+      "bytes": 1749624
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthreadpool-c686b272c5de5657.rlib": {
+      "sha256": "8a855672c95de75e12418127519586a5c730553b8eda9cee7cb419c76236c8d2",
+      "bytes": 427160
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnum_cpus-e9cd4e803dce0d6f.rlib": {
+      "sha256": "647a650692110d80a379a07b08121afbcaa8e1d9312024fc7237805dad1f11fa",
+      "bytes": 20672
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm3-b6319c8264a4ea0d.rlib": {
+      "sha256": "d803606499e3df0504dfc2add7b7f5369be9875aa0c3f72e577b3cbd7c20a137",
+      "bytes": 108088
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libdigest-42dce2d9e2f4e0a6.rlib": {
+      "sha256": "edb23bcaed1028e718da7e0dc18a1d5c827ee2a17252d6c045ef6403441cd770",
+      "bytes": 226760
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libconst_oid-76411f70c6357daa.rlib": {
+      "sha256": "d53da5da61c2256062271ae5c2e636cf138612f0050ab76fd55da3abb0f0f464",
+      "bytes": 247560
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhex_literal-509a1e32cdbb5bec.rlib": {
+      "sha256": "a044e157eef4502b13e231be4d8edf418f6d7fe6dca62330dda5b5a122797fa2",
+      "bytes": 27360
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm4_gcm-b85d1fcab61a5c9e.rlib": {
+      "sha256": "eac41da949a997cfdcdc16fe14c47b6cfec20859b95cac6e3c1963cc6df12466",
+      "bytes": 245872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libghash-174de52e8234ccb1.rlib": {
+      "sha256": "3c6fb6546ab1ecdf666a66a31b262a72010070f3bb87210204d0a6b83812130e",
+      "bytes": 25656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpolyval-becb5ccab8656b93.rlib": {
+      "sha256": "32476ee4a2bbb7ee0138df96e1b4317de2926f0e448abe9e712416d05ce81ad9",
+      "bytes": 100336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libuniversal_hash-f61b75c578512a7d.rlib": {
+      "sha256": "b845c5b32cddb0facf6c8beed18bcd333e76945ab23d9ed1ab879b0f7ee388df",
+      "bytes": 25992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libopaque_debug-c858def681067f6a.rlib": {
+      "sha256": "81e8409515fd6387293d88474b1c7ff46af52af75cb25348634017bc74f0b5bf",
+      "bytes": 6432
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtempfile-64f6231f508c423c.rlib": {
+      "sha256": "811000c1d387867253ba322c2f1b263016d923205047f59df7a29ab62cebcdd4",
+      "bytes": 624136
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfastrand-0b61f70f07a3c53d.rlib": {
+      "sha256": "6f21147dd38a60def3d1ce117265589fce0028df9ac12f96bf81a8da174a067a",
+      "bytes": 208624
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustix-53cb09301dad4289.rlib": {
+      "sha256": "b4b8c42f1f0f5d27a9500c06298e63f8ad9fa63ad27969a0afd0ac28144bc59d",
+      "bytes": 3910752
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liberrno-5457b50386add14e.rlib": {
+      "sha256": "35b0df303871c78029ffe98dc3f2acd821fb571c616aa6c6337a1197e504b09f",
+      "bytes": 50152
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbitflags-bee74f12a269a2c7.rlib": {
+      "sha256": "620f4f8f84525850966cabab26d34659906088dbcb317ea259fb2fe0a663ec24",
+      "bytes": 299360
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsoranet_pq-ce2ffd8350223682.rlib": {
+      "sha256": "5843b4a722be59efc913ce3bd5695b3441cbb4a76f89bf70efe575f74a859c9e",
+      "bytes": 1472968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpqcrypto_mlkem-2b9cd17fe98db7b5.rlib": {
+      "sha256": "fdcec2fac36144d572be121cf1a6cfb9e9c4aa3a7bd529c99254b574f4bc335b",
+      "bytes": 467776
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libx25519_dalek-5aab40fe6462c3d9.rlib": {
+      "sha256": "828badf7b56be36ecee61d1b7906e7129d4962f5a4b17bfe61c422b6cbed0994",
+      "bytes": 62016
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm3_neon-74ba26df4a35fa2b.rlib": {
+      "sha256": "f442d7cd36b3001c8f13b61e0bc66e2574fc663e6eec9e8d52c79f576328c39e",
+      "bytes": 259736
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm2-4786f4ae81ebbbf2.rlib": {
+      "sha256": "bc871d233ffc83a93c49b0a89f4082d235d3b3f13376699e49eeb9e2fd4db21b",
+      "bytes": 1810864
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm3-67b73115d619b631.rlib": {
+      "sha256": "bd67032c436e70f56476001f9361e72c8f48b9fedef2318c348c10ceb9f4a6f8",
+      "bytes": 87896
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libprimeorder-949e3e3dd07bc283.rlib": {
+      "sha256": "2b425ae18a90bab28de9aee7d0e8bc5b63e1c149fc80849eea7c5e12ea3cbfda",
+      "bytes": 233640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libblstrs-a41f7f755e0df939.rlib": {
+      "sha256": "6531e0e3ee22024022c6069cb3648c714c14661d367ec39a7d17160f482a59bb",
+      "bytes": 1266968
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbyte_slice_cast-3d75ad41d619e6fd.rlib": {
+      "sha256": "59d4e2505d58e662b5da23f9dea33be1abf8e92b783ec6e9c339a6b2464a7b09",
+      "bytes": 261936
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libbase64-3f6a53c22d86023d.rlib": {
+      "sha256": "b4ce87bc7132311d1b32a4a06ca55730d02eb52fbadf850231b7a76552d0fd3a",
+      "bytes": 457496
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsm4_neon-368e60304c7de542.rlib": {
+      "sha256": "ae6395cc9bec5c0ecba95a87f89aff838f3c1623b403e8615a20481c0901a9a0",
+      "bytes": 152216
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrypto_bigint-6a2c7cecaa605c0d.rlib": {
+      "sha256": "4a14582ec7e4aa634042cd7318bea6378233ba64aeaf187154cdeed391a5e382",
+      "bytes": 7432112
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libw3f_bls-dae1955d173d0538.rlib": {
+      "sha256": "bb5b9e1fdeb1a15a4dc0342fbdf5a03b7805ea0b9fef64c3d79f97a45b6312d2",
+      "bytes": 532984
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_ff-aefb75757a29ec31.rlib": {
+      "sha256": "d3c258f4d95cdc78aa40fb4ac291246c86dd7dcb9201be1bbd76ebe7b8761ae4",
+      "bytes": 5102744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_ff_macros-b4ed735377bf0547.dylib": {
+      "sha256": "beee282c3ba9f1e67c1e2b0b40f60fd7811bd5fbdd224837f30437c6464f42c3",
+      "bytes": 3079600
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libitertools-1138d3686b2c034e.rlib": {
+      "sha256": "55fb19f924510c4f1b317f1651ece278ef4af8174ba8a8682987e811cf63540b",
+      "bytes": 1764840
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libderivative-792dbb501776f647.dylib": {
+      "sha256": "1751a9ce898985169e6a28a6e49725245aea23f8a6d341ba661ff38faf96780c",
+      "bytes": 3938784
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_std-43b3626c01e077ef.rlib": {
+      "sha256": "49e13eba0702280d9b1dc0d73bbae651fea0dc4e857e51971c8b53bfd67c2c77",
+      "bytes": 219744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_serialize-b8fc473a94605f85.rlib": {
+      "sha256": "ff75dbf7f7504240e2b0ac67660e3f2eba45c93b0eff6feb8ebcd154af5e2c24",
+      "bytes": 226416
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_serialize_derive-005165d283782e19.dylib": {
+      "sha256": "23e5d69f862e249fc52f147c9ae91dc77d3e585e1ac69cbbca7c16ab66028a3c",
+      "bytes": 2417856
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_ff_asm-cca8c36680704c5b.dylib": {
+      "sha256": "3cf7f64beebe5b36defed8715d64f93c34bea215f6b090398e155ef2cc53ea4b",
+      "bytes": 2709696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_bls12_377-05eaea32320ac94f.rlib": {
+      "sha256": "8514ec2f6930ba487dd1090b1f6649f263cee9dc995c6389fd8ceee137326354",
+      "bytes": 1446480
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_ec-3c90b3bd2b34a198.rlib": {
+      "sha256": "c933acf7dc2c1b95e7d879e46624e90c8941463e9e36c164d8a3f5354c5fb7f8",
+      "bytes": 1408208
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhashbrown-8d054f30a35b2030.rlib": {
+      "sha256": "164d68801b73d7f973a20b84d4959bccb70fafb07aa0e8f0c7ba7e899ee6e72d",
+      "bytes": 1014024
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libahash-0c2090a4c1147351.rlib": {
+      "sha256": "dc88e1ca5911d7baa85d0e930f353436864dae899510e576f27eb5921acc0781",
+      "bytes": 147840
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_poly-cef0ba4e67353a57.rlib": {
+      "sha256": "82a0562d3c106d74cb7a3f0c36a96c6f92675ae93689ababedd392d318a6bc20",
+      "bytes": 975936
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libark_bls12_381-66dd2d2c43280b99.rlib": {
+      "sha256": "57a2c834c9a5e74c371ee86b3e45be58dc8c0cf2499831fc54e5277556b85f31",
+      "bytes": 1444320
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmv-ff91d7b3bbb48a47.rlib": {
+      "sha256": "1f3e44d03a8445d8be627657c5e293932f2aed2405f0645092bafc643c780139",
+      "bytes": 301024
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libconcread-b975cdb091c597a6.rlib": {
+      "sha256": "6f325b323e246a5d36dbdbc074c00b2d4b7bb83803300ab8266162a6fd4f52f5",
+      "bytes": 2216368
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfoldhash-872ba9de254734d6.rlib": {
+      "sha256": "245f4f23d76388a16904c29b1e1748673a187e085361524edb913005a4449958",
+      "bytes": 144208
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblru-bfef4b2f5918fb1b.rlib": {
+      "sha256": "ccd505138374348990586051970bd0625160aceae3dbe7e8cd9c4444d2bacc87",
+      "bytes": 202640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhashbrown-91f751f4df18a952.rlib": {
+      "sha256": "f5bde47a8e4ffe8df7bb8da30c9aace1f27df6bd9fcb9a99acebef313ce1eef3",
+      "bytes": 1361696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liballocator_api2-7c169256b73139f4.rlib": {
+      "sha256": "9f330646c761396a5797f562e41eda12de8c23615d00a68f0dc9154100c34575",
+      "bytes": 672952
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtokio-617b68e91d2c7b58.rlib": {
+      "sha256": "eeffcb34c6fb51cc25ffc2a945bb8538a29a910d120afbe86b799a0267d80d50",
+      "bytes": 12558912
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtokio_macros-f1818eebd1cf6d57.dylib": {
+      "sha256": "eceb90843ee134781ecaaab765c6f568cc116fb7ecdf8082b27895d45c95c9be",
+      "bytes": 2821536
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmio-a579c2b3046f3609.rlib": {
+      "sha256": "32c0bea0e39ffc610707fc2c01a734ad7da924b1ddcd17accd62ab154ca217f7",
+      "bytes": 1007432
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsignal_hook_registry-5bf47b433c43e5b9.rlib": {
+      "sha256": "31fbbef7e6a1e051abdb06f5bdaa8dee2478ab71f178f56db0f536b31d7e49a8",
+      "bytes": 287200
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsocket2-8ee987d6db09334a.rlib": {
+      "sha256": "b78ee39b42a8873f2f6fd281783107f27e161402f4232bf1a0021cfe6654fe6d",
+      "bytes": 743744
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsptr-01edaa1a42a357af.rlib": {
+      "sha256": "b3bbb09e0769f69465bcc9c2cec82658ee81a6a380df37c3468222b1070fb8ae",
+      "bytes": 45064
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstreebog-436e2bd717bedcbf.rlib": {
+      "sha256": "22c218a43810a75757cfaaf4e9afa6d0e3f16fc9ddffe7f084cc6a2679ebc495",
+      "bytes": 174240
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libargon2-8b111b2fbdea4336.rlib": {
+      "sha256": "bf6cd8da42c7fbe816f7b710601ef050b0021f13096b15ae58a07735bdc32d49",
+      "bytes": 553024
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libpassword_hash-ceab9011977a29af.rlib": {
+      "sha256": "e98e53d533c25240730872d279c23e8b48d112515241f3640f8fbe40589acccb",
+      "bytes": 615704
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libp256-08e5d018cb27d653.rlib": {
+      "sha256": "5efdba9605ff3220c244fe9dd73c076e91bad2794a78e0a0280b6d798cc0cdd2",
+      "bytes": 570360
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liberror_stack-b5ce2f324144591a.rlib": {
+      "sha256": "0e8869ee9782af5085cfde96097ab88a85e157089ec032ba924239e8f861992b",
+      "bytes": 1520816
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libeyre-0060d6300d5ab324.rlib": {
+      "sha256": "89b09bc657e3395da167637c7b9e7d4e3570d0acb88477c011decd994792d703",
+      "bytes": 508592
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libindenter-ee215aef2f493f85.rlib": {
+      "sha256": "cfcdf6d2ad085696ef66871f73f451342b22d2755c84c047f95ff5bb056e2a64",
+      "bytes": 22992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures-5977db6aa8e9d3d9.rlib": {
+      "sha256": "bca824565fc2ae437a02e0116fa4055cb2b982133f0d27d083aca97c20179ca2",
+      "bytes": 18504
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_sink-3e35751988de1934.rlib": {
+      "sha256": "cb7d376905f8d2b76f8c0b1b8923942537fad02fae598478fef081f9c6d75a92",
+      "bytes": 31640
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_core-e227d621cfd4dcce.rlib": {
+      "sha256": "1f5c88ea357ef2e8193c4381e249c6c10da6702319582cb573e673501c0b8b79",
+      "bytes": 87552
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_util-d4bb10c92aa96b61.rlib": {
+      "sha256": "c040030c34732b8235d75e0f47f22731b8591bca0acc5157e506cea042932763",
+      "bytes": 6148696
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_channel-2fc274af1da27d2c.rlib": {
+      "sha256": "99082595685093ddc3541795d8bcd9e57e3e7714e643def20ea027baff768028",
+      "bytes": 266384
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_task-b329745e620bade2.rlib": {
+      "sha256": "52a00c12dc32c67f6726a57d90ef5544004cb3850915131603836f056db6cfb1",
+      "bytes": 133888
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libslab-bc9df51629f96424.rlib": {
+      "sha256": "bd5823f9f1e30b863971f6a1bd6135641d702f945b3404fba983f66e7869b412",
+      "bytes": 143912
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_io-2618152fc19821be.rlib": {
+      "sha256": "d582592a02fd6a2fb37b6822c5d5e11bc6e640716e95214bae488a5be98b20e5",
+      "bytes": 105120
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_macro-1e78b320b7f9dbbb.dylib": {
+      "sha256": "dfb33a76813dc27e439af53d206c89b8bc250c013900ed969cff870137e1b242",
+      "bytes": 2519392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libfutures_executor-2e603368045e49fe.rlib": {
+      "sha256": "3bced8c9e68b012b613019ba58cb3e34d9418c6da85c43e03eb8fe2d4a522d1e",
+      "bytes": 282584
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_config-32318c937efa79d5.rlib": {
+      "sha256": "1d96cd405124812b3ad5ae335bc14f84c15be3cd6b0fb6568bf6c2379e77ee0b",
+      "bytes": 32140224
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtracing_subscriber-b616881cfc800926.rlib": {
+      "sha256": "19a515210fb779ace42089951a37841a922d793580f7c84e953a8315371a0bd5",
+      "bytes": 4361232
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsharded_slab-2922128c86e8d401.rlib": {
+      "sha256": "81571472ab57f4d80452d345f04ae33fb08d4482038f8e2612112d5f06b64225",
+      "bytes": 791248
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libthread_local-8a91458a90644ed8.rlib": {
+      "sha256": "e40e09acb6e94d276273b595564c48f82be4077905c42f5cc44c4eb604b7ac29",
+      "bytes": 229448
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libregex_automata-af740e04cf6959cb.rlib": {
+      "sha256": "e0d97d9969ed13e7e8cbdd9c940b91a3dc635c9638e8141576951f83bb78b22f",
+      "bytes": 9204120
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libregex_syntax-c772c708aaf0f79f.rlib": {
+      "sha256": "7da5c5064dc7768767cc4df06cea5b9b51d675fd6e9e711850dc27265d99bc40",
+      "bytes": 7348992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libaho_corasick-18247b699ef5687f.rlib": {
+      "sha256": "b4084cddb4bee0e374559ab3a0731b7c6093c10f28afc5617abbb6594b00587f",
+      "bytes": 3087000
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libnu_ansi_term-baba76249e52511e.rlib": {
+      "sha256": "283006b5e2ee0eb1fcc033eccc07c9c83a39296a11285a29ee7a04c20ecf70ed",
+      "bytes": 410336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtracing_serde-2f73b3c681c8e1c0.rlib": {
+      "sha256": "aad80e16f3661622eb683bfc434ebffe7801783ef3393a4f4a7d6b461fc47b99",
+      "bytes": 104048
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_json-94152403d18fcc49.rlib": {
+      "sha256": "0899f5332f22e82c794f4343b59fd9817441710dba533ea151a803fd3b1b5395",
+      "bytes": 2238992
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libzmij-1a4f39b12be30fda.rlib": {
+      "sha256": "1af777499d69db578b35ac953a19720fd900d97fcc688bed687805ba1eec87dc",
+      "bytes": 198096
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libmatchers-e4bacd1e10c5867a.rlib": {
+      "sha256": "cc8d2e36d67e2bb6e3a6a29985b4da88e70b45ba338131726bf4289bdedb21d6",
+      "bytes": 38416
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstrum-0509f01d1b41a362.rlib": {
+      "sha256": "372cd695ae5644a37cdb4124ea97be6b16e9560c36b1dc384cfbe4c96176f3d9",
+      "bytes": 38552
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstrum_macros-9a22b78f1b4447d8.dylib": {
+      "sha256": "6fc0715aa08a62f4dcce2271d0f29a4f7893e8c5e621b26bf42e0049fbe37ab8",
+      "bytes": 3791760
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_torii_shared-59a5c47d62136c89.rlib": {
+      "sha256": "ae44462c2957ae2fded226dec07cc3ee28fca053806a2e69fc3c149b504cd1c1",
+      "bytes": 15740712
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_config_base-3be85d0174df7419.rlib": {
+      "sha256": "3bffa3aab7d6a578ce7e613d21e76235e3ac2c3ba9790c28a76dac83f3db352d",
+      "bytes": 1898648
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libivm-175a6d44f817f0f5.rlib": {
+      "sha256": "5b75f334c19958e5981d8d1e42c65d53c0b23324bad4995593feb25d1463b67d",
+      "bytes": 18981336
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/liblikely_stable-66609f5055efc111.rlib": {
+      "sha256": "1ed5e73802fb43f14b7dd83ee152cf398c1acf4df3be5fe8d86cd2281abcbfd7",
+      "bytes": 90232
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libivm_artifact_admission-50be7f542a3cb036.rlib": {
+      "sha256": "77818ec65498dd65749afda2e0ab90e51c38fc6a07c95599b60d0a9cad072740",
+      "bytes": 1896008
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libkotodama_lang-39b80f97b99aece6.rlib": {
+      "sha256": "1bf2826be341f1af0cea213d0357e32a8280ab93d83d6f44d37087bee82cbc92",
+      "bytes": 31884464
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_i18n-631e5cedc3ba0be5.rlib": {
+      "sha256": "ccc5f3b9e9488b65fdfbfc75a7db7a1533fc8dfd6cf979526af34183b50c5a92",
+      "bytes": 936528
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libivm_abi-8cb15b3a6769afcf.rlib": {
+      "sha256": "a247861d69dd8bd0ebbfd9afaa390e648cc6033715418167fb4e7f872eba3cdc",
+      "bytes": 7153952
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_telemetry-b568618193d15c81.rlib": {
+      "sha256": "7e2fadd677f3826e8d69e2c713f64becd6c6978aa85516db97a9857610fec48b",
+      "bytes": 10919376
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libstats-1537bcc747b36927.rlib": {
+      "sha256": "04ffbdff2b8ff2c70f41d9b7be6f1262bd79cda713df4d2c33bdb7c2a08862c6",
+      "bytes": 124152
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libiroha_telemetry_derive-ecb357e3d8303a1c.dylib": {
+      "sha256": "f389896ba2072d168ac9d2470d1a8d4a9ef22ce424dabcedbfb41aa94700cf21",
+      "bytes": 2641872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libprometheus-9f6c990795727638.rlib": {
+      "sha256": "a1a2a10913e72dd3c9488305c012202f401002010b8b00ad53fd11edeaa99a58",
+      "bytes": 1889584
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtokio_stream-fa31cb79a7a9e214.rlib": {
+      "sha256": "1b077b5f8d7d6e2f2d374aa526a26e1e86a8bc43d3b325c6cf14e8ef862c66d8",
+      "bytes": 916552
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtokio_util-ec596a3dede1dd93.rlib": {
+      "sha256": "60f5ce33228a0eb002c06b34cce71701c35fb0ac1226c6b02dbb16f3e48c450d",
+      "bytes": 1213544
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libasync_trait-987ae0074aec12bf.dylib": {
+      "sha256": "f0f8a453fafc451c67aa6faba05505962c9a009aa7b9417de2f5040209852818",
+      "bytes": 3334128
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libflate2-ed9b80cdbf84e048.rlib": {
+      "sha256": "d946773618935b04ffe7126921b697ad4f48f0bcb452fac79e3a8e2e46401ebe",
+      "bytes": 729920
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcrc32fast-d379ebf2dd811e39.rlib": {
+      "sha256": "0b6f040cc18b6589cd9fa07a4c3c87746685ad76146bd923b51e4428f02ae9dd",
+      "bytes": 129512
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libclap-2d878e07c5969a74.rlib": {
+      "sha256": "9cb2e1458787ca3cfb4902372abbc85e14e07e46ab5f674e0a61e1b1ee04971e",
+      "bytes": 13656
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libclap_derive-306398eae123e8b9.dylib": {
+      "sha256": "6f9cc1b60bfbe05cb1f7909a43669a913b7ce17efb3750f1afbb802b4e0b67e6",
+      "bytes": 3424000
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libclap_builder-c3e1c3b4560bf5ff.rlib": {
+      "sha256": "baad64edbd16fbe3a3917ed1690a519ce7044fbce510fe1e627f485cf7764117",
+      "bytes": 6010392
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libanstyle-b5bfb96c58c3996a.rlib": {
+      "sha256": "008be3f11f633c96a2f31f238b18d9a48acf9c181c0f6644e995901268c08c4d",
+      "bytes": 260168
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libclap_lex-b8341848d39e5981.rlib": {
+      "sha256": "1ab651cbde7102f4811d5f5083bcdaa676611df556585cec85f76170e9bdb8df",
+      "bytes": 210888
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libanstream-b339b10641654403.rlib": {
+      "sha256": "4f32e757d8e15f7e5c952bd807d0a92d6e252da0837a9d38f8cb204de1299136",
+      "bytes": 416192
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libanstyle_parse-1fb583356c48289b.rlib": {
+      "sha256": "796a59eb2649cab40c316bfcd5fcb931ce2cac82ca27e19e0ff6f226622fb493",
+      "bytes": 202456
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libutf8parse-87c7755407753dfd.rlib": {
+      "sha256": "b7dbf70f9f6db978edce6c8aad6cec139ea297a0008815b61ea87a34ec720fdf",
+      "bytes": 30856
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libanstyle_query-8e2cc37161fcaae9.rlib": {
+      "sha256": "0dec3e06d2da351ef70d956602cd4f2ff12fa6b74c5bd4697793c5e35dbb3b5e",
+      "bytes": 16872
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcolorchoice-ac30ee28ff79df30.rlib": {
+      "sha256": "25e73177e538b6bf09d03c4f8ed38de02cfcdb1093c4a3c2a850e031a2ded321",
+      "bytes": 22280
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libis_terminal_polyfill-c6913dba52fea290.rlib": {
+      "sha256": "d73db912a25bd439af066af0544676fbf55ab5d2aa5a5bb6d8572fab2c1c77d2",
+      "bytes": 10272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml-f74f7aab9f5d2188.rlib": {
+      "sha256": "a5668d7209a37fcb0825f855c781d96a4ef04c8c31ae77a72995f50c1288e05e",
+      "bytes": 1166800
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_spanned-b50928bfa0d859db.rlib": {
+      "sha256": "b5e0035baa6e7f378fb42d34c0904a91cb969c9cbf36aa7daed82ca3355b0be6",
+      "bytes": 47184
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_edit-1df4fbc02a238875.rlib": {
+      "sha256": "efedb4ad6fc728971c1c4c868e5b653e51d6a89bf4de8ba1d2cfa607ad0c4d52",
+      "bytes": 4712568
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_datetime-5ada901be1884912.rlib": {
+      "sha256": "8f6fa1418bcb5b8df9705b3d0b4f9ea068da3b56157f860d5804bb71e5391084",
+      "bytes": 245664
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtoml_write-0342378875acbca5.rlib": {
+      "sha256": "9fc0d974052fa621209e98e1a4a7d37de2e44e579ffde9101745849be2f8a253",
+      "bytes": 167232
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libreqwest-40af9b5ae6238410.rlib": {
+      "sha256": "f1b2c0039ee6d9c5e183fe22292b6b8f4d4a73609e96a467356586afe2240e33",
+      "bytes": 8083056
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtower_service-9c62839875928920.rlib": {
+      "sha256": "aa7e3773a2100a2b072f7a005716b0829036a2a2ad98dab9d4ace4539215e9eb",
+      "bytes": 23472
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtokio_rustls-7f3550f5c3278e92.rlib": {
+      "sha256": "75c79bcab7e9820463a6b6977585c28223ac5f2c8d1129613edde25684b42ad6",
+      "bytes": 226192
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustls-4b6bbaffade6b050.rlib": {
+      "sha256": "28dffcc30d2f813ce164269761d18f1ba9f0798a74943480e93daff9ffb6ae67",
+      "bytes": 9881672
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustls_pki_types-50d4e639b48bd0ef.rlib": {
+      "sha256": "575cb6e8a53a6b39c9faa16165e9e81529bb9376b42438871a064fcb800217dd",
+      "bytes": 734224
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libring-5761a092be93df62.rlib": {
+      "sha256": "68974eb7d290bd4d9b40e3d27efd3537773ce11f8116bc956ef017b243b292bf",
+      "bytes": 4109360
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libuntrusted-70362e0e880918be.rlib": {
+      "sha256": "43e9ae099feac74426846283539d7d5676ca6a541cacf8643cf05f4d97504090",
+      "bytes": 46096
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwebpki-914375a29459ee31.rlib": {
+      "sha256": "4d91325f948c4f6d464e7cda49fcc197a44521059049e7be4f3d86b723163be8",
+      "bytes": 1573528
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsync_wrapper-6a2baeba9fea87b0.rlib": {
+      "sha256": "d15161feba59f17ae91a8a1bae6331e4abf4417f389b3ff0c8dc5b2882cbcd12",
+      "bytes": 24272
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/librustls_native_certs-49f37e8f2b0a8059.rlib": {
+      "sha256": "302505a8feef272a4dbf080d97148a2fed282f4f793ddac52d6be331e0dcdb8f",
+      "bytes": 399304
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsecurity_framework-ea42a5a9b57cda66.rlib": {
+      "sha256": "f1c6d3869a43cbd14f2589222a51a6232167d5acc3e0de799ec0c75efe11adf5",
+      "bytes": 3524896
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsecurity_framework_sys-4f7dcd97bc6e36c6.rlib": {
+      "sha256": "177e28ab025e34d28c45840771800050e42e322c29363ca0aff4f09b0bd36258",
+      "bytes": 445240
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcore_foundation_sys-f2bd602a61498bf7.rlib": {
+      "sha256": "03ccb218aa92f35ff45cc1fd57eaba4931af5ea8bf9a50a6e00eea3ebf5777ba",
+      "bytes": 701800
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libcore_foundation-cae3cef60a0a8b04.rlib": {
+      "sha256": "4ebf36856b8b3ed8cad6562f83dd0bbe0280384789ba0a23917f42ede3a9297e",
+      "bytes": 837432
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhyper-924af5651523a5f8.rlib": {
+      "sha256": "918b1302cb8202a6152f6290cc32d500a258755c628e3298202d71064179cc09",
+      "bytes": 3160520
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libatomic_waker-b070203c4aeec272.rlib": {
+      "sha256": "a956c3530e609bc520d52054fcbe27139f7b3223be88893f74e6198cd883317a",
+      "bytes": 40568
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwant-0fbbef6c112f6dc3.rlib": {
+      "sha256": "2dada47667f12f4ab796de9438abde6d9e947bd2e99ff4572a5b1119b06b60cd",
+      "bytes": 85920
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtry_lock-56e120c270094c89.rlib": {
+      "sha256": "65b73fe71376b8950cc14550b876454bc01dfef533d3a3142b8f9230203b2eb5",
+      "bytes": 23800
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhttparse-4300ab9abe037ffd.rlib": {
+      "sha256": "6cedbc5f5ac8920bf45f169fc2e62d3c627ca915f61ba32699afd8cf8a5e7406",
+      "bytes": 452512
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhttpdate-4940b860c40b011f.rlib": {
+      "sha256": "e22a24386fa3de54f25eea2cf218c39c4544422e08a90ac27e43ef751c6d5f22",
+      "bytes": 186856
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhttp_body-7eb7545d9e86f88f.rlib": {
+      "sha256": "140b44ad22d239fd05551d978c1c5271af2879603a64ea959c262c0113099f43",
+      "bytes": 55832
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libh2-9e187a9becf68a55.rlib": {
+      "sha256": "abb7024c6b4533b1736c5224ea34364d97eb353c1e0596b789d2b07524fff9ad",
+      "bytes": 6600400
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtower-9000529fc9db61a1.rlib": {
+      "sha256": "0e63ec7c1f790d1364355c1d04785fcc85b54839b509c4061adfc08a8357244c",
+      "bytes": 2180952
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtower_layer-4aadbe4adf96cf83.rlib": {
+      "sha256": "daf2f5f80fc6d09f7bab43b16fad52f58f1019c264d0861a01161ed80f941b76",
+      "bytes": 78256
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libwebpki_roots-0fdfe9e6161fcf63.rlib": {
+      "sha256": "f29031392018da40877ce10e73d858731e67a9e28c68c69263ca245aedbce3c1",
+      "bytes": 138400
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhyper_rustls-b3d9a3dbbee296b1.rlib": {
+      "sha256": "9a7e25ea3a9083d85907006778c4cbb0ac189ee0bd10c88873b71ad6f0760985",
+      "bytes": 330544
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhyper_util-5eb1b6e8edcdd179.rlib": {
+      "sha256": "2fa2e24aadbb3bcdd888d5c60c0aa989dbba666e5d60ec79c182833cb4f44d24",
+      "bytes": 2932536
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libipnet-a44df32edffbc663.rlib": {
+      "sha256": "c13ce933995227ad61e38d4fcf7dc76f571954a6516f2bc00b50eeab647d428c",
+      "bytes": 712632
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libsocket2-1b5a25c131731185.rlib": {
+      "sha256": "d3d1f1ff189538d60cc371a560b4d4bfa536cac83d2f1f72196f78f0f3e28769",
+      "bytes": 738064
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libtower_http-8626add587df751d.rlib": {
+      "sha256": "3c150cd775c130bebfbbb6cedd44954b5142cba6fda5d945f433f63f6d74dddc",
+      "bytes": 665752
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libserde_urlencoded-8a8c7bc1ad22adce.rlib": {
+      "sha256": "42f18945eb033b3dcf9731df806c9b2c69ac5faf50f77f1f305a2752ce88bbc0",
+      "bytes": 260304
+    },
+    "output/sorafs/japanese-DsOhaMOw-afeca13c/verification/pinned-libraries/libhttp_body_util-64add52a9feafed3.rlib": {
+      "sha256": "865d4adbf7492b44a62e69835d969c283d73f024b9869487068135c88399268e",
+      "bytes": 327992
+    },
+    "output/qualification/street-commitments/native-adapter/libfastpq_isi_o3.rlib": {
+      "sha256": "1c47e101152618cff3db008c4ffa827b5e7699b89534ad741fc94d541ade29ae",
+      "bytes": 541360
+    },
+    "output/qualification/street-commitments/native-adapter/native-libraries/libpqclean_common.a": {
+      "sha256": "fc8ef1b72e3cd617ed7f37089eb43a67f0c7a4fd20322698555c96ce507c97f4",
+      "bytes": 105312
+    },
+    "output/qualification/street-commitments/native-adapter/native-libraries/libkeccak2x.a": {
+      "sha256": "2684b5921be26e7f97b1e1caa888389e7758ffeb9d65948b96d071b4174f80cd",
+      "bytes": 6920
+    },
+    "output/qualification/native-membership-sequence-attempt-1/report.json": {
+      "sha256": "7f6544e6b47c2044db3c8cd5135539ffc08b7372929d1080e7420bde71b34b21",
+      "bytes": 11534
+    },
+    "output/qualification/native-membership-history-attempt-1/report.json": {
+      "sha256": "7bb445d774ab15bfcfb4830331ae725f6cfe4e04192ac9d0b16cf84f1452312c",
+      "bytes": 67353
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source-report.json": {
+      "sha256": "831d8e660f3f8838701a507a15e3d7c4bf5ab6d0cae636d299a936e9f7450c05",
+      "bytes": 96230
+    },
+    "output/qualification/native-membership-history-attempt-1/street-source-report.json": {
+      "sha256": "2441e9fe96b88402eee54afb2801d149200de45f484a8a59cf11c75a1aa344e5",
+      "bytes": 51873
+    },
+    "output/qualification/native-membership-history-attempt-1/base-plan-cli.rs": {
+      "sha256": "9bb826a66f2cba10ce45b842fc852e64ed598618e3dd5308e474e2a222e3d704",
+      "bytes": 92394
+    },
+    "output/qualification/native-membership-history-attempt-1/plan-generation.json": {
+      "sha256": "fe5f776f47f67ee3a5722807980dad80ca3ffd8d910055cb14b6ca2f34dfdd49",
+      "bytes": 4664
+    },
+    "artifacts/native-membership.json": {
+      "sha256": "d28c5d687547ff78912e0bd57e0711cf3210dcaf3cda816a7458131d59fe19dd",
+      "bytes": 201561
+    },
+    "output/research/sumcheck-openings/whir.pdf": {
+      "sha256": "ccacc62cf5529ff95c3cf115cf730b020336f8d95c310c8deb64e3beac30ce61",
+      "bytes": 1271126
+    },
+    "output/research/crypto-2026-security/2025-902.pdf": {
+      "sha256": "a3015f140ed9750b05e23a8b6fb3dcbb4d93be81cd388fb0ef39abb17dd06560",
+      "bytes": 757091
+    },
+    "world/native/checked_constraints.rs": {
+      "sha256": "39b94c530d04affad95a89e5e7c4433840d29eef930fe4e4a9234f18e7365036",
+      "bytes": 110812
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/checked_constraints.rs": {
+      "sha256": "39b94c530d04affad95a89e5e7c4433840d29eef930fe4e4a9234f18e7365036",
+      "bytes": 110812
+    },
+    "world/native/staged_constraints.rs": {
+      "sha256": "3d75ac18695dcb36fcea4e9859b2300901b3bd11f0c85d9863ff1d8c0a4b45c6",
+      "bytes": 129028
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/staged_constraints.rs": {
+      "sha256": "3d75ac18695dcb36fcea4e9859b2300901b3bd11f0c85d9863ff1d8c0a4b45c6",
+      "bytes": 129028
+    },
+    "world/native/operand_program.rs": {
+      "sha256": "94339bb02543baf1a1f72a36a563036c2a5791814c1ebc90c022f704c9eafe61",
+      "bytes": 57219
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/operand_program.rs": {
+      "sha256": "94339bb02543baf1a1f72a36a563036c2a5791814c1ebc90c022f704c9eafe61",
+      "bytes": 57219
+    },
+    "world/native/membership_relation.rs": {
+      "sha256": "8976e547d88f69a5f30b0cb16e66121cc1bebddcf6b30e1e094501f52f008d9d",
+      "bytes": 49495
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/membership_relation.rs": {
+      "sha256": "8976e547d88f69a5f30b0cb16e66121cc1bebddcf6b30e1e094501f52f008d9d",
+      "bytes": 49495
+    },
+    "world/native/multilinear_basis.rs": {
+      "sha256": "6d70ecf149e49701fbda09f65cfae6600793621f14795b37d660b280c8df0de0",
+      "bytes": 20053
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/multilinear_basis.rs": {
+      "sha256": "6d70ecf149e49701fbda09f65cfae6600793621f14795b37d660b280c8df0de0",
+      "bytes": 20053
+    },
+    "world/native/whir_commitment.rs": {
+      "sha256": "84cd120373bac00177d70685977e6ef14cc4c94dcd257649daa4f6ee65690b46",
+      "bytes": 26979
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/whir_commitment.rs": {
+      "sha256": "84cd120373bac00177d70685977e6ef14cc4c94dcd257649daa4f6ee65690b46",
+      "bytes": 26979
+    },
+    "world/native/whir_geometry.rs": {
+      "sha256": "b1b073a578dba3f9fef5de53db21d33f493194a7b7e61caa0da4bcd9c099daa2",
+      "bytes": 19881
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/whir_geometry.rs": {
+      "sha256": "b1b073a578dba3f9fef5de53db21d33f493194a7b7e61caa0da4bcd9c099daa2",
+      "bytes": 19881
+    },
+    "world/native/whir_dynamic_linear.rs": {
+      "sha256": "5bda1e4b3097da60412b350886aa40ab94fca3bfc1d66fb46554a3e106e3288b",
+      "bytes": 8474
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/whir_dynamic_linear.rs": {
+      "sha256": "5bda1e4b3097da60412b350886aa40ab94fca3bfc1d66fb46554a3e106e3288b",
+      "bytes": 8474
+    },
+    "world/native/phased_whir.rs": {
+      "sha256": "ac09eb98de591451d4509bc27f6687a10f04ca567e7dcd5ac05eb3e125fe536a",
+      "bytes": 46464
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/phased_whir.rs": {
+      "sha256": "ac09eb98de591451d4509bc27f6687a10f04ca567e7dcd5ac05eb3e125fe536a",
+      "bytes": 46464
+    },
+    "world/native/phased_membership_proof.rs": {
+      "sha256": "770487137160c4f35c02aba369b312398b5cf3a31bbce9ef6601b70c01e31184",
+      "bytes": 31440
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/phased_membership_proof.rs": {
+      "sha256": "770487137160c4f35c02aba369b312398b5cf3a31bbce9ef6601b70c01e31184",
+      "bytes": 31440
+    },
+    "world/native/execution_trace.rs": {
+      "sha256": "587e6e495586862cc88af61c0a4ca57825ac28ee2d4d744ab2d2888071d94d4a",
+      "bytes": 22999
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/execution_trace.rs": {
+      "sha256": "587e6e495586862cc88af61c0a4ca57825ac28ee2d4d744ab2d2888071d94d4a",
+      "bytes": 22999
+    },
+    "world/native/execution_terminal.rs": {
+      "sha256": "3041c74d4cbb7bb4d92a26eb57ebc44e83fad165164fb847270b0cf76146c805",
+      "bytes": 39409
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/execution_terminal.rs": {
+      "sha256": "3041c74d4cbb7bb4d92a26eb57ebc44e83fad165164fb847270b0cf76146c805",
+      "bytes": 39409
+    },
+    "world/native/membership_sequence.rs": {
+      "sha256": "0575f92e3303c5a32f34640ccb4fdae0713b5172257879dbede50e1b9b442360",
+      "bytes": 25375
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/world/native/membership_sequence.rs": {
+      "sha256": "0575f92e3303c5a32f34640ccb4fdae0713b5172257879dbede50e1b9b442360",
+      "bytes": 25375
+    },
+    "scripts/native/membership_sequence_fixture.rs": {
+      "sha256": "81f8f5d272114c54fc52ca8c04aec5e5a30bf1402eae6a5fb3c8c08a66142f1b",
+      "bytes": 16373
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/scripts/native/membership_sequence_fixture.rs": {
+      "sha256": "81f8f5d272114c54fc52ca8c04aec5e5a30bf1402eae6a5fb3c8c08a66142f1b",
+      "bytes": 16373
+    },
+    "scripts/native/membership_extraction_fixture.rs": {
+      "sha256": "9e86b4913b6aa78a7d8bf222f32774b5540778b938f0571766b0cf76716c9a53",
+      "bytes": 5045
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/scripts/native/membership_extraction_fixture.rs": {
+      "sha256": "9e86b4913b6aa78a7d8bf222f32774b5540778b938f0571766b0cf76716c9a53",
+      "bytes": 5045
+    },
+    "scripts/test-native-membership-sequence.py": {
+      "sha256": "e5f2176470e54552ec46ba21e2fe6dbd7c0321a83eb3789a3d1e1e1d985fe3a3",
+      "bytes": 8196
+    },
+    "output/qualification/native-membership-sequence-attempt-1/source/scripts/test-native-membership-sequence.py": {
+      "sha256": "e5f2176470e54552ec46ba21e2fe6dbd7c0321a83eb3789a3d1e1e1d985fe3a3",
+      "bytes": 8196
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/privacy_engines/transparent_stark.rs": {
+      "sha256": "a1425266d801ca69b52b4f4bdac045307e73b988eea3aeb402e16da749558192",
+      "bytes": 113331
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/poseidon2.rs": {
+      "sha256": "a6af6d9a59a6df6fd8f211386707d413d68062201af0c35a85dd84b86780e118",
+      "bytes": 12341
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/poseidon2_constants.rs": {
+      "sha256": "d2f0c4f1aed8bfb516ff4bf16beec08d69603c9031cc1e25ec1de670063cdaa1",
+      "bytes": 5885
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs": {
+      "sha256": "86f684bddd22e4f59f328a6096c6cf647b142b917c6773444e5f11c692b481cd",
+      "bytes": 57382
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark.rs": {
+      "sha256": "b16e8e505a1bcbc99584807ef06f66ad723cfc95ee9fa0c618a7914f0f28db0d",
+      "bytes": 213546
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark/retained_polynomial_tests.rs": {
+      "sha256": "66fa7078636480a1ea08b323a524101fbb26a790b75f8f76ce251f4095404097",
+      "bytes": 4434
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/POSEIDON2_PROVENANCE.md": {
+      "sha256": "f93483701b12a5b874bac1d0f1445e6cb68078f68e835673ef4e055bb0b7bc46",
+      "bytes": 4369
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-MIT": {
+      "sha256": "d6543a1b0a0a51d10b5f8c389324c7dfeba556b7f39815efd292927bde808700",
+      "bytes": 1086
+    },
+    "output/qualification/native-membership-sequence-attempt-1/native-source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-APACHE": {
+      "sha256": "3708458dee7f359ac6c9c5558023ed481be87e5372c43ebd7f2ca7ad23c12026",
+      "bytes": 10848
+    },
+    "output/qualification/native-membership-sequence-attempt-1/compile.stderr": {
+      "sha256": "a8292549fe519a7bf79890b77c4406c1e7d53dabfd38cc50aa81558e4d4220ef",
+      "bytes": 1292
+    },
+    "output/qualification/native-membership-sequence-attempt-1/compile.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-sequence-attempt-1/harness.rs": {
+      "sha256": "235f1900de99421a38c995730b328731b3481ff28eb674903a221e287b9e20ef",
+      "bytes": 3495
+    },
+    "output/qualification/native-membership-sequence-attempt-1/tests": {
+      "sha256": "6f8d8e1b28a565d2d296437887831c8c6919a7d989d01839ffbb31254b1e055d",
+      "bytes": 3490952
+    },
+    "output/qualification/native-membership-sequence-attempt-1/tests.stderr": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "output/qualification/native-membership-sequence-attempt-1/tests.stdout": {
+      "sha256": "e3497a748f2ebbbd074f72432e643d2878bb3c5f1d9e18056c4f27aac29ba716",
+      "bytes": 1833
+    },
+    "world/native/street_graph.rs": {
+      "sha256": "e93077c4bbe99c4bbc6322dd12ab6f993d17ebe8ffff458d832952879958c196",
+      "bytes": 26638
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_graph.rs": {
+      "sha256": "e93077c4bbe99c4bbc6322dd12ab6f993d17ebe8ffff458d832952879958c196",
+      "bytes": 26638
+    },
+    "world/native/street_geometry.rs": {
+      "sha256": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+      "bytes": 6110
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_geometry.rs": {
+      "sha256": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+      "bytes": 6110
+    },
+    "world/native/street_handling.rs": {
+      "sha256": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+      "bytes": 16788
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_handling.rs": {
+      "sha256": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+      "bytes": 16788
+    },
+    "world/native/street_lifecycle.rs": {
+      "sha256": "4b5d7af573002ba56c620871e5c9227bf2d41392acc1bed8c8aee8c2250dd2b5",
+      "bytes": 30898
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_lifecycle.rs": {
+      "sha256": "4b5d7af573002ba56c620871e5c9227bf2d41392acc1bed8c8aee8c2250dd2b5",
+      "bytes": 30898
+    },
+    "world/native/street_contacts.rs": {
+      "sha256": "aa4b64eeae0d77eb6f0ec27215c4657ce3c876126290c158da7028c7b12b5e94",
+      "bytes": 32542
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_contacts.rs": {
+      "sha256": "aa4b64eeae0d77eb6f0ec27215c4657ce3c876126290c158da7028c7b12b5e94",
+      "bytes": 32542
+    },
+    "world/native/street_race.rs": {
+      "sha256": "57d2acefc5a5617c957e21475ca327f5c97fec9d5b82465da8d5630cf8d05a74",
+      "bytes": 16467
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_race.rs": {
+      "sha256": "57d2acefc5a5617c957e21475ca327f5c97fec9d5b82465da8d5630cf8d05a74",
+      "bytes": 16467
+    },
+    "scripts/lib/street-track-compiler.ts": {
+      "sha256": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+      "bytes": 14527
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/lib/street-track-compiler.ts": {
+      "sha256": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+      "bytes": 14527
+    },
+    "world/native/street_hazards.rs": {
+      "sha256": "55c282b57d3031e8caa24b147fd9e5c9c0da3353992f3f00ee808f4c4f932e2d",
+      "bytes": 28547
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_hazards.rs": {
+      "sha256": "55c282b57d3031e8caa24b147fd9e5c9c0da3353992f3f00ee808f4c4f932e2d",
+      "bytes": 28547
+    },
+    "scripts/lib/street-object-compiler.ts": {
+      "sha256": "364362e4b7c4378269c9eb57f0abec664150479a96fc6edffa85e2376f239c39",
+      "bytes": 3346
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/lib/street-object-compiler.ts": {
+      "sha256": "364362e4b7c4378269c9eb57f0abec664150479a96fc6edffa85e2376f239c39",
+      "bytes": 3346
+    },
+    "src/game/street/objects.ts": {
+      "sha256": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+      "bytes": 7874
+    },
+    "output/qualification/native-membership-history-attempt-1/source/src/game/street/objects.ts": {
+      "sha256": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+      "bytes": 7874
+    },
+    "world/authoring/tokyo-1986.objects.json": {
+      "sha256": "d1fc9d00eba89adddb92d1d1624470b590b1202f34a61377bb7a0b11603e95cf",
+      "bytes": 2030
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/authoring/tokyo-1986.objects.json": {
+      "sha256": "d1fc9d00eba89adddb92d1d1624470b590b1202f34a61377bb7a0b11603e95cf",
+      "bytes": 2030
+    },
+    "world/authoring/tokyo-1986.json": {
+      "sha256": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+      "bytes": 10210
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/authoring/tokyo-1986.json": {
+      "sha256": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+      "bytes": 10210
+    },
+    "scripts/generate-street-race.ts": {
+      "sha256": "092d024b7dd085c3ea3de4bbecc244ab3e5e728df23dd6631ea38754cc14ee72",
+      "bytes": 6145
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/generate-street-race.ts": {
+      "sha256": "092d024b7dd085c3ea3de4bbecc244ab3e5e728df23dd6631ea38754cc14ee72",
+      "bytes": 6145
+    },
+    "world/native/street_constraint_plan.rs": {
+      "sha256": "4918c13f657da7331dc522235def3b1163f96117f2108854d9e3fc7206e3b7fa",
+      "bytes": 8548
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_constraint_plan.rs": {
+      "sha256": "4918c13f657da7331dc522235def3b1163f96117f2108854d9e3fc7206e3b7fa",
+      "bytes": 8548
+    },
+    "scripts/generate-street-constraint-plan.ts": {
+      "sha256": "6058cd1a18edb6ceb3db296b8d43f00565f3df82bf3ddbaaca853976d427765c",
+      "bytes": 3745
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/generate-street-constraint-plan.ts": {
+      "sha256": "6058cd1a18edb6ceb3db296b8d43f00565f3df82bf3ddbaaca853976d427765c",
+      "bytes": 3745
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/checked_constraints.rs": {
+      "sha256": "39b94c530d04affad95a89e5e7c4433840d29eef930fe4e4a9234f18e7365036",
+      "bytes": 110812
+    },
+    "world/native/street_checked_lowering.rs": {
+      "sha256": "f9ec0c17c350fab4d5340a8a3ea9cecbe54b3fcb297d6431852e6ceac2169964",
+      "bytes": 12863
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_checked_lowering.rs": {
+      "sha256": "f9ec0c17c350fab4d5340a8a3ea9cecbe54b3fcb297d6431852e6ceac2169964",
+      "bytes": 12863
+    },
+    "world/native/fixed_rom.rs": {
+      "sha256": "feaf8cc37c2849b6e0d772e77d2b1c589274296bba4fa42fc7c74b01d2d5585a",
+      "bytes": 7127
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/fixed_rom.rs": {
+      "sha256": "feaf8cc37c2849b6e0d772e77d2b1c589274296bba4fa42fc7c74b01d2d5585a",
+      "bytes": 7127
+    },
+    "world/native/street_geometry_constraints.rs": {
+      "sha256": "66fcccc2dcde6509ec9e7ebfe0c84125a79d80c9ffbaace3b14f38f72f8d68d4",
+      "bytes": 8518
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/street_geometry_constraints.rs": {
+      "sha256": "66fcccc2dcde6509ec9e7ebfe0c84125a79d80c9ffbaace3b14f38f72f8d68d4",
+      "bytes": 8518
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/staged_constraints.rs": {
+      "sha256": "3d75ac18695dcb36fcea4e9859b2300901b3bd11f0c85d9863ff1d8c0a4b45c6",
+      "bytes": 129028
+    },
+    "scripts/native/street_limb_qualification.rs": {
+      "sha256": "2cad1915760f901c648246eb16dd3e0aca97287d8cfa9dc4d18cb14d4016fd1f",
+      "bytes": 24340
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/native/street_limb_qualification.rs": {
+      "sha256": "2cad1915760f901c648246eb16dd3e0aca97287d8cfa9dc4d18cb14d4016fd1f",
+      "bytes": 24340
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/operand_program.rs": {
+      "sha256": "94339bb02543baf1a1f72a36a563036c2a5791814c1ebc90c022f704c9eafe61",
+      "bytes": 57219
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/multilinear_basis.rs": {
+      "sha256": "6d70ecf149e49701fbda09f65cfae6600793621f14795b37d660b280c8df0de0",
+      "bytes": 20053
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/whir_commitment.rs": {
+      "sha256": "84cd120373bac00177d70685977e6ef14cc4c94dcd257649daa4f6ee65690b46",
+      "bytes": 26979
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/whir_geometry.rs": {
+      "sha256": "b1b073a578dba3f9fef5de53db21d33f493194a7b7e61caa0da4bcd9c099daa2",
+      "bytes": 19881
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/whir_dynamic_linear.rs": {
+      "sha256": "5bda1e4b3097da60412b350886aa40ab94fca3bfc1d66fb46554a3e106e3288b",
+      "bytes": 8474
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/phased_whir.rs": {
+      "sha256": "ac09eb98de591451d4509bc27f6687a10f04ca567e7dcd5ac05eb3e125fe536a",
+      "bytes": 46464
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/membership_relation.rs": {
+      "sha256": "8976e547d88f69a5f30b0cb16e66121cc1bebddcf6b30e1e094501f52f008d9d",
+      "bytes": 49495
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/phased_membership_proof.rs": {
+      "sha256": "770487137160c4f35c02aba369b312398b5cf3a31bbce9ef6601b70c01e31184",
+      "bytes": 31440
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/execution_trace.rs": {
+      "sha256": "587e6e495586862cc88af61c0a4ca57825ac28ee2d4d744ab2d2888071d94d4a",
+      "bytes": 22999
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/execution_terminal.rs": {
+      "sha256": "3041c74d4cbb7bb4d92a26eb57ebc44e83fad165164fb847270b0cf76146c805",
+      "bytes": 39409
+    },
+    "output/qualification/native-membership-history-attempt-1/source/world/native/membership_sequence.rs": {
+      "sha256": "0575f92e3303c5a32f34640ccb4fdae0713b5172257879dbede50e1b9b442360",
+      "bytes": 25375
+    },
+    "scripts/native/native_membership_history.rs": {
+      "sha256": "2860c3d10fbda02c5fef7b06fbbd302c5a036f8ef9437cbd9e7f0e410ab09960",
+      "bytes": 22082
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/native/native_membership_history.rs": {
+      "sha256": "2860c3d10fbda02c5fef7b06fbbd302c5a036f8ef9437cbd9e7f0e410ab09960",
+      "bytes": 22082
+    },
+    "scripts/test-native-membership-history.py": {
+      "sha256": "afce07c199f8b5f3a36af362bd4661c3dd9aa27c9463e704ebe5bd752df2cdec",
+      "bytes": 16164
+    },
+    "output/qualification/native-membership-history-attempt-1/source/scripts/test-native-membership-history.py": {
+      "sha256": "afce07c199f8b5f3a36af362bd4661c3dd9aa27c9463e704ebe5bd752df2cdec",
+      "bytes": 16164
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/privacy_engines/transparent_stark.rs": {
+      "sha256": "a1425266d801ca69b52b4f4bdac045307e73b988eea3aeb402e16da749558192",
+      "bytes": 113331
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/poseidon2.rs": {
+      "sha256": "a6af6d9a59a6df6fd8f211386707d413d68062201af0c35a85dd84b86780e118",
+      "bytes": 12341
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/poseidon2_constants.rs": {
+      "sha256": "d2f0c4f1aed8bfb516ff4bf16beec08d69603c9031cc1e25ec1de670063cdaa1",
+      "bytes": 5885
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs": {
+      "sha256": "86f684bddd22e4f59f328a6096c6cf647b142b917c6773444e5f11c692b481cd",
+      "bytes": 57382
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark.rs": {
+      "sha256": "b16e8e505a1bcbc99584807ef06f66ad723cfc95ee9fa0c618a7914f0f28db0d",
+      "bytes": 213546
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/stark/aggregate_stark/retained_polynomial_tests.rs": {
+      "sha256": "66fa7078636480a1ea08b323a524101fbb26a790b75f8f76ce251f4095404097",
+      "bytes": 4434
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/POSEIDON2_PROVENANCE.md": {
+      "sha256": "f93483701b12a5b874bac1d0f1445e6cb68078f68e835673ef4e055bb0b7bc46",
+      "bytes": 4369
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-MIT": {
+      "sha256": "d6543a1b0a0a51d10b5f8c389324c7dfeba556b7f39815efd292927bde808700",
+      "bytes": 1086
+    },
+    "output/qualification/native-membership-history-attempt-1/native-source/crates/iroha_core/src/execution_proofs/LICENSE-POSEIDON2-APACHE": {
+      "sha256": "3708458dee7f359ac6c9c5558023ed481be87e5372c43ebd7f2ca7ad23c12026",
+      "bytes": 10848
+    },
+    "output/qualification/native-membership-history-attempt-1/2/changed-action.bin": {
+      "sha256": "4ed057125bb6c5fe6355f30f61e5d9e1c90eb7a5af007fe95b88f323a3bd2066",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/changed-context.bin": {
+      "sha256": "c2e7e6fcb7e0d4780fce66914fae40810453972b90543e24c01ad21905b1505e",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/duplicate-step.bin": {
+      "sha256": "58d9393a84c53467cd27abdfc3239307ed5e74dcd53415d9b173dfa3973cedfa",
+      "bytes": 2414844
+    },
+    "output/qualification/native-membership-history-attempt-1/2/noncanonical-action.bin": {
+      "sha256": "26e76b5d400faa1eb0bd58d156bc3ae825e6eb427f3931d345e00756c4b1fb8f",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/omitted-final-step.bin": {
+      "sha256": "38d2c47efc67f40a4bc25a65d985ac43e532bc237d263fba5b90802b9abe26ef",
+      "bytes": 1613912
+    },
+    "output/qualification/native-membership-history-attempt-1/2/oversized-inner-proof.bin": {
+      "sha256": "0d0b2dca6693b53e4fd20f5aa99e1ab4da5d7f889fd6ff7ea706266df56056c0",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/oversized-step-count.bin": {
+      "sha256": "b046b92f5c9a9aae8287e4f6c169a4fb9856684191b46dffcab3da054b843e3a",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/proof.bin": {
+      "sha256": "a4649776cbebf8a904ba93ebb48ce7770f79968f33b2d7995389c97cea43f0d2",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/reordered-steps.bin": {
+      "sha256": "a48498c09f7a56c326adf6e325b5bebd379833cf54960124cc8e425a34180fcf",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/statement.bin": {
+      "sha256": "6f7bf9aa657587cbf9a85dc3dc9d45caf894df2f92240f0d81cab3ed98b0f3fb",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/trailing-proof.bin": {
+      "sha256": "7e08eda5d1f041389bb6da4f09fbd81c153881bd02896d07a915dfff17f3d2fa",
+      "bytes": 2419437
+    },
+    "output/qualification/native-membership-history-attempt-1/2/trailing-public.bin": {
+      "sha256": "4cb9a09f159dc432335b916f69e8c6770c75baaf4fda9df39d08c7abe8156693",
+      "bytes": 1163
+    },
+    "output/qualification/native-membership-history-attempt-1/2/truncated-public.bin": {
+      "sha256": "64f18fd4311d88f80657dfd7c8cb756729489c2c5a78e250afd8ea08f7b78e6b",
+      "bytes": 1161
+    },
+    "output/qualification/native-membership-history-attempt-1/2/verifier-public-inputs-only/proof.bin": {
+      "sha256": "a4649776cbebf8a904ba93ebb48ce7770f79968f33b2d7995389c97cea43f0d2",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/verifier-public-inputs-only/statement.bin": {
+      "sha256": "6f7bf9aa657587cbf9a85dc3dc9d45caf894df2f92240f0d81cab3ed98b0f3fb",
+      "bytes": 1162
+    },
+    "output/qualification/native-membership-history-attempt-1/2/withheld-witness.bin": {
+      "sha256": "477134494892b30e80823268d4183877f1e1286ee5962b3584de6faca42c68c9",
+      "bytes": 588452
+    },
+    "output/qualification/native-membership-history-attempt-1/2/wrong-first-output-tick.bin": {
+      "sha256": "ebe8e98280f2aeeb14c761eb9960e0bfcfb8cd96e0255d5cd6195f0d47256fec",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/wrong-proof-count.bin": {
+      "sha256": "5a3d42d132efcbf57b5b1e6dff1c831916d2fb7c8f1468e9723d8df5eba5562f",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2/wrong-proof-version.bin": {
+      "sha256": "1d8da63bb4ba218283ba27b82b3a8958319c58f90759189f6c17804ad678169d",
+      "bytes": 2419436
+    },
+    "output/qualification/native-membership-history-attempt-1/2-changed-action.stderr": {
+      "sha256": "45b5f88acaf1a5c3bbeedae4be23fc7a69df2f266b1630c428c13b2cf7f56d1b",
+      "bytes": 857
+    },
+    "output/qualification/native-membership-history-attempt-1/2-changed-action.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-changed-context.stderr": {
+      "sha256": "ac360243f52dd0b1f85d43bde8036ed51b7400494d48b7da7ab781c3240947df",
+      "bytes": 857
+    },
+    "output/qualification/native-membership-history-attempt-1/2-changed-context.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-duplicate-step.stderr": {
+      "sha256": "5b834b34e88832e989c72b65a6d6954b477771f1c9a40b87cccd2fe4971ce28e",
+      "bytes": 876
+    },
+    "output/qualification/native-membership-history-attempt-1/2-duplicate-step.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-fixture.stderr": {
+      "sha256": "324b270ba9c511c3f255be9d74b0eb8a4b408d868c480c8aecfc7487188ab55a",
+      "bytes": 777
+    },
+    "output/qualification/native-membership-history-attempt-1/2-fixture.stdout": {
+      "sha256": "4cbe3fcb3a9dc76832c08f03ad7aec1081f8119042baeeb16e4db17842b4a58a",
+      "bytes": 751
+    },
+    "output/qualification/native-membership-history-attempt-1/2-noncanonical-action.stderr": {
+      "sha256": "458c9a39395de8b653d25aa0ec59d52b824eedc20497eec1cda489dc42c34e74",
+      "bytes": 840
+    },
+    "output/qualification/native-membership-history-attempt-1/2-noncanonical-action.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-omitted-final-step.stderr": {
+      "sha256": "c4fe0ec22cd67dde066b3357057fffda92665cb75ca70e94fd3eb5e93350d7af",
+      "bytes": 886
+    },
+    "output/qualification/native-membership-history-attempt-1/2-omitted-final-step.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-oversized-inner-proof.stderr": {
+      "sha256": "bd11b31374e4573f6808e83a01c19811cc9cba3462624f2e47ceb22a10378714",
+      "bytes": 836
+    },
+    "output/qualification/native-membership-history-attempt-1/2-oversized-inner-proof.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-oversized-step-count.stderr": {
+      "sha256": "ce9f2d22dde6984b160da626d6f5d71a20bd85e543abdccdadee4d149d81a4ca",
+      "bytes": 844
+    },
+    "output/qualification/native-membership-history-attempt-1/2-oversized-step-count.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-overwrite-proof.stderr": {
+      "sha256": "576a29d9e251778fe4062395dc7cc5cde82c4a47ff182221f97a2fd52fa9b6a7",
+      "bytes": 838
+    },
+    "output/qualification/native-membership-history-attempt-1/2-overwrite-proof.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-prove.stderr": {
+      "sha256": "8da74479de42717d349935d0d66ff4227a150d99e50b81fbd9850bcdf3f153e5",
+      "bytes": 894
+    },
+    "output/qualification/native-membership-history-attempt-1/2-prove.stdout": {
+      "sha256": "7a7a95e7641beaa69f2b89356846c1a004e0e12044754e131a895f29a2478dca",
+      "bytes": 696
+    },
+    "output/qualification/native-membership-history-attempt-1/2-reordered-steps.stderr": {
+      "sha256": "996a275c456c80e743fe1f5dd93b535b87e72201f67bddcadeaff0d92e7bcdae",
+      "bytes": 849
+    },
+    "output/qualification/native-membership-history-attempt-1/2-reordered-steps.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-trailing-proof.stderr": {
+      "sha256": "7c45de427ca72f7bdd7ddb534e263b81c273b31bc04a47e4adc7bf90855b8ca0",
+      "bytes": 912
+    },
+    "output/qualification/native-membership-history-attempt-1/2-trailing-proof.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-trailing-public.stderr": {
+      "sha256": "43abc55375971de6d419d7f2be3d4d1dd75f81b34ac244f081349f5516d8baeb",
+      "bytes": 844
+    },
+    "output/qualification/native-membership-history-attempt-1/2-trailing-public.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-truncated-public.stderr": {
+      "sha256": "31a9eff148960ce486cb55fffdb2ca410060798e83a26ecb1f0882907309bb71",
+      "bytes": 844
+    },
+    "output/qualification/native-membership-history-attempt-1/2-truncated-public.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-verify.stderr": {
+      "sha256": "485c04bb9bf6a661609998be5aab521f67f955b774d2a353c8d9dd2f583a2922",
+      "bytes": 858
+    },
+    "output/qualification/native-membership-history-attempt-1/2-verify.stdout": {
+      "sha256": "d03c13a5d9b17fdf65e6868786dbc0ba0903f1ba1320c94af521ed865bfa07e9",
+      "bytes": 890
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-first-output-tick.stderr": {
+      "sha256": "448bae68a3e7ab27d8a9ad782d64e2b7e46994c3785ef0d9497476a974c1f3fc",
+      "bytes": 851
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-first-output-tick.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-proof-count.stderr": {
+      "sha256": "d35fe38250ae8c1eecacd429abcc878a34196bfec1ce37cac6a33c61ffa69a2f",
+      "bytes": 844
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-proof-count.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-proof-version.stderr": {
+      "sha256": "ab95c89bddabede4a848d3bafdf68c6e121d32fb3f2cae6097fc1d240fae0473",
+      "bytes": 830
+    },
+    "output/qualification/native-membership-history-attempt-1/2-wrong-proof-version.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/8/changed-action.bin": {
+      "sha256": "2148734fa966161b6c1a25dadaa218b1e926db87b384c27224f98b0d710c2978",
+      "bytes": 2506
+    },
+    "output/qualification/native-membership-history-attempt-1/8/changed-context.bin": {
+      "sha256": "982d372e625549e2b9dc0b528c1ed92e2e1a0c1350e87a4703cbc0f7f0fefccf",
+      "bytes": 2506
+    },
+    "output/qualification/native-membership-history-attempt-1/8/proof.bin": {
+      "sha256": "c1d14c565725307764216ce20e656a85a63b1614f01cd33496c516a81093b469",
+      "bytes": 3577548
+    },
+    "output/qualification/native-membership-history-attempt-1/8/reordered-steps.bin": {
+      "sha256": "1c640363eedf8172f573c9e7167f2413ccaf47d7b90d3ec1a09c1b358cd2ef95",
+      "bytes": 3577548
+    },
+    "output/qualification/native-membership-history-attempt-1/8/statement.bin": {
+      "sha256": "fa104028f2713ee8604f340b2b5583d0c0bddd42f01e44c031735bf91850e119",
+      "bytes": 2506
+    },
+    "output/qualification/native-membership-history-attempt-1/8/verifier-public-inputs-only/proof.bin": {
+      "sha256": "c1d14c565725307764216ce20e656a85a63b1614f01cd33496c516a81093b469",
+      "bytes": 3577548
+    },
+    "output/qualification/native-membership-history-attempt-1/8/verifier-public-inputs-only/statement.bin": {
+      "sha256": "fa104028f2713ee8604f340b2b5583d0c0bddd42f01e44c031735bf91850e119",
+      "bytes": 2506
+    },
+    "output/qualification/native-membership-history-attempt-1/8/withheld-witness.bin": {
+      "sha256": "324422b92fda98ff45266f00c1b147aebca8b0dfca600c25b890fe3c352f3799",
+      "bytes": 8179460
+    },
+    "output/qualification/native-membership-history-attempt-1/8-changed-action.stderr": {
+      "sha256": "bb8bdca3cb8f2bd7948266e6078c80f6cb380b0900f88385275a53566e4eb282",
+      "bytes": 857
+    },
+    "output/qualification/native-membership-history-attempt-1/8-changed-action.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/8-changed-context.stderr": {
+      "sha256": "e8f7ce39f67c8d7fb735c1ae4c17e5736604dd0f6442a4767d8890e63c797c4c",
+      "bytes": 857
+    },
+    "output/qualification/native-membership-history-attempt-1/8-changed-context.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/8-fixture.stderr": {
+      "sha256": "0e20dfa617a9644695acf1da04e88b899ddf7543ba5348b7d7e3baeebf35547e",
+      "bytes": 777
+    },
+    "output/qualification/native-membership-history-attempt-1/8-fixture.stdout": {
+      "sha256": "0d9cdef4199675d67d06edc5dd10979d5dffa211cbaa79ca846f8959dc1699a5",
+      "bytes": 755
+    },
+    "output/qualification/native-membership-history-attempt-1/8-overwrite-proof.stderr": {
+      "sha256": "cae616f1ea9a151ac2197a65f63a9facc3791392cad2233822597fff7d8200a8",
+      "bytes": 838
+    },
+    "output/qualification/native-membership-history-attempt-1/8-overwrite-proof.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/8-prove.stderr": {
+      "sha256": "149cc7f31229ccb38825a388bdb12c677e580bb59d964bdb9c0209089865b0fb",
+      "bytes": 900
+    },
+    "output/qualification/native-membership-history-attempt-1/8-prove.stdout": {
+      "sha256": "c858e3caf894fe4f63f0dab93da6be3422a001160507a70934e678f45432e99f",
+      "bytes": 697
+    },
+    "output/qualification/native-membership-history-attempt-1/8-reordered-steps.stderr": {
+      "sha256": "70d5574a428d2c66f2dbb5d0a7cbb71d24a127447a4bdf9ac8713d0b777f6ef4",
+      "bytes": 849
+    },
+    "output/qualification/native-membership-history-attempt-1/8-reordered-steps.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/8-verify.stderr": {
+      "sha256": "5d48b608fe4136cd5cf34c4626f39c81fdda9980dce3855bef398d74dc8f293a",
+      "bytes": 861
+    },
+    "output/qualification/native-membership-history-attempt-1/8-verify.stdout": {
+      "sha256": "7debae74808d4d5693116ecfaba64a25d06d0f5a6274ff91ab1f77ec692e5d5e",
+      "bytes": 891
+    },
+    "output/qualification/native-membership-history-attempt-1/compile.stderr": {
+      "sha256": "7b7c1fb86fc8efb3a46333284291c00e8e81a53e377ee8df549ba835994fc039",
+      "bytes": 1289
+    },
+    "output/qualification/native-membership-history-attempt-1/compile.stdout": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "output/qualification/native-membership-history-attempt-1/fixture_helpers.rs": {
+      "sha256": "02313c0b1198e9d885b6909e12191c4ab4446588697d16447a2042d14f307c02",
+      "bytes": 4075
+    },
+    "output/qualification/native-membership-history-attempt-1/harness.rs": {
+      "sha256": "4d1b2e5678fa172bdb8cb0c1d8c4240799d359e6c598cdf3686878d34dbc3136",
+      "bytes": 96784
+    },
+    "output/qualification/native-membership-history-attempt-1/native_membership_history": {
+      "sha256": "07bfab31523637eec40b93ec00d434c15487e733a86801f9c37b6999c0320eb2",
+      "bytes": 2067304
+    },
+    "scripts/record-native-membership-sequence.py": {
+      "sha256": "f75b53826640ac0cedd3a247c4876ab5d0db65f9a8652b3602cf15eb0002ac09",
+      "bytes": 16449
+    },
+    "world/native/NATIVE_MEMBERSHIP_SEQUENCE.md": {
+      "sha256": "16b74fb94b371db250318826b961ee3d6c7e9dd601e1e619d3ccfa15c7fe84d3",
+      "bytes": 13657
+    },
+    "output/qualification/native-membership-sequence-summary/world/native/NATIVE_MEMBERSHIP_SEQUENCE.md": {
+      "sha256": "16b74fb94b371db250318826b961ee3d6c7e9dd601e1e619d3ccfa15c7fe84d3",
+      "bytes": 13657
+    },
+    "docs/native-history-gap-map.md": {
+      "sha256": "b2feb429134e3397006f239044b4a2149f24d212cebf1549855c6d5e56e79856",
+      "bytes": 9088
+    },
+    "output/qualification/native-membership-sequence-summary/docs/native-history-gap-map.md": {
+      "sha256": "b2feb429134e3397006f239044b4a2149f24d212cebf1549855c6d5e56e79856",
+      "bytes": 9088
+    },
+    "docs/native-membership-extraction-review.md": {
+      "sha256": "76b955ed874d4b3100422dbbef7e3cb0a8e04d2ee6aa2f04f02c738c894501f8",
+      "bytes": 14072
+    },
+    "output/qualification/native-membership-sequence-summary/docs/native-membership-extraction-review.md": {
+      "sha256": "76b955ed874d4b3100422dbbef7e3cb0a8e04d2ee6aa2f04f02c738c894501f8",
+      "bytes": 14072
+    },
+    "output/qualification/native-membership-sequence-summary/scripts/record-native-membership-sequence.py": {
+      "sha256": "f75b53826640ac0cedd3a247c4876ab5d0db65f9a8652b3602cf15eb0002ac09",
+      "bytes": 16449
+    }
+  },
+  "sources": {
+    "world/native/checked_constraints.rs": "39b94c530d04affad95a89e5e7c4433840d29eef930fe4e4a9234f18e7365036",
+    "world/native/staged_constraints.rs": "3d75ac18695dcb36fcea4e9859b2300901b3bd11f0c85d9863ff1d8c0a4b45c6",
+    "world/native/operand_program.rs": "94339bb02543baf1a1f72a36a563036c2a5791814c1ebc90c022f704c9eafe61",
+    "world/native/membership_relation.rs": "8976e547d88f69a5f30b0cb16e66121cc1bebddcf6b30e1e094501f52f008d9d",
+    "world/native/multilinear_basis.rs": "6d70ecf149e49701fbda09f65cfae6600793621f14795b37d660b280c8df0de0",
+    "world/native/whir_commitment.rs": "84cd120373bac00177d70685977e6ef14cc4c94dcd257649daa4f6ee65690b46",
+    "world/native/whir_geometry.rs": "b1b073a578dba3f9fef5de53db21d33f493194a7b7e61caa0da4bcd9c099daa2",
+    "world/native/whir_dynamic_linear.rs": "5bda1e4b3097da60412b350886aa40ab94fca3bfc1d66fb46554a3e106e3288b",
+    "world/native/phased_whir.rs": "ac09eb98de591451d4509bc27f6687a10f04ca567e7dcd5ac05eb3e125fe536a",
+    "world/native/phased_membership_proof.rs": "770487137160c4f35c02aba369b312398b5cf3a31bbce9ef6601b70c01e31184",
+    "world/native/execution_trace.rs": "587e6e495586862cc88af61c0a4ca57825ac28ee2d4d744ab2d2888071d94d4a",
+    "world/native/execution_terminal.rs": "3041c74d4cbb7bb4d92a26eb57ebc44e83fad165164fb847270b0cf76146c805",
+    "world/native/membership_sequence.rs": "0575f92e3303c5a32f34640ccb4fdae0713b5172257879dbede50e1b9b442360",
+    "scripts/native/membership_sequence_fixture.rs": "81f8f5d272114c54fc52ca8c04aec5e5a30bf1402eae6a5fb3c8c08a66142f1b",
+    "scripts/native/membership_extraction_fixture.rs": "9e86b4913b6aa78a7d8bf222f32774b5540778b938f0571766b0cf76716c9a53",
+    "scripts/test-native-membership-sequence.py": "e5f2176470e54552ec46ba21e2fe6dbd7c0321a83eb3789a3d1e1e1d985fe3a3",
+    "world/native/street_graph.rs": "e93077c4bbe99c4bbc6322dd12ab6f993d17ebe8ffff458d832952879958c196",
+    "world/native/street_geometry.rs": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+    "world/native/street_handling.rs": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+    "world/native/street_lifecycle.rs": "4b5d7af573002ba56c620871e5c9227bf2d41392acc1bed8c8aee8c2250dd2b5",
+    "world/native/street_contacts.rs": "aa4b64eeae0d77eb6f0ec27215c4657ce3c876126290c158da7028c7b12b5e94",
+    "world/native/street_race.rs": "57d2acefc5a5617c957e21475ca327f5c97fec9d5b82465da8d5630cf8d05a74",
+    "scripts/lib/street-track-compiler.ts": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+    "world/native/street_hazards.rs": "55c282b57d3031e8caa24b147fd9e5c9c0da3353992f3f00ee808f4c4f932e2d",
+    "scripts/lib/street-object-compiler.ts": "364362e4b7c4378269c9eb57f0abec664150479a96fc6edffa85e2376f239c39",
+    "src/game/street/objects.ts": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+    "world/authoring/tokyo-1986.objects.json": "d1fc9d00eba89adddb92d1d1624470b590b1202f34a61377bb7a0b11603e95cf",
+    "world/authoring/tokyo-1986.json": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+    "scripts/generate-street-race.ts": "092d024b7dd085c3ea3de4bbecc244ab3e5e728df23dd6631ea38754cc14ee72",
+    "world/native/street_constraint_plan.rs": "4918c13f657da7331dc522235def3b1163f96117f2108854d9e3fc7206e3b7fa",
+    "scripts/generate-street-constraint-plan.ts": "6058cd1a18edb6ceb3db296b8d43f00565f3df82bf3ddbaaca853976d427765c",
+    "world/native/street_checked_lowering.rs": "f9ec0c17c350fab4d5340a8a3ea9cecbe54b3fcb297d6431852e6ceac2169964",
+    "world/native/fixed_rom.rs": "feaf8cc37c2849b6e0d772e77d2b1c589274296bba4fa42fc7c74b01d2d5585a",
+    "world/native/street_geometry_constraints.rs": "66fcccc2dcde6509ec9e7ebfe0c84125a79d80c9ffbaace3b14f38f72f8d68d4",
+    "scripts/native/street_limb_qualification.rs": "2cad1915760f901c648246eb16dd3e0aca97287d8cfa9dc4d18cb14d4016fd1f",
+    "scripts/native/native_membership_history.rs": "2860c3d10fbda02c5fef7b06fbbd302c5a036f8ef9437cbd9e7f0e410ab09960",
+    "scripts/test-native-membership-history.py": "afce07c199f8b5f3a36af362bd4661c3dd9aa27c9463e704ebe5bd752df2cdec"
+  },
+  "reports": {
+    "output/qualification/street-commitments/native-adapter/report.json": "831d8e660f3f8838701a507a15e3d7c4bf5ab6d0cae636d299a936e9f7450c05",
+    "output/qualification/native-membership-sequence-attempt-1/report.json": "7f6544e6b47c2044db3c8cd5135539ffc08b7372929d1080e7420bde71b34b21",
+    "output/qualification/native-membership-history-attempt-1/report.json": "7bb445d774ab15bfcfb4830331ae725f6cfe4e04192ac9d0b16cf84f1452312c"
+  },
+  "documents": [
+    {
+      "source": "world/native/NATIVE_MEMBERSHIP_SEQUENCE.md",
+      "archive": "output/qualification/native-membership-sequence-summary/world/native/NATIVE_MEMBERSHIP_SEQUENCE.md",
+      "sha256": "16b74fb94b371db250318826b961ee3d6c7e9dd601e1e619d3ccfa15c7fe84d3",
+      "linkBase": "world/native/NATIVE_MEMBERSHIP_SEQUENCE.md"
+    },
+    {
+      "source": "docs/native-history-gap-map.md",
+      "archive": "output/qualification/native-membership-sequence-summary/docs/native-history-gap-map.md",
+      "sha256": "b2feb429134e3397006f239044b4a2149f24d212cebf1549855c6d5e56e79856",
+      "linkBase": "docs/native-history-gap-map.md"
+    },
+    {
+      "source": "docs/native-membership-extraction-review.md",
+      "archive": "output/qualification/native-membership-sequence-summary/docs/native-membership-extraction-review.md",
+      "sha256": "76b955ed874d4b3100422dbbef7e3cb0a8e04d2ee6aa2f04f02c738c894501f8",
+      "linkBase": "docs/native-membership-extraction-review.md"
+    }
+  ],
+  "compiler": {
+    "path": "/Users/takemiyamakoto/.rustup/toolchains/1.93.1-aarch64-apple-darwin/bin/rustc",
+    "sha256": "34a8f7034eeb844189a3c36ebb3fe36c2193fdb47b60028eb7f9392cb1f62484"
+  },
+  "recorder": {
+    "source": "scripts/record-native-membership-sequence.py",
+    "archive": "output/qualification/native-membership-sequence-summary/scripts/record-native-membership-sequence.py",
+    "sha256": "f75b53826640ac0cedd3a247c4876ab5d0db65f9a8652b3602cf15eb0002ac09"
+  },
+  "predecessorMembershipManifestSha256": "d28c5d687547ff78912e0bd57e0711cf3210dcaf3cda816a7458131d59fe19dd",
+  "tests": [
+    "membership_sequence_fixture::membership_sequence_expected_inputs_enforce_exact_shape_genesis_and_aliases",
+    "membership_sequence_fixture::membership_sequence_first_terminal_policy_rejects_early_and_missing_halt",
+    "membership_sequence_fixture::membership_sequence_local_limits_and_eliminated_staged_padding_do_not_change_semantics",
+    "membership_sequence_fixture::membership_sequence_whole_context_actions_genesis_and_final_are_bound_before_step_zero",
+    "membership_sequence_fixture::membership_sequence_out_of_order_and_duplicate_steps_permanently_poison",
+    "membership_sequence_fixture::membership_sequence_genuine_step_proof_cannot_replay_at_another_position",
+    "membership_sequence_fixture::membership_sequence_canonical_root_wire_shape_and_proof_failures_poison",
+    "membership_sequence_fixture::membership_sequence_authenticated_wrong_previous_state_cannot_replace_verified_carry",
+    "membership_sequence_fixture::membership_sequence_missing_steps_never_finish",
+    "membership_sequence_fixture::membership_sequence_genuine_complete_proofs_verify_with_program_only_construction",
+    "membership_sequence_fixture::membership_sequence_extra_step_invalidates_previously_complete_verifier",
+    "membership_sequence_fixture::membership_sequence_nonterminal_and_final_port_mutations_fail_closed",
+    "membership_extraction_fixture::native_base_advice_can_fit_a_bad_query_when_selected_after_beta",
+    "membership_extraction_fixture::the_same_fixed_base_advice_fails_at_a_second_nonpole_challenge"
+  ],
+  "acceptedCommands": 6,
+  "rejectedCommands": 19,
+  "streetResults": [
+    {
+      "roster": 2,
+      "fixture": {
+        "name": "2-fixture",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "fixture",
+          "2",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/statement.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/witness.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 1.731251457997132,
+        "result": {
+          "command": "fixture",
+          "roster": 2,
+          "steps": 3,
+          "sequenceDigest": "7b5059143fc7bca8c4dfa88a4ed48bf1b18c139eeb3d8275b8c8f85d6504794958fd3a743c9b1e711fdcc303262fcf57",
+          "activeValuesPerStep": 24406,
+          "statementBytes": 1162,
+          "witnessBytes": 588452,
+          "nativeNodeValuesCompared": 16761,
+          "witnessGenerated": true,
+          "orderedComponentProofsVerified": false,
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 1.723812209
+        },
+        "maximumResidentBytes": 46415872
+      },
+      "prover": {
+        "name": "2-prove",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "prove",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/statement.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/witness.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/proof.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 15.432080791972112,
+        "result": {
+          "command": "prove",
+          "roster": 2,
+          "steps": 3,
+          "sequenceDigest": "7b5059143fc7bca8c4dfa88a4ed48bf1b18c139eeb3d8275b8c8f85d6504794958fd3a743c9b1e711fdcc303262fcf57",
+          "proofBytes": 2419436,
+          "nativeNodeValuesCompared": 0,
+          "witnessGenerated": false,
+          "orderedComponentProofsVerified": false,
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 15.424859458
+        },
+        "maximumResidentBytes": 185024512
+      },
+      "verifier": {
+        "name": "2-verify",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "verify",
+          "statement.bin",
+          "proof.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/2/verifier-public-inputs-only",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 6.764848583028652,
+        "result": {
+          "command": "verify",
+          "roster": 2,
+          "steps": 3,
+          "sequenceDigest": "7b5059143fc7bca8c4dfa88a4ed48bf1b18c139eeb3d8275b8c8f85d6504794958fd3a743c9b1e711fdcc303262fcf57",
+          "proofBytes": 2419436,
+          "nativeNodeValuesCompared": 0,
+          "witnessGenerated": false,
+          "orderedComponentProofsVerified": true,
+          "firstTerminalTransitionVerified": true,
+          "genesisActionsAndCarryVerified": true,
+          "transcriptDigest": "2e0277315bd90d2ea5c8c7ee8a73fb43ae12175747a9e8bf23319e2eab430ddc376749d2d4568bf8535c306501294c1a",
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 6.758514916
+        },
+        "maximumResidentBytes": 101662720
+      },
+      "proofSha256": "a4649776cbebf8a904ba93ebb48ce7770f79968f33b2d7995389c97cea43f0d2",
+      "statementSha256": "6f7bf9aa657587cbf9a85dc3dc9d45caf894df2f92240f0d81cab3ed98b0f3fb",
+      "records": [
+        {
+          "start": 64,
+          "end": 804692,
+          "proofStart": 1016,
+          "proofBytes": 803676,
+          "sha256": "ea45f089827bc03e64b9aba3754146ea40f6a0932808c79df57c680534ca895f"
+        },
+        {
+          "start": 804692,
+          "end": 1613912,
+          "proofStart": 805644,
+          "proofBytes": 808268,
+          "sha256": "4f9e4b22a993c28d03d9ff408ccb08d4274a30e1592cb91eac3f58860bf6b982"
+        },
+        {
+          "start": 1613912,
+          "end": 2419436,
+          "proofStart": 1614864,
+          "proofBytes": 804572,
+          "sha256": "68bc44a488442fe26df64857d011fcbe0b4cc4b2e6449f91152c80a946fcd54d"
+        }
+      ],
+      "witnessAbsentAtOriginalPathDuringVerification": true,
+      "verifierInputs": [
+        "external public sequence statement",
+        "proof sequence"
+      ]
+    },
+    {
+      "roster": 8,
+      "fixture": {
+        "name": "8-fixture",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "fixture",
+          "8",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/statement.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/witness.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 25.930082459002733,
+        "result": {
+          "command": "fixture",
+          "roster": 8,
+          "steps": 3,
+          "sequenceDigest": "ca52fa7250de9b89a53dd0103186fb7460ebadb59af5c47c68e353d027cc4c016e5dd85b43b845497258da29dd78e8fc",
+          "activeValuesPerStep": 340566,
+          "statementBytes": 2506,
+          "witnessBytes": 8179460,
+          "nativeNodeValuesCompared": 305424,
+          "witnessGenerated": true,
+          "orderedComponentProofsVerified": false,
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 25.911912125
+        },
+        "maximumResidentBytes": 554385408
+      },
+      "prover": {
+        "name": "8-prove",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "prove",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/statement.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/witness.bin",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/proof.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 152.4305441660108,
+        "result": {
+          "command": "prove",
+          "roster": 8,
+          "steps": 3,
+          "sequenceDigest": "ca52fa7250de9b89a53dd0103186fb7460ebadb59af5c47c68e353d027cc4c016e5dd85b43b845497258da29dd78e8fc",
+          "proofBytes": 3577548,
+          "nativeNodeValuesCompared": 0,
+          "witnessGenerated": false,
+          "orderedComponentProofsVerified": false,
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 152.402018958
+        },
+        "maximumResidentBytes": 1574076416
+      },
+      "verifier": {
+        "name": "8-verify",
+        "command": [
+          "/usr/bin/time",
+          "-l",
+          "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/native_membership_history",
+          "verify",
+          "statement.bin",
+          "proof.bin"
+        ],
+        "cwd": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-membership-history-attempt-1/8/verifier-public-inputs-only",
+        "exitCode": 0,
+        "expectedAcceptance": true,
+        "expectedError": null,
+        "processSeconds": 54.35499991703546,
+        "result": {
+          "command": "verify",
+          "roster": 8,
+          "steps": 3,
+          "sequenceDigest": "ca52fa7250de9b89a53dd0103186fb7460ebadb59af5c47c68e353d027cc4c016e5dd85b43b845497258da29dd78e8fc",
+          "proofBytes": 3577548,
+          "nativeNodeValuesCompared": 0,
+          "witnessGenerated": false,
+          "orderedComponentProofsVerified": true,
+          "firstTerminalTransitionVerified": true,
+          "genesisActionsAndCarryVerified": true,
+          "transcriptDigest": "798f173e58731e340f92e3e6b0c1ae8dbd34315e081847f30858897476640168681491688576a6b8cd8b6c3f6e24ef56",
+          "acceptedGameProof": false,
+          "historyVerified": false,
+          "publicStatementProvenanceAuthenticated": false,
+          "integerExecutionQualified": false,
+          "baseExtractionTheoremQualified": false,
+          "composedSecurityQualified": false,
+          "securityTargetQualified": false,
+          "ledgerVerified": false,
+          "finalityVerified": false,
+          "zeroKnowledge": false,
+          "globalStagedPaddingVerified": false,
+          "terminalAdjudicationVerified": false,
+          "syntheticRoots": false,
+          "seconds": 54.333350541
+        },
+        "maximumResidentBytes": 984940544
+      },
+      "proofSha256": "c1d14c565725307764216ce20e656a85a63b1614f01cd33496c516a81093b469",
+      "statementSha256": "fa104028f2713ee8604f340b2b5583d0c0bddd42f01e44c031735bf91850e119",
+      "records": [
+        {
+          "start": 64,
+          "end": 1192660,
+          "proofStart": 2072,
+          "proofBytes": 1190588,
+          "sha256": "e4290144b46ea546c50f584f52bbb9363be8da83b907536347779aaba7f56e99"
+        },
+        {
+          "start": 1192660,
+          "end": 2384424,
+          "proofStart": 1194668,
+          "proofBytes": 1189756,
+          "sha256": "3b578e56267f75a717e617fa6a6fa5305fd915e3cb5a38c59149f4f8c1dbf5bd"
+        },
+        {
+          "start": 2384424,
+          "end": 3577548,
+          "proofStart": 2386432,
+          "proofBytes": 1191116,
+          "sha256": "4d6573aa760b510a570abce9010682ce47fc0b0a4a6968436878994e351aa177"
+        }
+      ],
+      "witnessAbsentAtOriginalPathDuringVerification": true,
+      "verifierInputs": [
+        "external public sequence statement",
+        "proof sequence"
+      ]
+    }
+  ],
+  "fixtureFinalClaims": [
+    {
+      "roster": 2,
+      "tick": 3,
+      "done": 1,
+      "technicalWin": 1,
+      "refund": 0,
+      "allSpeedsZero": true,
+      "eligibleSlots": [
+        0
+      ],
+      "authorityAuthenticated": false
+    },
+    {
+      "roster": 8,
+      "tick": 3,
+      "done": 1,
+      "technicalWin": 1,
+      "refund": 0,
+      "allSpeedsZero": true,
+      "eligibleSlots": [
+        0
+      ],
+      "authorityAuthenticated": false
+    }
+  ],
+  "qualification": {
+    "acceptedGameProof": false,
+    "historyVerified": false,
+    "publicStatementProvenanceAuthenticated": false,
+    "integerExecutionQualified": false,
+    "baseExtractionTheoremQualified": false,
+    "composedSecurityQualified": false,
+    "securityTargetQualified": false,
+    "ledgerVerified": false,
+    "finalityVerified": false,
+    "zeroKnowledge": false,
+    "globalStagedPaddingVerified": false,
+    "terminalAdjudicationVerified": false,
+    "syntheticRoots": false
+  }
+}

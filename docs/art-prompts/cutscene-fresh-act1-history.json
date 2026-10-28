@@ -1,0 +1,835 @@
+{
+  "agent": "art_act1",
+  "scope": "first 53 needsNew entries from tmp/cutscene-cut-plan.json",
+  "generated_count": 46,
+  "images": [
+    {
+      "index": 0,
+      "key": "ch01-intro",
+      "cut": 11,
+      "scene": "garage",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/garage-detail-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Tight over-the-bench shot: Jun's hand offers a small ten-millimeter socket to Aki's outstretched grease-stained hand; his practical, affectionate face is visible behind a red metal toolbox. Fresh angle looking along the workbench. This is camera cut 11 of ch01-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker jun says \"Take the ten-millimeter socket. Bravado will not turn a nut.\"; immediately after \"Then ask for delivery-van inspections. Fix the lift and we can add evening slots. First, get through this month.\"; immediately before \"Dad kept this place going on his own. I can too.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-cfac991c-abea-4fe4-b1b2-9af73491a7f6.png",
+      "target": "public/assets/story/scenes/ch01-intro-cut11.png",
+      "sha256": "0811b78c984259bbd47f347b9253e0c4e4bd69cb2061efbd3ba79ab757dc9562",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 1,
+      "key": "ch01-intro",
+      "cut": 12,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Aki stands alone beneath her late father's old key hook and the workshop's half-open shutter, gripping the garage key with a stubborn, vulnerable expression; the white coupe is only a shadow in the far bay. Fresh side profile. This is camera cut 12 of ch01-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Dad kept this place going on his own. I can too.\"; immediately after \"Take the ten-millimeter socket. Bravado will not turn a nut.\"; immediately before \"Then give me my tools back. After you get home will do. I’ll see you at Hakone.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-4e470ad8-19a3-412b-975a-9917bf6ee85d.png",
+      "target": "public/assets/story/scenes/ch01-intro-cut12.png",
+      "sha256": "0a96d9d8100c15104c9dfff5a3c5d13623c47f0b6eee2d702336f86eeac60852",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 2,
+      "key": "ch01-intro",
+      "cut": 13,
+      "scene": "garage",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/garage-right-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: From inside the garage toward the open dusk doorway, Ren half-turns away with a teasing smile and an open palm asking for his borrowed tools; Aki remains a soft foreground silhouette. An ivory bomber and a blank cassette are visible. This is camera cut 13 of ch01-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"Then give me my tools back. After you get home will do. I’ll see you at Hakone.\"; immediately after \"Dad kept this place going on his own. I can too.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-118c2148-582f-421b-b344-83243eb1f0b5.png",
+      "target": "public/assets/story/scenes/ch01-intro-cut13.png",
+      "sha256": "5a500fe7e8da9f5b4ddef2c18030abf62a46466a328ad9702088ca920d23f19e",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 3,
+      "key": "ch01-victory",
+      "cut": 2,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Mei, 26-year-old Japanese woman photographer, shoulder-length dark hair, blue denim jacket and 35mm film camera. Include only these prominent characters.\nAction and composition: After the gear repair, close view from the white coupe's open driver door: Aki offers her cleaner hand toward Mei's 35mm camera and smiles, the manual gear lever visible; Mei's camera and denim sleeve form a distinct foreground frame. This is camera cut 2 of ch01-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Third gear stopped catching. Please photograph the cleaner hand.\"; immediately after \"You did not smile on the podium. You smiled listening to the car afterward. That is the photo I took.\"; immediately before \"Tonight’s messages for SORA Radio: three delivery-van inspections. We’re running out of paper by the phone.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-d21e23d2-0ae3-4c34-b6d2-359e14865c85.png",
+      "target": "public/assets/story/scenes/ch01-victory-cut02.png",
+      "sha256": "85ee8b18104e92632e407e22ffa838e62a6a3cb36014126ce040d24ed3c5921a",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 4,
+      "key": "ch01-victory",
+      "cut": 6,
+      "scene": "ledger",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/ledger-left-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: the garage's tiny back office and evidence desk, worn notebooks, plain envelopes, film prints and warm desk lamp against blue night window. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: At the garage's cramped back-office desk, Aki studies Mei's two photographic enlargements of the workshop and harbor notices, then looks toward the door with reluctant resolve; a lamp and pencil mark the decision. This is camera cut 6 of ch01-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"I’ll come and look tomorrow. Just once. I cannot stop work here.\"; immediately after \"I’ll leave the enlargement here. The garage and the harbor. The same crown on two doors.\"; immediately before \"Take the cassette home. Don’t fill side B without me. Let me choose one song.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-fd51a0bf-1cda-4577-8dcc-1818e6526e24.png",
+      "target": "public/assets/story/scenes/ch01-victory-cut06.png",
+      "sha256": "bcefd2e487f5ee29558046b0062cc7d64fec454134249803753dc79058a2ae28",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 5,
+      "key": "ch01-victory",
+      "cut": 7,
+      "scene": "garage",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/garage-right-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Ren offers a blank-sided cassette across the garage threshold to Aki, caught in a close over-Aki's-shoulder angle; soft night light frames Ren's wavy hair and ivory bomber. This is camera cut 7 of ch01-victory, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"Take the cassette home. Don’t fill side B without me. Let me choose one song.\"; immediately after \"I’ll come and look tomorrow. Just once. I cannot stop work here.\"; immediately before \"If it is a terrible song, I’m recording over it. Goodnight, Ren.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-b29469bc-ac3f-4b0b-953b-455d6517a637.png",
+      "target": "public/assets/story/scenes/ch01-victory-cut07.png",
+      "sha256": "4f375413d0a85523ac12177c5a7776e2d59acc362a459661bd788d8f3459ef30",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 6,
+      "key": "ch01-victory",
+      "cut": 8,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt. Include only these prominent characters.\nAction and composition: Aki stands at the garage's exterior shutter with the cassette in one hand, half-smiling at Ren as he leaves down the quiet coast road; frame from behind Ren, the red coveralls and farewell expression clear. This is camera cut 8 of ch01-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"If it is a terrible song, I’m recording over it. Goodnight, Ren.\"; immediately after \"Take the cassette home. Don’t fill side B without me. Let me choose one song.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-ca799869-da7a-4f1d-a1ec-ac5508555ce2.png",
+      "target": "public/assets/story/scenes/ch01-victory-cut08.png",
+      "sha256": "96f720cdb5d96be4eedca4f81eaad3aad4d0f4d6b2987e186479a2af6cbae2ab",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 7,
+      "key": "ch02-intro",
+      "cut": 3,
+      "scene": "harbor",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/harbor-detail-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: Low close view of Daichi pointing out the visibly mismatched freshly painted front fender of his younger brother's mint-blue boxy coupe; his red headband and face are reflected in the car window, depot behind. This is camera cut 3 of ch02-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker daichi says \"I know. The blue one. My brother painted the fender. The color still doesn’t match.\"; immediately after \"I’ll look at the car, then go. I have customers waiting too.\"; immediately before \"In that redevelopment picture, the car and depot are gone. All the people, neatly erased too.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-741d52c4-1ce3-4d01-8afc-92114144555f.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut03.png",
+      "sha256": "35708599bde2898e8cea71bd7748803b38b6c87dccf382e82e97604c1d8e69a5",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 8,
+      "key": "ch02-intro",
+      "cut": 4,
+      "scene": "harbor",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/harbor-right-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Mei, 26-year-old Japanese woman photographer, shoulder-length dark hair, blue denim jacket and 35mm film camera. Include only these prominent characters.\nAction and composition: Mei stands before the depot's large glossy redevelopment rendering and lowers her film camera; its sterile blank model erases the real old shops seen beyond her shoulder. Fresh oblique angle along the wall. This is camera cut 4 of ch02-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker mei says \"In that redevelopment picture, the car and depot are gone. All the people, neatly erased too.\"; immediately after \"I know. The blue one. My brother painted the fender. The color still doesn’t match.\"; immediately before \"If this closes, his apprenticeship ends too. The car was meant to celebrate his first job.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c201ffb4-4a54-4660-aea9-6bb63f973597.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut04.png",
+      "sha256": "41799f90cb9fcb75472f0f78b8a35669d85d1a01f3f15320c0ad059d12b05f21",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 9,
+      "key": "ch02-intro",
+      "cut": 5,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: Aki braces one hand on the mint coupe and looks across the busy harbor depot, overwhelmed by the scale of people's need; Daichi listens a pace behind without pressing her. Mid-distance side-on view. This is camera cut 5 of ch02-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Daichi. Keeping my own workshop is already more than I can manage. I cannot carry the harbor too.\"; immediately after \"If this closes, his apprenticeship ends too. The car was meant to celebrate his first job.\"; immediately before \"I’m not asking you to carry it. I wanted you to see what he is waiting for.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c7ae7fc3-6a20-4f84-9f91-33784a2c468b.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut05.png",
+      "sha256": "fc1012c0e1b38f44f613148c63025a1a480d0aee55c24502dceab9011a188387",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 10,
+      "key": "ch02-intro",
+      "cut": 7,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: In the quiet shadow beside the harbor car after dusk, Aki rests a palm on its cool roof and looks toward a distant dark depot window, remembering losing her father; reflective close profile, no flashback. This is camera cut 7 of ch02-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"When Dad died, I thought everything would disappear if I slept. Sometimes I still do.\"; immediately after \"He sent a postcard to my midnight show. “Play something that helps my brother sleep.”\"; immediately before \"That doesn’t mean you should break down with your eyes open. You would have let the car rest by now.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-00b4a520-79fb-478c-b63f-77e8388e935e.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut07.png",
+      "sha256": "7a41e48745710819d4c14bb9262e43c4c981a9eadebb00149b4604432ad4ddc1",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 11,
+      "key": "ch02-intro",
+      "cut": 8,
+      "scene": "harbor",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/harbor-right-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Jun gently sets a hand on the car's idle bonnet and points to a place to rest; exhausted Aki stands opposite with an almost sleepless stare. Frame across the bonnet and their faces, harbor lamps beyond. This is camera cut 8 of ch02-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker jun says \"That doesn’t mean you should break down with your eyes open. You would have let the car rest by now.\"; immediately after \"When Dad died, I thought everything would disappear if I slept. Sometimes I still do.\"; immediately before \"If that car runs, I can take more night deliveries. Put something toward the renewal fee.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-4f9f8d0c-7070-434c-b081-2c946e5a68c9.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut08.png",
+      "sha256": "950b3e1b8ca7c82061abb0afa2b3d30db5d4aeb4095efb830904499637861eed",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 12,
+      "key": "ch02-intro",
+      "cut": 9,
+      "scene": "harbor",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/harbor-detail-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Aki crouches by the mint coupe's exposed front brake rotor, points decisively at a worn brake component and sets a wrench down; close mechanical detail includes her short bob and grease-stained hand. This is camera cut 9 of ch02-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"With these brakes? No. Before you add another car to tonight’s work, we fix this one.\"; immediately after \"If that car runs, I can take more night deliveries. Put something toward the renewal fee.\"; immediately before \"Can we invite the shopkeepers to tonight’s meet? I want to ask what they want in the photographs.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-65c1e717-a00b-471b-9eac-421115ca0781.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut09.png",
+      "sha256": "bedee80a2a46fdba13c8f81176d5a114c8517e6db13190d8622079b803db78ac",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 13,
+      "key": "ch02-intro",
+      "cut": 10,
+      "scene": "harbor",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/harbor-right-v3.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Mei, 26-year-old Japanese woman photographer, shoulder-length dark hair, blue denim jacket and 35mm film camera; Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: Outside the courier depot, Mei listens to a modest older shopkeeper beside a fish stall before raising her camera, while Daichi gestures toward the coming night meet; capture her listening rather than photographing. This is camera cut 10 of ch02-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker mei says \"Can we invite the shopkeepers to tonight’s meet? I want to ask what they want in the photographs.\"; immediately after \"With these brakes? No. Before you add another car to tonight’s work, we fix this one.\"; immediately before \"At the meet, the couriers can gather before changing shifts. I will listen. Keep the jokes short, even.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-04ab6756-1361-4afe-8b5b-22851a7afbe3.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut10.png",
+      "sha256": "52946eb70755803c193413aefbde1327a84045cb11d43ec3b40410022c9657df",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 14,
+      "key": "ch02-intro",
+      "cut": 11,
+      "scene": "radio",
+      "shot": "wide",
+      "reference_art": "public/assets/story/angles/radio-wide-v2.png",
+      "emblem_reference_input": null,
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nScene/backdrop: a cramped independent 1986 late-night radio booth, analog mixing console, cassette and reel equipment, rotary phone, vinyl shelves, warm desk lamps and violet night window. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt. Include only these prominent characters.\nAction and composition: Inside the little SORA radio booth, Ren leans away from the microphone toward a cluster of ringing rotary phones and blank note slips, deciding to listen to harbor couriers; low angle through cassette decks. This is camera cut 11 of ch02-intro, a distinct medium-wide establishing camera angle with the described action clearly readable. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"At the meet, the couriers can gather before changing shifts. I will listen. Keep the jokes short, even.\"; immediately after \"Can we invite the shopkeepers to tonight’s meet? I want to ask what they want in the photographs.\"; immediately before \"We fix the car, then race. After that, I’ll listen. That is all I am promising.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. Any club badge, banner or car decal blank for exact SORA emblem compositing later.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-09679e1b-a1a4-4e30-a750-7be77624631d.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut11.png",
+      "sha256": "676f5ea6e6e099e9d5595b639ec92daa6b06958b9c8cc9e7fb88e578c894ee9d",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 15,
+      "key": "ch02-intro",
+      "cut": 12,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: At the harbor's blue coupe, Aki closes the brake toolbox, points first at the repaired car and then down the empty race lane, setting the order: repair, race, listen; Daichi faces her. Three-quarter view from the car's nose. This is camera cut 12 of ch02-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"We fix the car, then race. After that, I’ll listen. That is all I am promising.\"; immediately after \"At the meet, the couriers can gather before changing shifts. I will listen. Keep the jokes short, even.\"; immediately before \"That is enough. Thank you for coming.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-734a73d4-eb30-49bc-8bca-d783320127f7.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut12.png",
+      "sha256": "abccbb935a092960267cd0e0b06e497e92a55893d88dd1033e2b7d976ff10d0b",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 16,
+      "key": "ch02-intro",
+      "cut": 13,
+      "scene": "harbor",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/harbor-right-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: A quiet close view under a harbor sodium lamp: Daichi nods with grateful relief to Aki over the open hood of his brother's mint car; Aki's red coveralls edge the foreground, no celebration. This is camera cut 13 of ch02-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker daichi says \"That is enough. Thank you for coming.\"; immediately after \"We fix the car, then race. After that, I’ll listen. That is all I am promising.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-2bc9e460-2ae1-4e24-b096-cc84a9715b41.png",
+      "target": "public/assets/story/scenes/ch02-intro-cut13.png",
+      "sha256": "db04050efaef58f75155525cc3cbc3c516806fc7ffa61c1a70d8afa6698c2ba6",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 17,
+      "key": "ch02-victory",
+      "cut": 2,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: After the meet, Aki speaks to Daichi at the side of the mint car, indicating the passenger seat where his brother should ride first; warm dock lights and a distant empty podium, intimate new side angle. This is camera cut 2 of ch02-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Bring your brother’s car to the workshop tomorrow. Take him for the first ride before you use it for night deliveries.\"; immediately after \"Canned coffee for everyone. Still warm. Collect this before your podium congratulations.\"; immediately before \"I will. Somehow I ended up holding the keys that were supposed to be his.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-d600a446-c8b4-4e35-98d9-37945607ad5b.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut02.png",
+      "sha256": "ceaeb7d05d0d1dcd6ab2f15f661097537bb32b3b1c14bcef66c67c9b8c11d4ba",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 18,
+      "key": "ch02-victory",
+      "cut": 3,
+      "scene": "harbor",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/harbor-detail-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: Tight cinematic detail: Daichi looks down at his younger brother's small car keys in his open palm, his red headband and troubled expression above, mint fender softly behind. This is camera cut 3 of ch02-victory, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker daichi says \"I will. Somehow I ended up holding the keys that were supposed to be his.\"; immediately after \"Bring your brother’s car to the workshop tomorrow. Take him for the first ride before you use it for night deliveries.\"; immediately before \"The owner asked to be photographed outside her shop. Her face was better than any redevelopment illustration.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-64dd050d-491b-464f-96e5-4b5012baedd8.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut03.png",
+      "sha256": "ff40197c7cd3c55aa67fd052d32ac30c9fda8ac27c3fc8c4df2d47ad33113a1d",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 19,
+      "key": "ch02-victory",
+      "cut": 5,
+      "scene": "radio",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/radio-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a cramped independent 1986 late-night radio booth, analog mixing console, cassette and reel equipment, rotary phone, vinyl shelves, warm desk lamps and violet night window. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt. Include only these prominent characters.\nAction and composition: At the late-night radio desk, Ren holds a telephone receiver while fresh blank caller notes fan across the mixer; he looks toward a wall map of the fishmonger, printer and depot neighborhoods marked only with colored pins. This is camera cut 5 of ch02-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"Fishmonger, printer, depot. The calls about that crown have not stopped since the broadcast.\"; immediately after \"The owner asked to be photographed outside her shop. Her face was better than any redevelopment illustration.\"; immediately before \"I cannot ask all these people to save only my workshop. But where do we begin?\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-2264a71b-713a-4da9-af52-0063fa5b3d83.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut05.png",
+      "sha256": "a06fd04226682f1aa2aa6f8eb58be8951d4e707c9738d452c15f639a8a7e4d73",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 20,
+      "key": "ch02-victory",
+      "cut": 6,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: From behind a low quay railing, Aki sees shopkeepers and couriers gathering beyond the race meet and realizes the workshop is only one of many threatened places; her face in three-quarter view, crowd small and distant. This is camera cut 6 of ch02-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"I cannot ask all these people to save only my workshop. But where do we begin?\"; immediately after \"Fishmonger, printer, depot. The calls about that crown have not stopped since the broadcast.\"; immediately before \"Rei Sorashiro. My signature is on the assessment behind that crown.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-2e8647fb-929a-473a-9111-8df600854fb7.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut06.png",
+      "sha256": "eacc57e2f75e7b684f1581acc97148954c8f3311dce5c18066f3f6293b1ce006",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 21,
+      "key": "ch02-victory",
+      "cut": 7,
+      "scene": "harbor",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/harbor-right-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Rei, 29-year-old Japanese woman credit analyst, straight dark hair and restrained gray 1980s office coat; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Rei steps into a harbor lamp pool with a plain signed assessment folder held against her chest, formally introducing herself; Aki watches from the near edge. Rei's seriousness and separation from the crowd are clear. This is camera cut 7 of ch02-victory, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker rei says \"Rei Sorashiro. My signature is on the assessment behind that crown.\"; immediately after \"I cannot ask all these people to save only my workshop. But where do we begin?\"; immediately before \"What do you want from us? Forgiveness?\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: no written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-4663255e-d6b2-4a07-b910-8c3e07b540b2.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut07.png",
+      "sha256": "a220f08d6ed9183e9df9e67cc20782706f5c9dc29e3331ee6592a7b7957081c2",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 22,
+      "key": "ch02-victory",
+      "cut": 8,
+      "scene": "harbor",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/harbor-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: Yokohama's working harbor and courier depot in summer 1986, cranes, dark water, sodium lamps, mint-blue boxy coupe and humble shopfronts; use only background elements relevant to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Rei, 29-year-old Japanese woman credit analyst, straight dark hair and restrained gray 1980s office coat. Include only these prominent characters.\nAction and composition: Aki, arms folded but listening, holds Rei's gaze beside the harbor depot door, while Rei stands opposite with the closed folder; restrained two-person shot from Rei's shoulder. This is camera cut 8 of ch02-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"After closing tomorrow. I’ll hear you out. I am not promising forgiveness.\"; immediately after \"First, there is something I need you to see. What I put my name to.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-e17e9c54-70c7-452b-97eb-53efa429d29e.png",
+      "target": "public/assets/story/scenes/ch02-victory-cut08.png",
+      "sha256": "936214075e417d6737ecdaf28a236252b86afb051905d34a1369ea920ae9af70",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 23,
+      "key": "ch03-intro",
+      "cut": 9,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Back in the workshop, Aki studies a loan ledger beside a simple exchange terminal, unsettled that accepting money would mean surrendering how it is received; cool light from the terminal against warm bench lamp. This is camera cut 9 of ch03-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"So to pay the rent, we hand over control of how we receive the money we earn.\"; immediately after \"Tenants in the new development must use crown payment terminals. Their contracts route sales and wages through them.\"; immediately before \"We can build another connection. My SORA X.O.R. prototype. Its relay runs on a power unit Ren borrowed.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-df223abe-925c-4716-9538-d42e4d885e88.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut09.png",
+      "sha256": "a4b3044da7e2765aa4291029e6544d1cd7ba72633d41d02c1d7a915fc9db3828",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 24,
+      "key": "ch03-intro",
+      "cut": 10,
+      "scene": "garage",
+      "shot": "wide",
+      "reference_art": "public/assets/story/angles/garage-wide-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker. Include only these prominent characters.\nAction and composition: Yui unveils three compact hand-built exchange terminals wired to a borrowed power unit on the garage electronics bench; Aki and Jun lean in as practical collaborators, seen from a high oblique workshop angle. This is camera cut 10 of ch03-intro, a distinct medium-wide establishing camera angle with the described action clearly readable. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker yui says \"We can build another connection. My SORA X.O.R. prototype. Its relay runs on a power unit Ren borrowed.\"; immediately after \"So to pay the rent, we hand over control of how we receive the money we earn.\"; immediately before \"Three terminals check the same exchange record. I want shops to use the tokens with each other. No crown’s permission.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-b03206a4-9daa-4b19-a0a3-4d342deea284.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut10.png",
+      "sha256": "fa37a87b2af247e4093b8b7a9d619c16ebe9a1b2d3191f2add5eb48fcf409a14",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 25,
+      "key": "ch03-intro",
+      "cut": 11,
+      "scene": "garage",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/garage-detail-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker. Include only these prominent characters.\nAction and composition: Close technical detail of Yui's hands connecting three compact 1986 prototype terminals with cables and checking a matching set of tiny indicator lights; her concentrated face above the hardware. No readable screen text. This is camera cut 11 of ch03-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker yui says \"Three terminals check the same exchange record. I want shops to use the tokens with each other. No crown’s permission.\"; immediately after \"We can build another connection. My SORA X.O.R. prototype. Its relay runs on a power unit Ren borrowed.\"; immediately before \"More terminals need people willing to host them. I am not very good at asking.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-6e18cd5d-6728-4f7e-a071-25177bc82f5c.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut11.png",
+      "sha256": "f99b3d13cb563ee2ea3ef60b34b9580c929444ceef44559cf29913dd40c407ae",
+      "dimensions": [
+        1671,
+        941
+      ]
+    },
+    {
+      "index": 26,
+      "key": "ch03-intro",
+      "cut": 12,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker. Include only these prominent characters.\nAction and composition: At the open garage doors, Aki looks out toward a row of small local shops and hesitates before asking strangers to host terminals; Yui stands beside her with a compact device under one arm. New outward-looking view. This is camera cut 12 of ch03-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"More terminals need people willing to host them. I am not very good at asking.\"; immediately after \"Three terminals check the same exchange record. I want shops to use the tokens with each other. No crown’s permission.\"; immediately before \"Your father did not buy this vise. He borrowed it from the body shop next door. It never went back.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-11f18037-af09-4710-9ba6-18fbca14f96c.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut12.png",
+      "sha256": "9804b142f7804df7791a0cfc5c35482b149213981c21e49b59e8c31f84d378ef",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 27,
+      "key": "ch03-intro",
+      "cut": 13,
+      "scene": "ledger",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/ledger-detail-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: the garage's tiny back office and evidence desk, worn notebooks, plain envelopes, film prints and warm desk lamp against blue night window. \nCast continuity: Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Close on the father's well-worn borrowed iron vise bolted to the garage workbench as Jun points out its old body-shop repair mark; Aki touches the metal, surprised. Their faces appear beyond this foreground object. This is camera cut 13 of ch03-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker jun says \"Your father did not buy this vise. He borrowed it from the body shop next door. It never went back.\"; immediately after \"More terminals need people willing to host them. I am not very good at asking.\"; immediately before \"I have used it every day for two years. I never even asked.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-be96f79f-a3d7-4c50-b181-ecd7b8c829d8.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut13.png",
+      "sha256": "5df63f51c0457f79f95a28678bd21bbbef126c888e27a850c3fd2775bda1efc9",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 28,
+      "key": "ch03-intro",
+      "cut": 14,
+      "scene": "ledger",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/ledger-right-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: the garage's tiny back office and evidence desk, worn notebooks, plain envelopes, film prints and warm desk lamp against blue night window. \nCast continuity: Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: In the garage back office, Jun holds open Aki's father's weathered repair notebook and kindly challenges her to ask for help, while Aki sits at the edge of the desk, the borrowed vise visible through a doorway. This is camera cut 14 of ch03-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker jun says \"If you’re going to be like your father, learn how he asked for help too.\"; immediately after \"I have used it every day for two years. I never even asked.\"; immediately before \"Let’s find shops at Hakone that will take a terminal. Yui can explain it. I can… handle the repair questions.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c7070999-f5a3-4b78-8e6b-27bcb10d0097.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut14.png",
+      "sha256": "6ccc30dd7dd57fcfdbaae03cb0991e761320e4d7eb75ea0caacfa8a12e2a6b4e",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 29,
+      "key": "ch03-intro",
+      "cut": 15,
+      "scene": "garage",
+      "shot": "wide",
+      "reference_art": "public/assets/story/angles/garage-wide-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker; Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker. Include only these prominent characters.\nAction and composition: Aki pins a few blank shop cards onto a simple wall route map at the garage, planning one terminal placement at a time; Yui holds a prototype and Jun readies repair tools. Wider new planning composition. This is camera cut 15 of ch03-intro, a distinct medium-wide establishing camera angle with the described action clearly readable. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Let’s find shops at Hakone that will take a terminal. Yui can explain it. I can… handle the repair questions.\"; immediately after \"If you’re going to be like your father, learn how he asked for help too.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-0fa4847d-0c4b-4cdd-974d-7e345465cd65.png",
+      "target": "public/assets/story/scenes/ch03-intro-cut15.png",
+      "sha256": "198d9a7533f2a0a493c055d59f8dc1f33f2d87e585dd291016dd5dc5c55b1f99",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 30,
+      "key": "ch03-victory",
+      "cut": 2,
+      "scene": "garage",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/garage-right-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker; Jun, 28-year-old Japanese man electronics repairer, short dark hair and mint windbreaker. Include only these prominent characters.\nAction and composition: In the dawn garage after Jun fixes the amplifier, Yui lifts a compact terminal beside five plain blank shop request slips; the repaired amp's one warm lamp glows behind her. Close hopeful angle from the electronics bench. This is camera cut 2 of ch03-victory, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker yui says \"Five shops want a terminal. It is still a prototype, but the dream has left my desk.\"; immediately after \"After the podium, I repaired an amplifier until dawn. So this is what finding allies looks like.\"; immediately before \"One shop at a time. I’ll keep the recovery key. Somebody has to be responsible.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-bcf1879b-86eb-4c17-b68d-025ec0091d0a.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut02.png",
+      "sha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 31,
+      "key": "ch03-victory",
+      "cut": 3,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker. Include only these prominent characters.\nAction and composition: Aki considers a single small metal recovery key in her palm at the garage desk, taking responsibility; Yui stands opposite with visible concern. Tight side-lit view with prototype terminal blurred behind. This is camera cut 3 of ch03-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"One shop at a time. I’ll keep the recovery key. Somebody has to be responsible.\"; immediately after \"Five shops want a terminal. It is still a prototype, but the dream has left my desk.\"; immediately before \"Show me any design changes. I don’t want circuits out there that I cannot repair.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-24dfafb3-50be-4c48-854e-b5fa109a19fd.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut03.png",
+      "sha256": "17716adde3035721f72df6b7f7edc5ff783aed1754fb4138abb6d50c4497b8db",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 32,
+      "key": "ch03-victory",
+      "cut": 4,
+      "scene": "ledger",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/ledger-detail-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: the garage's tiny back office and evidence desk, worn notebooks, plain envelopes, film prints and warm desk lamp against blue night window. \nCast continuity: Mei, 26-year-old Japanese woman photographer, shoulder-length dark hair, blue denim jacket and 35mm film camera. Include only these prominent characters.\nAction and composition: In the garage back office, Mei assembles her film contact sheets, harbor shop photographs and plain notices on a table beneath a lamp, preparing a signed article; her 35mm camera and intent face in a fresh diagonal desk angle. This is camera cut 4 of ch03-victory, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker mei says \"I checked with the harbor shopkeepers. The photographs, notices and Rei’s account fit. I’ll put my name on the article.\"; immediately after \"Show me any design changes. I don’t want circuits out there that I cannot repair.\"; immediately before \"Keep my name in it too. Coming back from a race does not erase what I signed.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-1388d37f-49fb-4eed-a956-abf3d18a2b66.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut04.png",
+      "sha256": "61919097c841bbb690deda22736252e574179aff7cc68a4c97e43e54b578b533",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 33,
+      "key": "ch03-victory",
+      "cut": 5,
+      "scene": "ledger",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/ledger-right-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: the garage's tiny back office and evidence desk, worn notebooks, plain envelopes, film prints and warm desk lamp against blue night window. \nCast continuity: Rei, 29-year-old Japanese woman credit analyst, straight dark hair and restrained gray 1980s office coat; Mei, 26-year-old Japanese woman photographer, shoulder-length dark hair, blue denim jacket and 35mm film camera. Include only these prominent characters.\nAction and composition: Rei stands at the garage back-office desk and deliberately signs an assessment page beside Mei's organized evidence photos, choosing to keep her name attached; intimate close view of pen, page, and Rei's accountable face. This is camera cut 5 of ch03-victory, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker rei says \"Keep my name in it too. Coming back from a race does not erase what I signed.\"; immediately after \"I checked with the harbor shopkeepers. The photographs, notices and Rei’s account fit. I’ll put my name on the article.\"; immediately before \"Another invitation. Toru Amamiya wants to show us a new workshop. SORA’s name is travelling fast.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-ba3ec673-83f6-4e2d-95fd-88a4459b4caf.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut05.png",
+      "sha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 34,
+      "key": "ch03-victory",
+      "cut": 6,
+      "scene": "radio",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/radio-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a cramped independent 1986 late-night radio booth, analog mixing console, cassette and reel equipment, rotary phone, vinyl shelves, warm desk lamps and violet night window. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt. Include only these prominent characters.\nAction and composition: At the radio booth, Ren opens a plain invitation envelope near the microphone and glances toward the garage direction, surprised by Toru's offer; reels and vinyl form the background, no visible writing. This is camera cut 6 of ch03-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"Another invitation. Toru Amamiya wants to show us a new workshop. SORA’s name is travelling fast.\"; immediately after \"Keep my name in it too. Coming back from a race does not erase what I signed.\"; immediately before \"I’ll go. I want to see the future he has drawn for us.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-d7fd16a7-845e-475c-bea5-5ea11917c78e.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut06.png",
+      "sha256": "c31c6f46c7140a7f2df543322ed8b2770e3223a97b87712a7320a366cd74a745",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 35,
+      "key": "ch03-victory",
+      "cut": 7,
+      "scene": "garage",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/garage-left-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: At the garage entrance, Aki holds Toru's invitation envelope and looks past her white coupe toward the distant Tokyo skyline, resolved to inspect his promised future herself; new low side view from the tool bench. This is camera cut 7 of ch03-victory, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"I’ll go. I want to see the future he has drawn for us.\"; immediately after \"Another invitation. Toru Amamiya wants to show us a new workshop. SORA’s name is travelling fast.\"; immediately before \"Then I’ll find a tie. Waiting for your answer already gets my throat tight enough.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-70349723-8247-451a-98cd-00fdbca0e334.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut07.png",
+      "sha256": "9e9aef125bb1341a2a837913461f0f090606111cd72bcd32405b2b948c0d084e",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 36,
+      "key": "ch03-victory",
+      "cut": 8,
+      "scene": "garage",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/garage-right-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Ren tries a slightly crooked necktie over his ivory bomber in the garage's old wall mirror, joking to hide nerves, while Aki's amused reflection appears at the edge; playful fresh mirror composition. This is camera cut 8 of ch03-victory, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker ren says \"Then I’ll find a tie. Waiting for your answer already gets my throat tight enough.\"; immediately after \"I’ll go. I want to see the future he has drawn for us.\"; immediately before \"Check your untied shoelace before your neck. Keep up, DJ.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-bc7b63a5-2151-4f6c-a54b-2fbe92c40c95.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut08.png",
+      "sha256": "ae996cfbafb73604b7c2fa3bbdd9eb182fe153854629861c91008e94ebf46308",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 37,
+      "key": "ch03-victory",
+      "cut": 9,
+      "scene": "garage",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/garage-detail-v2.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a small Japanese coastal mechanic garage in summer 1986, white boxy sports coupe, red tool chests, fluorescent workshop lamps and a glimpse of violet coast; keep background subdued to the action. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Ren, 23-year-old Japanese man radio DJ, wavy dark hair, ivory bomber jacket over dark shirt. Include only these prominent characters.\nAction and composition: Low detail shot of Aki pointing at Ren's loose shoelace before they leave the garage; Ren looks down, embarrassed and smiling; the tie and blank invitation envelope are visible above in a new angled close-up. This is camera cut 9 of ch03-victory, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"Check your untied shoelace before your neck. Keep up, DJ.\"; immediately after \"Then I’ll find a tie. Waiting for your answer already gets my throat tight enough.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-496d1a41-5089-4d9a-9985-868a1aecf109.png",
+      "target": "public/assets/story/scenes/ch03-victory-cut09.png",
+      "sha256": "4ef44516da9bc27b707f4b60af17a399673cd1a21baffe8abb904b9a91c8c878",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 38,
+      "key": "ch04-intro",
+      "cut": 2,
+      "scene": "boardroom",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/boardroom-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Toru, 34-year-old Japanese man developer and racer, swept wavy black hair, charcoal jacket or suit over white shirt; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: In the glass Tokyo boardroom, Toru presents a scale model of a bright six-lift workshop and a parts warehouse to Aki, one hand open over the model; Aki watches from across the table. Fresh model-level angle. This is camera cut 2 of ch04-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker toru says \"Aki, this could be your workshop. Six lifts. A warehouse that keeps parts ready. Your SORA sign.\"; immediately after \"Did you see the black car downstairs? I’m taking it to Nikko tonight. I prefer that work to negotiations.\"; immediately before \"No leaking roof. No second job through the night. Honestly, I want it.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-913903d3-f363-425e-8ed3-c5e20c9e55b0.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut02.png",
+      "sha256": "c6d993d0a12f9f4f6f8658525b5869a19bbfa1c6059775ed3ca544af5d6b2404",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 39,
+      "key": "ch04-intro",
+      "cut": 3,
+      "scene": "boardroom",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/boardroom-right-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Daichi, 25-year-old Japanese man harbor courier, lanky with tousled dark hair, red headband, navy track jacket with red piping. Include only these prominent characters.\nAction and composition: Daichi studies the clean six-lift workshop model by the boardroom window, imagining a roof that never leaks and a safer job; his red headband and navy track jacket contrast with the polished glass tower. Close profile. This is camera cut 3 of ch04-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker daichi says \"No leaking roof. No second job through the night. Honestly, I want it.\"; immediately after \"Aki, this could be your workshop. Six lifts. A warehouse that keeps parts ready. Your SORA sign.\"; immediately before \"Is the body shop next door in that drawing? The harbor depot?\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c238c943-a45c-43bc-a423-a6798fb20c05.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut03.png",
+      "sha256": "0c7bf3c85f0d83029a430879b70ff73e14276be10ed94785a4fbc2b12107c88c",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 40,
+      "key": "ch04-intro",
+      "cut": 4,
+      "scene": "boardroom",
+      "shot": "wide",
+      "reference_art": "public/assets/story/angles/boardroom-wide-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Celeste, 32-year-old woman negotiator with wavy light-blond hair and an ivory tailored 1980s suit; Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Toru, 34-year-old Japanese man developer and racer, swept wavy black hair, charcoal jacket or suit over white shirt. Include only these prominent characters.\nAction and composition: At the far end of the Tokyo boardroom table, Celeste calmly slides an exclusive-rights contract folder toward Aki; Toru remains on one side and Aki on the other, the distance between them deliberate. New central vanishing-point view. This is camera cut 4 of ch04-intro, a distinct medium-wide establishing camera angle with the described action clearly readable. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker celeste says \"Celeste Vale. Meridian wants exclusive rights to SORA X.O.R. The workshop is what we offer in return.\"; immediately after \"Is the body shop next door in that drawing? The harbor depot?\"; immediately before \"This red mark. You want the recovery key and the power to stop the network?\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-b814f9a5-c5f7-4f82-8061-555796af8339.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut04.png",
+      "sha256": "f3ced76dce75922d99d97cf81f6e608eee336f1faa7b68d4ee07d52e3a1451f7",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 41,
+      "key": "ch04-intro",
+      "cut": 5,
+      "scene": "boardroom",
+      "shot": "detail",
+      "reference_art": "public/assets/story/angles/boardroom-detail-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Yui, 27-year-old Japanese woman engineer, short dark ponytail and yellow windbreaker. Include only these prominent characters.\nAction and composition: Yui bends over the boardroom contract and points to one red highlighted recovery-key clause and a simple power-switch diagram; her yellow windbreaker vivid against dark glossy table. Tight high-angle detail, no legible text. This is camera cut 5 of ch04-intro, a fresh tight cinematic detail angle emphasizing the relevant object, gesture and expression. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker yui says \"This red mark. You want the recovery key and the power to stop the network?\"; immediately after \"Celeste Vale. Meridian wants exclusive rights to SORA X.O.R. The workshop is what we offer in return.\"; immediately before \"Without someone who can stop it, order cannot be guaranteed. A city needs someone in charge.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c4fae7ca-8065-4527-aaa7-ab405f1ad836.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut05.png",
+      "sha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 42,
+      "key": "ch04-intro",
+      "cut": 6,
+      "scene": "boardroom",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/boardroom-right-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Celeste, 32-year-old woman negotiator with wavy light-blond hair and an ivory tailored 1980s suit. Include only these prominent characters.\nAction and composition: Celeste stands composed beside a glass wall overlooking the Tokyo skyline, explaining why her organization wants the power to stop the network; her reflection doubles against the city. Fresh restrained right-side portrait. This is camera cut 6 of ch04-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker celeste says \"Without someone who can stop it, order cannot be guaranteed. A city needs someone in charge.\"; immediately after \"This red mark. You want the recovery key and the power to stop the network?\"; immediately before \"What happens to a shop that defies that person? Do you call it order when its terminal goes dark?\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-7ae208bd-54e5-4ba5-afa7-11e4f5a37750.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut06.png",
+      "sha256": "c7da20b74507e712b09941b03ba139e0a857454a9c2dd739fd03caa1709aa813",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 43,
+      "key": "ch04-intro",
+      "cut": 7,
+      "scene": "boardroom",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/boardroom-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist; Celeste, 32-year-old woman negotiator with wavy light-blond hair and an ivory tailored 1980s suit. Include only these prominent characters.\nAction and composition: Aki leans forward across the polished boardroom table and challenges Celeste, hand beside the prototype terminal diagram; Celeste remains distant in the frame. Low table-level left-side angle showing Aki's resolve. This is camera cut 7 of ch04-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"What happens to a shop that defies that person? Do you call it order when its terminal goes dark?\"; immediately after \"Without someone who can stop it, order cannot be guaranteed. A city needs someone in charge.\"; immediately before \"My father’s factory could not wait a week for bridge financing. Orders still covered the desk when we stopped the machines.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-229aa663-a4a0-4794-b5de-bb7f9b39cb45.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut07.png",
+      "sha256": "0926e872362157808eaa109f03eaf0f9d5247eab0c02c3c37fb7154cc922180a",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 44,
+      "key": "ch04-intro",
+      "cut": 8,
+      "scene": "boardroom",
+      "shot": "right",
+      "reference_art": "public/assets/story/angles/boardroom-right-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Toru, 34-year-old Japanese man developer and racer, swept wavy black hair, charcoal jacket or suit over white shirt. Include only these prominent characters.\nAction and composition: Toru looks away from the polished boardroom toward an old small photograph of his father's shuttered factory in his hand; for a moment the developer's composure falters. Side-lit intimate portrait at the window. This is camera cut 8 of ch04-intro, a fresh reverse or right-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker toru says \"My father’s factory could not wait a week for bridge financing. Orders still covered the desk when we stopped the machines.\"; immediately after \"What happens to a shop that defies that person? Do you call it order when its terminal goes dark?\"; immediately before \"If I had been the one able to provide the money… I do not want your workshop to go through that.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-852bdc3a-19f6-4c5c-a7a5-27ecfb0b4f08.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut08.png",
+      "sha256": "a3eb710a89ab9b47e1dca347bbe1cd48d1fcf45e612190b6dd96d7c42777c499",
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "index": 45,
+      "key": "ch04-intro",
+      "cut": 9,
+      "scene": "boardroom",
+      "shot": "left",
+      "reference_art": "public/assets/story/angles/boardroom-left-v3.png",
+      "emblem_reference_input": "public/assets/branding/sora-emblem-source.png",
+      "tool": "built-in image_gen",
+      "prompt": "Use case: illustration-story.\nAsset type: brand-new 16:9 narrative camera-cut painting for the original SORA CARS game, target 1672×941 landscape.\nInput image 1: supporting reference for the exact official SORA emblem only. It is a flat red circle carrying a white geometric two-bar branching mark. Create an entirely new scene from scratch; do not copy the reference's white background or make the emblem the main subject. Where a car, jacket patch, garage sign, cassette case, or relevant prop naturally appears, place one small exact version of that red-and-white emblem.\nScene/backdrop: a polished 1986 Tokyo glass-tower boardroom at sunset, long mahogany table, contract folders, black rotary phone, a six-lift workshop scale model and orange-violet skyline. \nCast continuity: Aki, 24-year-old Japanese woman mechanic, short dark bob, white tee and red mechanic coveralls tied at her waist. Include only these prominent characters.\nAction and composition: Aki grips the back of a boardroom chair and gazes through glass at Toru's six-lift workshop model below, openly wanting the security it promises; sunset outlines her conflicted face. Distinct longing composition. This is camera cut 9 of ch04-intro, a fresh left-facing camera angle that gives the speaking character the visual lead. Compose as a genuinely new viewpoint and action, never as a crop, recolor, or near-duplicate of another cutscene.\nDialogue context, for acting only and NEVER drawn as text: speaker aki says \"I want it. I have drawn a workshop like this so many times. If it would mean never being scared again, yes.\"; immediately after \"If I had been the one able to provide the money… I do not want your workshop to go through that.\"; immediately before \"Aki. Don’t let this become another picture with our faces erased.\".\nStyle/medium: meticulous late-1980s Japanese arcade story art, handcrafted refined 16-bit pixel art with intentional crisp square pixel clusters, limited richly shaded navy/violet, warm amber/ivory, tomato-red and mint palette. Consistent character faces and period clothing. No smooth anime painting or photorealistic texture.\nFraming/UI: Keep expressive faces, meaningful hands and story props in the upper 70 percent. Reserve the entire lower 30 percent as comparatively quiet dark floor, asphalt, desk shadow or other natural foreground for dialogue UI rendered separately. 1986 era-correct props and cars only.\nConstraints: Any paper, calendar, display or sign must show only blank areas, abstract diagrams or tiny indistinct non-letter marks, never pseudo-Japanese or fake lettering. No written words, readable labels, numbers, other logos, invented emblems, real automaker brands, watermarks, subtitles, UI, speech bubbles or panel borders. The only permitted mark is the exact supplied SORA emblem at small scale on a plausible surface.",
+      "generated_source": "/Users/takemiyamakoto/.codex/generated_images/01a0db2b-564f-73a3-a24b-27d739da176c/exec-c705d421-f157-4320-aa4a-95140c954e60.png",
+      "target": "public/assets/story/scenes/ch04-intro-cut09.png",
+      "sha256": "1415a57cd5d6c6908cc7af39a186ca97f7e0cc523e9b9524cf3ba1ccc58fe9e5",
+      "dimensions": [
+        1672,
+        941
+      ]
+    }
+  ]
+}

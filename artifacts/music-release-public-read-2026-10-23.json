@@ -1,0 +1,47 @@
+{
+  "checkedAt": "2026-10-23T13:43:58.949Z",
+  "kind": "anonymous-public-read-only",
+  "mutations": false,
+  "observations": [
+    {
+      "url": "https://taira.sora.org/status",
+      "startedAt": "2026-10-23T13:43:57.606Z",
+      "finishedAt": "2026-10-23T13:43:58.747Z",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bodyBytes": 42055,
+      "bodySha256": "38a2aafa62f84d8e28dde9cb700f4ec9eb8782a0844e5efa7c0a8bfa98168ede",
+      "selected": {
+        "peers": 3,
+        "blocks": 605,
+        "queue_size": 0
+      }
+    },
+    {
+      "url": "https://taira.sora.org/v1/nft-offers/capabilities",
+      "startedAt": "2026-10-23T13:43:57.646Z",
+      "finishedAt": "2026-10-23T13:43:58.949Z",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bodyBytes": 237,
+      "bodySha256": "b8c7afffb71d85f3c2308ca6815ae1997de4c5561d287d97e0a248312cf5fb10",
+      "selected": {
+        "native_nft_market": true,
+        "network_id": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+        "protocol_id": "hash:B2ECF8779BE9AF6865ED6DED3D6D14F7EA3889B2965C1C11C926181D1C8207CB#97DC",
+        "qualified": false,
+        "version": 1
+      }
+    },
+    {
+      "url": "https://taira.sora.org/v1/sorafs/capacity/state",
+      "startedAt": "2026-10-23T13:43:57.647Z",
+      "finishedAt": "2026-10-23T13:43:58.948Z",
+      "status": 404,
+      "contentType": "application/json; charset=utf-8",
+      "bodyBytes": 70,
+      "bodySha256": "97bae73e7289bc134d9480711390c0a650c5a7d024f7900e6d3d9b94ed22a130",
+      "selected": {}
+    }
+  ]
+}

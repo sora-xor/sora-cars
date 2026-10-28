@@ -1,0 +1,28 @@
+{
+  "version": 3,
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "file": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic pixel-art illustration, NEW distinct camera composition. Reference images establish the adult characters and existing SORA radio room only. Match their crisp visible square pixel clusters, fine dithering, detailed navy/violet shadows, warm amber light, restrained 1986 Japanese anime realism, no smooth digital painting. Scene: Jun finally premieres his own completed song on SORA Radio at sunrise. Jun is the adult Japanese man aged28 wearing the TEAL work jacket over a purple shirt in references, straight tousled black hair; now the clear main subject, at center-left, hands naturally playing two different octaves of a vintage black analog synthesizer keyboard. Face intent, relieved and quietly proud, looking down at keys, focused performance, not repairing. The keyboard has plausible continuous alternating black and white keys, physical knobs, cables and wood end cheeks. Original generic instrument, no large commercial logo. Ren adult23 wavy black hair cream denim jacket dark shirt sits at the mixing desk in right background, watching Jun with warm respect and one hand near a fader. A suspended vintage microphone near Jun, powered VU meters, reel-to-reel, dense record shelves, modest red SORA RADIO sign. Dawn pink and amber light through window replacing rainy night: original1986 low/mid-rise Japanese rooftops in light violet, no modern skyline. Aki is absent from this shot, taking the cassette to the overlook. New three-quarter medium-wide camera from the keyboard player's side so Jun's face and both hands are visible, musical action and face in upper75percent, lower quarter quiet darker record-bin foreground safe for dialogue. Hopeful earned achievement, no cheering crowd or exaggerated grin. Only physically printed SORA prop marks. No UI, subtitles, floating notes, modern computer or phone, watermarks, split-panels or collage. Generate one complete landscape16:9 image.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/radio-wide-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/radio-detail-v2.png"
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-72419675-988a-4c22-95d4-f96e75d244c7.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "inspection": "Accepted: Jun foreground performance, Ren mixer background, adult identities and teal/cream wardrobe consistent, warm sunrise, natural hands on keys, distinct composition and quiet lower foreground."
+    },
+    {
+      "file": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS production cutscene, one new full16:9 reverse-angle illustration, never a crop or panel. Image1 is the exact ongoing sunrise performance and location/lighting/Jun identity reference. Image2 is ONLY Ren's face and cream jacket reference; do NOT copy its nighttime weather or woman. Match crisp square pixel clusters and fine dithering, detailed navy/violet shadow and amber/gold, Japanese1986 cinematic pixel illustration. Camera now across the mixer in a new medium-close composition, Ren adult23 Japanese man wavyblackhair creamdenimjacket over dark navyshirt is center-right foreground, speaking his final on-air introduction into vintage silver microphone. His expression calm and hopeful, tiny relieved smile: he has entrusted the cassette to Aki and is going to meet her after the broadcast. One hand lightly raises a mixing fader. Jun adult28 Japanese man straight tousled blackhair TEAL workjacket overpurpleshirt is visible behind Ren on left, still actually playing his analog black keyboard, clear separated silhouette. Dense records and tape equipment, powered VU meters, modest physically printed SORA RADIO mark inback. Maintain the same DAWN as Image1: warm pinkgold sky throughwindow,1986Japanese rooftops; no rain or night neon. Aki is entirely absent; no woman, no cassette in Ren's pocket or hand. Frame faces,microphone,hand andJun inupper75%, quietdark mixerforegroundbottomquarterforbilingualdialogue. Anatomically natural relaxed fingers. Original generic synthesizer, no new commercialbrand. No interface or subtitles, floating musicalnotes, modern electronics, hearts, watermark or collage.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-jun-premiere-v3.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/radio-left-v2.png"
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-ca0b1f1c-aa0f-47f5-b238-98653202db7e.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "inspection": "Accepted: new close Ren mic angle, Jun continues performing behind him, dawn and wardrobe continuity, Aki absent, faces and action legible above lower foreground."
+    }
+  ]
+}

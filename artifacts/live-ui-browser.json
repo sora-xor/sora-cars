@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "primaryLanguage": "ja",
+  "subtitles": "en",
+  "checks": [
+    "scoped input-key restoration",
+    "phase-correct commitment and reveal",
+    "duplicate evidence suppression",
+    "forged replay rejected",
+    "public observer access",
+    "no default NFT stake",
+    "unreviewed inventory ignored",
+    "wallet change clears selected NFT",
+    "one atomic join plus NFT stake with signed exact asset/stake/manifest and separate fee",
+    "same-revision hidden price increase cannot replace displayed or signed terms",
+    "old in-flight room read cannot overwrite a newer room",
+    "full terminal signed replay generates public request without custody fields",
+    "asynchronous proving/verifying/failure statuses remain Japanese with English diagnostics"
+  ],
+  "transport": "explicit mocked wallet/ledger/proof worker; real canonical instruction builders, replay simulation and Ed25519 verification",
+  "independentFinality": false,
+  "errors": []
+}

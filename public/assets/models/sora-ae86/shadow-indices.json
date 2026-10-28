@@ -1,0 +1,275 @@
+{
+  "version": 1,
+  "sourceSha256": "cc67905d1d492bf0d2eb8fc632f9baa812449770801a7eea4f7a3b50d02057e0",
+  "generator": "Three.js r186 bundled meshoptimizer 1.1, simplify, Permissive + ErrorAbsolute",
+  "targetRatio": 0.08,
+  "maximumErrorMeters": 0.003,
+  "byteLength": 657096,
+  "sha256": "a9a3a045d28051045e66a365280b2e605df4b7ad4e1abd102e824af7ab614faa",
+  "records": [
+    {
+      "key": "0:false:false:Brake_Disc",
+      "sourceIndexCount": 12816,
+      "vertexCount": 2797,
+      "maxErrorMeters": 0.002996772527694702,
+      "byteOffset": 0,
+      "indexCount": 1818
+    },
+    {
+      "key": "0:false:false:TireMaterial",
+      "sourceIndexCount": 114504,
+      "vertexCount": 19592,
+      "maxErrorMeters": 0.002034151228144765,
+      "byteOffset": 7272,
+      "indexCount": 9156
+    },
+    {
+      "key": "0:false:false:RimMaterial",
+      "sourceIndexCount": 54480,
+      "vertexCount": 13567,
+      "maxErrorMeters": 0.002751324325799942,
+      "byteOffset": 43896,
+      "indexCount": 4356
+    },
+    {
+      "key": "0:true:false:BrakeCaliper",
+      "sourceIndexCount": 24288,
+      "vertexCount": 6416,
+      "maxErrorMeters": 0.001594196422956884,
+      "byteOffset": 61320,
+      "indexCount": 1938
+    },
+    {
+      "key": "1:false:false:Brake_Disc",
+      "sourceIndexCount": 12816,
+      "vertexCount": 2797,
+      "maxErrorMeters": 0.0029827947728335857,
+      "byteOffset": 69072,
+      "indexCount": 1830
+    },
+    {
+      "key": "1:false:false:TireMaterial",
+      "sourceIndexCount": 114504,
+      "vertexCount": 19592,
+      "maxErrorMeters": 0.002046064240857959,
+      "byteOffset": 76392,
+      "indexCount": 9156
+    },
+    {
+      "key": "1:false:false:RimMaterial",
+      "sourceIndexCount": 54480,
+      "vertexCount": 13567,
+      "maxErrorMeters": 0.002803944516927004,
+      "byteOffset": 113016,
+      "indexCount": 4353
+    },
+    {
+      "key": "1:true:false:BrakeCaliper",
+      "sourceIndexCount": 24288,
+      "vertexCount": 6416,
+      "maxErrorMeters": 0.0016503663500770926,
+      "byteOffset": 130428,
+      "indexCount": 1938
+    },
+    {
+      "key": "2:false:false:Brake_Disc",
+      "sourceIndexCount": 12816,
+      "vertexCount": 2797,
+      "maxErrorMeters": 0.0029877573251724243,
+      "byteOffset": 138180,
+      "indexCount": 1872
+    },
+    {
+      "key": "2:false:false:TireMaterial",
+      "sourceIndexCount": 114504,
+      "vertexCount": 19592,
+      "maxErrorMeters": 0.002044159919023514,
+      "byteOffset": 145668,
+      "indexCount": 9156
+    },
+    {
+      "key": "2:false:false:RimMaterial",
+      "sourceIndexCount": 54480,
+      "vertexCount": 13567,
+      "maxErrorMeters": 0.002752657514065504,
+      "byteOffset": 182292,
+      "indexCount": 4353
+    },
+    {
+      "key": "2:true:false:BrakeCaliper",
+      "sourceIndexCount": 24288,
+      "vertexCount": 6416,
+      "maxErrorMeters": 0.0015996912261471152,
+      "byteOffset": 199704,
+      "indexCount": 1938
+    },
+    {
+      "key": "3:false:false:Brake_Disc",
+      "sourceIndexCount": 12816,
+      "vertexCount": 2797,
+      "maxErrorMeters": 0.0029889955185353756,
+      "byteOffset": 207456,
+      "indexCount": 1872
+    },
+    {
+      "key": "3:false:false:TireMaterial",
+      "sourceIndexCount": 114504,
+      "vertexCount": 19592,
+      "maxErrorMeters": 0.0020483513362705708,
+      "byteOffset": 214944,
+      "indexCount": 9156
+    },
+    {
+      "key": "3:false:false:RimMaterial",
+      "sourceIndexCount": 54480,
+      "vertexCount": 13567,
+      "maxErrorMeters": 0.0027534784749150276,
+      "byteOffset": 251568,
+      "indexCount": 4353
+    },
+    {
+      "key": "3:true:false:BrakeCaliper",
+      "sourceIndexCount": 24288,
+      "vertexCount": 6416,
+      "maxErrorMeters": 0.0016009086975827813,
+      "byteOffset": 268980,
+      "indexCount": 1938
+    },
+    {
+      "key": "-1:false:false:Seatbelt",
+      "sourceIndexCount": 25416,
+      "vertexCount": 7040,
+      "maxErrorMeters": 0.0008572896476835012,
+      "byteOffset": 276732,
+      "indexCount": 2028
+    },
+    {
+      "key": "-1:false:false:InteriorPlastic2",
+      "sourceIndexCount": 58776,
+      "vertexCount": 10477,
+      "maxErrorMeters": 0.002251617843285203,
+      "byteOffset": 284844,
+      "indexCount": 4701
+    },
+    {
+      "key": "-1:false:false:InteriorPlastic",
+      "sourceIndexCount": 307170,
+      "vertexCount": 58639,
+      "maxErrorMeters": 0.0019971097353845835,
+      "byteOffset": 303648,
+      "indexCount": 24558
+    },
+    {
+      "key": "-1:false:false:Interior",
+      "sourceIndexCount": 214224,
+      "vertexCount": 42135,
+      "maxErrorMeters": 0.002931406954303384,
+      "byteOffset": 401880,
+      "indexCount": 17127
+    },
+    {
+      "key": "-1:false:false:SteeringWheel",
+      "sourceIndexCount": 44532,
+      "vertexCount": 11598,
+      "maxErrorMeters": 0.001929692574776709,
+      "byteOffset": 470388,
+      "indexCount": 3558
+    },
+    {
+      "key": "-1:false:false:Trim2",
+      "sourceIndexCount": 89637,
+      "vertexCount": 19183,
+      "maxErrorMeters": 0.0025648148730397224,
+      "byteOffset": 484620,
+      "indexCount": 7050
+    },
+    {
+      "key": "-1:false:false:TailightFrame",
+      "sourceIndexCount": 9168,
+      "vertexCount": 2394,
+      "maxErrorMeters": 0.0029917496722191572,
+      "byteOffset": 512820,
+      "indexCount": 897
+    },
+    {
+      "key": "-1:false:false:Reflector",
+      "sourceIndexCount": 25764,
+      "vertexCount": 7762,
+      "maxErrorMeters": 0.0029976055957376957,
+      "byteOffset": 516408,
+      "indexCount": 2271
+    },
+    {
+      "key": "-1:false:false:Primary",
+      "sourceIndexCount": 88128,
+      "vertexCount": 15947,
+      "maxErrorMeters": 0.001991547644138336,
+      "byteOffset": 525492,
+      "indexCount": 7047
+    },
+    {
+      "key": "-1:false:false:Secondary",
+      "sourceIndexCount": 40782,
+      "vertexCount": 7476,
+      "maxErrorMeters": 0.0013901141937822104,
+      "byteOffset": 553680,
+      "indexCount": 3261
+    },
+    {
+      "key": "-1:false:false:Trim1",
+      "sourceIndexCount": 231312,
+      "vertexCount": 42743,
+      "maxErrorMeters": 0.0013008052483201027,
+      "byteOffset": 566724,
+      "indexCount": 18501
+    },
+    {
+      "key": "-1:false:false:Trueno",
+      "sourceIndexCount": 501,
+      "vertexCount": 333,
+      "maxErrorMeters": 0.0022251077461987734,
+      "byteOffset": 640728,
+      "indexCount": 165
+    },
+    {
+      "key": "-1:false:false:Mirror",
+      "sourceIndexCount": 1512,
+      "vertexCount": 292,
+      "maxErrorMeters": 0.00030106311896815896,
+      "byteOffset": 641388,
+      "indexCount": 120
+    },
+    {
+      "key": "-1:false:false:LicensePlate",
+      "sourceIndexCount": 1374,
+      "vertexCount": 916,
+      "maxErrorMeters": 0.0028393424581736326,
+      "byteOffset": 641868,
+      "indexCount": 108
+    },
+    {
+      "key": "-1:false:true:Trim2",
+      "sourceIndexCount": 31530,
+      "vertexCount": 5588,
+      "maxErrorMeters": 0.000960853707510978,
+      "byteOffset": 642300,
+      "indexCount": 2520
+    },
+    {
+      "key": "-1:false:true:Reflector",
+      "sourceIndexCount": 6684,
+      "vertexCount": 1190,
+      "maxErrorMeters": 0.002989137778058648,
+      "byteOffset": 652380,
+      "indexCount": 603
+    },
+    {
+      "key": "-1:false:true:Primary",
+      "sourceIndexCount": 7212,
+      "vertexCount": 1380,
+      "maxErrorMeters": 0.0011933076893910766,
+      "byteOffset": 654792,
+      "indexCount": 576
+    }
+  ]
+}

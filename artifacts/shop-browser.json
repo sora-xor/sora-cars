@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "designs": 8,
+  "storyConversations": 12,
+  "storyContextReloadAndReturn": true,
+  "lockedChapterRouteRejected": true,
+  "primaryLanguage": "ja",
+  "subtitles": "en",
+  "releasedCollectionDefault": false,
+  "purchaseTest": "Explicit mocked wallet/ledger with real native instruction builder and metadata binding.",
+  "receiptDoesNotGrantOwnership": true,
+  "staleWalletReceiptOmitted": true,
+  "separateExactPriceAndFee": true,
+  "immutableCheckoutAcrossRefresh": true,
+  "replacedClientAndClosedDialogInvalidateCheckout": true,
+  "ownershipLossClearsAppearance": true,
+  "unqualifiedCheckoutDisabled": true,
+  "errors": []
+}

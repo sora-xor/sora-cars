@@ -1,0 +1,287 @@
+{
+  "asset": "bench_vice_01",
+  "entryPoint": "bench_vice_01_1k.gltf",
+  "units": "metres",
+  "upAxis": "Y (glTF scene after all node transforms)",
+  "meshCount": 4,
+  "materialCount": 1,
+  "triangleCount": 2864,
+  "vertexCount": 2183,
+  "skinCount": 1,
+  "animationCount": 0,
+  "sceneBoundsMetres": {
+    "min": [
+      -0.10035783,
+      -0.08558612,
+      -0.18122734
+    ],
+    "max": [
+      0.10012454,
+      0.19956257,
+      0.21449435
+    ],
+    "size": [
+      0.20048237,
+      0.28514868,
+      0.39572169
+    ],
+    "center": [
+      -0.00011665,
+      0.05698822,
+      0.0166335
+    ]
+  },
+  "restOnGroundTranslation": [
+    0,
+    0.08558612,
+    0
+  ],
+  "centerXZAndRestOnGroundTranslation": [
+    0.00011665,
+    0.08558612,
+    -0.0166335
+  ],
+  "materialDefinitions": [
+    {
+      "doubleSided": true,
+      "name": "bench_vice_01",
+      "normalTexture": {
+        "index": 0
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicRoughnessTexture": {
+          "index": 2
+        }
+      }
+    }
+  ],
+  "rootNodes": [
+    {
+      "index": 11,
+      "mesh": 0,
+      "name": "bench_vice_frame",
+      "skin": 0
+    },
+    {
+      "index": 12,
+      "mesh": 1,
+      "name": "bench_vice_clamp",
+      "skin": 0
+    },
+    {
+      "index": 13,
+      "mesh": 2,
+      "name": "bench_vice_dial",
+      "skin": 0
+    },
+    {
+      "index": 14,
+      "mesh": 3,
+      "name": "bench_vice_bar",
+      "skin": 0
+    },
+    {
+      "index": 15,
+      "children": [
+        2,
+        3,
+        6,
+        9,
+        10
+      ],
+      "name": "rig_bench_vice"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "bench_vice_frame",
+      "skinned": true,
+      "vertices": 1211,
+      "triangles": 1536,
+      "materials": [
+        "bench_vice_01"
+      ],
+      "worldBoundsMetres": {
+        "min": [
+          -0.10035783,
+          0.00004146,
+          -0.11142836
+        ],
+        "max": [
+          0.10012454,
+          0.19956257,
+          0.16175483
+        ],
+        "size": [
+          0.20048237,
+          0.19952111,
+          0.27318319
+        ]
+      },
+      "worldMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "maximumSkinDisplacementMetres": 5e-8
+    },
+    {
+      "name": "bench_vice_clamp",
+      "skinned": true,
+      "vertices": 663,
+      "triangles": 842,
+      "materials": [
+        "bench_vice_01"
+      ],
+      "worldBoundsMetres": {
+        "min": [
+          -0.06699169,
+          0.0399598,
+          -0.18122734
+        ],
+        "max": [
+          0.06675834,
+          0.19197158,
+          0.1852448
+        ],
+        "size": [
+          0.13375003,
+          0.15201178,
+          0.36647215
+        ]
+      },
+      "worldMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "maximumSkinDisplacementMetres": 7e-8
+    },
+    {
+      "name": "bench_vice_dial",
+      "skinned": true,
+      "vertices": 127,
+      "triangles": 198,
+      "materials": [
+        "bench_vice_01"
+      ],
+      "worldBoundsMetres": {
+        "min": [
+          -0.01680765,
+          0.06264172,
+          0.18183052
+        ],
+        "max": [
+          0.01276946,
+          0.09159386,
+          0.21449435
+        ],
+        "size": [
+          0.02957711,
+          0.02895214,
+          0.03266383
+        ]
+      },
+      "worldMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "maximumSkinDisplacementMetres": 5e-8
+    },
+    {
+      "name": "bench_vice_bar",
+      "skinned": true,
+      "vertices": 182,
+      "triangles": 288,
+      "materials": [
+        "bench_vice_01"
+      ],
+      "worldBoundsMetres": {
+        "min": [
+          -0.01075404,
+          -0.08558612,
+          0.18863879
+        ],
+        "max": [
+          0.00716695,
+          0.1137039,
+          0.20642274
+        ],
+        "size": [
+          0.01792098,
+          0.19929001,
+          0.01778395
+        ]
+      },
+      "worldMatrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "maximumSkinDisplacementMetres": 5e-8
+    }
+  ],
+  "inspectionMethod": "Original glTF loaded in Three.js with textures omitted in memory only; bounds iterate Mesh.getVertexPosition, including bind-pose skin transforms, then matrixWorld. Source files unchanged.",
+  "placementNotes": {
+    "orientation": "Upright frame; jaws and spindle follow Z. Dial and hanging handle are at positive Z.",
+    "placement": "Mount bench_vice_frame bottom (Y = 0.00004146 m) on the tabletop. Do not normalize the full-model bottom: the bar intentionally hangs to Y = -0.08558612 m. Put the positive-Z side beyond the front of the bench.",
+    "staticPose": "The four skinned mesh positions match the loaded bind pose to within 7e-8 m. Baking Mesh.getVertexPosition is safe if later rig transforms are introduced."
+  },
+  "materialIntegrationNotes": "All sources use one double-sided material with diffuse, normal, and packed ARM textures. The glTF references ARM for roughness/metalness but omits occlusionTexture; AO can be restored at runtime from the same ARM image red channel without changing the source assets."
+}

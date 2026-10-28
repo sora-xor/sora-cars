@@ -1,0 +1,13 @@
+{
+  "asset": "public/assets/materials/painted-workshop/reflection-matcap-v1.png",
+  "source": "OpenAI built-in image generation",
+  "reference": "public/assets/story/angles/garage-wide-v2.png",
+  "referenceRole": "Style and reflection palette only",
+  "purpose": "View-dependent painted reflection response sampled by 3D surface normals; not an environment photograph",
+  "prompt": "reflection-matcap-v1.prompt.txt",
+  "generatedFile": "/Users/takemiyamakoto/.codex/generated_images/01a095d7-2e3f-76c0-be76-890e7c7ca671/exec-2dccd4c1-5171-4fc8-9ce0-6119c72d5351.png",
+  "width": 1254,
+  "height": 1254,
+  "sha256": "0e421124e0bb93ba41d07d46dd6562c59066a6494745b3aa439e9af78904d896",
+  "edits": "Original generation copied unchanged"
+}

@@ -1,0 +1,1732 @@
+{
+  "schema": "sora-cars.physical-emblem-placement-audit.v1",
+  "scope": "The prior 94 current hash-matched story, opening and per-cut verified PNGs. Read-only individual physical-placement review; geometry claims are not reused as placement evidence.",
+  "criteria": "Flag only material offset from owning car/body panel center, improper perspective, or clothing-back placement off projected spine. Intentional centered sleeve/pocket badges and balanced emblem-plus-text lockups allowed. Editorial corner badges do not require physical centering.",
+  "reviewer": "/root/expanded_logo_audit_a",
+  "method": "Each PNG individually viewed with view_image original detail; SHA-256 pinned before and rechecked after viewing.",
+  "runtimeSourceHashes": {
+    "src/game/story-scenes.ts": "5e69e51a744347e1d0f58b7dfc0138b8b46114e834702a1a33b9ce12b57a1203",
+    "src/game/story-cut-art.json": "35c542c3ca2a8b75e4955f049d570840458aa5df107b0937c5d8bff0d568dca4",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
+    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
+    "src/game/story-campaign-act3.ts": "f2765911f3d94e0eb3f4c3011a6f1ff53f4ffeab1c85ef216c910357f6ec33cd"
+  },
+  "auditSources": [
+    {
+      "path": "artifacts/story-emblem-audit-2026-09-26.json",
+      "sha256": "85e41802732879721b3a1d6c252723a9593bce3ae2fcc577bed36b7639b02483"
+    },
+    {
+      "path": "artifacts/story-opening-emblem-audit-2026-09-26.json",
+      "sha256": "0b2cfbcf2615168a7f07ac8084994e7b612e0a6b36efe31c1ebff3305f325a72"
+    },
+    {
+      "path": "artifacts/story-per-cut-emblem-audit-2026-09-26.json",
+      "sha256": "d1cdc70b5716e42e378c257b9f518b4e7d499dfcc4e95186e99fa3bbcf4266b9"
+    }
+  ],
+  "files": [
+    {
+      "index": 1,
+      "path": "public/assets/story/garage-dusk-branded.png",
+      "sha256": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Sign and door marks form balanced logo-and-wordmark lockups; sleeve badge follows its sewn panel. No material offset.",
+      "currentHash": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.923Z"
+    },
+    {
+      "index": 2,
+      "path": "public/assets/story/ledger-night-v1.png",
+      "sha256": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Both upper-sleeve badges are centered on their visible sleeve panels and tilt with cloth; toolbox and mug lockups follow their surfaces.",
+      "currentHash": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.925Z"
+    },
+    {
+      "index": 3,
+      "path": "public/assets/story/radio-rain-v1.png",
+      "sha256": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Sleeve badge centered on outer upper arm; car door and wall sign lockups follow panel perspective.",
+      "currentHash": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.926Z"
+    },
+    {
+      "index": 4,
+      "path": "public/assets/story/tower-boardroom-v2.png",
+      "sha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Sleeve badge centered on its visible panel; folder mark is balanced within the cover and follows its tilt.",
+      "currentHash": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.927Z"
+    },
+    {
+      "index": 5,
+      "path": "public/assets/story/credit-office-v2.png",
+      "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Sleeve badge follows the angled outer upper arm; tote mark is centered above its text. Lamp mark centered on shade face.",
+      "currentHash": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.928Z"
+    },
+    {
+      "index": 6,
+      "path": "public/assets/story/community-dawn-v1.png",
+      "sha256": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Large white and teal clothing-back prints track projected spines; car door and banner lockups have balanced placement.",
+      "currentHash": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:05:36.930Z"
+    },
+    {
+      "index": 7,
+      "path": "public/assets/story/harbor-1986-v1.png",
+      "sha256": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Door marks sit within door panels; hood marks follow their sloped surfaces and approximate projected axes. Banner lockups centered.",
+      "currentHash": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.220Z"
+    },
+    {
+      "index": 8,
+      "path": "public/assets/story/sunrise-crew-branded-v2.png",
+      "sha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "visuallyInspected": true,
+      "materialMisalignment": true,
+      "observation": "Red and mint car hood marks are displaced to exposed side areas around seated characters, materially away from projected longitudinal hood centers. White car hood lockup appears aligned; clothing badges are centered in their panels.",
+      "currentHash": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.222Z"
+    },
+    {
+      "index": 9,
+      "path": "public/assets/story/angles/garage-wide-v2.png",
+      "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Door emblem-plus-wordmark lockups are balanced in visible panels; teal upper-sleeve badge is centered and follows cloth.",
+      "currentHash": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.223Z"
+    },
+    {
+      "index": 10,
+      "path": "public/assets/story/angles/garage-left-v2.png",
+      "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "visuallyInspected": true,
+      "materialMisalignment": true,
+      "observation": "Large white-car side emblem is far rearward on the visible door area beside its rear seam, while the physical door extends substantially right behind the woman. Material side-panel offset; sleeve and trouser-pocket marks are centered.",
+      "currentHash": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.224Z"
+    },
+    {
+      "index": 11,
+      "path": "public/assets/story/angles/garage-right-v2.png",
+      "sha256": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow/teal sleeve marks are centered on their panels; red-trouser mark centers the angled pocket flap rather than whole trousers. Other logo-and-text lockups follow surfaces.",
+      "currentHash": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.225Z"
+    },
+    {
+      "index": 12,
+      "path": "public/assets/story/angles/garage-detail-v2.png",
+      "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "visuallyInspected": true,
+      "materialMisalignment": true,
+      "observation": "White-car emblem sits on narrow fender area immediately ahead of door seam while SORA text lies on the door, splitting the lockup across panels instead of centering it on one owning panel. Teal sleeve patch is centered.",
+      "currentHash": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:07:25.227Z"
+    },
+    {
+      "index": 13,
+      "path": "public/assets/story/angles/ledger-wide-v2.png",
+      "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal, white and yellow sleeve badges centered on outer upper-arm panels, aligned with cloth; side-door and toolbox lockups balanced.",
+      "currentHash": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.272Z"
+    },
+    {
+      "index": 14,
+      "path": "public/assets/story/angles/ledger-left-v2.png",
+      "sha256": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White, teal and foreground yellow sleeve badges occupy the middle of their visible sleeve faces and follow differing cloth angles.",
+      "currentHash": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.278Z"
+    },
+    {
+      "index": 15,
+      "path": "public/assets/story/angles/ledger-right-v2.png",
+      "sha256": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "All three visible sleeve marks center their upper-arm faces; car side lockup and toolbox branding are balanced.",
+      "currentHash": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.279Z"
+    },
+    {
+      "index": 16,
+      "path": "public/assets/story/angles/ledger-detail-v2.png",
+      "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "No material clothing/car mark to center; toolbox, mug and cassette marks are balanced within their branded faces and follow perspective.",
+      "currentHash": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.281Z"
+    },
+    {
+      "index": 17,
+      "path": "public/assets/story/angles/radio-wide-v2.png",
+      "sha256": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal sleeve badge centered between shoulder and elbow on its panel; wall and door sign lockups correctly follow their surfaces.",
+      "currentHash": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.284Z"
+    },
+    {
+      "index": 18,
+      "path": "public/assets/story/angles/radio-left-v2.png",
+      "sha256": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal upper-sleeve patch centered and rotated with garment; mug emblem centered on visible cylinder face; rear-car door lockup balanced.",
+      "currentHash": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:08:21.286Z"
+    },
+    {
+      "index": 19,
+      "path": "public/assets/story/angles/radio-right-v2.png",
+      "sha256": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Chair-back emblem is centered on its visible upholstered face; the teal sleeve badge follows its panel. Door and mug marks are balanced on their surfaces.",
+      "currentHash": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.798Z"
+    },
+    {
+      "index": 20,
+      "path": "public/assets/story/angles/radio-detail-v2.png",
+      "sha256": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal upper-sleeve badge is centered on its cloth panel and follows the arm angle; phone and equipment marks are balanced.",
+      "currentHash": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.800Z"
+    },
+    {
+      "index": 21,
+      "path": "public/assets/story/angles/boardroom-wide-v3.png",
+      "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White sleeve emblem is centered on the outer sleeve; glass-door emblem and wordmark are centered together on the vertical panel.",
+      "currentHash": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.802Z"
+    },
+    {
+      "index": 22,
+      "path": "public/assets/story/angles/boardroom-left-v3.png",
+      "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White outer-sleeve badge is centered; the red folder lockup is centered on its foreshortened cover.",
+      "currentHash": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.803Z"
+    },
+    {
+      "index": 23,
+      "path": "public/assets/story/angles/boardroom-right-v3.png",
+      "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White upper-sleeve emblem is centered on the visible outer arm and follows its tilt; poster lockup is balanced.",
+      "currentHash": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.805Z"
+    },
+    {
+      "index": 24,
+      "path": "public/assets/story/angles/boardroom-detail-v3.png",
+      "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White sleeve badge is centered on its diagonal visible panel; red folder emblem follows the cover perspective.",
+      "currentHash": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.806Z"
+    },
+    {
+      "index": 25,
+      "path": "public/assets/story/angles/office-wide-v3.png",
+      "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White sleeve and clerk lapel badges occupy natural centered panels. The hanging coat lockup is centered on the visible angled back face.",
+      "currentHash": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.810Z"
+    },
+    {
+      "index": 26,
+      "path": "public/assets/story/angles/office-left-v3.png",
+      "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White upper-sleeve badge is centered on its panel; mug and vertical banner marks are balanced.",
+      "currentHash": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:11:11.811Z"
+    },
+    {
+      "index": 27,
+      "path": "public/assets/story/angles/office-right-v3.png",
+      "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White outer-sleeve emblem follows the visible sleeve panel; clerk lapel and lamp-front badges are centered on their owning surfaces.",
+      "currentHash": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.479Z"
+    },
+    {
+      "index": 28,
+      "path": "public/assets/story/angles/office-detail-v3.png",
+      "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Red folder lockup is centered on the angled cover; mug and stamp markings follow their physical faces. No car or upper clothing emblem is present.",
+      "currentHash": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.481Z"
+    },
+    {
+      "index": 29,
+      "path": "public/assets/story/angles/community-wide-v2.png",
+      "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow sleeve and teal chest-pocket emblems occupy centered natural panels. Car door, cabinet, and sign lockups are balanced.",
+      "currentHash": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.483Z"
+    },
+    {
+      "index": 30,
+      "path": "public/assets/story/angles/community-left-v2.png",
+      "sha256": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal and yellow upper-sleeve badges are centered on their panels; red overall badge follows its folded pocket face. Car door lockup is balanced as a group.",
+      "currentHash": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.485Z"
+    },
+    {
+      "index": 31,
+      "path": "public/assets/story/angles/community-right-v2.png",
+      "sha256": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow sleeve and teal chest-pocket emblems are centered on the visible panels. Tool chest and wall lockups are balanced.",
+      "currentHash": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.486Z"
+    },
+    {
+      "index": 32,
+      "path": "public/assets/story/angles/community-detail-v2.png",
+      "sha256": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal sleeve emblem sits within the central visible cloth face and follows its tilt. Equipment-case face and background door lockup are balanced.",
+      "currentHash": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.488Z"
+    },
+    {
+      "index": 33,
+      "path": "public/assets/story/angles/harbor-wide-v3.png",
+      "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Car hood emblems broadly follow the projected hood axes and foreshortening, with no material edge placement; chest-panel, sleeve, and sign marks occupy natural surfaces.",
+      "currentHash": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.489Z"
+    },
+    {
+      "index": 34,
+      "path": "public/assets/story/angles/harbor-left-v3.png",
+      "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Red, navy, and cream garment marks center their individual chest panels beside the closures. Blue car body and background door lockups are balanced as groups.",
+      "currentHash": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:12:14.492Z"
+    },
+    {
+      "index": 35,
+      "path": "public/assets/story/angles/harbor-right-v3.png",
+      "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Foreground hood emblem follows the car's diagonal projected axis and foreshortening. Red-car hood lockup and the sleeve/chest-panel badges remain naturally positioned.",
+      "currentHash": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.718Z"
+    },
+    {
+      "index": 36,
+      "path": "public/assets/story/angles/harbor-detail-v3.png",
+      "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Thermos, brake-caliper face, parts-box panel, and wheel-center emblems are centered on their owning surfaces. No displaced hood or clothing decal is visible.",
+      "currentHash": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.721Z"
+    },
+    {
+      "index": 37,
+      "path": "public/assets/story/angles/sunrise-wide-v3.png",
+      "sha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Red-car hood mark follows the projected hood surface; door lockups and the individual garment chest/sleeve badges are balanced. No material misalignment is apparent.",
+      "currentHash": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.722Z"
+    },
+    {
+      "index": 38,
+      "path": "public/assets/story/angles/sunrise-left-v3.png",
+      "sha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Foreground hood lockup follows the visible projected hood axis. Red sleeve and chest-panel, cream chest-panel, and distant back marks occupy natural centers.",
+      "currentHash": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.724Z"
+    },
+    {
+      "index": 39,
+      "path": "public/assets/story/angles/sunrise-right-v3.png",
+      "sha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Foreground hood emblem follows the perspective of the cropped hood. Red sleeve/chest and cream chest-panel marks occupy centered cloth panels.",
+      "currentHash": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.726Z"
+    },
+    {
+      "index": 40,
+      "path": "public/assets/story/angles/sunrise-detail-v3.png",
+      "sha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "visuallyInspected": true,
+      "materialMisalignment": true,
+      "observation": "The large hood emblem and SORA wordmark sit near the right headlight and right hood edge, materially right of the hood's projected longitudinal centerline. Sleeve and thermos marks are properly placed.",
+      "currentHash": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.727Z"
+    },
+    {
+      "index": 41,
+      "path": "public/assets/story/beats/radio-near-confession-v2.png",
+      "sha256": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Small white-shirt emblem sits naturally on the chest panel; mug, headphone cup, wall signs, and distant door lockup are centered on their faces.",
+      "currentHash": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.729Z"
+    },
+    {
+      "index": 42,
+      "path": "public/assets/story/beats/radio-near-confession-reverse-v2.png",
+      "sha256": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "The large white-shirt back emblem follows the cropped, leaning back surface; no material off-center placement can be established from this camera crop. Cassette, mug, headphone cup, and sign marks are balanced.",
+      "currentHash": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:13:13.730Z"
+    },
+    {
+      "index": 43,
+      "path": "public/assets/story/beats/radio-umbrella-v2.png",
+      "sha256": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Car-door emblem and wordmark are balanced within the door panel; both shop sign lockups are centered as groups. No marked garment or hood is present.",
+      "currentHash": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.599Z"
+    },
+    {
+      "index": 44,
+      "path": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+      "sha256": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Background door lockup is balanced on its panel; storefront and sidewalk signs follow their faces. No marked garment or hood is present.",
+      "currentHash": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.608Z"
+    },
+    {
+      "index": 45,
+      "path": "public/assets/story/beats/radio-phone-threat-v2.png",
+      "sha256": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Background car-door lockup is centered as a group. Phone, pen cup, paper, and wall sign marks follow their owning faces.",
+      "currentHash": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.610Z"
+    },
+    {
+      "index": 46,
+      "path": "public/assets/story/beats/radio-blackout-v2.png",
+      "sha256": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal upper-sleeve badge is centered on its cloth panel. Equipment cases, mug, door poster, wall sign, and distant car-door lockup are balanced.",
+      "currentHash": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.613Z"
+    },
+    {
+      "index": 47,
+      "path": "public/assets/story/beats/garage-blackout-v2.png",
+      "sha256": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White and yellow sleeve badges are centered on their visible upper-arm panels. White car-door lockup occupies its own door; toolbox, shutter, mug, and cassette graphics are balanced.",
+      "currentHash": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.615Z"
+    },
+    {
+      "index": 48,
+      "path": "public/assets/story/beats/garage-blackout-detail-v2.png",
+      "sha256": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Car-door lockup is positioned within the door, and equipment, control-label, rag, and paper marks follow their visible surfaces.",
+      "currentHash": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.617Z"
+    },
+    {
+      "index": 49,
+      "path": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "The white T-shirt emblem is a naturally positioned small chest badge centered in the left-chest region; it does not cross a seam or drift onto the sleeve.",
+      "currentHash": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.618Z"
+    },
+    {
+      "index": 50,
+      "path": "public/assets/story/beats/radio-betrayal-v2.png",
+      "sha256": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Document, mug, lamp, case, wall-sign, and background door lockups are balanced on their owning surfaces. No marked clothing back or hood is present.",
+      "currentHash": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:03.620Z"
+    },
+    {
+      "index": 51,
+      "path": "public/assets/story/beats/radio-betrayal-reverse-v2.png",
+      "sha256": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Contract-cover lockup, lantern, mug, equipment case, and wall sign are balanced on their faces. No marked garment or hood is present.",
+      "currentHash": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.500Z"
+    },
+    {
+      "index": 52,
+      "path": "public/assets/story/beats/radio-contract-v2.png",
+      "sha256": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Contract-cover logo and title are centered together on the page and follow its perspective. Mug, lantern, and cassette label marks are naturally positioned.",
+      "currentHash": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.504Z"
+    },
+    {
+      "index": 53,
+      "path": "public/assets/story/beats/fathers-notebook-v2.png",
+      "sha256": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White and teal upper-sleeve emblems are centered within the visible cloth panels and follow their angles; toolbox-lid and mug lockups are balanced.",
+      "currentHash": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.508Z"
+    },
+    {
+      "index": 54,
+      "path": "public/assets/story/beats/fathers-notebook-reaction-v2.png",
+      "sha256": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White chest badge and teal chest-pocket patch occupy natural centered regions. The hanging coat back emblem follows its center seam; book and toolbox lockups follow their panels.",
+      "currentHash": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.521Z"
+    },
+    {
+      "index": 55,
+      "path": "public/assets/story/beats/shared-prototype-v2.png",
+      "sha256": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow, white, and teal sleeve emblems sit centrally on the visible upper-arm cloth. Manual, equipment, drawer, and distant car-door markings follow their faces.",
+      "currentHash": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.525Z"
+    },
+    {
+      "index": 56,
+      "path": "public/assets/story/beats/sunrise-kiss-v3.png",
+      "sha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Hood emblem and wordmark are centered along the hood's projected center stripe; sleeve and chest-pocket badges follow their cloth panels.",
+      "currentHash": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.528Z"
+    },
+    {
+      "index": 57,
+      "path": "public/assets/story/beats/boardroom-key-offer-v4.png",
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White T-shirt badge is centered on the visible outer upper-sleeve panel and follows its tilt.",
+      "currentHash": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.534Z"
+    },
+    {
+      "index": 58,
+      "path": "public/assets/story/beats/boardroom-key-return-v4.png",
+      "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White T-shirt badge remains centered on the outer sleeve panel as the arm reaches forward; the patch follows the sleeve angle.",
+      "currentHash": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:14:56.540Z"
+    },
+    {
+      "index": 59,
+      "path": "public/assets/story/beats/public-confession-v4.png",
+      "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Red overalls badge is centered within its chest panel; distant navy jacket back mark follows the spine. Car-door and hood lockups follow their projected surfaces.",
+      "currentHash": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.671Z"
+    },
+    {
+      "index": 60,
+      "path": "public/assets/story/beats/public-confession-reverse-v4.png",
+      "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow jacket chest patch is centered on the visible chest panel; white car-door lockup and warehouse sign are balanced.",
+      "currentHash": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.676Z"
+    },
+    {
+      "index": 61,
+      "path": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal upper-sleeve emblem is centered on the visible panel and follows its cloth angle. Mug and wall-sign lockups are balanced.",
+      "currentHash": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.678Z"
+    },
+    {
+      "index": 62,
+      "path": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal upper-sleeve emblem is centered within the outer sleeve panel and follows the bent arm; wall-sign marks are balanced.",
+      "currentHash": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.681Z"
+    },
+    {
+      "index": 63,
+      "path": "public/assets/story/scenes/ch01-victory-opening-logo-v2.png",
+      "sha256": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White car emblem sits centrally on the visible front-fender panel and follows its curved, foreshortened face; it is not presented as a hood emblem.",
+      "currentHash": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.687Z"
+    },
+    {
+      "index": 64,
+      "path": "public/assets/story/scenes/ch02-victory-opening-logo-v2.png",
+      "sha256": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White T-shirt emblem is centered on the outer upper sleeve, following its projected cloth face.",
+      "currentHash": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.691Z"
+    },
+    {
+      "index": 65,
+      "path": "public/assets/story/scenes/ch03-victory-opening-logo-v2.png",
+      "sha256": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal jacket emblem is centered on the outer upper-sleeve panel and follows the arm's perspective.",
+      "currentHash": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.694Z"
+    },
+    {
+      "index": 66,
+      "path": "public/assets/story/scenes/ch04-intro-opening-logo-v2.png",
+      "sha256": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Black car emblem is centered within the open door's physical panel and follows the door face.",
+      "currentHash": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:16:29.697Z"
+    },
+    {
+      "index": 67,
+      "path": "public/assets/story/scenes/ch04-victory-opening-logo-v2.png",
+      "sha256": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Large banner emblem is centered across its fabric width and follows the hanging banner. The small cream-sleeve mark occupies its visible upper-arm panel.",
+      "currentHash": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.553Z"
+    },
+    {
+      "index": 68,
+      "path": "public/assets/story/scenes/ch05-victory-opening-logo-v2.png",
+      "sha256": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Navy jacket emblem is centered in the chest panel above its pocket piping, clear of the zipper and sleeve.",
+      "currentHash": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.558Z"
+    },
+    {
+      "index": 69,
+      "path": "public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+      "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Large white-shirt back emblem is centered below the collar along the projected spine between the shoulder seams.",
+      "currentHash": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.561Z"
+    },
+    {
+      "index": 70,
+      "path": "public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+      "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Denim jacket emblem is centered on the outer upper sleeve and follows the arm's diagonal cloth face.",
+      "currentHash": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.563Z"
+    },
+    {
+      "index": 71,
+      "path": "public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+      "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Navy jacket emblem is centered within its visible chest panel beside the open closure, following the leaning torso.",
+      "currentHash": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.566Z"
+    },
+    {
+      "index": 72,
+      "path": "public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+      "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt back emblem lies below the collar along the projected spine, centered between the visible shoulder and side seams.",
+      "currentHash": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.570Z"
+    },
+    {
+      "index": 73,
+      "path": "public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+      "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Cabinet emblem is centered on its visible recessed door panel; no marked car or garment is present.",
+      "currentHash": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.573Z"
+    },
+    {
+      "index": 74,
+      "path": "public/assets/story/scenes/ch11-victory-opening-logo-v2.png",
+      "sha256": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Banner emblem is centered across the hanging fabric and follows its mild perspective; no marked car or garment is present.",
+      "currentHash": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:17:40.577Z"
+    },
+    {
+      "index": 75,
+      "path": "public/assets/story/scenes/ch12-intro-opening.png",
+      "sha256": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Garage sign's wordmark and emblem form one centered lockup across the sign; small clothing badges occupy natural chest or sleeve panels.",
+      "currentHash": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:10.807Z"
+    },
+    {
+      "index": 76,
+      "path": "public/assets/story/scenes/ch12-victory-opening.png",
+      "sha256": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Photographer's denim back emblem follows the central back panel between its seams and the torso's lean. Other chest/sleeve badges and car-door lockups are balanced.",
+      "currentHash": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.055Z"
+    },
+    {
+      "index": 77,
+      "path": "public/assets/story/scenes/retry-opening-logo-v2.png",
+      "sha256": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-car emblem is centered on the visible rear-quarter face above the wheel arch, clear of the fuel flap and door seam; it is not presented as a hood graphic.",
+      "currentHash": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.090Z"
+    },
+    {
+      "index": 78,
+      "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt patch is centered on the outer upper-sleeve panel and follows its diagonal tilt.",
+      "currentHash": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.208Z"
+    },
+    {
+      "index": 79,
+      "path": "public/assets/story/scenes/ch01-intro-cut11-logo-v2.png",
+      "sha256": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt emblem is centered on the outer upper sleeve, tilted with the reaching arm and the visible cloth face.",
+      "currentHash": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.213Z"
+    },
+    {
+      "index": 80,
+      "path": "public/assets/story/scenes/ch01-intro-cut12-logo-v2.png",
+      "sha256": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt emblem is centered on the visible outer sleeve panel below the shoulder seam.",
+      "currentHash": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.221Z"
+    },
+    {
+      "index": 81,
+      "path": "public/assets/story/scenes/ch01-intro-cut13-logo-v2.png",
+      "sha256": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Cream jacket back emblem lies centrally below the collar along the projected spine, inside the back panel rather than the sleeve.",
+      "currentHash": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.231Z"
+    },
+    {
+      "index": 82,
+      "path": "public/assets/story/scenes/ch01-victory-cut02-logo-v2.png",
+      "sha256": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Interior door emblem occupies the center of its visible upper trim face and follows the open door's perspective.",
+      "currentHash": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:19:11.234Z"
+    },
+    {
+      "index": 83,
+      "path": "public/assets/story/scenes/ch04-victory-cut08-logo-v2.png",
+      "sha256": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt emblem is centered on the visible outer upper-sleeve panel and follows the cloth tilt.",
+      "currentHash": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.344Z"
+    },
+    {
+      "index": 84,
+      "path": "public/assets/story/scenes/ch04-victory-cut09-logo-v2.png",
+      "sha256": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Cream jacket back emblem is centered below the collar on the projected spine, between the shoulder blades.",
+      "currentHash": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.348Z"
+    },
+    {
+      "index": 85,
+      "path": "public/assets/story/scenes/ch05-intro-cut01-logo-v2.png",
+      "sha256": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal shirt back emblem is centered on the foreshortened back panel below the collar, following the seated torso's orientation.",
+      "currentHash": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.350Z"
+    },
+    {
+      "index": 86,
+      "path": "public/assets/story/scenes/ch05-intro-cut03-logo-v2.png",
+      "sha256": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Yellow jacket back emblem follows the projected central back panel below the collar; the raised arm and sleeve remain distinct.",
+      "currentHash": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.352Z"
+    },
+    {
+      "index": 87,
+      "path": "public/assets/story/scenes/ch05-intro-cut04-logo-v2.png",
+      "sha256": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Denim emblem is centered on the outer upper-sleeve panel below the shoulder seam and follows the turned arm.",
+      "currentHash": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.354Z"
+    },
+    {
+      "index": 88,
+      "path": "public/assets/story/scenes/ch09-victory-cut05-logo-v2.png",
+      "sha256": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Desk emblem is centered on the visible front pedestal panel and follows its face; no marked garment or car is present.",
+      "currentHash": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.356Z"
+    },
+    {
+      "index": 89,
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "sha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "runtimeActive": true,
+      "classification": "needs-correction",
+      "visuallyInspected": true,
+      "materialMisalignment": true,
+      "observation": "Cream jacket patch appears on the upper back beside the sleeve seam, toward the near shoulder rather than the projected spine. The large patch is materially off the owning back panel center; mug emblem is centered.",
+      "currentHash": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.358Z"
+    },
+    {
+      "index": 90,
+      "path": "public/assets/story/scenes/ch09-victory-cut07-logo-v2.png",
+      "sha256": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt emblem occupies a natural centered left-chest region and follows the leaning torso, clear of the sleeve seam.",
+      "currentHash": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:20:41.359Z"
+    },
+    {
+      "index": 91,
+      "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+      "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Cream jacket patch is centered on the visible outer upper sleeve, below the shoulder seam, and follows the arm's angle.",
+      "currentHash": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:21:50.832Z"
+    },
+    {
+      "index": 92,
+      "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+      "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "White-shirt emblem is centered on the torso below the neckline and follows the leaning chest.",
+      "currentHash": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:21:50.889Z"
+    },
+    {
+      "index": 93,
+      "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+      "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Teal shirt patch is centered below the collar on the projected spine, between the shoulder and sleeve seams, with the correct cloth tilt.",
+      "currentHash": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:21:50.900Z"
+    },
+    {
+      "index": 94,
+      "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+      "sha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "runtimeActive": true,
+      "classification": "pass",
+      "visuallyInspected": true,
+      "materialMisalignment": false,
+      "observation": "Cream shirt emblem is centered on the upper-back yoke below the collar, following the torso's projected spine and cloth angle.",
+      "currentHash": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "sourceUnchanged": true,
+      "reviewedAt": "2026-09-26T14:21:50.902Z"
+    }
+  ],
+  "updatedAt": "2026-09-26T14:21:50.902Z",
+  "counts": {
+    "pass": 89,
+    "needs-correction": 5
+  },
+  "status": "complete",
+  "finalFileGuards": [
+    {
+      "path": "public/assets/story/garage-dusk-branded.png",
+      "sha256": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f",
+      "currentHash": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f"
+    },
+    {
+      "path": "public/assets/story/ledger-night-v1.png",
+      "sha256": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e",
+      "currentHash": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e"
+    },
+    {
+      "path": "public/assets/story/radio-rain-v1.png",
+      "sha256": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517",
+      "currentHash": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517"
+    },
+    {
+      "path": "public/assets/story/tower-boardroom-v2.png",
+      "sha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "currentHash": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5"
+    },
+    {
+      "path": "public/assets/story/credit-office-v2.png",
+      "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+      "currentHash": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986"
+    },
+    {
+      "path": "public/assets/story/community-dawn-v1.png",
+      "sha256": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00",
+      "currentHash": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00"
+    },
+    {
+      "path": "public/assets/story/harbor-1986-v1.png",
+      "sha256": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91",
+      "currentHash": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91"
+    },
+    {
+      "path": "public/assets/story/sunrise-crew-branded-v2.png",
+      "sha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "currentHash": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd"
+    },
+    {
+      "path": "public/assets/story/angles/garage-wide-v2.png",
+      "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d",
+      "currentHash": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d"
+    },
+    {
+      "path": "public/assets/story/angles/garage-left-v2.png",
+      "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "currentHash": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e"
+    },
+    {
+      "path": "public/assets/story/angles/garage-right-v2.png",
+      "sha256": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd",
+      "currentHash": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd"
+    },
+    {
+      "path": "public/assets/story/angles/garage-detail-v2.png",
+      "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "currentHash": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-wide-v2.png",
+      "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533",
+      "currentHash": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-left-v2.png",
+      "sha256": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c",
+      "currentHash": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-right-v2.png",
+      "sha256": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809",
+      "currentHash": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-detail-v2.png",
+      "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
+      "currentHash": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109"
+    },
+    {
+      "path": "public/assets/story/angles/radio-wide-v2.png",
+      "sha256": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5",
+      "currentHash": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5"
+    },
+    {
+      "path": "public/assets/story/angles/radio-left-v2.png",
+      "sha256": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d",
+      "currentHash": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d"
+    },
+    {
+      "path": "public/assets/story/angles/radio-right-v2.png",
+      "sha256": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913",
+      "currentHash": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913"
+    },
+    {
+      "path": "public/assets/story/angles/radio-detail-v2.png",
+      "sha256": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce",
+      "currentHash": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-wide-v3.png",
+      "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "currentHash": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-left-v3.png",
+      "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "currentHash": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-right-v3.png",
+      "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "currentHash": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-detail-v3.png",
+      "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "currentHash": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855"
+    },
+    {
+      "path": "public/assets/story/angles/office-wide-v3.png",
+      "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+      "currentHash": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d"
+    },
+    {
+      "path": "public/assets/story/angles/office-left-v3.png",
+      "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+      "currentHash": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296"
+    },
+    {
+      "path": "public/assets/story/angles/office-right-v3.png",
+      "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+      "currentHash": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8"
+    },
+    {
+      "path": "public/assets/story/angles/office-detail-v3.png",
+      "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+      "currentHash": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba"
+    },
+    {
+      "path": "public/assets/story/angles/community-wide-v2.png",
+      "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667",
+      "currentHash": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667"
+    },
+    {
+      "path": "public/assets/story/angles/community-left-v2.png",
+      "sha256": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b",
+      "currentHash": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b"
+    },
+    {
+      "path": "public/assets/story/angles/community-right-v2.png",
+      "sha256": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f",
+      "currentHash": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f"
+    },
+    {
+      "path": "public/assets/story/angles/community-detail-v2.png",
+      "sha256": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec",
+      "currentHash": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-wide-v3.png",
+      "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+      "currentHash": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-left-v3.png",
+      "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+      "currentHash": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-right-v3.png",
+      "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+      "currentHash": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-detail-v3.png",
+      "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+      "currentHash": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-wide-v3.png",
+      "sha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "currentHash": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-left-v3.png",
+      "sha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "currentHash": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-right-v3.png",
+      "sha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "currentHash": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-detail-v3.png",
+      "sha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "currentHash": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32"
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-v2.png",
+      "sha256": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379",
+      "currentHash": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379"
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-reverse-v2.png",
+      "sha256": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15",
+      "currentHash": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15"
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-v2.png",
+      "sha256": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8",
+      "currentHash": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8"
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+      "sha256": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6",
+      "currentHash": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6"
+    },
+    {
+      "path": "public/assets/story/beats/radio-phone-threat-v2.png",
+      "sha256": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2",
+      "currentHash": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2"
+    },
+    {
+      "path": "public/assets/story/beats/radio-blackout-v2.png",
+      "sha256": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d",
+      "currentHash": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-v2.png",
+      "sha256": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72",
+      "currentHash": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-detail-v2.png",
+      "sha256": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127",
+      "currentHash": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "currentHash": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430"
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-v2.png",
+      "sha256": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f",
+      "currentHash": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f"
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-reverse-v2.png",
+      "sha256": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54",
+      "currentHash": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54"
+    },
+    {
+      "path": "public/assets/story/beats/radio-contract-v2.png",
+      "sha256": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0",
+      "currentHash": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0"
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-v2.png",
+      "sha256": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8",
+      "currentHash": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8"
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-reaction-v2.png",
+      "sha256": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992",
+      "currentHash": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992"
+    },
+    {
+      "path": "public/assets/story/beats/shared-prototype-v2.png",
+      "sha256": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c",
+      "currentHash": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c"
+    },
+    {
+      "path": "public/assets/story/beats/sunrise-kiss-v3.png",
+      "sha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "currentHash": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0"
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-offer-v4.png",
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "currentHash": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467"
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-return-v4.png",
+      "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "currentHash": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8"
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-v4.png",
+      "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "currentHash": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574"
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-reverse-v4.png",
+      "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "currentHash": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be"
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "currentHash": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe"
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "currentHash": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-opening-logo-v2.png",
+      "sha256": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "currentHash": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-opening-logo-v2.png",
+      "sha256": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "currentHash": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-opening-logo-v2.png",
+      "sha256": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "currentHash": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-opening-logo-v2.png",
+      "sha256": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "currentHash": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-opening-logo-v2.png",
+      "sha256": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "currentHash": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-opening-logo-v2.png",
+      "sha256": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "currentHash": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+      "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+      "currentHash": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+      "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+      "currentHash": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+      "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+      "currentHash": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+      "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+      "currentHash": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+      "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+      "currentHash": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-opening-logo-v2.png",
+      "sha256": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "currentHash": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-opening.png",
+      "sha256": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f",
+      "currentHash": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-opening.png",
+      "sha256": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22",
+      "currentHash": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22"
+    },
+    {
+      "path": "public/assets/story/scenes/retry-opening-logo-v2.png",
+      "sha256": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "currentHash": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "currentHash": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut11-logo-v2.png",
+      "sha256": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+      "currentHash": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut12-logo-v2.png",
+      "sha256": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+      "currentHash": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut13-logo-v2.png",
+      "sha256": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+      "currentHash": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut02-logo-v2.png",
+      "sha256": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+      "currentHash": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut08-logo-v2.png",
+      "sha256": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+      "currentHash": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut09-logo-v2.png",
+      "sha256": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+      "currentHash": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut01-logo-v2.png",
+      "sha256": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+      "currentHash": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut03-logo-v2.png",
+      "sha256": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+      "currentHash": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut04-logo-v2.png",
+      "sha256": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+      "currentHash": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut05-logo-v2.png",
+      "sha256": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+      "currentHash": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "sha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "currentHash": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut07-logo-v2.png",
+      "sha256": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+      "currentHash": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+      "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "currentHash": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+      "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "currentHash": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+      "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "currentHash": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+      "sha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "currentHash": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664"
+    }
+  ],
+  "allImageHashesUnchanged": true
+}

@@ -1,0 +1,61 @@
+{
+  "meshes": [
+    {
+      "name": "GenericDriver.body",
+      "vertices": 31177,
+      "triangles": 62000,
+      "materials": [
+        "GenericDriver.body"
+      ]
+    },
+    {
+      "name": "GenericDriver.eyebrow001",
+      "vertices": 124,
+      "triangles": 192,
+      "materials": [
+        "GenericDriver.eyebrow001"
+      ]
+    },
+    {
+      "name": "GenericDriver.eyelashes01",
+      "vertices": 250,
+      "triangles": 368,
+      "materials": [
+        "GenericDriver.eyelashes01"
+      ]
+    },
+    {
+      "name": "GenericDriver.high-poly",
+      "vertices": 4164,
+      "triangles": 8160,
+      "materials": [
+        "GenericDriver.high-poly"
+      ]
+    },
+    {
+      "name": "GenericDriver.male_casualsuit01",
+      "vertices": 33527,
+      "triangles": 66688,
+      "materials": [
+        "GenericDriver.male_casualsuit01"
+      ]
+    },
+    {
+      "name": "GenericDriver.shoes01",
+      "vertices": 1722,
+      "triangles": 3320,
+      "materials": [
+        "GenericDriver.shoes01"
+      ]
+    },
+    {
+      "name": "GenericDriver.short01",
+      "vertices": 2984,
+      "triangles": 3678,
+      "materials": [
+        "GenericDriver.short01"
+      ]
+    }
+  ],
+  "bones": 163
+}

@@ -1,0 +1,106 @@
+{
+  "asset": "small_oil_can_01",
+  "name": "Small Oil Can 01",
+  "provider": "Poly Haven",
+  "sourcePage": "https://polyhaven.com/a/small_oil_can_01",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "legalCodeUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "authors": {
+    "Raven van de Werken": "All"
+  },
+  "retrievedAt": "2026-09-12T17:06:38.347Z",
+  "resolution": "1k",
+  "selectionReason": "1K PBR maps retain ample detail at the physical size of this small workshop prop.",
+  "entryPoint": "small_oil_can_01_1k.gltf",
+  "sourceFilesHash": "8aee52e7d617093a125677e1903f4bdae10bf8fe",
+  "advertisedDimensionsMillimetres": [
+    266.0944238305092,
+    103.84923219680786,
+    236.79310083389282
+  ],
+  "advertisedTriangleCount": 16746,
+  "expectedAssetBytes": 934926,
+  "actualAssetBytes": 934926,
+  "dependenciesRecursivelyVerified": true,
+  "declaredUris": [
+    "textures/small_oil_can_01_nor_gl_1k.jpg",
+    "textures/small_oil_can_01_diff_1k.jpg",
+    "textures/small_oil_can_01_arm_1k.jpg",
+    "small_oil_can_01.bin"
+  ],
+  "files": [
+    {
+      "path": "small_oil_can_01_1k.gltf",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/small_oil_can_01/small_oil_can_01_1k.gltf",
+      "bytes": 2722,
+      "sourceMd5": "004db75c2aaedefd13a05e3254c1a58f",
+      "md5": "004db75c2aaedefd13a05e3254c1a58f",
+      "sha256": "587aba1ab9138a33fc66b41f03c36f1d463bc7b8337ab54d379b7023634c7b18",
+      "unchanged": true
+    },
+    {
+      "path": "textures/small_oil_can_01_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_oil_can_01/small_oil_can_01_arm_1k.jpg",
+      "bytes": 209908,
+      "sourceMd5": "19e4e0e2b84bdc6be64712dbb9c3fc72",
+      "md5": "19e4e0e2b84bdc6be64712dbb9c3fc72",
+      "sha256": "256bb8695c92f224c15ff29d0dcac297d189830f931b0e64e1a35ad036158d2a",
+      "unchanged": true
+    },
+    {
+      "path": "textures/small_oil_can_01_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_oil_can_01/small_oil_can_01_diff_1k.jpg",
+      "bytes": 140909,
+      "sourceMd5": "11ac046253155c6716cc60297ee815af",
+      "md5": "11ac046253155c6716cc60297ee815af",
+      "sha256": "393441955d94540b724f8eb8b86723af7fdee68ae743b4a3e85805807f2eaf88",
+      "unchanged": true
+    },
+    {
+      "path": "textures/small_oil_can_01_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/small_oil_can_01/small_oil_can_01_nor_gl_1k.jpg",
+      "bytes": 113295,
+      "sourceMd5": "848ae9a838be9f32d885b228be86e8dd",
+      "md5": "848ae9a838be9f32d885b228be86e8dd",
+      "sha256": "bbb3c0e4600fe307ad50ca429261ba7d1b81a477871571e7737e7b8f23fa234c",
+      "unchanged": true
+    },
+    {
+      "path": "small_oil_can_01.bin",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/small_oil_can_01/small_oil_can_01.bin",
+      "bytes": 468092,
+      "sourceMd5": "7d9e824c3714748eaeb8a8b67867fa12",
+      "md5": "7d9e824c3714748eaeb8a8b67867fa12",
+      "sha256": "f517be075ab100969ea6d0fa877becdc2c5cf526d9bd95c4fcb84313edbd2a55",
+      "unchanged": true
+    }
+  ],
+  "metadataFiles": [
+    {
+      "path": "source-info.json",
+      "url": "https://api.polyhaven.com/info/small_oil_can_01",
+      "bytes": 1296,
+      "md5": "f20927df0b05e24b17ba4904282aa7d4",
+      "sha256": "d64e1e47db48ad4359280194e9d330308e9b76059efafd5faf6c588b44c1b3e3",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    },
+    {
+      "path": "source-files.json",
+      "url": "https://api.polyhaven.com/files/small_oil_can_01",
+      "bytes": 40476,
+      "md5": "3da4135657d762f514cef65b52d3a337",
+      "sha256": "87d14291a103e3c13adb7ca846f4848e0bfb1ced06986daee97f9ff9f406aaf7",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    }
+  ],
+  "derivedFiles": [
+    {
+      "path": "geometry-report.json",
+      "bytes": 2730,
+      "md5": "eb575f54aa605fbb7f0a7938a67e9f80",
+      "sha256": "94332a6614ec8384f1f817eda9240eef499590eb0f29744d5e85793cc02afc36",
+      "source": "Local Three.js geometry inspection of the preserved source glTF; see inspectionMethod in this file."
+    }
+  ]
+}

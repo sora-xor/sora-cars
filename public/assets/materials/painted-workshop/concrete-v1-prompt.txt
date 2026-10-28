@@ -1,0 +1,9 @@
+Use case: stylized-concept.
+Asset type: square, high-resolution base-color/albedo texture for a real 3D Japanese garage concrete floor.
+Primary request: a richly detailed hand-painted concrete surface, like a meticulous cinematic painted-pixel illustration. The detail must be carefully authored and crisp before any later pixelation, not low-resolution retro art.
+Composition: perfectly orthographic top-down flat material swatch covering about 3.6 by 3.6 metres, texture fills all four edges, no perspective, no horizon, no objects.
+Material: old smooth poured concrete with many small irregular graphite chips, worn beige-gray aggregate islands, broken angular brush strokes, sparse thin hairline cracks, muted violet-gray repairs and tiny rust-brown traces. Rich multiscale variation: broad quiet masses with clusters of sharp small paint marks and fractured edges. Avoid uniform photographic asphalt grit. Worn natural concrete, not stone paving and not a decorative tile pattern.
+Style: highly detailed painterly industrial material, crisp irregular polygonal pigment marks, subtle dry-brush edges, deliberate pixel-paint sensibility without a visible pixel grid, without blur, without canvas-weave texture.
+Palette: predominantly neutral medium gray and desaturated warm gray, modest graphite and beige value contrast, very restrained cool violet-gray and brown accents. No dominant orange, pink or blue.
+Lighting: uniform neutral diffuse lighting across the entire swatch. Pure intrinsic material color. NO baked sunlight, NO cast shadows, NO bright light pool, NO specular highlights, NO reflections, NO puddles.
+Constraints: no cars, no people, no tools, no text, no border, no vignette, no large central motif. Distribute detail naturally across the full square. Opposing edges should repeat seamlessly. 2048x2048 if available.

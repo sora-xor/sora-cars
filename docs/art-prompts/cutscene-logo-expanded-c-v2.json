@@ -1,0 +1,1517 @@
+{
+  "schema": "sora-cars.art-generation-provenance.v1",
+  "createdAt": "2026-09-26T02:25:52.924Z",
+  "tool": "built-in image_gen",
+  "reviewer": "/root/expanded_logo_audit_c",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "assets": [
+    {
+      "id": "ch10-victory-cut05",
+      "source": "public/assets/story/scenes/ch10-victory-cut05.png",
+      "output": "public/assets/story/scenes/ch10-victory-cut05-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "85c111fb49ecac2307db3913f1f69ae6aff4067cfda2ce7c91de82c5a147752e",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "prompt": "Use case: precise-object-edit. Edit target is image 1, exact SORA emblem reference is image 2. Make ONLY a localized emblem correction to the original scene. Replace the malformed red-disk emblem on the upper-right wall banner with the exact reference emblem, keeping its current size and position. Also correct the audience blue-jacket back emblem when legible. Copy the exact reference silhouette as a physical printed or stitched mark: red disk with TWO equal-width straight white horizontal bars joined by a central white stem, then TWO long straight white diagonal channels that OPEN THROUGH the lower red disk edge, separating the bottom red wedge. Do not substitute a font glyph; do not leave a thick red rim enclosing the white legs. Match the scene's pixel texture and perspective but keep the reference geometry clearly legible. Preserve EVERY person, face, pose, garment, prop, car, printed document, background, lighting, camera crop and opaque dark bottom dialogue band exactly. No extra text or props. Output the same wide scene, not a logo sheet.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-a8a890c7-0fe6-4f49-84c2-3064c12c54cb.png",
+      "generatedSha256": "09eace7d371c4deb4e68d2590b9647979820a89de4552f5b4146fc723010bc09",
+      "sourceCurrentHash": "85c111fb49ecac2307db3913f1f69ae6aff4067cfda2ce7c91de82c5a147752e",
+      "sourceStable": true,
+      "outputSha256": "09eace7d371c4deb4e68d2590b9647979820a89de4552f5b4146fc723010bc09",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:30:58.124Z",
+        "detail": "original",
+        "observation": "Upper-right banner now has clearly open straight white diagonal channels through the red disk edge; paired bars and stem correct. All scene subjects and dark bottom band retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch10-victory-cut06",
+      "source": "public/assets/story/scenes/ch10-victory-cut06.png",
+      "output": "public/assets/story/scenes/ch10-victory-cut06-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "1b34dc8f331e0e55ccbad964326f67b283c7d609fbc2ece5d7fd843baf0c1cb0",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "prompt": "Use case: precise-object-edit. Edit target is image 1, exact SORA emblem reference is image 2. Make ONLY a localized emblem correction to the original scene. Replace the large malformed red-disk emblem on the foreground woman's back/shoulder at right with the exact reference emblem, keeping the disk's size and position. It must be clearly legible above the bottom dialogue band. Copy the exact reference silhouette as a physical printed or stitched mark: red disk with TWO equal-width straight white horizontal bars joined by a central white stem, then TWO long straight white diagonal channels that OPEN THROUGH the lower red disk edge, separating the bottom red wedge. Do not substitute a font glyph; do not leave a thick red rim enclosing the white legs. Match the scene's pixel texture and perspective but keep the reference geometry clearly legible. Preserve EVERY person, face, pose, garment, prop, car, printed document, background, lighting, camera crop and opaque dark bottom dialogue band exactly. No extra text or props. Output the same wide scene, not a logo sheet.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-b783b90e-f7a9-4c99-85ce-da79d8201acb.png",
+      "generatedSha256": "83a45cb75782b73ca5e4bbc20fbadbf876af7b20d6abe1cfbf8d3f7e8d4cc4d9",
+      "sourceCurrentHash": "1b34dc8f331e0e55ccbad964326f67b283c7d609fbc2ece5d7fd843baf0c1cb0",
+      "sourceStable": true,
+      "outputSha256": "83a45cb75782b73ca5e4bbc20fbadbf876af7b20d6abe1cfbf8d3f7e8d4cc4d9",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:30:58.766Z",
+        "detail": "original",
+        "observation": "Large foreground shoulder emblem preserves reference paired bars, central stem and long open lower diagonal channels. Document, faces, map, audience and framing retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch10-victory-cut07",
+      "source": "public/assets/story/scenes/ch10-victory-cut07.png",
+      "output": "public/assets/story/scenes/ch10-victory-cut07-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "85980ba97ae65c0d1f252416ad009ecc5bae461aacacf21ac5442061884824fe",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Correct ONLY the emblem on the left white car door. Enlarge that physical decal modestly to about100pixels high so its shape can read clearly. Critically extend BOTH diagonal white channels completely through the red disk's lower edge; the prior generic closed-legged mark must be replaced with the reference. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-9afd46da-1549-4769-92c7-5a612151e3c2.png",
+      "generatedSha256": "fc5909eb62a94cf8a3f691535e38ad7aef595c2c553af5c24fa4cbd835319ea8",
+      "sourceCurrentHash": "85980ba97ae65c0d1f252416ad009ecc5bae461aacacf21ac5442061884824fe",
+      "sourceStable": true,
+      "outputSha256": "fc5909eb62a94cf8a3f691535e38ad7aef595c2c553af5c24fa4cbd835319ea8",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "attempts": [
+        {
+          "id": "ch10-victory-cut07",
+          "source": "public/assets/story/scenes/ch10-victory-cut07.png",
+          "output": "public/assets/story/scenes/ch10-victory-cut07-logo-v2.png",
+          "status": "rejected-geometry",
+          "sourceSha256": "85980ba97ae65c0d1f252416ad009ecc5bae461aacacf21ac5442061884824fe",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0
+          },
+          "prompt": "Use case: precise-object-edit. Edit target is image 1, exact SORA emblem reference is image 2. Make ONLY a localized emblem correction to the original scene. Replace the malformed red-disk emblem on the left white race car's door, between its rear wheel and door seam, with the exact reference emblem at the same position, slightly larger only if needed for legibility. Also correct the nearby visible crew back emblem. Copy the exact reference silhouette as a physical printed or stitched mark: red disk with TWO equal-width straight white horizontal bars joined by a central white stem, then TWO long straight white diagonal channels that OPEN THROUGH the lower red disk edge, separating the bottom red wedge. Do not substitute a font glyph; do not leave a thick red rim enclosing the white legs. Match the scene's pixel texture and perspective but keep the reference geometry clearly legible. Preserve EVERY person, face, pose, garment, prop, car, printed document, background, lighting, camera crop and opaque dark bottom dialogue band exactly. No extra text or props. Output the same wide scene, not a logo sheet.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-e9d7f1b3-dbe3-46fc-8911-60dc87282128.png",
+          "generatedSha256": "772b87ccf51c5e023427a24e9cb5769c953060f74881f7c9290eec148e179469",
+          "sourceCurrentHash": "85980ba97ae65c0d1f252416ad009ecc5bae461aacacf21ac5442061884824fe",
+          "sourceStable": true,
+          "outputSha256": "772b87ccf51c5e023427a24e9cb5769c953060f74881f7c9290eec148e179469",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": "White car and crew marks still enclose short diagonal legs; retry needed."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:34:31.319Z",
+        "detail": "original",
+        "observation": "Enlarged physical decal on white car now has paired bars, stem and white lower channels through the disk edge; harbor confrontation, all people/cars and bottom band retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut01",
+      "source": "public/assets/story/scenes/ch11-intro-cut01.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut01-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "295c459b36f6cd459885c2146b86888ff75779c2c115bc502be984866630a131",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:29:31.021Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Correct ONLY the large emblem on the foreground red sleeve at upper right, keeping its current placement and patch size. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-9e301cc9-50e6-444a-a66c-0dc7083942b8.png",
+      "generatedSha256": "6d8caf2303c3abcc90cd22ff3b3cd4d3b8e48644e2efcc9f85b1871cbd90ee51",
+      "sourceCurrentHash": "295c459b36f6cd459885c2146b86888ff75779c2c115bc502be984866630a131",
+      "sourceStable": true,
+      "outputSha256": "6d8caf2303c3abcc90cd22ff3b3cd4d3b8e48644e2efcc9f85b1871cbd90ee51",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:34:33.047Z",
+        "detail": "original",
+        "observation": "Foreground red sleeve mark now has exact paired bars and open diagonal channels through lower disk edge, bounded by thin stitched outline. Map binder, fingers, printed records and framing retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut02",
+      "source": "public/assets/story/scenes/ch11-intro-cut02.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut02-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "1c484e4b994f75804396f1a60960f3ff62692cf68c53861abd3a03cb2385d04c",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:37:53.813Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Add ONE clearly legible red disk embroidered SORA patch, approximately100pixels in diameter, to the woman's visible upper blue sleeve at left-of-center. Reproduce the second reference image exactly on the patch. It must have open diagonal channels, unlike the generic car mark behind her. Keep her clothing shape, hands, printed car document and face unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7672ff76-d843-4d43-adf5-0a7b8399233f.png",
+      "generatedSha256": "de6261655706ac1f90bec1615ae5970697a48f1050559130e40229a840c1d6ea",
+      "sourceCurrentHash": "1c484e4b994f75804396f1a60960f3ff62692cf68c53861abd3a03cb2385d04c",
+      "sourceStable": true,
+      "outputSha256": "de6261655706ac1f90bec1615ae5970697a48f1050559130e40229a840c1d6ea",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "attempts": [
+        {
+          "id": "ch11-intro-cut02",
+          "source": "public/assets/story/scenes/ch11-intro-cut02.png",
+          "output": "public/assets/story/scenes/ch11-intro-cut02-logo-v2.png",
+          "status": "rejected-geometry",
+          "sourceSha256": "1c484e4b994f75804396f1a60960f3ff62692cf68c53861abd3a03cb2385d04c",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T02:29:31.124Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Correct ONLY the large emblem on the white car door at left behind the woman, keeping current physical location and disk size. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-956df745-acc9-4e0e-9aae-0a8a1768f086.png",
+          "generatedSha256": "a4cfe48b08cb549718ede43d79ed0a766f06c5e1dd180474d6da8f278891d27e",
+          "sourceCurrentHash": "1c484e4b994f75804396f1a60960f3ff62692cf68c53861abd3a03cb2385d04c",
+          "sourceStable": true,
+          "outputSha256": "a4cfe48b08cb549718ede43d79ed0a766f06c5e1dd180474d6da8f278891d27e",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": "Car decal still has enclosed generic legs; retry needed."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:54:34.969Z",
+        "detail": "original",
+        "observation": "New physical sleeve patch has paired straight bars and long open diagonal channels to a thin stitched perimeter. Face, documents, desk and framing retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut03",
+      "source": "public/assets/story/scenes/ch11-intro-cut03.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut03-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "d2d8b603492bb17cb95cea70d3a278ed2f888a84dc0453a2d3124cd6c0859048",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:34:03.515Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the red emblem on the background white racing suit at center-right with the EXACT reference, keeping the same size and location. Keep the document in the foreground unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-4ad79878-3756-4715-9a7c-12edc6643b70.png",
+      "generatedSha256": "81693bb5ce42db9c71531d80fe482a613ec7a283800a7f013266d0080503536e",
+      "sourceCurrentHash": "d2d8b603492bb17cb95cea70d3a278ed2f888a84dc0453a2d3124cd6c0859048",
+      "sourceStable": true,
+      "outputSha256": "81693bb5ce42db9c71531d80fe482a613ec7a283800a7f013266d0080503536e",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:41:46.682Z",
+        "detail": "original",
+        "observation": "White-suit back mark now shows paired bars and long straight lower channels extending to the small red disk edge. Foreground document, gesture, faces, cars and scene framing retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut04",
+      "source": "public/assets/story/scenes/ch11-intro-cut04.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut04-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "b875a6415e6c01320ba0eb7b2b63a3bb91ce6aee931067ff2bbf13c63c2fc634",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:34:03.674Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the emblem on the photographer's blue upper sleeve at left-of-center with the EXACT reference emblem; its two white diagonal channels must reach through the disk edge. Keep the camera and all signed papers unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7c03028a-acff-44b2-810c-dee2f0721ca6.png",
+      "generatedSha256": "45643991b9747ed8d2f48cfb3417bf2ceecc096f51fb214590bef5dc1cf51b2d",
+      "sourceCurrentHash": "b875a6415e6c01320ba0eb7b2b63a3bb91ce6aee931067ff2bbf13c63c2fc634",
+      "sourceStable": true,
+      "outputSha256": "45643991b9747ed8d2f48cfb3417bf2ceecc096f51fb214590bef5dc1cf51b2d",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:41:47.640Z",
+        "detail": "original",
+        "observation": "Photographer sleeve clearly carries reference paired bars, central stem and open diagonal channels. Camera action and all signed papers remain in place; bottom band retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut05",
+      "source": "public/assets/story/scenes/ch11-intro-cut05.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut05-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "aba7b77f688cc41b12c54ce11a056362f382ff3c3f41101146f6fc3bc5d213cb",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:34:03.801Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Add ONE clear red-and-white SORA emblem decal, approximately110pixels wide, to the exposed dark front panel of the existing cabinet behind the desk at center-left, between the globe and woman's left hand. Use the exact reference geometric emblem, integrated as a physical badge. Do not change or obscure any papers or maps. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-c2fb466e-bb1e-4d47-bd5d-81e5abc429c9.png",
+      "generatedSha256": "3e215c070898d3805a273020025071e90da828292da1d51278440d7194e375ed",
+      "sourceCurrentHash": "aba7b77f688cc41b12c54ce11a056362f382ff3c3f41101146f6fc3bc5d213cb",
+      "sourceStable": true,
+      "outputSha256": "3e215c070898d3805a273020025071e90da828292da1d51278440d7194e375ed",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:41:49.494Z",
+        "detail": "original",
+        "observation": "Existing cabinet panel now carries a physical red-and-white badge with clear paired bars, stem and diagonal channels meeting lower disk edge. Woman, map, album pages and desk composition retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut06",
+      "source": "public/assets/story/scenes/ch11-intro-cut06.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut06-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "764e674ade4ca5adde821e64b5980e8abae839bc3f7422e975c625aaefed347a",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:58:48.165Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the malformed red emblem on the left white car door with the exact reference logo, retaining its physical painted decal location and increasing slightly if necessary for clear shape.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-a703a72b-9905-4691-94c2-362a440e3a21.png",
+      "generatedSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "sourceCurrentHash": "764e674ade4ca5adde821e64b5980e8abae839bc3f7422e975c625aaefed347a",
+      "sourceStable": true,
+      "outputSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "outputDimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "attempts": [
+        {
+          "id": "ch11-intro-cut06",
+          "source": "public/assets/story/scenes/ch11-intro-cut06.png",
+          "output": "public/assets/story/scenes/ch11-intro-cut06-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "764e674ade4ca5adde821e64b5980e8abae839bc3f7422e975c625aaefed347a",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T02:37:54.079Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the large red emblem on the white car door at lower left with the EXACT reference, keeping the same physical size and position. Keep the envelope transfer and both hands exactly unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-5d38d95a-8f5e-4288-a6a4-0f8a01e4edb3.png",
+          "generatedSha256": "99f852ea69f6f9e277ce6142a5e15b0246121395e9205c1706c89d23af745eeb",
+          "sourceCurrentHash": "764e674ade4ca5adde821e64b5980e8abae839bc3f7422e975c625aaefed347a",
+          "sourceStable": true,
+          "outputSha256": "99f852ea69f6f9e277ce6142a5e15b0246121395e9205c1706c89d23af745eeb",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 130,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": "Generated output introduced alpha130..249 into an opaque source; geometry good but must regenerate fully opaque."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:05:48.978Z",
+        "detail": "original",
+        "observation": "Left white car door decal has paired straight bars, connecting stem, and long diagonal channels completely opening through the red disk edge. Sealed envelope exchange, route boards, characters and opaque bottom band preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut07",
+      "source": "public/assets/story/scenes/ch11-intro-cut07.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut07-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "40cdcede8503bd3c499571286ead2746a9391af92dc9482583e35b1b09a4e3e2",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:37:54.376Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the large red emblem on the near white car rear-quarter panel at upper right with the EXACT reference, matching perspective. Keep the tire gauge and both women exactly unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7601beae-a890-4e5d-8d8a-afb69b999199.png",
+      "generatedSha256": "e811c35b8949058d84bb2606d64b3603828131d64a7f9528a58cd91adb0ed5a6",
+      "sourceCurrentHash": "40cdcede8503bd3c499571286ead2746a9391af92dc9482583e35b1b09a4e3e2",
+      "sourceStable": true,
+      "outputSha256": "e811c35b8949058d84bb2606d64b3603828131d64a7f9528a58cd91adb0ed5a6",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:54:40.371Z",
+        "detail": "original",
+        "observation": "Large car quarter-panel emblem clearly shows exact paired bars, stem and open lower diagonal channels in perspective; tire inspection action retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut08",
+      "source": "public/assets/story/scenes/ch11-intro-cut08.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut08-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "ddb48cdd5769162b4b6cdf1f415a4bf9aafcef5c860ce7b253d564df9f9ebcc7",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:41:50.929Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the large red emblem on the white foreground helmet at the right edge with the EXACT reference, preserving its physical location and perspective. Keep the woman's pointing gesture and wall map unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-a3170ff3-584b-45c3-a7bd-d72232f2b7d7.png",
+      "generatedSha256": "68d7e4d1d3288a8b7cfa96003f6f597b7311b179ce5a8a3212b08e9847c85297",
+      "sourceCurrentHash": "ddb48cdd5769162b4b6cdf1f415a4bf9aafcef5c860ce7b253d564df9f9ebcc7",
+      "sourceStable": true,
+      "outputSha256": "68d7e4d1d3288a8b7cfa96003f6f597b7311b179ce5a8a3212b08e9847c85297",
+      "outputDimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T02:54:41.453Z",
+        "detail": "original",
+        "observation": "Foreground white helmet mark now has long white channels opening through red disk edge; map-pointing scene and camera view retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut09",
+      "source": "public/assets/story/scenes/ch11-intro-cut09.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut09-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "5f46beccdbdc4a25a8c83585adad19588d47c1c9a70b6f7b58e64ddd6368546f",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:58:48.237Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large red emblem on the foreground white racing jacket BACK with the exact reference. Scale it about 20 percent larger so the open diagonal channels can be accurately rendered.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-f96da168-00ad-41ef-94cd-7dbf41c4782e.png",
+      "generatedSha256": "aed70cc723aad59d3e1e9da55ad2fdda791580c6e1dd9531e55aee013d886994",
+      "sourceCurrentHash": "5f46beccdbdc4a25a8c83585adad19588d47c1c9a70b6f7b58e64ddd6368546f",
+      "sourceStable": true,
+      "outputSha256": "aed70cc723aad59d3e1e9da55ad2fdda791580c6e1dd9531e55aee013d886994",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "attempts": [
+        {
+          "id": "ch11-intro-cut09",
+          "source": "public/assets/story/scenes/ch11-intro-cut09.png",
+          "output": "public/assets/story/scenes/ch11-intro-cut09-logo-v2.png",
+          "status": "rejected-geometry",
+          "sourceSha256": "5f46beccdbdc4a25a8c83585adad19588d47c1c9a70b6f7b58e64ddd6368546f",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T02:41:51.163Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Replace ONLY the large emblem on the white racing suit's back near center-right with the EXACT reference at its existing location and size. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-1c5de417-6e1d-487d-81cf-9dcd34eae640.png",
+          "generatedSha256": "dea8fdebdb5df657b53f10315e0b450e4d18f5923858c006c822b628b87ce259",
+          "sourceCurrentHash": "5f46beccdbdc4a25a8c83585adad19588d47c1c9a70b6f7b58e64ddd6368546f",
+          "sourceStable": true,
+          "outputSha256": "dea8fdebdb5df657b53f10315e0b450e4d18f5923858c006c822b628b87ce259",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": "Back emblem still has closed short white legs; geometry needs another edit."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:05:49.835Z",
+        "detail": "original",
+        "observation": "Large foreground white jacket back print clearly has paired bars, stem and straight diagonal channels open to the disk edge, separating the bottom wedge. Recording desk, helmet, people and framing preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-intro-cut10",
+      "source": "public/assets/story/scenes/ch11-intro-cut10.png",
+      "output": "public/assets/story/scenes/ch11-intro-cut10-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "e18aaf3b25a175424d445e4d8aa031c314e441be29388a853203651d8be3ab6b",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T02:58:48.320Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Add a large 150-pixel diameter exact reference emblem embroidered on the BACK of the foreground central dark-uniformed flag official, well above the bottom quarter. His existing back is blank; leave his body and flag in exactly the same pose.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-c3fb5bdc-19d5-44a8-aff7-2abbf30cb74e.png",
+      "generatedSha256": "0baf9d3b18b094b913fa9871ca194d1117ba5b82f1ef0de9bd1f6d9ceed3ffdd",
+      "sourceCurrentHash": "e18aaf3b25a175424d445e4d8aa031c314e441be29388a853203651d8be3ab6b",
+      "sourceStable": true,
+      "outputSha256": "0baf9d3b18b094b913fa9871ca194d1117ba5b82f1ef0de9bd1f6d9ceed3ffdd",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "attempts": [
+        {
+          "id": "ch11-intro-cut10",
+          "source": "public/assets/story/scenes/ch11-intro-cut10.png",
+          "output": "public/assets/story/scenes/ch11-intro-cut10-logo-v2.png",
+          "status": "rejected-geometry",
+          "sourceSha256": "e18aaf3b25a175424d445e4d8aa031c314e441be29388a853203651d8be3ab6b",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T02:41:51.446Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA logo reference. Add ONE clearly legible red-and-white SORA emblem patch about130pixels wide on the upper back of the dark-clothed foreground race official in the center. Use the exact reference silhouette as a physical embroidered patch. Keep all drivers, cars, flag, harbor and body poses unchanged. Copy the exact geometric silhouette from image 2, never type a font character: a red disk with TWO equal-width straight white bars, a short central white stem and two long straight white diagonal channels OPENING THROUGH the lower edge of the red disk. The lower red wedge is separated from the upper disk by these open white channels, with ZERO red rim across their ends. Match scene light, perspective and pixel texture. Preserve every other scene detail: characters, faces, expressions, poses, props, printed documents, exact camera framing, background and existing opaque dark bottom dialogue band. No cropping, new text, new objects or altered story action.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-d2213146-9208-41c9-93e1-519b711c6947.png",
+          "generatedSha256": "1536ffa8f77a1880c915be8dc9d8c693277d116fa6d5586315fedb73bb928d78",
+          "sourceCurrentHash": "e18aaf3b25a175424d445e4d8aa031c314e441be29388a853203651d8be3ab6b",
+          "sourceStable": true,
+          "outputSha256": "1536ffa8f77a1880c915be8dc9d8c693277d116fa6d5586315fedb73bb928d78",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": "New foreground patch still has closed short white legs; geometry needs another edit."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:05:50.740Z",
+        "detail": "original",
+        "observation": "New physical embroidered emblem on central official back shows paired bars and white diagonal channels reaching the circumference with detached bottom red wedge; stitched pixel texture acceptable. All figures, cars and flag pose preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-victory-cut03",
+      "source": "public/assets/story/scenes/ch11-victory-cut03.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut03-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "e8fd2688e3a88958f727bf36aacd0beb34e78c9b8ee90ac06f69bfa3a50785c7",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:01:36.741Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large red patch on the foreground LEFT white racing sleeve with the exact reference emblem. Keep it large and legible in the same sleeve position. Do not change the woman, her pointing finger, or either printed document.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-56511525-e3b2-44fc-9313-f7efe9948efb.png",
+      "generatedSha256": "a663936523f438fffcb6c0906dbe6005ce90ef0ad2d571c4943e879d11738481",
+      "sourceCurrentHash": "e8fd2688e3a88958f727bf36aacd0beb34e78c9b8ee90ac06f69bfa3a50785c7",
+      "sourceStable": true,
+      "outputSha256": "a663936523f438fffcb6c0906dbe6005ce90ef0ad2d571c4943e879d11738481",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:11:54.664Z",
+        "detail": "original",
+        "observation": "Large foreground left sleeve patch has paired equal bars and open diagonal channels separating the bottom red wedge. Woman, pointing hand and both printed documents retain the original content and framing.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-victory-cut04",
+      "source": "public/assets/story/scenes/ch11-victory-cut04.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut04-logo-v5.png",
+      "editInput": "public/assets/story/scenes/ch11-victory-cut04-logo-v4.png",
+      "editInputSha256": "a93064c8b5b08ac636e9c42a1602141e0dd70c75b16ea9ac54e6f4771630e1f9",
+      "previousAcceptedOutput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+      "previousAcceptedOutputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+      "status": "accepted",
+      "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:32:26.809Z",
+      "prompt": "Precise tiny placement correction only. Image1 exact fully opaque scene; image2 logo reference. Move existing red-white patch on the far-left photographer woman's denim back exactly11pixels LEFT, no vertical movement, no size change. Its present center aroundx374 should become aroundx363, at samey350. Leave camera strap in front if it overlaps. Preserve patch supplied shape and its perspective with projected jacket back. Preserve every other pixel-content item: all faces/poses/characters/camera/crowd/printed documents/bulletin board/harbor windows and framing. Output fully opaque PNG, every pixel alpha255 including solid dark bottom rectangle. Absolutely no transparency, no alpha fade, no cutout, no color/contrast change.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-688eede5-7637-4a83-b5b3-ec4bbb697ef6.png",
+      "generatedSha256": "35a858d486b870f09a8afd0e7d0d1e07a80150739cd2c8c4a7446f1dab946675",
+      "sourceCurrentHash": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+      "sourceStable": true,
+      "outputSha256": "35a858d486b870f09a8afd0e7d0d1e07a80150739cd2c8c4a7446f1dab946675",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "rejection": "v3 changed fully opaque source to alpha54\u2013217; cannot supersede accepted v2.",
+      "attempts": [
+        {
+          "id": "ch11-victory-cut04",
+          "source": "public/assets/story/scenes/ch11-victory-cut04.png",
+          "output": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "status": "superseded",
+          "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:01:37.485Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Add the exact reference emblem as a 90-pixel diameter physical embroidered patch on the upper blue BACK of the woman pinning notices at far left. Keep her camera strap over it if it naturally crosses, but ensure most of the emblem is visible. Do not cover or alter any notices, hands, faces, or other people.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-33406673-eb35-42a0-a266-30d602b410e0.png",
+          "generatedSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "sourceCurrentHash": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceStable": true,
+          "outputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "reviewedAt": "2026-09-26T03:11:55.326Z",
+            "detail": "original",
+            "observation": "Physical patch on left notice-pinning photographer back has paired bars, stem and long straight diagonal channels reaching the disk edge; small scale remains recognizable. All notices, crowd and camera composition preserved.",
+            "hasRecognizableReferenceGeometry": true,
+            "compositionPreserved": true,
+            "alphaPreserved": true
+          },
+          "supersededBy": "public/assets/story/scenes/ch11-victory-cut04-logo-v4.png"
+        },
+        {
+          "id": "ch11-victory-cut04",
+          "source": "public/assets/story/scenes/ch11-victory-cut04.png",
+          "output": "public/assets/story/scenes/ch11-victory-cut04-logo-v3.png",
+          "editInput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "editInputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "previousAcceptedOutput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "previousAcceptedOutputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "status": "rejected-alpha",
+          "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:06:48.854Z",
+          "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Move the small SORA patch on the left photographer blue-jacket BACK about18pixels LEFT and15pixels UP, to the anatomical middle of her back between shoulder blades. Its vertical axis follows the projected spine down from the center of the rear collar, and its bars follow the garment yoke angle. The camera strap stays on top of the patch if overlapping; do not move strap. Erase the old patch position naturally, with original denim texture. Preserve patch size and red/white reference geometry. No second patch. Every paper notice and person remains exactly positioned.  Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt. Output fully opaque alpha255 PNG like source.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7058af0b-1e38-4e03-8bb5-73c4363af27d.png",
+          "generatedSha256": "4dfe35a824c10f1491966e8b5fb9d6573c8bce23085c3f7cdf46ef327773ff5b",
+          "sourceCurrentHash": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceStable": true,
+          "outputSha256": "4dfe35a824c10f1491966e8b5fb9d6573c8bce23085c3f7cdf46ef327773ff5b",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 54,
+            "max": 217,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "rejection": "v3 changed fully opaque source to alpha54\u2013217; cannot supersede accepted v2."
+        },
+        {
+          "id": "ch11-victory-cut04",
+          "source": "public/assets/story/scenes/ch11-victory-cut04.png",
+          "output": "public/assets/story/scenes/ch11-victory-cut04-logo-v3.png",
+          "editInput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "editInputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "previousAcceptedOutput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "previousAcceptedOutputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "status": "rejected-alpha",
+          "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:06:48.854Z",
+          "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Move the small SORA patch on the left photographer blue-jacket BACK about18pixels LEFT and15pixels UP, to the anatomical middle of her back between shoulder blades. Its vertical axis follows the projected spine down from the center of the rear collar, and its bars follow the garment yoke angle. The camera strap stays on top of the patch if overlapping; do not move strap. Erase the old patch position naturally, with original denim texture. Preserve patch size and red/white reference geometry. No second patch. Every paper notice and person remains exactly positioned.  Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt. Output fully opaque alpha255 PNG like source.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7058af0b-1e38-4e03-8bb5-73c4363af27d.png",
+          "generatedSha256": "4dfe35a824c10f1491966e8b5fb9d6573c8bce23085c3f7cdf46ef327773ff5b",
+          "sourceCurrentHash": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceStable": true,
+          "outputSha256": "4dfe35a824c10f1491966e8b5fb9d6573c8bce23085c3f7cdf46ef327773ff5b",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 54,
+            "max": 217,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "rejection": "v3 changed fully opaque source to alpha54\u2013217; cannot supersede accepted v2."
+        },
+        {
+          "id": "ch11-victory-cut04",
+          "source": "public/assets/story/scenes/ch11-victory-cut04.png",
+          "output": "public/assets/story/scenes/ch11-victory-cut04-logo-v4.png",
+          "editInput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "editInputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "previousAcceptedOutput": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+          "previousAcceptedOutputSha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "status": "accepted",
+          "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:32:26.809Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact opaque cutscene; image 2 is the exact SORA logo reference. ONLY correct placement of the existing red/white logo on the denim jacket back of the woman at far left hanging documents. Move its center roughly 15 pixels left and 13 pixels up, centering it anatomically on her projected spine between her shoulder blades, just below the jacket yoke. Logo axis must follow the projected spine and garment tilt; both bars and disk follow the back surface perspective. Preserve exact supplied reference geometry with two white bars, short stem and straight diagonal channels reaching red disk edge. Leave camera strap in front of jacket if it crosses the moved mark. Preserve every face, character, pose, camera, printed document, bulletin board, crowd, harbor window and original 1672x941 framing exactly. CRITICAL output fully opaque alpha255 PNG. Source pixels are ALL alpha255, including bottom dark navy rectangle which is solid painted image, NOT transparency. Preserve all colors/contrast and the existing opaque dark bottom band. Do NOT make an RGBA fade, cutout, holes or transparent pixels.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-711a2452-faae-4380-b12e-7fde38807c08.png",
+          "generatedSha256": "a93064c8b5b08ac636e9c42a1602141e0dd70c75b16ea9ac54e6f4771630e1f9",
+          "sourceCurrentHash": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+          "sourceStable": true,
+          "outputSha256": "a93064c8b5b08ac636e9c42a1602141e0dd70c75b16ea9ac54e6f4771630e1f9",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "rejection": "v3 changed fully opaque source to alpha54\u2013217; cannot supersede accepted v2.",
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "reviewedAt": "2026-09-26T13:36:03.612Z",
+            "detail": "original",
+            "observation": "Photographer denim back mark moved left/up into the projected upper-spine region beneath yoke, centered on visible back panel between camera strap and side seam. Supplied straight-bar/open-diagonal geometry retained at small patch scale. Crowd, documents, camera and framing preserved; decoded all-pixel alpha255 matches original and edit input.",
+            "hasRecognizableReferenceGeometry": true,
+            "compositionPreserved": true,
+            "alphaPreserved": true,
+            "placementCentered": true
+          },
+          "editInputCurrentHash": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02",
+          "editInputStable": true
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:51:56.173Z",
+        "detail": "original",
+        "observation": "Final small leftward nudge places patch center nearx364\u2013367 below denim back yoke, keeping vertical level and size. Camera strap correctly occludes left edge. Geometry still recognizable; crowd, printed documents, camera and harbor unchanged. All-pixel alpha255 preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "editInputCurrentHash": "a93064c8b5b08ac636e9c42a1602141e0dd70c75b16ea9ac54e6f4771630e1f9",
+      "editInputStable": true,
+      "supersedes": {
+        "path": "public/assets/story/scenes/ch11-victory-cut04-logo-v2.png",
+        "sha256": "2453fb08dbf91fc452848cf4096180533fe19e02dc3405f3eba12d8f2f338a02"
+      }
+    },
+    {
+      "id": "ch11-victory-cut05",
+      "source": "public/assets/story/scenes/ch11-victory-cut05.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut05-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "779595910920c43ca73e2a81446cf110d487d28f7b8551dab248cd098c05f025",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:01:37.980Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Add a 90-pixel diameter physical red-and-white SORA emblem plaque to the existing dark stone wall below the MERIDIAN COUNCIL TOKYO sign, above the books and left of the plant. Preserve the existing sign letters, fax paper, folder and woman exactly.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-39557b57-7071-40ee-89a1-037e2500af1c.png",
+      "generatedSha256": "f132ba0474a762ed78f1e0bb5b88cc423c0f8df16a4e002b065d053e8154d89f",
+      "sourceCurrentHash": "779595910920c43ca73e2a81446cf110d487d28f7b8551dab248cd098c05f025",
+      "sourceStable": true,
+      "outputSha256": "f132ba0474a762ed78f1e0bb5b88cc423c0f8df16a4e002b065d053e8154d89f",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:11:55.878Z",
+        "detail": "original",
+        "observation": "Clear physical wall plaque below existing council sign has paired bars and long open diagonal channels to circumference. Council lettering, fax paper, held report, folder and character pose unchanged.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-victory-cut06",
+      "source": "public/assets/story/scenes/ch11-victory-cut06.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut06-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "122ff52fc8f74414959e19e31906fbae4fe436a559ef0f584167a92db3962fda",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:07:15.963Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the red-and-white circular logo on the far LEFT van rear door panel with the exact reference emblem, maintaining the same placement. Keep it clearly readable above the bottom quarter. Preserve the original paper-sorting women, all diagrams, camera and envelope.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-ef3e0bdb-1433-4663-88a5-a6fbb133d3ad.png",
+      "generatedSha256": "0dcd1cb4cdfab8868015069baf8bd1850a3150337c65a0cd08c35bf4b0e2963f",
+      "sourceCurrentHash": "122ff52fc8f74414959e19e31906fbae4fe436a559ef0f584167a92db3962fda",
+      "sourceStable": true,
+      "outputSha256": "0dcd1cb4cdfab8868015069baf8bd1850a3150337c65a0cd08c35bf4b0e2963f",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:18:29.054Z",
+        "detail": "original",
+        "observation": "Far-left physical van panel badge has paired straight bars and long white diagonals running to the colored disk edge, with a thin existing outlined badge border acceptable under audit guidance. Both women and all paper diagrams and envelopes retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-victory-cut07",
+      "source": "public/assets/story/scenes/ch11-victory-cut07.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut07-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "84e2cfabc42dc215eb5ed501053a6fdcccd15e4e8bde4408adfb1457f23250f2",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:07:16.210Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large red patch on the foreground RIGHT black racing sleeve of the bowing driver with the exact reference emblem. Increase its diameter about 20 percent if needed. Do not change his face or pose, the mechanics, papers or vehicle markings.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7fd60e52-1c48-488e-bd7f-6612740b01d4.png",
+      "generatedSha256": "7330eacb28f8aeb2fab2b802fbf9aa6b1d1d8fef6d8e58d09090a20aee8c9a40",
+      "sourceCurrentHash": "84e2cfabc42dc215eb5ed501053a6fdcccd15e4e8bde4408adfb1457f23250f2",
+      "sourceStable": true,
+      "outputSha256": "7330eacb28f8aeb2fab2b802fbf9aa6b1d1d8fef6d8e58d09090a20aee8c9a40",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:18:32.339Z",
+        "detail": "original",
+        "observation": "Foreground black driver sleeve patch has paired bars and straight open white channels to red disk circumference. Bowing pose, mechanics, documents, car numbers and SORA lettering retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch11-victory-cut08",
+      "source": "public/assets/story/scenes/ch11-victory-cut08.png",
+      "output": "public/assets/story/scenes/ch11-victory-cut08-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "279fb94982b786dfa40f44d5ba655a5bb81821e3224f3200a98271bc66eda6ea",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:07:16.380Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the circular red patch on the foreground LEFT white denim upper sleeve with the exact reference emblem, increasing it slightly for legibility. Also correct the red logo on the far right tape machine sticker using the same exact reference. Keep every audio machine, paper, microphone, and the smiling man unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-d0902786-490f-4dba-90b9-4598e4804caf.png",
+      "generatedSha256": "6d0f3024cf2056393c683a03f61bb9091e07e7a9958649ff6f34d1fab662d98d",
+      "sourceCurrentHash": "279fb94982b786dfa40f44d5ba655a5bb81821e3224f3200a98271bc66eda6ea",
+      "sourceStable": true,
+      "outputSha256": "6d0f3024cf2056393c683a03f61bb9091e07e7a9958649ff6f34d1fab662d98d",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:18:34.914Z",
+        "detail": "original",
+        "observation": "Left white denim sleeve badge shows paired straight bars and long diagonals reaching colored edge; only thin badge edge texture remains. Audio equipment, handwritten sheets, gesture and room preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch12-intro-cut05",
+      "source": "public/assets/story/scenes/ch12-intro-cut05.png",
+      "output": "public/assets/story/scenes/ch12-intro-cut05-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "0983cddf060ffc5450070df0ed77ea291e619ea454eb03a331bb3cac6797b258",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:11:56.859Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the circular red logo above the SORA word on the far RIGHT black photographic machine front with the exact reference emblem. Preserve SORA lettering. Keep both women, every photograph including the held portrait, open album, camera and mug exactly unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-9b4718d3-d8c6-4c49-bde2-fbf5c64730e7.png",
+      "generatedSha256": "5ad7f68c2f7a62810ae05d2e1d85932964dc058d4d34f468827caf19a105273d",
+      "sourceCurrentHash": "0983cddf060ffc5450070df0ed77ea291e619ea454eb03a331bb3cac6797b258",
+      "sourceStable": true,
+      "outputSha256": "5ad7f68c2f7a62810ae05d2e1d85932964dc058d4d34f468827caf19a105273d",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:26:32.484Z",
+        "detail": "original",
+        "observation": "Far-right photo machine emblem above SORA has equal bars and long straight diagonal channels to the red circumference. Held portrait, open album, all scene photographs and two women preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch12-intro-cut06",
+      "source": "public/assets/story/scenes/ch12-intro-cut06.png",
+      "output": "public/assets/story/scenes/ch12-intro-cut06-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "e2085088c0b910000bf430bd62c5f3bba9d8fc2c082ec524e3e203d832b31b1b",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:11:57.061Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Add a clear 85-pixel diameter exact reference emblem as a physical embroidered patch on the upper arm of the far RIGHT blue-uniformed instructor, above his bent elbow on the visible right side of the image. Keep his clipboard, hands, all faces and poses, blue car and original school signs unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-f6ed1ae6-55d8-40fe-a7df-ec5a3c1a2087.png",
+      "generatedSha256": "ff734f92570455242813fc708387e06ce0c0b5a30e2e8867e331ecb175d6e5eb",
+      "sourceCurrentHash": "e2085088c0b910000bf430bd62c5f3bba9d8fc2c082ec524e3e203d832b31b1b",
+      "sourceStable": true,
+      "outputSha256": "ff734f92570455242813fc708387e06ce0c0b5a30e2e8867e331ecb175d6e5eb",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:26:33.272Z",
+        "detail": "original",
+        "observation": "New right instructor sleeve patch has paired bars and open diagonal channels, with a thin stitched border. All three people, clipboards, steering action and driving school signs preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch12-intro-cut12",
+      "source": "public/assets/story/scenes/ch12-intro-cut12.png",
+      "output": "public/assets/story/scenes/ch12-intro-cut12-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "2b443a82c20d8f1f983ab841815c4a844932e0f5bf58b9dd6cedb6c097fb2262",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:11:57.275Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the red circle logo on the foreground RIGHT white-jacketed man chest above SORA lettering with the exact reference emblem, enlarging slightly for clarity. Keep the word SORA unchanged. Preserve the exact photograph of the roof/pipe and all hands, faces, expressions and other story details.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-40b483cc-a8ef-45aa-bae2-7f37b86d2b13.png",
+      "generatedSha256": "e88275a456b20ab7e783ff0f5951cbcfa113cf2384d4cd507761ed8579721842",
+      "sourceCurrentHash": "2b443a82c20d8f1f983ab841815c4a844932e0f5bf58b9dd6cedb6c097fb2262",
+      "sourceStable": true,
+      "outputSha256": "e88275a456b20ab7e783ff0f5951cbcfa113cf2384d4cd507761ed8579721842",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:26:33.969Z",
+        "detail": "original",
+        "observation": "Right white jacket chest emblem has paired straight bars and fully open diagonal channels. Photograph, pointing fingers, expressions and lakeside composition retained; SORA word retained with darker lettering.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    },
+    {
+      "id": "ch12-victory-cut02",
+      "source": "public/assets/story/scenes/ch12-victory-cut02.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut02-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:29:50.569Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Completely replace ONLY the old small red logo on the right white helmet with a larger 90-pixel diameter exact SORA reference decal. Position it above the helmet rim. It must have open-ended long diagonal channels exactly like image 2. Remove the old logo first; do not preserve any original short curved legs or enclosed circle at the diagonal ends. Make the entire logo shape clearly readable.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-b8c33d02-8963-42b1-bfc9-fa40bb28f2ef.png",
+      "generatedSha256": "7b45b25268a8c7de0eb8c175487b759380281ed1e2ec6c06405d8f8dff80bedb",
+      "sourceCurrentHash": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+      "sourceStable": true,
+      "outputSha256": "7b45b25268a8c7de0eb8c175487b759380281ed1e2ec6c06405d8f8dff80bedb",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:34:50.390Z",
+        "detail": "original",
+        "observation": "Right white helmet decal now has long straight diagonal channels opening fully through the red circumference with detached bottom wedge, paired bars and central stem. People, bread, drink, gloves and scene composition preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      },
+      "attempts": [
+        {
+          "id": "ch12-victory-cut02",
+          "source": "public/assets/story/scenes/ch12-victory-cut02.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut02-logo-v2.png",
+          "status": "rejected-logo",
+          "sourceSha256": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:18:39.053Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the red circle logo on the foreground RIGHT white helmet resting on the car hood with the exact reference emblem, enlarge it by about 15 percent for clarity. Also correct the reverse-color logo on the large upper LEFT red tent canopy using the same geometry in red cutout on white disk. Keep people, bread, drinks, hands, helmet shape and scene framing unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-eec1bed0-0dfb-40e2-a6c3-3110fa43b40c.png",
+          "generatedSha256": "f31be5b907ce8fe13404bb32981eb5d41cccaf3e3cafeaff3e7161d0acb54716",
+          "sourceCurrentHash": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+          "sourceStable": true,
+          "outputSha256": "f31be5b907ce8fe13404bb32981eb5d41cccaf3e3cafeaff3e7161d0acb54716",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "hasRecognizableReferenceGeometry": false,
+            "observation": "Helmet and tent logo lower channels remain enclosed by a broad colored rim."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch12-victory-cut03",
+      "source": "public/assets/story/scenes/ch12-victory-cut03.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut03-logo-v2.png",
+      "status": "accepted",
+      "sourceSha256": "c09e48c1f136f01e147974870326e023f1961addbd0fad023c03b9b692a69546",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T03:18:40.913Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the big round red patch on the foreground LEFT yellow upper sleeve with the exact reference emblem, retaining its physical stitched patch appearance and preserving only a thin outer seam. Keep every printed plan/blueprint, all letters, paper symbols, hands, face, machinery and composition unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-2e8bb2a3-a1a2-4d28-83a2-6f6ba6abe0f8.png",
+      "generatedSha256": "83a7822356c493399e6c3ea96f3298260154e830f8f793c09139584881f9ac38",
+      "sourceCurrentHash": "c09e48c1f136f01e147974870326e023f1961addbd0fad023c03b9b692a69546",
+      "sourceStable": true,
+      "outputSha256": "83a7822356c493399e6c3ea96f3298260154e830f8f793c09139584881f9ac38",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T03:28:46.207Z",
+        "detail": "original",
+        "observation": "Foreground yellow sleeve patch shows straight equal bars and diagonal white channels reaching the red disk edge, with only thin external stitching. All printed diagrams, letter, envelope, machinery and character pose preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true
+      }
+    }
+  ],
+  "updatedAt": "2026-09-26T03:34:50.397Z"
+}

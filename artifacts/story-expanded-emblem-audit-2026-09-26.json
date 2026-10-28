@@ -1,0 +1,3440 @@
+{
+  "schema": "sora-cars.expanded-story-emblem-audit.v1",
+  "checkedAt": "2026-10-23T13:37:55.733826+00:00",
+  "passed": true,
+  "scope": "Only individually reviewed hash-matching files listed here; incremental coverage, not a claim that all story art is finished.",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "evidence": [
+    {
+      "path": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "sha256": "a9529d6a6b6a4a6f99b8687b4401f06d63cab90650d33cdbbb4ce4c919d89966"
+    },
+    {
+      "path": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "sha256": "b4a3df37bcc4e5665195e795c7201bf4733fe2802de4951135a626142b92ec93"
+    },
+    {
+      "path": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "sha256": "3f52a90d558eecaee69056c5b57904329abdae34cb0e43fab150703369b0a9b1"
+    },
+    {
+      "path": "tmp/music-native-release/art-scope-review/expanded-cuts-root-audit.json",
+      "sha256": "4df90f57122cd1e9fb65cae88ba79773313ae6325cc10c210e62d9293224bfc1"
+    },
+    {
+      "path": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "sha256": "0f7facc7ed0f7149149c4a93c4e4f55f36f32a15f612ef11f00c9d5ca0fde2f4"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "sha256": "9bb796b1512cd34cedd6ed976277e41c1899fab73f3e52402d0701c9e152aad4"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "sha256": "ad5da320afccf288aeb9c991b7b2e70886868bac225cbfc3943c8058e6717a02"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "sha256": "350bdc507487e820ab6d90f2a206c8013a20b2b14e2be49f70c89dc22584779b"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "sha256": "dc9043a9fd680cc48dec9c16c3ecd337e3f2529f90099d4982c42c8ab36ba78d"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "sha256": "d74ea0060571106f351421a0ef6cd9d8d4517b052fab024c4464bb4b853b7075"
+    },
+    {
+      "path": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "sha256": "090561d3d39a92ce38a8b4479ee2c5020b443a08f3ca364fe0c33c6b8d7b5360"
+    },
+    {
+      "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823"
+    },
+    {
+      "path": "docs/art-prompts/logo-placement-oct23-a.json",
+      "sha256": "d04b59f938f8e264ca52414f7890e7f14c3b718693a94e62e8fe356128bae23c"
+    },
+    {
+      "path": "docs/art-prompts/logo-placement-oct23-b.json",
+      "sha256": "c207bba89ee3efa18f3ba761521b5f45cf7526f4c360acd78a20c4be92f079b8"
+    }
+  ],
+  "rootReviews": {
+    "path": "tmp/music-native-release/expanded-logo-root-reviews.json",
+    "sha256": "f203ca19c1f75d4733613af9620547a2286f9d20917af0e52b28de6966957f14"
+  },
+  "files": [
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut07.png",
+      "sha256": "a220f08d6ed9183e9df9e67cc20782706f5c9dc29e3331ee6592a7b7957081c2",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Small outlined toolbox badge preserves paired bars and central stem with straight diagonal channels reaching the lower circular boundary; thin circular badge outline remains permissible.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut09.png",
+      "sha256": "a4b3044da7e2765aa4291029e6544d1cd7ba72633d41d02c1d7a915fc9db3828",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Large CRT-side badge has paired straight bars, central stem, and long straight lower channels meeting the lower diagonal circumference under slight perspective; smaller tool-cabinet badge is less exact.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut10.png",
+      "sha256": "fa37a87b2af247e4093b8b7a9d619c16ebe9a1b2d3191f2add5eb48fcf409a14",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Equipment badge has straight paired bars joined by a stem and long straight diagonal channels reaching its lower circumference; a thin perimeter remains within the allowed scene rendering.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut11.png",
+      "sha256": "f99b3d13cb563ee2ea3ef60b34b9580c929444ceef44559cf29913dd40c407ae",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Upper-right wall plaque preserves straight paired bars, stem, and long diagonal lower channels meeting the disk boundary in pixel texture. The foreground equipment mark has shorter legs but the wall plaque supplies the recognizable reference geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut15.png",
+      "sha256": "198d9a7533f2a0a493c055d59f8dc1f33f2d87e585dd291016dd5dc5c55b1f99",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Foreground mug badge has paired straight bars and connected stem, with long lower diagonal channels reaching the disk circumference in the small pixel rendition; background helmet mark is less exact.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut02.png",
+      "sha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Foreground equipment-case badge preserves paired bars, a central stem, and long lower diagonal channels reaching the oval disk circumference under perspective. Background tool-cabinet mark is shorter.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut05.png",
+      "sha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_a",
+      "observation": "Envelope emblem has paired straight bars and a connected stem with long straight lower diagonal channels reaching the red disk boundary; small filing-cabinet mark is less exact.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-1-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut05.png",
+      "sha256": "58a856f585ff3f80d21684842a5698109152acd1fb86e14dfc8727e036fc0730",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "Mug clearly carries paired straight bars and center stem with diagonal white channels opening at the red disk edge; pixel texture and mug perspective retain recognizable supplied geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut07.png",
+      "sha256": "880810d0dfe745e9b5c13d03ccd404ef522d5f6f28534fe417c267fb7faad749",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "Banner has paired straight bars, central stem and long diagonal channels reaching the thin light circular outline. Perspective and the outline preserve recognizable reference geometry; small secondary patches are less exact.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut07.png",
+      "sha256": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "The large poster has paired straight bars and center stem, with long diagonal channels extending to the red disk edge. Scene perspective and pixel edging retain the reference geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut01.png",
+      "sha256": "673918bb088b1fe8a94d3acc3862c3854ac4fc17a3c739ccce8e3407bd40beaf",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "The prominent sleeve badge has equal straight bars, central stem and long diagonal white channels extending to a thin pixel badge edge. Perspective and fabric texture preserve recognizable reference geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut08.png",
+      "sha256": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "Wall sign clearly contains paired straight white bars, center stem and two long diagonal channels reaching through the lower edge of the red disk, leaving the separated lower red wedge.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-victory-cut05.png",
+      "sha256": "ebdf84797f19b810e7346b16d1cf4544880bff87e5b5963b7e60de173ae82b0f",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "Large poster has the paired bars, central stem and open white diagonal channels that divide the red disk's lower sector into the reference's three parts. Secondary clothing/mug marks are less exact.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut05.png",
+      "sha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "Sign has paired straight white bars, center stem and long open diagonal channels meeting a thin circular outline. That thin outline is consistent with a physical sign and does not obscure the supplied geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut08.png",
+      "sha256": "5973b8833562347f74e143c04bc3571f86f775c29ef899fe2a7f751c034966a9",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "The large sign's paired bars and white diagonal channels visibly cut to the red disk's lower edge. Perspective and pixel steps preserve the reference mark.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut09.png",
+      "sha256": "517576a9bdd43bf7e3f8ae7cb46777637b6d3e319d91e7538fcd37c583f62427",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_b",
+      "observation": "The prominent back emblem shows paired straight white bars, center stem and long diagonal channels reaching through the lower disk edge, leaving the separate lower red wedge. Fabric folds and pixel texture are compatible.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-2-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut02.png",
+      "sha256": "2c3881412d0a0f4187d9662e9998bf03a3e18e01d54c30186fc9610bc0acf196",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Sleeve patch shows paired bars and central stem with long straight white diagonal channels meeting the lower perimeter beneath a thin stitched badge outline; scene perspective and pixel texture are acceptable. Other marks remain stylized.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut09.png",
+      "sha256": "79d5d4b104946c10b8548f4fca965769b9cca46e395ad59138d00951093e4484",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Large shoulder patch shows paired straight bars, stem and long straight diagonals reaching the disk perimeter beneath thin badge outline. Upper-left wall panel also preserves the geometry in inverted colors.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut02.png",
+      "sha256": "3bf711a5bef55dbfa0f26032105189b8c52f150f6648e3a0194dffd021b9f039",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Car door emblem clearly preserves paired bars and straight lower channels open to disk edge; jacket patch repeats recognizable geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut03.png",
+      "sha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Banner shows open-channel reference geometry in inverted colors; car and mugs have recognizable bars and long diagonal channels.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut04.png",
+      "sha256": "94b5c929db227d4009b08d8d5e60b0f3f6e4373d071759b8383e59df500dcc81",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Banner has recognizable paired bars, stem and lower diagonal channels reaching the disk edge in inverted colors (red glyph on pale disk). Foreground shoulder patch is malformed and does not itself qualify.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut07.png",
+      "sha256": "31fe92b413a3273a36a8da236fa599edde948afb29b589e52f65e8a8332a893e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Large red disk on synthesizer and sleeve have paired bars, stem and long lower diagonal channels meeting the disk edge. Additional wall marks support the geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut08.png",
+      "sha256": "cd90e861ecb0a64eeeac1a20a29c43bf22649fb285d56ebb0dae39060be37562",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Sleeve patch has long straight channels reaching the red disk perimeter with paired bars and stem; rear sign repeats open geometry with inverted colors.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut09.png",
+      "sha256": "2bb4a2fd374e05c5b14e7e7aaae70d21a8995327b97500ef89453015a42d605d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Wall sign preserves paired bars, central stem and straight lower channels through the disk edge in inverted colors. Foreground shoulder mark has shortened legs and does not itself qualify.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut10.png",
+      "sha256": "0063180f29b7ef00e28c172b24a4b4c290cddabaa1108bc61627fe5465616b69",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Large banner and headphone badge preserve open-channel geometry in inverted colors; microphone red disk has recognizable paired bars and long diagonal channels.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut11.png",
+      "sha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "/root/expanded_logo_audit_c",
+      "observation": "Large perspective emblem has paired bars, central stem and both straight diagonal white channels reaching the disk perimeter; several small clothing marks are stylized.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-3-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut09.png",
+      "sha256": "4ef44516da9bc27b707f4b60af17a399673cd1a21baffe8abb904b9a91c8c878",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Small straight-bar emblem has long straight diagonal channels reaching the lower disk edge; thin badge outline is tolerated.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-root-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut10.png",
+      "sha256": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Paired white bars and straight white diagonal channels reach the red disk edge; cloth perspective and pixel texture preserved.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-root-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut05.png",
+      "sha256": "a5522b55b4fb7d0a067d35bc189a664056f2c28d4766563c77698454cd734808",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Clear paired bars/stem and white lower channels separate the red disk at both lower edges. Smaller jacket mark differs, but wall sign qualifies.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-root-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut06.png",
+      "sha256": "1d909a31eb9104a6035f63a12432afc5900885694042597f03a51d31b475bcda",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Straight paired bars and long open lower channels follow curved jacket perspective; complete upper-back emblem is above dialogue region.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-root-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut04.png",
+      "sha256": "f3ced76dce75922d99d97cf81f6e608eee336f1faa7b68d4ee07d52e3a1451f7",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Red coverall waist patch has straight paired bars, central stem and long diagonal channels reaching the edge; thin outline allowed.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut05.png",
+      "sha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Yellow jacket sleeve has geometric reference emblem with long open diagonals; binder mark also visible.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut06.png",
+      "sha256": "c7da20b74507e712b09941b03ba139e0a857454a9c2dd739fd03caa1709aa813",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Black binder foreground carries perspective-matched red disk with straight white bars and open lower channels.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut10.png",
+      "sha256": "a7787ab63c39d824c45d5127c96fdeff8330b36ffc9cb9ca5c95c70dfee19c9e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Photographer denim sleeve and model garage have straight bars and long open diagonals matching the reference geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut11.png",
+      "sha256": "eec342b532e47937e63cb57c20fe67f51004ca63268a80d8487eb67a44a7a215",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large mechanic sleeve patch has straight equal bars, stem and diagonal channels opening through disk edge; ledger mark also visible.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut12.png",
+      "sha256": "22ee9848eb9cb4eb0966cfd9962fc97a49a9125703c4589956bee6625dd93269",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Yellow sleeve patch has straight bars and long diagonal channels meeting the thin patch edge, recognizable reference geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut14.png",
+      "sha256": "706c420d3d171106a304d83b5e7d7c4402c7bbe58328b6be10c47e6a0f5cb0ce",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large rear banner reverses the reference colors while retaining equal bars, central stem and open diagonal geometry.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut11.png",
+      "sha256": "1f80f6f9af6f75d7a0097264c5b449363a9edeaa78bfb77dd2e5605f466fbac1",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large foreground photographer back patch has long straight diagonal channels opening through red disk edge.",
+      "sourceAudit": "tmp/music-native-release/art-scope-review/expanded-cuts-final-audit.json",
+      "kind": "existing-correct-art",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut06-logo-v2.png",
+      "sha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mechanic shoulder has clear geometric emblem; photos and garage setting preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut07-logo-v2.png",
+      "sha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream jacket chest patch has straight bars and open diagonals; cassette offering retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut08-logo-v2.png",
+      "sha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large cream jacket back patch has straight bars/stem/open channels; dusk departure composition retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut03-logo-v2.png",
+      "sha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered upper sleeve badge follows cloth tilt; logo geometry clear; original gesture/car scene and lower fade retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut04-logo-v2.png",
+      "sha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Upper sleeve panel emblem centered and clear; photography scene retained with real lower fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut05-logo-v2.png",
+      "sha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mechanic shoulder patch has open geometry; harbor group and mint car preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut07-logo-v2.png",
+      "sha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mechanic chest patch has open diagonals; solo harbor pose preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut08-logo-v2.png",
+      "sha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mint jacket sleeve carries clear geometric mark; conversation and car remain intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut09-logo-v2.png",
+      "sha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "White sleeve mark has long open channels; brake inspection and hands retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut10-logo-v2.png",
+      "sha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Fishmonger navy sleeve carries clear reference patch; harbor conversation and gestures intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut11-logo-v2.png",
+      "sha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream shoulder mark has open channels; phone reaching pose and studio retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut12-logo-v2.png",
+      "sha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Logo centered on toolchest door panel, scene and lower alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut02-logo-v2.png",
+      "sha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Clear centered circular wall sign beneath lamp; crew/car composition retained with real alpha fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut03-logo-v2.png",
+      "sha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference mark centered on upper sleeve and round key fob. Straight open geometry recognizable; key hand, car and harbor unchanged. Genuine lower fade with retained full scene.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut05-logo-v2.png",
+      "sha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream shoulder and tape-case marks have open geometry; true lower fade retained with documented strength variation.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut06-logo-v2.png",
+      "sha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Shirt-back emblem centered below collar, tilted with the projected torso; correct open straight channels and paired bars. Harbor crowd and car preserved; partial alpha closely follows original.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut08-logo-v2.png",
+      "sha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Shirt emblem centered below collar between seams, tilted with chest. Reference shape and all scene contents pass. Uniform alpha increased from roughly118 to244: accepted visual improvement in clarity, not exact transparency preservation. Browser appearance to be checked in batch.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut08-logo-v2.png",
+      "sha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground equipment crate has large clear reference decal; harbor interview preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut07-logo-v2.png",
+      "sha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream sleeve has clear reference patch; cassette, sweets and intimate studio conversation retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-cut04-logo-v2.png",
+      "sha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Small white lapel badge has recognizable straight bars and open channels; office telephone scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut12-logo-v2.png",
+      "sha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Correct reference mark centered on visible cabinet face. Full scene and narrative props retained. Alpha repair extends trouser silhouettes into lower dialogue area, a harmless composition variation; real bottom transparency retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut13-logo-v2.png",
+      "sha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Tool tin has large open reference mark; cracked bracket, hands and people retained, lower fade remains.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut14-logo-v2.png",
+      "sha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered mug emblem has straight paired bars and open edge channels; scrapbook, people and garage retained. Existing blank lower-band alpha preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut03-logo-v2.png",
+      "sha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Left tool chest has clear geometric mark; key-in-palm scene and partial opacity retained with documented moderate opacity difference.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut04-logo-v2.png",
+      "sha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Badge centered on upper denim sleeve with cloth perspective; straight bars and open channels. Every photo, hand and camera retained. Stronger fade only in lower empty desktop; genuine PNG transparency verified.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut13-logo-v3.png",
+      "sha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large reference emblem centered across shirt back below collar, perspective follows leaning torso; off-center fender decal removed. Engine bay and all scene details retained; actual translucency checked.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-cut06-logo-v2.png",
+      "sha256": "2bd0e0662ed057b0e56320612d01fe333cbc9350724d5ca0eeea672cfa3ab5b7",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream shoulder patch recognizable and above dialogue; urgent telephone scene preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut02-logo-v4.png",
+      "sha256": "f5dd5ca4a766d6047fa928008761a029a5fb6ab8f4b315d8c14578839b49dc27",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Waist patch and trophy carry corrected open geometry; original scene and lower transparency fade retained, with documented alpha variation.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut03-logo-v2.png",
+      "sha256": "65e66970f2258cab85dd87f9d83150b9ea915a0c5e6d6525e928a440669b578b",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large red-and-white geometric mark on mechanic back; boardroom model and conversation preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut04-logo-v4.png",
+      "sha256": "6fdc8d5829bd87e2b0adc6d0edd20066fb320ebda025a4110112d656be679310",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Back patch centered between denim panel seams below collar, open diagonal geometry. Lower tabletop fade stronger than source, but camera, furniture and framed photograph retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut06-logo-v4.png",
+      "sha256": "7cf282d0e31b1ccb4777eba575f353d19362d0c61a8882fd0e76626e525d9a5c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cabinet-top sign centered on its blank face, correct geometry. Document/office scene intact with real alpha.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut02-logo-v5.png",
+      "sha256": "02fb81397be04e0d6b6cc0b1a94045afe2ce50fc9f7c45f3abfc738a85eb352c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream shirtfront emblem centered within front panel; rear quarter-panel badge centered on its visible sheet. Full dusk scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut03-logo-v6.png",
+      "sha256": "ba375d7911daeb19a4e4f00f0b34c9934f941fea317bf3f40534e5f549e01fd5",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference embroidery centered in visible sewn back panel and tilted with cloth. Filing drawers, envelopes, hands, mug and framed photo preserved. True lower foreground alpha fade, no checkerboard.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut04-logo-v5.png",
+      "sha256": "274d83b76f7dc187e8d082c96aa377084ae8627e88be6d49b5d9ee2a630e3741",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Upper-sleeve reference graphic centered on yellow panel with appropriate fabric perspective; all electronics, papers, tools and expression preserved. Real lower alpha fade retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut05-logo-v2.png",
+      "sha256": "55060d037fcbc63a15deae68c050eb906190e808162728087549b144b0d6b8b8",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Two equipment case marks and binder have open geometry; documents and characters intact, real lower fade retained with recorded strength difference.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut06-logo-v3.png",
+      "sha256": "3ce62dd641a2472cac5b5e934bf6647769567313c625cca850d506f2d94be1b7",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Emblem centered on cream upper-sleeve panel, follows arm tilt and has longopenchannels. Radio controls, script and scene intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut02-logo-v5.png",
+      "sha256": "3eb8dc0a381f9c2fecfb6031b3b999fbe7d60569fad81ba8bcbef4681886575e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered cream back emblem follows projected spine and tilt. Paired straight bars and long diagonal channels reach circumference; fine antialias edge texture acceptable. All cables, wall, papers and character retained with genuine foreground fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut03-logo-v4.png",
+      "sha256": "77682e8a27592eb6b7df059d3536950bb3f94ddacc248f009a2f90ed39805db2",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference wall emblem centered on narrow door face with scene perspective; long open diagonals and two bars. People, paperwork and recording equipment preserved; full scene with actual lower alpha fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut04-logo-v4.png",
+      "sha256": "6a2caf371d70a304a1292ed724ec5b6c86933a3d66fee042ccdf90efc98f0197",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference patch centered on upper denim sleeve, natural material scale and two bars/open channels. Group discussion, photograph, hands and workbench retained; true lower transparent fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut05-logo-v4.png",
+      "sha256": "2c1dd38515066c50ca31aa174cd9fb26a6258290b9e858b1a4c097231adfdbd1",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Box logo centered on front rectangular face with appropriate perspective, straight edge-reaching channels. Hands, documents, key, people and office retained; actual lower fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut06-logo-v2.png",
+      "sha256": "a873791aabef9035f5b9dfa2f95cd9d49a3a745b6a472f4bacbbd9e58123072e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large wall poster, chest and car-fuel-cap marks have open geometry; source-like lower alpha fade and full garage scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut07-logo-v4.png",
+      "sha256": "7648d5d0585b694b5b6d65a37f4c4ddba3d47daa4649a97675714da43a5e6afa",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Chest badge centered between lapel and sleeve seam on yellow panel; correct straight bars/open diagonals. Whole wall and workshop restored, papers and hands preserved, actual lower alpha fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut09-logo-v3.png",
+      "sha256": "111afde75ec7e2636ea4ca46b342b809cec223af4e2c7868df407641471b2bcd",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large reference sign centered on upper wall panel, correct opening diagonal channels and mild perspective. Entire sunset sky and loading scene restored with genuine lower foreground transparency.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-victory-cut07-logo-v4.png",
+      "sha256": "9bf9e8481c623f2fb7acc27c7e02e62048d0b5e31975958abc6cd7b3455d0098",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Upper-sleeve emblem centered between sleeve seams; car badge centered on visible door panel, full scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut04-logo-v4.png",
+      "sha256": "d85f281e0a22623696c31460f8ddbaa4ac11ac1d24ee18dcb5a2d652212c4237",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Navy jacket back mark centered below hood and between shoulder seams. Garage sign and car rear-quarter mark align with their surfaces.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut08-logo-v2.png",
+      "sha256": "86b916af880d3d8f20c653ade4693795fd3b866d6cfe18eecd8675015d5c4a53",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Yellow sleeve embroidered mark has open channels; generator repair preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut09-logo-v3.png",
+      "sha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reduced hood decal centered in the main hood sheet between headlamp inner seams, with visible clear margins and foreshortened forward axis.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut01-logo-v2.png",
+      "sha256": "ee7dc5d24874df5fd5576adbe27bdf42fd223eb6d25baf8d3782aeccd2797bb5",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Photographer back mark has open channels and remains above dialogue; hearing composition intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut02-logo-v2.png",
+      "sha256": "b38556e82003013528376a306f1ae9832f6907ca9e29ad0ff371e2d85274a51c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Blue blouse shoulder patch has geometric reference mark; hearing paperwork and pose intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut03-logo-v2.png",
+      "sha256": "5bf0a516e1ae3ff50fb2bf3bbf00100ea4a0cac14af2113febaae82f402ba2c4",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mint sleeve patch has long straight open channels; mixer operation and hearing retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut04-logo-v2.png",
+      "sha256": "059726a6b691cf6f4517700db34aac9be2b57e59604f9c3df8de075764fb7429",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large cream sleeve, headphones and exterior sign have correct geometry; studio broadcast retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut02-center-v4.png",
+      "sha256": "146672929f6ffd68314c45b47449a001552dbafbfb89981408a669c10aaaee5c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Small case badge centered on broad visible case face; matching foreshortening, full opaque scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut05-center-v2.png",
+      "sha256": "ffb7216f73a72b0ebe007d30ac6511bd12161efff1d78755459038d8c31ca0d1",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Folder badge centered on upright folder cover with balanced margins; opaque scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut05-center-v3.png",
+      "sha256": "8709b34e8cb98afe107090b55d8788f1354b2784122060c14c68ede7aeb513de",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mug emblem centered on cylindrical body; phone naturally occludes left edge; full scene and bottom alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut05-logo-v2.png",
+      "sha256": "09eace7d371c4deb4e68d2590b9647979820a89de4552f5b4146fc723010bc09",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large wall banner and audience patches have open geometric marks; hearing scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut06-logo-v2.png",
+      "sha256": "83a45cb75782b73ca5e4bbc20fbadbf876af7b20d6abe1cfbf8d3f7e8d4cc4d9",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground overalls back has clear open reference channels; confrontation and document intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut07-logo-v3.png",
+      "sha256": "fc5909eb62a94cf8a3f691535e38ad7aef595c2c553af5c24fa4cbd835319ea8",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "White race car left side has a clear geometric disk with open lower channels; harbor confrontation retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut01-logo-v2.png",
+      "sha256": "6d8caf2303c3abcc90cd22ff3b3cd4d3b8e48644e2efcc9f85b1871cbd90ee51",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground right red sleeve has paired bars and long open channels with thin outline; maps and pointing hands retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut02-logo-v3.png",
+      "sha256": "de6261655706ac1f90bec1615ae5970697a48f1050559130e40229a840c1d6ea",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Blue sleeve embroidered patch has long channels reaching thin stitch edge; document review intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut03-logo-v2.png",
+      "sha256": "81693bb5ce42db9c71531d80fe482a613ec7a283800a7f013266d0080503536e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Rear white racing suit has corrected open reference mark; offered circuit document and characters retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut04-logo-v2.png",
+      "sha256": "45643991b9747ed8d2f48cfb3417bf2ceecc096f51fb214590bef5dc1cf51b2d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Photographer sleeve bears large clear geometric emblem; camera and evidence intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut05-logo-v2.png",
+      "sha256": "3e215c070898d3805a273020025071e90da828292da1d51278440d7194e375ed",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cabinet decal has clear open reference channels; office character and binders retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut07-logo-v2.png",
+      "sha256": "e811c35b8949058d84bb2606d64b3603828131d64a7f9528a58cd91adb0ed5a6",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large white car rear-quarter decal has reference geometry; tire gauge action retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut08-logo-v2.png",
+      "sha256": "68d7e4d1d3288a8b7cfa96003f6f597b7311b179ce5a8a3212b08e9847c85297",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground white car pillar has open geometric reference mark; mechanic and map intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut09-logo-v3.png",
+      "sha256": "aed70cc723aad59d3e1e9da55ad2fdda791580c6e1dd9531e55aee013d886994",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large cream jacket back has paired bars and open diagonals; helmet and studio exit retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut10-logo-v3.png",
+      "sha256": "0baf9d3b18b094b913fa9871ca194d1117ba5b82f1ef0de9bd1f6d9ceed3ffdd",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground marshal back patch has open reference geometry; start-line scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut03-logo-v2.png",
+      "sha256": "a663936523f438fffcb6c0906dbe6005ce90ef0ad2d571c4943e879d11738481",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground left sleeve has large clear reference geometry; compared evidence sheets intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut04-logo-v5.png",
+      "sha256": "35a858d486b870f09a8afd0e7d0d1e07a80150739cd2c8c4a7446f1dab946675",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Photographer back patch now centered within back panel under yoke after small left nudge. Camera strap correctly occludes its edge; geometry, all papers and crowd preserved. Actual alpha255.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut05-logo-v2.png",
+      "sha256": "f132ba0474a762ed78f1e0bb5b88cc423c0f8df16a4e002b065d053e8154d89f",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Wall plaque under council sign has straight bars and edge-opening diagonals; fax scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut06-logo-v2.png",
+      "sha256": "0dcd1cb4cdfab8868015069baf8bd1850a3150337c65a0cd08c35bf4b0e2963f",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Far-left van badge has long straight channels reaching thin outlined edge; paper distribution intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut07-logo-v2.png",
+      "sha256": "7330eacb28f8aeb2fab2b802fbf9aa6b1d1d8fef6d8e58d09090a20aee8c9a40",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground navy racing sleeve has edge-opening reference geometry; conversation retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut08-logo-v2.png",
+      "sha256": "6d0f3024cf2056393c683a03f61bb9091e07e7a9958649ff6f34d1fab662d98d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream sleeve patch and right equipment card have open reference geometry; radio room retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut05-logo-v2.png",
+      "sha256": "5ad7f68c2f7a62810ae05d2e1d85932964dc058d4d34f468827caf19a105273d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Right photo equipment case has large clear reference geometry; album and older woman retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut06-logo-v2.png",
+      "sha256": "ff734f92570455242813fc708387e06ce0c0b5a30e2e8867e331ecb175d6e5eb",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Inspector sleeve and driver chest have open reference geometry; handover scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut12-logo-v2.png",
+      "sha256": "e88275a456b20ab7e783ff0f5951cbcfa113cf2384d4cd507761ed8579721842",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream jacket chest has straight reference geometry; garage photograph and conversation intact.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut02-logo-v3.png",
+      "sha256": "7b45b25268a8c7de0eb8c175487b759380281ed1e2ec6c06405d8f8dff80bedb",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "White helmet has clear reference geometry; shared food and paddock scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut03-logo-v2.png",
+      "sha256": "83a7822356c493399e6c3ea96f3298260154e830f8f793c09139584881f9ac38",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Yellow sleeve badge has open channels and thin stitching; letter and mechanical drawings retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut07-logo-v3.png",
+      "sha256": "31f01480e49a153280607b8352750cbe1fc1af398c91a2652d613bea777420a4",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large centered banner emblem has correct open disk channels, wallperspective and scene content preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut03-logo-v6.png",
+      "sha256": "335bd8a0841de9741953dfe4f644d44a3cdef717863ea1213eadf37b59bfe6c6",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Long straight reference diagonals and two bars recognizable; thin raster edge texture is acceptable. Badge centered on upper yellow sleeve and tilted with cloth. Full electronics scene preserved with true lower alpha fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut04-logo-v3.png",
+      "sha256": "cafd209ecdb33bbc4a93685d6143d6e14d8e09c492e25faf0a71987b627bb524",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large shutter emblem centered on panel and follows grooves/perspective, full departure scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+      "sha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Emblem centered in visible upper-arm sewn panel, approximately y610\u2013930 with logo center y755. Long straight channels recognizable; genuine alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut07-logo-v3.png",
+      "sha256": "47686af25789a3fe9661e446f1be318855c48a60f4deec8d69551dca94e07ece",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference patch centered exactly on jacket back seam below collar; cloth folds remain across marking. Faces, hand, recorder, car and lake preserved; opaque source and output.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut08-logo-v3.png",
+      "sha256": "02c956c180ed9e22c5384bd6d839017e28ca8104fc3a45b77de4fe3744d3f6ea",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference emblem centered on car door panel, perspective follows door; lake conversation and all clothing/hands retained. Partial alpha confined to existing soft foreground edges.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut09-logo-v3.png",
+      "sha256": "c132e6618922c0f90072f5551fc483551212e2cd1026c2038188e70f9a684d30",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream jacket chest patch centered within its own panel above SORA lettering, with straight bars and diagonals opening at disk edge. Recorder, hands and faces unchanged; output opaque.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut11-logo-v3.png",
+      "sha256": "004a27007e7f878267e4878357ea517bbea6beb8224217893e40b6e2d326ad54",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream jacket back logo centered below collar between shoulder seams, correct geometry at small scene scale. Couple, car, landscape and foreground objects retained; genuine bottom alpha fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut06-logo-v2.png",
+      "sha256": "ab5893396c8cd192c78e5cdf61147817fbd07bb85df0f04ef2b477f54c3c369f",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Foreground chest patch has straight paired bars and open lower channels; thin white stitching and SORA text retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut07-logo-v2.png",
+      "sha256": "a8980c8544bc6d663dd9f1e367a082a586694f69f919b090afa04ae7af008d1e",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Cream sleeve patch has long straight edge-opening channels; cassette, characters and lake retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut13-logo-v3.png",
+      "sha256": "3d3f26c79042f11d5f13f36f6328d7cdd5674591b21a3992823ebb234bba9660",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Rectangular cloth shoulder patch carries recognizable long diagonal channels and paired straight bars with natural perspective and soft focus.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut04-logo-v2.png",
+      "sha256": "27c346a955917aca524c78e46ac6f712e41a5b33e1f8e907c4525a84574d85fe",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Yellow sleeve, toolchest and background mechanic marks have straight bars and open lower channels; repair paperwork scene preserved.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut08-logo-v5.png",
+      "sha256": "846e610b04b8a056b8bfed8f21d16a1447541e1988dcf663c21a3b8fe0c0e836",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Smaller back emblem sits centrally between shoulder seams directly beneath rear collar, at roughly x636,y500. Embroidery and slight garment perspective retained; front mirror has no impossible back patch. Genuine lower alpha fade restored; upper alpha about252 versus original220 and bottom3.62 versus106.78. Empty foreground fades more strongly, but no character, mirror, car or prop is lost. No checkerboard pixels.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut02-logo-v3.png",
+      "sha256": "4d35e9921f0f75309f41d3a121dab0cc94cbdde9744f723e4f36de8cb0c202b9",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference emblem is centered on the model facade blank panel, with open straight channels; meeting gestures/scale-model retained. Actual alpha restored throughout; the low empty foreground fades more strongly than source. Source/output decoded decile alpha means retained in provenance. No character, key prop or illustrated background cut out.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut03-logo-v3.png",
+      "sha256": "4d9e12747e7c5fd7f4c02262b4b59e287c6f1c979c03ed7219122b8dbaa76921",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference mug emblem centered below rim and above base on cylindrical face; building wall emblem perspective retained. Actual alpha restored throughout; the low empty foreground fades more strongly than source. Source/output decoded decile alpha means retained in provenance. No character, key prop or illustrated background cut out.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut03-logo-v3.png",
+      "sha256": "8198fed328235fe2f2e135606e3a347aaa661ebc1cb00aa9d30d3e9c1379fa98",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Correct open diagonal channels and paired bars on rear quarter-panel emblem, centered in its cream panel beneath rear side window. Photography prints, hatch, character, autumn landscape and full opacity retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut08-logo-v4.png",
+      "sha256": "0a61e0ddc33039777875d686f6d014bc9bdfbdba3c8f8d623774a7291a1a149a",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mug reference graphic centered on ceramic face, straight bars and open diagonals preserved. Alpha-only repair restores true foreground transparency; stronger bottom fade affects empty desktop only.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut02-logo-v5.png",
+      "sha256": "7fb69fd2001c5d890cb6f4aebabad986e6892e315819f0f9b6dcb8a77b410706",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mug reference graphic centered and curved with the mug, paired bars and open diagonal geometry. Map, hands, radio desk and harbor retained; true lower empty foreground fade restored.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut10-logo-v3.png",
+      "sha256": "15c59cc592f4d9b0f5fa09df29303b9b57bad3b52ecc9d6a1f01c2b79395f47c",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered upper-back emblem below collar of tall navy-clad man, aligned to projected back plane. Full sky restored; real bottom alpha fade retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut02-logo-v3.png",
+      "sha256": "6a8f8e985fb62b5ffcc70ee84ca55eae11b677f840729d7e611facd2a7686469",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Emblem centered on navy chest panel between zipper and sleeve. Full sunset restored, real lower alpha fade retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut06-logo-v4.png",
+      "sha256": "9232108d617ec1b58169ea1dea07c3a88d1e86e8fa11679067dccc0b6946bf3a",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Upper sleeve emblem centered between shoulder and elbow boundaries, following sleeve plane; complete upper wall and exterior restored with true foreground fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut07-logo-v6.png",
+      "sha256": "5033cf70ed586e35bc4d7b1e30d154fe6aa55d346b0dfe15f3a56a791fedfeb0",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Large reference emblem centered in framed poster; straight white channels reach lower disk perimeter. Full city windows and boardroom restored, no checkerboard, actual alpha0\u2013254 lower fade.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut09-logo-v6.png",
+      "sha256": "44fd98abd3693d9e3b52207a19d14c4c7a282f784d01a74a83a41310411690ae",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Reference graphic centered in upper-left poster behind illustration of car, appropriately occluded. Coveralls pocket badge centered in pocket panel; full skyline maintained and true bottom alpha0\u2013254.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut07-logo-v5.png",
+      "sha256": "d46f80bef72002a6acfc4841be30b5836251289a45387ee345d157df820802f5",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered upper-back badge with supplied two bars and long straight channels meeting lower red boundary. Full studio scene preserved and genuine lower alpha fade retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut02-center-root-v2.png",
+      "sha256": "f763b72ee4d325b0817ef14ef98217ae3f3c98689e0241111c53c8ce72b71a0b",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Door badge centered between seams below window and above trim; sleeves and other marks unchanged; opaque.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut07-center-root-v2.png",
+      "sha256": "9807d2be5c8764c727db72e10d25ff6669101aef0adac312f01f11dc4d832187",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Synthesizer front emblem centered between end borders of black trapezoid, with foreshortening; other logos and opaque scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut05-center-root-v2.png",
+      "sha256": "bb2b1410c7484e7becd698c3426e3b18efa9c04fd79cb3c1b0001ae696b792e8",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Binder emblem centered on visible top cover plane, clear of edge and spine; complete opaque scene retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut08-logo-v6.png",
+      "sha256": "8bf3655a11af4efd5b945ef8c7b7f1928d10ffa6b4ccb11081ee5455b71893ab",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Back emblem centered on projected spine below collar, between shoulder seams. Open lower channels and full scene with bottom alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut03-logo-v9.png",
+      "sha256": "3702a15429be57e8204b36cd1b5f6713f5e917934142816d4a88919914823372",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Mug emblem centered on visible body, with reference paired bars and opening diagonals; map scene and bottom alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut07-logo-v12.png",
+      "sha256": "6f20b9a8e8132476c3ccb28ebe0d156d2b1ea0234df91a5be3c9b6aff9721bdd",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Hood decal stays centered on the uninterrupted main hood sheet, clear of headlamp lids; projected shape follows hood. Full dusk scene retained and genuine bottom alpha confirmed (0\u2013253).",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/sunrise-crew-branded-v2-centered-v2.png",
+      "sha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Red and mint hood lockups align to physical hood centerlines and are naturally occluded by seated crew. White hood, people and scenery retained.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+      "sha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Complete smaller lockup lies centered on main hood sheet above original leading seam, clear of headlamp and front header. Props and opaque full scene retained.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "sha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Patch centered on the upper sleeve panel beneath shoulder seam with matching sleeve tilt; original pose and studio retained.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "sha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Back badge sits below collar on projected spine between back edges; ponytail overlaps naturally. Opaque studio composition retained.",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut07-center-v2.png",
+      "sha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Rear hatch emblem centered on hatch sheet above license plate, moderate rear-view perspective. Complete scene and source opaque alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut08-center-v2.png",
+      "sha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Door badge centered between vertical door seams below glass with balanced sheet margins and matching perspective. Full scene and real lower alpha fade retained.",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut05-center-v3.png",
+      "sha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Badge now centered on front-fender sheet above the wheel arch, old rearward badge removed. Complete full scene and genuine0\u2013253 alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut10-center-v2.png",
+      "sha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Right mechanic back badge follows projected spine under collar, clear of shoulder seam. Centered fender mark correctly occluded by foreground mechanic. Complete harbor and genuine partial alpha retained.",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut06-center-v2.png",
+      "sha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Door emblem centered between actual door seams below window; decal follows side-panel plane, scene opaque.",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+      "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Door logo centered on its physical panel and naturally occluded behind Aki. Small inverse-color badge restored at center of jumpsuit pocket; full opaque scene preserved.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+      "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Complete smaller door logo and wordmark fit centered below original door handle and above stripe; handle, seam and wheel arch preserved, fully opaque.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut11-center-root-v3.png",
+      "sha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered hood graphic now projects toward front bumper, upside down from behind windshield camera. Paired bars nearest windshield; full opaque composition and wipers preserved.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut09-logo-v7.png",
+      "sha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Centered wall poster keeps reference open diagonal channels; full radio scene retained and genuine lower alpha restored.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut03-center-root-v3.png",
+      "sha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "hasRecognizableReferenceGeometry": true,
+      "reviewer": "root",
+      "observation": "Door badge moved farther into actual panel center; cases naturally hide lower right logo without moving any props. Full opaque composition preserved.",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json",
+      "kind": "generated-correction",
+      "pixelIdenticalLogoClaimed": false
+    }
+  ],
+  "count": 159,
+  "existingCorrect": 38,
+  "generatedCorrections": 121,
+  "manifestBeforeSha256": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+  "manifestAfterSha256": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+  "affectedSources": [
+    {
+      "path": "src/game/story-cut-art.json",
+      "beforeSha256": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+      "afterSha256": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+      "changed": false
+    },
+    {
+      "path": "src/game/story-scenes.ts",
+      "beforeSha256": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
+      "afterSha256": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
+      "changed": false
+    },
+    {
+      "path": "src/game/story-campaign-act3.ts",
+      "beforeSha256": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa",
+      "afterSha256": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa",
+      "changed": false
+    }
+  ],
+  "replacements": [
+    {
+      "id": "ch01-victory-cut06",
+      "from": "scenes/ch01-victory-cut06.png",
+      "to": "scenes/ch01-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch01-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "bcefd2e487f5ee29558046b0062cc7d64fec454134249803753dc79058a2ae28",
+      "outputSha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch01-victory-cut07",
+      "from": "scenes/ch01-victory-cut07.png",
+      "to": "scenes/ch01-victory-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch01-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "4f375413d0a85523ac12177c5a7776e2d59acc362a459661bd788d8f3459ef30",
+      "outputSha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch01-victory-cut08",
+      "from": "scenes/ch01-victory-cut08.png",
+      "to": "scenes/ch01-victory-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch01-victory-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "96f720cdb5d96be4eedca4f81eaad3aad4d0f4d6b2987e186479a2af6cbae2ab",
+      "outputSha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut03",
+      "from": "scenes/ch02-intro-cut03.png",
+      "to": "scenes/ch02-intro-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "35708599bde2898e8cea71bd7748803b38b6c87dccf382e82e97604c1d8e69a5",
+      "outputSha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut04",
+      "from": "scenes/ch02-intro-cut04.png",
+      "to": "scenes/ch02-intro-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "41799f90cb9fcb75472f0f78b8a35669d85d1a01f3f15320c0ad059d12b05f21",
+      "outputSha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut05",
+      "from": "scenes/ch02-intro-cut05.png",
+      "to": "scenes/ch02-intro-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "fc1012c0e1b38f44f613148c63025a1a480d0aee55c24502dceab9011a188387",
+      "outputSha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut07",
+      "from": "scenes/ch02-intro-cut07.png",
+      "to": "scenes/ch02-intro-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "7a41e48745710819d4c14bb9262e43c4c981a9eadebb00149b4604432ad4ddc1",
+      "outputSha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut08",
+      "from": "scenes/ch02-intro-cut08.png",
+      "to": "scenes/ch02-intro-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "950b3e1b8ca7c82061abb0afa2b3d30db5d4aeb4095efb830904499637861eed",
+      "outputSha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut09",
+      "from": "scenes/ch02-intro-cut09.png",
+      "to": "scenes/ch02-intro-cut09-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "bedee80a2a46fdba13c8f81176d5a114c8517e6db13190d8622079b803db78ac",
+      "outputSha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut10",
+      "from": "scenes/ch02-intro-cut10.png",
+      "to": "scenes/ch02-intro-cut10-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut10.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "52946eb70755803c193413aefbde1327a84045cb11d43ec3b40410022c9657df",
+      "outputSha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut11",
+      "from": "scenes/ch02-intro-cut11.png",
+      "to": "scenes/ch02-intro-cut11-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut11.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "676f5ea6e6e099e9d5595b639ec92daa6b06958b9c8cc9e7fb88e578c894ee9d",
+      "outputSha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut12",
+      "from": "scenes/ch02-intro-cut12.png",
+      "to": "scenes/ch02-intro-cut12-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut12.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "abccbb935a092960267cd0e0b06e497e92a55893d88dd1033e2b7d976ff10d0b",
+      "outputSha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-victory-cut02",
+      "from": "scenes/ch02-victory-cut02.png",
+      "to": "scenes/ch02-victory-cut02-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ceaeb7d05d0d1dcd6ab2f15f661097537bb32b3b1c14bcef66c67c9b8c11d4ba",
+      "outputSha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-victory-cut03",
+      "from": "scenes/ch02-victory-cut03.png",
+      "to": "scenes/ch02-victory-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ff40197c7cd3c55aa67fd052d32ac30c9fda8ac27c3fc8c4df2d47ad33113a1d",
+      "outputSha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-victory-cut05",
+      "from": "scenes/ch02-victory-cut05.png",
+      "to": "scenes/ch02-victory-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-victory-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a06fd04226682f1aa2aa6f8eb58be8951d4e707c9738d452c15f639a8a7e4d73",
+      "outputSha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-victory-cut06",
+      "from": "scenes/ch02-victory-cut06.png",
+      "to": "scenes/ch02-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "eacc57e2f75e7b684f1581acc97148954c8f3311dce5c18066f3f6293b1ce006",
+      "outputSha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-victory-cut08",
+      "from": "scenes/ch02-victory-cut08.png",
+      "to": "scenes/ch02-victory-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch02-victory-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "936214075e417d6737ecdaf28a236252b86afb051905d34a1369ea920ae9af70",
+      "outputSha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch05-intro-cut08",
+      "from": "scenes/ch05-intro-cut08.png",
+      "to": "scenes/ch05-intro-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch05-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "272ba50c1e61d6b8c8f12fd3c5fc1315abbb9277a82f024ce7f7f291b3cb8410",
+      "outputSha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch05-intro-cut07",
+      "from": "scenes/ch05-intro-cut07.png",
+      "to": "scenes/ch05-intro-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch05-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a369ea9a460bad896d6b0681a85bec3c494ce59374ddf59df801bed2f4456cc5",
+      "outputSha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch05-victory-cut04",
+      "from": "scenes/ch05-victory-cut04.png",
+      "to": "scenes/ch05-victory-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch05-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "beb4d6fb9fce39a821df3dccfe0db7258508583b8744c453b410a8efa3208612",
+      "outputSha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch03-intro-cut12",
+      "from": "scenes/ch03-intro-cut12.png",
+      "to": "scenes/ch03-intro-cut12-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-intro-cut12.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "9804b142f7804df7791a0cfc5c35482b149213981c21e49b59e8c31f84d378ef",
+      "outputSha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch03-intro-cut13",
+      "from": "scenes/ch03-intro-cut13.png",
+      "to": "scenes/ch03-intro-cut13-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-intro-cut13.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5df63f51c0457f79f95a28678bd21bbbef126c888e27a850c3fd2775bda1efc9",
+      "outputSha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch03-intro-cut14",
+      "from": "scenes/ch03-intro-cut14.png",
+      "to": "scenes/ch03-intro-cut14-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-intro-cut14.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "6ccc30dd7dd57fcfdbaae03cb0991e761320e4d7eb75ea0caacfa8a12e2a6b4e",
+      "outputSha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut03",
+      "from": "scenes/ch03-victory-cut03.png",
+      "to": "scenes/ch03-victory-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "17716adde3035721f72df6b7f7edc5ff783aed1754fb4138abb6d50c4497b8db",
+      "outputSha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut04",
+      "from": "scenes/ch03-victory-cut04.png",
+      "to": "scenes/ch03-victory-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "61919097c841bbb690deda22736252e574179aff7cc68a4c97e43e54b578b533",
+      "outputSha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch02-intro-cut13-centered-v3",
+      "from": "scenes/ch02-intro-cut13.png",
+      "to": "scenes/ch02-intro-cut13-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch02-intro-cut13-logo-v2.png",
+        "scenes/ch02-intro-cut13.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "db04050efaef58f75155525cc3cbc3c516806fc7ffa61c1a70d8afa6698c2ba6",
+      "outputSha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch05-victory-cut06",
+      "from": "scenes/ch05-victory-cut06.png",
+      "to": "scenes/ch05-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch05-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ce2691f7e6c982b3f36b39eb297943937bc869b6ae92493f5bfd6458f94cff4b",
+      "outputSha256": "2bd0e0662ed057b0e56320612d01fe333cbc9350724d5ca0eeea672cfa3ab5b7",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-intro-cut02",
+      "from": "scenes/ch06-intro-cut02.png",
+      "to": "scenes/ch06-intro-cut02-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch06-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "12233e156abd4aee4fbae966f6a84e53c4a28d17d302e8476ab5984bf481a62d",
+      "outputSha256": "f5dd5ca4a766d6047fa928008761a029a5fb6ab8f4b315d8c14578839b49dc27",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-intro-cut03",
+      "from": "scenes/ch06-intro-cut03.png",
+      "to": "scenes/ch06-intro-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch06-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "59dd517e14878a77eb6cb1496d485acaa548b2ecfed983ee03d476699c6b878e",
+      "outputSha256": "65e66970f2258cab85dd87f9d83150b9ea915a0c5e6d6525e928a440669b578b",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-intro-cut04",
+      "from": "scenes/ch06-intro-cut04.png",
+      "to": "scenes/ch06-intro-cut04-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch06-intro-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "8eeb1582930a2810e288e343b7f54e1c71f29a535cdf16a457d53bdb6c0c39b5",
+      "outputSha256": "6fdc8d5829bd87e2b0adc6d0edd20066fb320ebda025a4110112d656be679310",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-intro-cut06",
+      "from": "scenes/ch06-intro-cut06.png",
+      "to": "scenes/ch06-intro-cut06-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch06-intro-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "d42a9010076bfaa7283001743b8ebda6014a50a6ca9fe84ec7abf55dec908cd2",
+      "outputSha256": "7cf282d0e31b1ccb4777eba575f353d19362d0c61a8882fd0e76626e525d9a5c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-victory-cut02",
+      "from": "scenes/ch06-victory-cut02.png",
+      "to": "scenes/ch06-victory-cut02-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a0a2667ab0b29f260194df0592a977cb7104cec937b6a03da5aaf5690b60e4a7",
+      "outputSha256": "02fb81397be04e0d6b6cc0b1a94045afe2ce50fc9f7c45f3abfc738a85eb352c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-victory-cut03",
+      "from": "scenes/ch06-victory-cut03.png",
+      "to": "scenes/ch06-victory-cut03-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "e6e229ae7a3d02e8105a1a6f2f8efcd6ea2a8d71ed29a6800d09d05d727aa886",
+      "outputSha256": "ba375d7911daeb19a4e4f00f0b34c9934f941fea317bf3f40534e5f549e01fd5",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-victory-cut04",
+      "from": "scenes/ch06-victory-cut04.png",
+      "to": "scenes/ch06-victory-cut04-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "d41bf078d873647c323cf68d9b559348bd1d5c02bd23b56d411c8ebdcfa28bbf",
+      "outputSha256": "274d83b76f7dc187e8d082c96aa377084ae8627e88be6d49b5d9ee2a630e3741",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-victory-cut05",
+      "from": "scenes/ch06-victory-cut05.png",
+      "to": "scenes/ch06-victory-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "45f007c26953d8a358a64d13fda81b7a655ba65ce04cb4291bf4b94ea19b4950",
+      "outputSha256": "55060d037fcbc63a15deae68c050eb906190e808162728087549b144b0d6b8b8",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-victory-cut06",
+      "from": "scenes/ch06-victory-cut06.png",
+      "to": "scenes/ch06-victory-cut06-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5ac88ad8a94f15f69b27e757da487d515f01f8d86031fa44612f79e33d6b000b",
+      "outputSha256": "3ce62dd641a2472cac5b5e934bf6647769567313c625cca850d506f2d94be1b7",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut02",
+      "from": "scenes/ch07-intro-cut02.png",
+      "to": "scenes/ch07-intro-cut02-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "cf6f722aad942a0aae0b0154ea07ad4b4de7a0f84d57840deda1b72e8ac3380f",
+      "outputSha256": "3eb8dc0a381f9c2fecfb6031b3b999fbe7d60569fad81ba8bcbef4681886575e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut03",
+      "from": "scenes/ch07-intro-cut03.png",
+      "to": "scenes/ch07-intro-cut03-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "766354773f0bb66a0a7bed548e1c9b7ef23418279acc47500bd0269a52a316a2",
+      "outputSha256": "77682e8a27592eb6b7df059d3536950bb3f94ddacc248f009a2f90ed39805db2",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut04",
+      "from": "scenes/ch07-intro-cut04.png",
+      "to": "scenes/ch07-intro-cut04-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c5557b4b00de8341b050eed56c52ed460965ab21b47357ea552844dca10dc8d2",
+      "outputSha256": "6a2caf371d70a304a1292ed724ec5b6c86933a3d66fee042ccdf90efc98f0197",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut05",
+      "from": "scenes/ch07-intro-cut05.png",
+      "to": "scenes/ch07-intro-cut05-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "943814d879137172d8edf56f4e8faafd4cd95234b7dd306b0d7afc86dc3db12f",
+      "outputSha256": "2c1dd38515066c50ca31aa174cd9fb26a6258290b9e858b1a4c097231adfdbd1",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut06",
+      "from": "scenes/ch07-intro-cut06.png",
+      "to": "scenes/ch07-intro-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5408a5495636f1a0d9e27024632174a5f251eaa611c13b3feb06e413fad121dd",
+      "outputSha256": "a873791aabef9035f5b9dfa2f95cd9d49a3a745b6a472f4bacbbd9e58123072e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut07",
+      "from": "scenes/ch07-intro-cut07.png",
+      "to": "scenes/ch07-intro-cut07-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "4f1c720afa36884eebbd4df322ddd1e1a5db43e4c1b805e2b52a0548a2f943e4",
+      "outputSha256": "7648d5d0585b694b5b6d65a37f4c4ddba3d47daa4649a97675714da43a5e6afa",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut09",
+      "from": "scenes/ch07-intro-cut09.png",
+      "to": "scenes/ch07-intro-cut09-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "d63cfb386612d1c4dc420d3e47303fb2849388073817097b9327ebd9e929c09b",
+      "outputSha256": "111afde75ec7e2636ea4ca46b342b809cec223af4e2c7868df407641471b2bcd",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch07-victory-cut07",
+      "from": "scenes/ch07-victory-cut07.png",
+      "to": "scenes/ch07-victory-cut07-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch07-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ec86a7c8eb867511125f84fdb708ce0b0f8adeef3ebbd08e2653771c98a7c614",
+      "outputSha256": "9bf9e8481c623f2fb7acc27c7e02e62048d0b5e31975958abc6cd7b3455d0098",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch08-intro-cut04",
+      "from": "scenes/ch08-intro-cut04.png",
+      "to": "scenes/ch08-intro-cut04-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch08-intro-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "bf97884d6f97cc9e0287075e7369530003a5a1de4a688f767cd34de7e4edaf23",
+      "outputSha256": "d85f281e0a22623696c31460f8ddbaa4ac11ac1d24ee18dcb5a2d652212c4237",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-intro-cut08",
+      "from": "scenes/ch10-intro-cut08.png",
+      "to": "scenes/ch10-intro-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "8126501397635c4c0acd484a714be6e5b5273402a2ad9b09e4f3e38dfde9dd17",
+      "outputSha256": "86b916af880d3d8f20c653ade4693795fd3b866d6cfe18eecd8675015d5c4a53",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-intro-cut09",
+      "from": "scenes/ch10-intro-cut09.png",
+      "to": "scenes/ch10-intro-cut09-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch10-intro-cut09-logo-v2.png",
+        "scenes/ch10-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "929336b3274c7911687fb006c405979fba883bf227a59cdde7c2f5614fcefa37",
+      "outputSha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut01",
+      "from": "scenes/ch10-victory-cut01.png",
+      "to": "scenes/ch10-victory-cut01-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut01.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "e6dcb6effa5736fed211ea7eb8c0a6310b0bc38d68e65fa9397dc0c37ac46f85",
+      "outputSha256": "ee7dc5d24874df5fd5576adbe27bdf42fd223eb6d25baf8d3782aeccd2797bb5",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut02",
+      "from": "scenes/ch10-victory-cut02.png",
+      "to": "scenes/ch10-victory-cut02-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "7ca228d2bc42787b7f205e31054efa2147c4041246bc1186295e21b933f4ba39",
+      "outputSha256": "b38556e82003013528376a306f1ae9832f6907ca9e29ad0ff371e2d85274a51c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut03",
+      "from": "scenes/ch10-victory-cut03.png",
+      "to": "scenes/ch10-victory-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "87a841a24261f8601b6b1318bbc461229b3c669d53da95c48b205f2e2df98511",
+      "outputSha256": "5bf0a516e1ae3ff50fb2bf3bbf00100ea4a0cac14af2113febaae82f402ba2c4",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut04",
+      "from": "scenes/ch10-victory-cut04.png",
+      "to": "scenes/ch10-victory-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1f0c7bfb8d888634202bb0f19ac4a5c72f55ddff39d2aff4e380c108da25e0b1",
+      "outputSha256": "059726a6b691cf6f4517700db34aac9be2b57e59604f9c3df8de075764fb7429",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut02",
+      "from": "scenes/ch03-victory-cut02.png",
+      "to": "scenes/ch03-victory-cut02-center-v4.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "outputSha256": "146672929f6ffd68314c45b47449a001552dbafbfb89981408a669c10aaaee5c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut05",
+      "from": "scenes/ch03-victory-cut05.png",
+      "to": "scenes/ch03-victory-cut05-center-v2.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "outputSha256": "ffb7216f73a72b0ebe007d30ac6511bd12161efff1d78755459038d8c31ca0d1",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch06-intro-cut05",
+      "from": "scenes/ch06-intro-cut05.png",
+      "to": "scenes/ch06-intro-cut05-center-v3.png",
+      "acceptedAliases": [
+        "scenes/ch06-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "58a856f585ff3f80d21684842a5698109152acd1fb86e14dfc8727e036fc0730",
+      "outputSha256": "8709b34e8cb98afe107090b55d8788f1354b2784122060c14c68ede7aeb513de",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-b-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut05",
+      "from": "scenes/ch10-victory-cut05.png",
+      "to": "scenes/ch10-victory-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "85c111fb49ecac2307db3913f1f69ae6aff4067cfda2ce7c91de82c5a147752e",
+      "outputSha256": "09eace7d371c4deb4e68d2590b9647979820a89de4552f5b4146fc723010bc09",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut06",
+      "from": "scenes/ch10-victory-cut06.png",
+      "to": "scenes/ch10-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1b34dc8f331e0e55ccbad964326f67b283c7d609fbc2ece5d7fd843baf0c1cb0",
+      "outputSha256": "83a45cb75782b73ca5e4bbc20fbadbf876af7b20d6abe1cfbf8d3f7e8d4cc4d9",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch10-victory-cut07",
+      "from": "scenes/ch10-victory-cut07.png",
+      "to": "scenes/ch10-victory-cut07-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch10-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "85980ba97ae65c0d1f252416ad009ecc5bae461aacacf21ac5442061884824fe",
+      "outputSha256": "fc5909eb62a94cf8a3f691535e38ad7aef595c2c553af5c24fa4cbd835319ea8",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut01",
+      "from": "scenes/ch11-intro-cut01.png",
+      "to": "scenes/ch11-intro-cut01-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut01.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "295c459b36f6cd459885c2146b86888ff75779c2c115bc502be984866630a131",
+      "outputSha256": "6d8caf2303c3abcc90cd22ff3b3cd4d3b8e48644e2efcc9f85b1871cbd90ee51",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut02",
+      "from": "scenes/ch11-intro-cut02.png",
+      "to": "scenes/ch11-intro-cut02-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1c484e4b994f75804396f1a60960f3ff62692cf68c53861abd3a03cb2385d04c",
+      "outputSha256": "de6261655706ac1f90bec1615ae5970697a48f1050559130e40229a840c1d6ea",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut03",
+      "from": "scenes/ch11-intro-cut03.png",
+      "to": "scenes/ch11-intro-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "d2d8b603492bb17cb95cea70d3a278ed2f888a84dc0453a2d3124cd6c0859048",
+      "outputSha256": "81693bb5ce42db9c71531d80fe482a613ec7a283800a7f013266d0080503536e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut04",
+      "from": "scenes/ch11-intro-cut04.png",
+      "to": "scenes/ch11-intro-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "b875a6415e6c01320ba0eb7b2b63a3bb91ce6aee931067ff2bbf13c63c2fc634",
+      "outputSha256": "45643991b9747ed8d2f48cfb3417bf2ceecc096f51fb214590bef5dc1cf51b2d",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut05",
+      "from": "scenes/ch11-intro-cut05.png",
+      "to": "scenes/ch11-intro-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "aba7b77f688cc41b12c54ce11a056362f382ff3c3f41101146f6fc3bc5d213cb",
+      "outputSha256": "3e215c070898d3805a273020025071e90da828292da1d51278440d7194e375ed",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut07",
+      "from": "scenes/ch11-intro-cut07.png",
+      "to": "scenes/ch11-intro-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "40cdcede8503bd3c499571286ead2746a9391af92dc9482583e35b1b09a4e3e2",
+      "outputSha256": "e811c35b8949058d84bb2606d64b3603828131d64a7f9528a58cd91adb0ed5a6",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut08",
+      "from": "scenes/ch11-intro-cut08.png",
+      "to": "scenes/ch11-intro-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ddb48cdd5769162b4b6cdf1f415a4bf9aafcef5c860ce7b253d564df9f9ebcc7",
+      "outputSha256": "68d7e4d1d3288a8b7cfa96003f6f597b7311b179ce5a8a3212b08e9847c85297",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut09",
+      "from": "scenes/ch11-intro-cut09.png",
+      "to": "scenes/ch11-intro-cut09-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5f46beccdbdc4a25a8c83585adad19588d47c1c9a70b6f7b58e64ddd6368546f",
+      "outputSha256": "aed70cc723aad59d3e1e9da55ad2fdda791580c6e1dd9531e55aee013d886994",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut10",
+      "from": "scenes/ch11-intro-cut10.png",
+      "to": "scenes/ch11-intro-cut10-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut10.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "e18aaf3b25a175424d445e4d8aa031c314e441be29388a853203651d8be3ab6b",
+      "outputSha256": "0baf9d3b18b094b913fa9871ca194d1117ba5b82f1ef0de9bd1f6d9ceed3ffdd",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut03",
+      "from": "scenes/ch11-victory-cut03.png",
+      "to": "scenes/ch11-victory-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "e8fd2688e3a88958f727bf36aacd0beb34e78c9b8ee90ac06f69bfa3a50785c7",
+      "outputSha256": "a663936523f438fffcb6c0906dbe6005ce90ef0ad2d571c4943e879d11738481",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut04",
+      "from": "scenes/ch11-victory-cut04.png",
+      "to": "scenes/ch11-victory-cut04-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut04-logo-v2.png",
+        "scenes/ch11-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a2b29d173c346781c5646146869ac0c92ca6b00de4edbfef919af13bb06ddeef",
+      "outputSha256": "35a858d486b870f09a8afd0e7d0d1e07a80150739cd2c8c4a7446f1dab946675",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut05",
+      "from": "scenes/ch11-victory-cut05.png",
+      "to": "scenes/ch11-victory-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "779595910920c43ca73e2a81446cf110d487d28f7b8551dab248cd098c05f025",
+      "outputSha256": "f132ba0474a762ed78f1e0bb5b88cc423c0f8df16a4e002b065d053e8154d89f",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut06",
+      "from": "scenes/ch11-victory-cut06.png",
+      "to": "scenes/ch11-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "122ff52fc8f74414959e19e31906fbae4fe436a559ef0f584167a92db3962fda",
+      "outputSha256": "0dcd1cb4cdfab8868015069baf8bd1850a3150337c65a0cd08c35bf4b0e2963f",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut07",
+      "from": "scenes/ch11-victory-cut07.png",
+      "to": "scenes/ch11-victory-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "84e2cfabc42dc215eb5ed501053a6fdcccd15e4e8bde4408adfb1457f23250f2",
+      "outputSha256": "7330eacb28f8aeb2fab2b802fbf9aa6b1d1d8fef6d8e58d09090a20aee8c9a40",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch11-victory-cut08",
+      "from": "scenes/ch11-victory-cut08.png",
+      "to": "scenes/ch11-victory-cut08-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-victory-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "279fb94982b786dfa40f44d5ba655a5bb81821e3224f3200a98271bc66eda6ea",
+      "outputSha256": "6d0f3024cf2056393c683a03f61bb9091e07e7a9958649ff6f34d1fab662d98d",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut05",
+      "from": "scenes/ch12-intro-cut05.png",
+      "to": "scenes/ch12-intro-cut05-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "0983cddf060ffc5450070df0ed77ea291e619ea454eb03a331bb3cac6797b258",
+      "outputSha256": "5ad7f68c2f7a62810ae05d2e1d85932964dc058d4d34f468827caf19a105273d",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut06",
+      "from": "scenes/ch12-intro-cut06.png",
+      "to": "scenes/ch12-intro-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "e2085088c0b910000bf430bd62c5f3bba9d8fc2c082ec524e3e203d832b31b1b",
+      "outputSha256": "ff734f92570455242813fc708387e06ce0c0b5a30e2e8867e331ecb175d6e5eb",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut12",
+      "from": "scenes/ch12-intro-cut12.png",
+      "to": "scenes/ch12-intro-cut12-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut12.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "2b443a82c20d8f1f983ab841815c4a844932e0f5bf58b9dd6cedb6c097fb2262",
+      "outputSha256": "e88275a456b20ab7e783ff0f5951cbcfa113cf2384d4cd507761ed8579721842",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut02",
+      "from": "scenes/ch12-victory-cut02.png",
+      "to": "scenes/ch12-victory-cut02-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+      "outputSha256": "7b45b25268a8c7de0eb8c175487b759380281ed1e2ec6c06405d8f8dff80bedb",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut03",
+      "from": "scenes/ch12-victory-cut03.png",
+      "to": "scenes/ch12-victory-cut03-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c09e48c1f136f01e147974870326e023f1961addbd0fad023c03b9b692a69546",
+      "outputSha256": "83a7822356c493399e6c3ea96f3298260154e830f8f793c09139584881f9ac38",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch08-intro-cut07",
+      "from": "scenes/ch08-intro-cut07.png",
+      "to": "scenes/ch08-intro-cut07-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch08-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "0b73eb99d877c748221de669fcb37e826a445bdbdb67e8100a99afbcdacb18ea",
+      "outputSha256": "31f01480e49a153280607b8352750cbe1fc1af398c91a2652d613bea777420a4",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch08-victory-cut03",
+      "from": "scenes/ch08-victory-cut03.png",
+      "to": "scenes/ch08-victory-cut03-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch08-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+      "outputSha256": "335bd8a0841de9741953dfe4f644d44a3cdef717863ea1213eadf37b59bfe6c6",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch08-victory-cut04",
+      "from": "scenes/ch08-victory-cut04.png",
+      "to": "scenes/ch08-victory-cut04-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch08-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ffe7b48e9955edee9f61920e5210c6cff250cbf883d48b09a5485b8373c9fac9",
+      "outputSha256": "cafd209ecdb33bbc4a93685d6143d6e14d8e09c492e25faf0a71987b627bb524",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut06",
+      "from": "scenes/ch12-victory-cut06.png",
+      "to": "scenes/ch12-victory-cut06-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+      "outputSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut07",
+      "from": "scenes/ch12-victory-cut07.png",
+      "to": "scenes/ch12-victory-cut07-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "f76f3ad31f5af6a7a2f1a786a1e14b21774ea24e8b09331922f13f890eaf2614",
+      "outputSha256": "47686af25789a3fe9661e446f1be318855c48a60f4deec8d69551dca94e07ece",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut08",
+      "from": "scenes/ch12-victory-cut08.png",
+      "to": "scenes/ch12-victory-cut08-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ac9758575a2d3c0f6e69f732d43b3281e6c626022a7b37f335cdd2e708f05fe7",
+      "outputSha256": "02c956c180ed9e22c5384bd6d839017e28ca8104fc3a45b77de4fe3744d3f6ea",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut09",
+      "from": "scenes/ch12-victory-cut09.png",
+      "to": "scenes/ch12-victory-cut09-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "94e6beb297c75d67f9fdfa6a38058fc8845a068555d0b2ced3f636e066c31bf7",
+      "outputSha256": "c132e6618922c0f90072f5551fc483551212e2cd1026c2038188e70f9a684d30",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch12-victory-cut11",
+      "from": "scenes/ch12-victory-cut11.png",
+      "to": "scenes/ch12-victory-cut11-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-victory-cut11.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "cd6d38c8e1024f0ebe2c1c4424c82c54436558ace8081a1628358b0356d67bb9",
+      "outputSha256": "004a27007e7f878267e4878357ea517bbea6beb8224217893e40b6e2d326ad54",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-extra-v2.json"
+    },
+    {
+      "id": "ch04-victory-cut06",
+      "from": "scenes/ch04-victory-cut06.png",
+      "to": "scenes/ch04-victory-cut06-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch04-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "05863a03373a8b693c87dc22f004d2c9f6e03ca4565e4b56c918cddf5ad16722",
+      "outputSha256": "ab5893396c8cd192c78e5cdf61147817fbd07bb85df0f04ef2b477f54c3c369f",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-victory-cut07",
+      "from": "scenes/ch04-victory-cut07.png",
+      "to": "scenes/ch04-victory-cut07-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch04-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "811ecca1d5f7289fd51a4a1be86d6ffd0e57f479f1cb8f6140aaa6ff0734dc57",
+      "outputSha256": "a8980c8544bc6d663dd9f1e367a082a586694f69f919b090afa04ae7af008d1e",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut13",
+      "from": "scenes/ch04-intro-cut13.png",
+      "to": "scenes/ch04-intro-cut13-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut13.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "801d59b5955170e94cc92a20e4d8c26b1c7a5f3a13dcb09deb9f50eebc3dc8e6",
+      "outputSha256": "3d3f26c79042f11d5f13f36f6328d7cdd5674591b21a3992823ebb234bba9660",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-victory-cut04",
+      "from": "scenes/ch09-victory-cut04.png",
+      "to": "scenes/ch09-victory-cut04-logo-v2.png",
+      "acceptedAliases": [
+        "scenes/ch09-victory-cut04.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "42f2bef4c5658ff79c0a76f2e882152ff8e8bbbcf77e07cff41fb1a09334229f",
+      "outputSha256": "27c346a955917aca524c78e46ac6f712e41a5b33e1f8e907c4525a84574d85fe",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut08",
+      "from": "scenes/ch03-victory-cut08.png",
+      "to": "scenes/ch03-victory-cut08-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "ae996cfbafb73604b7c2fa3bbdd9eb182fe153854629861c91008e94ebf46308",
+      "outputSha256": "846e610b04b8a056b8bfed8f21d16a1447541e1988dcf663c21a3b8fe0c0e836",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut02",
+      "from": "scenes/ch04-intro-cut02.png",
+      "to": "scenes/ch04-intro-cut02-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c6d993d0a12f9f4f6f8658525b5869a19bbfa1c6059775ed3ca544af5d6b2404",
+      "outputSha256": "4d35e9921f0f75309f41d3a121dab0cc94cbdde9744f723e4f36de8cb0c202b9",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut03",
+      "from": "scenes/ch04-intro-cut03.png",
+      "to": "scenes/ch04-intro-cut03-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "0c7bf3c85f0d83029a430879b70ff73e14276be10ed94785a4fbc2b12107c88c",
+      "outputSha256": "4d9e12747e7c5fd7f4c02262b4b59e287c6f1c979c03ed7219122b8dbaa76921",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-victory-cut03",
+      "from": "scenes/ch09-victory-cut03.png",
+      "to": "scenes/ch09-victory-cut03-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch09-victory-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "606b01025810f086abb25cfa5af513db797a44b9f1d01ff1c4b58eabe0a98043",
+      "outputSha256": "8198fed328235fe2f2e135606e3a347aaa661ebc1cb00aa9d30d3e9c1379fa98",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut08",
+      "from": "scenes/ch04-intro-cut08.png",
+      "to": "scenes/ch04-intro-cut08-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a3eb710a89ab9b47e1dca347bbe1cd48d1fcf45e612190b6dd96d7c42777c499",
+      "outputSha256": "0a61e0ddc33039777875d686f6d014bc9bdfbdba3c8f8d623774a7291a1a149a",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-intro-cut02",
+      "from": "scenes/ch09-intro-cut02.png",
+      "to": "scenes/ch09-intro-cut02-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut02-logo-v3.png",
+        "scenes/ch09-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5fe8e0020940cc7ddabc45980084884f588c7ba902bcdd6214b3ed15d9992ff5",
+      "outputSha256": "7fb69fd2001c5d890cb6f4aebabad986e6892e315819f0f9b6dcb8a77b410706",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-intro-cut10",
+      "from": "scenes/ch09-intro-cut10.png",
+      "to": "scenes/ch09-intro-cut10-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut10.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "3a9829a14ce2e4fd7f4f25709e95d422a24f18c411bdb5c3cd12f7e19cb819db",
+      "outputSha256": "15c59cc592f4d9b0f5fa09df29303b9b57bad3b52ecc9d6a1f01c2b79395f47c",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-victory-cut02",
+      "from": "scenes/ch09-victory-cut02.png",
+      "to": "scenes/ch09-victory-cut02-logo-v3.png",
+      "acceptedAliases": [
+        "scenes/ch09-victory-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a99939c77ee0d91131f0e61c722a2f61bf5e86a7b40b58d7bda783945777010c",
+      "outputSha256": "6a8f8e985fb62b5ffcc70ee84ca55eae11b677f840729d7e611facd2a7686469",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut06",
+      "from": "scenes/ch03-victory-cut06.png",
+      "to": "scenes/ch03-victory-cut06-logo-v4.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c31c6f46c7140a7f2df543322ed8b2770e3223a97b87712a7320a366cd74a745",
+      "outputSha256": "9232108d617ec1b58169ea1dea07c3a88d1e86e8fa11679067dccc0b6946bf3a",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut07",
+      "from": "scenes/ch04-intro-cut07.png",
+      "to": "scenes/ch04-intro-cut07-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "0926e872362157808eaa109f03eaf0f9d5247eab0c02c3c37fb7154cc922180a",
+      "outputSha256": "5033cf70ed586e35bc4d7b1e30d154fe6aa55d346b0dfe15f3a56a791fedfeb0",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut09",
+      "from": "scenes/ch04-intro-cut09.png",
+      "to": "scenes/ch04-intro-cut09-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1415a57cd5d6c6908cc7af39a186ca97f7e0cc523e9b9524cf3ba1ccc58fe9e5",
+      "outputSha256": "44fd98abd3693d9e3b52207a19d14c4c7a282f784d01a74a83a41310411690ae",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-intro-cut07",
+      "from": "scenes/ch09-intro-cut07.png",
+      "to": "scenes/ch09-intro-cut07-logo-v5.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c458e39ce54dd91936c2b7d375dd0d6e3fa97314ae583da962c8241734dbdcb7",
+      "outputSha256": "d46f80bef72002a6acfc4841be30b5836251289a45387ee345d157df820802f5",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut02",
+      "from": "scenes/ch12-intro-cut02.png",
+      "to": "scenes/ch12-intro-cut02-center-root-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "3bf711a5bef55dbfa0f26032105189b8c52f150f6648e3a0194dffd021b9f039",
+      "outputSha256": "f763b72ee4d325b0817ef14ef98217ae3f3c98689e0241111c53c8ce72b71a0b",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut07",
+      "from": "scenes/ch12-intro-cut07.png",
+      "to": "scenes/ch12-intro-cut07-center-root-v2.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "31fe92b413a3273a36a8da236fa599edde948afb29b589e52f65e8a8332a893e",
+      "outputSha256": "9807d2be5c8764c727db72e10d25ff6669101aef0adac312f01f11dc4d832187",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch04-intro-cut05",
+      "from": "scenes/ch04-intro-cut05.png",
+      "to": "scenes/ch04-intro-cut05-center-root-v2.png",
+      "acceptedAliases": [
+        "scenes/ch04-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "outputSha256": "bb2b1410c7484e7becd698c3426e3b18efa9c04fd79cb3c1b0001ae696b792e8",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-intro-cut08",
+      "from": "scenes/ch09-intro-cut08.png",
+      "to": "scenes/ch09-intro-cut08-logo-v6.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "01c338cbf4d7fbcbb39174b3aea93912d59ccb2bba236a5f697233dadd64db5e",
+      "outputSha256": "8bf3655a11af4efd5b945ef8c7b7f1928d10ffa6b4ccb11081ee5455b71893ab",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch09-intro-cut03",
+      "from": "scenes/ch09-intro-cut03.png",
+      "to": "scenes/ch09-intro-cut03-logo-v9.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut03-logo-v3.png",
+        "scenes/ch09-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "f33f7833f4804774c87d1e19079b19d8c6a915b7a9b7eae2f725ad20dd59fba2",
+      "outputSha256": "3702a15429be57e8204b36cd1b5f6713f5e917934142816d4a88919914823372",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut07",
+      "from": "scenes/ch03-victory-cut07.png",
+      "to": "scenes/ch03-victory-cut07-logo-v12.png",
+      "acceptedAliases": [
+        "scenes/ch03-victory-cut07-logo-v10.png",
+        "scenes/ch03-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "9e9aef125bb1341a2a837913461f0f090606111cd72bcd32405b2b948c0d084e",
+      "outputSha256": "6f20b9a8e8132476c3ccb28ebe0d156d2b1ea0234df91a5be3c9b6aff9721bdd",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "sunrise-crew-branded-v2",
+      "from": "sunrise-crew-branded-v2.png",
+      "to": "sunrise-crew-branded-v2-centered-v2.png",
+      "acceptedAliases": [
+        "sunrise-crew-branded-v2.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 2,
+      "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "outputSha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json"
+    },
+    {
+      "id": "sunrise-detail-v3",
+      "from": "angles/sunrise-detail-v3.png",
+      "to": "angles/sunrise-detail-v3-centered-v2.png",
+      "acceptedAliases": [
+        "angles/sunrise-detail-v3.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 3,
+      "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "outputSha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json"
+    },
+    {
+      "id": "ch09-victory-cut06-logo-v3",
+      "from": "scenes/ch09-victory-cut06-logo-v3.png",
+      "to": "scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "acceptedAliases": [
+        "scenes/ch09-victory-cut06-logo-v3.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "outputSha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json"
+    },
+    {
+      "id": "ch05-intro-cut02-logo-v2",
+      "from": "scenes/ch05-intro-cut02-logo-v2.png",
+      "to": "scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "acceptedAliases": [
+        "scenes/ch05-intro-cut02-logo-v2.png",
+        "scenes/ch05-intro-cut02.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "outputSha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "provenance": "docs/art-prompts/prior94-logo-placement-repairs-v1.json"
+    },
+    {
+      "id": "ch06-victory-cut07",
+      "from": "scenes/ch06-victory-cut07.png",
+      "to": "scenes/ch06-victory-cut07-center-v2.png",
+      "acceptedAliases": [
+        "scenes/ch06-victory-cut07.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "outputSha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json"
+    },
+    {
+      "id": "ch07-intro-cut08",
+      "from": "scenes/ch07-intro-cut08.png",
+      "to": "scenes/ch07-intro-cut08-center-v2.png",
+      "acceptedAliases": [
+        "scenes/ch07-intro-cut08.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "outputSha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json"
+    },
+    {
+      "id": "ch08-intro-cut05",
+      "from": "scenes/ch08-intro-cut05.png",
+      "to": "scenes/ch08-intro-cut05-center-v3.png",
+      "acceptedAliases": [
+        "scenes/ch08-intro-cut05.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "outputSha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json"
+    },
+    {
+      "id": "ch08-intro-cut10",
+      "from": "scenes/ch08-intro-cut10.png",
+      "to": "scenes/ch08-intro-cut10-center-v2.png",
+      "acceptedAliases": [
+        "scenes/ch08-intro-cut10.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "outputSha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut06",
+      "from": "scenes/ch11-intro-cut06-logo-v3.png",
+      "to": "scenes/ch11-intro-cut06-center-v2.png",
+      "acceptedAliases": [
+        "scenes/ch11-intro-cut06-logo-v3.png",
+        "scenes/ch11-intro-cut06.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "outputSha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "provenance": "docs/art-prompts/cutscene-emblem-placement-c-v2.json"
+    },
+    {
+      "id": "garage-left",
+      "from": "angles/garage-left-v2.png",
+      "to": "angles/garage-left-v2-centered-oct23-v1.png",
+      "acceptedAliases": [
+        "angles/garage-left-v2.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 3,
+      "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "outputSha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json"
+    },
+    {
+      "id": "garage-detail",
+      "from": "angles/garage-detail-v2.png",
+      "to": "angles/garage-detail-v2-centered-oct23-v1.png",
+      "acceptedAliases": [
+        "angles/garage-detail-v2.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 3,
+      "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "outputSha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "provenance": "docs/art-prompts/logo-placement-oct23-a.json"
+    },
+    {
+      "id": "ch12-intro-cut11",
+      "from": "scenes/ch12-intro-cut11.png",
+      "to": "scenes/ch12-intro-cut11-center-root-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut11.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "outputSha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json"
+    },
+    {
+      "id": "ch09-intro-cut09",
+      "from": "scenes/ch09-intro-cut09.png",
+      "to": "scenes/ch09-intro-cut09-logo-v7.png",
+      "acceptedAliases": [
+        "scenes/ch09-intro-cut09.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "09343581abaff0b755e218b77edd862b5ea77f76726c22a5b1014170cbebd093",
+      "outputSha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json"
+    },
+    {
+      "id": "ch12-intro-cut03",
+      "from": "scenes/ch12-intro-cut03.png",
+      "to": "scenes/ch12-intro-cut03-center-root-v3.png",
+      "acceptedAliases": [
+        "scenes/ch12-intro-cut03-center-root-v2.png",
+        "scenes/ch12-intro-cut03.png"
+      ],
+      "changedReferences": 0,
+      "changedSources": {},
+      "alreadyIntegrated": 1,
+      "sourceSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "outputSha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "provenance": "docs/art-prompts/logo-placement-oct23-b.json"
+    }
+  ],
+  "supersededReplacements": [
+    {
+      "id": "ch05-intro-cut02",
+      "from": "scenes/ch05-intro-cut02.png",
+      "to": "scenes/ch05-intro-cut02-logo-v2.png",
+      "changedReferences": 0,
+      "alreadyIntegrated": 0,
+      "supersededBy": "scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "sourceSha256": "15c390fe368165836291a1ed903e23327e50d75582c8f9f78035a7fe5a78a108",
+      "outputSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-a-v2.json"
+    },
+    {
+      "id": "ch11-intro-cut06",
+      "from": "scenes/ch11-intro-cut06.png",
+      "to": "scenes/ch11-intro-cut06-logo-v3.png",
+      "changedReferences": 0,
+      "alreadyIntegrated": 0,
+      "supersededBy": "scenes/ch11-intro-cut06-center-v2.png",
+      "sourceSha256": "764e674ade4ca5adde821e64b5980e8abae839bc3f7422e975c625aaefed347a",
+      "outputSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-c-v2.json"
+    },
+    {
+      "id": "ch03-victory-cut07",
+      "from": "scenes/ch03-victory-cut07.png",
+      "to": "scenes/ch03-victory-cut07-logo-v10.png",
+      "changedReferences": 0,
+      "alreadyIntegrated": 0,
+      "supersededBy": "scenes/ch03-victory-cut07-logo-v12.png",
+      "sourceSha256": "9e9aef125bb1341a2a837913461f0f090606111cd72bcd32405b2b948c0d084e",
+      "outputSha256": "fc2d6449089d677dfceb258d5ea1c36ae50bd9d289ae3ad5031b07ae52b4cb74",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    },
+    {
+      "id": "ch12-intro-cut03",
+      "from": "scenes/ch12-intro-cut03.png",
+      "to": "scenes/ch12-intro-cut03-center-root-v2.png",
+      "changedReferences": 0,
+      "alreadyIntegrated": 0,
+      "supersededBy": "scenes/ch12-intro-cut03-center-root-v3.png",
+      "sourceSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "outputSha256": "07572b728b06d6079cef2957df88ccc7024637e69a8d8546d296c8c8f4c13fd7",
+      "provenance": "docs/art-prompts/cutscene-logo-expanded-root-v2.json"
+    }
+  ],
+  "stale": [],
+  "awaitingRootReview": []
+}

@@ -1,0 +1,139 @@
+{
+  "mode": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "radio-betrayal-reverse",
+      "refs": [
+        "beats/radio-betrayal-v2.png"
+      ],
+      "body": "New REVERSE over-the-shoulder close-medium camera from behind Aki's white-shirt right shoulder looking at Ren's remorseful face, at the opposite side of the empty radio desk. Ren adult23 wavy black hair cream denim jacket over dark shirt, face upper-left-center, eyes lowered as he confesses, hand clutching a folded sponsor contract. Aki adult24 short black bob white tee red overalls tied at waist only partial profile at right foreground; hurt and quiet, separated several steps from Ren. Same unpowered radio room as reference; dark empty shelves, unplugged leads, wet violet window across the other wall and small battery lantern. Unpowered gear stays OFF. Somber mature restrained emotion, no smile, no romantic touch.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New REVERSE over-the-shoulder close-medium camera from behind Aki's white-shirt right shoulder looking at Ren's remorseful face, at the opposite side of the empty radio desk. Ren adult23 wavy black hair cream denim jacket over dark shirt, face upper-left-center, eyes lowered as he confesses, hand clutching a folded sponsor contract. Aki adult24 short black bob white tee red overalls tied at waist only partial profile at right foreground; hurt and quiet, separated several steps from Ren. Same unpowered radio room as reference; dark empty shelves, unplugged leads, wet violet window across the other wall and small battery lantern. Unpowered gear stays OFF. Somber mature restrained emotion, no smile, no romantic touch.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ]
+    },
+    {
+      "id": "radio-contract",
+      "refs": [
+        "beats/radio-betrayal-v2.png"
+      ],
+      "body": "Fresh oblique overhead DETAIL close-up of Ren's cream-jacketed hands placing his sponsor contract and handwritten relay list down beside a worn cassette on the stripped dark radio desk. Aki's white-shirt sleeve and still tense hand at opposite upper edge, both adults. Paper shows simple small handwriting and a modest fictional crown stamp, no readable paragraphs required. Battery lantern makes amber light on paper, violet rain reflection at the rim. Empty equipment mounts and disconnected leads. The composition tells the truth left behind, without faces and without romance. All mains power is off. Keep main documents centered in upper-middle of frame and darker empty desk below.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. Fresh oblique overhead DETAIL close-up of Ren's cream-jacketed hands placing his sponsor contract and handwritten relay list down beside a worn cassette on the stripped dark radio desk. Aki's white-shirt sleeve and still tense hand at opposite upper edge, both adults. Paper shows simple small handwriting and a modest fictional crown stamp, no readable paragraphs required. Battery lantern makes amber light on paper, violet rain reflection at the rim. Empty equipment mounts and disconnected leads. The composition tells the truth left behind, without faces and without romance. All mains power is off. Keep main documents centered in upper-middle of frame and darker empty desk below.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ]
+    },
+    {
+      "id": "shared-prototype",
+      "refs": [
+        "ledger-night-v1.png",
+        "garage-dusk-branded.png"
+      ],
+      "body": "Hopeful NEW overhead three-quarter close view of a shared SORA X.O.R. prototype being repaired on the garage workbench. Engineer Yui adult27 black ponytail mustard work jacket and Aki adult24 short black bob white tee red overalls at waist, plus Jun's teal-sleeved hands, annotate a large schematic together with red pencils. Two small original fictional1986 beige wedge terminals with tiny monochrome green CRTs, chunky physical keys, cassette data drive and exposed modular boards are linked by ordinary cables. Original alternate-1986 retrofuturist props, no modern computer or floating UI. A physical red SORA badge and tiny X.O.R. sticker on terminal. Cooperative different handwriting, repair marks, two separate instruction folders. Faces and terminals above lower quarter, dark desk bottom. Warm light restored through borrowed extension cable.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. Hopeful NEW overhead three-quarter close view of a shared SORA X.O.R. prototype being repaired on the garage workbench. Engineer Yui adult27 black ponytail mustard work jacket and Aki adult24 short black bob white tee red overalls at waist, plus Jun's teal-sleeved hands, annotate a large schematic together with red pencils. Two small original fictional1986 beige wedge terminals with tiny monochrome green CRTs, chunky physical keys, cassette data drive and exposed modular boards are linked by ordinary cables. Original alternate-1986 retrofuturist props, no modern computer or floating UI. A physical red SORA badge and tiny X.O.R. sticker on terminal. Cooperative different handwriting, repair marks, two separate instruction folders. Faces and terminals above lower quarter, dark desk bottom. Warm light restored through borrowed extension cable.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/ledger-night-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "sunrise-kiss",
+      "refs": [
+        "sunrise-crew-branded-v1.png",
+        "garage-dusk-branded.png"
+      ],
+      "body": "NEW intimate medium profile two-shot at Nikko mountain overlook at golden sunrise: Aki adult24 short black bob red mechanic jacket over white shirt and Ren adult23 wavy black hair cream denim jacket dark shirt share a gentle consensual first kiss. Eyes closed and relaxed, one hand lightly on the other's shoulder. Fully clothed nonsexual mature tenderness, natural anatomy. Their faces/shoulders fill upper middle, worn cassette recorder switched OFF rests on white boxy1980s sports car beside them. Subtle SORA sewn patches. Behind them Lake Chuzenji is clearly enclosed by wooded mountain slopes and far shoreline, pink gold sky, no ocean or coastal metropolis. Friends are out of frame: private moment. Lower quarter car and guardrail shadow. No hearts or sparkles.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. NEW intimate medium profile two-shot at Nikko mountain overlook at golden sunrise: Aki adult24 short black bob red mechanic jacket over white shirt and Ren adult23 wavy black hair cream denim jacket dark shirt share a gentle consensual first kiss. Eyes closed and relaxed, one hand lightly on the other's shoulder. Fully clothed nonsexual mature tenderness, natural anatomy. Their faces/shoulders fill upper middle, worn cassette recorder switched OFF rests on white boxy1980s sports car beside them. Subtle SORA sewn patches. Behind them Lake Chuzenji is clearly enclosed by wooded mountain slopes and far shoreline, pink gold sky, no ocean or coastal metropolis. Friends are out of frame: private moment. Lower quarter car and guardrail shadow. No hearts or sparkles.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/sunrise-crew-branded-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-umbrella",
+      "refs": [
+        "radio-rain-v1.png",
+        "garage-dusk-branded.png"
+      ],
+      "body": "New MEDIUM two-shot immediately outside SORA record shop/radio booth doorway during violet night rain. Ren adult23 wavy dark hair cream denim jacket dark shirt holds one plain dark umbrella over himself and Aki adult24 short black bob white tee red mechanic overalls tied at waist. Aki looks up warmly at him inviting him closer, Ren shoulder wet from keeping umbrella above her. They have not kissed. Doorway behind casts warm amber light, wet 1986 low Japanese shopping street and parked white period coupe. Both smiling shyly, faces centered upperhalf. The ONE umbrella physically covers both adults, graceful realistic hands, raindrops visible on edge; gentlealmostconfession.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New MEDIUM two-shot immediately outside SORA record shop/radio booth doorway during violet night rain. Ren adult23 wavy dark hair cream denim jacket dark shirt holds one plain dark umbrella over himself and Aki adult24 short black bob white tee red mechanic overalls tied at waist. Aki looks up warmly at him inviting him closer, Ren shoulder wet from keeping umbrella above her. They have not kissed. Doorway behind casts warm amber light, wet 1986 low Japanese shopping street and parked white period coupe. Both smiling shyly, faces centered upperhalf. The ONE umbrella physically covers both adults, graceful realistic hands, raindrops visible on edge; gentlealmostconfession.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/radio-rain-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-umbrella-reverse",
+      "refs": [
+        "radio-rain-v1.png",
+        "garage-dusk-branded.png"
+      ],
+      "body": "New CLOSE reverse angle outside the SORA record shop during rain, looking over Aki's short-black-bob and white-shirt shoulder toward Ren's face, both adult24 and23. Ren wavy black hair cream jacket dark shirt holds ONE dark umbrella above both of them and is about to say something sincere, nervous gentle gaze at Aki, rain soaking outer shoulder. Aki's hand gently invites him closer by his jacket sleeve. No kiss yet. Amber doorway side light, wet violet street behind his face, blurred hanging rotary telephone just inside door suggesting forthcoming interruption. One shared umbrella canopy upperedge, faces uppermiddle, quiet coats/doorstep shadows lowerquarter. Actual new camera side, not the reference composition.",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New CLOSE reverse angle outside the SORA record shop during rain, looking over Aki's short-black-bob and white-shirt shoulder toward Ren's face, both adult24 and23. Ren wavy black hair cream jacket dark shirt holds ONE dark umbrella above both of them and is about to say something sincere, nervous gentle gaze at Aki, rain soaking outer shoulder. Aki's hand gently invites him closer by his jacket sleeve. No kiss yet. Amber doorway side light, wet violet street behind his face, blurred hanging rotary telephone just inside door suggesting forthcoming interruption. One shared umbrella canopy upperedge, faces uppermiddle, quiet coats/doorstep shadows lowerquarter. Actual new camera side, not the reference composition.",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/radio-rain-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    }
+  ],
+  "generated": [
+    {
+      "id": "radio-betrayal-reverse",
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-reverse-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New REVERSE over-the-shoulder close-medium camera from behind Aki's white-shirt right shoulder looking at Ren's remorseful face, at the opposite side of the empty radio desk. Ren adult23 wavy black hair cream denim jacket over dark shirt, face upper-left-center, eyes lowered as he confesses, hand clutching a folded sponsor contract. Aki adult24 short black bob white tee red overalls tied at waist only partial profile at right foreground; hurt and quiet, separated several steps from Ren. Same unpowered radio room as reference; dark empty shelves, unplugged leads, wet violet window across the other wall and small battery lantern. Unpowered gear stays OFF. Somber mature restrained emotion, no smile, no romantic touch.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c5319543-86a8-42ee-a7c4-62ee0ed2f212.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ]
+    },
+    {
+      "id": "radio-contract",
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-contract-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. Fresh oblique overhead DETAIL close-up of Ren's cream-jacketed hands placing his sponsor contract and handwritten relay list down beside a worn cassette on the stripped dark radio desk. Aki's white-shirt sleeve and still tense hand at opposite upper edge, both adults. Paper shows simple small handwriting and a modest fictional crown stamp, no readable paragraphs required. Battery lantern makes amber light on paper, violet rain reflection at the rim. Empty equipment mounts and disconnected leads. The composition tells the truth left behind, without faces and without romance. All mains power is off. Keep main documents centered in upper-middle of frame and darker empty desk below.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-1a155718-791b-4e83-89b6-a59bb7c507bd.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/radio-betrayal-v2.png"
+      ]
+    },
+    {
+      "id": "shared-prototype",
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/shared-prototype-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. Hopeful NEW overhead three-quarter close view of a shared SORA X.O.R. prototype being repaired on the garage workbench. Engineer Yui adult27 black ponytail mustard work jacket and Aki adult24 short black bob white tee red overalls at waist, plus Jun's teal-sleeved hands, annotate a large schematic together with red pencils. Two small original fictional1986 beige wedge terminals with tiny monochrome green CRTs, chunky physical keys, cassette data drive and exposed modular boards are linked by ordinary cables. Original alternate-1986 retrofuturist props, no modern computer or floating UI. A physical red SORA badge and tiny X.O.R. sticker on terminal. Cooperative different handwriting, repair marks, two separate instruction folders. Faces and terminals above lower quarter, dark desk bottom. Warm light restored through borrowed extension cable.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-7a49e0a5-6de4-4272-9152-f7500de148b7.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/ledger-night-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "sunrise-kiss",
+      "file": "public/assets/story/beats/sunrise-kiss-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. NEW intimate medium profile two-shot at Nikko mountain overlook at golden sunrise: Aki adult24 short black bob red mechanic jacket over white shirt and Ren adult23 wavy black hair cream denim jacket dark shirt share a gentle consensual first kiss. Eyes closed and relaxed, one hand lightly on the other's shoulder. Fully clothed nonsexual mature tenderness, natural anatomy. Their faces/shoulders fill upper middle, worn cassette recorder switched OFF rests on white boxy1980s sports car beside them. Subtle SORA sewn patches. Behind them Lake Chuzenji is clearly enclosed by wooded mountain slopes and far shoreline, pink gold sky, no ocean or coastal metropolis. Friends are out of frame: private moment. Lower quarter car and guardrail shadow. No hearts or sparkles.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c484aca1-0652-488c-a233-76cda12c86f8.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/sunrise-crew-branded-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-umbrella",
+      "file": "public/assets/story/beats/radio-umbrella-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New MEDIUM two-shot immediately outside SORA record shop/radio booth doorway during violet night rain. Ren adult23 wavy dark hair cream denim jacket dark shirt holds one plain dark umbrella over himself and Aki adult24 short black bob white tee red mechanic overalls tied at waist. Aki looks up warmly at him inviting him closer, Ren shoulder wet from keeping umbrella above her. They have not kissed. Doorway behind casts warm amber light, wet 1986 low Japanese shopping street and parked white period coupe. Both smiling shyly, faces centered upperhalf. The ONE umbrella physically covers both adults, graceful realistic hands, raindrops visible on edge; gentlealmostconfession.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-053225c9-4082-42be-8d11-623c3fe729c9.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/radio-rain-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-umbrella-reverse",
+      "file": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+      "prompt": "Use case: illustration-story. Asset: SORA CARS full-frame 16:9 cinematic cutscene. Create one genuinely NEW camera composition, not a crop, collage or split panel. Match the reference's established adult characters, crisp visible square pixel clusters, fine dithering, violet/navy and amber palette. Original alternate-history Japan 1986. Keep faces and meaningful props in upper75%, quiet natural darker foreground below for bilingual dialogue. No UI, subtitle, watermark, contemporary phones or cars. SORA markings only physically printed on props or sewn patches. New CLOSE reverse angle outside the SORA record shop during rain, looking over Aki's short-black-bob and white-shirt shoulder toward Ren's face, both adult24 and23. Ren wavy black hair cream jacket dark shirt holds ONE dark umbrella above both of them and is about to say something sincere, nervous gentle gaze at Aki, rain soaking outer shoulder. Aki's hand gently invites him closer by his jacket sleeve. No kiss yet. Amber doorway side light, wet violet street behind his face, blurred hanging rotary telephone just inside door suggesting forthcoming interruption. One shared umbrella canopy upperedge, faces uppermiddle, quiet coats/doorstep shadows lowerquarter. Actual new camera side, not the reference composition.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-27461387-19ca-49ea-b3a1-21dddfbe3049.png",
+      "references": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/radio-rain-v1.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/garage-dusk-branded.png"
+      ]
+    }
+  ]
+}

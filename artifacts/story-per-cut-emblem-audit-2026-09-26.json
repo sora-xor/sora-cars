@@ -1,0 +1,406 @@
+{
+  "schema": "sora-cars.story-per-cut-emblem-audit.v1",
+  "passed": true,
+  "completeBatch": true,
+  "checkedAt": "2026-09-26T02:40:07.744524+00:00",
+  "reference": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+  },
+  "scope": "17 completed corrections within the seventeen-image batch; this audit certifies only listed files, not the whole expanded campaign.",
+  "requestedCount": 17,
+  "pending": [],
+  "originalAudit": {
+    "path": "tmp/music-native-release/art-scope-review/per-cut-emblem-audit-2026-09-26.json",
+    "sha256": "8702501bcf3f4658aeb90c7ee3c48b33a189083e42908049496a169985a0396e"
+  },
+  "mapping": {
+    "path": "tmp/music-native-release/per-cut-logo-replacements.json",
+    "sha256": "e6cad16aca00ffc4394611d0c97020ff63aa4d0fbfe950976b747b88d7b58405"
+  },
+  "files": [
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "originalUnchanged": false,
+      "concurrentSourceRefreshPreserved": true,
+      "provenance": "tmp/music-native-release/per-cut-logo-current-source-review.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+        "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "root",
+        "observation": "Refreshed image restores mechanic white shirt and female profile; upper sleeve square badge has straight paired bars and white open lower channels matching supplied emblem. Full boardroom, key and documents retained.",
+        "method": "Individual view_image; direct comparison to supplied reference.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut11-logo-v2.png",
+      "sha256": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch01-intro-cut11.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "0811b78c984259bbd47f347b9253e0c4e4bd69cb2061efbd3ba79ab757dc9562",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch01-intro-cut11-logo-v2.png",
+        "sha256": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.960249+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Mechanic upper sleeve: clear paired straight bars and diagonal openings on red circular patch; close workshop composition preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut12-logo-v2.png",
+      "sha256": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch01-intro-cut12.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "0a96d9d8100c15104c9dfff5a3c5d13623c47f0b6eee2d702336f86eeac60852",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch01-intro-cut12-logo-v2.png",
+        "sha256": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.962815+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Mechanic upper sleeve: visible geometric red-and-white patch; key, portrait and dusk garage retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut13-logo-v2.png",
+      "sha256": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch01-intro-cut13.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "5a500fe7e8da9f5b4ddef2c18030abf62a46466a328ad9702088ca920d23f19e",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch01-intro-cut13-logo-v2.png",
+        "sha256": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.964260+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Cream-jacket upper back: clear red disk with white paired bars and lower open diagonals; reaching gesture, cassette and foreground mechanic preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut02-logo-v2.png",
+      "sha256": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch01-victory-cut02.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "85ee8b18104e92632e407e22ffa838e62a6a3cb36014126ce040d24ed3c5921a",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch01-victory-cut02-logo-v2.png",
+        "sha256": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.969139+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Open driver door: clear geometric decal with perspective; mechanic, photographer and car preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut08-logo-v2.png",
+      "sha256": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch04-victory-cut08.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "ca076fbcf4c49f7992436560e0f687f28020ea38ab4dbbb664a0c52d9c544f4a",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch04-victory-cut08-logo-v2.png",
+        "sha256": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.971813+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Mechanic upper sleeve: red-and-white geometric emblem above dialogue; cassette and both characters preserved. Output is one pixel narrower,1671 versus1672, without material composition change.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut09-logo-v2.png",
+      "sha256": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch04-victory-cut09.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "9871df44335835351d0861f1f0bbd7d0b3fa5b9a1dac4c4ce9504c94fb81e3af",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-a-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch04-victory-cut09-logo-v2.png",
+        "sha256": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.973287+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Standing DJ upper back: geometric red-and-white emblem; technician, equipment, cars and overlook retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut01-logo-v2.png",
+      "sha256": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch05-intro-cut01.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "c294f63474091eb0d24209106c12923d2b10e728af95bf3e2ee4f97a8dbb9749",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-b-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch05-intro-cut01-logo-v2.png",
+        "sha256": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:49:53.276671+00:00",
+        "method": "Root viewed full saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Clear red circular patch on technician upper back, straight paired bars and open diagonal lower channels, above dialogue region; studio composition retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut03-logo-v2.png",
+      "sha256": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch05-intro-cut03.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "10a70ab76087dec8228716a23f2c9f5852e38cb33d0281af0b392133a8eb6d7c",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-b-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch05-intro-cut03-logo-v2.png",
+        "sha256": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:53:53.958784+00:00",
+        "method": "Root viewed full saved output using view_image; direct visual comparison with supplied emblem.",
+        "observation": "Large red and white circular patch on yellow jacket back; straight bars, central stem, diagonal openings; blueprint and figures retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut04-logo-v2.png",
+      "sha256": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch05-intro-cut04.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "bbc9e742a2b455b42cc78102fb0eb8df8fe098d11a84bc58e2db502a67ef9e92",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-b-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch05-intro-cut04-logo-v2.png",
+        "sha256": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.975285+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Photographer shoulder: clear geometric SORA patch; leak, photos, camera and all three characters retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut05-logo-v2.png",
+      "sha256": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-victory-cut05.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "adb8993bf1f06e8f447ffe402607fc5a387a1322d240ef6df211fced6f2c5c13",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-b-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch09-victory-cut05-logo-v2.png",
+        "sha256": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T02:20:42.097Z",
+        "method": "Root viewed complete saved or generated output and compared recognizable geometry with supplied emblem.",
+        "observation": "Clearly visible physical enamel plaque on desk front at about43.5%,63% has equal straight white bars, centered stem and straight open channels to the lower red edge. Entire plaque above bottom25%. Calendar marking, woman, sealed envelopes, banker lamp, phone, filing cabinets, chair and rainy harbor retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "sha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-victory-cut06.png",
+      "originalUnchanged": false,
+      "sourceAtEditSha256": "634b84b19e419fcc2479044f06908d83cca4935e9507a93a1c37df850af71993",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": true,
+      "provenance": "docs/art-prompts/cutscene-logo-refreshed-v3.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+        "sha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T02:31:26.215Z",
+        "method": "Root individually inspected source, reference and generated output.",
+        "observation": "Square shoulder patch shows clear paired straight bars and lower diagonal channels opening beyond red disk. Updated clean forms and male character retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut07-logo-v2.png",
+      "sha256": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-victory-cut07.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "fa8861824ea6b5d60da1ae741e133d823f869f8d426ce35f46b208a0dfa1f761",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-b-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch09-victory-cut07-logo-v2.png",
+        "sha256": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T02:20:42.101Z",
+        "method": "Root viewed complete saved or generated output and compared recognizable geometry with supplied emblem.",
+        "observation": "Clear red disk on mechanic chest with straight paired bars, central stem and diagonals opening through lower edge. Pointing hand, newspaper pages, photos, studio and harbor preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+      "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch09-victory-cut08.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "8dabd420358e1005ddf2a2892ddec27b4c2d9b41d7154ac51836e960ccbb15b5",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-c-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+        "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:53:53.958774+00:00",
+        "method": "Root viewed full saved output using view_image; direct visual comparison with supplied emblem.",
+        "observation": "Clear red disk patch on cream-jacket upper sleeve with straight paired bars and lower diagonal openings; record sleeves and studio retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+      "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch10-intro-cut04.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "576295465f7783622215052d3559f454818c75c6332e44638ba054b47cf19038",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-c-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+        "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.977251+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Mechanic chest: prominent red disk with straight bars, central stem and open lower diagonal channels, following shirt perspective; boardroom model and gesture preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+      "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch10-intro-cut06.png",
+      "originalUnchanged": true,
+      "sourceAtEditSha256": "5c33f0f0d8fc27df75533364a9c92eb9a1cdac590e6b4abb068960ac5772a68b",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": false,
+      "provenance": "docs/art-prompts/cutscene-logo-cuts-c-v2.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+        "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T01:58:53.978470+00:00",
+        "method": "Root viewed the complete saved output using view_image and compared recognizable geometry with supplied emblem.",
+        "observation": "Technician upper back: cloth emblem with straight paired bars and open diagonals; borrowed equipment and workshop preserved.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+      "sha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replaces": "public/assets/story/scenes/ch10-intro-cut07.png",
+      "originalUnchanged": false,
+      "sourceAtEditSha256": "aa3f77c4e3b048d052b2c366fdcc2dc666903182aad312b22cb768db2db30a70",
+      "sourceUnchangedSinceEdit": true,
+      "concurrentSourceRefreshPreserved": true,
+      "provenance": "docs/art-prompts/cutscene-logo-refreshed-v3.json",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+        "sha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+        "accepted": true,
+        "reviewedAt": "2026-09-26T02:31:26.215Z",
+        "method": "Root individually inspected source, reference and generated output.",
+        "observation": "Upper-back red patch shows recognizable paired bars/stem and open lower diagonals. Updated male host, phone, clean register and map retained.",
+        "pixelIdenticalLogoClaimed": false
+      },
+      "pixelIdenticalLogoClaimed": false
+    }
+  ],
+  "limitations": [
+    "Emblems preserve recognizable reference geometry under scene perspective/texture; pixel-identical logo reproduction is not claimed.",
+    "One generated image (ch04-victory-cut08) is1671\u00d7941 versus its1672\u00d7941 source; full composition was visually retained.",
+    "Browser integration verification is separate from individual image acceptance."
+  ],
+  "browser": {
+    "path": "output/browser/cutscene-logo-55/report.json",
+    "scope": "52corrected/accepted cut illustrations at1440/390/320;3base images checked separately",
+    "passed": true
+  }
+}

@@ -1,0 +1,1455 @@
+{
+  "version": 1,
+  "year": 1986,
+  "researchedAt": "2026-09-07",
+  "scope": "Japan prefectures 24–47, plus Pyongyang and Moscow special races",
+  "evidencePolicy": {
+    "ja": "これは走行コースの研究候補一覧であり、プレイ可能なトラック定義ではない。引用は地形、歴史建築、年代除外を支える。現代の観光地図だけでは1986年の道路配置を認証しない。候補の順序とアーケード演出は創作で、走行距離・座標・交通規制・接続道路は別工程で検証する。一次資料に含まれる宣伝的評価は採用しない。",
+    "en": "This is a research catalog of proposed corridors, not playable track definitions. Citations support geography, historical structures or dated exclusions. Modern visitor maps alone do not authenticate 1986 roads. Candidate order and arcade treatment are design proposals; distance, coordinates, traffic rules and road connectivity require separate verification. Promotional value judgments in primary material are not adopted."
+  },
+  "entries": [
+    {
+      "code": "24",
+      "prefecture": {
+        "ja": "三重県",
+        "en": "Mie"
+      },
+      "proposedTitle": {
+        "ja": "二見・海の空路",
+        "en": "Futami Sea-Sky Run"
+      },
+      "corridor": {
+        "ja": "候補：二見浦駅前→二見浦の海岸側車道→夫婦岩の西側アプローチ→江の港側。岩や神社境内を走路にしない。",
+        "en": "Candidate: Futaminoura station forecourt → coastal vehicle roads → western approach to Meoto Iwa → E fishing-port side. The rocks and shrine precinct are scenery, not roadway."
+      },
+      "geography": {
+        "ja": "伊勢湾側の二見浦を舞台に、夫婦岩、低い海岸集落、松と海の水平線を主役にする。",
+        "en": "Futaminoura on the Ise Bay side provides the paired offshore rocks, low coastal settlement, pines and a broad sea horizon."
+      },
+      "periodNotes": {
+        "ja": "夫婦岩と二見の地理を参照する。現在のおはらい町観光写真を1986年の二見と混同しない。おかげ横丁は1993年開業。",
+        "en": "Use Meoto Iwa and Futami geography. Current Oharai visitor imagery is not evidence for 1986 Futami. Okage Yokocho opened in 1993."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "おかげ横丁",
+          "en": "Okage Yokocho",
+          "reason": {
+            "ja": "1993年7月16日開業で、1986年には存在しない。",
+            "en": "Opened July 16, 1993, after the 1986 setting."
+          },
+          "sourceUrl": "https://okageyokocho.com/main/bunka/oharai/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.japan.travel/en/spot/2249/",
+          "title": "JNTO — Meoto Iwa (Mie)",
+          "support": {
+            "ja": "二見の夫婦岩と伊勢地域の位置関係。1986年の街路調査ではない。",
+            "en": "Geography of the paired Meoto Iwa coastal rocks in Futami and their relationship to the Ise area; not a 1986 street survey."
+          }
+        },
+        {
+          "url": "https://okageyokocho.com/main/bunka/oharai/",
+          "title": "おかげ横丁 — おはらい町とおかげ横丁",
+          "support": {
+            "ja": "運営者が後年の商業街区の開業日を1993年7月16日と説明。",
+            "en": "The operator dates the later shopping quarter’s opening to July 16, 1993."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "二見浦駅前から海沿いへの車道接続と、1986年の護岸・旅館看板・港の形を調査する。",
+        "en": "Check vehicle-road links from Futaminoura station and the 1986 seawall, inn signs and port shape."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "25",
+      "prefecture": {
+        "ja": "滋賀県",
+        "en": "Shiga"
+      },
+      "proposedTitle": {
+        "ja": "琵琶湖・疏水の夜明け",
+        "en": "Biwako Canal Dawn"
+      },
+      "corridor": {
+        "ja": "候補：浜大津港側→三保ヶ崎→第一疏水取水口の外周車道→三井寺山麓→浜大津市街。",
+        "en": "Candidate: Hamaotsu harbor side → Mihogasaki → roads outside the first-canal intake → Mii-dera foothill → Hamaotsu streets."
+      },
+      "geography": {
+        "ja": "琵琶湖南西岸の広い水面と長等山の近い斜面、湖から山に入る疏水を対比させる。",
+        "en": "Contrast the open southwest Lake Biwa shore with nearby Nagara hills and the canal entering the hillside."
+      },
+      "periodNotes": {
+        "ja": "滋賀県は第一疏水を1885年着工・1890年竣工と記録。運河そのものと歴史的取水施設は参照できるが、現在の湖岸整備は別に年代確認する。",
+        "en": "Shiga dates construction of the first canal to 1885–1890. The canal and historic intake are grounded references; present waterfront landscaping needs separate dating."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.shiga.lg.jp/sd00/press-release/25143.html",
+          "title": "滋賀県 — 琵琶湖疏水施設の文化財指定",
+          "support": {
+            "ja": "大津から京都への運河、1890年竣工の第一疏水と関連施設。",
+            "en": "The Otsu–Kyoto canal, the first canal’s completion in 1890, and its associated structures."
+          }
+        },
+        {
+          "url": "https://rekishihyakka.jp/en/culturalheritages/42-2/",
+          "title": "大津市歴史博物館 — Lake Biwa Canal",
+          "support": {
+            "ja": "大津側の疏水と1890年完成を説明する地元博物館の歴史資料。",
+            "en": "Local museum history of the Otsu-side canal and its completion in 1890."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "26",
+      "prefecture": {
+        "ja": "京都府",
+        "en": "Kyoto"
+      },
+      "proposedTitle": {
+        "ja": "蹴上・煉瓦の余韻",
+        "en": "Keage Brick Echo"
+      },
+      "corridor": {
+        "ja": "候補：三条大橋東詰→三条通→蹴上発電所前→南禅寺前の車道→岡崎・仁王門通方面。",
+        "en": "Candidate: east end of Sanjo Bridge → Sanjo-dori → Keage power-station frontage → vehicle roads outside Nanzen-ji → Okazaki/Niomon-dori."
+      },
+      "geography": {
+        "ja": "鴨川の平坦な市街から東山山麓へ上り、煉瓦の発電所、疏水、寺院の森を順に見せる。",
+        "en": "Rise from the flat Kamo-side streets to Higashiyama foothills, moving through brick power works, canals and temple woodland."
+      },
+      "periodNotes": {
+        "ja": "京都市資料が1890年の疏水完成、三条通と蹴上発電所の位置を説明。歩行者用の哲学の道や水路を車道に読み替えない。",
+        "en": "Kyoto records canal completion in 1890 and locates Keage works on Sanjo-dori. Do not recast the pedestrian Philosopher’s Path or canal itself as a vehicle road."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www2.city.kyoto.lg.jp/somu/rekishi/fm/nenpyou/htmlsheet/toshi27.html",
+          "title": "京都市歴史資料館 — 都市史27 琵琶湖疏水",
+          "support": {
+            "ja": "三条通の発電所位置、第一疏水の流路、1890年の第一期完成。",
+            "en": "The power station’s location on Sanjo-dori, the first canal’s watercourse, and first-phase completion in 1890."
+          }
+        },
+        {
+          "url": "https://kyoto-irodoru.city.kyoto.lg.jp/sakyo/keagehydropowerplant.html",
+          "title": "京都市 — 蹴上発電所",
+          "support": {
+            "ja": "現存する明治末期の煉瓦造建物と三条通側の外観。1986年の街並み全体を示す資料ではない。",
+            "en": "The surviving late-Meiji brick building and its Sanjo-dori facade; not a complete 1986 streetscape."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "27",
+      "prefecture": {
+        "ja": "大阪府",
+        "en": "Osaka"
+      },
+      "proposedTitle": {
+        "ja": "御堂筋・銀杏シグナル",
+        "en": "Midosuji Ginkgo Signal"
+      },
+      "corridor": {
+        "ja": "候補：淀屋橋→御堂筋を南下→心斎橋・長堀通→堺筋を北上→土佐堀通で戻る市街ループ。",
+        "en": "Candidate: Yodoyabashi → south along Midosuji → Shinsaibashi/Nagahori-dori → north on Sakaisuji → return along Tosabori-dori."
+      },
+      "geography": {
+        "ja": "南北の大通りと船場の格子状街路、銀杏並木、川沿いへの切り返しを組み合わせる。",
+        "en": "Combine the north–south boulevard, Semba street grid, ginkgo rows and sharp changes toward the riverside."
+      },
+      "periodNotes": {
+        "ja": "御堂筋は1937年開通。現在の歩道拡幅・側道閉鎖や彫刻の全配置を1986年へ移さない。開通50周年碑は1987年建立。",
+        "en": "Midosuji opened in 1937. Present sidewalk widening, side-road closures and the complete sculpture collection are not a 1986 template. Its fiftieth-anniversary monument dates to 1987."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "御堂筋開通50周年記念碑",
+          "en": "Midosuji fiftieth-anniversary monument",
+          "reason": {
+            "ja": "建立年は1987年で、1986年の街路には置かない。",
+            "en": "Erected in 1987; exclude from the 1986 street scene."
+          },
+          "sourceUrl": "https://osaka-info.jp/experience/en/osaka/spot/525"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://osaka-info.jp/en/spot/midosuji-sculpture-street/",
+          "title": "大阪観光局 — Midosuji Sculpture Street",
+          "support": {
+            "ja": "1937年開通、南北約4kmの大通りと銀杏並木。現在の彫刻一覧は1986年の配置の証明ではない。",
+            "en": "The boulevard’s 1937 opening, approximately four-kilometer north–south extent, and ginkgo rows. Its current sculpture inventory is not proof of 1986 placement."
+          }
+        },
+        {
+          "url": "https://osaka-info.jp/experience/en/osaka/spot/525",
+          "title": "大阪観光局 — Midosuji 50th Anniversary Monument",
+          "support": {
+            "ja": "除外対象の記念碑が1987年建立と明記。",
+            "en": "Explicitly dates the excluded commemorative monument to 1987."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の一方通行指定、長堀の路面、看板、交差点幅と信号を照合する。",
+        "en": "Check 1986 one-way directions, Nagahori surfaces, billboards, junction widths and signals."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "28",
+      "prefecture": {
+        "ja": "兵庫県",
+        "en": "Hyogo"
+      },
+      "proposedTitle": {
+        "ja": "神戸・波止場ラジオ",
+        "en": "Kobe Wharf Radio"
+      },
+      "corridor": {
+        "ja": "候補：中突堤ポートタワー前→波止場町→海岸通→旧居留地外周→元町南側へ。",
+        "en": "Candidate: Naka Pier at Port Tower → Hatobacho → Kaigandori → former foreign-settlement perimeter → south side of Motomachi."
+      },
+      "geography": {
+        "ja": "六甲山と港の間の細長い都市を、低い港湾倉庫・旧居留地の石造建築・山の稜線で見せる。",
+        "en": "The narrow city between Rokko and the port combines low wharf warehouses, stone settlement buildings and a mountain skyline."
+      },
+      "periodNotes": {
+        "ja": "神戸市資料はポートタワー1963年竣工を記録。市公文書館年表ではメリケンパークと神戸海洋博物館は1987年開業。1986年の埋立工事状態は未確認。",
+        "en": "City records date Port Tower to 1963; the municipal archive dates Meriken Park and the Maritime Museum to 1987. The exact 1986 reclamation/construction state remains unverified."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "完成後のメリケンパーク",
+          "en": "Completed Meriken Park",
+          "reason": {
+            "ja": "1987年開業。1986年の埋立・建設状態は別途調査が必要。",
+            "en": "Opened in 1987. Its 1986 reclamation and construction state needs separate research."
+          },
+          "sourceUrl": "https://www.kobe-city-archives.jp/modern_history/"
+        },
+        {
+          "ja": "神戸海洋博物館",
+          "en": "Kobe Maritime Museum",
+          "reason": {
+            "ja": "1987年開業のため、完成した博物館を1986年に配置しない。",
+            "en": "Opened in 1987; do not place the completed museum in 1986."
+          },
+          "sourceUrl": "https://www.kobe-city-archives.jp/modern_history/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.city.kobe.lg.jp/information/public/online/hyakkei/works/works06.html",
+          "title": "神戸市 — 神戸百景 作品51–60",
+          "support": {
+            "ja": "中突堤のポートタワーが1963年竣工と記録。",
+            "en": "Records Port Tower’s completion at Naka Pier in 1963."
+          }
+        },
+        {
+          "url": "https://www.kobe-city-archives.jp/modern_history/",
+          "title": "神戸市歴史公文書館 — 神戸市の年表",
+          "support": {
+            "ja": "除外対象のメリケンパークと神戸海洋博物館が1987年開業。",
+            "en": "Dates the excluded Meriken Park and Kobe Maritime Museum to 1987."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の中突堤と埋立地の境界、港湾フェンス、旧居留地の連続車道を航空写真で特定する。",
+        "en": "Identify 1986 Naka Pier/reclamation boundaries, dock fencing and continuous vehicle streets through the former settlement."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "29",
+      "prefecture": {
+        "ja": "奈良県",
+        "en": "Nara"
+      },
+      "proposedTitle": {
+        "ja": "春日・空色の稜線",
+        "en": "Kasuga Sky Ridge"
+      },
+      "corridor": {
+        "ja": "候補：奈良公園北側の車道→新若草山ドライブウェイ→若草山山頂の車道終端。周遊区間への延長は路面を調査してから。",
+        "en": "Candidate: vehicle roads north of Nara Park → Shin-Wakakusayama Driveway → vehicle terminus near the summit. Extend into the circuit only after checking its surface."
+      },
+      "geography": {
+        "ja": "奈良盆地を見下ろす若草山の開けた草地と、春日山の森林の閉塞感を対比する。",
+        "en": "Contrast open Wakakusa grass slopes above the Nara Basin with enclosed Kasuga woodland."
+      },
+      "periodNotes": {
+        "ja": "奈良市年表は1928年の春日山周遊自動車道路完成を記録。現在の新若草山道路と全く同じ線形・舗装だったとは断定しない。",
+        "en": "Nara’s chronology records completion of a Kasugayama circuit motor road in 1928. This does not establish identical alignment or paving on today’s Shin-Wakakusayama route."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.nara.lg.jp/soshiki/3/2789.html",
+          "title": "奈良市 — 奈良のあゆみ 昭和",
+          "support": {
+            "ja": "1928年10月20日の春日山周遊自動車道路完成を記録し、歴史的な自動車道路の存在を裏付ける。",
+            "en": "Records completion of the Kasugayama circuit motor road on October 20, 1928, establishing a historical motor-road precedent."
+          }
+        },
+        {
+          "url": "https://www.visitnara.jp/venues/A00491/",
+          "title": "奈良県公式観光 — Mt. Wakakusa",
+          "support": {
+            "ja": "若草山の地形と奥山ドライブウェイによる現在の車でのアクセス。1986年の道路形状は未証明。",
+            "en": "Wakakusa topography and present vehicle access via the Okuyama Driveway; does not establish the 1986 road form."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "新若草山区間の開通年代、1986年の未舗装区間・料金所・ガードレールを特定する。寺社の歩道は走路にしない。",
+        "en": "Date the Shin-Wakakusayama section and identify 1986 unpaved stretches, toll booths and barriers; temple footpaths remain scenery."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "30",
+      "prefecture": {
+        "ja": "和歌山県",
+        "en": "Wakayama"
+      },
+      "proposedTitle": {
+        "ja": "白浜・断崖のカセット",
+        "en": "Shirahama Cliff Cassette"
+      },
+      "corridor": {
+        "ja": "候補：白良浜南端→湯崎の車道→千畳敷前→三段壁前の車道。",
+        "en": "Candidate: south end of Shirarahama → Yuzaki streets → Senjojiki frontage → roads outside Sandanbeki."
+      },
+      "geography": {
+        "ja": "白い浜、水平に広がる海食台、急に落ちる崖を一つの海岸走行にまとめる。",
+        "en": "Join a white-sand bay, broad wave-cut rock terrace and abrupt sea cliffs in one coastal run."
+      },
+      "periodNotes": {
+        "ja": "県の観光資料は千畳敷の隆起海岸段丘と三段壁を記載。自然地形を基盤にするが、現在の遊歩道・売店・道路を1986年の完成形とは扱わない。",
+        "en": "Prefectural material identifies Senjojiki’s raised coastal terrace and Sandanbeki cliffs. Natural forms are the basis; present paths, shops and roadworks are not qualified as 1986."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://visitwakayama.jp/lsc/upfile/pamphlet/0000/0013/13_201_file.pdf",
+          "title": "和歌山県公式観光 — Sights to See",
+          "support": {
+            "ja": "千畳敷を隆起海岸段丘と説明し、三段壁を掲載。海岸地形と名所の位置の参照。",
+            "en": "Identifies Senjojiki as a raised coastal terrace and lists Sandanbeki, supporting coastal landforms and landmark locations."
+          }
+        },
+        {
+          "url": "https://www.wakayama-kanko.or.jp/spots/detail_517.html",
+          "title": "和歌山県公式観光 — 三段壁",
+          "support": {
+            "ja": "白浜の三段壁の地理的参照。現在の観光施設は1986年の姿の証明ではない。",
+            "en": "Geographic reference for Sandanbeki cliffs in Shirahama; current visitor facilities are not evidence of their 1986 form."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "31",
+      "prefecture": {
+        "ja": "鳥取県",
+        "en": "Tottori"
+      },
+      "proposedTitle": {
+        "ja": "浦富・砂と潮の空",
+        "en": "Uradome Sand and Tide"
+      },
+      "corridor": {
+        "ja": "候補：鳥取砂丘東側の車道→岩戸の海岸側→大谷→網代の港側車道。浦富側への接続は旧道確認後。",
+        "en": "Candidate: roads east of Tottori dunes → Iwado coast → Otani → Ajiro port roads. Extend toward Uradome only after auditing old-road connections."
+      },
+      "geography": {
+        "ja": "砂丘の広い空から、浦富海岸の入り江・岩礁・松林へ景色を狭めていく。",
+        "en": "Compress the horizon from open dunes into Uradome’s coves, reefs and pine-lined shore."
+      },
+      "periodNotes": {
+        "ja": "鳥取県観光資料は砂丘と東側の浦富海岸の地形を説明。現在のジオパーク名称、観光施設、現道のバイパスは1986年の装飾・線形の根拠にしない。",
+        "en": "Prefectural sources establish dunes and the indented Uradome coast to their east. Current geopark branding, visitor facilities and bypass roads do not establish a 1986 scene."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.tottori-tour.jp/en/sightseeing/456/",
+          "title": "鳥取県観光 — Tottori Sand Dunes",
+          "support": {
+            "ja": "日本海に面する砂丘と、風によって生じる砂紋。",
+            "en": "Dunes facing the Sea of Japan and ripples shaped by wind."
+          }
+        },
+        {
+          "url": "https://www.tottori-tour.jp/en/sightseeing/775/",
+          "title": "鳥取県観光 — Uradome Beach",
+          "support": {
+            "ja": "浦富海岸の洞窟、入り江、松のある砂浜。歴史的な道路形状は示さない。",
+            "en": "Uradome’s caves, coves and pine-lined beaches; does not establish historical road geometry."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "32",
+      "prefecture": {
+        "ja": "島根県",
+        "en": "Shimane"
+      },
+      "proposedTitle": {
+        "ja": "松江・宍道湖の残光",
+        "en": "Matsue Lake Afterglow"
+      },
+      "corridor": {
+        "ja": "候補：松江城大手前→城の東外周→塩見縄手の周辺車道→宍道湖北東岸→大橋川沿い。",
+        "en": "Candidate: Matsue Castle Otemae → outer east castle roads → vehicle streets around Shiomi Nawate → northeast Lake Shinji shore → Ohashi River."
+      },
+      "geography": {
+        "ja": "宍道湖東端、堀と大橋川がつながる水の都市。城の黒い輪郭と低い湖面を同時に見せる。",
+        "en": "A water city at Lake Shinji’s eastern end, linked by moats and the Ohashi River; combine the dark keep silhouette with the low lake horizon."
+      },
+      "periodNotes": {
+        "ja": "県資料は松江城が1607–1611年に築かれ、当時の天守が残ると説明。2015年の国宝指定を1986年の看板に入れない。",
+        "en": "Prefectural history dates Matsue Castle to 1607–1611 and identifies the surviving keep. Do not put its 2015 National Treasure designation on 1986 signs."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.kankou-shimane.com/pickup/26943.html",
+          "title": "島根県観光 — 国宝松江城の魅力",
+          "support": {
+            "ja": "宍道湖東端の亀田山、1611年の城完成と現存天守。",
+            "en": "Kamedayama at Lake Shinji’s eastern end, the castle’s completion in 1611, and its surviving keep."
+          }
+        },
+        {
+          "url": "https://www.kankou-shimane.com/jp/spot/441.html",
+          "title": "島根県観光 — 松江エリア",
+          "support": {
+            "ja": "堀、宍道湖、松江城の地域配置。現代の遊覧施設は1986年の証拠ではない。",
+            "en": "Regional arrangement of moats, Lake Shinji and Matsue Castle; modern sightseeing infrastructure is not evidence for 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "33",
+      "prefecture": {
+        "ja": "岡山県",
+        "en": "Okayama"
+      },
+      "proposedTitle": {
+        "ja": "倉敷・白壁サイドB",
+        "en": "Kurashiki Whitewall Side B"
+      },
+      "corridor": {
+        "ja": "候補：倉敷駅南側→中央通り→大原美術館外周の車道→本町の旧商業街路→阿智神社の丘の麓。",
+        "en": "Candidate: south side of Kurashiki station → Chuo-dori → vehicle streets outside the Ohara Museum → Honmachi’s older commercial streets → foot of Achi Shrine hill."
+      },
+      "geography": {
+        "ja": "物資集散地だった運河の町を、白壁倉庫、柳、低い橋と丘の迫る街路で表現する。",
+        "en": "Express the former goods-distribution town with canal-side white storehouses, willows, low bridges and streets compressed against a hill."
+      },
+      "periodNotes": {
+        "ja": "県資料が江戸期の水運と倉敷川周辺の商業集積を説明。現代のデニム店舗や演出照明は1986年の店構えの根拠にならない。",
+        "en": "Prefectural material describes Edo-period canal freight and commerce. Modern denim shops and designed night lighting do not establish 1986 shopfronts."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.okayama-japan.jp/en/spot/17596",
+          "title": "岡山県公式観光 — Kurashiki City",
+          "support": {
+            "ja": "江戸期の物資集散地と運河沿いの白壁の町。歴史的な経済活動と水路の地理を示す。",
+            "en": "The Edo-period goods-distribution center and white-walled canal town, supporting historical economic activity and waterway geography."
+          }
+        },
+        {
+          "url": "https://www.okayama-japan.jp/en/21658",
+          "title": "岡山県公式観光 — Kurashiki Canal Boat Tour",
+          "support": {
+            "ja": "倉敷川、今橋、大原美術館の相対的位置と水運の背景。現在の遊覧船は1986年の証明ではない。",
+            "en": "Relative positions of the Kurashiki River, Imabashi and Ohara Museum, with freight-waterway history; the present boat tour is not evidence for 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "本町の車両幅、橋の耐荷・路面、歩道との境界を1986年地図で確認する。水路や美術館敷地を架空の公道にしない。",
+        "en": "Check Honmachi vehicle widths, bridge surfaces and sidewalk boundaries on 1986 maps. Do not invent public roadway through the canal or museum grounds."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "34",
+      "prefecture": {
+        "ja": "広島県",
+        "en": "Hiroshima"
+      },
+      "proposedTitle": {
+        "ja": "尾道・坂道の周波数",
+        "en": "Onomichi Slope Frequency"
+      },
+      "corridor": {
+        "ja": "候補：尾道駅の港側→国道2号の土堂区間→長江口→長江通りを千光寺山東麓へ。",
+        "en": "Candidate: port side of Onomichi station → Route 2 at Tsuchido → Nagaeguchi → Nagae-dori toward the east foot of Senkoji hill."
+      },
+      "geography": {
+        "ja": "尾道水道と背後の急な丘に挟まれた狭い港町。水面、寺の赤い本堂、階段路地を背景として段階的に見せる。",
+        "en": "A narrow port town squeezed between Onomichi Channel and steep hills; reveal water, the red temple hall and stepped lanes as successive scenery."
+      },
+      "periodNotes": {
+        "ja": "県資料は千光寺が港を見下ろす斜面にあり、本堂は1686年と記載。階段だらけの寺への散策路を車道として走らせない。",
+        "en": "Prefectural information places Senkoji on a slope over the port and dates its hall to 1686. The stair-filled temple walking routes must not become vehicle roads."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://dive-hiroshima.com/en/explore/1503/",
+          "title": "広島県公式観光 — Senkoji Temple",
+          "support": {
+            "ja": "港を見下ろす斜面と、1686年の赤い本堂。地形と歴史的な寺の外観を裏付ける。",
+            "en": "The hillside overlooking the port and the red main hall dated 1686, supporting topography and the historic temple exterior."
+          }
+        },
+        {
+          "url": "https://image.dive-hiroshima.com/wp-content/uploads/2024/05/HIROSHIMA_en.pdf",
+          "title": "広島県公式観光ガイド — Onomichi",
+          "support": {
+            "ja": "尾道の坂と港の地域的文脈。1986年の街路地図ではない。",
+            "en": "Regional context for Onomichi’s slopes and port; not a 1986 street map."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "35",
+      "prefecture": {
+        "ja": "山口県",
+        "en": "Yamaguchi"
+      },
+      "proposedTitle": {
+        "ja": "関門・海峡スリップストリーム",
+        "en": "Kanmon Strait Slipstream"
+      },
+      "corridor": {
+        "ja": "候補：唐戸の海側→国道9号を壇之浦へ→関門橋の下→長府方面の海岸車道。",
+        "en": "Candidate: Karato waterfront → Route 9 toward Dannoura → beneath Kanmon Bridge → coastal road toward Chofu."
+      },
+      "geography": {
+        "ja": "本州と九州が狭い海峡で向かい合う景色を使い、大型船と対岸の街を横方向の速度手掛かりにする。",
+        "en": "Use the narrow gap between Honshu and Kyushu, with large ships and the opposite city providing lateral speed cues."
+      },
+      "periodNotes": {
+        "ja": "国土交通省と道路管理者は関門橋の1973年完成・開通を記録。海峡横断橋は背景に置き、別道路を空想で直結しない。",
+        "en": "MLIT and the road operator date Kanmon Bridge to 1973. Keep the crossing as scenery rather than inventing direct links between separate roads."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pa.qsr.mlit.go.jp/kanmon/about/index_kaikyou.html",
+          "title": "国土交通省 関門航路事務所 — 関門海峡",
+          "support": {
+            "ja": "関門海峡の地形と、1973年完成の関門橋。",
+            "en": "Kanmon Strait geography and Kanmon Bridge’s completion in 1973."
+          }
+        },
+        {
+          "url": "https://corp.w-nexco.co.jp/corporate/release/kyushu/r5/1025a/",
+          "title": "NEXCO西日本 — 関門自動車道50周年",
+          "support": {
+            "ja": "1958年の道路トンネルと1973年の自動車道全線開通。道路施設の年代を裏付ける。",
+            "en": "The road tunnel opened in 1958 and the motorway fully opened in 1973, establishing infrastructure dates."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "36",
+      "prefecture": {
+        "ja": "徳島県",
+        "en": "Tokushima"
+      },
+      "proposedTitle": {
+        "ja": "鳴門・七橋の空",
+        "en": "Naruto Seven-Bridge Sky"
+      },
+      "corridor": {
+        "ja": "候補：土佐泊浦→鳴門スカイライン→四方見展望台付近→北泊・櫛木側の終点。",
+        "en": "Candidate: Tosadomariura → Naruto Skyline → Yomomi viewpoint vicinity → Kitadomari/Kushiki end."
+      },
+      "geography": {
+        "ja": "鳴門海峡の激しい外海と穏やかなウチノ海を、島の斜面と連続する橋の上り下りで切り替える。",
+        "en": "Alternate the exposed Naruto Strait and calmer Uchinoumi through island slopes and a sequence of bridge climbs and descents."
+      },
+      "periodNotes": {
+        "ja": "県観光サイトは約11kmの旧有料道路と七つの橋を説明。大鳴門橋は1985年6月8日供用。1986年には見える候補だが、スカイライン各橋の当時形状は未照合。",
+        "en": "The prefectural guide describes an approximately 11-km former toll road and seven bridges. Onaruto Bridge opened June 8, 1985; it is a period candidate, while each Skyline bridge still needs a 1986 form audit."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.awanavi.jp/archives/spot/3366",
+          "title": "徳島県観光 阿波ナビ — 鳴門スカイライン",
+          "support": {
+            "ja": "ウチノ海、鳴門海峡と七つの橋。固有の海岸・島嶼地形を示す。",
+            "en": "Uchinoumi, Naruto Strait and seven bridges, establishing the specific coastal and island character."
+          }
+        },
+        {
+          "url": "https://www.awanavi.jp/tls/archives/spot/878",
+          "title": "徳島県ロケーション・サービス — 鳴門スカイライン",
+          "support": {
+            "ja": "現在の経路を県道183号、約11km、旧有料道路として説明し、四方見展望台を記載。",
+            "en": "Defines the present corridor as Prefectural Route 183, approximately 11 km and formerly tolled, and identifies Yomomi viewpoint."
+          }
+        },
+        {
+          "url": "https://www.jb-honshi.co.jp/corp_index/technology/introduction/introduction_onaruto.html",
+          "title": "本州四国連絡高速道路 — 大鳴門橋",
+          "support": {
+            "ja": "大鳴門橋の供用日を1985年6月8日と記録。",
+            "en": "Records Onaruto Bridge’s opening to traffic on June 8, 1985."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "37",
+      "prefecture": {
+        "ja": "香川県",
+        "en": "Kagawa"
+      },
+      "proposedTitle": {
+        "ja": "屋島・瀬戸内テーブルターン",
+        "en": "Yashima Seto Table Turn"
+      },
+      "corridor": {
+        "ja": "候補：高松町交差点→屋島南麓→屋島ドライブウェイを東面経由で山上へ。",
+        "en": "Candidate: Takamatsucho junction → southern Yashima foothill → Yashima Driveway up the east face to the summit."
+      },
+      "geography": {
+        "ja": "屋根のように平らな山上と急な側斜面、瀬戸内海の島々を、タイトな上りと開けた終盤に変換する。",
+        "en": "The table-like summit, steep sides and Inland Sea islands create a tight ascent followed by an open final section."
+      },
+      "periodNotes": {
+        "ja": "林野庁資料は高松町交差点からドライブウェイで山頂へ至る車道経路を示す。1986年の道路・料金所と山上施設の姿は未確認。",
+        "en": "Forestry Agency guidance identifies the driving approach from Takamatsucho junction to the summit. The 1986 roadway, toll facility and summit buildings remain unverified."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.rinya.maff.go.jp/shikoku/kanri/yashima.html",
+          "title": "林野庁 四国森林管理局 — 屋島風景林",
+          "support": {
+            "ja": "屋島の地形と、国道11号・高松町交差点から山上へ続く車道アクセス。",
+            "en": "Yashima topography and the connected vehicle approach from Route 11 and Takamatsucho junction to the summit."
+          }
+        },
+        {
+          "url": "https://www.city.takamatsu.kagawa.jp/smph/kurashi/shinotorikumi/keikaku/sonota/yashima/index.html",
+          "title": "高松市 — 屋島の活性化",
+          "support": {
+            "ja": "現代の再整備とドライブウェイの役割を説明。現在の山上の姿を1986年へ適用できるとは示していない。",
+            "en": "Describes modern redevelopment and the driveway’s role; it does not establish that the present summit appearance applies to 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "ドライブウェイの1986年営業形態と線形、当時の山上ホテル・ケーブル設備を時点資料で確認する。",
+        "en": "Check the driveway’s 1986 operation/alignment and date summit hotels and cable facilities."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "38",
+      "prefecture": {
+        "ja": "愛媛県",
+        "en": "Ehime"
+      },
+      "proposedTitle": {
+        "ja": "道後・湯けむり電波",
+        "en": "Dogo Steamwave"
+      },
+      "corridor": {
+        "ja": "候補：松山一番町→道後街道→道後公園外周→道後温泉駅前→本館の外周車道。",
+        "en": "Candidate: Matsuyama Ichibancho → Dogo Kaido → Dogo Park perimeter → Dogo Onsen station frontage → vehicle roads outside the bathhouse."
+      },
+      "geography": {
+        "ja": "平坦な城下町から湯の町へ進み、路面電車、密な商店街、木造本館とその背後の丘を見せる。",
+        "en": "Move from flat castle-town streets into the spa quarter, with trams, close shops, a wooden bathhouse and hills behind."
+      },
+      "periodNotes": {
+        "ja": "市文化財資料は本館の神の湯を1894年、又新殿等を1899年と記録。現在の観光演出や復活蒸気機関車を1986年の姿と決めつけない。",
+        "en": "City heritage records date Kami-no-Yu to 1894 and Yushinden-related work to 1899. Current visitor staging and revived steam-train attractions are not automatically a 1986 template."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.matsuyama.ehime.jp/kanko/kankoguide/rekishibunka/bunkazai/kuni/dougoonsen_honkan.html",
+          "title": "松山市 — 道後温泉本館4棟",
+          "support": {
+            "ja": "歴史的木造浴場の建築年代、増改築段階と外観。",
+            "en": "Construction dates, alteration phases and exterior of the historic wooden bathhouse."
+          }
+        },
+        {
+          "url": "https://www.city.matsuyama.ehime.jp/kanko/kankoguide/kankomeisho/dogoonsen/honkan/gaikan.html",
+          "title": "松山市 — 道後温泉本館の外観",
+          "support": {
+            "ja": "赤いギヤマンや1950年登場の看板など、時代考証に使える外観の年代情報。",
+            "en": "Dated facade details useful for period artwork, including red glass and the sign introduced in 1950."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "39",
+      "prefecture": {
+        "ja": "高知県",
+        "en": "Kochi"
+      },
+      "proposedTitle": {
+        "ja": "浦戸・太平洋ブレイク",
+        "en": "Urado Pacific Break"
+      },
+      "corridor": {
+        "ja": "候補：種崎側→浦戸大橋→浦戸側の曲がり→桂浜の外周車道→花海道の長浜方面。",
+        "en": "Candidate: Tanezaki side → Urado Bridge → turns on the Urado side → roads outside Katsurahama → Hanakaido toward Nagahama."
+      },
+      "geography": {
+        "ja": "浦戸湾口の高い橋を越え、松林の浜と太平洋の水平線へ急に視界を開く。",
+        "en": "Cross the high bridge at Urado Bay’s mouth, then abruptly open the view to pines, beach and the Pacific horizon."
+      },
+      "periodNotes": {
+        "ja": "県は浦戸大橋が1972年7月に三里地区と浦戸地区を結んだと記録。湾口と橋は時代に適合する基盤だが、1986年の接続道路は要照合。",
+        "en": "The prefecture dates Urado Bridge’s connection of Misato and Urado to July 1972. Bay and bridge are period anchors; their 1986 approach roads still need checking."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.pref.kochi.lg.jp/doc/tosen1/",
+          "title": "高知県 — 長浜種崎間県営渡船",
+          "support": {
+            "ja": "浦戸大橋の1972年7月完成と、浦戸湾両岸の地理的関係。",
+            "en": "Urado Bridge’s completion in July 1972 and the geographic relationships across Urado Bay."
+          }
+        },
+        {
+          "url": "https://www.city.kochi.kochi.jp/site/kanko/katsurahamakouen.html",
+          "title": "高知市 — 桂浜公園",
+          "support": {
+            "ja": "太平洋に面した桂浜の位置。1986年の観光施設の姿を示す資料ではない。",
+            "en": "Katsurahama’s position on the Pacific coast; not evidence for visitor facilities as they stood in 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "40",
+      "prefecture": {
+        "ja": "福岡県",
+        "en": "Fukuoka"
+      },
+      "proposedTitle": {
+        "ja": "博多・港のミッドナイト",
+        "en": "Hakata Harbor Midnight"
+      },
+      "corridor": {
+        "ja": "候補：中洲北側・昭和通り→石城町→築港本町→博多ポートタワー前→那の津通り側へ。",
+        "en": "Candidate: north Nakasu/Showa-dori → Sekijomachi → Chikko-Honmachi → Hakata Port Tower frontage → Nanotsu-dori side."
+      },
+      "geography": {
+        "ja": "川の中洲から港へ抜ける密な商業街と、開けた埠頭、赤い塔を対比する。",
+        "en": "Contrast the dense river-island commercial quarter with open piers and the red port tower."
+      },
+      "periodNotes": {
+        "ja": "福岡市は博多ポートタワーの1964年開設を記録。現在の湾岸娯楽施設の全体を1986年に移さず、当時の倉庫・岸壁・河口を調査する。",
+        "en": "Fukuoka City dates Hakata Port Tower to 1964. Do not transplant today’s complete waterfront leisure district; research period warehouses, quays and river-mouth layout."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.fukuoka.lg.jp/shicho/koho/fsdweb/2024/1001/0502.html",
+          "title": "福岡市 — 博多ポートタワー60周年",
+          "support": {
+            "ja": "築港本町にある塔の1964年開設。",
+            "en": "The tower’s location in Chikko-Honmachi and its opening in 1964."
+          }
+        },
+        {
+          "url": "https://yokanavi.com/spots/27014",
+          "title": "福岡市公式観光 よかなび — 博多ポートタワー",
+          "support": {
+            "ja": "博多湾と街への眺望および塔の位置。港と市街の地理を示す。",
+            "en": "Views over Hakata Bay and the city, and the tower’s location, establishing port–city geography."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の航空写真・住宅地図で全接続道路、幅員、標高、建物外観、交通方向を照合する。",
+        "en": "Audit every road connection, width, elevation, facade and traffic direction against 1986 aerial photographs and residential maps."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "41",
+      "prefecture": {
+        "ja": "佐賀県",
+        "en": "Saga"
+      },
+      "proposedTitle": {
+        "ja": "唐津・松影のオーバーテイク",
+        "en": "Karatsu Pine-Shadow Pass"
+      },
+      "corridor": {
+        "ja": "候補：浜玉側→虹の松原を通る車道→松浦川河口の唐津城側→東唐津。",
+        "en": "Candidate: Hamatama side → road through Niji-no-Matsubara → Karatsu Castle side of the Matsuura river mouth → Higashi-Karatsu."
+      },
+      "geography": {
+        "ja": "唐津湾の弧に沿う黒松林、木の間から見える海、河口と城の丘で構成する。",
+        "en": "Build around black pines following Karatsu Bay’s arc, glimpses of water between trunks, the river mouth and castle hill."
+      },
+      "periodNotes": {
+        "ja": "林野庁が海岸に沿う松原の地理と防風・防砂の歴史を示す。木々の影を走行のリズムにする演出はゲーム側の提案。",
+        "en": "The Forestry Agency documents the coastal pine belt and its protective history. Rhythmic tree-shadow racing is a proposed game treatment."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.rinya.maff.go.jp/kyusyu/kanri/rekumori/nizimomatsubara-fuchi.html",
+          "title": "林野庁 九州森林管理局 — 虹の松原風致探勝林",
+          "support": {
+            "ja": "唐津湾沿岸の弧状の松原と、その自然・歴史的特徴。",
+            "en": "The curving pine belt along Karatsu Bay and its natural and historical character."
+          }
+        },
+        {
+          "url": "https://www.asobo-saga.jp/courses/detail/5dabe6ce-25dc-4d15-a902-96d08d367221",
+          "title": "佐賀県観光 — 唐津の魅力 絶景コース",
+          "support": {
+            "ja": "唐津城と虹の松原の地域的な位置関係。現在の観光経路は1986年の道路形状の証明ではない。",
+            "en": "The regional relationship between Karatsu Castle and Niji-no-Matsubara; the present visitor route does not establish 1986 road geometry."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "松浦川の渡橋位置と1986年の橋の形式、林内路の幅員、唐津城外観の当時資料を調べる。",
+        "en": "Check the Matsuura crossing, 1986 bridge form, pine-road width and period castle exterior."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "42",
+      "prefecture": {
+        "ja": "長崎県",
+        "en": "Nagasaki"
+      },
+      "proposedTitle": {
+        "ja": "大浦・坂の向こうの港",
+        "en": "Oura Harbor Beyond the Hill"
+      },
+      "corridor": {
+        "ja": "候補：大浦海岸通り→石橋方面→南山手の車道→大浦天主堂の下方→東山手の車道側。",
+        "en": "Candidate: Oura Kaigan-dori → Ishibashi area → vehicle roads on Minamiyamate → below Oura Cathedral → road-accessible side of Higashiyamate."
+      },
+      "geography": {
+        "ja": "狭い港湾低地と急な斜面の間で、路面電車、擁壁、教会の尖塔、海を交互に見せる。",
+        "en": "Alternate trams, retaining walls, church spires and sea between narrow harbor lowlands and steep slopes."
+      },
+      "periodNotes": {
+        "ja": "長崎市は大浦天主堂が建設当初からの場所を保つ歴史的教会と記録。石段や観光歩道で坂を短絡しない。",
+        "en": "Nagasaki City records Oura Cathedral as a surviving historic church on its original site. Do not shortcut the hills through stairways or tourist footpaths."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.nagasaki.lg.jp/page/3422.html",
+          "title": "長崎市 — 大浦天主堂境内",
+          "support": {
+            "ja": "1865年の出来事、教会敷地の継続と歴史的建物の現存。",
+            "en": "The events of 1865, continuity of the church site, and survival of its historic buildings."
+          }
+        },
+        {
+          "url": "https://www.discover-nagasaki.com/en/itinerary/detail17",
+          "title": "長崎県公式観光 — Silence: A Tour of Nagasaki City",
+          "support": {
+            "ja": "大浦の歴史的位置と建設年代。車道の接続は示さない。",
+            "en": "Oura’s historical context and construction dates; does not establish vehicle-road connectivity."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年地図で本当に車が通る南山手・東山手の接続を選び、勾配・擁壁・軌道を記録する。",
+        "en": "Select genuinely connected vehicle streets on 1986 Minamiyamate/Higashiyamate maps; record grades, retaining walls and tram rails."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "43",
+      "prefecture": {
+        "ja": "熊本県",
+        "en": "Kumamoto"
+      },
+      "proposedTitle": {
+        "ja": "阿蘇・火口原の空",
+        "en": "Aso Caldera Sky"
+      },
+      "corridor": {
+        "ja": "候補：坊中側→阿蘇パノラマライン北側→米塚を望む区間→草千里前。火口内や登山道には入らない。",
+        "en": "Candidate: Bochu side → northern Aso Panorama Line → section overlooking Komezuka → Kusasenri frontage. Do not route through the crater or hiking paths."
+      },
+      "geography": {
+        "ja": "カルデラの広い底から草原斜面へ上り、米塚の円錐と五岳の輪郭を視界の中心に置く。",
+        "en": "Climb from the broad caldera floor into grassy slopes, centering Komezuka’s cone and the five-peak skyline."
+      },
+      "periodNotes": {
+        "ja": "阿蘇市資料は坊中・下野・吉田の三道路と山上への地理を記す。現在の地震復旧道路や展望施設は1986年の形の証拠ではない。",
+        "en": "Aso City describes the Bochu, Shimono and Yoshida approaches to the mountain. Current earthquake-repaired roads and viewing facilities are not evidence of their 1986 form."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.city.aso.kumamoto.jp/files/uploads/2023/03/NeoAso2022.pdf",
+          "title": "阿蘇市 — Neo Aso 2022",
+          "support": {
+            "ja": "阿蘇の草原と三系統のパノラマライン。草地と山への進入道路の地理を示す。",
+            "en": "Aso grasslands and the three Panorama Line approaches, supporting grassland and mountain-access geography."
+          }
+        },
+        {
+          "url": "https://www.aso-denku.jp/short-course/",
+          "title": "道の駅阿蘇 — ショートコース",
+          "support": {
+            "ja": "草千里へ向かうパノラマラインの接続を地元の経路案内が説明。現在の経路のみ。",
+            "en": "A local route guide describes the Panorama Line connection toward Kusasenri; present route only."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "北側登山道路の1986年線形と路面、火山活動の季節設定を確認し、草千里への圧縮距離を明示する。",
+        "en": "Check 1986 northern-road alignment/surface and seasonal volcanic conditions, and label any arcade distance compression."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "44",
+      "prefecture": {
+        "ja": "大分県",
+        "en": "Oita"
+      },
+      "proposedTitle": {
+        "ja": "くじゅう・高原カウンターポイント",
+        "en": "Kuju Highland Counterpoint"
+      },
+      "corridor": {
+        "ja": "候補：飯田高原→やまなみハイウェイ→長者原→牧ノ戸峠。",
+        "en": "Candidate: Handa Plateau → Yamanami Highway → Chojabaru → Makinoto Pass."
+      },
+      "geography": {
+        "ja": "くじゅう連山を正面に見る高原の直線から、森林と峠の連続カーブへ変化する。",
+        "en": "Shift from plateau straights facing the Kuju peaks into forest and successive pass bends."
+      },
+      "periodNotes": {
+        "ja": "大分県の60周年資料はやまなみハイウェイの1964年全線開通を示す。名称の似た現代周遊道路全体を当時の有料道路と同一視しない。",
+        "en": "Oita’s sixtieth-anniversary material establishes full opening in 1964. Do not equate every modern scenic loop with the historical toll-road alignment."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.visit-oita.jp/files/Book/0/Book_116_file.pdf",
+          "title": "大分県観光 — やまなみハイウェイ開通60周年パンフレット",
+          "support": {
+            "ja": "1964年の開通と高原を通る経路。道路史と地理を裏付ける。",
+            "en": "The 1964 opening and highland corridor, supporting road history and geography."
+          }
+        },
+        {
+          "url": "https://www.pref.oita.jp/uploaded/attachment/2157739.pdf",
+          "title": "大分県 — やまなみハイウェイ建設史",
+          "support": {
+            "ja": "道路建設の経緯と現在の周遊道路との区別。歴史的な道路整備の参照。",
+            "en": "The road’s construction history and distinction from current scenic loops, providing a historical road-development reference."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の料金所、長者原の建物配置、牧ノ戸のカーブ半径と標高を当時資料から採る。",
+        "en": "Obtain 1986 toll booths, Chojabaru buildings, and Makinoto curve radii/elevations from period sources."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "45",
+      "prefecture": {
+        "ja": "宮崎県",
+        "en": "Miyazaki"
+      },
+      "proposedTitle": {
+        "ja": "堀切・フェニックス急転",
+        "en": "Horikiri Phoenix Break"
+      },
+      "corridor": {
+        "ja": "候補：青島南側→折生迫→堀切峠の旧海岸道路→内海方面。現代の堀切峠トンネルは使わない。",
+        "en": "Candidate: south Aoshima → Oryuzako → old coastal road over Horikiri Pass → toward Utsumi. Exclude the modern Horikiri tunnel."
+      },
+      "geography": {
+        "ja": "山側から突然見える太平洋、フェニックス並木、波状岩の海岸を、峠の視界変化として使う。",
+        "en": "Use the sudden Pacific reveal, phoenix palms and wave-cut rock bands as a pass-driven change of view."
+      },
+      "periodNotes": {
+        "ja": "県観光情報は堀切峠の地形と波状岩を説明。道路事務所の2008年発表がトンネル開通を記録するため、1986年は海岸側旧道を調べる。",
+        "en": "Prefectural information identifies Horikiri’s landforms and rock bands. The road office records the tunnel opening in 2008, so research the coastal old road for 1986."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "堀切峠トンネル",
+          "en": "Horikiri Pass Tunnel",
+          "reason": {
+            "ja": "2008年3月開通のため、1986年のルートは旧海岸道路を調査する。",
+            "en": "Opened in March 2008; research the old coastal road for the 1986 route."
+          },
+          "sourceUrl": "https://www.qsr.mlit.go.jp/miyazaki/press0708.html"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.kanko-miyazaki.jp/spot/1211",
+          "title": "宮崎県公式観光 — 堀切峠",
+          "support": {
+            "ja": "海岸の波状岩、フェニックス並木と堀切峠の位置。",
+            "en": "Coastal wave-cut rock bands, phoenix palm rows and the location of Horikiri Pass."
+          }
+        },
+        {
+          "url": "https://www.qsr.mlit.go.jp/miyazaki/press0708.html",
+          "title": "国土交通省 宮崎河川国道事務所 — 2007・2008年発表",
+          "support": {
+            "ja": "2008年3月の堀切峠トンネル開通発表。除外対象のバイパスの年代を示す。",
+            "en": "The March 2008 announcement of Horikiri Pass Tunnel’s opening, dating the excluded bypass."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "旧国道220号の1986年路線名・線形、ヤシの植栽位置、展望所と海岸防護施設を照合する。",
+        "en": "Audit the 1986 old Route 220 alignment/name, palm positions, viewpoint and coastal defenses."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "46",
+      "prefecture": {
+        "ja": "鹿児島県",
+        "en": "Kagoshima"
+      },
+      "proposedTitle": {
+        "ja": "城山・火山のレゾナンス",
+        "en": "Shiroyama Volcano Resonance"
+      },
+      "corridor": {
+        "ja": "候補：名山町の港側→鶴丸城跡前→城山の車道→照国神社側の山麓へ。",
+        "en": "Candidate: harbor side of Meizancho → Tsurumaru Castle site frontage → Shiroyama vehicle road → foothill near Terukuni Shrine."
+      },
+      "geography": {
+        "ja": "錦江湾を隔てた桜島と、街に迫る城山を軸に、短い上り下りで見える火山の角度を変える。",
+        "en": "Anchor the course on Sakurajima across Kinko Bay and Shiroyama above the city, changing the volcano’s viewing angle through short climbs and descents."
+      },
+      "periodNotes": {
+        "ja": "県資料は城山から市街・錦江湾・桜島を一望する地理を説明。噴煙は一般的な火山表現に留め、1986年の特定噴火を再現したと称しない。",
+        "en": "Prefectural material establishes the city–bay–Sakurajima view from Shiroyama. Volcanic smoke is general scenery until a specific 1986 eruption is sourced."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.kagoshima-kankou.com/guide/10525",
+          "title": "鹿児島県公式観光 — 城山公園",
+          "support": {
+            "ja": "城山から市街、錦江湾、桜島への視界。固有の地形と相対的な眺望関係。",
+            "en": "The view from Shiroyama over the city, Kinko Bay and Sakurajima, establishing specific terrain and viewing relationships."
+          }
+        },
+        {
+          "url": "https://www.kagoshima-kankou.com/feature/nationalpark/about",
+          "title": "鹿児島県公式観光 — 霧島錦江湾国立公園",
+          "support": {
+            "ja": "火山、カルデラと湾の地形。現代の公園施設は1986年の証拠ではない。",
+            "en": "Volcanic, caldera and bay landforms; modern park facilities are not evidence for 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年の城山道路と城跡外周、当時の港岸線・市街看板・降灰の季節資料を調べる。",
+        "en": "Check 1986 Shiroyama roads and castle perimeter, quay line, street signs and seasonal ash conditions."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "47",
+      "prefecture": {
+        "ja": "沖縄県",
+        "en": "Okinawa"
+      },
+      "proposedTitle": {
+        "ja": "那覇・島風のカセット",
+        "en": "Naha Island-Wind Cassette"
+      },
+      "corridor": {
+        "ja": "候補：国際通り東側→安里→首里方面の上り車道→龍潭通り・守礼門周辺の車道終端。",
+        "en": "Candidate: eastern Kokusai-dori → Asato → uphill vehicle roads toward Shuri → Ryutan-dori/vehicle terminus near Shureimon."
+      },
+      "geography": {
+        "ja": "港の商業都市那覇から首里の丘へ上り、密な街路、石垣、赤瓦と海風の遠景を切り替える。",
+        "en": "Climb from commercial Naha toward Shuri’s hills, alternating dense streets, stone walls, red tiles and a distant sea horizon."
+      },
+      "periodNotes": {
+        "ja": "県公式観光資料は戦災後の首里城再建を1992年と明示。1986年に再建正殿を表示しない。守礼門や龍潭周囲は個別の当時資料で照合する。",
+        "en": "Okinawa’s official guide dates postwar Shuri Castle reconstruction to 1992. Do not show that rebuilt main hall in 1986; check Shureimon and Ryutan separately."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "1992年再建の首里城正殿",
+          "en": "Shuri Castle main hall reconstructed in 1992",
+          "reason": {
+            "ja": "戦災後の再建は1992年。1986年にはこの再建正殿は存在しない。",
+            "en": "The postwar reconstruction dates to 1992; this rebuilt main hall did not exist in 1986."
+          },
+          "sourceUrl": "https://visitokinawajapan.com/discover/world-heritage-top/shurijo-castle-park/"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://visitokinawajapan.com/discover/world-heritage-top/shurijo-castle-park/",
+          "title": "沖縄県公式観光 — Shuri-jo Site",
+          "support": {
+            "ja": "戦災と1992年の再建を明示し、除外対象の再建正殿の年代を裏付ける。",
+            "en": "Explicitly records wartime destruction and reconstruction in 1992, dating the excluded rebuilt palace."
+          }
+        },
+        {
+          "url": "https://visitokinawajapan.com/destinations/okinawa-main-island/southern-okinawa-main-island/naha/",
+          "title": "沖縄県公式観光 — Naha",
+          "support": {
+            "ja": "那覇の港と国際通り周辺の市街地理。現在の交通機関は1986年の証明ではない。",
+            "en": "Urban geography around Naha’s harbor and Kokusai-dori; present transit is not evidence for 1986."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "首里への1986年車道と勾配、当時の守礼門周囲、大学移転後の土地利用、道路標識を資料で確定する。",
+        "en": "Establish the 1986 vehicle route/grades into Shuri, gate surroundings, post-university land use and road signage."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "pyongyang",
+      "prefecture": {
+        "ja": "平壌・特別遠征",
+        "en": "Pyongyang — Special Race"
+      },
+      "proposedTitle": {
+        "ja": "大同江・遠い空の交信",
+        "en": "Taedong Distant-Sky Transmission"
+      },
+      "corridor": {
+        "ja": "候補：金日成広場外周の街路→勝利通り側→大同橋への取付道路→大同江東岸・主体思想塔を望む車道。",
+        "en": "Candidate: streets outside Kim Il Sung Square → Sungri Street side → approaches to Taedong Bridge → east-bank roads with a view of the Juche Tower."
+      },
+      "geography": {
+        "ja": "大同江を挟む広い都市軸、広場と塔の対面関係を中心に、橋の高低差と広い交差点で走行のリズムを変える。",
+        "en": "Center the wide urban axis across the Taedong, with square and tower facing each other; bridge grades and broad junctions change the racing rhythm."
+      },
+      "periodNotes": {
+        "ja": "主体思想塔は1982年建立という一次側資料がある。金日成の肖像ポスターを1986年の情景要素に指定するが、確認できた博物館肖像は1960–1970年製で、1986年の街頭掲示位置の証明ではない。後年の人物との二連肖像に置き換えない。",
+        "en": "A primary institutional DPRK source dates the Juche Tower to 1982. Kim Il Sung portrait posters are a required 1986 scene element, but the located museum portrait dates to 1960–1970 and does not prove 1986 street placement. Do not substitute later paired-leader displays."
+      },
+      "excludedModernLandmarks": [],
+      "sources": [
+        {
+          "url": "https://www.kass.org.kp/index.php/juche/view/195?lang=eng",
+          "title": "Korean Association of Social Scientists — Tower of the Juche Idea",
+          "support": {
+            "ja": "北朝鮮側機関による1982年4月15日建立と、大同江西岸の広場と対面する位置の説明。年代・地理のみを参照し、思想への賛辞は採用しない。",
+            "en": "A DPRK institution dates construction to April 15, 1982 and places the tower opposite the square on the Taedong’s west bank. Use only the date and geography, not ideological praise."
+          }
+        },
+        {
+          "url": "https://www.deutsche-digitale-bibliothek.de/item/CSGC324O2C7A6KWFZ3ALQ2YLFHN4ITF4",
+          "title": "Deutsches Historisches Museum — Porträt von Kim Il-Sung, SI 2011/409",
+          "support": {
+            "ja": "博物館所蔵の額入り印刷肖像で、1960–1970年製。真正な先行時代の肖像資料だが、1986年の屋外ポスターではない。画像はCC BY-NC-NDの制限があり、複製していない。",
+            "en": "A museum-held framed printed portrait dated 1960–1970. It is an authentic earlier portrait object, not a dated 1986 outdoor poster. The image has CC BY-NC-ND restrictions and was not copied."
+          }
+        },
+        {
+          "url": "https://www.deutsche-digitale-bibliothek.de/item/ZMAHO5SV63MMC3D4QTIIV2C2GA7ARNFY",
+          "title": "Deutsche Fotothek — Mansudae, Karl-Heinz Böhle, 1989",
+          "support": {
+            "ja": "隣接年代の写真資料を発見したが1989年なので1986年配置の証拠には採用しない。資料上の不足を記録したもので、年代考証の認証ではない。",
+            "en": "The located photograph is dated 1989, so it is not accepted as evidence of 1986 placement. This records an evidence gap rather than qualifying the period scene."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年撮影の街頭写真で金日成ポスターの絵柄・服装・文字・掲示位置を認証する。勝利通りと大同橋の接続、橋幅、東岸道路を当時の地図で確認する。現時点では肖像も道路も歴史配置未認証。",
+        "en": "Authenticate poster design, clothing, lettering and placement using street photographs dated 1986. Check Sungri Street–Taedong Bridge connections, bridge width and east-bank roads on period maps. Portrait placement and road layout remain unqualified."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    },
+    {
+      "code": "moscow",
+      "prefecture": {
+        "ja": "モスクワ・特別遠征",
+        "en": "Moscow — Special Race"
+      },
+      "proposedTitle": {
+        "ja": "モスクワ・赤い電波の夜",
+        "en": "Moscow Red-Signal Night"
+      },
+      "corridor": {
+        "ja": "候補：ゴーリキー通り南端→マネージ広場側→モホヴァヤ通り→クレムリン河岸通り→モスクヴァレツカヤ河岸通り→ホテル・ロシア外周。",
+        "en": "Candidate: south end of Gorky Street → Manezhnaya side → Mokhovaya Street → Kremlin Embankment → Moskvoretskaya Embankment → Hotel Rossiya perimeter."
+      },
+      "geography": {
+        "ja": "モスクワ川の曲線、クレムリンの壁と塔、広い大通り、巨大なホテル・ロシアを主役にする。",
+        "en": "Use the Moskva River’s curve, Kremlin walls and towers, broad avenues and the massive Hotel Rossiya."
+      },
+      "periodNotes": {
+        "ja": "1986年名のゴーリキー通りとホテル・ロシアを採用する方針。ソ連国旗は赤地に金の鎌と槌、金縁の赤星という当時の国旗を使用する。旗配置は1986年写真と照合し、現在のロシア三色旗・公園景観に置換しない。",
+        "en": "Use the period name Gorky Street and Hotel Rossiya. USSR flags use the period red field, gold hammer and sickle, and gold-bordered red star. Audit placement against 1986 photographs instead of substituting present Russian tricolors or park scenery."
+      },
+      "excludedModernLandmarks": [
+        {
+          "ja": "ザリャジエ公園",
+          "en": "Zaryadye Park",
+          "reason": {
+            "ja": "2017年9月開園。1986年の当地はホテル・ロシア周辺として調査する。",
+            "en": "Opened in September 2017. Research the Hotel Rossiya surroundings for this area in 1986."
+          },
+          "sourceUrl": "https://www.mos.ru/upload/documents/files/6797/fifa2018_ru_preview.pdf"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.mos.ru/upload/documents/files/8419/AktTverskayad21k1.pdf",
+          "title": "Moscow heritage assessment — Tverskaya 21",
+          "support": {
+            "ja": "1932–1990年のゴーリキー通りという名称の記録。当時の街路名の参照。",
+            "en": "Records the name Gorky Street for 1932–1990, supporting the period street name."
+          }
+        },
+        {
+          "url": "https://www.mos.ru/upload/documents/files/8180/MN_6_2017_final_web.pdf",
+          "title": "Московское наследие 6/2017 — Зарядье",
+          "support": {
+            "ja": "1964–1967年のホテル・ロシア建設と周辺街路改変。建物の規模と都市形態の変化を示す。",
+            "en": "Construction of Hotel Rossiya in 1964–1967 and alteration of surrounding streets, supporting the building mass and changed urban fabric."
+          }
+        },
+        {
+          "url": "https://www.prlib.ru/sites/default/files/u535/den_gosudarstvennogo_flaga_rossiyskoy_federacii.pdf",
+          "title": "Президентская библиотека — Государственные флаги",
+          "support": {
+            "ja": "ソ連国旗の歴史と1977年憲法下での継続を扱う公的図書館資料。",
+            "en": "An institutional library reference covering the USSR flag’s history and its continuity under the 1977 constitution."
+          }
+        },
+        {
+          "url": "https://www.net-film.ru/en/photo-153300/",
+          "title": "Net-Film archive — Moscow Red Square, 7 November 1986",
+          "support": {
+            "ja": "1986年11月7日撮影の赤い旗を含む行列の目録。検索索引のメタデータを確認したが画像ページは403を返したため、旗の詳細な図柄・配置は未目視。",
+            "en": "A catalog entry for a procession with red flags photographed on November 7, 1986. Search-index metadata was inspected, but the image page returned 403; exact flag artwork and placement remain visually uninspected."
+          }
+        },
+        {
+          "url": "https://www.mos.ru/upload/documents/files/6797/fifa2018_ru_preview.pdf",
+          "title": "Moscow official guide — Zaryadye Park",
+          "support": {
+            "ja": "公園の2017年9月開園を記録し、除外対象の現代公園の年代を示す。",
+            "en": "Records the park’s opening in September 2017, dating the excluded modern park."
+          }
+        },
+        {
+          "url": "https://rostransnadzor.gov.ru/news/2923",
+          "title": "Ространснадзор — День государственного флага Российской Федерации",
+          "support": {
+            "ja": "国の交通監督機関が赤地、金の鎌と槌、金縁の星を説明。旗の図柄要素を裏付ける公的な歴史解説。",
+            "en": "The national transport supervisory agency describes the red field, gold hammer and sickle, and gold-bordered star, providing an official historical reference for the flag’s design elements."
+          }
+        }
+      ],
+      "remainingEvidence": {
+        "ja": "1986年道路地図でマネージ広場・河岸・ホテル周辺の車線と立体交差を復元する。公的旗仕様原図と1986年旗写真を目視し、旗の表裏・比率と設置場所を確定する。",
+        "en": "Reconstruct 1986 lanes and grade separations around Manezhnaya, embankments and the hotel. Inspect the primary flag diagram and dated 1986 photographs to establish face/reverse, proportions and placement."
+      },
+      "qualification": {
+        "historicalAlignment": false,
+        "geometry": false,
+        "playable": false
+      }
+    }
+  ]
+}

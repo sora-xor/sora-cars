@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "manifests": [
+    "cutscene-key-beats-v3.json",
+    "cutscene-accountability-v3.json",
+    "cutscene-premiere-v3.json"
+  ],
+  "assets": [
+    {
+      "file": "public/assets/story/beats/boardroom-key-offer-v3.png",
+      "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    },
+    {
+      "file": "public/assets/story/beats/boardroom-key-return-v3.png",
+      "sha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    },
+    {
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-v3.png",
+      "sha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    },
+    {
+      "file": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/public-confession-reverse-v3.png",
+      "sha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    },
+    {
+      "file": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    },
+    {
+      "file": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "width": 1672,
+      "height": 941,
+      "sourceMatches": true
+    }
+  ]
+}

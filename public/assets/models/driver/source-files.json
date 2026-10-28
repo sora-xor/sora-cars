@@ -1,0 +1,192 @@
+[
+  {
+    "file": "skins/young_asian_male/young_asian_male.mhmat",
+    "bytes": 1452,
+    "sha256": "9fdfc9863cd15d1359311435f2da7de3906f81d6eea549fba6bf14cd82ceb6a0"
+  },
+  {
+    "file": "skins/young_asian_male/young_asian_male.thumb",
+    "bytes": 79327,
+    "sha256": "21245c121a4efc96d18cb64a2fc7d95bfcc768f7b333d59b7a471708551ed13d"
+  },
+  {
+    "file": "skins/young_asian_male/young_lightskinned_male_diffuse3.png",
+    "bytes": 3593099,
+    "sha256": "f50016a5507fc687dc8df06599c8ea48de950cd185de33a71cafc1319ddab4d5"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01.mhclo",
+    "bytes": 570419,
+    "sha256": "78503ed7f56c149843d85e06e1164bc6871ce7319b2ef689237046352cc90de4"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01.mhmat",
+    "bytes": 1345,
+    "sha256": "043b25cefd398261b893d3dae58c81fc3e9633a25a01eafe66963591f5ad6eb6"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01.obj",
+    "bytes": 699545,
+    "sha256": "001921d237e408c35103720d046aa37f9c5512db1a179a5ede6a065cd504ba89"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01.thumb",
+    "bytes": 39401,
+    "sha256": "cd8a8c9461b164542d8660b9beaae17636040c9199020b65755a03559809cfc1"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01_ao.png",
+    "bytes": 785596,
+    "sha256": "9402d75d71318ef3ad90ee59f8b8688effefd13b3ec56423330e005bed5cd6c0"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01_diffuse.png",
+    "bytes": 5531728,
+    "sha256": "3fd0bba5dcbdea0ac427f644a6c7c298938f7369b8f96626621ce1e88989394e"
+  },
+  {
+    "file": "clothes/male_casualsuit01/male_casualsuit01_normal.png",
+    "bytes": 1738660,
+    "sha256": "ff029fc5a3350ebc72813cdf050afcffd23064c7701d99e664572713cfa98a5f"
+  },
+  {
+    "file": "clothes/shoes01/shoes01.mhclo",
+    "bytes": 119049,
+    "sha256": "7994e38f7cdcee0bd5f55101660badcce0162fcdfc7f432218dd1eb301626252"
+  },
+  {
+    "file": "clothes/shoes01/shoes01.mhmat",
+    "bytes": 1161,
+    "sha256": "db1711e2dfea4dd8c24459643603a190d9a9da603fd26da5542002a73d740be8"
+  },
+  {
+    "file": "clothes/shoes01/shoes01.mhw",
+    "bytes": 324727,
+    "sha256": "b377d91e6d0264521f672c3990c366b2631103accba4921fc3965c2ed5ce395b"
+  },
+  {
+    "file": "clothes/shoes01/shoes01.obj",
+    "bytes": 136910,
+    "sha256": "eac355a842a8eb8ae2f09fac8dd18a877a24ef2521ed2d6bf38559b42ce4b49a"
+  },
+  {
+    "file": "clothes/shoes01/shoes01.thumb",
+    "bytes": 40319,
+    "sha256": "a118291fe3e83e3c616febf52fdb480186c816e7cd4d77d331adffd457421cbb"
+  },
+  {
+    "file": "clothes/shoes01/shoes01_diffuse.png",
+    "bytes": 1335772,
+    "sha256": "50c9a406a7f1cb6aa7b42912348e78f09d0252aa3963c8229cf18dfe8353cdbf"
+  },
+  {
+    "file": "clothes/shoes01/shoes01_normal.png",
+    "bytes": 875473,
+    "sha256": "a9bfd7223e98b8f93100e89596135e3a94e6044f9db11b4d23cec625c37a4599"
+  },
+  {
+    "file": "hair/short01/short01.mhclo",
+    "bytes": 201588,
+    "sha256": "ae1ffaa98da5753b803b3a173bede4895d2215e6bb94763f3765a71f0e984f35"
+  },
+  {
+    "file": "hair/short01/short01.mhmat",
+    "bytes": 1314,
+    "sha256": "01e2e12ce3f3d3c859225456660acadcdd27d4f4b4d888bcbd6f11998cadd975"
+  },
+  {
+    "file": "hair/short01/short01.obj",
+    "bytes": 194450,
+    "sha256": "d998d8416f9b5d5591f1d756f4d292288d000a6951bc0f4d2e8e72727bbc44fa"
+  },
+  {
+    "file": "hair/short01/short01.thumb",
+    "bytes": 35055,
+    "sha256": "7e942d29322841a07a8a3feaf438fb9efb6b54f5b733909cecc51e79dcaca995"
+  },
+  {
+    "file": "hair/short01/short01_diffuse.png",
+    "bytes": 2354146,
+    "sha256": "f34a0957184e3d1e911ed59245f874f8d4843f61ee44ff49f43edb4be0196949"
+  },
+  {
+    "file": "eyes/high-poly/high-poly.mhclo",
+    "bytes": 72490,
+    "sha256": "b183cfe37120ab726f9b3f2ea6cd3a64c44ce7b4bd91a77c841cf70c04f83a0d"
+  },
+  {
+    "file": "eyes/high-poly/high-poly.obj",
+    "bytes": 100882,
+    "sha256": "da2493215b708a344c33dc72f2a9a5b8fa985dcc5a70ad3b208995cf871da8e1"
+  },
+  {
+    "file": "eyes/high-poly/high-poly.thumb",
+    "bytes": 21076,
+    "sha256": "97730eb579e1a81a63f38f53125ad8d375556f222882704fbec7dd83d4f24916"
+  },
+  {
+    "file": "eyebrows/eyebrow001/eyebrow001.mhclo",
+    "bytes": 9141,
+    "sha256": "54c8892c2ba577f4152d779ce1f20f7cd323beb8cbd9cb701796165c221b4f5b"
+  },
+  {
+    "file": "eyebrows/eyebrow001/eyebrow001.mhmat",
+    "bytes": 1098,
+    "sha256": "976e5f4f1d3922d7a11c6e2db233f8b4584b068d00619d5749687e81c92d61fc"
+  },
+  {
+    "file": "eyebrows/eyebrow001/eyebrow001.obj",
+    "bytes": 8227,
+    "sha256": "88b13146395133f3901715e11706cdfd293e5d6087ad7c5e01efe1485a26b513"
+  },
+  {
+    "file": "eyebrows/eyebrow001/eyebrow001.png",
+    "bytes": 89619,
+    "sha256": "9940f7d0b1b223709a19b05156ba6f6e9e4dbdbced02d7574f4d51d72c58967b"
+  },
+  {
+    "file": "eyebrows/eyebrow001/eyebrow001.thumb",
+    "bytes": 137534,
+    "sha256": "98b68eccf50977ff00242a33eb1dc6e3eaf4cc262e1f6c4ceca5c1c564f6c745"
+  },
+  {
+    "file": "eyelashes/eyelashes01/eyelashes01.mhclo",
+    "bytes": 2265,
+    "sha256": "5a86b29c15649273d723084954b7fa7bf199112571d4f58539b46734d397ee6b"
+  },
+  {
+    "file": "eyelashes/eyelashes01/eyelashes01.mhmat",
+    "bytes": 1074,
+    "sha256": "8029c99d94f3d87a1e81825fad6b90eec773ae6955a5b2592222ef237377e190"
+  },
+  {
+    "file": "eyelashes/eyelashes01/eyelashes01.obj",
+    "bytes": 18832,
+    "sha256": "f78f5b93fea1946fcae103d32c4f082dd9612a1ec2e7e2f90b03ebe59b0baf20"
+  },
+  {
+    "file": "eyelashes/eyelashes01/eyelashes01.png",
+    "bytes": 91600,
+    "sha256": "4b69c0fff2648874460e9caf80c31413c444218a5c50afebc425aeaa65484a35"
+  },
+  {
+    "file": "eyelashes/eyelashes01/eyelashes01.thumb",
+    "bytes": 140641,
+    "sha256": "34ab06601745c2b74fcfa6f63a374fcea58cb4501e728a3c6935a3a1ed794aa3"
+  },
+  {
+    "file": "poses/anrico_sitting02/anrico_sitting02.bvh",
+    "bytes": 44087,
+    "sha256": "43a500ab8a953df9ba27fd492f564470b91af14e61788131d4b9493182ad0ae8"
+  },
+  {
+    "file": "poses/anrico_sitting02/anrico_sitting02.meta",
+    "bytes": 87,
+    "sha256": "6ac26adeda55e2420c737636e4b6c2dcbb2642cde3e2c79641e286383eaa3681"
+  },
+  {
+    "file": "poses/anrico_sitting02/anrico_sitting02.thumb",
+    "bytes": 61417,
+    "sha256": "d17ea12d8862d201748a883fa7d25bff863cfcc215a5cd140fbfb3e266ff31ed"
+  }
+]

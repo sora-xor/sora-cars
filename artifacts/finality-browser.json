@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "primaryLanguage": "ja",
+  "subtitles": "en",
+  "authenticatedLedger": false,
+  "nativeFinalityVerified": false,
+  "carriers": "explicit tiny synthetic transport fixtures",
+  "storage": "actual Chromium OPFS; OS picker substituted",
+  "checks": [
+    "301 consecutive mocked carriers saved through real Chromium filesystem streams",
+    "two bounded prefixes and v1 settlement with exact SHA256/bytes",
+    "original external trust retained in native command",
+    "Japanese primary progress and completion with English subtitles",
+    "native OS chooser replaced by actual OPFS directory handle, user activation preserved",
+    "mobile dialog has no horizontal overflow",
+    "no wallet action or browser finality verdict",
+    "unsupported long export fails before fetch and retains original pin",
+    "two-height v1 download fallback works without directory API",
+    "held export finishes its original301-height OPFS archive after room navigation without stale progress or completion dialog",
+    "held export failure after navigation leaves current status/dialog untouched and releases its export slot"
+  ],
+  "errors": []
+}

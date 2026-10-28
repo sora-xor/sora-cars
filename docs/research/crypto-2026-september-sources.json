@@ -1,0 +1,716 @@
+{
+  "schema": "sora-cars.cryptography-research-update.v1",
+  "cutoff": "2026-09-08",
+  "scope": "Recent cryptography for native generic Iroha execution/game proofs and supporting authentication. Literature and read-only source inspection; external benchmarks and proofs not reproduced.",
+  "documents": [
+    {
+      "path": "docs/research/crypto-2026-september-update.md",
+      "bytes": 12939,
+      "sha256": "c40aa27a9950e66350c50ef58526507015df073f11201659542d930498935a19"
+    },
+    {
+      "path": "docs/research/crypto-2026-membership.md",
+      "bytes": 10234,
+      "sha256": "5ce2ea9253654fefef29d18f998c4c45b77df360e4fb91555bc2135cd9563313"
+    },
+    {
+      "path": "docs/research/crypto-2026-scaling.md",
+      "bytes": 10603,
+      "sha256": "94b57ae0b495e173ea277bfffb33e9a18b8606294487408d83bb50489bdb1bc3"
+    },
+    {
+      "path": "docs/research/crypto-2026-security.md",
+      "bytes": 10594,
+      "sha256": "d5cc0bd9821b104b445dc0f5d0baa274bcd72d9dbbc727240d54d0e1998a5bf2"
+    }
+  ],
+  "localBaseline": {
+    "report": {
+      "path": "output/qualification/native-membership-street-qualified/report.json",
+      "bytes": 107801,
+      "sha256": "b195ac0182677306d62bc965efb0322021e9494e2d7b1e753a1ed266f2383c2c"
+    },
+    "measurements": [
+      {
+        "cars": 2,
+        "ticks": 1,
+        "proofBytes": 798764,
+        "proverProcessSeconds": 13.709140458027832,
+        "proverPeakRssBytes": 174129152,
+        "verifierProcessSeconds": 6.005079458002001,
+        "verifierPeakRssBytes": 99106816
+      },
+      {
+        "cars": 8,
+        "ticks": 1,
+        "proofBytes": 1186540,
+        "proverProcessSeconds": 62.11169874999905,
+        "proverPeakRssBytes": 1572601856,
+        "verifierProcessSeconds": 16.213523000013083,
+        "verifierPeakRssBytes": 989118464
+      }
+    ],
+    "frozenSourcesCheckedUnchanged": 31,
+    "acceptedCommands": 6,
+    "expectedRejectedCommands": 14,
+    "completeGameQualified": false,
+    "composed128BitSecurityQualified": false
+  },
+  "primarySnapshots": [
+    {
+      "id": "liftwhir-record",
+      "url": "https://eprint.iacr.org/2026/1561",
+      "resolvedUrl": "https://eprint.iacr.org/2026/1561",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/liftwhir-record.html",
+      "bytes": 18499,
+      "sha256": "18d30be0f0854bc89ef9733301f7607a67f8e7d4f4ca7be4c6be16b91abe9efe",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "id": "liftwhir-paper",
+      "url": "https://eprint.iacr.org/2026/1561.pdf",
+      "resolvedUrl": "https://eprint.iacr.org/2026/1561.pdf",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/liftwhir-paper.pdf",
+      "bytes": 490979,
+      "sha256": "1b94d033cd6486140c25e814feb2688f832fecf84bfa4a3b60e8933810b56eb3",
+      "contentType": "application/pdf"
+    },
+    {
+      "id": "batch-evaluation-paper",
+      "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol385-itc2026/LIPIcs.ITC.2026.3/LIPIcs.ITC.2026.3.pdf",
+      "resolvedUrl": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol385-itc2026/LIPIcs.ITC.2026.3/LIPIcs.ITC.2026.3.pdf",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/batch-evaluation-paper.pdf",
+      "bytes": 854222,
+      "sha256": "1b687be32f32afe94117443071d37ef299a917b1661112105b2a97185fca7e12",
+      "contentType": "application/pdf"
+    },
+    {
+      "id": "binaryspartan-record",
+      "url": "https://eprint.iacr.org/2026/1656",
+      "resolvedUrl": "https://eprint.iacr.org/2026/1656",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/binaryspartan-record.html",
+      "bytes": 16367,
+      "sha256": "c99251e399033daf943fadc87433cb5f08855b07000db2e440462a177f8074a8",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "id": "proximity-gaps-author-paper",
+      "url": "https://www.math.toronto.edu/swastik/rs-proximity-gaps-2025.pdf",
+      "resolvedUrl": "https://www.math.toronto.edu/swastik/rs-proximity-gaps-2025.pdf",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/proximity-gaps-author-paper.pdf",
+      "bytes": 751888,
+      "sha256": "4added3e55b83c15fcc8a698fb57e137f5bd83e79ea25ce79382817c1ad26a46",
+      "contentType": "application/pdf"
+    },
+    {
+      "id": "better-codes-announcement",
+      "url": "https://blog.ethereum.org/2026/08/20/better-codes-challenge",
+      "resolvedUrl": "https://blog.ethereum.org/2026/08/20/better-codes-challenge",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/better-codes-announcement.html",
+      "bytes": 172524,
+      "sha256": "0e126fed3b1a2c59f4f1efa917f80811702bbd38f8986851b3b004a852095faa",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "id": "eccc-164-revision1-record",
+      "url": "https://eccc.weizmann.ac.il/report/2026/164/",
+      "resolvedUrl": "https://eccc.weizmann.ac.il/report/2026/164/",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/eccc-164-revision1-record.html",
+      "bytes": 21806,
+      "sha256": "ef29308a8fab05ffa584ef91b79525eb19150d80ade76ae674feff752c5f2074",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "id": "eccc-164-revision1-paper",
+      "url": "https://eccc.weizmann.ac.il/report/2026/164/revision/1/download",
+      "resolvedUrl": "https://eccc.weizmann.ac.il/report/2026/164/revision/1/download/",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/eccc-164-revision1-paper.pdf",
+      "bytes": 1005959,
+      "sha256": "560e7134e49abc065718bf97a50c20b1cce7eba9d7b465b98a64be90dd88d903",
+      "contentType": "application/pdf"
+    },
+    {
+      "id": "eccc-169-record",
+      "url": "https://eccc.weizmann.ac.il/report/2026/169/",
+      "resolvedUrl": "https://eccc.weizmann.ac.il/report/2026/169/",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/eccc-169-record.html",
+      "bytes": 20879,
+      "sha256": "1f82db074fcfc1705bcc4a6fe5d6450908c6ddcd9f89a196095d6d1447debcb3",
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "id": "eccc-169-paper",
+      "url": "https://eccc.weizmann.ac.il/report/2026/169/download",
+      "resolvedUrl": "https://eccc.weizmann.ac.il/report/2026/169/download/",
+      "accessCutoff": "2026-09-08",
+      "path": "output/research/crypto-2026-september/eccc-169-paper.pdf",
+      "bytes": 1093897,
+      "sha256": "b17d9f407a9d9d8ae3ad557c48debb4e2a88534abe5c0cadc4151d41ba49a6c1",
+      "contentType": "application/pdf"
+    }
+  ],
+  "additionalSecurityEvidenceManifest": {
+    "path": "output/research/crypto-2026-security/sources.json",
+    "bytes": 13158,
+    "sha256": "ba55e38f58bcb7192fe366adfbee44f8888a7ab075601990b9895bae2c971bd1"
+  },
+  "references": [
+    {
+      "url": "https://eprint.iacr.org/2026/1561",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Paper and version record"
+        }
+      ]
+    },
+    {
+      "url": "https://www.usenix.org/system/files/usenixsecurity26-li-weihan.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "PIPFRI"
+        }
+      ]
+    },
+    {
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITC.2026.3",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Proceedings record"
+        }
+      ]
+    },
+    {
+      "url": "https://drops.dagstuhl.de/storage/00lipics/lipics-vol385-itc2026/LIPIcs.ITC.2026.3/LIPIcs.ITC.2026.3.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "full paper, Theorems 9–10 and Construction 17"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/1656",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Primary preprint"
+        },
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "BinarySpartan"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/753",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Current primary paper"
+        },
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Current paper record"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/242",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Primary record and revision notes"
+        },
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Revision and publication record"
+        }
+      ]
+    },
+    {
+      "url": "https://acm-stoc.org/stoc2026/toc.html",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "STOC proceedings, both paper abstracts"
+        }
+      ]
+    },
+    {
+      "url": "https://eccc.weizmann.ac.il/report/2026/164/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Exact revision record"
+        }
+      ]
+    },
+    {
+      "url": "https://eccc.weizmann.ac.il/report/2026/164/revision/1/download",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "revision 1 PDF"
+        }
+      ]
+    },
+    {
+      "url": "https://eccc.weizmann.ac.il/report/2026/169/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Primary record"
+        }
+      ]
+    },
+    {
+      "url": "https://blog.ethereum.org/2026/08/20/better-codes-challenge",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "Primary announcement"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/902",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "June 2 revised primary paper"
+        },
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Primary record and paper"
+        }
+      ]
+    },
+    {
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-september-update.md",
+          "label": "NIST primary status"
+        },
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "NIST status"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/blob/7230fc572870436e6651762f35c6c3f3f48960d2/security/src/logup.rs",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "`security/src/logup.rs`"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/commit/7230fc572870436e6651762f35c6c3f3f48960d2.patch",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "patch"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2024/2067",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Eagen–Haböck characteristic-bound note"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/946",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Logup*"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/105",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Twist/Shout ePrint"
+        }
+      ]
+    },
+    {
+      "url": "https://www.microsoft.com/en-us/research/publication/twist-and-shout-faster-memory-checking-arguments-via-one-hot/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "author publication record"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/719",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Packed Sumcheck"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/284",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Chmel–Hubáček–Stejskal"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/ethereum/spartan-whir/blob/f525cddea38bb605304d3a8e6394dda10ac64b4a/README.md",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "Spartan-WHIR README"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/1838",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "generated-R1CS Fiat–Shamir attack"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/471",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-membership.md",
+          "label": "ring-lookup preprint"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/compsec-epfl/warp",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "author Rust implementation"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2024/1731",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Paper record"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/1905",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Paper record"
+        }
+      ]
+    },
+    {
+      "url": "https://chancharles92.github.io/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "author publication listing"
+        }
+      ]
+    },
+    {
+      "url": "https://openvm.dev/swirl.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Manuscript, §§3.4–3.7"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/1473",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "TCC 2025 paper"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/1117",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Paper"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/compsec-epfl/efficient-sumcheck",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Repository"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/compsec-epfl/efficient-sumcheck/blob/main/SECURITY.md",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "security policy"
+        }
+      ]
+    },
+    {
+      "url": "https://past.date-conference.com/proceedings-archive/2026/DATA/926.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-scaling.md",
+          "label": "Conference paper"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2025/536",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Duplex-sponge paper"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/146",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Feistel Tools"
+        }
+      ]
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/draft-irtf-cfrg-fiat-shamir/03/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Version-pinned draft, §§5–6 and 8"
+        }
+      ]
+    },
+    {
+      "url": "https://solana.com/news/post-mortem-june-25-2025",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Solana Foundation"
+        }
+      ]
+    },
+    {
+      "url": "https://blog.zksecurity.xyz/posts/solana-phantom-challenge-bug/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "discoverer’s account"
+        }
+      ]
+    },
+    {
+      "url": "https://blog.zksecurity.xyz/posts/powers-of-funbenius/",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Discoverer’s analysis and linked issue"
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/pull/1598",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Primary PR, especially correction commit `de2beb1`"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/306",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Paper, §§5–6"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/1792",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Nonlinear subspaces, §4.2 and Appendix C"
+        }
+      ]
+    },
+    {
+      "url": "https://eprint.iacr.org/2026/1760",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Midpoint Reset"
+        }
+      ]
+    },
+    {
+      "url": "https://csrc.nist.gov/pubs/fips/204/final",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "FIPS 204"
+        }
+      ]
+    },
+    {
+      "url": "https://www.nist.gov/pqc",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "NIST notice"
+        }
+      ]
+    },
+    {
+      "url": "https://anthropic.com/document/hawk_key_recovery.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "authors’ paper"
+        }
+      ]
+    },
+    {
+      "url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-230.ipd.pdf",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "Primary draft, §3"
+        }
+      ]
+    },
+    {
+      "url": "https://csrc.nist.gov/projects/post-quantum-cryptography/post-quantum-cryptography-standardization/evaluation-criteria/security-%28evaluation-criteria%29",
+      "citedBy": [
+        {
+          "document": "docs/research/crypto-2026-security.md",
+          "label": "NIST security-category definitions"
+        }
+      ]
+    }
+  ],
+  "versionPolicy": "Specific publication and revision dates, inspected sections and primary-code commits are documented beside claims in the notes. Repository observations without a commit pin are explicitly labeled. A source snapshot records retrieved bytes; it is not independent validation of the source claims. Not every cited URL has a retained body.",
+  "rootEvidenceFiles": [
+    {
+      "path": "output/research/crypto-2026-september/batch-evaluation-paper.pdf",
+      "bytes": 854222,
+      "sha256": "1b687be32f32afe94117443071d37ef299a917b1661112105b2a97185fca7e12"
+    },
+    {
+      "path": "output/research/crypto-2026-september/better-codes-announcement.html",
+      "bytes": 172524,
+      "sha256": "0e126fed3b1a2c59f4f1efa917f80811702bbd38f8986851b3b004a852095faa"
+    },
+    {
+      "path": "output/research/crypto-2026-september/binaryspartan-record.html",
+      "bytes": 16367,
+      "sha256": "c99251e399033daf943fadc87433cb5f08855b07000db2e440462a177f8074a8"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-164-revision1-paper.pdf",
+      "bytes": 1005959,
+      "sha256": "560e7134e49abc065718bf97a50c20b1cce7eba9d7b465b98a64be90dd88d903"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-164-revision1-paper.txt",
+      "bytes": 120482,
+      "sha256": "8d9d67be5e4ec2c3cf2b9bfcba6643a9f6bdbbad4d62b0dda46ad03f7b6d2fa1"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-164-revision1-record.html",
+      "bytes": 21806,
+      "sha256": "ef29308a8fab05ffa584ef91b79525eb19150d80ade76ae674feff752c5f2074"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-169-paper.pdf",
+      "bytes": 1093897,
+      "sha256": "b17d9f407a9d9d8ae3ad557c48debb4e2a88534abe5c0cadc4151d41ba49a6c1"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-169-paper.txt",
+      "bytes": 124908,
+      "sha256": "db70f56bc552f9ec6773389275346120d1d4e4bc1778c970112d749f977bd279"
+    },
+    {
+      "path": "output/research/crypto-2026-september/eccc-169-record.html",
+      "bytes": 20879,
+      "sha256": "1f82db074fcfc1705bcc4a6fe5d6450908c6ddcd9f89a196095d6d1447debcb3"
+    },
+    {
+      "path": "output/research/crypto-2026-september/liftwhir-paper.pdf",
+      "bytes": 490979,
+      "sha256": "1b94d033cd6486140c25e814feb2688f832fecf84bfa4a3b60e8933810b56eb3"
+    },
+    {
+      "path": "output/research/crypto-2026-september/liftwhir-paper.txt",
+      "bytes": 142073,
+      "sha256": "b278ea30e354e08386383077aa57402df88c89f6edca21c93a0959de026f2a54"
+    },
+    {
+      "path": "output/research/crypto-2026-september/liftwhir-record.html",
+      "bytes": 18499,
+      "sha256": "18d30be0f0854bc89ef9733301f7607a67f8e7d4f4ca7be4c6be16b91abe9efe"
+    },
+    {
+      "path": "output/research/crypto-2026-september/primary-fetches.json",
+      "bytes": 2693,
+      "sha256": "a7e5b097a784bab5d75f052a37ab3122d1b7b86f7341a729692a45aa3d6e34d0"
+    },
+    {
+      "path": "output/research/crypto-2026-september/proximity-gaps-author-paper.pdf",
+      "bytes": 751888,
+      "sha256": "4added3e55b83c15fcc8a698fb57e137f5bd83e79ea25ce79382817c1ad26a46"
+    },
+    {
+      "path": "output/research/crypto-2026-september/september-coding-fetches.json",
+      "bytes": 1759,
+      "sha256": "14a481472434d79a7b2c707f4c402bd8c506cdaaf6e5cf56ea89294282521521"
+    }
+  ]
+}

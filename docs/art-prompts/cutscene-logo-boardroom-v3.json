@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "method": "built-in image_gen",
+  "useCase": "compositing",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "notes": [
+    "This record was reconstructed after an interrupted prior worker. The existing boardroom-wide-v3 output was visually inspected and retained; its exact generation prompt was not recovered. Other assets record the exact prompts sent in this continuation."
+  ],
+  "assets": [
+    {
+      "id": "boardroom-wide",
+      "source": "public/assets/story/angles/boardroom-wide-v2.png",
+      "output": "public/assets/story/angles/boardroom-wide-v3.png",
+      "outputSha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "prompt": null,
+      "promptRecoveryStatus": "not recovered",
+      "generatedSource": null,
+      "status": "accepted-existing",
+      "visualQA": {
+        "accepted": true,
+        "notes": "Inspected source and output individually. Prominent red-and-white geometric SORA decal on left glass door above existing SORA text; two straight bars and stem, diagonal white channels opening through lower circle edge. Source composition, characters, props, text and sunset retained."
+      }
+    },
+    {
+      "id": "boardroom-left",
+      "source": "public/assets/story/angles/boardroom-left-v2.png",
+      "output": "public/assets/story/angles/boardroom-left-v3.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated game cutscene. Input image 1 is the edit target; input image 2 is the exact SORA emblem reference, not a scene. Preserve the target camera framing, every character's face, pose, expression, clothing, every prop, all existing text, the sunset lighting, palette, and detailed painterly pixel-art texture. Change only the branding marks specified below. The exact emblem is a red circle containing a geometric white mark: two equal-width straight horizontal bars, a short vertical central stem joining them, then two straight diagonal white channels branching downward and opening through the red circle's lower edge, leaving a red wedge between them. This is not the font character 天; copy the supplied logo's geometry faithfully, with the diagonal white channels extending through the circle boundary. Match perspective, material and warm lighting naturally. No watermark or UI overlay. Keep the original 16:9 composition. Replace the existing red sleeve patch on the black-haired mechanic's upper left arm with the exact supplied red-and-white SORA emblem. Keep the patch in its existing location at roughly x=26%, y=46%, make its full circle clearly visible and its geometric white mark crisp within the painterly style. Also replace the incorrect circular emblem on the red maintenance binder in the foreground with the same authentic emblem, retaining the binder's SORA word below it and its worn leather texture. Do not change anything else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "notes": "Clear geometric SORA sleeve patch at x=26%, y=45%, with equal straight bars, central stem, and straight diagonals opening at the red circle edge. Binder mark also corrected. Faces, pose, props, lettering and sunset composition retained."
+      },
+      "sourceSha256": "4107da2789da5eebc464437f014b23aac95a0dbdd334384d1eee3bbb27e1f4d2",
+      "outputSha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-916655ae-e925-45fc-b96b-8a1db2aa0453.png",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "bytes": 2087669,
+      "acceptedAt": "2026-09-26T00:48:02.340139+00:00"
+    },
+    {
+      "id": "boardroom-right",
+      "source": "public/assets/story/angles/boardroom-right-v2.png",
+      "output": "public/assets/story/angles/boardroom-right-v3.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated game cutscene. Input image 1 is the edit target; input image 2 is the exact SORA emblem reference, not a scene. Preserve the target camera framing, every character's face, pose, expression, clothing, every prop, all existing text, the sunset lighting, palette, and detailed painterly pixel-art texture. Change only the branding marks specified below. The exact emblem is a red circle containing a geometric white mark: two equal-width straight horizontal bars, a short vertical central stem joining them, then two straight diagonal white channels branching downward and opening through the red circle's lower edge, leaving a red wedge between them. This is not the font character 天; copy the supplied logo's geometry faithfully, with the diagonal white channels extending through the circle boundary. Match perspective, material and warm lighting naturally. No watermark or UI overlay. Keep the original 16:9 composition. Replace the existing red sleeve patch on the foreground black-haired mechanic's upper arm, at roughly x=21%, y=72%, with the exact supplied red-and-white SORA emblem. Keep the logo fully visible and legible. Also add a modest but clearly visible authentic red-and-white SORA emblem as a physical decal on the framed car poster in the top-left background, beneath its existing SORA word and above the car, without covering or changing its existing text. The poster decal must sit above the lower quarter of the image. Do not change anything else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "notes": "Clear geometric SORA sleeve patch at x=21%, y=72%, with straight bars, stem and diagonal channels reaching the red circle edge; an additional SORA emblem is visible on the upper-left car poster. Camera, character poses, map, props and sunset retained."
+      },
+      "sourceSha256": "0e06e1d8e8e59ad3ea6c7652601e5f90e7df0c58928c9a8a5cae7d0c63f0850f",
+      "outputSha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-03923731-b3a7-4b6f-8861-d8c601ff4948.png",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "bytes": 2364682,
+      "acceptedAt": "2026-09-26T00:48:02.346734+00:00"
+    },
+    {
+      "id": "boardroom-detail",
+      "source": "public/assets/story/angles/boardroom-detail-v2.png",
+      "output": "public/assets/story/angles/boardroom-detail-v3.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated game cutscene. Input image 1 is the edit target; input image 2 is the exact SORA emblem reference, not a scene. Preserve the target camera framing, every character's face, pose, expression, clothing, every prop, all existing text, the sunset lighting, palette, and detailed painterly pixel-art texture. Change only the branding marks specified below. The exact emblem is a red circle containing a geometric white mark: two equal-width straight horizontal bars, a short vertical central stem joining them, then two straight diagonal white channels branching downward and opening through the red circle's lower edge, leaving a red wedge between them. This is not the font character 天; copy the supplied logo's geometry faithfully, with the diagonal white channels extending through the circle boundary. Match perspective, material and warm lighting naturally. No watermark or UI overlay. Keep the original 16:9 composition. Replace the incorrect large circular mark on the red leather maintenance binder at the upper right with the exact supplied red circle and white SORA emblem. Keep it in the existing logo location around x=83%, y=30%, shown with the binder's natural perspective, warm wear and lighting. Keep the separate SORA label and Japanese words unchanged. Also replace the small red sleeve patch at the right edge with the exact emblem. Do not change anything else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "notes": "Prominent geometric SORA binder emblem at x=83%, y=30% uses straight equal bars, central stem and straight diagonal channels meeting the circular print edge, naturally foreshortened. Sleeve mark is secondary. Map, hands, props, Japanese labels, leather wear and sunset retained."
+      },
+      "sourceSha256": "c4ba2063e5e3f3b150f0437716aafac15e23cad9fba0c1188a8e5bfff36ff9a9",
+      "outputSha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-59e0f14a-68d0-4c9f-a43b-0d3d1d550ddf.png",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "bytes": 2401616,
+      "acceptedAt": "2026-09-26T00:48:02.353579+00:00"
+    },
+    {
+      "id": "tower-boardroom",
+      "source": "public/assets/story/tower-boardroom-v1.png",
+      "output": "public/assets/story/tower-boardroom-v2.png",
+      "prompt": "Use case: compositing. Asset type: SORA CARS illustrated game cutscene. Input image 1 is the edit target; input image 2 is the exact SORA emblem reference, not a scene. Preserve the target camera framing, every character's face, pose, expression, clothing, every prop, all existing text, the sunset lighting, palette, and detailed painterly pixel-art texture. Change only the branding marks specified below. The exact emblem is a red circle containing a geometric white mark: two equal-width straight horizontal bars, a short vertical central stem joining them, then two straight diagonal white channels branching downward and opening through the red circle's lower edge, leaving a red wedge between them. This is not the font character 天; copy the supplied logo's geometry faithfully, with the diagonal white channels extending through the circle boundary. Match perspective, material and warm lighting naturally. No watermark or UI overlay. Keep the original 16:9 composition. Replace the incorrect circular mark on the upright red binder held by the black-haired mechanic at center-right with the exact supplied red-and-white SORA emblem. Keep it prominent around x=70%, y=52%, matching the binder's tilted plane and aged leather surface. Also correct her existing red sleeve patch to the same authentic logo. The two diagonal white channels must reach and open through the bottom of the red circle. Do not change anything else.",
+      "status": "accepted",
+      "visualQA": {
+        "accepted": true,
+        "notes": "Prominent red-and-white geometric SORA emblem on held binder at x=70%, y=52%, with equal straight bars, stem and open diagonal channels; sleeve emblem is also clearly visible. All three characters, camera framing, table props and sunset retained."
+      },
+      "sourceSha256": "bc9b5deff0f48747121790fc639f18e32e8fc4c385bbc675f0dce08221909965",
+      "outputSha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db29-a115-7823-b111-1d2e770d42e5/exec-5a582435-280d-40b4-bf3c-adc0c6cbf138.png",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "bytes": 2375611,
+      "acceptedAt": "2026-09-26T00:48:02.366839+00:00"
+    }
+  ]
+}

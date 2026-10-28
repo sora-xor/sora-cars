@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-09-22T10:21:26.503694+00:00",
+  "previousGoalTurn": "Progress: local launch validation and isolated native integration work changed the next action.",
+  "currentGoalTurn": "Progress: finished and independently source-reviewed the source-only streaming candidate; verified wait on live native supervisor and exact child.",
+  "candidateManifest": "tmp/music-native-release/streaming-candidate/review-1/manifest.json",
+  "candidateManifestSha256": "010e7bf64e68ade5e645df6bc9c006d9e0c0bc62177402e93d0b37a454b7d13e",
+  "patchSha256": "44bd267fae4d30201f977aee1145532fbebe81ec4e154c3b4776b876cef28967",
+  "changedFiles": 9,
+  "formatting": {
+    "toolchain": "1.93.1",
+    "changedRustFiles": 8,
+    "passed": true,
+    "scope": "rustfmt parse/format only"
+  },
+  "isolatedGitApplyCheck": true,
+  "isolatedPostimageComparison": true,
+  "compiled": false,
+  "rustTestsExecuted": false,
+  "nativeCheckoutModified": false,
+  "fullSizePackingVerified": false,
+  "published": false,
+  "realPurchaseVerified": false,
+  "existingCoverHashesRechecked": 25,
+  "catalogSha256": "92d6709947585078681ebb5452e662c3d06c62f05231a9e9be2f57bd2c84f309",
+  "nativeProcessObservation": {
+    "checkedAt": "2026-09-22T10:22:19.684458+00:00",
+    "command": "ps -p 82830,29049 -o pid=,ppid=,lstart=,etime=,command=",
+    "exitCode": 0,
+    "output": "29049 82830 Tue Sep 22 19:19:31 2026     02:48 /Users/takemiyamakoto/dev/sora-cars/output/qualification/native-street-owned-attempt-1/binaries/iroha_core-libtest execution_proofs::bundle::tests::native_public_bundle_zero_motion --exact --nocapture\n82830     1 Tue Sep 22 18:23:42 2026     58:37 /opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python -u /Users/takemiyamakoto/dev/sora-cars/tmp/native-street-owned-qualification-v3-work/qualify.py --lane native-street-owned-attempt-1 --plan-sha256 cf63d534985052d5cdf5448c79f16ccb2fadb280d08a9c4a50ef9ffc34f820c5 --unchanged-compiler-report-sha256 f20872a53c5e2542c3b81cbdfa267a91b0503d0f8c69553f2e4781292d94c10b"
+  },
+  "releaseEnvironmentFiles": [
+    ".env.example"
+  ],
+  "pending": [
+    "Coordinated immutable native base and source-qualified runtime compilation/tests",
+    "Actual complete 1.49 GB pack and verification",
+    "Full-size provider ingest/restart/retrieval",
+    "Public seller wallet, collection domain and named licensor",
+    "Qualified market endpoint and reviewed application/XOR/profile identities",
+    "Real NFT issuance, open 1 XOR offers, wallet purchase/delivery, licensed download and publication"
+  ],
+  "nativeGateProgress": {
+    "passedTests": 20,
+    "completedChild": 6195,
+    "completedExitCode": 0,
+    "completedTest": "execution_proofs::bundle::tests::native_public_bundle_six_motion",
+    "runningChild": 29049,
+    "runningTest": "execution_proofs::bundle::tests::native_public_bundle_zero_motion",
+    "scope": "Separate existing native qualification, not tests of the music streaming candidate."
+  }
+}

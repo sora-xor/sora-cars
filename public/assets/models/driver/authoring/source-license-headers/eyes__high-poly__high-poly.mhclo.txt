@@ -1,0 +1,22 @@
+# This is a clothes file for MakeHuman
+#
+# This asset was explicitly released as CC0 in september 2020. The license
+# text for CC0 can be found in the root of this repository.
+#
+# The copyright holders at the point of the release to CC0 were:
+#
+# Copyright (C) 2020 Data Collection AB, https://www.datacollection.se
+# Copyright (C) 2020 Joel Palmius
+# Copyright (C) 2020 Jonas Hauquier
+#
+# The primary legal contact for MakeHuman is Data Collection AB.
+#
+# For more information, see homepage at http://www.makehumancommunity.org
+
+uuid 2c12f43b-1303-432c-b7ce-d78346baf2e6
+basemesh hm08
+
+name HighPolyEyes
+tag MakeHuman™
+
+obj_file high-poly.obj

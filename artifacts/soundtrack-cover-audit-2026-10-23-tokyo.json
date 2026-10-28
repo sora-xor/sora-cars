@@ -1,0 +1,1465 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "checkedAt": "2026-10-23T14:41:57.732Z",
+  "scope": "Current hashes, catalog pins, exact 26-cover file inventory, PNG dimensions and opacity freshly verified. All 25 historical cover and surface-alignment records preserved verbatim with matching unchanged current bytes. One new Tokyo cover includes generated-source equality, provenance, local visual inspection and root acceptance. This is not a new full visual audit of the original 25 covers.",
+  "coverCount": 26,
+  "historicalCoverCount": 25,
+  "unchangedHistoricalHashCount": 25,
+  "addedCoverCount": 1,
+  "catalogCoverCount": 26,
+  "catalogInventoryMatches": true,
+  "fullyOpaqueCoverCount": 26,
+  "editorialCornerBadgeCount": 26,
+  "coversWithVisiblePhysicalSoraMarks": 0,
+  "obviousPhysicalPlacementFaultCount": 0,
+  "logoPath": "public/assets/branding/sora-emblem-source.png",
+  "logoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "historicalAudits": [
+    {
+      "path": "artifacts/soundtrack-cover-audit.json",
+      "sha256": "e3aeaef351b0617504c5acbabe5c75f7bf773c8f90c8c95476bfb20a30732dc2",
+      "preservedHeader": {
+        "passed": true,
+        "checkedAt": "2026-09-22T09:11:39.081758+00:00",
+        "logoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "scope": "Actual final bytes, generated-source equality, dimensions/opacity and individual agent visual inspections; no claim of pixel-identical generative logo placement."
+      }
+    },
+    {
+      "path": "artifacts/soundtrack-cover-surface-alignment-audit-2026-09-26.json",
+      "sha256": "60e88b4c0c918fcf54d0f23728ebc1d1f34ad0eb38a3fad90e33d54aaaaadc41",
+      "preservedHeader": {
+        "checkedAt": "2026-09-26T12:56:16.184016+00:00",
+        "scope": "Individual review of all 25 current soundtrack covers for obvious physical-object SORA emblem centering or perspective faults, with special attention to vehicle hoods and jacket backs. Editorial corner badges are not required to be centered in the illustration.",
+        "sourceAudit": "artifacts/soundtrack-cover-audit.json",
+        "sourceAuditSha256": "e3aeaef351b0617504c5acbabe5c75f7bf773c8f90c8c95476bfb20a30732dc2",
+        "coverCount": 25,
+        "individuallyViewedCount": 25,
+        "editorialCornerBadgeCount": 25,
+        "coversWithVisiblePhysicalSoraMarks": 0,
+        "obviousPhysicalPlacementFaultCount": 0,
+        "result": "No applicable physical-object centering faults found. All observed SORA emblems are editorial upper-left branding badges; this is not a claim that 25 physical surface placements passed.",
+        "imageMutationsPerformed": false,
+        "limitations": "Visual assessment at native resolution. Very small background objects cannot establish exact absence of microscopic detail. No pixel-identical logo-fidelity claim or full artwork-quality review is made."
+      }
+    }
+  ],
+  "inputPins": [
+    {
+      "path": "artifacts/soundtrack-cover-audit.json",
+      "sha256": "e3aeaef351b0617504c5acbabe5c75f7bf773c8f90c8c95476bfb20a30732dc2"
+    },
+    {
+      "path": "artifacts/soundtrack-cover-surface-alignment-audit-2026-09-26.json",
+      "sha256": "60e88b4c0c918fcf54d0f23728ebc1d1f34ad0eb38a3fad90e33d54aaaaadc41"
+    },
+    {
+      "path": "docs/art-prompts/soundtrack-tokyo-v1.json",
+      "sha256": "5a89499fc10dfe7a0a60cf8ce9d8116016b3c0aaef3ab9164d76da053f908b0b"
+    },
+    {
+      "path": "public/assets/branding/sora-emblem-source.png",
+      "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+    },
+    {
+      "path": "src/game/music-catalog.ts",
+      "sha256": "227719ac056eb1f8c3d7be7408db9948dd4ae00261ef6a60a61dfedd1555d763"
+    },
+    {
+      "path": "src/game/music-assets.generated.json",
+      "sha256": "3cf69489dd46759525724ea0b9ca045968424e8519bbf8bae36460c572837264"
+    },
+    {
+      "path": "src/game/music-supplied-recordings.json",
+      "sha256": "797f386836ac60b8d74881e8b68a9c3c0b41ad912be09da8f130045766861831"
+    },
+    {
+      "path": "src/game/music-score.ts",
+      "sha256": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513"
+    },
+    {
+      "path": "src/game/music-themes.ts",
+      "sha256": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488"
+    }
+  ],
+  "inputsUnchangedDuringAudit": true,
+  "covers": [
+    {
+      "index": 0,
+      "sku": "music-midnight-transistor",
+      "file": "midnight-transistor",
+      "path": "public/assets/music/covers/midnight-transistor-v1.png",
+      "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+      "bytes": 2354219,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/midnight-transistor-v1.png",
+        "bytes": 2354219,
+        "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 0,
+        "file": "midnight-transistor",
+        "path": "public/assets/music/covers/midnight-transistor-v1.png",
+        "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+        "bytes": 2354219,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Chrome transistor, three curving elevated leads/roads, ivory coupe, coral sun, cyan circuits and square composition preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/midnight-transistor-v1.png",
+        "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+        "bytes": 2354219,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The ivory car is viewed from behind with no visible SORA body mark; the large transistor has a plain round fitting."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 1,
+      "sku": "music-harbor-signals",
+      "file": "harbor-signals",
+      "path": "public/assets/music/covers/harbor-signals-v1.png",
+      "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02",
+      "bytes": 2338992,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/harbor-signals-v1.png",
+        "bytes": 2338992,
+        "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 1,
+        "file": "harbor-signals",
+        "path": "public/assets/music/covers/harbor-signals-v1.png",
+        "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02",
+        "bytes": 2338992,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Coral radio buoy, transmission rings, harbor cranes, sun and water reflections preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/harbor-signals-v1.png",
+        "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02",
+        "bytes": 2338992,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The buoy/radio and cranes have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 2,
+      "sku": "music-sakura-express",
+      "file": "sakura-express",
+      "path": "public/assets/music/covers/sakura-express-v1.png",
+      "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf",
+      "bytes": 2848680,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/sakura-express-v1.png",
+        "bytes": 2848680,
+        "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 2,
+        "file": "sakura-express",
+        "path": "public/assets/music/covers/sakura-express-v1.png",
+        "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf",
+        "bytes": 2848680,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Curving coral express train, ivory coupe, pink cherry petals and sun composition preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/sakura-express-v1.png",
+        "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf",
+        "bytes": 2848680,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The small ivory car hood and train nose have no visible SORA emblem; light oval shapes on the train are design highlights."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 3,
+      "sku": "music-soramotos-workshop",
+      "file": "soramotos-workshop",
+      "path": "public/assets/music/covers/soramotos-workshop-v1.png",
+      "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910",
+      "bytes": 2335687,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/soramotos-workshop-v1.png",
+        "bytes": 2335687,
+        "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 3,
+        "file": "soramotos-workshop",
+        "path": "public/assets/music/covers/soramotos-workshop-v1.png",
+        "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910",
+        "bytes": 2335687,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Amber mechanic workshop, ivory coupe, red lamp and chrome foreground wrench preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/soramotos-workshop-v1.png",
+        "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910",
+        "bytes": 2335687,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The coupe is seen from behind inside the workshop; no visible SORA emblem appears on the body, tool storage or foreground wrench."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 4,
+      "sku": "music-paper-towers",
+      "file": "paper-towers",
+      "path": "public/assets/music/covers/paper-towers-v1.png",
+      "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717",
+      "bytes": 2118312,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/paper-towers-v1.png",
+        "bytes": 2118312,
+        "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 4,
+        "file": "paper-towers",
+        "path": "public/assets/music/covers/paper-towers-v1.png",
+        "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717",
+        "bytes": 2118312,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Folded ivory paper skyscrapers, coral page, cyan drafting grid and long shadows preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/paper-towers-v1.png",
+        "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717",
+        "bytes": 2118312,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. Folded paper towers and floating coral sheet have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 5,
+      "sku": "music-a-future-we-build",
+      "file": "a-future-we-build",
+      "path": "public/assets/music/covers/a-future-we-build-v1.png",
+      "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b",
+      "bytes": 2568468,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/a-future-we-build-v1.png",
+        "bytes": 2568468,
+        "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 5,
+        "file": "a-future-we-build",
+        "path": "public/assets/music/covers/a-future-we-build-v1.png",
+        "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b",
+        "bytes": 2568468,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Assembled coral sun, floating cream pieces, two collaborators and cyan circuit garden preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/a-future-we-build-v1.png",
+        "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b",
+        "bytes": 2568468,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The two small collaborators, suspended cream pieces, workshop and circuit garden have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 6,
+      "sku": "music-after-the-last-train",
+      "file": "after-the-last-train",
+      "path": "public/assets/music/covers/after-the-last-train-v1.png",
+      "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd",
+      "bytes": 2616922,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/after-the-last-train-v1.png",
+        "bytes": 2616922,
+        "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 6,
+        "file": "after-the-last-train",
+        "path": "public/assets/music/covers/after-the-last-train-v1.png",
+        "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd",
+        "bytes": 2616922,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Empty platform bench, portable cassette player, receding rails, moon and distant train lights preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/after-the-last-train-v1.png",
+        "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd",
+        "bytes": 2616922,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. Bench and portable cassette player have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 7,
+      "sku": "music-credit-line",
+      "file": "credit-line",
+      "path": "public/assets/music/covers/credit-line-v1.png",
+      "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2",
+      "bytes": 2330533,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/credit-line-v1.png",
+        "bytes": 2330533,
+        "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 7,
+        "file": "credit-line",
+        "path": "public/assets/music/covers/credit-line-v1.png",
+        "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2",
+        "bytes": 2330533,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Coral pencil bridge, curled receipt, concrete platforms and cyan winding road preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/credit-line-v1.png",
+        "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2",
+        "bytes": 2330533,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. Pencil bridge, receipt and platforms have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 8,
+      "sku": "music-sora-dawn-broadcast",
+      "file": "sora-dawn-broadcast",
+      "path": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+      "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+      "bytes": 2336613,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/sora-dawn-broadcast-v1.png",
+        "bytes": 2336613,
+        "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 8,
+        "file": "sora-dawn-broadcast",
+        "path": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+        "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+        "bytes": 2336613,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted after individual visual inspection: supplied red circular SORA emblem and white geometric knockout are clearly recognizable on a small white printed label below the existing SORA wordmark; the diagonal white openings continue through the lower red circle edge. Cream radio dial, numerals, cyan transmission rings, indigo lake, antenna and coffee cup preserved. Image edit preserves composition but may slightly alter print grain."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+        "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+        "bytes": 2336613,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. Radio dial, antenna and coffee mug have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 9,
+      "sku": "music-blank-side-promise",
+      "file": "blank-side-promise",
+      "path": "public/assets/music/covers/blank-side-promise-v1.png",
+      "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+      "bytes": 2218749,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/blank-side-promise-v1.png",
+        "bytes": 2218749,
+        "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 9,
+        "file": "blank-side-promise",
+        "path": "public/assets/music/covers/blank-side-promise-v1.png",
+        "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+        "bytes": 2218749,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: clear supplied red circular emblem with white open lower cutouts on upper-left white plaque; ivory cassette, cyan ribbon, peach horizon and indigo composition retained. Revised prior small and tapered-stroke logo variants."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/blank-side-promise-v1.png",
+        "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+        "bytes": 2218749,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. The tilted cassette and flowing ribbon have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 10,
+      "sku": "music-three-weeks-of-paper",
+      "file": "three-weeks-of-paper",
+      "path": "public/assets/music/covers/three-weeks-of-paper-v1.png",
+      "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0",
+      "bytes": 2080279,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/three-weeks-of-paper-v1.png",
+        "bytes": 2080279,
+        "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 10,
+        "file": "three-weeks-of-paper",
+        "path": "public/assets/music/covers/three-weeks-of-paper-v1.png",
+        "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0",
+        "bytes": 2080279,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: crisp red/white supplied emblem on white plaque beside SORA; three curved groups of ivory calendar leaves, coral paperclip, workshop and clock-hand shadow retained. Revised undersized first logo."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/three-weeks-of-paper-v1.png",
+        "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0",
+        "bytes": 2080279,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. Floating papers, paperclip and small workshop have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 11,
+      "sku": "music-milk-crates-at-midnight",
+      "file": "milk-crates-at-midnight",
+      "path": "public/assets/music/covers/milk-crates-at-midnight-v1.png",
+      "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5",
+      "bytes": 2382636,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/milk-crates-at-midnight-v1.png",
+        "bytes": 2382636,
+        "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 11,
+        "file": "milk-crates-at-midnight",
+        "path": "public/assets/music/covers/milk-crates-at-midnight-v1.png",
+        "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5",
+        "bytes": 2382636,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: readable supplied red/white emblem on white plaque; four bottles in coral crate, harbor cranes, moon and water reflections retained. Revised earlier small-label versions."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/milk-crates-at-midnight-v1.png",
+        "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5",
+        "bytes": 2382636,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. The crate and four bottles have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 12,
+      "sku": "music-carbon-copy-testimony",
+      "file": "carbon-copy-testimony",
+      "path": "public/assets/music/covers/carbon-copy-testimony-v1.png",
+      "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a",
+      "bytes": 2473380,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/carbon-copy-testimony-v1.png",
+        "bytes": 2473380,
+        "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 12,
+        "file": "carbon-copy-testimony",
+        "path": "public/assets/music/covers/carbon-copy-testimony-v1.png",
+        "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a",
+        "bytes": 2473380,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red emblem with equal white bars and open lower cutouts on white plaque beside SORA; three paper layers, stamp, circular ink marks and geometric composition retained. Revised undersized first logo."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/carbon-copy-testimony-v1.png",
+        "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a",
+        "bytes": 2473380,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. The stamp and layered paper show circular ink impressions, not the SORA emblem; no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 13,
+      "sku": "music-crown-on-the-grid",
+      "file": "crown-on-the-grid",
+      "path": "public/assets/music/covers/crown-on-the-grid-v1.png",
+      "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456",
+      "bytes": 2193821,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/crown-on-the-grid-v1.png",
+        "bytes": 2193821,
+        "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 13,
+        "file": "crown-on-the-grid",
+        "path": "public/assets/music/covers/crown-on-the-grid-v1.png",
+        "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456",
+        "bytes": 2193821,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red/white emblem on a clean white plaque in upper-left margin; five-pronged architectural crown, circuit city, coral signal and dark palette retained. Rejected the first otherwise visually clean output because its alpha channel was partly transparent; this replacement preserves an opaque canvas."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/crown-on-the-grid-v1.png",
+        "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456",
+        "bytes": 2193821,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. Crown-shaped towers and circuit city have no visible SORA surface mark; the coral signal sphere is not an emblem."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 14,
+      "sku": "music-open-circuit-breakfast",
+      "file": "open-circuit-breakfast",
+      "path": "public/assets/music/covers/open-circuit-breakfast-v1.png",
+      "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3",
+      "bytes": 2530287,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/open-circuit-breakfast-v1.png",
+        "bytes": 2530287,
+        "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 14,
+        "file": "open-circuit-breakfast",
+        "path": "public/assets/music/covers/open-circuit-breakfast-v1.png",
+        "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3",
+        "bytes": 2530287,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: clear supplied red/white emblem at left of a clean horizontal white label with teal SORA; coffee, toast, coral plate, cyan circuit board, plant, napkin and cream lighting retained. Regenerated from original after rejecting edge-corrupted first output."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/open-circuit-breakfast-v1.png",
+        "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3",
+        "bytes": 2530287,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left horizontal editorial label contains emblem and SORA. The label is aligned to the canvas rather than the angled circuit-board plane; mug, plate, board and napkin have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 15,
+      "sku": "music-one-umbrella-two-chairs",
+      "file": "one-umbrella-two-chairs",
+      "path": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+      "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb",
+      "bytes": 2897486,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/one-umbrella-two-chairs-v1.png",
+        "bytes": 2897486,
+        "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 15,
+        "file": "one-umbrella-two-chairs",
+        "path": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+        "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb",
+        "bytes": 2897486,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: readable supplied red/white emblem on white plaque beside SORA; exactly two cream chairs, coral umbrella, rooftop rain and city composition retained. Rejected vignette/edge-corrupted output and enlarged the subsequent small logo."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+        "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb",
+        "bytes": 2897486,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. Umbrella canopy and two chairs have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 16,
+      "sku": "music-glass-permission",
+      "file": "glass-permission",
+      "path": "public/assets/music/covers/glass-permission-v1.png",
+      "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a",
+      "bytes": 1891730,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/glass-permission-v1.png",
+        "bytes": 1891730,
+        "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 16,
+        "file": "glass-permission",
+        "path": "public/assets/music/covers/glass-permission-v1.png",
+        "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a",
+        "bytes": 1891730,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red/white emblem with open lower cutouts on white plaque beside SORA; glass door, encased key, coral stripe, cyan refraction, sphere and cream ground retained. Regenerated from original after rejecting vignette/edge-corrupted output."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/glass-permission-v1.png",
+        "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a",
+        "bytes": 1891730,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beside SORA. Glass door and encased key have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 17,
+      "sku": "music-two-am-relay",
+      "file": "two-am-relay",
+      "path": "public/assets/music/covers/two-am-relay-v1.png",
+      "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778",
+      "bytes": 2672184,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/two-am-relay-v1.png",
+        "bytes": 2672184,
+        "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 17,
+        "file": "two-am-relay",
+        "path": "public/assets/music/covers/two-am-relay-v1.png",
+        "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778",
+        "bytes": 2672184,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: faithful red circular SORA emblem with white knockout bars and open lower diagonals on a white plaque below the upper-left wordmark. Main illustration, layout and print texture preserved; fully opaque edge-to-edge artwork."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/two-am-relay-v1.png",
+        "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778",
+        "bytes": 2672184,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. Relay housing, coil and contacts have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 18,
+      "sku": "music-dead-air-confession",
+      "file": "dead-air-confession",
+      "path": "public/assets/music/covers/dead-air-confession-v1.png",
+      "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46",
+      "bytes": 2118375,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/dead-air-confession-v1.png",
+        "bytes": 2118375,
+        "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 18,
+        "file": "dead-air-confession",
+        "path": "public/assets/music/covers/dead-air-confession-v1.png",
+        "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46",
+        "bytes": 2118375,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: faithful red circular SORA emblem with white knockout bars and open lower diagonals on a white plaque below the upper-left wordmark. Main illustration, layout and print texture preserved; fully opaque edge-to-edge artwork."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/dead-air-confession-v1.png",
+        "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46",
+        "bytes": 2118375,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The suspended microphone has no visible SORA surface mark; its circular side fitting is plain."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 19,
+      "sku": "music-borrowed-power-waltz",
+      "file": "borrowed-power-waltz",
+      "path": "public/assets/music/covers/borrowed-power-waltz-v1.png",
+      "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858",
+      "bytes": 2350260,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/borrowed-power-waltz-v1.png",
+        "bytes": 2350260,
+        "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 19,
+        "file": "borrowed-power-waltz",
+        "path": "public/assets/music/covers/borrowed-power-waltz-v1.png",
+        "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858",
+        "bytes": 2350260,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Original illustration, objects, color palette, composition and tactile print style retained."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/borrowed-power-waltz-v1.png",
+        "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858",
+        "bytes": 2350260,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The three plugs, cords and central lamp have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 20,
+      "sku": "music-the-frequency-home",
+      "file": "the-frequency-home",
+      "path": "public/assets/music/covers/the-frequency-home-v1.png",
+      "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388",
+      "bytes": 2198962,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/the-frequency-home-v1.png",
+        "bytes": 2198962,
+        "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 20,
+        "file": "the-frequency-home",
+        "path": "public/assets/music/covers/the-frequency-home-v1.png",
+        "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388",
+        "bytes": 2198962,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Original illustration, objects, color palette, composition and tactile print style retained."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/the-frequency-home-v1.png",
+        "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388",
+        "bytes": 2198962,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The hilltop radio has no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 21,
+      "sku": "music-no-master-key",
+      "file": "no-master-key",
+      "path": "public/assets/music/covers/no-master-key-v1.png",
+      "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2",
+      "bytes": 1996528,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/no-master-key-v1.png",
+        "bytes": 1996528,
+        "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 21,
+        "file": "no-master-key",
+        "path": "public/assets/music/covers/no-master-key-v1.png",
+        "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2",
+        "bytes": 1996528,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Original illustration, objects, color palette, composition and tactile print style retained."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/no-master-key-v1.png",
+        "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2",
+        "bytes": 1996528,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The five keys have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 22,
+      "sku": "music-outrun-the-dawn",
+      "file": "outrun-the-dawn",
+      "path": "public/assets/music/covers/outrun-the-dawn-v1.png",
+      "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db",
+      "bytes": 2538570,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/outrun-the-dawn-v1.png",
+        "bytes": 2538570,
+        "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 22,
+        "file": "outrun-the-dawn",
+        "path": "public/assets/music/covers/outrun-the-dawn-v1.png",
+        "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db",
+        "bytes": 2538570,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Original illustration, objects, color palette, composition and tactile print style retained."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/outrun-the-dawn-v1.png",
+        "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db",
+        "bytes": 2538570,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA. The ivory car is viewed from behind; its roof, hatch and visible flank have no visible SORA emblem, so no hood-centering claim applies."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 23,
+      "sku": "music-jun-the-first-light",
+      "file": "jun-the-first-light",
+      "path": "public/assets/music/covers/jun-the-first-light-v1.png",
+      "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3",
+      "bytes": 2589444,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/jun-the-first-light-v1.png",
+        "bytes": 2589444,
+        "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 23,
+        "file": "jun-the-first-light",
+        "path": "public/assets/music/covers/jun-the-first-light-v1.png",
+        "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3",
+        "bytes": 2589444,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Main illustration, object positions, color palette, composition and tactile print style retained. Plaque overlays only a small decorative ribbon area in the upper-left label zone."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/jun-the-first-light-v1.png",
+        "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3",
+        "bytes": 2589444,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA overlaps a small decorative waveform. The foreground synthesizer has no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 24,
+      "sku": "music-side-b-press-record",
+      "file": "side-b-press-record",
+      "path": "public/assets/music/covers/side-b-press-record-v1.png",
+      "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef",
+      "bytes": 2343732,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/side-b-press-record-v1.png",
+        "bytes": 2343732,
+        "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "matchesHistoricalCoverHash": true,
+      "matchesHistoricalPlacementHash": true,
+      "historicalCoverAuditRecord": {
+        "index": 24,
+        "file": "side-b-press-record",
+        "path": "public/assets/music/covers/side-b-press-record-v1.png",
+        "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef",
+        "bytes": 2343732,
+        "width": 1254,
+        "height": 1254,
+        "fullyOpaque": true,
+        "sourceBytesMatch": true,
+        "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+        "visualInspection": "Accepted: supplied red SORA circular emblem faithfully reproduced on a readable white plaque below the wordmark; both horizontal knockout bars, stem and bottom-edge diagonal openings visible. Main illustration, object positions, color palette, composition and tactile print style retained. Plaque overlays only a small decorative ribbon area in the upper-left label zone."
+      },
+      "historicalSurfaceAlignmentRecord": {
+        "path": "public/assets/music/covers/side-b-press-record-v1.png",
+        "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef",
+        "bytes": 2343732,
+        "width": 1254,
+        "height": 1254,
+        "matchesPreviousAuditHash": true,
+        "visualInspectionMethod": "Individual native image opened with view_image at original detail; no contact sheet or transformed image used.",
+        "brandingClassification": "editorial_corner_badge",
+        "visiblePhysicalSoraMarks": 0,
+        "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+        "obviousPhysicalPlacementFault": false,
+        "observation": "Upper-left square badge beneath SORA overlaps a small decorative ribbon area. Reels and central red record button have no visible SORA surface mark."
+      },
+      "visualEvidenceScope": "The two historical inspection records are preserved verbatim; current bytes match both. No new full-art visual inspection is claimed for this cover in this refresh."
+    },
+    {
+      "index": 25,
+      "sku": "music-meet-me-at-yasukuni",
+      "file": "meet-me-at-yasukuni",
+      "path": "public/assets/music/covers/meet-me-at-yasukuni-v1.png",
+      "sha256": "362f501474d70d9969465ad5b65a69e84e982358870cbf049568dffcb2dd6ced",
+      "bytes": 2589095,
+      "width": 1254,
+      "height": 1254,
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "nonOpaquePixels": 0,
+      "fullyOpaque": true,
+      "catalogCoverPin": {
+        "path": "assets/music/covers/meet-me-at-yasukuni-v1.png",
+        "bytes": 2589095,
+        "sha256": "362f501474d70d9969465ad5b65a69e84e982358870cbf049568dffcb2dd6ced"
+      },
+      "catalogPinMatches": true,
+      "suppliedLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "provenance": {
+        "path": "docs/art-prompts/soundtrack-tokyo-v1.json",
+        "sha256": "5a89499fc10dfe7a0a60cf8ce9d8116016b3c0aaef3ab9164d76da053f908b0b",
+        "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-7223977a-9210-4633-9c70-43d2cc1d8613.png",
+        "generatedSha256": "362f501474d70d9969465ad5b65a69e84e982358870cbf049568dffcb2dd6ced",
+        "sourceBytesMatch": true,
+        "tool": "builtin image_gen.imagegen"
+      },
+      "visualInspection": {
+        "inspectedWith": "view_image at original detail after image_gen returned",
+        "composition": "Peaceful two-person meeting on a broad lantern-lit Tokyo shrine approach at dusk, gray torii, coral cherry trees, indigo city silhouette and cyan twin synth/map lines.",
+        "logo": "Upright red-and-white supplied geometric emblem centered in a flat upper-left white editorial square. Two equal white bars, centered connector, straight open lower channels and detached lower red wedge are visibly preserved. No font substitution, closed lower rim or logo placed across a physical object.",
+        "text": "SORA CARS is readable beside the emblem; no other lettering.",
+        "boundaries": "Full square with all four corners filled; no crop, frame or transparency.",
+        "content": "No war or militaristic imagery.",
+        "fidelityScope": "Visual geometry check against supplied emblem; does not claim pixel identity between generated emblem and source graphic."
+      },
+      "brandingClassification": "editorial_corner_badge",
+      "visiblePhysicalSoraMarks": 0,
+      "physicalSurfaceCentering": "not_applicable_no_visible_physical_sora_mark",
+      "obviousPhysicalPlacementFault": false,
+      "rootAcceptance": {
+        "accepted": true,
+        "evidence": "Parent /root team message for this audit states: Root accepted new art after view."
+      },
+      "visualEvidenceScope": "New Tokyo cover was viewed locally at original detail during generation; root separately reported acceptance after viewing. Emblem is centered inside its editorial plaque, with no physical-object placement claim."
+    }
+  ],
+  "imageMutationsPerformed": false,
+  "limitations": "Historical visual claims retain their original dates and scope. No pixel-identical generative logo fidelity, microscopic-background absence, real NFT issuance or release readiness is implied."
+}

@@ -1,0 +1,64 @@
+{
+  "mode": "built-in image_gen",
+  "prompts": [
+    {
+      "id": "radio-near-confession",
+      "file": "public/assets/story/beats/radio-near-confession-v2.png",
+      "prompt": "Use case: illustration-story. Asset: full-frame 16:9 cinematic pixel-art cutscene for SORA CARS. Reference 1 establishes the radio room and adult Ren, reference 2 establishes adult Aki. Create a NEW composition for a quiet almost-confession in Japan, 1986: Aki (24, short black bob, white T-shirt, red mechanic overalls tied at waist) and Ren (23, wavy black hair, cream denim jacket, dark shirt) seated close together in the small community radio booth after a rain-soaked broadcast. Side-on intimate medium two-shot, both faces in upper half, their chairs turned toward each other, tentative eye contact and vulnerable warm expressions, neither kissing yet. Ren holds a worn cassette between them, Aki rests a hand near his on the edge of the desk. Rain-speckled violet window behind, one muted amber analog desk lamp, microphone and records at edges. Preserve the established detailed retro square pixel clusters and dithering, violet/amber with SORA red accents; cloth SORA patches physically part of workwear. Rich scene but restrained emotion, clearly adult natural anatomy. Bottom quarter dark natural desk foreground for bilingual dialogue. No UI, subtitles, borders, watermark, modern phones or collage. Not a crop of either reference.",
+      "source": "Generated images are saved to /Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69 as /Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-abdddffe-fc20-4b17-93ff-d29352854898.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-phone-threat",
+      "file": "public/assets/story/beats/radio-phone-threat-v2.png",
+      "prompt": "Use case: illustration-story. Create one NEW 16:9 full-frame detailed retro pixel-art cutscene for SORA CARS, original alternate-history Japan 1986. References supply established adult identities, room continuity, and the visible square pixel clusters/dithering, violet/amber palette with modest SORA red patches. Preserve these. Compose anew, not a crop. No UI, subtitles, borders, watermark, collage, or modern devices. Keep main action/faces above lower quarter, with natural shadowed foreground for dialogue. A tense tight three-quarter portrait of adult Ren (23, wavy black hair, cream denim jacket over dark shirt), at an old rotary telephone inside the rainy community radio booth. He grips the black receiver to his ear with a slightly shaking hand, guilt and worry in his downcast face. Coiled cord crosses the desk, worn cassette left beside a sponsor envelope. Aki (24 short black bob, white shirt, red overalls at waist) is a soft background figure watching with concern. One amber lamp and blue rain-window light. Telephone and Ren's hand in upper-middle, upper face unobscured. No smiling and no readable contract text required.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-8db5a086-3a68-4510-8eb1-5dd4396e2f3a.png",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "radio-blackout",
+      "file": "public/assets/story/beats/radio-blackout-v2.png",
+      "prompt": "Use case: illustration-story. Create one NEW 16:9 full-frame detailed retro pixel-art cutscene for SORA CARS, original alternate-history Japan 1986. References supply established adult identities, room continuity, and the visible square pixel clusters/dithering, violet/amber palette with modest SORA red patches. Preserve these. Compose anew, not a crop. No UI, subtitles, borders, watermark, collage, or modern devices. Keep main action/faces above lower quarter, with natural shadowed foreground for dialogue. A wide LOW ANGLE from the deserted record bins into the SORA RADIO booth just as its power has been cut at 2 a.m. Adult Jun (28 black hair, teal work jacket) stands beside a silent mixing desk, one hand checking the now dark switches, worried expression. The radio room's warm lights, meter lamps, ON AIR sign and screens are ALL OFF. A reel-to-reel shelf is empty, unplugged leads and two closed equipment flight cases by the door imply repossession. Thin cold moonlight and rainy street light through the window make Jun and equipment legible in blue-violet; small battery flashlight provides a limited amber pool, no glowing powered studio gear. Dramatic silence and absence, realistic room continuity, strong depth, no romantic couple, no intruders or violence.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-e7d6a8d2-c108-434d-8ec5-3dd8a7190f88.png",
+      "references": [
+        "public/assets/story/radio-rain-v1.png"
+      ]
+    },
+    {
+      "id": "garage-blackout",
+      "file": "public/assets/story/beats/garage-blackout-v2.png",
+      "prompt": "Use case: illustration-story. Create one NEW 16:9 full-frame detailed retro pixel-art cutscene for SORA CARS, original alternate-history Japan 1986. References supply established adult identities, room continuity, and the visible square pixel clusters/dithering, violet/amber palette with modest SORA red patches. Preserve these. Compose anew, not a crop. No UI, subtitles, borders, watermark, collage, or modern devices. Keep main action/faces above lower quarter, with natural shadowed foreground for dialogue. New wide interior view looking from the dead car lift toward the SORA garage shutter during a power cut late at night. All overhead lights switched OFF, unlit analog equipment and stopped lift. Adult Aki (24 short black bob, white tee and red overalls at waist) and adult Yui (27 dark ponytail mustard jacket) are separated by the workbench, worried and tired. Aki sits on a low stool beside the white angular 1980s car. Yui holds a battery torch illuminating paper records and disconnected leads. Strong blue-violet darkness but readable adult faces, flashlight amber on hands; distant wet street shows through a narrow partly raised shutter. A worn cassette and notebook stay safe on the table. Small physically printed SORA patches/toolbox badge, no fire/candles, no powered lights.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-ae15bfe6-defc-4fb7-bc87-e44c4318c496.png",
+      "references": [
+        "public/assets/story/garage-dusk-branded.png",
+        "public/assets/story/ledger-night-v1.png"
+      ]
+    },
+    {
+      "id": "radio-betrayal",
+      "file": "public/assets/story/beats/radio-betrayal-v2.png",
+      "prompt": "Use case: illustration-story. Create one NEW 16:9 full-frame detailed retro pixel-art cutscene for SORA CARS, original alternate-history Japan 1986. References supply established adult identities, room continuity, and the visible square pixel clusters/dithering, violet/amber palette with modest SORA red patches. Preserve these. Compose anew, not a crop. No UI, subtitles, borders, watermark, collage, or modern devices. Keep main action/faces above lower quarter, with natural shadowed foreground for dialogue. A new eye-level medium two-shot for an adult betrayal confession in the now stripped, unpowered community radio room. Adult Aki (24 short black bob, white T-shirt red mechanic overalls at waist) in LEFT foreground faces adult Ren (23 wavy black hair cream denim jacket dark shirt) on RIGHT a few steps away. Ren holds a folded sponsor contract and a list, confessing with shame, shoulders lowered. Aki's expression is hurt and quietly resolute, no smiling, no embrace, their physical distance is central. Empty equipment shelves and unplugged leads behind, cold rain-blue window light on faces, a small battery lamp only. The worn cassette sits untouched between them on an empty desk. Distinct actual reverse camera composition, emotional mature quiet, no melodramatic tears or violence. All mains powered studio lights OFF.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-cb071ba0-1516-4c7e-a7ed-29e0f7460cac.png",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "public/assets/story/garage-dusk-branded.png"
+      ]
+    },
+    {
+      "id": "fathers-notebook",
+      "file": "public/assets/story/beats/fathers-notebook-v2.png",
+      "prompt": "Use case: illustration-story. Create one NEW 16:9 full-frame detailed retro pixel-art cutscene for SORA CARS, original alternate-history Japan 1986. References supply established adult identities, room continuity, and the visible square pixel clusters/dithering, violet/amber palette with modest SORA red patches. Preserve these. Compose anew, not a crop. No UI, subtitles, borders, watermark, collage, or modern devices. Keep main action/faces above lower quarter, with natural shadowed foreground for dialogue. A tender top-down over-the-shoulder close view of Aki's late father's small battered repair notebook freshly taken from the false bottom of a red metal toolbox at the powerless garage. Adult Aki (24 short black bob white tee red workwear) holds it open with mechanic hands, adult Jun (28 dark hair teal jacket) beside her gently indicates a line. Notebook is a handwritten list of borrowed tools and people to thank, tiny plausible Japanese handwriting but no large readable text required, a small old photo of a father and little girl tucked in. Warm battery lantern illuminates aged paper and tools against violet morning shadows. Main notebook centered upper half, Aki's thoughtful partial face at upper left, Jun's calm profile upper right. Emotional evidence of shared help, not a financial ledger; no powered overhead light.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-49d0efdc-51b3-43d8-9add-32f6647bf831.png",
+      "references": [
+        "public/assets/story/ledger-night-v1.png",
+        "public/assets/story/garage-dusk-branded.png"
+      ]
+    }
+  ]
+}

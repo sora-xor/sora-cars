@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-07",
+  "scope": "Renderer speed perception; no simulation or native proof changes",
+  "sources": {
+    "src/game/renderer.ts": "0c8c8c3eb4cb1e5fa799f4afabca0942502842f4b360ce74ddac9c858f794d2d",
+    "scripts/test-speed-feel.mjs": "85de82364dc39fd77c9c2014e54385feb60e53075e62097f456a4e9f4c695a1f",
+    "src/game/presentation.ts": "615b1e4f5eaf0415dbe0fa23f9cc83db1f74235db999421b4a6523ccac22738f",
+    "src/game/audio.ts": "9358165a79345d21ceddac62a000d967d8ce056be20c9242bd04e80b3d8e15a6"
+  },
+  "build": {
+    "file": "dist/assets/index-D4O2pkRC.js",
+    "sha256": "0c64715d9e534781758af5a92c467563130721a71c34288c0406c10267232a8e"
+  },
+  "checks": [
+    "Actual 250+ km/h acceleration, boost and brake",
+    "Identical normal/reduced-motion physics",
+    "Desktop and mobile capture",
+    "60 motion frames at 30 FPS",
+    "Real-time interpolation path: 250+ km/h, 300+ km/h boost, braking and silent pause"
+  ],
+  "realtime": {
+    "cadence": {
+      "frames": 122,
+      "medianMs": 16.699999999999818,
+      "p95Ms": 16.700000000000728,
+      "maxMs": 16.800000000000182
+    },
+    "boostKmh": 311.04
+  },
+  "errors": [],
+  "additionalChecks": [
+    "10 presentation/environment tests",
+    "Tree/sign/oil/rain/mobile object checks",
+    "Five driving feedback lifecycle checks",
+    "Unchanged game skill client acceleration capture"
+  ],
+  "clip": "output/browser/speed-feel/realtime-driving.mp4",
+  "qualifiedLiveDeployment": false
+}

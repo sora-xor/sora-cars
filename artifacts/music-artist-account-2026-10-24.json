@@ -1,0 +1,50 @@
+{
+  "schema": "sora-cars.public-artist-account-preparation.v1",
+  "checkedAt": "2026-10-23T16:49:11.602Z",
+  "artist": "SORA Cars",
+  "endpoint": "https://taira.sora.org",
+  "accountId": "testuﾛ1PｶﾇPwjtｻﾊKﾗﾑｱｻeEｴEHｿhuｺuヰpﾉﾘﾜKﾂヱ1vdHﾍs5PDK5VR",
+  "publicKey": "ed0120BE2E00A490ECEC6BD477EC0F41CAA04C8544FF56FF563BB17E58916F85E731A9",
+  "profile": "taira",
+  "chainDiscriminant": 369,
+  "registered": false,
+  "funded": false,
+  "registrationTransaction": null,
+  "status": "Prepared locally; public ingress recovered; verified registration execution remains pending",
+  "publicStatusEvidence": {
+    "path": "output/qualification/music-issuer-account-2026-10-24/account-market-read.json",
+    "sha256": "4c77a179d2c174fd4d1106560bdb14e6a73caa028886b3387c08501d329e7364"
+  },
+  "privateStorage": {
+    "metadataFile": "/Users/takemiyamakoto/.config/sora-cars/accounts/taira-sora-cars-20261023/account.json",
+    "keyFile": "/Users/takemiyamakoto/.config/sora-cars/accounts/taira-sora-cars-20261023/private-key.pem",
+    "directoryMode": "0700",
+    "fileMode": "0600",
+    "outsideRepository": true,
+    "keyPairSelfCheckPassed": true
+  },
+  "nativeAddressConversion": {
+    "binaryPath": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/target/release/iroha",
+    "binarySha256": "9ef0788d55b6fdb8c787979e0bd38b746e8e0c0cc12d3c1e27b7bf705530e89e",
+    "scope": "Offline public-key to I105 conversion only. This does not qualify transaction issuance or the current SDK binding.",
+    "roundTripVerified": true
+  },
+  "notes": [
+    "User requested a fresh ordinary account and persistent details.",
+    "No private key bytes are included in this record or repository.",
+    "Do not recreate this identity on retry; use the retained private account directory.",
+    "The application release network pin is unchanged.",
+    "Account registration and marketplace qualification remain separate.",
+    "The earlier 502 ingress outage is not the current blocker.",
+    "The native faucet preparation/verification flow has not been qualified for the current deployment.",
+    "No chain write, funding, NFT issuance or sale occurred."
+  ],
+  "registrationReadiness": {
+    "path": "output/qualification/music-issuer-account-2026-10-24/registration-readiness.json",
+    "sha256": "9a009b68b64d77e17b3c844d968441cf762a0073fd91db09618dc62ceda47019"
+  },
+  "faucetRuntimeAdmission": {
+    "path": "output/qualification/music-issuer-account-2026-10-24/faucet-runtime-admission.json",
+    "sha256": "0269086fc753c3bef881a47d73e28001a771fe3f0651435c1e60a55624fc3d0c"
+  }
+}

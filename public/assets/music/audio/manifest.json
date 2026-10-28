@@ -1,0 +1,1407 @@
+{
+  "schema": "sora-cars-soundtrack-audio-v1",
+  "generatedAt": "2026-09-22T07:43:29.732Z",
+  "source": "GameAudio score renders and user-supplied recordings; supplied tracks include separate source and conversion provenance.",
+  "sampleRate": 44100,
+  "channels": 2,
+  "ffmpegVersion": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+  "chromiumVersion": "153.0.8010.12",
+  "sourceHashes": {
+    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
+    "src/game/music-score.ts": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513",
+    "src/game/music-themes.ts": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488",
+    "src/game/music-cues.ts": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7",
+    "scripts/export-soundtrack.mjs": "8bab6220ec8b44adacb9e05ddcf628c650e6a478a464e629bb7391624da59c8c"
+  },
+  "tracks": [
+    {
+      "index": 0,
+      "file": "midnight-transistor",
+      "title": "Midnight Transistor",
+      "japanese": "真夜中のトランジスタ",
+      "bpm": 142,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2960,
+      "durationSeconds": 109.24902494331066,
+      "scoreSeconds": 108.16901408450704,
+      "fadeStartSeconds": 94.72788732394366,
+      "fadeEndSeconds": 108.74901408450704,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.94,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.6,
+      "peak": 0.841827392578125,
+      "rms": 0.0865015287662753,
+      "wav": {
+        "path": "/assets/music/audio/midnight-transistor.wav",
+        "bytes": 19271742,
+        "sha256": "27294a688410d66332bb442d4928a050dc07168b2a9fbe5c3a3ce970b94e55a3"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/midnight-transistor.mp3",
+        "bytes": 4373124,
+        "sha256": "30bddfee95b113e854b56aaf58f5a65f93aba52380634a23a00f8b08ebc391c6"
+      },
+      "preview": {
+        "path": "/assets/music/audio/midnight-transistor-preview.mp3",
+        "bytes": 721800,
+        "sha256": "bc643860c2ff641e5634c7c166c734a4908928c9212f48844d40f8e91c7ac925",
+        "durationSeconds": 30,
+        "startSeconds": 13.60112676056338
+      },
+      "mastering": {
+        "gainDb": 13.5,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.44,
+          "truePeakDbtp": -15,
+          "loudnessRangeLu": 3.6
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 1,
+      "file": "harbor-signals",
+      "title": "Harbor Signals",
+      "japanese": "港のシグナル",
+      "bpm": 126,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2712,
+      "durationSeconds": 122.98476190476191,
+      "scoreSeconds": 121.9047619047619,
+      "fadeStartSeconds": 106.74666666666667,
+      "fadeEndSeconds": 122.4847619047619,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.76,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4,
+      "peak": 0.83123779296875,
+      "rms": 0.08840417010356469,
+      "wav": {
+        "path": "/assets/music/audio/harbor-signals.wav",
+        "bytes": 21694722,
+        "sha256": "6a1ff55f726697bcbac014828e4700bebef50be7084e43bd3dbf1053a7950b9e"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/harbor-signals.mp3",
+        "bytes": 4922735,
+        "sha256": "831553b832d0a23e029a2155e063ee830d0795114b37397ef117c7baaf62feb2"
+      },
+      "preview": {
+        "path": "/assets/music/audio/harbor-signals-preview.mp3",
+        "bytes": 721795,
+        "sha256": "d999d6f534992fb6e73cfcc40feeaae9577f44beb987d05af7487e5778826cae",
+        "durationSeconds": 30,
+        "startSeconds": 15.318095238095237
+      },
+      "mastering": {
+        "gainDb": 13.97,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.73,
+          "truePeakDbtp": -15.47,
+          "loudnessRangeLu": 4
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 2,
+      "file": "sakura-express",
+      "title": "Sakura Express",
+      "japanese": "桜エクスプレス",
+      "bpm": 156,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 3000,
+      "durationSeconds": 99.54154195011338,
+      "scoreSeconds": 98.46153846153847,
+      "fadeStartSeconds": 86.23384615384616,
+      "fadeEndSeconds": 99.04153846153847,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.99,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4.5,
+      "peak": 0.83404541015625,
+      "rms": 0.0853681722197565,
+      "wav": {
+        "path": "/assets/music/audio/sakura-express.wav",
+        "bytes": 17559338,
+        "sha256": "436050b70385817e8b3e9ee1dd3d86c4247806a009b1d039d9be7b7cfa96b25e"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/sakura-express.mp3",
+        "bytes": 3984417,
+        "sha256": "849d91f6181c9d0570c500c3e8c1b3a4b3af8d3ef0ea44ca6e73fb3dbca4f001"
+      },
+      "preview": {
+        "path": "/assets/music/audio/sakura-express-preview.mp3",
+        "bytes": 721795,
+        "sha256": "faca733305fc533f03e61093f6c683310ad5dc917e1d680eba0f7e19ca8ae50b",
+        "durationSeconds": 30,
+        "startSeconds": 12.387692307692308
+      },
+      "mastering": {
+        "gainDb": 13.37,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.36,
+          "truePeakDbtp": -14.87,
+          "loudnessRangeLu": 4.4
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 3,
+      "file": "soramotos-workshop",
+      "title": "Soramotos Workshop",
+      "japanese": "空本工房の灯り",
+      "bpm": 96,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2712,
+      "durationSeconds": 161.08002267573696,
+      "scoreSeconds": 160,
+      "fadeStartSeconds": 140.08,
+      "fadeEndSeconds": 160.58,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.75,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4.2,
+      "peak": 0.83404541015625,
+      "rms": 0.08326998605851928,
+      "wav": {
+        "path": "/assets/music/audio/soramotos-workshop.wav",
+        "bytes": 28414730,
+        "sha256": "e78130bb485fa409dfda7b9d84e51adeda47ddd96b801c8641c97a0b68d89007"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/soramotos-workshop.mp3",
+        "bytes": 6446200,
+        "sha256": "f86911ec694e36e0cec74891913a18c6b733050f3b1e2283cee1b31d8bc75cca"
+      },
+      "preview": {
+        "path": "/assets/music/audio/soramotos-workshop-preview.mp3",
+        "bytes": 721799,
+        "sha256": "5f35b82a042557522ceaff88275a9315ce1124d0b606494a8722628a2fceec56",
+        "durationSeconds": 30,
+        "startSeconds": 20.08
+      },
+      "mastering": {
+        "gainDb": 13.57,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.31,
+          "truePeakDbtp": -15.07,
+          "loudnessRangeLu": 4.2
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 4,
+      "file": "paper-towers",
+      "title": "Paper Towers",
+      "japanese": "紙の摩天楼",
+      "bpm": 112,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2960,
+      "durationSeconds": 138.22285714285715,
+      "scoreSeconds": 137.14285714285714,
+      "fadeStartSeconds": 120.08,
+      "fadeEndSeconds": 137.72285714285715,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -19.48,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.9,
+      "peak": 0.836578369140625,
+      "rms": 0.08286012363362907,
+      "wav": {
+        "path": "/assets/music/audio/paper-towers.wav",
+        "bytes": 24382720,
+        "sha256": "1856bbf848c0eda5e5baeb975ae9b7a1eb7b384e05a38c928edbc660ccde2ff2"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/paper-towers.mp3",
+        "bytes": 5531908,
+        "sha256": "f1186383867d0e0c87b6ff1021770fe2f588a1ae1add621c4ffefdb96eaa797b"
+      },
+      "preview": {
+        "path": "/assets/music/audio/paper-towers-preview.mp3",
+        "bytes": 721793,
+        "sha256": "809e449edaee12de483c8759b40d830b66a81069ecdf2836ac1b58ca57d0b36c",
+        "durationSeconds": 30,
+        "startSeconds": 17.22285714285714
+      },
+      "mastering": {
+        "gainDb": 13.34,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.82,
+          "truePeakDbtp": -14.84,
+          "loudnessRangeLu": 4
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 5,
+      "file": "a-future-we-build",
+      "title": "A Future We Build",
+      "japanese": "私たちがつくる明日",
+      "bpm": 118,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 3000,
+      "durationSeconds": 131.24950113378685,
+      "scoreSeconds": 130.16949152542372,
+      "fadeStartSeconds": 113.97830508474576,
+      "fadeEndSeconds": 130.74949152542374,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -19.53,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.7,
+      "peak": 0.841766357421875,
+      "rms": 0.07750228405501888,
+      "wav": {
+        "path": "/assets/music/audio/a-future-we-build.wav",
+        "bytes": 23152624,
+        "sha256": "18018a252e8101f83fbd363658c534ce2f5f57f9d06018cb21e7f05c42ed1d2d"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/a-future-we-build.mp3",
+        "bytes": 5252926,
+        "sha256": "fbab3742c02d5500a7d44f14398eba367c76ea9e028da31fc7bbc44ec73dbdf8"
+      },
+      "preview": {
+        "path": "/assets/music/audio/a-future-we-build-preview.mp3",
+        "bytes": 721798,
+        "sha256": "18c2f8d0a29c6353269256e1acb52b5993946bc784c4665d34b77b3e0233a0c2",
+        "durationSeconds": 30,
+        "startSeconds": 16.351186440677964
+      },
+      "mastering": {
+        "gainDb": 12.86,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.39,
+          "truePeakDbtp": -14.36,
+          "loudnessRangeLu": 3.8
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 6,
+      "file": "after-the-last-train",
+      "title": "After the Last Train",
+      "japanese": "終電のあとで",
+      "bpm": 102,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2712,
+      "durationSeconds": 151.66825396825396,
+      "scoreSeconds": 150.58823529411765,
+      "fadeStartSeconds": 131.84470588235294,
+      "fadeEndSeconds": 151.16823529411766,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.72,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4.3,
+      "peak": 0.83966064453125,
+      "rms": 0.08612996498910287,
+      "wav": {
+        "path": "/assets/music/audio/after-the-last-train.wav",
+        "bytes": 26754496,
+        "sha256": "42685bc29b703a075f34d87688cf36954a3703d91e758248620917887a62e747"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/after-the-last-train.mp3",
+        "bytes": 6070039,
+        "sha256": "93652644c5371e897c53199553f92b25afe4a85627ec44f130882a169966f9bc"
+      },
+      "preview": {
+        "path": "/assets/music/audio/after-the-last-train-preview.mp3",
+        "bytes": 721801,
+        "sha256": "9009aeb9ded7f4bd0519559c2fb0165175b70a4efc685604d810bd07f99be5fd",
+        "durationSeconds": 30,
+        "startSeconds": 18.903529411764705
+      },
+      "mastering": {
+        "gainDb": 13.91,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.63,
+          "truePeakDbtp": -15.41,
+          "loudnessRangeLu": 4.4
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 7,
+      "file": "credit-line",
+      "title": "Credit Line",
+      "japanese": "信用の向こう側",
+      "bpm": 136,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2960,
+      "durationSeconds": 114.021179138322,
+      "scoreSeconds": 112.94117647058823,
+      "fadeStartSeconds": 98.90352941176471,
+      "fadeEndSeconds": 113.52117647058823,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.71,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.9,
+      "peak": 0.841766357421875,
+      "rms": 0.09101547099864342,
+      "wav": {
+        "path": "/assets/music/audio/credit-line.wav",
+        "bytes": 20113542,
+        "sha256": "86f3d81ff9b095f7219c013c6217201154c68a6f49627244f237e2d9b2e7762e"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/credit-line.mp3",
+        "bytes": 4563287,
+        "sha256": "af2629c99b3073c6f8ddff87382cf71408ef388f6fa19aa68d1d7ac7e9b6e143"
+      },
+      "preview": {
+        "path": "/assets/music/audio/credit-line-preview.mp3",
+        "bytes": 721792,
+        "sha256": "2e551a818dfa4c0327e2a4bf0f3fd47155d576f66d3aa6fecfd81b703836ad22",
+        "durationSeconds": 30,
+        "startSeconds": 14.197647058823529
+      },
+      "mastering": {
+        "gainDb": 14.02,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.73,
+          "truePeakDbtp": -15.52,
+          "loudnessRangeLu": 3.9
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 8,
+      "file": "sora-dawn-broadcast",
+      "title": "SORA Dawn Broadcast",
+      "japanese": "SORA 夜明けの放送",
+      "bpm": 128,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 3000,
+      "durationSeconds": 121.08,
+      "scoreSeconds": 120,
+      "fadeStartSeconds": 105.08,
+      "fadeEndSeconds": 120.58,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.92,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4.1,
+      "peak": 0.8304443359375,
+      "rms": 0.08196156914906552,
+      "wav": {
+        "path": "/assets/music/audio/sora-dawn-broadcast.wav",
+        "bytes": 21358726,
+        "sha256": "99a60012e96169bc97d63ee6d73a310293bb62c42bc063a80a43e233947040db"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/sora-dawn-broadcast.mp3",
+        "bytes": 4846462,
+        "sha256": "0f9ef6fdc0fe30191f6efdc5a4f68465a175ca173aa9bf7c274a4d2466796628"
+      },
+      "preview": {
+        "path": "/assets/music/audio/sora-dawn-broadcast-preview.mp3",
+        "bytes": 721800,
+        "sha256": "0404f55e7a4e279802e8af6813206d66a20b6cd456b75926e17c172896b08554",
+        "durationSeconds": 30,
+        "startSeconds": 15.08
+      },
+      "mastering": {
+        "gainDb": 13.29,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.21,
+          "truePeakDbtp": -14.79,
+          "loudnessRangeLu": 4.1
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 9,
+      "file": "blank-side-promise",
+      "title": "Blank Side Promise",
+      "japanese": "空白のB面",
+      "bpm": 104,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1953,
+      "durationSeconds": 148.77231292517007,
+      "scoreSeconds": 147.69230769230768,
+      "fadeStartSeconds": 129.31076923076924,
+      "fadeEndSeconds": 148.2723076923077,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.71,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.1,
+      "peak": 0.8416748046875,
+      "rms": 0.0858975713100215,
+      "wav": {
+        "path": "/assets/music/audio/blank-side-promise.wav",
+        "bytes": 26243650,
+        "sha256": "8a38374be2f6236fac9f25ff54af6c34195ec68fc364160235e1d54d0ff602f0"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/blank-side-promise.mp3",
+        "bytes": 5954054,
+        "sha256": "d232714b65bb4208b7695664db191dd504576618314a49223f5f2b95cecd4e6f"
+      },
+      "preview": {
+        "path": "/assets/music/audio/blank-side-promise-preview.mp3",
+        "bytes": 721800,
+        "sha256": "6c18988b00ddbb0e2d73cdd46de489e28b21130d96966be48bedaee1a80ad98b",
+        "durationSeconds": 30,
+        "startSeconds": 18.541538461538458
+      },
+      "mastering": {
+        "gainDb": 14.899999999999999,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -33.6,
+          "truePeakDbtp": -16.4,
+          "loudnessRangeLu": 6.1
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 10,
+      "file": "three-weeks-of-paper",
+      "title": "Three Weeks of Paper",
+      "japanese": "三週間の紙",
+      "bpm": 92,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1529,
+      "durationSeconds": 168.0365306122449,
+      "scoreSeconds": 166.95652173913044,
+      "fadeStartSeconds": 146.16695652173914,
+      "fadeEndSeconds": 167.53652173913045,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -20.74,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.4,
+      "peak": 0.838409423828125,
+      "rms": 0.07234447138515683,
+      "wav": {
+        "path": "/assets/music/audio/three-weeks-of-paper.wav",
+        "bytes": 29641860,
+        "sha256": "43f8d7d32934dc06fedc4fa21d0e0304c681176436cadf66037bd77fa1b3688a"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/three-weeks-of-paper.mp3",
+        "bytes": 6724146,
+        "sha256": "2d74c9bb2ce3255d625adad3acd0b550cad3c085784dd4d7bec49a8ed9190b8d"
+      },
+      "preview": {
+        "path": "/assets/music/audio/three-weeks-of-paper-preview.mp3",
+        "bytes": 721802,
+        "sha256": "4f68e3f9b46c977809332ede0e355b8c9cdf0c50e31af5a4522ce4478a0ff93f",
+        "durationSeconds": 30,
+        "startSeconds": 20.949565217391303
+      },
+      "mastering": {
+        "gainDb": 15.57,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -36.31,
+          "truePeakDbtp": -17.07,
+          "loudnessRangeLu": 3.5
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 11,
+      "file": "milk-crates-at-midnight",
+      "title": "Milk Crates at Midnight",
+      "japanese": "真夜中の牛乳箱",
+      "bpm": 116,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2037,
+      "durationSeconds": 133.49380952380952,
+      "scoreSeconds": 132.41379310344828,
+      "fadeStartSeconds": 115.94206896551724,
+      "fadeEndSeconds": 132.9937931034483,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -19.94,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.3,
+      "peak": 0.838592529296875,
+      "rms": 0.07790350748910409,
+      "wav": {
+        "path": "/assets/music/audio/milk-crates-at-midnight.wav",
+        "bytes": 23548526,
+        "sha256": "c4ed12eda5262473e5ade21703ac38098f15e9aa2fcddf84a12b8e49278ddc1a"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/milk-crates-at-midnight.mp3",
+        "bytes": 5342794,
+        "sha256": "8619d8cb9487139586d23bc16e31b70f56b60a5ab74bf23e3b82efe76528e79e"
+      },
+      "preview": {
+        "path": "/assets/music/audio/milk-crates-at-midnight-preview.mp3",
+        "bytes": 721805,
+        "sha256": "4b335f7398e4b6311d89e38b0048ea781916629a18d6a388c5135c1237368e82",
+        "durationSeconds": 30,
+        "startSeconds": 16.631724137931034
+      },
+      "mastering": {
+        "gainDb": 14.600000000000001,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -34.54,
+          "truePeakDbtp": -16.1,
+          "loudnessRangeLu": 6.3
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 12,
+      "file": "carbon-copy-testimony",
+      "title": "Carbon Copy Testimony",
+      "japanese": "複写紙の証言",
+      "bpm": 108,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1957,
+      "durationSeconds": 143.30224489795918,
+      "scoreSeconds": 142.22222222222223,
+      "fadeStartSeconds": 124.52444444444444,
+      "fadeEndSeconds": 142.80222222222224,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.68,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 5.3,
+      "peak": 0.84124755859375,
+      "rms": 0.0863489930184462,
+      "wav": {
+        "path": "/assets/music/audio/carbon-copy-testimony.wav",
+        "bytes": 25278732,
+        "sha256": "fc5deb39f2de261d30a70892e1d5e80501a96aa9153844da0c18ed8a620bbf8c"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/carbon-copy-testimony.mp3",
+        "bytes": 5734629,
+        "sha256": "48484c70a10e2fc9cddb0cc21a6dd8bc063f38246e0d8b7ca8407d6d617b3e40"
+      },
+      "preview": {
+        "path": "/assets/music/audio/carbon-copy-testimony-preview.mp3",
+        "bytes": 721803,
+        "sha256": "85b2542e1954efc669f7e42ef299a3eaa81efe9056fd8741f54456ba648f3cb7",
+        "durationSeconds": 30,
+        "startSeconds": 17.857777777777777
+      },
+      "mastering": {
+        "gainDb": 14.41,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -33.09,
+          "truePeakDbtp": -15.91,
+          "loudnessRangeLu": 5.3
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 13,
+      "file": "crown-on-the-grid",
+      "title": "Crown on the Grid",
+      "japanese": "回路の王冠",
+      "bpm": 120,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2485,
+      "durationSeconds": 129.08002267573696,
+      "scoreSeconds": 128,
+      "fadeStartSeconds": 112.08,
+      "fadeEndSeconds": 128.58,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.6,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 5.7,
+      "peak": 0.841552734375,
+      "rms": 0.09358996977863145,
+      "wav": {
+        "path": "/assets/music/audio/crown-on-the-grid.wav",
+        "bytes": 22769928,
+        "sha256": "2d2209aa001fb25ed67b25ad855596f1ea628c12287d4bf41a5e5175a857624b"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/crown-on-the-grid.mp3",
+        "bytes": 5166200,
+        "sha256": "e674ea8a545a83fef6f67efa92b0081497a032717a7ecfcbdd0f3a47044a6397"
+      },
+      "preview": {
+        "path": "/assets/music/audio/crown-on-the-grid-preview.mp3",
+        "bytes": 721799,
+        "sha256": "2baca27ac7808a3420bcadf24229e1eb665cc5e2a148c90b575944794ece288f",
+        "durationSeconds": 30,
+        "startSeconds": 16.08
+      },
+      "mastering": {
+        "gainDb": 15.969999999999999,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -34.57,
+          "truePeakDbtp": -17.47,
+          "loudnessRangeLu": 5.8
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 14,
+      "file": "open-circuit-breakfast",
+      "title": "Open Circuit Breakfast",
+      "japanese": "朝食の回路",
+      "bpm": 124,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2181,
+      "durationSeconds": 124.95097505668934,
+      "scoreSeconds": 123.87096774193549,
+      "fadeStartSeconds": 108.46709677419355,
+      "fadeEndSeconds": 124.45096774193549,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -17.47,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.7,
+      "peak": 0.839019775390625,
+      "rms": 0.0991784694676599,
+      "wav": {
+        "path": "/assets/music/audio/open-circuit-breakfast.wav",
+        "bytes": 22041570,
+        "sha256": "f1edc8cee402f4116ac416b5874f934d8cdf5a0e528314cabd733a386ff47b8e"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/open-circuit-breakfast.mp3",
+        "bytes": 5001111,
+        "sha256": "430c36fdb708ece0d47f1e7801ad4dcfd32842f8d358f637d47a22d4f3370804"
+      },
+      "preview": {
+        "path": "/assets/music/audio/open-circuit-breakfast-preview.mp3",
+        "bytes": 721804,
+        "sha256": "7c3d5e0ea536bf98727ce6aff3f2dc323d0b91c736604a71dec80df978b354e4",
+        "durationSeconds": 30,
+        "startSeconds": 15.563870967741936
+      },
+      "mastering": {
+        "gainDb": 14.93,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.4,
+          "truePeakDbtp": -16.43,
+          "loudnessRangeLu": 6.7
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 15,
+      "file": "one-umbrella-two-chairs",
+      "title": "One Umbrella, Two Chairs",
+      "japanese": "ひとつの傘、ふたつの椅子",
+      "bpm": 82,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1473,
+      "durationSeconds": 188.39707482993197,
+      "scoreSeconds": 187.3170731707317,
+      "fadeStartSeconds": 163.98243902439026,
+      "fadeEndSeconds": 187.89707317073172,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -20.92,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 4.3,
+      "peak": 0.8409423828125,
+      "rms": 0.06596869658644391,
+      "wav": {
+        "path": "/assets/music/audio/one-umbrella-two-chairs.wav",
+        "bytes": 33233464,
+        "sha256": "a852d0e0ad9c21799fdabbec5a924b998298739d122ff767a837de8d02ca67f9"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/one-umbrella-two-chairs.mp3",
+        "bytes": 7539170,
+        "sha256": "4a8f8b1be31869ccd757b3d3e6f43ca229fdc7ceadb87a71b50e2ba0847c38ff"
+      },
+      "preview": {
+        "path": "/assets/music/audio/one-umbrella-two-chairs-preview.mp3",
+        "bytes": 721806,
+        "sha256": "0831dfc310746a78d64180881bfc6c931181878f1e4c56538a47373bbb16ea4d",
+        "durationSeconds": 30,
+        "startSeconds": 23.49463414634146
+      },
+      "mastering": {
+        "gainDb": 14.41,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -35.33,
+          "truePeakDbtp": -15.91,
+          "loudnessRangeLu": 4.3
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 16,
+      "file": "glass-permission",
+      "title": "Glass Permission",
+      "japanese": "硝子の許可",
+      "bpm": 98,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1561,
+      "durationSeconds": 157.81471655328798,
+      "scoreSeconds": 156.73469387755102,
+      "fadeStartSeconds": 137.22285714285715,
+      "fadeEndSeconds": 157.31469387755104,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -20.84,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 3.7,
+      "peak": 0.8414306640625,
+      "rms": 0.06916224444254038,
+      "wav": {
+        "path": "/assets/music/audio/glass-permission.wav",
+        "bytes": 27838728,
+        "sha256": "81881da162ee5cd8f5ab7db4fcb3c468ba3608ed9e5ca8be0780694a53da560d"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/glass-permission.mp3",
+        "bytes": 6315587,
+        "sha256": "a9a494c9d525c33916f6a8dfde376030b4934954b50a65b8b6cb9b0a3aed7098"
+      },
+      "preview": {
+        "path": "/assets/music/audio/glass-permission-preview.mp3",
+        "bytes": 721798,
+        "sha256": "c77bcc34bceb320948b0b50b908917e207ce9c38991a0fd28661c8c38cf0ad47",
+        "durationSeconds": 30,
+        "startSeconds": 19.671836734693876
+      },
+      "mastering": {
+        "gainDb": 14.850000000000001,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -35.69,
+          "truePeakDbtp": -16.35,
+          "loudnessRangeLu": 3.8
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 17,
+      "file": "two-am-relay",
+      "title": "Two A.M. Relay",
+      "japanese": "午前二時のリレー",
+      "bpm": 132,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2713,
+      "durationSeconds": 117.44365079365079,
+      "scoreSeconds": 116.36363636363636,
+      "fadeStartSeconds": 101.89818181818181,
+      "fadeEndSeconds": 116.94363636363636,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.14,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.1,
+      "peak": 0.84112548828125,
+      "rms": 0.09315331433391695,
+      "wav": {
+        "path": "/assets/music/audio/two-am-relay.wav",
+        "bytes": 20717270,
+        "sha256": "5c88954ce46777218bb8cfa37530c7f9e5712ee1980cc909000358fbdd015abf"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/two-am-relay.mp3",
+        "bytes": 4700173,
+        "sha256": "5cf741609ee77f9c6d7f6c9484e2fe6243af7c34363e60c5ba3c4d4a06a73057"
+      },
+      "preview": {
+        "path": "/assets/music/audio/two-am-relay-preview.mp3",
+        "bytes": 721796,
+        "sha256": "89cdd779608e9b2d3b2dbacbdb3e9548bad905d1dc764d4b0497efb5f9cec085",
+        "durationSeconds": 30,
+        "startSeconds": 14.625454545454545
+      },
+      "mastering": {
+        "gainDb": 14.39,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.53,
+          "truePeakDbtp": -15.89,
+          "loudnessRangeLu": 6.1
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 18,
+      "file": "dead-air-confession",
+      "title": "Dead Air Confession",
+      "japanese": "無音の告白",
+      "bpm": 68,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1221,
+      "durationSeconds": 226.96235827664398,
+      "scoreSeconds": 225.88235294117646,
+      "fadeStartSeconds": 197.72705882352943,
+      "fadeEndSeconds": 226.46235294117648,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -21.28,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 2.5,
+      "peak": 0.84088134765625,
+      "rms": 0.07105467742527333,
+      "wav": {
+        "path": "/assets/music/audio/dead-air-confession.wav",
+        "bytes": 40036374,
+        "sha256": "1980273dff717caae02daf2b80bf67c49dd479599648edb5ddf70943d877cd0d"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/dead-air-confession.mp3",
+        "bytes": 9081435,
+        "sha256": "524168ebdf2c5dbe76e42835d2c5f94e254ad90e2d0d5d48540edc15e3d116df"
+      },
+      "preview": {
+        "path": "/assets/music/audio/dead-air-confession-preview.mp3",
+        "bytes": 721801,
+        "sha256": "6abdc04ad19717525fd543c1b36990a304275115f9fbc66bd0777b2982f6cc36",
+        "durationSeconds": 30,
+        "startSeconds": 28.315294117647056
+      },
+      "mastering": {
+        "gainDb": 16.15,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -37.43,
+          "truePeakDbtp": -17.65,
+          "loudnessRangeLu": 2.5
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 19,
+      "file": "borrowed-power-waltz",
+      "title": "Borrowed Power Waltz",
+      "japanese": "借りた電気のワルツ",
+      "bpm": 94,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1813,
+      "durationSeconds": 164.48426303854876,
+      "scoreSeconds": 163.40425531914894,
+      "fadeStartSeconds": 143.05872340425532,
+      "fadeEndSeconds": 163.98425531914896,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -19.59,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.1,
+      "peak": 0.841156005859375,
+      "rms": 0.07692710664094828,
+      "wav": {
+        "path": "/assets/music/audio/borrowed-power-waltz.wav",
+        "bytes": 29015240,
+        "sha256": "5c97019705b38e8637487a4ecab3bdc47c18efa673e400a501fb1e18b4bd0121"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/borrowed-power-waltz.mp3",
+        "bytes": 6582040,
+        "sha256": "b0e540dfb2f0c686dc8685bd730e5ce0eb1a6fc2c8a2ebe767e421486dc6fdf9"
+      },
+      "preview": {
+        "path": "/assets/music/audio/borrowed-power-waltz-preview.mp3",
+        "bytes": 721802,
+        "sha256": "9b323a9c8ac3222131a579a99366b574201065b3600247505a9f0f93b2007da1",
+        "durationSeconds": 30,
+        "startSeconds": 20.505531914893616
+      },
+      "mastering": {
+        "gainDb": 14.41,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -34,
+          "truePeakDbtp": -15.91,
+          "loudnessRangeLu": 6.2
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 20,
+      "file": "the-frequency-home",
+      "title": "The Frequency Home",
+      "japanese": "帰り道の周波数",
+      "bpm": 110,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2037,
+      "durationSeconds": 140.71637188208618,
+      "scoreSeconds": 139.63636363636363,
+      "fadeStartSeconds": 122.26181818181819,
+      "fadeEndSeconds": 140.21636363636364,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -19.53,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.1,
+      "peak": 0.841156005859375,
+      "rms": 0.08061751407437395,
+      "wav": {
+        "path": "/assets/music/audio/the-frequency-home.wav",
+        "bytes": 24822582,
+        "sha256": "782493a3b669cadccbe8d94021ad64ddab2e025a8f65900ec2c18188010744b2"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/the-frequency-home.mp3",
+        "bytes": 5631181,
+        "sha256": "87f563b3144b1e86e2bd579b27ff712c27dbfbbcfdb2f3701d4db0bcbbfb76ca"
+      },
+      "preview": {
+        "path": "/assets/music/audio/the-frequency-home-preview.mp3",
+        "bytes": 721800,
+        "sha256": "f878f1404109c21d220035c4cc7f8e711a0db33bb35f72f69797aa35465a09cf",
+        "durationSeconds": 30,
+        "startSeconds": 17.53454545454545
+      },
+      "mastering": {
+        "gainDb": 15,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -34.53,
+          "truePeakDbtp": -16.5,
+          "loudnessRangeLu": 6.1
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 21,
+      "file": "no-master-key",
+      "title": "No Master Key",
+      "japanese": "王様のいない鍵",
+      "bpm": 122,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2181,
+      "durationSeconds": 126.98165532879818,
+      "scoreSeconds": 125.90163934426229,
+      "fadeStartSeconds": 110.2439344262295,
+      "fadeEndSeconds": 126.48163934426229,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.61,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 7,
+      "peak": 0.841552734375,
+      "rms": 0.08700933616067569,
+      "wav": {
+        "path": "/assets/music/audio/no-master-key.wav",
+        "bytes": 22399772,
+        "sha256": "dcf4cf52cb7a2ee96412961cc0894dbecc1ac5c87d5f9d76266b7d0ed49ef461"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/no-master-key.mp3",
+        "bytes": 5082604,
+        "sha256": "dc6c7dfc7c0a6c2ec777c4b2d85c25fcdbc489264ededf98400185304d6d6dcb"
+      },
+      "preview": {
+        "path": "/assets/music/audio/no-master-key-preview.mp3",
+        "bytes": 721795,
+        "sha256": "a3288d372d4c5c3974c5ff9fa89cba3daff2f10f7af1756ac658b9a1ff0e09cc",
+        "durationSeconds": 30,
+        "startSeconds": 15.817704918032787
+      },
+      "mastering": {
+        "gainDb": 14.38,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -32.99,
+          "truePeakDbtp": -15.88,
+          "loudnessRangeLu": 6.9
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 22,
+      "file": "outrun-the-dawn",
+      "title": "Outrun the Dawn",
+      "japanese": "夜明けを追い越せ",
+      "bpm": 148,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2825,
+      "durationSeconds": 104.86378684807256,
+      "scoreSeconds": 103.78378378378379,
+      "fadeStartSeconds": 90.8908108108108,
+      "fadeEndSeconds": 104.36378378378379,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -17.69,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 7.8,
+      "peak": 0.8414306640625,
+      "rms": 0.09314457168687917,
+      "wav": {
+        "path": "/assets/music/audio/outrun-the-dawn.wav",
+        "bytes": 18498182,
+        "sha256": "e2a92be3bbe28fa1085a093d44225ac3dad899f5d06489b39c9fb51dc4be208a"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/outrun-the-dawn.mp3",
+        "bytes": 4197578,
+        "sha256": "ff3ed9b28c1534e92f8c3d7ef5d16f46d6eeb283c8f06f296c64de028d2fa06b"
+      },
+      "preview": {
+        "path": "/assets/music/audio/outrun-the-dawn-preview.mp3",
+        "bytes": 721797,
+        "sha256": "5ccb82315feb753073fc5b0ddb344c7759c9dc014d6935dea306c8a75d6a3d04",
+        "durationSeconds": 30,
+        "startSeconds": 13.052972972972974
+      },
+      "mastering": {
+        "gainDb": 14.3,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -31.99,
+          "truePeakDbtp": -15.8,
+          "loudnessRangeLu": 7.8
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 23,
+      "file": "jun-the-first-light",
+      "title": "Jun: The First Light",
+      "japanese": "ジュン・最初の光",
+      "bpm": 114,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 2093,
+      "durationSeconds": 135.81684807256235,
+      "scoreSeconds": 134.73684210526315,
+      "fadeStartSeconds": 117.97473684210526,
+      "fadeEndSeconds": 135.31684210526316,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.93,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 6.1,
+      "peak": 0.838134765625,
+      "rms": 0.08186897266285452,
+      "wav": {
+        "path": "/assets/music/audio/jun-the-first-light.wav",
+        "bytes": 23958308,
+        "sha256": "ad3845acb40faad265a3387ede7f57eeadec3295bdd58a68ab3c1f57fe550704"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/jun-the-first-light.mp3",
+        "bytes": 5435787,
+        "sha256": "e63ace3dc5ae87188bb618027e9a3c630f0811fc09ff34ff35069f51682986a9"
+      },
+      "preview": {
+        "path": "/assets/music/audio/jun-the-first-light-preview.mp3",
+        "bytes": 721802,
+        "sha256": "6f3efe2e7a20c2b8d36c5d3cedf7d649fdc0a61e278e828ddd99af81167fa90a",
+        "durationSeconds": 30,
+        "startSeconds": 16.922105263157892
+      },
+      "mastering": {
+        "gainDb": 14.73,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -33.65,
+          "truePeakDbtp": -16.23,
+          "loudnessRangeLu": 6.2
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 24,
+      "file": "side-b-press-record",
+      "title": "Side B: Press Record",
+      "japanese": "B面・録音を押して",
+      "bpm": 88,
+      "bars": 64,
+      "beats": 256,
+      "noteCount": 1561,
+      "durationSeconds": 175.6254648526077,
+      "scoreSeconds": 174.54545454545453,
+      "fadeStartSeconds": 152.80727272727273,
+      "fadeEndSeconds": 175.12545454545455,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -18.79,
+      "truePeakDbtp": -1.5,
+      "loudnessRangeLu": 5.1,
+      "peak": 0.840667724609375,
+      "rms": 0.08203216131223415,
+      "wav": {
+        "path": "/assets/music/audio/side-b-press-record.wav",
+        "bytes": 30980548,
+        "sha256": "1bbefa87deea7ed835f283d069c079ab52300a042c56000dc2843a336f42e1a6"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/side-b-press-record.mp3",
+        "bytes": 7028211,
+        "sha256": "28c553a7c7d0bf0febfb5a145399dcc2602f531c25597d4239db4ac5c7ce7dd5"
+      },
+      "preview": {
+        "path": "/assets/music/audio/side-b-press-record-preview.mp3",
+        "bytes": 721802,
+        "sha256": "3b00da398d386b6e3d16ee6e79053c83db97e15147327e6b403fd217e8fb4fa5",
+        "durationSeconds": 30,
+        "startSeconds": 21.898181818181815
+      },
+      "mastering": {
+        "gainDb": 15.670000000000002,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -34.46,
+          "truePeakDbtp": -17.17,
+          "loudnessRangeLu": 5.1
+        },
+        "ending": "Eight-bar album fade with natural release tail; no additional loop."
+      }
+    },
+    {
+      "index": 25,
+      "file": "meet-me-at-yasukuni",
+      "title": "Meet Me at Yasukuni",
+      "japanese": "靖國神社で会おう",
+      "artist": "SORA Cars",
+      "bpm": null,
+      "durationSeconds": 254.951995,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -16.01,
+      "truePeakDbtp": -7.72,
+      "loudnessRangeLu": 3.2,
+      "peak": 0.40716552734375,
+      "rms": 0.11390142872025616,
+      "wav": {
+        "path": "/assets/music/audio/meet-me-at-yasukuni.wav",
+        "bytes": 44973850,
+        "sha256": "a37a17d5e63593aeb1707ed36aaa0438866bde5f06b6a9f02b23c78a8d98d3a7"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/meet-me-at-yasukuni.mp3",
+        "bytes": 10200630,
+        "sha256": "c3e451faaa9a510cbc8dbcb1961f541ddb4e64e1ddd68c38dd5ae01fbbca1aed"
+      },
+      "preview": {
+        "path": "/assets/music/audio/meet-me-at-yasukuni-preview.mp3",
+        "bytes": 721942,
+        "sha256": "37bfece69e271271ad289db0fa38ffd9af790efb4324102c273844b371f7bc6f",
+        "durationSeconds": 30,
+        "startSeconds": 30
+      },
+      "provenance": {
+        "kind": "supplied-lossy-recording",
+        "source": {
+          "path": "world/audio/yasukuni-1986.m4a",
+          "publishedPath": "assets/street/yasukuni-85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6.m4a",
+          "bytes": 6215027,
+          "sha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
+          "codec": "aac",
+          "sampleRate": 48000,
+          "channels": 2,
+          "durationSeconds": 254.952,
+          "lossy": true
+        },
+        "note": "User-supplied AAC recording. WAV is a decoded and resampled distribution copy of a lossy source, not an original lossless master. MP3 and preview are derived from that copy; no new composition or synthesized score is claimed."
+      },
+      "mastering": {
+        "gainDb": -7.630000000000001,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -8.37,
+          "truePeakDbtp": -0.09,
+          "loudnessRangeLu": 3.1
+        },
+        "ending": "Full supplied duration retained; no additional loop or creative ending applied. Preview only has short fades."
+      }
+    }
+  ],
+  "synthesizedSource": "Original MUSIC_LIBRARY scores rendered through GameAudio in Chromium OfflineAudioContext",
+  "catalogUpdatedAt": "2026-10-28T05:17:06.395Z",
+  "artist": "SORA Cars",
+  "suppliedFfmpegVersion": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+  "suppliedSourceHashes": {
+    "src/game/music-supplied-recordings.json": "7141219c4437ab6553ecd8745ffcbb7a1ac8ecdb5a30012b7f357c45db58c591",
+    "scripts/export-supplied-soundtrack.mjs": "4468260d534a2da011e71298c58803ac77493151e55340653109fd2bff2b8b3b"
+  },
+  "suppliedConversionSourceHashes": {
+    "src/game/music-supplied-recordings.json": "797f386836ac60b8d74881e8b68a9c3c0b41ad912be09da8f130045766861831",
+    "scripts/export-supplied-soundtrack.mjs": "c076af882a0f2e613c0f79d39d6a30bfa88272937962bad86f4c762e7d7a2d7e"
+  },
+  "suppliedMetadataUpdate": {
+    "kind": "title-only-no-reencoding",
+    "updatedAt": "2026-10-28T05:17:06.395Z",
+    "sourceHashes": {
+      "src/game/music-supplied-recordings.json": "7141219c4437ab6553ecd8745ffcbb7a1ac8ecdb5a30012b7f357c45db58c591",
+      "scripts/export-supplied-soundtrack.mjs": "4468260d534a2da011e71298c58803ac77493151e55340653109fd2bff2b8b3b"
+    },
+    "updates": [
+      {
+        "file": "meet-me-at-yasukuni",
+        "title": "靖國神社で会おう",
+        "files": [
+          {
+            "format": "wav",
+            "before": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni.wav",
+              "bytes": 44973850,
+              "sha256": "a37a17d5e63593aeb1707ed36aaa0438866bde5f06b6a9f02b23c78a8d98d3a7"
+            },
+            "after": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni.wav",
+              "bytes": 44973850,
+              "sha256": "a37a17d5e63593aeb1707ed36aaa0438866bde5f06b6a9f02b23c78a8d98d3a7"
+            },
+            "decodedPcm": "SHA256=83af9827937fcc41acd937b8ac871e1b8c2d54a36858a99d1032afd9601afdd1",
+            "encodedPackets": "SHA256=e5dac699b9f9e790242991006f142f85094974d15ce2defbe60faa06f2d52e35",
+            "changed": false,
+            "reencoded": false
+          },
+          {
+            "format": "mp3",
+            "before": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni.mp3",
+              "bytes": 10200630,
+              "sha256": "c3e451faaa9a510cbc8dbcb1961f541ddb4e64e1ddd68c38dd5ae01fbbca1aed"
+            },
+            "after": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni.mp3",
+              "bytes": 10200630,
+              "sha256": "c3e451faaa9a510cbc8dbcb1961f541ddb4e64e1ddd68c38dd5ae01fbbca1aed"
+            },
+            "decodedPcm": "SHA256=f0ee126f74726e1f30fb3e2367597c6301b34564a7dabef1ae7beaebcfe0a3f3",
+            "encodedPackets": "SHA256=2389a7c24540ff6134aac05192e84ceb230fc790878bb767c371b62c3b66dbbd",
+            "changed": false,
+            "reencoded": false
+          },
+          {
+            "format": "preview",
+            "before": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni-preview.mp3",
+              "bytes": 721942,
+              "sha256": "37bfece69e271271ad289db0fa38ffd9af790efb4324102c273844b371f7bc6f"
+            },
+            "after": {
+              "path": "/assets/music/audio/meet-me-at-yasukuni-preview.mp3",
+              "bytes": 721942,
+              "sha256": "37bfece69e271271ad289db0fa38ffd9af790efb4324102c273844b371f7bc6f"
+            },
+            "decodedPcm": "SHA256=9050c5fd92f7b0ce0d528c811af89e4adab20dadba4de54157f3566525be3eba",
+            "encodedPackets": "SHA256=47b923e2f865e555f1e860b8b9d1304543d7230bba6b9290d8686b338433833d",
+            "changed": false,
+            "reencoded": false
+          }
+        ]
+      }
+    ]
+  }
+}

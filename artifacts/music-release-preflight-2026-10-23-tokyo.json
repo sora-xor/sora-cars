@@ -1,0 +1,192 @@
+{
+  "schema": "sora-cars.music-release-preflight.v3",
+  "checkedAt": "2026-10-23T14:51:09.553Z",
+  "releaseReady": false,
+  "scope": "26-recording local application/media verification, user-approved account preparation and anonymous endpoint observations. No chain registration, issuance, purchase, remote publication, adopted trust pin or native build mutation.",
+  "ownerDecisions": {
+    "artist": "SORA Cars",
+    "freshTairaAccountAndLocalPersistenceAuthorized": true,
+    "suppliedTokyoSongIncludedWithSameLicense": true
+  },
+  "catalog": {
+    "composedTunes": 25,
+    "suppliedRecordings": 1,
+    "totalRecordings": 26,
+    "audioFiles": 78,
+    "covers": 26,
+    "catalogBoundFiles": 104,
+    "manifest": {
+      "path": "src/game/music-assets.generated.json",
+      "sha256": "3cf69489dd46759525724ea0b9ca045968424e8519bbf8bae36460c572837264"
+    },
+    "audioManifest": {
+      "path": "public/assets/music/audio/manifest.json",
+      "sha256": "806d0d1218c7da51215dd54404d728580fcef6632b9283e996637605af701ab5"
+    },
+    "license": {
+      "path": "public/assets/music/sora-music-license-v1.txt",
+      "sha256": "f492695f1c9ce7fe4534400dd047af97aa14d587410d152b5249f9efedd20b57"
+    },
+    "coverAudit": {
+      "path": "artifacts/soundtrack-cover-audit-2026-10-23-tokyo.json",
+      "sha256": "781e8592c36772c1adfef2c278b05e15b30f6e835be3a2613cbf7fd69c18a0e8"
+    },
+    "suppliedTokyoRecording": {
+      "title": "靖国ジンジャで会おう / Meet Me at Yasukuni",
+      "slug": "meet-me-at-yasukuni",
+      "exportReport": {
+        "path": "output/audio/soundtrack/meet-me-at-yasukuni.json",
+        "sha256": "cf6a87e4dad4364ba680f8024500e20289c07d34c86ff6358f6bfe227ad2a161"
+      },
+      "coverProvenance": {
+        "path": "docs/art-prompts/soundtrack-tokyo-v1.json",
+        "sha256": "5a89499fc10dfe7a0a60cf8ce9d8116016b3c0aaef3ab9164d76da053f908b0b"
+      },
+      "source": "Supplied lossy AAC recording; the WAV is a decoded/resampled copy, not an original lossless master.",
+      "sameUnlimitedUseLicense": true,
+      "original25AudioFilesUnchanged": true
+    }
+  },
+  "currentFrontend": {
+    "freeze": {
+      "path": "output/qualification/frontend/soundtrack-2026-10-23-tokyo/freeze.json",
+      "sha256": "19bb279b45559f5acdeb82c02e0251fdc43a5076f3d124ac3f832c9010ba02bb"
+    },
+    "publicInputFiles": 920,
+    "outputFiles": 931,
+    "outputPayloadBytes": 2563048355,
+    "configuredRelease": false,
+    "published": false,
+    "sourceInputsUnchanged": true,
+    "allPublicInputsMatchOutput": true,
+    "staticCheck": {
+      "path": "artifacts/music-static-2026-10-23-tokyo/report.json",
+      "sha256": "bf9582cb3a2323413a1eeca66d116850067802f0b2c00f571d856500343c327d"
+    },
+    "staticCheckedAt": "2026-10-23T14:45:04.971Z",
+    "viewports": 3,
+    "packagedMusicFiles": 104
+  },
+  "browserVerification": {
+    "store": {
+      "path": "artifacts/music-store-browser.json",
+      "sha256": "4980d791f9d48efc1ff1f48cf56f828eeb66b584d23079a7a445dd9f825a9101"
+    },
+    "storeGroups": 18,
+    "protocol": {
+      "path": "artifacts/music-market-browser.json",
+      "sha256": "6c6fc68ac566b1e2f61561887546ef90c720bafc06043d52fe5ea0da39f2dfe5"
+    },
+    "protocolChecks": 53,
+    "launch": {
+      "path": "artifacts/music-launch-browser.json",
+      "sha256": "ad2163e8649284f7485de065f5c38fa0b21cf87259234cb719d1fe70e2295100"
+    },
+    "launchChecks": 38,
+    "playback": {
+      "path": "output/audio/soundtrack/browser-playback.json",
+      "sha256": "84791f27545172fa88c7e5181dc67ac1a4ee86b3e23475e95b67c68d5f4a26bd"
+    },
+    "decodedPreviews": 26,
+    "testFixtureScope": "Actual MusicStore/controller/styles and real rendered asset bytes. Explicit synthetic issuer/NFTs/ledger/wallet transport; does not certify live network issuance or wallet settlement.",
+    "currentReportSourcesMatch": true,
+    "rootVisualReview": {
+      "accepted": true,
+      "screenshots": [
+        "output/browser/music-store/tokyo-owned-mobile.png",
+        "artifacts/music-static-2026-10-23-tokyo/desktop.png",
+        "artifacts/music-static-2026-10-23-tokyo/narrow.png"
+      ]
+    }
+  },
+  "artistAccount": {
+    "preparation": {
+      "path": "artifacts/music-artist-account-2026-10-23.json",
+      "sha256": "bdf0cffbeaa5f1fdc374edddad32b32060c2ddad8a09090ebfe94b782423eeba"
+    },
+    "artist": "SORA Cars",
+    "registered": false,
+    "funded": false,
+    "privateKeysOutsideRepository": true,
+    "registrationTransaction": null,
+    "latestPublicRead": {
+      "path": "output/qualification/music-issuer-account-2026-10-23/registration-readiness-final.json",
+      "sha256": "d5003e0963c37ee0b7ca104c7e97f4efde55f732fb4b27c2c8bce55c7d8f5ad7"
+    },
+    "endpointObservation": "At 2026-10-23 14:44:58–59 UTC /status and /v1/accounts/faucet/policy returned HTTP 502. No live registration mutation was attempted."
+  },
+  "historicalMarketObservation": {
+    "evidence": {
+      "path": "artifacts/music-release-public-read-2026-10-23.json",
+      "sha256": "c7853aba98be6a81baed43e6845f2504fea4dfba3b2da87ce2de898abb0d1013"
+    },
+    "checkedAt": "2026-10-23T13:43:58.949Z",
+    "httpStatus": 200,
+    "nativeMarketReported": true,
+    "qualifiedReported": false,
+    "endpointReportedNetwork": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+    "retainedReviewedNetwork": "hash:0466DA18C70CA8CBD51B8CC60B1D4A4802FC5D7F928D505806D7CD6CB61D60EF#BA85",
+    "matchesRetainedNetwork": false,
+    "observedNetworkAdopted": false,
+    "corroboratingLocalPinSources": [
+      {
+        "path": "src/chain/taira.ts",
+        "sha256": "18c8108f1045caa522a02d092fac584c4f06fa83b8b4e84c959fa5134a0a7050",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": ".env.example",
+        "sha256": "39e1ef6888ae8f6018f806019054fe8cf2dbb7f569baa5bcd65164163f86837f",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha/configs/soranexus/taira/explorer.runtime-config.json",
+        "sha256": "447dca96b56d99873a090a88fabf8cd8e1d6d4254556c109fe39899c8e6c93f5",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha/scripts/taira_constants.py",
+        "sha256": "da175be387ca6865cece98177799b901ee5cca238ca4a67266fb7323c717fdba",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha-sora-cars-native/configs/soranexus/taira/explorer.runtime-config.json",
+        "sha256": "447dca96b56d99873a090a88fabf8cd8e1d6d4254556c109fe39899c8e6c93f5",
+        "containsRetainedNetworkOrGenesis": true
+      },
+      {
+        "path": "../iroha-sora-cars-native/scripts/taira_constants.py",
+        "sha256": "da175be387ca6865cece98177799b901ee5cca238ca4a67266fb7323c717fdba",
+        "containsRetainedNetworkOrGenesis": true
+      }
+    ]
+  },
+  "issuerRuntime": {
+    "evidence": {
+      "path": "output/qualification/music-node-revalidation-2026-10-23/command.json",
+      "sha256": "51f262a989ecb9af9bedff5c28661747d586fc4f42f45bebd662170cc12b898e"
+    },
+    "finishedAt": "2026-10-23T13:44:54.223Z",
+    "exitStatus": 1,
+    "classification": "ERR_IROHA_NATIVE_BINDING / source_provenance_error before test assertions",
+    "sourceFilesUnchanged": true,
+    "nativeBuildPerformed": false
+  },
+  "historicalStorage": {
+    "evidence": {
+      "path": "artifacts/music-provider-local-qualification-2026-09-26.json",
+      "sha256": "e8470e636452584dddd4a079affb1fc9376777f9b63fe37fee6acb373c7c179b"
+    },
+    "scope": "September 22 frozen frontend locally packed and verified with full-size local provider admission/restart/readback on September 26. Its 1,487,166,105-byte payload differs from the current build; no current-build or remote publication qualification inferred."
+  },
+  "remainingRequirements": [
+    "Healthy Taira registration/faucet ingress, then register and verify the retained SORA Cars account without regenerating its identity.",
+    "Register the collection and bind the artist/licensor and verified seller account to the release.",
+    "Independently reviewed application, XOR asset and native-market profile/network identities; resolve the historical network mismatch without silently adopting the endpoint identity.",
+    "Matching qualified native market and source-matched qualified issuer runtime.",
+    "Current configured build; full current-payload packing/verification and real manifest/provider publication with remote retrieval evidence.",
+    "Actual authorized NFT registration, exact metadata/ownership readback, open 1-XOR offers for all 26 recordings, and observed real wallet purchase/NFT delivery/download."
+  ],
+  "pendingUserQuestions": [],
+  "continuation": "The user resolved the artist/account direction and Tokyo license inclusion. Local media and current frontend work are complete; account registration is currently prevented by public ingress 502 responses. Reuse the owner-private retained identity for the next healthy registration attempt. No unchanged native builds or repeated local fixtures are warranted."
+}

@@ -1,0 +1,2633 @@
+{
+  "schema": "sora-cars.story-emblem-audit.v2",
+  "auditedAt": "2026-09-26T01:13:59.749276+00:00",
+  "passed": true,
+  "scope": {
+    "name": "Original 62-image story-art catalog after 25 replacements",
+    "originalCatalogCount": 62,
+    "families": {
+      "base": 8,
+      "angles": 32,
+      "beats": 22
+    },
+    "included": "Exactly the original eight base scenes, 32 camera angles and 22 narrative beat artworks, with 25 accepted versioned substitutions.",
+    "excluded": "Additional per-cut overrides in story-cut-art.json, concurrently generated or modified story/scenes images, historical non-catalog images, and all other site artwork. Soundtrack covers are linked and checked separately.",
+    "allSiteArtworkComplete": false,
+    "allActiveCutsceneArtworkComplete": false,
+    "currentRuntimeUsageEnumerationClaimed": false
+  },
+  "reference": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+    "bytes": 104489,
+    "dimensions": {
+      "width": 1678,
+      "height": 1432
+    },
+    "pngColorType": 6,
+    "identityMatchesPreviouslyInspectedSource": true,
+    "visualBasis": "Solid red disk; two long equal-width straight white horizontal bars joined by central stem; straight white lower diagonals cut through the disk boundary."
+  },
+  "criteria": {
+    "existing_reference_geometry": "At least one clearly recognizable straight-bar/stem/edge-cut-diagonal emblem in the artwork. Perspective, scene lighting, wear and reversed color polarity are accepted; exact pixels are not claimed.",
+    "generic_or_inaccurate": "Visible branding is a font-like or geometrically inaccurate glyph; a qualifying supplied geometric emblem is not clearly established.",
+    "no_mark": "No recognizable SORA emblem is visible in the inspected whole artwork."
+  },
+  "pixelIdenticalCopyClaimed": false,
+  "method": {
+    "identity": "Read all current 62 PNGs and supplied emblem; compute SHA-256, dimensions and PNG color type. Recheck all identities after processing, including the 25 preserved original assets.",
+    "unchangedVisualEvidence": "Carry forward prior individual visual acceptance only when exact identity matches.",
+    "replacementVisualEvidence": "Match current bytes to accepted generation provenance and root visual acceptance in the replacement map. No new whole-set visual inspection claimed by consolidation.",
+    "catalogReferences": "Imported STORY_SCENES, STORY_ANGLE_ART and STORY_BEAT_ART through local tsx with cache disabled; required exact equality to all 62 expected paths.",
+    "runtimeScope": "Verifies catalog references, not current per-cut override selection or all rendered scenes."
+  },
+  "summary": {
+    "catalogImagesChecked": 62,
+    "unchangedPreviouslyReviewed": 37,
+    "acceptedReplacements": 25,
+    "classificationCounts": {
+      "existing_reference_geometry": 62
+    },
+    "missingFiles": 0,
+    "discrepancies": 0
+  },
+  "evidence": [
+    {
+      "path": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+      "sha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610",
+      "bytes": 82997
+    },
+    {
+      "path": "tmp/music-native-release/logo-replacements.json",
+      "sha256": "70b317c2d379f0bd14cb7a166b9f360b8d5e9e647b99b76a1ec55432c715dd8b",
+      "bytes": 9795
+    },
+    {
+      "path": "src/game/story-scenes.ts",
+      "sha256": "b931f98317b60babbf4ec4da9e3ea37ccaeabe545356befddb4788d2109bfacc",
+      "bytes": 4772
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-garage-v3.json",
+      "sha256": "aeed9e140de94108110f61f19ca81f5e8a7112368ff9ac9cad725f73582ed63b",
+      "bytes": 3515
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-office-v3.json",
+      "sha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+      "bytes": 17265
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-key-offer-v4.json",
+      "sha256": "491173eef04cfa98fa502e096a6dfc60a2e2b571b4cf90b62a2116b90a5bba94",
+      "bytes": 3435
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-harbor-v3.json",
+      "sha256": "1fb29bc63285f1cc3fa9cca6a1df406b5af6290037e54e9345ec1e41fc57b670",
+      "bytes": 14238
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-beats-v4.json",
+      "sha256": "b60a085d2002cceec0dce64b996711c8b2c459d43455c8656cbc68c4afa86ed4",
+      "bytes": 15552
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+      "sha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+      "bytes": 11379
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+      "sha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+      "bytes": 16903
+    },
+    {
+      "path": "docs/art-prompts/cutscene-logo-accountability-v4.json",
+      "sha256": "aa1b26e5683f0fb6afb71f7290112e1aadadeb943c37396bfa85c2d6134e6800",
+      "bytes": 9898
+    }
+  ],
+  "catalogReferenceSnapshot": {
+    "source": {
+      "path": "src/game/story-scenes.ts",
+      "sha256": "b931f98317b60babbf4ec4da9e3ea37ccaeabe545356befddb4788d2109bfacc",
+      "bytes": 4772
+    },
+    "groups": {
+      "base": [
+        "garage-dusk-branded.png",
+        "ledger-night-v1.png",
+        "radio-rain-v1.png",
+        "tower-boardroom-v2.png",
+        "credit-office-v2.png",
+        "community-dawn-v1.png",
+        "harbor-1986-v1.png",
+        "sunrise-crew-branded-v2.png"
+      ],
+      "angles": [
+        "angles/garage-wide-v2.png",
+        "angles/garage-left-v2.png",
+        "angles/garage-right-v2.png",
+        "angles/garage-detail-v2.png",
+        "angles/ledger-wide-v2.png",
+        "angles/ledger-left-v2.png",
+        "angles/ledger-right-v2.png",
+        "angles/ledger-detail-v2.png",
+        "angles/radio-wide-v2.png",
+        "angles/radio-left-v2.png",
+        "angles/radio-right-v2.png",
+        "angles/radio-detail-v2.png",
+        "angles/boardroom-wide-v3.png",
+        "angles/boardroom-left-v3.png",
+        "angles/boardroom-right-v3.png",
+        "angles/boardroom-detail-v3.png",
+        "angles/office-wide-v3.png",
+        "angles/office-left-v3.png",
+        "angles/office-right-v3.png",
+        "angles/office-detail-v3.png",
+        "angles/community-wide-v2.png",
+        "angles/community-left-v2.png",
+        "angles/community-right-v2.png",
+        "angles/community-detail-v2.png",
+        "angles/harbor-wide-v3.png",
+        "angles/harbor-left-v3.png",
+        "angles/harbor-right-v3.png",
+        "angles/harbor-detail-v3.png",
+        "angles/sunrise-wide-v3.png",
+        "angles/sunrise-left-v3.png",
+        "angles/sunrise-right-v3.png",
+        "angles/sunrise-detail-v3.png"
+      ],
+      "beats": [
+        "beats/radio-near-confession-v2.png",
+        "beats/radio-near-confession-reverse-v2.png",
+        "beats/radio-umbrella-v2.png",
+        "beats/radio-umbrella-reverse-v2.png",
+        "beats/radio-phone-threat-v2.png",
+        "beats/radio-blackout-v2.png",
+        "beats/garage-blackout-v2.png",
+        "beats/garage-blackout-detail-v2.png",
+        "beats/garage-blackout-reverse-v3.png",
+        "beats/radio-betrayal-v2.png",
+        "beats/radio-betrayal-reverse-v2.png",
+        "beats/radio-contract-v2.png",
+        "beats/fathers-notebook-v2.png",
+        "beats/fathers-notebook-reaction-v2.png",
+        "beats/shared-prototype-v2.png",
+        "beats/sunrise-kiss-v3.png",
+        "beats/boardroom-key-offer-v4.png",
+        "beats/boardroom-key-return-v4.png",
+        "beats/public-confession-v4.png",
+        "beats/public-confession-reverse-v4.png",
+        "beats/radio-jun-premiere-v3.png",
+        "beats/radio-jun-premiere-reverse-v3.png"
+      ]
+    },
+    "matchedExpectedSet": true
+  },
+  "separateSoundtrackCoverEvidence": {
+    "audit": {
+      "path": "artifacts/soundtrack-cover-audit.json",
+      "sha256": "e3aeaef351b0617504c5acbabe5c75f7bf773c8f90c8c95476bfb20a30732dc2",
+      "bytes": 20305
+    },
+    "visualAuditCheckedAt": "2026-09-22T09:11:39.081758+00:00",
+    "scope": "Separate collection, excluded from 62 story images. Fresh identity verification carries forward the linked visual review; no new cover visual inspection claimed.",
+    "count": 25,
+    "allIdentitiesMatchLinkedAudit": true,
+    "files": [
+      {
+        "path": "public/assets/music/covers/midnight-transistor-v1.png",
+        "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+        "bytes": 2354219,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/harbor-signals-v1.png",
+        "sha256": "6db5eb36f9c3225354ecd33da7a83af4e6fc3737004065fe9f52e609cd570b02",
+        "bytes": 2338992,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/sakura-express-v1.png",
+        "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf",
+        "bytes": 2848680,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/soramotos-workshop-v1.png",
+        "sha256": "3911b8f09742092ac0ec42a35f80584dbbc43a0ea275a0a63b5aae267f8fe910",
+        "bytes": 2335687,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/paper-towers-v1.png",
+        "sha256": "8f9cd1e86db73364bf4726b2c40c85f7429f40ec831b23a4b7db9255fc5d1717",
+        "bytes": 2118312,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/a-future-we-build-v1.png",
+        "sha256": "ddca20575c03d02c94d96de0210a61a2ef1866a1e10fd05eb0877b633bbb444b",
+        "bytes": 2568468,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/after-the-last-train-v1.png",
+        "sha256": "d16c80015bade75cdb22f7d4a90979d8435caa3b0dd00fe985dcfadc7a9f68dd",
+        "bytes": 2616922,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/credit-line-v1.png",
+        "sha256": "ead88a33ee60ab2ca220df230d6ec45d644f4e87621a73978329fca39ecb89e2",
+        "bytes": 2330533,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+        "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+        "bytes": 2336613,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/blank-side-promise-v1.png",
+        "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+        "bytes": 2218749,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/three-weeks-of-paper-v1.png",
+        "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0",
+        "bytes": 2080279,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/milk-crates-at-midnight-v1.png",
+        "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5",
+        "bytes": 2382636,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/carbon-copy-testimony-v1.png",
+        "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a",
+        "bytes": 2473380,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/crown-on-the-grid-v1.png",
+        "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456",
+        "bytes": 2193821,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/open-circuit-breakfast-v1.png",
+        "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3",
+        "bytes": 2530287,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+        "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb",
+        "bytes": 2897486,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/glass-permission-v1.png",
+        "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a",
+        "bytes": 1891730,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/two-am-relay-v1.png",
+        "sha256": "3b875134bc0eee0f5097dcb5be1f00d9e2aa9615f0117be2b935ad92f452d778",
+        "bytes": 2672184,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/dead-air-confession-v1.png",
+        "sha256": "b70f60376c3a31d2ebc3e9fc09bb99e12a8387648fb11321d78078dd8822df46",
+        "bytes": 2118375,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/borrowed-power-waltz-v1.png",
+        "sha256": "539e59d0bb34d3901669eba2bdf54aeb9a166966b7b2a552a1b04ad0bdf6f858",
+        "bytes": 2350260,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/the-frequency-home-v1.png",
+        "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388",
+        "bytes": 2198962,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/no-master-key-v1.png",
+        "sha256": "ca42909e580d64873be0f37e020e88f16f63267acb7059afb0393677936fd3c2",
+        "bytes": 1996528,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/outrun-the-dawn-v1.png",
+        "sha256": "1981fe1f24b6e299b62b5a940e1b665785848bacb5d416cdfd50de699b5db8db",
+        "bytes": 2538570,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/jun-the-first-light-v1.png",
+        "sha256": "e1c7c318560cdc68688d636faa8a6563d541f4865139dd636ac94e2aec2a4cb3",
+        "bytes": 2589444,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      },
+      {
+        "path": "public/assets/music/covers/side-b-press-record-v1.png",
+        "sha256": "937506ed78264ef317ce80adae24a0b7d2609f5685c9961eec1cb22d4057a6ef",
+        "bytes": 2343732,
+        "dimensions": {
+          "width": 1254,
+          "height": 1254
+        },
+        "pngColorType": 2,
+        "matchesLinkedVisualAudit": true
+      }
+    ]
+  },
+  "outsideScopeKnownWork": {
+    "evidence": {
+      "path": "tmp/music-native-release/art-scope-review/extra-cut-emblem-audit.json",
+      "sha256": "15bcb355b8f0883265bf328f10f8b0bf29df9649df7ee08898e1cf0542294ffd",
+      "bytes": 21655
+    },
+    "snapshotAuditedAt": "2026-09-26T01:04:05.766663+00:00",
+    "recordedAdditionalActiveImages": 15,
+    "recordedClassificationCounts": {
+      "existing_reference_geometry": 2,
+      "no_mark": 13,
+      "generic_or_inaccurate": 0
+    },
+    "meaning": "Separate snapshot found 13 additional per-cut images without a mark. They are being worked on concurrently. This audit does not reclassify or certify their current state, nor claim all site artwork complete."
+  },
+  "limitations": [
+    {
+      "path": "public/assets/story/angles/boardroom-wide-v3.png",
+      "kind": "historical_prompt_unavailable",
+      "detail": "Accepted image hash and visual review are recorded, but the exact generation prompt and generated-source path were not recovered.",
+      "provenance": "docs/art-prompts/cutscene-logo-boardroom-v3.json"
+    },
+    "Natural perspective, lighting, reversed colours and painterly rendering are accepted; exact logo pixels and every secondary tiny glyph are not certified.",
+    "Some generation records say runtimeIntegrated=false because they predate integration. The current imported catalog and later root replacement map provide integration evidence.",
+    "Rejected boardroom-key-offer attempts remain historical in cutscene-logo-beats-v4.json; accepted asset provenance is the later cutscene-logo-key-offer-v4.json."
+  ],
+  "files": [
+    {
+      "path": "public/assets/story/garage-dusk-branded.png",
+      "sha256": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f",
+      "bytes": 2282076,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "garage-dusk-branded.png",
+      "originalCatalogPath": "garage-dusk-branded.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large garage fascia sign",
+        "observation": "Reverse-color mark retains paired straight bars, central stem and straight diagonal openings through the circle edge.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/ledger-night-v1.png",
+      "sha256": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e",
+      "bytes": 2681737,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "ledger-night-v1.png",
+      "originalCatalogPath": "ledger-night-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Front of red toolbox at lower left",
+        "observation": "Near-equal straight bars, centered stem and diagonals meeting the pale disk edge; independently reviewed by provider_fullsize. Sleeve marks are looser secondary variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/radio-rain-v1.png",
+      "sha256": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517",
+      "bytes": 2708878,
+      "dimensions": {
+        "width": 1672,
+        "height": 940
+      },
+      "pngColorType": 2,
+      "catalogPath": "radio-rain-v1.png",
+      "originalCatalogPath": "radio-rain-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large SORA RADIO sign at upper right",
+        "observation": "Broad straight paired bars and straight open lower diagonals are clearly visible in reverse colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/tower-boardroom-v2.png",
+      "sha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "bytes": 2375611,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "tower-boardroom-v2.png",
+      "originalCatalogPath": "tower-boardroom-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+        "documentSha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+        "entryIndex": 4,
+        "sourcePath": "public/assets/story/tower-boardroom-v1.png",
+        "sourceSha256": "bc9b5deff0f48747121790fc639f18e32e8fc4c385bbc675f0dce08221909965",
+        "outputSha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+        "visualReview": {
+          "accepted": true,
+          "notes": "Prominent red-and-white geometric SORA emblem on held binder at x=70%, y=52%, with equal straight bars, stem and open diagonal channels; sleeve emblem is also clearly visible. All three characters, camera framing, table props and sunset retained."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/tower-boardroom-v1.png",
+        "sha256": "bc9b5deff0f48747121790fc639f18e32e8fc4c385bbc675f0dce08221909965",
+        "bytes": 2655904,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/credit-office-v2.png",
+      "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+      "bytes": 2304760,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "credit-office-v2.png",
+      "originalCatalogPath": "credit-office-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-office-v3.json",
+        "documentSha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+        "entryIndex": 4,
+        "sourcePath": "public/assets/story/credit-office-v1.png",
+        "sourceSha256": "fdb0d25f47ea2e46705a7d91d438224374de291e1a574b9e6de650c8efb2a33f",
+        "outputSha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+        "visualReview": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/credit-office-v1.png",
+        "sha256": "fdb0d25f47ea2e46705a7d91d438224374de291e1a574b9e6de650c8efb2a33f",
+        "bytes": 2541490,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/community-dawn-v1.png",
+      "sha256": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00",
+      "bytes": 2866155,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "community-dawn-v1.png",
+      "originalCatalogPath": "community-dawn-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Banner across the street; large shirt-back print at lower right",
+        "observation": "Straight paired bars and long edge-cut diagonal strokes preserve the recognizable geometry. This file is declared in the scene catalog but is not currently selected by campaign/menu rendering.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/harbor-1986-v1.png",
+      "sha256": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91",
+      "bytes": 2171878,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "harbor-1986-v1.png",
+      "originalCatalogPath": "harbor-1986-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Two large vertical red SORA banners",
+        "observation": "Pale circular fields carry near-equal straight bars, centered stem and lower diagonal edge openings. Car marks are less faithful and are not the basis of acceptance.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/sunrise-crew-branded-v2.png",
+      "sha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "bytes": 2203071,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "sunrise-crew-branded-v2.png",
+      "originalCatalogPath": "sunrise-crew-branded-v1.png",
+      "family": "base",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 3,
+        "sourcePath": "public/assets/story/sunrise-crew-branded-v1.png",
+        "sourceSha256": "20ed109b23b7f2a659e9508be07cf7c816d2c3dc58e3841d373723cb5ea7d2da",
+        "outputSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+        "visualReview": "Accepted: ivory hood decal has geometric straight bars and straight diagonal channels opening into the ivory backing, clearly readable above dialogue region. All six adult characters, instruments/cameras/cups, three cars and sunrise vista preserved. Secondary legacy small glyphs remain.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/sunrise-crew-branded-v1.png",
+        "sha256": "20ed109b23b7f2a659e9508be07cf7c816d2c3dc58e3841d373723cb5ea7d2da",
+        "bytes": 2481442,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/garage-wide-v2.png",
+      "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d",
+      "bytes": 2507492,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/garage-wide-v2.png",
+      "originalCatalogPath": "angles/garage-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Upper-left wall banner and foreground crate",
+        "observation": "Paired straight horizontal bars, central stem and long straight lower strokes meet/open the circular edge; reversed colors or scene perspective preserve recognizable geometry.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/garage-left-v2.png",
+      "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "bytes": 2429869,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/garage-left-v2.png",
+      "originalCatalogPath": "angles/garage-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large red emblem on white car door",
+        "observation": "Paired straight horizontal bars, central stem and long straight lower strokes meet/open the circular edge; reversed colors or scene perspective preserve recognizable geometry.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/garage-right-v2.png",
+      "sha256": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd",
+      "bytes": 2528298,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/garage-right-v2.png",
+      "originalCatalogPath": "angles/garage-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-right wall banner",
+        "observation": "Paired straight horizontal bars, central stem and long straight lower strokes meet/open the circular edge; reversed colors or scene perspective preserve recognizable geometry.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/garage-detail-v2.png",
+      "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "bytes": 2644728,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/garage-detail-v2.png",
+      "originalCatalogPath": "angles/garage-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Red toolbox front at right and rear wall plaque",
+        "observation": "Paired straight horizontal bars, central stem and long straight lower strokes meet/open the circular edge; reversed colors or scene perspective preserve recognizable geometry.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/ledger-wide-v2.png",
+      "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533",
+      "bytes": 2642683,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/ledger-wide-v2.png",
+      "originalCatalogPath": "angles/ledger-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-left SORA MOTOR CLUB banner",
+        "observation": "The principal mark has straight paired bars, centered stem and straight lower diagonals reaching the disk boundary. Detail/toolbox also independently accepted by provider_fullsize; secondary outlined sleeve marks are not relied upon.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/ledger-left-v2.png",
+      "sha256": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c",
+      "bytes": 2448114,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/ledger-left-v2.png",
+      "originalCatalogPath": "angles/ledger-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Upper-left vertical red SORA sign",
+        "observation": "The principal mark has straight paired bars, centered stem and straight lower diagonals reaching the disk boundary. Detail/toolbox also independently accepted by provider_fullsize; secondary outlined sleeve marks are not relied upon.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/ledger-right-v2.png",
+      "sha256": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809",
+      "bytes": 2671516,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/ledger-right-v2.png",
+      "originalCatalogPath": "angles/ledger-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Upper-center vertical SORA sign",
+        "observation": "The principal mark has straight paired bars, centered stem and straight lower diagonals reaching the disk boundary. Detail/toolbox also independently accepted by provider_fullsize; secondary outlined sleeve marks are not relied upon.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/ledger-detail-v2.png",
+      "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
+      "bytes": 2961903,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/ledger-detail-v2.png",
+      "originalCatalogPath": "angles/ledger-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Red toolbox front at upper left",
+        "observation": "The principal mark has straight paired bars, centered stem and straight lower diagonals reaching the disk boundary. Detail/toolbox also independently accepted by provider_fullsize; secondary outlined sleeve marks are not relied upon.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/radio-wide-v2.png",
+      "sha256": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5",
+      "bytes": 2553422,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/radio-wide-v2.png",
+      "originalCatalogPath": "angles/radio-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-center SORA RADIO sign",
+        "observation": "Clearly recognizable paired rectangular bars and central stem, with straight diagonal openings at the bottom of the circle. Main sign uses reversed colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/radio-left-v2.png",
+      "sha256": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d",
+      "bytes": 2521264,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/radio-left-v2.png",
+      "originalCatalogPath": "angles/radio-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-right wall sign and foreground white mug",
+        "observation": "Clearly recognizable paired rectangular bars and central stem, with straight diagonal openings at the bottom of the circle. Main sign uses reversed colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/radio-right-v2.png",
+      "sha256": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913",
+      "bytes": 2584176,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/radio-right-v2.png",
+      "originalCatalogPath": "angles/radio-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-left sign and foreground chair back",
+        "observation": "Clearly recognizable paired rectangular bars and central stem, with straight diagonal openings at the bottom of the circle. Main sign uses reversed colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/radio-detail-v2.png",
+      "sha256": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce",
+      "bytes": 2645231,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/radio-detail-v2.png",
+      "originalCatalogPath": "angles/radio-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-left SORA RADIO sign",
+        "observation": "Clearly recognizable paired rectangular bars and central stem, with straight diagonal openings at the bottom of the circle. Main sign uses reversed colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-wide-v3.png",
+      "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "bytes": 2386283,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/boardroom-wide-v3.png",
+      "originalCatalogPath": "angles/boardroom-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+        "documentSha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+        "entryIndex": 0,
+        "sourcePath": "public/assets/story/angles/boardroom-wide-v2.png",
+        "sourceSha256": null,
+        "outputSha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+        "visualReview": {
+          "accepted": true,
+          "notes": "Inspected source and output individually. Prominent red-and-white geometric SORA decal on left glass door above existing SORA text; two straight bars and stem, diagonal white channels opening through lower circle edge. Source composition, characters, props, text and sunset retained."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/boardroom-wide-v2.png",
+        "sha256": "e817a03b77b71868f99ec251ccb5504a59de286a3a7e45b8345b9d85ce1ebb1f",
+        "bytes": 2637285,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-left-v3.png",
+      "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "bytes": 2087669,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/boardroom-left-v3.png",
+      "originalCatalogPath": "angles/boardroom-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+        "documentSha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/angles/boardroom-left-v2.png",
+        "sourceSha256": "4107da2789da5eebc464437f014b23aac95a0dbdd334384d1eee3bbb27e1f4d2",
+        "outputSha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+        "visualReview": {
+          "accepted": true,
+          "notes": "Clear geometric SORA sleeve patch at x=26%, y=45%, with equal straight bars, central stem, and straight diagonals opening at the red circle edge. Binder mark also corrected. Faces, pose, props, lettering and sunset composition retained."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/boardroom-left-v2.png",
+        "sha256": "4107da2789da5eebc464437f014b23aac95a0dbdd334384d1eee3bbb27e1f4d2",
+        "bytes": 2290647,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-right-v3.png",
+      "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "bytes": 2364682,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/boardroom-right-v3.png",
+      "originalCatalogPath": "angles/boardroom-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+        "documentSha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+        "entryIndex": 2,
+        "sourcePath": "public/assets/story/angles/boardroom-right-v2.png",
+        "sourceSha256": "0e06e1d8e8e59ad3ea6c7652601e5f90e7df0c58928c9a8a5cae7d0c63f0850f",
+        "outputSha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+        "visualReview": {
+          "accepted": true,
+          "notes": "Clear geometric SORA sleeve patch at x=21%, y=72%, with straight bars, stem and diagonal channels reaching the red circle edge; an additional SORA emblem is visible on the upper-left car poster. Camera, character poses, map, props and sunset retained."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/boardroom-right-v2.png",
+        "sha256": "0e06e1d8e8e59ad3ea6c7652601e5f90e7df0c58928c9a8a5cae7d0c63f0850f",
+        "bytes": 2577693,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-detail-v3.png",
+      "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "bytes": 2401616,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/boardroom-detail-v3.png",
+      "originalCatalogPath": "angles/boardroom-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-boardroom-v3.json",
+        "documentSha256": "5c9d1cacaaba014085caf6f9f8eee638ba5e1c360f96655b2eb0e896989fcbd8",
+        "entryIndex": 3,
+        "sourcePath": "public/assets/story/angles/boardroom-detail-v2.png",
+        "sourceSha256": "c4ba2063e5e3f3b150f0437716aafac15e23cad9fba0c1188a8e5bfff36ff9a9",
+        "outputSha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+        "visualReview": {
+          "accepted": true,
+          "notes": "Prominent geometric SORA binder emblem at x=83%, y=30% uses straight equal bars, central stem and straight diagonal channels meeting the circular print edge, naturally foreshortened. Sleeve mark is secondary. Map, hands, props, Japanese labels, leather wear and sunset retained."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/boardroom-detail-v2.png",
+        "sha256": "c4ba2063e5e3f3b150f0437716aafac15e23cad9fba0c1188a8e5bfff36ff9a9",
+        "bytes": 2709017,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/office-wide-v3.png",
+      "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+      "bytes": 2168048,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/office-wide-v3.png",
+      "originalCatalogPath": "angles/office-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-office-v3.json",
+        "documentSha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+        "entryIndex": 0,
+        "sourcePath": "public/assets/story/angles/office-wide-v2.png",
+        "sourceSha256": "2a32a7d5b0c1dc21a70aad3f613a0c68dbffe59ab48db4364844c30e07ba7770",
+        "outputSha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+        "visualReview": "Accepted: foreground glass carries a legible printed SORA decal with straight parallel bars, central stem and diagonal channels opening through the lower circle edge. Perspective and frosted surface texture are natural. Characters, props, story text, scene framing and lighting are preserved; pixel-identical fine texture is not claimed.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/office-wide-v2.png",
+        "sha256": "2a32a7d5b0c1dc21a70aad3f613a0c68dbffe59ab48db4364844c30e07ba7770",
+        "bytes": 2329619,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/office-left-v3.png",
+      "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+      "bytes": 2163787,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/office-left-v3.png",
+      "originalCatalogPath": "angles/office-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-office-v3.json",
+        "documentSha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/angles/office-left-v2.png",
+        "sourceSha256": "728e853692a1584c574c655edf5737d5ab9ceaa594f7cd598eca852eb7b2f8ec",
+        "outputSha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+        "visualReview": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/office-left-v2.png",
+        "sha256": "728e853692a1584c574c655edf5737d5ab9ceaa594f7cd598eca852eb7b2f8ec",
+        "bytes": 2296692,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/office-right-v3.png",
+      "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+      "bytes": 2258808,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/office-right-v3.png",
+      "originalCatalogPath": "angles/office-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-office-v3.json",
+        "documentSha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+        "entryIndex": 2,
+        "sourcePath": "public/assets/story/angles/office-right-v2.png",
+        "sourceSha256": "a639d92b0236c8eb3ca4fd478e9812a78a5ab4c1ac078ef2566a851a606bee73",
+        "outputSha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+        "visualReview": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/office-right-v2.png",
+        "sha256": "a639d92b0236c8eb3ca4fd478e9812a78a5ab4c1ac078ef2566a851a606bee73",
+        "bytes": 2399207,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/office-detail-v3.png",
+      "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+      "bytes": 2555597,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/office-detail-v3.png",
+      "originalCatalogPath": "angles/office-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-office-v3.json",
+        "documentSha256": "5e3d047c989368ae7daab6afe21a2761d912b61d0476059dba4bb1b01f0bc284",
+        "entryIndex": 3,
+        "sourcePath": "public/assets/story/angles/office-detail-v2.png",
+        "sourceSha256": "3c4717775afa2be596656a5038a5534dc4aeeccef3be046da63b6846e49ea6b8",
+        "outputSha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+        "visualReview": "Accepted after individual full-image inspection: visible logo retains straight bars, central connection and open lower diagonal channels. Characters, poses, props, scene framing, dialogue-safe composition and overall lighting are retained. Normal painted perspective and fine texture variation are allowed; no pixel-identical preservation is claimed.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/office-detail-v2.png",
+        "sha256": "3c4717775afa2be596656a5038a5534dc4aeeccef3be046da63b6846e49ea6b8",
+        "bytes": 2809526,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/community-wide-v2.png",
+      "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667",
+      "bytes": 2935556,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/community-wide-v2.png",
+      "originalCatalogPath": "angles/community-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-right garage fascia",
+        "observation": "Straight near-equal bars, joining stem and edge-reaching straight diagonal strokes preserve the supplied geometry in reverse colors; secondary outlined patches are looser variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/community-left-v2.png",
+      "sha256": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b",
+      "bytes": 2610403,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/community-left-v2.png",
+      "originalCatalogPath": "angles/community-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Upper-right fascia and lower-right toolbox",
+        "observation": "Straight near-equal bars, joining stem and edge-reaching straight diagonal strokes preserve the supplied geometry in reverse colors; secondary outlined patches are looser variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/community-right-v2.png",
+      "sha256": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f",
+      "bytes": 2544610,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/community-right-v2.png",
+      "originalCatalogPath": "angles/community-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Foreground red toolbox",
+        "observation": "Straight near-equal bars, joining stem and edge-reaching straight diagonal strokes preserve the supplied geometry in reverse colors; secondary outlined patches are looser variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/community-detail-v2.png",
+      "sha256": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec",
+      "bytes": 2583430,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/community-detail-v2.png",
+      "originalCatalogPath": "angles/community-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large equipment-case label at lower right",
+        "observation": "Straight near-equal bars, joining stem and edge-reaching straight diagonal strokes preserve the supplied geometry in reverse colors; secondary outlined patches are looser variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/angles/harbor-wide-v3.png",
+      "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+      "bytes": 2399257,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/harbor-wide-v3.png",
+      "originalCatalogPath": "angles/harbor-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-harbor-v3.json",
+        "documentSha256": "1fb29bc63285f1cc3fa9cca6a1df406b5af6290037e54e9345ec1e41fc57b670",
+        "entryIndex": 0,
+        "sourcePath": "public/assets/story/angles/harbor-wide-v2.png",
+        "sourceSha256": "666cb4a98ed1994f4e14fa5ecab68f97a59f22a1ddb0dcb70eb40961e48fc753",
+        "outputSha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+        "visualReview": {
+          "method": "view_image original detail, source then saved accepted output",
+          "visualNotes": "Accepted: prominent upper-center warehouse panel carries the reference silhouette with straight parallel bars, center stem, and open straight lower channels. Existing SORA and Japanese lettering remain visible. Characters, cars, harbor composition, and narrative action are preserved.",
+          "logoAboveBottom25Percent": true
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/harbor-wide-v2.png",
+        "sha256": "666cb4a98ed1994f4e14fa5ecab68f97a59f22a1ddb0dcb70eb40961e48fc753",
+        "bytes": 2625335,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/harbor-left-v3.png",
+      "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+      "bytes": 2367724,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/harbor-left-v3.png",
+      "originalCatalogPath": "angles/harbor-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-harbor-v3.json",
+        "documentSha256": "1fb29bc63285f1cc3fa9cca6a1df406b5af6290037e54e9345ec1e41fc57b670",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/angles/harbor-left-v2.png",
+        "sourceSha256": "de62a70d1e5396c1bffd2c4e68e4b67a7cc5c5c8e716e6654888d9b752a7c810",
+        "outputSha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+        "visualReview": {
+          "method": "view_image original detail, source then saved accepted output",
+          "visualNotes": "Accepted: a pale emblem panel on the warehouse wall beside the headband character provides a recognizable geometric reference mark without covering faces or existing text. Upper placement remains above the dialogue band. Existing secondary badges were preserved.",
+          "logoAboveBottom25Percent": true
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/harbor-left-v2.png",
+        "sha256": "de62a70d1e5396c1bffd2c4e68e4b67a7cc5c5c8e716e6654888d9b752a7c810",
+        "bytes": 2566241,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/harbor-right-v3.png",
+      "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+      "bytes": 2182528,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/harbor-right-v3.png",
+      "originalCatalogPath": "angles/harbor-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-harbor-v3.json",
+        "documentSha256": "1fb29bc63285f1cc3fa9cca6a1df406b5af6290037e54e9345ec1e41fc57b670",
+        "entryIndex": 2,
+        "sourcePath": "public/assets/story/angles/harbor-right-v2.png",
+        "sourceSha256": "c25abcf6d0d10478e03548c0a74d6f52cbf7b43616aabb98c5f1b76dd6218536",
+        "outputSha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+        "visualReview": {
+          "method": "view_image original detail, source then saved accepted output",
+          "visualNotes": "Accepted: the corrected pale panel immediately left of the large warehouse SORA wordmark clearly shows straight bars, stem, and lower openings. Main figures, photo envelope, radio, warehouse text, foreground hood and port composition remain visually consistent.",
+          "logoAboveBottom25Percent": true
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/harbor-right-v2.png",
+        "sha256": "c25abcf6d0d10478e03548c0a74d6f52cbf7b43616aabb98c5f1b76dd6218536",
+        "bytes": 2307804,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/harbor-detail-v3.png",
+      "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+      "bytes": 2095400,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/harbor-detail-v3.png",
+      "originalCatalogPath": "angles/harbor-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-harbor-v3.json",
+        "documentSha256": "1fb29bc63285f1cc3fa9cca6a1df406b5af6290037e54e9345ec1e41fc57b670",
+        "entryIndex": 3,
+        "sourcePath": "public/assets/story/angles/harbor-detail-v2.png",
+        "sourceSha256": "ee6aeef6396f2179d0f498545ce1fefb14b79998f558ad49c836c06469cddee5",
+        "outputSha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+        "visualReview": {
+          "method": "view_image original detail, source then saved accepted output",
+          "visualNotes": "Accepted after one targeted retry: the thermos label shows straight bars/stem and extended diagonal channels through the lower circle edge with a separate red lower wedge. Logo is in the upper-right quadrant, above dialogue. Notebook story evidence, pointing hands, tools, parts, cassette and car composition remain visually consistent; ordinary generated texture differences are present.",
+          "logoAboveBottom25Percent": true
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/harbor-detail-v2.png",
+        "sha256": "ee6aeef6396f2179d0f498545ce1fefb14b79998f558ad49c836c06469cddee5",
+        "bytes": 2424904,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-wide-v3.png",
+      "sha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "bytes": 2600028,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/sunrise-wide-v3.png",
+      "originalCatalogPath": "angles/sunrise-wide-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 0,
+        "sourcePath": "public/assets/story/angles/sunrise-wide-v2.png",
+        "sourceSha256": "11f82c03f61b329818f5b8bbf30798e34a7d212a29a26e3755a91dda7848a1e5",
+        "outputSha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+        "visualReview": "Accepted: central car-hood decal reproduces equal straight bars, central stem and straight lower channels open through the red perimeter, with natural perspective. Six adults, cars, scenery, props, camera and lighting preserved; primary mark above dialogue region.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/sunrise-wide-v2.png",
+        "sha256": "11f82c03f61b329818f5b8bbf30798e34a7d212a29a26e3755a91dda7848a1e5",
+        "bytes": 2829800,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-left-v3.png",
+      "sha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "bytes": 2482477,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/sunrise-left-v3.png",
+      "originalCatalogPath": "angles/sunrise-left-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 5,
+        "sourcePath": "public/assets/story/angles/sunrise-left-v2.png",
+        "sourceSha256": "4e32b538d19668bce9c1db0402fa9ab96c2e891a2330ab695a48c08b67d3a80a",
+        "outputSha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+        "visualReview": "Accepted: red-jumpsuit upper-arm patch now has straight equal white bars, a central stem and straight lower channels opening into the cream backing, readable at roughly 47% height. The cream backing ring is outside the red logo; the lower red wedge is separated by the cutouts. Original bright colour, crisp pixel-anime texture, both adult faces/poses, cassette/recorder, location signs, cars and vista preserved. Other secondary legacy marks remain stylized.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/sunrise-left-v2.png",
+        "sha256": "4e32b538d19668bce9c1db0402fa9ab96c2e891a2330ab695a48c08b67d3a80a",
+        "bytes": 2584626,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-right-v3.png",
+      "sha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "bytes": 2529464,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/sunrise-right-v3.png",
+      "originalCatalogPath": "angles/sunrise-right-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/angles/sunrise-right-v2.png",
+        "sourceSha256": "374e52ff44d6965a4babd4454900b36e07cd3116076894f4997805d6a7be6229",
+        "outputSha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+        "visualReview": "Accepted: cream-jacket chest patch has equal straight white bars, central stem and two straight open diagonal cutouts, clearly readable above dialogue region. Adult faces/poses, cassette recorder, hood, scenery and lighting preserved. Secondary tiny legacy glyphs remain.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/sunrise-right-v2.png",
+        "sha256": "374e52ff44d6965a4babd4454900b36e07cd3116076894f4997805d6a7be6229",
+        "bytes": 2717362,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-detail-v3.png",
+      "sha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "bytes": 2204691,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "angles/sunrise-detail-v3.png",
+      "originalCatalogPath": "angles/sunrise-detail-v2.png",
+      "family": "angle",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 2,
+        "sourcePath": "public/assets/story/angles/sunrise-detail-v2.png",
+        "sourceSha256": "6d5061c72794378b16222475ef193d5bcd044c74586ec0bb662ceca38913ddf9",
+        "outputSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+        "visualReview": "Accepted: thermos sticker above dialogue region and prominent hood decal reproduce equal straight bars, central stem and open straight lower channels. Physical perspective, all hands, cassette, stationery, thermos, lighting and scenery preserved.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/angles/sunrise-detail-v2.png",
+        "sha256": "6d5061c72794378b16222475ef193d5bcd044c74586ec0bb662ceca38913ddf9",
+        "bytes": 2264542,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-v2.png",
+      "sha256": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379",
+      "bytes": 2391522,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-near-confession-v2.png",
+      "originalCatalogPath": "beats/radio-near-confession-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large upper-left SORA RADIO wall sign.",
+        "observation": "The cream disk on the red sign contains two straight horizontal bars of similar length joined by a central stem, with straight diagonal strokes reaching the lower disk edge. This is a recognizable reverse-color version of the supplied geometry. Small shirt/mug/headphone marks are secondary and are not the basis of the pass.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-reverse-v2.png",
+      "sha256": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15",
+      "bytes": 2150180,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-near-confession-reverse-v2.png",
+      "originalCatalogPath": "beats/radio-near-confession-reverse-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Upper-right red wall plaque above SORA text.",
+        "observation": "The principal plaque shows a light circle, two square-ended straight bars, central joining stem and straight open lower diagonals. Perspective/paint texture changes proportions slightly; the recognizable geometric construction remains. The large shirt print also resembles the motif but is an outlined variant.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-v2.png",
+      "sha256": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8",
+      "bytes": 2868073,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-umbrella-v2.png",
+      "originalCatalogPath": "beats/radio-umbrella-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Illuminated vertical SORA sign in the lower right; secondary upper-right SORA RADIO storefront sign.",
+        "observation": "The lower-right sign has a red disk and light straight paired bars, central stem and straight diagonals cutting the bottom boundary. It visibly carries the supplied emblem construction; the large storefront sign uses the same structure with reversed colors.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+      "sha256": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6",
+      "bytes": 2691856,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-umbrella-reverse-v2.png",
+      "originalCatalogPath": "beats/radio-umbrella-reverse-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large upper-left SORA RADIO storefront sign.",
+        "observation": "A cream circle on the red sign contains square-ended horizontal bars, a centered connecting stem and straight diagonals opening through the bottom of the circle. The sign is perspective-skewed but the geometry is recognizable. The background car also carries a small red badge.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-phone-threat-v2.png",
+      "sha256": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2",
+      "bytes": 2529882,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-phone-threat-v2.png",
+      "originalCatalogPath": "beats/radio-phone-threat-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-right SORA RADIO sign",
+        "observation": "Large reverse-color wall emblem has paired straight bars, central stem and straight edge-cut lower diagonals.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-blackout-v2.png",
+      "sha256": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d",
+      "bytes": 2281375,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-blackout-v2.png",
+      "originalCatalogPath": "beats/radio-blackout-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-center SORA RADIO sign",
+        "observation": "The principal reverse-color emblem preserves straight equal-looking bars, a joining stem and edge-cut lower diagonals.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-v2.png",
+      "sha256": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72",
+      "bytes": 2245932,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/garage-blackout-v2.png",
+      "originalCatalogPath": "beats/garage-blackout-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large red emblem on the left white car door.",
+        "observation": "The car-door badge visibly has a filled red circle with pale straight top/middle bars joined at center and long straight lower diagonals reaching the circle edge. This supplies a clear in-world geometric emblem despite the dark blue lighting; additional marks appear on the shutter, toolbox and sleeves.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-detail-v2.png",
+      "sha256": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127",
+      "bytes": 2128872,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/garage-blackout-detail-v2.png",
+      "originalCatalogPath": "beats/garage-blackout-detail-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Red toolbox at upper left and upright equipment case",
+        "observation": "Straight paired bars and edge-opening lower diagonal geometry is visible despite dark scene lighting; the car door is an additional positive-color variant.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "bytes": 2006412,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/garage-blackout-reverse-v3.png",
+      "originalCatalogPath": "beats/garage-blackout-reverse-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-garage-v3.json",
+        "documentSha256": "aeed9e140de94108110f61f19ca81f5e8a7112368ff9ac9cad725f73582ed63b",
+        "entryIndex": null,
+        "sourcePath": "public/assets/story/beats/garage-blackout-reverse-v2.png",
+        "sourceSha256": "c969377934766db6e5958704d01b41d74489fdfc876bae7321a02900c18e3c3f",
+        "outputSha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+        "visualReview": "Accepted: visible red SORA chest emblem has equal straight horizontal bars, central stem and straight diagonals opening through the lower circular edge. The nighttime garage, pensive adult Aki, pose, car, lantern and dialogue-safe framing are preserved. Image generation can alter fine pixel texture; this is not a claim of pixel-identical preservation.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "no_mark",
+      "originalAsset": {
+        "path": "public/assets/story/beats/garage-blackout-reverse-v2.png",
+        "sha256": "c969377934766db6e5958704d01b41d74489fdfc876bae7321a02900c18e3c3f",
+        "bytes": 2062454,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-v2.png",
+      "sha256": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f",
+      "bytes": 2436637,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-betrayal-v2.png",
+      "originalCatalogPath": "beats/radio-betrayal-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large SORA RADIO wall sign above and between the characters.",
+        "observation": "The light disk contains two broad equal-looking straight bars, a central stem and straight diagonal strokes that break through the lower circle edge. A smaller original-polarity badge also appears on the papers, but the large geometric sign is sufficient.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-reverse-v2.png",
+      "sha256": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54",
+      "bytes": 2213278,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-betrayal-reverse-v2.png",
+      "originalCatalogPath": "beats/radio-betrayal-reverse-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large upper-left SORA RADIO wall sign.",
+        "observation": "The wall sign clearly shows straight rectangular paired bars connected at center and wide straight diagonals opening through the lower light-circle edge. Worn paint and scene perspective are visible; this is recognizable reference geometry, not a claim of exact copied pixels.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-contract-v2.png",
+      "sha256": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0",
+      "bytes": 2321503,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-contract-v2.png",
+      "originalCatalogPath": "beats/radio-contract-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Lantern base at upper left",
+        "observation": "Lantern mark preserves near-equal straight bars/stem and lower diagonals extending to pale disk edge, independently accepted by provider_fullsize. Contract and mug variants are less faithful.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-v2.png",
+      "sha256": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8",
+      "bytes": 2754865,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/fathers-notebook-v2.png",
+      "originalCatalogPath": "beats/fathers-notebook-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Inside the red toolbox lid, above the open notebook.",
+        "observation": "The toolbox mark has a pale circular field with straight paired bars and a centered stem, plus diagonal legs reaching the lower edge. Perspective and worn paint alter thickness slightly. The circular-outline sleeve patches are looser secondary variants; they are not evidence of a pixel-identical source copy.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-reaction-v2.png",
+      "sha256": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992",
+      "bytes": 2674216,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/fathers-notebook-reaction-v2.png",
+      "originalCatalogPath": "beats/fathers-notebook-reaction-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Small pale emblem on red toolbox lid at left",
+        "observation": "Toolbox mark has straight bars/stem and edge-reaching lower diagonals, independently accepted by provider_fullsize. Large notebook and sleeve prints are less faithful secondary variants.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/shared-prototype-v2.png",
+      "sha256": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c",
+      "bytes": 2988065,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/shared-prototype-v2.png",
+      "originalCatalogPath": "beats/shared-prototype-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Red emblem on the SORA X.O.R. technical manual at lower left.",
+        "observation": "The manual cover visibly has a red disk with pale straight paired bars, centered stem and straight lower diagonal openings. Additional recognizable signs appear on the car door, toolbox and computer cases. The sleeve patches are more loosely drawn outlined versions.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/sunrise-kiss-v3.png",
+      "sha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "bytes": 2504344,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/sunrise-kiss-v3.png",
+      "originalCatalogPath": "beats/sunrise-kiss-v2.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-sunrise-v3.json",
+        "documentSha256": "56b6c169ad1e11a607b183030384aa9878437df4218e44485d2e3f74b74fb3c6",
+        "entryIndex": 4,
+        "sourcePath": "public/assets/story/beats/sunrise-kiss-v2.png",
+        "sourceSha256": "977b499a27eaf12f4d7aa906021bba8f58133d9a40d1f98431eb563a6783ec13",
+        "outputSha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+        "visualReview": "Accepted: prominent ivory car-hood decal has straight equal bars and both open straight lower cutouts at around 70% height; cream chest patch also updated. Adult kissing pose, faces, hands, body contact, car/recorder, location sign, vista, lighting and framing preserved. Small secondary marks may remain stylized.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/beats/sunrise-kiss-v2.png",
+        "sha256": "977b499a27eaf12f4d7aa906021bba8f58133d9a40d1f98431eb563a6783ec13",
+        "bytes": 2681269,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-offer-v4.png",
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "bytes": 2144461,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/boardroom-key-offer-v4.png",
+      "originalCatalogPath": "beats/boardroom-key-offer-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-key-offer-v4.json",
+        "documentSha256": "491173eef04cfa98fa502e096a6dfc60a2e2b571b4cf90b62a2116b90a5bba94",
+        "entryIndex": null,
+        "sourcePath": "public/assets/story/beats/boardroom-key-offer-v3.png",
+        "sourceSha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+        "outputSha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+        "visualReview": "Accepted after individual inspection. The old curved sleeve glyph is removed, and a higher white sewn patch carries the red circle with straight bars, central connection and two straight diagonal channels opening through the lower edge. Patch is tilted naturally with fabric. Faces, key/envelope, hands, sunset boardroom and composition are preserved. Fine texture changes and painted perspective are not pixel-identical preservation.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/beats/boardroom-key-offer-v3.png",
+        "sha256": "5ba5b9715c5b5f28e69dba35d1c01e90e8328e30c3f54be88c0ca4cb62f3168a",
+        "bytes": 2211408,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-return-v4.png",
+      "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "bytes": 2054314,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/boardroom-key-return-v4.png",
+      "originalCatalogPath": "beats/boardroom-key-return-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-accountability-v4.json",
+        "documentSha256": "aa1b26e5683f0fb6afb71f7290112e1aadadeb943c37396bfa85c2d6134e6800",
+        "entryIndex": 0,
+        "sourcePath": "public/assets/story/beats/boardroom-key-return-v3.png",
+        "sourceSha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c",
+        "outputSha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+        "visualReview": {
+          "method": "view_image, original detail, accepted generated artifact inspected again before exact copy",
+          "placement": "Woman's visible upper sleeve at left of frame.",
+          "scenePreserved": "Original camera, sunset office, faces, clothing, table and returned brass key on cream envelope retained.",
+          "limitations": "Small emblem affected by sleeve perspective; recognizable reference geometry rather than literal copied pixels."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/beats/boardroom-key-return-v3.png",
+        "sha256": "7eb48c3f6d75ce7b69054ba51f44a81c59ba1995cd06527b9a03a3e28b986c8c",
+        "bytes": 2181261,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-v4.png",
+      "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "bytes": 2237061,
+      "dimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/public-confession-v4.png",
+      "originalCatalogPath": "beats/public-confession-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-accountability-v4.json",
+        "documentSha256": "aa1b26e5683f0fb6afb71f7290112e1aadadeb943c37396bfa85c2d6134e6800",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/beats/public-confession-v3.png",
+        "sourceSha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff",
+        "outputSha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+        "visualReview": {
+          "method": "view_image, original detail, accepted generated artifact inspected again before exact copy",
+          "placement": "Large warehouse sign above SORA lettering near upper center.",
+          "scenePreserved": "Two speakers, microphone, papers, crowd, both cars, harbor cranes and sunset/night palette retained.",
+          "limitations": "Generated width is 1671 instead of source 1672 pixels; preserved output without resampling. Incidental small marks remain stylistic; principal sign contains required geometry."
+        },
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/beats/public-confession-v3.png",
+        "sha256": "4967252388d96301d18acb00879f988b001e05a5be54ad5815195482f8cde4ff",
+        "bytes": 2464885,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-reverse-v4.png",
+      "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "bytes": 2318564,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/public-confession-reverse-v4.png",
+      "originalCatalogPath": "beats/public-confession-reverse-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": true,
+      "reviewBasis": "Accepted replacement: bytes match generation provenance and root visual acceptance; imported catalog reference verified.",
+      "rootVisuallyInspectedAndAccepted": true,
+      "provenance": {
+        "document": "docs/art-prompts/cutscene-logo-beats-v4.json",
+        "documentSha256": "b60a085d2002cceec0dce64b996711c8b2c459d43455c8656cbc68c4afa86ed4",
+        "entryIndex": 1,
+        "sourcePath": "public/assets/story/beats/public-confession-reverse-v3.png",
+        "sourceSha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2",
+        "outputSha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+        "visualReview": "Warehouse sign now clearly reproduces reference geometry: equal straight horizontal bars, central stem, straight diagonal channels opening through lower circle edge with separate red lower wedge. Opaque pale sign and jacket patch preserve scene lighting. Main emblem is high above dialogue region. SORA wordmark and other scene lettering, characters, microphone, papers, cars, port, and camera composition remain visually consistent. Jacket mark improved; small car logo remains simplified and is not certified independently exact.",
+        "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+      },
+      "previousClassification": "generic_or_inaccurate",
+      "originalAsset": {
+        "path": "public/assets/story/beats/public-confession-reverse-v3.png",
+        "sha256": "b7b068853284c782413a8d161b82866a6e1e500c930ac4048b36437704410ac2",
+        "bytes": 2455496,
+        "dimensions": {
+          "width": 1672,
+          "height": 941
+        },
+        "pngColorType": 2,
+        "identityMatchesHistoricalAudit": true
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "bytes": 2537575,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-jun-premiere-v3.png",
+      "originalCatalogPath": "beats/radio-jun-premiere-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image with original detail; direct visual comparison against supplied emblem",
+        "reviewer": "Not named in historical record",
+        "placement": "Large SORA RADIO sign across the upper-center/right wall.",
+        "observation": "The large light disk clearly contains two broad straight equal-looking bars connected by a central vertical stem, with long straight diagonal openings through the lower edge. It preserves the recognizable supplied geometry in reverse colors. A red-disk ON AIR plaque on the right is an additional smaller variant.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "bytes": 2472763,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "pngColorType": 2,
+      "catalogPath": "beats/radio-jun-premiere-reverse-v3.png",
+      "originalCatalogPath": "beats/radio-jun-premiere-reverse-v3.png",
+      "family": "beat",
+      "classification": "existing_reference_geometry",
+      "hasRecognizableReferenceGeometry": true,
+      "pixelIdenticalCopyClaimed": false,
+      "currentCatalogReferenceVerified": true,
+      "replacement": false,
+      "reviewBasis": "Unchanged current bytes match the previously individually visually reviewed image.",
+      "identityMatchesPriorReviewedAsset": true,
+      "visualReview": {
+        "method": "view_image; direct full-image visual comparison with supplied emblem",
+        "reviewer": "native_build_lane",
+        "placement": "Large upper-center SORA RADIO sign",
+        "observation": "Broad straight bars, central stem and long straight diagonals opening through the circle edge visibly preserve source geometry.",
+        "sourceAudit": "tmp/music-native-release/art-scope-review/story-emblem-audit.json",
+        "sourceAuditSha256": "fe9f86227914760527bfba6229f4643a1ab295f63158b5c2f0c9d7aaa5e48610"
+      }
+    }
+  ],
+  "discrepancies": []
+}

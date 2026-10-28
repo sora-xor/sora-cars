@@ -1,0 +1,13 @@
+{
+  "command": "SORA_CARS_TEST_TICKS=180 node scripts/test-mesh.mjs",
+  "contexts": 8,
+  "webrtcLinks": 28,
+  "certifiedTick": 180,
+  "identicalNativeCheckpoints": true,
+  "authenticatedCosmetics": true,
+  "signedTranscriptFrames": 180,
+  "browserErrors": 0,
+  "identicalTerminalState": false,
+  "inputScenario": "Throttle, drift and boost across a certified prefix.",
+  "note": "Eight real Chromium contexts, native generated physics, same Canvas renderer, drift/boost inputs. Local transport evidence; native proof and deployment qualification are separate."
+}

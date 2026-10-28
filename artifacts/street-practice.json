@@ -1,0 +1,71 @@
+{
+  "kind": "native-tokyo-main-game-integration",
+  "route": "http://127.0.0.1:5178/#/street/tokyo-1986",
+  "buildScript": "assets/index-_Y1bfCzT.js",
+  "implementation": {
+    "src/main.ts": "5462adfc674ce08008870b4fe3e54ec4100794a42c9dcc45748d21dc4fd1e17a",
+    "src/game/audio.ts": "ff38aaa76c485091910eee91a145ec7d7e283c21e2c85c6ecdd7603d16abec99",
+    "src/game/street/assets.ts": "635c748aab36d357ad828b5f6da5f5f390b4215047213989f1d8a443b1c01d67",
+    "src/game/street/asset-manifest.ts": "fc342259f6c90a208d84e0e103e73df80edd81425bf7dc22d42fe00052379342",
+    "src/game/street/replay.ts": "816999aa9f64a22fe8c0d8db337c9c00fb5e0fc6ca55098a7b2e335273d514b1",
+    "src/game/street/renderer.ts": "00859606dedb31169a27676d5463dbd75de7ffce5f9598c04d503d9a5537dde6",
+    "src/ui/street-practice.ts": "aa49131c4a4a656d967c17f1593844fe45890e951dc968b2c1e6dbc8e0f710a1",
+    "src/ui/street-practice.css": "c56fb0b982b3df2c6c1426dd4fffd087253ca063dd4d36fbc9068bfaee20b754",
+    "scripts/package-street-assets.ts": "d16293560376a59fcbf82aff4f73e68b5eac138a127d5ea000b507dbf5d81aab",
+    "scripts/test-street-practice.mjs": "d00d5299b7825566cb4f8112a17036c1eb6443ac1db7b14a363a928fd996e86c",
+    "scripts/test-external-music.mjs": "ce7e74d9549867c22421c23a45684dfc8d8e6c230a9bb795a8c5a61b398a5a56",
+    "scripts/test-static.mjs": "82972cbf8194e34ece21dd1262633e549cabff8078353e97804b75ea0f77b63c",
+    "tests/street-assets.test.ts": "22651e2b6f8ff2393b0970adbd2f4d0942f5b7d434822532dd2eecd2f6f7ba1b",
+    "tests/street-replay.test.ts": "18fe7d4996306c373363c7abe31d98131b1cb5fdace0d9b89a3359d4b427ffd1",
+    "docs/next-gameplay-integration.md": "a7a9d87f057c96f70c096c2d2f206ded1af140f52ae1a3966c4e2dfb59151f58"
+  },
+  "evidence": {
+    "artifacts/street-practice-browser.json": "3f4134298f5473239a29d452632c0df55e607e056785c91befbbb857eb7ce3e0",
+    "artifacts/street-replay-tests.json": "bfe0742c4cba9e1a8fd1a419226e44ee7acc74d1222433f4695a04ccf94f92b0",
+    "artifacts/external-music.json": "b0961d28966b27f654f4dd40f925602fd1e3f3f65ff38700010771a932185777",
+    "artifacts/static-cid-path.json": "320600ba935f32a440c9c57c057d13e903db05182779bcfcc6901974639b5ede",
+    "output/audio/drive-synth/report.json": "b98f412d30021e4f165605d758e77178a7d30305dc2fb471926718eb01ca40ec",
+    "output/browser/held-keyboard/report.json": "cb44ce75dfd737154c4ca4e602b3734d383a080944be8a5c84b058158d370f9e",
+    "output/qualification/frontend/street-practice/build-manifest.json": "40b3283849660f1e3b6c699bfafb014e0ee325d7043f5919a1a734e32fc6e870",
+    "output/qualification/frontend/street-practice/preview-install.json": "514a4e6e6e3c85f51ecaa72c7da4cd6a7cc3c8ee0038e2a15c798edc19834029",
+    "output/qualification/frontend/street-practice/preview-smoke.json": "e90f2b9338ec65bf40422650b74c1b743e1bca9232f348356ee3cf64d7290c0f",
+    "output/qualification/frontend/street-practice/preview-smoke.mjs": "5275cb46efa11759a82f090d3b07706a40e3fc0affd61465373c32f0476beb09",
+    "output/qualification/frontend/street-practice/application-tests.log": "72be80d1c0a56aab97b37f2933fadd13772907417902bd40a6f0a031796c4745",
+    "output/web-game/street-practice/client.mjs": "e95c3bcbdc0d15eb08fd3a6021283ec32f715b51f1e5847d3db20df526be5996",
+    "output/web-game/street-practice/driving/state-0.json": "349976058b8a475c33b0f56c4a9fabdf6c8a9649ceaf2e04543de5aef6be6ba9",
+    "output/web-game/street-practice/driving/shot-0.png": "4e8487760f6a8df66c542a0de742e3eea869bd6c3fbaa4c63f13f14fcc7c8d95"
+  },
+  "checks": {
+    "typescript": true,
+    "productionBuild": true,
+    "sourceBrowser": 32,
+    "productionSmoke": true,
+    "replayAndAssetsPassed": 7,
+    "otherTestsPassed": 198,
+    "otherTestsTotal": 200,
+    "heldKeyboard": 10,
+    "enginePCM": true,
+    "midiHandoffPCM": true,
+    "nestedCIDAndOffline": true
+  },
+  "knownFailures": [
+    "Stock native CLI source inventory stale for iroha_core/src/privacy_engines/transparent_stark.rs",
+    "Touring native export source inventory stale for iroha_core/src/privacy_engines/transparent_stark.rs"
+  ],
+  "qualification": {
+    "fullSkilledHumanPlaythrough": false,
+    "historicalAccuracy": false,
+    "playability": false,
+    "nativeExecutionProof": false,
+    "ledgerSettlement": false,
+    "eightHumanClients": false,
+    "sorafsPublished": false,
+    "fullGoalComplete": false
+  },
+  "remaining": [
+    "Calibrate native Tokyo pace and jo/ha/kyu events to the supplied song",
+    "Period frontage/traffic and the remaining 48 locations",
+    "Generic authenticated networking, proof/settlement/finality and four-validator/eight-client qualification",
+    "Verified healthy Taira and SoraFS deployment"
+  ]
+}

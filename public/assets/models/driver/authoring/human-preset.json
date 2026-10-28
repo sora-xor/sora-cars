@@ -1,0 +1,39 @@
+{
+  "phenotype": {
+    "gender": 1.0,
+    "age": 0.35,
+    "muscle": 0.42,
+    "weight": 0.42,
+    "proportions": 0.5,
+    "height": 0.44,
+    "cupsize": 0.5,
+    "firmness": 0.5,
+    "race": {
+      "asian": 1.0,
+      "caucasian": 0.0,
+      "african": 0.0
+    }
+  },
+  "rig": "default",
+  "eyes": "high-poly/high-poly.mhclo",
+  "eyebrows": "eyebrow001/eyebrow001.mhclo",
+  "eyelashes": "eyelashes01/eyelashes01.mhclo",
+  "tongue": "",
+  "teeth": "",
+  "hair": "short01/short01.mhclo",
+  "proxy": "",
+  "targets": [],
+  "clothes": [
+    "male_casualsuit01/male_casualsuit01.mhclo",
+    "shoes01/shoes01.mhclo"
+  ],
+  "skin_mhmat": "young_asian_male/young_asian_male.mhmat",
+  "skin_material_type": "GAMEENGINE",
+  "eyes_material_type": "GAMEENGINE",
+  "skin_material_settings": {},
+  "eyes_material_settings": {},
+  "expressions": [],
+  "name": "GenericDriver",
+  "material_instances": "NEVER",
+  "alternative_materials": {}
+}

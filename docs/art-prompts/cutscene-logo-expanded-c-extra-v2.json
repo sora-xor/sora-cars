@@ -1,0 +1,1259 @@
+{
+  "schema": "sora-cars.art-generation-provenance.v1",
+  "createdAt": "2026-09-26T03:34:47.870127+00:00",
+  "tool": "built-in image_gen",
+  "reviewer": "/root/expanded_logo_audit_c",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "updatedAt": "2026-09-26T14:17:55.169Z",
+  "assets": [
+    {
+      "id": "ch08-intro-cut07",
+      "source": "public/assets/story/scenes/ch08-intro-cut07.png",
+      "output": "public/assets/story/scenes/ch08-intro-cut07-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "0b73eb99d877c748221de669fcb37e826a445bdbdb67e8100a99afbcdacb18ea",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 5,
+        "max": 252,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T04:09:14.464Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large upper-right wall banner emblem with exact reference geometry, center it on the white banner. Enlarge slightly to make the two diagonal channels clearly cut entirely through the red circumference. Preserve all documents, woman and vehicle.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art.  IMPORTANT OUTPUT FORMAT: a real RGBA PNG with genuine alpha transparency, NOT an opaque image with painted dark pixels. Match source partial transparency: upper scene remains slightly translucent at about 95 percent opacity and only the existing bottom vignette fades to low alpha. Keep the entire source background/scenery visible; no subject cutout, no erased objects, no checkerboard painted into RGB. Preserve all scene details, exact camera framing and original bottom-fade footprint. Source transparency must survive export.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-4b0e531b-d463-49fd-92dc-31c3f5c8c7f2.png",
+      "generatedSha256": "31f01480e49a153280607b8352750cbe1fc1af398c91a2652d613bea777420a4",
+      "sourceCurrentHash": "0b73eb99d877c748221de669fcb37e826a445bdbdb67e8100a99afbcdacb18ea",
+      "sourceStable": true,
+      "outputSha256": "31f01480e49a153280607b8352750cbe1fc1af398c91a2652d613bea777420a4",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 48391
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:06:48.011Z",
+        "detail": "original",
+        "observation": "Large wall-banner emblem is centered on the banner face, with paired bars and open straight diagonal channels separating the bottom red wedge. Original story props, documents and framing preserved. Genuine alpha retained; bottom fade extends through featureless dark foreground only.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "attempts": [
+        {
+          "id": "ch08-intro-cut07",
+          "source": "public/assets/story/scenes/ch08-intro-cut07.png",
+          "output": "public/assets/story/scenes/ch08-intro-cut07-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "0b73eb99d877c748221de669fcb37e826a445bdbdb67e8100a99afbcdacb18ea",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 5,
+            "max": 252,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:36:48.987Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large upper RIGHT white wall banner red circle logo with the exact reference emblem. Preserve banner position and pixel texture, and preserve the woman sorting papers, every diagram, monitor and vehicle.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the existing dark bottom dialogue fade. Only the designated emblem changes. Match existing pixel art. Preserve the source image actual alpha/translucency, including the bottom dialogue fade. Keep the entire background and complete rectangular scene: do not cut out subjects, do not remove scenery, and do not add new transparent regions. Match the existing partial transparency across the scene; no flattened opaque replacement.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-a7aac2fa-38b4-4917-b29e-2432d6cab9d7.png",
+          "generatedSha256": "bce469420fc1c2dc574af9809ac0115a997c95a0fc32e65ac328ab29bc0e36d4",
+          "sourceCurrentHash": "0b73eb99d877c748221de669fcb37e826a445bdbdb67e8100a99afbcdacb18ea",
+          "sourceStable": true,
+          "outputSha256": "bce469420fc1c2dc574af9809ac0115a997c95a0fc32e65ac328ab29bc0e36d4",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch08-victory-cut03",
+      "source": "public/assets/story/scenes/ch08-victory-cut03.png",
+      "output": "public/assets/story/scenes/ch08-victory-cut03-logo-v6.png",
+      "status": "accepted",
+      "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 31,
+        "max": 251,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:44:05.252Z",
+      "prompt": "Edit only the logo on the yellow-jacket woman's upper sleeve in image1. Enlarge its red badge to90 pixels diameter centered on the physical upper sleeve, centered approximately x450,y375. Use EXACT image2 geometric SORA silhouette inside it: two equal straight horizontal white bars joined by short stem, two long straight white diagonal cuts run through the circle's lower left and right edges, leaving a DETACHED bottom red wedge. Do not use a typed character; no red rim connecting bottom wedge. Follow sleeve tilt. Preserve exact scene composition, people, both computers, papers, fingers, rear car, whole workshop and window landscape. Preserve actual PNG transparency. The bottom foreground must remain a SOFT GRADIENT INTO REAL TRANSPARENCY across lowest20% of image, reaching about20% opacity at bottom edge, as in original. This fade must be in ALPHA, not painted dark/black. Keep full upper scene visible with very slight translucency, NO sky holes and NO background removal. 1672x941 RGBA.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-61a049e7-7775-4ef1-8b11-a6b72c158f4e.png",
+      "generatedSha256": "335bd8a0841de9741953dfe4f644d44a3cdef717863ea1213eadf37b59bfe6c6",
+      "sourceCurrentHash": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+      "sourceStable": true,
+      "outputSha256": "335bd8a0841de9741953dfe4f644d44a3cdef717863ea1213eadf37b59bfe6c6",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 9152
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:58:19.113Z",
+        "detail": "original",
+        "observation": "Root independent full-size review accepts recognizable long straight diagonal channels; fine antialias/rim texture does not change silhouette to shortened curved legs. Sleeve badge centered with correct material tilt. Full workshop people/computers/papers/car/window scenery preserved and actual soft bottom alpha fade0\u2013253 retained.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true,
+        "secondReviewer": "/root"
+      },
+      "attempts": [
+        {
+          "id": "ch08-victory-cut03",
+          "source": "public/assets/story/scenes/ch08-victory-cut03.png",
+          "output": "public/assets/story/scenes/ch08-victory-cut03-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 31,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:36:50.177Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the red patch on the yellow-jacket woman upper LEFT sleeve with the exact reference emblem, about 25 percent larger so it reads clearly. Keep her pointing hand, all three listeners, computer spreadsheet screens and all paper plans unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the existing dark bottom dialogue fade. Only the designated emblem changes. Match existing pixel art. Preserve the source image actual alpha/translucency, including the bottom dialogue fade. Keep the entire background and complete rectangular scene: do not cut out subjects, do not remove scenery, and do not add new transparent regions. Match the existing partial transparency across the scene; no flattened opaque replacement.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-54ceea2a-b618-4a42-9d0c-6b3662e82fd1.png",
+          "generatedSha256": "ea6fd52f6e7644b159bf7fa1f1dac5c075de35623cb82406f4116f90e6b2dfd0",
+          "sourceCurrentHash": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceStable": true,
+          "outputSha256": "ea6fd52f6e7644b159bf7fa1f1dac5c075de35623cb82406f4116f90e6b2dfd0",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          }
+        },
+        {
+          "id": "ch08-victory-cut03",
+          "source": "public/assets/story/scenes/ch08-victory-cut03.png",
+          "output": "public/assets/story/scenes/ch08-victory-cut03-logo-v3.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 31,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T04:09:15.236Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the yellow-jacket sleeve emblem with the exact reference, centered on the visible upper sleeve area, about25percent larger. Preserve pointing hands, all people and every paper/screen.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art.  IMPORTANT OUTPUT FORMAT: a real RGBA PNG with genuine alpha transparency, NOT an opaque image with painted dark pixels. Match source partial transparency: upper scene remains slightly translucent at about 95 percent opacity and only the existing bottom vignette fades to low alpha. Keep the entire source background/scenery visible; no subject cutout, no erased objects, no checkerboard painted into RGB. Preserve all scene details, exact camera framing and original bottom-fade footprint. Source transparency must survive export.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-20e990e1-fea7-4ce1-98e5-1a3f3f74bdf3.png",
+          "generatedSha256": "6f8482f2801c3539e11226ac8d04ab58985830ddd354f4a409356fc93abdfe26",
+          "sourceCurrentHash": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceStable": true,
+          "outputSha256": "6f8482f2801c3539e11226ac8d04ab58985830ddd354f4a409356fc93abdfe26",
+          "outputDimensions": {
+            "width": 1671,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 0,
+            "max": 255,
+            "nonOpaque": 1572295,
+            "fullyTransparent": 6623
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "New transparent holes in upper left skyline remove scenery; sleeve logo remains borderline enclosed."
+          }
+        },
+        {
+          "id": "ch08-victory-cut03",
+          "source": "public/assets/story/scenes/ch08-victory-cut03.png",
+          "output": "public/assets/story/scenes/ch08-victory-cut03-logo-v4.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 31,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:14:50.864Z",
+          "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Replace ONLY the red patch on the yellow-jacket upper sleeve with the exact reference logo, 75pixel diameter centered on that sewn sleeve panel. White diagonals must be long and straight and break disk edge. Preserve the complete upper-left sky and clouds, all computer screens, documents and people. Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt.  IMPORTANT: export genuine RGBA PNG alpha, not a flattened opaque RGB picture. Preserve source partial transparency. Keep all scenery and every pixel region of the full rectangular scene; NEVER erase skyline/clouds or create transparent holes. Background should remain around95 percent opacity and existing bottom foreground fade may retain lower alpha. This is a complete scene with a soft alpha fade, not an isolated subject. No checkerboard.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-75dc253d-3a93-42d1-9d99-fb9343635783.png",
+          "generatedSha256": "d435c78beced148ecc75a00ad902033733bf01bbb262f36d1d026bfd30dcf79c",
+          "sourceCurrentHash": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceStable": true,
+          "outputSha256": "d435c78beced148ecc75a00ad902033733bf01bbb262f36d1d026bfd30dcf79c",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "New transparent holes in upper left skyline remove scenery; sleeve logo remains borderline enclosed."
+          },
+          "rejection": "v4 flattened all source transparency despite explicit RGBA request."
+        },
+        {
+          "id": "ch08-victory-cut03",
+          "source": "public/assets/story/scenes/ch08-victory-cut03.png",
+          "output": "public/assets/story/scenes/ch08-victory-cut03-logo-v5.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 31,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:32:25.958Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit, image 2 is the exact supplied SORA logo reference. Copy the geometric logo silhouette: two equally long, straight white horizontal bars, a short white central stem, and two long straight white diagonal channels that OPEN THROUGH the red disk circumference at lower left and right. The bottom red wedge must be disconnected from the upper red disk. No typed character, curved legs, extra chevron, border circle or margin outside diagonal tips. Preserve exact characters, identities, facial expressions, poses, props, printed text, lighting and camera framing. Replace the generic symbol on the woman technician's yellow upper-sleeve red badge with the supplied reference silhouette, centered on that badge and rotated with the sleeve tilt. Enlarge to about80 pixels high if necessary within her sleeve panel. Also ensure the rear car-door badge remains a centered geometric reference mark. Preserve both CRTs, hand pointing, paper plans, people and entire workshop. CRITICAL: image1 is a genuine RGBA scene with actual translucency over the WHOLE scene and a translucent bottom foreground fade. Output genuine partial-alpha RGBA PNG retaining these semantics: upper/middle scene alpha roughly225\u2013250, bottom foreground progressively down to about40\u201390. Retain every scene element and full-color RGB; transparency is an overlay fade, NOT background extraction. No new holes in sky/windows, no checkerboard texture, no solid replacement backdrop, no all-255 opaque output. Do not remove any scenery.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-dd365421-0776-4480-9596-61f43676e17a.png",
+          "generatedSha256": "a416f87601f276fd2a1553ee3b3a76c62d69d25954fc33aa95ce964d97544333",
+          "sourceCurrentHash": "6cafadc477968421a201e07cf0de83f4acbbe6cfe3ebb23e82f3d459dd9526e5",
+          "sourceStable": true,
+          "outputSha256": "a416f87601f276fd2a1553ee3b3a76c62d69d25954fc33aa95ce964d97544333",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 221,
+            "max": 251,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "New transparent holes in upper left skyline remove scenery; sleeve logo remains borderline enclosed."
+          },
+          "rejection": "v5 partial alpha221\u2013251 exists but strong original bottom fade31\u2013251 was lost; badge still has interior red margin."
+        }
+      ],
+      "rejection": "v5 partial alpha221\u2013251 exists but strong original bottom fade31\u2013251 was lost; badge still has interior red margin."
+    },
+    {
+      "id": "ch08-victory-cut04",
+      "source": "public/assets/story/scenes/ch08-victory-cut04.png",
+      "output": "public/assets/story/scenes/ch08-victory-cut04-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "ffe7b48e9955edee9f61920e5210c6cff250cbf883d48b09a5485b8373c9fac9",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 940
+      },
+      "sourceAlpha": {
+        "min": 77,
+        "max": 245,
+        "nonOpaque": 1571680,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T04:09:16.365Z",
+      "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large central shutter red emblem with exact reference, centered on that shutter panel. Preserve corrugations and lighting, characters, toolbox and scenery.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art.  IMPORTANT OUTPUT FORMAT: a real RGBA PNG with genuine alpha transparency, NOT an opaque image with painted dark pixels. Match source partial transparency: upper scene remains slightly translucent at about 95 percent opacity and only the existing bottom vignette fades to low alpha. Keep the entire source background/scenery visible; no subject cutout, no erased objects, no checkerboard painted into RGB. Preserve all scene details, exact camera framing and original bottom-fade footprint. Source transparency must survive export.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-d3965023-a152-4bba-a98d-92e5bfb87259.png",
+      "generatedSha256": "cafd209ecdb33bbc4a93685d6143d6e14d8e09c492e25faf0a71987b627bb524",
+      "sourceCurrentHash": "ffe7b48e9955edee9f61920e5210c6cff250cbf883d48b09a5485b8373c9fac9",
+      "sourceStable": true,
+      "outputSha256": "cafd209ecdb33bbc4a93685d6143d6e14d8e09c492e25faf0a71987b627bb524",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 110,
+        "max": 252,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:06:48.301Z",
+        "detail": "original",
+        "observation": "Large shutter emblem is centered on the shutter owning face and follows its corrugated perspective; paired bars and open straight diagonals. People, toolbox, garage and waterfront composition preserved. Actual partial alpha retained with modest fade variance and no scenery loss.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "attempts": [
+        {
+          "id": "ch08-victory-cut04",
+          "source": "public/assets/story/scenes/ch08-victory-cut04.png",
+          "output": "public/assets/story/scenes/ch08-victory-cut04-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "ffe7b48e9955edee9f61920e5210c6cff250cbf883d48b09a5485b8373c9fac9",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 940
+          },
+          "sourceAlpha": {
+            "min": 77,
+            "max": 245,
+            "nonOpaque": 1571680,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:36:51.037Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the large red painted mark on the central corrugated workshop shutter with the exact reference emblem, retaining corrugation and lighting. Keep both waving characters, raised hands, toolbox, garage car and shoreline composition unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the existing dark bottom dialogue fade. Only the designated emblem changes. Match existing pixel art. Preserve the source image actual alpha/translucency, including the bottom dialogue fade. Keep the entire background and complete rectangular scene: do not cut out subjects, do not remove scenery, and do not add new transparent regions. Match the existing partial transparency across the scene; no flattened opaque replacement.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-092ec9dc-b0dc-40ac-a19e-d885f4aa31e7.png",
+          "generatedSha256": "8c96803b7a725e367a6a3fa8059acc43568b23fef71879cf8412b58c4f78af30",
+          "sourceCurrentHash": "ffe7b48e9955edee9f61920e5210c6cff250cbf883d48b09a5485b8373c9fac9",
+          "sourceStable": true,
+          "outputSha256": "8c96803b7a725e367a6a3fa8059acc43568b23fef71879cf8412b58c4f78af30",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch12-victory-cut06",
+      "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+      "status": "accepted",
+      "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 221,
+        "max": 249,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+      "prompt": "Precise PNG transparency-preserving scene edit. Image1 is the target composition with already-corrected HIGH sleeve badge, image2 is the exact SORA emblem reference, image3 is the original scene whose subtle REAL PARTIAL ALPHA must be preserved. Preserve image1's exact scene content, all characters, faces, hair, poses, clothing, high badge placement, cassette recorder, car, sunset lake and framing. Keep the high sleeve badge centered where it is. Ensure its paired white bars/stem and straight lower white diagonal channels follow exact image2 and reach the red circle edge. Output must be genuine RGBA with the ENTIRE rectangular scene uniformly subtly translucent, approximately95% opacity (alpha235\u2013248), as image3. Do not make it alpha255 opaque. Do not extract people or background; all sky/mountains/lake/car/fabric pixels retain full RGB with subtle partial alpha. No holes, no cutouts, no bottom fade, no checkerboard, no solid replacement background. This is an almost-opaque full-scene overlay PNG, retaining original alpha behavior across the whole rectangle. Preserve 1672x941 composition.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-1226a6d0-4f5a-4f70-b622-2bb1642af68c.png",
+      "generatedSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+      "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+      "sourceStable": true,
+      "outputSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 190,
+        "max": 249,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T14:17:55.164Z",
+        "detail": "original",
+        "observation": "Root full-image reassessment accepts v6: sleeve badge materially centered within actual visible upper-arm panel from shoulder seam\u2248610 through sleeve\u2248930, badgecenter\u2248755. Straight-bar/channels geometry recognizable with stitched circular border. Full scene and actual subtly translucent alpha190\u2013249 preserved; no holes/fade/scene loss. Earlier request to raise patch deemed unnecessary.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "secondReviewer": "/root",
+        "placementCentered": true
+      },
+      "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v5.png",
+      "editInputSha256": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+      "additionalReferences": [
+        {
+          "role": "original transparency reference",
+          "path": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "sha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907"
+        }
+      ],
+      "attempts": [
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:42:06.066Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the big inverse-color patch on the foreground red-jacket woman upper LEFT sleeve with the exact supplied emblem geometry in red channels on a white disk. Keep existing inverse colors. Move the patch about 30 pixels higher on the same sleeve so it sits fully above the bottom quarter. Long red diagonal channels MUST OPEN through the white circle edge, splitting off its bottom white wedge. Keep faces, car hood, cassette recorder and scenery unchanged.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the existing dark bottom dialogue fade. Only the designated emblem changes. Match existing pixel art. Preserve the source image actual alpha/translucency, including the bottom dialogue fade. Keep the entire background and complete rectangular scene: do not cut out subjects, do not remove scenery, and do not add new transparent regions. Match the existing partial transparency across the scene; no flattened opaque replacement.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-b4466dfb-c0e7-4ed6-8f21-bb98c668e762.png",
+          "generatedSha256": "ffee918a8768f77229235db55743930c36d4d9b15691102bbddb42b55b85b360",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "ffee918a8768f77229235db55743930c36d4d9b15691102bbddb42b55b85b360",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          }
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v3.png",
+          "status": "rejected-logo",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:14:51.045Z",
+          "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Replace ONLY the larger inverse-color patch on the woman upper left sleeve with exact normal reference colors RED disk and WHITE bars/cuts. Center it on that sleeve panel and move slightly upward to lie fully above bottom quarter, following fabric tilt. Keep the hood, recorder, faces, and scene unchanged. Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt.  IMPORTANT: real RGBA PNG with subtle actual translucency everywhere like source: alpha about235 to249 across all scene including bottom. Do NOT flatten alpha to255. No bottom fade added, no transparent holes, no erased scene. Preserve full rectangular composition and scenery.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-0bd6dece-dde2-4e14-93bb-5462ed96668b.png",
+          "generatedSha256": "392ef431f75e39863d3ffb21a279feca6c55de26563e1b3c274359261fcb3bd8",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "392ef431f75e39863d3ffb21a279feca6c55de26563e1b3c274359261fcb3bd8",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 157,
+            "max": 248,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "Sleeve retains red margin between white diagonals and disk rim; alpha exists but mark geometry is enclosed."
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v4.png",
+          "status": "rejected-placement",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:32:26.090Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit, image 2 is the exact supplied SORA logo reference. Copy the geometric logo silhouette: two equally long, straight white horizontal bars, a short white central stem, and two long straight white diagonal channels that OPEN THROUGH the red disk circumference at lower left and right. The bottom red wedge must be disconnected from the upper red disk. No typed character, curved legs, extra chevron, border circle or margin outside diagonal tips. Preserve exact characters, identities, facial expressions, poses, props, printed text, lighting and camera framing. Replace the woman's generic inverse-color sleeve badge with a NORMAL RED disk and WHITE reference geometry on her red jacket upper arm. Center this badge on the physical upper sleeve panel, above the elbow, around x370 y680 in the 1672x941 frame, approximately100 pixels wide. It must be fully above the bottom quarter, follow the sleeve tilt and curvature, and have reference diagonal channels all the way out to the red edge. Erase the old lower sleeve badge if relocating. Preserve her smaller chest badge, both faces and poses, car, cassette recorder, mountain lake and sunset. CRITICAL: output real partial-alpha PNG as in the original: the ENTIRE scene is subtly translucent, typically alpha235\u2013248, original min221max249. Preserve this subtle even alpha without adding a bottom fade or cutting away any scene. No backdrop removal, no transparent holes, no checkerboard, no opacity255 flattening.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-3c889a99-68eb-4670-a0ba-fcf313bc2453.png",
+          "generatedSha256": "44c3c6fbb3c41c5da606e631fe92ec677a8a6876003e286241fb8fada712c184",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "44c3c6fbb3c41c5da606e631fe92ec677a8a6876003e286241fb8fada712c184",
+          "outputDimensions": {
+            "width": 1671,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 29,
+            "max": 249,
+            "nonOpaque": 1572411,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "Geometry now reaches red-disk edge, thin outline acceptable, but entire sleeve patch still below bottom-quarter threshold despite requested y680."
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v5.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Image1 exact cutscene; image2 exact SORA logo reference. Change only the woman's left upper-arm patch. Remove the old cream patch low on her sleeve. Place a normal red disk with the white image2 geometric mark MUCH HIGHER on the upper shoulder/sleeve, center x363,y659, diameter80pixels, entirely between y619\u2013699, centered on the physical sleeve panel just below the shoulder seam. The new logo must be about115pixels higher than old patch. Copy two equal straight white bars/stem and long straight diagonal white cuts all the way through red disk edge; detached bottom wedge, no border ring, no enclosed legs. Preserve exact framing, all characters/faces/clothing except patch, cassette deck on hood, car and sunset lake. Preserve original subtle actual partial transparency alpha221\u2013249 across the entire scene, not fully opaque and not a cutout. Do not add a dark fade anywhere, no holes, no checkerboard. Full scenery remains present with almost-uniform95% opacity in genuine RGBA.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-6f9731e6-6cb8-4eca-8d81-2f55ba782582.png",
+          "generatedSha256": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v5 placement improved but source partial transparency flattened to alpha255."
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+          "status": "rejected-placement",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Precise PNG transparency-preserving scene edit. Image1 is the target composition with already-corrected HIGH sleeve badge, image2 is the exact SORA emblem reference, image3 is the original scene whose subtle REAL PARTIAL ALPHA must be preserved. Preserve image1's exact scene content, all characters, faces, hair, poses, clothing, high badge placement, cassette recorder, car, sunset lake and framing. Keep the high sleeve badge centered where it is. Ensure its paired white bars/stem and straight lower white diagonal channels follow exact image2 and reach the red circle edge. Output must be genuine RGBA with the ENTIRE rectangular scene uniformly subtly translucent, approximately95% opacity (alpha235\u2013248), as image3. Do not make it alpha255 opaque. Do not extract people or background; all sky/mountains/lake/car/fabric pixels retain full RGB with subtle partial alpha. No holes, no cutouts, no bottom fade, no checkerboard, no solid replacement background. This is an almost-opaque full-scene overlay PNG, retaining original alpha behavior across the whole rectangle. Preserve 1672x941 composition.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-1226a6d0-4f5a-4f70-b622-2bb1642af68c.png",
+          "generatedSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 190,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v6 reverted high sleeve placement from edit input to lower position from original alpha reference; added outlined marks with enclosed legs.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v5.png",
+          "editInputSha256": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+          "additionalReferences": [
+            {
+              "role": "original transparency reference",
+              "path": "public/assets/story/scenes/ch12-victory-cut06.png",
+              "sha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907"
+            }
+          ]
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v7.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Use case: precise-object-edit. Edit image1, which is a sunset pixel-art cutscene with a high shoulder logo. Use image2 only as the exact emblem geometry reference. Preserve the entire image1 composition unchanged. Keep the existing high shoulder red/white disk exactly in its current place, directly below the woman's shoulder seam; extend its two straight white lower diagonal strokes the last few pixels until they cut fully through the red disk edge. No added outlines, no moving the patch down, no other logos added. Output this entire rectangular scene as a genuine RGBA PNG with 95% opacity throughout, including sky, landscape, characters and car: every pixel subtly translucent, about alpha242. This is an overlay image, so use real alpha and preserve ALL image content. No cutouts or holes, no background removal, no bottom fade, no painted checkerboard. All RGB scene details and framing unchanged.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-f320cc24-cf50-488b-86ce-809398bdcc13.png",
+          "generatedSha256": "096239f788e35796d5df69e75d6793637d89bb2225f3504270c138ac572fb1b8",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "096239f788e35796d5df69e75d6793637d89bb2225f3504270c138ac572fb1b8",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v7 retained high patch but alpha request ignored, output all255.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v5.png",
+          "editInputSha256": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+          "additionalReferences": []
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v8.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Local image edit, preserve real PNG alpha. Image1 is the scene to edit, image2 exact SORA reference. Move the woman's large red/white sleeve badge UP BY100PIXELS along the upper arm to the area directly under shoulder seam, center aroundx360,y660. Clear its old lower location. Use the image2 silhouette without a white border ring: paired equal straight bars, short stem, and long straight white diagonal cuts to red disk edge. Center the patch on its physical sleeve panel and follow its perspective. Leave smaller chest badge and every other scene content unchanged. Preserve all characters/faces/poses/cassette/car/landscape/framing. CRITICAL preserve image1's existing genuine RGBA alpha190\u2013249 across whole rectangular scene: subtly translucent everywhere. Keep actual partial opacity exactly in spirit, no flattening to alpha255, no new holes, no background extraction and no bottom fade. Retain image1 real transparency; output RGBA PNG.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-a27e3e45-a801-4856-8613-1465535d080e.png",
+          "generatedSha256": "a313aaf4c4ff9d54af65b06c3bc78cbfdcd41739098b70d6a7dc8e188eddcc30",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "a313aaf4c4ff9d54af65b06c3bc78cbfdcd41739098b70d6a7dc8e188eddcc30",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v8 flattened partial-alpha edit input to255 despite trueflag and explicit opacity preservation.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+          "editInputSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+          "additionalReferences": []
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v9.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Make image1 a softly TRANSLUCENT full-scene image overlay on a truly transparent canvas, preserving every scene detail. This is not an opaque picture: its sky, people, clothing, car and ground all must have slight real translucency so another background can show through each pixel. Target roughly90\u201395% opacity across entire image, with gently lower opacity at the extreme frame edge. Keep full rectangular scene visible; do not cut out any objects, do not create holes, do not paint checkerboard, and do not introduce a bottom fade. Keep the exact image1 scene and its high sleeve logo placement. Image2 exact SORA logo reference only: preserve straight paired bars and straight diagonal channels touching the circle edge. Preserve characters, faces, pose, cassette, car, lake, sunset, exact crop. Save actual transparent-alpha RGBA PNG.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-6273b0c2-bf27-45d2-980c-bf562eb271ae.png",
+          "generatedSha256": "0874506e33e5a7db102508c7dd8593e248085e017d23a1bb868054cf27a9d0ef",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "0874506e33e5a7db102508c7dd8593e248085e017d23a1bb868054cf27a9d0ef",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 0,
+            "max": 255,
+            "nonOpaque": 1573333,
+            "fullyTransparent": 1266
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v9 created large transparent sky holes and changed scene painting, not acceptable genuine subtle alpha preservation.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v8.png",
+          "editInputSha256": "a313aaf4c4ff9d54af65b06c3bc78cbfdcd41739098b70d6a7dc8e188eddcc30",
+          "additionalReferences": []
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v10.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Edit image1 only. Replace the woman's left upper-arm logo with exact supplied image2 red disk/white geometric SORA emblem, 90pxwide, moved upward to be centered just under her shoulder seam atx363,y660. Two equal white straight bars, stem, long white straight diagonal channels all the way to circle edge. Follow sleeve surface; no border ring. Preserve original scene exactly: people, expressions, cassette, hood, chest badge, lake, sunset and camera crop. Image1 has actual subtle transparency alpha221\u2013249 everywhere; preserve that genuine partially transparent RGBA image. Keep full scenery and RGB at their original relative opacity. No cutout, no skyholes, no bottomfade, no checkerboard, no flattening to opaque alpha255.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-b7408280-abe6-4f70-814f-60a498f14291.png",
+          "generatedSha256": "9d5dde9258627cfa0551460a76513b625aec6be5e129a4f599a66a2105b25bc7",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "9d5dde9258627cfa0551460a76513b625aec6be5e129a4f599a66a2105b25bc7",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v10 all255 output loses original subtle scene opacity.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "editInputSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "additionalReferences": []
+        },
+        {
+          "id": "ch12-victory-cut06",
+          "source": "public/assets/story/scenes/ch12-victory-cut06.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut06-logo-v11.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 221,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:44:05.311Z",
+          "prompt": "Image1 is the exact subtly transparent sunset scene. Edit ONLY the red/white emblem printed on the white car hood at left. Replace its generic character with exact image2 SORA geometric shape. Place it on the hood longitudinal centerline between the real hood edges, projected in perspective. Its TOP faces rearward toward windshield (upper-right) and bottom faces front bumper (lower-left); axis angles down-left with the actual hood plane. The red circle and internal white bars/stem/open diagonal channels must share the SAME plane and perspective, not screen upright. Keep size and existing physical area on hood similar. No crooked pasted logo. Preserve every character/face/pose/garment and badge, cassette deck, car, lake, sunset and full framing. Preserve image1 actual subtle transparency everywhere, real alpha190\u2013249, full scenery visible. No background removal, no new holes, no bottomfade, no flattening. Transparent RGBA output maintaining existing alpha.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-7b69969d-0746-466a-ae99-dda9ea47f814.png",
+          "generatedSha256": "93f2cfe028f2b85fcbfab0a44209d1ec2fc84e00952c4b69489b4c3d2e54ab96",
+          "sourceCurrentHash": "471edfb43c47ae2c9f6706e7d0d4ed8f44fff1e9f0a732b599f68008d26c0907",
+          "sourceStable": true,
+          "outputSha256": "93f2cfe028f2b85fcbfab0a44209d1ec2fc84e00952c4b69489b4c3d2e54ab96",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          },
+          "rejection": "v11 removed sky and replaced it with checkerboard, rejected. Generation already in flight when root accepted v6.",
+          "editInput": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+          "editInputSha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+          "additionalReferences": []
+        }
+      ],
+      "rootReassessment": "Root accepts v6 on full image: existing sleeve position is centered in actual upper-arm panel and recognizable long channels with stitched border. Higher placement unnecessary.",
+      "editInputCurrentHash": "e7aeb555d6768d00feb32b83f5eb8729c6f2487f97b4bfe4c5aa24d207b8c292",
+      "editInputStable": true
+    },
+    {
+      "id": "ch12-victory-cut07",
+      "source": "public/assets/story/scenes/ch12-victory-cut07.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut07-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "f76f3ad31f5af6a7a2f1a786a1e14b21774ea24e8b09331922f13f890eaf2614",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:06:49.384Z",
+      "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Replace the huge logo on the foreground red jacket BACK using normal reference colors: RED disk and WHITE channels. Remove the old inverse-color logo completely first. Place on the projected spine, centered between shoulder blades, following back seam. Keep the red garment and seam visible.  Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt. Output fully opaque alpha255 PNG like source.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-dbbd9cc0-03de-4d6e-af7f-e3d08e4b1a18.png",
+      "generatedSha256": "47686af25789a3fe9661e446f1be318855c48a60f4deec8d69551dca94e07ece",
+      "sourceCurrentHash": "f76f3ad31f5af6a7a2f1a786a1e14b21774ea24e8b09331922f13f890eaf2614",
+      "sourceStable": true,
+      "outputSha256": "47686af25789a3fe9661e446f1be318855c48a60f4deec8d69551dca94e07ece",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:31:40.828Z",
+        "detail": "original",
+        "observation": "Large normal-color back patch follows visible spine seam and fabric tilt, with two straight bars and open long diagonal channels. Full opaque source composition, man hand-to-chest, recorder on hood, and landscape preserved.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "attempts": [
+        {
+          "id": "ch12-victory-cut07",
+          "source": "public/assets/story/scenes/ch12-victory-cut07.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut07-logo-v2.png",
+          "status": "rejected-logo",
+          "sourceSha256": "f76f3ad31f5af6a7a2f1a786a1e14b21774ea24e8b09331922f13f890eaf2614",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:42:06.162Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the huge inverse-color logo on the foreground red jacket BACK with the exact supplied geometric shape in red channels on white disk. Preserve the jacket seam. The red diagonal channels MUST OPEN through the white circumference, detaching its lower white wedge. Preserve both faces, hand to chest, cassette and car hood.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the opaque dark bottom dialogue band. Only the designated emblem changes. Match existing pixel art. Produce a FULLY OPAQUE PNG: alpha 255 at every pixel, no transparency whatsoever.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-34809e85-ef66-417d-aa0c-ce5d88723ab9.png",
+          "generatedSha256": "44e2ad517d24a0eea80a7734eb0217fff59d409934481fed8b60ff1fccc62a05",
+          "sourceCurrentHash": "f76f3ad31f5af6a7a2f1a786a1e14b21774ea24e8b09331922f13f890eaf2614",
+          "sourceStable": true,
+          "outputSha256": "44e2ad517d24a0eea80a7734eb0217fff59d409934481fed8b60ff1fccc62a05",
+          "outputDimensions": {
+            "width": 1671,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Back logo added a second erroneous chevron and lost bottom wedge geometry."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch12-victory-cut08",
+      "source": "public/assets/story/scenes/ch12-victory-cut08.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut08-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "ac9758575a2d3c0f6e69f732d43b3281e6c626022a7b37f335cdd2e708f05fe7",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 5,
+        "max": 249,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:14:51.208Z",
+      "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Replace ONLY left car-door red logo with the exact reference and center on the visible door panel with balanced margins. Preserve the car-door perspective, its shape, both people, reaching hands and foreground edge. Keep right man naturally blurred. Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt.  IMPORTANT: export genuine RGBA PNG alpha, not a flattened opaque RGB picture. Preserve source partial transparency. Keep all scenery and every pixel region of the full rectangular scene; NEVER erase skyline/clouds or create transparent holes. Background should remain around95 percent opacity and existing bottom foreground fade may retain lower alpha. This is a complete scene with a soft alpha fade, not an isolated subject. No checkerboard.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-6ab0807c-5867-4d0e-96e5-73c1731847c2.png",
+      "generatedSha256": "02c956c180ed9e22c5384bd6d839017e28ca8104fc3a45b77de4fe3744d3f6ea",
+      "sourceCurrentHash": "ac9758575a2d3c0f6e69f732d43b3281e6c626022a7b37f335cdd2e708f05fe7",
+      "sourceStable": true,
+      "outputSha256": "02c956c180ed9e22c5384bd6d839017e28ca8104fc3a45b77de4fe3744d3f6ea",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 1167
+      },
+      "byteExactCopy": true,
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:31:41.197Z",
+        "detail": "original",
+        "observation": "Left car-door emblem centered in its visible panel, straight paired bars and long diagonal channels through the red disk edge. Full scene, hands, faces, car and background preserved. Actual alpha and bottom fade retained; upper-right dark blur already very transparent in source remains soft, with 1167 fully transparent edge pixels versus original min alpha5 and no meaningful scene loss.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      },
+      "attempts": [
+        {
+          "id": "ch12-victory-cut08",
+          "source": "public/assets/story/scenes/ch12-victory-cut08.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut08-logo-v2.png",
+          "status": "rejected-alpha",
+          "sourceSha256": "ac9758575a2d3c0f6e69f732d43b3281e6c626022a7b37f335cdd2e708f05fe7",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 5,
+            "max": 249,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T03:42:06.322Z",
+          "prompt": "Precise localized scene edit. Image 1 is the exact scene, image 2 is the exact SORA emblem reference. Replace the red circle on the LEFT white car door with the exact reference emblem. It must clearly show the open long diagonal channels, with no red rim across their ends. Preserve the woman reaching across, both hands, the blurred man, scenic backdrop and foreground edge.  The reference is a cut-out geometric disk, NOT a typed character: copy the two equally long horizontal white rectangular bars, central vertical white connector, and two long straight diagonal white channels. Each diagonal must cross and completely break the outer circumference: there is NO red rim connecting the bottom red triangular wedge to the upper red disk. The bottom red wedge is a detached island between the white channels. Make this clearly visible. Preserve all scene composition, all faces/poses, clothing, props, printed papers, scenery, lighting, exact camera framing and the existing dark bottom dialogue fade. Only the designated emblem changes. Match existing pixel art. Preserve the source image actual alpha/translucency, including the bottom dialogue fade. Keep the entire background and complete rectangular scene: do not cut out subjects, do not remove scenery, and do not add new transparent regions. Match the existing partial transparency across the scene; no flattened opaque replacement.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-e459c63c-4779-4152-a215-dc5b884250c7.png",
+          "generatedSha256": "308c21b38e3f041517c15d3707e3464e6dd114db1ca82109dbc45f020979d870",
+          "sourceCurrentHash": "ac9758575a2d3c0f6e69f732d43b3281e6c626022a7b37f335cdd2e708f05fe7",
+          "sourceStable": true,
+          "outputSha256": "308c21b38e3f041517c15d3707e3464e6dd114db1ca82109dbc45f020979d870",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "visualQA": {
+            "reviewer": "/root/expanded_logo_audit_c",
+            "detail": "original",
+            "observation": "Output flattened real source translucency to alpha255."
+          }
+        }
+      ]
+    },
+    {
+      "id": "ch12-victory-cut09",
+      "source": "public/assets/story/scenes/ch12-victory-cut09.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut09-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "94e6beb297c75d67f9fdfa6a38058fc8845a068555d0b2ced3f636e066c31bf7",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "sourcePinnedAt": "2026-09-26T13:32:26.208Z",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit; image 2 is the exact SORA emblem reference. On the man's cream jacket, replace ONLY his existing chest logo above the word SORA. Make it a clearly legible 100-pixel diameter red/white badge, centered on the existing chest panel, aligned with its perspective. Copy the reference silhouette exactly: two equal straight horizontal white bars connected by a short stem; from the lower bar two LONG STRAIGHT white diagonal channels extend ALL THE WAY THROUGH THE RED CIRCLE EDGE. The lower red triangular wedge is detached from the upper disk by those white channels. The logo is geometric, NOT a typed Chinese/Japanese character. No curved legs, no red margin outside the two diagonal tips. Keep SORA lettering, all faces, bodies, hands, cassette recorder, car, lake, mountain and exact camera crop unchanged. Fully opaque 1672x941 image: EVERY pixel alpha 255. The original has no transparency; do not fade the scene, do not extract a cutout, do not create a transparent background.",
+      "transparentBackground": false,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-1b38d501-7f21-460c-8a90-878d1db44812.png",
+      "generatedSha256": "c132e6618922c0f90072f5551fc483551212e2cd1026c2038188e70f9a684d30",
+      "sourceCurrentHash": "94e6beb297c75d67f9fdfa6a38058fc8845a068555d0b2ced3f636e066c31bf7",
+      "sourceStable": true,
+      "outputSha256": "c132e6618922c0f90072f5551fc483551212e2cd1026c2038188e70f9a684d30",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0
+      },
+      "byteExactCopy": true,
+      "rejection": "Chest patch remains generic curved short legs enclosed within red circle.",
+      "attempts": [
+        {
+          "id": "ch12-victory-cut09",
+          "source": "public/assets/story/scenes/ch12-victory-cut09.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut09-logo-v2.png",
+          "status": "rejected-logo",
+          "sourceSha256": "94e6beb297c75d67f9fdfa6a38058fc8845a068555d0b2ced3f636e066c31bf7",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "sourcePinnedAt": "2026-09-26T13:06:49.499Z",
+          "prompt": "Precise local image edit: image1 is the exact scene, image2 is the supplied exact SORA emblem. Replace the red circle emblem on the white-jacket man chest above SORA lettering with the exact reference, same centered badge position on that chest panel. Make the open diagonals clearly readable. Leave SORA letters and recorder/hand precisely unchanged.  Copy the supplied geometric silhouette, never a typed character: two equal straight white bars, short central white stem, and two LONG STRAIGHT white diagonal channels that cut THROUGH the red disk circumference at lower left/right. NO red rim can connect the bottom red wedge to the upper disk. Do not add chevrons or extra stripes. Preserve all characters, faces, poses, hands, props, printed papers, camera framing and scenery. Center each emblem on its physical owning surface with perspective and fabric tilt. Output fully opaque alpha255 PNG like source.",
+          "transparentBackground": false,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-c620235d-dce4-41ba-8abc-b5561c93b658.png",
+          "generatedSha256": "95e5e4d56947ca4826aa90a365e2cf6a10200838f48f3fe1770a33136b31435e",
+          "sourceCurrentHash": "94e6beb297c75d67f9fdfa6a38058fc8845a068555d0b2ced3f636e066c31bf7",
+          "sourceStable": true,
+          "outputSha256": "95e5e4d56947ca4826aa90a365e2cf6a10200838f48f3fe1770a33136b31435e",
+          "outputDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 255,
+            "max": 255,
+            "nonOpaque": 0,
+            "fullyTransparent": 0
+          },
+          "byteExactCopy": true,
+          "rejection": "Chest patch remains generic curved short legs enclosed within red circle."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:36:03.427Z",
+        "detail": "original",
+        "observation": "Chest badge above preserved SORA lettering is centered on the cream jacket panel, with two straight bars and long straight lower diagonal channels meeting red disk circumference. All faces, hands, recorder, car and lake scene preserved; decoded alpha255 matches fully opaque source.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      }
+    },
+    {
+      "id": "ch12-victory-cut11",
+      "source": "public/assets/story/scenes/ch12-victory-cut11.png",
+      "output": "public/assets/story/scenes/ch12-victory-cut11-logo-v3.png",
+      "status": "accepted",
+      "sourceSha256": "cd6d38c8e1024f0ebe2c1c4424c82c54436558ace8081a1628358b0356d67bb9",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 0,
+        "max": 252,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 3572
+      },
+      "sourcePinnedAt": "2026-09-26T13:44:05.369Z",
+      "prompt": "Image1 is exact scene; image2 exact geometric SORA reference. Replace ONLY the man's back logo with a 76pixel-wide red and white copy of reference, centered on his projected spine between shoulderblades. Make white straight diagonal cutouts go all the way THROUGH lower red disk contour, exactly as reference: bottom red wedge physically detached by white channels. Two equal straight white bars plus short stem. Do not type a character; no short enclosed legs. Center the expanded disk on his actual back panel, retain garment tilt. Preserve exact two people, joined hands, car, cups, cassette, full lake/mountain/sky/road and camera framing. Preserve real original RGBA transparency and bottom road soft fade, upper scene about90\u201398% opacity, bottomquarter gradually fading to near0% opacity at edge. Keep all scenery RGB, no background extraction, no holes in sky or mountains, no checkerboard or opaque black replacement.",
+      "transparentBackground": true,
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-b3326684-1ae8-4ffb-a1dd-b549244a64d6.png",
+      "generatedSha256": "004a27007e7f878267e4878357ea517bbea6beb8224217893e40b6e2d326ad54",
+      "sourceCurrentHash": "cd6d38c8e1024f0ebe2c1c4424c82c54436558ace8081a1628358b0356d67bb9",
+      "sourceStable": true,
+      "outputSha256": "004a27007e7f878267e4878357ea517bbea6beb8224217893e40b6e2d326ad54",
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 36807
+      },
+      "byteExactCopy": true,
+      "rejection": "Straight bars now clear but lower diagonal tips still short enclosed within red rim.",
+      "attempts": [
+        {
+          "id": "ch12-victory-cut11",
+          "source": "public/assets/story/scenes/ch12-victory-cut11.png",
+          "output": "public/assets/story/scenes/ch12-victory-cut11-logo-v2.png",
+          "status": "rejected-logo",
+          "sourceSha256": "cd6d38c8e1024f0ebe2c1c4424c82c54436558ace8081a1628358b0356d67bb9",
+          "sourceDimensions": {
+            "width": 1672,
+            "height": 941
+          },
+          "sourceAlpha": {
+            "min": 0,
+            "max": 252,
+            "nonOpaque": 1573352,
+            "fullyTransparent": 3572
+          },
+          "sourcePinnedAt": "2026-09-26T13:32:26.353Z",
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact scene to edit, image 2 is the exact supplied SORA logo reference. Copy the geometric logo silhouette: two equally long, straight white horizontal bars, a short white central stem, and two long straight white diagonal channels that OPEN THROUGH the red disk circumference at lower left and right. The bottom red wedge must be disconnected from the upper red disk. No typed character, curved legs, extra chevron, border circle or margin outside diagonal tips. Preserve exact characters, identities, facial expressions, poses, props, printed text, lighting and camera framing. Replace the small generic red logo on the man's cream jacket back with the supplied red/white emblem, roughly58pixels tall, centered on his projected spine between shoulder blades beneath the collar. Its vertical axis follows his leaning jacket back, not screen vertical. Keep woman, man, their joined hands, car, cups, cassette recorder, roadside barriers and complete lake mountain forest composition exactly unchanged. CRITICAL output actual RGBA partial transparency, preserving the source's real broad dark-road bottom fade. Source upper/middle scene has alpha roughly225\u2013245; bottom quarter gradually fades toward alpha0 at the bottom edge. Preserve all scene RGB and scenery, including sky and mountain; this is a foreground overlay fade, NOT a subject cutout. No removal of scenery, no holes in sky or mountain, no opaque black rectangle, no baked checkerboard. Preserve actual transparent bottom edge.",
+          "transparentBackground": true,
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db80-8202-77b1-9b08-f9b39db47d89/exec-dc648efd-622e-4737-b6a5-b119ad102d57.png",
+          "generatedSha256": "3da26b074824df9df68e61003432626979f701b0286bba9fa266dee0624b7a3c",
+          "sourceCurrentHash": "cd6d38c8e1024f0ebe2c1c4424c82c54436558ace8081a1628358b0356d67bb9",
+          "sourceStable": true,
+          "outputSha256": "3da26b074824df9df68e61003432626979f701b0286bba9fa266dee0624b7a3c",
+          "outputDimensions": {
+            "width": 1671,
+            "height": 941
+          },
+          "outputAlpha": {
+            "min": 0,
+            "max": 253,
+            "nonOpaque": 1572411,
+            "fullyTransparent": 66789
+          },
+          "byteExactCopy": true,
+          "rejection": "Straight bars now clear but lower diagonal tips still short enclosed within red rim."
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/expanded_logo_audit_c",
+        "reviewedAt": "2026-09-26T13:51:55.965Z",
+        "detail": "original",
+        "observation": "Man cream-jacket back patch enlarged and centered on back panel below collar, straight equal bars and long white diagonals meet red disk edge with only pixel-scale edge texture. Couple hands, car, cups, recorder and entire landscape preserved. Genuine alpha0\u2013253 with broad original bottom road fade remains; transparent pixels confined to featureless bottom foreground.",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "alphaPreserved": true,
+        "placementCentered": true
+      }
+    }
+  ]
+}

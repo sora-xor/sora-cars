@@ -1,0 +1,92 @@
+{
+  "purpose": "Fresh illustration for every explicit camera cut; remaining chapter 4 cuts 47–51.",
+  "records": [
+    {
+      "index": 47,
+      "file": "scenes/ch04-intro-cut11.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-1243-7a92-b410-e571ece714ea/exec-9c78a473-1352-4fb5-aa64-e5770ca5b012.png",
+      "prompt": "Use case: illustration-story. Asset type: ONE NEW landscape 16:9 cutscene illustration for SORA CARS 1986, ch04-intro camera cut 11. Dialogue context (not image text): \"But I don’t want a new lock on the shutter. I want us to decide who we open it for.\"\nInput images: Image1 environment/style continuity reference only; Image2 exact SORA emblem supporting insert; Image3 if present character continuity reference. Primary request: Boardroom sunset. New shoulder-level close shot of Aki, a young Japanese woman with straight black bob, white tee, red mechanic coveralls tied at waist. She rises half out of her chair, firm but vulnerable, left hand lifting the small old garage key toward her own chest, right palm open toward the people across the table. Her face fills the upper left third; the upper right shows the dark doorway and soft silhouette of a cream-suited corporate woman. Focus on Aki choosing the garage's future. Red club ledger closed near her elbow. This is a tight emotional shot rather than the wide seated reference.\nStyle: rich crisp detailed 16-bit pixel art consistent with reference, natural anatomy and period-accurate Japanese 1986 setting. Composition must be newly staged from scratch with different camera position and action, not cropped/flipped/recolored reference. Keep all key storytelling action in upper 65%, lower 30% quiet and darker for UI dialogue. No UI, subtitles, borders, watermark, collage, modern props or invented writing. All surfaces without required emblem carry no readable text. Preserve exact emblem geometry. One full-frame image.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-left-v3.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch04-intro-cut11.png",
+      "tool": "built-in image_gen__imagegen",
+      "visualReview": "Passed: fresh composition, correct cast and action, 1986 props, distinct framing; no pseudo-writing.",
+      "sha256": "eec342b532e47937e63cb57c20fe67f51004ca63268a80d8487eb67a44a7a215",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2179186
+    },
+    {
+      "index": 48,
+      "file": "scenes/ch04-intro-cut12.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-1243-7a92-b410-e571ece714ea/exec-2fec6ec1-0f03-4be2-ab94-d018e194cb79.png",
+      "prompt": "Use case: illustration-story. Asset type: ONE NEW landscape 16:9 cutscene illustration for SORA CARS 1986, ch04-intro camera cut 12. Dialogue context (not image text): \"I did not build SORA X.O.R. to stop people trading. You cannot have it on those terms.\"\nInput images: Image1 environment/style continuity reference only; Image2 exact SORA emblem supporting insert; Image3 if present character continuity reference. Primary request: Boardroom sunset, entirely new tight diagonal composition focused on Yui, a young Japanese woman with brown ponytail and yellow work jacket over a light shirt. Her serious face is in upper right, eyes directed toward an offscreen negotiator; her right hand decisively withdraws a small boxed 1980s electronic SORA X.O.R. prototype from the contract area, other hand protects it. Device has simple circuit board, leads and knobs; the exact reference SORA emblem is a small badge on its side. The rejected contract is turned blank-side up, unsigned. Warm boardroom wood and sunset window. Yui is not the woman in cream suit; use image3 for her correct yellow-jacket identity. No modern computer.\nStyle: rich crisp detailed 16-bit pixel art consistent with reference, natural anatomy and period-accurate Japanese 1986 setting. Composition must be newly staged from scratch with different camera position and action, not cropped/flipped/recolored reference. Keep all key storytelling action in upper 65%, lower 30% quiet and darker for UI dialogue. No UI, subtitles, borders, watermark, collage, modern props or invented writing. All surfaces without required emblem carry no readable text. Preserve exact emblem geometry. One full-frame image.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-detail-v3.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/garage-wide-v2.png"
+      ],
+      "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch04-intro-cut12.png",
+      "tool": "built-in image_gen__imagegen",
+      "visualReview": "Passed: fresh composition, correct cast and action, 1986 props, distinct framing; no pseudo-writing.",
+      "sha256": "22ee9848eb9cb4eb0966cfd9962fc97a49a9125703c4589956bee6625dd93269",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2239902
+    },
+    {
+      "index": 49,
+      "file": "scenes/ch04-intro-cut13.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-1243-7a92-b410-e571ece714ea/exec-ef8a61db-a045-471f-b264-f497935777d9.png",
+      "prompt": "Use case: illustration-story. Asset type: ONE NEW landscape 16:9 cutscene illustration for SORA CARS 1986, ch04-intro camera cut 13. Dialogue context (not image text): \"We can still borrow the microphone at Nikko. Our answer does not have to stay in this room.\"\nInput images: Image1 environment/style continuity reference only; Image2 exact SORA emblem supporting insert; Image3 if present character continuity reference. Primary request: Boardroom sunset. New medium low-angle view from beside the doorway: Ren, a young Japanese man with tousled black hair, cream casual jacket over black tee and blue jeans, stands and calmly holds his small 1980s portable cassette recorder by its strap, offering a way to make their reply public. He faces Aki, whose black bob and red coveralls appear only as a small shoulder foreground edge. His face and recorder in upper two-thirds. Through the glass behind him, purple-orange sky and harbor silhouette. Exact reference SORA emblem on a jacket patch. Ren is not the suited man in image1; use image3 for Ren's proper cream-jacket identity. No text on recorder or paperwork.\nStyle: rich crisp detailed 16-bit pixel art consistent with reference, natural anatomy and period-accurate Japanese 1986 setting. Composition must be newly staged from scratch with different camera position and action, not cropped/flipped/recolored reference. Keep all key storytelling action in upper 65%, lower 30% quiet and darker for UI dialogue. No UI, subtitles, borders, watermark, collage, modern props or invented writing. All surfaces without required emblem carry no readable text. Preserve exact emblem geometry. One full-frame image.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/boardroom-right-v3.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/garage-wide-v2.png"
+      ],
+      "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch04-intro-cut13.png",
+      "tool": "built-in image_gen__imagegen",
+      "visualReview": "Passed: fresh composition, correct cast and action, 1986 props, distinct framing; no pseudo-writing.",
+      "sha256": "801d59b5955170e94cc92a20e4d8c26b1c7a5f3a13dcb09deb9f50eebc3dc8e6",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2205426
+    },
+    {
+      "index": 50,
+      "file": "scenes/ch04-intro-cut14.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-1243-7a92-b410-e571ece714ea/exec-6217810a-e5c0-4272-8d54-6e8e93185b7c.png",
+      "prompt": "Use case: illustration-story. Asset type: ONE NEW landscape 16:9 cutscene illustration for SORA CARS 1986, ch04-intro camera cut 14. Dialogue context (not image text): \"Tonight we race under our own name. The sign and the road home are not for sale.\"\nInput images: Image1 environment/style continuity reference only; Image2 exact SORA emblem supporting insert; Image3 if present character continuity reference. Primary request: Garage at violet dusk. New wide composition from OUTSIDE looking inward through the raised shutter, unlike the reference's outward view. Aki, black bob, red mechanic coveralls over white tee, stands at the open doorway with car keys held up gently, making a resolute declaration to Ren (tousled black hair, cream jacket), Yui (brown ponytail, yellow jacket), Mei (woman in denim with camera), Jun (man mint work shirt), and Daichi (man red headband/navy jacket). White 1980s hatchback inside in profile, hood now shut and ready to race. Upper central wall has a weathered red club banner carrying only exact SORA emblem from image2. No lettering. Warm workshop light behind group, lower third quiet dark asphalt with soft reflected light. All six adults correctly portrayed, no additional people.\nStyle: rich crisp detailed 16-bit pixel art consistent with reference, natural anatomy and period-accurate Japanese 1986 setting. Composition must be newly staged from scratch with different camera position and action, not cropped/flipped/recolored reference. Keep all key storytelling action in upper 65%, lower 30% quiet and darker for UI dialogue. No UI, subtitles, borders, watermark, collage, modern props or invented writing. All surfaces without required emblem carry no readable text. Preserve exact emblem geometry. One full-frame image.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/garage-wide-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch04-intro-cut14.png",
+      "tool": "built-in image_gen__imagegen",
+      "visualReview": "Passed: fresh composition, correct cast and action, 1986 props, distinct framing; no pseudo-writing.",
+      "sha256": "706c420d3d171106a304d83b5e7d7c4402c7bbe58328b6be10c47e6a0f5cb0ce",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2454533
+    },
+    {
+      "index": 51,
+      "file": "scenes/ch04-victory-cut06.png",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-1243-7a92-b410-e571ece714ea/exec-f54cf8d9-51f1-494b-bf8d-102446982945.png",
+      "prompt": "Use case: illustration-story. Asset type: ONE NEW landscape 16:9 cutscene illustration for SORA CARS 1986, ch04-victory camera cut 6. Dialogue context (not image text): \"Ren. Could you hear my voice shaking?\"\nInput images: Image1 environment/style continuity reference only; Image2 exact SORA emblem supporting insert; Image3 if present character continuity reference. Primary request: Autumn dawn at Nikko lake overlook. New close intimate portrait of Aki, black bob and red mechanic coveralls, turned almost face-on to camera while looking toward Ren just offscreen at right. She lightly clasps one hand over the other near her chest, trying to steady their trembling after speaking publicly; her expression combines relief, worry and tender trust. Only a narrow cream-jacket shoulder of Ren is visible on right. Lake and orange trees behind her in soft pixel detail, no mountain filling the composition. Small exact SORA emblem patch on Aki's chest. Face and hands upper 65 percent; quiet shadowed car fender lower third. Do not show kissing, no microphone, no added crowd.\nStyle: rich crisp detailed 16-bit pixel art consistent with reference, natural anatomy and period-accurate Japanese 1986 setting. Composition must be newly staged from scratch with different camera position and action, not cropped/flipped/recolored reference. Keep all key storytelling action in upper 65%, lower 30% quiet and darker for UI dialogue. No UI, subtitles, borders, watermark, collage, modern props or invented writing. All surfaces without required emblem carry no readable text. Preserve exact emblem geometry. One full-frame image.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/sunrise-left-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "target": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch04-victory-cut06.png",
+      "tool": "built-in image_gen__imagegen",
+      "visualReview": "Passed: fresh composition, correct cast and action, 1986 props, distinct framing; no pseudo-writing.",
+      "sha256": "05863a03373a8b693c87dc22f004d2c9f6e03ca4565e4b56c918cddf5ad16722",
+      "width": 1672,
+      "height": 941,
+      "bytes": 2331526
+    }
+  ]
+}

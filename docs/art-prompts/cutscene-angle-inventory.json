@@ -1,0 +1,2970 @@
+{
+  "version": 1,
+  "notes": "Existing assets are scene-level; all shot directions currently crop the same image. Line indexes and chapter numbers are 1-based; id is the zero-based game chapter ID.",
+  "counts": {
+    "chapters": 12,
+    "authoredCutscenes": 24,
+    "sharedRetryCutscenes": 1,
+    "dialogueLines": 301,
+    "contiguousShotRuns": 229,
+    "distinctSceneShotPairs": 32
+  },
+  "sceneShots": [
+    {
+      "scene": "boardroom",
+      "shot": "detail",
+      "lineCount": 9,
+      "speakers": [
+        "rei",
+        "yui",
+        "mei",
+        "celeste",
+        "aki"
+      ]
+    },
+    {
+      "scene": "boardroom",
+      "shot": "left",
+      "lineCount": 11,
+      "speakers": [
+        "yui",
+        "toru",
+        "aki",
+        "celeste"
+      ]
+    },
+    {
+      "scene": "boardroom",
+      "shot": "right",
+      "lineCount": 20,
+      "speakers": [
+        "rei",
+        "daichi",
+        "aki",
+        "celeste",
+        "toru",
+        "mei",
+        "ren",
+        "yui"
+      ]
+    },
+    {
+      "scene": "boardroom",
+      "shot": "wide",
+      "lineCount": 5,
+      "speakers": [
+        "rei",
+        "toru",
+        "celeste"
+      ]
+    },
+    {
+      "scene": "community",
+      "shot": "detail",
+      "lineCount": 1,
+      "speakers": [
+        "yui"
+      ]
+    },
+    {
+      "scene": "community",
+      "shot": "left",
+      "lineCount": 3,
+      "speakers": [
+        "jun",
+        "aki",
+        "daichi"
+      ]
+    },
+    {
+      "scene": "community",
+      "shot": "right",
+      "lineCount": 4,
+      "speakers": [
+        "yui",
+        "jun",
+        "toru",
+        "aki"
+      ]
+    },
+    {
+      "scene": "community",
+      "shot": "wide",
+      "lineCount": 5,
+      "speakers": [
+        "mei",
+        "yui"
+      ]
+    },
+    {
+      "scene": "garage",
+      "shot": "detail",
+      "lineCount": 7,
+      "speakers": [
+        "jun",
+        "yui",
+        "aki"
+      ]
+    },
+    {
+      "scene": "garage",
+      "shot": "left",
+      "lineCount": 20,
+      "speakers": [
+        "ren",
+        "aki",
+        "yui",
+        "daichi",
+        "rei",
+        "jun"
+      ]
+    },
+    {
+      "scene": "garage",
+      "shot": "right",
+      "lineCount": 12,
+      "speakers": [
+        "yui",
+        "ren",
+        "aki"
+      ]
+    },
+    {
+      "scene": "garage",
+      "shot": "wide",
+      "lineCount": 17,
+      "speakers": [
+        "aki",
+        "mei",
+        "yui",
+        "jun",
+        "daichi"
+      ]
+    },
+    {
+      "scene": "harbor",
+      "shot": "detail",
+      "lineCount": 6,
+      "speakers": [
+        "daichi",
+        "aki",
+        "toru",
+        "mei",
+        "rei"
+      ]
+    },
+    {
+      "scene": "harbor",
+      "shot": "left",
+      "lineCount": 18,
+      "speakers": [
+        "daichi",
+        "aki",
+        "ren",
+        "rei"
+      ]
+    },
+    {
+      "scene": "harbor",
+      "shot": "right",
+      "lineCount": 17,
+      "speakers": [
+        "mei",
+        "daichi",
+        "jun",
+        "rei",
+        "aki",
+        "toru"
+      ]
+    },
+    {
+      "scene": "harbor",
+      "shot": "wide",
+      "lineCount": 9,
+      "speakers": [
+        "daichi",
+        "ren",
+        "aki",
+        "toru"
+      ]
+    },
+    {
+      "scene": "ledger",
+      "shot": "detail",
+      "lineCount": 17,
+      "speakers": [
+        "mei",
+        "aki",
+        "jun",
+        "yui",
+        "rei",
+        "daichi"
+      ]
+    },
+    {
+      "scene": "ledger",
+      "shot": "left",
+      "lineCount": 2,
+      "speakers": [
+        "aki"
+      ]
+    },
+    {
+      "scene": "ledger",
+      "shot": "right",
+      "lineCount": 10,
+      "speakers": [
+        "jun",
+        "rei",
+        "yui",
+        "aki",
+        "daichi",
+        "mei"
+      ]
+    },
+    {
+      "scene": "ledger",
+      "shot": "wide",
+      "lineCount": 3,
+      "speakers": [
+        "aki",
+        "mei"
+      ]
+    },
+    {
+      "scene": "office",
+      "shot": "detail",
+      "lineCount": 7,
+      "speakers": [
+        "rei",
+        "mei",
+        "ren"
+      ]
+    },
+    {
+      "scene": "office",
+      "shot": "left",
+      "lineCount": 1,
+      "speakers": [
+        "aki"
+      ]
+    },
+    {
+      "scene": "office",
+      "shot": "right",
+      "lineCount": 3,
+      "speakers": [
+        "rei"
+      ]
+    },
+    {
+      "scene": "office",
+      "shot": "wide",
+      "lineCount": 1,
+      "speakers": [
+        "rei"
+      ]
+    },
+    {
+      "scene": "radio",
+      "shot": "detail",
+      "lineCount": 11,
+      "speakers": [
+        "yui",
+        "daichi",
+        "ren",
+        "aki",
+        "jun"
+      ]
+    },
+    {
+      "scene": "radio",
+      "shot": "left",
+      "lineCount": 24,
+      "speakers": [
+        "ren",
+        "aki",
+        "mei",
+        "jun"
+      ]
+    },
+    {
+      "scene": "radio",
+      "shot": "right",
+      "lineCount": 23,
+      "speakers": [
+        "ren",
+        "yui",
+        "aki"
+      ]
+    },
+    {
+      "scene": "radio",
+      "shot": "wide",
+      "lineCount": 7,
+      "speakers": [
+        "ren",
+        "jun"
+      ]
+    },
+    {
+      "scene": "sunrise",
+      "shot": "detail",
+      "lineCount": 2,
+      "speakers": [
+        "yui",
+        "daichi"
+      ]
+    },
+    {
+      "scene": "sunrise",
+      "shot": "left",
+      "lineCount": 11,
+      "speakers": [
+        "aki",
+        "mei",
+        "daichi",
+        "ren"
+      ]
+    },
+    {
+      "scene": "sunrise",
+      "shot": "right",
+      "lineCount": 6,
+      "speakers": [
+        "daichi",
+        "ren",
+        "mei",
+        "aki"
+      ]
+    },
+    {
+      "scene": "sunrise",
+      "shot": "wide",
+      "lineCount": 9,
+      "speakers": [
+        "ren",
+        "mei",
+        "jun",
+        "daichi",
+        "aki"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "chapter": 1,
+      "id": 0,
+      "title": "Side B is still blank",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Welcome to SORA Garage. We can fix any car. The leaking roof is still waiting its turn."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "An opening present. Side A is for the mountain road. Side B is blank. We’ll record a good night on it."
+            },
+            {
+              "line": 3,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "That is a very sweet excuse for not finishing your playlist."
+            },
+            {
+              "line": 4,
+              "scene": "ledger",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "This is less sweet. They have called in the loan. Repay in three weeks, or surrender the workshop."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Two years since your father died. You only just put your own sign up."
+            },
+            {
+              "line": 6,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "I photographed that crown at the harbor. CROWN. I thought it was a sign for a new warehouse."
+            },
+            {
+              "line": 7,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Show me later. Right now I need a way to keep this shutter open."
+            },
+            {
+              "line": 8,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Repairs are booked through next month. Fix the lift and we could stop turning people away."
+            },
+            {
+              "line": 9,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "That crown reached our depot too. Free tomorrow? There is a car I want you to see."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Hakone first. Tonight’s club meet gives all three podium drivers some time on air."
+            },
+            {
+              "line": 11,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "If this is a broadcast asking people to pity me, I am not doing it."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I’m introducing a great mechanic. Terrible manners. Even her voice has engine oil on it."
+            },
+            {
+              "line": 13,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "If I make the podium, read out our booking number. That is all I need."
+            },
+            {
+              "line": 14,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Take the ten-millimeter socket. Bravado will not turn a nut."
+            },
+            {
+              "line": 15,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Dad kept this place going on his own. I can too."
+            },
+            {
+              "line": 16,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Then give me my tools back. After you get home will do. I’ll see you at Hakone."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "You did not smile on the podium. You smiled listening to the car afterward. That is the photo I took."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Third gear stopped catching. Please photograph the cleaner hand."
+            },
+            {
+              "line": 3,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Tonight’s messages for SORA Radio: three delivery-van inspections. We’re running out of paper by the phone."
+            },
+            {
+              "line": 4,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "One is mine. I’ll bring the car my brother and I were restoring. He has stopped coming to the garage."
+            },
+            {
+              "line": 5,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Are you missing parts?"
+            },
+            {
+              "line": 6,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "What we’re missing is somewhere we can stay next month. I’ll explain at the harbor."
+            },
+            {
+              "line": 7,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "I’ll leave the enlargement here. The garage and the harbor. The same crown on two doors."
+            },
+            {
+              "line": 8,
+              "scene": "ledger",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I’ll come and look tomorrow. Just once. I cannot stop work here."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Take the cassette home. Don’t fill side B without me. Let me choose one song."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "If it is a terrible song, I’m recording over it. Goodnight, Ren."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "id": 1,
+      "title": "Keep the harbor lights on",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "Taillights at night, milk crates in the morning. This is where the city starts moving."
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I’ll look at the car, then go. I have customers waiting too."
+            },
+            {
+              "line": 3,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I know. The blue one. My brother painted the fender. The color still doesn’t match."
+            },
+            {
+              "line": 4,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "In that redevelopment picture, the car and depot are gone. All the people, neatly erased too."
+            },
+            {
+              "line": 5,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "If this closes, his apprenticeship ends too. The car was meant to celebrate his first job."
+            },
+            {
+              "line": 6,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Daichi. Keeping my own workshop is already more than I can manage. I cannot carry the harbor too."
+            },
+            {
+              "line": 7,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "I’m not asking you to carry it. I wanted you to see what he is waiting for."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "He sent a postcard to my midnight show. “Play something that helps my brother sleep.”"
+            },
+            {
+              "line": 9,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "When Dad died, I thought everything would disappear if I slept. Sometimes I still do."
+            },
+            {
+              "line": 10,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "That doesn’t mean you should break down with your eyes open. You would have let the car rest by now."
+            },
+            {
+              "line": 11,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "If that car runs, I can take more night deliveries. Put something toward the renewal fee."
+            },
+            {
+              "line": 12,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "With these brakes? No. Before you add another car to tonight’s work, we fix this one."
+            },
+            {
+              "line": 13,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Can we invite the shopkeepers to tonight’s meet? I want to ask what they want in the photographs."
+            },
+            {
+              "line": 14,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "A harbor podium gets every courier listening. Whether they stay for my jokes is another matter."
+            },
+            {
+              "line": 15,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "We fix the car, then race. After that, I’ll listen. That is all I am promising."
+            },
+            {
+              "line": 16,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "That is enough. Thank you for coming."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "Canned coffee for everyone. Still warm. Collect this before your podium congratulations."
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Bring your brother’s car to the workshop tomorrow. Let him drive it before you put it on night deliveries."
+            },
+            {
+              "line": 3,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I will. Somehow I ended up holding the keys that were supposed to be his."
+            },
+            {
+              "line": 4,
+              "scene": "community",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "The owner asked to be photographed outside her shop. Her face was better than any redevelopment illustration."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Fishmonger, printer, depot. The calls about that crown have not stopped since the broadcast."
+            },
+            {
+              "line": 6,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I cannot ask all these people to save only my workshop. But where do we begin?"
+            },
+            {
+              "line": 7,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "Rei Sorashiro. My signature is on the assessment behind that crown."
+            },
+            {
+              "line": 8,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "What do you want from us? Forgiveness?"
+            },
+            {
+              "line": 9,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "rei",
+              "en": "First, there is something I need you to see. What I put my name to."
+            },
+            {
+              "line": 10,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "After closing tomorrow. I’ll hear you out. I am not promising forgiveness."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "id": 2,
+      "title": "Blueprint of a crown",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "The document I promised. CROWN’s initial assessment. I have not removed my signature."
+            },
+            {
+              "line": 2,
+              "scene": "office",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Someone who helped set my workshop’s deadline is sitting in front of me. I will still hear you out."
+            },
+            {
+              "line": 3,
+              "scene": "office",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "I believed it would create jobs. To get it approved, I made the objections look smaller."
+            },
+            {
+              "line": 4,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Leave that page there. I’m photographing what you did as well as the plan."
+            },
+            {
+              "line": 5,
+              "scene": "boardroom",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "The money comes through the Meridian Council, an international financial syndicate. Japanese developers are partners too."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "First they expand property lending. Once prices are high enough, they withdraw together."
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "So they can buy the workshops that cannot repay, cheaply?"
+            },
+            {
+              "line": 8,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "Then control of payments. A city where you cannot send wages unless a crown terminal allows it."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "They are taking more than the keys. Even the road home would belong to them."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Then we build another connection. This is my prototype. SORA X.O.R."
+            },
+            {
+              "line": 11,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Three terminals check the same exchange record. I want shops to use the tokens with each other. No crown’s permission."
+            },
+            {
+              "line": 12,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "More terminals need people willing to host them. I am not very good at asking."
+            },
+            {
+              "line": 13,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Your father did not buy this vise. He borrowed it from the body shop next door. It never went back."
+            },
+            {
+              "line": 14,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "I have used it every day for two years. I never even asked."
+            },
+            {
+              "line": 15,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "If you’re going to be like your father, learn how he asked for help too."
+            },
+            {
+              "line": 16,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Let’s find people at Hakone. This time, not just repair customers. I want us to build what comes next for the city."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "After the podium, I repaired an amplifier until dawn. So this is what finding allies looks like."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Five shops want a terminal. It is still a prototype, but the dream has left my desk."
+            },
+            {
+              "line": 3,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "One shop at a time. I’ll keep the recovery key. Somebody has to be responsible."
+            },
+            {
+              "line": 4,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "yui",
+              "en": "Show me any design changes. I don’t want circuits out there that I cannot repair."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "I checked with the harbor shopkeepers. The photographs, notices and Rei’s account fit. I’ll put my name on the article."
+            },
+            {
+              "line": 6,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "Keep my name in it too. Coming back from a race does not erase what I signed."
+            },
+            {
+              "line": 7,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Another invitation. Toru Amamiya wants to show us a new workshop. SORA’s name is travelling fast."
+            },
+            {
+              "line": 8,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I’ll go. I want to see the future he has drawn for us."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Then I’ll find a tie. Waiting for your answer already gets my throat tight enough."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Check your untied shoelace before your neck. Keep up, DJ."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "id": 3,
+      "title": "Across the midnight line",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "boardroom",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "Did you see the black car downstairs? I’m taking it to Nikko tonight. I prefer that work to negotiations."
+            },
+            {
+              "line": 2,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "Aki, this could be your workshop. Six lifts. A warehouse that keeps parts ready. Your SORA sign."
+            },
+            {
+              "line": 3,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "No leaking roof. No second job through the night. Honestly, I want it."
+            },
+            {
+              "line": 4,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Is the body shop next door in that drawing? The harbor depot?"
+            },
+            {
+              "line": 5,
+              "scene": "boardroom",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Celeste Vale. Meridian wants exclusive rights to SORA X.O.R. The workshop is what we offer in return."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "This red mark. You want the recovery key and the power to stop the network?"
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Without someone who can stop it, order cannot be guaranteed. A city needs someone in charge."
+            },
+            {
+              "line": 8,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "What happens to a shop that defies that person? Do you call it order when its terminal goes dark?"
+            },
+            {
+              "line": 9,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "My father’s factory closed because funding failed for one week. Nobody could save it."
+            },
+            {
+              "line": 10,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "toru",
+              "en": "I decided to become someone who could. I want to give you that power."
+            },
+            {
+              "line": 11,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I want it. I have drawn a workshop like this so many times. If it would mean never being scared again, yes."
+            },
+            {
+              "line": 12,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Aki. Don’t let this become another picture with our faces erased."
+            },
+            {
+              "line": 13,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "But I don’t want a new lock on the shutter. I want us to decide who we open it for."
+            },
+            {
+              "line": 14,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "I did not build SORA X.O.R. to stop people trading. You cannot have it on those terms."
+            },
+            {
+              "line": 15,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "We can still borrow the microphone at Nikko. Our answer does not have to stay in this room."
+            },
+            {
+              "line": 16,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Tonight we race under our own name. The sign and the road home are not for sale."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "The podium microphone is yours. Your usual mechanic’s voice will do. They’re listening."
+            },
+            {
+              "line": 2,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I’m Aki Soramoto, from SORA Garage. We are going to build SORA X.O.R. here, with this city."
+            },
+            {
+              "line": 3,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "So nobody can switch off our lives by withdrawing permission. Please help us."
+            },
+            {
+              "line": 4,
+              "scene": "sunrise",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "First, one more working terminal. Let’s warm up the soldering iron when we get back."
+            },
+            {
+              "line": 5,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I’ll talk to the harbor. And my brother. This time I’ll wait for his answer."
+            },
+            {
+              "line": 6,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "May I take a photograph? Not just the cars. Your faces, right now."
+            },
+            {
+              "line": 7,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Ren. Could you hear my voice shaking?"
+            },
+            {
+              "line": 8,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "A little. I’m shaking too. I’ll tell you the things that matter. From now on."
+            },
+            {
+              "line": 9,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Then I’ll leave side B blank a little longer. You can always hear when someone rushed a recording."
+            },
+            {
+              "line": 10,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "You two can finish watching the sunrise on the way home. The job ends when the borrowed tools are back."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "id": 4,
+      "title": "Rain, before a kiss",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "The forecast says sunshine. The window says downpour. On a synthesizer, I would check the wiring."
+            },
+            {
+              "line": 2,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "The bakery and the parts shop both have receipts. SORA X.O.R. just became somebody’s breakfast."
+            },
+            {
+              "line": 3,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "Celebrate, but print the receipts larger. The lady at my delivery stop told me off three times."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Then that is the first repair. My diagram forgot that people have to read it."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "I am taking the photographs to the harbor. Ren, I am leaving you two here. At least fix the leak."
+            },
+            {
+              "line": 6,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "Fixed it. Above Aki’s chair. My side of the room is becoming an ocean."
+            },
+            {
+              "line": 7,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Move your chair over. You do not have to sit that far away."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "This might be the first time you have offered me something that is not a tool."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Since Dad died, I keep dreaming of closing the garage. Letting someone in feels like having more to lose."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I am afraid to go off air. I think that if I stop talking, nobody will come looking for me."
+            },
+            {
+              "line": 11,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Yesterday you lost your voice, so I bought throat sweets. In your desk. I came looking for you."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "The cassette’s B-side is still blank. I wanted to record a day when we went somewhere together."
+            },
+            {
+              "line": 13,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "After the harbor meet, let us take the long way back. I want to talk to you without a microphone."
+            },
+            {
+              "line": 14,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "It is a date. Tonight’s podium interviews can introduce the shopkeepers too. Our voices are not enough."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "A podium finish. These two coffees are for the pair taking the long way home."
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "You did not have to say that loudly enough for the entire harbor."
+            },
+            {
+              "line": 3,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Stay here until the rain eases. Look, one umbrella is enough."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Your shoulder is soaked. Come closer."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "Aki. There is something I want to say without making a joke… Of course the phone rings now."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Mr. Sorai. Your mother’s payment holiday ends this month. Remember your obligations to our sponsor agreement."
+            },
+            {
+              "line": 7,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I cannot talk now. Yes. I understand."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Who was that? Your hands are shaking."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "The equipment company. Chasing a repair bill. Let us go home."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "All right. But next time, finish what you were going to say."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 6,
+      "id": 5,
+      "title": "The glass keep",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "boardroom",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Tokyo, London, New York. This city’s tomorrow is decided in three boardrooms. It is not decided on a mountain road."
+            },
+            {
+              "line": 2,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Is there a seat in any of those rooms for the people who live here?"
+            },
+            {
+              "line": 3,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "CROWN puts Japan at the center of a new world economic order. Join our clearing network and work and capital will follow."
+            },
+            {
+              "line": 4,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "yui",
+              "en": "And if someone is disconnected, they cannot get paid. You are selling permission to participate."
+            },
+            {
+              "line": 5,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "Your X.O.R. is attractive. Keep the SORA name. Give us control over issuance and access."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "toru",
+              "en": "Some things need scale to survive. Nobody with the power to help came for my father’s factory."
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "And in exchange for protection, we ask you every morning whether we may work?"
+            },
+            {
+              "line": 8,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Wait. That photograph in the proposal is mine. It was eviction day. You cropped it into a celebration."
+            },
+            {
+              "line": 9,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "We purchased the rights. That commission bought your new camera, did it not?"
+            },
+            {
+              "line": 10,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "mei",
+              "en": "Yes. Then I owe an explanation too. Leaving those people outside the frame was my work as well."
+            },
+            {
+              "line": 11,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "This is the implementation schedule I retained. Expansion dates, then coordinated withdrawals. These price rises were planned."
+            },
+            {
+              "line": 12,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "Release that and you lose your job. I could keep your name off the broadcast."
+            },
+            {
+              "line": 13,
+              "scene": "office",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "My name is in the approval box. Erase only that and I am doing the same thing again."
+            },
+            {
+              "line": 14,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Both camps race at Nikko tonight. A podium interview can announce our public briefing. We carry the originals separately."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "They stayed through our podium interview. The shopkeeper in that photograph is coming to the briefing."
+            },
+            {
+              "line": 2,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "You have not lifted your camera. That is a beautiful sky."
+            },
+            {
+              "line": 3,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "mei",
+              "en": "Today I ask first: how would you like to be remembered?"
+            },
+            {
+              "line": 4,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "I left copies of the schedule in two places. If I cannot come tomorrow, do not bury it."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "I will publish my design too. Give me one more night. There are still parts only I can repair."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Mr. Sorai. You gave us the relay locations. Break the agreement and we repossess the equipment."
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "You said we were supporting local radio. You never said you would take everyone’s stations away."
+            },
+            {
+              "line": 8,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "This side of the contract decides the use. Explain that to your mother too."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I will tell them myself on tomorrow’s broadcast."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Ren, are we driving home together? All right. I will go ahead. This time, I will wait for you."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 7,
+      "id": 6,
+      "title": "Two a.m., no signal",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "The tape is cued. Public broadcast at two. If one station stops, another can carry the rest."
+            },
+            {
+              "line": 2,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "If the other stations have the same equipment, they stop too. We should find another way."
+            },
+            {
+              "line": 3,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Postpone now? The harbor workers and Rei put their names forward for tonight."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "I know. That is why I need to—"
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "It will be all right. Your voice will reach them. We can record side B afterward. This time I will speak first."
+            },
+            {
+              "line": 6,
+              "scene": "ledger",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "The originals are checked. Include my photograph. Start with the part that makes us uncomfortable."
+            },
+            {
+              "line": 7,
+              "scene": "office",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "They told me to return my desk key. I no longer have a place there."
+            },
+            {
+              "line": 8,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "There is a seat in my car. You might have to share the footwell with a parcel."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "rei",
+              "en": "Thank you. Leaving does not erase my responsibility. I will stay to explain all of it."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Each shop has its X.O.R. records. But recovery after a relay failure still depends on me."
+            },
+            {
+              "line": 11,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "jun",
+              "en": "We divide that work when we return. Build a whole stage alone and you always miss a cable."
+            },
+            {
+              "line": 12,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Aki. After the race, I need you to listen. Before the broadcast. Promise me."
+            },
+            {
+              "line": 13,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "I promise. Tonight we drive home together. Nobody gets left behind."
+            },
+            {
+              "line": 14,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "First, a podium at Hakone. Tell the clubs when to tune in, then we all come back."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Two o’clock. The lights are gone. No relays answer. The equipment lessor is here to repossess the studio."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "They cut the garage power too. The records survive. But this arrangement cannot restart from here."
+            },
+            {
+              "line": 3,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "How did they know every relay location? Only we had that list."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I gave it to them. I signed with the sponsor to buy time for my mother’s debt. I hid it from you."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "That night in the rain? When I told you I was afraid? You knew then?"
+            },
+            {
+              "line": 6,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "I knew. I thought you would leave if I told you. Being afraid does not excuse what I did."
+            },
+            {
+              "line": 7,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "You hid the choice that should have been mine. I do not want you beside me right now."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I understand. I am leaving the contract and list. I wrote down exactly what I gave them."
+            },
+            {
+              "line": 9,
+              "scene": "ledger",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Aki, the CROWN records are safe. We cannot pretend tonight did not happen. But we have not lost everything."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Leave me alone for a little while. I cannot record side B tonight."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 8,
+      "id": 7,
+      "title": "Nobody crosses the night alone",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Would Dad have fixed it all in one night? The power, the radio… me."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "He was good at making it look that way. Open the bottom of the toolbox."
+            },
+            {
+              "line": 3,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "“Jack: borrowed from the grocer. Wiring: Jun. Picking Aki up: the neighbor.” What is this?"
+            },
+            {
+              "line": 4,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "jun",
+              "en": "His notebook of people to thank. Your father knew how to ask for help."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I was protecting his place by closing the door he always kept open."
+            },
+            {
+              "line": 6,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "jun",
+              "en": "When I left my band, I asked nobody for help either. That unfinished song is still in my drawer."
+            },
+            {
+              "line": 7,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Play it for us sometime. First… help me. I want to open the garage."
+            },
+            {
+              "line": 8,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I was waiting for that. I borrowed extension leads and lunch. You have a lot of people to thank."
+            },
+            {
+              "line": 9,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I am giving up the recovery key I kept. Each shop must be able to verify and restart without waiting for my permission."
+            },
+            {
+              "line": 10,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "yui",
+              "en": "I will share the design. We will repair the recovery procedure together. No blueprint that only I can touch."
+            },
+            {
+              "line": 11,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "My signed account. It includes what I approved for CROWN. Changing sides cannot be the end of my responsibility."
+            },
+            {
+              "line": 12,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I will wait outside. I borrowed replacement equipment. I will face the debt with my mother. I will not pledge you again."
+            },
+            {
+              "line": 13,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I do not know when I can forgive you. Still, tell everyone what happened. Not as a favor to me."
+            },
+            {
+              "line": 14,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "Yes. And after I speak, I do not get to decide who still calls me a friend."
+            },
+            {
+              "line": 15,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Let us go to the harbor meet. This time, we use the podium to ask for help. Together, in SORA’s name."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "This is Ren Sorai of SORA Radio. I gave the sponsor your relay details without telling you."
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "The agreement and my account are here. I will answer questions, including whether I should stay on air."
+            },
+            {
+              "line": 3,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "That is a long queue for the microphone. Some people are angry. We will not cut them off."
+            },
+            {
+              "line": 4,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "Tools, cars, shopfronts people can lend us. All this. Let us agree who returns what first."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Separate terminals checked the same records. Losing one machine does not erase the exchanges."
+            },
+            {
+              "line": 6,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "We will not become the monarchs of a new currency. SORA X.O.R. must be free of us too."
+            },
+            {
+              "line": 7,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "rei",
+              "en": "The lender examined the originals and paused the garage’s early repayment demand. Restoring the old repayment plan is the next negotiation."
+            },
+            {
+              "line": 8,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "The repairs are finished. I am going home now. Good night, Aki."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Good night. Tomorrow’s work starts at eight. If you come, do not be late."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "All right. The first note, on borrowed power. We can write the rest together."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 9,
+      "id": 8,
+      "title": "The frequency home",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I redrew the delivery rota. Red pencil means my runs. There are fewer now."
+            },
+            {
+              "line": 2,
+              "scene": "ledger",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "You were going to drive everything from the harbor to Nikko yourself."
+            },
+            {
+              "line": 3,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "I was. Everyone found a route that still gets me home for dinner with my brother."
+            },
+            {
+              "line": 4,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "mei",
+              "en": "Two copies of each document. Names approved for publication; private addresses covered."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "rei",
+              "en": "Ask the recipients to cross-check them too. My explanation should not be the final word."
+            },
+            {
+              "line": 6,
+              "scene": "community",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Here is the repair exchange terminal. The greengrocer noticed I left out what happens during a blackout."
+            },
+            {
+              "line": 7,
+              "scene": "community",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Even a beautiful circuit diagram needs somewhere to put the flashlight."
+            },
+            {
+              "line": 8,
+              "scene": "community",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Exactly. They marked up the SORA X.O.R. plans. They made them better than I could alone."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Repair costs for the relays I exposed, and what the sponsor paid me. This week’s account goes on the wall."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "You stayed late again. You do not think losing sleep can repay everything, do you?"
+            },
+            {
+              "line": 11,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "No. Jun takes over tomorrow. I am learning to make promises I can actually keep."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "It still hurts. But I can listen to that. Keep going without hiding anything."
+            },
+            {
+              "line": 13,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "The Nikko drivers will carry the next leg. Tonight, we get to come home too."
+            },
+            {
+              "line": 14,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "A podium gives us a slot before closing. We have something to pass on beyond the finish line."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I saw them from the podium. Envelopes lined up beside everyone’s toolboxes."
+            },
+            {
+              "line": 2,
+              "scene": "sunrise",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "Every handoff is signed. My job was getting things to the next person, not driving every mile."
+            },
+            {
+              "line": 3,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "The harbor photographs went too, with captions corrected by the people in them."
+            },
+            {
+              "line": 4,
+              "scene": "community",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "I accepted the barber’s revision. People who decline the exchange can still use the workshop."
+            },
+            {
+              "line": 5,
+              "scene": "community",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "jun",
+              "en": "A good sign leaves room to say no. I will keep a repair bench available too."
+            },
+            {
+              "line": 6,
+              "scene": "office",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "The public hearing has a date. We are inviting questions, not only supporters."
+            },
+            {
+              "line": 7,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "A relay owner corrected my account. I left out their two days of lost work."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I saw the correction beside your first account. You left the uncomfortable part visible."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Erasing it would be the same mistake again. I am still stuck on tonight’s playlist, though."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Coffee after the show, then. I can help you argue with a playlist."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 10,
+      "id": 9,
+      "title": "A sky without kings",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "boardroom",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Your father’s workshop. We take over its debt. Your name and the sign can stay."
+            },
+            {
+              "line": 2,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "You even put a key in the envelope. I have not answered yet."
+            },
+            {
+              "line": 3,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "You would approve SORA X.O.R. access. The Meridian Council would handle the decisions above yours."
+            },
+            {
+              "line": 4,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Where would someone go if you refused them access?"
+            },
+            {
+              "line": 5,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "Approved work and trade create order. CROWN will extend that world, city by city."
+            },
+            {
+              "line": 6,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "As a child, I guarded the key at Dad’s desk. I thought keeping everyone out would keep it safe."
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "Now you really could protect it. You need never lose it because of someone else’s decision."
+            },
+            {
+              "line": 8,
+              "scene": "boardroom",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Dad’s notebook named everyone who helped. One person holding a key cannot keep a workshop running."
+            },
+            {
+              "line": 9,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Take the key back. Saving my garage is not worth closing everyone else’s road home."
+            },
+            {
+              "line": 10,
+              "scene": "boardroom",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "celeste",
+              "en": "Then our support for the venue’s line ends tonight. How many people will your ideals reach?"
+            },
+            {
+              "line": 11,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "The venue called. Their line is down. Repair friends have brought spare transmitters."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "If one station drops, another takes over. Every owner knows where their equipment and operators will be."
+            },
+            {
+              "line": 13,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "My terminal is on a borrowed generator today. Ideals need a surprising number of extension leads."
+            },
+            {
+              "line": 14,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Let us make the Hakone podium. Then we give the microphone to the people with questions."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "community",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "The venue is full. They want the hearing notice on the wall before the race photographs."
+            },
+            {
+              "line": 2,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "This is the assessment I approved. I will read the passages I signed despite knowing their consequences."
+            },
+            {
+              "line": 3,
+              "scene": "office",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "mei",
+              "en": "Original copies and objections are circulating. Applause and evidence must stand on their own."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Can you hear us, harbor? I once walked away from a stage. Tonight I will keep the sound going."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Loud and clear. Next, questions from the shopping street. Corrections to my account get the same microphone."
+            },
+            {
+              "line": 6,
+              "scene": "community",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Some questions for Rei were hard. But people are sitting here and talking."
+            },
+            {
+              "line": 7,
+              "scene": "community",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "When my father’s factory closed, I had nowhere to ask questions. You have built that place."
+            },
+            {
+              "line": 8,
+              "scene": "community",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "We are still building it. We want to hear your answers here too."
+            },
+            {
+              "line": 9,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "At the final harbor meet. I will bring something I can offer myself, not another company slogan."
+            },
+            {
+              "line": 10,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Then everyone hears the terms before we drive. No more quietly wagering someone else’s life."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 11,
+      "id": 10,
+      "title": "Outrun the dawn",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "These are my personal purchase options on the workshop and harbor plots. Every address is listed."
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "These are rights Toru can personally release, not property belonging to residents or the company. I checked the documents."
+            },
+            {
+              "line": 3,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "Make the podium and finish ahead of me, and I release them. That is my promise before everyone."
+            },
+            {
+              "line": 4,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "I will not stake anyone else’s rights. Losing cannot take away our right to demand answers."
+            },
+            {
+              "line": 5,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "toru",
+              "en": "Agreed. Ever since the factory closed, I believed only the stronger side could keep a promise."
+            },
+            {
+              "line": 6,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Terms and signatures photographed. The finishing order will not decide whether the evidence is real."
+            },
+            {
+              "line": 7,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "Release one district if you wish. The Council’s capital still moves. There are other contracts beyond this harbor."
+            },
+            {
+              "line": 8,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "That is why the records are traveling. Protecting this harbor will not end the world’s argument."
+            },
+            {
+              "line": 9,
+              "scene": "garage",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "Right rear temperature is steady. You do not have to decide everything at the first corner."
+            },
+            {
+              "line": 10,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Fear used to make me floor it. Today I am leaving myself a line back out."
+            },
+            {
+              "line": 11,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "The pit duties are shared. Nobody gets left behind when I stop doing everything."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I am here to commentate, not drive through your headset. When you need me, I will be here."
+            },
+            {
+              "line": 13,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "aki",
+              "en": "Good. When this is over, there is something I want to tell you. Nothing to do with excuses or results."
+            },
+            {
+              "line": 14,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "To the grid, Soramoto. This time, I will see the place you are trying to come home to."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "harbor",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "A podium, ahead of Toru. I made it back. Can everyone hear me?"
+            },
+            {
+              "line": 2,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "We hear you. The conditions are met. I release my options. Here are the originals, as promised."
+            },
+            {
+              "line": 3,
+              "scene": "harbor",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "rei",
+              "en": "Copies go to everyone. The garage’s early repayment demand is formally withdrawn. The original debt, and my responsibility, remain."
+            },
+            {
+              "line": 4,
+              "scene": "community",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Local investors have suspended CROWN, citing the corroborated records and the public hearing."
+            },
+            {
+              "line": 5,
+              "scene": "boardroom",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "celeste",
+              "en": "It has stopped at this harbor. The Meridian Council will continue making decisions in the next city."
+            },
+            {
+              "line": 6,
+              "scene": "harbor",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Then the next town gets another choice too. This does not end with one person losing."
+            },
+            {
+              "line": 7,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "toru",
+              "en": "Trying to recover my father’s factory, I nearly took someone else’s. I will stay and answer for that."
+            },
+            {
+              "line": 8,
+              "scene": "harbor",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "daichi",
+              "en": "We can deliver bread tomorrow morning. I am calling my brother. This time, we can buy the car parts."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "The harbor is so quiet with the engines off. Take your time. You can talk when you choose."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I am coming to hear the sunrise show. Bring that cassette. Is side B still blank?"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "chapter": 12,
+      "id": 11,
+      "title": "Your voice on side B",
+      "sections": [
+        {
+          "section": "intro",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "garage",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "One more line beneath the sign: if you have something to repair, knock."
+            },
+            {
+              "line": 2,
+              "scene": "garage",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "Your dad would like that. Even the people who never returned his tools might come back."
+            },
+            {
+              "line": 3,
+              "scene": "garage",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "We will ask for them back. Then make tea. I kept remembering Dad as someone who worked alone."
+            },
+            {
+              "line": 4,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "The rota is up. Publishing how to fix things while I am away made my shoulders feel lighter."
+            },
+            {
+              "line": 5,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": false,
+              "speaker": "rei",
+              "en": "The original installments are restored. Repairs pay the debt, with reserves for bad months. My own investigation continues."
+            },
+            {
+              "line": 6,
+              "scene": "community",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "The book opens with someone holding an eviction notice, in their own words and a photograph they chose."
+            },
+            {
+              "line": 7,
+              "scene": "community",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "My brother’s car starts. First stop: driving school. I told him to listen to the instructor, not my boasting."
+            },
+            {
+              "line": 8,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "I finished the song I abandoned. Repairing other people’s sound had become a place to hide my own."
+            },
+            {
+              "line": 9,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "We will play it on the sunrise show. Nikko first; then we come back and raise the workshop shutters."
+            },
+            {
+              "line": 10,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "That is still the same cassette in your pocket. The corners have worn white."
+            },
+            {
+              "line": 11,
+              "scene": "radio",
+              "shot": "right",
+              "newComposition": false,
+              "speaker": "ren",
+              "en": "Side B is still blank. But giving it to you never entitled me to ask you to fill it."
+            },
+            {
+              "line": 12,
+              "scene": "radio",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "I know. Today I want to carry it. And decide for myself whether to press record."
+            },
+            {
+              "line": 13,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "Invitations from other towns are waiting at Nikko. After the podium, we can open them one by one."
+            },
+            {
+              "line": 14,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Let us go. We can set out again from the place we saved. That must be what coming home means."
+            }
+          ]
+        },
+        {
+          "section": "victory",
+          "lines": [
+            {
+              "line": 1,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "mei",
+              "en": "One last podium photograph. Reopening photos when we get back. Nobody hide behind the sign this time."
+            },
+            {
+              "line": 2,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "daichi",
+              "en": "My brother says he is buying breakfast. Little by little, I get to be the one someone looks after."
+            },
+            {
+              "line": 3,
+              "scene": "ledger",
+              "shot": "detail",
+              "newComposition": true,
+              "speaker": "yui",
+              "en": "A distant workshop sent a correction and a thank-you. SORA X.O.R. has outgrown my desk."
+            },
+            {
+              "line": 4,
+              "scene": "radio",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "jun",
+              "en": "To everyone listening to SORA Radio: a new song, a long time coming. This time, I am playing it through."
+            },
+            {
+              "line": 5,
+              "scene": "radio",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Aki has the cassette. A little more music after the show. There is someone I want to see too."
+            },
+            {
+              "line": 6,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Ren, I love you. Not because I need you to return. I want to keep meeting the person here beside me."
+            },
+            {
+              "line": 7,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "I love you too. At the workshop, or driving somewhere far away. Let us stay close and keep our own roads."
+            },
+            {
+              "line": 8,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "May I kiss you? And please keep this answer off the air."
+            },
+            {
+              "line": 9,
+              "scene": "sunrise",
+              "shot": "left",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Yes. I want that too. The tape is stopped. This moment belongs to us."
+            },
+            {
+              "line": 10,
+              "scene": "sunrise",
+              "shot": "right",
+              "newComposition": true,
+              "speaker": "aki",
+              "en": "Our first kiss stays ours. I am pressing record. Can side B start with “I am hungry”?"
+            },
+            {
+              "line": 11,
+              "scene": "sunrise",
+              "shot": "wide",
+              "newComposition": true,
+              "speaker": "ren",
+              "en": "Absolutely. Let us go home, Aki. The rest of side B can wait until after breakfast."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "retry": [
+    {
+      "line": 1,
+      "scene": "garage",
+      "shot": "wide",
+      "newComposition": true,
+      "speaker": "daichi",
+      "en": "You made it back. Let your shoulders drop. Next run, take a breath before the corner."
+    },
+    {
+      "line": 2,
+      "scene": "garage",
+      "shot": "wide",
+      "newComposition": false,
+      "speaker": "jun",
+      "en": "Open the notebook. Enter slower; accelerate out. Save the drift for where you need to turn."
+    },
+    {
+      "line": 3,
+      "scene": "garage",
+      "shot": "wide",
+      "newComposition": false,
+      "speaker": "aki",
+      "en": "Right. I watched the clock and lost the road. Next time, I’ll drive like I have somewhere to come home to."
+    }
+  ]
+}

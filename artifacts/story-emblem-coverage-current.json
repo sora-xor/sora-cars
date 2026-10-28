@@ -1,0 +1,2312 @@
+{
+  "schema": "sora-cars.story-emblem-coverage.v1",
+  "checkedAt": "2026-10-23T13:37:57.047Z",
+  "passed": true,
+  "scope": "Current chapter/menu, scene, fallback-angle, story-beat and actual per-cut artwork references. Historical unused images and soundtrack covers are outside this report.",
+  "method": "Resolve every authored line; require each referenced file to match a passed individual visual-review audit by path and SHA-256. This script does not recognize logos automatically.",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceMatches": true,
+  "evidence": [
+    {
+      "path": "artifacts/story-emblem-audit-2026-09-26.json",
+      "sha256": "85e41802732879721b3a1d6c252723a9593bce3ae2fcc577bed36b7639b02483"
+    },
+    {
+      "path": "artifacts/story-opening-emblem-audit-2026-09-26.json",
+      "sha256": "0b2cfbcf2615168a7f07ac8084994e7b612e0a6b36efe31c1ebff3305f325a72"
+    },
+    {
+      "path": "artifacts/story-per-cut-emblem-audit-2026-09-26.json",
+      "sha256": "d1cdc70b5716e42e378c257b9f518b4e7d499dfcc4e95186e99fa3bbcf4266b9"
+    },
+    {
+      "path": "artifacts/story-expanded-emblem-audit-2026-09-26.json",
+      "sha256": "0961ab0754a9ddbbfc182d0c8fced522d6db9b291d8b9bcce3aad96273a08846"
+    }
+  ],
+  "sourcesUnchanged": true,
+  "sourceHashes": {
+    "src/game/story-scenes.ts": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
+    "src/game/story-cut-art.json": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
+    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
+    "src/game/story-campaign-act3.ts": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa"
+  },
+  "finalSourceHashes": {
+    "src/game/story-scenes.ts": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
+    "src/game/story-cut-art.json": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
+    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
+    "src/game/story-campaign-act3.ts": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa"
+  },
+  "total": 236,
+  "reviewed": 236,
+  "pending": [],
+  "files": [
+    {
+      "path": "public/assets/story/angles/boardroom-detail-v3.png",
+      "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
+      "contexts": [
+        "fallback:boardroom/detail",
+        "ch03-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-left-v3.png",
+      "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
+      "contexts": [
+        "fallback:boardroom/left",
+        "ch03-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-right-v3.png",
+      "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
+      "contexts": [
+        "fallback:boardroom/right",
+        "ch03-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/boardroom-wide-v3.png",
+      "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
+      "contexts": [
+        "fallback:boardroom/wide",
+        "ch03-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/community-detail-v2.png",
+      "sha256": "9bb059b072e5daf039bbe79cd29771619f1bedf9fb348501b3bbcea71ae5a3ec",
+      "contexts": [
+        "fallback:community/detail",
+        "ch09-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/community-left-v2.png",
+      "sha256": "2370e0f729e2c6ad812a00081322c0e45a8ded2099a37ab4c91e10409d942a7b",
+      "contexts": [
+        "fallback:community/left",
+        "ch09-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/community-right-v2.png",
+      "sha256": "e0ecc3cc549ed7898f38358bdb36c2495ad8ee484961f5f8055ba399ce6ed57f",
+      "contexts": [
+        "fallback:community/right",
+        "ch09-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/community-wide-v2.png",
+      "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667",
+      "contexts": [
+        "fallback:community/wide",
+        "ch02-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+      "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "contexts": [
+        "fallback:garage/detail",
+        "ch01-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+      "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "contexts": [
+        "fallback:garage/left",
+        "ch01-intro:2",
+        "ch01-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/garage-right-v2.png",
+      "sha256": "b615c4c30018669ccf231164d90c8f65aab11d9f423c97632e993aa02f0378bd",
+      "contexts": [
+        "fallback:garage/right",
+        "ch01-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/garage-wide-v2.png",
+      "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d",
+      "contexts": [
+        "fallback:garage/wide",
+        "ch01-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-detail-v3.png",
+      "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
+      "contexts": [
+        "fallback:harbor/detail",
+        "ch02-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-left-v3.png",
+      "sha256": "b451b1a881cedf7c9418832a18e683eeb1c489249af3f206410a2a2321157260",
+      "contexts": [
+        "fallback:harbor/left",
+        "ch01-victory:4",
+        "ch01-victory:5",
+        "ch01-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-right-v3.png",
+      "sha256": "959a0bdb648fef13eb13dba24cc542a59e53339b182b9a379733f10feea7d14e",
+      "contexts": [
+        "fallback:harbor/right",
+        "ch02-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/harbor-wide-v3.png",
+      "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20",
+      "contexts": [
+        "fallback:harbor/wide",
+        "ch01-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-detail-v2.png",
+      "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
+      "contexts": [
+        "fallback:ledger/detail",
+        "ch01-intro:6",
+        "ch01-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-left-v2.png",
+      "sha256": "99bd4a55d914ce5cf61eaba616b1034b31a29351cd18702e80c9e98f15a77b4c",
+      "contexts": [
+        "fallback:ledger/left",
+        "ch01-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-right-v2.png",
+      "sha256": "5eab5747bcfa0bec0962a1162f8f3da9672d7e8459b0529ce506fb2d51447809",
+      "contexts": [
+        "fallback:ledger/right",
+        "ch01-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/ledger-wide-v2.png",
+      "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533",
+      "contexts": [
+        "fallback:ledger/wide",
+        "ch01-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/office-detail-v3.png",
+      "sha256": "434fb31fa3e2f1430d86ede5cfdf2d9b53a94f4409063311ccc7522aba3e2eba",
+      "contexts": [
+        "fallback:office/detail",
+        "ch03-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/office-left-v3.png",
+      "sha256": "3066b0545554fb8e7bdd68b628f72ae305eecba96d5ae6764462380218f5b296",
+      "contexts": [
+        "fallback:office/left",
+        "ch03-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/office-right-v3.png",
+      "sha256": "2a3b981f0c284d10b4cb730b9b35896d90f8b4f75b25f4fd40e2a819ae5e69a8",
+      "contexts": [
+        "fallback:office/right",
+        "ch03-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/office-wide-v3.png",
+      "sha256": "e384fc53e9e167ba4f980462e20d57977e0516ddd2bf0197e4b75895ac12df8d",
+      "contexts": [
+        "fallback:office/wide",
+        "ch03-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/radio-detail-v2.png",
+      "sha256": "f86545f18ebe563b500d29f9deb4ce4f3cac68b16791721f4d3e07c3174220ce",
+      "contexts": [
+        "fallback:radio/detail",
+        "ch02-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/radio-left-v2.png",
+      "sha256": "76d30cafd25e1f35fd9c1e38e91d603a9eefdab6335f85ca8fb9257f6712863d",
+      "contexts": [
+        "fallback:radio/left",
+        "ch01-intro:10",
+        "ch01-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/radio-right-v2.png",
+      "sha256": "0b00241ce82878aa8c27e7d85a044a33d0bc28bce43b73d225257937289ff913",
+      "contexts": [
+        "fallback:radio/right",
+        "ch01-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/radio-wide-v2.png",
+      "sha256": "673a0ef35c9295dc20aa166ef33e8b1e78501d9065a6fca483b6ecf973438ff5",
+      "contexts": [
+        "fallback:radio/wide",
+        "ch01-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+      "sha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "contexts": [
+        "fallback:sunrise/detail",
+        "ch04-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-left-v3.png",
+      "sha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "contexts": [
+        "fallback:sunrise/left",
+        "ch04-victory:2",
+        "ch04-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-right-v3.png",
+      "sha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "contexts": [
+        "fallback:sunrise/right",
+        "ch04-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/sunrise-wide-v3.png",
+      "sha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "contexts": [
+        "fallback:sunrise/wide",
+        "ch04-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-offer-v4.png",
+      "sha256": "daa55472ac583837ea06b7d71820d29221c7edab1da12b1a0e5c9995d2b39467",
+      "contexts": [
+        "beat:boardroom-key-offer",
+        "ch10-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/boardroom-key-return-v4.png",
+      "sha256": "6cd69534aa0fd2b17f774c0f2cec7273bf4aab3eda483416bd6fc34100ddc7a8",
+      "contexts": [
+        "beat:boardroom-key-return",
+        "ch10-intro:9",
+        "ch10-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-reaction-v2.png",
+      "sha256": "e14f106f4539b7dde75ef16af8794b79b9d6c1c128c3c5316aabcc58f0efc992",
+      "contexts": [
+        "beat:fathers-notebook-reaction",
+        "ch08-intro:5",
+        "ch08-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/fathers-notebook-v2.png",
+      "sha256": "2f2f5bee7bf76319dacfaa0c256b99d2c9a965bdf1158176c80ddebc98c259a8",
+      "contexts": [
+        "beat:fathers-notebook",
+        "ch08-intro:3",
+        "ch08-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-detail-v2.png",
+      "sha256": "ae2df23c653cbfec457e2fb374882c74b1220f5ff14b4d450133f0a2b572c127",
+      "contexts": [
+        "beat:garage-blackout-detail",
+        "ch07-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "contexts": [
+        "beat:garage-blackout-reverse",
+        "ch07-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-v2.png",
+      "sha256": "9fe88f465f963a1f031412134b00c65688830f8681fa8d82775333ecbefe8a72",
+      "contexts": [
+        "beat:garage-blackout",
+        "ch08-intro:1",
+        "ch08-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-reverse-v4.png",
+      "sha256": "345d2a9ae62e6cd6a76b6b55a28635c003f6dfc81a0b86f3516060ef2dab56be",
+      "contexts": [
+        "beat:public-confession-reverse",
+        "ch08-victory:3",
+        "ch08-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/public-confession-v4.png",
+      "sha256": "dedf73bc7cab304cb76394fbcf2647637fd57729a06849232f489a1617945574",
+      "contexts": [
+        "beat:public-confession",
+        "ch08-victory:1",
+        "ch08-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-reverse-v2.png",
+      "sha256": "bcda0bd5edbdfd33870249828964e8344c22963e44039e79b3651ad083131f54",
+      "contexts": [
+        "beat:radio-betrayal-reverse",
+        "ch07-victory:4",
+        "ch07-victory:5",
+        "ch07-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-betrayal-v2.png",
+      "sha256": "884c8e11eca938ceb48379394fffb4a05cfdf37b64e0b43183f74ef55376109f",
+      "contexts": [
+        "beat:radio-betrayal",
+        "ch07-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-blackout-v2.png",
+      "sha256": "c15de3767486be9024c5c93e47481cf9a3131451df27c8a5df653c0666b4bc5d",
+      "contexts": [
+        "beat:radio-blackout",
+        "ch07-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-contract-v2.png",
+      "sha256": "a446aad7ef8dce4d0abb1111e332374b64e0927fb1de47cce622de55dc4f7db0",
+      "contexts": [
+        "beat:radio-contract",
+        "ch07-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-reverse-v3.png",
+      "sha256": "608443da868016c71af5e249c76b8e1709996ad5bfc84559c15fd873b52b090d",
+      "contexts": [
+        "beat:radio-jun-premiere-reverse",
+        "ch12-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-jun-premiere-v3.png",
+      "sha256": "4663161c353cd6b34ffe2998002a5e6a96acd7251b4452d77e88c45eab8cacfe",
+      "contexts": [
+        "beat:radio-jun-premiere",
+        "ch12-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-reverse-v2.png",
+      "sha256": "484c224b9a16854df29a6956a93600a787400fa089f24c2c4d968ed5f78deb15",
+      "contexts": [
+        "beat:radio-near-confession-reverse",
+        "ch05-intro:10",
+        "ch05-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-near-confession-v2.png",
+      "sha256": "2b7ed0a9c877c18de8a3a0edfa00bde4840a86fe00fe1e0194ee94fd57856379",
+      "contexts": [
+        "beat:radio-near-confession",
+        "ch05-intro:7",
+        "ch05-intro:8",
+        "ch05-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-phone-threat-v2.png",
+      "sha256": "b32167f8f1387d24f6537189feaa91cf98248d990eaf9bccc4dd0b2cd5ae03c2",
+      "contexts": [
+        "beat:radio-phone-threat",
+        "ch05-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-reverse-v2.png",
+      "sha256": "3354d9b085e5d170a6b19cd6d0c804d3234575f41c95b26b02b8bb99cd45e1e6",
+      "contexts": [
+        "beat:radio-umbrella-reverse",
+        "ch05-victory:4",
+        "ch05-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/radio-umbrella-v2.png",
+      "sha256": "80818cce520e2cb2cce36f7915174219ed6f492fbd3975310b2eb17abc1e4fa8",
+      "contexts": [
+        "beat:radio-umbrella",
+        "ch05-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/shared-prototype-v2.png",
+      "sha256": "42c43474fa52d872b11c98c4ba7d879d42a9c38a40ed1384c9b48b83518b6c9c",
+      "contexts": [
+        "beat:shared-prototype",
+        "ch08-intro:9",
+        "ch08-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/beats/sunrise-kiss-v3.png",
+      "sha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "contexts": [
+        "beat:sunrise-kiss",
+        "ch12-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/community-dawn-v1.png",
+      "sha256": "b959a74fb1ee7e875da43ef55e495c07d72fac63bf6cd1cc8d451f4978c88a00",
+      "contexts": [
+        "location:community"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/credit-office-v2.png",
+      "sha256": "4b76befc4f83e68c4125d7f0ee842be45f5694d6fbdaec1dfc4b2271cadd7986",
+      "contexts": [
+        "location:office",
+        "chapter-menu:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/garage-dusk-branded.png",
+      "sha256": "1787c53c0a6d10e409734b1087c0217ec99317a03f959cf7d8a2cbf4ebc9875f",
+      "contexts": [
+        "location:garage",
+        "chapter-menu:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/harbor-1986-v1.png",
+      "sha256": "f8f7d94638de749d061e0c55531e51e007275a9775b0694015b28036f2d47f91",
+      "contexts": [
+        "location:harbor",
+        "chapter-menu:2",
+        "chapter-menu:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/ledger-night-v1.png",
+      "sha256": "faae04c241a2ff6603e5299f85dcff8299034a0270f1811f9309548fde2c708e",
+      "contexts": [
+        "location:ledger",
+        "chapter-menu:8",
+        "chapter-menu:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/radio-rain-v1.png",
+      "sha256": "224d0045548fb5eff544a7b66b81a28c3fd53abe9ffa2f646cf699dd12ce5517",
+      "contexts": [
+        "location:radio",
+        "chapter-menu:5",
+        "chapter-menu:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut11-logo-v2.png",
+      "sha256": "87e7a4eb26914fe0b05e4b890b32ca8efce7cac2ef1bf7bdbbf9664fcce3c61d",
+      "contexts": [
+        "ch01-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut12-logo-v2.png",
+      "sha256": "919a73a1b841904e2e9e0063819913c04b645223e7b0e0d70960f3b8a8aed9a2",
+      "contexts": [
+        "ch01-intro:15"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-intro-cut13-logo-v2.png",
+      "sha256": "888daf31bc4bbc0ee0289b995f25312a902fb609589a975d146c1446cd6fa33a",
+      "contexts": [
+        "ch01-intro:16"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut02-logo-v2.png",
+      "sha256": "5bea6618f703ce3fde4dceb55ff55d70ea2de778dd00a16f7ebb67c36e024407",
+      "contexts": [
+        "ch01-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut06-logo-v2.png",
+      "sha256": "cbc56f99844ba7501ae610d040ebc5e781da6738e0119866adc5d80b6d1886e7",
+      "contexts": [
+        "ch01-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut07-logo-v2.png",
+      "sha256": "c68480879c9b9f0fea2cb3726d5c855c3ec616b287baccd17ed085d0bc7a73a5",
+      "contexts": [
+        "ch01-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-cut08-logo-v2.png",
+      "sha256": "b56c16bee122e065aa91be625acda49f78bdb23d6a8059cbb379a745d7c0d284",
+      "contexts": [
+        "ch01-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch01-victory-opening-logo-v2.png",
+      "sha256": "98682a2d70050893766b4ecf9a563d5aa249522d13efd3217238a48ad4c2f7d4",
+      "contexts": [
+        "ch01-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut03-logo-v2.png",
+      "sha256": "665d0cabd47b2440fdde35c8bb81b5604d4a46ea824ca4959899910c0ca49440",
+      "contexts": [
+        "ch02-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut04-logo-v2.png",
+      "sha256": "676fac0a325602f712d18978369b897c6c882c27b6acc8468576c14c80200e99",
+      "contexts": [
+        "ch02-intro:4",
+        "ch02-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut05-logo-v2.png",
+      "sha256": "b9d34148670a1c101d3431d27c1d7b5ad41df77fef9ce0bcd5c03d554273136e",
+      "contexts": [
+        "ch02-intro:6",
+        "ch02-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut07-logo-v2.png",
+      "sha256": "3619a6182da4c711f223be6d59b602b10daceb97ad5e0a8e91a625e27efa49e4",
+      "contexts": [
+        "ch02-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut08-logo-v2.png",
+      "sha256": "27fd51f2f4eff2ee4c15c4dc13e1125510fdeedd00bae6497a6c7a2381a65c8d",
+      "contexts": [
+        "ch02-intro:10",
+        "ch02-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut09-logo-v2.png",
+      "sha256": "607a0c82110fa29c0384a95b2a6b4b3099cf32cecf3ee44eda0d9fc5289232dd",
+      "contexts": [
+        "ch02-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut10-logo-v2.png",
+      "sha256": "1f187ae204b2e4fd88c9a6fd8c8b00c824185b701fbe8f314f7990d5ed593eb9",
+      "contexts": [
+        "ch02-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut11-logo-v2.png",
+      "sha256": "680d36aebc47a15c3f691ac9a1c6d633a8195ee4cf8296873cc84c34134697c2",
+      "contexts": [
+        "ch02-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut12-logo-v2.png",
+      "sha256": "420a0153fe197d1d34659556fa98491fe03428625a20235af294afb7b0e70f47",
+      "contexts": [
+        "ch02-intro:15"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-intro-cut13-logo-v3.png",
+      "sha256": "8efee8baba6a7d2d38b394bbdbe4cad30618af9a80bc3f5ca9b93432ca440b5c",
+      "contexts": [
+        "ch02-intro:16"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut02-logo-v2.png",
+      "sha256": "9bcdbc77771ecfaf7b1791fd03ff23fbdd0a788c56b7d9ae6af7523d5fe542f7",
+      "contexts": [
+        "ch02-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut03-logo-v2.png",
+      "sha256": "60832b3aec6f6038aac70ddcdd3fdd40e7893d054e196c5c0d7e9e778bfb6aa3",
+      "contexts": [
+        "ch02-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut05-logo-v2.png",
+      "sha256": "86aa7f7e7fd075f434a8d173d1e974da6c8933634789f7fef518848682777a03",
+      "contexts": [
+        "ch02-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut06-logo-v2.png",
+      "sha256": "be18eaba5230a70bdcb40993af825975034f8289e8d3298b69079fe0294969cc",
+      "contexts": [
+        "ch02-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut07.png",
+      "sha256": "a220f08d6ed9183e9df9e67cc20782706f5c9dc29e3331ee6592a7b7957081c2",
+      "contexts": [
+        "ch02-victory:7",
+        "ch02-victory:8",
+        "ch02-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-cut08-logo-v2.png",
+      "sha256": "e68a6d0a70e57b0bf980092e33ab46a7ed5c453aada55dad29234787e3682de1",
+      "contexts": [
+        "ch02-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch02-victory-opening-logo-v2.png",
+      "sha256": "cfc542832d08fa67cd767a8cea1c50ceb348a3ad83fe859d4425ab1e27eaa4d2",
+      "contexts": [
+        "ch02-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut09.png",
+      "sha256": "a4b3044da7e2765aa4291029e6544d1cd7ba72633d41d02c1d7a915fc9db3828",
+      "contexts": [
+        "ch03-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut10.png",
+      "sha256": "fa37a87b2af247e4093b8b7a9d619c16ebe9a1b2d3191f2add5eb48fcf409a14",
+      "contexts": [
+        "ch03-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut11.png",
+      "sha256": "f99b3d13cb563ee2ea3ef60b34b9580c929444ceef44559cf29913dd40c407ae",
+      "contexts": [
+        "ch03-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut12-logo-v2.png",
+      "sha256": "0f0d47dcabbad9e184db1123f877b36052853a6693e1d2e14b6ec517f6b254e3",
+      "contexts": [
+        "ch03-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut13-logo-v2.png",
+      "sha256": "80e16e420e7d9cadcd50fcb8cb610b74077c51a5ffd9c1388cde53653c3e5ed5",
+      "contexts": [
+        "ch03-intro:13",
+        "ch03-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut14-logo-v2.png",
+      "sha256": "8c61ff0c3d4847faf69c8f64b61ac75eab00ad88b7bec6ac9c545d52898f17ae",
+      "contexts": [
+        "ch03-intro:15"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut15.png",
+      "sha256": "198d9a7533f2a0a493c055d59f8dc1f33f2d87e585dd291016dd5dc5c55b1f99",
+      "contexts": [
+        "ch03-intro:16"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut02-center-v4.png",
+      "sha256": "146672929f6ffd68314c45b47449a001552dbafbfb89981408a669c10aaaee5c",
+      "contexts": [
+        "ch03-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut03-logo-v2.png",
+      "sha256": "08b857e8327ed53854968598c9652e1417469813dda65a379e1467ffc344c9b1",
+      "contexts": [
+        "ch03-victory:3",
+        "ch03-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut04-logo-v2.png",
+      "sha256": "0d3c50521a7a5a2ef5f2a93cefcb6980f4c99b341e764b7e145826245bca5308",
+      "contexts": [
+        "ch03-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut05-center-v2.png",
+      "sha256": "ffb7216f73a72b0ebe007d30ac6511bd12161efff1d78755459038d8c31ca0d1",
+      "contexts": [
+        "ch03-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut06-logo-v4.png",
+      "sha256": "9232108d617ec1b58169ea1dea07c3a88d1e86e8fa11679067dccc0b6946bf3a",
+      "contexts": [
+        "ch03-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut07-logo-v12.png",
+      "sha256": "6f20b9a8e8132476c3ccb28ebe0d156d2b1ea0234df91a5be3c9b6aff9721bdd",
+      "contexts": [
+        "ch03-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut08-logo-v5.png",
+      "sha256": "846e610b04b8a056b8bfed8f21d16a1447541e1988dcf663c21a3b8fe0c0e836",
+      "contexts": [
+        "ch03-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-cut09.png",
+      "sha256": "4ef44516da9bc27b707f4b60af17a399673cd1a21baffe8abb904b9a91c8c878",
+      "contexts": [
+        "ch03-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-victory-opening-logo-v2.png",
+      "sha256": "50f55c40cb526b145988bee27474dc9683021c80af2b8916e6a1283b5a3a4dc6",
+      "contexts": [
+        "ch03-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut02-logo-v3.png",
+      "sha256": "4d35e9921f0f75309f41d3a121dab0cc94cbdde9744f723e4f36de8cb0c202b9",
+      "contexts": [
+        "ch04-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut03-logo-v3.png",
+      "sha256": "4d9e12747e7c5fd7f4c02262b4b59e287c6f1c979c03ed7219122b8dbaa76921",
+      "contexts": [
+        "ch04-intro:3",
+        "ch04-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut04.png",
+      "sha256": "f3ced76dce75922d99d97cf81f6e608eee336f1faa7b68d4ee07d52e3a1451f7",
+      "contexts": [
+        "ch04-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut05-center-root-v2.png",
+      "sha256": "bb2b1410c7484e7becd698c3426e3b18efa9c04fd79cb3c1b0001ae696b792e8",
+      "contexts": [
+        "ch04-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut06.png",
+      "sha256": "c7da20b74507e712b09941b03ba139e0a857454a9c2dd739fd03caa1709aa813",
+      "contexts": [
+        "ch04-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut07-logo-v6.png",
+      "sha256": "5033cf70ed586e35bc4d7b1e30d154fe6aa55d346b0dfe15f3a56a791fedfeb0",
+      "contexts": [
+        "ch04-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut08-logo-v4.png",
+      "sha256": "0a61e0ddc33039777875d686f6d014bc9bdfbdba3c8f8d623774a7291a1a149a",
+      "contexts": [
+        "ch04-intro:9",
+        "ch04-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut09-logo-v6.png",
+      "sha256": "44fd98abd3693d9e3b52207a19d14c4c7a282f784d01a74a83a41310411690ae",
+      "contexts": [
+        "ch04-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut10.png",
+      "sha256": "a7787ab63c39d824c45d5127c96fdeff8330b36ffc9cb9ca5c95c70dfee19c9e",
+      "contexts": [
+        "ch04-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut11.png",
+      "sha256": "eec342b532e47937e63cb57c20fe67f51004ca63268a80d8487eb67a44a7a215",
+      "contexts": [
+        "ch04-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut12.png",
+      "sha256": "22ee9848eb9cb4eb0966cfd9962fc97a49a9125703c4589956bee6625dd93269",
+      "contexts": [
+        "ch04-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut13-logo-v3.png",
+      "sha256": "3d3f26c79042f11d5f13f36f6328d7cdd5674591b21a3992823ebb234bba9660",
+      "contexts": [
+        "ch04-intro:15"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-cut14.png",
+      "sha256": "706c420d3d171106a304d83b5e7d7c4402c7bbe58328b6be10c47e6a0f5cb0ce",
+      "contexts": [
+        "ch04-intro:16"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-intro-opening-logo-v2.png",
+      "sha256": "7fd4ba5f728df6cf5a9d5f059e59924d073d9e9e21e51a6d8b3f02b5fee9e9e1",
+      "contexts": [
+        "ch04-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut06-logo-v2.png",
+      "sha256": "ab5893396c8cd192c78e5cdf61147817fbd07bb85df0f04ef2b477f54c3c369f",
+      "contexts": [
+        "ch04-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut07-logo-v2.png",
+      "sha256": "a8980c8544bc6d663dd9f1e367a082a586694f69f919b090afa04ae7af008d1e",
+      "contexts": [
+        "ch04-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut08-logo-v2.png",
+      "sha256": "435c88b197581c74792db1d1d1fead6ea3a9770926a89462d8272122d78b9cd8",
+      "contexts": [
+        "ch04-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-cut09-logo-v2.png",
+      "sha256": "00653678d578fe2ba1b310c69425b586f75dd875947323dcb87065193e5d87df",
+      "contexts": [
+        "ch04-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch04-victory-opening-logo-v2.png",
+      "sha256": "50e06260c3b1f8a1d005cdf2a00411a3d27d041fd0e127a3fe3e3464e572aac7",
+      "contexts": [
+        "ch04-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut01-logo-v2.png",
+      "sha256": "e234fc3a80d059af6d8cb65e3990720cc0684a6eb32fc60b6f1b45fc5c273d82",
+      "contexts": [
+        "ch05-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "sha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "contexts": [
+        "ch05-intro:2",
+        "ch05-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut03-logo-v2.png",
+      "sha256": "d8220f53cf2e736226e75afd992c885ed7c59c53cae566de270c900708d1d1af",
+      "contexts": [
+        "ch05-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut04-logo-v2.png",
+      "sha256": "477aed97c2de2b7633c8a5289a25e65ed04d43a9d37b70f2bd57153600817670",
+      "contexts": [
+        "ch05-intro:5",
+        "ch05-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut07-logo-v2.png",
+      "sha256": "e29500f7ab524657ef06fe7578d8e6d65e6a6bd7fd483735b11c62d3c9ba19ad",
+      "contexts": [
+        "ch05-intro:12",
+        "ch05-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-intro-cut08-logo-v2.png",
+      "sha256": "b89d99cbd82a51b48defa56ce6c13c8bf038e9c8d106a1d2839dfe797adb886e",
+      "contexts": [
+        "ch05-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-cut04-logo-v2.png",
+      "sha256": "18d6f585844dbd837215b8a79fb82e9dacca3357e8cdae296b3dfc08a2016a8f",
+      "contexts": [
+        "ch05-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-cut06-logo-v2.png",
+      "sha256": "2bd0e0662ed057b0e56320612d01fe333cbc9350724d5ca0eeea672cfa3ab5b7",
+      "contexts": [
+        "ch05-victory:8",
+        "ch05-victory:9",
+        "ch05-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch05-victory-opening-logo-v2.png",
+      "sha256": "9e972a0cc72acfc8d25c6d7ada5235d1a92ed5db0cbb5a4eb89bf11ee5d3003a",
+      "contexts": [
+        "ch05-victory:1",
+        "ch05-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut02-logo-v4.png",
+      "sha256": "f5dd5ca4a766d6047fa928008761a029a5fb6ab8f4b315d8c14578839b49dc27",
+      "contexts": [
+        "ch06-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut03-logo-v2.png",
+      "sha256": "65e66970f2258cab85dd87f9d83150b9ea915a0c5e6d6525e928a440669b578b",
+      "contexts": [
+        "ch06-intro:3",
+        "ch06-intro:4",
+        "ch06-intro:5",
+        "ch06-intro:6",
+        "ch06-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut04-logo-v4.png",
+      "sha256": "6fdc8d5829bd87e2b0adc6d0edd20066fb320ebda025a4110112d656be679310",
+      "contexts": [
+        "ch06-intro:8",
+        "ch06-intro:9",
+        "ch06-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut05-center-v3.png",
+      "sha256": "8709b34e8cb98afe107090b55d8788f1354b2784122060c14c68ede7aeb513de",
+      "contexts": [
+        "ch06-intro:11",
+        "ch06-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut06-logo-v4.png",
+      "sha256": "7cf282d0e31b1ccb4777eba575f353d19362d0c61a8882fd0e76626e525d9a5c",
+      "contexts": [
+        "ch06-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-cut07.png",
+      "sha256": "880810d0dfe745e9b5c13d03ccd404ef522d5f6f28534fe417c267fb7faad749",
+      "contexts": [
+        "ch06-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-intro-opening-logo-v3.png",
+      "sha256": "e769d826cfbf3b9fcb0986e71a40fab8e04b39b21d59bd4502cefad35e79a95c",
+      "contexts": [
+        "ch06-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut02-logo-v5.png",
+      "sha256": "02fb81397be04e0d6b6cc0b1a94045afe2ce50fc9f7c45f3abfc738a85eb352c",
+      "contexts": [
+        "ch06-victory:2",
+        "ch06-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut03-logo-v6.png",
+      "sha256": "ba375d7911daeb19a4e4f00f0b34c9934f941fea317bf3f40534e5f549e01fd5",
+      "contexts": [
+        "ch06-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut04-logo-v5.png",
+      "sha256": "274d83b76f7dc187e8d082c96aa377084ae8627e88be6d49b5d9ee2a630e3741",
+      "contexts": [
+        "ch06-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut05-logo-v2.png",
+      "sha256": "55060d037fcbc63a15deae68c050eb906190e808162728087549b144b0d6b8b8",
+      "contexts": [
+        "ch06-victory:6",
+        "ch06-victory:7",
+        "ch06-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut06-logo-v3.png",
+      "sha256": "3ce62dd641a2472cac5b5e934bf6647769567313c625cca850d506f2d94be1b7",
+      "contexts": [
+        "ch06-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-cut07-center-v2.png",
+      "sha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "contexts": [
+        "ch06-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch06-victory-opening-logo-v2.png",
+      "sha256": "c2fc100f0452fd3508397a45a1b563f4a43e86b8c1467251735bc6ac51458e18",
+      "contexts": [
+        "ch06-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut01.png",
+      "sha256": "673918bb088b1fe8a94d3acc3862c3854ac4fc17a3c739ccce8e3407bd40beaf",
+      "contexts": [
+        "ch07-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut02-logo-v5.png",
+      "sha256": "3eb8dc0a381f9c2fecfb6031b3b999fbe7d60569fad81ba8bcbef4681886575e",
+      "contexts": [
+        "ch07-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut03-logo-v4.png",
+      "sha256": "77682e8a27592eb6b7df059d3536950bb3f94ddacc248f009a2f90ed39805db2",
+      "contexts": [
+        "ch07-intro:3",
+        "ch07-intro:4",
+        "ch07-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut04-logo-v4.png",
+      "sha256": "6a2caf371d70a304a1292ed724ec5b6c86933a3d66fee042ccdf90efc98f0197",
+      "contexts": [
+        "ch07-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut05-logo-v4.png",
+      "sha256": "2c1dd38515066c50ca31aa174cd9fb26a6258290b9e858b1a4c097231adfdbd1",
+      "contexts": [
+        "ch07-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut06-logo-v2.png",
+      "sha256": "a873791aabef9035f5b9dfa2f95cd9d49a3a745b6a472f4bacbbd9e58123072e",
+      "contexts": [
+        "ch07-intro:8",
+        "ch07-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut07-logo-v4.png",
+      "sha256": "7648d5d0585b694b5b6d65a37f4c4ddba3d47daa4649a97675714da43a5e6afa",
+      "contexts": [
+        "ch07-intro:10",
+        "ch07-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut08-center-v2.png",
+      "sha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "contexts": [
+        "ch07-intro:12",
+        "ch07-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-intro-cut09-logo-v3.png",
+      "sha256": "111afde75ec7e2636ea4ca46b342b809cec223af4e2c7868df407641471b2bcd",
+      "contexts": [
+        "ch07-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-victory-cut05.png",
+      "sha256": "ebdf84797f19b810e7346b16d1cf4544880bff87e5b5963b7e60de173ae82b0f",
+      "contexts": [
+        "ch07-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch07-victory-cut07-logo-v4.png",
+      "sha256": "9bf9e8481c623f2fb7acc27c7e02e62048d0b5e31975958abc6cd7b3455d0098",
+      "contexts": [
+        "ch07-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut04-logo-v4.png",
+      "sha256": "d85f281e0a22623696c31460f8ddbaa4ac11ac1d24ee18dcb5a2d652212c4237",
+      "contexts": [
+        "ch08-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut05-center-v3.png",
+      "sha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "contexts": [
+        "ch08-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut07-logo-v3.png",
+      "sha256": "31f01480e49a153280607b8352750cbe1fc1af398c91a2652d613bea777420a4",
+      "contexts": [
+        "ch08-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut08.png",
+      "sha256": "5973b8833562347f74e143c04bc3571f86f775c29ef899fe2a7f751c034966a9",
+      "contexts": [
+        "ch08-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut09.png",
+      "sha256": "517576a9bdd43bf7e3f8ae7cb46777637b6d3e319d91e7538fcd37c583f62427",
+      "contexts": [
+        "ch08-intro:13",
+        "ch08-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-intro-cut10-center-v2.png",
+      "sha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "contexts": [
+        "ch08-intro:15"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut03-logo-v6.png",
+      "sha256": "335bd8a0841de9741953dfe4f644d44a3cdef717863ea1213eadf37b59bfe6c6",
+      "contexts": [
+        "ch08-victory:5",
+        "ch08-victory:6",
+        "ch08-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut04-logo-v3.png",
+      "sha256": "cafd209ecdb33bbc4a93685d6143d6e14d8e09c492e25faf0a71987b627bb524",
+      "contexts": [
+        "ch08-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut05.png",
+      "sha256": "a5522b55b4fb7d0a067d35bc189a664056f2c28d4766563c77698454cd734808",
+      "contexts": [
+        "ch08-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch08-victory-cut06.png",
+      "sha256": "1d909a31eb9104a6035f63a12432afc5900885694042597f03a51d31b475bcda",
+      "contexts": [
+        "ch08-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut02-logo-v5.png",
+      "sha256": "7fb69fd2001c5d890cb6f4aebabad986e6892e315819f0f9b6dcb8a77b410706",
+      "contexts": [
+        "ch09-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut03-logo-v9.png",
+      "sha256": "3702a15429be57e8204b36cd1b5f6713f5e917934142816d4a88919914823372",
+      "contexts": [
+        "ch09-intro:3",
+        "ch09-intro:4",
+        "ch09-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut07-logo-v5.png",
+      "sha256": "d46f80bef72002a6acfc4841be30b5836251289a45387ee345d157df820802f5",
+      "contexts": [
+        "ch09-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut08-logo-v6.png",
+      "sha256": "8bf3655a11af4efd5b945ef8c7b7f1928d10ffa6b4ccb11081ee5455b71893ab",
+      "contexts": [
+        "ch09-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut09-logo-v7.png",
+      "sha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "contexts": [
+        "ch09-intro:11",
+        "ch09-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut10-logo-v3.png",
+      "sha256": "15c59cc592f4d9b0f5fa09df29303b9b57bad3b52ecc9d6a1f01c2b79395f47c",
+      "contexts": [
+        "ch09-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-cut11.png",
+      "sha256": "1f80f6f9af6f75d7a0097264c5b449363a9edeaa78bfb77dd2e5605f466fbac1",
+      "contexts": [
+        "ch09-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-intro-opening-logo-v2.png",
+      "sha256": "d6727fbe1e9d01ad291f18235462a3c3f154abd7bf212636ac41c2a62060bb89",
+      "contexts": [
+        "ch09-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut02-logo-v3.png",
+      "sha256": "6a8f8e985fb62b5ffcc70ee84ca55eae11b677f840729d7e611facd2a7686469",
+      "contexts": [
+        "ch09-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut03-logo-v3.png",
+      "sha256": "8198fed328235fe2f2e135606e3a347aaa661ebc1cb00aa9d30d3e9c1379fa98",
+      "contexts": [
+        "ch09-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut04-logo-v2.png",
+      "sha256": "27c346a955917aca524c78e46ac6f712e41a5b33e1f8e907c4525a84574d85fe",
+      "contexts": [
+        "ch09-victory:4",
+        "ch09-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut05-logo-v2.png",
+      "sha256": "6535668a5c230e3e1d73026a8e3c0e7838fb325ea46bdeda1891ea8377477d60",
+      "contexts": [
+        "ch09-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "sha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "contexts": [
+        "ch09-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut07-logo-v2.png",
+      "sha256": "78a34f960424ecdb7e7ad300359b17bbd70eb47aad859786bd6806923b6b6069",
+      "contexts": [
+        "ch09-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-cut08-logo-v2.png",
+      "sha256": "c470a995fc7835a92cd3d332552d5b0edf91377bbbfd6ba9742550f4cfe30864",
+      "contexts": [
+        "ch09-victory:9",
+        "ch09-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch09-victory-opening-logo-v2.png",
+      "sha256": "357db861ab19242605e1be9663a816bae0f2257fce5fcc73d18d0fb6cfe48e86",
+      "contexts": [
+        "ch09-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut03.png",
+      "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "contexts": [
+        "ch10-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut04-logo-v2.png",
+      "sha256": "4e25f9c7d332bb0ee73653093b660b6aa8daed002c7644983a97c17033254073",
+      "contexts": [
+        "ch10-intro:4",
+        "ch10-intro:5",
+        "ch10-intro:6",
+        "ch10-intro:7",
+        "ch10-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut06-logo-v2.png",
+      "sha256": "a461e2156bac530170cac05b5fdd185bf8936b24cf198144216cace90e38b599",
+      "contexts": [
+        "ch10-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+      "sha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "contexts": [
+        "ch10-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-per-cut-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut08-logo-v2.png",
+      "sha256": "86b916af880d3d8f20c653ade4693795fd3b866d6cfe18eecd8675015d5c4a53",
+      "contexts": [
+        "ch10-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-cut09-logo-v3.png",
+      "sha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+      "contexts": [
+        "ch10-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-intro-opening-logo-v2.png",
+      "sha256": "1245221df714023a99a8f7738f8d57c82773ee78e36dc7632981492c4a8ccde2",
+      "contexts": [
+        "ch10-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut01-logo-v2.png",
+      "sha256": "ee7dc5d24874df5fd5576adbe27bdf42fd223eb6d25baf8d3782aeccd2797bb5",
+      "contexts": [
+        "ch10-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut02-logo-v2.png",
+      "sha256": "b38556e82003013528376a306f1ae9832f6907ca9e29ad0ff371e2d85274a51c",
+      "contexts": [
+        "ch10-victory:2",
+        "ch10-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut03-logo-v2.png",
+      "sha256": "5bf0a516e1ae3ff50fb2bf3bbf00100ea4a0cac14af2113febaae82f402ba2c4",
+      "contexts": [
+        "ch10-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut04-logo-v2.png",
+      "sha256": "059726a6b691cf6f4517700db34aac9be2b57e59604f9c3df8de075764fb7429",
+      "contexts": [
+        "ch10-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut05-logo-v2.png",
+      "sha256": "09eace7d371c4deb4e68d2590b9647979820a89de4552f5b4146fc723010bc09",
+      "contexts": [
+        "ch10-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut06-logo-v2.png",
+      "sha256": "83a45cb75782b73ca5e4bbc20fbadbf876af7b20d6abe1cfbf8d3f7e8d4cc4d9",
+      "contexts": [
+        "ch10-victory:7",
+        "ch10-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch10-victory-cut07-logo-v3.png",
+      "sha256": "fc5909eb62a94cf8a3f691535e38ad7aef595c2c553af5c24fa4cbd835319ea8",
+      "contexts": [
+        "ch10-victory:9",
+        "ch10-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut01-logo-v2.png",
+      "sha256": "6d8caf2303c3abcc90cd22ff3b3cd4d3b8e48644e2efcc9f85b1871cbd90ee51",
+      "contexts": [
+        "ch11-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut02-logo-v3.png",
+      "sha256": "de6261655706ac1f90bec1615ae5970697a48f1050559130e40229a840c1d6ea",
+      "contexts": [
+        "ch11-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut03-logo-v2.png",
+      "sha256": "81693bb5ce42db9c71531d80fe482a613ec7a283800a7f013266d0080503536e",
+      "contexts": [
+        "ch11-intro:3",
+        "ch11-intro:4",
+        "ch11-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut04-logo-v2.png",
+      "sha256": "45643991b9747ed8d2f48cfb3417bf2ceecc096f51fb214590bef5dc1cf51b2d",
+      "contexts": [
+        "ch11-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut05-logo-v2.png",
+      "sha256": "3e215c070898d3805a273020025071e90da828292da1d51278440d7194e375ed",
+      "contexts": [
+        "ch11-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut06-center-v2.png",
+      "sha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "contexts": [
+        "ch11-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut07-logo-v2.png",
+      "sha256": "e811c35b8949058d84bb2606d64b3603828131d64a7f9528a58cd91adb0ed5a6",
+      "contexts": [
+        "ch11-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut08-logo-v2.png",
+      "sha256": "68d7e4d1d3288a8b7cfa96003f6f597b7311b179ce5a8a3212b08e9847c85297",
+      "contexts": [
+        "ch11-intro:10",
+        "ch11-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut09-logo-v3.png",
+      "sha256": "aed70cc723aad59d3e1e9da55ad2fdda791580c6e1dd9531e55aee013d886994",
+      "contexts": [
+        "ch11-intro:12",
+        "ch11-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-intro-cut10-logo-v3.png",
+      "sha256": "0baf9d3b18b094b913fa9871ca194d1117ba5b82f1ef0de9bd1f6d9ceed3ffdd",
+      "contexts": [
+        "ch11-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut02.png",
+      "sha256": "2c3881412d0a0f4187d9662e9998bf03a3e18e01d54c30186fc9610bc0acf196",
+      "contexts": [
+        "ch11-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut03-logo-v2.png",
+      "sha256": "a663936523f438fffcb6c0906dbe6005ce90ef0ad2d571c4943e879d11738481",
+      "contexts": [
+        "ch11-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut04-logo-v5.png",
+      "sha256": "35a858d486b870f09a8afd0e7d0d1e07a80150739cd2c8c4a7446f1dab946675",
+      "contexts": [
+        "ch11-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut05-logo-v2.png",
+      "sha256": "f132ba0474a762ed78f1e0bb5b88cc423c0f8df16a4e002b065d053e8154d89f",
+      "contexts": [
+        "ch11-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut06-logo-v2.png",
+      "sha256": "0dcd1cb4cdfab8868015069baf8bd1850a3150337c65a0cd08c35bf4b0e2963f",
+      "contexts": [
+        "ch11-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut07-logo-v2.png",
+      "sha256": "7330eacb28f8aeb2fab2b802fbf9aa6b1d1d8fef6d8e58d09090a20aee8c9a40",
+      "contexts": [
+        "ch11-victory:7",
+        "ch11-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut08-logo-v2.png",
+      "sha256": "6d0f3024cf2056393c683a03f61bb9091e07e7a9958649ff6f34d1fab662d98d",
+      "contexts": [
+        "ch11-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-cut09.png",
+      "sha256": "79d5d4b104946c10b8548f4fca965769b9cca46e395ad59138d00951093e4484",
+      "contexts": [
+        "ch11-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch11-victory-opening-logo-v2.png",
+      "sha256": "bcd4c12b4ffcb1af40affee1656bab2993d38c9516213d84bc6ca470f5c73cbd",
+      "contexts": [
+        "ch11-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut02-center-root-v2.png",
+      "sha256": "f763b72ee4d325b0817ef14ef98217ae3f3c98689e0241111c53c8ce72b71a0b",
+      "contexts": [
+        "ch12-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut03-center-root-v3.png",
+      "sha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "contexts": [
+        "ch12-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut04.png",
+      "sha256": "94b5c929db227d4009b08d8d5e60b0f3f6e4373d071759b8383e59df500dcc81",
+      "contexts": [
+        "ch12-intro:4",
+        "ch12-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut05-logo-v2.png",
+      "sha256": "5ad7f68c2f7a62810ae05d2e1d85932964dc058d4d34f468827caf19a105273d",
+      "contexts": [
+        "ch12-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut06-logo-v2.png",
+      "sha256": "ff734f92570455242813fc708387e06ce0c0b5a30e2e8867e331ecb175d6e5eb",
+      "contexts": [
+        "ch12-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut07-center-root-v2.png",
+      "sha256": "9807d2be5c8764c727db72e10d25ff6669101aef0adac312f01f11dc4d832187",
+      "contexts": [
+        "ch12-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut08.png",
+      "sha256": "cd90e861ecb0a64eeeac1a20a29c43bf22649fb285d56ebb0dae39060be37562",
+      "contexts": [
+        "ch12-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut09.png",
+      "sha256": "2bb4a2fd374e05c5b14e7e7aaae70d21a8995327b97500ef89453015a42d605d",
+      "contexts": [
+        "ch12-intro:10",
+        "ch12-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut10.png",
+      "sha256": "0063180f29b7ef00e28c172b24a4b4c290cddabaa1108bc61627fe5465616b69",
+      "contexts": [
+        "ch12-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut11-center-root-v3.png",
+      "sha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "contexts": [
+        "ch12-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-cut12-logo-v2.png",
+      "sha256": "e88275a456b20ab7e783ff0f5951cbcfa113cf2384d4cd507761ed8579721842",
+      "contexts": [
+        "ch12-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-intro-opening.png",
+      "sha256": "3c43386a5bb3af43b3045afbf8cded151006a68a2c646ae0199843bf24ac6b0f",
+      "contexts": [
+        "ch12-intro:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut02-logo-v3.png",
+      "sha256": "7b45b25268a8c7de0eb8c175487b759380281ed1e2ec6c06405d8f8dff80bedb",
+      "contexts": [
+        "ch12-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut03-logo-v2.png",
+      "sha256": "83a7822356c493399e6c3ea96f3298260154e830f8f793c09139584881f9ac38",
+      "contexts": [
+        "ch12-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut06-logo-v6.png",
+      "sha256": "b84a303a57afd201d13bd1ff8f29d621b267f3c9d62d6811bfa533c2a038fb25",
+      "contexts": [
+        "ch12-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut07-logo-v3.png",
+      "sha256": "47686af25789a3fe9661e446f1be318855c48a60f4deec8d69551dca94e07ece",
+      "contexts": [
+        "ch12-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut08-logo-v3.png",
+      "sha256": "02c956c180ed9e22c5384bd6d839017e28ca8104fc3a45b77de4fe3744d3f6ea",
+      "contexts": [
+        "ch12-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut09-logo-v3.png",
+      "sha256": "c132e6618922c0f90072f5551fc483551212e2cd1026c2038188e70f9a684d30",
+      "contexts": [
+        "ch12-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-cut11-logo-v3.png",
+      "sha256": "004a27007e7f878267e4878357ea517bbea6beb8224217893e40b6e2d326ad54",
+      "contexts": [
+        "ch12-victory:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch12-victory-opening.png",
+      "sha256": "7b1df9e6ea3e899035e26557e39b76fcc72dacada24a90c3b66a5bf9bad5af22",
+      "contexts": [
+        "ch12-victory:1"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/retry-opening-logo-v2.png",
+      "sha256": "c2ca15f7f39fbb336b49f2bee0eefc1e8cba08c9c653fba732128fb3d5696b81",
+      "contexts": [
+        "retry:1",
+        "retry:2",
+        "retry:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/sunrise-crew-branded-v2-centered-v2.png",
+      "sha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "contexts": [
+        "location:sunrise",
+        "chapter-menu:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-expanded-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/tower-boardroom-v2.png",
+      "sha256": "e405877a5847e21692bf4c334b563944c8fc9a7ea5be07c72eee362eb20eade5",
+      "contexts": [
+        "location:boardroom",
+        "chapter-menu:4",
+        "chapter-menu:6",
+        "chapter-menu:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    }
+  ]
+}

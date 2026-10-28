@@ -1,0 +1,980 @@
+{
+  "schema": "sora-logo-placement-repairs-v1",
+  "createdAt": "2026-09-26T14:28:46.400Z",
+  "tool": "built-in imagegen",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "reviewer": "expanded_logo_audit_a",
+  "assets": [
+    {
+      "id": "sunrise-crew-branded-v2",
+      "source": "public/assets/story/sunrise-crew-branded-v2.png",
+      "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/sunrise-crew-branded-v2.png",
+        "sha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd"
+      },
+      "output": "public/assets/story/sunrise-crew-branded-v2-centered-v2.png",
+      "status": "accepted",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY the red car hood decal. Remove its remaining off-center arc and SORA wordmark to the right of the seated blue woman, restore red paint. Reposition whole lockup on red hood longitudinal centerline at approximately x840,y468 of1672x941 image, BEHIND her seated body and legs. Near-total occlusion is correct. Do not put a fragment on exposed right side to make it visible. Preserve current mint hood decal, white hood decal and every other mark exactly. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+      "generationStartedAt": "2026-09-26T14:50:12.982Z",
+      "attempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Asset: existing SORA CARS story illustration. Image 1 is the exact edit target; image 2 is the supplied SORA emblem reference. Change ONLY physical logo placement: Move the existing red-car and mint-car hood emblems from the exposed side areas onto each hood longitudinal centerline in perspective. Allow seated people to occlude the correctly centered graphics naturally. Top of each logo points toward its windshield and lower diagonal channels toward its front bumper. Preserve the white-car hood mark and all other branding. Maintain the reference geometry: paired straight white bars connected by short stem, with straight lower diagonal white channels opening through the red disk edge. Match existing pixel illustration texture, lighting and surface perspective. Preserve every character identity, expression, pose, hand, garment shape, all photographs and printed documents, every prop, every vehicle shape, scenery, exact camera crop and composition. Do not move or redraw the story scene, add objects, add extra logos, or remove any narrative content. Keep the entire scene fully opaque as in image 1.",
+          "source": "public/assets/story/sunrise-crew-branded-v2.png",
+          "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-1b536879-ef87-4f71-bcb8-d3570acd896c.png",
+          "generatedSha256": "2772722cda803c8482412b8baa5e503f5752ab11839242379e848b3fc59f054e",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "status": "rejected",
+          "visualQA": "Red and mint hood marks remained off-center on exposed side areas; weaker outlined red-car mark.",
+          "sourceHashAfterGeneration": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "sourceUnchanged": true,
+          "reviewedAt": "2026-09-26T14:40:11.868Z"
+        },
+        {
+          "prompt": "Use case: precise-object-edit. Image 1 is the exact edit target, image 2 is the authoritative SORA emblem. Physically relocate the TWO off-center hood decals only. ERASE the current red-car logo and wordmark at the exposed right side and ERASE the mint-car logo and wordmark at the exposed left side, restoring their plain car paint. Redraw each logo plus SORA lockup on the actual longitudinal centerline of its hood: the red car center falls underneath the seated camera woman at roughly x855, y470 in this 1672x941 image; the mint car center falls underneath the seated keyboard man at roughly x1270, y488. Therefore the new decals MUST be naturally PARTIALLY OCCLUDED by their existing legs and bodies. It is fine for much of a centered logo to be hidden; do not shift it to a side for visibility. Top of logo toward windshield, lower diagonal white channels toward bumper, following each sloping hood perspective. Match exact white straight double bars, stem, and edge-opening diagonal channels in supplied red-disk SORA reference, with existing pixel illustration texture. Keep white car logo, all door marks, flags, garment badges, all six people, every hand and face, cameras, keyboard, cups, thermos, scenery, car contours, shadows, frame and every other pixel composition unchanged. Keep full opaque scene. Only change positions of two hood lockups.",
+          "source": "public/assets/story/sunrise-crew-branded-v2.png",
+          "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-748226e2-101b-452d-a260-16d31bf66c64.png",
+          "generatedSha256": "6876a9c95946a574b9473863d5134104aed7bf6a929d9378de536d692e059831",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "sourceUnchanged": true,
+          "status": "rejected",
+          "visualQA": "All six people, cars and props, full frame, scenery and opaque scene preserved. Hood graphics now naturally pass beneath seated characters.",
+          "placementQA": "Red hood lockup shifted left and mint hood lockup right toward projected hood axes; seated people naturally occlude centered decals. Root independent placement review required.",
+          "reviewedAt": "2026-09-26T14:45:02.085Z",
+          "rootReview": {
+            "accepted": false,
+            "reason": "Change ONLY the red car hood decal. Remove its remaining off-center arc and SORA wordmark to the right of the seated blue woman, restore red paint. Reposition whole lockup on red hood longitudinal centerline at approximately x840,y468 of1672x941 image, BEHIND her seated body and legs. Near-total occlusion is correct. Do not put a fragment on exposed right side to make it visible. Preserve current mint hood decal, white hood decal and every other mark exactly."
+          }
+        },
+        {
+          "editTarget": "public/assets/story/sunrise-crew-branded-v2-centered-v1.png",
+          "editTargetSha256": "6876a9c95946a574b9473863d5134104aed7bf6a929d9378de536d692e059831",
+          "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY the red car hood decal. Remove its remaining off-center arc and SORA wordmark to the right of the seated blue woman, restore red paint. Reposition whole lockup on red hood longitudinal centerline at approximately x840,y468 of1672x941 image, BEHIND her seated body and legs. Near-total occlusion is correct. Do not put a fragment on exposed right side to make it visible. Preserve current mint hood decal, white hood decal and every other mark exactly. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+          "source": "public/assets/story/sunrise-crew-branded-v2.png",
+          "sourceSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-e4ce7bf1-d287-4222-90f8-a32b1bc2de2b.png",
+          "generatedSha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+          "sourceUnchanged": true,
+          "status": "accepted",
+          "visualQA": "Only red hood lockup relocation materially changed; all six people, mint and white graphics, car bodies, cups and landscape preserved with opaque alpha.",
+          "placementQA": "Red hood emblem now centered near x840,y468 with most of disk naturally occluded by seated camera woman; former exposed right arc and wordmark removed. Mint and white hood marks unchanged.",
+          "reviewedAt": "2026-09-26T14:55:30.715Z"
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-e4ce7bf1-d287-4222-90f8-a32b1bc2de2b.png",
+      "generatedSha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "sourceHashAfterGeneration": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "sourceUnchanged": true,
+      "visualQA": "Only red hood lockup relocation materially changed; all six people, mint and white graphics, car bodies, cups and landscape preserved with opaque alpha.",
+      "placementQA": "Red hood emblem now centered near x840,y468 with most of disk naturally occluded by seated camera woman; former exposed right arc and wordmark removed. Mint and white hood marks unchanged.",
+      "reviewedAt": "2026-09-26T14:55:30.715Z",
+      "previousOutputs": [
+        {
+          "path": "public/assets/story/sunrise-crew-branded-v2-centered-v1.png",
+          "sha256": "6876a9c95946a574b9473863d5134104aed7bf6a929d9378de536d692e059831",
+          "rootReview": "rejected",
+          "reason": "Change ONLY the red car hood decal. Remove its remaining off-center arc and SORA wordmark to the right of the seated blue woman, restore red paint. Reposition whole lockup on red hood longitudinal centerline at approximately x840,y468 of1672x941 image, BEHIND her seated body and legs. Near-total occlusion is correct. Do not put a fragment on exposed right side to make it visible. Preserve current mint hood decal, white hood decal and every other mark exactly."
+        }
+      ],
+      "editTarget": "public/assets/story/sunrise-crew-branded-v2-centered-v1.png",
+      "editTargetSha256": "6876a9c95946a574b9473863d5134104aed7bf6a929d9378de536d692e059831",
+      "outputSha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "outputInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      }
+    },
+    {
+      "id": "sunrise-detail-v3",
+      "source": "public/assets/story/angles/sunrise-detail-v3.png",
+      "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/angles/sunrise-detail-v3.png",
+        "sha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32"
+      },
+      "output": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+      "status": "accepted",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is exact original scene target; image2 authoritative SORA emblem reference. Only relocate the car hood logo. Erase the large red-disk and SORA lockup beside right headlight at x1140,y720, restore plain cream paint. Add SMALL red disk emblem+SORA wordmark together to main hood surface centered approximately x790,y580. Full lockup must fit within rectangle x710..890 and y525..630, above the existing diagonal hood leading seam. This requires much smaller decal, about140px-wide disk and120px-wide wordmark. Preserve that EXACT ORIGINAL seam: it runs roughly from270,750 to1290,604. Do not move, remove, redraw, or bend seam to fit logo. Do not put any logo on header strip in front of seam. Existing notes/cassette/leaf may occlude the decal naturally; preserve them and every prop, all hands, garment marks, reflections, lighting, hood contours, headlights, frame and scenery exactly. White logo double bars/stem/lower diagonal channels must follow supplied reference and hood perspective. Full opaque PNG scene.",
+      "generationStartedAt": "2026-09-26T14:55:31.037Z",
+      "attempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Asset: existing SORA CARS story illustration. Image 1 is the exact edit target; image 2 is the supplied SORA emblem reference. Change ONLY physical logo placement: Move the entire red-disk emblem plus SORA wordmark as one lockup from beside the right headlight onto the physical hood longitudinal centerline. Center between the hood sides at the logo location, top pointing toward windshield, bottom toward front bumper. Preserve hood seams, headlights and all objects resting on hood. Maintain the reference geometry: paired straight white bars connected by short stem, with straight lower diagonal white channels opening through the red disk edge. Match existing pixel illustration texture, lighting and surface perspective. Preserve every character identity, expression, pose, hand, garment shape, all photographs and printed documents, every prop, every vehicle shape, scenery, exact camera crop and composition. Do not move or redraw the story scene, add objects, add extra logos, or remove any narrative content. Keep the entire scene fully opaque as in image 1.",
+          "source": "public/assets/story/angles/sunrise-detail-v3.png",
+          "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-196da252-8e21-4197-92fd-ac97f92233c3.png",
+          "generatedSha256": "85fb577572820f7853e993771e6358f2a25308b6c16a1dcd0856850fd04b7b91",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "status": "rejected",
+          "visualQA": "Compared individually against original. Entire hood scene, paper notes, cassette, cups, arms and landscape preserved; no alpha change.",
+          "sourceHashAfterGeneration": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "sourceUnchanged": true,
+          "reviewedAt": "2026-09-26T14:45:01.976Z",
+          "placementQA": "Lockup moved away from right headlamp to the physical hood centerline, top toward windshield with matching perspective.",
+          "rootReview": {
+            "accepted": false,
+            "reason": "Change ONLY the main car hood lockup. Current lockup crosses onto the front header panel below the hood leading seam. Remove it entirely and restore original cream paint. Move the complete logo+SORA lockup UP onto the MAIN hood sheet at approximately x800,y560, and reduce size by35percent. Keep all of it ABOVE the existing diagonal hood leading seam that runs from roughly270,750 to1290,604. Top toward windshield, bottom toward bumper; same hood perspective. Papers/other objects may naturally obscure the upper logo; do not move them. No graphic on front header or lamp lids."
+          }
+        },
+        {
+          "editTarget": "public/assets/story/angles/sunrise-detail-v3-centered-v1.png",
+          "editTargetSha256": "85fb577572820f7853e993771e6358f2a25308b6c16a1dcd0856850fd04b7b91",
+          "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY the main car hood lockup. Current lockup crosses onto the front header panel below the hood leading seam. Remove it entirely and restore original cream paint. Move the complete logo+SORA lockup UP onto the MAIN hood sheet at approximately x800,y560, and reduce size by35percent. Keep all of it ABOVE the existing diagonal hood leading seam that runs from roughly270,750 to1290,604. Top toward windshield, bottom toward bumper; same hood perspective. Papers/other objects may naturally obscure the upper logo; do not move them. No graphic on front header or lamp lids. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+          "source": "public/assets/story/angles/sunrise-detail-v3.png",
+          "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-04596ab4-d7ca-4e6f-af71-150b4beaf911.png",
+          "generatedSha256": "1c11c037360279510aa4b695c868566bfd2dc8a6fac6867ff834955acc2ecf18",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "sourceUnchanged": true,
+          "status": "rejected",
+          "visualQA": "Model moved hood leading seam downward to fit lockup. Reject altered vehicle panel geometry; next attempt must preserve original seam.",
+          "placementQA": "Logo now above fabricated seam but not a valid correction of original surface placement.",
+          "reviewedAt": "2026-09-26T14:55:30.908Z"
+        },
+        {
+          "editTarget": "public/assets/story/angles/sunrise-detail-v3.png",
+          "editTargetSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "prompt": "Use case: precise-object-edit. Image1 is exact original scene target; image2 authoritative SORA emblem reference. Only relocate the car hood logo. Erase the large red-disk and SORA lockup beside right headlight at x1140,y720, restore plain cream paint. Add SMALL red disk emblem+SORA wordmark together to main hood surface centered approximately x790,y580. Full lockup must fit within rectangle x710..890 and y525..630, above the existing diagonal hood leading seam. This requires much smaller decal, about140px-wide disk and120px-wide wordmark. Preserve that EXACT ORIGINAL seam: it runs roughly from270,750 to1290,604. Do not move, remove, redraw, or bend seam to fit logo. Do not put any logo on header strip in front of seam. Existing notes/cassette/leaf may occlude the decal naturally; preserve them and every prop, all hands, garment marks, reflections, lighting, hood contours, headlights, frame and scenery exactly. White logo double bars/stem/lower diagonal channels must follow supplied reference and hood perspective. Full opaque PNG scene.",
+          "source": "public/assets/story/angles/sunrise-detail-v3.png",
+          "sourceSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-66564842-48fa-458d-bb6a-ca0311318109.png",
+          "generatedSha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+          "sourceUnchanged": true,
+          "status": "accepted",
+          "visualQA": "Full original scene and car hood leading seam preserved; previous large lockup area restored to cream paint. Papers, cassette, cups, garments, hands, leaf and opaque alpha preserved.",
+          "placementQA": "Small complete emblem and SORA lockup sit on main hood sheet above original leading seam near projected centerline. Entire lockup around x810,y605 clears all seams and headlamp lids and follows hood perspective.",
+          "reviewedAt": "2026-09-26T14:58:47.426Z"
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-66564842-48fa-458d-bb6a-ca0311318109.png",
+      "generatedSha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "sourceHashAfterGeneration": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "sourceUnchanged": true,
+      "visualQA": "Full original scene and car hood leading seam preserved; previous large lockup area restored to cream paint. Papers, cassette, cups, garments, hands, leaf and opaque alpha preserved.",
+      "placementQA": "Small complete emblem and SORA lockup sit on main hood sheet above original leading seam near projected centerline. Entire lockup around x810,y605 clears all seams and headlamp lids and follows hood perspective.",
+      "reviewedAt": "2026-09-26T14:58:47.426Z",
+      "previousOutputs": [
+        {
+          "path": "public/assets/story/angles/sunrise-detail-v3-centered-v1.png",
+          "sha256": "85fb577572820f7853e993771e6358f2a25308b6c16a1dcd0856850fd04b7b91",
+          "rootReview": "rejected",
+          "reason": "Change ONLY the main car hood lockup. Current lockup crosses onto the front header panel below the hood leading seam. Remove it entirely and restore original cream paint. Move the complete logo+SORA lockup UP onto the MAIN hood sheet at approximately x800,y560, and reduce size by35percent. Keep all of it ABOVE the existing diagonal hood leading seam that runs from roughly270,750 to1290,604. Top toward windshield, bottom toward bumper; same hood perspective. Papers/other objects may naturally obscure the upper logo; do not move them. No graphic on front header or lamp lids."
+        }
+      ],
+      "outputSha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "outputInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      }
+    },
+    {
+      "id": "garage-left-v2",
+      "source": "public/assets/story/angles/garage-left-v2.png",
+      "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/angles/garage-left-v2.png",
+        "sha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e"
+      },
+      "output": "public/assets/story/angles/garage-left-v2-centered-v1.png",
+      "status": "superseded",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is the exact corrected scene to edit. Image2 is the supplied SORA emblem geometry reference. Make ONE tiny addition only: add the original small white circular badge with red SORA mark to the center of the red jumpsuit thigh-pocket panel at x749,y736 in this1672x941 image; badge diameter about28pixels. Follow pocket cloth angle and pixel texture. DO NOT CHANGE OR MOVE THE CAR DOOR LOGO: preserve its exact present position behind woman, with only left red crescent and short white bar portions visible. Keep blank exposed white door area atx550..630; do not redraw a fully visible logo there. Preserve every other pixel composition: all faces, characters, hands, jumpsuit folds, pocket seams, car body, cassette and its writing, props, signs, scenery, lighting, exact crop and full opaque background. Only add tiny pocket badge.",
+      "generationStartedAt": "2026-09-26T15:00:47.977Z",
+      "attempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Asset: existing SORA CARS story illustration. Image 1 is the exact edit target; image 2 is the supplied SORA emblem reference. Change ONLY physical logo placement: Move the existing white car side emblem and its wordmark together to the center of the actual door panel. The woman naturally occludes the centered decal where her body covers the door; do not shift graphic onto rear quarter for visibility. Keep complete marking within one door panel and fit its perspective. Maintain the reference geometry: paired straight white bars connected by short stem, with straight lower diagonal white channels opening through the red disk edge. Match existing pixel illustration texture, lighting and surface perspective. Preserve every character identity, expression, pose, hand, garment shape, all photographs and printed documents, every prop, every vehicle shape, scenery, exact camera crop and composition. Do not move or redraw the story scene, add objects, add extra logos, or remove any narrative content. Keep the entire scene fully opaque as in image 1.",
+          "source": "public/assets/story/angles/garage-left-v2.png",
+          "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-df2a802d-5518-4d57-8678-6d770c5a67be.png",
+          "generatedSha256": "b0021c63878b9a05a4932eeee7fbcfa96ede95d3addd81a8510df38ed5fa6d53",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "status": "rejected",
+          "visualQA": "Door mark remained on exposed left side rather than centered behind woman.",
+          "sourceHashAfterGeneration": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "sourceUnchanged": true,
+          "reviewedAt": "2026-09-26T14:40:12.119Z"
+        },
+        {
+          "editTarget": "public/assets/story/angles/garage-left-v2.png",
+          "editTargetSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "prompt": "Use case: precise-object-edit. Image 1 is exact scene to edit, image 2 is the authoritative SORA emblem reference. Keep all characters, faces, hands, props, scenery, printed documents, lighting, exact crop, all geometry and fully opaque PNG background unchanged. Match existing pixel-art texture and red disk/paired white bars/stem/diagonal channels opening at disk edge of reference. Move ONLY the red emblem on the white car door. ERASE existing emblem at x620,y750, restoring white paint. Paint that same emblem centered on the complete physical door behind the woman, approximately x815,y710 in this1672x941 image, so it is mostly OCCLUDED by the woman and her red tied jumpsuit. Only its small exposed left or lower arcs may remain visible. This is intentional: do not move decal left to keep it visible, and do not add a SORA wordmark. Keep door boundaries and car window/shape unchanged. Clothing and background logos already ensure recognizable SORA in frame.",
+          "source": "public/assets/story/angles/garage-left-v2.png",
+          "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-95ccfa7a-1d2a-4157-8087-0fb13864eca9.png",
+          "generatedSha256": "e0b5341ae33a8979c275876c74a4b84d64f35ee4d428866cadb53e0463c67e0d",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "sourceUnchanged": true,
+          "status": "needs-refinement",
+          "visualQA": "Door moved behind Aki with natural occlusion. Small original pocket badge on red jumpsuit was removed; restore via generated edit before acceptance.",
+          "placementQA": "Root says preserve this corrected door placement and natural body occlusion; restore pocket badge only.",
+          "reviewedAt": "2026-09-26T14:53:35.842Z"
+        },
+        {
+          "editTarget": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-95ccfa7a-1d2a-4157-8087-0fb13864eca9.png",
+          "editTargetSha256": "e0b5341ae33a8979c275876c74a4b84d64f35ee4d428866cadb53e0463c67e0d",
+          "prompt": "Use case: precise-object-edit. Image1 is the current corrected scene and MUST keep its newly centered door decal and natural occlusion behind the woman. Image2 is original scene reference ONLY to restore the small badge. Image3 is authoritative SORA emblem geometry. Restore ONLY the small original white SORA emblem badge centered on the red jumpsuit thigh-pocket panel at x744,y736, about30px diameter in1672x941 image, matching original placement and pixel texture. Do not change car door decal, car shape, other logos, characters, hands, faces, props, printed cassette label, scenery, composition, seams or lighting. Preserve full opaque background.",
+          "source": "public/assets/story/angles/garage-left-v2.png",
+          "sourceSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-ddfe3853-bba2-42e4-99e5-8448a5bd6134.png",
+          "generatedSha256": "9cfe039bdf150360dd77fc6dba40f51cc6ba0b728975d87094ee1bb85c44f830",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+          "sourceUnchanged": true,
+          "status": "rejected",
+          "visualQA": "Pocket badge restored but tool reverted door logo to original off-center position, likely copying second image. Retry from corrected door candidate without original scene reference.",
+          "placementQA": "Car door placement regressed; keep earlier centered candidate as next edit target.",
+          "reviewedAt": "2026-09-26T15:00:45.887Z"
+        }
+      ],
+      "editTarget": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-95ccfa7a-1d2a-4157-8087-0fb13864eca9.png",
+      "editTargetSha256": "e0b5341ae33a8979c275876c74a4b84d64f35ee4d428866cadb53e0463c67e0d",
+      "supersededBy": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png"
+    },
+    {
+      "id": "garage-detail-v2",
+      "source": "public/assets/story/angles/garage-detail-v2.png",
+      "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/angles/garage-detail-v2.png",
+        "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7"
+      },
+      "output": "public/assets/story/angles/garage-detail-v2-centered-v1.png",
+      "status": "rejected",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is current corrected scene; image2 exact supplied SORA emblem reference. Change ONLY small car door lockup location: shift existing small red emblem plus SORA wordmark together about20pixels RIGHT and7pixels DOWN, to center of the same existing narrow visible door panel around x432,y267. Keep same scale and perspective, entirely right of existing seam. Restore white paint at old location. Preserve ALL existing car panel seams, wheel arch, stripe and contours exactly. Do not change faces, characters, hands, documents, desk props, geometry, any other logo, crop or full opaque scene.",
+      "generationStartedAt": "2026-09-26T14:55:31.036Z",
+      "attempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Asset: existing SORA CARS story illustration. Image 1 is the exact edit target; image 2 is the supplied SORA emblem reference. Change ONLY physical logo placement: Reposition the existing car emblem plus SORA wordmark as a centered complete lockup on the visible door panel. Remove the old emblem on the narrow fender so the lockup no longer straddles the door/fender seam. The woman can naturally occlude the door marking; do not move her. Maintain the reference geometry: paired straight white bars connected by short stem, with straight lower diagonal white channels opening through the red disk edge. Match existing pixel illustration texture, lighting and surface perspective. Preserve every character identity, expression, pose, hand, garment shape, all photographs and printed documents, every prop, every vehicle shape, scenery, exact camera crop and composition. Do not move or redraw the story scene, add objects, add extra logos, or remove any narrative content. Keep the entire scene fully opaque as in image 1.",
+          "source": "public/assets/story/angles/garage-detail-v2.png",
+          "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-17af289d-7a8c-4818-8c82-df047b283c6b.png",
+          "generatedSha256": "c84afa580f63d297ce7a69cc285a9f44ff81030ef481fbfa0e0dbb04e8ae659f",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "sourceUnchanged": true,
+          "status": "rejected",
+          "visualQA": "Model enlarged the fender/changed wheel arch and added a seam to manufacture a new panel for logo. Unacceptable vehicle geometry drift.",
+          "placementQA": "Complete lockup is on fabricated panel rather than existing door. Retry from original with explicit original panel boundaries.",
+          "reviewedAt": "2026-09-26T14:45:02.264Z"
+        },
+        {
+          "editTarget": "public/assets/story/angles/garage-detail-v2.png",
+          "editTargetSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "prompt": "Use case: precise-object-edit. Image 1 is exact scene to edit, image 2 is the authoritative SORA emblem reference. Keep all characters, faces, hands, props, scenery, printed documents, lighting, exact crop, all geometry and fully opaque PNG background unchanged. Match existing pixel-art texture and red disk/paired white bars/stem/diagonal channels opening at disk edge of reference. Only relocate the car-side logo. ERASE existing red disk from narrow fender at x374,y236 and erase SORA text at x429,y285, restoring white paint. Paint a small COMPLETE vertically stacked red emblem and SORA wordmark on the ACTUAL EXISTING DOOR to the RIGHT of the existing seam x400, centered approximately x434,y276. The entire small lockup must fit on that same existing narrow visible door panel between x402 and x470 with proper foreshortening. The emblem should be about30pixels wide, wordmark similarly narrow. Woman may naturally occlude bottom. Do not create a new door seam. Preserve EXACT original wheel-arch size, front fender shape, existing seams and black stripe. Do not enlarge a panel or change car geometry to fit the decal; scale the decal down to fit the original panel.",
+          "source": "public/assets/story/angles/garage-detail-v2.png",
+          "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-6b9c7cf5-2ba2-4994-8248-7227fc9dcbd4.png",
+          "generatedSha256": "30b594d1ac69e8cbb8eb9a481ef29827d2aaeec207d591799374fde47d5aac6a",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "sourceUnchanged": true,
+          "status": "needs-refinement",
+          "visualQA": "Original wheel arch and car contours preserved. Small complete car lockup now lies on door panel rather than across seam.",
+          "placementQA": "Lockup remains toward front edge of narrow door panel; move20px right with same scale and perspective for balanced margins.",
+          "reviewedAt": "2026-09-26T14:53:35.934Z"
+        },
+        {
+          "editTarget": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-6b9c7cf5-2ba2-4994-8248-7227fc9dcbd4.png",
+          "editTargetSha256": "30b594d1ac69e8cbb8eb9a481ef29827d2aaeec207d591799374fde47d5aac6a",
+          "prompt": "Use case: precise-object-edit. Image1 is current corrected scene; image2 exact supplied SORA emblem reference. Change ONLY small car door lockup location: shift existing small red emblem plus SORA wordmark together about20pixels RIGHT and7pixels DOWN, to center of the same existing narrow visible door panel around x432,y267. Keep same scale and perspective, entirely right of existing seam. Restore white paint at old location. Preserve ALL existing car panel seams, wheel arch, stripe and contours exactly. Do not change faces, characters, hands, documents, desk props, geometry, any other logo, crop or full opaque scene.",
+          "source": "public/assets/story/angles/garage-detail-v2.png",
+          "sourceSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-f72c5ffc-9f3e-4cdf-aa1a-cfe861680379.png",
+          "generatedSha256": "2c4422168f848666e350a592221a06495472ea089ffb67cbb492de03c6b93626",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+          "sourceUnchanged": true,
+          "status": "accepted",
+          "visualQA": "Wheel arch, fender and original door seams preserved along with characters, documents, props, lighting and full opaque scene.",
+          "placementQA": "Small full emblem and SORA lockup now centered together in narrow door panel around x426,y270, entirely right of existing fender seam with balanced margins and appropriate foreshortening.",
+          "reviewedAt": "2026-09-26T15:00:44.392Z"
+        }
+      ],
+      "editTarget": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-6b9c7cf5-2ba2-4994-8248-7227fc9dcbd4.png",
+      "editTargetSha256": "30b594d1ac69e8cbb8eb9a481ef29827d2aaeec207d591799374fde47d5aac6a",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-f72c5ffc-9f3e-4cdf-aa1a-cfe861680379.png",
+      "generatedSha256": "2c4422168f848666e350a592221a06495472ea089ffb67cbb492de03c6b93626",
+      "outputSha256": "2c4422168f848666e350a592221a06495472ea089ffb67cbb492de03c6b93626",
+      "outputInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "sourceHashAfterGeneration": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceUnchanged": true,
+      "visualQA": "Wheel arch, fender and original door seams preserved along with characters, documents, props, lighting and full opaque scene.",
+      "placementQA": "Small full emblem and SORA lockup now centered together in narrow door panel around x426,y270, entirely right of existing fender seam with balanced margins and appropriate foreshortening.",
+      "reviewedAt": "2026-09-26T15:00:44.392Z",
+      "rootReview": {
+        "accepted": false,
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "observation": "Prior attempt lost door handle; accepted new Oct23 file preserves original handle."
+      }
+    },
+    {
+      "id": "ch09-victory-cut06-logo-v3",
+      "source": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "sourceSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+        "sha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723"
+      },
+      "output": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "status": "accepted",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY sewn upper-back patch placement. Shift patch65pixels LEFT and27pixels DOWN so patch center is about1515,460 in1672x941 image. Keep same size, shape and back-plane perspective, clear of sleeve seam. Restore cream cloth where patch was. Do not move any garment seam or change garment geometry. Preserve mug logo. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+      "generationStartedAt": "2026-09-26T14:50:12.994Z",
+      "attempts": [
+        {
+          "prompt": "Use case: precise-object-edit. Asset: existing SORA CARS story illustration. Image 1 is the exact edit target; image 2 is the supplied SORA emblem reference. Change ONLY physical logo placement: Move the existing sewn SORA patch away from the shoulder/back seam toward the projected upper-back center of the cream jacket, below collar along spine. Keep patch entirely on one back panel with appropriate cloth tilt and folds; do not cross sleeve seam. Preserve mug logo. Maintain the reference geometry: paired straight white bars connected by short stem, with straight lower diagonal white channels opening through the red disk edge. Match existing pixel illustration texture, lighting and surface perspective. Preserve every character identity, expression, pose, hand, garment shape, all photographs and printed documents, every prop, every vehicle shape, scenery, exact camera crop and composition. Do not move or redraw the story scene, add objects, add extra logos, or remove any narrative content. Keep the entire scene fully opaque as in image 1.",
+          "source": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+          "sourceSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-077e6253-92b8-43ef-a9de-d1d4f8cf6c89.png",
+          "generatedSha256": "31f4e6a57d3292b8002f9c6664e314d018f29ef8f2d503a03adb8e7a536c6c7b",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+          "sourceUnchanged": true,
+          "status": "rejected",
+          "visualQA": "Exact character pose, hands, marked papers, desk props and scene preserved. Mug logo preserved. Full opaque scene unchanged.",
+          "placementQA": "Sewn patch moved entirely away from sleeve seam onto projected upper-back center below rear collar; follows the back-panel tilt and remains clear of seam.",
+          "reviewedAt": "2026-09-26T14:45:02.172Z",
+          "rootReview": {
+            "accepted": false,
+            "reason": "Change ONLY sewn upper-back patch placement. Shift patch65pixels LEFT and27pixels DOWN so patch center is about1515,460 in1672x941 image. Keep same size, shape and back-plane perspective, clear of sleeve seam. Restore cream cloth where patch was. Do not move any garment seam or change garment geometry. Preserve mug logo."
+          }
+        },
+        {
+          "editTarget": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v1.png",
+          "editTargetSha256": "31f4e6a57d3292b8002f9c6664e314d018f29ef8f2d503a03adb8e7a536c6c7b",
+          "prompt": "Use case: precise-object-edit. Image1 is current corrected scene to edit. Image2 is exact authoritative supplied SORA emblem. Change ONLY sewn upper-back patch placement. Shift patch65pixels LEFT and27pixels DOWN so patch center is about1515,460 in1672x941 image. Keep same size, shape and back-plane perspective, clear of sleeve seam. Restore cream cloth where patch was. Do not move any garment seam or change garment geometry. Preserve mug logo. Preserve every person, face, expression, hand, garment, prop, printed document, vehicle contour, camera crop, lighting, scene layout, rest of branding and full opaque PNG scene. Maintain exact reference SORA geometry: straight paired white bars, stem and lower white channels opening at disk edge. Match pixel illustration texture. No change except specified logo placement.",
+          "source": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+          "sourceSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-fa709b75-8eb0-402b-ab3b-40a253b34961.png",
+          "generatedSha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+          "sourceUnchanged": true,
+          "status": "accepted",
+          "visualQA": "Character, exact writing pose, desk, marked documents, props, mug and opaque full scene preserved.",
+          "placementQA": "Patch now centered within projected upper back around x1505,y505, below rear collar and wholly clear of sleeve seam; follows cloth plane. Root review required.",
+          "reviewedAt": "2026-09-26T14:55:30.817Z"
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-fa709b75-8eb0-402b-ab3b-40a253b34961.png",
+      "generatedSha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "sourceHashAfterGeneration": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "sourceUnchanged": true,
+      "visualQA": "Character, exact writing pose, desk, marked documents, props, mug and opaque full scene preserved.",
+      "placementQA": "Patch now centered within projected upper back around x1505,y505, below rear collar and wholly clear of sleeve seam; follows cloth plane. Root review required.",
+      "reviewedAt": "2026-09-26T14:55:30.817Z",
+      "previousOutputs": [
+        {
+          "path": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v1.png",
+          "sha256": "31f4e6a57d3292b8002f9c6664e314d018f29ef8f2d503a03adb8e7a536c6c7b",
+          "rootReview": "rejected",
+          "reason": "Change ONLY sewn upper-back patch placement. Shift patch65pixels LEFT and27pixels DOWN so patch center is about1515,460 in1672x941 image. Keep same size, shape and back-plane perspective, clear of sleeve seam. Restore cream cloth where patch was. Do not move any garment seam or change garment geometry. Preserve mug logo."
+        }
+      ],
+      "editTarget": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v1.png",
+      "editTargetSha256": "31f4e6a57d3292b8002f9c6664e314d018f29ef8f2d503a03adb8e7a536c6c7b",
+      "outputSha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "outputInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      }
+    },
+    {
+      "id": "ch05-intro-cut02-logo-v2",
+      "source": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+      "sourceSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sourceInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "supersedes": {
+        "path": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+        "sha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787"
+      },
+      "output": "public/assets/story/scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "status": "accepted",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image 1 is exact scene to edit, image 2 is the authoritative SORA emblem reference. Keep all characters, faces, hands, props, scenery, printed documents, lighting, exact crop, all geometry and fully opaque PNG background unchanged. Match existing pixel-art texture and red disk/paired white bars/stem/diagonal channels opening at disk edge of reference. Move ONLY the existing SORA patch on the yellow jacket. Erase current patch near shoulder x515,y565, restore yellow cloth and original folds. Put this patch centered on projected spine below ponytail, center approximately x390,y565 in1672x941 image. Her hair may naturally overlap the upper patch edge. Follow the upper-back cloth angle; keep wholly on the back panel, far from near sleeve seam. Preserve two receipts and their printed icons/text, exact pose and hands, ponytail, cat, desk equipment and rest of scene.",
+      "generationStartedAt": "2026-09-26T14:45:54.229Z",
+      "attempts": [
+        {
+          "editTarget": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+          "editTargetSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+          "prompt": "Use case: precise-object-edit. Image 1 is exact scene to edit, image 2 is the authoritative SORA emblem reference. Keep all characters, faces, hands, props, scenery, printed documents, lighting, exact crop, all geometry and fully opaque PNG background unchanged. Match existing pixel-art texture and red disk/paired white bars/stem/diagonal channels opening at disk edge of reference. Move ONLY the existing SORA patch on the yellow jacket. Erase current patch near shoulder x515,y565, restore yellow cloth and original folds. Put this patch centered on projected spine below ponytail, center approximately x390,y565 in1672x941 image. Her hair may naturally overlap the upper patch edge. Follow the upper-back cloth angle; keep wholly on the back panel, far from near sleeve seam. Preserve two receipts and their printed icons/text, exact pose and hands, ponytail, cat, desk equipment and rest of scene.",
+          "source": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+          "sourceSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-34f831d6-76e8-4def-a277-c3f653ad7f35.png",
+          "generatedSha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+          "generatedInfo": {
+            "width": 1672,
+            "height": 941,
+            "alpha": {
+              "min": 255,
+              "max": 255,
+              "nonopaquePixels": 0,
+              "transparentPixels": 0,
+              "decileMeans": [
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255,
+                255
+              ]
+            }
+          },
+          "sourceHashAfterGeneration": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+          "sourceUnchanged": true,
+          "status": "accepted",
+          "visualQA": "Character, ponytail, two printed receipts, cat, computer, radio equipment, food and complete original scene preserved. Opaque alpha retained.",
+          "placementQA": "Patch moved from near shoulder seam onto projected spine below ponytail, approximately x405,y559, with natural hair overlap at upper-left; clear of sleeve seam.",
+          "reviewedAt": "2026-09-26T14:53:35.649Z"
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db7f-ac94-7491-ad11-e79b554da9a0/exec-34f831d6-76e8-4def-a277-c3f653ad7f35.png",
+      "generatedSha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "outputSha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "outputInfo": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonopaquePixels": 0,
+          "transparentPixels": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "sourceHashAfterGeneration": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sourceUnchanged": true,
+      "visualQA": "Character, ponytail, two printed receipts, cat, computer, radio equipment, food and complete original scene preserved. Opaque alpha retained.",
+      "placementQA": "Patch moved from near shoulder seam onto projected spine below ponytail, approximately x405,y559, with natural hair overlap at upper-left; clear of sleeve seam.",
+      "reviewedAt": "2026-09-26T14:53:35.649Z"
+    }
+  ],
+  "updatedAt": "2026-09-26T15:00:45.887Z"
+}

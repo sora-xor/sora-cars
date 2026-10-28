@@ -1,0 +1,142 @@
+import { chromium } from 'playwright';
+import assert from 'node:assert/strict';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
+
+const url = process.env.GAME_URL ?? 'http://127.0.0.1:5173';
+const out = 'output/browser';
+const { rules_hash: rulesHash } = JSON.parse(await readFile(new URL('../src/game/generated/race-v1-kernels.json', import.meta.url), 'utf8'));
+await mkdir(out, { recursive: true });
+const browser = await chromium.launch({ headless: true });
+const errors = [];
+try {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  await page.goto(url);
+  await page.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
+  assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).music), true, 'music is enabled on a fresh page');
+  await page.evaluate(() => window.advanceTime(200));
+  assert.equal(await page.locator('html').getAttribute('lang'), 'ja');
+  assert.match(await page.locator('#race-canvas').getAttribute('aria-label'), /^アーケードレース画面 \/ /u);
+  await page.screenshot({ path: `${out}/home.png` });
+  await page.locator('[data-action="wallet"]').click();
+  await page.waitForFunction(() => document.querySelector('#dialog-body h2')?.textContent?.includes('STILL AT THE START.'));
+  assert.equal(await page.locator('#dialog-body h2 [lang="ja"]').textContent(), '接続の準備をしよう。');
+  assert.match(await page.locator('#dialog-body p [lang="ja"]').last().textContent(), /ウォレット接続には/u);
+  await page.screenshot({ path: `${out}/wallet-unavailable-japanese.png` });
+  await page.locator('.dialog-close').click();
+  await page.locator('[data-action="garage"]').click();
+  await page.locator('[data-action="car-3"]').click();
+  assert.equal(await page.locator('[data-action="car-3"]').getAttribute('aria-pressed'), 'true');
+  assert.match(await page.locator('[data-action="car-3"]').getAttribute('aria-label'), /^紫を選ぶ \/ Select Murasaki$/u);
+  await page.screenshot({ path: `${out}/garage.png` });
+  await page.locator('[data-action="settings"]').click();
+  const musicCount = await page.evaluate(async () => (await import('/src/game/music-score.ts')).MUSIC_LIBRARY.length);
+  assert.equal(await page.locator('.music-downloads a').count(), musicCount);
+  for (const link of await page.locator('.music-downloads a').all()) {
+    const response = await page.request.get(new URL(await link.getAttribute('href'), page.url()).href);
+    assert.equal(response.status(), 200);
+    assert.equal((await response.body()).subarray(0, 4).toString(), 'MThd');
+  }
+  await page.locator('.sound-button').click();
+  assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).music), false);
+  await page.locator('.sound-button').click();
+  assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).music), true);
+  await page.screenshot({ path: `${out}/sound-system.png` });
+  await page.locator('.brand').click();
+  await page.locator('#start-btn').click();
+  assert.equal(await page.locator('.race-start-hint [lang="ja"]').first().textContent(), '加速');
+  await page.evaluate(() => window.advanceTime(3100));
+  await page.keyboard.down('ArrowUp');
+  await page.evaluate(() => window.advanceTime(4500));
+  const accelerating = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  assert.equal(accelerating.cars.length, 8);
+  assert.ok(accelerating.player.speed > 0);
+  await page.keyboard.down('ArrowRight');
+  await page.keyboard.down('Space');
+  await page.evaluate(() => window.advanceTime(600));
+  const steering = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  assert.ok(steering.player.x > accelerating.player.x, 'steering moves the car right');
+  await page.keyboard.up('ArrowRight'); await page.keyboard.up('Space');
+  await page.keyboard.down('Shift');
+  await page.evaluate(() => window.advanceTime(500));
+  const boosted = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  assert.ok(boosted.player.energy < steering.player.energy, 'boost spends energy');
+  await page.keyboard.up('Shift'); await page.keyboard.up('ArrowUp');
+  await page.keyboard.down('ArrowDown');
+  await page.evaluate(() => window.advanceTime(700));
+  const braking = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  assert.ok(braking.player.speed < boosted.player.speed, 'braking slows the car');
+  await page.keyboard.up('ArrowDown');
+  await page.evaluate(() => {
+    window.testPad = { connected: true, axes: [0.7, 0], buttons: Array.from({ length: 8 }, (_, i) => ({ pressed: [0, 1, 7].includes(i) })) };
+    Object.defineProperty(navigator, 'getGamepads', { value: () => [window.testPad], configurable: true });
+  });
+  await page.evaluate(() => window.advanceTime(300));
+  const padState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  assert.equal(padState.gamepadActive, true);
+  assert.equal(padState.controls, 1 | 8 | 16 | 32, 'gamepad right/R2/A/B map to steer/gas/boost/drift');
+  await page.evaluate(() => { delete navigator.getGamepads; delete window.testPad; });
+  await page.screenshot({ path: `${out}/race.png` });
+  await page.keyboard.press('Escape');
+  const pausedTick = await page.evaluate(() => window.soraCars.state().tick);
+  await page.evaluate(() => window.advanceTime(2000));
+  assert.equal(await page.evaluate(() => window.soraCars.state().tick), pausedTick);
+  await page.keyboard.press('Escape');
+  await page.evaluate(() => window.soraCars.finishPractice());
+  assert.equal(await page.locator('#app').getAttribute('data-view'), 'results');
+  assert.equal(await page.locator('.result-row').count(), 8);
+  await page.screenshot({ path: `${out}/results.png` });
+  const result = await page.evaluate(() => window.soraCars.state());
+  await page.locator('[data-action="watch-last"]').click();
+  assert.equal(await page.locator('.replay-controls [lang="ja"]').first().textContent(), '練習のリプレイ');
+  await page.evaluate(() => window.advanceTime(181000));
+  assert.deepEqual(await page.evaluate(() => window.soraCars.state()), result, 'replay reproduces complete race');
+  await page.locator('.brand').click();
+  await page.locator('[data-action="history"]').click();
+  assert.equal(await page.locator('.history-row').count(), 1);
+  await page.screenshot({ path: `${out}/history.png` });
+  await writeFile(`${out}/state.json`, JSON.stringify({ accelerating, steering, boosted, braking, result }, null, 2));
+
+  // A complete equal-distance timeout must remain a shared first place through
+  // history, the in-race HUD/text state, replay and terminal result rows.
+  const tied = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  tied.on('pageerror', error => errors.push(error.message));
+  await tied.addInitScript((rulesHash) => localStorage.setItem('sora-cars:history:v1', JSON.stringify([{
+    version: 1, rules: 'RaceV1', rulesHash, trackId: 0, names: ['ライバル', 'YOU'], skins: [0, 1],
+    inputs: Array.from({ length: 5400 }, () => [2, 2]), savedAt: '2026-09-05T00:00:00Z', source: 'practice',
+  }])), rulesHash);
+  await tied.goto(url);
+  await tied.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
+  await tied.locator('[data-action="history"]').click();
+  assert.equal((await tied.locator('.history-rank').innerText()).split('/')[0].trim(), '01');
+  await tied.locator('[data-action="replay-0"]').click();
+  await tied.evaluate(() => window.advanceTime(1000));
+  assert.equal(await tied.evaluate(() => JSON.parse(window.render_game_to_text()).position), 1);
+  await tied.screenshot({ path: `${out}/tied-replay-hud.png` });
+  await tied.evaluate(() => window.advanceTime(181000));
+  assert.equal(await tied.locator('#app').getAttribute('data-view'), 'results');
+  assert.deepEqual(await tied.locator('.result-row > span:first-child').allTextContents(), ['01', '01']);
+  assert.match(await tied.locator('.result-title > span').innerText(), /^01/u);
+  await tied.screenshot({ path: `${out}/tied-replay-results.png` });
+
+  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
+  await mobile.emulateMedia({ reducedMotion: 'reduce' });
+  mobile.on('pageerror', error => errors.push(error.message));
+  await mobile.goto(url); await mobile.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
+  await mobile.evaluate(() => window.advanceTime(200));
+  await mobile.screenshot({ path: `${out}/mobile-home.png` });
+  assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth), 390);
+  await mobile.locator('#start-btn').tap();
+  await mobile.evaluate(() => window.advanceTime(3100));
+  assert.equal(await mobile.locator('#touch-controls').isVisible(), true);
+  const gas = await mobile.locator('[data-control="throttle"]').boundingBox();
+  await mobile.mouse.move(gas.x + gas.width / 2, gas.y + gas.height / 2); await mobile.mouse.down();
+  await mobile.evaluate(() => window.advanceTime(1500));
+  await mobile.mouse.up();
+  assert.ok(await mobile.evaluate(() => window.soraCars.state().cars[6].speed) > 0);
+  await mobile.screenshot({ path: `${out}/mobile-race.png` });
+  assert.deepEqual(errors, [], 'browser console and page errors');
+  console.log('Browser checks passed: Japanese/English interface, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch.');
+} finally { await browser.close(); }

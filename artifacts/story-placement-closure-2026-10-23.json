@@ -1,0 +1,689 @@
+{
+  "schema": "sora-cars.physical-emblem-placement-closure.v1",
+  "createdAt": "2026-10-23T13:32:18.206Z",
+  "reviewer": "/root/placement_review",
+  "scope": "Closure of the 20 explicit physical-placement flags and review-required findings in the five listed historical audits. This reconciles accepted visual reviews to current runtime selections and exact file hashes; it is not a new visual placement audit of all 236 story images.",
+  "method": "Imported current story selection exports, selected each flagged source's active accepted replacement, matched current bytes to generated provenance and accepted root visual review, and rechecked all source/runtime/audit/provenance hashes before writing.",
+  "counts": {
+    "historicalFlags": 20,
+    "resolved": 20,
+    "unresolved": 0
+  },
+  "allResolved": true,
+  "runtimeSourceHashes": {
+    "src/game/story-scenes.ts": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
+    "src/game/story-cut-art.json": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
+    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
+    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
+    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
+    "src/game/story-campaign-act3.ts": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa"
+  },
+  "sourceAuditHashes": {
+    "artifacts/story-prior94-placement-audit-2026-09-26.json": "4f1ec8b54a0582f3404b0fe65a66b0f0224bceae1f2261a3ca24ced1b3a4fe8e",
+    "artifacts/story-expanded-a-placement-audit-2026-09-26.json": "934c7e15c569fc013e14f0474a09758871de68214c6edf1f9b509db0cbf297a7",
+    "artifacts/cutscene-expanded-b-physical-placement-audit-2026-09-26.json": "55bd1ad7768c25a80b8c9c81c22d2ee7872bd633bbca0ee4433e077f1fdae914",
+    "tmp/music-native-release/existing38-placement-audit-c.json": "4340b83287e7c96d557bc0c947888b53f6a409755b6819ee4b05940a4541b5fe",
+    "tmp/music-native-release/prior24-placement-audit-c.json": "70174b5dc6ea75104c5ac96500799883310d14d4bf8ac9a8723b38409b9501c0"
+  },
+  "rootReviewSource": {
+    "path": "tmp/music-native-release/expanded-logo-root-reviews.json",
+    "sha256": "f203ca19c1f75d4733613af9620547a2286f9d20917af0e52b28de6966957f14"
+  },
+  "files": [
+    {
+      "historicalSource": "public/assets/story/sunrise-crew-branded-v2.png",
+      "historicalSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "sourceCurrentSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-prior94-placement-audit-2026-09-26.json",
+      "originalFinding": "Red and mint car hood marks are displaced to exposed side areas around seated characters, materially away from projected longitudinal hood centers. White car hood lockup appears aligned; clothing badges are centered in their panels.",
+      "currentReplacement": "public/assets/story/sunrise-crew-branded-v2-centered-v2.png",
+      "currentSha256": "152416389c98bf01edd6bf296c77b6312bb436a2d494f0cc6d204430f9b2f46a",
+      "activeSelections": [
+        {
+          "type": "base",
+          "scene": "sunrise"
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+        "sha256": "090561d3d39a92ce38a8b4479ee2c5020b443a08f3ca364fe0c33c6b8d7b5360",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:21:48.076766+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Red and mint hood lockups align to physical hood centerlines and are naturally occluded by seated crew. White hood, people and scenery retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/angles/garage-left-v2.png",
+      "historicalSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "sourceCurrentSha256": "dce7cc0f1af9ff809ffc952a0f564a3e465205ce32928a416da2b43b303d1c8e",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-prior94-placement-audit-2026-09-26.json",
+      "originalFinding": "Large white-car side emblem is far rearward on the visible door area beside its rear seam, while the physical door extends substantially right behind the woman. Material side-panel offset; sleeve and trouser-pocket marks are centered.",
+      "currentReplacement": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+      "currentSha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch01-intro",
+          "cut": 2
+        },
+        {
+          "type": "angle",
+          "scene": "garage",
+          "shot": "left"
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/logo-placement-oct23-a.json",
+        "sha256": "d04b59f938f8e264ca52414f7890e7f14c3b718693a94e62e8fe356128bae23c",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Door logo centered on its physical panel and naturally occluded behind Aki. Small inverse-color badge restored at center of jumpsuit pocket; full opaque scene preserved."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/angles/garage-detail-v2.png",
+      "historicalSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceCurrentSha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-prior94-placement-audit-2026-09-26.json",
+      "originalFinding": "White-car emblem sits on narrow fender area immediately ahead of door seam while SORA text lies on the door, splitting the lockup across panels instead of centering it on one owning panel. Teal sleeve patch is centered.",
+      "currentReplacement": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+      "currentSha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch01-intro",
+          "cut": 10
+        },
+        {
+          "type": "angle",
+          "scene": "garage",
+          "shot": "detail"
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/logo-placement-oct23-a.json",
+        "sha256": "d04b59f938f8e264ca52414f7890e7f14c3b718693a94e62e8fe356128bae23c",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Complete smaller door logo and wordmark fit centered below original door handle and above stripe; handle, seam and wheel arch preserved, fully opaque."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/angles/sunrise-detail-v3.png",
+      "historicalSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "sourceCurrentSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-prior94-placement-audit-2026-09-26.json",
+      "originalFinding": "The large hood emblem and SORA wordmark sit near the right headlight and right hood edge, materially right of the hood's projected longitudinal centerline. Sleeve and thermos marks are properly placed.",
+      "currentReplacement": "public/assets/story/angles/sunrise-detail-v3-centered-v2.png",
+      "currentSha256": "36691dd5395c49108997ac54ae4abc319ee8744460e0a1d6ac824059225bf9a6",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch04-victory",
+          "cut": 3
+        },
+        {
+          "type": "angle",
+          "scene": "sunrise",
+          "shot": "detail"
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+        "sha256": "090561d3d39a92ce38a8b4479ee2c5020b443a08f3ca364fe0c33c6b8d7b5360",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:21:48.076766+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Complete smaller lockup lies centered on main hood sheet above original leading seam, clear of headlamp and front header. Props and opaque full scene retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "historicalSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "sourceCurrentSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-prior94-placement-audit-2026-09-26.json",
+      "originalFinding": "Cream jacket patch appears on the upper back beside the sleeve seam, toward the near shoulder rather than the projected spine. The large patch is materially off the owning back panel center; mug emblem is centered.",
+      "currentReplacement": "public/assets/story/scenes/ch09-victory-cut06-logo-v3-centered-v2.png",
+      "currentSha256": "d835206b0c04748d0e6599a4bc48fbeb9972216b5713bc6a506922ca0f7fb155",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch09-victory",
+          "cut": 6
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+        "sha256": "090561d3d39a92ce38a8b4479ee2c5020b443a08f3ca364fe0c33c6b8d7b5360",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:21:48.076766+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Patch centered on the upper sleeve panel beneath shoulder seam with matching sleeve tilt; original pose and studio retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch05-intro-cut02-logo-v2.png",
+      "historicalSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sourceCurrentSha256": "77bbea874fdf733ed012ded4974ac6108c91ac8e8b4d395491e16709ac58a787",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/story-expanded-a-placement-audit-2026-09-26.json",
+      "originalFinding": "Yellow jacket back patch sits toward the near shoulder seam on the right of the visible back panel, materially away from the projected spine below the ponytail and collar. Center it between the shoulder blades without moving the character.",
+      "currentReplacement": "public/assets/story/scenes/ch05-intro-cut02-logo-v2-centered-v1.png",
+      "currentSha256": "f0a16e8bdc7d599a0f4b83c4d116c3966f0790b42fc6ac87d3876a29e949e8dc",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch05-intro",
+          "cut": 2
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/prior94-logo-placement-repairs-v1.json",
+        "sha256": "090561d3d39a92ce38a8b4479ee2c5020b443a08f3ca364fe0c33c6b8d7b5360",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:21:48.076766+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Back badge sits below collar on projected spine between back edges; ponytail overlaps naturally. Opaque studio composition retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch10-intro-cut09-logo-v2.png",
+      "historicalSha256": "9a606e00e9a788fc79e14f6eada0f3f93db7cb3dec9bf512e93dda15c16d04fd",
+      "sourceCurrentSha256": "9a606e00e9a788fc79e14f6eada0f3f93db7cb3dec9bf512e93dda15c16d04fd",
+      "sourceUnchanged": true,
+      "sourceAudit": "artifacts/cutscene-expanded-b-physical-placement-audit-2026-09-26.json",
+      "originalFinding": "Hood decal center approx1055,380 close to axis, but left edge appears to overlap near pop-up headlamp inner seam approx964,349→1033,426. Main hood quadrilateral estimated964,349;1116,348;1243,421;1033,426 with center1084,386. Recommend independent review; possible25px right/5px down plus10–15% reduction. No edit made.",
+      "currentReplacement": "public/assets/story/scenes/ch10-intro-cut09-logo-v3.png",
+      "currentSha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch10-intro",
+          "cut": 9
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+        "sha256": "ad5da320afccf288aeb9c991b7b2e70886868bac225cbfc3943c8058e6717a02",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-09-26T14:26:22.663114+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Reduced hood decal centered in the main hood sheet between headlamp inner seams, with visible clear margins and foreshortened forward axis."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch03-victory-cut02.png",
+      "historicalSha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "sourceCurrentSha256": "500f8102a105c47bb724062876cb3ff0e6d163550921b5773ff4a8f79d58db72",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Right foreground black tool-case logo sits toward the right end of the long side face. Cloth occludes part of face; worth root second-view for balanced physical margins. No marked clothing/car.",
+      "currentReplacement": "public/assets/story/scenes/ch03-victory-cut02-center-v4.png",
+      "currentSha256": "146672929f6ffd68314c45b47449a001552dbafbfb89981408a669c10aaaee5c",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch03-victory",
+          "cut": 2
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+        "sha256": "ad5da320afccf288aeb9c991b7b2e70886868bac225cbfc3943c8058e6717a02",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Small case badge centered on broad visible case face; matching foreshortening, full opaque scene retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch03-victory-cut05.png",
+      "historicalSha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "sourceCurrentSha256": "1fa9ad0167c95fa0e7c8a86dce3d5cba72f50942b7b1f21f79164cd3fcc2e63d",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Large beige folder front badge is upper-right of full front face (center aroundx199 versusface center160), not centered overall. Filing cabinet logo also left of drawer handle, likely intentional label position but user now requests physical centering.",
+      "currentReplacement": "public/assets/story/scenes/ch03-victory-cut05-center-v2.png",
+      "currentSha256": "ffb7216f73a72b0ebe007d30ac6511bd12161efff1d78755459038d8c31ca0d1",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch03-victory",
+          "cut": 5
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+        "sha256": "ad5da320afccf288aeb9c991b7b2e70886868bac225cbfc3943c8058e6717a02",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Folder badge centered on upright folder cover with balanced margins; opaque scene retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch06-intro-cut05.png",
+      "historicalSha256": "58a856f585ff3f80d21684842a5698109152acd1fb86e14dfc8727e036fc0730",
+      "sourceCurrentSha256": "58a856f585ff3f80d21684842a5698109152acd1fb86e14dfc8727e036fc0730",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Mug logo offset toward right side of visible cylindrical body, approximatelyx314 versusbodycenter284. Reference photo car-door logo and rear wall sign appear physically centered. Mug needs root placement judgment.",
+      "currentReplacement": "public/assets/story/scenes/ch06-intro-cut05-center-v3.png",
+      "currentSha256": "8709b34e8cb98afe107090b55d8788f1354b2784122060c14c68ede7aeb513de",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch06-intro",
+          "cut": 5
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-b-v2.json",
+        "sha256": "ad5da320afccf288aeb9c991b7b2e70886868bac225cbfc3943c8058e6717a02",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Mug emblem centered on cylindrical body; phone naturally occludes left edge; full scene and bottom alpha retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch06-victory-cut07.png",
+      "historicalSha256": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "sourceCurrentSha256": "46ede6f2f9a2c35afd482b7be29d6b5319481652a0c5e4ed237c6a676564ec76",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Car rear-hatch badge sits far right on tailgate above right tail lamp, not on tailgate physical centerline. Wall poster is centered, but vehicle mark fails requested surface centering.",
+      "currentReplacement": "public/assets/story/scenes/ch06-victory-cut07-center-v2.png",
+      "currentSha256": "ff47264a14f875721ae65fa5ae0f1a0ed82b7a2a503d65f5f4851f030960743b",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch06-victory",
+          "cut": 7
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+        "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-09-26T14:34:10.693964+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Rear hatch emblem centered on hatch sheet above license plate, moderate rear-view perspective. Complete scene and source opaque alpha retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch07-intro-cut08.png",
+      "historicalSha256": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "sourceCurrentSha256": "a8f497ba896bc10afff2cc02d14df5ab267a017ed040bb176d4a286eae99fd73",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Chest badge centered on cream panel and sign centered. Car-door logo is near front seam: x1046 versus estimated door-face center1010, leaving strongly unequal margins to rear/front edges.",
+      "currentReplacement": "public/assets/story/scenes/ch07-intro-cut08-center-v2.png",
+      "currentSha256": "87dc06697ae35e3a845d2d0e7b562af2ff2599f17f88371b0a5b37900c582c3a",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch07-intro",
+          "cut": 8
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+        "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-09-26T14:34:10.702419+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Door badge centered between vertical door seams below glass with balanced sheet margins and matching perspective. Full scene and real lower alpha fade retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch08-intro-cut05.png",
+      "historicalSha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "sourceCurrentSha256": "5e3c5287c99ff564415cb3fbe1f5a15783144e87ee9312c6a942d0f94dc66125",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Vehicle badge is on rear end of the front fender, close to door seam, not centered in fender face/over arch. Chest and wall banner marks are centered.",
+      "currentReplacement": "public/assets/story/scenes/ch08-intro-cut05-center-v3.png",
+      "currentSha256": "e965889d290b44b418485c161b9b8f10f5c40a09c048098745aae537220f6961",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch08-intro",
+          "cut": 5
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+        "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-09-26T14:52:38.056347+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Badge now centered on front-fender sheet above the wheel arch, old rearward badge removed. Complete full scene and genuine0–253 alpha retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch12-intro-cut02.png",
+      "historicalSha256": "3bf711a5bef55dbfa0f26032105189b8c52f150f6648e3a0194dffd021b9f039",
+      "sourceCurrentSha256": "3bf711a5bef55dbfa0f26032105189b8c52f150f6648e3a0194dffd021b9f039",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Sleeve/hip badges centered. Car-door mark center≈298 versus door panel center≈316, modest left bias with unequal margins. Root second-view recommended before making exact-centering change.",
+      "currentReplacement": "public/assets/story/scenes/ch12-intro-cut02-center-root-v2.png",
+      "currentSha256": "f763b72ee4d325b0817ef14ef98217ae3f3c98689e0241111c53c8ce72b71a0b",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch12-intro",
+          "cut": 2
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+        "sha256": "d74ea0060571106f351421a0ef6cd9d8d4517b052fab024c4464bb4b853b7075",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Door badge centered between seams below window and above trim; sleeves and other marks unchanged; opaque."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch12-intro-cut03.png",
+      "historicalSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "sourceCurrentSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Garment hip/hanging sleeve marks and mugs/flask centered. Left car-door badge may sit rearward of physical panel center, but front door edge is occluded by seated man; cannot firmly establish full center from image.",
+      "currentReplacement": "public/assets/story/scenes/ch12-intro-cut03-center-root-v3.png",
+      "currentSha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch12-intro",
+          "cut": 3
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/logo-placement-oct23-b.json",
+        "sha256": "c207bba89ee3efa18f3ba761521b5f45cf7526f4c360acd78a20c4be92f079b8",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:30:17.993132+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Door badge moved farther into actual panel center; cases naturally hide lower right logo without moving any props. Full opaque composition preserved."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch12-intro-cut07.png",
+      "historicalSha256": "31fe92b413a3273a36a8da236fa599edde948afb29b589e52f65e8a8332a893e",
+      "sourceCurrentSha256": "31fe92b413a3273a36a8da236fa599edde948afb29b589e52f65e8a8332a893e",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Mint-jacket upper-sleeve emblem follows its arm panel. Cassette-case and reel-hub marks centered. Keyboard front emblem appears right of the center of its large front panel; root should decide if that panel is an intentionally bounded end label area.",
+      "currentReplacement": "public/assets/story/scenes/ch12-intro-cut07-center-root-v2.png",
+      "currentSha256": "9807d2be5c8764c727db72e10d25ff6669101aef0adac312f01f11dc4d832187",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch12-intro",
+          "cut": 7
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+        "sha256": "d74ea0060571106f351421a0ef6cd9d8d4517b052fab024c4464bb4b853b7075",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Synthesizer front emblem centered between end borders of black trapezoid, with foreshortening; other logos and opaque scene retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch12-intro-cut11.png",
+      "historicalSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "sourceCurrentSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "All foreground sleeve/chest marks are centered on their material panels. Large foreground hood emblem needs root perspective review: hood longitudinal direction is strongly diagonal while emblem stem remains nearly screen vertical. Background white-car door mark centered.",
+      "currentReplacement": "public/assets/story/scenes/ch12-intro-cut11-center-root-v3.png",
+      "currentSha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch12-intro",
+          "cut": 11
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/logo-placement-oct23-b.json",
+        "sha256": "c207bba89ee3efa18f3ba761521b5f45cf7526f4c360acd78a20c4be92f079b8",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:28:03.895552+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Centered hood graphic now projects toward front bumper, upside down from behind windshield camera. Paired bars nearest windshield; full opaque composition and wipers preserved."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch08-intro-cut10.png",
+      "historicalSha256": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "sourceCurrentSha256": "b63f26ecdd0594a9ebb4c20ca96a9bfd2a7a9d716be26a7fb12c9a44547ddc35",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Right standing mechanic back emblem is right of projected spine/back-panel center, near right shoulder edge. Back should center around x1470 at patch height, existing badge center about1516. Visible fender mark also toward rear of fender, though left part occluded.",
+      "currentReplacement": "public/assets/story/scenes/ch08-intro-cut10-center-v2.png",
+      "currentSha256": "520fac70a22f2be8d1beb86cd90e2b76c0141795fa3150af636effd6aa3d54cc",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch08-intro",
+          "cut": 10
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+        "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-09-26T14:52:38.058989+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Right mechanic back badge follows projected spine under collar, clear of shoulder seam. Centered fender mark correctly occluded by foreground mechanic. Complete harbor and genuine partial alpha retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch04-intro-cut05.png",
+      "historicalSha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "sourceCurrentSha256": "c6b9a37da9675bcd5cd79065e972eb1ebaabd4455009b95ca386109799e813b0",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/existing38-placement-audit-c.json",
+      "originalFinding": "Yellow sleeve patch centered on upper arm. Black binder emblem lies near bottom-right of its cover instead of projected cover center; root should confirm whether corner stationery branding is intentional/acceptable.",
+      "currentReplacement": "public/assets/story/scenes/ch04-intro-cut05-center-root-v2.png",
+      "currentSha256": "bb2b1410c7484e7becd698c3426e3b18efa9c04fd79cb3c1b0001ae696b792e8",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch04-intro",
+          "cut": 5
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-logo-expanded-root-v2.json",
+        "sha256": "d74ea0060571106f351421a0ef6cd9d8d4517b052fab024c4464bb4b853b7075",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Binder emblem centered on visible top cover plane, clear of edge and spine; complete opaque scene retained."
+      },
+      "resolved": true
+    },
+    {
+      "historicalSource": "public/assets/story/scenes/ch11-intro-cut06-logo-v3.png",
+      "historicalSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "sourceCurrentSha256": "8563d30844149b8c44a66538483313bf410e97895e16baf1422c3d528e4acd66",
+      "sourceUnchanged": true,
+      "sourceAudit": "tmp/music-native-release/prior24-placement-audit-c.json",
+      "originalFinding": "Large white-car door mark is slightly toward its front seam: at badge height visible panel bounds around70–367 suggest midpoint219, logo center247. Root should check projected center rather than current visual center. No back logo on messenger.",
+      "currentReplacement": "public/assets/story/scenes/ch11-intro-cut06-center-v2.png",
+      "currentSha256": "6a2d5b7fee164b15c43b9bfa2a18be5a605f45278a59cd842315a25363520234",
+      "activeSelections": [
+        {
+          "type": "cut",
+          "sequence": "ch11-intro",
+          "cut": 6
+        }
+      ],
+      "provenance": {
+        "path": "docs/art-prompts/cutscene-emblem-placement-c-v2.json",
+        "sha256": "cc274430ebb284b517ab76c1bc5e945b8a7ef8776684f483a06d9cf907bef823",
+        "outputHashMatches": true,
+        "sourceHashMatches": true
+      },
+      "rootReview": {
+        "source": "tmp/music-native-release/expanded-logo-root-reviews.json",
+        "reviewedAt": "2026-10-23T13:23:10.870828+00:00",
+        "reviewer": "root",
+        "accepted": true,
+        "exactCurrentHashMatch": true,
+        "observation": "Door emblem centered between actual door seams below window; decal follows side-panel plane, scene opaque."
+      },
+      "resolved": true
+    }
+  ],
+  "updatedAt": "2026-10-23T13:39:09.493Z"
+}

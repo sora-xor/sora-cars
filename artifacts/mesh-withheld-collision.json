@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "contexts": 4,
+  "webrtcLinks": 6,
+  "withheldCheckpointTick": 18,
+  "honestCheckpointTick": 12,
+  "retainedInputInterval": [
+    12,
+    18
+  ],
+  "collisionSlowdownTicks": [
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "allOriginalSignaturesVerified": true,
+  "matchingRevealsReconstructHiddenState": true,
+  "browserImposedForfeits": 0,
+  "nativeInstructionsCanonical": true,
+  "browserErrors": 0,
+  "nativeConsensusExecution": false,
+  "note": "Real browser/WebRTC withholding test with one participant send fault; no ledger or wallet transaction was submitted. Consensus recovery is qualified separately."
+}

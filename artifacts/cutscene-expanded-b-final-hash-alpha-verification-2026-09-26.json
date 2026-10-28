@@ -1,0 +1,484 @@
+{
+  "verifiedAt": "2026-09-26T14:21:07.941Z",
+  "decoder": "pngjs",
+  "imagesEditedByThisCheck": false,
+  "opaqueSourcePolicy": "Fully opaque originals remain fully opaque; partial-alpha originals require actual alpha preservation.",
+  "problems": [],
+  "rows": [
+    {
+      "id": "ch05-victory-cut06",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch05-victory-cut06-logo-v2.png",
+      "outputSha256": "2bd0e0662ed057b0e56320612d01fe333cbc9350724d5ca0eeea672cfa3ab5b7",
+      "sourceSha256": "ce2691f7e6c982b3f36b39eb297943937bc869b6ae92493f5bfd6458f94cff4b",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch06-intro-cut02",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-intro-cut02-logo-v4.png",
+      "outputSha256": "f5dd5ca4a766d6047fa928008761a029a5fb6ab8f4b315d8c14578839b49dc27",
+      "sourceSha256": "12233e156abd4aee4fbae966f6a84e53c4a28d17d302e8476ab5984bf481a62d",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 3,
+        "max": 251,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch06-intro-cut03",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-intro-cut03-logo-v2.png",
+      "outputSha256": "65e66970f2258cab85dd87f9d83150b9ea915a0c5e6d6525e928a440669b578b",
+      "sourceSha256": "59dd517e14878a77eb6cb1496d485acaa548b2ecfed983ee03d476699c6b878e",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch06-intro-cut04",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-intro-cut04-logo-v4.png",
+      "outputSha256": "6fdc8d5829bd87e2b0adc6d0edd20066fb320ebda025a4110112d656be679310",
+      "sourceSha256": "8eeb1582930a2810e288e343b7f54e1c71f29a535cdf16a457d53bdb6c0c39b5",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 59,
+        "max": 251,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 2,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch06-intro-cut06",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-intro-cut06-logo-v4.png",
+      "outputSha256": "7cf282d0e31b1ccb4777eba575f353d19362d0c61a8882fd0e76626e525d9a5c",
+      "sourceSha256": "d42a9010076bfaa7283001743b8ebda6014a50a6ca9fe84ec7abf55dec908cd2",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 56,
+        "max": 245,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 167,
+        "max": 248,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch06-victory-cut02",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-victory-cut02-logo-v5.png",
+      "outputSha256": "02fb81397be04e0d6b6cc0b1a94045afe2ce50fc9f7c45f3abfc738a85eb352c",
+      "sourceSha256": "a0a2667ab0b29f260194df0592a977cb7104cec937b6a03da5aaf5690b60e4a7",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 37,
+        "max": 249,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1572411
+      }
+    },
+    {
+      "id": "ch06-victory-cut03",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-victory-cut03-logo-v6.png",
+      "outputSha256": "ba375d7911daeb19a4e4f00f0b34c9934f941fea317bf3f40534e5f549e01fd5",
+      "sourceSha256": "e6e229ae7a3d02e8105a1a6f2f8efcd6ea2a8d71ed29a6800d09d05d727aa886",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 41,
+        "max": 250,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1572411
+      }
+    },
+    {
+      "id": "ch06-victory-cut04",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-victory-cut04-logo-v5.png",
+      "outputSha256": "274d83b76f7dc187e8d082c96aa377084ae8627e88be6d49b5d9ee2a630e3741",
+      "sourceSha256": "d41bf078d873647c323cf68d9b559348bd1d5c02bd23b56d411c8ebdcfa28bbf",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 5,
+        "max": 252,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1572411
+      }
+    },
+    {
+      "id": "ch06-victory-cut05",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-victory-cut05-logo-v2.png",
+      "outputSha256": "55060d037fcbc63a15deae68c050eb906190e808162728087549b144b0d6b8b8",
+      "sourceSha256": "45f007c26953d8a358a64d13fda81b7a655ba65ce04cb4291bf4b94ea19b4950",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 4,
+        "max": 252,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch06-victory-cut06",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch06-victory-cut06-logo-v3.png",
+      "outputSha256": "3ce62dd641a2472cac5b5e934bf6647769567313c625cca850d506f2d94be1b7",
+      "sourceSha256": "5ac88ad8a94f15f69b27e757da487d515f01f8d86031fa44612f79e33d6b000b",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 6,
+        "max": 206,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 119,
+        "max": 249,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch07-intro-cut02",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut02-logo-v5.png",
+      "outputSha256": "3eb8dc0a381f9c2fecfb6031b3b999fbe7d60569fad81ba8bcbef4681886575e",
+      "sourceSha256": "cf6f722aad942a0aae0b0154ea07ad4b4de7a0f84d57840deda1b72e8ac3380f",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 9,
+        "max": 250,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 252,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch07-intro-cut03",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut03-logo-v4.png",
+      "outputSha256": "77682e8a27592eb6b7df059d3536950bb3f94ddacc248f009a2f90ed39805db2",
+      "sourceSha256": "766354773f0bb66a0a7bed548e1c9b7ef23418279acc47500bd0269a52a316a2",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 46,
+        "max": 247,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch07-intro-cut04",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut04-logo-v4.png",
+      "outputSha256": "6a2caf371d70a304a1292ed724ec5b6c86933a3d66fee042ccdf90efc98f0197",
+      "sourceSha256": "c5557b4b00de8341b050eed56c52ed460965ab21b47357ea552844dca10dc8d2",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 7,
+        "max": 250,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 254,
+        "nonOpaque": 1572411
+      }
+    },
+    {
+      "id": "ch07-intro-cut05",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut05-logo-v4.png",
+      "outputSha256": "2c1dd38515066c50ca31aa174cd9fb26a6258290b9e858b1a4c097231adfdbd1",
+      "sourceSha256": "943814d879137172d8edf56f4e8faafd4cd95234b7dd306b0d7afc86dc3db12f",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 49,
+        "max": 250,
+        "nonOpaque": 1571680
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1571680
+      }
+    },
+    {
+      "id": "ch07-intro-cut06",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut06-logo-v2.png",
+      "outputSha256": "a873791aabef9035f5b9dfa2f95cd9d49a3a745b6a472f4bacbbd9e58123072e",
+      "sourceSha256": "5408a5495636f1a0d9e27024632174a5f251eaa611c13b3feb06e413fad121dd",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 22,
+        "max": 251,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch07-intro-cut07",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut07-logo-v4.png",
+      "outputSha256": "7648d5d0585b694b5b6d65a37f4c4ddba3d47daa4649a97675714da43a5e6afa",
+      "sourceSha256": "4f1c720afa36884eebbd4df322ddd1e1a5db43e4c1b805e2b52a0548a2f943e4",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 27,
+        "max": 250,
+        "nonOpaque": 1571680
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 254,
+        "nonOpaque": 1571680
+      }
+    },
+    {
+      "id": "ch07-intro-cut09",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-intro-cut09-logo-v3.png",
+      "outputSha256": "111afde75ec7e2636ea4ca46b342b809cec223af4e2c7868df407641471b2bcd",
+      "sourceSha256": "d63cfb386612d1c4dc420d3e47303fb2849388073817097b9327ebd9e929c09b",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 59,
+        "max": 249,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch07-victory-cut07",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch07-victory-cut07-logo-v4.png",
+      "outputSha256": "9bf9e8481c623f2fb7acc27c7e02e62048d0b5e31975958abc6cd7b3455d0098",
+      "sourceSha256": "ec86a7c8eb867511125f84fdb708ce0b0f8adeef3ebbd08e2653771c98a7c614",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 4,
+        "max": 251,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch08-intro-cut04",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch08-intro-cut04-logo-v4.png",
+      "outputSha256": "d85f281e0a22623696c31460f8ddbaa4ac11ac1d24ee18dcb5a2d652212c4237",
+      "sourceSha256": "bf97884d6f97cc9e0287075e7369530003a5a1de4a688f767cd34de7e4edaf23",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 44,
+        "max": 250,
+        "nonOpaque": 1573352
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1573352
+      }
+    },
+    {
+      "id": "ch10-intro-cut08",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-intro-cut08-logo-v2.png",
+      "outputSha256": "86b916af880d3d8f20c653ade4693795fd3b866d6cfe18eecd8675015d5c4a53",
+      "sourceSha256": "8126501397635c4c0acd484a714be6e5b5273402a2ad9b09e4f3e38dfde9dd17",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch10-intro-cut09",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-intro-cut09-logo-v3.png",
+      "outputSha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+      "sourceSha256": "929336b3274c7911687fb006c405979fba883bf227a59cdde7c2f5614fcefa37",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch10-victory-cut01",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-victory-cut01-logo-v2.png",
+      "outputSha256": "ee7dc5d24874df5fd5576adbe27bdf42fd223eb6d25baf8d3782aeccd2797bb5",
+      "sourceSha256": "e6dcb6effa5736fed211ea7eb8c0a6310b0bc38d68e65fa9397dc0c37ac46f85",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch10-victory-cut02",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-victory-cut02-logo-v2.png",
+      "outputSha256": "b38556e82003013528376a306f1ae9832f6907ca9e29ad0ff371e2d85274a51c",
+      "sourceSha256": "7ca228d2bc42787b7f205e31054efa2147c4041246bc1186295e21b933f4ba39",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch10-victory-cut03",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-victory-cut03-logo-v2.png",
+      "outputSha256": "5bf0a516e1ae3ff50fb2bf3bbf00100ea4a0cac14af2113febaae82f402ba2c4",
+      "sourceSha256": "87a841a24261f8601b6b1318bbc461229b3c669d53da95c48b205f2e2df98511",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    },
+    {
+      "id": "ch10-victory-cut04",
+      "status": "accepted",
+      "output": "public/assets/story/scenes/ch10-victory-cut04-logo-v2.png",
+      "outputSha256": "059726a6b691cf6f4517700db34aac9be2b57e59604f9c3df8de075764fb7429",
+      "sourceSha256": "1f0c7bfb8d888634202bb0f19ac4a5c72f55ddff39d2aff4e380c108da25e0b1",
+      "sourceHashMatches": true,
+      "outputHashMatches": true,
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0
+      }
+    }
+  ]
+}

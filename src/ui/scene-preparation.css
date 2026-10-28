@@ -1,0 +1,56 @@
+/* The canvas is at -3 inside #app's isolated stacking context. Existing menus
+   and their announcements stay above this opaque, non-interactive artwork. */
+.scene-preparation-cover {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: #171124;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 52%;
+}
+
+.scene-preparation-cover[hidden] {
+  display: none !important;
+}
+
+.scene-preparation-panel {
+  width: min(620px, calc(100% - 40px));
+  min-width: 0;
+  text-align: left;
+  background: #171322ed;
+  padding: clamp(24px, 4vw, 48px);
+}
+
+.scene-preparation-panel h1 {
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.45;
+  letter-spacing: -.02em;
+}
+
+.scene-preparation-panel h1 small {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: .12em;
+}
+
+.scene-preparation-panel p:not(.eyebrow) {
+  margin: 22px 0;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.scene-preparation-panel button small {
+  display: block;
+  margin-top: 5px;
+  font-size: 10px;
+}
+
+@media (max-width: 600px) {
+  .scene-preparation-cover {
+    background-position: 46% center;
+  }
+}

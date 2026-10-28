@@ -1,0 +1,1266 @@
+{
+  "at": "2026-09-06T14:32:00.064010+00:00",
+  "scope": "Anonymous public endpoint observations, not independently authenticated ledger finality",
+  "reads": [
+    {
+      "url": "https://taira.sora.org/health",
+      "status": 406,
+      "body": {
+        "code": "response_not_acceptable",
+        "message": "requested content type is not acceptable for this endpoint; response uses text/plain"
+      }
+    },
+    {
+      "url": "https://taira.sora.org/status",
+      "status": 200,
+      "body": {
+        "build": {
+          "version": "2.0.0-rc.2.0",
+          "git_commit_sha": "b1da38607524a44f5a55e0a89a171004744a3bd7",
+          "dpn_validator_release_commit": "unknown",
+          "cargo_features": "metric-instrumentation",
+          "target_triple": "aarch64-apple-darwin"
+        },
+        "observed_at_ms": 1788705121529,
+        "peers": 3,
+        "blocks": 7,
+        "blocks_non_empty": 7,
+        "commit_time_ms": 185223397,
+        "txs_approved": 9,
+        "txs_rejected": 0,
+        "txs_rejected_recent_5m": 0,
+        "uptime": {
+          "secs": 452415,
+          "nanos": 284000000
+        },
+        "view_changes": 0,
+        "queue_size": 1,
+        "queue_queued": 1,
+        "queue_inflight": 0,
+        "last_block_committed_at_ms": 1788437953642,
+        "last_non_empty_block_committed_at_ms": 1788437953642,
+        "time_since_last_block_ms": 267167887,
+        "time_since_last_non_empty_block_ms": 267167887,
+        "da_reschedule_total": 0,
+        "crypto": {
+          "sm_helpers_available": false,
+          "sm_openssl_preview_enabled": false,
+          "halo2": {
+            "enabled": false,
+            "curve": "",
+            "backend": "",
+            "max_k": 0,
+            "verifier_budget_ms": 0,
+            "verifier_max_batch": 0
+          }
+        },
+        "stack": {
+          "requested_scheduler_bytes": 33554432,
+          "requested_prover_bytes": 33554432,
+          "requested_guest_bytes": 4194304,
+          "scheduler_bytes": 33554432,
+          "prover_bytes": 33554432,
+          "guest_bytes": 4194304,
+          "gas_to_stack_multiplier": 4,
+          "scheduler_clamped": false,
+          "prover_clamped": false,
+          "guest_clamped": false,
+          "pool_fallback_total": 0,
+          "budget_hit_total": 0
+        },
+        "offline": {
+          "mandatory": false,
+          "cash_handoff_capability": "cash_handoff_v1",
+          "required_bridge_abi_version": 22,
+          "max_hops": 8,
+          "ready": true,
+          "assets": [],
+          "blockers": []
+        },
+        "sumeragi": {
+          "mode_tag": "iroha2-consensus::permissioned-sumeragi@v2",
+          "leader_index": 0,
+          "highest_qc_height": 7,
+          "locked_qc_height": 7,
+          "locked_qc_view": 0,
+          "commit_signatures_present": 0,
+          "commit_signatures_counted": 0,
+          "commit_signatures_set_b": 0,
+          "commit_signatures_required": 0,
+          "commit_qc_height": 7,
+          "commit_qc_view": 0,
+          "commit_qc_epoch": 0,
+          "commit_qc_signatures_total": 3,
+          "commit_qc_validator_set_len": 4,
+          "gossip_fallback_total": 0,
+          "block_created_dropped_by_lock_total": 0,
+          "block_created_hint_mismatch_total": 0,
+          "block_created_proposal_mismatch_total": 0,
+          "tx_queue_depth": 0,
+          "tx_queue_capacity": 0,
+          "tx_queue_retained_bytes": 0,
+          "tx_queue_max_retained_bytes": 0,
+          "tx_queue_saturated": false,
+          "tx_queue_saturated_by_count": false,
+          "tx_queue_saturated_by_bytes": false,
+          "tx_queue_saturated_by_age": false,
+          "tx_queue_oldest_queued_age_ms": 0,
+          "epoch_length_blocks": 0,
+          "epoch_commit_deadline_offset": 0,
+          "epoch_reveal_deadline_offset": 0,
+          "prf_height": 0,
+          "prf_view": 0,
+          "da_reschedule_total": 0,
+          "rbc_deliver_defer_ready_total": 0,
+          "rbc_deliver_defer_chunks_total": 0,
+          "rbc_store_sessions": 0,
+          "rbc_store_bytes": 0,
+          "rbc_store_pressure_level": 0,
+          "rbc_store_backpressure_deferrals_total": 0,
+          "rbc_store_persist_drops_total": 0,
+          "rbc_store_evictions_total": 0,
+          "view_change_proof_accepted_total": 0,
+          "view_change_proof_stale_total": 0,
+          "view_change_proof_rejected_total": 0,
+          "view_change_suggest_total": 0,
+          "view_change_install_total": 0,
+          "lane_governance_sealed_total": 0,
+          "lane_governance_sealed_aliases": []
+        },
+        "governance": {
+          "proposals": {
+            "proposed": 0,
+            "approved": 0,
+            "rejected": 0,
+            "enacted": 0
+          },
+          "protected_namespace": {
+            "total_checks": 0,
+            "allowed": 0,
+            "rejected": 0
+          },
+          "manifest_admission": {
+            "total_checks": 0,
+            "allowed": 0,
+            "missing_manifest": 0,
+            "non_validator_authority": 0,
+            "quorum_rejected": 0,
+            "protected_namespace_rejected": 0,
+            "runtime_hook_rejected": 0
+          },
+          "manifest_quorum": {
+            "total_checks": 0,
+            "satisfied": 0,
+            "rejected": 0
+          },
+          "recent_manifest_activations": [],
+          "sealed_lanes_total": 0,
+          "sealed_lane_aliases": [],
+          "citizens_total": 0
+        },
+        "teu_lane_commit": [
+          {
+            "lane_id": 0,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "core",
+            "dataspace_id": 0,
+            "dataspace_alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 1,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "governance",
+            "dataspace_id": 0,
+            "dataspace_alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 2,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "zk",
+            "dataspace_id": 0,
+            "dataspace_alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 3,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "dpn",
+            "dataspace_id": 10,
+            "dataspace_alias": "dpn",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 4,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "external-poc",
+            "dataspace_id": 6647857470246403404,
+            "dataspace_alias": "is",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 5,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "boi-mobile",
+            "dataspace_id": 8477022798449861195,
+            "dataspace_alias": "is2",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          },
+          {
+            "lane_id": 6,
+            "capacity": 0,
+            "committed": 0,
+            "buckets": {
+              "floor": 0,
+              "headroom": 0,
+              "must_serve": 0,
+              "circuit_breaker": 0
+            },
+            "deferrals": {
+              "cap_exceeded": 0,
+              "envelope_limit": 0,
+              "quota": 0,
+              "circuit_breaker": 0
+            },
+            "must_serve_truncations": 0,
+            "trigger_level": 0,
+            "starvation_bound_slots": 0,
+            "block_height": 7,
+            "finality_lag_slots": 0,
+            "settlement_backlog_xor_micro": 0,
+            "tx_vertices": 0,
+            "tx_edges": 0,
+            "overlay_count": 0,
+            "overlay_instr_total": 0,
+            "overlay_bytes_total": 0,
+            "rbc_chunks": 0,
+            "rbc_bytes_total": 0,
+            "peak_layer_width": 0,
+            "layer_count": 0,
+            "avg_layer_width": 0,
+            "median_layer_width": 0,
+            "scheduler_utilization_pct": 0,
+            "layer_width_buckets": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "detached_prepared": 0,
+            "detached_merged": 0,
+            "detached_fallback": 0,
+            "quarantine_executed": 0,
+            "manifest_required": false,
+            "manifest_ready": false,
+            "alias": "cbsi",
+            "dataspace_id": 20,
+            "dataspace_alias": "cbsi",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "lane_type": null,
+            "governance": null,
+            "settlement": null,
+            "scheduler_teu_capacity_override": null,
+            "scheduler_starvation_bound_override": null,
+            "manifest_path": null,
+            "manifest_validators": [],
+            "manifest_validator_bindings": [],
+            "manifest_quorum": null,
+            "manifest_protected_namespaces": [],
+            "manifest_runtime_upgrade": null
+          }
+        ],
+        "teu_dataspace_backlog": [
+          {
+            "lane_id": 0,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 0,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 0,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 0,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 0,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 1,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 1,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 1,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 1,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 1,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 2,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 2,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 2,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 2,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 2,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 3,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 3,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 3,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 3,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 3,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 4,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 4,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 4,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 4,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 4,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 5,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 5,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 5,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 5,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 5,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          },
+          {
+            "lane_id": 6,
+            "dataspace_id": 0,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "universal",
+            "description": "Shared public data space for core, governance, and zero-knowledge lanes"
+          },
+          {
+            "lane_id": 6,
+            "dataspace_id": 10,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "dpn",
+            "description": "Digital payments network data space"
+          },
+          {
+            "lane_id": 6,
+            "dataspace_id": 20,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "cbsi",
+            "description": "Central-bank service integration data space"
+          },
+          {
+            "lane_id": 6,
+            "dataspace_id": 6647857470246403404,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is",
+            "description": "External PoC data space"
+          },
+          {
+            "lane_id": 6,
+            "dataspace_id": 8477022798449861195,
+            "fault_tolerance": 1,
+            "backlog": 0,
+            "age_slots": 0,
+            "virtual_finish": 0,
+            "tx_served": 0,
+            "alias": "is2",
+            "description": "Bank of Israel mobile-wallet data space"
+          }
+        ],
+        "dataspace_catalog": [
+          {
+            "lane_id": 0,
+            "lane_alias": "core",
+            "dataspace_id": 0,
+            "alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 1,
+            "lane_alias": "governance",
+            "dataspace_id": 0,
+            "alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 2,
+            "lane_alias": "zk",
+            "dataspace_id": 0,
+            "alias": "universal",
+            "visibility": "public",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 3,
+            "lane_alias": "dpn",
+            "dataspace_id": 10,
+            "alias": "dpn",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 4,
+            "lane_alias": "external-poc",
+            "dataspace_id": 6647857470246403404,
+            "alias": "is",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 5,
+            "lane_alias": "boi-mobile",
+            "dataspace_id": 8477022798449861195,
+            "alias": "is2",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          },
+          {
+            "lane_id": 6,
+            "lane_alias": "cbsi",
+            "dataspace_id": 20,
+            "alias": "cbsi",
+            "visibility": "restricted",
+            "storage_profile": "full_replica",
+            "manifest_required": false,
+            "manifest_ready": false,
+            "sealed": false
+          }
+        ],
+        "nexus": {
+          "routing_policy": {
+            "default_lane": 0,
+            "default_dataspace": 0,
+            "rules": [
+              {
+                "lane": 3,
+                "dataspace_id": 10,
+                "matcher": {
+                  "account": "*@dpn"
+                }
+              },
+              {
+                "lane": 4,
+                "dataspace_id": 6647857470246403404,
+                "matcher": {
+                  "account": "*@wonderland.is"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@boi.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@leumi.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@hapoalim.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@discount.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@mizrahi.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@fibi.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@onezero.is2"
+                }
+              },
+              {
+                "lane": 5,
+                "dataspace_id": 8477022798449861195,
+                "matcher": {
+                  "account": "*@jerusalem.is2"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@pob.cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@bred.cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@anz.cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@bsp.cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@m-selen.cbsi"
+                }
+              },
+              {
+                "lane": 6,
+                "dataspace_id": 20,
+                "matcher": {
+                  "account": "*@ezipei.cbsi"
+                }
+              },
+              {
+                "lane": 1,
+                "dataspace_id": 0,
+                "matcher": {
+                  "instruction": "governance"
+                }
+              },
+              {
+                "lane": 0,
+                "dataspace_id": 0,
+                "matcher": {
+                  "instruction": "smartcontract::deploy"
+                }
+              }
+            ]
+          }
+        },
+        "tx_gossip": {
+          "caps": {
+            "frame_cap_bytes": 0,
+            "drop_unknown_dataspace": false,
+            "restricted_fallback": "drop",
+            "restricted_public_policy": "refuse"
+          }
+        }
+      }
+    },
+    {
+      "url": "https://taira.sora.org/v1/sumeragi/status",
+      "status": 401,
+      "body": {
+        "code": "operator_signature_missing",
+        "message": "missing required operator signature header `x-iroha-operator-public-key`"
+      }
+    },
+    {
+      "url": "https://taira.sora.org/v1/sorafs/capacity/state",
+      "status": 404,
+      "body": {
+        "code": "not_found",
+        "message": "The requested resource was not found."
+      }
+    }
+  ]
+}

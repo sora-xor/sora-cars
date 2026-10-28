@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "trackId": "tokyo-1986",
+  "objects": [
+    { "id": "kudan-sora-sign", "kind": "breakaway_sign", "anchorGate": "kudanshita", "offsetMm": -80000, "lateralMm": -4300, "halfLengthMm": 400, "halfWidthMm": 800 },
+    { "id": "kudanzaka-oil", "kind": "oil", "anchorGate": "kudanshita", "offsetMm": 120000, "lateralMm": 1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "shrine-planter", "kind": "tree_planter", "anchorGate": "shrine-front", "offsetMm": 120000, "lateralMm": -3200, "halfLengthMm": 600, "halfWidthMm": 600 },
+    { "id": "moat-oil", "kind": "oil", "anchorGate": "moat-west", "offsetMm": 100000, "lateralMm": -1100, "halfLengthMm": 7000, "halfWidthMm": 1300 },
+    { "id": "hanzomon-sora-sign", "kind": "breakaway_sign", "anchorGate": "hanzomon", "offsetMm": -80000, "lateralMm": 4000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "miyakezaka-planter", "kind": "tree_planter", "anchorGate": "miyakezaka", "offsetMm": -100000, "lateralMm": -4000, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "diet-oil", "kind": "oil", "anchorGate": "diet-front", "offsetMm": 120000, "lateralMm": 1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "finance-sora-sign", "kind": "breakaway_sign", "anchorGate": "finance-corner", "offsetMm": 120000, "lateralMm": -4000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "sakuradamon-planter", "kind": "tree_planter", "anchorGate": "sakuradamon", "offsetMm": 120000, "lateralMm": 4300, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "hibiya-oil", "kind": "oil", "anchorGate": "hibiya-turn", "offsetMm": 130000, "lateralMm": -1100, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "wadakura-sora-sign", "kind": "breakaway_sign", "anchorGate": "wadakura", "offsetMm": 100000, "lateralMm": 4300, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "takebashi-planter", "kind": "tree_planter", "anchorGate": "takebashi", "offsetMm": 100000, "lateralMm": -3700, "halfLengthMm": 600, "halfWidthMm": 500 }
+  ]
+}

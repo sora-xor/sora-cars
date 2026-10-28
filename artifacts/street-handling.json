@@ -1,0 +1,58 @@
+{
+  "date": "2026-09-07",
+  "scope": "Draft single-car arithmetic component; no complete race, AIR, STARK or live profile admission.",
+  "report": "output/qualification/street-handling/report.json",
+  "reportSha256": "8a591a48a82f2f60f236d3f8f6bece1ac1eca27afec2b034f69c8df2db1e6e59",
+  "sources": {
+    "world/native/street_geometry.rs": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+    "world/native/street_graph.rs": "98e43a1973f78eeebe4c60d6e1ebdcc1c480d7d6859f070618b44bc1dcdc3e9d",
+    "world/native/street_handling.rs": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+    "src/game/street/track.ts": "9d868f33c0d508491d32b280461a53c90bf0bd7bb4e9c71261e3bbdd3960bf84",
+    "src/game/street/graph.ts": "eda6900397b96a7eb2b70bfb10486ac4de1a947bdf74f1dc21f39458f06a34b8",
+    "scripts/lib/street-track-compiler.ts": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+    "scripts/test-street-handling.ts": "a5cad1f4aef37724feb8f46e0d6e0031a9236b1de9bc6a2befcddb311fe12bb1",
+    "world/authoring/tokyo-1986.json": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682"
+  },
+  "graph": {
+    "nodes": 372,
+    "sha256": "ea98cafdbd902074c4b85c2a92f9ce848bc5c0826aac0986cac0f9a25d4d879d",
+    "bytes": 22475
+  },
+  "nativeBrowserComparisons": 38463,
+  "exhaustiveDirections": 1000000,
+  "nativeTestGroups": 8,
+  "browserGraphTests": 10,
+  "replay": {
+    "ticks": 9000,
+    "route": "tokyo-1986",
+    "controlSource": "deterministic test steering driver with seeded wind",
+    "finalState": [
+      18966589,
+      -90,
+      2442,
+      1139,
+      1467,
+      191
+    ],
+    "wallTicks": 318,
+    "distanceTravelledMm": 18966589,
+    "maxSpeedMmPerTick": 2588
+  },
+  "qualification": {
+    "componentParity": true,
+    "fullSimulation": false,
+    "authenticatedGeometry": false,
+    "proof": false,
+    "playability": false
+  },
+  "resolvedReviewFindings": [
+    "Exact diagonal direction symmetry",
+    "Guardrail tangent momentum preserves backward sign and removes transverse speed",
+    "Intermediate narrow cells covered by conservative corridor envelope",
+    "Long sequence requires real progress and high-speed transitions",
+    "Throttle crawl steering escapes repeated contact while unpowered steering stays still",
+    "Zero momentum launches along body direction without fictitious collision slip"
+  ],
+  "unchangedLiveProfiles": true,
+  "maintainedIrohaEdited": false
+}

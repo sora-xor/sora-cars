@@ -1,0 +1,45 @@
+{
+  "schema": "sora-cars.artist-registration-attempt.v1",
+  "checkedAt": "2026-10-23T17:03:53.339Z",
+  "artist": "SORA Cars",
+  "accountId": "testuﾛ1PｶﾇPwjtｻﾊKﾗﾑｱｻeEｴEHｿhuｺuヰpﾉﾘﾜKﾂヱ1vdHﾍs5PDK5VR",
+  "health": {
+    "path": "output/qualification/music-issuer-account-2026-10-24-attempt/health.json",
+    "sha256": "257b6b7f292019e781d88027fab7c19fa760fd87c064cc79e544adea79dddd8e"
+  },
+  "actualNativeAttempt": {
+    "path": "output/qualification/music-issuer-account-2026-10-24-attempt/prepare-routine-result.json",
+    "sha256": "6ea1af75f92dc4162899f2516e55e0663ec3316d99f6fbab8cab1636b7b00424"
+  },
+  "nativeCliSha256": "c2579a655cd241f501a7a9147a403286ee1863061d9424abae945b720a1506c9",
+  "configAdmissionResolved": true,
+  "configResolution": "This retained executable requires account.domain; adding dpn satisfied config admission. The field does not change canonical account identity or register an alias.",
+  "keyValidation": {
+    "sameRetainedEd25519Identity": true,
+    "nativePublicKeyDerivationMatches": true,
+    "nativePrivateKeyEncodingMatches": true,
+    "privateFilesOutsideRepository": true
+  },
+  "selectedPolicyProvenance": "Current public policy on the exact Taira endpoint the user selected, used only for ordinary testnet account preparation; not release-network qualification.",
+  "preparationVerified": false,
+  "preparedJournalFiles": [
+    {
+      "name": "lock",
+      "bytes": 0
+    }
+  ],
+  "preparedTransactionPersisted": false,
+  "preparationError": "decode fixed-V1 prepared SignedTransaction wire: Norito (de)serialization issue: invalid enum discriminant",
+  "transactionSubmitted": false,
+  "registrationTransaction": null,
+  "registered": false,
+  "funded": false,
+  "applicationNetworkPinChanged": false,
+  "nativeSourcesChanged": false,
+  "nativeBuildPerformed": false,
+  "concurrentNativeWork": {
+    "path": "output/qualification/music-issuer-account-2026-10-24-attempt/native-process-snapshot.txt",
+    "sha256": "a5ab8accb7a84d946e7027c3c1884928dca5d41af08f7dca50f621e018758436"
+  },
+  "nextAction": "Use a native client/deployment combination whose canonical SignedTransaction codec matches; do not submit an envelope the native verifier rejected or bypass verification. Continue account registration with the same retained identity."
+}

@@ -1,0 +1,923 @@
+{
+  "version": 1,
+  "at": "2026-09-06T23:09:55.909761+00:00",
+  "scope": "Current generic admission and selected native environment browser build; explicit immutable native proof/finality and local provider evidence, no deployed release qualification",
+  "profile_id": "c6b9b7536ca0a1d7c3f25ad67208927d36e79b5385af516cb93177a82eabc925",
+  "rules_hash": "6e4eb15b6de811994ec894d8b128b2828f83274940a272355f73d01be2380401",
+  "live_stakes_enabled": false,
+  "published": false,
+  "native_model": {
+    "focused_cargo_tests_passed": 10,
+    "repaired_admission_source_tests_passed": 4,
+    "full_payload_codec_tests_passed": 1,
+    "report_directory": "output/qualification/native-equipment/20260906T120924Z",
+    "limitation": "Repaired admission tests compile the exact test source against retained successful native Cargo model; entire model libtest was not rebuilt after the test seed fix."
+  },
+  "normal_core": {
+    "tests_passed": 54,
+    "report": "output/qualification/native-equipment/core30/report.json",
+    "limitation": "Actual full Core libtest binary; coordinated compilation had source drift and is development composition evidence, not a release snapshot."
+  },
+  "sdk": {
+    "native_rows": 40,
+    "affected_tests_passed": 80,
+    "framed_followup_tests_passed": 46,
+    "report": "output/equipment-integration/qualification.json"
+  },
+  "native_execution": {
+    "tests_passed": 52,
+    "genuine_short_proof": true,
+    "genuine_adversaries": true,
+    "late_finisher_proof": true,
+    "full_proof": {
+      "players": 8,
+      "ticks": 5400,
+      "bytes": 3094036,
+      "sha256": "e40ff280e856f06a240ab3abf52efa1408c3d6700c5cb1baddb988dcf2c19cbf",
+      "prove_and_internal_verify_seconds": 525.902,
+      "prove_max_rss_bytes": 25739657216,
+      "independent_verify_seconds": 2.233,
+      "verify_max_rss_bytes": 616153088,
+      "isolated_host_measurement": false
+    },
+    "envelope_bound_bytes": 3659186,
+    "typed_settlement_bound_bytes": 3659497,
+    "directory": "output/qualification/native-proof/admission-first-release/20260906T125522Z",
+    "full_cpu_parity": {
+      "status": "passed",
+      "report": "output/qualification/native-proof/admission-first-release/20260906T125522Z/qualification.json",
+      "report_sha256": "12b56f9d9f2a33ec7f03120e63a8d48cc0dace805ad86df0d63d4f19fdf388a3",
+      "pools": [
+        {
+          "requested_width": 1,
+          "actual_width": 1,
+          "proof_bytes": 3099124,
+          "elapsed_seconds": 2929.937,
+          "sampled_peak_rss_bytes": 27374174208,
+          "rss_samples": 1433
+        },
+        {
+          "requested_width": 2,
+          "actual_width": 2,
+          "proof_bytes": 3099124,
+          "elapsed_seconds": 1751.132,
+          "sampled_peak_rss_bytes": 26655342592,
+          "rss_samples": 855
+        },
+        {
+          "requested_width": 0,
+          "actual_width": 16,
+          "proof_bytes": 3099124,
+          "elapsed_seconds": 480.046,
+          "sampled_peak_rss_bytes": 30165565440,
+          "rss_samples": 235
+        }
+      ],
+      "rss_method": "Two-second ps RSS samples in bytes, tagged by unchanged native test phase log. Per-pool sampled maximum is not an exact kernel peak. Whole-process /usr/bin/time -l peak is retained separately.",
+      "workload": "Shared host with root Cargo, browser and SDK checks; not an isolated performance benchmark.",
+      "identical_full_proof_sha256": {
+        "threads-1.nrt": "ea7852f742afc653c17c8b1c35b6dad80185e51287aff3ba0c3544c27239e644",
+        "threads-2.nrt": "ea7852f742afc653c17c8b1c35b6dad80185e51287aff3ba0c3544c27239e644",
+        "threads-0.nrt": "ea7852f742afc653c17c8b1c35b6dad80185e51287aff3ba0c3544c27239e644"
+      },
+      "separate_cli_verifications": 3
+    },
+    "qualified": false,
+    "limitation": "Optimized unmodified production modules compiled against captured native Cargo dependency closure; this does not replace full-node/four-validator validation or cryptographic review.",
+    "backend_audit": {
+      "report": "output/qualification/execution-backend-audit/20260906T144323Z/audit.json",
+      "selected": "Portable scalar Goldilocks/Fp4/execution Poseidon2 plus Rayon",
+      "execution_gpu_backend": false,
+      "linux_amd64_arm64_qualified": false
+    },
+    "linux_readiness": {
+      "report": "output/qualification/linux-runtime-readiness/20260906T145357Z/audit.json",
+      "native_linux_qualified": false,
+      "vm_started": true,
+      "setup_report": "output/qualification/linux-native-v1/setup/qualification.json",
+      "status": "First immutable native Linux Core build failed with E0284/E0283 in a replay test; retry started from a new immutable snapshot carrying only the reviewed explicit Name correction. Production sources and stock proof profile unchanged.",
+      "primitive_report": "output/qualification/linux-native-v1/stock-v1/primitive-report.json",
+      "primitive_tests_passed": 51,
+      "primitive_tests_ignored": 1,
+      "core_compiled": false,
+      "primitive_report_sha256": "566de13c016e1c8232d289b12ddeda3a91afcded04d9b920a9fecaf67eb27ae8",
+      "ignored_test": {
+        "name": "poseidon_digest384_prefix::tests::cached_merkle_pair_timing_diagnostic",
+        "reason": "Explicit native scalar timing diagnostic; not correctness or production performance qualification"
+      },
+      "core_build_attempt_1": "output/qualification/linux-native-v1/stock-v1/core-native-build-result.json",
+      "core_build_retry": {
+        "directory": "output/qualification/linux-native-v1/stock-v1-core35",
+        "source_seal_sha256": "d4c264c1bfecf10b65a05d512bb8baa9a95e03f3cdcd7fa012847b66d45bd96b",
+        "host_exec_session": 34142,
+        "core_compiled": false,
+        "started_command": "output/qualification/linux-native-v1/stock-v1-core35/core-native-build-command.json"
+      },
+      "subsequent_irohad_build": {
+        "directory": "output/qualification/linux-native-v1/stock-v1-core35",
+        "host_exec_session": 24501,
+        "status": "queued",
+        "command": "output/qualification/linux-native-v1/stock-v1-core35/irohad-native-build-command.json",
+        "linker": "Explicit native LLVM LLD18 using supported GCC -fuse-ld=lld; existing Core GNU build unchanged",
+        "tests_executed": 0
+      }
+    }
+  },
+  "frontend": {
+    "directory": "output/qualification/frontend/terminal-frontier-BQWvnj-U/dist",
+    "main_bundle": "assets/index-BQWvnj-U.js",
+    "sha256": "700915ace91b611eaf1996ee2ec4e91285da95212516a9d9f0aa3dbaa4c80d93",
+    "application_tests_passed": 154,
+    "typecheck": true,
+    "build": true,
+    "skill_capture_inspected": true,
+    "eight_clients": {
+      "nativeProfile": "c6b9b7536ca0a1d7c3f25ad67208927d36e79b5385af516cb93177a82eabc925",
+      "captureDirectory": "output/browser/eight-peer-full-c6b9b7536ca0",
+      "command": "SORA_CARS_TEST_TICKS=5400 node scripts/test-mesh.mjs",
+      "contexts": 8,
+      "webrtcLinks": 28,
+      "certifiedTick": 5400,
+      "identicalNativeCheckpoints": true,
+      "authenticatedCosmetics": true,
+      "signedTranscriptFrames": 5400,
+      "browserErrors": 0,
+      "identicalTerminalState": true,
+      "inputScenario": "Drift and boost for 360 ticks, then braking to retain all eight players through the 5400-tick timeout.",
+      "note": "Eight real Chromium contexts, native generated physics, same Canvas renderer, drift/boost inputs. Local transport evidence; native proof and deployment qualification are separate."
+    },
+    "wallet_checks_passed": 13,
+    "wallet_report": "output/qualification/frontend/admission-c6b9/wallet/qualification.json",
+    "deployed_wallet_interoperability": false,
+    "native_finality_verified": false,
+    "static_cid_path": {
+      "passed": true,
+      "report": "output/qualification/frontend/final-lifecycle-Offv7slj/artifacts/static-cid-path.json",
+      "remote_publication": false
+    },
+    "finality_export": {
+      "checks_passed": 11,
+      "report": "output/qualification/finality-first-release-format/browser-qualification/browser/finality-browser.json",
+      "mobile_capture_inspected": true,
+      "storage": "Actual Chromium OPFS, OS picker substituted",
+      "ledger_carriers": "Explicit synthetic untrusted transport fixtures",
+      "native_finality_verified": false,
+      "runtime_assets_match_current_build": false,
+      "scope": "OPFS/export checks qualify frozen first-release format DP2 build; current selected-environment bundle preserves the source but changes its main chunk."
+    },
+    "previous_build": {
+      "directory": "output/qualification/frontend/selected-environment-aq6TZkpJ/dist",
+      "main_bundle": "assets/index-aq6TZkpJ.js",
+      "sha256": "a5df397f0549f7c59005dbe6ddbff66357928b58adc78097493a1da0424d64f1"
+    },
+    "post_apply_report": "output/qualification/frontend/final-lifecycle-Offv7slj/report.json",
+    "inherited_gameplay_scope": "Eight-client mesh and wallet checks retain their original c6b9 snapshot scope; current stock arithmetic consumes the unchanged native generated grid through a shared validated executor. New selected environment renderer and audio lifecycle were rechecked in actual Chromium.",
+    "previous_local_sorafs_provider": {
+      "report": "output/qualification/sorafs-provider/taira-connect-CXc6P5BB/report.json",
+      "package": "output/sorafs/taira-connect-CXc6P5BB",
+      "root_cid_hex": "01711f20944499d1c5ff68974db281ed2d6fd6808136b6d0e75c6f5f49f9eecd02c115cf",
+      "files": 22,
+      "chunks": 202,
+      "payload_bytes": 24340662,
+      "car_bytes": 24371275,
+      "seconds": 31.860088916990208,
+      "current_native_daemon": false,
+      "published": false
+    },
+    "current_driving_feedback": {
+      "checks_passed": 5,
+      "report": "output/qualification/frontend/final-audio-lifecycle/output/browser/driving-feedback/report.json",
+      "active_restart_red_regression": "output/qualification/frontend/restart-audio-red/output/browser/driving-feedback/failure.json"
+    },
+    "current_track_objects": {
+      "passed": true,
+      "report": "output/qualification/frontend/selected-environment-browser-attempt-2/output/browser/track-objects/report.json",
+      "mobile_capture_inspected": true,
+      "previous_attempt_limitation": "Attempt1 mobile capture cleared by mesh harness resize after the one-shot draw. Production paths passed; mobile evidence was replaced by synchronized draw and pixel validation."
+    },
+    "skill_capture": "output/consensus-frontier-browser/shot-1.png",
+    "main_online_audio_and_input": {
+      "checks_passed": 4,
+      "report": "output/browser/live-driving-lifecycle/report.json",
+      "scope": "Actual main UI and synth with captured live-panel callbacks and explicit local controller/gamepad counterpart; no network/finality claim"
+    },
+    "local_sorafs_provider": {
+      "report": "output/qualification/sorafs-provider/terminal-frontier-BQWvnj-U/report.json",
+      "package": "output/sorafs/terminal-frontier-BQWvnj-U",
+      "root_cid_hex": "01711f20ed71044b9d9b44b07be5af6d78ca95fff56b1fbc231fe28ef043d91c31005198",
+      "files": 22,
+      "chunks": 204,
+      "payload_bytes": 24340645,
+      "car_bytes": 24371505,
+      "seconds": 31.823702499998035,
+      "current_native_daemon": false,
+      "published": false,
+      "passed": true
+    },
+    "working_tree_ahead_of_frozen_build": false,
+    "hero_glitch_report": "output/browser/hero-glitch/report.json",
+    "taira_connect": {
+      "at": "2026-09-06T20:27:08.877399+00:00",
+      "main_bundle": "dist/assets/index-CXc6P5BB.js",
+      "sha256": "0e8219082abad62ad1207f2c5c04bc234bb51df9cc13ea89923bdb2f4b87be95",
+      "typecheck_and_build": true,
+      "chain_and_pin_tests_passed": 7,
+      "connect_protocol_checks_passed": 16,
+      "main_ui_checks_passed": 4,
+      "protocol_report": "output/browser/taira-connect/protocol/qualification.json",
+      "ui_report": "output/browser/taira-connect/ui/report.json",
+      "public_service_report": "output/browser/taira-connect/public-service-check.json",
+      "actual_preview_url": "http://127.0.0.1:5178/#/",
+      "actual_preview_result": "Public Taira pairing attempt failed to fetch; Japanese retry UI displayed. No account connected or transaction requested.",
+      "live_stakes_enabled": false,
+      "deployed_wallet_interoperability": false,
+      "published": false,
+      "frozen_directory": "output/qualification/frontend/taira-connect-CXc6P5BB/dist",
+      "native_provider_report": "output/qualification/sorafs-provider/taira-connect-CXc6P5BB/report.json",
+      "static_cid_path_report": "artifacts/static-cid-path.json"
+    },
+    "historical_frozen_frontends": [
+      {
+        "directory": "output/qualification/frontend/final-lifecycle-Offv7slj/dist",
+        "main_bundle": "assets/index-Offv7slj.js",
+        "sha256": "7335923497dd5255d5df8f783ba1a478d732a74874e5d28781350dd87685e4ef"
+      },
+      {
+        "directory": "output/qualification/frontend/taira-connect-CXc6P5BB/dist",
+        "main_bundle": "assets/index-CXc6P5BB.js",
+        "sha256": "0e8219082abad62ad1207f2c5c04bc234bb51df9cc13ea89923bdb2f4b87be95"
+      }
+    ],
+    "native_storage": {
+      "report": "output/qualification/sorafs-provider/terminal-frontier-BQWvnj-U/report.json",
+      "package": "output/sorafs/terminal-frontier-BQWvnj-U",
+      "root_cid_hex": "01711f20ed71044b9d9b44b07be5af6d78ca95fff56b1fbc231fe28ef043d91c31005198",
+      "files": 22,
+      "chunks": 204,
+      "payload_bytes": 24340645,
+      "car_bytes": 24371505,
+      "seconds": 31.823702499998035,
+      "current_native_daemon": false,
+      "published": false
+    },
+    "application_test_scope": "All154 current application tests pass; full log output/consensus-frontier-browser/full-suite.log. Historical wallet/eight-client/finality checks retain their original captured scopes.",
+    "terminal_boundary_recovery": {
+      "report": "output/consensus-frontier-browser/report.json",
+      "new_regressions": 5,
+      "focused_tests_passed": 38,
+      "current_skill_captures_inspected": true,
+      "source_sha256": "30229de3c66cb08b1568b7caa632b1f911f9ef63be45825da9038bea269def36",
+      "native_settlement_qualified": false
+    }
+  },
+  "touring_environment": {
+    "reference_and_constraints": true,
+    "focused_tests": 30,
+    "full_traces": {
+      "tracks": 3,
+      "cars": 8,
+      "ticks": 5400
+    },
+    "proof_qualified": false,
+    "report": "output/qualification/classed-environment-v1/report.json",
+    "current_range_schedule": {
+      "report": "output/qualification/classed-producer-ranges-v1/report.json",
+      "focused_tests_passed": 32,
+      "full_duration_tests_passed": 1,
+      "tracks": 3,
+      "cars": 8,
+      "ticks": 5400,
+      "rows_per_tick": 85,
+      "padded_rows": 524288,
+      "columns": {
+        "NeonTokyo": 406,
+        "Harbor": 409,
+        "Sakura": 405
+      },
+      "full_trace_seconds": 40.48691708300612,
+      "scope": "Isolated exact native reference/arithmetic source with pinned native dependencies; no full STARK or Core/profile registration"
+    },
+    "canonical_model": {
+      "source_batch": "output/qualification/classed-canonical-module-v1/source-batch.json",
+      "path": "../iroha/crates/iroha_data_model/src/classed_race_v1.rs",
+      "public_module": "iroha_data_model::classed_race_v1",
+      "legacy_alias": false,
+      "core_reference_export": true,
+      "profile_registered": false,
+      "normal_cargo_qualification": {
+        "passed": 2,
+        "report": "output/qualification/classed-canonical-module-v1/native-model8/report.json",
+        "binary_sha256": "abc0213359c253a154ec7c1dfdd887af0276e9c432340fad103a90a7399949b6"
+      }
+    },
+    "sdk": {
+      "native_shapes": 9,
+      "native_rows": 36,
+      "sdk_tests_passed": 123,
+      "package_types_tests_passed": 1,
+      "eslint": true,
+      "report": "output/qualification/classed-codecs-v1/report.json",
+      "scope": "Canonical native isolated exporter plus JS codecs and browser-target Node ESM/type package check; not actual Chromium or proof qualification"
+    },
+    "current_native_stark": {
+      "profile_id": "079cd3c2136a0fc41f58a494a8bf2183a1acc1cd32368033b1f844246e839961",
+      "rules_hash": "f510a7897ed4469cc896297336188630710b4dd6a4110e91e01b84a6d8d69fab",
+      "report": "output/qualification/classed-stark-v1/report.json",
+      "tests_passed": 30,
+      "full_eight_car_5400_tick_proof": true,
+      "envelope_bytes": 3160592,
+      "fresh_process_verifier_passed": true,
+      "qualified": false,
+      "profile_registered": false
+    },
+    "browser": {
+      "adapter": "src/game/classed.ts",
+      "native_export_report": "output/qualification/classed-kernel-v1/20260906T150424Z/qualification.json",
+      "native_grids": 21,
+      "native_state_checksums": 28821,
+      "native_targeted_transitions": 816,
+      "application_tests_passed": 27,
+      "actual_chromium_report": "output/browser/classed-attempt-2/report.json",
+      "actual_chromium_checks_passed": 4,
+      "skill_capture": "output/browser/classed-skill/shot-1.png",
+      "skill_capture_inspected": true,
+      "scope": "Native Touring adapter in qualification harness only; no Touring product lobby, equipment admission, wallet or settlement activation"
+    }
+  },
+  "sorafs_current_daemon": {
+    "attempt_1": {
+      "report": "output/qualification/sorafs-current-daemon-source/attempt-1/report.json",
+      "passed": 11,
+      "failed": 5,
+      "scope": "Source leaf, pool and constructor passed; all five governed-evidence tests reject their shared valid fixture",
+      "source_unchanged": true
+    },
+    "followup": {
+      "status": "passed",
+      "tests_passed": 74,
+      "https_tests_passed": 17,
+      "report": "output/qualification/sorafs-current-daemon-source/attempt-2/all-runtime/report.json",
+      "binary_sha256": "09a1ba710ca814c02d6a61dd1eb817c627a5d862874cc870d4ad22b0b755a12a",
+      "owned_sources_match_post_repair_snapshot": true,
+      "live_tls_finality_publication": false
+    },
+    "lifecycle_attempt_1": {
+      "report": "output/qualification/sorafs-current-daemon-source/runtime-lifecycle/report.json",
+      "passed": 53,
+      "failed": 4,
+      "failure": "Shared preflight fixture permits160MiB but its current canonical checkpoint bound is170MiB+4096bytes",
+      "persistent_quarantine_restart_passed": true,
+      "repair": "Native192MiB default and valid shared fixture now pass rebuilt runtime suite"
+    }
+  },
+  "pending": [
+    "Touring product/equipment catalog admission and generic registry integration",
+    "four-validator adversarial settlement and state-root convergence after causal genesis/configuration repair",
+    "independent128-bit cryptographic review and supported-target qualification",
+    "bounded whole-validator cost and deployed wallet interoperability",
+    "healthy Taira rollout and finalized SoraFS publication/availability",
+    "Apply coordinated private game/SDK/app composition after source release and complete normal native/WSV qualification; full Touring product session and equipment UI integration remains."
+  ],
+  "native_finality": {
+    "scope": "Actual native CLI; signed fixture ledger, no deployed finality",
+    "repair": {
+      "status": "passed",
+      "focused_tests_passed": 12,
+      "genuine_proof_and_signed_fixture_ledger": true,
+      "red_regression": true,
+      "report": "output/qualification/finality-continuation/cli31/bounded-decode/report.json",
+      "binary_sha256": "bca85fcaa8b5a3f5852d730a102b03de4a10a1576757b62fad3dac01f702f08b",
+      "source_sha256": "d684428a8b64997141308f610d83564fc2e0bb8d3facbd15b59e33bf59560966",
+      "scope": "isolated exact CLI module against captured actual Cargo CLI31 native closure",
+      "complete_cli_rebuilt": false,
+      "deployed_finality": false
+    },
+    "normal_cli32": {
+      "status": "passed",
+      "binary_sha256": "fc6256b97d11b99afff4086f51ef65b1ac3431bdbadc0ce45bfd4af0b0fe9302",
+      "directory": "output/qualification/finality-continuation/cli32",
+      "scope": "Actual complete Cargo CLI32 test harness; coordinated source drift is development evidence, no deployed finality",
+      "focused_tests_passed": 12,
+      "genuine_proof_test": "passed",
+      "genuine_seconds": 311.776771749981
+    },
+    "first_release_formats": {
+      "applied": true,
+      "staged_directory": "output/qualification/finality-first-release-format",
+      "regular_native_tests_passed": 13,
+      "browser_unit_tests_passed": 11,
+      "typecheck": true,
+      "genuine_public_file_verification": {
+        "passed": true,
+        "seconds": 780.2040689580026,
+        "report": "output/qualification/finality-first-release-format/report.json",
+        "source_sha256": "a092165655bc3ee8dc07c58f9193a687c7be45dd5451bb795a9a067a9432c660",
+        "scope": "Historical isolated immutable CLI31 closure; actual complete CLI33 now passes separately at native_finality.report"
+      },
+      "purpose": "Distinct bounded bundle/batch/index format tags with one first-release version, no untagged draft fallback",
+      "hold": "Released; actual complete CLI33 passes all13regular tests and genuine first-release file verification",
+      "actual_chromium_export_checks_passed": 11,
+      "isolated_production_build": "DP2KyeNB",
+      "static_cid_path": true,
+      "apply_report": "output/qualification/finality-first-release-format/apply-report.json",
+      "complete_cli33_report": "output/qualification/finality-continuation/cli33/report.json"
+    },
+    "historical_cli31": {
+      "tests_passed": 11,
+      "ignored_genuine_proof_test": "failed: native Norito aggregate decoder allocation budget before proof verification",
+      "report": "output/qualification/finality-continuation/cli31/report.json",
+      "binary_sha256": "5d4d5ddc84f01699db385ffb6526b4774750d63327ce05c32c398fe8776b89e4"
+    },
+    "status": "passed",
+    "tests_passed": 13,
+    "genuine_native_proof_and_fixture_ledger": true,
+    "report": "output/qualification/finality-continuation/cli33/report.json",
+    "binary_sha256": "b612900ac8fd5828daf292eb8da93a94ec43d9cc4c4d736d82837887c6065847",
+    "complete_cli33": true
+  },
+  "public_taira": {
+    "at": "2026-09-06T14:32:00.064010+00:00",
+    "status_http": 200,
+    "health_http": 200,
+    "height": 7,
+    "highest_qc_height": 7,
+    "commit_qc_height": 7,
+    "queue_size": 1,
+    "tx_queue_saturated": false,
+    "sorafs_capacity_http": 404,
+    "report": "artifacts/taira-readiness-2026-09-06-143200.json",
+    "curated_read_report": "artifacts/taira-readiness-2026-09-06-143200-mcp.json",
+    "scope": "Public endpoint observation only; no new validator-side evidence or authenticated finality"
+  },
+  "four_validator": {
+    "qualified": false,
+    "current_daemon_build_passed": false,
+    "current_integration_harness_build_passed": false,
+    "report_directory": "output/qualification/native-game-four-validator-current",
+    "runtime_failures": [
+      "genesis verified refinement gate violation retained for consensus owner diagnosis",
+      "configuration GET missing public_key after a later four-node genesis startup"
+    ],
+    "game_settlement_executed": false,
+    "fixture_repairs_pending_rebuild": [],
+    "previous_completed_builds": {
+      "daemon": "output/qualification/native-game-four-validator-current/daemon-build-2/report.json",
+      "integration_harness": "output/qualification/native-game-four-validator-current/integration-build-2/report.json",
+      "scope": "Previous successful compilation; runtime config/genesis failures remain, not current coherent batch qualification"
+    },
+    "current_build": {
+      "phase": "integration-build-3",
+      "status": "passed",
+      "host_exec_session": null,
+      "daemon_report": "output/qualification/native-game-four-validator-current/daemon-build-3/report.json",
+      "daemon_sha256": "5c95314eca83ac2ce24fbc8fce63b6e394e9cbbf6a164a0174f3c39e77577e91",
+      "daemon_sources_changed": [],
+      "source_capture": "output/qualification/native-game-four-validator-current/integration-build-3/source-at-queue.json",
+      "integration_report": "output/qualification/native-game-four-validator-current/integration-build-3/report.json",
+      "integration_sha256": "19d7c65c4eaf732f1fc7b9cdaf5798af32447f8cf1572dc331df00a0545f2c43",
+      "source_drift": 0,
+      "scope": "Historical daemon3/integration3 compilation; current corrective39 has not been rebuilt into Game binaries."
+    },
+    "fresh_config_run": {
+      "status": "failed",
+      "report": "output/qualification/native-game-four-validator-current/config-run-2/report.json",
+      "seconds": 125.09063629200682,
+      "passed": 0,
+      "failed": 1,
+      "ignored": 0,
+      "error": "missing public_key at native Client::get_config decoding; retained separate signed GET carrier contains top-level public_key",
+      "raw_carrier": "output/qualification/native-game-four-validator-current/config-run-2/nodes/irohad_test_network_6Hz3Qx/accurate_pewee/configuration-response.json",
+      "native_game_execution_started": false,
+      "further_runtime_on_same_binaries_planned": false
+    },
+    "configuration_decoder_diagnostic": {
+      "report": "output/qualification/native-game-four-validator-current/config-key-hash-diagnostic-v1/report.json",
+      "patch": "output/qualification/native-game-four-validator-current/config-key-hash-diagnostic-v1/fix.patch",
+      "confirmed_original_native_dto_failure_paths": 3,
+      "original_hash_tests_failed": 6,
+      "corrected_isolated_crc_tests_passed": 8,
+      "corrected_isolated_baseline_arm_tests_passed": 8,
+      "corrected_isolated_fnv_tests_passed": 4,
+      "applied": true,
+      "fixed_full_dto_tested": true,
+      "four_validator_retested": false,
+      "cause": "Hardware CRC32C update missed input/output complements; Parser key hashes also unconditionally FNV. ARM no-op with compiletime CRC off separately corrected.",
+      "application_report": "/Users/takemiyamakoto/dev/iroha/target/sumeragi-audit-20260905/corrective-38-application.json",
+      "normal_norito_report": "output/qualification/native-game-four-validator-current/norito-codec-build-1/report.json",
+      "normal_norito_tests_passed": 8,
+      "normal_config_report": "output/qualification/native-game-four-validator-current/config-codec-build-1/report.json",
+      "normal_config_tests_passed": 1,
+      "normal_config_dto_entry_points": 3
+    },
+    "current_queue": {
+      "game_cargo_live": false,
+      "next": "DPN reports Core44 compiled with no drift;5affected batches running and Source45 begins reviewed Kura canonical-stage recovery before State restores active secondary geometry. Mac Game daemon4/integration4 and private-source application remain held; no additional Linux build without shared queue coordination.",
+      "corrective_application": "/Users/takemiyamakoto/dev/iroha/target/sumeragi-audit-20260905/corrective-39-application.json",
+      "corrective_application_sha256": "106212cbcd5090d9f6cfeb004b1f97480ab41859fa7dbf117a28228743cd90d2",
+      "no_run_on_known_failed_config2_binaries": true,
+      "capture_drift_now_hard_fails_runner": true,
+      "bpng_model_retry": {
+        "build_exit_code": 0,
+        "tests_passed": 2,
+        "tests_failed": 1,
+        "failed_test": "initial_sortition_intent_has_only_the_enclosing_attempt_binding",
+        "binary_sha256": "a677e9cc98be4ea3dc431b034d8d9af619b0cfc8c10513b7245860c00bf28599",
+        "observed_source_inputs": 4906,
+        "observed_source_drift": 0,
+        "reported_by": "BPNG task; root has not rerun this independent gate"
+      },
+      "pending_corrective40": {
+        "receipt": "/Users/takemiyamakoto/dev/iroha/target/sumeragi-audit-20260905/corrective-40-application.json",
+        "sha256": "dd50dacc907b9e0e670aeefdbb9a1ee5731967e8a69d04b1745145127bd43d78",
+        "patches": 13,
+        "files": 32,
+        "core_build": "terminal101, three test type errors, 4072 inputs and zero observed drift, no harness; DPN owns correction"
+      },
+      "pending_corrective41": {
+        "receipt_sha256": "598cc448b12c0d9e5b09433d208ab13aecda0d0f5f870de035eda01a8e1b8d38",
+        "test_files_changed": 4,
+        "core_build": "terminalPASS; frozen834bd4c241af70fe5b394597a9143b21883b0eab20413e85aeefacdfc85c4e08;4072inputs0drift;13860testinventory;428affected tests running"
+      }
+    }
+  },
+  "generic_equipment_catalog": {
+    "helper_implemented": true,
+    "tests_passed": 10,
+    "report": "output/qualification/game-equipment-catalog-v1/20260906T153749Z/qualification.json",
+    "reachable_from_consensus": false,
+    "catalog_isi_wsv_admission_integrated": false,
+    "qualified": false,
+    "staged_public_model": {
+      "directory": "output/implementation/game-equipment-catalog-v1",
+      "manifest": "output/implementation/game-equipment-catalog-v1/manifest.json",
+      "applied": false,
+      "current_model_cargo_compiled": false,
+      "scope": "Staged public types tested against retained native libraries; current iroha_data_model Cargo/schema/WSV gates unexecuted",
+      "isolated_native_tests_passed": 13,
+      "isolated_report": "output/qualification/game-equipment-catalog-v1/attempt-1/report.json"
+    },
+    "staged_metadata_preflight": {
+      "directory": "output/implementation/game-equipment-metadata-v1",
+      "isolated_tests_passed": 9,
+      "report": "output/qualification/game-equipment-metadata-v1/attempt-1/report.json",
+      "applied": false,
+      "current_cargo_composition_tested": false
+    },
+    "staged_native_policy": {
+      "directory": "output/implementation/game-equipment-policy-v1",
+      "report": "output/implementation/game-equipment-policy-v1/isolated/report.json",
+      "isolated_tests_passed": 20,
+      "policy_tests": 11,
+      "metadata_tests_repeated": 9,
+      "applied": false,
+      "actual_wsv_cargo_tested": false
+    },
+    "staged_consensus": {
+      "directory": "output/implementation/game-equipment-consensus-v1",
+      "registry_manifest": "output/implementation/game-equipment-consensus-v1/registry/manifest.json",
+      "wsv_manifest": "output/implementation/game-equipment-consensus-v1/wsv/manifest.json",
+      "isi_manifest": "output/implementation/game-equipment-consensus-v1/isi/manifest.json",
+      "applied": false,
+      "normal_cargo_compiled": false,
+      "whole_batch_qualified": false,
+      "browser_sdk_and_torii": "staged and syntax checked, not full native Cargo qualified",
+      "pure_meter_tests_passed": 7,
+      "note": "Both new unpublished profile inventories include a generic complete-history checker; earliest-terminal cutoff is explicit in immutable rules. Older profile proofs remain historical. All sources remain private and unapplied.",
+      "torii_manifest": "output/implementation/game-equipment-consensus-v1/torii/manifest.json",
+      "browser_sdk_manifest": "output/implementation/game-equipment-consensus-v1/browser-sdk/manifest.json",
+      "browser_sdk_tests_passed": 123,
+      "torii_native_leaf_tests_passed": 12,
+      "atomic_composition": "output/qualification/game-equipment-consensus-v1/atomic-composition-1/qualification.json",
+      "atomic_composition_files": {
+        "rust": 59,
+        "sdk": 16
+      },
+      "terminal_history": {
+        "helper_sha256": "73f7007286247d9220c2c7bef04f5d07f5294d7e373ae29c86f3d623acb9f369",
+        "isolated_tests_passed": 25,
+        "report": "output/qualification/game-history-cutoff-v1/report.json",
+        "policy": "Execute controls before earliest terminalT; accepted removals throughT inclusive; later history retained and structurally validated without changing winners.",
+        "final_full_module_proof_candidate": "output/qualification/game-registry-v1/attempt-5-terminal-history",
+        "full_native_cargo_compiled": false,
+        "qualified": false,
+        "final_full_module_proof_status": "passed",
+        "final_full_module_proof_report": "output/qualification/game-registry-v1/attempt-5-terminal-history/report.json",
+        "final_full_module_proof_report_sha256": "6aaf352f1306c3e82771a45c1469e2c92d17dcabbcc92e0bd6c159005b9f2e2f",
+        "new_stock_profile": "191c08277823b581134eb286a16b375b1583a2194ae3c95b8fe46464f96ae19d",
+        "new_touring_profile": "31d17c293e780e41b69a22a0c1b1a0624531dcc48bf8d6c84db8326e7d573cab",
+        "genuine_proofs": {
+          "stock": {
+            "players": 2,
+            "ticks": 6,
+            "bytes": 1689736
+          },
+          "touring": {
+            "tracks": 3,
+            "players": 2,
+            "ticks": 6,
+            "bytes": [
+              1745741,
+              1768215,
+              1747341
+            ]
+          }
+        },
+        "normal_native_cargo": false,
+        "full_duration_qualified": false
+      }
+    }
+  },
+  "native_wallet_review": {
+    "qualified": false,
+    "audit": "output/qualification/mobile-game-wallet-audit/20260906T210243Z/audit.json",
+    "typed_sdk_game_review_implemented": false,
+    "scope": "Native Kotlin opaque frames and Swift detached asset/contract review do not qualify Connect game/NFT review; native reviewer and typed SDK projections are being staged separately.",
+    "staged_directory": "output/implementation/game-wallet-review-v1",
+    "supported_action_scope": "Open, Join, StakeGameItem, BuyNft, Settle, and same-session ordered Join+Stake; additional lifecycle/dispute review and actual wallet UI integration remain necessary.",
+    "transport_audit": "output/qualification/connect-execution-transport-audit/20260906T213400Z/audit.json",
+    "transport_limit_changes_applied": false,
+    "staged_native_reviewer": {
+      "manifest": "output/implementation/game-wallet-review-v1/native/manifest.json",
+      "applied": false,
+      "current_bridge_cargo_compiled": false,
+      "isolated_native_tests_passed": 12,
+      "isolated_report": "output/qualification/game-wallet-review-v1/attempt-1/report.json",
+      "dependency_scope": "Mobile retained timestamped bridge6 post-build leaf closure; actual bridge Cargo/ABI not qualified"
+    },
+    "staged_sdk_projections": {
+      "report": "output/implementation/game-wallet-review-v1/sdk/qualification.json",
+      "swift_compiles": true,
+      "kotlin_compiles": true,
+      "synthetic_cases_per_sdk": 99,
+      "native_origin_fixture_checks": false,
+      "native_bridge_qualified": false,
+      "applied": false
+    }
+  },
+  "updated_at": "2026-09-07T01:26:07.038024+00:00",
+  "native_linker_tooling": {
+    "patch": "output/implementation/cargo-fast-gcc-linker/cargo-fast-gcc-linker.patch",
+    "shell_checks_passed": 25,
+    "native_linux_probe_checks_passed": 15,
+    "applied": true,
+    "scope": "Reviewed wrapper fix applied by coordinated owner; 25 shell and 15 small native C probes do not qualify Iroha runtime; Apple default linker unchanged",
+    "application_report": "/Users/takemiyamakoto/dev/iroha/target/sumeragi-audit-20260905/corrective-37-application.json",
+    "application_owner": "DPN"
+  },
+  "generic_public_proving_transport": {
+    "applied": false,
+    "manifest": {
+      "path": "output/implementation/generic-proof-worker-v1/manifest.json",
+      "sha256": "5fcd988fa805b46dfe967f629afda68675ce08d9b36b6344340a1ee962501ec4"
+    },
+    "patch": {
+      "path": "output/implementation/generic-proof-worker-v1/app.patch",
+      "sha256": "b8bf551fa921435646cac4dc97031a965fe5a84370f6d6e074bc9a206bfd341a"
+    },
+    "qualification": {
+      "path": "output/implementation/generic-proof-worker-v1/qualification.json",
+      "sha256": "87aa6ccbebcde67d430c1c21ec2cdd31faa790a83b4d31d7088e7d8424981c57"
+    },
+    "application_tests_passed": 175,
+    "application_tests_failed": 0,
+    "typescript": "passed",
+    "private_production_build": "passed; index-D1NMmC9x.js; shared site unchanged",
+    "sdk_composition": {
+      "path": "output/qualification/game-sdk-composition-v1/attempt-1/manifest.json",
+      "sha256": "d27820ac0f0973285a3cf8a0329e150ee09545fc04fbfc1b9e3e5c2a66cc4ea6"
+    },
+    "cli_stage": {
+      "path": "output/implementation/execution-prover-dispatch-v1/manifest.json",
+      "sha256": "895cea8bc02ff147bae207d1a71f5ea504550ae80980ffe95f5dff81b2d3db50"
+    },
+    "helper_provenance": {
+      "path": "output/implementation/execution-prover-helper-process-v1/manifest.json",
+      "sha256": "76bb6958fcf1dfaf27386aeaea6a144eee1ec752a1cdbffe6cacf51f5392bbd0"
+    },
+    "independent_review": {
+      "path": "output/qualification/generic-proof-worker-review-v1/attempt-1/manifest.json",
+      "sha256": "276700c01949acd3a733fac65fccd44c91e12ff2000df5be25f479bd8e8dcb82"
+    },
+    "actual_http_native_helper_report": {
+      "path": "output/qualification/generic-proof-worker-v1/native-process-2/report.json",
+      "sha256": "efb66389988e09d198b9eeac1c40bd39e28e1f0690e74c3bac8675559403e35a"
+    },
+    "fresh_proofs": [
+      {
+        "case": "stock",
+        "profile_id": "hash:191C08277823B581134EB286A16B375B1583A2194AE3C95B8FE46464F96AE19D#C2FD",
+        "players": 2,
+        "ticks": 6,
+        "elapsed_ms": 34847,
+        "proof": {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/generic-proof-worker-v1/native-process-2/stock-fresh-proof.nrt",
+          "bytes": 1690312,
+          "sha256": "15e95632485d3448da61b2e32cd17e2dcf48c08d121e6561cf1f6e64c8821bf3"
+        },
+        "independently_reverified": true
+      },
+      {
+        "case": "touring-tokyo",
+        "profile_id": "hash:31D17C293E780E41B69A22A0C1B1A0624531DCC48BF8D6C84DB8326E7D573CAB#F8B6",
+        "players": 2,
+        "ticks": 6,
+        "elapsed_ms": 49637,
+        "proof": {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/generic-proof-worker-v1/native-process-2/touring-tokyo-fresh-proof.nrt",
+          "bytes": 1753037,
+          "sha256": "f8dc3fceda53bda4caf64e3a1c91df1896a645e47612f418a2e56797d25642a1"
+        },
+        "independently_reverified": true
+      }
+    ],
+    "full_cli_cargo_qualified": false,
+    "current_native_core_wsv_qualified": false,
+    "live_taira_stakes_enabled": false,
+    "scope": "Actual browser client/HTTP/default subprocess runner plus exact production native dispatch helper in isolated retained-module executable. No full CLI/consensus/finality/performance/deployment claim."
+  },
+  "native_commitment_parity": {
+    "applied": false,
+    "stock_fix": "Removed input keys produce empty native input vectors after DNF; corrected prior browser twelve-zero mismatch.",
+    "manifest": {
+      "path": "output/implementation/classed-race-commitments-v1/manifest.json",
+      "sha256": "8b29fb62b3f28c96f103bb05d2b0c5e8f00a055a27d76bebc6d5af4423f3da5f"
+    },
+    "qualification": {
+      "path": "output/implementation/classed-race-commitments-v1/qualification.json",
+      "sha256": "24e7a24278ab3f4959f163a7955d2a620abea9a01df8ce68cd9c69ff0e69b2b2"
+    },
+    "new_commitment_tests": 26,
+    "native_vectors": 21,
+    "combined_sdk_tests": 178,
+    "packed_browser_and_types_tests": 2,
+    "native_source_or_profile_changed": false
+  },
+  "coherent_game_candidate": {
+    "applied": false,
+    "manifest": {
+      "path": "output/qualification/game-coherent-integration-v1/attempt-2/manifest.json",
+      "sha256": "2d9ef223fe7b181531599500f51c8939ab6c2326dfaad131e640dfac4583b01c"
+    },
+    "files": {
+      "iroha": 90,
+      "sora_cars": 25
+    },
+    "source_rebase": "Preserved concurrent query formatting and latest_lane_descriptor fixture correction; game change adds only catalog query arm.",
+    "proof_sources_unchanged": 33,
+    "application_tests_passed": 187,
+    "generator_tests_included": 12,
+    "typescript": "passed",
+    "private_build": "index-o4v_29mN.js",
+    "both_native_profiles_generated": true,
+    "grids_per_profile": 21,
+    "complete_native_cargo_wsv_qualified": false,
+    "source_release_pending": true
+  },
+  "linux_native_continuation": {
+    "snapshot": "d4c264c1bfecf10b65a05d512bb8baa9a95e03f3cdcd7fa012847b66d45bd96b",
+    "source_count": 10427,
+    "source_drift": 0,
+    "scope": "Historical immutable native Linux ARM64 stock/Core35 snapshot; does not qualify current private profile or latest Mac consensus sources.",
+    "gnu_core": {
+      "report": {
+        "path": "output/qualification/linux-native-v1/stock-v1-core35/core-native-build-result.json",
+        "sha256": "1cc14f63a0258d69079299176ed2847493026a13efbd36ed67d2c99d6ba481e5"
+      },
+      "exit_code": 101,
+      "seconds": 14616.094134092,
+      "failure": "GNU ARM64 linker R_AARCH64_CALL26 relocation overflow",
+      "tests_executed": 0
+    },
+    "lld_irohad": {
+      "report": {
+        "path": "output/qualification/linux-native-v1/stock-v1-core35/irohad-native-build-result.json",
+        "sha256": "a9f86915d2b3c9ba87cbd492fd372d6ef48053f4eaf92670fcc1155ddb44e3b4"
+      },
+      "exit_code": 0,
+      "binary_sha256": "afe7e3bf855a18bc9598de491fcab6a8c1ced547751b5b23c460184f3d8f9c16",
+      "runtime_tests": "10passed/0failed",
+      "host_exec_session": null,
+      "runtime_report": {
+        "path": "output/qualification/linux-native-v1/stock-v1-core35/linux-irohad-runtime/report.json",
+        "sha256": "de439d2dd2563bb690fb73fdeb54a851ce98c49c152a8aad4edd0d4d54c77bd2"
+      }
+    },
+    "lld_core_retry": {
+      "status": "passed",
+      "host_exec_session": null,
+      "same_warm_target": true,
+      "flags": "-Clink-arg=-fuse-ld=lld",
+      "apple_linker_unchanged": true,
+      "report": {
+        "path": "output/qualification/linux-native-v1/stock-v1-core35/core-lld-native-build-result.json",
+        "sha256": "a2863a545f677ab6c21daa6fbe21e1d266b3faed57a89e48077cf400bba3c746"
+      },
+      "binary_sha256": "d82c8db265d1ba84b175c671952938bb8182d26470dd7993abf9a10866ffb4bf",
+      "seconds": 365.19909408700187,
+      "source_drift": 0
+    },
+    "selected_core_tests": {
+      "status": "passed",
+      "host_exec_session": null,
+      "stock_execution": 49,
+      "generic_game": 45,
+      "nft_market": 7,
+      "actual_tests_passed": 101,
+      "ignored_expensive_gates_run": false,
+      "reports": [
+        {
+          "path": "output/qualification/linux-native-v1/stock-v1-core35/linux-lld-stock-execution/report.json",
+          "sha256": "15085e86ea0fe5028a579464362fac42dacb94a4419a0039237737a0ff14cc8b"
+        },
+        {
+          "path": "output/qualification/linux-native-v1/stock-v1-core35/linux-lld-generic-game/report.json",
+          "sha256": "e981397089c82477804055baab2b238e586c3ddb1457b80ae7675042d45060d9"
+        },
+        {
+          "path": "output/qualification/linux-native-v1/stock-v1-core35/linux-lld-nft-market/report.json",
+          "sha256": "d4b35fb71be5ba6538ab41925abfeb4227d19c829ca3b58ce243c713fa4b6440"
+        }
+      ],
+      "source_scope": "Immutable historical Core35 snapshot; not current source or private new profile qualification."
+    },
+    "additional_builds": "No further Core/daemon build beyond the now-completed retry; coordinate shared queue first per DPN.",
+    "live_owned_builds_or_tests": false
+  },
+  "touring_browser_proof_adapter": {
+    "applied": false,
+    "manifest": {
+      "path": "output/implementation/touring-proof-adapter-v1/manifest.json",
+      "sha256": "3cd4e3c73d9e35820ecd60ee4eb3676eb4d08f2fd75e107e7833b452d5bedfd6"
+    },
+    "qualification": {
+      "path": "output/implementation/touring-proof-adapter-v1/qualification.json",
+      "sha256": "034d9c67f3ca34d46d4352700c25b4549e4614fe551b02267c8a9d4810f7ba34"
+    },
+    "new_tests_passed": 11,
+    "complete_app_tests_passed": 198,
+    "actual_native_request_reproductions": 3,
+    "typescript_and_build": "passed",
+    "live_ui_wired": false,
+    "scope": "Public replay request construction and structural worker result binding; no STARK, accepted-history, custody or finality verification claim."
+  },
+  "touring_multiplayer_candidate": {
+    "applied": false,
+    "directory": "output/qualification/touring-multiplayer-v1/attempt-1",
+    "scope": "Profile-aware generated physics, signed peer sessions, checkpoints, spectators, canonical native replay transport and browser replay playback; live Touring catalog/lobby remains pending.",
+    "app_tests_passed": 209,
+    "typescript": "passed",
+    "private_build": "index-DJrKqnmY.js",
+    "native_profile_source_changed": false,
+    "new_tests": 11,
+    "stock_and_touring_network_tests": 24,
+    "real_browser_short_runs": {
+      "touring_tracks_passed": 3,
+      "stock_tracks_passed": 1,
+      "contexts_per_run": 8,
+      "webrtc_links_per_run": 28,
+      "ticks": 180
+    },
+    "actual_180_second_run": {
+      "status": "passed",
+      "track": 0,
+      "profile": "Touring",
+      "contexts": 8,
+      "webrtc_links": 28,
+      "ticks": 5400,
+      "identical_terminal_state": true,
+      "browser_errors": 0,
+      "report": "output/qualification/touring-multiplayer-v1/attempt-1/sora-cars/output/browser/eight-peer-touring-track0-full-31d17c293e78-20260907012301607/report.json"
+    },
+    "cosmetic_fix": "Already-open data channels now announce appearance once; failing baseline native browser observation and focused test retained.",
+    "stage_directory": "output/implementation/touring-multiplayer-v1",
+    "manifest_sha256": "09f6a3fce935ff6aec57787f70219742db95ca3eff84f07d57080d104e98605f",
+    "qualification_sha256": "53fc453fe7e00e5e4b8ba6d305051804b53e3c042fca2a51bf8e0480c0650f1f",
+    "owned_preview_5179": "stopped after final qualification"
+  },
+  "touring_session_candidate": {
+    "applied": false,
+    "directory": "output/qualification/touring-session-v1/attempt-1",
+    "stage_directory": "output/implementation/touring-session-v1",
+    "manifest_sha256": "587b3ec20fc90eab13c09d2d0de859916bbfde05b275ff5cae3cf7f5021c47ae",
+    "patch_sha256": "e8c536ece20d20d2df8286852d16a823dd1f61ec9305e0a82d6cc99ed08d5c66",
+    "qualification_sha256": "7594ab49bbf45bc021829f9bf977cf83378730805d69dd488b32adf64d91f7b1",
+    "app_tests_passed": 219,
+    "new_tests": 10,
+    "typescript": "passed",
+    "private_build": "index-4c-YSsRu.js",
+    "actual_browser_checks_passed": 4,
+    "stock_live_ui_regression": "passed",
+    "native_request_tracks_reproduced": 3,
+    "scope": "Production session parser, proof facade, replay import/export and room UI against genuine native request inputs projected as endpoint records; no real ledger, custody or wallet transaction claim.",
+    "native_source_or_profile_changed": false,
+    "funded_races_enabled": false,
+    "remaining": [
+      "Catalog-backed Touring creation and explicit equipment entry authorization",
+      "Full native Core/WSV/CLI composition after source release",
+      "Current maximum-duration native proof performance and cryptographic review",
+      "Four-validator faults and authenticated finalized settlement",
+      "Taira wallet interoperability and verified SoraFS deployment"
+    ],
+    "owned_preview_5179": "stopped after final qualification"
+  }
+}

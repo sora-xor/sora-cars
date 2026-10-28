@@ -1,0 +1,123 @@
+{
+  "schema": "sora-cars.street-geometry-constraints.v1",
+  "date": "2026-09-07T11:18:20.273Z",
+  "scope": "Native geometry and complete finite scalar polynomial verification under compiled ROM constants. No AIR, whole-trace/public-profile binding, STARK, ledger or cryptographic soundness qualification.",
+  "sources": {
+    "world/native/street_graph.rs": "e93077c4bbe99c4bbc6322dd12ab6f993d17ebe8ffff458d832952879958c196",
+    "world/native/street_geometry.rs": "e9ced659cb0801a48cdae164460bf6c0d1d9624875330138e5c5a3bfd7a78fd6",
+    "world/native/street_handling.rs": "1c3eed2bd85947f719bbf5df566510e1926607e333fd8cc61c6a0c59dced4975",
+    "world/native/street_lifecycle.rs": "4b5d7af573002ba56c620871e5c9227bf2d41392acc1bed8c8aee8c2250dd2b5",
+    "world/native/street_contacts.rs": "aa4b64eeae0d77eb6f0ec27215c4657ce3c876126290c158da7028c7b12b5e94",
+    "world/native/street_race.rs": "57d2acefc5a5617c957e21475ca327f5c97fec9d5b82465da8d5630cf8d05a74",
+    "scripts/lib/street-track-compiler.ts": "e35caa31358f4933d9cf748a3fbec8a9c664378c1feeb0dd17a44b0ac399f3ca",
+    "world/native/street_hazards.rs": "55c282b57d3031e8caa24b147fd9e5c9c0da3353992f3f00ee808f4c4f932e2d",
+    "scripts/lib/street-object-compiler.ts": "364362e4b7c4378269c9eb57f0abec664150479a96fc6edffa85e2376f239c39",
+    "src/game/street/objects.ts": "665fa89401c43879b1b1a6a3c71bb213fdfbd118ec4b1d710f19c476a66336e2",
+    "world/authoring/tokyo-1986.objects.json": "d1fc9d00eba89adddb92d1d1624470b590b1202f34a61377bb7a0b11603e95cf",
+    "world/authoring/tokyo-1986.json": "57605ff0bf78a59fba61b6f869ca119af6c5fdc1593cca11aaec7f82137ba682",
+    "scripts/generate-street-race.ts": "092d024b7dd085c3ea3de4bbecc244ab3e5e728df23dd6631ea38754cc14ee72",
+    "world/native/checked_constraints.rs": "b4e63b00e8f4549ef77b8ffd4580850999c64c7d493951f9e46fa658c5617958",
+    "world/native/fixed_rom.rs": "8d1d3f8b2bb40e65c44b42839bff1acc87edac53be3596606f6d43c5e6011fb5",
+    "world/native/street_geometry_constraints.rs": "977e2dcf77ce56e836b2973d334fc40388bdd8a05b194fd8c4f1e1bc9b60a34e",
+    "scripts/test-street-geometry-constraints.ts": "ccbc4685fc892fa329630e85e81e9bcb1d17637097a26f29f0105e9929792143"
+  },
+  "evidence": {
+    "output/qualification/street-geometry-constraints/report.json": "c9f7a0ad5c49fd71cfe978c814d31e0c45686410a5a447d031ae155de39b6426",
+    "output/qualification/street-geometry-constraints/review.json": "6559d2caeb8bfc7a9dccab0dbd23c2c36b9e8b0d8ba5c6238a869858b561ae56",
+    "output/qualification/street-geometry-constraints/geometry_constraints_cli.rs": "9f93c2c4feca536b6815d66a417dd4e0748024f9cbe3b8aa72e10a83164509ae",
+    "output/qualification/street-geometry-constraints/checked_constraints_adversarial.rs": "c1debd41fb5185264e7fa8459fec053c58eec1faebfcbe283459f496190d850b",
+    "output/qualification/street-geometry-constraints/geometry_constraints_cli": "9edd3f17281eaad3876b479bda55f41423b1ec923e498b99ad30db15fe680628",
+    "output/qualification/street-geometry-constraints/geometry_constraints_tests": "9e4fc14c401ca6596e5655bc785cb5ed207ede28004780fde54131b381ded3e4",
+    "output/qualification/street-geometry-constraints/run.log": "0ceb3bab7e5796f4c18897a8c483cb6769db5a083377c201507ae0d64c45d508"
+  },
+  "measurements": {
+    "tokyoFieldWitnesses": 14110,
+    "tokyoRawRejections": 53,
+    "tokyoNormalizedIndexAndHeadingPositions": 7013328,
+    "tokyoNegativeNonintegralPositions": 3532415,
+    "syntheticFieldWitnesses": 5214,
+    "syntheticRawRejections": 10,
+    "validTokyoRomRows": 1403,
+    "coherentPaddingRejections": 645,
+    "otherRomRawRejections": 51,
+    "malformedTableRejections": 12,
+    "singleTokyoQueryWires": 23609,
+    "singleTokyoQueryEquations": 39822,
+    "compiledRomNodes": 22677,
+    "compiledRomSelectors": 16142,
+    "maxDegree": 2,
+    "elapsedMs": 16639.396792,
+    "maximumResidentBytes": 40206336,
+    "syntheticProfiles": [
+      {
+        "lengthMm": 500000,
+        "topology": "Sprint",
+        "headingSign": 1,
+        "rows": 101,
+        "fieldWitnesses": 405,
+        "wires": 1751,
+        "equations": 2514,
+        "romNodes": 1021,
+        "romSelectors": 699
+      },
+      {
+        "lengthMm": 500001,
+        "topology": "Sprint",
+        "headingSign": -1,
+        "rows": 102,
+        "fieldWitnesses": 409,
+        "wires": 1775,
+        "equations": 2559,
+        "romNodes": 1045,
+        "romSelectors": 720
+      },
+      {
+        "lengthMm": 500000,
+        "topology": "Circuit",
+        "headingSign": 1,
+        "rows": 101,
+        "fieldWitnesses": 2192,
+        "wires": 1722,
+        "equations": 2445,
+        "romNodes": 842,
+        "romSelectors": 652
+      },
+      {
+        "lengthMm": 500001,
+        "topology": "Circuit",
+        "headingSign": -1,
+        "rows": 102,
+        "fieldWitnesses": 2200,
+        "wires": 1938,
+        "equations": 2754,
+        "romNodes": 1058,
+        "romSelectors": 745
+      },
+      {
+        "lengthMm": 20000000,
+        "topology": "Sprint",
+        "headingSign": 1,
+        "rows": 4001,
+        "fieldWitnesses": 8,
+        "wires": 35054,
+        "equations": 59315,
+        "romNodes": 34218,
+        "romSelectors": 24197
+      }
+    ]
+  },
+  "qualification": {
+    "nativeGeometryParity": true,
+    "finiteGeometryEquations": true,
+    "compiledTableConstants": true,
+    "publicProfileBinding": false,
+    "traceContinuity": false,
+    "air": false,
+    "proof": false,
+    "soundness128Bit": false,
+    "consensus": false,
+    "historicalAlignment": false
+  },
+  "scalarArtifact": "artifacts/street-constraints.json",
+  "scalarArtifactSha256": "d631a7a86f4ec053731ceb96f3cbdcd8c160aff232aa674d81bcf40165e0dcbb"
+}

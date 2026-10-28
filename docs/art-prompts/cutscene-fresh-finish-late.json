@@ -1,0 +1,81 @@
+{
+  "generator": "built-in image_gen",
+  "records": [
+    {
+      "file": "scenes/ch09-victory-cut03.png",
+      "prompt": "Use case: illustration-story. Create a NEW landscape 16:9 SORA CARS 1986 cutscene illustration, camera cut ch09-victory-03. Spoken line, not text to draw: Mei says the harbor photographs went with captions corrected by the people in them. Image 1 is continuity for Nikko sunrise lakeside setting and pixel art style; Image 2 identifies Mei: adult Japanese woman with wavy shoulder-length dark hair, denim jacket, analog camera. Image 3 is exact SORA emblem. Compose a fresh medium shot of Mei leaning at the rear hatch of a parked 1980s car at the quiet lakeside turnout, thoughtfully packing a folio of harbor photographic prints into a canvas satchel; paper captions are turned away or merely indistinct marks. Her analog camera hangs at her chest. Lake and autumn ridges with pink-gold dawn behind her; proud, reflective expression. This must be entirely new camera composition, not copied, cropped, flipped or recolored from a reference. Exact supplied emblem appears as a small plausible car decal. Detailed crisp 16-bit pixel art with coherent anatomy. Story action and face upper65%, lower30% quiet shadowed car body/ground for dialogue. No UI, subtitles, invented readable text, watermark, collage, modern objects.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/sunrise-left-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/community-right-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-14ebc732-60ed-4a92-a358-f8bba7eec2de.png",
+      "sha256": "606b01025810f086abb25cfa5af513db797a44b9f1d01ff1c4b58eabe0a98043",
+      "width": 1672,
+      "height": 941,
+      "visualCheck": "Accepted after inspection: correct characters/action, distinct composition, crisp pixel art, no prominent invented writing, and SORA emblem present."
+    },
+    {
+      "file": "scenes/ch09-victory-cut04.png",
+      "prompt": "Use case: illustration-story. Create a NEW landscape 16:9 SORA CARS 1986 cutscene illustration, camera cut ch09-victory-04. Spoken line, not text to draw: Yui says she accepted the barber's revision; people declining the exchange can still use the workshop. Image 1 provides pixel-art style, community workshop setting and cast identities: Yui is adult Japanese woman in mustard-yellow work jacket with black hair in a ponytail; the older gray-haired barber has towel at neck. Image 2 is exact SORA emblem. Compose a fresh reverse medium shot from inside an open workshop doorway across a wooden repair counter toward Yui and the barber. Yui is the clear main speaker, calm and receptive, smiling as she places his revised single page into an open binder; barber relaxed on the opposite side holding a broken tabletop radio. Open garage benches behind Yui invite the neighborhood. Blank or turned-away paper; no readable writing. Warm dusk through street doorway, coherent 1986 Japan neighborhood. Exact supplied SORA emblem on red tool chest. New camera composition with different gestures and positions from reference; no crop/flip/recolor. Crisp detailed 16-bit pixel art, faces and action upper65%, lower30% quiet counter foreground for dialogue. No UI, subtitles, invented readable text, watermark, collage, modern objects.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/community-right-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-f91665e3-bca2-4936-8357-43621d805bbf.png",
+      "sha256": "42f2bef4c5658ff79c0a76f2e882152ff8e8bbbcf77e07cff41fb1a09334229f",
+      "width": 1672,
+      "height": 941,
+      "visualCheck": "Accepted after inspection: correct characters/action, distinct composition, crisp pixel art, no prominent invented writing, and SORA emblem present."
+    },
+    {
+      "file": "scenes/ch12-intro-cut06.png",
+      "prompt": "Use case: precise-object-edit. Image1 is finished CRISP 16-BIT PIXEL ART edit target. Image2 is exact SORA emblem insert reference. Preserve Image1 pixel-for-pixel everywhere except for a single small badge on Daichi's navy sleeve (driver wearing red headband). Add the red circle/white geometric SORA emblem from Image2 to the driver's visible sleeve as a small embroidered badge. Do not redraw or repaint the image. Do not soften, blur, wash out, lower contrast, change palette, add haze, antialias, or convert to smooth anime. Keep every crisp pixel cluster, dithering, edge, light, facial detail, outfit, pose, car and environment exactly unchanged. No other changes. This is a focused small local badge insertion only.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut06.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-13ed70c6-550b-4e0e-a228-487ae451e4d0.png",
+      "previousEdit": {
+        "file": "scenes/ch12-intro-cut06.png",
+        "prompt": "Use case: identity-preserve. Correct cast continuity in this landscape 16:9 SORA CARS 1986 frame while preserving sunset driving-school setting, car, overall perspective and crisp detailed pixel-art style. Image 1 is edit target. Image 2 is cast reference: Daichi is ADULT Japanese man in NAVY mechanic/racing jacket with RED stripes and RED HEADBAND (far right in reference). Jun in mint jacket is a different person and MUST NOT be in this frame. Image 3 exact SORA emblem. The scene's speaker is Daichi: 'My brother’s car starts. He chose driving school as its first stop. Until he has his license, I am the chauffeur.' Change the young headband driver into adult Daichi with same red headband and navy jacket, mature adult proportions and face, confidently sitting in driver seat. Replace mint-clad man holding keys at the side of the car with Daichi's younger brother, a distinct adult Japanese man about 20 with short neat black hair, plain dark brown jacket, white shirt, no headband, no mint/teal jacket. Remove dangling keys from brother's hand: car keys are in ignition. Brother smiles at Daichi and holds a plain driving school enrollment folder. Keep instructor and school car-symbol sign. Keep supplied exact SORA emblem on small car decal. Lower30% quiet for dialogue. No readable writing, UI, subtitles, watermark, collage.",
+        "referenced_image_paths": [
+          "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut06.png",
+          "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/community-right-v2.png",
+          "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+        ],
+        "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-f5db39d2-6d8f-4494-a4e8-ec4b2ace3c75.png"
+      },
+      "sha256": "e2085088c0b910000bf430bd62c5f3bba9d8fc2c082ec524e3e203d832b31b1b",
+      "width": 1672,
+      "height": 941,
+      "visualCheck": "Accepted after inspection: correct characters/action, distinct composition, crisp pixel art, no prominent invented writing, and SORA emblem present."
+    },
+    {
+      "file": "scenes/ch12-victory-cut02.png",
+      "prompt": "Use case: identity-preserve. Correct cast identities in this landscape 16:9 SORA CARS 1986 illustration while preserving dawn rally paddock setting, car, breakfast handoff action, composition and detailed crisp pixel-art style. Image 1 is edit target, identities are wrong. Image 2 is cast reference: Daichi is adult Japanese man with RED HEADBAND and NAVY jacket with red stripes (far right of Image2). Mint-clad Jun and cream-clad Ren must NOT appear. Image3 is exact SORA emblem. Scene line is Daichi: 'My brother says he is buying breakfast. Little by little, I get to be the one someone looks after.' Change seated breakfast recipient into adult Daichi, mature male face, black hair with red headband, NAVY racing/mechanic jacket with red stripes. Change standing cream-jacket man into his younger adult brother about20, distinct short neat black hair, dark brown ordinary jacket over white shirt, no headband. Brother brings Daichi breakfast and canned coffee; Daichi has a modest touched smile. Natural sibling warmth, not romance. Keep blue car, 1986 paddock and sunrise. Exact supplied SORA emblem on helmet and small jacket patch. Faces and action upper65%, lower30% quiet for dialogue. No readable writing except optional SORA, no UI, subtitles, invented text, watermark, collage.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-victory-cut02.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/angles/community-right-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-091b511d-3b0b-4070-a285-35cf3c2b3002.png",
+      "sha256": "493bdca5ca8de32e9e6784782d888f1c9860d62fbfea9317ac7648e3999b9550",
+      "width": 1672,
+      "height": 941,
+      "visualCheck": "Accepted after inspection: correct characters/action, distinct composition, crisp pixel art, no prominent invented writing, and SORA emblem present."
+    }
+  ],
+  "discarded": [
+    {
+      "file": "scenes/ch12-intro-cut06.png",
+      "prompt": "Use case: precise-object-edit. Image1 is a finished 16:9 pixel-art SORA CARS 1986 cutscene and edit target. Image2 is exact SORA emblem source. Make only one change: place a small, clearly formed decal of the supplied red circular SORA emblem with white geometric mark on the blue car hood at the lower-left, scaled plausibly as a modest racing club decal. Preserve all people, identities, positions, facial features, clothing, car shape, driving school backdrop, light, palette, pixel-art texture, framing and every other object unchanged. Keep the decal fully above the lowest 12% of the image. Exact emblem shape from reference; no added writing, UI, subtitle, watermark, border.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut06.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-355c3874-c65b-41cf-8bc6-6e2ca39ab123.png",
+      "reason": "Rejected because the edit softened the pixel-art texture and reduced contrast."
+    }
+  ]
+}

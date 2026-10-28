@@ -1,0 +1,83 @@
+{
+  "kind": "story-workshop-local-integration",
+  "scope": "Twelve chapter conversations into production NFT checkout; no public funded purchase or finalized ownership qualification",
+  "build": "index-C0iAvul1.js",
+  "files": {
+    "src/game/story-workshop.ts": {
+      "bytes": 5692,
+      "sha256": "a379220a22f31f2492099d69f22f627d5c00cdaf7e7acf2c0bfc9637c9d6977b"
+    },
+    "src/ui/story-workshop.ts": {
+      "bytes": 2010,
+      "sha256": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128"
+    },
+    "src/ui/story-workshop.css": {
+      "bytes": 2549,
+      "sha256": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec"
+    },
+    "src/ui/garage.ts": {
+      "bytes": 19445,
+      "sha256": "f8093a4f4bc6a7334e71c49009f335169ffb81f8ca1658b84195567ffe3b7577"
+    },
+    "src/ui/story.ts": {
+      "bytes": 12507,
+      "sha256": "f57e0a48b93641c9fd5bd82d3e92a54c236b82e3cd2895859d2d48091767d127"
+    },
+    "src/main.ts": {
+      "bytes": 48245,
+      "sha256": "196062316ad06aa83e8944b9193d03a2223c6a07b8b0263de1a136e3e13baa51"
+    },
+    "src/game/catalog.ts": {
+      "bytes": 5240,
+      "sha256": "9b8304ac64d06dc8cb8b54ce00e5dd36f6e5431db982a6342c4266d20835c7e3"
+    },
+    "scripts/test-shop.mjs": {
+      "bytes": 14270,
+      "sha256": "43cfa3f280f527d46b91134b42432f393479de4dbded75394253ef7a666adfba"
+    },
+    "scripts/test-static.mjs": {
+      "bytes": 5089,
+      "sha256": "99f2cd7d241146e19d1f86c62b144d24ed78b304f1fe6eaab3fe69cfb5c23eb0"
+    },
+    "scripts/test-wallet.mjs": {
+      "bytes": 26695,
+      "sha256": "c45012bf04a0ac7826c6e7bcfac5ec7cc559d3525d0152a1385dfbf633363fb0"
+    }
+  },
+  "shop": {
+    "passed": true,
+    "designs": 8,
+    "storyConversations": 12,
+    "storyContextReloadAndReturn": true,
+    "lockedChapterRouteRejected": true,
+    "primaryLanguage": "ja",
+    "subtitles": "en",
+    "releasedCollectionDefault": false,
+    "purchaseTest": "Explicit mocked wallet/ledger with real native instruction builder and metadata binding.",
+    "receiptDoesNotGrantOwnership": true,
+    "staleWalletReceiptOmitted": true,
+    "separateExactPriceAndFee": true,
+    "immutableCheckoutAcrossRefresh": true,
+    "replacedClientAndClosedDialogInvalidateCheckout": true,
+    "ownershipLossClearsAppearance": true,
+    "unqualifiedCheckoutDisabled": true,
+    "errors": []
+  },
+  "wallet": {
+    "checks": 16,
+    "passed": true,
+    "retainedProof": {
+      "path": "output/qualification/native-proof/admission-first-release/20260906T125522Z/full-proof.nrt",
+      "sha256": "e40ff280e856f06a240ab3abf52efa1408c3d6700c5cb1baddb988dcf2c19cbf",
+      "bytes": 3094036,
+      "profileId": "hash:C6B9B7536CA0A1D7C3F25AD67208927D36E79B5385AF516CB93177A82EABC925#B434",
+      "cryptographicallyReverifiedByThisTransportTest": false
+    },
+    "nativeFinalityVerified": false,
+    "deployedWalletInteroperability": false
+  },
+  "staticPath": "artifacts/static-cid-path.json",
+  "storyRegression": "artifacts/story-browser.json",
+  "nativeSourceChanged": false,
+  "liveQualification": false
+}

@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "checked_at_utc": "2026-09-06 12:03:46 UTC",
+  "scope": "read-only public Taira deployment prerequisites",
+  "health": {
+    "body": "Healthy",
+    "content_type": "text/plain; charset=utf-8",
+    "headers": {
+      "content-type": "text/plain; charset=utf-8",
+      "vary": "Accept",
+      "x-request-id": "75d7f95ed6e2024f15580b81c2809cb2e4356850bacc98e93c3fc51d91706cbb"
+    },
+    "status": 200
+  },
+  "latest_block": {
+    "body": {
+      "items": [
+        {
+          "created_at": "2026-09-01T08:52:10.245Z",
+          "hash": "8330ba183c700975f4e93a9e34207d4426cd4243426e3ebbb6ceb8f4aae3d787",
+          "height": 7,
+          "prev_block_hash": "fa2ac23b79454b578b0a13223f37b458c36e6ce3b6012bdc00c93a21cdf423fd",
+          "transactions_hash": null,
+          "transactions_rejected": 0,
+          "transactions_total": 0
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "per_page": 1,
+        "total_items": 7,
+        "total_pages": 7
+      }
+    },
+    "content_type": "application/json; charset=utf-8",
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "vary": "Accept",
+      "x-request-id": "3181d3c86a281a4dac700a622278bcf7ba4ce489dd05b5383614f285ff1347aa"
+    },
+    "status": 200
+  },
+  "node_capabilities": {
+    "code": "tool_execution_error",
+    "details": {
+      "layer": "mcp"
+    },
+    "message": "target authentication headers are required"
+  },
+  "independently_authenticated_finality": false,
+  "live_release_enabled": false
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "method": "built-in imagegen, generated PNG copied byte-exactly",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "assets": [
+    {
+      "id": "ch09-victory-cut06",
+      "source": "public/assets/story/scenes/ch09-victory-cut06.png",
+      "sourceSha256": "634b84b19e419fcc2479044f06908d83cca4935e9507a93a1c37df850af71993",
+      "output": "public/assets/story/scenes/ch09-victory-cut06-logo-v3.png",
+      "prompt": "Image1 is the current cutscene. Image2 is the exact SORA logo reference. Add a flat printed white square cloth badge to the cream jacket shoulder at x91%,y52%, about170pixels wide. The badge should display an EXACT visual copy of image2: red disk, equally long white horizontal bars and central white stem, with the TWO WHITE DIAGONAL CUTOUTS continuing beyond the red circle onto the white square background. The diagonal cuts must physically split the red lower wedge away from the red side lobes, exactly as in the supplied image. No complete red ring, no red border closing those gaps, no font character, no embroidery, no round stitched rim. Treat this as transferring the supplied graphic onto the white cloth square. Preserve every other scene detail: male face, dark hair, writing hand, clean printed form tables and crossed boxes, mug, studio, city window and opaque lower dialogue area. Keep exact wide framing and painterly pixel texture. No extra text or cropping.",
+      "transparent_background": false,
+      "reason": "Concurrent source replacement changed story character/form details; preserve refreshed source rather than reintroduce earlier imagery.",
+      "status": "accepted",
+      "rejectedAttempts": [
+        {
+          "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-a93fced9-3a9f-4ec3-ace5-1fc297e87957.png",
+          "prompt": "Use case: image edit. Image1 is the cutscene edit target; Image2 is the exact supplied SORA emblem. Add one clear physical SORA patch as specified. Copy the reference geometry: red disk with two equally long thick straight white horizontal bars connected by a centered white stem, and two thick straight white diagonal channels opening completely THROUGH the lower left and right red circle boundary, leaving a red central wedge. No font substitute or short enclosed legs. Preserve the complete wide pixel-art composition, all faces, characters, gestures, props, printed diagrams, story action, lighting and existing opaque dark lower dialogue area. Do not change any other detail, add text, crop or remove the background. Place a circular embroidered SORA patch about170pixels wide on the visible cream-jacket upper shoulder at x92%,y52%, above the lower dialogue area. Retain the NEW clean printed form tables and crossed boxes exactly as shown; preserve the mug, writing hand and all studio equipment.",
+          "reason": "White diagonal legs stop before the red disk edge, leaving an interior red margin."
+        }
+      ],
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-2449bfe7-4140-4563-be8c-89f64d438ba4.png",
+      "generatedSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "outputSha256": "f6694f410ab8371b8e033abde29ae5a5ddcf554a1f8edff869f12830cd36b723",
+      "accepted": true,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "method": "pngjs"
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "method": "pngjs"
+      },
+      "visualQA": {
+        "accepted": true,
+        "reviewer": "root",
+        "notes": "Square shoulder patch shows clear paired straight bars and lower diagonal channels opening beyond red disk. Updated clean forms and male character retained.",
+        "pixelIdenticalCopyClaimed": false
+      },
+      "acceptedAt": "2026-09-26T02:31:25.987Z"
+    },
+    {
+      "id": "ch10-intro-cut07",
+      "source": "public/assets/story/scenes/ch10-intro-cut07.png",
+      "sourceSha256": "aa3f77c4e3b048d052b2c366fdcc2dc666903182aad312b22cb768db2db30a70",
+      "output": "public/assets/story/scenes/ch10-intro-cut07-logo-v3.png",
+      "prompt": "Use case: image edit. Image1 is the cutscene edit target; Image2 is the exact supplied SORA emblem. Add one clear physical SORA patch as specified. Copy the reference geometry: red disk with two equally long thick straight white horizontal bars connected by a centered white stem, and two thick straight white diagonal channels opening completely THROUGH the lower left and right red circle boundary, leaving a red central wedge. No font substitute or short enclosed legs. Preserve the complete wide pixel-art composition, all faces, characters, gestures, props, printed diagrams, story action, lighting and existing opaque dark lower dialogue area. Do not change any other detail, add text, crop or remove the background. Replace only the small inaccurate red logo on the male radio host upper back at x29%,y40% with a clear faithful red-and-white SORA emblem patch about95pixels wide. Preserve his male face, dark tousled hair, phone, pointing arm, route map and NEW clean contact register exactly as shown.",
+      "transparent_background": false,
+      "reason": "Concurrent source replacement changed story character/form details; preserve refreshed source rather than reintroduce earlier imagery.",
+      "status": "accepted",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-fc0a047b-1ad9-4ca7-8256-5dfac72671cb.png",
+      "generatedSha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "outputSha256": "ade9e0ec7c99e9e22ec3f70dbf460c70cf21d9390f221a129d663f2d695d4664",
+      "accepted": true,
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "method": "pngjs"
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "method": "pngjs"
+      },
+      "visualQA": {
+        "accepted": true,
+        "reviewer": "root",
+        "notes": "Upper-back red patch shows recognizable paired bars/stem and open lower diagonals. Updated male host, phone, clean register and map retained.",
+        "pixelIdenticalCopyClaimed": false
+      },
+      "acceptedAt": "2026-09-26T02:31:26.214Z"
+    }
+  ]
+}

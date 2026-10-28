@@ -1,0 +1,186 @@
+{
+  "passed": true,
+  "date": "2026-09-12T14:07:42.363Z",
+  "visited": 301,
+  "checked": [
+    {
+      "chapter": 0,
+      "phase": "intro",
+      "lines": 16
+    },
+    {
+      "chapter": 0,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 0,
+      "phase": "retry",
+      "lines": 3
+    },
+    {
+      "chapter": 1,
+      "phase": "intro",
+      "lines": 16
+    },
+    {
+      "chapter": 1,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 2,
+      "phase": "intro",
+      "lines": 16
+    },
+    {
+      "chapter": 2,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 3,
+      "phase": "intro",
+      "lines": 16
+    },
+    {
+      "chapter": 3,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 4,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 4,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 5,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 5,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 6,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 6,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 7,
+      "phase": "intro",
+      "lines": 15
+    },
+    {
+      "chapter": 7,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 8,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 8,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 9,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 9,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 10,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 10,
+      "phase": "victory",
+      "lines": 10
+    },
+    {
+      "chapter": 11,
+      "phase": "intro",
+      "lines": 14
+    },
+    {
+      "chapter": 11,
+      "phase": "victory",
+      "lines": 11
+    }
+  ],
+  "uniqueScriptIllustrations": 48,
+  "catalog": 48,
+  "errors": [],
+  "shots": [
+    "angles-garage-wide-v2-desktop.png",
+    "angles-garage-left-v2-desktop.png",
+    "angles-ledger-wide-v2-desktop.png",
+    "angles-ledger-right-v2-desktop.png",
+    "angles-ledger-detail-v2-desktop.png",
+    "angles-garage-right-v2-desktop.png",
+    "angles-harbor-wide-v2-desktop.png",
+    "angles-radio-left-v2-desktop.png",
+    "angles-radio-right-v2-desktop.png",
+    "angles-garage-detail-v2-desktop.png",
+    "angles-radio-wide-v2-desktop.png",
+    "angles-harbor-left-v2-desktop.png",
+    "angles-ledger-left-v2-desktop.png",
+    "angles-harbor-detail-v2-desktop.png",
+    "angles-harbor-right-v2-desktop.png",
+    "angles-community-wide-v2-desktop.png",
+    "angles-office-detail-v2-desktop.png",
+    "angles-office-left-v2-desktop.png",
+    "angles-office-right-v2-desktop.png",
+    "angles-boardroom-wide-v2-desktop.png",
+    "angles-boardroom-detail-v2-desktop.png",
+    "angles-boardroom-left-v2-desktop.png",
+    "angles-boardroom-right-v2-desktop.png",
+    "angles-sunrise-wide-v2-desktop.png",
+    "angles-sunrise-left-v2-desktop.png",
+    "angles-sunrise-detail-v2-desktop.png",
+    "angles-sunrise-right-v2-desktop.png",
+    "angles-radio-detail-v2-desktop.png",
+    "beats-radio-near-confession-v2-desktop.png",
+    "beats-radio-near-confession-reverse-v2-desktop.png",
+    "beats-radio-umbrella-v2-desktop.png",
+    "beats-radio-umbrella-reverse-v2-desktop.png",
+    "beats-radio-phone-threat-v2-desktop.png",
+    "beats-radio-blackout-v2-desktop.png",
+    "beats-garage-blackout-detail-v2-desktop.png",
+    "beats-radio-betrayal-v2-desktop.png",
+    "beats-radio-betrayal-reverse-v2-desktop.png",
+    "beats-radio-contract-v2-desktop.png",
+    "beats-garage-blackout-reverse-v2-desktop.png",
+    "beats-garage-blackout-v2-desktop.png",
+    "beats-fathers-notebook-v2-desktop.png",
+    "beats-fathers-notebook-reaction-v2-desktop.png",
+    "beats-shared-prototype-v2-desktop.png",
+    "angles-community-left-v2-desktop.png",
+    "angles-community-detail-v2-desktop.png",
+    "angles-community-right-v2-desktop.png",
+    "angles-office-wide-v2-desktop.png",
+    "beats-sunrise-kiss-v2-desktop.png"
+  ],
+  "fixtureOnly": true
+}

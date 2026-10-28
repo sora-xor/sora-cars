@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-22",
+  "scope": "Selected primary-source commit patches, not a complete archive or independent theorem/implementation audit",
+  "commits": [
+    {
+      "url": "https://github.com/Plonky3/Plonky3/commit/8cdc0e8f47a5db8d5572f211fa49075d9a24137c",
+      "apiUrl": "https://api.github.com/repos/Plonky3/Plonky3/commits/8cdc0e8f47a5db8d5572f211fa49075d9a24137c",
+      "commit": "8cdc0e8f47a5db8d5572f211fa49075d9a24137c",
+      "committerDate": "2026-09-22T06:55:14Z",
+      "response": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/crypto-primary-source-2026-09-22-followup/plonky3-johnson.json",
+        "bytes": 68242,
+        "sha256": "b46809d7c03ef77c63edd02af7f9ece57a4f46b5685d0c751775db382d03720d"
+      },
+      "independentRefetchMatchedFiles": true,
+      "codeExecuted": false
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/commit/576a8fbdd3fd5650392744c3ba787e92f1286901",
+      "apiUrl": "https://api.github.com/repos/Plonky3/Plonky3/commits/576a8fbdd3fd5650392744c3ba787e92f1286901",
+      "commit": "576a8fbdd3fd5650392744c3ba787e92f1286901",
+      "committerDate": "2026-09-21T13:49:54Z",
+      "response": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/crypto-primary-source-2026-09-22-followup/plonky3-merkle.json",
+        "bytes": 17544,
+        "sha256": "8f59623aae9a1f0e56feb267cf3b3ceabc18682d204047dd0d33fa7af9f4f412"
+      },
+      "independentRefetchMatchedFiles": true,
+      "codeExecuted": false
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/commit/429f38cc89fb4744ef57b34df4aed8c4d65becb4",
+      "apiUrl": "https://api.github.com/repos/Plonky3/Plonky3/commits/429f38cc89fb4744ef57b34df4aed8c4d65becb4",
+      "commit": "429f38cc89fb4744ef57b34df4aed8c4d65becb4",
+      "committerDate": "2026-09-20T18:52:42Z",
+      "response": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/crypto-primary-source-2026-09-22-followup/plonky3-neon.json",
+        "bytes": 19462,
+        "sha256": "c182cff82cab01d79cebdf48ea65d76bb5ba1e7dab32e2f972b538882a407d42"
+      },
+      "independentRefetchMatchedFiles": true,
+      "codeExecuted": false
+    },
+    {
+      "url": "https://github.com/Plonky3/Plonky3/commit/e2cb7e988848c693b4971cab21cbef58a7e17cb4",
+      "apiUrl": "https://api.github.com/repos/Plonky3/Plonky3/commits/e2cb7e988848c693b4971cab21cbef58a7e17cb4",
+      "commit": "e2cb7e988848c693b4971cab21cbef58a7e17cb4",
+      "committerDate": "2026-09-20T18:41:18Z",
+      "response": {
+        "path": "/Users/takemiyamakoto/dev/sora-cars/tmp/crypto-primary-source-2026-09-22-followup/plonky3-optional.json",
+        "bytes": 33684,
+        "sha256": "8f242d50d59298b6742bbe939750ba143c800221c6b1a9f2224df1f19fc5f9db"
+      },
+      "independentRefetchMatchedFiles": true,
+      "codeExecuted": false
+    }
+  ],
+  "paper": {
+    "url": "https://eprint.iacr.org/2026/2056",
+    "received": "2026-09-16",
+    "approved": "2026-09-17",
+    "reviewed": "HTML abstract and history only; PDF unavailable in this follow-up"
+  }
+}

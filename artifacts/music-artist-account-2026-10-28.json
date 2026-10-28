@@ -1,0 +1,66 @@
+{
+  "schema": "sora-cars.artist-account-registration.v1",
+  "recordedAt": "2026-10-28T02:57:03.557Z",
+  "artist": "SORA Cars",
+  "endpoint": "https://taira.sora.org",
+  "accountId": "testuﾛ1PｶﾇPwjtｻﾊKﾗﾑｱｻeEｴEHｿhuｺuヰpﾉﾘﾜKﾂヱ1vdHﾍs5PDK5VR",
+  "publicKey": "ed0120BE2E00A490ECEC6BD477EC0F41CAA04C8544FF56FF563BB17E58916F85E731A9",
+  "networkId": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+  "chainProfile": "taira",
+  "chainDiscriminant": 369,
+  "status": "registered_funded",
+  "registered": true,
+  "funded": true,
+  "testnet": true,
+  "transactionHash": "883fc275155ad83f92f39556994a9aafba151a75723cd7146a8310661dcd1c89",
+  "blockHeight": 5507,
+  "balance": {
+    "assetDefinitionId": "6TEAJqbb8oEPmLncoNiMRbLEK6tw",
+    "alias": "xor#universal",
+    "name": "XOR",
+    "quantity": "25000",
+    "network": "SORA Nexus Taira testnet",
+    "checkedAt": "2026-10-28T02:55:55.439Z"
+  },
+  "nativeExecutable": {
+    "path": "/Users/takemiyamakoto/dev/iroha/target/debug/iroha",
+    "sha256": "169b93433d9ba89a0c07819d7b1abaef3aef2b0fc4034b0e74d1976864d4b967"
+  },
+  "localAccountDirectory": "/Users/takemiyamakoto/.config/sora-cars/accounts/taira-sora-cars-20261023",
+  "privateKeyIncluded": false,
+  "policyProvenance": "Public policy from the exact Taira endpoint selected by the user for ordinary testnet funding; not an application release identity approval.",
+  "collection": {
+    "artist": "SORA Cars",
+    "recordings": 26,
+    "tokyoRecordingIncluded": true,
+    "tokyoSameUnlimitedUseLicense": true,
+    "nftsIssued": false,
+    "liveSalesEnabled": false
+  },
+  "market": {
+    "qualified": false,
+    "applicationReleasePinChanged": false
+  },
+  "evidence": [
+    {
+      "path": "output/qualification/music-issuer-account-2026-10-28/health.json",
+      "sha256": "e206cfecdda3094240a58a4b8cc5432aa470f1584c3bb0a1ba1e95336d05f73a"
+    },
+    {
+      "path": "output/qualification/music-issuer-account-2026-10-28/mcp-read-summary.json",
+      "sha256": "94af769bc14e350cb863f7e23e907a89962e2a5c1c9d911404815ab10c461c74"
+    },
+    {
+      "path": "output/qualification/music-issuer-account-2026-10-28/prepare-result.json",
+      "sha256": "1fb628ffd30622eb90204e003a2319f742885d8b97c2db132c737824561d87d8"
+    },
+    {
+      "path": "output/qualification/music-issuer-account-2026-10-28/submit-result.json",
+      "sha256": "d5a23c944278bb2f3cf7e2e8838f867ad6aafcdc218b3240e9dd681ea2fe968b"
+    },
+    {
+      "path": "output/qualification/music-issuer-account-2026-10-28/registered-readback.json",
+      "sha256": "acb37360c74047890718af12aa29a59f1f311174785ab596f15cc44aa6192f66"
+    }
+  ]
+}

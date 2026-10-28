@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "mode": "builtin image_gen edit",
+  "art": "garage-blackout-reverse",
+  "prompt": "Use case: compositing. Image 1 is the existing full-frame 16:9 pixel-art garage cutscene to edit. Image 2 is the exact SORA emblem to insert. Preserve image 1's entire composition, Aki's adult face, short black hair, pensive pose, hand supporting cheek, anatomy, plain white T-shirt, red coveralls tied at waist, car, lantern, tools, rain, blue night and amber lighting, pixel-art clusters, framing and 16:9 dimensions. Change only one small area: add a printed SORA emblem on the flat chest area of Aki's white T-shirt, above her folded forearm, centered approximately x=59%, y=64% of the image. The emblem itself should be about 6% of full image width, clearly readable but naturally garment-sized. Precisely reproduce the supplied image 2 logo geometry: pure red circular silhouette; two equally long thick straight white horizontal bars; a short thick straight white vertical connection at their centers; two thick straight diagonal white channels from below the lower bar all the way through the lower circle edge, leaving two distinct white openings in the lower circumference and a red triangular wedge between them. This is an exact geometric brand icon, NOT the font character \u5929; do not curve or taper the white strokes and do not close the lower circle gaps. White shirt acts as white label backing. Keep the emblem crisp and complete with only subtle pixel texture appropriate to the illustration. No text, no other logo, no changed faces, no new props, no crop, no restyling, no UI or watermark. Return the single edited full scene at the original wide resolution.",
+  "inputs": [
+    "public/assets/story/beats/garage-blackout-reverse-v2.png",
+    "public/assets/branding/sora-emblem-source.png"
+  ],
+  "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-30d360c3-58fb-40b6-bf9b-445431234dc3.png",
+  "file": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+  "visualInspection": "Accepted: visible red SORA chest emblem has equal straight horizontal bars, central stem and straight diagonals opening through the lower circular edge. The nighttime garage, pensive adult Aki, pose, car, lantern and dialogue-safe framing are preserved. Image generation can alter fine pixel texture; this is not a claim of pixel-identical preservation.",
+  "runtimeIntegrated": false,
+  "inputIdentities": [
+    {
+      "path": "public/assets/story/beats/garage-blackout-reverse-v2.png",
+      "bytes": 2062454,
+      "sha256": "c969377934766db6e5958704d01b41d74489fdfc876bae7321a02900c18e3c3f",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "public/assets/branding/sora-emblem-source.png",
+      "bytes": 104489,
+      "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "width": 1678,
+      "height": 1432
+    }
+  ],
+  "outputIdentities": [
+    {
+      "path": "/Users/takemiyamakoto/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-30d360c3-58fb-40b6-bf9b-445431234dc3.png",
+      "bytes": 2006412,
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "width": 1672,
+      "height": 941
+    },
+    {
+      "path": "public/assets/story/beats/garage-blackout-reverse-v3.png",
+      "bytes": 2006412,
+      "sha256": "6d99073682edd17b7dc8a37fa0ea1a690d0e4427894971fdb51e531e85674430",
+      "width": 1672,
+      "height": 941
+    }
+  ]
+}

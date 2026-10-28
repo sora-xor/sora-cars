@@ -1,0 +1,19 @@
+{
+  "generator": "built-in image_gen",
+  "records": [
+    {
+      "file": "scenes/ch10-intro-cut03.png",
+      "prompt": "Use case: identity-preserve. Image1 is the edit target: a finished landscape 16:9 SORA CARS 1986 cutscene in crisp detailed 16-bit pixel art. Image2 is the identity reference for Aki, the young adult Japanese WOMAN at left in a white short-sleeved tee, straight short black chin-length bob with bangs, small earrings, red mechanic coveralls tied at waist. Image3 is exact SORA emblem. Correct ONLY the foreground listener at LEFT of Image1: replace the short-haired dark-jacketed man with Aki as in Image2, in the same seated over-the-shoulder listening pose, same foreground silhouette area and placement. Show white tee with small exact red/white SORA patch on the visible sleeve; red coveralls tied at waist where visible. Feminine face/profile and straight bob haircut, adult woman. Preserve Celeste at right exactly: face, wavy blonde hair, pearl necklace, cream suit, gesture reaching toward contract stacks. Preserve the key on envelope, both document stacks, table reflections, chairs, city skyline, lighting, camera angle, framing, quiet dark lower30%, and all other objects. Do not copy Image2 composition. Keep crisp pixel clusters/dithering and Image1 contrast; no blur, haze, smooth repaint, palette washout. No subtitles, UI, watermark, new writing or extra people.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch10-intro-cut03.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/beats/boardroom-key-offer-v4.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a0db7d-84a5-7a01-91bf-bae8fac10cd6/exec-54d61471-d053-402f-add0-7e0fc25c6025.png",
+      "sha256": "955229da1cb7a3d2795553a1cde04ac818254650235501f2753331014d53d0ba",
+      "width": 1672,
+      "height": 941,
+      "visualCheck": "Accepted after inspection: Aki now has the canonical straight black bob, white tee, red coveralls and exact SORA sleeve patch; Celeste, contracts, key, camera and pixel-art texture preserved."
+    }
+  ]
+}

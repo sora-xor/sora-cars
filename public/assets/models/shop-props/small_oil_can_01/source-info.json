@@ -1,0 +1,57 @@
+{
+  "date_published": 1623767633,
+  "name": "Small Oil Can 01",
+  "type": 2,
+  "staging": null,
+  "authors": {
+    "Raven van de Werken": "All"
+  },
+  "categories": [
+    "industrial",
+    "tools",
+    "props",
+    "collection: the_shed"
+  ],
+  "tags": [
+    "oil",
+    "fuel",
+    "can",
+    "dropper",
+    "mechanic",
+    "tools",
+    "repair"
+  ],
+  "donated": true,
+  "max_resolution": [
+    8192,
+    8192
+  ],
+  "polycount": 16746,
+  "texel_density": 23875.896772458444,
+  "dimensions": [
+    266.0944238305092,
+    103.84923219680786,
+    236.79310083389282
+  ],
+  "sponsors": [
+    "92963232"
+  ],
+  "files_hash": "8aee52e7d617093a125677e1903f4bdae10bf8fe",
+  "description": "Free 8K model: small red metal oil can with long bent spout and pump lever, featuring chipped paint, dents, scratches and subtle rust for a worn mechanic aesthetic.",
+  "category_id": "05a29c53-ad53-52a5-9ea0-bb535b22a77a",
+  "category": "Containers & Storage/Cans, Tins & Bottles/Oil & Fuel Cans",
+  "collections": [
+    "the_shed"
+  ],
+  "attributes": {
+    "condition": [
+      "worn"
+    ],
+    "material": [
+      "metal"
+    ]
+  },
+  "img_version": "7c910044",
+  "download_count": 9949,
+  "thumbnail_url": "https://cdn.polyhaven.com/asset_img/thumbs/small_oil_can_01.png?width=256&height=256&v=7c910044"
+}

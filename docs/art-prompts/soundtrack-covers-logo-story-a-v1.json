@@ -1,0 +1,225 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-22",
+  "tool": "builtin image_gen.imagegen",
+  "generationMode": "one separate built-in image-edit call per asset/iteration; accepted original PNG copied byte-for-byte",
+  "series": "SORA CARS — supplied SORA emblem edits, story covers 9–16",
+  "assets": [
+    {
+      "index": 9,
+      "file": "blank-side-promise",
+      "name": "Blank Side Promise",
+      "destination": "public/assets/music/covers/blank-side-promise-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-e3a0163d-ce00-4782-ad14-09d7222d132d.png",
+      "originalSha256": "1686e04d7865f3b081ef498537c8924e446640b406c1a455411d925eed0f3de3",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-5e680c3c-002b-41c0-94f1-6ea665ea2b2e.png",
+      "prompt": "Use case: compositing. Edit the first image only in its top-left branding margin. Paste the actual supplied SORA emblem graphic from image 2 as a LARGE flat printed white square label. Make the label occupy one fifth of the cover's total width, about 250 pixels on this canvas; the red circle inside should be about 180 pixels across. The actual supplied emblem has two equally long white horizontal bars, a central vertical connector, and two constant-width straight diagonal white cutouts which continue completely through the lower red circumference. Copy that exact geometry from image 2; do not use a kanji font, tapered strokes, closed-circle symbol, approximation, redesign, lighting, gradient or shadow. Keep the source's pure red and white. Place the existing SORA wordmark to its right in its existing font and color. The label is printed flat on the cover. Preserve every other part of the original square cover: subject design, positions, count, illustration composition, palette, lighting and paper grain. Full opaque square image with original clean corners and edges. No alpha, no vignette, no glow, no removed background, no extra text or subjects. Cover identity: blank-side-promise.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/blank-side-promise-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: clear supplied red circular emblem with white open lower cutouts on upper-left white plaque; ivory cassette, cyan ribbon, peach horizon and indigo composition retained. Revised prior small and tapered-stroke logo variants.",
+      "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2218749,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 10,
+      "file": "three-weeks-of-paper",
+      "name": "Three Weeks of Paper",
+      "destination": "public/assets/music/covers/three-weeks-of-paper-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-0cbb78f8-e954-4b6e-b74d-e1137eb91151.png",
+      "originalSha256": "437ce966931032b4f019387af963e77bdfa4efae929c13e53d9a9cc7c1fd5476",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-730302a2-9c17-4888-94ce-09513375f9c7.png",
+      "prompt": "Edit image 1 only in the upper-left brand label area. Image 2 is the supplied SORA emblem graphic; reproduce that actual complete red-and-white emblem faithfully. Use a LARGE label lockup: the red circular emblem should be the same width as the ENTIRE existing four-letter SORA wordmark, approximately one eighth of the entire cover width. Put it on a crisp white square, large enough for the exact white diagonal cutouts to reach cleanly through the red circumference. Place the original SORA wordmark just to the right, at its original text size. Do not scale the emblem down to letter height; the emblem is several times taller than the letters. It is a flat printed white-paper label with no shadow and no glow. Preserve the entire original illustration, subject shapes, positions, composition, color palette, lighting and grain outside this label. Preserve the full opaque square canvas and all four corners. No transparency, no vignette, no darkening, no edge fading, no stylizing or approximating the logo, no extra elements. The source symbol must be image-faithful, not recreated using a font. Cover identity: three-weeks-of-paper.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/three-weeks-of-paper-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: crisp red/white supplied emblem on white plaque beside SORA; three curved groups of ivory calendar leaves, coral paperclip, workshop and clock-hand shadow retained. Revised undersized first logo.",
+      "sha256": "e7259c34ebe02583dc25a45dfdea73348c43144f05e4a1f3999dff798bc1f7c0",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2080279,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 11,
+      "file": "milk-crates-at-midnight",
+      "name": "Milk Crates at Midnight",
+      "destination": "public/assets/music/covers/milk-crates-at-midnight-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-35712dcc-ed3c-45f8-a015-0cf38d9c6bd5.png",
+      "originalSha256": "396a8e440140be744ea6fc00b34f80e26106b71b65612c483aa6abd812403696",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-a6cfa7a7-b838-402e-8113-c5df9777a6f5.png",
+      "prompt": "Use case: compositing. Edit the first image only in its top-left branding margin. Paste the actual supplied SORA emblem graphic from image 2 as a LARGE flat printed white square label. Make the label occupy one fifth of the cover's total width, about 250 pixels on this canvas; the red circle inside should be about 180 pixels across. The actual supplied emblem has two equally long white horizontal bars, a central vertical connector, and two constant-width straight diagonal white cutouts which continue completely through the lower red circumference. Copy that exact geometry from image 2; do not use a kanji font, tapered strokes, closed-circle symbol, approximation, redesign, lighting, gradient or shadow. Keep the source's pure red and white. Place the existing SORA wordmark to its right in its existing font and color. The label is printed flat on the cover. Preserve every other part of the original square cover: subject design, positions, count, illustration composition, palette, lighting and paper grain. Full opaque square image with original clean corners and edges. No alpha, no vignette, no glow, no removed background, no extra text or subjects. Cover identity: milk-crates-at-midnight.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/milk-crates-at-midnight-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: readable supplied red/white emblem on white plaque; four bottles in coral crate, harbor cranes, moon and water reflections retained. Revised earlier small-label versions.",
+      "sha256": "e34a317b441f8c0067dbf3dea72519499c115881d39da0887d77cb52e71085e5",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2382636,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 12,
+      "file": "carbon-copy-testimony",
+      "name": "Carbon Copy Testimony",
+      "destination": "public/assets/music/covers/carbon-copy-testimony-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-70caf4da-d598-4ab7-8485-e6e5c7146232.png",
+      "originalSha256": "2fc5ac49de1ecf6c32be0d85010a66ada75f41cc5d242a14b068dc57cc413c18",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-525ad2e3-ee34-444f-a3cf-e226fe6d03f8.png",
+      "prompt": "Edit image 1 only in the upper-left brand label area. Image 2 is the supplied SORA emblem graphic; reproduce that actual complete red-and-white emblem faithfully. Use a LARGE label lockup: the red circular emblem should be the same width as the ENTIRE existing four-letter SORA wordmark, approximately one eighth of the entire cover width. Put it on a crisp white square, large enough for the exact white diagonal cutouts to reach cleanly through the red circumference. Place the original SORA wordmark just to the right, at its original text size. Do not scale the emblem down to letter height; the emblem is several times taller than the letters. It is a flat printed white-paper label with no shadow and no glow. Preserve the entire original illustration, subject shapes, positions, composition, color palette, lighting and grain outside this label. Preserve the full opaque square canvas and all four corners. No transparency, no vignette, no darkening, no edge fading, no stylizing or approximating the logo, no extra elements. The source symbol must be image-faithful, not recreated using a font. Cover identity: carbon-copy-testimony.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/carbon-copy-testimony-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: supplied red emblem with equal white bars and open lower cutouts on white plaque beside SORA; three paper layers, stamp, circular ink marks and geometric composition retained. Revised undersized first logo.",
+      "sha256": "f18f72e5d770888f85a57c25a97f10762b4c828f98d60e6d087b2e749fb9a36a",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2473380,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 13,
+      "file": "crown-on-the-grid",
+      "name": "Crown on the Grid",
+      "destination": "public/assets/music/covers/crown-on-the-grid-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-185f5dff-9ec6-4ca2-a2d5-e6c570bef501.png",
+      "originalSha256": "4a6a5778b0ed51fa73ccd7427f45a46b338d755ed0fda33f4b86d00150c463fa",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-0436d10e-e7c7-4e99-8c90-56cd40690999.png",
+      "prompt": "Use case: compositing. Edit the first image only in its top-left branding margin. Paste the actual supplied SORA emblem graphic from image 2 as a LARGE flat printed white square label. Make the label occupy one fifth of the cover's total width, about 250 pixels on this canvas; the red circle inside should be about 180 pixels across. The actual supplied emblem has two equally long white horizontal bars, a central vertical connector, and two constant-width straight diagonal white cutouts which continue completely through the lower red circumference. Copy that exact geometry from image 2; do not use a kanji font, tapered strokes, closed-circle symbol, approximation, redesign, lighting, gradient or shadow. Keep the source's pure red and white. Place the existing SORA wordmark to its right in its existing font and color. The label is printed flat on the cover. Preserve every other part of the original square cover: subject design, positions, count, illustration composition, palette, lighting and paper grain. Full opaque square image with original clean corners and edges. No alpha, no vignette, no glow, no removed background, no extra text or subjects. Cover identity: crown-on-the-grid. Ensure the result is a fully opaque RGB image, with every pixel alpha 255 if it has an alpha channel.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/crown-on-the-grid-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: supplied red/white emblem on a clean white plaque in upper-left margin; five-pronged architectural crown, circuit city, coral signal and dark palette retained. Rejected the first otherwise visually clean output because its alpha channel was partly transparent; this replacement preserves an opaque canvas.",
+      "sha256": "bd515334e66393030852f47d1b4282b39de20bcbfded67a3a62b0f03b61bd456",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2193821,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 14,
+      "file": "open-circuit-breakfast",
+      "name": "Open Circuit Breakfast",
+      "destination": "public/assets/music/covers/open-circuit-breakfast-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-7ddbdf19-502e-4548-b12d-0d47b4afbe42.png",
+      "originalSha256": "9f21177ae023651923c8bc65d2e5aada0b0d63077cb1e7f4640d56908dab17a1",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-adf2d7bf-ec80-4260-b7a6-214136d4a66c.png",
+      "prompt": "Edit the first input cover. Add the complete actual SORA logo from the second input, as a flat printed white square logo label, about 150 pixels square, at the upper left. Preserve the second input's red circular logo artwork exactly, including the precise white graphic shapes. Place the existing SORA wordmark just to its right. Keep the entire underlying cover illustration, composition, colors, lighting and paper textures unchanged outside that upper-left label area. This is a fully opaque rectangular album-cover image with all four corners intact and filled: no alpha transparency, no glow, no lighting effect, no vignette or darkening, no blur or fading, no removed background, no mask, no additional text. The logo should look like flat printed ink on white paper, not a glowing object. Keep the source logo design exact; do not approximate it with a font or redesign it. Cover identity: open-circuit-breakfast.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/open-circuit-breakfast-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: clear supplied red/white emblem at left of a clean horizontal white label with teal SORA; coffee, toast, coral plate, cyan circuit board, plant, napkin and cream lighting retained. Regenerated from original after rejecting edge-corrupted first output.",
+      "sha256": "aadf675eebc6a39bd565e74d7a69b030567e67b89d348bdfc0d0f6ab131eb1f3",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2530287,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 15,
+      "file": "one-umbrella-two-chairs",
+      "name": "One Umbrella, Two Chairs",
+      "destination": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-d71eca51-2071-43a4-a567-22a0179aa4cb.png",
+      "originalSha256": "6073b07cebe6e1d90b0bd4cbad940ba40c76610998643358fa9462e497f40658",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-4feaa7eb-fbb1-4161-a43f-c0dd39b99a73.png",
+      "prompt": "Use case: compositing. Edit the first image only in its top-left branding margin. Paste the actual supplied SORA emblem graphic from image 2 as a LARGE flat printed white square label. Make the label occupy one fifth of the cover's total width, about 250 pixels on this canvas; the red circle inside should be about 180 pixels across. The actual supplied emblem has two equally long white horizontal bars, a central vertical connector, and two constant-width straight diagonal white cutouts which continue completely through the lower red circumference. Copy that exact geometry from image 2; do not use a kanji font, tapered strokes, closed-circle symbol, approximation, redesign, lighting, gradient or shadow. Keep the source's pure red and white. Place the existing SORA wordmark to its right in its existing font and color. The label is printed flat on the cover. Preserve every other part of the original square cover: subject design, positions, count, illustration composition, palette, lighting and paper grain. Full opaque square image with original clean corners and edges. No alpha, no vignette, no glow, no removed background, no extra text or subjects. Cover identity: one-umbrella-two-chairs.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: readable supplied red/white emblem on white plaque beside SORA; exactly two cream chairs, coral umbrella, rooftop rain and city composition retained. Rejected vignette/edge-corrupted output and enlarged the subsequent small logo.",
+      "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 2897486,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    },
+    {
+      "index": 16,
+      "file": "glass-permission",
+      "name": "Glass Permission",
+      "destination": "public/assets/music/covers/glass-permission-v1.png",
+      "preservedOriginalSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-e1df5c2d-728f-4208-bc88-112503d328d6.png",
+      "originalSha256": "b0e2f99f49755d7bcbda716c790d05264cfe10bad03ea7444b92833126f66039",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0c848-deed-70e2-8d5b-b04438e4c84d/exec-9fa7bce9-737f-4e8b-95bc-5883ef4db64e.png",
+      "prompt": "Use case: compositing. Edit the first image only in its top-left branding margin. Paste the actual supplied SORA emblem graphic from image 2 as a LARGE flat printed white square label. Make the label occupy one fifth of the cover's total width, about 250 pixels on this canvas; the red circle inside should be about 180 pixels across. The actual supplied emblem has two equally long white horizontal bars, a central vertical connector, and two constant-width straight diagonal white cutouts which continue completely through the lower red circumference. Copy that exact geometry from image 2; do not use a kanji font, tapered strokes, closed-circle symbol, approximation, redesign, lighting, gradient or shadow. Keep the source's pure red and white. Place the existing SORA wordmark to its right in its existing font and color. The label is printed flat on the cover. Preserve every other part of the original square cover: subject design, positions, count, illustration composition, palette, lighting and paper grain. Full opaque square image with original clean corners and edges. No alpha, no vignette, no glow, no removed background, no extra text or subjects. Cover identity: glass-permission.",
+      "referenced_image_paths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/music/covers/glass-permission-v1.png",
+        "/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/codex-clipboard-494cb055-1c07-4bd2-8973-977854d784c3.png"
+      ],
+      "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+      "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "inspection": "Accepted: supplied red/white emblem with open lower cutouts on white plaque beside SORA; glass door, encased key, coral stripe, cyan refraction, sphere and cream ground retained. Regenerated from original after rejecting vignette/edge-corrupted output.",
+      "sha256": "4e9a8b3c0c13d653e5b9bc431124bf72c376671eeeda9254f70eec0040dc880a",
+      "width": 1254,
+      "height": 1254,
+      "bytes": 1891730,
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "sourceBytesMatch": true
+    }
+  ]
+}

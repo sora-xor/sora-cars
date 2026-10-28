@@ -1,0 +1,107 @@
+{
+  "asset": "bench_vice_01",
+  "name": "Bench Vice 01",
+  "provider": "Poly Haven",
+  "sourcePage": "https://polyhaven.com/a/bench_vice_01",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "legalCodeUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "authors": {
+    "Yann Kervran": "Rigging",
+    "Antanas Kep": "Modeling & Texturing"
+  },
+  "retrievedAt": "2026-09-12T17:06:37.956Z",
+  "resolution": "1k",
+  "selectionReason": "1K PBR maps retain ample detail at the physical size of this small workshop prop.",
+  "entryPoint": "bench_vice_01_1k.gltf",
+  "sourceFilesHash": "e1b894759ca8b4ed6359bd7503a34c974494a620",
+  "advertisedDimensionsMillimetres": [
+    200.48236846923828,
+    395.7868218421936,
+    271.6780751943588
+  ],
+  "advertisedTriangleCount": 2864,
+  "expectedAssetBytes": 2439636,
+  "actualAssetBytes": 2439636,
+  "dependenciesRecursivelyVerified": true,
+  "declaredUris": [
+    "textures/bench_vice_01_nor_gl_1k.jpg",
+    "textures/bench_vice_01_diff_1k.jpg",
+    "textures/bench_vice_01_arm_1k.jpg",
+    "bench_vice_01.bin"
+  ],
+  "files": [
+    {
+      "path": "bench_vice_01_1k.gltf",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/bench_vice_01/bench_vice_01_1k.gltf",
+      "bytes": 13222,
+      "sourceMd5": "732cc8a08f98136922ddc5ef0fad7bba",
+      "md5": "732cc8a08f98136922ddc5ef0fad7bba",
+      "sha256": "52e61b473f1a7840ddbdabf024cca8dd32e07f694bd247e3a74e8ef5d9a101e2",
+      "unchanged": true
+    },
+    {
+      "path": "textures/bench_vice_01_diff_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/bench_vice_01/bench_vice_01_diff_1k.jpg",
+      "bytes": 724482,
+      "sourceMd5": "3165de5dc903b01d870f0ab0a9933d0a",
+      "md5": "3165de5dc903b01d870f0ab0a9933d0a",
+      "sha256": "e453c1bc7c283fb6a9c8da0638173809dfafb8310f5e81112705f5ecf88b5ab7",
+      "unchanged": true
+    },
+    {
+      "path": "bench_vice_01.bin",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/bench_vice_01/bench_vice_01.bin",
+      "bytes": 131404,
+      "sourceMd5": "0f8ba7b2c41f23b4e7461c68c5aca898",
+      "md5": "0f8ba7b2c41f23b4e7461c68c5aca898",
+      "sha256": "47b80c649a7791a7f3ea95d3dca929506a8c2e89506d3982a1a3380dcd3333ee",
+      "unchanged": true
+    },
+    {
+      "path": "textures/bench_vice_01_arm_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/bench_vice_01/bench_vice_01_arm_1k.jpg",
+      "bytes": 704241,
+      "sourceMd5": "3609f55fe2315d08136b3610ba319cc9",
+      "md5": "3609f55fe2315d08136b3610ba319cc9",
+      "sha256": "49d396c052622c12864e3cbfa7dc982e0bb4117bc37fccc15703a97af1b9f24c",
+      "unchanged": true
+    },
+    {
+      "path": "textures/bench_vice_01_nor_gl_1k.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/bench_vice_01/bench_vice_01_nor_gl_1k.jpg",
+      "bytes": 866287,
+      "sourceMd5": "45262442f2b1e26559407ff89212b625",
+      "md5": "45262442f2b1e26559407ff89212b625",
+      "sha256": "691b3a3888e689785bdd792522769839cd662d841071e2ea11184b70c012a65e",
+      "unchanged": true
+    }
+  ],
+  "metadataFiles": [
+    {
+      "path": "source-info.json",
+      "url": "https://api.polyhaven.com/info/bench_vice_01",
+      "bytes": 1306,
+      "md5": "b1cefaca03d413265ab7edcf8fbd70c6",
+      "sha256": "eb26ed6e4d78d4d70b44c35ab4191e175b6718565a29959c1ac9628c30e2456e",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    },
+    {
+      "path": "source-files.json",
+      "url": "https://api.polyhaven.com/files/bench_vice_01",
+      "bytes": 29559,
+      "md5": "9d8ec527f1980c5096950cc53443d215",
+      "sha256": "6e11cd010fa976cd80c8f228d06359bc0242517d90f5d18d3d72874ad29d1063",
+      "note": "Official API response preserved as formatted JSON; API does not publish a checksum for metadata."
+    }
+  ],
+  "derivedFiles": [
+    {
+      "path": "geometry-report.json",
+      "bytes": 5683,
+      "md5": "d0548c26591b042c3b1341131732f1e3",
+      "sha256": "92229e64b96645f3b6ec1701c1bc84880f18b84d3e37744fd882ca0a8f094e8f",
+      "source": "Local Three.js geometry inspection of the preserved source glTF; see inspectionMethod in this file."
+    }
+  ]
+}

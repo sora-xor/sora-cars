@@ -1,0 +1,86 @@
+{
+  "schema": "sora-cars.music-release-blocked.v1",
+  "checkedAt": "2026-10-28T06:27:50.008324+00:00",
+  "state": "blocked-by-live-release-prerequisites",
+  "goalComplete": false,
+  "releaseReady": false,
+  "artist": "SORA Cars",
+  "editionCount": 26,
+  "priceXor": "1",
+  "tokyoTitle": "靖國神社で会おう",
+  "completedLocally": [
+    "26 recordings with WAV, MP3 and separate previews",
+    "26 generated covers with supplied SORA emblem",
+    "Corrected Tokyo title, large 神明鳥居 and skyline without Skytree",
+    "Bilingual storefront, license and verified purchase/download behavior in local tests",
+    "Registered/funded artist account and owned soracars.universal collection",
+    "Corrected unsigned native register-and-offer inputs, independently verified",
+    "Historical full2.56GB native package verification, provider readback/restart and corruption checks"
+  ],
+  "evidence": {
+    "tokyoCorrections": {
+      "path": "artifacts/music-tokyo-correction-2026-10-28.json",
+      "bytes": 4960,
+      "sha256": "512dc83cd2e0dc8caae6570ec9e07a4602b03fa3339e3083734548ab5675ee9e"
+    },
+    "candidate": {
+      "path": "output/music-release/taira-20261028-yasukuni/candidate.json",
+      "bytes": 1944,
+      "sha256": "d5b55efb3d9dc0bd25625dfef24bfb8a69c67c9f3301aa249802dbf582b78a6f"
+    },
+    "localProvider": {
+      "path": "artifacts/music-provider-local-qualification-2026-10-28.json",
+      "bytes": 2350,
+      "sha256": "4138f122b44a47a3d9f169ba3b0505425f556d39cf2fec5834738a45ffebe1f7"
+    },
+    "publicReadback": {
+      "path": "output/qualification/music-publication-path-2026-10-28/public-readback-20261028T061351Z.json",
+      "bytes": 165571,
+      "sha256": "79dc317dd2b16c66c107cf55ba903b7fca53691ce753425315316c2634d653e3"
+    },
+    "readinessAudit": {
+      "path": "output/qualification/music-publication-path-2026-10-28/blocked-readiness-audit-054356.json",
+      "bytes": 2001,
+      "sha256": "f414ab624c0ef6186f02d1ef41581d7a6937b3dedb84bed00cd02ccd0ced146d"
+    }
+  },
+  "latestPublicObservation": {
+    "observedAt": "2026-10-28T06:13:51.780Z",
+    "marketQualified": false,
+    "networkId": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+    "protocolId": "hash:B2ECF8779BE9AF6865ED6DED3D6D14F7EA3889B2965C1C11C926181D1C8207CB#97DC",
+    "configuredPublicationPeers": 0,
+    "gatewayBaseUrl": null,
+    "capacityStatus": 404,
+    "scope": "One public origin view; does not establish network-wide provider absence."
+  },
+  "blockers": [
+    "Qualified marketplace deployment for the reviewed network/protocol",
+    "Approved accessible publication provider ID and upload/gateway endpoints with sufficient admitted capacity and usable verification path"
+  ],
+  "pendingUserQuestion": "Which approved SORA Nexus provider ID and upload/gateway endpoints should the SORA CARS release use?",
+  "followingWork": [
+    "Build/configure current corrected release against qualified live identities",
+    "Create and verify native package/manifest with future retention and applicable provider qualification",
+    "Publish and verify exact remote retrieval",
+    "Recheck seller/domain/balance/unused edition IDs/expiry",
+    "Prepare/sign/submit native editions and1XOR offers; verify committed readback",
+    "Perform real1XOR purchase and verify fresh ownership plus song/license downloads"
+  ],
+  "blockedAudit": {
+    "sameExternalConditionsAcrossAtLeastThreeConsecutiveGoalTurns": true,
+    "retainedObservations": [
+      "output/qualification/music-publication-path-2026-10-28/public-readback-0430.json",
+      "output/qualification/music-publication-path-2026-10-28/public-readback-20261028T052327Z.json",
+      "output/qualification/music-publication-path-2026-10-28/public-readback-20261028T061351Z.json"
+    ],
+    "pendingLocalTestTerminalAndReaped": true,
+    "noFurtherMeaningfulUnblockedLocalWorkFound": true,
+    "nativeControllerAndTestAbsent": true
+  },
+  "nftsIssued": 0,
+  "offersSubmitted": 0,
+  "published": false,
+  "realPurchaseVerified": false,
+  "historicalRetentionRegistrationProhibited": true
+}

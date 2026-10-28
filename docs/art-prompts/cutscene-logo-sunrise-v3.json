@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "method": "builtin-imagegen",
+  "reference": "public/assets/branding/sora-emblem-source.png",
+  "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "assets": [
+    {
+      "id": "sunrise-wide",
+      "source": "public/assets/story/angles/sunrise-wide-v2.png",
+      "output": "public/assets/story/angles/sunrise-wide-v3.png",
+      "placement": "Replace the large existing emblem on the central red sports-car hood with a crisp, clearly legible exact SORA reference emblem on a small ivory circular backing. Keep it within the hood, centred around x48% y51%, naturally foreshortened onto that hood.",
+      "prompt": "Edit ONLY one badge in IMAGE 1. IMAGE 2 is artwork to insert, not style inspiration. At the central red car hood, remove the entire old ivory emblem at x47% y51%. Replace it with the exact image-2 artwork printed as a clean off-white rectangular hood decal, spanning x43%\u201352% and y46%\u201355%, foreshortened naturally with the hood. The print must be an accurate scaled reproduction of image 2. Its red circle is interrupted by TWO STRAIGHT WHITE DIAGONAL GAPS AT THE BOTTOM LEFT AND BOTTOM RIGHT; these gaps go completely through the outer edge, visibly separating a red triangular bottom wedge from the rest of the red disk. There is no red circular outline bridging either gap. Above that, the two white horizontal bars have exactly equal width and straight rectangular edges. Preserve this geometric cutout design, preserving straight diagonals rather than curving them. Use the logo reference as an inserted graphic, not a rewritten text character. Match the cloth/car surface lighting and perspective without changing the mark's construction. Preserve all other pixels as closely as possible, all adult faces/poses, cars, objects, text, lake, mountains, light, original framing, retro pixel-anime texture. Do not add or remove anything else.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-6468f065-aea7-49c7-81c4-313f352a7376.png",
+      "visualQA": "Accepted: central car-hood decal reproduces equal straight bars, central stem and straight lower channels open through the red perimeter, with natural perspective. Six adults, cars, scenery, props, camera and lighting preserved; primary mark above dialogue region.",
+      "sourceSha256": "11f82c03f61b329818f5b8bbf30798e34a7d212a29a26e3755a91dda7848a1e5",
+      "outputSha256": "628b22cfe2145b9f8869de6ef9b91746105e1b9a17b94e52c4ebc3a51f44c8bc",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2600028,
+      "acceptedAt": "2026-09-26T00:52:59.998893+00:00"
+    },
+    {
+      "id": "sunrise-right",
+      "source": "public/assets/story/angles/sunrise-right-v2.png",
+      "output": "public/assets/story/angles/sunrise-right-v3.png",
+      "placement": "Replace the red emblem on the cream-jacketed adult man's left chest (viewer-right at x69% y44%) with the exact SORA reference emblem as an embroidered circular patch, about 6% of image width. Preserve SORA lettering below it.",
+      "prompt": "Edit ONLY one badge in IMAGE 1. IMAGE 2 is artwork to insert, not style inspiration. On the cream jacket chest, remove the old circular chest logo at x69% y44%. Place an off-white square cloth patch spanning x65%\u201373% and y38%\u201352%. Print the entire image-2 logo faithfully inside the patch; the red circle should occupy most of the square. Preserve SORA below the patch. The print must be an accurate scaled reproduction of image 2. Its red circle is interrupted by TWO STRAIGHT WHITE DIAGONAL GAPS AT THE BOTTOM LEFT AND BOTTOM RIGHT; these gaps go completely through the outer edge, visibly separating a red triangular bottom wedge from the rest of the red disk. There is no red circular outline bridging either gap. Above that, the two white horizontal bars have exactly equal width and straight rectangular edges. Preserve this geometric cutout design, preserving straight diagonals rather than curving them. Use the logo reference as an inserted graphic, not a rewritten text character. Match the cloth/car surface lighting and perspective without changing the mark's construction. Preserve all other pixels as closely as possible, all adult faces/poses, cars, objects, text, lake, mountains, light, original framing, retro pixel-anime texture. Do not add or remove anything else.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-a1e72e1b-d286-478f-b173-f9b1239c8546.png",
+      "visualQA": "Accepted: cream-jacket chest patch has equal straight white bars, central stem and two straight open diagonal cutouts, clearly readable above dialogue region. Adult faces/poses, cassette recorder, hood, scenery and lighting preserved. Secondary tiny legacy glyphs remain.",
+      "sourceSha256": "374e52ff44d6965a4babd4454900b36e07cd3116076894f4997805d6a7be6229",
+      "outputSha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2529464,
+      "acceptedAt": "2026-09-26T00:53:00.005402+00:00"
+    },
+    {
+      "id": "sunrise-detail",
+      "source": "public/assets/story/angles/sunrise-detail-v2.png",
+      "output": "public/assets/story/angles/sunrise-detail-v3.png",
+      "placement": "Replace the existing red emblem on the upright stainless-steel thermos (x32% y30%) with the exact SORA reference emblem as a clean circular decal, about 5% of image width. Keep the SORA word under it. Also correct the prominent car-hood emblem to the exact reference geometry, following the hood perspective.",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the only edit target. IMAGE 2 is the exact supplied SORA emblem artwork to copy. IMAGE 3 is solely a successful example of the required geometric logo applied as a physical patch; do not copy its scene, person, framing or setting. Replace the red circular mark on the thermos at x32% y30% with a clean cream rectangular sticker containing the exact image-2 logo, occupying x29%\u201334% y25%\u201335%, keeping SORA below. Also replace the large red hood emblem at x68% y73% with the exact same geometric logo following the hood perspective, preserving the word SORA beneath it.\nCopy the actual image-2 artwork as an intact graphic. This is NOT text. The two white horizontal bars are equal in width and rectangular, joined by a straight central vertical stem. Two straight thick diagonal white channels continue THROUGH and OUT OF the lower-left and lower-right circumference, leaving a visibly separated red bottom wedge. No red rim may bridge those two bottom gaps. The result should be a precise geometric graphic with clearly OPEN lower cutouts, not curved brush strokes or a font substitute. Match surface perspective and lighting. Preserve the entire original scene's composition, 16:9 framing, fine pixel-anime texture, all adult faces and body poses, costumes, car, props, background, original warmth and colour balance, and all text. Change only the requested emblems. No global blur, no new vignette, no extra characters or objects, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-25918ae3-227c-4feb-b655-0bcfc5346fde.png",
+      "visualQA": "Accepted: thermos sticker above dialogue region and prominent hood decal reproduce equal straight bars, central stem and open straight lower channels. Physical perspective, all hands, cassette, stationery, thermos, lighting and scenery preserved.",
+      "supportingReference": "public/assets/story/angles/sunrise-right-v3.png",
+      "sourceSha256": "6d5061c72794378b16222475ef193d5bcd044c74586ec0bb662ceca38913ddf9",
+      "outputSha256": "5bec1d3e56798d78f0d29c9e25e65991acc2e227f714619e51543cff02ce3e32",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2204691,
+      "acceptedAt": "2026-09-26T00:58:24.294628+00:00",
+      "supportingReferenceSha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1"
+    },
+    {
+      "id": "sunrise-crew",
+      "source": "public/assets/story/sunrise-crew-branded-v1.png",
+      "output": "public/assets/story/sunrise-crew-branded-v2.png",
+      "placement": "Replace the large emblem on the ivory car hood (x24% y52%) with the exact SORA reference emblem, about 7% of image width, as a physical decal naturally foreshortened to the hood. Preserve the SORA word beneath.",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the only edit target. IMAGE 2 is the exact supplied SORA emblem artwork to copy. IMAGE 3 is solely a successful example of the required geometric logo applied as a physical patch; do not copy its scene, person, framing or setting. Remove the old large mark on the cream sports-car hood at x24% y52%. Print an accurate image-2 reproduction on a physical ivory rectangular hood decal about 9% of image width, with the red circle filling most of it; keep SORA below. The mark must have the same clearly open diagonal cutouts as the successful chest patch in image 3.\nCopy the actual image-2 artwork as an intact graphic. This is NOT text. The two white horizontal bars are equal in width and rectangular, joined by a straight central vertical stem. Two straight thick diagonal white channels continue THROUGH and OUT OF the lower-left and lower-right circumference, leaving a visibly separated red bottom wedge. No red rim may bridge those two bottom gaps. The result should be a precise geometric graphic with clearly OPEN lower cutouts, not curved brush strokes or a font substitute. Match surface perspective and lighting. Preserve the entire original scene's composition, 16:9 framing, fine pixel-anime texture, all adult faces and body poses, costumes, car, props, background, original warmth and colour balance, and all text. Change only the requested emblems. No global blur, no new vignette, no extra characters or objects, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-5f1161e7-2deb-4a1a-bf4a-951a26773151.png",
+      "visualQA": "Accepted: ivory hood decal has geometric straight bars and straight diagonal channels opening into the ivory backing, clearly readable above dialogue region. All six adult characters, instruments/cameras/cups, three cars and sunrise vista preserved. Secondary legacy small glyphs remain.",
+      "supportingReference": "public/assets/story/angles/sunrise-right-v3.png",
+      "sourceSha256": "20ed109b23b7f2a659e9508be07cf7c816d2c3dc58e3841d373723cb5ea7d2da",
+      "outputSha256": "54d05d26c689e4120e1a9af44c655c13b0feab49b7a84450c31ec75761249edd",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2203071,
+      "acceptedAt": "2026-09-26T00:58:24.322128+00:00",
+      "supportingReferenceSha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1"
+    },
+    {
+      "id": "sunrise-kiss",
+      "source": "public/assets/story/beats/sunrise-kiss-v2.png",
+      "output": "public/assets/story/beats/sunrise-kiss-v3.png",
+      "placement": "Replace the red emblem on the cream-jacketed adult man's left chest (x51% y42%) with the exact SORA reference emblem as a circular embroidered patch, about 5% of image width. Keep the SORA word underneath. Also correct the prominent car-hood emblem to the exact reference geometry, following the hood perspective.",
+      "prompt": "Use case: precise-object-edit. IMAGE 1 is the only edit target. IMAGE 2 is the exact supplied SORA emblem artwork to copy. IMAGE 3 is solely a successful example of the required geometric logo applied as a physical patch; do not copy its scene, person, framing or setting. On the cream-jacketed adult man's chest at x51% y42%, replace the old mark with a cream square stitched patch spanning x48%\u201355% y36%\u201349% containing the exact image-2 logo and SORA beneath, like the clear chest patch in image 3. Also replace the large car-hood emblem at x9% y69% with the exact geometric emblem following the hood perspective, preserving the SORA word. Do not change the adults' faces, kissing pose, hands or body contact.\nCopy the actual image-2 artwork as an intact graphic. This is NOT text. The two white horizontal bars are equal in width and rectangular, joined by a straight central vertical stem. Two straight thick diagonal white channels continue THROUGH and OUT OF the lower-left and lower-right circumference, leaving a visibly separated red bottom wedge. No red rim may bridge those two bottom gaps. The result should be a precise geometric graphic with clearly OPEN lower cutouts, not curved brush strokes or a font substitute. Match surface perspective and lighting. Preserve the entire original scene's composition, 16:9 framing, fine pixel-anime texture, all adult faces and body poses, costumes, car, props, background, original warmth and colour balance, and all text. Change only the requested emblems. No global blur, no new vignette, no extra characters or objects, no watermark.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-92c3fce3-9b09-4875-89d0-8ca24bd72333.png",
+      "visualQA": "Accepted: prominent ivory car-hood decal has straight equal bars and both open straight lower cutouts at around 70% height; cream chest patch also updated. Adult kissing pose, faces, hands, body contact, car/recorder, location sign, vista, lighting and framing preserved. Small secondary marks may remain stylized.",
+      "supportingReference": "public/assets/story/angles/sunrise-right-v3.png",
+      "sourceSha256": "977b499a27eaf12f4d7aa906021bba8f58133d9a40d1f98431eb563a6783ec13",
+      "outputSha256": "b948a083ed13baf63cd3053654eb751d116fd5bced83759dd7b7cc79c8a8b6c0",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2504344,
+      "acceptedAt": "2026-09-26T00:58:24.342759+00:00",
+      "supportingReferenceSha256": "9b196254ca1287b10f126197c1bff249e8f3ea5d4211cbce999cf2b1b22e8fe1"
+    },
+    {
+      "id": "sunrise-left",
+      "source": "public/assets/story/angles/sunrise-left-v2.png",
+      "output": "public/assets/story/angles/sunrise-left-v3.png",
+      "placement": "Primary faithful emblem is the red-jumpsuit upper-arm patch at about x26%, y47%. Hood decal also updated; cream jacket chest is preserved.",
+      "prompt": "Precisely edit image 1 while preserving its original bright sunrise lighting, crisp pixel-art texture and entire composition. Image 2 is the actual graphic artwork to insert. Replace TWO existing fake logo marks: the patch on the red-jumpsuit woman's upper arm at x26% y47%, and the large emblem on the ivory car hood at x14% y85%. Replace each with an accurate small reproduction of image 2: red circular artwork, equally long straight rectangular white bars, central stem, and two STRAIGHT white diagonal channels that BREAK OPEN THROUGH THE LOWER CIRCULAR EDGE. The red bottom wedge is separated from the upper red shape by the open white channels. This must be the actual geometric design in image 2, copied as a graphic, not a font character. For the arm, use a cream cloth backing with the logo clearly readable about 70 pixels wide; match sleeve perspective. For the hood, make the straight-edged logo larger like the existing mark and match the hood's perspective. Preserve the SORA word on the hood. Leave the man and his chest badge alone. Preserve both adult faces, expressions, hair, hands, cassette, cassette recorder, background crew, all cars, location signs, water, mountain, sunrise colours and composition. No vignette or haze added. Do not change any other element.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a0db2a-10b6-7091-88f4-d720ef157871/exec-59ad4243-4f16-4477-9254-e2a83ea80709.png",
+      "visualQA": "Accepted: red-jumpsuit upper-arm patch now has straight equal white bars, a central stem and straight lower channels opening into the cream backing, readable at roughly 47% height. The cream backing ring is outside the red logo; the lower red wedge is separated by the cutouts. Original bright colour, crisp pixel-anime texture, both adult faces/poses, cassette/recorder, location signs, cars and vista preserved. Other secondary legacy marks remain stylized.",
+      "sourceSha256": "4e32b538d19668bce9c1db0402fa9ab96c2e891a2330ab695a48c08b67d3a80a",
+      "outputSha256": "72dd23052b3eb6f5dcf60033776e2a903087b2ec4947b3096d4badfeba85fbdd",
+      "dimensions": [
+        1672,
+        941
+      ],
+      "bytes": 2482477,
+      "acceptedAt": "2026-09-26T01:00:34.695975+00:00"
+    }
+  ],
+  "reviewedCount": 6,
+  "originalsPreserved": true,
+  "runtimeIntegration": "Deferred to parent task; no runtime files modified by artwork agent."
+}

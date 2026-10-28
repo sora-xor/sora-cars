@@ -1,0 +1,472 @@
+{
+  "schema": "sora-cars-generated-logo-edits-v1",
+  "tool": "image_gen",
+  "reviewer": "/root/remaining_art_review",
+  "assets": [
+    {
+      "id": "ch12-intro-cut11",
+      "source": "public/assets/story/scenes/ch12-intro-cut11.png",
+      "sourceSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "output": "public/assets/story/scenes/ch12-intro-cut11-center-root-v3.png",
+      "editTarget": "public/assets/story/scenes/ch12-intro-cut11.png",
+      "editTargetSha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a",
+      "transparentBackground": false,
+      "prompt": "Edit image1, an OPAQUE full-scene pixel illustration. Rotate ONLY the large red-and-white hood emblem in the foreground by180degrees in its own surface plane. Retain its existing oval footprint, center, paint texture and scale. The logo should now be UPSIDE DOWN to this camera, because the camera is behind the car windshield. The two horizontal white bars belong at the NEAR lower-left windshield side of the oval; the two white opening diagonals point toward the FAR upper-right crew/bumper side. Match the car hood perspective. Do not change any people, papers, maps, wipers, hood borders, scenery or lighting. Preserve exact bright original colors and full edge-to-edge illustration. Every output pixel must remain fully opaque, no transparency or fading, no removal of lower hood. Image2 is the emblem reference only; orient its pattern as specified on the hood.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-d5689a42-d80a-415c-ae67-6ea60569a976.png",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "outputSha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "generatedSourceSha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+      "sourceInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "editTargetInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "outputInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "status": "accepted",
+      "byteExactCopy": true,
+      "sourceUnchanged": true,
+      "savedAt": "2026-10-23T13:24:34.808Z",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0,
+        "decileMeans": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0,
+        "decileMeans": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "referencedImagePaths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut11.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "generationInputs": [
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut11.png",
+          "sha256": "1439fe75b24010335f102c48e50154daf429a1cb35b19d7f23cd4bdda128562a"
+        },
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/remaining_art_review",
+        "individuallyViewed": true,
+        "viewedSha256": "7d624145533ef61c2013ca64fb402271470883a5425a23ee550bf4b4c1e23ee2",
+        "reviewedAt": "2026-10-23T13:26:26.141Z",
+        "zeroAlphaAboveY700": 0,
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "realTransparencyPreserved": true,
+        "observation": "Large hood decal now reads upside down to the behind-windshield camera: parallel bars nearest wipers, open white diagonal channels toward far bumper/crew. Disk remains centered on hood, inside panel boundaries, and shares projected hood plane. Full illustrated hood, six people, papers, scenery and original opaque alpha retained."
+      }
+    },
+    {
+      "id": "ch09-intro-cut09",
+      "source": "public/assets/story/scenes/ch09-intro-cut09.png",
+      "editTarget": "public/assets/story/scenes/ch09-intro-cut09-logo-v6.png",
+      "output": "public/assets/story/scenes/ch09-intro-cut09-logo-v7.png",
+      "transparentBackground": true,
+      "prompt": "Use case: precise-object-edit. Image1 is the complete scene artwork to preserve. Restore its true PNG alpha transparency ONLY in the empty black lower margin, below the illustrated tabletop. Preserve every scenic pixel above y700 including wall, windows, city, characters, jacket badge, equipment, car picture and the corrected SORA Nexus emblem on the framed wall poster. Keep that poster emblem's shape and centered placement exactly. The bottom black margin from about y760 to y941 must become genuinely transparent; smoothly fade the narrow dark tabletop edge into it, but do not remove any prop, person, equipment or background. Image2 is the original scene and its genuine lower alpha reference. Keep image1's corrected poster geometry, not image2's old logo. Full 1672x941 PNG. No opaque black simulated transparency, no checkerboards, no upper-background cutouts.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-8b7f7462-ad0f-440b-82bf-e4f753d5801a.png",
+      "sourceSha256": "09343581abaff0b755e218b77edd862b5ea77f76726c22a5b1014170cbebd093",
+      "editTargetSha256": "5bf139679ee25dce596de87033c6318636d6e051352e0b2b4cced059ef951a48",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "outputSha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "generatedSourceSha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+      "sourceInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 2,
+          "max": 251,
+          "nonOpaque": 1573352,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            237.04,
+            241.96,
+            242.82,
+            244.01,
+            244.59,
+            244.72,
+            242.35,
+            190.34,
+            21.21,
+            25.34
+          ]
+        }
+      },
+      "editTargetInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "outputInspection": {
+        "width": 1671,
+        "height": 941,
+        "alpha": {
+          "min": 0,
+          "max": 253,
+          "nonOpaque": 1572411,
+          "fullyTransparent": 162828,
+          "decileMeans": [
+            252.5,
+            252.69,
+            252.67,
+            252.63,
+            252.57,
+            252.53,
+            252.46,
+            219.51,
+            13.83,
+            0.25
+          ]
+        }
+      },
+      "status": "accepted",
+      "byteExactCopy": true,
+      "sourceUnchanged": true,
+      "savedAt": "2026-10-23T13:24:35.459Z",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 2,
+        "max": 251,
+        "nonOpaque": 1573352,
+        "fullyTransparent": 0,
+        "decileMeans": [
+          237.04,
+          241.96,
+          242.82,
+          244.01,
+          244.59,
+          244.72,
+          242.35,
+          190.34,
+          21.21,
+          25.34
+        ]
+      },
+      "outputDimensions": {
+        "width": 1671,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 0,
+        "max": 253,
+        "nonOpaque": 1572411,
+        "fullyTransparent": 162828,
+        "decileMeans": [
+          252.5,
+          252.69,
+          252.67,
+          252.63,
+          252.57,
+          252.53,
+          252.46,
+          219.51,
+          13.83,
+          0.25
+        ]
+      },
+      "referencedImagePaths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-cut09-logo-v6.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-cut09.png"
+      ],
+      "generationInputs": [
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-cut09-logo-v6.png",
+          "sha256": "5bf139679ee25dce596de87033c6318636d6e051352e0b2b4cced059ef951a48"
+        },
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch09-intro-cut09.png",
+          "sha256": "09343581abaff0b755e218b77edd862b5ea77f76726c22a5b1014170cbebd093"
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/remaining_art_review",
+        "individuallyViewed": true,
+        "viewedSha256": "48160ec11f2fe81aee94494785f91906eed2a73c9595d9ac6af7f9d0bbe02029",
+        "reviewedAt": "2026-10-23T13:26:26.364Z",
+        "zeroAlphaAboveY700": 0,
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "realTransparencyPreserved": true,
+        "observation": "Corrected framed wall emblem remains centered with open diagonal gaps. Complete studio, people, mugs and equipment preserved. Genuine lower alpha restored with no fully transparent pixels above y700; bottom decile mean alpha0.25, upper bands~252.5. No checkerboard or background cutout."
+      }
+    },
+    {
+      "id": "ch12-intro-cut03",
+      "source": "public/assets/story/scenes/ch12-intro-cut03.png",
+      "sourceSha256": "751a9253a3fd0f395eabe6d331c93fd4c42f45859d03a5278b71ad9d11024ac6",
+      "editTarget": "public/assets/story/scenes/ch12-intro-cut03-center-root-v2.png",
+      "editTargetSha256": "07572b728b06d6079cef2957df88ccc7024637e69a8d8546d296c8c8f4c13fd7",
+      "supersedes": {
+        "path": "public/assets/story/scenes/ch12-intro-cut03-center-root-v2.png",
+        "sha256": "07572b728b06d6079cef2957df88ccc7024637e69a8d8546d296c8c8f4c13fd7"
+      },
+      "output": "public/assets/story/scenes/ch12-intro-cut03-center-root-v3.png",
+      "transparentBackground": false,
+      "prompt": "Use case: precise-object-edit. Image1 is the target opaque pixel-art garage scene. Move ONLY the red SORA Nexus emblem on the white door of the distant red-and-white coupe at far LEFT about 27 pixels RIGHT, from center approximately (129,521) to (156,521) on the original 1672x941 canvas. This centers the badge on the actual car door, whose front/right section is hidden behind the stacked black tool cases and the seated man. Keep the same badge size, paint texture, and projected door plane. The black cases must naturally OCCLUDE the newly positioned badge's lower-right portion; do not move, erase, make transparent, or paint over the tool cases or man. Remove the previous badge cleanly and restore matching door paint there. Do not change car body seams or any other marks, mugs, people, facial expressions, clothes, props, sunlight, framing, or composition. Image2 is the exact emblem geometry reference, with paired equal white horizontal bars, central white stem, and two long white diagonal openings cutting fully through the red disk edge. Every output pixel must remain fully opaque, full scene, no transparency, fading, cutouts, or checkerboards.",
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-3ca7-7db1-9871-a3a207d66640/exec-7527b472-c691-4407-b0e6-67bfacf00ebf.png",
+      "outputSha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "generatedSourceSha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+      "sourceInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "editTargetInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "outputInspection": {
+        "width": 1672,
+        "height": 941,
+        "alpha": {
+          "min": 255,
+          "max": 255,
+          "nonOpaque": 0,
+          "fullyTransparent": 0,
+          "decileMeans": [
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255,
+            255
+          ]
+        }
+      },
+      "sourceDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "sourceAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0,
+        "decileMeans": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "outputDimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "outputAlpha": {
+        "min": 255,
+        "max": 255,
+        "nonOpaque": 0,
+        "fullyTransparent": 0,
+        "decileMeans": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ]
+      },
+      "status": "accepted",
+      "byteExactCopy": true,
+      "sourceUnchanged": true,
+      "savedAt": "2026-10-23T13:29:03.306Z",
+      "reference": "public/assets/branding/sora-emblem-source.png",
+      "referenceSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+      "referencedImagePaths": [
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut03-center-root-v2.png",
+        "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+      ],
+      "generationInputs": [
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/story/scenes/ch12-intro-cut03-center-root-v2.png",
+          "sha256": "07572b728b06d6079cef2957df88ccc7024637e69a8d8546d296c8c8f4c13fd7"
+        },
+        {
+          "path": "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png",
+          "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+        }
+      ],
+      "visualQA": {
+        "reviewer": "/root/remaining_art_review",
+        "individuallyViewed": true,
+        "viewedSha256": "3232952f3f5deb7b6d24c7fb4c69eb84e7860b5ccf8c7cbaad0ac96f351f690d",
+        "reviewedAt": "2026-10-23T13:29:49.776Z",
+        "hasRecognizableReferenceGeometry": true,
+        "compositionPreserved": true,
+        "realTransparencyPreserved": true,
+        "observation": "Badge moved right from approximately129 to146 on the partly hidden door face, now centered farther into the physical panel. The stacked black cases naturally occlude the lower-right badge; car seams and cases preserved. Full scene and source opaque alpha255 retained. Root review needed before integration."
+      }
+    }
+  ]
+}

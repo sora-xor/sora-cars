@@ -1,0 +1,142 @@
+{
+  "reviewer": "/root/logo_alignment_review",
+  "reviewedAt": "2026-09-26T14:13:07.217Z",
+  "scope": "12 previously accepted B outputs; material physical centering and perspective audit only; no image edits",
+  "individualReview": true,
+  "findings": [
+    {
+      "id": "ch05-victory-cut06",
+      "result": "pass",
+      "observation": "White jacket sleeve emblem centered on upper-arm panel below shoulder seam, with fabric curvature and no seam overlap.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch05-victory-cut06-logo-v2.png",
+      "outputSha256": "2bd0e0662ed057b0e56320612d01fe333cbc9350724d5ca0eeea672cfa3ab5b7",
+      "source": "public/assets/story/scenes/ch05-victory-cut06.png",
+      "sourceSha256": "ce2691f7e6c982b3f36b39eb297943937bc869b6ae92493f5bfd6458f94cff4b"
+    },
+    {
+      "id": "ch06-intro-cut02",
+      "result": "pass",
+      "observation": "Small badge centered on hanging panel of tied red jacket; circular award mark centered within plaque disk.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch06-intro-cut02-logo-v4.png",
+      "outputSha256": "f5dd5ca4a766d6047fa928008761a029a5fb6ab8f4b315d8c14578839b49dc27",
+      "source": "public/assets/story/scenes/ch06-intro-cut02.png",
+      "sourceSha256": "12233e156abd4aee4fbae966f6a84e53c4a28d17d302e8476ab5984bf481a62d"
+    },
+    {
+      "id": "ch06-intro-cut03",
+      "result": "pass",
+      "observation": "White T-shirt back emblem placed centrally between projected shoulder blades below collar, following torso tilt.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch06-intro-cut03-logo-v2.png",
+      "outputSha256": "65e66970f2258cab85dd87f9d83150b9ea915a0c5e6d6525e928a440669b578b",
+      "source": "public/assets/story/scenes/ch06-intro-cut03.png",
+      "sourceSha256": "59dd517e14878a77eb6cb1496d485acaa548b2ecfed983ee03d476699c6b878e"
+    },
+    {
+      "id": "ch06-intro-cut04",
+      "result": "pass",
+      "observation": "Denim back patch centered on visible back panel under shoulder yoke; framed photograph sleeve and car-door marks follow their surfaces.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch06-intro-cut04-logo-v4.png",
+      "outputSha256": "6fdc8d5829bd87e2b0adc6d0edd20066fb320ebda025a4110112d656be679310",
+      "source": "public/assets/story/scenes/ch06-intro-cut04.png",
+      "sourceSha256": "8eeb1582930a2810e288e343b7f54e1c71f29a535cdf16a457d53bdb6c0c39b5"
+    },
+    {
+      "id": "ch06-victory-cut05",
+      "result": "pass",
+      "observation": "Two case-face marks have balanced projected margins; folder mark centered within perspective trapezoid and follows its plane.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch06-victory-cut05-logo-v2.png",
+      "outputSha256": "55060d037fcbc63a15deae68c050eb906190e808162728087549b144b0d6b8b8",
+      "source": "public/assets/story/scenes/ch06-victory-cut05.png",
+      "sourceSha256": "45f007c26953d8a358a64d13fda81b7a655ba65ce04cb4291bf4b94ea19b4950"
+    },
+    {
+      "id": "ch07-intro-cut06",
+      "result": "pass",
+      "observation": "Green-car mark centered inside fuel-flap outline; navy chest patch centered between zipper and shoulder edge; wall sign and hanging jacket centered.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch07-intro-cut06-logo-v2.png",
+      "outputSha256": "a873791aabef9035f5b9dfa2f95cd9d49a3a745b6a472f4bacbbd9e58123072e",
+      "source": "public/assets/story/scenes/ch07-intro-cut06.png",
+      "sourceSha256": "5408a5495636f1a0d9e27024632174a5f251eaa611c13b3feb06e413fad121dd"
+    },
+    {
+      "id": "ch10-intro-cut08",
+      "result": "pass",
+      "observation": "Yellow upper-sleeve badge centered beneath shoulder seam and follows curved arm; no misplaced body or car marks.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-intro-cut08-logo-v2.png",
+      "outputSha256": "86b916af880d3d8f20c653ade4693795fd3b866d6cfe18eecd8675015d5c4a53",
+      "source": "public/assets/story/scenes/ch10-intro-cut08.png",
+      "sourceSha256": "8126501397635c4c0acd484a714be6e5b5273402a2ad9b09e4f3e38dfde9dd17"
+    },
+    {
+      "id": "ch10-intro-cut09",
+      "result": "review-required",
+      "observation": "Hood decal center approx1055,380 close to axis, but left edge appears to overlap near pop-up headlamp inner seam approx964,349→1033,426. Main hood quadrilateral estimated964,349;1116,348;1243,421;1033,426 with center1084,386. Recommend independent review; possible25px right/5px down plus10–15% reduction. No edit made.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-intro-cut09-logo-v2.png",
+      "outputSha256": "9a606e00e9a788fc79e14f6eada0f3f93db7cb3dec9bf512e93dda15c16d04fd",
+      "source": "public/assets/story/scenes/ch10-intro-cut09.png",
+      "sourceSha256": "929336b3274c7911687fb006c405979fba883bf227a59cdde7c2f5614fcefa37",
+      "resolution": {
+        "output": "public/assets/story/scenes/ch10-intro-cut09-logo-v3.png",
+        "outputSha256": "247270462631a58630cccf85e36e54041180886d7c3f99ead545e69bd12314f6",
+        "priorSupersedes": {
+          "path": "public/assets/story/scenes/ch10-intro-cut09-logo-v2.png",
+          "sha256": "9a606e00e9a788fc79e14f6eada0f3f93db7cb3dec9bf512e93dda15c16d04fd"
+        },
+        "individuallyViewed": true,
+        "reviewer": "/root/logo_alignment_review",
+        "verdict": "pass",
+        "observation": "Small rightward translation and reduction place decal wholly within main hood boundaries, clear of nearest headlamp seam; original fully opaque canvas retained.",
+        "rootIndependentIntegrationReview": "Accepted by /root: reduced decal centered on main hood sheet, clear gap from headlamp seam, foreshortened axis correct.",
+        "reviewedAt": "2026-09-26T14:24:52.346Z"
+      }
+    },
+    {
+      "id": "ch10-victory-cut01",
+      "result": "pass",
+      "observation": "Distant denim back patch centered on projected spine below collar, between upper-back panel seams despite raised arms.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-victory-cut01-logo-v2.png",
+      "outputSha256": "ee7dc5d24874df5fd5576adbe27bdf42fd223eb6d25baf8d3782aeccd2797bb5",
+      "source": "public/assets/story/scenes/ch10-victory-cut01.png",
+      "sourceSha256": "e6dcb6effa5736fed211ea7eb8c0a6310b0bc38d68e65fa9397dc0c37ac46f85"
+    },
+    {
+      "id": "ch10-victory-cut02",
+      "result": "pass",
+      "observation": "Blue blouse badge centered on exposed upper-arm sleeve panel below shoulder, following arm curvature.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-victory-cut02-logo-v2.png",
+      "outputSha256": "b38556e82003013528376a306f1ae9832f6907ca9e29ad0ff371e2d85274a51c",
+      "source": "public/assets/story/scenes/ch10-victory-cut02.png",
+      "sourceSha256": "7ca228d2bc42787b7f205e31054efa2147c4041246bc1186295e21b933f4ba39"
+    },
+    {
+      "id": "ch10-victory-cut03",
+      "result": "pass",
+      "observation": "Mint jacket mark centered on visible upper-arm panel, with foreshortening matching bent arm.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-victory-cut03-logo-v2.png",
+      "outputSha256": "5bf0a516e1ae3ff50fb2bf3bbf00100ea4a0cac14af2113febaae82f402ba2c4",
+      "source": "public/assets/story/scenes/ch10-victory-cut03.png",
+      "sourceSha256": "87a841a24261f8601b6b1318bbc461229b3c669d53da95c48b205f2e2df98511"
+    },
+    {
+      "id": "ch10-victory-cut04",
+      "result": "pass",
+      "observation": "Main jacket sleeve mark centered on broad upper-arm surface; headphone and rotary-phone centers and exterior sign face are balanced. Poster car mark sits on its door face.",
+      "individuallyViewed": true,
+      "output": "public/assets/story/scenes/ch10-victory-cut04-logo-v2.png",
+      "outputSha256": "059726a6b691cf6f4517700db34aac9be2b57e59604f9c3df8de075764fb7429",
+      "source": "public/assets/story/scenes/ch10-victory-cut04.png",
+      "sourceSha256": "1f0c7bfb8d888634202bb0f19ac4a5c72f55ddff39d2aff4e380c108da25e0b1"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "sora-cars.music-native-issuance-preparation.v1",
+  "checkedAt": "2026-10-28T04:46:21.011339+00:00",
+  "releaseReady": false,
+  "preflight": {
+    "path": "artifacts/music-release-preflight-2026-10-28.json",
+    "sha256": "a751a0c7496b8f16a4468204ac3fa8ec2c0af4eb715c021a62d1e8f9b87ab0f7"
+  },
+  "nativeIssuerTemplates": {
+    "path": "output/qualification/music-offer-instructions-2026-10-28/report.json",
+    "sha256": "ed12094217487bd51ac21b38f2521c13250fd5e4d321cd8bdc7dd8b900f5f2b2"
+  },
+  "nativePackVerification": {
+    "path": "output/qualification/music-publication-path-2026-10-28/local-full-payload-scaled/verify-resume-1/command.json",
+    "sha256": "1e6362fa592c02bc1e3efa1dfe6032b0746b15be3d9d4209ed22252fa9a89e49"
+  },
+  "editionCount": 26,
+  "unsignedAtomicTemplatesReady": true,
+  "templateInstructionOrder": [
+    "Register NFT",
+    "Offer NFT"
+  ],
+  "browserRustInstructionBytesMatch": true,
+  "nativeCliOfflineParsingPassed": true,
+  "nodeExporterRequiredForThisNativeCliPath": false,
+  "preparedSignedTransactions": 0,
+  "nftsIssued": 0,
+  "offersSubmitted": 0,
+  "localStorageStage": "provider restart/readback running",
+  "livePublication": false,
+  "realPurchaseVerified": false,
+  "remaining": [
+    "Qualified marketplace and reviewed matching release configuration.",
+    "Current configured frontend/native manifest and usable remote storage publication/retrieval.",
+    "Fresh account/domain/balance/ID/expiry checks, native prepare/sign/submit and finalized listing readback.",
+    "Real1XOR purchase, fresh ownership and verified song/license download."
+  ]
+}

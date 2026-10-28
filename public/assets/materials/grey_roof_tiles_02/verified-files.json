@@ -1,0 +1,28 @@
+{
+  "verified": "2026-09-13",
+  "license": "CC0-1.0",
+  "source": "https://polyhaven.com/a/grey_roof_tiles_02",
+  "files": [
+    {
+      "path": "color.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_roof_tiles_02/grey_roof_tiles_02_diff_2k.jpg",
+      "bytes": 1530646,
+      "md5": "2f49aaebd1b68926e76ddce57d27b6ff",
+      "sha256": "6a95a3d95a8d8b96f02caf9639f5ceaa814d0faae96f351d1e594b4d4feeb6d7"
+    },
+    {
+      "path": "normal.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_roof_tiles_02/grey_roof_tiles_02_nor_gl_2k.jpg",
+      "bytes": 2553079,
+      "md5": "ec60f08e8819bfac34b71e04d354459b",
+      "sha256": "95136d3c44c314838f3b62961986b64cdacfb54b6646302b1dab671eaefa5cca"
+    },
+    {
+      "path": "arm.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/grey_roof_tiles_02/grey_roof_tiles_02_arm_2k.jpg",
+      "bytes": 702157,
+      "md5": "3e3c52768bb79f9e4d00fc0af74e66e2",
+      "sha256": "cdafc65c4cee9ca999090f2a433ed28846cf3ca625bdc26435fe807b9c15b966"
+    }
+  ]
+}

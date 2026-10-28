@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "tool": "builtin image_gen.imagegen",
+  "generationMode": "One original square cover followed by one built-in generated edit of its logo plaque. Final PNG copied byte-for-byte; no programmatic pixel editing.",
+  "series": "SORA CARS — Tokyo soundtrack sleeve",
+  "skill": "/Users/takemiyamakoto/.codex/skills/.system/imagegen/SKILL.md",
+  "song": {
+    "id": "meet-me-at-yasukuni",
+    "title": "靖国ジンジャで会おう",
+    "titleEn": "Meet Me at Yasukuni",
+    "artist": "SORA Cars"
+  },
+  "stylisticReferences": [
+    {
+      "path": "public/assets/music/covers/one-umbrella-two-chairs-v1.png",
+      "role": "Viewed collection reference for palette, printed logo placement, geometry and fine sleeve grain; not passed as a generation input.",
+      "sha256": "bd7549d20445e872f21aebc27151774da04ba814a69dd762efb00feb7ce3b8eb"
+    },
+    {
+      "path": "public/assets/music/covers/sakura-express-v1.png",
+      "role": "Viewed collection reference for dusk coral/indigo contrast, airbrush shading and cherry-petal composition; not passed as a generation input.",
+      "sha256": "83cc330d002afee9f8a043585b52cb8a534b7cf3412c55fe468d14cfeafe3fdf"
+    }
+  ],
+  "promptReferences": [
+    {
+      "path": "docs/art-prompts/soundtrack-covers-core-v1.json",
+      "sha256": "53226f1e1705afde4ce9806087b32fab3462fcead9ec1a72e851f89911f1d347"
+    },
+    {
+      "path": "docs/art-prompts/soundtrack-covers-story-v1.json",
+      "sha256": "c3615f124ca68319236acc80fdc8802383eb3bd94e152d938fa2986f4856cbe1"
+    },
+    {
+      "path": "docs/art-prompts/soundtrack-covers-logo-story-a-v1.json",
+      "sha256": "8bf2becff8586b1afe03a527bcfd772b8ab20f77916ec1139f8eb3e607556685"
+    }
+  ],
+  "initialGeneration": {
+    "prompt": "Use case: stylized-concept. Create one finished original square 1024x1024 music record-sleeve illustration for the SORA Cars soundtrack song \"靖国ジンジャで会おう / Meet Me at Yasukuni\". This is flat edge-to-edge artwork, not a physical sleeve mockup. A peaceful, intimate meeting on a tree-lined Tokyo shrine approach at dusk: a large elegant gray stone torii in the upper-middle distance, beyond a broad cream-paved path; two small adult figures in simple everyday city clothes walk toward one another near the foot of the gate, visibly separate silhouettes, quiet anticipation and warmth. Deep indigo trees and a restrained distant Tokyo city silhouette frame a soft peach and coral twilight sky. Make the setting welcoming and contemporary; no war imagery, military uniforms, flags, statues, memorial plaques, weapons, rally, or historical narrative. A few coral cherry petals float through the air. In the foreground, two thin cyan lines weave across a dark indigo abstract street-map plane like the twin voices of an analog synthesizer, converge near the meeting point, and become subtle reflections on the path. Keep the two people small and the composition iconic, spacious and graphic, with a high eye-level view and gentle perspective depth. Sophisticated 1980s Japanese electronic soundtrack sleeve aesthetic, precise bold geometry, tactile airbrush color transitions, delicate silkscreen grain on matte paper, selective indigo/coral/cream/cyan palette. Strong thumbnail readability, restrained romantic mood, no photorealism, no pixel art. Upper-left editorial branding area: a clean small white printed square occupying about 12 percent of the canvas width, inset 4 percent from top and left, with a centered red circular SORA emblem. The emblem is geometric, not typeset: two equal white horizontal bars joined by a central vertical connector, branching into two straight white diagonal channels of constant width which pass completely through the lower red circumference, leaving a detached red wedge at the bottom. Keep the emblem upright, crisp and fully visible. To the right of the white square, small elegantly spaced cream text \"SORA CARS\" in a simple geometric sans serif. These are the only letters on the entire cover: no title or Japanese text, no additional lettering, no invented signage, no signature, no watermark. Logo is editorial print only, not attached to a person or architectural object. Original composition, do not imitate any commercial album cover or musician logo. Entire square canvas fully opaque with all four corners filled; RGB or alpha 255 everywhere, no transparent pixels, border, frame, vignette or fading.",
+    "referenced_image_paths": [],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-5cedd47e-47f6-4d05-9c78-c85221352e3f.png",
+    "status": "superseded",
+    "reason": "Initial logo incorrectly used only one white horizontal bar. Artwork retained for the focused source-referenced logo edit.",
+    "sha256": "82010ff13d8e007e4b3ed1992127f44b71084010f59c3ba89ad873e3f0da2756",
+    "bytes": 2927486,
+    "width": 1254,
+    "height": 1254,
+    "alphaExtrema": [
+      255,
+      255
+    ],
+    "nonOpaquePixels": 0
+  },
+  "acceptedGeneration": {
+    "prompt": "Use case: compositing. Edit only the small upper-left editorial logo plaque on image 1, a square SORA CARS soundtrack sleeve. Image 2 is the actual supplied SORA emblem graphic. Replace the incorrect single-bar symbol currently in the plaque with image 2's complete exact red-and-white graphic. The supplied emblem has TWO equal-length straight horizontal white bars, connected by a short centered vertical white stem, and two constant-width diagonal white channels extending from the second bar completely through the lower red circumference. A detached red wedge remains at the bottom between those open channels. Copy the exact source graphic geometry and proportions faithfully, not the font character 天, not a single T-shaped bar, not a closed red lower rim, not tapered strokes or an approximation. Center the complete red circular emblem in the existing white square plaque with even modest margins on all four sides. Make the square pure white like the reference, and preserve the existing plaque position and size. Use the reference's saturated red and pure white; flat editorial printing, no lighting, shadow or glow on the logo. The small SORA CARS wordmark stays exactly as it is to the right. Preserve absolutely everything outside that plaque: the full square composition and dimensions, torii, Tokyo dusk sky, skyline, cherry trees, two meeting people, lanterns, tiled path, cyan lines and street-map foreground, every object position, colors, light, fine print grain and edge-to-edge framing. No other text, no other logos, no cropping, no reinterpretation, no extra subjects. Final image must be fully opaque square RGB or alpha 255 on every pixel, including all four corners.",
+    "referenced_image_paths": [
+      "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-5cedd47e-47f6-4d05-9c78-c85221352e3f.png",
+      "/Users/takemiyamakoto/dev/sora-cars/public/assets/branding/sora-emblem-source.png"
+    ],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a168ea-1783-7ca2-b3bd-b1476b7422e5/exec-7223977a-9210-4633-9c70-43d2cc1d8613.png",
+    "destination": "public/assets/music/covers/meet-me-at-yasukuni-v1.png",
+    "status": "visual-review-passed-awaiting-root-integration",
+    "visualInspection": {
+      "inspectedWith": "view_image at original detail after image_gen returned",
+      "composition": "Peaceful two-person meeting on a broad lantern-lit Tokyo shrine approach at dusk, gray torii, coral cherry trees, indigo city silhouette and cyan twin synth/map lines.",
+      "logo": "Upright red-and-white supplied geometric emblem centered in a flat upper-left white editorial square. Two equal white bars, centered connector, straight open lower channels and detached lower red wedge are visibly preserved. No font substitution, closed lower rim or logo placed across a physical object.",
+      "text": "SORA CARS is readable beside the emblem; no other lettering.",
+      "boundaries": "Full square with all four corners filled; no crop, frame or transparency.",
+      "content": "No war or militaristic imagery.",
+      "fidelityScope": "Visual geometry check against supplied emblem; does not claim pixel identity between generated emblem and source graphic."
+    },
+    "sha256": "362f501474d70d9969465ad5b65a69e84e982358870cbf049568dffcb2dd6ced",
+    "bytes": 2589095,
+    "width": 1254,
+    "height": 1254,
+    "alphaExtrema": [
+      255,
+      255
+    ],
+    "nonOpaquePixels": 0,
+    "sourceBytesMatch": true
+  },
+  "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+  "boundaries": "Only this provenance file and the new cover asset are written. No catalog, application, audio, tests, shared native source or release configuration changes.",
+  "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "createdAt": "2026-10-23T14:37:53.646Z"
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "lod": 0,
+    "material": "tree_small_02_branches",
+    "sourceTriangles": 94814,
+    "triangles": 50055,
+    "error": 0.00025161579833365977
+  },
+  {
+    "lod": 0,
+    "material": "tree_small_02_leaves",
+    "sourceTriangles": 1939380,
+    "triangles": 424280,
+    "error": 0.000772039289586246
+  },
+  {
+    "lod": 0,
+    "material": "tree_small_02_trunk",
+    "sourceTriangles": 28293,
+    "triangles": 14938,
+    "error": 0.0007902199286036193
+  },
+  {
+    "lod": 1,
+    "material": "tree_small_02_branches",
+    "sourceTriangles": 94814,
+    "triangles": 18888,
+    "error": 0.000827854557428509
+  },
+  {
+    "lod": 1,
+    "material": "tree_small_02_leaves",
+    "sourceTriangles": 1939380,
+    "triangles": 164485,
+    "error": 0.0021836592350155115
+  },
+  {
+    "lod": 1,
+    "material": "tree_small_02_trunk",
+    "sourceTriangles": 28293,
+    "triangles": 5769,
+    "error": 0.0015813722275197506
+  },
+  {
+    "lod": 2,
+    "material": "tree_small_02_branches",
+    "sourceTriangles": 94814,
+    "triangles": 6804,
+    "error": 0.0013807723298668861
+  },
+  {
+    "lod": 2,
+    "material": "tree_small_02_leaves",
+    "sourceTriangles": 1939380,
+    "triangles": 62060,
+    "error": 0.003382879076525569
+  },
+  {
+    "lod": 2,
+    "material": "tree_small_02_trunk",
+    "sourceTriangles": 28293,
+    "triangles": 2165,
+    "error": 0.003153569297865033
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "id": "sparse_grass",
+  "source": "https://polyhaven.com/a/sparse_grass",
+  "author": "Amal Kumar",
+  "license": "CC0-1.0",
+  "licenseUrl": "https://polyhaven.com/license",
+  "physicalWidthMetres": 2,
+  "physicalHeightMetres": 2,
+  "files": [
+    {
+      "path": "color.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_diff_2k.jpg",
+      "bytes": 3733797,
+      "md5": "b181e9c61bae87c1bb9b14eecd767d65",
+      "sha256": "3b655de96161164bf2324e136b3409ad8417c9f94750bc008e9c93ee507c2fac"
+    },
+    {
+      "path": "normal.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_nor_gl_2k.jpg",
+      "bytes": 5892473,
+      "md5": "8ec54ff3b639e6e044ea83792d7c49b0",
+      "sha256": "5539a5913653a106a4e8a699a1d288f0b41907775b5fb36156ef5be2e937718b"
+    },
+    {
+      "path": "arm.jpg",
+      "url": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/sparse_grass/sparse_grass_arm_2k.jpg",
+      "bytes": 3835537,
+      "md5": "d30e667f7d576bc19fface66e98f7ce2",
+      "sha256": "f498dcdbfd1c29b6c36232fc56e69d467be7d6d1d180d2a294138d9c725d6b66"
+    }
+  ]
+}
