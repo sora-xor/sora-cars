@@ -17,6 +17,7 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import { scannedSurface, scannedSurfacesReady } from './surfaces';
 import { getPixelFinish } from './graphics';
 import { loadDetailedCarFleet } from './asset-car';
+import { soraEmblemTexture, soraStripTexture } from './sora-emblem';
 import { loadDetailedScenery } from './asset-scenery';
 import { createRoadsideInfrastructure, guardrailGeometry } from './infrastructure';
 import { streetPresentation } from '../street/presentation';
@@ -34,7 +35,7 @@ import { createCityBlocks, selectCityBlocks, cityBlocksPlantingClear, type CityB
 import { CityBlockBatch } from './city-block-batch';
 import { createGroundHeightSampler } from './ground-sampler';
 import { createCityPlots, CityPlotBatch, cityPlotsPlantingClear, type CityPlotLayout } from './city-plots';
-import { installSpotlightEarlyOut } from './spotlight-shading';
+import { installSpotlightEarlyOut, prepareSpotlightEarlyOut } from './spotlight-shading';
 import { ArchitectureAmbient } from './architecture-ambient';
 import { CityGardenBatch, createCityGardens, type CityGardenLayout } from './city-gardens';
 import { decorateRoadFinish, shareSpecularLimits, type RoadFinish } from './road-finish';
@@ -42,6 +43,9 @@ import { attachShopfront, setShopfrontGlow, shopfrontReady } from './shopfronts'
 import { createLocalCarReflections } from './reflections';
 import { createPaintedSky, type RacingSkyMood } from '../../poc/painted-sky';
 import { pixelArtGrid } from './pixel-art/grid';
+import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCADE_DISTANT, MOAT, TOKYO_1986_STREET, PeriodCity, QUAY, arcadeDistrictAt, moatWidth, periodCityGroundCut,
+  periodCityOpenRuns, periodCityRouteFrame, setPeriodCityLighting, TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS,
+  type CityFixture, type PeriodDistrict } from './period-city';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
 // coordinates are right-positive. Convert once at the boundary: west = +X,
@@ -114,6 +118,13 @@ const WINDOW_LIGHTS = {
 } as const;
 const windowLights = (key: keyof typeof WINDOW_LIGHTS.night, dusk: number, morning: number) => THREE.MathUtils.lerp(
   THREE.MathUtils.lerp(WINDOW_LIGHTS.night[key], WINDOW_LIGHTS.dusk[key], dusk), WINDOW_LIGHTS.sunrise[key], morning);
+/** The period city's signs are internally lit acrylic, brighter than the
+ * classic enamel boards' backlight (WINDOW_LIGHTS signs). */
+const PERIOD_SIGN_GAIN = 2.4;
+/** Its bulbs, lanterns and canopy lights toward sunrise. */
+const PERIOD_SUNRISE_LAMPS = 0.3;
+/** Landmark floodlights per unit of the sign backlight (night .45, dusk .28, sunrise 0). */
+const PERIOD_FLOODLIGHTS = 1.1;
 /** Night canopies (R3 night value): the mature trees' leaves take this much
  * more of the environment's sky light at night (1 by day), so they read as
  * dark teal crowns with structure instead of featureless black masses. Only
@@ -191,6 +202,20 @@ const cityLayouts = new WeakMap<Course, CityBlockLayout>();
 const cityPlotLayouts = new WeakMap<Course, CityPlotLayout>();
 const cityGardenLayouts = new WeakMap<Course, CityGardenLayout>();
 
+/** The period city's district on each side of a street course, by route sector. */
+function districtsFor(course: Course): (p: number, side: -1 | 1) => PeriodDistrict {
+  const track = course.key as CompiledStreetTrack;
+  if (track.id !== 'tokyo-1986') return () => 'kanda';
+  const samples = track.samples;
+  return (p, side) => {
+    const mm = modulo(p, course.length) * 1000;
+    let lo = 0, hi = samples.length - 1;
+    while (lo < hi) { const mid = (lo + hi + 1) >>> 1; if (samples[mid]!.progressMm <= mm) lo = mid; else hi = mid - 1; }
+    const row = TOKYO_1986_DISTRICTS[samples[lo]!.sector] ?? TOKYO_1986_DISTRICTS[0]!;
+    return side < 0 ? row.right : row.left;
+  };
+}
+
 /** Presentation geometry only. RaceV1's frozen progress and collision arithmetic is unchanged. */
 function arcadeCourse(id: number): Course {
   const cached = arcCourses.get(id); if (cached) return cached;
@@ -258,6 +283,11 @@ export class RaceWorld {
   readonly trees: THREE.Group[] = [];
   readonly forest: THREE.Group[] = [];
   readonly woodland: THREE.Group[] = [];
+  /** Cherry trees for Nikko's Sakura Pass and Chidorigafuchi (procedural blossom crowns). */
+  readonly sakura: THREE.Group[] = [];
+  private readonly blossom: THREE.MeshStandardMaterial;
+  /** Chidorigafuchi's progress range on Tokyo (route sector 2), where the cherries stand. */
+  private sakuraRange: readonly [number, number] | null = null;
   private treeBatch?: TreeBatch;
   /** The mature trees' shared leaf materials (night canopy light). */
   private readonly foliageMaterials: THREE.MeshStandardMaterial[] = [];
@@ -295,6 +325,14 @@ export class RaceWorld {
   private cityGardenLayout?: CityGardenLayout;
   private readonly cityGardenBatch: CityGardenBatch;
   private cityGround?: (x: number, z: number) => number | null;
+  /** The procedural 1986 city on street courses (docs/period-city.md);
+   * ?city=classic keeps the earlier template city for comparison. */
+  private readonly periodCity: PeriodCity;
+  private readonly classicCity = new URLSearchParams(window.location.search).get('city') === 'classic';
+  private readonly cityFixtures: CityFixture[] = [];
+  private periodDistrictAt: ((p: number, side: -1 | 1) => PeriodDistrict) | null = null;
+  /** Whether every pooled material (trees, understory, cars) has been compiled for this course. */
+  private shadersWarmed = false;
   private sceneryCell = NaN;
   private lastTime = 0;
   private lastProgress = NaN;
@@ -333,6 +371,8 @@ export class RaceWorld {
     this.effects = createDrivingEffects(this.scene);
     const loader = new THREE.TextureLoader();
     this.flag = loader.load(asset('sora-flag.png')); this.flag.colorSpace = THREE.SRGBColorSpace;
+    this.periodCity = new PeriodCity(asset('branding/sora-emblem-source.png'), asset('sprites/street-people.png'));
+    this.scene.add(this.periodCity.group);
     this.roadMaterial = new THREE.MeshStandardMaterial({ ...scannedSurface('asphalt_02'), normalScale: new THREE.Vector2(0.55, 0.55), color: ROAD_ALBEDO, roughness: 0.88, metalness: 0 });
     this.vehicleAmbient.decorate(this.roadMaterial);
     this.roadFinish = decorateRoadFinish(this.roadMaterial);
@@ -384,6 +424,15 @@ export class RaceWorld {
     };
     this.cityGardenBatch = new CityGardenBatch(gardenMaterials); this.scene.add(this.cityGardenBatch.group);
     for (let i = 0; i < 40; i++) { const t = createTree(i % 2, i % 2 === 0); this.trees.push(t); this.scene.add(t); }
+    for (let i = 0; i < 26; i++) { const t = createTree(i + 300, true); t.visible = false; this.sakura.push(t); this.scene.add(t); }
+    // Blossom, not leaf: pale pink without the leaf texture, glowing softly as
+    // lit night cherries (夜桜) and as petals backlit by the sunrise.
+    this.blossom = new THREE.MeshStandardMaterial({ color: '#ffe1ea', vertexColors: true, roughness: .85,
+      emissive: '#f2a9c4', emissiveIntensity: 0 });
+    this.blossom.name = 'Sakura blossom';
+    for (const tree of this.sakura) tree.traverse(object => {
+      if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors) object.material = this.blossom;
+    });
     for (let i = 0; i < 18; i++) { const lamp = createStreetLamp(); this.lamps.push(lamp); this.scene.add(lamp); }
     const railMaterial = new THREE.MeshStandardMaterial({ color: '#727b80', roughness: 0.55, metalness: 0.65 });
     this.posts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.85, 0.13), railMaterial, 200);
@@ -468,7 +517,8 @@ export class RaceWorld {
       this.sceneryCell = NaN;
       output.dataset.sceneryAsset = 'detailed';
     }).catch(error => { output.dataset.sceneryAsset = 'failed'; console.error('Detailed roadside assets failed to load.', error); });
-    void loadDetailedCarFleet(this.flag).then(fleet => {
+    const emblemUrl = asset('branding/sora-emblem-source.png');
+    void loadDetailedCarFleet(this.flag, soraEmblemTexture(emblemUrl), soraStripTexture(emblemUrl)).then(fleet => {
       const geometry = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
       for (const model of this.cars) {
         this.scene.remove(model.group);
@@ -534,10 +584,16 @@ export class RaceWorld {
     this.streetscape = streetscapes.get(course) ?? createStreetscape(course);
     streetscapes.set(course, this.streetscape);
     this.cityLayout = undefined; this.cityGround = undefined; this.cityPlotLayout = undefined; this.cityGardenLayout = undefined;
+    this.periodCity.clear(); this.periodDistrictAt = null; this.shadersWarmed = false;
     this.cityBatch?.setPlacements({ buildings: [], apartments: [] });
     this.cityPlotBatch.setPlots(null, { buildings: [], apartments: [] });
     this.cityGardenBatch.setGardens(null, { buildings: [], apartments: [] });
-    for (const group of [...this.buildings, ...this.apartments, ...this.trees]) delete group.userData.raceSceneryStation;
+    for (const group of [...this.buildings, ...this.apartments, ...this.trees, ...this.sakura]) delete group.userData.raceSceneryStation;
+    this.sakuraRange = null;
+    if (course.style === 3 && (course.key as CompiledStreetTrack).id === 'tokyo-1986') {
+      const sector = (course.key as CompiledStreetTrack).samples.filter(s => s.sector === 2).map(s => s.progressMm / 1000);
+      if (sector.length) this.sakuraRange = [Math.min(...sector), Math.max(...sector)];
+    }
     const oldMaterials = new Set<THREE.Material>();
     this.road.traverse(o => {
       if (o instanceof THREE.Mesh) {
@@ -579,15 +635,49 @@ export class RaceWorld {
     const paint = new THREE.MeshStandardMaterial({ color: '#d7cebe', roughness: 0.89 });
     const yellow = new THREE.MeshStandardMaterial({ color: '#c2a368', roughness: 0.86 });
     for (const material of [ground, shoulder, paint, yellow]) this.vehicleAmbient.decorate(material);
-    // The gutter strip takes the road's key-specular ceiling (R3 Nikko glare).
+    // The gutter strip takes the road's key-specular ceiling (R3 Nikko glare),
+    // and so does the moat: a smooth sheet otherwise mirrors the key as one pink band.
     shareSpecularLimits(shoulder, this.roadFinish);
+    shareSpecularLimits(this.periodCity.water, this.roadFinish);
     if (course.style === 3) {
-      const urbanGround = createUrbanGround(course.poses, ground);
+      // The period city's moats and lawns replace the paved ground beside them.
+      const districtAt = districtsFor(course), open = this.classicCity ? [] : periodCityOpenRuns(course, districtAt);
+      this.periodDistrictAt = this.classicCity ? null : districtAt;
+      const crossings = !this.classicCity && (course.key as CompiledStreetTrack).id === 'tokyo-1986' ? TOKYO_1986_CROSSINGS : [];
+      const urbanGround = createUrbanGround(course.poses, ground, periodCityGroundCut(course, open, crossings));
       this.road.add(urbanGround);
       this.cityGround = createGroundHeightSampler(urbanGround);
+      const track = course.key as CompiledStreetTrack;
+      if (!this.classicCity) this.periodCity.setCourse(course, { groundHeightAt: this.cityGround, districtAt, open, crossings,
+        landmarks: track.id === 'tokyo-1986' ? TOKYO_1986_LANDMARKS : [], street: track.id === 'tokyo-1986' ? TOKYO_1986_STREET : undefined,
+        origin: track.id === 'tokyo-1986' ? { lon: track.originE7[0] / 1e7, lat: track.originE7[1] / 1e7 } : undefined });
       this.prepareCityBlocks();
-    } else ribbon(() => -110, () => 110, -0.08, ground);
-    this.road.add(createTerrain(course.poses, course.style));
+    } else if (this.classicCity) {
+      ribbon(() => -110, () => 110, -0.08, ground);
+      this.road.add(createTerrain(course.poses, course.style));
+    } else {
+      // Arcade: onsen towns, Yokohama's quays and Nikko's street stand on the
+      // flat strip before the banks rise. The harbour is flat and opens onto
+      // the water at its quays; Nikko's gorge cuts across the route.
+      const districtAt = (p: number, side: -1 | 1) => arcadeDistrictAt(course.style, p, side);
+      const open = periodCityOpenRuns(course, districtAt), crossings = ARCADE_1986_CROSSINGS[course.style] ?? [];
+      this.periodDistrictAt = districtAt;
+      const quay = (p: number, side: -1 | 1) => open.some(run => run.district === 'quay' && run.side === side && p >= run.start - 4 && p <= run.end + 4);
+      const gorge = (p: number) => crossings.some(c => Math.abs(p - c.p) < 15.5);
+      const flat = (p: number, side: number) => gorge(p) || ['harbour', 'quay'].includes(districtAt(p, side < 0 ? -1 : 1));
+      ribbon(p => gorge(p.p) ? -(p.width + 1.7) : quay(p.p, -1) ? -(p.width + QUAY.edge) : -110,
+        p => gorge(p.p) ? p.width + 1.7 : quay(p.p, 1) ? p.width + QUAY.edge : 110, -0.08, ground);
+      this.road.add(createTerrain(course.poses, course.style, flat));
+      const frame = periodCityRouteFrame(course, 120);
+      const groundHeightAt = (x: number, z: number) => {
+        const at = frame(x, z);
+        if (!at || gorge(at.p) || quay(at.p, at.side) && at.beyond > QUAY.edge - .5) return null;
+        return at.beyond < 18 || flat(at.p, at.side) ? -0.08 : terrainHeightAt(at.beyond, at.p, at.side);
+      };
+      this.periodCity.setCourse(course, { groundHeightAt, districtAt, open, crossings, landmarks: ARCADE_1986_LANDMARKS[course.style] ?? [],
+        street: ARCADE_1986_STREET[course.style],
+        distant: ARCADE_DISTANT[course.style] ?? [], snow: course.style === 0 ? .9 : 0 });
+    }
     ribbon(p => -p.width - 1.65, p => p.width + 1.65, -0.015, shoulder);
     ribbon(p => -p.width, p => p.width, 0, this.roadMaterial);
     for (const side of [-1, 1]) {
@@ -595,7 +685,11 @@ export class RaceWorld {
       ribbon(p => side * p.width * 0.48 - 0.045, p => side * p.width * 0.48 + 0.045, 0.013, paint, true);
       ribbon(() => side * 0.08 - 0.028, () => side * 0.08 + 0.028, 0.014, yellow);
     }
-    const infrastructure = createRoadsideInfrastructure(course.poses, course.style === 3);
+    // The period city builds its own lot edges; its Arcade forests and the
+    // classic city keep their boundary walls.
+    const districts = this.periodDistrictAt;
+    const infrastructure = createRoadsideInfrastructure(course.poses, course.style === 3, !this.periodCity.active
+      || (course.style !== 3 && !!districts && ((p: number, side: number) => districts(p, side < 0 ? -1 : 1) === 'forest')));
     // Kerbs and sidewalks too: under the low sunrise their rough concrete
     // otherwise scatters one smooth cream glare band along the shoulder,
     // where sunrise-wide's roadside stays diffuse (faint warm speckle).
@@ -607,7 +701,7 @@ export class RaceWorld {
   }
 
   private prepareCityBlocks(): void {
-    if (this.course?.style !== 3 || !this.streetscape || !this.cityBatch || !this.cityGround) return;
+    if (this.course?.style !== 3 || this.periodCity.active || !this.streetscape || !this.cityBatch || !this.cityGround) return;
     this.cityLayout = cityLayouts.get(this.course) ?? createCityBlocks(this.streetscape, this.cityBatch.bounds,
       { groundHeightAt: this.cityGround });
     cityLayouts.set(this.course, this.cityLayout);
@@ -667,9 +761,32 @@ export class RaceWorld {
         group.scale.fromArray(placement.scale); group.rotation.y += placement.yaw;
       }
     };
-    assign(this.buildings, window.buildings, 4);
-    assign(this.apartments, window.apartments, 2);
-    assign(this.trees, window.trees, 1);
+    const periodCity = this.periodCity.active;
+    assign(this.buildings, periodCity ? [] : window.buildings, 4);
+    assign(this.apartments, periodCity ? [] : window.apartments, 2);
+    if (!periodCity) assign(this.trees, window.trees, 1);
+    // Ginkgo-style rows along the period city's set-back avenues and the
+    // Arcade passes: never in Kanda's tight frontage, on the moat curb (which
+    // plants its own) or along the harbour.
+    else populate(this.trees, 15, 60, 7.5, (tree, station, p, side) => {
+      const district = this.periodDistrictAt?.(p, side as -1 | 1);
+      place(tree, p, side, 2.55, false);
+      tree.scale.setScalar(.62 + modulo(station * 5, 3) * .05);
+      tree.rotation.y += station * 2.39996;
+      tree.visible = tree.visible && course.style !== 2 && !['kanda', 'moat', 'harbour', 'quay'].includes(district ?? 'kanda')
+        && this.periodCity.plantingClear(tree.position.x, tree.position.z, 2.1);
+    });
+    // The Arcade forests keep their banks of trees, but none on the harbour.
+    const wooded = (p: number, side: number) => !periodCity || !['harbour', 'quay'].includes(this.periodDistrictAt?.(p, side as -1 | 1) ?? 'forest');
+    // Cherries line Nikko's Sakura Pass and Chidorigafuchi's moat (left) curb.
+    const blossoming = (p: number, side: number) => periodCity && (course.style === 2 ? wooded(p, side)
+      : course.style === 3 && side > 0 && !!this.sakuraRange && p >= this.sakuraRange[0] && p <= this.sakuraRange[1]);
+    populate(this.sakura, 12, 50, 6, (tree, station, p, side) => {
+      place(tree, p, side, course.style === 3 ? 2.9 : 3.1, false);
+      tree.scale.setScalar(1.15 + modulo(station * 7, 4) * .08);
+      tree.rotation.y += station * 2.39996;
+      tree.visible = tree.visible && blossoming(p, side) && this.periodCity.plantingClear(tree.position.x, tree.position.z, 2.2);
+    });
     if (this.cityLayout && this.cityBatch) {
       const cityWindow = selectCityBlocks(this.cityLayout, progress);
       this.cityBatch.setPlacements(cityWindow);
@@ -679,7 +796,27 @@ export class RaceWorld {
         && cityBlocksPlantingClear(this.cityLayout, tree.position.x, tree.position.z, 5.1 * tree.scale.x)
         && (!this.cityPlotLayout || cityPlotsPlantingClear(this.cityPlotLayout, tree.position.x, tree.position.z, 5.1 * tree.scale.x));
     }
+    // The period city plants only its palace side: pines along the moat curb,
+    // woods over the far stone wall, the park lawns and the shrine precinct.
+    const periodTree = (tree: THREE.Group, station: number, p: number, side: number, far: boolean) => {
+      const open = this.periodCity.openAt(p, side as -1 | 1), variant = modulo(station * 7 + (side > 0 ? 3 : 0), 11);
+      if (!open) { tree.visible = false; return; }
+      let offset = (far ? 26 : 8) + variant % 4 * (far ? 9 : 5), lift = 0;
+      // Chidorigafuchi's curb is planted with the cherries instead.
+      if (!far && open.district === 'moat' && this.sakuraRange && p >= this.sakuraRange[0] && p <= this.sakuraRange[1]) { tree.visible = false; return; }
+      if (open.district === 'moat') {
+        offset = far ? MOAT.water + moatWidth(p) + MOAT.batter + 5 + variant % 4 * 4.5 : 2.75 + variant % 2 * .35;
+        lift = far ? MOAT.top : 0;
+      }
+      place(tree, p, side, offset, false);
+      tree.position.y += lift;
+      tree.scale.setScalar((far ? 1.25 : .9) + variant % 3 * .18);
+      tree.rotation.y += station * 2.39996;
+      tree.visible = tree.visible && (far || open.district !== 'moat' || variant % 3 !== 1)
+        && this.periodCity.plantingClear(tree.position.x, tree.position.z, 3);
+    };
     populate(this.forest, 8, 65, 4, (tree, station, p, side) => {
+      if (periodCity && course.style === 3) { periodTree(tree, station, p, side, false); return; }
       const variant = modulo(station * 13 + (side > 0 ? 1 : 0), 7);
       const offset = 19 + variant % 3 * 8;
       place(tree, p, side, offset, false);
@@ -694,17 +831,20 @@ export class RaceWorld {
         && cityBlocksPlantingClear(this.cityLayout, tree.position.x, tree.position.z, 5.1 * tree.scale.x);
       if (this.cityPlotLayout) tree.visible = tree.visible
         && cityPlotsPlantingClear(this.cityPlotLayout, tree.position.x, tree.position.z, 5.1 * tree.scale.x);
+      if (periodCity) tree.visible = tree.visible && wooded(p, side) && this.periodCity.plantingClear(tree.position.x, tree.position.z, 3.6 * tree.scale.x);
     });
     // Continue the vegetation up the banks instead of ending every tree at the
     // same shallow roadside strip and exposing an empty hill behind it.
     populate(this.woodland, 12, 70, 6, (tree, station, p, side) => {
+      if (periodCity && course.style === 3) { periodTree(tree, station, p, side, true); return; }
       const variant = modulo(station * 19 + (side > 0 ? 3 : 0), 11);
       const offset = 54 + variant % 3 * 19;
       place(tree, p, side, offset, false);
       tree.scale.setScalar(1.4 + variant % 4 * 0.22);
       tree.rotation.y += station * 2.39996 + 0.9;
       tree.position.y += terrainHeightAt(offset, p, side);
-      tree.visible = tree.visible && course.style !== 3;
+      tree.visible = tree.visible && course.style !== 3 && wooded(p, side)
+        && this.periodCity.plantingClear(tree.position.x, tree.position.z, 3.6 * tree.scale.x);
       tree.visible = tree.visible && streetscapePlantingClear(layout, p, side as -1 | 1, offset, 5.1 * tree.scale.x);
     });
     if (this.understory) {
@@ -721,6 +861,8 @@ export class RaceWorld {
         const center = point(at, side * (at.width + offset));
         if (this.cityLayout && !cityBlocksPlantingClear(this.cityLayout, center.x, center.z, 5)) continue;
         if (this.cityPlotLayout && !cityPlotsPlantingClear(this.cityPlotLayout, center.x, center.z, Math.hypot(2.5, step / 2))) continue;
+        if (!this.periodCity.plantingClear(center.x, center.z, Math.hypot(2.5, step / 2)) || !wooded(p, side)
+          || this.periodCity.openAt(p, side as -1 | 1)?.district === 'moat') continue;
         const bankHeight = (distance: number, stationP: number) => {
           return course.style === 3 ? 0 : terrainHeightAt(distance, stationP, side);
         };
@@ -761,6 +903,8 @@ export class RaceWorld {
     this.speedEnvelope += (speed - this.speedEnvelope) * (1 - Math.exp(-dt * 7));
     this.boostEnvelope += ((player.boosting && !this.reduced.matches ? 1 : 0) - this.boostEnvelope) * (1 - Math.exp(-dt * 10));
     this.placeScenery(course, player.p);
+    this.periodCity.update(player.p, reset);
+    this.periodCity.animate(player.p, this.reduced.matches ? 0 : time);
     const playerPosition = point(at, player.lateral);
     const closestLamps = this.lamps.filter(lamp => lamp.visible).sort((a, b) => a.position.distanceToSquared(playerPosition) - b.position.distanceToSquared(playerPosition));
     this.lightPools.forEach((light, i) => {
@@ -773,7 +917,12 @@ export class RaceWorld {
         light.target.position.copy(light.position); light.target.position.y -= 7;
       }
     });
-    const closestShops = this.buildings.filter(building => building.visible && building.position.distanceToSquared(playerPosition) < 60 ** 2)
+    // The period city's shop fronts, or the classic frontage's bays and fixtures.
+    const shopSources = this.periodCity.active
+      ? this.periodCity.nearestFixtures(playerPosition, 12, this.cityFixtures).map((fixture, i) => ({
+        position: fixture.position, target: fixture.target, fixtureId: `period-city:${i}`, bay: false, secondary: false,
+        merchandise: false, areaPosition: null as THREE.Vector3 | null, areaTarget: null as THREE.Vector3 | null }))
+      : this.buildings.filter(building => building.visible && building.position.distanceToSquared(playerPosition) < 60 ** 2)
       .flatMap(building => {
         const bay = !!building.userData.openGarage;
         // One primary source per shop keeps the visible merchandise lit before
@@ -795,7 +944,8 @@ export class RaceWorld {
             ? building.localToWorld(new THREE.Vector3(source.position[0], 1.25, building.userData.front - 5))
             : null,
         }));
-      }).sort((a, b) => {
+      });
+    const closestShops = shopSources.sort((a, b) => {
         const score = (shop: typeof a) => {
           const longitudinal = (shop.position.x - playerPosition.x) * Math.sin(at.heading)
             + (shop.position.z - playerPosition.z) * Math.cos(at.heading);
@@ -885,6 +1035,11 @@ export class RaceWorld {
       windowLights('gain', dusk, morning), windowLights('cool', dusk, morning));
     setShopfrontGlow(windowLights('diffuser', dusk, morning), windowLights('signs', dusk, morning));
     setSignGlow(windowLights('signs', dusk, morning));
+    this.blossom.emissiveIntensity = .12 + .32 * (1 - dusk) + .28 * sunrise;
+    setPeriodCityLighting(windowLights('upper', dusk, morning), windowLights('ground', dusk, morning),
+      windowLights('gain', dusk, morning), windowLights('cool', dusk, morning),
+      windowLights('signs', dusk, morning) * PERIOD_SIGN_GAIN, THREE.MathUtils.lerp(1, PERIOD_SUNRISE_LAMPS, morning),
+      windowLights('signs', dusk, morning) * PERIOD_FLOODLIGHTS);
     // The cutscenes separate cream/gold illuminated surfaces from charcoal
     // foreground shadows and violet exterior air. Avoid blue fill overwhelming
     // the physical paint, concrete and amber practical lights.
@@ -1023,6 +1178,21 @@ export class RaceWorld {
       this.camera.lookAt(target);
     }
     this.camera.updateProjectionMatrix();
+    this.periodCity.placeSkyline(this.camera.position, daylight);
+    // Pooled scenery first appears far into a lap (the period city's palace
+    // trees, understory, distant cars): compile every material up front, off
+    // the main thread where the driver supports it, instead of on first sight.
+    if (!this.shadersWarmed && ['sceneryAsset', 'carAsset', 'understoryAsset'].every(key => this.output.dataset[key] !== 'loading')) {
+      this.shadersWarmed = true;
+      // Both finishes draw the scene into an HDR target (no tone map, linear
+      // output), so compile against one: screen-target programs never match.
+      const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }), previous = this.renderer.getRenderTarget();
+      prepareSpotlightEarlyOut(this.renderer, this.scene);
+      this.renderer.setRenderTarget(target);
+      const warming = this.renderer.compileAsync(this.scene, this.camera);
+      this.renderer.setRenderTarget(previous);
+      void warming.catch(error => console.warn('Shader warm-up failed.', error)).finally(() => target.dispose());
+    }
     if (this.treeBatch) {
       this.scene.updateMatrixWorld(true);
       this.treeBatch.update(this.camera, this.keyLight);

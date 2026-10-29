@@ -100,7 +100,8 @@ class SpatialIndex<T> {
  * lowering the ground or relying on depth bias is not the protection mechanism.
  * The optional material lets the caller retain its shared scanned ground setup.
  */
-export function createUrbanGround(poses: readonly UrbanGroundPose[], material?: THREE.Material): THREE.Group {
+export function createUrbanGround(poses: readonly UrbanGroundPose[], material?: THREE.Material,
+  exclude?: (x: number, z: number) => boolean): THREE.Group {
   const group = new THREE.Group(); group.name = 'Urban ground outside native pavement';
   group.userData.urbanGround = 'road-footprint-excluded-v1';
   if (poses.length < 2) return group;
@@ -159,6 +160,8 @@ export function createUrbanGround(poses: readonly UrbanGroundPose[], material?: 
   };
   for (let x = minX; x < maxX; x += GRID) for (let z = minZ; z < maxZ; z += GRID) {
     if (sampleGround(x + GRID / 2, z + GRID / 2).distance > EXTENT) continue;
+    // Open ground drawn by its owner (the period city's moats and parks).
+    if (exclude?.(x + GRID / 2, z + GRID / 2)) continue;
     let fragments: Point[][] = [[{ x, z }, { x: x + GRID, z }, { x: x + GRID, z: z + GRID }, { x, z: z + GRID }]];
     for (const cut of cuts.box(x, x + GRID, z, z + GRID)) {
       if (cut.minX > x + GRID || cut.maxX < x || cut.minZ > z + GRID || cut.maxZ < z) continue;

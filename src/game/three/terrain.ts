@@ -135,7 +135,8 @@ ${THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )',
  * and continuous world-space blending to suppress repeating texture rows.
  * Native road geometry, car motion, and collision widths are never modified.
  */
-export function createTerrain(poses: readonly TerrainPose[], style: number): THREE.Group {
+/** `skip(p, side)` leaves a side flat at a progress (a harbour, a river gorge); the flat route ribbon shows there. */
+export function createTerrain(poses: readonly TerrainPose[], style: number, skip?: (p: number, side: number) => boolean): THREE.Group {
   const group = new THREE.Group(); group.name = 'SORA continuous forest banks';
   group.userData.terrainProfile = 'continuous-forest-bank-v1';
   if (style === 3 || poses.length < 2) return group;
@@ -196,6 +197,7 @@ export function createTerrain(poses: readonly TerrainPose[], style: number): THR
           0.12 + noise(position.x * 0.25 + 17, position.z * 0.25 - 91) * 0.76);
       }
       for (let row = 0; row < end - start; row++) for (let column = 0; column < columns.length - 1; column++) {
+        if (skip?.(stations[start + row]!, side) || skip?.(stations[start + row + 1]!, side)) continue;
         const a = row * columns.length + column, b = a + 1, c = a + columns.length, d = c + 1;
         indices.push(...(side > 0 ? [a, c, b, b, c, d] : [a, b, c, b, d, c]));
       }

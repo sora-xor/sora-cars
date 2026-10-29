@@ -17,6 +17,26 @@ the saved choice. With Pixel finish on, `?render=regions`, `?render=grouped`
 and `?render=cinematic` show the earlier finishes for comparison. The HUD
 stays sharp in every mode. Design, debug switches, measurements and known
 limits are in [the pixel-art renderer notes](docs/pixel-art-renderer.md).
+Tokyo's city is generated for 1986: Kanda's shop-houses and tenant buildings
+under vertical signs, the palace moats with their stone walls and turret, the
+Yasukuni torii, Kasumigaseki's ministries, Marunouchi's 31 m office line, the
+Shuto Expressway over Manaita Bridge and the period skyline. Floodlit 1986
+landmarks stand at their places: the Diet, the Budokan, Kudan Kaikan,
+Sakuradamon, the Dai-ichi Seimei colonnade and more. The Arcade courses get
+Hakone's onsen towns under falling snow with Mt. Fuji beyond, Yokohama's quays
+with the three towers, the Marine Tower and a moored liner, and Nikko's old
+street, cherries in bloom, petals on the wind, the Shinkyo and a pagoda. The
+streets are busy with pixel-art sprites of 1986 archetypes: salarymen, office
+ladies, police signalling traffic, schoolgirls, gakuran boys, bosozoku lounging
+by their bikes, cats, cyclists and SORA fans waving the flag at the start.
+Neon flickers on the bar buildings and rooftops and tall vertical signs spell
+themselves out letter by letter, pachinko bulbs chase, nobori ripple, and
+searchlights sweep the night sky. SORA's airship follows the race overhead, ad
+balloons trail SORA banners above the roofs, and the emblem flies on banners
+across the road, on lamp banners, neon and billboards, and on the cars' roofs,
+bonnets and rear windows. Every building has its
+own seed; `?city=classic` shows the earlier template city.
+See [the period city](docs/period-city.md).
 Vehicle attribution and source details are in
 [the AE86 provenance](public/assets/models/sora-ae86/PROVENANCE.md).
 

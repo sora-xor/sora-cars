@@ -39,6 +39,10 @@ export const PIXEL_OVERLAY_COLOURS = {
   rainHead: [RAIN_PERIWINKLE, RAIN_LAVENDER, RAIN_PALE] as const,
   splash: RAIN_LAVENDER,
   petals: [paletteColour('#f8c9d9'), paletteColour('#e9aac4'), paletteColour('#fff0dc')] as const,
+  /** Wind-blown sakura (atmosphere overlays): pale, mid and deep pink, and cream. */
+  blossom: [paletteColour('#f6c0d2'), paletteColour('#e88fb2'), paletteColour('#ffffff'), paletteColour('#f9d8e4')] as const,
+  /** Snowflakes in the far, middle and near layers: lavender to moonlit white. */
+  snow: [paletteColour('#9ea6d6'), paletteColour('#c9cff0'), paletteColour('#f2f0fa')] as const,
   dust: paletteColour('#b7b591'),
   speedLine: paletteColour('#8a7a92'),
   speedLineSurge: paletteColour('#e7cfb2'),
@@ -108,4 +112,53 @@ export function dashedCellLine(ctx: CanvasRenderingContext2D, grid: PixelArtGrid
     const t = steps ? i / steps : 0;
     fillArtCells(ctx, grid, ax + Math.round((Math.floor(x1) - ax) * t), ay + Math.round((Math.floor(y1) - ay) * t));
   }
+}
+
+/**
+ * Atmosphere particles over a race frame: snowfall or sakura petals on the
+ * wind. Presentation only, on the render clock. On a pixel-art frame every
+ * particle is whole art cells in palette colours; clean frames draw small
+ * rectangles. `width` and `height` are the renderer's logical size;
+ * `amount` (0-1) thins the particles toward the edge of a zone.
+ */
+export function drawAtmosphere(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, width: number, height: number,
+  kind: 'snow' | 'blossom', time: number, wind: number, amount = 1): void {
+  if (amount <= 0) return;
+  const grid = pixelOverlayGrid(canvas), sx = grid ? grid.artWidth / width : 0, sy = grid ? grid.artHeight / height : 0;
+  const mod = (v: number, n: number) => (v % n + n) % n;
+  if (grid) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); }
+  if (kind === 'snow') {
+    // Three depth layers: far flakes are single dim cells drifting slowly,
+    // near ones larger, brighter and faster, all swaying on the wind.
+    const count = Math.round(220 * amount);
+    for (let i = 0; i < count; i++) {
+      const layer = i % 3, sway = Math.sin(time * (.5 + layer * .2) + i * 1.37) * [6, 10, 16][layer]!;
+      const x = mod(i * 127.1 + time * wind * [4, 7, 11][layer]! + sway, width + 20) - 10;
+      const y = mod(i * 53.7 + time * [22, 38, 62][layer]!, height + 10) - 5;
+      if (grid) {
+        ctx.fillStyle = PIXEL_OVERLAY_COLOURS.snow[layer]!;
+        fillArtCells(ctx, grid, x * sx, y * sy, layer === 2 ? 2 : 1, layer === 2 ? 2 : 1);
+      } else {
+        ctx.fillStyle = ['rgba(170,178,220,.55)', 'rgba(210,214,240,.7)', 'rgba(246,244,252,.85)'][layer]!;
+        ctx.fillRect(Math.round(x), Math.round(y), 1 + layer, 1 + layer);
+      }
+    }
+  } else {
+    // Petals ride the wind in gusts and tumble: a two-cell petal turns edge-on.
+    const count = Math.round(150 * amount), direction = wind < 0 ? -1 : 1;
+    for (let i = 0; i < count; i++) {
+      const layer = i % 2, gust = 1 + .5 * Math.sin(time * .7 + i * .37);
+      const x = mod(i * 97.3 + time * direction * (Math.abs(wind) * [10, 18][layer]! + [16, 30][layer]!) * gust, width + 30) - 15;
+      const y = mod(i * 61.1 + time * [14, 24][layer]! + Math.sin(time * 2.3 + i) * [6, 10][layer]!, height + 10) - 5;
+      const turn = Math.sin(time * 6 + i * 2.1), w = turn > .3 ? 2 : 1, h = turn < -.3 ? 2 : 1;
+      if (grid) {
+        ctx.fillStyle = PIXEL_OVERLAY_COLOURS.blossom[(i + layer) % 4]!;
+        fillArtCells(ctx, grid, x * sx, y * sy, w + layer, h + layer * (turn < 0 ? 1 : 0));
+      } else {
+        ctx.fillStyle = ['#f6c0d2', '#e88fb2', '#ffffff', '#f9d8e4'][(i + layer) % 4]!;
+        ctx.fillRect(Math.round(x), Math.round(y), (w + layer) * 2, h * 2);
+      }
+    }
+  }
+  if (grid) ctx.restore();
 }

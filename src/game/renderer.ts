@@ -5,7 +5,7 @@ import { clubItem, clubLivery, type ClubAppearance } from './catalog';
 import { environmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
 import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery';
 import { getRaceWorld } from './three/world';
-import { PIXEL_OVERLAY_COLOURS, fillArtCells, pixelOverlayGrid, rainColumn } from './three/pixel-art/overlay';
+import { PIXEL_OVERLAY_COLOURS, drawAtmosphere, fillArtCells, pixelOverlayGrid, rainColumn } from './three/pixel-art/overlay';
 
 export type ReplayCamera = 'chase' | 'bumper' | 'aerial';
 export interface RenderOptions {
@@ -68,6 +68,9 @@ export class RaceRenderer {
       this.#wind = environment.wind;
       this.ctx.drawImage(world.renderArcade(state, options, time), 0, 0, this.width, this.height);
       if (environment.rain > 0) this.#weather(state, time, environment);
+      // Hakone's winter night snows; Nikko's Sakura Pass blows with petals.
+      else if (state.trackId !== 1) drawAtmosphere(this.ctx, this.canvas, this.width, this.height, state.trackId === 0 ? 'snow' : 'blossom',
+        this.#reducedMotion.matches ? 0 : time, environment.wind);
       if (options.hud && player.speed > 150 && options.camera !== 'aerial') {
         this.#cornerCue(TRACKS[state.trackId]!, player.progress, this.width < 400);
       }

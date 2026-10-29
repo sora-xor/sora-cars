@@ -3,7 +3,7 @@ import type { StreetObject } from './objects';
 import { streetPresentation, type StreetPresentation } from './presentation';
 import { drawIllustratedShop, drawIllustratedTree } from '../illustrated-scenery';
 import { getRaceWorld } from '../three/world';
-import { PIXEL_OVERLAY_COLOURS, dashedCellLine, pixelOverlayGrid, rainColumn } from '../three/pixel-art/overlay';
+import { PIXEL_OVERLAY_COLOURS, dashedCellLine, drawAtmosphere, pixelOverlayGrid, rainColumn } from '../three/pixel-art/overlay';
 
 /** Presentation-only view of the native street session. These floats never return to physics. */
 export interface StreetRenderCar {
@@ -126,6 +126,18 @@ function offset(p: RoadPose, lateral: number, up = 0, forward = 0, heading = p.h
 }
 
 /** Cinematic rear-following renderer. Drawing units stay independent of device pixels. */
+/** Petal density (0-1) along Chidorigafuchi, the route's sector 2, easing in and out over 120 m. */
+function chidorigafuchi(track: CompiledStreetTrack, progressMm: number): number {
+  const p = mod(progressMm, track.lengthMm);
+  let start = -1, end = -1;
+  for (const sample of track.samples) {
+    if (sample.sector === 2 && start < 0) start = sample.progressMm;
+    if (sample.sector === 2) end = sample.progressMm;
+  }
+  if (start < 0) return 0;
+  return Math.max(0, Math.min(1, (p - start + 60000) / 120000, (end - p + 60000) / 120000));
+}
+
 export class StreetRaceRenderer {
   readonly #canvas: HTMLCanvasElement;
   #ctx: CanvasRenderingContext2D;
@@ -266,6 +278,9 @@ export class StreetRaceRenderer {
       ctx.drawImage(world.renderStreet(track, state, options, time), 0, 0, w, h);
       if (camera !== 'aerial' && !reduced && !still && velocity > 0.5) this.#speedLines(player.progressMm, velocity, surge);
       if ((options.rain ?? 0) > 0) this.#rain(sceneTime, reduced);
+      // Chidorigafuchi's cherry trees shed petals along the moat.
+      else if (track.id === 'tokyo-1986') drawAtmosphere(ctx, this.#canvas, w, h, 'blossom', reduced || still ? 0 : sceneTime, 1,
+        chidorigafuchi(track, player.progressMm));
       if (chapterTitle) this.#chapterTitle(chapter, reduced, options.hud !== false, options.presentationTopInset ?? 0);
       if (options.hud !== false) this.#hud(track, state, options, player, centre, kmh, chapterTitle);
       this.#lastTrack = track; this.#lastTick = state.tick; this.#lastCamera = camera;

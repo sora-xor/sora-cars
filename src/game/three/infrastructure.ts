@@ -9,7 +9,9 @@ const position = (p: RoadPose, side: number, height: number) => new THREE.Vector
 );
 
 /** Roadside civil work uses the same route samples as the tarmac. */
-export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean): THREE.Group {
+/** `boundaryWalls` (default on) may choose per progress and side, so a town can drop the walls its lots replace. */
+export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean,
+  boundaryWalls: boolean | ((p: number, side: number) => boolean) = true): THREE.Group {
   const group = new THREE.Group(); group.name = 'Route sidewalks, retaining stone and utility service';
   const concrete = new THREE.MeshStandardMaterial({ ...scannedSurface('grey_plaster_03'), color: '#aaa9a3', roughness: 0.92, normalScale: new THREE.Vector2(0.3, 0.3) });
   const stone = new THREE.MeshStandardMaterial({ ...scannedSurface('japanese_stone_wall'), color: '#b1ada2', roughness: 0.97, normalScale: new THREE.Vector2(0.7, 0.7) });
@@ -49,7 +51,8 @@ export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean):
   for (const side of [-1, 1]) {
     section(concrete, [[0.25, -0.04], [0.25, 0.12], [0.31, 0.18], [1.6, 0.18], [1.67, 0.1], [1.67, -0.04]], side, 'Beveled curb and sidewalk');
     const height = urban ? 1.25 : 1.85;
-    const wallRuns = (p: RoadPose) => urban ? Math.floor(p.p / 24) % 5 !== 0 : Math.floor(p.p / 32) % 6 !== 0;
+    const walled = (p: RoadPose) => typeof boundaryWalls === 'function' ? boundaryWalls(p.p, side) : boundaryWalls;
+    const wallRuns = (p: RoadPose) => walled(p) && (urban ? Math.floor(p.p / 24) % 5 !== 0 : Math.floor(p.p / 32) % 6 !== 0);
     section(stone, [[13.6, -0.08], [13.6, height], [14.05, height], [14.05, -0.08]], side, 'Masonry boundary retaining wall', wallRuns);
     section(concrete, [[13.52, height], [13.52, height + 0.13], [14.13, height + 0.13], [14.13, height]], side, 'Stone wall coping', wallRuns);
   }

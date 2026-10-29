@@ -17,7 +17,10 @@ const SOURCE_WHEELS = ['WHEEL_LF', 'WHEEL_RF', 'WHEEL_LR', 'WHEEL_RR'] as const;
 const SOURCE_CALIPERS = ['FL_Caliper', 'FR_Caliper', 'RL_Caliper', 'RR_Caliper'] as const;
 interface Surface { geometry: THREE.BufferGeometry; material: THREE.MeshStandardMaterial; wheel: number; fixed: boolean; headlight: boolean; shadowIndex?: THREE.BufferAttribute }
 interface Wheel { center: THREE.Vector3; radius: number; front: boolean }
-interface Template { surfaces: Surface[]; wheels: Wheel[]; decals: THREE.BufferGeometry; aero: THREE.BufferGeometry; flame: THREE.BufferGeometry }
+interface Template {
+  surfaces: Surface[]; wheels: Wheel[]; decals: THREE.BufferGeometry; emblems: THREE.BufferGeometry | null;
+  strip: THREE.BufferGeometry | null; aero: THREE.BufferGeometry; flame: THREE.BufferGeometry;
+}
 interface ShadowIndices { sourceIndexCount: number; vertexCount: number; index: THREE.BufferAttribute }
 let templatePromise: Promise<Template> | undefined;
 
@@ -158,11 +161,28 @@ async function prepareTemplate(): Promise<Template> {
   const decals = mergeGeometries(flagPatches, false);
   if (!decals || decals.getAttribute('position').count === 0) throw new Error('Detailed coupe flag projection missed its body.');
   for (const patch of flagPatches) patch.dispose();
+  // SORA's emblem centred on the roof and the bonnet, upright from the chase camera.
+  const upright = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(
+    new THREE.Vector3(-1, 0, 0), new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 1, 0)));
+  const emblemPatches = ([[new THREE.Vector3(0, 1.27, -0.4), 0.62], [new THREE.Vector3(0, 0.84, 1.3), 0.5]] as const)
+    .map(([at, size]) => new DecalGeometry(bodyMesh, at, upright, new THREE.Vector3(size, size, 0.3)))
+    .filter(patch => patch.getAttribute('position').count > 0);
+  const emblems = emblemPatches.length ? mergeGeometries(emblemPatches, false) : null;
+  for (const patch of emblemPatches) patch.dispose();
+  // The club strip across the top of the rear window, read upright from the chase camera.
+  const glass = surfaces.find(surface => surface.wheel < 0 && surface.material.name === 'Windows');
+  let strip: THREE.BufferGeometry | null = null;
+  if (glass) {
+    const slope = new THREE.Vector3(0, .354, .935), across = new THREE.Vector3(-1, 0, 0);
+    const facing = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(across, slope, across.clone().cross(slope)));
+    const patch = new DecalGeometry(new THREE.Mesh(glass.geometry), new THREE.Vector3(0, 1.147, -1.14), facing, new THREE.Vector3(1, .16, .2));
+    if (patch.getAttribute('position').count) strip = patch; else patch.dispose();
+  }
   const lip = new THREE.BoxGeometry(1.5, 0.025, 0.13); lip.translate(0, 0.19, 2.0);
   const aero = lip;
   const flame = new THREE.ConeGeometry(0.064, 0.38, 12, 1, true);
   flame.rotateX(-Math.PI / 2); flame.translate(0, 0, -0.19);
-  return { surfaces, wheels, decals, aero, flame };
+  return { surfaces, wheels, decals, emblems, strip, aero, flame };
 }
 
 function addDissolve(material: THREE.Material, opacity: { value: number }): void {
@@ -179,7 +199,8 @@ function addDissolve(material: THREE.Material, opacity: { value: number }): void
   material.customProgramCacheKey = () => 'sora-detailed-coupe-dissolve-v1';
 }
 
-function instantiate(template: Template, flag: THREE.Texture, index: number, driver: THREE.Group): CarModel {
+function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Texture | undefined, strip: THREE.Texture | undefined,
+  index: number, driver: THREE.Group): CarModel {
   const group = new THREE.Group(); group.name = `SORA detailed period coupe ${index + 1}`;
   group.userData.asset = 'Toyota AE86 Sprinter Trueno Zenki';
   group.userData.attribution = 'Martin Trafas, CC BY 4.0';
@@ -280,6 +301,18 @@ function instantiate(template: Template, flag: THREE.Texture, index: number, dri
     roughness: 0.44, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   addDissolve(flagMaterial, opacity);
   const flags = new THREE.Mesh(template.decals, flagMaterial); flags.name = 'Exact SORA flag body decals'; group.add(flags);
+  if (template.emblems && emblem) {
+    const emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
+      roughness: 0.4, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    addDissolve(emblemMaterial, opacity);
+    const emblems = new THREE.Mesh(template.emblems, emblemMaterial); emblems.name = 'Exact SORA emblem roof and bonnet decals'; group.add(emblems);
+  }
+  if (template.strip && strip) {
+    const stripMaterial = new THREE.MeshStandardMaterial({ map: strip, roughness: 0.35, metalness: 0.02,
+      polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    addDissolve(stripMaterial, opacity);
+    const banner = new THREE.Mesh(template.strip, stripMaterial); banner.name = 'SORA club strip on the rear window'; group.add(banner);
+  }
   const aeroMaterial = new THREE.MeshStandardMaterial({ color: '#20252b', metalness: 0.45, roughness: 0.32 });
   addDissolve(aeroMaterial, opacity);
   const aero = new THREE.Mesh(template.aero, aeroMaterial); aero.name = 'Club aero chin lip'; aero.visible = false; group.add(aero);
@@ -325,11 +358,14 @@ function instantiate(template: Template, flag: THREE.Texture, index: number, dri
   return car;
 }
 
-/** Geometry and texture uploads are shared; paint, lights and fade are per car. */
-export async function loadDetailedCarFleet(flag: THREE.Texture): Promise<CarModel[]> {
+/**
+ * Geometry and texture uploads are shared; paint, lights and fade are per car. `emblem` adds SORA's roof and
+ * bonnet roundels, `strip` the club strip across the rear window.
+ */
+export async function loadDetailedCarFleet(flag: THREE.Texture, emblem?: THREE.Texture, strip?: THREE.Texture): Promise<CarModel[]> {
   templatePromise ??= prepareTemplate().catch(error => { templatePromise = undefined; throw error; });
   const [template, drivers] = await Promise.all([
     templatePromise, Promise.all(Array.from({ length: 8 }, () => createDetailedDriver())),
   ]);
-  return drivers.map((driver, index) => instantiate(template, flag, index, driver.group));
+  return drivers.map((driver, index) => instantiate(template, flag, emblem, strip, index, driver.group));
 }
