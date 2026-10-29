@@ -389,6 +389,7 @@ uniform float plumNight; // 1 at night (street lamps at night strength), 0 at su
 uniform vec3 gradeContrast; // x: stretch below the pivot (0 off), y: the pivot, z: stretch above it (refine round 4, night)
 uniform float gradeFloor;   // OKLab L the deepest darks are lifted toward (0 off): the concept's night darks are navy, never black
 uniform float gradeCarContrast; // the share of the contrast stretch car paint takes
+uniform float gradeSkyExposure; // the painted sky's exposure against the world's (the day exposure leaves the sky as authored)
 uniform vec3 gradeFoliage;  // night canopy: x lightness and y chroma taken off its darker leaves, z green leaves' turn toward olive (0 off)
 vec3 toneMap(vec3 c) {
   if (toneMapper == 1) return NeutralToneMapping(c);
@@ -412,6 +413,8 @@ vec2 drive(vec2 ab, float weight, vec3 params, vec2 protect, float raw) {
 /** The grade of a cell's linear HDR radiance: graded OKLab (see createGradeStage). */
 vec3 artGrade(ivec2 cell, vec3 radiance) {
   radiance = max(radiance, vec3(0.));
+  // The painted sky is authored in display colours: the dusk and sunrise exposure lift (dayExposure) is for the world.
+  radiance *= mix(1., gradeSkyExposure, texelFetch(resolvedData, cell, 0).w);
   vec3 lab = artLinearToOklab(clamp(toneMap(radiance), 0., 1.));
   lab.yz *= chromaGain;
   // Night contrast (refine round 4, the user's rain-night concept): lightness
@@ -463,7 +466,10 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   float sky = texelFetch(resolvedData, cell, 0).w;
   lab.yz *= 1. - darkChroma.x * dark * (1. - paint) * (1. - smoothstep(darkChroma.y, darkChroma.z, chroma))
     - lightChroma.x * light * (1. - sky) * (1. - smoothstep(lightChroma.y, lightChroma.z, chroma));
-  float shadow = shadowDrive.y * (1. - smoothstep(shadowRange.x, shadowRange.y, lab.x)) * (1. - gradeFoliage.z * canopy);
+  // Car paint takes less of it (refine round 4): the drive turned a white car's sky-lit roof mauve, where the
+  // cutscenes keep a pale car warm cream under the street's light.
+  float shadow = shadowDrive.y * (1. - smoothstep(shadowRange.x, shadowRange.y, lab.x)) * (1. - gradeFoliage.z * canopy)
+    * (artCarKind(cell) == 1 ? .35 : 1.);
   float highlight = highlightDrive.y * smoothstep(highlightRange.x, highlightRange.y, lab.x);
   // The protection follows the chroma before the compression, so saturated
   // darks (a red vending machine, a teal car in shade) keep their hue.
@@ -531,7 +537,7 @@ export function createGradeStage(shared: PixelArtSharedUniforms) {
     gradeContrast: { value: new THREE.Vector3(0, .38, 0) },
     gradeFloor: { value: 0 },
     gradeFoliage: { value: new THREE.Vector3(0, 0, 0) },
-    gradeCarContrast: { value: .5 },
+    gradeCarContrast: { value: .5 }, gradeSkyExposure: { value: 1 },
   };
   const material = stageMaterial('SORA pixel-art grade', shared, /* glsl */ `
 ${PIXEL_ART_GRADE}

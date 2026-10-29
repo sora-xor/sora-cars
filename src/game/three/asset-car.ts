@@ -161,10 +161,12 @@ async function prepareTemplate(): Promise<Template> {
   const decals = mergeGeometries(flagPatches, false);
   if (!decals || decals.getAttribute('position').count === 0) throw new Error('Detailed coupe flag projection missed its body.');
   for (const patch of flagPatches) patch.dispose();
-  // SORA's emblem centred on the roof and the bonnet, upright from the chase camera.
+  // SORA's emblem centred on the roof and the bonnet, upright from the chase camera. The roof's is large (refine round 4):
+  // seen at the chase camera's grazing angle a 0.62 m roundel foreshortened to a few rows and its emblem to a smudge,
+  // where the cutscenes draw a bold red disc across the roof.
   const upright = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(
     new THREE.Vector3(-1, 0, 0), new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 1, 0)));
-  const emblemPatches = ([[new THREE.Vector3(0, 1.27, -0.4), 0.62], [new THREE.Vector3(0, 0.84, 1.3), 0.5]] as const)
+  const emblemPatches = ([[new THREE.Vector3(0, 1.27, -0.4), 0.84], [new THREE.Vector3(0, 0.84, 1.3), 0.5]] as const)
     .map(([at, size]) => new DecalGeometry(bodyMesh, at, upright, new THREE.Vector3(size, size, 0.3)))
     .filter(patch => patch.getAttribute('position').count > 0);
   const emblems = emblemPatches.length ? mergeGeometries(emblemPatches, false) : null;
@@ -197,6 +199,19 @@ function addDissolve(material: THREE.Material, opacity: { value: number }): void
     `);
   };
   material.customProgramCacheKey = () => 'sora-detailed-coupe-dissolve-v1';
+}
+
+/** Every detailed car's paint and emblem materials, for the night's street light (setDetailedCarNight). */
+const nightPaint = new Set<THREE.MeshStandardMaterial>(), nightEmblems = new Set<THREE.MeshStandardMaterial>();
+/**
+ * After dark (refine round 4) the cars take more of the street's light from their local reflection probe, and SORA's
+ * emblems light a little from within: the cutscenes keep a white car warm cream and its roof emblem a bold red disc
+ * under the street's lamps, where ours went grey-mauve and the emblem a pink smudge. `night` 0 by day, 1 at night.
+ */
+export function setDetailedCarNight(night: number): void {
+  const k = THREE.MathUtils.clamp(Number.isFinite(night) ? night : 0, 0, 1);
+  for (const material of nightPaint) material.envMapIntensity = 1 + 1.2 * k;
+  for (const material of nightEmblems) material.emissiveIntensity = .35 * k;
 }
 
 function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Texture | undefined, strip: THREE.Texture | undefined,
@@ -240,7 +255,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       material = surface.material.clone(); materials.set(materialKey, material);
       material.envMapIntensity = 1;
       if (material.name === 'Primary') {
-        paint.push(material);
+        paint.push(material); nightPaint.add(material);
         // Solid enamel color under a glossy dielectric coat. A metalness of
         // one turns pale period paint into a chrome mirror in the dusk HDR.
         material.metalness = 0;
@@ -303,7 +318,9 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
   const flags = new THREE.Mesh(template.decals, flagMaterial); flags.name = 'Exact SORA flag body decals'; group.add(flags);
   if (template.emblems && emblem) {
     const emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
-      roughness: 0.4, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      roughness: 0.4, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+      emissive: 0xffffff, emissiveMap: emblem, emissiveIntensity: 0 });
+    nightEmblems.add(emblemMaterial);
     addDissolve(emblemMaterial, opacity);
     const emblems = new THREE.Mesh(template.emblems, emblemMaterial); emblems.name = 'Exact SORA emblem roof and bonnet decals'; group.add(emblems);
   }

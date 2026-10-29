@@ -20,8 +20,10 @@ const RACE_NIGHTS: Readonly<Record<RaceNightSky, Stops>> = {
    * upper stops moved from violet, h 280-286, toward it). Chroma is authored ~.015 above the art so the pixel
    * grade's dark-chroma compression lands on indigo, not a grey navy. */
   city: displayStops('#5a2a66', '#47245e', '#362056', '#2a1c50', '#1d1b4e', '#181a4c', '#141748', '#111444', '#0e1240'),
-  /** Hakone: the saturated violet-indigo of radio-wide (#2b2580 .. #402e8e) and the blackout door. */
-  mountain: displayStops('#46308f', '#402d8c', '#3a2a89', '#352785', '#302580', '#2c237a', '#282072', '#241d6a', '#211a62'),
+  /** Hakone: the saturated violet-indigo of radio-wide (#2b2580 .. #402e8e) and the blackout door; refine round 4 a step
+   * darker and less saturated toward its zenith, as the cutscene-style repaint of a Hakone race frame paints it (the
+   * race sky measured OKLab chroma 0.157 against the repaint's 0.113). */
+  mountain: displayStops('#42318c', '#3c2e88', '#362a83', '#30267d', '#2b2277', '#271f71', '#231c6a', '#1f1963', '#1c165d'),
   /** Yokohama: harbor-wide's dark navy-plum (#0f133c at the top, #281e45 over the water), chroma lifted as above. */
   harbor: displayStops('#2d1d4d', '#281b4b', '#231949', '#1f1747', '#1c1646', '#191445', '#151243', '#121042', '#0f0f40'),
 };
@@ -47,11 +49,15 @@ const glslFloat = (value: number) => value.toFixed(4);
  * wider than tall on the 315-row art grid.
  */
 const RACE_STRATA = [
-  { layer: [.020, .014, 128, 190], shape: [2.2, 4.4], seed: 37, coverage: .50, tone: -1 },
-  { layer: [.066, .030, 96, 80], shape: [1.8, 3.6], seed: 11, coverage: .55, tone: -1 },
-  { layer: [.128, .032, 80, 75], shape: [2, 4], seed: 23, coverage: .50, tone: 1 },
-  { layer: [.205, .055, 56, 27], shape: [1.6, 3.2], seed: 53, coverage: .56, tone: -1 },
-  { layer: [.300, .050, 64, 55], shape: [2, 4], seed: 71, coverage: .40, tone: 1 },
+  { layer: [.020, .014, 128, 190], shape: [2.2, 4.4], seed: 37, coverage: .50, tone: -1, day: false },
+  { layer: [.066, .030, 96, 80], shape: [1.8, 3.6], seed: 11, coverage: .55, tone: -1, day: false },
+  { layer: [.128, .032, 80, 75], shape: [2, 4], seed: 23, coverage: .50, tone: 1, day: false },
+  { layer: [.205, .055, 56, 27], shape: [1.6, 3.2], seed: 53, coverage: .56, tone: -1, day: false },
+  { layer: [.300, .050, 64, 55], shape: [2, 4], seed: 71, coverage: .40, tone: 1, day: false },
+  // Refine round 4: a high mackerel sky (altocumulus) at dusk and sunrise only (`day`), as the cutscene-style repaints
+  // fill the whole upper sky with violet masses lit pink and gold from below; the night keeps its clear, starry top.
+  { layer: [.420, .085, 156, 70], shape: [2.2, 4.4], seed: 89, coverage: .64, tone: -1, day: true },
+  { layer: [.590, .095, 136, 56], shape: [2, 4], seed: 97, coverage: .6, tone: 1, day: true },
 ] as const;
 
 /** Optional per-mood race sky data (see RaceWorld's moods). */
@@ -93,8 +99,10 @@ export function createPaintedSky() {
   const raceHarbor = { value: 0 };
   // Tokyo's night (refine round 4): the cloud deck's undersides catch the city's pink and magenta from below, 0 elsewhere.
   const raceCityGlow = { value: 0 };
+  const raceDay = { value: 1 };
   // Tokyo (refine round 4): x 1 draws the far city and a mountain ridge on the horizon, y its windows' lit share.
   const raceCity = { value: new THREE.Vector2(0, 0) };
+  const raceSkyline = { value: new THREE.Vector3(1, 1, 1) };
   let evaluatedDaylight = NaN, evaluatedNight = '', evaluatedStars = NaN;
   // Tokyo's daylight changes every frame: allocation-free.
   const evaluateRacePalette = (daylight: number, night: RaceNightSky, stars: number) => {
@@ -109,7 +117,9 @@ export function createPaintedSky() {
     // Night skies are nearly flat: a few faint masses. Dusk and sunrise are
     // dense; lit edges turn amber toward the sun, most at sunrise.
     // Tokyo's night keeps a broken deck lit pink by the city from below (refine round 4).
-    raceCloud.value.x = THREE.MathUtils.lerp(THREE.MathUtils.lerp(night === 'city' ? 1 : .14, 1, dusk), .9, sunrise);
+    // Refine round 4: Hakone's and Yokohama's nights keep a broken deck too (their cutscene-style repaints draw soft
+    // clouds low over the horizon); it was nearly clear (0.14).
+    raceCloud.value.x = THREE.MathUtils.lerp(THREE.MathUtils.lerp(night === 'city' ? 1 : .55, 1, dusk), .9, sunrise);
     raceCloud.value.y = THREE.MathUtils.lerp(THREE.MathUtils.lerp(.3, .6, dusk), 1, sunrise);
     raceCloud.value.z = sunrise;
     // Sparse single-cell stars at night; at dusk only in the upper violet
@@ -118,12 +128,16 @@ export function createPaintedSky() {
     raceStars.value.y = THREE.MathUtils.lerp(.03, .2, dusk);
     raceHarbor.value = night === 'harbor' ? (1 - dusk) * (1 - sunrise) : 0;
     raceCityGlow.value = night === 'city' ? (1 - dusk) * (1 - sunrise) : 0;
-    raceCity.value.set(night === 'city' ? 1 : 0, night === 'city' ? (1 - .7 * dusk) * (1 - sunrise) : 0);
+    raceDay.value = 1 - (1 - dusk) * (1 - sunrise);
+    raceCity.value.set(1, night === 'city' ? (1 - .7 * dusk) * (1 - sunrise) : night === 'harbor' ? (1 - dusk) * (1 - sunrise) : 0);
+    // Refine round 4 (the cutscene-style repaints of each course): Hakone's pass ends in tall mountain ridges and no far
+    // city; Yokohama's horizon is a dense lit city of towers across the water; Tokyo keeps its low ridge and far city.
+    raceSkyline.value.set(night === 'mountain' ? 2.6 : night === 'harbor' ? 1.1 : 1, night === 'mountain' ? 0 : 1, night === 'harbor' ? 1.7 : 1);
   };
   const gradient = RACE_STOP_ELEVATIONS.slice(1).map((elevation, i) =>
     `  c = mix(c, raceStop[${i + 1}], smoothstep(${glslFloat(RACE_STOP_ELEVATIONS[i]!)}, ${glslFloat(elevation)}, e));`).join('\n');
-  const strata = RACE_STRATA.map(({ layer, shape, seed, coverage, tone }) =>
-    `        sky = raceStratum(sky, angular, vec4(${layer.map(glslFloat).join(', ')}), vec2(${shape.map(glslFloat).join(', ')}), vec3(${glslFloat(seed)}, ${glslFloat(coverage)}, ${glslFloat(tone)}), cellAngle, pixelAngle, sunward, nearSun);`).join('\n');
+  const strata = RACE_STRATA.map(({ layer, shape, seed, coverage, tone, day }) =>
+    `        sky = raceStratum(sky, angular, vec4(${layer.map(glslFloat).join(', ')}), vec2(${shape.map(glslFloat).join(', ')}), vec3(${glslFloat(seed)}, ${glslFloat(coverage)}${day ? ' - (1. - skyRaceDay) * .8' : ''}, ${glslFloat(tone)}), cellAngle, pixelAngle, sunward, nearSun);`).join('\n');
   const material = new THREE.ShaderMaterial({
     name: 'SORA painted dusk clouds',
     side: THREE.BackSide,
@@ -145,8 +159,8 @@ export function createPaintedSky() {
       skyRaceCloud: raceCloud,
       skyRaceStars: raceStars,
       skyRaceHarbor: raceHarbor,
-      skyRaceCityGlow: raceCityGlow,
-      skyRaceCity: raceCity,
+      skyRaceCityGlow: raceCityGlow, skyRaceDay: raceDay,
+      skyRaceCity: raceCity, skyRaceSkyline: raceSkyline,
     },
     vertexShader: /* glsl */`
       void main() {
@@ -169,7 +183,9 @@ export function createPaintedSky() {
       uniform vec4 skyRaceStars;
       uniform float skyRaceHarbor;
       uniform float skyRaceCityGlow;
+      uniform float skyRaceDay; // 0 at night, 1 from dusk to sunrise: the high mackerel strata
       uniform vec2 skyRaceCity;
+      uniform vec3 skyRaceSkyline; // x ridge height (1 Tokyo's), y 1 draws the far city, z its towers' density and height
       const float PI = 3.14159265359;
 
       const vec3 SUN_DISC = vec3(.996, .949, .773), SUN_HALO = vec3(.988, .722, .467), SUN_HALO_OUTER = vec3(.961, .592, .420);
@@ -375,7 +391,8 @@ ${gradient}
         // Two body tones in broad patches (posterized cloud shading).
         float tone = smoothstep(.5, .56, lattice(vec2(angular.x * layer.z * 1.5, e * layer.w * .8) + seed * 5., layer.z * 1.5));
         // At night the masses stay one step off the sky in the indigo family.
-        float depth = mix(.93, .72, skyRaceCloud.x);
+        // Deeper at sunrise (refine round 4: the sunrise repaints' cloud bodies are dark violet against bright edges).
+        float depth = mix(.93, .72, skyRaceCloud.x) * mix(1., .8, skyRaceCloud.z);
         vec3 body, lit;
         if (look.z < 0.) {
           // Darker violet masses from higher in the gradient; their lit
@@ -389,6 +406,8 @@ ${gradient}
           lit = raceGradient(e - .16) * 1.08;
         }
         lit = mix(body, lit, skyRaceCloud.x);
+        // Sunrise edges more saturated (refine round 4).
+        lit = max(mix(vec3(dot(lit, vec3(.3, .59, .11))), lit, 1. + .35 * skyRaceCloud.z), 0.);
         // Tokyo's night: undersides lit pink and magenta by the city, strongest low over the street; the masses
         // a step lighter plum, so the deck reads as lit cloud bands rather than dark smudges.
         lit = mix(lit, vec3(1., .3, .5) * (1. - .5 * smoothstep(.08, .32, e)), skyRaceCityGlow);
@@ -710,17 +729,21 @@ ${gradient}
       // city in blocks and towers, its windows 1-cell amber and cream dots
       // after dark and its towers' aviation lights red. Direction-anchored.
       vec3 raceCitySkyline(vec3 sky, float azimuth, float elevation, float cellAngle) {
-        if (skyRaceCity.x <= 0. || elevation > .12 || elevation < -.016) return sky;
-        // The ridge rises and falls along the horizon, over about two thirds of it.
-        float sector = smoothstep(.35, .55, lattice(vec2(azimuth * 5., 2.3), 5.));
-        float ridge = (.018 + .05 * lattice(vec2(azimuth * 26., 7.1), 26.) + .016 * lattice(vec2(azimuth * 95., 3.7), 95.)) * sector;
+        if (skyRaceCity.x <= 0. || elevation > .12 * max(1., skyRaceSkyline.x) || elevation < -.016) return sky;
+        // The ridge rises and falls along the horizon, over about two thirds of it (all round where it is tall).
+        float sector = mix(smoothstep(.35, .55, lattice(vec2(azimuth * 5., 2.3), 5.)), 1., smoothstep(1.4, 2.2, skyRaceSkyline.x) * .75);
+        float ridge = (.018 + .05 * lattice(vec2(azimuth * 26., 7.1), 26.) + .016 * lattice(vec2(azimuth * 95., 3.7), 95.)) * sector * skyRaceSkyline.x;
+        // A nearer, darker ridge below a farther, paler one where the mountains are tall (Hakone's layered pass).
+        float near = (.012 + .03 * lattice(vec2(azimuth * 41., 5.3), 41.)) * sector * max(skyRaceSkyline.x - 1., 0.);
         if (elevation < ridge) sky = mix(sky, mix(raceGradient(.05) * .62, sky, .25), skyRaceCity.x);
+        if (elevation < near) sky = mix(sky, raceGradient(.04) * .42, skyRaceCity.x);
+        if (skyRaceSkyline.y < .5) return sky;
         // The far city: blocks of differing heights, every so often a tower.
         const float TOWERS = 70., columns = 1600.;
         float block = floor(azimuth * 520.);
         float top = -.004 + (.006 + .026 * hash(vec2(block, 7.3)) * step(.35, hash(vec2(block, 9.1))));
-        float towerId = floor(azimuth * TOWERS), towerTop = .035 + .045 * hash(vec2(towerId, 5.5));
-        bool tower = hash(vec2(towerId, 12.7)) > .62 && abs(fract(azimuth * TOWERS) - .5) < .06 + .06 * hash(vec2(towerId, 2.2));
+        float towerId = floor(azimuth * TOWERS), towerTop = (.035 + .045 * hash(vec2(towerId, 5.5))) * mix(1., 1.35, step(1.2, skyRaceSkyline.z));
+        bool tower = hash(vec2(towerId, 12.7)) > 1. - .38 * skyRaceSkyline.z && abs(fract(azimuth * TOWERS) - .5) < .06 + .06 * hash(vec2(towerId, 2.2));
         if (tower) top = max(top, towerTop);
         if (elevation < top) {
           sky = mix(sky, raceGradient(.03) * .4, skyRaceCity.x);

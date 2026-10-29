@@ -162,7 +162,7 @@ function shell(x: Context, f: Facade, w: number, d: number, h: number, roof = tr
       b.side('glass', s * (w / 2 + .02), z - .4, z + .4, y, y + 1.1, s);
     }
   }
-  flankGrid(x, f, w, d, h, advertised, detail === 1 ? 1 : .4);
+  flankGrid(x, f, w, d, h, advertised, detail === 1 ? 1 : .7);
 }
 
 /**
@@ -994,12 +994,25 @@ function ryokan(x: Context): void {
   const door = (random() - .5) * (w - 5);
   b.colour.copy(timber);
   b.front('wall', -w / 2, w / 2, ground - .5, ground, 0);
-  b.front('wall', -w / 2, door - 1.4, 0, ground - .5, 0); b.front('wall', door + 1.4, w / 2, 0, ground - .5, 0);
+  // Either side of the entrance, lit shoji behind the timber lattice (refine round 4: the cutscene-style repaint of a
+  // Hakone race frame lights every inn's street floor; a timber wall here read as a long dark front).
+  for (const [x0, x1] of [[-w / 2, door - 1.4], [door + 1.4, w / 2]] as const) {
+    if (x1 - x0 < .4) continue;
+    b.colour.copy(timber);
+    b.front('wall', x0, x1, 0, .3, 0); b.front('wall', x0, x1, ground - .7, ground - .5, 0);
+    // The shoji glow itself, warm paper lit from within (a lamp face, so it burns with the street's lights).
+    b.colour.setRGB(1.05, .72, .36); b.front('lamp', x0, x1, .3, ground - .7, .22);
+    // Bars 24 cm apart, with a rail across: finer, they fell about a cell apart at the street's distances and beat.
+    if (detail) {
+      b.colour.copy(shade(timber, .7));
+      for (let px = x0 + .1; px < x1 - .06; px += .24) b.box('metal', px, px + .07, .3, ground - .7, -.06, -.01, 'bkt');
+      b.box('metal', x0, x1, 1.45, 1.52, -.06, -.01, 'bk');
+    }
+  }
   b.window = [random() * .3, WINDOW_KIND.shop]; b.colour.set('#8a6a48');
   b.front('glass', door - 1.4, door + 1.4, 0, ground - .5, .5);
   b.colour.copy(shade(timber, .8));
   b.side('wall', door - 1.4, 0, .5, 0, ground - .5, 1); b.side('wall', door + 1.4, 0, .5, 0, ground - .5, -1); b.flat('wall', door - 1.4, door + 1.4, 0, .5, ground - .5, -1);
-  if (detail) for (let px = -w / 2 + .3; px < door - 1.5; px += .12) b.box('metal', px, px + .045, .3, ground - .7, -.06, -.01, 'bkt');
   b.colour.set('#2e3d5c'); b.front('wall', door - 1.3, door + 1.3, ground - 1.3, ground - .55, -.04);
   lanterns(x, door, ground - .55, 1.75);
   b.colour.set('#3e4248'); b.gableRoof('roof', -w / 2, w / 2, 0, d, h, 2.4 + random() * .6, 1.1);

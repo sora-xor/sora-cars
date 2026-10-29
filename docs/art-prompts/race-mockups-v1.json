@@ -23,6 +23,50 @@
         "public/assets/branding/sora-emblem-source.png"
       ],
       "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same street, buildings, signs and their positions, the two cars in the same places, the same road markings. Mood: a damp 1986 Tokyo dusk: violet-pink evening sky, a wet road mirroring the sky and the lamps, warm lit windows beginning to glow, street lamps just lit. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    },
+    {
+      "id": "hakone-night",
+      "file": "art/reference/mockups/hakone-night-v1.png",
+      "source": "race frame: Arcade practice, Midnight Circuit (Hakone), 1280x720 (tmp/pixel-art/mood-capture.mjs arcade0)",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "art/reference/rain-night-target.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a rainy 1986 Hakone onsen-town night: deep indigo-violet sky full of stars, two searchlight beams and a SORA airship, wet mirror road with long warm gold and red reflections, warm lit inn and shop windows, glowing paper lanterns, utility poles and wires. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    },
+    {
+      "id": "yokohama-night",
+      "file": "art/reference/mockups/yokohama-night-v1.png",
+      "source": "race frame: Arcade practice, Harbor Run (Yokohama), 1280x720 (arcade1)",
+      "references": [
+        "public/assets/story/angles/harbor-wide-v3.png",
+        "public/assets/story/radio-rain-v1.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a 1986 Yokohama harbour night: navy sky with stars, a searchlight and a SORA airship, the harbour water and lit city skyline on the left, cranes, container stacks and warehouses on the right, wet road with long gold and red reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    },
+    {
+      "id": "nikko-sunrise",
+      "file": "art/reference/mockups/nikko-sunrise-v1.png",
+      "source": "race frame: Arcade practice, Sakura Pass (Nikko), 1280x720 (arcade2)",
+      "references": [
+        "public/assets/story/community-dawn-v1.png",
+        "public/assets/story/sunrise-crew-branded-v1.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a 1986 Nikko sunrise: warm peach and pink sky with lit clouds, a blooming cherry tree, traditional wooden two-storey buildings, utility poles and wires against the bright sky, a dry road catching the low golden sun. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    },
+    {
+      "id": "tokyo-sunrise-l080",
+      "file": "art/reference/mockups/tokyo-sunrise-l080-v1.png",
+      "source": "race frame: Tokyo street race, chapter time 0.95 (sunrise), lap 0.8, 1280x720 (tokyo:0.95:0.8)",
+      "references": [
+        "public/assets/story/community-dawn-v1.png",
+        "public/assets/story/sunrise-crew-branded-v1.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a 1986 Tokyo sunrise: warm peach and violet sky with lit clouds, a SORA airship, a stone river wall and trees on the left, office buildings with a vertical shop sign on the right, a dry road catching the low golden sun. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
     }
   ]
 }

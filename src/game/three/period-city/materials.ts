@@ -97,16 +97,22 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
             // Joints at least one art cell wide (the scene renders about 2.5 samples per cell), so they survive the
             // cell resolve as pixel-art courses; gone where the courses would fall closer than about 4 cells.
             float cell = max(fwidth(m.x), fwidth(m.y)) * 2.5;
-            float joint = 1. - smoothstep(max(unit.w, cell * .5), max(unit.w, cell * .5) + cell * .4, min(dx, dy));
-            float size = min(unit.x > 0. ? unit.x : 9., unit.y > 0. ? unit.y : 9.);
-            float fade = 1. - smoothstep(size / 5.5, size / 3.5, cell);
+            // Each direction on its own footprint (refine round 4): a facade receding along the street keeps its
+            // courses as horizontal lines where its upright joints crowd out (one footprint for both hid the grid).
+            float cellX = fwidth(m.x) * 2.5, cellY = fwidth(m.y) * 2.5;
+            float fadeY = unit.y > 0. ? 1. - smoothstep(unit.y / 5.5, unit.y / 3.5, cellY) : 0.;
+            float fadeX = unit.x > 0. ? 1. - smoothstep(unit.x / 5.5, unit.x / 3.5, cellX) : 0.;
+            float jointY = (1. - smoothstep(max(unit.w, cellY * .5), max(unit.w, cellY * .5) + cellY * .4, dy)) * fadeY;
+            float jointX = (1. - smoothstep(max(unit.w, cellX * .5), max(unit.w, cellX * .5) + cellX * .4, dx)) * fadeX;
+            float joint = max(jointX, jointY);
+            float fade = max(fadeX, fadeY);
             float shade = fract(sin(floor(along) * 37.17 + row * 101.31) * 43758.5453) - .5;
             // After dark the grid carries the facade (the user's rain-night concept, whose tile catches the street
             // light): the grout a shade deeper, the tiles further apart, and a lit cell under each course's upper
             // joint where the lamps above catch its edge.
             float dark = clamp(cityNight, 0., 1.);
             float lip = unit.y > 0. ? smoothstep(1. - 2.2 * cell / unit.y, 1. - 1.2 * cell / unit.y, fract(m.y / unit.y)) * (1. - joint) : 0.;
-            diffuseColor.rgb *= 1. + (shade * mix(.1, .22, dark) - joint * mix(.34, .5, dark) + lip * .16 * dark) * fade;
+            diffuseColor.rgb *= 1. + (shade * mix(.1, .22, dark) * min(fadeX, max(fadeY, unit.y > 0. ? 0. : 1.)) + lip * .16 * dark * fadeY) - joint * mix(.34, .5, dark);
             // Surface relief (refine round 4, the cutscenes' facades: corrugated sheet, lapped boards), drawn in whole
             // art cells and gone where it would crowd closer than about three cells a period.
             if (pattern > 2.5 && pattern < 3.5) {
@@ -175,7 +181,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
           reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * wash * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v12`;
+  material.customProgramCacheKey = () => `${name}-v13`;
   return material;
 }
 
@@ -237,11 +243,13 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
               for (int k = 0; k < 2; k++) {
                 float px = k == 0 ? side : 1. - side;
                 if (k == 1 && fract(seed * 7.7) < .55) break;
-                float pot = step(abs(pane.x - px), .065) * step(pane.y, .14);
-                float leaves = max(max(step(length((pane - vec2(px, .3)) * vec2(1., 1.25)), .15),
-                  step(length((pane - vec2(px - .08, .4)) * vec2(1.2, 1.)), .085)), step(length((pane - vec2(px + .07, .38)) * vec2(1.2, 1.)), .08));
-                float speck = fract(sin(dot(floor(pane * 16.), vec2(12.9898, 78.233)) + seed * 17.) * 43758.5453);
-                vec3 leaf = mix(vec3(.02, .045, .018), vec3(.1, .2, .055), smoothstep(.22, .46, pane.y) * (.55 + .45 * speck));
+                float pot = step(abs(pane.x - px), .055) * step(pane.y, .12);
+                float leaves = max(max(step(length((pane - vec2(px, .25)) * vec2(1., 1.3)), .11),
+                  step(length((pane - vec2(px - .07, .33)) * vec2(1.3, 1.)), .065)), step(length((pane - vec2(px + .06, .31)) * vec2(1.3, 1.)), .06));
+                // Lacy, not a blob: a few cells of the crown let the room show through.
+                float speck = fract(sin(dot(floor(pane * 18.), vec2(12.9898, 78.233)) + seed * 17.) * 43758.5453);
+                leaves *= step(.18, speck);
+                vec3 leaf = mix(vec3(.012, .022, .01), vec3(.045, .08, .024), smoothstep(.18, .4, pane.y) * (.5 + .5 * speck));
                 overlay = mix(overlay, vec3(.14, .055, .03), pot * (1. - overlayMask)); overlayMask = max(overlayMask, pot);
                 overlay = mix(overlay, leaf, leaves * (1. - overlayMask)); overlayMask = max(overlayMask, leaves);
               }
@@ -260,7 +268,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
               // Curtains drawn to the sides: light fabric with its folds, lit by the room (they were dark bands).
               float cloth = clamp(smoothstep(.21, .15, pane.x) + smoothstep(.79, .85, pane.x), 0., 1.);
               float hue = fract(seed * 5.3);
-              vec3 fabric = (hue < .5 ? vec3(1., .84, .64) : hue < .8 ? vec3(1., .66, .6) : vec3(.68, .82, .62))
+              vec3 fabric = (hue < .5 ? vec3(1., .7, .4) : hue < .8 ? vec3(1., .52, .42) : vec3(.6, .76, .45))
                 * dot(glow, vec3(.3, .5, .2)) * (.8 + .2 * sin(pane.x * 70.));
               overlay = mix(overlay, fabric, cloth * (1. - overlayMask)); overlayMask = max(overlayMask, cloth);
             } else {
@@ -515,6 +523,31 @@ export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): R
   const stone = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('japanese_stone_wall'),
     normalScale: new THREE.Vector2(.7, .7), roughness: .95, metalness: 0 });
   stone.name = 'period-city-stone';
+  // Dressed stone in staggered courses (石垣) with their joints drawn while they span an art cell (refine round 4: the
+  // moat's far wall read as a flat plane in the sunrise light; the cutscenes draw every block of a stone wall).
+  stone.onBeforeCompile = shader => {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <map_fragment>', /* glsl */ `#include <map_fragment>
+      {
+        vec3 up = normalize((viewMatrix * vec4(0., 1., 0., 0.)).xyz);
+        if (1. - abs(dot(normalize(vNormal), up)) > .5) {
+          vec2 m = vMapUv * 2.;
+          // Big castle-wall blocks (the palace moat's ishigaki run about a metre high), so they read across the moat.
+          const float course = .9;
+          float row = floor(m.y / course);
+          float width = 1.1 + .7 * fract(sin(row * 17.3) * 43758.5453);
+          float along = (m.x + fract(sin(row * 7.1) * 43758.5453) * width) / width;
+          float dy = abs(fract(m.y / course + .5) - .5) * course, dx = abs(fract(along + .5) - .5) * width;
+          // Each direction on its own footprint: a wall seen at a grazing angle along the road keeps its courses
+          // (horizontal lines receding to the vanishing point) where its upright joints crowd out.
+          float cellX = fwidth(m.x) * 2.5, cellY = fwidth(m.y) * 2.5;
+          float lineY = (1. - smoothstep(max(.03, cellY * .5), max(.03, cellY * .5) + cellY * .4, dy)) * (1. - smoothstep(course / 5., course / 3., cellY));
+          float lineX = (1. - smoothstep(max(.03, cellX * .5), max(.03, cellX * .5) + cellX * .4, dx)) * (1. - smoothstep(width / 5., width / 3., cellX));
+          float shade = (fract(sin(floor(along) * 37.17 + row * 101.31) * 43758.5453) - .5) * (1. - smoothstep(width / 5., width / 3., cellX));
+          diffuseColor.rgb *= 1. + shade * .26 * (1. - smoothstep(course / 5., course / 3., cellY)) - max(lineX, lineY) * .45;
+        }
+      }`);
+  };
+  stone.customProgramCacheKey = () => 'period-city-stone-v4';
   const roof = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('grey_roof_tiles_02'),
     normalScale: new THREE.Vector2(.8, .8), roughness: .82, metalness: 0 });
   roof.name = 'period-city-roof';

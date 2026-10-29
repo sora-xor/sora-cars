@@ -16,7 +16,7 @@ import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 import { scannedSurface, scannedSurfacesReady } from './surfaces';
 import { getPixelFinish } from './graphics';
-import { loadDetailedCarFleet } from './asset-car';
+import { loadDetailedCarFleet, setDetailedCarNight } from './asset-car';
 import { soraEmblemTexture, soraStripTexture } from './sora-emblem';
 import { TailStreaks } from './tail-streaks';
 import { loadDetailedScenery } from './asset-scenery';
@@ -86,7 +86,7 @@ const PIXEL_ROAD_SPOT_SPECULAR = 0.12;
 /** Road albedo: lifted for Neutral's toe at night and dusk, darker asphalt
  * under the low sunrise so the key-lit road stays below the lit subjects. */
 const ROAD_ALBEDO = new THREE.Color('#b8b6bc');
-const ROAD_ALBEDO_SUNRISE = new THREE.Color('#9d99a3');
+const ROAD_ALBEDO_SUNRISE = new THREE.Color('#b6b2ba');
 /** Street lamps fade toward sunrise (the city switching off), keeping weak streaks. */
 const SUNRISE_LAMP_GAIN = 0.45;
 /** Their pools on the road fade further (refine round 2): at 45% they still
@@ -117,10 +117,13 @@ const GROUND_ENVIRONMENT = new THREE.Color(0.5, 0.45, 0.62);
  * shopfront diffuser gain and the sign backlight, at night, dusk and sunrise.
  * Most at night, few toward sunrise (the city switching off). */
 const WINDOW_LIGHTS = {
-  night: { upper: 0.55, ground: 0.75, gain: 2, cool: 0.12, diffuser: 2.8, signs: 0.45 },
+  // Refine round 4: more rooms lit, as the cutscene-style repaints of every course light them (the frames' warm-lit
+  // share above the road measured 55-80% of theirs).
+  night: { upper: 0.72, ground: 0.9, gain: 2, cool: 0.12, diffuser: 2.8, signs: 0.45 },
   // Refine round 4: more of the city already lit at dusk, as a cutscene-style repaint of the dusk race paints it.
   dusk: { upper: 0.45, ground: 0.65, gain: 1.6, cool: 0.1, diffuser: 1.9, signs: 0.28 },
-  sunrise: { upper: 0.05, ground: 0.18, gain: 0.6, cool: 0.05, diffuser: 1, signs: 0 },
+  // Refine round 4: the cutscene-style sunrise repaints keep many rooms lit, warm against the cool morning walls.
+  sunrise: { upper: 0.5, ground: 0.75, gain: 1.3, cool: 0.05, diffuser: 1, signs: 0 },
 } as const;
 const windowLights = (key: keyof typeof WINDOW_LIGHTS.night, dusk: number, morning: number) => THREE.MathUtils.lerp(
   THREE.MathUtils.lerp(WINDOW_LIGHTS.night[key], WINDOW_LIGHTS.dusk[key], dusk), WINDOW_LIGHTS.sunrise[key], morning);
@@ -134,6 +137,12 @@ const PERIOD_SIGN_GAIN = 2.4;
 const SHOP_COLUMNS = 4, SHOP_COLUMN_COLOUR = new THREE.Color(1, .66, .36), SHOP_COLUMN_GAIN = .5, SHOP_COLUMN_WIDTH = 2.8, SHOP_COLUMN_CELLS = 16;
 /** Shops nearer the camera than this along its view (m) stand beside it, their pavement out of view. */
 const SHOP_COLUMN_AHEAD = 9;
+/**
+ * Shop fronts may take every emitter slot the lamps leave free, up to this many (refine round 4: on Hakone's and
+ * Yokohama's streets, with fewer lamps, the road carried about half the warm reflected light of their cutscene-style
+ * repaints).
+ */
+const SHOP_COLUMNS_MAX = 8;
 /** A street lamp head's far light (period-city/far-lights.ts): linear HDR sodium gold, and the head's size (m). */
 const LAMP_FAR_LIGHT = new THREE.Color(2.2, 1.25, .4), LAMP_FAR_LIGHT_SIZE = .55;
 /** Its bulbs, lanterns and canopy lights toward sunrise. */
@@ -396,7 +405,7 @@ export class RaceWorld {
   /** Wet-road reflections of the cars' tail lamps. */
   private readonly tailStreaks = new TailStreaks();
   /** The street lamps' heads as glowing points down the street (period-city/far-lights.ts). */
-  private readonly lampFarLights = new MovingFarLights(24);
+  private readonly lampFarLights = new MovingFarLights(32);
   private readonly lampHead = new THREE.Vector3();
   /** The nearest lamp heads, whose spill washes the period city's facades (period-city/materials.ts). */
   private readonly washHeads = Array.from({ length: 6 }, () => new THREE.Vector3());
@@ -495,7 +504,9 @@ export class RaceWorld {
     for (const tree of this.sakura) tree.traverse(object => {
       if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors) object.material = this.blossom;
     });
-    for (let i = 0; i < 18; i++) { const lamp = createStreetLamp(); this.lamps.push(lamp); this.scene.add(lamp); }
+    // Refine round 4: street lamps every 26 m (they stood 43 m apart), as the cutscene-style repaints of every course
+    // line their roads; 15 a side keeps the row's reach.
+    for (let i = 0; i < 30; i++) { const lamp = createStreetLamp(); this.lamps.push(lamp); this.scene.add(lamp); }
     const railMaterial = new THREE.MeshStandardMaterial({ color: '#727b80', roughness: 0.55, metalness: 0.65 });
     this.posts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.85, 0.13), railMaterial, 200);
     this.rails = new THREE.InstancedMesh(guardrailGeometry(), railMaterial, 200);
@@ -985,7 +996,7 @@ export class RaceWorld {
       }
       this.understory.setPatches(patches);
     }
-    populate(this.lamps, 43, 50, 0, (lamp, _station, p, side) => place(lamp, p, side, 1.8));
+    populate(this.lamps, 26, 50, 0, (lamp, _station, p, side) => place(lamp, p, side, 1.8));
     let index = 0;
     const railCount = Math.max(1, Math.ceil(course.length / 5));
     const railStep = course.circuit ? course.length / railCount : 5;
@@ -1035,7 +1046,7 @@ export class RaceWorld {
     setPeriodCityLampHeads(washed);
     let farLamps = 0;
     for (const lamp of closestLamps) {
-      if (farLamps >= 24) break;
+      if (farLamps >= 32) break;
       lamp.updateMatrixWorld();
       this.lampFarLights.set(farLamps++, lamp.localToWorld(this.lampHead.set(0, 6.58, -1.28)), LAMP_FAR_LIGHT, LAMP_FAR_LIGHT_SIZE);
     }
@@ -1340,6 +1351,7 @@ export class RaceWorld {
       // (view change) or a course change or seek restarts the temporal history.
       this.pixelArt.setWetness(roadWetness, this.weather);
       this.pixelArt.setNight(1 - dusk);
+      setDetailedCarNight(1 - dusk);
       if (reset || view !== this.pixelArtView) this.pixelArt.resetHistory();
       // Lamp heads for the analytic wet-ground columns (nearest first), and
       // the ambient light the lamp pools are measured against.
@@ -1360,7 +1372,7 @@ export class RaceWorld {
       // The shops ahead of the camera, where their pavement is in view (the nearest to the car stand beside it).
       const shopGlow = this.periodCity.active ? windowLights('ground', dusk, morning) / WINDOW_LIGHTS.night.ground : 0;
       this.camera.getWorldDirection(this.cameraAhead);
-      for (let i = 0, shops = 0; shopGlow > 0.05 && i < closestShops.length && shops < SHOP_COLUMNS; i++) {
+      for (let i = 0, shops = 0; shopGlow > 0.05 && i < closestShops.length && shops < SHOP_COLUMNS_MAX; i++) {
         const shop = closestShops[i]!;
         if (emitters >= this.groundEmitters.length) break;
         if (this.scratchVector.subVectors(shop.position, this.camera.position).dot(this.cameraAhead) < SHOP_COLUMN_AHEAD) continue;

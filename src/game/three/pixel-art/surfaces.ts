@@ -372,15 +372,17 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   fieldDashCells: 6, fieldRowCells: 1, fieldGroundGain: 3, fieldMotionStretch: 2, fieldWallSpeed: 0.4, fieldWallGain: 1.6,
   skyFieldScale: 0.8, skyDashCells: 8, skyRowCells: 1, skyClusterScale: 4, skyClusterWeight: 0.55,
   // Refine round 4: a stronger mirror on wet ground, longer lamp columns (the user's rain-night target).
-  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 2.2, wetSkyReflection: 0.3, wetMaxDistance: 160,
+  // Refine round 4: measured against cutscene-style repaints of race frames, the road's warm reflected light covered
+  // about two thirds of theirs (16.7% of the road against 25.4% at Tokyo night); stronger, denser dashes close it.
+  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 3.2, wetSkyReflection: 0.3, wetMaxDistance: 160,
   // Refine round 4: lit facades, shop fronts and signs stretch into columns too, as every light does in the concept,
   // and the streaks of the far street reach the near road, which keeps a share of the mirror where it is seen steeply.
   wetColumnDown: 96, wetColumnUp: 4, wetColumnStart: 0.15, wetColumnFull: 0.4, wetFresnelFloor: 0.3, wetSpread: 4, wetSpreadFalloff: 0.08,
   wetRipple: 0, wetRippleCells: 4.5, wetRippleRows: 4, wetRippleHoles: 0.42, wetRipplePebbles: 0.05, wetDrizzle: 0, wetReflectionWarmth: 0.9,
   wetRippleCellsFar: 2.5, wetRippleRowsFar: 11, wetRippleFarStart: 12,
   wetWaves: 1, wetWaveRidge: 0.74, wetWaveRowsNear: 3.5, wetWaveRowsFar: 1.8, wetWaveHorizon: 0.55, wetWaveThreshold: 0.33,
-  wetWaveTrough: 0.1, wetWaveSheen: 0.045, wetWaveStroke: 12, wetWaveJitter: 1.5,
-  wetWaveDashFull: 0.6, wetWaveDashBase: 0.15, wetWaveStreak: 5, wetWaveStreakFloor: 0.2,
+  wetWaveTrough: 0.2, wetWaveSheen: 0.045, wetWaveStroke: 12, wetWaveJitter: 1.5,
+  wetWaveDashFull: 0.35, wetWaveDashBase: 0.15, wetWaveStreak: 5, wetWaveStreakFloor: 0.35,
   // Refine round 4: the wet road mirrors in a rippled mosaic, as a cutscene-style repaint of a race frame draws it
   // (art/reference/mockups): short broken dashes with dark gaps, some whole rows dropped. Unbroken, glossy columns
   // (the fifth pass) read as solid synthetic bars beside it, the SORA billboard's reflection a cream block.

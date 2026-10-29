@@ -22,6 +22,12 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
   toneMapping: PixelArtToneMapping | 'renderer';
   /** Multiplies renderer.toneMappingExposure (the global exposure). */
   exposure: number;
+  /**
+   * Refine round 4: a further exposure multiplier at dusk and sunrise (night 0), eased out toward night. Measured
+   * against cutscene-style repaints of race frames, the dusk and sunrise frames sat a step dark in their midtones
+   * (OKLab L median 0.18-0.28 against 0.23-0.36) while the nights matched.
+   */
+  dayExposure: number;
   /** Mid-chroma darks lose this fraction of chroma; saturated paint keeps it. */
   darkChromaCompression: number;
   /** Chroma range over which the compression fades out (paint above it is kept). */
@@ -175,7 +181,7 @@ export interface PixelArtPass {
 }
 
 const DEFAULTS: PixelArtOptions = {
-  toneMapping: 'renderer', exposure: 1,
+  toneMapping: 'renderer', exposure: 1, dayExposure: 1.45,
   darkChromaCompression: 0.45, darkChromaLow: 0.06, darkChromaHigh: 0.13, darkChromaEnd: 0.5, carChromaKeep: 1,
   lightChromaCompression: 0.4, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
   shadowHue: 295, plumHue: 335, plumStrength: 0, plumStart: 0.13, plumFull: 0.26, groundFloor: 0.22, groundLift: 0, shadowStrength: 0.9, shadowChroma: 0.025, shadowStart: 0.22, shadowEnd: 0.5,
@@ -400,7 +406,9 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
         shared.artTime.value = time;
         grade.uniforms.toneMapper.value = TONE_MAPPING_IDS[settings.toneMapping === 'renderer'
           ? pipelineToneMapping(savedToneMapping) : settings.toneMapping];
-        grade.uniforms.toneMappingExposure.value = renderer.toneMappingExposure * settings.exposure;
+        const dayLift = THREE.MathUtils.lerp(settings.dayExposure, 1, night);
+        grade.uniforms.toneMappingExposure.value = renderer.toneMappingExposure * settings.exposure * dayLift;
+        grade.uniforms.gradeSkyExposure.value = 1 / Math.max(dayLift, 1e-3);
         shared.hdr.value = shared.resolvedColor.value;
         shared.image.value = targets.images[imageIndex]!.texture;
         for (const stage of stages) stage.beginFrame?.(frame);
