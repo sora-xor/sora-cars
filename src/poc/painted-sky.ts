@@ -103,6 +103,7 @@ export function createPaintedSky() {
   // Tokyo (refine round 4): x 1 draws the far city and a mountain ridge on the horizon, y its windows' lit share.
   const raceCity = { value: new THREE.Vector2(0, 0) };
   const raceSkyline = { value: new THREE.Vector3(1, 1, 1) };
+  const raceGolden = { value: 0 };
   let evaluatedDaylight = NaN, evaluatedNight = '', evaluatedStars = NaN;
   // Tokyo's daylight changes every frame: allocation-free.
   const evaluateRacePalette = (daylight: number, night: RaceNightSky, stars: number) => {
@@ -134,6 +135,8 @@ export function createPaintedSky() {
     // city; Yokohama's horizon is a dense lit city of towers across the water; Tokyo keeps its low ridge and far city.
     raceSkyline.value.set(night === 'mountain' ? 2.6 : night === 'harbor' ? 1.1 : 1, night === 'mountain' ? 0 : 1, night === 'harbor' ? 1.7 : 1);
   };
+  const stopMix = RACE_STOP_ELEVATIONS.map((elevation, i) =>
+    `        raceStop[${i}] = mix(skyRaceAway[${i}], skyRaceToward[${i}], sunward * (1. - skyRaceGolden * .4 * ${glslFloat(THREE.MathUtils.smoothstep(elevation, .1, .3))}));`).join('\n');
   const gradient = RACE_STOP_ELEVATIONS.slice(1).map((elevation, i) =>
     `  c = mix(c, raceStop[${i + 1}], smoothstep(${glslFloat(RACE_STOP_ELEVATIONS[i]!)}, ${glslFloat(elevation)}, e));`).join('\n');
   const strata = RACE_STRATA.map(({ layer, shape, seed, coverage, tone, day }) =>
@@ -160,7 +163,7 @@ export function createPaintedSky() {
       skyRaceStars: raceStars,
       skyRaceHarbor: raceHarbor,
       skyRaceCityGlow: raceCityGlow, skyRaceDay: raceDay,
-      skyRaceCity: raceCity, skyRaceSkyline: raceSkyline,
+      skyRaceCity: raceCity, skyRaceSkyline: raceSkyline, skyRaceGolden: raceGolden,
     },
     vertexShader: /* glsl */`
       void main() {
@@ -186,6 +189,7 @@ export function createPaintedSky() {
       uniform float skyRaceDay; // 0 at night, 1 from dusk to sunrise: the high mackerel strata
       uniform vec2 skyRaceCity;
       uniform vec3 skyRaceSkyline; // x ridge height (1 Tokyo's), y 1 draws the far city, z its towers' density and height
+      uniform float skyRaceGolden; // 0 as authored; 1 in a late-day route's golden hours (RaceWorld): deeper and more saturated
       const float PI = 3.14159265359;
 
       const vec3 SUN_DISC = vec3(.996, .949, .773), SUN_HALO = vec3(.988, .722, .467), SUN_HALO_OUTER = vec3(.961, .592, .420);
@@ -405,6 +409,11 @@ ${gradient}
           body = mix(raceGradient(e - .09) * mix(1.03, .96, tone), raceGradient(e + .03) * (depth + .18), smoothstep(.07, .14, field));
           lit = raceGradient(e - .16) * 1.08;
         }
+        // Sunrise and late afternoon (refine round 4: the community-dawn cutscene and every cutscene-style repaint of a
+        // race frame): the masses are lit coral and orange toward the sun and a lighter mauve away from it, a step off
+        // the sky; deepened, they read as grey-brown smudges on the peach.
+        vec3 warm = raceGradient(e - .1) * mix(.93, 1.02, tone);
+        body = mix(body, mix(body * 1.3, warm, sunward), skyRaceCloud.z);
         lit = mix(body, lit, skyRaceCloud.x);
         // Sunrise edges more saturated (refine round 4).
         lit = max(mix(vec3(dot(lit, vec3(.3, .59, .11))), lit, 1. + .35 * skyRaceCloud.z), 0.);
@@ -454,8 +463,9 @@ ${gradient}
             float turn = ((wrapped.x + .5) / 512. - .5) * 2. * PI;
             vec3 lobe = vec3(sin(turn) * cos(lift), sin(lift), -cos(turn) * cos(lift));
             float fromSun = acos(clamp(dot(lobe, skyRacingSun), -1., 1.));
+            // Refine round 4: a third of that thinning; the cutscene-style repaints fill the sunrise sky with puffs.
             keep *= mix(1., smoothstep(.05, .09, lift) * mix(.25, 1., smoothstep(.14, .28, fromSun))
-              * (1. - .5 * smoothstep(.31, .4, fromSun)), sparse);
+              * (1. - .5 * smoothstep(.31, .4, fromSun)), sparse * .35);
           }
           if (hash(wrapped * 1.31 + 2.7) > keep) continue;
           vec2 centre = id + .2 + .6 * vec2(hash(wrapped + 7.1), hash(wrapped + 1.9));
@@ -480,8 +490,11 @@ ${gradient}
         // gradient, so dusk clusters read as filled pink lobes, not ribbons.)
         // At sunrise (R3) the lit bodies come from just below in the gradient
         // without a lift, within a band of the sky, and stay under the halo.
-        vec3 litBody = mix(mix(sky, raceGradient(e - .09) * 1.07, .82), mix(sky, raceGradient(e - .05), .78), skyRaceCloud.z);
-        vec3 body = lobeHash < .5 ? sunriseCap(litBody, SUNRISE_BODY_L) : mix(sky, raceGradient(e + .08) * .92, .75);
+        // Refine round 4: at sunrise the lit lobes come from well below in the gradient (orange and gold) and the shaded
+        // ones from above it (violet), as the cutscene-style repaints contrast them; a band apart they read as haze.
+        vec3 litBody = mix(mix(sky, raceGradient(e - .09) * 1.07, .82), mix(sky, raceGradient(e - .14) * 1.04, .85), skyRaceCloud.z);
+        vec3 shadeBody = mix(mix(sky, raceGradient(e + .08) * .92, .75), mix(sky, raceGradient(e + .13) * .86, .8), skyRaceCloud.z);
+        vec3 body = lobeHash < .5 ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
         // The underside cell is lit: pink, turning amber only toward the sun
         // (cream only near the sunrise disc).
         vec3 lit = mix(raceGradient(e - .12) * 1.06, mix(RIM_AMBER, RIM_CREAM, nearSun), sunward * sunward * sunward * skyRaceCloud.y);
@@ -689,7 +702,9 @@ ${gradient}
       // (harbor-wide). Sky cells never grow halos or reflection columns.
       vec3 raceHarborShore(vec3 sky, float azimuth, float elevation, float cellAngle) {
         if (skyRaceHarbor <= 0. || elevation > .28 || elevation < -.014) return sky;
-        const float WATER = .002, TOWERS = 44.;
+        // Refine round 4 (the Yokohama repaints): a dense city of towers across the water, about a dozen in view, 3-9
+        // degrees tall and several cells wide; 44 a turn left three or four thin ones in the chase view.
+        const float WATER = .002, TOWERS = 150.;
         float row = floor(elevation / .0032), columns = 1500.;
         float column = floor(azimuth * columns);
         if (elevation < WATER) {
@@ -703,8 +718,8 @@ ${gradient}
           float block = floor(azimuth * 420.);
           float tall = step(.3, hash(vec2(block, 3.1)));
           float top = WATER + .002 + (.012 + .04 * hash(vec2(block, 7.3)) * step(.55, hash(vec2(block, 9.1)))) * tall;
-          float towerId = floor(azimuth * TOWERS), towerTop = WATER + radians(4.) + radians(3.5) * hash(vec2(towerId, 5.5));
-          bool tower = hash(vec2(towerId, 12.7)) > .5 && abs(fract(azimuth * TOWERS) - .5) < .05 + .05 * hash(vec2(towerId, 2.2));
+          float towerId = floor(azimuth * TOWERS), towerTop = WATER + radians(3.) + radians(6.) * hash(vec2(towerId, 5.5)) * hash(vec2(towerId, 6.1));
+          bool tower = hash(vec2(towerId, 12.7)) > .4 && abs(fract(azimuth * TOWERS) - .5) < .18 + .14 * hash(vec2(towerId, 2.2));
           if (tower) top = max(top, towerTop);
           if (elevation < top) {
             sky = mix(sky, raceGradient(.03) * .52, skyRaceHarbor);
@@ -766,7 +781,9 @@ ${gradient}
         float elevation = angular.y;
         vec2 sunFlat = normalize(skyRacingSun.xz + vec2(1e-5, 0.));
         float sunward = smoothstep(-.25, 1., dot(normalize(direction.xz + vec2(1e-5, 0.)), sunFlat));
-        for (int i = 0; i < ${RACE_STOPS}; i++) raceStop[i] = mix(skyRaceAway[i], skyRaceToward[i], sunward);
+        // In a late-day route's golden hours the upper sky keeps its violet even toward the sun (refine round 4: its
+        // repaints glow orange only low down, the clouds above lit gold against violet).
+${stopMix}
         vec3 sky = raceGradient(elevation);
         // Broad, very quiet scumbling in the clear sky (direction-anchored).
         sky += (pigment(vec2(angular.x * 80., elevation * 210.), 80.) - .5) * .012;
@@ -800,6 +817,11 @@ ${strata}
         }
         sky = mix(sky, mix(SUN_HALO_OUTER, SUN_HALO, smoothstep(.35, .9, glow)), glow * skyRacingSunrise);
         sky = mix(sky, SUN_DISC, (1. - smoothstep(.011, .0125, sunAngle)) * skyRacingSunrise);
+        // A late-day route's golden hours (refine round 4, its repaints): the low sky toward the sun deep orange-red
+        // rather than cream-peach, and the whole sky about 15% more saturated than the authored stops.
+        float deep = skyRaceGolden * sunward * (1. - smoothstep(.04, .45, elevation));
+        sky *= mix(vec3(1.), vec3(.95, .76, .64), deep);
+        sky = clamp(mix(vec3(dot(sky, vec3(.2126, .7152, .0722))), sky, 1. + .15 * skyRaceGolden), 0., 1.);
         return raceRadiance(sky);
       }
 
@@ -903,6 +925,12 @@ ${strata}
       racingSun.value.copy(sun).normalize();
       racingSunrise.value = THREE.MathUtils.clamp(sunrise, 0, 1);
     },
+    /**
+     * A late-day street route's golden afternoon, 0 (as authored) .. 1. Refine round 4: every cutscene-style repaint of
+     * such a route paints the low sky toward the sun deep orange-red, not cream-peach, and the whole sky about 15% more
+     * saturated than the authored stops, while its dusk matches them.
+     */
+    setRacingGolden(value: number) { raceGolden.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
     dispose() { mesh.geometry.dispose(); material.dispose(); },
   };
 }

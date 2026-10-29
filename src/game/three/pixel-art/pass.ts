@@ -66,6 +66,11 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
   /** Lightness where the highlight drive starts, and where it is full. */
   highlightStart: number;
   highlightFull: number;
+  /**
+   * Chroma gain by day, dusk and sunrise. Refine round 4: 1.2; every cutscene-style repaint of the street routes' dusk
+   * and afternoon frames is 15-35% more saturated than ours in every region (the street-routes session's measures)
+   * except the painted sky, which already matched and keeps 1 (gradeSkyChroma).
+   */
   chroma: number;
   /**
    * Refine round 4 (the user's rain-night target): at night (setNight 1) the
@@ -186,7 +191,7 @@ const DEFAULTS: PixelArtOptions = {
   lightChromaCompression: 0.4, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
   shadowHue: 295, plumHue: 335, plumStrength: 0, plumStart: 0.13, plumFull: 0.26, groundFloor: 0.22, groundLift: 0, shadowStrength: 0.9, shadowChroma: 0.025, shadowStart: 0.22, shadowEnd: 0.5,
   highlightHue: 78, highlightStrength: 0.8, highlightChroma: 0.04, highlightStart: 0.6, highlightFull: 0.9,
-  chroma: 1, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0,
+  chroma: 1.2, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0,
   nightContrastLight: 0.12, contrastPivot: 0.38, nightLightChromaCompression: 0.1, floor: 0, nightFloor: 0.18, nightFoliageOlive: 0.7, nightCarContrast: 1, paletteLock: 0,
   depthTolerance: 0.06,
   // Refine round 4 (the user's rain-night target, "it looks shabby"): no band offset (the full-colour image needs no
@@ -292,6 +297,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     grade.uniforms.highlightDrive.value.set(settings.highlightHue * radians, settings.highlightStrength, settings.highlightChroma);
     grade.uniforms.highlightRange.value.set(settings.highlightStart, settings.highlightFull);
     grade.uniforms.chromaGain.value = lerp(settings.chroma, settings.nightChroma, night);
+    grade.uniforms.gradeSkyChroma.value = lerp(1, settings.nightChroma, night);
     grade.uniforms.gradeContrast.value.set(Math.max(0, lerp(settings.contrast, settings.nightContrast, night)), settings.contrastPivot,
       Math.max(0, lerp(settings.contrastLight, settings.nightContrastLight, night)));
     grade.uniforms.gradeFloor.value = Math.max(0, lerp(settings.floor, settings.nightFloor, night));
@@ -467,13 +473,15 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     setWetness: (wetness, rain) => surfaces.setWetness(wetness, rain),
     setNight: value => {
       const next = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0;
-      // The grade's uniforms only: nothing else in applySettings depends on the night.
+      surfaces.setNight(next);
+      // The grade's uniforms only (the surfaces' lamp flecks above): nothing else in applySettings depends on the night.
       if (Math.abs(next - night) < 1e-3) return;
       night = next;
       const radians = Math.PI / 180, lerp = THREE.MathUtils.lerp;
       grade.uniforms.darkChroma.value.x = lerp(settings.darkChromaCompression, settings.nightDarkChromaCompression, night);
       grade.uniforms.shadowDrive.value.x = lerp(settings.shadowHue, settings.nightShadowHue, night) * radians;
       grade.uniforms.chromaGain.value = lerp(settings.chroma, settings.nightChroma, night);
+      grade.uniforms.gradeSkyChroma.value = lerp(1, settings.nightChroma, night);
       grade.uniforms.gradeContrast.value.x = Math.max(0, lerp(settings.contrast, settings.nightContrast, night));
       grade.uniforms.gradeContrast.value.z = Math.max(0, lerp(settings.contrastLight, settings.nightContrastLight, night));
       grade.uniforms.lightChroma.value.x = lerp(settings.lightChromaCompression, settings.nightLightChromaCompression, night);

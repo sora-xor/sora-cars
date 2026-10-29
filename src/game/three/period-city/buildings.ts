@@ -1074,15 +1074,34 @@ function house(x: Context): void {
 }
 
 /** Harbour warehouses: Meiji red brick, corrugated sheds or concrete stores, the operator's name on the face. */
+/**
+ * Bulkhead lamps along a warehouse front at height y (refine round 4: the Yokohama repaint lights its warehouse fronts,
+ * whose pools and reflections carry the harbour road): warm lamp boxes about every 8 m, each a far light and a shop
+ * fixture, so the race's shop lights and the wet road's reflection columns find them.
+ */
+function harbourLamps(x: Context, w: number, y: number): void {
+  const { b } = x, count = Math.max(2, Math.round(w / 8));
+  for (let i = 0; i < count; i++) {
+    const cx = -w / 2 + w * (i + .5) / count;
+    b.colour.set('#3a3a3e'); b.box('metal', cx - .04, cx + .04, y - .05, y + .25, -.42, -.02, 'b');
+    b.colour.setRGB(1.7, 1.15, .55); b.box('lamp', cx - .2, cx + .2, y - .25, y - .05, -.44, -.18);
+    b.beacon(cx, y - .15, -.48, 2.2, 1.35, .55, .4);
+    x.fixtures.push({ position: b.world(new THREE.Vector3(cx, y - .3, -.6)), target: b.world(new THREE.Vector3(cx, 0, -3)) });
+  }
+}
+
 function warehouse(x: Context): void {
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, kind = random();
   if (kind < .25) {
     // Red brick (赤レンガ): iron-shuttered windows in rows, stone bands, a slate roof.
-    const h = 9 + random() * 3, wall = drift(new THREE.Color('#87493c'), random, .04), f = facade(random, wall, WINDOW_KIND.dark);
+    // Refine round 4: the windows light like offices (some floors working late), as the Yokohama repaint lights them;
+    // they were always dark.
+    const h = 9 + random() * 3, wall = drift(new THREE.Color('#87493c'), random, .04), f = facade(random, wall, WINDOW_KIND.office);
     b.pattern = WALL_PATTERN.brick;
     f.flank.copy(shade(wall, .9)); f.glass.set('#2a2624');
     shell(x, f, w, d, h, false, false);
     windowRows(x, f, -w / 2, w / 2, [0, h / 2, h], evenColumns(-w / 2, w / 2, Math.max(3, Math.round(w / 3.4)), 1.3), .9, h / 2 - .9, 0);
+    harbourLamps(x, w, h / 2 - .5);
     b.colour.set('#d8cdb5'); for (const y of [h / 2, h - .4]) b.box('stone', -w / 2 - .1, w / 2 + .1, y - .2, y, -.2, 0, 'bk');
     b.colour.set('#3e4448'); b.gableRoof('roof', -w / 2, w / 2, 0, d, h, 3, .4);
     b.colour.copy(wall); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, 3);
@@ -1098,7 +1117,9 @@ function warehouse(x: Context): void {
     for (let i = 0; i < doors; i++) {
       const cx = -w / 2 + w * (i + .5) / doors;
       b.colour.set(random() < .5 ? '#5a5e60' : '#6a5040'); b.front('metal', cx - 2.2, cx + 2.2, 0, 4.4, -.08);
-      b.colour.set('#ffd9a0'); b.box('lamp', cx - .2, cx + .2, 4.8, 5, -.4, -.08);
+      // The dock lamp over the door, warm and bright enough to glow (refine round 4; it was a dim cream box).
+      b.colour.setRGB(1.7, 1.15, .55); b.box('lamp', cx - .2, cx + .2, 4.8, 5, -.4, -.08);
+      b.beacon(cx, 4.9, -.45, 2.2, 1.35, .55, .4);
       x.fixtures.push({ position: b.world(new THREE.Vector3(cx, 4.7, -.6)), target: b.world(new THREE.Vector3(cx, 0, -3)) });
     }
     b.colour.set('#4a4c50'); b.box('metal', -w / 2, w / 2, 5.2, 5.45, -2.4, 0, 'k');
@@ -1115,6 +1136,7 @@ function warehouse(x: Context): void {
     windowRows(x, f, -w / 2, w / 2, levels(4.4, 4.4, storeys).slice(1), evenColumns(-w / 2, w / 2, Math.max(2, Math.round(w / 7)), 1.2), 2.4, 3.4, 0);
     b.colour.copy(f.wall); b.front('wall', -w / 2, w / 2, 0, 4.4, 0);
     b.colour.set('#4a4a4e'); b.front('metal', -2.6, 2.6, 0, 3.6, -.06);
+    harbourLamps(x, w, 4);
     b.print = signPrint('fascia', signIndex('fascia', '三栄倉庫')); b.colour.set('#e8e8e8');
     b.front('sign', -Math.min(w * .3, 6), Math.min(w * .3, 6), h - 2.2, h - .6, -.06);
     rooftop(x, w, d, h, { tank: true });

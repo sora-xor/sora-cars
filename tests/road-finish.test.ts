@@ -55,11 +55,11 @@ test('distinct original hooks retain distinct default keys and authored custom k
   const first = a.customProgramCacheKey(), second = b.customProgramCacheKey();
   let variant = 'dry-source'; c.customProgramCacheKey = function () { assert.equal(this, c); return variant; };
   [a, b, c].forEach(decorateRoadFinish);
-  assert.equal(a.customProgramCacheKey(), `${first}:sora-road-finish-v3`);
-  assert.equal(b.customProgramCacheKey(), `${second}:sora-road-finish-v3`);
+  assert.equal(a.customProgramCacheKey(), `${first}:sora-road-finish-v5`);
+  assert.equal(b.customProgramCacheKey(), `${second}:sora-road-finish-v5`);
   assert.notEqual(a.customProgramCacheKey(), b.customProgramCacheKey());
-  assert.equal(c.customProgramCacheKey(), 'dry-source:sora-road-finish-v3');
-  variant = 'patched-source'; assert.equal(c.customProgramCacheKey(), 'patched-source:sora-road-finish-v3');
+  assert.equal(c.customProgramCacheKey(), 'dry-source:sora-road-finish-v5');
+  variant = 'patched-source'; assert.equal(c.customProgramCacheKey(), 'patched-source:sora-road-finish-v5');
 });
 
 test('an incompatible custom shader fails before a partial road-finish injection', () => {

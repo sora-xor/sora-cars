@@ -559,7 +559,11 @@ export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): R
   sharpPrints(signMaterial, 'period-city-signs-v2');
   // Deep, dark moat water. The pixel pass draws its reflections and lamp
   // columns; the dusk HDR's warm band would otherwise mirror as a pink sheet.
-  const water = new THREE.MeshStandardMaterial({ color: '#0d1220', roughness: .3, metalness: 0, envMapIntensity: .05 });
+  // Refine round 4: rough and without the environment, so seen at a grazing
+  // angle it keeps no specular sheen of its own (at roughness .3 the moat and
+  // Nara's ponds read as flat pale salmon sheets where the repaints keep dark
+  // water under the lights' streaks).
+  const water = new THREE.MeshStandardMaterial({ color: '#0d1220', roughness: .9, metalness: 0, envMapIntensity: 0 });
   water.name = 'period-city-moat-water';
   const ground = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('forest_ground_04'),
     normalScale: new THREE.Vector2(.7, .7), roughness: 1, metalness: 0 });

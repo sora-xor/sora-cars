@@ -26,6 +26,18 @@ export interface RoadFinish {
    * the lamps' and signs' own reflections. 0 (the default) keeps it all.
    */
   setEnvironmentDim(value: number): void;
+  /**
+   * Refine round 4: the share of direct light (lamp pools, shop light, headlights) a soaked road loses at night, 0-1.
+   * Wet asphalt at night shows the lamps mostly as reflections; lit as diffuse pools, the road read as an orange wash
+   * where every cutscene-style repaint paints it dark navy under gold streaks.
+   */
+  setPoolDim(value: number): void;
+  /**
+   * Refine round 4: the share of ambient light (hemisphere fill, environment) a damp road loses at dusk, 0-1. A wet
+   * road under an evening sky mirrors it rather than glowing with it: lit by the sky as grey asphalt, the damp dusk
+   * road read grey where the dusk repaints keep it dark navy under the lamps' and windows' streaks.
+   */
+  setAmbientDim(value: number): void;
 }
 
 const decorated = new WeakMap<THREE.MeshStandardMaterial, RoadFinish>();
@@ -117,6 +129,7 @@ const keySpecularLimit = /* glsl */ `
 export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFinish {
   const existing = decorated.get(material); if (existing) return existing;
   const wetness = { value: 0 }, enabled = { value: 1 }, keySpecular = { value: 0 }, spotSpecular = { value: 0 }, environmentDim = { value: 0 };
+  const poolDim = { value: 0 }, ambientDim = { value: 0 };
   const previousCompile = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   // Three's default key reads this.onBeforeCompile. Capture that original hook
   // while continuing to evaluate authored dynamic cache keys at call time.
@@ -135,7 +148,8 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     shader.uniforms.soraRoadFinishEnabled = enabled;
     shader.uniforms.soraRoadKeySpecular = keySpecular;
     shader.uniforms.soraRoadSpotSpecular = spotSpecular;
-    shader.uniforms.soraRoadEnvironmentDim = environmentDim;
+    shader.uniforms.soraRoadEnvironmentDim = environmentDim; shader.uniforms.soraRoadPoolDim = poolDim;
+    shader.uniforms.soraRoadAmbientDim = ambientDim;
     shader.vertexShader = 'varying vec3 soraRoadFinishWorldPosition;\n' + shader.vertexShader;
     shader.vertexShader = shader.vertexShader.replace('#include <project_vertex>', /* glsl */ `
       #include <project_vertex>
@@ -187,10 +201,13 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     `);
     shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_pars_fragment>',
       `#include <lights_physical_pars_fragment>\n${keySpecularLimit}`);
-    shader.fragmentShader = 'uniform float soraRoadEnvironmentDim;\n' + shader.fragmentShader.replace('#include <lights_fragment_end>',
-      '#include <lights_fragment_end>\nreflectedLight.indirectSpecular *= 1.0 - soraRoadEnvironmentDim * soraRoadFinishEnabled;');
+    shader.fragmentShader = 'uniform float soraRoadEnvironmentDim; uniform float soraRoadPoolDim; uniform float soraRoadAmbientDim;\n'
+      + shader.fragmentShader.replace('#include <lights_fragment_end>',
+      '#include <lights_fragment_end>\nreflectedLight.indirectSpecular *= 1.0 - soraRoadEnvironmentDim * soraRoadFinishEnabled;'
+      + '\nreflectedLight.directDiffuse *= 1.0 - soraRoadPoolDim * soraRoadFinishEnabled;'
+      + '\nreflectedLight.indirectDiffuse *= 1.0 - soraRoadAmbientDim * soraRoadFinishEnabled;');
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v3`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v5`;
   material.metalness = 0;
   material.needsUpdate = true;
   const controller: RoadFinish = {
@@ -199,6 +216,8 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     setKeySpecularLimit(value) { keySpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
     setSpotSpecularLimit(value) { spotSpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
     setEnvironmentDim(value) { environmentDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
+    setPoolDim(value) { poolDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
+    setAmbientDim(value) { ambientDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
   };
   decorated.set(material, controller);
   ceilings.set(controller, { enabled, keySpecular, spotSpecular });

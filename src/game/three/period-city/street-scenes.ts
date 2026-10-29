@@ -22,6 +22,18 @@ export interface StreetSceneMood {
   /** Daylight at the start of each soundtrack chapter and at the finish, or
    * Tokyo's night-to-sunrise arc. */
   readonly daylight: readonly number[] | 'dawn-arc';
+  /** Compass bearing (degrees) toward the low sun of a late-day route, its true late-afternoon bearing. By afternoon
+   * light (daylight 0.9 and up) the key light and the painted sun stand there, easing back to the dusk key below 0.6
+   * (world.ts): the climbs that head into it drive toward a golden sky, and the streets that head away from it are lit
+   * gold from behind under a rose and violet sky. Absent: Tokyo's sunrise bearing. */
+  readonly sun?: number;
+  /** Degrees above the horizon for the painted low sun, for a route whose own hills stand higher toward the sun than
+   * world.ts's low sun on the horizon. Absent: the low sun on the horizon. */
+  readonly sunHeight?: number;
+  /** Share of upper and ground-floor windows lit at dusk (0–1), for a town whose cutscenes light nearly every room by
+   * evening, as the repaints of Gion's machiya and Aizu's merchant streets do. world.ts lifts the dusk window lights
+   * toward it, easing back to the night's own share. Absent: the period city's dusk share. */
+  readonly windows?: number;
 }
 export interface StreetScene {
   /** 3 lays the period city's paved ground; 0–2 borrow an Arcade landscape's

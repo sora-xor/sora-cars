@@ -35,10 +35,10 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   assert.ok(d.wetGlitterTrail >= 0 && d.wetGlitterTrail <= 1);
   // Lit facades and shop fronts stretch into reflection columns too, with a ramp between start and full.
   assert.ok(d.wetColumnStart > 0 && d.wetColumnStart < d.wetColumnFull && d.wetColumnFull <= 1);
-  // Upward-facing ground only, and the column window fits the composite shader (at most 96 cells down, every other
-  // row past 32, and 8 up); the near road keeps some of the mirror, never all of it.
+  // Upward-facing ground only, and the column window fits the composite shader (at most 224 cells down: every other
+  // row past 32, every fourth past 96; and 8 up); the near road keeps some of the mirror, never all of it.
   assert.ok(d.wetNormal >= 0.8 && d.wetNormal < 1);
-  assert.ok(d.wetColumnDown <= 96 && d.wetColumnUp <= 8 && d.wetColumnDown > d.wetColumnUp);
+  assert.ok(d.wetColumnDown <= 224 && d.wetColumnUp <= 8 && d.wetColumnDown > d.wetColumnUp);
   // The ripple spread fits its shader's window (4 cells either side) and loses some light per cell.
   assert.ok(d.wetSpread >= 0 && d.wetSpread <= 4 && d.wetSpreadFalloff > 0 && d.wetSpreadFalloff < 0.25);
   // The organic ripple blobs are an option (the waves replaced them): a few cells across with holes and a few dark
@@ -50,7 +50,7 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   assert.ok(d.wetReflectionWarmth >= 0 && d.wetReflectionWarmth < 1);
   // Ripples near the camera are blobs, farther off taller, narrower streaks.
   assert.ok(d.wetRippleRowsFar > d.wetRippleRows && d.wetRippleCellsFar <= d.wetRippleCells && d.wetRippleFarStart > 0);
-  assert.ok(d.wetFresnelFloor >= 0 && d.wetFresnelFloor < 0.5);
+  assert.ok(d.wetFresnelFloor >= 0 && d.wetFresnelFloor <= 0.6);
   // The ground keeps its smoothing at speed; upright surfaces (shop interiors, lettering, walkers) stay crisp.
   assert.ok(d.groundSpeedSmooth > 0 && d.wallSpeedSmooth >= 0 && d.wallSpeedSmooth < d.groundSpeedSmooth);
   assert.ok(d.temporalMargin > 0 && d.temporalMargin < 0.05 && d.temporalDepthTolerance < 0.1);
@@ -70,6 +70,28 @@ test('refine round 4 waves: horizontal wave bands and ripple dashes on the wet r
   assert.ok(d.wetWaveStreak >= 3 && d.wetWaveStreak <= 10 && d.wetWaveStreakFloor > 0 && d.wetWaveStreakFloor < 1);
   // The marks are a faint sheen, not a second road.
   assert.ok(d.wetWaveSheen > 0 && d.wetWaveSheen < 0.1);
+});
+
+test('refine round 4 stones: the wet road mirrors in a mosaic of small stones', () => {
+  const d = SURFACE_DEFAULTS;
+  // On by default, over the waves (their bands and streaks thin the reflections stone by stone).
+  assert.ok(d.wetStones === 1 && d.wetWaves === 1);
+  // Courses taller toward the camera, a cell or so at the horizon; stones wider than tall, flatter farther off.
+  assert.ok(d.wetStoneRowsNear > d.wetStoneRowsFar && d.wetStoneRowsFar >= 1 && d.wetStoneRowsNear <= 6);
+  assert.ok(d.wetStoneAspectFar >= d.wetStoneAspectNear && d.wetStoneAspectNear >= 1);
+  // Dark gaps between stones (the ground there darker, never black) and a lifted rim on lit stones.
+  assert.ok(d.wetStoneGap >= 0 && d.wetStoneGap < 0.5 && d.wetStoneGround > 0.4 && d.wetStoneGround < 1);
+  assert.ok(d.wetStoneRim > 0 && d.wetStoneRim < 1);
+  // Only the sun or the moon stretches a mirrored sky into a column.
+  assert.ok(d.wetSkyColumn > 0.5);
+  // Broad reflections keep under about half their width as streaks.
+  assert.ok(d.wetStoneStreakDuty > 0.2 && d.wetStoneStreakDuty < 0.7);
+  // By day and at dusk the column thresholds rise (lit facades no longer stretch into a pale mosaic), within reason.
+  assert.ok(d.wetColumnDay >= 1 && d.wetColumnDay <= 10);
+  // Streak cores keep gold rather than cream (a knee and a little more chroma), and fade toward the camera more
+  // slowly than linearly, so the far street's streaks reach the bottom of the frame.
+  assert.ok(d.wetReflectionKnee > 0 && d.wetReflectionChroma >= 1 && d.wetReflectionChroma < 2);
+  assert.ok(d.wetColumnFade >= 1 && d.wetColumnFade <= 4);
 });
 
 test('shop fronts cast wet-ground columns but are no lamp heads', () => {
