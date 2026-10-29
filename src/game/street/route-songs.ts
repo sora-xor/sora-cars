@@ -1,16 +1,19 @@
-import { composeSong, type SongSpec } from '../music-composer';
+import { composeSong, type SongSpec } from '../music-composer.ts';
 import type { MusicScore } from '../music-score';
 
 /**
  * Original songs for the street routes. Each pairs a composed movement with an
  * answering second movement in the same key and voices, cut on an eight-bar
  * section boundary and set to the tempo that fills the route's race. They are
- * rendered offline by `scripts/export-street-songs.mjs`, not added to the
- * soundtrack library or store.
+ * rendered offline by `scripts/export-street-songs.mjs`. They are not part of the
+ * synthesizer's soundtrack library; the music store sells each one after Tokyo's song
+ * (music-catalog.ts), from the same render as the route's AAC (`--store`).
  */
 export interface StreetRouteSong {
   readonly route: string;
   readonly name: string; readonly japanese: string;
+  /** The song's slug: its music-store recordings, sleeves and SKUs (music-<file>, music-<file>-ura). */
+  readonly file: string;
   readonly first: SongSpec; readonly second: SongSpec;
   /** Eight-bar sections played, from the first movement into the second (8–16). */
   readonly sections: number;
@@ -19,7 +22,7 @@ export interface StreetRouteSong {
 }
 
 const FORTY_EIGHT_TURNS: StreetRouteSong = {
-  route: 'irohazaka-1986', name: 'Forty-Eight Turns', japanese: '四十八の曲がり角', sections: 13, seconds: 186,
+  route: 'irohazaka-1986', name: 'Forty-Eight Turns', japanese: '四十八の曲がり角', file: 'forty-eight-turns', sections: 13, seconds: 186,
   first: { name: 'Forty-Eight Turns', japanese: '四十八の曲がり角', file: 'forty-eight-turns', bpm: 132, root: 40, mode: 'dorian',
     groove: 'drive', bass: 'octave', arp: 'up16', pad: 'sustain', patches: ['moog-bass', 'sync-lead', 'koto', 'string-pad'],
     verse: 'i9 IV9 i9 IV9 | bIIImaj7 IV7 v7 bVII6',
@@ -38,7 +41,7 @@ const FORTY_EIGHT_TURNS: StreetRouteSong = {
 };
 
 const EVENING_OVER_TSURUGA: StreetRouteSong = {
-  route: 'aizu-wakamatsu-1986', name: 'Evening over Tsuruga', japanese: '鶴ヶ城の夕べ', sections: 11, seconds: 160,
+  route: 'aizu-wakamatsu-1986', name: 'Evening over Tsuruga', japanese: '鶴ヶ城の夕べ', file: 'evening-over-tsuruga', sections: 11, seconds: 160,
   first: { name: 'Evening over Tsuruga', japanese: '鶴ヶ城の夕べ', file: 'evening-over-tsuruga', bpm: 128, root: 48, mode: 'minor',
     groove: 'technopop', bass: 'sequencer16', arp: 'signal', pad: 'stab', patches: ['rubber-bass', 'brass', 'fm-bell', 'hollow-pad'],
     verse: 'i7 bIIImaj7 bVImaj7 V7 | i7 bIIImaj7 iv9 V7sus4',
@@ -58,7 +61,7 @@ const EVENING_OVER_TSURUGA: StreetRouteSong = {
 };
 
 const KAMOGAWA_LIGHTS: StreetRouteSong = {
-  route: 'kyoto-1986', name: 'Kamogawa Lights', japanese: '鴨川ライト', sections: 13, seconds: 208,
+  route: 'kyoto-1986', name: 'Kamogawa Lights', japanese: '鴨川ライト', file: 'kamogawa-lights', sections: 13, seconds: 208,
   first: { name: 'Kamogawa Lights', japanese: '鴨川ライト', file: 'kamogawa-lights', bpm: 116, root: 41, mode: 'major',
     groove: 'citypop', swing: .04, bass: 'funk', arp: 'comp', pad: 'sustain', patches: ['fm-bass', 'fm-reed', 'epiano', 'string-pad'],
     verse: 'Imaj9 vi9 ii9 V13 | iii7 VI7 ii9 V7sus4',
@@ -77,7 +80,7 @@ const KAMOGAWA_LIGHTS: StreetRouteSong = {
 };
 
 const DEER_PARK_AFTERGLOW: StreetRouteSong = {
-  route: 'nara-1986', name: 'Deer Park Afterglow', japanese: '鹿の夕映え', sections: 12, seconds: 178,
+  route: 'nara-1986', name: 'Deer Park Afterglow', japanese: '鹿の夕映え', file: 'deer-park-afterglow', sections: 12, seconds: 178,
   first: { name: 'Deer Park Afterglow', japanese: '鹿の夕映え', file: 'deer-park-afterglow', bpm: 124, root: 38, mode: 'lydian',
     groove: 'motorik', bass: 'pulse8', arp: 'bells', pad: 'sustain', patches: ['round-bass', 'pulse', 'marimba', 'vox-pad'],
     verse: 'Imaj7 II7 Imaj7 II7 | vi7 iii7 IVmaj7 V7sus4',

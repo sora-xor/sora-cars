@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 import { makeScore, MUSIC_LIBRARY } from '../src/game/music-score.ts';
 import suppliedRecordings from '../src/game/music-supplied-recordings.json';
+import { composeStreetSong, STREET_ROUTE_SONGS } from '../src/game/street/route-songs.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(path.join(root, 'public/assets/music/audio/manifest.json'), 'utf8'));
@@ -29,11 +30,11 @@ function wavData(file: string) {
   throw new Error(`WAV data chunk missing from ${file}`);
 }
 
-test('downloadable soundtrack covers all 25 current compositions and the approved supplied recording', () => {
+test('downloadable soundtrack covers all 25 current compositions, the approved supplied recording and the street races\' songs', () => {
   assert.equal(manifest.schema, 'sora-cars-soundtrack-audio-v1');
   assert.equal(MUSIC_LIBRARY.length, 25, 'The supplied recording does not invent a synthesized score');
   assert.equal(suppliedRecordings.length, 1);
-  assert.equal(manifest.tracks.length, MUSIC_LIBRARY.length + suppliedRecordings.length);
+  assert.equal(manifest.tracks.length, MUSIC_LIBRARY.length + suppliedRecordings.length + STREET_ROUTE_SONGS.length);
   assert.equal(new Set(manifest.tracks.map((track: { file: string }) => track.file)).size, manifest.tracks.length);
   MUSIC_LIBRARY.forEach((song, index) => {
     const track = manifest.tracks[index], score = makeScore(index);
@@ -49,6 +50,25 @@ test('downloadable soundtrack covers all 25 current compositions and the approve
     assert.equal(track.wav.path, `/assets/music/audio/${song.file}.wav`);
     assert.equal(track.mp3.path, `/assets/music/audio/${song.file}.mp3`);
     assert.equal(track.preview.path, `/assets/music/audio/${song.file}-preview.mp3`);
+  });
+});
+
+test("each street race's song is a full render of its score, mastered as the race plays it and matched to the route's recording", () => {
+  const tracks = manifest.tracks.filter((track: { route?: string }) => track.route);
+  assert.deepEqual(tracks.map((track: { file: string }) => track.file), STREET_ROUTE_SONGS.map(song => song.file));
+  STREET_ROUTE_SONGS.forEach((song, offset) => {
+    const track = tracks[offset], score = composeStreetSong(song);
+    assert.equal(track.route, song.route); assert.equal(track.title, song.name); assert.equal(track.japanese, song.japanese);
+    assert.equal(track.bpm, score.bpm); assert.equal(track.beats, score.beats); assert.equal(track.noteCount, score.notes.length);
+    assert.ok(Math.abs(track.durationSeconds - (.08 + song.seconds + 1)) <= 1 / 44100 + 1e-9, `${song.file} is the race's full song`);
+    assert.equal(track.channels, 2); assert.equal(track.sampleRate, 44100); assert.equal(track.bitsPerSample, 16);
+    assert.ok(Number.isFinite(track.integratedLufs)); assert.ok(track.truePeakDbtp <= -1.35);
+    assert.equal(track.preview.durationSeconds, 30);
+    for (const [format, suffix] of [['wav', '.wav'], ['mp3', '.mp3'], ['preview', '-preview.mp3']]) assert.equal(track[format].path, `/assets/music/audio/${song.file}${suffix}`);
+    // Renders differ run to run in fine detail, so the match to the race is musical, not byte for byte.
+    const race = readFileSync(path.join(root, track.routeRecording.path));
+    assert.equal(createHash('sha256').update(race).digest('hex'), track.routeRecording.sha256, `${song.route}'s recording is the one compared`);
+    assert.ok(track.routeRecording.differenceDb < -20, `${song.file} is the race's song`);
   });
 });
 

@@ -3,14 +3,21 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MUSIC_LIBRARY } from '../src/game/music-score.ts';
+import { STREET_ROUTE_SONGS } from '../src/game/street/route-songs.ts';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(await readFile(path.join(root, 'public/assets/music/audio/manifest.json'), 'utf8'));
 const supplied = JSON.parse(await readFile(path.join(root, 'src/game/music-supplied-recordings.json'), 'utf8'));
+// The score, then the supplied recordings, in catalog order. The street races' own songs
+// (scripts/export-street-songs.mjs --store) may sit anywhere among them, since a supplied
+// re-export appends its recordings last; assets are written in catalog order either way.
 const expected = [...MUSIC_LIBRARY, ...supplied].map(song => song.file);
-if (!Array.isArray(manifest.tracks) || manifest.tracks.length !== expected.length || manifest.tracks.some((track, index) => track.file !== expected[index])) throw new Error('All current score and supplied recordings are required in catalog order.');
+const others = Array.isArray(manifest.tracks) ? manifest.tracks.filter(track => !track.route) : [], routes = Array.isArray(manifest.tracks) ? manifest.tracks.filter(track => track.route) : [];
+if (others.length !== expected.length || others.some((track, index) => track.file !== expected[index])) throw new Error('All current score and supplied recordings are required in catalog order.');
+if (routes.length !== STREET_ROUTE_SONGS.length || STREET_ROUTE_SONGS.some(song => !routes.some(track => track.file === song.file && track.route === song.route))) throw new Error("Every street race's song is required: run node scripts/export-street-songs.mjs --store.");
+const tracks = [...others, ...STREET_ROUTE_SONGS.map(song => routes.find(track => track.file === song.file))];
 const assets = {};
-for (const track of manifest.tracks) {
+for (const track of tracks) {
   if (!/^[a-z0-9-]+$/.test(track.file) || assets[track.file]) throw new Error('Invalid or duplicate song.');
   const suppliedSong = supplied.find(song => song.file === track.file);
   if (suppliedSong && (track.provenance?.kind !== 'supplied-lossy-recording' || JSON.stringify(track.provenance.source) !== JSON.stringify(suppliedSong.source))) throw new Error(`Supplied recording provenance: ${track.file}`);

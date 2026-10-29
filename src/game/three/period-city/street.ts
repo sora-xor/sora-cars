@@ -1,4 +1,5 @@
-import type { CityMeshBuilder } from './geometry';
+import * as THREE from 'three';
+import type { CityMeshBuilder, Vec3 } from './geometry';
 import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
 import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
 
@@ -17,6 +18,13 @@ const BANNERED: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'town', 'onsen',
 const CROSSABLE: ReadonlySet<PeriodDistrict> = new Set([...TOWN, 'moat', 'park', 'shrine', 'temple', 'pond']);
 /** Spacing of the candidate stations for lamps and crossings. */
 const STATION = 8;
+/**
+ * Streets strung with utility poles and overhead wires (電柱と電線), as every cutscene street is: the shopping
+ * streets, backstreets and towns (Marunouchi's and Kasumigaseki's lines ran underground).
+ */
+const POLED: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'residential', 'town', 'onsen', 'nikko', 'harbour']);
+/** A pole every POLE_STATIONS stations on each side (the two sides offset by half that), standing at the kerb. */
+const POLE_STATIONS = 4, POLE_KERB = .55;
 
 function routeFrame(b: CityMeshBuilder, layout: PeriodCityLayout, p: number): number {
   const at = poseAt(layout.course, p);
@@ -143,6 +151,52 @@ function streetBanner(b: CityMeshBuilder, w: number, index: number, phase: numbe
   b.front('flag', -half, half, y0, y1, 0, -1);
 }
 
+/** Points (route-frame local x, height) where a pole's wires hang: the crossarm's three, then the cable below. */
+const WIRE_POINTS: readonly (readonly [number, number])[] = [[-.6, 8.62], [0, 8.62], [.6, 8.62], [.18, 6.9]];
+/** Whether a pole stands at station k on `side` (chunk-independent). */
+function poleAt(layout: PeriodCityLayout, k: number, side: PeriodSide): boolean {
+  if (((k + (side > 0 ? 0 : POLE_STATIONS / 2)) % POLE_STATIONS + POLE_STATIONS) % POLE_STATIONS !== 0) return false;
+  const p = k * STATION;
+  if (!inCourse(layout, p) || !POLED.has(layout.districtAt(p, side))) return false;
+  // A landmark keeps its own side's kerb clear only where its front comes near the road (a moat wall, a gate); across
+  // the street and before a set-back hall (Kudan Kaikan) the poles stand as usual.
+  return streetCrossings(layout).every(c => apart(layout, c, p) > 10) && layout.street.footbridges.every(f => apart(layout, f, p) > 12)
+    && layout.street.guides.every(g => apart(layout, g.p, p) > 10)
+    && layout.landmarks.every(l => l.side !== side || l.clearance > 2 || apart(layout, l.p, p) > l.length / 2 + 4);
+}
+/**
+ * A concrete utility pole at the kerb: its shaft, the crossarm with its insulators, a transformer can on some, and a
+ * number plate at eye height (route-frame local x).
+ */
+function utilityPole(b: CityMeshBuilder, x: number, side: PeriodSide, roll: number): void {
+  b.colour.set('#8c8b86'); b.cylinder('stone', x, 0, 0, .15, 9.4, 8);
+  b.colour.set('#34343a'); b.box('metal', x - .8, x + .8, 8.5, 8.62, -.05, .05);
+  b.box('metal', x - .03, x + .03, 7.9, 8.5, -.03, .03, 'b');
+  b.colour.set('#d6d2c6');
+  for (const [dx] of WIRE_POINTS.slice(0, 3)) b.box('metal', x + dx - .04, x + dx + .04, 8.62, 8.74, -.04, .04, 'b');
+  if (roll < .35) {
+    b.colour.set('#7c807c'); b.cylinder('metal', x - side * .38, 6.55, 0, .24, .9, 8);
+    b.colour.set('#34343a'); b.box('metal', x - side * .38 - .05, x - side * .05, 6.9, 6.96, -.03, .03);
+  }
+  b.colour.set('#e8e6dc'); b.box('metal', x - .155, x + .155, 2.4, 2.75, -.02, .02);
+}
+/**
+ * A wire hung from a to b (chunk-local coordinates), sagging `sag` at its middle: eight straight segments for the
+ * chunk's screen-space wire lines (wires.ts), which keep about an art pixel wide at every distance.
+ */
+function wire(b: CityMeshBuilder, a: Vec3, c: Vec3, sag: number): void {
+  const segments = 8;
+  const point = (t: number): Vec3 => [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t - sag * 4 * t * (1 - t), a[2] + (c[2] - a[2]) * t];
+  for (let i = 0; i < segments; i++) b.wires.push(...point(i / segments), ...point((i + 1) / segments));
+}
+/** Where a pole's wire point lies, in chunk-local coordinates (the builder's frame is left at that pole). */
+const wireAnchor = new THREE.Vector3();
+function wireEnd(b: CityMeshBuilder, layout: PeriodCityLayout, p: number, x: number, point: readonly [number, number]): Vec3 {
+  routeFrame(b, layout, p);
+  const at = b.world(wireAnchor.set(x + point[0], point[1], 0));
+  return [at.x - b.originX, at.y, at.z - b.originZ];
+}
+
 /** A shopping-street lamp: two globes on a post and a cloth banner, printed both sides, stirring on its arms. */
 function shoppingLamp(b: CityMeshBuilder, x: number, z: number, banner: number, phase: number): void {
   b.colour.set('#3a3a40'); b.cylinder('metal', x, 0, z, .07, 4.2, 8);
@@ -172,6 +226,29 @@ export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: 
       const roll = hashInts(k, side, 7) >>> 0, banner = (k / 2) % 2 === 0 ? SORA_NOBORI[roll % SORA_NOBORI.length]! : roll % NEON_COUNTS.nobori;
       shoppingLamp(b, side * (w + 1.25), 0, banner, (roll % 997) / 997);
     }
+  }
+  // Utility poles, and the wires from each to the next pole on its side (and, from some, across the road to the
+  // other side's next pole): hung in this chunk even where they reach into the next.
+  for (let k = Math.ceil(from / STATION); k * STATION < to; k++) for (const side of [-1, 1] as PeriodSide[]) {
+    if (!poleAt(layout, k, side)) continue;
+    const p = k * STATION, roll = (hashInts(k, side, 53) >>> 0) / 4294967296, w = routeFrame(b, layout, p), x = side * (w + POLE_KERB);
+    utilityPole(b, x, side, roll);
+    const lines: [Vec3, Vec3, number][] = [];
+    const next = k + POLE_STATIONS;
+    if (poleAt(layout, next, side)) {
+      const wn = poseAt(layout.course, next * STATION).width;
+      for (const point of WIRE_POINTS) {
+        const a = wireEnd(b, layout, p, x, point), c = wireEnd(b, layout, next * STATION, side * (wn + POLE_KERB), point);
+        lines.push([a, c, point[1] < 8 ? .9 : .55]);
+      }
+    }
+    const across = k + POLE_STATIONS / 2;
+    if (side > 0 && roll > .45 && poleAt(layout, across, -1)) {
+      const wa = poseAt(layout.course, across * STATION).width;
+      lines.push([wireEnd(b, layout, p, x, WIRE_POINTS[1]!), wireEnd(b, layout, across * STATION, -(wa + POLE_KERB), WIRE_POINTS[1]!), .7]);
+    }
+    b.frame(b.originX, 0, b.originZ, 0);
+    for (const [a, c, sag] of lines) wire(b, a, c, sag);
   }
   for (const p of layout.street.footbridges) if (p >= from && p < to && inCourse(layout, p)) {
     // The plate names the nearest place on the guide signs.

@@ -741,5 +741,117 @@
       },
       "note": "User-supplied AAC recording. WAV is a decoded and resampled distribution copy of a lossy source, not an original lossless master. MP3 and preview are derived from that copy; no new composition or synthesized score is claimed."
     }
+  },
+  "forty-eight-turns": {
+    "wav": {
+      "path": "assets/music/audio/forty-eight-turns.wav",
+      "bytes": 33001156,
+      "sha256": "f5da327e63fd46388d5eb91ad1f9ed1f2e8cbefea5934b428201bcbb46a950f3"
+    },
+    "mp3": {
+      "path": "assets/music/audio/forty-eight-turns.mp3",
+      "bytes": 7485916,
+      "sha256": "5d00db70513ac2796b41bcf3ec64937a8598b234b630b5b245de311a99e19949"
+    },
+    "preview": {
+      "path": "assets/music/audio/forty-eight-turns-preview.mp3",
+      "bytes": 721826,
+      "sha256": "d424be6ace685b570eba111d141f92d694498b56fca9ab415d1edd7627420424"
+    },
+    "cover": {
+      "path": "assets/music/covers/forty-eight-turns-v1.png",
+      "bytes": 2522783,
+      "sha256": "a1f8120cb7bca84a5803c247135480a14a0d0bfb39694236b7c5697e36374d4a"
+    },
+    "coverUra": {
+      "path": "assets/music/covers/forty-eight-turns-v2.png",
+      "bytes": 5711592,
+      "sha256": "0da72dca62d8bc29ca4c99a01275ac747100f02995e17e29b8f202e9ea89b3cc"
+    },
+    "durationSeconds": 187.08002267573696
+  },
+  "evening-over-tsuruga": {
+    "wav": {
+      "path": "assets/music/audio/evening-over-tsuruga.wav",
+      "bytes": 28414752,
+      "sha256": "6cd7bbf34a0f851805b7a69c30663a366a3e75ce09f560bc1abded051ad15c93"
+    },
+    "mp3": {
+      "path": "assets/music/audio/evening-over-tsuruga.mp3",
+      "bytes": 6446244,
+      "sha256": "612e37d4e85b7377272776d0797956790a7d8c8bb3a3837df593100e75e89784"
+    },
+    "preview": {
+      "path": "assets/music/audio/evening-over-tsuruga-preview.mp3",
+      "bytes": 721823,
+      "sha256": "16fb457b48f37a6af5deddacdd2e573a78ea62e4076e0dfdf50b3e212ca59b98"
+    },
+    "cover": {
+      "path": "assets/music/covers/evening-over-tsuruga-v1.png",
+      "bytes": 2726387,
+      "sha256": "099e2a94188ea1eca6c0fe6accd1a5b8b8b8055778ac39e130f4d76dc0fc4c9d"
+    },
+    "coverUra": {
+      "path": "assets/music/covers/evening-over-tsuruga-v2.png",
+      "bytes": 5996369,
+      "sha256": "4aa56ebaae12a859d083d0cde650e80db2ec37e4e3408bb4fc091534de2b44ed"
+    },
+    "durationSeconds": 161.08002267573696
+  },
+  "kamogawa-lights": {
+    "wav": {
+      "path": "assets/music/audio/kamogawa-lights.wav",
+      "bytes": 36881940,
+      "sha256": "13c49902a32598dabfc5da2419570d92ba5582dc14936abb072f4ee22c74cf73"
+    },
+    "mp3": {
+      "path": "assets/music/audio/kamogawa-lights.mp3",
+      "bytes": 8365710,
+      "sha256": "9a9e3110b70294ef05ad9c3586541f507a93ca50ca05bc6dcc80b29e7847331f"
+    },
+    "preview": {
+      "path": "assets/music/audio/kamogawa-lights-preview.mp3",
+      "bytes": 721815,
+      "sha256": "d2f2e98ba97ca99077efc58619ef3b931c4f5e73f87e45ae734d5894a374c889"
+    },
+    "cover": {
+      "path": "assets/music/covers/kamogawa-lights-v1.png",
+      "bytes": 2234632,
+      "sha256": "fa6e186bf9008076f0623369d7efc95f346d2a85685e22b199751a577b0c4e63"
+    },
+    "coverUra": {
+      "path": "assets/music/covers/kamogawa-lights-v2.png",
+      "bytes": 5455870,
+      "sha256": "0902f336df0a70a5d0b273af8504aab951e12e9c4a9258a23b671460f25aaf89"
+    },
+    "durationSeconds": 209.08
+  },
+  "deer-park-afterglow": {
+    "wav": {
+      "path": "assets/music/audio/deer-park-afterglow.wav",
+      "bytes": 31589948,
+      "sha256": "41a912eca9a07965273b9f76d80a45080207f3eb2887ef003433d0681e396982"
+    },
+    "mp3": {
+      "path": "assets/music/audio/deer-park-afterglow.mp3",
+      "bytes": 7166175,
+      "sha256": "143b1f4f4e360092a0defa6e90a9dd47ce65ab455e93291ae2231172d3989075"
+    },
+    "preview": {
+      "path": "assets/music/audio/deer-park-afterglow-preview.mp3",
+      "bytes": 721819,
+      "sha256": "7240eea0f0b9b5d6151e7c98d1d3a38178a887f0a7e8d070b4c90949e7f6efdf"
+    },
+    "cover": {
+      "path": "assets/music/covers/deer-park-afterglow-v1.png",
+      "bytes": 2643804,
+      "sha256": "c80fe64c97796ee8bec254d4602611a57825444133d859ca00b3ef87177e8d51"
+    },
+    "coverUra": {
+      "path": "assets/music/covers/deer-park-afterglow-v2.png",
+      "bytes": 5810364,
+      "sha256": "ea1e20f465113390d8a2ae63bba0d8379465645cf11c9ed0eb094eaff0380689"
+    },
+    "durationSeconds": 179.08002267573696
   }
 }

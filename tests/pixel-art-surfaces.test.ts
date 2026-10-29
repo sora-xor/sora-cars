@@ -31,8 +31,8 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   // Refine round 4 glitter (the user's rain-night concept): a speck on some calm wet cells, never all of them,
   // lifted enough to read against the navy road without reaching cream.
   assert.ok(d.wetGlitter > 0 && d.wetGlitter <= 0.6 && d.wetGlitterLift >= 0.1 && d.wetGlitterLift <= 0.3);
-  // At speed the glitter becomes trails, no more of them than still specks.
-  assert.ok(d.wetGlitterTrail > 0 && d.wetGlitterTrail <= 1);
+  // Trails at speed are an option (the ripple dashes carry the texture now), never more than the still specks.
+  assert.ok(d.wetGlitterTrail >= 0 && d.wetGlitterTrail <= 1);
   // Lit facades and shop fronts stretch into reflection columns too, with a ramp between start and full.
   assert.ok(d.wetColumnStart > 0 && d.wetColumnStart < d.wetColumnFull && d.wetColumnFull <= 1);
   // Upward-facing ground only, and the column window fits the composite shader (at most 96 cells down, every other
@@ -41,9 +41,9 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   assert.ok(d.wetColumnDown <= 96 && d.wetColumnUp <= 8 && d.wetColumnDown > d.wetColumnUp);
   // The ripple spread fits its shader's window (4 cells either side) and loses some light per cell.
   assert.ok(d.wetSpread >= 0 && d.wetSpread <= 4 && d.wetSpreadFalloff > 0 && d.wetSpreadFalloff < 0.25);
-  // Light columns break into ripple blobs a few cells across with holes and a few dark specks, never solid or empty;
-  // the drizzle stays a light speckle.
-  assert.ok(d.wetRipple === 1 && d.wetRippleCells >= 2 && d.wetRippleCells <= 8 && d.wetRippleRows >= 1 && d.wetRippleRows <= 8);
+  // The organic ripple blobs are an option (the waves replaced them): a few cells across with holes and a few dark
+  // specks, never solid or empty; the drizzle stays a light speckle.
+  assert.ok(d.wetRippleCells >= 2 && d.wetRippleCells <= 8 && d.wetRippleRows >= 1 && d.wetRippleRows <= 8);
   assert.ok(d.wetRippleHoles > 0.2 && d.wetRippleHoles < 0.6 && d.wetRipplePebbles >= 0 && d.wetRipplePebbles < 0.15);
   assert.ok(d.wetDrizzle >= 0 && d.wetDrizzle <= 0.1);
   // Pale reflections lean toward the lamps' gold, never all the way.
@@ -55,6 +55,21 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   assert.ok(d.groundSpeedSmooth > 0 && d.wallSpeedSmooth >= 0 && d.wallSpeedSmooth < d.groundSpeedSmooth);
   assert.ok(d.temporalMargin > 0 && d.temporalMargin < 0.05 && d.temporalDepthTolerance < 0.1);
   assert.ok(d.fieldMotionStretch >= 1);
+});
+
+test('refine round 4 waves: horizontal wave bands and ripple dashes on the wet road', () => {
+  const d = SURFACE_DEFAULTS;
+  // On by default, in place of the blobs and the drizzle.
+  assert.ok(d.wetWaves === 1 && d.wetRipple === 0 && d.wetDrizzle === 0);
+  // Bands wider toward the camera; troughs a minority of rows that darken a reflection without erasing the road.
+  assert.ok(d.wetWaveRowsNear > d.wetWaveRowsFar && d.wetWaveRowsFar >= 1 && d.wetWaveHorizon > 0 && d.wetWaveHorizon < 1);
+  assert.ok(d.wetWaveThreshold > 0.1 && d.wetWaveThreshold < 0.5 && d.wetWaveTrough > 0 && d.wetWaveTrough < 0.5);
+  // Streaks waver by a cell or two; a dense core, sparse ripple marks, and vertical streaks a few cells apart.
+  assert.ok(d.wetWaveJitter >= 0 && d.wetWaveJitter <= 2);
+  assert.ok(d.wetWaveDashFull > 0 && d.wetWaveDashBase > 0 && d.wetWaveDashBase < 0.3);
+  assert.ok(d.wetWaveStreak >= 3 && d.wetWaveStreak <= 10 && d.wetWaveStreakFloor > 0 && d.wetWaveStreakFloor < 1);
+  // The marks are a faint sheen, not a second road.
+  assert.ok(d.wetWaveSheen > 0 && d.wetWaveSheen < 0.1);
 });
 
 test('shop fronts cast wet-ground columns but are no lamp heads', () => {

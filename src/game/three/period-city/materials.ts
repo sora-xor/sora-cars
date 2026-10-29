@@ -107,6 +107,42 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
             float dark = clamp(cityNight, 0., 1.);
             float lip = unit.y > 0. ? smoothstep(1. - 2.2 * cell / unit.y, 1. - 1.2 * cell / unit.y, fract(m.y / unit.y)) * (1. - joint) : 0.;
             diffuseColor.rgb *= 1. + (shade * mix(.1, .22, dark) - joint * mix(.34, .5, dark) + lip * .16 * dark) * fade;
+            // Surface relief (refine round 4, the cutscenes' facades: corrugated sheet, lapped boards), drawn in whole
+            // art cells and gone where it would crowd closer than about three cells a period.
+            if (pattern > 2.5 && pattern < 3.5) {
+              // Corrugated sheet between the seams: a lit crest, its flank, a shadowed valley, ribs 16 cm apart (coarser
+              // than real sheet, as the cutscenes draw it, so they read to about 40 m).
+              float period = unit.x / 2., t = fract(m.x / period);
+              // Stronger after dark, as the tile grid is, so the lamps and shops pick the ribs out of the dark sheet.
+              float rib = (t < .28 ? .17 : t < .5 ? .02 : t < .78 ? -.16 : -.03) * mix(1., 1.9, dark);
+              diffuseColor.rgb *= 1. + rib * (1. - smoothstep(period / 3.5, period / 2.4, cell));
+            } else if (pattern > 5.5) {
+              // Lapped boards: each board's lower edge throws a shadow on the one below, the grain runs along it in
+              // long streaks, and a knot here and there.
+              float fromBottom = fract(m.y / unit.y) * unit.y;
+              float shadow = 1. - smoothstep(cell * .9, cell * 1.8, fromBottom);
+              float grain = fract(sin(floor(m.x * 1.7 + row * 3.1) * 12.9898 + floor(fromBottom / max(cell, .02)) * 78.233) * 43758.5453);
+              float boards = 1. - smoothstep(unit.y / 4., unit.y / 2.5, cell);
+              diffuseColor.rgb *= 1. - mix(.34, .5, dark) * shadow * boards + (grain - .5) * mix(.1, .16, dark) * boards;
+            }
+          }
+          if (pattern < .5 && upright > .5) {
+            // Plain mortar takes blotchy weathering, broad stains about a metre across (bilinear, so never a grid).
+            vec2 q = vMapUv * 3. / vec2(1.1, .8), f = fract(q), i = floor(q);
+            f = f * f * (3. - 2. * f);
+            float a = fract(sin(dot(i, vec2(12.9898, 78.233))) * 43758.5453), b2 = fract(sin(dot(i + vec2(1., 0.), vec2(12.9898, 78.233))) * 43758.5453);
+            float c2 = fract(sin(dot(i + vec2(0., 1.), vec2(12.9898, 78.233))) * 43758.5453), d2 = fract(sin(dot(i + 1., vec2(12.9898, 78.233))) * 43758.5453);
+            float stain = mix(mix(a, b2, f.x), mix(c2, d2, f.x), f.y);
+            diffuseColor.rgb *= 1. - .14 * smoothstep(.45, .9, stain);
+          }
+          if (upright > .5) {
+            // Grime (refine round 4, the cutscenes' weathered facades): a darker splash band along the foot of every
+            // wall, its top edge ragged, and faint vertical streaks of rain run-off fading down from the top.
+            vec2 m = vMapUv * 3.;
+            float ragged = fract(sin(floor(m.x * 4.) * 91.7) * 43758.5453) * .25;
+            float foot = 1. - smoothstep(.35 + ragged, .75 + ragged, m.y);
+            float streak = smoothstep(.55, .95, fract(sin(floor(m.x * 2.5) * 37.3) * 43758.5453));
+            diffuseColor.rgb *= 1. - .32 * foot - .1 * streak * smoothstep(1.5, 6., m.y) * (.6 + .4 * fract(m.y * .37));
           }
           // After dark the warm tile and mortar lose most of their colour toward a cool slate: the lamps and shops put
           // the warmth back only where they shine. Refine round 4: a cutscene-style repaint of a race frame paints
@@ -139,7 +175,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
           reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * wash * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v10`;
+  material.customProgramCacheKey = () => `${name}-v12`;
   return material;
 }
 
@@ -153,14 +189,14 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .16, metalness: .35, envMapIntensity: 1.3 });
   material.name = 'period-city-window-glass';
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityWindows = windows;
+    shader.uniforms.cityWindows = windows; shader.uniforms.cityNight = cityNight;
     shader.uniforms.cityInteriors = { value: interiors?.texture ?? null };
     shader.uniforms.cityInteriorsReady = interiors?.ready ?? { value: 0 };
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'attribute vec2 cityWindow; varying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvCityWindow = cityWindow; vCityPane = uv;');
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform vec4 cityWindows; uniform sampler2D cityInteriors; uniform float cityInteriorsReady;\nvarying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
+      .replace('void main() {', 'uniform vec4 cityWindows; uniform float cityNight; uniform sampler2D cityInteriors; uniform float cityInteriorsReady;\nvarying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
       .replace('#include <emissivemap_fragment>', /* glsl */ `#include <emissivemap_fragment>
       {
         float seed = vCityWindow.x, kind = vCityWindow.y;
@@ -183,13 +219,32 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
           // Held under the tone map's shoulder, so the light stays amber and the silhouettes stay dark against it.
           vec3 glow = tone * mix(.4, .72, smoothstep(.0, .9, pane.y)) * (kind > 1.5 ? .5 : .55);
           float style = fract(seed * 23.7), side = fract(seed * 41.3) < .5 ? .28 : .72, silhouette = 0.;
+          // A room behind the glass (refine round 4, the cutscene-style repaint's windows): a ceiling lamp, a bright
+          // oval near the top of one sash with its light spread round it, and the room darker toward the floor.
+          vec3 overlay = vec3(0.);
+          float overlayMask = 0.;
+          if (lobby < .5 && kind < 1.5) {
+            vec2 lamp = vec2(fract(seed * 3.1) < .5 ? .26 : .74, .84);
+            float spread = exp(-dot((pane - lamp) * vec2(2.2, 3.2), (pane - lamp) * vec2(2.2, 3.2)) * 6.);
+            glow = glow * mix(.5, 1., smoothstep(.0, .38, pane.y)) + tone * .32 * spread;
+            float core = step(length((pane - lamp) * vec2(1., 2.4)), .085);
+            overlay = mix(overlay, vec3(1., .86, .62) * .95, core); overlayMask = max(overlayMask, core);
+          }
           if (lobby < .5 && kind < 1.5) {
             if (style < .42) {
-              // A potted plant on the sill (refine round 4: on more sills, as the cutscene-style repaint has them).
-              float pot = step(abs(pane.x - side), .07) * step(pane.y, .15);
-              float leaves = step(length((pane - vec2(side, .3)) * vec2(1., 1.25)), .15)
-                + step(length((pane - vec2(side - .08, .4)) * vec2(1.2, 1.)), .08) + step(length((pane - vec2(side + .07, .38)) * vec2(1.2, 1.)), .08);
-              silhouette = clamp(pot + leaves, 0., 1.);
+              // Potted plants on the sill (refine round 4): green leaves, lighter on top where the room's lamp catches
+              // them, over a terracotta pot, as the repaint draws them; a second pot on some windows.
+              for (int k = 0; k < 2; k++) {
+                float px = k == 0 ? side : 1. - side;
+                if (k == 1 && fract(seed * 7.7) < .55) break;
+                float pot = step(abs(pane.x - px), .065) * step(pane.y, .14);
+                float leaves = max(max(step(length((pane - vec2(px, .3)) * vec2(1., 1.25)), .15),
+                  step(length((pane - vec2(px - .08, .4)) * vec2(1.2, 1.)), .085)), step(length((pane - vec2(px + .07, .38)) * vec2(1.2, 1.)), .08));
+                float speck = fract(sin(dot(floor(pane * 16.), vec2(12.9898, 78.233)) + seed * 17.) * 43758.5453);
+                vec3 leaf = mix(vec3(.02, .045, .018), vec3(.1, .2, .055), smoothstep(.22, .46, pane.y) * (.55 + .45 * speck));
+                overlay = mix(overlay, vec3(.14, .055, .03), pot * (1. - overlayMask)); overlayMask = max(overlayMask, pot);
+                overlay = mix(overlay, leaf, leaves * (1. - overlayMask)); overlayMask = max(overlayMask, leaves);
+              }
             } else if (style < .56) {
               // Someone at a desk or a table: head and shoulders.
               float x = .32 + fract(seed * 17.1) * .36;
@@ -197,21 +252,34 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
               float body = step(abs(pane.x - x), .17 - pane.y * .15) * step(pane.y, .36);
               silhouette = max(head, body);
             } else if (style < .64) {
-              // A standard lamp: shade and stem.
+              // A standard lamp: its shade glows, its stem dark.
               float shade = step(abs(pane.x - side), .12 - (pane.y - .5) * .3) * step(.5, pane.y) * step(pane.y, .66);
-              silhouette = max(shade * .6, step(abs(pane.x - side), .02) * step(pane.y, .5));
+              overlay = mix(overlay, tone * 1.05 + .06, shade * (1. - overlayMask)); overlayMask = max(overlayMask, shade);
+              silhouette = step(abs(pane.x - side), .02) * step(pane.y, .5);
             } else if (style < .8) {
-              // Curtains drawn to the sides.
-              silhouette = smoothstep(.2, .14, pane.x) * .7 + smoothstep(.8, .86, pane.x) * .7;
+              // Curtains drawn to the sides: light fabric with its folds, lit by the room (they were dark bands).
+              float cloth = clamp(smoothstep(.21, .15, pane.x) + smoothstep(.79, .85, pane.x), 0., 1.);
+              float hue = fract(seed * 5.3);
+              vec3 fabric = (hue < .5 ? vec3(1., .84, .64) : hue < .8 ? vec3(1., .66, .6) : vec3(.68, .82, .62))
+                * dot(glow, vec3(.3, .5, .2)) * (.8 + .2 * sin(pane.x * 70.));
+              overlay = mix(overlay, fabric, cloth * (1. - overlayMask)); overlayMask = max(overlayMask, cloth);
+            } else {
+              // A sideboard or sofa along the bottom of the room, its top edge catching the lamp.
+              float body = step(abs(pane.x - .5), .36) * step(pane.y, .2), top = body * step(.17, pane.y);
+              silhouette = body * (1. - top) * .8;
+              overlay = mix(overlay, tone * .45, top * (1. - overlayMask)); overlayMask = max(overlayMask, top);
             }
           }
           glow *= 1. - silhouette * .88;
+          glow = mix(glow, overlay, overlayMask);
           // The evening sky caught in the upper glass in soft streaks, a little lighter and pinker, as the concept
           // paints its windows; behind the silhouettes, never over them.
+          // Fainter after dark (refine round 4): the room, not the glass's glare, carries a night window.
           if (lobby < .5 && kind < 1.5 && pane.y > .58) {
             float band = floor(pane.y * 14.), streak = fract(sin(band * 91.7 + seed * 53.1) * 43758.5453);
             float reach = fract(sin(band * 17.3 + seed * 11.9) * 43758.5453) * .6 + .2;
-            if (streak > .45 && abs(pane.x - reach) < .22 + .2 * streak) glow = mix(glow, vec3(1., .62, .46) * .62, .5 * (1. - silhouette));
+            if (streak > .45 && abs(pane.x - reach) < .22 + .2 * streak)
+              glow = mix(glow, vec3(1., .62, .46) * .62, mix(.5, .12, clamp(cityNight, 0., 1.)) * (1. - silhouette) * (1. - overlayMask));
           }
           if (room > 0.) {
             // The room: offices, homes, eateries and bars, shops (one each by the window's seed), upright from the
@@ -232,7 +300,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
         }
       }`);
   };
-  material.customProgramCacheKey = () => 'period-city-window-glass-v6';
+  material.customProgramCacheKey = () => 'period-city-window-glass-v7';
   return material;
 }
 

@@ -1,0 +1,307 @@
+{
+ "schemaVersion": 1,
+ "createdAt": "2026-10-29",
+ "tool": "Codex CLI, model gpt-6-astra with model_reasoning_effort ultra, built-in image_gen",
+ "generationMode": "Two original square takes per song from one prompt, with four original 表 sleeves attached as style references. The chosen take then received one built-in generated edit adding the branding corner. Final PNGs copied byte-for-byte; no programmatic pixel editing.",
+ "series": "SORA CARS — Japan Routes soundtrack sleeves, 表 (OMOTE). The 裏 (URA) back jackets are composed from the same logo-free takes by scripts/compose-covers.mjs (soundtrack-covers-v2.json).",
+ "stylisticReferences": [
+  {
+   "path": "public/assets/music/covers/midnight-transistor-v1.png",
+   "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+   "role": "Attached generation input for the original set's design language; not copied."
+  },
+  {
+   "path": "public/assets/music/covers/the-frequency-home-v1.png",
+   "sha256": "4f9304e5736b975ca6a2415bf77f2c068707d6a3808c39db110260a9ce8ef388",
+   "role": "Attached generation input for the original set's design language; not copied."
+  },
+  {
+   "path": "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+   "sha256": "6eabe5ee972d68adfd44e9539d1bdec2788a214de753f412af9c1447a758b9f3",
+   "role": "Attached generation input for the original set's design language; not copied."
+  },
+  {
+   "path": "public/assets/music/covers/blank-side-promise-v1.png",
+   "sha256": "5d5e7ff92b0d9b0eab0cd24623d3d0ba007459fa9a1cbcb32a5c0a467badc100",
+   "role": "Attached generation input for the original set's design language; not copied."
+  }
+ ],
+ "brandingLayoutReference": {
+  "source": "public/assets/music/covers/midnight-transistor-v1.png",
+  "sha256": "8bbda7037c4d6fbf313474280df711f67e8beb634b60f6b55aaaeb66b727eef6",
+  "crop": [
+   0,
+   0,
+   420,
+   260
+  ],
+  "role": "The series' \"SORA\" above the white emblem square, for layout only."
+ },
+ "durableLogoReference": "public/assets/branding/sora-emblem-source.png",
+ "durableLogoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+ "rejectedFirstPass": {
+  "decision": "Rejected by the user on 2026-10-29: \"no where near the creative 1980s electronica style of the original set\". They were literal scenic landscapes with cyan lines added.",
+  "prompts": {
+   "forty-eight-turns": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished original square 1024x1024 music record-sleeve illustration for the SORA Cars soundtrack song \"四十八の曲がり角 / Forty-Eight Turns\", the race theme of the Second Irohazaka mountain road at Nikkō in the autumn of 1986. This is flat edge-to-edge artwork, not a physical sleeve mockup. The attached images are three covers from the same SORA Cars soundtrack series: match their style closely (sophisticated 1980s Japanese electronic soundtrack sleeve aesthetic, precise bold geometry, tactile airbrush colour transitions, delicate silkscreen grain on matte paper, a selective indigo / coral / cream / cyan palette, strong thumbnail readability), but do not copy their compositions, and do not reproduce their small white logo plaque or any of their lettering.\n\nScene: Dusk on the Second Irohazaka, the one-way mountain road at Nikkō that climbs a steep forested slope in stacked hairpin bends. Seen from high above at a gentle angle, the pale grey road folds back on itself in a bold graphic zigzag of tight switchbacks edged with white guard rails, cutting through blazing autumn maples in coral, vermilion and gold among deep indigo cedars. The steep volcanic cone of Nantai-san rises behind in cool indigo, its summit catching the last light, under a soft peach and coral twilight sky. One small 1980s two-door coupé with no logos or lettering climbs a bend, its red tail lights leaving a thin glowing trail along the turns below it, and two thin cyan lines, like the twin voices of an analog synthesizer, trace the switchbacks beside the road. A few maple leaves drift through the air.\n\nKeep any people or vehicles small and the composition iconic, spacious and graphic, with gentle perspective depth; restrained, warm mood; no photorealism, no pixel art. Leave the upper-left corner (a square about 18 percent of the canvas width, at the top-left edge) as calm open sky or quiet scenery with no important detail, because a small printed label will be added there later; do not draw that label. No text anywhere: no title, no Japanese or English lettering, no logos, no emblems, no signage, no numbers, no signature, no watermark. Original composition; do not imitate any commercial album cover or musician logo. Entire square canvas fully opaque with all four corners filled; no transparent pixels, border, frame, vignette or fading.",
+   "evening-over-tsuruga": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished original square 1024x1024 music record-sleeve illustration for the SORA Cars soundtrack song \"鶴ヶ城の夕べ / Evening over Tsuruga\", the race theme of Aizu-Wakamatsu in the autumn of 1986. This is flat edge-to-edge artwork, not a physical sleeve mockup. The attached images are three covers from the same SORA Cars soundtrack series: match their style closely (sophisticated 1980s Japanese electronic soundtrack sleeve aesthetic, precise bold geometry, tactile airbrush colour transitions, delicate silkscreen grain on matte paper, a selective indigo / coral / cream / cyan palette, strong thumbnail readability), but do not copy their compositions, and do not reproduce their small white logo plaque or any of their lettering.\n\nScene: Evening over Tsuruga Castle in Aizu-Wakamatsu. The five-storey keep of Tsuruga-jō as it stood in 1986 (the 1965 reconstruction: white plaster walls, black-framed windows and DARK GREY tiled roofs with gentle upturned eaves; not red roof tiles) rises on its tall curved dry-stone base above a still moat that mirrors it, seen from across the moat at a distance. Pines and red and gold autumn maples line the stone walls; low town roofs with a few warm window lights spread beyond, and the dark ridges of the mountains ringing the Aizu basin stand in cool indigo under a soft peach and coral sky just after sunset, with a first star. Two thin cyan lines, like the twin voices of an analog synthesizer, glide across the dark water of the moat toward the castle.\n\nKeep any people or vehicles small and the composition iconic, spacious and graphic, with gentle perspective depth; restrained, warm mood; no photorealism, no pixel art. Leave the upper-left corner (a square about 18 percent of the canvas width, at the top-left edge) as calm open sky or quiet scenery with no important detail, because a small printed label will be added there later; do not draw that label. No text anywhere: no title, no Japanese or English lettering, no logos, no emblems, no signage, no numbers, no signature, no watermark. Original composition; do not imitate any commercial album cover or musician logo. Entire square canvas fully opaque with all four corners filled; no transparent pixels, border, frame, vignette or fading.",
+   "kamogawa-lights": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished original square 1024x1024 music record-sleeve illustration for the SORA Cars soundtrack song \"鴨川ライト / Kamogawa Lights\", the race theme of Kyoto in the autumn of 1986. This is flat edge-to-edge artwork, not a physical sleeve mockup. The attached images are three covers from the same SORA Cars soundtrack series: match their style closely (sophisticated 1980s Japanese electronic soundtrack sleeve aesthetic, precise bold geometry, tactile airbrush colour transitions, delicate silkscreen grain on matte paper, a selective indigo / coral / cream / cyan palette, strong thumbnail readability), but do not copy their compositions, and do not reproduce their small white logo plaque or any of their lettering.\n\nScene: Night on the Kamo River in Kyoto, seen from the stone riverside walk north of Shijō Bridge, looking downstream. The broad shallow river runs ahead between low stone embankments, its smooth surface a mirror of long vertical reflections of warm lights. On the right bank, a row of old two-storey wooden teahouses of Pontochō glows amber behind paper screens with plain round paper lanterns that carry no lettering. Ahead, the long low Shijō Bridge crosses the river with a row of lamps; beyond its far left end stands the floodlit white Minami-za theatre with its dark tiled roofs and a small square drum tower on top. Behind, the dark rounded hills of Higashiyama sit under a deep indigo night sky with a last thin band of coral at the horizon. On the grassy left bank, small couples sit at even intervals facing the water, tiny silhouettes. Two thin cyan lines, like the twin voices of an analog synthesizer, ripple across the reflections.\n\nKeep any people or vehicles small and the composition iconic, spacious and graphic, with gentle perspective depth; restrained, warm mood; no photorealism, no pixel art. Leave the upper-left corner (a square about 18 percent of the canvas width, at the top-left edge) as calm open sky or quiet scenery with no important detail, because a small printed label will be added there later; do not draw that label. No text anywhere: no title, no Japanese or English lettering, no logos, no emblems, no signage, no numbers, no signature, no watermark. Original composition; do not imitate any commercial album cover or musician logo. Entire square canvas fully opaque with all four corners filled; no transparent pixels, border, frame, vignette or fading.",
+   "deer-park-afterglow": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished original square 1024x1024 music record-sleeve illustration for the SORA Cars soundtrack song \"鹿の夕映え / Deer Park Afterglow\", the race theme of Nara in the autumn of 1986. This is flat edge-to-edge artwork, not a physical sleeve mockup. The attached images are three covers from the same SORA Cars soundtrack series: match their style closely (sophisticated 1980s Japanese electronic soundtrack sleeve aesthetic, precise bold geometry, tactile airbrush colour transitions, delicate silkscreen grain on matte paper, a selective indigo / coral / cream / cyan palette, strong thumbnail readability), but do not copy their compositions, and do not reproduce their small white logo plaque or any of their lettering.\n\nScene: Afterglow over Nara Park, looking east. Gentle sika deer graze and rest on a soft lawn in the foreground, one stag with small antlers standing calm in silhouette. Close on the left, the five-storey wooden pagoda of Kōfuku-ji rises over the treetops; far ahead, the smooth grassy slopes of Wakakusa-yama glow gold in the last light, and on the left horizon the great roof of Tōdai-ji's Great Buddha Hall with its golden roof ornaments rests between dark trees. A soft coral and peach afterglow fades upward into indigo. Two thin cyan lines, like the twin voices of an analog synthesizer, drift across the lawn between the deer. A few orange autumn leaves fall.\n\nKeep any people or vehicles small and the composition iconic, spacious and graphic, with gentle perspective depth; restrained, warm mood; no photorealism, no pixel art. Leave the upper-left corner (a square about 18 percent of the canvas width, at the top-left edge) as calm open sky or quiet scenery with no important detail, because a small printed label will be added there later; do not draw that label. No text anywhere: no title, no Japanese or English lettering, no logos, no emblems, no signage, no numbers, no signature, no watermark. Original composition; do not imitate any commercial album cover or musician logo. Entire square canvas fully opaque with all four corners filled; no transparent pixels, border, frame, vignette or fading."
+  },
+  "sources": {
+   "forty-eight-turns": {
+    "path": "/Users/takemiyamakoto/.codex/generated_images/01a187a8-492c-79b1-9ca3-32912c963811/exec-79c2c16c-39eb-4427-8a7f-f55f7116f8b7.png",
+    "sha256": "3d2d8c8893bba80af6fb0dc082658c6ba63e2478ec75db29c157b253938ee528"
+   },
+   "evening-over-tsuruga": {
+    "path": "/Users/takemiyamakoto/.codex/generated_images/01a187a8-492a-7392-995d-648a2e821029/exec-764f66e0-91ee-4931-9fda-253fb071b016.png",
+    "sha256": "bd3ddde7d1a871040169a5f9b070e1399060edb8aa4e9fb785ce3dae32fedf61"
+   },
+   "kamogawa-lights": {
+    "path": "/Users/takemiyamakoto/.codex/generated_images/01a187a8-492a-7ec3-bff2-da8c0788e521/exec-8c417019-f1e2-4d14-81e5-4c37b0ed5433.png",
+    "sha256": "5edbae13d6bed3df09704a7af26c0fa8523ea673f262ece0d0d9c4d07ec9a937"
+   },
+   "deer-park-afterglow": {
+    "path": "/Users/takemiyamakoto/.codex/generated_images/01a187a8-492b-79f2-9289-9073a61011ef/exec-512a56d1-5a3f-44d0-a1a6-ac3960fdfcae.png",
+    "sha256": "04aa06cc0ec1cec2323e0b6319c1f942a6dee4f8e88e13e12d379a6f02f33384"
+   }
+  }
+ },
+ "songs": [
+  {
+   "id": "forty-eight-turns",
+   "title": "四十八の曲がり角",
+   "titleEn": "Forty-Eight Turns",
+   "route": "irohazaka-1986",
+   "initialGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished square 1024x1024 original NFT music cover for the SORA CARS soundtrack song '四十八の曲がり角 / Forty-Eight Turns' (the race theme of the Irohazaka mountain road at Nikkō, 1986). Album sleeve illustration, no physical mockup. The four attached images are original covers from this same SORA CARS series. Match their design language exactly: one monumental, convincingly built retro-electronic object placed in a quiet, simplified landscape like a surreal poster; a deep midnight-indigo field; a huge flat coral or peach sun or moon disc; silver, cream and ivory surfaces; thin luminous cyan accents; low horizon and distant layered mountain silhouettes; airbrushed gradients with heavy film grain. Do not copy their objects or compositions, and do not reproduce their white logo plaque or their SORA lettering.\n\nConcept: A tall vintage cream-and-silver laboratory oscilloscope with a round glowing screen stands like a monument at the foot of a dark indigo volcanic cone (Nikkō's Nantai-san). Its luminous cyan trace runs out of the screen and becomes a steep zigzag mountain road of many tight stacked hairpin turns, drawn as one continuous bright line climbing the mountainside toward a huge coral sun disc behind the summit. One tiny pair of red tail lights climbs the zigzag. A few small flat coral maple leaves drift through the indigo air. Convincing oscilloscope construction: knobs, grille, bezel.\n\nSophisticated 1980s Japanese electronic record-sleeve aesthetic: precise bold geometry, tactile airbrush gradients, restrained silkscreen grain on uncoated paper, elegant graphic abstraction. Strong iconic thumbnail readability, generous breathing space, asymmetrical composition, deliberate cyan/coral/cream/indigo palette. It must look like a conceptual 1980s electronica album cover, not a detailed scenic painting, not anime background art, not a travel poster, not photorealistic, no pixel art. Leave the upper-left corner (about 18 percent of the width) as calm, empty sky for a small printed label added later; do not draw that label. No text anywhere: no title, no letters, no numbers, no logos, no emblems, no signage, no signature, no watermark. Original composition, do not imitate any existing commercial album, no artist logos, no people. Entire image flat edge-to-edge cover artwork, fully opaque with all four corners filled; no border, no frame, no vignette.",
+    "referenced_image_paths": [
+     "public/assets/music/covers/midnight-transistor-v1.png",
+     "public/assets/music/covers/the-frequency-home-v1.png",
+     "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+     "public/assets/music/covers/blank-side-promise-v1.png"
+    ],
+    "transparent_background": false,
+    "takes": {
+     "a": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f03f-7780-b567-53b0233f5db0/exec-68a87ff6-05eb-44a9-aac7-5b9971d14df0.png",
+      "sha256": "f368e1ae8def2d7aceec8f0a75c8fed38981b53f220a158ac7e5c706b04c7451",
+      "bytes": 2971658,
+      "width": 1254,
+      "height": 1254
+     },
+     "b": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-efea-7c20-a3dc-b19e8fec29ee/exec-c87b855e-f0d3-496f-9465-e5f318af7012.png",
+      "sha256": "aa567ee4dd9bf9910ab33058b373ef4c55d528f20b84c775fa2c48112de02a5b",
+      "bytes": 2949724,
+      "width": 1254,
+      "height": 1254
+     }
+    },
+    "chosen": "a",
+    "reason": "The oscilloscope stands as a monolith and its trace leaves the screen as the stacked hairpins, the original set's logic; take b was busier and more scenic."
+   },
+   "acceptedGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to make exactly one edited image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: compositing. Edit image 1, a square SORA CARS soundtrack sleeve illustration, by adding only the small upper-left editorial branding used across this sleeve series. Image 3 shows that corner of another sleeve in the series, for layout reference only; do not copy anything else from it. Add a clean small pure-white printed square occupying about 12 percent of the canvas width, inset about 4 percent from the left edge and about 6 percent from the top edge, and centre in it image 2's complete exact red-and-white SORA emblem graphic, with even modest margins on all four sides. The emblem has TWO equal-length straight horizontal white bars, connected by a short centred vertical white stem that does not rise above the top bar, and two constant-width straight diagonal white channels running from the second bar completely through the lower red circumference, leaving a detached red wedge at the bottom between those open channels. Copy the exact source graphic geometry and proportions faithfully: not the font character 天, 夫 or 未, not a single T-shaped bar, not a closed red lower rim, not tapered strokes, not an approximation. Use image 2's saturated red and pure white; flat editorial printing with no lighting, shadow or glow on the logo; keep it upright. Directly above the white square, left-aligned with it, add the small, widely letter-spaced cream word \"SORA\" in a simple geometric sans serif, as in image 3. These are the only letters on the entire cover. Preserve absolutely everything else in image 1: the full square composition and dimensions, every object and its position, the colours, the light, the fine print grain and the edge-to-edge framing. No other text, no other logos, no cropping, no reinterpretation, no extra subjects. The final image must be a fully opaque square, RGB or alpha 255 on every pixel, including all four corners.\n",
+    "referenced_image_paths": [
+     "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f03f-7780-b567-53b0233f5db0/exec-68a87ff6-05eb-44a9-aac7-5b9971d14df0.png",
+     "public/assets/branding/sora-emblem-source.png",
+     "crop of public/assets/music/covers/midnight-transistor-v1.png at [0, 0, 420, 260]"
+    ],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d8-edd0-7360-82b6-ab9a5f447a9a/exec-c1672e2c-ad37-4b0a-940d-fbc961d420d7.png",
+    "destination": "public/assets/music/covers/forty-eight-turns-v1.png",
+    "sha256": "a1f8120cb7bca84a5803c247135480a14a0d0bfb39694236b7c5697e36374d4a",
+    "bytes": 2522783,
+    "width": 1254,
+    "height": 1254,
+    "sourceBytesMatch": true,
+    "visualInspection": {
+     "inspectedWith": "Full-resolution view, a 2x crop of the branding corner beside the emblem source, and a block comparison with the chosen take.",
+     "composition": "A cream-and-silver oscilloscope on a dark ridge; its cyan trace becomes the zigzag road climbing Nantai-san's cone into a huge coral sun, one tiny red tail light on the turns; coral maple leaves.",
+     "logo": "Upright red emblem centred in a flat white square at the upper left: two equal white bars, a centred connector not rising above the top bar, two straight channels open through the lower rim and the detached red wedge. Visual geometry check; no claim of pixel identity with the source graphic.",
+     "text": "A small spaced \"SORA\" above the square; no other lettering.",
+     "preserved": "Outside the branding corner no 32 px block differs from the chosen take by more than 30/255 on average; the edit re-rendered grain only.",
+     "boundaries": "Full 1254 x 1254 square, every pixel opaque.",
+     "period": "No anachronism found for 1986."
+    }
+   }
+  },
+  {
+   "id": "evening-over-tsuruga",
+   "title": "鶴ヶ城の夕べ",
+   "titleEn": "Evening over Tsuruga",
+   "route": "aizu-wakamatsu-1986",
+   "initialGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished square 1024x1024 original NFT music cover for the SORA CARS soundtrack song '鶴ヶ城の夕べ / Evening over Tsuruga' (the race theme of Aizu-Wakamatsu, 1986). Album sleeve illustration, no physical mockup. The four attached images are original covers from this same SORA CARS series. Match their design language exactly: one monumental, convincingly built retro-electronic object placed in a quiet, simplified landscape like a surreal poster; a deep midnight-indigo field; a huge flat coral or peach sun or moon disc; silver, cream and ivory surfaces; thin luminous cyan accents; low horizon and distant layered mountain silhouettes; airbrushed gradients with heavy film grain. Do not copy their objects or compositions, and do not reproduce their white logo plaque or their SORA lettering.\n\nConcept: A large white origami crane, folded from cream paper printed with fine cyan circuit-board traces, glides slowly across a huge coral setting sun. Below it, kept small and simple, stands the silhouette of Tsuruga Castle's five-storey keep as it was in 1986 (white walls, dark grey tiled roofs, not red tiles) on tall curved stone walls, above a perfectly still moat that mirrors the sun as horizontal cyan scan lines. Deep midnight-indigo sky, low distant mountain silhouettes of the Aizu basin. Crisp, convincing paper folds on the crane.\n\nSophisticated 1980s Japanese electronic record-sleeve aesthetic: precise bold geometry, tactile airbrush gradients, restrained silkscreen grain on uncoated paper, elegant graphic abstraction. Strong iconic thumbnail readability, generous breathing space, asymmetrical composition, deliberate cyan/coral/cream/indigo palette. It must look like a conceptual 1980s electronica album cover, not a detailed scenic painting, not anime background art, not a travel poster, not photorealistic, no pixel art. Leave the upper-left corner (about 18 percent of the width) as calm, empty sky for a small printed label added later; do not draw that label. No text anywhere: no title, no letters, no numbers, no logos, no emblems, no signage, no signature, no watermark. Original composition, do not imitate any existing commercial album, no artist logos, no people. Entire image flat edge-to-edge cover artwork, fully opaque with all four corners filled; no border, no frame, no vignette.",
+    "referenced_image_paths": [
+     "public/assets/music/covers/midnight-transistor-v1.png",
+     "public/assets/music/covers/the-frequency-home-v1.png",
+     "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+     "public/assets/music/covers/blank-side-promise-v1.png"
+    ],
+    "transparent_background": false,
+    "takes": {
+     "a": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f00f-7b11-97d1-4645b9696b5c/exec-4e353481-799e-4703-a5ce-93b490ef26b6.png",
+      "sha256": "0172c79bcb789e4a2e5ef25d30fbea08a7099268475e2b60b40248e6695b98af",
+      "bytes": 3168262,
+      "width": 1254,
+      "height": 1254
+     },
+     "b": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-efed-7e42-b49c-cbf75a0995d6/exec-94667fd8-966a-4198-8ad0-a5fc35c33de0.png",
+      "sha256": "735b9c32eedafaf67a7eae8c3167cf7fc783eaf78ea461501414f1ae5560b6d6",
+      "bytes": 2827712,
+      "width": 1254,
+      "height": 1254
+     }
+    },
+    "chosen": "a",
+    "reason": "The bolder crane and the clearer keep and moat; take b raised the crane's tail into the branding corner."
+   },
+   "acceptedGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to make exactly one edited image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: compositing. Edit image 1, a square SORA CARS soundtrack sleeve illustration, by adding only the small upper-left editorial branding used across this sleeve series. Image 3 shows that corner of another sleeve in the series, for layout reference only; do not copy anything else from it. Add a clean small pure-white printed square occupying about 12 percent of the canvas width, inset about 4 percent from the left edge and about 6 percent from the top edge, and centre in it image 2's complete exact red-and-white SORA emblem graphic, with even modest margins on all four sides. The emblem has TWO equal-length straight horizontal white bars, connected by a short centred vertical white stem that does not rise above the top bar, and two constant-width straight diagonal white channels running from the second bar completely through the lower red circumference, leaving a detached red wedge at the bottom between those open channels. Copy the exact source graphic geometry and proportions faithfully: not the font character 天, 夫 or 未, not a single T-shaped bar, not a closed red lower rim, not tapered strokes, not an approximation. Use image 2's saturated red and pure white; flat editorial printing with no lighting, shadow or glow on the logo; keep it upright. Directly above the white square, left-aligned with it, add the small, widely letter-spaced cream word \"SORA\" in a simple geometric sans serif, as in image 3. These are the only letters on the entire cover. Preserve absolutely everything else in image 1: the full square composition and dimensions, every object and its position, the colours, the light, the fine print grain and the edge-to-edge framing. No other text, no other logos, no cropping, no reinterpretation, no extra subjects. The final image must be a fully opaque square, RGB or alpha 255 on every pixel, including all four corners.\n",
+    "referenced_image_paths": [
+     "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f00f-7b11-97d1-4645b9696b5c/exec-4e353481-799e-4703-a5ce-93b490ef26b6.png",
+     "public/assets/branding/sora-emblem-source.png",
+     "crop of public/assets/music/covers/midnight-transistor-v1.png at [0, 0, 420, 260]"
+    ],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d8-edd0-7483-a811-b3c8117a82a1/exec-427d8b62-fe9a-4c43-948e-a276225ee9cf.png",
+    "destination": "public/assets/music/covers/evening-over-tsuruga-v1.png",
+    "sha256": "099e2a94188ea1eca6c0fe6accd1a5b8b8b8055778ac39e130f4d76dc0fc4c9d",
+    "bytes": 2726387,
+    "width": 1254,
+    "height": 1254,
+    "sourceBytesMatch": true,
+    "visualInspection": {
+     "inspectedWith": "Full-resolution view, a 2x crop of the branding corner beside the emblem source, and a block comparison with the chosen take.",
+     "composition": "A circuit-printed paper crane crosses a huge coral sun above Tsuruga-jō's keep (white walls, dark grey roofs, as in 1986) on its stone walls; the moat breaks the sun into cyan scan lines.",
+     "logo": "Upright red emblem centred in a flat white square at the upper left: two equal white bars, a centred connector not rising above the top bar, two straight channels open through the lower rim and the detached red wedge. Visual geometry check; no claim of pixel identity with the source graphic.",
+     "text": "A small spaced \"SORA\" above the square; no other lettering.",
+     "preserved": "Outside the branding corner no 32 px block differs from the chosen take by more than 30/255 on average; the edit re-rendered grain only.",
+     "boundaries": "Full 1254 x 1254 square, every pixel opaque.",
+     "period": "No anachronism found for 1986."
+    }
+   }
+  },
+  {
+   "id": "kamogawa-lights",
+   "title": "鴨川ライト",
+   "titleEn": "Kamogawa Lights",
+   "route": "kyoto-1986",
+   "initialGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished square 1024x1024 original NFT music cover for the SORA CARS soundtrack song '鴨川ライト / Kamogawa Lights' (the race theme of Kyoto, 1986). Album sleeve illustration, no physical mockup. The four attached images are original covers from this same SORA CARS series. Match their design language exactly: one monumental, convincingly built retro-electronic object placed in a quiet, simplified landscape like a surreal poster; a deep midnight-indigo field; a huge flat coral or peach sun or moon disc; silver, cream and ivory surfaces; thin luminous cyan accents; low horizon and distant layered mountain silhouettes; airbrushed gradients with heavy film grain. Do not copy their objects or compositions, and do not reproduce their white logo plaque or their SORA lettering.\n\nConcept: Sixteen identical round paper lanterns float in one perfectly straight horizontal row at perfectly even intervals above a dark, still night river, like the step lights of a vintage rhythm sequencer; one lantern glows coral, the other fifteen glow warm cream, and the lanterns carry no lettering. Each lantern casts a long vertical cyan reflection into the black water, like the bars of a spectrum analyser. Far behind, the low silhouette of a long river bridge with tiny lamps, and the soft rounded hills of Kyoto's Higashiyama, under a deep indigo night sky with a large pale coral moon.\n\nSophisticated 1980s Japanese electronic record-sleeve aesthetic: precise bold geometry, tactile airbrush gradients, restrained silkscreen grain on uncoated paper, elegant graphic abstraction. Strong iconic thumbnail readability, generous breathing space, asymmetrical composition, deliberate cyan/coral/cream/indigo palette. It must look like a conceptual 1980s electronica album cover, not a detailed scenic painting, not anime background art, not a travel poster, not photorealistic, no pixel art. Leave the upper-left corner (about 18 percent of the width) as calm, empty sky for a small printed label added later; do not draw that label. No text anywhere: no title, no letters, no numbers, no logos, no emblems, no signage, no signature, no watermark. Original composition, do not imitate any existing commercial album, no artist logos, no people. Entire image flat edge-to-edge cover artwork, fully opaque with all four corners filled; no border, no frame, no vignette.",
+    "referenced_image_paths": [
+     "public/assets/music/covers/midnight-transistor-v1.png",
+     "public/assets/music/covers/the-frequency-home-v1.png",
+     "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+     "public/assets/music/covers/blank-side-promise-v1.png"
+    ],
+    "transparent_background": false,
+    "takes": {
+     "a": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-efe9-7f53-bca2-c67ae88466c1/exec-d524f229-0ee9-4beb-b12f-110b78d091b5.png",
+      "sha256": "a494e4d0f6146d404ecc9f0c39d0d0025dedf30ce622855ffbc287b1d181aad3",
+      "bytes": 2728594,
+      "width": 1254,
+      "height": 1254
+     },
+     "b": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f01c-74a3-82f7-5eaae7af41ac/exec-8337d2bf-2930-46f2-ab3c-dab281cc2d74.png",
+      "sha256": "bfd3635db36cfa231dda011007192d37948a36c96fac0ecb90167b6575dfe857",
+      "bytes": 2450889,
+      "width": 1254,
+      "height": 1254
+     }
+    },
+    "chosen": "a",
+    "reason": "Sharper spectrum-bar reflections, the coral step's red reflection, and Yasaka's pagoda over Higashiyama."
+   },
+   "acceptedGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to make exactly one edited image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: compositing. Edit image 1, a square SORA CARS soundtrack sleeve illustration, by adding only the small upper-left editorial branding used across this sleeve series. Image 3 shows that corner of another sleeve in the series, for layout reference only; do not copy anything else from it. Add a clean small pure-white printed square occupying about 12 percent of the canvas width, inset about 4 percent from the left edge and about 6 percent from the top edge, and centre in it image 2's complete exact red-and-white SORA emblem graphic, with even modest margins on all four sides. The emblem has TWO equal-length straight horizontal white bars, connected by a short centred vertical white stem that does not rise above the top bar, and two constant-width straight diagonal white channels running from the second bar completely through the lower red circumference, leaving a detached red wedge at the bottom between those open channels. Copy the exact source graphic geometry and proportions faithfully: not the font character 天, 夫 or 未, not a single T-shaped bar, not a closed red lower rim, not tapered strokes, not an approximation. Use image 2's saturated red and pure white; flat editorial printing with no lighting, shadow or glow on the logo; keep it upright. Directly above the white square, left-aligned with it, add the small, widely letter-spaced cream word \"SORA\" in a simple geometric sans serif, as in image 3. These are the only letters on the entire cover. Preserve absolutely everything else in image 1: the full square composition and dimensions, every object and its position, the colours, the light, the fine print grain and the edge-to-edge framing. No other text, no other logos, no cropping, no reinterpretation, no extra subjects. The final image must be a fully opaque square, RGB or alpha 255 on every pixel, including all four corners.\n",
+    "referenced_image_paths": [
+     "/Users/takemiyamakoto/.codex/generated_images/01a187d4-efe9-7f53-bca2-c67ae88466c1/exec-d524f229-0ee9-4beb-b12f-110b78d091b5.png",
+     "public/assets/branding/sora-emblem-source.png",
+     "crop of public/assets/music/covers/midnight-transistor-v1.png at [0, 0, 420, 260]"
+    ],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d8-edd0-7f72-a1c2-76010e5d6f21/exec-18df2f2e-d9c8-495f-b8e2-b14576cfbc92.png",
+    "destination": "public/assets/music/covers/kamogawa-lights-v1.png",
+    "sha256": "fa6e186bf9008076f0623369d7efc95f346d2a85685e22b199751a577b0c4e63",
+    "bytes": 2234632,
+    "width": 1254,
+    "height": 1254,
+    "sourceBytesMatch": true,
+    "visualInspection": {
+     "inspectedWith": "Full-resolution view, a 2x crop of the branding corner beside the emblem source, and a block comparison with the chosen take.",
+     "composition": "Sixteen evenly spaced paper lanterns over the night river like a step sequencer, the tenth coral; reflections like spectrum-analyser bars; a far bridge, Higashiyama and a coral moon.",
+     "logo": "Upright red emblem centred in a flat white square at the upper left: two equal white bars, a centred connector not rising above the top bar, two straight channels open through the lower rim and the detached red wedge. Visual geometry check; no claim of pixel identity with the source graphic.",
+     "text": "A small spaced \"SORA\" above the square; no other lettering.",
+     "preserved": "Outside the branding corner no 32 px block differs from the chosen take by more than 30/255 on average; the edit re-rendered grain only.",
+     "boundaries": "Full 1254 x 1254 square, every pixel opaque.",
+     "period": "No anachronism found for 1986."
+    }
+   }
+  },
+  {
+   "id": "deer-park-afterglow",
+   "title": "鹿の夕映え",
+   "titleEn": "Deer Park Afterglow",
+   "route": "nara-1986",
+   "initialGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to draw exactly one image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: stylized-concept. Create one finished square 1024x1024 original NFT music cover for the SORA CARS soundtrack song '鹿の夕映え / Deer Park Afterglow' (the race theme of Nara, 1986). Album sleeve illustration, no physical mockup. The four attached images are original covers from this same SORA CARS series. Match their design language exactly: one monumental, convincingly built retro-electronic object placed in a quiet, simplified landscape like a surreal poster; a deep midnight-indigo field; a huge flat coral or peach sun or moon disc; silver, cream and ivory surfaces; thin luminous cyan accents; low horizon and distant layered mountain silhouettes; airbrushed gradients with heavy film grain. Do not copy their objects or compositions, and do not reproduce their white logo plaque or their SORA lettering.\n\nConcept: A lone sika stag stands calm and upright on a smooth flat lawn in the foreground, seen in profile; its antlers are gleaming chrome dipole television antennas, and faint concentric cyan signal rings ripple from them toward a huge coral afterglow sun. The sun sets behind the slender dark silhouette of a five-storey wooden pagoda (Kōfuku-ji, Nara) and the smooth graphic curve of a grassy hill (Wakakusa-yama) glowing peach. A few small flat coral autumn leaves drift. Convincing deer anatomy and antenna construction.\n\nSophisticated 1980s Japanese electronic record-sleeve aesthetic: precise bold geometry, tactile airbrush gradients, restrained silkscreen grain on uncoated paper, elegant graphic abstraction. Strong iconic thumbnail readability, generous breathing space, asymmetrical composition, deliberate cyan/coral/cream/indigo palette. It must look like a conceptual 1980s electronica album cover, not a detailed scenic painting, not anime background art, not a travel poster, not photorealistic, no pixel art. Leave the upper-left corner (about 18 percent of the width) as calm, empty sky for a small printed label added later; do not draw that label. No text anywhere: no title, no letters, no numbers, no logos, no emblems, no signage, no signature, no watermark. Original composition, do not imitate any existing commercial album, no artist logos, no people. Entire image flat edge-to-edge cover artwork, fully opaque with all four corners filled; no border, no frame, no vignette.",
+    "referenced_image_paths": [
+     "public/assets/music/covers/midnight-transistor-v1.png",
+     "public/assets/music/covers/the-frequency-home-v1.png",
+     "public/assets/music/covers/sora-dawn-broadcast-v1.png",
+     "public/assets/music/covers/blank-side-promise-v1.png"
+    ],
+    "transparent_background": false,
+    "takes": {
+     "a": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-eff9-72a0-a387-3313ba8382b8/exec-6c23db1a-9663-40a2-b981-a3df9ba4f9a3.png",
+      "sha256": "beaa7fdc87028aa10421e107622c7a9cf028d90d4a8558247771e8423f7ee0f6",
+      "bytes": 3043392,
+      "width": 1254,
+      "height": 1254
+     },
+     "b": {
+      "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d4-f024-7fe3-b8ad-b17e6a60456b/exec-0584d8e3-1718-4e11-b4f7-31fb97ade7c7.png",
+      "sha256": "755a988860539eb8be38561854ef735a290904e219eb6770870ea8fd672f147e",
+      "bytes": 3017545,
+      "width": 1254,
+      "height": 1254
+     }
+    },
+    "chosen": "a",
+    "reason": "Stronger contrast and colour; take b was paler. Its left antenna reaches the strip right of the corner, so the series' SORA-above-plaque layout is used."
+   },
+   "acceptedGeneration": {
+    "prompt": "Use the built-in image_gen tool (not code) to make exactly one edited image. Do not create, edit, move or delete any files yourself; when the image is done, reply with only the absolute path of the generated PNG.\n\nUse case: compositing. Edit image 1, a square SORA CARS soundtrack sleeve illustration, by adding only the small upper-left editorial branding used across this sleeve series. Image 3 shows that corner of another sleeve in the series, for layout reference only; do not copy anything else from it. Add a clean small pure-white printed square occupying about 12 percent of the canvas width, inset about 4 percent from the left edge and about 6 percent from the top edge, and centre in it image 2's complete exact red-and-white SORA emblem graphic, with even modest margins on all four sides. The emblem has TWO equal-length straight horizontal white bars, connected by a short centred vertical white stem that does not rise above the top bar, and two constant-width straight diagonal white channels running from the second bar completely through the lower red circumference, leaving a detached red wedge at the bottom between those open channels. Copy the exact source graphic geometry and proportions faithfully: not the font character 天, 夫 or 未, not a single T-shaped bar, not a closed red lower rim, not tapered strokes, not an approximation. Use image 2's saturated red and pure white; flat editorial printing with no lighting, shadow or glow on the logo; keep it upright. Directly above the white square, left-aligned with it, add the small, widely letter-spaced cream word \"SORA\" in a simple geometric sans serif, as in image 3. These are the only letters on the entire cover. Preserve absolutely everything else in image 1: the full square composition and dimensions, every object and its position, the colours, the light, the fine print grain and the edge-to-edge framing. No other text, no other logos, no cropping, no reinterpretation, no extra subjects. The final image must be a fully opaque square, RGB or alpha 255 on every pixel, including all four corners.\n",
+    "referenced_image_paths": [
+     "/Users/takemiyamakoto/.codex/generated_images/01a187d4-eff9-72a0-a387-3313ba8382b8/exec-6c23db1a-9663-40a2-b981-a3df9ba4f9a3.png",
+     "public/assets/branding/sora-emblem-source.png",
+     "crop of public/assets/music/covers/midnight-transistor-v1.png at [0, 0, 420, 260]"
+    ],
+    "transparent_background": false,
+    "generatedSource": "/Users/takemiyamakoto/.codex/generated_images/01a187d8-edd0-7991-a4b6-a7da228ce3a7/exec-1bdf49f3-4c84-4d53-84af-6bf5fb055261.png",
+    "destination": "public/assets/music/covers/deer-park-afterglow-v1.png",
+    "sha256": "c80fe64c97796ee8bec254d4602611a57825444133d859ca00b3ef87177e8d51",
+    "bytes": 2643804,
+    "width": 1254,
+    "height": 1254,
+    "sourceBytesMatch": true,
+    "visualInspection": {
+     "inspectedWith": "Full-resolution view, a 2x crop of the branding corner beside the emblem source, and a block comparison with the chosen take.",
+     "composition": "A Nara stag whose antlers are chrome Yagi TV antennas sending cyan signal rings toward a huge coral afterglow sun, behind Kōfuku-ji's pagoda and Wakakusa-yama's glowing curve; coral leaves.",
+     "logo": "Upright red emblem centred in a flat white square at the upper left: two equal white bars, a centred connector not rising above the top bar, two straight channels open through the lower rim and the detached red wedge. Visual geometry check; no claim of pixel identity with the source graphic.",
+     "text": "A small spaced \"SORA\" above the square; no other lettering.",
+     "preserved": "Outside the branding corner no 32 px block differs from the chosen take by more than 30/255 on average; the edit re-rendered grain only.",
+     "boundaries": "Full 1254 x 1254 square, every pixel opaque.",
+     "period": "No anachronism found for 1986."
+    }
+   }
+  }
+ ]
+}

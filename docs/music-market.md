@@ -1,6 +1,6 @@
 # SORA RECORDS release and native purchases
 
-The soundtrack collection contains 26 recordings by **SORA Cars**: the 25 original compositions in `MUSIC_LIBRARY` and the user-approved supplied Tokyo song, “靖國神社で会おう / Meet Me at Yasukuni.” Each released SKU binds its WAV download, MP3, preview, cover and unchanged unlimited-use license by SHA-256. Native NFT metadata additionally commits the artist, recording provenance, application identity and named licensor. The Tokyo WAV is decoded from a lossy AAC source, not an original lossless master; its source bytes and conversion are pinned separately. An edition is one native NFT carrying that exact metadata; multiple editions of a song may be issued. The shop makes no fixed-supply or exclusive-copyright claim.
+The soundtrack collection contains 30 recordings by **SORA Cars**: the 25 original compositions in `MUSIC_LIBRARY`, the user-approved supplied Tokyo song, “靖國神社で会おう / Meet Me at Yasukuni”, and the four street races' own songs (see [Street-race songs](#street-race-songs-october-29)). Each released SKU binds its WAV download, MP3, preview, cover and unchanged unlimited-use license by SHA-256. Native NFT metadata additionally commits the artist, recording provenance, application identity and named licensor. The Tokyo WAV is decoded from a lossy AAC source, not an original lossless master; its source bytes and conversion are pinned separately. An edition is one native NFT carrying that exact metadata; multiple editions of a song may be issued. The shop makes no fixed-supply or exclusive-copyright claim.
 
 Every supported music sale costs **exactly 1 XOR**, paid atomically with NFT delivery through the SORA Nexus native `BuyNftV1` instruction. The wallet separately approves a maximum transaction fee. An offer for a different price, denomination, network, collection, seller, recording, cover, license or licensor is rejected. The license grants are described in the bundled license file; possession of a downloadable public file by itself is not a purchase receipt.
 
@@ -62,7 +62,7 @@ After issuance and offering, review an explicit endpoint snapshot with `npm run 
 
 The placeholders above describe object positions; they are not runnable records. `nftCatalog` has `applicationId`, `domain`, `xorAssetDefinition`, `sellers` and `items` from the reviewed export; each music item has `sku`, `kind`, `contentHash`, `price: "1"` and its optional seller restriction. `capability` reports `version: 1`, `native_nft_market: true`, `network_id`, `protocol_id` and `qualified: true`. Each `nft` has `id`, `ownedBy` and complete `metadata`. Each `offer` is the endpoint's complete native record: `version`, `offer`, `offer_hash`, `custody`, `status`, `created_at_height` and `closed_at_height`.
 
-The launch check requires at least one distinct, open, unrestricted 1-XOR edition for **each of the 26 songs**, including the supplied Tokyo recording, with exact build metadata, an approved seller, and the NFT in its quoted sale custody. Open offers move ownership into native sale custody, so direct seller ownership does not satisfy this check. Expiry must be strictly later than the observation height; a record created after that height, a repeated NFT/offer ID, conflicting metadata, missing song or unqualified release fails readiness. Multiple distinct editions per song are allowed. Supply only intended launch candidates: an invalid or expired extra candidate fails the report even when another edition covers its song. Offline export and replenishment plans may still contain only part of the collection.
+The launch check requires at least one distinct, open, unrestricted 1-XOR edition for **each of the 30 songs**, including the supplied Tokyo recording and the street races' songs, with exact build metadata, an approved seller, and the NFT in its quoted sale custody. Open offers move ownership into native sale custody, so direct seller ownership does not satisfy this check. Expiry must be strictly later than the observation height; a record created after that height, a repeated NFT/offer ID, conflicting metadata, missing song or unqualified release fails readiness. Multiple distinct editions per song are allowed. Supply only intended launch candidates: an invalid or expired extra candidate fails the report even when another edition covers its song. Offline export and replenishment plans may still contain only part of the collection.
 
 The command reads one regular UTF-8 JSON file (maximum 32 MiB, 1000 candidates), makes no network requests and signs nothing. It prints a coverage/issue report with `verification: "endpoint_reported"`; exit codes are **0** for ready, **1** for a rejected snapshot, and **2** for input/runtime failure. A passing snapshot establishes neither freshness nor independent ledger finality, live issuance or publication. The buyer's checkout independently refetches and reviews current offers. The Node SDK source-provenance failure observed on September 22 also blocked this command for valid inputs; the focused music-market test reproduced that guard failure on October 23. A source-matched runtime still requires qualification before issuer use. `npm run test:music-launch` exercises the same validator through the supported browser adapter with synthetic records over actual build metadata and records results in `artifacts/music-launch-browser.json`. This does not qualify the Node issuer runtime.
 
@@ -115,3 +115,37 @@ The user also authorized creating and privately persisting a fresh SORA Nexus Ta
 The expanded collection passed 15 focused audio/assets/composition/cue tests, 53 marketplace checks, 38 launch checks, all 26 browser preview decodes/full-MP3 durations, and 18 storefront fixture groups. Tokyo's fixture exercises the reviewed 1-XOR purchase, waits for reported receipt and downloads its actual WAV, MP3, artwork and license with exact byte checks. The new production build at `output/qualification/frontend/soundtrack-2026-10-23-tokyo` passes all 104 packaged music-file checks and desktop/390px/320px playback/seek/pause, route and layout checks (`artifacts/music-static-2026-10-23-tokyo/report.json`). The original 25 audio exports and covers remain byte-identical.
 
 A final public `/status` and faucet-policy recheck returned HTTP 502 again at **14:44:58–59 UTC**; see `output/qualification/music-issuer-account-2026-10-23/registration-readiness-final.json`. No registration or funding is established by the local account preparation.
+
+## Street-race songs (October 29)
+
+The four street races added on October 29 each sell their own song after Tokyo's, in the collection **Japan Routes**. Each song has a 表 and a 裏 sleeve at 1 XOR each, under the same license. The catalog grows to 30 songs and 60 SKUs.
+
+| No. | Song | Race |
+|---|---|---|
+| 27 | 四十八の曲がり角 / Forty-Eight Turns | Irohazaka |
+| 28 | 鶴ヶ城の夕べ / Evening over Tsuruga | Aizu-Wakamatsu |
+| 29 | 鴨川ライト / Kamogawa Lights | Kyoto |
+| 30 | 鹿の夕映え / Deer Park Afterglow | Nara |
+
+**Recordings.** `node scripts/export-street-songs.mjs --store` renders each route's score through the game synthesizer, as the soundtrack export does. It masters with the race's own gain and writes a 16-bit WAV master, a 320 kbps MP3 and a 30-second preview from bar nine to `public/assets/music/audio`. The songs are entered in the manifest after the supplied recordings, with provenance `game-synthesizer-score`.
+
+These are lossless renders, not decodes of the routes' AAC files. A render is not reproducible byte for byte: two renders of the same score differ by about −29 dB. So each store song is checked against the race's `world/audio/<route>.m4a` as the same music: the same length to the frame, and a difference at least 20 dB below the music. The manifest records that difference and the route file's hash. The routes' own files are never rewritten.
+
+A supplied-recording re-export moves Tokyo's track after these songs; `npm run assets:music-manifest` still writes the catalog in order. A full `export-soundtrack.mjs` re-render keeps only the supplied recording in the manifest, so run `node scripts/export-street-songs.mjs --store` after it. Both exporters are pinned by the manifest and were left unchanged.
+
+**Sleeves.** Each 表 cover turns one retro-electronic object into its place, as the original set does:
+
+| Song | 表 cover |
+|---|---|
+| Forty-Eight Turns | An oscilloscope whose trace leaves the screen as Irohazaka's hairpins, climbing Nantai-san into the sun |
+| Evening over Tsuruga | A circuit-printed paper crane crossing the sun above the 1986 keep, which has white walls and dark grey roofs |
+| Kamogawa Lights | Sixteen evenly spaced lanterns over the Kamo, lit like a step sequencer |
+| Deer Park Afterglow | A Nara stag whose antlers are TV antennas, below Kōfuku-ji's pagoda |
+
+- **Drawing.** Codex `gpt-6-astra` drew the covers at ultra reasoning, two takes per song, with four original sleeves attached as style references. The prompts, takes and choices are in `docs/art-prompts/soundtrack-japan-routes-v1.json`. A first pass of literal scenic paintings is recorded there too; the user rejected it as unlike the set.
+- **Branding corner.** A generated edit added the spaced "SORA" above the white emblem square, as on most of the original set, and the emblem was checked against `sora-emblem-source.png`.
+- **裏 back jackets.** `npx tsx scripts/compose-covers.mjs --only=<files>` composes them from the same logo-free takes. They are numbered No. 27–30 "/ 30" and name each place on the credit line. The first 26 jackets keep their printed "/ 26" and were not re-rendered.
+- **Audit.** `artifacts/soundtrack-cover-audit-2026-10-29-japan-routes.json` records that the 52 earlier sleeves are unchanged and the 8 new ones are complete.
+
+**Not released.** Nothing is minted, offered or published. A release-configured build includes the eight new SKUs in its catalog. The launch check reports them uncovered until their editions are issued and offered.
+

@@ -1325,10 +1325,234 @@
         },
         "ending": "Full supplied duration retained; no additional loop or creative ending applied. Preview only has short fades."
       }
+    },
+    {
+      "file": "forty-eight-turns",
+      "route": "irohazaka-1986",
+      "title": "Forty-Eight Turns",
+      "japanese": "四十八の曲がり角",
+      "bpm": 134.19354838709677,
+      "bars": 104,
+      "beats": 416,
+      "sections": 13,
+      "noteCount": 5290,
+      "durationSeconds": 187.08002267573696,
+      "scoreSeconds": 186,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -16.01,
+      "truePeakDbtp": -4.27,
+      "loudnessRangeLu": 8.9,
+      "peak": 0.61114501953125,
+      "rms": 0.13580041259609818,
+      "wav": {
+        "path": "/assets/music/audio/forty-eight-turns.wav",
+        "bytes": 33001156,
+        "sha256": "f5da327e63fd46388d5eb91ad1f9ed1f2e8cbefea5934b428201bcbb46a950f3"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/forty-eight-turns.mp3",
+        "bytes": 7485916,
+        "sha256": "5d00db70513ac2796b41bcf3ec64937a8598b234b630b5b245de311a99e19949"
+      },
+      "preview": {
+        "path": "/assets/music/audio/forty-eight-turns-preview.mp3",
+        "bytes": 721826,
+        "sha256": "d424be6ace685b570eba111d141f92d694498b56fca9ab415d1edd7627420424",
+        "durationSeconds": 30,
+        "startSeconds": 14.387692307692308
+      },
+      "mastering": {
+        "gainDb": 13.129999999999999,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -29.13,
+          "truePeakDbtp": -17.4,
+          "loudnessRangeLu": 9
+        },
+        "ending": "Eight-bar fade to the finish line with the natural release tail, as the race plays it."
+      },
+      "routeRecording": {
+        "path": "world/audio/irohazaka-1986.m4a",
+        "bytes": 4691617,
+        "sha256": "a267ab48c72b416f8f76c502d310e319a3d553b9d4122aaac51bb7f36939ea25",
+        "differenceDb": -28.95
+      },
+      "index": 26
+    },
+    {
+      "file": "evening-over-tsuruga",
+      "route": "aizu-wakamatsu-1986",
+      "title": "Evening over Tsuruga",
+      "japanese": "鶴ヶ城の夕べ",
+      "bpm": 132,
+      "bars": 88,
+      "beats": 352,
+      "sections": 11,
+      "noteCount": 4273,
+      "durationSeconds": 161.08002267573696,
+      "scoreSeconds": 160,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -16,
+      "truePeakDbtp": -3.25,
+      "loudnessRangeLu": 6.2,
+      "peak": 0.68634033203125,
+      "rms": 0.14570352788399563,
+      "wav": {
+        "path": "/assets/music/audio/evening-over-tsuruga.wav",
+        "bytes": 28414752,
+        "sha256": "6cd7bbf34a0f851805b7a69c30663a366a3e75ce09f560bc1abded051ad15c93"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/evening-over-tsuruga.mp3",
+        "bytes": 6446244,
+        "sha256": "612e37d4e85b7377272776d0797956790a7d8c8bb3a3837df593100e75e89784"
+      },
+      "preview": {
+        "path": "/assets/music/audio/evening-over-tsuruga-preview.mp3",
+        "bytes": 721823,
+        "sha256": "16fb457b48f37a6af5deddacdd2e573a78ea62e4076e0dfdf50b3e212ca59b98",
+        "durationSeconds": 30,
+        "startSeconds": 14.625454545454545
+      },
+      "mastering": {
+        "gainDb": 14.64,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -30.64,
+          "truePeakDbtp": -17.89,
+          "loudnessRangeLu": 6.1
+        },
+        "ending": "Eight-bar fade to the finish line with the natural release tail, as the race plays it."
+      },
+      "routeRecording": {
+        "path": "world/audio/aizu-wakamatsu-1986.m4a",
+        "bytes": 4085702,
+        "sha256": "9ae6d8c31d6e5d7d3335872214b27b3c595ab7c9915d8b9df11ee459d0c46ee8",
+        "differenceDb": -33.69
+      },
+      "index": 27
+    },
+    {
+      "file": "kamogawa-lights",
+      "route": "kyoto-1986",
+      "title": "Kamogawa Lights",
+      "japanese": "鴨川ライト",
+      "bpm": 120,
+      "bars": 104,
+      "beats": 416,
+      "sections": 13,
+      "noteCount": 5215,
+      "durationSeconds": 209.08,
+      "scoreSeconds": 208,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -16.01,
+      "truePeakDbtp": -3.6,
+      "loudnessRangeLu": 7.2,
+      "peak": 0.660247802734375,
+      "rms": 0.132385117825556,
+      "wav": {
+        "path": "/assets/music/audio/kamogawa-lights.wav",
+        "bytes": 36881940,
+        "sha256": "13c49902a32598dabfc5da2419570d92ba5582dc14936abb072f4ee22c74cf73"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/kamogawa-lights.mp3",
+        "bytes": 8365710,
+        "sha256": "9a9e3110b70294ef05ad9c3586541f507a93ca50ca05bc6dcc80b29e7847331f"
+      },
+      "preview": {
+        "path": "/assets/music/audio/kamogawa-lights-preview.mp3",
+        "bytes": 721815,
+        "sha256": "d2f2e98ba97ca99077efc58619ef3b931c4f5e73f87e45ae734d5894a374c889",
+        "durationSeconds": 30,
+        "startSeconds": 16.08
+      },
+      "mastering": {
+        "gainDb": 13.96,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -29.96,
+          "truePeakDbtp": -17.56,
+          "loudnessRangeLu": 7.1
+        },
+        "ending": "Eight-bar fade to the finish line with the natural release tail, as the race plays it."
+      },
+      "routeRecording": {
+        "path": "world/audio/kyoto-1986.m4a",
+        "bytes": 5297255,
+        "sha256": "44e5318cc7e18c163004f7daee262aee4def469292a147bfa75d0a3dd44a4878",
+        "differenceDb": -31.52
+      },
+      "index": 28
+    },
+    {
+      "file": "deer-park-afterglow",
+      "route": "nara-1986",
+      "title": "Deer Park Afterglow",
+      "japanese": "鹿の夕映え",
+      "bpm": 129.43820224719101,
+      "bars": 96,
+      "beats": 384,
+      "sections": 12,
+      "noteCount": 3911,
+      "durationSeconds": 179.08002267573696,
+      "scoreSeconds": 178,
+      "sampleRate": 44100,
+      "channels": 2,
+      "bitsPerSample": 16,
+      "integratedLufs": -16,
+      "truePeakDbtp": -3.91,
+      "loudnessRangeLu": 7.8,
+      "peak": 0.635955810546875,
+      "rms": 0.14174814204998978,
+      "wav": {
+        "path": "/assets/music/audio/deer-park-afterglow.wav",
+        "bytes": 31589948,
+        "sha256": "41a912eca9a07965273b9f76d80a45080207f3eb2887ef003433d0681e396982"
+      },
+      "mp3": {
+        "path": "/assets/music/audio/deer-park-afterglow.mp3",
+        "bytes": 7166175,
+        "sha256": "143b1f4f4e360092a0defa6e90a9dd47ce65ab455e93291ae2231172d3989075"
+      },
+      "preview": {
+        "path": "/assets/music/audio/deer-park-afterglow-preview.mp3",
+        "bytes": 721819,
+        "sha256": "7240eea0f0b9b5d6151e7c98d1d3a38178a887f0a7e8d070b4c90949e7f6efdf",
+        "durationSeconds": 30,
+        "startSeconds": 14.913333333333332
+      },
+      "mastering": {
+        "gainDb": 13.559999999999999,
+        "targetLufs": -16,
+        "ceilingDbtp": -1.5,
+        "input": {
+          "integratedLufs": -29.56,
+          "truePeakDbtp": -17.47,
+          "loudnessRangeLu": 7.7
+        },
+        "ending": "Eight-bar fade to the finish line with the natural release tail, as the race plays it."
+      },
+      "routeRecording": {
+        "path": "world/audio/nara-1986.m4a",
+        "bytes": 4509001,
+        "sha256": "e4c874d6237cd4dbf792cf0e7ee6ce95ae29fc033d3b3d9b9faf0edc3044525e",
+        "differenceDb": -31.26
+      },
+      "index": 29
     }
   ],
   "synthesizedSource": "Original MUSIC_LIBRARY scores rendered through GameAudio in Chromium OfflineAudioContext",
-  "catalogUpdatedAt": "2026-10-28T05:17:06.395Z",
+  "catalogUpdatedAt": "2026-10-29T12:49:50.815Z",
   "artist": "SORA Cars",
   "suppliedFfmpegVersion": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
   "suppliedSourceHashes": {
@@ -1405,5 +1629,17 @@
         ]
       }
     ]
+  },
+  "routeSongs": {
+    "source": "STREET_ROUTE_SONGS rendered through GameAudio in Chromium OfflineAudioContext, mastered as the routes' AAC",
+    "ffmpegVersion": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "chromiumVersion": "153.0.8010.12",
+    "sourceHashes": {
+      "src/game/audio.ts": "c82cd719e061d249322049127c417be2416b3a719c4c4727bb33aeff8eb2e400",
+      "src/game/music-synth.ts": "cc19adeaeaef2f02ee9945ec332e05b58b6778ae81f56e081953ccc76485405e",
+      "src/game/music-composer.ts": "278af14860031f8953ee052b02563cadc3cd368a76cdd094253b3763fd72341b",
+      "src/game/street/route-songs.ts": "e3a9e01bf2a33dfe35510a6482e90aded0683551897017c4b9c42f47f0bb4526",
+      "scripts/export-street-songs.mjs": "479f63fb70da43127d2dcdcd434ae509c290848d9717d7adb6beb5c2f6b4ebd1"
+    }
   }
 }

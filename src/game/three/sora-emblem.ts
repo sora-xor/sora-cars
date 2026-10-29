@@ -5,15 +5,16 @@ export const EMBLEM_CIRCLE = { x: 263, y: 188, size: 1071 } as const;
 
 /**
  * The exact SORA emblem as a roundel: the source circle, clipped, inside a
- * thin white ring, transparent outside. It fills in once the image loads.
+ * white ring `ring` of the radius wide (thin by default), transparent outside.
+ * It fills in once the image loads.
  */
-export function soraEmblemTexture(url: string, size = 512): THREE.CanvasTexture {
+export function soraEmblemTexture(url: string, size = 512, ring = .1): THREE.CanvasTexture {
   const canvas = document.createElement('canvas'); canvas.width = canvas.height = size;
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = 8; texture.name = 'SORA emblem roundel';
   const image = new Image();
   image.onload = () => {
-    const context = canvas.getContext('2d')!, r = size / 2, inner = r * .9;
+    const context = canvas.getContext('2d')!, r = size / 2, inner = r * (1 - THREE.MathUtils.clamp(ring, 0, .5));
     context.fillStyle = '#ffffff'; context.beginPath(); context.arc(r, r, r, 0, Math.PI * 2); context.fill();
     context.save(); context.beginPath(); context.arc(r, r, inner, 0, Math.PI * 2); context.clip();
     context.drawImage(image, EMBLEM_CIRCLE.x, EMBLEM_CIRCLE.y, EMBLEM_CIRCLE.size, EMBLEM_CIRCLE.size, r - inner, r - inner, inner * 2, inner * 2);

@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WALL_PATTERN, WINDOW_KIND } from './geometry';
-import { seeded, type PeriodDistrict, type PeriodLot } from './layout';
+import { hashInts, seeded, type PeriodDistrict, type PeriodLot } from './layout';
 import { aviationLight, hangingBanner, neonBlade, neonFor, nobori, noboriFor, rooftopNeon, verticalNeon, vneonFor, windowNeon } from './nightlife';
 import { boxIndex, fasciaTitle, lanternIndex, NEON_COUNTS, neonIndex, neonPrint, pickSign, signIndex, signPrint, printSlice, SORA_BOARDS, SORA_NOBORI, SORA_VNEON,
   vneonIndex, type PrintRect } from './signs';
@@ -73,6 +73,13 @@ function opening(x: Context, f: Facade, x0: number, x1: number, y0: number, y1: 
   if (detail === 2) b.box('metal', x0, x1, y1 - .05, y1, recess - .05, recess - .005, 'bk');
   b.colour.copy(f.trim);
   b.box('wall', x0 - .05, x1 + .05, y0 - .06, y0, -.05, 0, 'bk');
+  // A little rain hood (霧除け) over the windows of a third of the homes, as the cutscenes' houses have them (refine
+  // round 4); chosen by the lot, so no draw from its streams.
+  if (detail === 2 && kind === WINDOW_KIND.home && x.lot.seed % 3 === 0) {
+    b.colour.copy(f.frame).multiplyScalar(.8);
+    b.box('metal', x0 - .1, x1 + .1, y1 + .04, y1 + .1, -.32, 0, 'k');
+    b.box('metal', x0 - .1, x1 + .1, y1 - .02, y1 + .04, -.33, -.3, 'kt');
+  }
 }
 
 /**
@@ -100,6 +107,10 @@ function windowRows(x: Context, f: Facade, x0: number, x1: number, floors: reado
       if (skip?.(floor, column)) { b.colour.copy(f.wall); b.front('wall', a, c, ws, wh, 0); }
       else {
         opening(x, f, a, c, ws, wh, mullions, f.kind, floorSeed * shared + random() * (1 - shared));
+        // An air conditioner under some upper windows of the frontage, as the cutscenes hang them under nearly every
+        // flat's window (refine round 4); chosen by a hash of the lot, floor and window, so no draw from its streams.
+        if (x.detail === 2 && floor > 0 && c - a > 1 && (hashInts(x.lot.seed, floor, column, 61) >>> 0) % 100 < (f.kind === WINDOW_KIND.office ? 8 : 22))
+          acUnit(x, (a + c) / 2 + ((hashInts(x.lot.seed, floor, column, 67) >>> 0) % 2 ? .25 : -.25), ws - .68, -.02);
         if (x.detail && f.weathered && random() < .4) {
           // Rain streaks run down 1980s concrete and tile below the sills.
           const half = (c - a) * (.12 + random() * .18), mid = (a + c) / 2;
@@ -123,6 +134,15 @@ function shell(x: Context, f: Facade, w: number, d: number, h: number, roof = tr
   b.side('wall', -w / 2, 0, d, 0, h, -1); b.side('wall', w / 2, 0, d, 0, h, 1);
   b.colour.copy(shade(f.flank, .92)); b.front('wall', -w / 2, w / 2, 0, h, d, 1);
   if (roof) { b.colour.set('#77736c'); b.flat('wall', -w / 2, w / 2, 0, d, h); }
+  // A rain downpipe down one front corner from the gutter, as every cutscene facade has (refine round 4), with its
+  // brackets; on the frontage, chosen by the lot (no draw from its streams).
+  if (detail === 2 && h > 4 && x.lot.seed % 5 < 3) {
+    const px = (x.lot.seed % 2 ? 1 : -1) * (w / 2 - .12);
+    b.colour.set(x.lot.seed % 7 < 3 ? '#4a4c4e' : '#8a8478');
+    b.box('metal', px - .045, px + .045, .1, h - .1, -.14, -.05, 'b');
+    b.box('metal', px - .045, px + .045, h - .25, h - .1, -.14, 0, 'b');
+    for (let y = 1.6; y < h - .5; y += 2.4) b.box('metal', px - .07, px + .07, y, y + .05, -.16, 0, 'b');
+  }
   if (!flankWindows || h < 7) return;
   if (detail === 0) { flankGrid(x, f, w, d, h, 0, 1); return; }
   let advertised = 0;
@@ -354,6 +374,65 @@ function acUnit(x: Context, px: number, y: number, z: number): void {
   const { b } = x;
   b.colour.set('#d9d4c6'); b.box('metal', px - .4, px + .4, y, y + .55, z - .28, z, 'bk');
   b.colour.set('#3a3a3e'); b.front('metal', px - .3, px + .1, y + .08, y + .47, z - .285);
+  // Its covered refrigerant pipe up the wall into the building, and the drain hose down it (refine round 4: the
+  // cutscenes' facades are laced with pipes).
+  b.colour.set('#c9c3b2'); b.box('metal', px + .4, px + .48, y + .2, y + 1.15, z - .12, z - .02, 'b');
+  b.colour.set('#5a5c60'); b.box('metal', px - .36, px - .33, Math.max(.05, y - 1.8), y, z - .1, z - .07, 'b');
+}
+
+/**
+ * Shop-front clutter (refine round 4: the cutscenes' shop fronts are crowded): a mamachari parked against the
+ * facade, stacked beer crates, a blue bin, an A-board with the shop's word. A few of these by the shop's corners,
+ * clear of its doorway; from the street-life stream, so the building is unchanged.
+ */
+function shopClutter(x: Context, w: number): void {
+  const { b, extra } = x;
+  for (const s of [-1, 1] as const) {
+    const roll = extra(), px = s * (w / 2 - .55 - extra() * .5);
+    if (roll < .32) bicycle(b, px, -.42, colour(extra, ['#c8c8cc', '#a8323a', '#2f4f8a', '#2a2a2e', '#d8c070']));
+    else if (roll < .52) {
+      // Beer crates (P箱), stacked two to four high.
+      const tint = colour(extra, ['#e8b830', '#c03028', '#d86828', '#3a6a3a']), stack = 2 + Math.floor(extra() * 3);
+      for (let i = 0; i < stack; i++) {
+        b.colour.copy(tint).multiplyScalar(1 - i * .04); b.box('metal', px - .23, px + .23, i * .29, i * .29 + .28, -.62, -.28, i ? 'b' : '');
+        b.colour.copy(tint).multiplyScalar(.45); b.front('metal', px - .17, px + .17, i * .29 + .07, i * .29 + .2, -.625);
+      }
+    } else if (roll < .64) {
+      b.colour.set('#2f6aa8'); b.cylinder('metal', px, 0, -.45, .22, .62, 8);
+      b.colour.set('#244e80'); b.cylinder('metal', px, .62, -.45, .24, .05, 8);
+    } else if (roll < .8) {
+      // An A-board (立て看板) with a vertical print, leaning out from the shop front.
+      const z = -.55;
+      b.colour.set('#3a3632'); b.box('metal', px - .3, px + .3, 0, .08, z - .2, z + .2);
+      b.print = printSlice(signPrint('vertical', pickSign(b.signs, 'vertical', extra)), .2, .8); b.colour.set('#f0ece2');
+      b.face('sign', [[px - .27, .08, z - .12], [px + .27, .08, z - .12], [px + .27, 1.05, z + .02], [px - .27, 1.05, z + .02]], [0, .14, -.99]);
+    }
+  }
+}
+
+/**
+ * A mamachari (ママチャリ) parked along the facade at px, its wheels in the plane z facing the street: flat octagonal
+ * wheels, a step-through frame, saddle, handlebar and front basket, drawn as thin quads (a pixel-art bicycle).
+ */
+function bicycle(b: CityMeshBuilder, px: number, z: number, tint: THREE.Color): void {
+  const r = .32, rim = .05, back = px - .52, front = px + .52, hub = .34;
+  const strut = (ax: number, ay: number, bx: number, by: number, t: number) => {
+    const dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy) || 1, nx = -dy / l * t / 2, ny = dx / l * t / 2;
+    b.face('metal', [[ax - nx, ay - ny, z], [bx - nx, by - ny, z], [bx + nx, by + ny, z], [ax + nx, ay + ny, z]], [0, 0, -1]);
+  };
+  b.colour.set('#1a1a1e');
+  for (const cx of [back, front]) for (let i = 0; i < 8; i++) {
+    const a0 = i / 8 * Math.PI * 2, a1 = (i + 1) / 8 * Math.PI * 2;
+    b.face('metal', [[cx + Math.cos(a0) * r, hub + Math.sin(a0) * r, z], [cx + Math.cos(a1) * r, hub + Math.sin(a1) * r, z],
+      [cx + Math.cos(a1) * (r - rim), hub + Math.sin(a1) * (r - rim), z], [cx + Math.cos(a0) * (r - rim), hub + Math.sin(a0) * (r - rim), z]], [0, 0, -1]);
+  }
+  b.colour.copy(tint);
+  strut(back, hub, px - .05, hub + .05, .05); strut(px - .05, hub + .05, front - .12, hub + .58, .05);
+  strut(back, hub, px - .18, hub + .5, .045); strut(px - .05, hub + .05, px - .2, hub + .52, .05);
+  strut(front, hub, front - .12, hub + .58, .04);
+  b.colour.set('#2a2a2e'); strut(px - .3, hub + .56, px - .08, hub + .56, .07);
+  strut(front - .22, hub + .66, front - .02, hub + .66, .035);
+  b.colour.set('#7a7c80'); b.box('metal', front - .12, front + .2, hub + .36, hub + .6, z - .14, z + .14, 'b');
 }
 
 /** The street-level shop: lit interior with shelf silhouettes, or a closed shutter. */
@@ -441,6 +520,7 @@ function shopLife(x: Context, w: number, shopTop: number | null): void {
   if (lot.row !== 1 || x.detail !== 2) return;
   // A small lit box sign at the shop's outer edge, clear of its awning (the concept's 酒 box).
   if ((SHOPPING.has(lot.district) || NIGHTLIFE.has(lot.district)) && extra() < .5) boxSign(x, -toward * (w / 2 - .12), 1.7);
+  if (w > 3.2) shopClutter(x, w);
   if (shopTop !== null && shopTop > 2.2 && extra() < .3) windowNeon(b, (extra() - .5) * Math.max(0, w - 2), shopTop - .95, neonFor(lot.district, extra, .1), extra, .35);
   if (lot.clearance >= 2.6 && extra() < (SHOPPING.has(lot.district) ? .65 : .3)) {
     const apron = -(lot.clearance - 2.15) + .15;

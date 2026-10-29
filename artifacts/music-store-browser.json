@@ -1,8 +1,8 @@
 {
   "passed": true,
-  "checked_at": "2026-10-28T13:30:42.340Z",
+  "checked_at": "2026-10-29T13:34:34.345Z",
   "checks": [
-    "Actual 26-track desktop and 390px/320px mobile storefront is readable without horizontal overflow",
+    "Actual 30-track desktop and 390px/320px mobile storefront is readable without horizontal overflow",
     "Bilingual checkout remains horizontally contained and the wallet button is reachable at desktop, 390px and 320px",
     "1 XOR checkout shows exact license issuer and separate fee; consent required; receipt alone grants no download",
     "Qualification loss and malformed fee cannot reach mocked wallet purchase",
@@ -26,13 +26,13 @@
   "sources": {
     "src/ui/music-store.ts": "39221743ec1408f01d28cb2ca1fc432108b47ffc825bb4250c5667c04817b83f",
     "src/ui/music-store.css": "592bd92224269a48fa061a2f457feed8bc95bd853bb46704e24c99888baa7839",
-    "src/game/music-catalog.ts": "ac52a64fe0ffd4053ed1508e96a522677ac893543a1620ca2701a389adbe1d6c",
-    "src/game/music-assets.generated.json": "99340f8acb8ed099746fffcf7ffcf760c0e4e20f2486e03129e95daa0d693651",
+    "src/game/music-catalog.ts": "97cc79f639e182d61ebc3f53c25711e5734a6ed7eb88bb633ed3543ae9f19ac3",
+    "src/game/music-assets.generated.json": "3e23d5b78848c4e9abf85d0de2e43a85099900feb63ef7cce762bca14a09c4eb",
     "src/chain/inventory.ts": "79748630e93e95a4a01368052ed22d830b50036729d9a618172cefa0b91a06a5",
     "src/chain/client.ts": "537d68336eeafad7e20a09fd5fc07091e37e88579e446d1072268a86e0ded1c3",
     "tmp/music-store-qa/fixture.ts": "7194c19aea621b99f9faf545be48e20b1da498b848d4e0d9da5a6a48046268ae",
     "tmp/music-store-qa/fixture.html": "8dc2a99f6352d0147fa2904bafc290c92bf1147c8bed20a80dd86d80aac961f1",
-    "scripts/test-music-store.mjs": "fce2cc1584f6625afc119935eca9f9131f20fbc8af63cb22219af602e2969ccf"
+    "scripts/test-music-store.mjs": "e49cae4fdbb6905b30c566b5494d73688d4ff984ad7c98319d6a403cd3b1233b"
   },
   "scope": "Actual MusicStore/controller/styles and real rendered asset bytes. Explicit synthetic issuer/NFTs/ledger/wallet transport; does not certify live network issuance or wallet settlement."
 }

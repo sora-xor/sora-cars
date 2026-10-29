@@ -7,6 +7,8 @@
 //
 // Inputs are pinned by SHA-256; outputs are public/assets/music/covers/<file>-v2.png
 // and docs/art-prompts/soundtrack-covers-v2.json (provenance, regions, output hashes).
+// With --only, the other sleeves are left as printed and their records kept; the first
+// 26 were printed as "No. NN / 26", before the street races' four songs joined the catalog.
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
@@ -34,7 +36,7 @@ const EMBLEM = {
   chevron: [[-0.08310, 0], [-0.95761, 1.3], [-0.76020, 1.3], [0, 0.16993], [0.76020, 1.3], [0.95761, 1.3], [0.08310, 0]],
 };
 
-// Source illustration per song (logo-free original generation), in catalog order SR-001 … SR-026.
+// Source illustration per song (logo-free original generation), in catalog order SR-001 … SR-030.
 // Titles, liner notes and collections come from the music catalog at render time.
 const SOURCES = {
   'midnight-transistor': { path: '01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c8ea8bb5-9c3e-46dd-b2d6-a79a2525559c.png', sha256: '61a7701b360084a81fe04331e9cc2325f036689f9dc878d77b1675cb2c3e028b' },
@@ -63,10 +65,18 @@ const SOURCES = {
   'jun-the-first-light': { path: '01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-4a7d59b1-d53b-4117-8ca0-84a815236e0c.png', sha256: '632daef6b011a08205b63f9d8a6f2536a903082be8c1786083a60da670030b33' },
   'side-b-press-record': { path: '01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-bc043b05-7734-463c-a755-2fec81f6ab70.png', sha256: '01db43c73fdcbe6cf9b4a3715838a305950741fcf7d13a4aada25dbd303d5593' },
   'meet-me-at-yasukuni': { path: '01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-18bbeff4-7044-4b77-ae51-af60e319242c.png', sha256: '82b3c145977e19744fe2c18ef934c4a4b322d54df45dbf6c133afe26ccc9be24' },
+  // The street races' songs (SR-027 … SR-030): the logo-free originals, drawn without lettering.
+  'forty-eight-turns': { path: '01a187d4-f03f-7780-b567-53b0233f5db0/exec-68a87ff6-05eb-44a9-aac7-5b9971d14df0.png', sha256: 'f368e1ae8def2d7aceec8f0a75c8fed38981b53f220a158ac7e5c706b04c7451' },
+  'evening-over-tsuruga': { path: '01a187d4-f00f-7b11-97d1-4645b9696b5c/exec-4e353481-799e-4703-a5ce-93b490ef26b6.png', sha256: '0172c79bcb789e4a2e5ef25d30fbea08a7099268475e2b60b40248e6695b98af' },
+  'kamogawa-lights': { path: '01a187d4-efe9-7f53-bca2-c67ae88466c1/exec-d524f229-0ee9-4beb-b12f-110b78d091b5.png', sha256: 'a494e4d0f6146d404ecc9f0c39d0d0025dedf30ce622855ffbc287b1d181aad3' },
+  'deer-park-afterglow': { path: '01a187d4-eff9-72a0-a387-3313ba8382b8/exec-6c23db1a-9663-40a2-b981-a3df9ba4f9a3.png', sha256: 'beaa7fdc87028aa10421e107622c7a9cf028d90d4a8558247771e8423f7ee0f6' },
 };
+// Where each song is set, for the jacket's credit line; Tokyo unless listed.
+const PLACES = { 'forty-eight-turns': 'IROHAZAKA', 'evening-over-tsuruga': 'AIZU-WAKAMATSU', 'kamogawa-lights': 'KYOTO', 'deer-park-afterglow': 'NARA' };
 const COVERS = MUSIC_SONGS.map(song => {
   if (!SOURCES[song.file]) throw new Error(`No source illustration for ${song.file}`);
-  return { file: song.file, ja: song.name.ja, en: song.name.en, collection: song.collection, description: song.description, source: SOURCES[song.file] };
+  return { file: song.file, ja: song.name.ja, en: song.name.en, collection: song.collection, description: song.description, source: SOURCES[song.file],
+    place: PLACES[song.file] ?? 'TOKYO' };
 });
 
 // Per-cover framing of the landscape window in source pixels (1254² originals):
@@ -75,9 +85,12 @@ const FRAMING = {
   'midnight-transistor': { cy: 480 }, 'harbor-signals': { cy: 540 }, 'paper-towers': { cy: 520 }, 'blank-side-promise': { cy: 520 },
   'milk-crates-at-midnight': { cy: 740 }, 'carbon-copy-testimony': { cy: 450 }, 'crown-on-the-grid': { cy: 500 }, 'glass-permission': { cy: 520 },
   'dead-air-confession': { cy: 520 }, 'no-master-key': { cy: 400 }, 'side-b-press-record': { cy: 700 }, 'meet-me-at-yasukuni': { cy: 560 },
+  'forty-eight-turns': { cy: 470 }, 'evening-over-tsuruga': { cy: 560 }, 'kamogawa-lights': { cy: 740 }, 'deer-park-afterglow': { cy: 520 },
 };
 // Per-cover retouching beyond the standard top-left lettering removal.
 const RETOUCH = {
+  // Drawn without any lettering, so nothing to remove.
+  'forty-eight-turns': [], 'evening-over-tsuruga': [], 'kamogawa-lights': [], 'deer-park-afterglow': [],
   'three-weeks-of-paper': [
     { kind: 'lettering' },
     { kind: 'tokyo-tower', note: 'The source casts a sphere-on-needle TV-tower shadow (Berlin Fernsehturm type) that never stood in 1986 Tokyo. Lift it out of the sky and cast a period-correct Tokyo Tower (1958) shadow on the same diagonal.',
@@ -203,7 +216,7 @@ html,body{width:${SIZE}px;height:${SIZE}px;overflow:hidden;background:${PAPER}}
 <div class="seal">${emblemSvg(112)}</div>
 <div class="titles"><div class="ja fit" data-max="1824">${esc(cover.ja)}</div><div class="en fit" data-max="1824">${esc(cover.en)}</div></div>
 <div class="liner"><p class="fit" data-max="1688">${esc(cover.description.ja)}</p><p class="fit" data-max="1688">${esc(cover.description.en)}</p></div>
-<div class="foot"><div class="no"><small>No.</small><b>${number}</b><small>/ 26</small></div><div class="credit"><b>SORA CARS</b><span>ORIGINAL SOUNDTRACK · TOKYO 1986</span></div><div class="edition"><span><b>裏 URA</b>BACK SLEEVE</span><div class="hanko">裏</div></div></div>
+<div class="foot"><div class="no"><small>No.</small><b>${number}</b><small>/ ${COVERS.length}</small></div><div class="credit"><b>SORA CARS</b><span>ORIGINAL SOUNDTRACK · ${esc(cover.place)} 1986</span></div><div class="edition"><span><b>裏 URA</b>BACK SLEEVE</span><div class="hanko">裏</div></div></div>
 <svg class="grain" width="${SIZE}" height="${SIZE}"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="${index + 11}"/><feColorMatrix values="0 0 0 0 .13 0 0 0 0 .11 0 0 0 0 .16 0 0 0 .5 0"/></filter><filter id="m"><feTurbulence type="fractalNoise" baseFrequency=".0035" numOctaves="3" seed="${index + 3}"/><feColorMatrix values="0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .7 -.25"/></filter><rect width="100%" height="100%" filter="url(#m)" opacity=".22"/><rect width="100%" height="100%" filter="url(#g)" opacity=".2"/></svg>
 </div><script>
 for (const n of document.querySelectorAll('.fit')) { let size = parseFloat(getComputedStyle(n).fontSize); const max = Number(n.dataset.max); while (n.scrollWidth > max && size > 12) { size -= 1; n.style.fontSize = size + 'px'; } }
@@ -241,7 +254,14 @@ for (const n of document.querySelectorAll('.fit')) { let size = parseFloat(getCo
       process.stdout.write(`${cover.file}-v2.png ${sha(bytes).slice(0, 12)}\n`);
     }
   } finally { await browser.close(); }
-  if (!only) {
+  // A partial run keeps every other sleeve's record as it was printed.
+  const kept = only ? JSON.parse(await readFile(path.join(root, 'docs/art-prompts/soundtrack-covers-v2.json'), 'utf8')) : null;
+  if (kept) {
+    const byFile = new Map([...kept.covers, ...records].map(record => [record.file, record]));
+    kept.covers = COVERS.map(cover => byFile.get(cover.file)).filter(Boolean);
+    kept.updatedAt = new Date().toISOString().slice(0, 10);
+    await writeFile(path.join(root, 'docs/art-prompts/soundtrack-covers-v2.json'), JSON.stringify(kept, null, 1) + '\n');
+  } else {
     const provenance = {
       schemaVersion: 1, createdAt: new Date().toISOString().slice(0, 10), series: 'SORA RECORDS — 裏 (URA) back-jacket edition',
       editions: { omote: '表 OMOTE: the original illustrated cover, public/assets/music/covers/<file>-v1.png, unchanged.', ura: '裏 URA: this back-jacket design, public/assets/music/covers/<file>-v2.png.' },

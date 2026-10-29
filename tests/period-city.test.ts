@@ -12,13 +12,14 @@ import { buildLot, type CityFixture } from '../src/game/three/period-city/buildi
 import { buildOpenGround } from '../src/game/three/period-city/open-ground';
 import { buildStreet, streetCrossings } from '../src/game/three/period-city/street';
 import { BEACON_STRIDE } from '../src/game/three/period-city/far-lights';
+import { WIRE_STRIDE } from '../src/game/three/period-city/wires';
 import { cityLampHeads, setPeriodCityLampHeads } from '../src/game/three/period-city/materials';
 import { PeriodPeople } from '../src/game/three/period-city/people';
 import { SPRITE_ATLAS, SPRITE_BASELINE, SPRITE_CELL, SPRITE_ROWS } from '../src/game/three/period-city/street-sprites';
 import { readFileSync } from 'node:fs';
 import pngjs from 'pngjs';
 import { neonFor, noboriFor } from '../src/game/three/period-city/nightlife';
-import { SORA_NEON, SORA_NOBORI, VNEON_TOP_V } from '../src/game/three/period-city/signs';
+import { SORA_NEON, SORA_NOBORI, VNEON_TOP_V, verticalCharacter } from '../src/game/three/period-city/signs';
 import { PeriodSky } from '../src/game/three/period-city/sky';
 import { awningFor, NOREN_COUNT, NOREN_HEIGHT, norenFor, norenPrint, norenWidth } from '../src/game/three/period-city/awnings';
 import { TRACKS, curvature } from '../src/game/rules';
@@ -147,6 +148,21 @@ test('each chunk builds finite, budgeted geometry and shop lights', () => {
   assert.ok(fixtures > 100, 'shop fronts light the pavement');
 });
 
+test('vertical Japanese: the long-vowel mark and brackets stand upright, small kana sit up and right', () => {
+  const calls: string[] = [];
+  const context = { font: '900 80px sans-serif', save: () => calls.push('save'), restore: () => calls.push('restore'),
+    translate: (x: number, y: number) => calls.push(`translate ${x},${y}`), rotate: (a: number) => calls.push(`rotate ${a.toFixed(4)}`) };
+  const drawn: [string, number, number][] = [];
+  for (const character of [...'ラーメン', ...'ッ', ...'「'])
+    verticalCharacter(context, character, 100, 200, (x, y) => drawn.push([character, x, y]));
+  // ラ and メ and ン are set in place; ー and 「 turn a quarter (about their centre); ッ moves up and right.
+  assert.deepEqual(drawn.filter(([c]) => 'ラメン'.includes(c)).map(([, x, y]) => [x, y]), [[100, 200], [100, 200], [100, 200]]);
+  assert.deepEqual(drawn.find(([c]) => c === 'ー'), ['ー', 0, 0]);
+  assert.equal(calls.filter(c => c === `rotate ${(Math.PI / 2).toFixed(4)}`).length, 2);
+  const [, sx, sy] = drawn.find(([c]) => c === 'ッ')!;
+  assert.ok(sx > 100 && sy < 200);
+});
+
 test('noren: eateries hang one by their trade, printed at their own proportions', () => {
   assert.ok(norenFor('手打そば 更科') >= 0 && norenFor('鮨処 銀座') >= 0);
   assert.equal(norenFor('三栄倉庫'), -1);
@@ -158,6 +174,33 @@ test('noren: eateries hang one by their trade, printed at their own proportions'
     assert.ok(w >= 1.1 && w <= 2.2);
     assert.ok(Math.abs(((u1 - u0) * 1024) / ((v1 - v0) * 3360) - w / NOREN_HEIGHT) < .05, `noren ${i}`);
   }
+});
+
+test('utility poles: both pavements of a poled street carry them, wires strung between, a set-back hall across the road no bar', () => {
+  const layout = createPeriodCityLayout(course, { ...options, landmarks: TOKYO_1986_LANDMARKS, street: TOKYO_1986_STREET });
+  const poles: [number, number][] = [];
+  let wires = 0;
+  const cylinder = CityMeshBuilder.prototype.cylinder;
+  CityMeshBuilder.prototype.cylinder = function (this: CityMeshBuilder, key, x, y0, z, radius, height, ...rest) {
+    if (key === 'stone' && height === 9.4) poles.push([x, z]);
+    return cylinder.call(this, key, x, y0, z, radius, height, ...rest);
+  } as typeof cylinder;
+  try {
+    for (const key of periodCityChunksNear(layout, 0, 0, 400)) {
+      const builder = new CityMeshBuilder(0, 0);
+      buildStreet(builder, layout, key * layout.chunkLength, (key + 1) * layout.chunkLength);
+      // Wire segments (screen-space lines, wires.ts): finite, each a short piece of a sagging span.
+      assert.equal(builder.wires.length % WIRE_STRIDE, 0);
+      assert.ok(builder.wires.every(Number.isFinite));
+      wires += builder.wires.length / WIRE_STRIDE;
+    }
+  } finally {
+    CityMeshBuilder.prototype.cylinder = cylinder;
+  }
+  // Kanda's first 400 m: poles every 32 m on each side, both sides (Kudan Kaikan, set back on the left, bars neither).
+  const left = poles.filter(([x]) => x > 0).length, right = poles.filter(([x]) => x < 0).length;
+  assert.ok(left >= 5 && right >= 5, `${left} left, ${right} right`);
+  assert.ok(wires > 100, `${wires} wire segments`);
 });
 
 test('lamp wash: the nearest lamp heads light the facades, the unused slots stay dark', () => {

@@ -163,8 +163,8 @@ function draw(context: CanvasRenderingContext2D, emblem: HTMLImageElement | null
     frame(x, y, VERTICAL.width, VERTICAL.height, scheme);
     const step = Math.min(104, (VERTICAL.height - 44) / characters.length);
     context.fillStyle = scheme.ink; context.font = `800 ${Math.round(step * .9)}px ${index % 3 ? FONT : SERIF}`;
-    characters.forEach((character, i) => context.fillText(character, x + VERTICAL.width / 2,
-      y + VERTICAL.height / 2 + (i - (characters.length - 1) / 2) * step, VERTICAL.width - 22));
+    characters.forEach((character, i) => verticalCharacter(context, character, x + VERTICAL.width / 2,
+      y + VERTICAL.height / 2 + (i - (characters.length - 1) / 2) * step, (cx, cy) => context.fillText(character, cx, cy, VERTICAL.width - 22)));
   });
   FASCIA_WORDS.forEach(([title, subtitle], index) => {
     const x = index % FASCIA.columns * FASCIA.width, y = FASCIA.top + Math.floor(index / FASCIA.columns) * FASCIA.height;
@@ -193,8 +193,8 @@ function draw(context: CanvasRenderingContext2D, emblem: HTMLImageElement | null
     frame(x, y, VERTICAL_LOCAL.width, VERTICAL_LOCAL.height, scheme);
     const step = Math.min(104, (VERTICAL_LOCAL.height - 44) / characters.length);
     context.fillStyle = scheme.ink; context.font = `800 ${Math.round(step * .9)}px ${index % 3 ? SERIF : FONT}`;
-    characters.forEach((character, i) => context.fillText(character, x + VERTICAL_LOCAL.width / 2,
-      y + VERTICAL_LOCAL.height / 2 + (i - (characters.length - 1) / 2) * step, VERTICAL_LOCAL.width - 22));
+    characters.forEach((character, i) => verticalCharacter(context, character, x + VERTICAL_LOCAL.width / 2,
+      y + VERTICAL_LOCAL.height / 2 + (i - (characters.length - 1) / 2) * step, (cx, cy) => context.fillText(character, cx, cy, VERTICAL_LOCAL.width - 22)));
   });
   LOCAL_FASCIA_WORDS.forEach(([title, subtitle], index) => {
     const x = index % FASCIA_LOCAL.columns * FASCIA_LOCAL.width, y = FASCIA_LOCAL.top + Math.floor(index / FASCIA_LOCAL.columns) * FASCIA_LOCAL.height;
@@ -343,6 +343,31 @@ export function noboriIndex(word: string): number {
 }
 
 /** The exact emblem, clipped to its own circle (the crop's corners are white), centred at (cx, cy). */
+/** Characters set on their side in vertical Japanese (縦書き): the long-vowel mark, dashes, wave dashes, ellipses and brackets. */
+const VERTICAL_ROTATED = new Set([...'ー－-−～〜…‥―—＝=（）()「」『』【】〈〉《》［］｛｝<>']);
+/** Small kana and sokuon, which vertical text sets toward the upper right of their cell. */
+const VERTICAL_SMALL = new Set([...'ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮヵヶ']);
+/** Commas and full stops, set in the upper right of their cell in vertical text. */
+const VERTICAL_PUNCTUATION = new Set([...'、。，．']);
+/** The context calls verticalCharacter makes (a canvas 2D context). */
+export interface VerticalContext { font: string; save(): void; restore(): void; translate(x: number, y: number): void; rotate(angle: number): void }
+/**
+ * One character of vertical Japanese centred at (x, y) (textAlign centre, textBaseline middle): `draw` fills or
+ * strokes it at the coordinates given. Canvas text has no vertical writing mode, so stacking characters one under
+ * another left ラーメン's long-vowel mark lying across the sign; it turns upright here, as do dashes, ellipses and
+ * brackets, and small kana and punctuation move toward the upper right of their cell, as vertical type sets them.
+ */
+export function verticalCharacter(context: VerticalContext, character: string, x: number, y: number, draw: (x: number, y: number) => void): void {
+  if (VERTICAL_ROTATED.has(character)) {
+    context.save(); context.translate(x, y); context.rotate(Math.PI / 2); draw(0, 0); context.restore();
+    return;
+  }
+  const size = Number(/(\d+(?:\.\d+)?)px/.exec(context.font)?.[1] ?? 0);
+  if (VERTICAL_SMALL.has(character)) draw(x + size * .12, y - size * .1);
+  else if (VERTICAL_PUNCTUATION.has(character)) draw(x + size * .32, y - size * .32);
+  else draw(x, y);
+}
+
 function drawEmblem(context: CanvasRenderingContext2D, emblem: HTMLImageElement, cx: number, cy: number, radius: number): void {
   context.save(); context.beginPath(); context.arc(cx, cy, radius, 0, Math.PI * 2); context.clip();
   context.drawImage(emblem, EMBLEM_CIRCLE.x, EMBLEM_CIRCLE.y, EMBLEM_CIRCLE.size, EMBLEM_CIRCLE.size, cx - radius, cy - radius, radius * 2, radius * 2);
@@ -388,7 +413,8 @@ function drawNeon(context: CanvasRenderingContext2D, emblem: HTMLImageElement | 
     }
     const characters = [...word], step = Math.min(96, (NOBORI.height - 80) / characters.length);
     context.fillStyle = ink; context.font = `900 ${Math.round(step * .86)}px ${FONT}`;
-    characters.forEach((character, i) => context.fillText(character, x + NOBORI.width / 2, y + 60 + step / 2 + i * step, NOBORI.width - 18));
+    characters.forEach((character, i) => verticalCharacter(context, character, x + NOBORI.width / 2, y + 60 + step / 2 + i * step,
+      (cx, cy) => context.fillText(character, cx, cy, NOBORI.width - 18)));
   });
   BANNER_WORDS.forEach(([left, right, cloth, ink], index) => {
     const x = index % BANNER.columns * BANNER.width, y = BANNER.top + Math.floor(index / BANNER.columns) * BANNER.height;
@@ -418,7 +444,8 @@ function drawNeon(context: CanvasRenderingContext2D, emblem: HTMLImageElement | 
     }
     const characters = [...word], step = Math.min(64, (LANTERN.height - 64) / characters.length);
     context.fillStyle = ink; context.font = `900 ${Math.round(step * .86)}px ${FONT}`;
-    characters.forEach((character, i) => context.fillText(character, cx, y + LANTERN.height / 2 + (i - (characters.length - 1) / 2) * step, LANTERN.width - 28));
+    characters.forEach((character, i) => verticalCharacter(context, character, cx, y + LANTERN.height / 2 + (i - (characters.length - 1) / 2) * step,
+      (px, py) => context.fillText(character, px, py, LANTERN.width - 28)));
   });
   BOX_WORDS.forEach(([word, ground, ink], index) => {
     // A small lit box: a dark frame round a glowing face, the word big in the middle.
@@ -435,7 +462,7 @@ function drawNeon(context: CanvasRenderingContext2D, emblem: HTMLImageElement | 
     context.fillStyle = ink; context.font = `900 ${size}px ${FONT}`;
     if (characters.length === 2 && /[\u3000-\u9fff]/.test(word)) {
       // Two kanji stacked, as box signs set them.
-      characters.forEach((character, i) => context.fillText(character, cx, cy + (i - .5) * 48, BOX.width - 26));
+      characters.forEach((character, i) => verticalCharacter(context, character, cx, cy + (i - .5) * 48, (px, py) => context.fillText(character, px, py, BOX.width - 26)));
     } else context.fillText(word, cx, cy + 3, BOX.width - 26);
   });
   VNEON_WORDS.forEach(([word, colour], index) => {
@@ -456,7 +483,8 @@ function drawNeon(context: CanvasRenderingContext2D, emblem: HTMLImageElement | 
     }
     const step = Math.min(92, (y + VNEON.height - 30 - top) / characters.length);
     context.font = `800 ${Math.round(step * .82)}px ${FONT}`;
-    characters.forEach((character, i) => tube(() => context.strokeText(character, cx, top + step / 2 + i * step, VNEON.width - 24)));
+    characters.forEach((character, i) => tube(() => verticalCharacter(context, character, cx, top + step / 2 + i * step,
+      (px, py) => context.strokeText(character, px, py, VNEON.width - 24))));
   });
 }
 

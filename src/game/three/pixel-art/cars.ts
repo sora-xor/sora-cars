@@ -129,8 +129,11 @@ export const CAR_DEFAULTS: CarOptions = {
   carPadMetres: 0.05, carPadCells: 0.6, carGlassReach: 40,
   carBand: 1, carStreakAmount: 1, carStreakStart: 0.38, carStreakFull: 0.46,
   carSmoothL: 0.06, carSmoothAB: 0.035,
-  carLobeKnee: 0.74, carLobeKeep: 0.35, carGlintRise: 0.09,
-  carCrimson: 1,
+  // Refine round 4: glossier paint that keeps the street's warm light in its highlights, as the cutscenes paint a
+  // red car at night (orange-gold reflections along the flank and boot lid); the crimson ramp, which held lit red on
+  // the palette's crimson, now only leans on it.
+  carLobeKnee: 0.84, carLobeKeep: 0.65, carGlintRise: 0.09,
+  carCrimson: 0.15,
   carGlassFloor: 0.1, carGlassKeep: 0.6, carGlassChroma: 0.04, carGlassMax: 0.32,
   carEdgeStart: 0.1, carEdgeFull: 0.16, carEdgeAB: 0.07, carEdgeMinFill: 0.14,
   carHazeStart: 70, carHazeEnd: 200,
@@ -486,12 +489,18 @@ void main() {
     sum += o * w; weight += w;
   }
   vec3 paint = sum / weight;
+  // Refine round 4: a pale, nearly neutral cell on a coloured car is a decal or badge (SORA's white roundel on the
+  // roof, the club strip) or a white specular streak: it keeps its own light and colour, so the emblem reads white
+  // and red on a red car and the paint's highlights stay glossy, instead of being pulled down the knee and toward
+  // the livery's hue.
+  vec4 owner = carLivery[id - 1];
+  bool foreign = owner.w > .5 && length(owner.yz) > .06 && length(paint.yz) < .045 && paint.x > owner.x + .12;
   // Soft specular lobes (a lamp or the sky mirrored in a roof or boot lid)
   // rise far above the lit band and quantise into rings. Above a knee the
   // paint keeps only a fraction of its rise: a lobe reads as one or two flat
   // lit bands, and its peak becomes a glint cell below. (A lower envelope per
   // panel was tried: its per-cell estimate mottled flat panels.)
-  if (paint.x > carLobe.x) paint.x = carLobe.x + (paint.x - carLobe.x) * carLobe.y;
+  if (paint.x > carLobe.x && !foreign) paint.x = carLobe.x + (paint.x - carLobe.x) * carLobe.y;
   // A highlight peak (a lamp or the sky caught by the paint): the strict
   // maximum of its 7x5 paint cells, risen above the paint around it, becomes
   // one glint cell instead of a soft lobe.
@@ -530,7 +539,7 @@ void main() {
   // an amber lamp stays teal instead of flipping to olive and back).
   vec4 livery = carLivery[id - 1];
   float liveryChroma = length(livery.yz), chroma = length(paint.yz);
-  if (livery.w > .5 && carHueLock > 0. && liveryChroma > .05 && red <= 0. && chroma > .02) {
+  if (livery.w > .5 && carHueLock > 0. && liveryChroma > .05 && red <= 0. && chroma > .02 && !foreign) {
     float hue = atan(paint.z, paint.y), target = atan(livery.z, livery.y);
     hue = target + clamp(mod(hue - target + 3.14159265, 6.28318531) - 3.14159265, -carHueLock, carHueLock);
     paint.yz = vec2(cos(hue), sin(hue)) * chroma;
@@ -585,6 +594,7 @@ uniform vec4 carTailMax[MAX_CARS];
 uniform int carLampTones[9];         // refine round 3: red, amber, pale lens: shade, lit, lamp on
 uniform vec3 carLampGlow[9];         // refine round 4: the same tones' own display colours (CAR_COLOURS.lampGlow)
 uniform float carLampFlat;           // 1: flat lamp tones (refine round 3)
+uniform float carExact;              // refine round 4: 1 full colour (the plate's lettering and the lamps' lens ridges drawn), 0 palette lock
 uniform vec4 carPlateRect[MAX_CARS]; // held plate rectangle in cells (x0, y0, x1, y1)
 uniform vec4 carPlateState[MAX_CARS];// x: view depth of the plate; y: 1 held
 uniform sampler2D carTone;           // b: the held plate step + 1 (tone pass)
@@ -595,6 +605,16 @@ layout(location = 1) out vec4 outMarks;
 const ivec2 STEPS[4] = ivec2[4](ivec2(1, 0), ivec2(-1, 0), ivec2(0, 1), ivec2(0, -1));
 const float LAMP_PI = 3.14159265;
 vec3 sourceLab(ivec2 c) { return texelFetch(carGradedSource, artClamp(c), 0).xyz; }
+/**
+ * A plate cell in full colour (refine round 4): the plate's own texture (its green lettering on white), lifted by the
+ * same step as its palest cell (plateL over palest), so the lettering keeps its contrast; the palette entry's index.
+ */
+vec4 plateTexel(ivec2 c, float palest, float plateL, int plateEntry) {
+  vec3 lab = sourceLab(c);
+  lab.x *= plateL / max(palest, 1e-3);
+  lab.yz *= .55; // a white plate under the red tail lamps stays near white
+  return vec4(clamp(artLinearToDisplay(artOklabToLinear(lab)), 0., 1.), entryTexel(plateEntry).a);
+}
 /** Paint for interior lines: the painted and accumulated paint (refine round 3), or the raw grade. */
 bool steadyEdges = false;
 vec3 edgeLab(ivec2 c) { return steadyEdges ? texelFetch(graded, artClamp(c), 0).xyz : sourceLab(c); }
@@ -746,6 +766,7 @@ void main() {
     vec4 rect = carPlateRect[id - 1];
     int plateIndex = carToneReady > .5 ? int(texelFetch(carTone, ivec2(id - 1, 0), 0).b * 255. + .5) - 1 : -1;
     int plateEntry = carPlateRamp[clamp(plateIndex, 0, 4)];
+    float heldPalest = -1., heldPlateL = 0.;
     if (plateIndex < 0) {
       vec3 plate = sourceLab(cell);
       for (int y = 0; y < 8; y++) for (int x = 0; x < 16; x++) {
@@ -758,6 +779,16 @@ void main() {
       for (int k = 1; k < 5; k++) {
         if (abs(entryLab(carPlateRamp[k]).x - plateL) < abs(entryLab(plateEntry).x - plateL)) plateEntry = carPlateRamp[k];
       }
+      heldPalest = plate.x; heldPlateL = plateL;
+    } else if (carExact > .5) {
+      // Full colour: the plate's palest cell, lifted to the held tone's lightness (steady from frame to frame).
+      float palest = sourceLab(cell).x;
+      for (int y = 0; y < 8; y++) for (int x = 0; x < 16; x++) {
+        ivec2 other = ivec2(rect.xy) + ivec2(x, y);
+        if (other.x >= int(rect.z) || other.y >= int(rect.w) || artCarId(other) != id) continue;
+        palest = max(palest, sourceLab(other).x);
+      }
+      heldPalest = palest; heldPlateL = max(entryLab(plateEntry).x, palest);
     }
     bool wide = rect.z - rect.x >= 3., tall = rect.w - rect.y >= 3.;
     bool border = (wide && (cell.x == int(rect.x) || cell.x == int(rect.z) - 1)) || (tall && (cell.y == int(rect.y) || cell.y == int(rect.w) - 1));
@@ -765,7 +796,7 @@ void main() {
       outImage = entryTexel(drawnIndex(carDark(lchOf(entryLab(plateEntry)), haze), plateEntry, false));
       outMarks = vec4(1., 0., prior.b, 1.);
     } else {
-      outImage = entryTexel(plateEntry);
+      outImage = carExact > .5 && heldPalest > 0. ? plateTexel(cell, heldPalest, heldPlateL, plateEntry) : entryTexel(plateEntry);
       outMarks = vec4(0., 0., prior.b, 1.);
     }
     return;
@@ -783,7 +814,7 @@ void main() {
     // A pale, nearly neutral panel that reads as the plate against the dark
     // bumper at night too: the nearest step of the palette's warm pale greys
     // (the nearest colour alone lands on sage or mint entries).
-    float plateL = max(plateLch.x, min(plateLch.x + .08, .78));
+    float plateL = max(plateLch.x, min(plateLch.x + .08, .78)), palest = plateLch.x;
     int plateEntry = carPlateRamp[0];
     for (int k = 1; k < 5; k++) {
       if (abs(entryLab(carPlateRamp[k]).x - plateL) < abs(entryLab(plateEntry).x - plateL)) plateEntry = carPlateRamp[k];
@@ -797,7 +828,7 @@ void main() {
       outImage = entryTexel(drawnIndex(carDark(plateLch, haze), plateEntry, false));
       outMarks = vec4(1., 0., prior.b, 1.);
     } else {
-      outImage = entryTexel(plateEntry);
+      outImage = carExact > .5 ? plateTexel(cell, palest, plateL, plateEntry) : entryTexel(plateEntry);
       outMarks = vec4(0., 0., prior.b, 1.);
     }
     return;
@@ -831,7 +862,10 @@ void main() {
       bool upper = artSurfaceReady > .5 && abs(anchor.w - float(id)) < .5 && lo.w > .5
         ? anchor.y >= mix(lo.y, hi.y, .5) : own.x >= mean.x - .015;
       int tone = family * 3 + (upper ? 1 : 0) + (emitter ? 1 : 0);
-      outImage = vec4(carLampGlow[tone], entryTexel(carLampTones[tone]).a);
+      // In full colour the lens keeps its ridges (refine round 4): the tone scaled by the cell's light against its
+      // section's, as the model's lamp texture moulds it.
+      float ridge = carExact > .5 ? clamp(.5 + .5 * own.x / max(mean.x, 1e-3), .78, 1.18) : 1.;
+      outImage = vec4(clamp(carLampGlow[tone] * ridge, 0., 1.), entryTexel(carLampTones[tone]).a);
       outMarks = vec4(0., 0., prior.b, 1.);
       return;
     }
@@ -1034,7 +1068,7 @@ export function createCars(shared: PixelArtSharedUniforms, palette: PixelPalette
     carLampTones: { value: [...CAR_COLOURS.lampTones.red, ...CAR_COLOURS.lampTones.amber, ...CAR_COLOURS.lampTones.pale].map(entry) },
     carLampGlow: { value: [...CAR_COLOURS.lampGlow.red, ...CAR_COLOURS.lampGlow.amber, ...CAR_COLOURS.lampGlow.pale]
       .map(hex => { const c = new THREE.Color(hex).getRGB({ r: 0, g: 0, b: 0 }, THREE.SRGBColorSpace); return new THREE.Vector3(c.r, c.g, c.b); }) },
-    carLampFlat: { value: 1 }, carPlateRect: plateRect, carPlateState: plateState,
+    carLampFlat: { value: 1 }, carExact: deps.band.paletteFull ?? { value: 1 }, carPlateRect: plateRect, carPlateState: plateState,
     carTone: { value: toneTargets[0].texture as THREE.Texture }, carToneReady: { value: 0 }, carEdgeSteady: { value: 1 },
   };
   let taillightsOn = true;

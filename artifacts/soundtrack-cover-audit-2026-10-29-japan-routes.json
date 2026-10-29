@@ -1,0 +1,90 @@
+{
+  "schemaVersion": 1,
+  "passed": true,
+  "checkedAt": "2026-10-29T13:32:56.313Z",
+  "scope": "The four street-race songs (SR-027 to SR-030): 8 new sleeves, 表 by Codex gpt-6-astra (docs/art-prompts/soundtrack-japan-routes-v1.json), 裏 by scripts/compose-covers.mjs. Existing sleeves compared with git HEAD.",
+  "coverCount": 60,
+  "historicalCoverCount": 52,
+  "unchangedHistoricalCovers": 52,
+  "addedCoverCount": 8,
+  "catalogInventoryMatches": true,
+  "editorialCornerBadgeCount": 4,
+  "logoPath": "public/assets/branding/sora-emblem-source.png",
+  "logoSha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69",
+  "covers": [
+    {
+      "path": "public/assets/music/covers/deer-park-afterglow-v1.png",
+      "sleeve": "omote",
+      "sha256": "c80fe64c97796ee8bec254d4602611a57825444133d859ca00b3ef87177e8d51",
+      "bytes": 2643804,
+      "width": 1254,
+      "height": 1254,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/deer-park-afterglow-v2.png",
+      "sleeve": "ura",
+      "sha256": "ea1e20f465113390d8a2ae63bba0d8379465645cf11c9ed0eb094eaff0380689",
+      "bytes": 5810364,
+      "width": 2048,
+      "height": 2048,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/evening-over-tsuruga-v1.png",
+      "sleeve": "omote",
+      "sha256": "099e2a94188ea1eca6c0fe6accd1a5b8b8b8055778ac39e130f4d76dc0fc4c9d",
+      "bytes": 2726387,
+      "width": 1254,
+      "height": 1254,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/evening-over-tsuruga-v2.png",
+      "sleeve": "ura",
+      "sha256": "4aa56ebaae12a859d083d0cde650e80db2ec37e4e3408bb4fc091534de2b44ed",
+      "bytes": 5996369,
+      "width": 2048,
+      "height": 2048,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/forty-eight-turns-v1.png",
+      "sleeve": "omote",
+      "sha256": "a1f8120cb7bca84a5803c247135480a14a0d0bfb39694236b7c5697e36374d4a",
+      "bytes": 2522783,
+      "width": 1254,
+      "height": 1254,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/forty-eight-turns-v2.png",
+      "sleeve": "ura",
+      "sha256": "0da72dca62d8bc29ca4c99a01275ac747100f02995e17e29b8f202e9ea89b3cc",
+      "bytes": 5711592,
+      "width": 2048,
+      "height": 2048,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/kamogawa-lights-v1.png",
+      "sleeve": "omote",
+      "sha256": "fa6e186bf9008076f0623369d7efc95f346d2a85685e22b199751a577b0c4e63",
+      "bytes": 2234632,
+      "width": 1254,
+      "height": 1254,
+      "fullyOpaque": true
+    },
+    {
+      "path": "public/assets/music/covers/kamogawa-lights-v2.png",
+      "sleeve": "ura",
+      "sha256": "0902f336df0a70a5d0b273af8504aab951e12e9c4a9258a23b671460f25aaf89",
+      "bytes": 5455870,
+      "width": 2048,
+      "height": 2048,
+      "fullyOpaque": true
+    }
+  ],
+  "imageMutationsPerformed": "None by this audit. 表 PNGs are byte-for-byte Codex edits; 裏 PNGs are the composer's screenshots.",
+  "limitations": "Emblem geometry is a visual check at full resolution and 2x crops, not pixel identity with the source graphic."
+}

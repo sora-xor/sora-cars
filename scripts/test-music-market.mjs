@@ -89,7 +89,7 @@ try {
       check((await probe.probeNftMarket()).ready === expected, label);
     }
     const actualCatalog = releaseMusicCatalog(JSON.stringify({ domain: catalog.domain, sellers: [seller], licensor: 'Explicit complete-collection fixture issuer' }), applicationId, catalog.xorAssetDefinition);
-    check(actualCatalog.items.length === 52 && actualCatalog.items.every(item => item.kind === 'music' && item.price === '1'), 'All 26 songs release as 52 表/裏 sleeve NFTs at exactly one XOR each');
+    check(actualCatalog.items.length === 60 && actualCatalog.items.every(item => item.kind === 'music' && item.price === '1'), 'All 30 songs release as 60 表/裏 sleeve NFTs at exactly one XOR each');
     check(actualCatalog.items.some(item => item.sku === 'music-meet-me-at-yasukuni') && actualCatalog.items.some(item => item.sku === 'music-meet-me-at-yasukuni-ura'), 'Supplied Tokyo recording participates in the same reviewed release in both sleeves');
     check(new Set(actualCatalog.items.map(item => item.contentHash)).size === MUSIC_ITEMS.length, 'All released recordings have distinct exact native content commitments');
     for (const song of MUSIC_ITEMS) {

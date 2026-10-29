@@ -27,6 +27,8 @@ export class TailStreaks {
   private readonly turn = new THREE.Quaternion();
   private readonly up = new THREE.Vector3(0, 1, 0);
   private readonly one = new THREE.Vector3(1, 1, 1);
+  /** Scene pixels per art cell while the pixel-art renderer draws (0 otherwise): the streak breaks on art-pixel rows. */
+  private readonly artCell = { value: 0 };
 
   constructor(capacity = 16) {
     // Flat on the road, running back from the lamp (uv.y 0 at the lamp, 1 at the far end).
@@ -35,32 +37,40 @@ export class TailStreaks {
       blending: THREE.AdditiveBlending, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
     this.material.name = 'Wet-road tail lamp streaks';
     this.material.onBeforeCompile = shader => {
+      shader.uniforms.tailArtCell = this.artCell;
       shader.vertexShader = shader.vertexShader.replace('void main() {', 'varying vec2 vStreak;\nvoid main() {\nvStreak = uv;');
       shader.fragmentShader = shader.fragmentShader
-        .replace('void main() {', 'varying vec2 vStreak;\nvoid main() {')
+        .replace('void main() {', 'uniform float tailArtCell; varying vec2 vStreak;\nvoid main() {')
         // A long red streak, as a light mirrored in wet asphalt (the user's concept and the cutscene-style repaint
         // of a race frame): a hot yellow core down its axis near the lamp, saturated red either side, ragged edges
         // row by row and small dark holes through it, more toward the far end; solid out from under the bumper.
+        // In pixel art its rows are the art grid's screen rows, and some whole rows go dark: the wet road's ripples
+        // break it into horizontal strokes as they break every reflection (refine round 4 waves).
         .replace('#include <alphamap_fragment>', /* glsl */ `#include <alphamap_fragment>
         {
-          float row = floor(vStreak.y * 40.);
+          float row = tailArtCell > 0. ? floor(gl_FragCoord.y / tailArtCell) : floor(vStreak.y * 40.);
           float sway = fract(sin(row * 12.9898) * 43758.5453) - .5, reach = fract(sin(row * 78.233) * 43758.5453);
           float halfWidth = mix(.32, .5, reach) * (1. - .35 * vStreak.y);
           float x = abs(vStreak.x - .5 - sway * .1);
           float body = smoothstep(halfWidth, halfWidth - .12, x);
           float speck = fract(sin(dot(vec2(row, floor(vStreak.x * 8.)), vec2(12.9898, 78.233))) * 43758.5453);
           body *= speck < .3 * smoothstep(.15, 1., vStreak.y) ? 0. : 1.;
+          float ripple = fract(sin(row * 3.17 + 1.3) * 43758.5453);
+          if (tailArtCell > 0. && ripple < .18 + .3 * smoothstep(.1, .8, vStreak.y)) body *= .12;
           float core = smoothstep(.15, .04, x) * (1. - smoothstep(0., .65, vStreak.y));
           diffuseColor.rgb = mix(diffuseColor.rgb, vec3(1., .72, .3), core * .85);
           diffuseColor.a *= body * (1. - vStreak.y) * 1.3;
         }`);
     };
-    this.material.customProgramCacheKey = () => 'sora-tail-streaks-v6';
+    this.material.customProgramCacheKey = () => 'sora-tail-streaks-v7';
     this.mesh = new THREE.InstancedMesh(geometry, this.material, capacity);
     this.mesh.name = 'Wet-road tail lamp streaks';
     this.mesh.count = 0; this.mesh.frustumCulled = false; this.mesh.renderOrder = 1;
     this.mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
   }
+
+  /** Scene pixels per art cell while the pixel-art renderer draws, 0 otherwise. */
+  setArtCell(pixels: number): void { this.artCell.value = Math.max(0, pixels); }
 
   /** Follow the visible cars; `wetness` (0-1) is the road's; each streak points from its lamp toward `camera`. */
   update(cars: readonly CarModel[], wetness: number, camera: THREE.Vector3): void {

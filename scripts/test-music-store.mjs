@@ -10,7 +10,7 @@ const hash = value => createHash('sha256').update(value).digest('hex');
 const before = Object.fromEntries(await Promise.all(sources.map(async path => [path, hash(await readFile(path))])));
 const manifest = JSON.parse(await readFile('src/game/music-assets.generated.json', 'utf8'));
 const trackCount = Object.keys(manifest).length;
-assert.equal(trackCount, 26, 'Generate the actual audio/cover manifest including the supplied Tokyo recording before testing the storefront.');
+assert.equal(trackCount, 30, 'Generate the actual audio/cover manifest including the supplied Tokyo recording and the street races\' songs before testing the storefront.');
 assert.ok(manifest['meet-me-at-yasukuni']);
 await mkdir(out, { recursive: true });
 const server = await createServer({ cacheDir: 'node_modules/.vite-music-store-test', server: { host: '127.0.0.1', port: 0, strictPort: false } });
@@ -61,7 +61,7 @@ async function checkDownloads(p) {
 }
 async function complete(label, operation) { await operation(); checks.push(label); console.log(`PASS: ${label}`); }
 try {
-  await complete('Actual 26-track desktop and 390px/320px mobile storefront is readable without horizontal overflow', async () => {
+  await complete('Actual 30-track desktop and 390px/320px mobile storefront is readable without horizontal overflow', async () => {
     const p = await page();
     assert.equal(await p.locator('.record-row').count(), trackCount);
     for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile-390', 390, 844], ['mobile-320', 320, 740]]) {

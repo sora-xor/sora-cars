@@ -1726,6 +1726,171 @@
      1088
     ]
    }
+  },
+  {
+   "catalog": "SR-027",
+   "file": "forty-eight-turns",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "四十八の曲がり角",
+    "en": "Forty-Eight Turns",
+    "collection": "Japan Routes",
+    "description": {
+     "ja": "紅葉のいろは坂、四十八の曲がり角を駆け上がる。",
+     "en": "Up the forty-eight turns of Irohazaka, through the maples."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/forty-eight-turns-v2.png",
+    "sha256": "0da72dca62d8bc29ca4c99a01275ac747100f02995e17e29b8f202e9ea89b3cc",
+    "bytes": 5711592,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a187d4-f03f-7780-b567-53b0233f5db0/exec-68a87ff6-05eb-44a9-aac7-5b9971d14df0.png",
+    "sha256": "f368e1ae8def2d7aceec8f0a75c8fed38981b53f220a158ac7e5c706b04c7451"
+   },
+   "retouch": [],
+   "window": {
+    "crop": [
+     0,
+     96,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-028",
+   "file": "evening-over-tsuruga",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "鶴ヶ城の夕べ",
+    "en": "Evening over Tsuruga",
+    "collection": "Japan Routes",
+    "description": {
+     "ja": "会津の町を抜けて、鶴ヶ城の夕暮れへ。",
+     "en": "Through the streets of Aizu into evening at Tsuruga Castle."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/evening-over-tsuruga-v2.png",
+    "sha256": "4aa56ebaae12a859d083d0cde650e80db2ec37e4e3408bb4fc091534de2b44ed",
+    "bytes": 5996369,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a187d4-f00f-7b11-97d1-4645b9696b5c/exec-4e353481-799e-4703-a5ce-93b490ef26b6.png",
+    "sha256": "0172c79bcb789e4a2e5ef25d30fbea08a7099268475e2b60b40248e6695b98af"
+   },
+   "retouch": [],
+   "window": {
+    "crop": [
+     0,
+     186,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-029",
+   "file": "kamogawa-lights",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "鴨川ライト",
+    "en": "Kamogawa Lights",
+    "collection": "Japan Routes",
+    "description": {
+     "ja": "鴨川の灯をくぐり、四条から東山へ。",
+     "en": "Under the lights of the Kamo, from Shijō to Higashiyama."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/kamogawa-lights-v2.png",
+    "sha256": "0902f336df0a70a5d0b273af8504aab951e12e9c4a9258a23b671460f25aaf89",
+    "bytes": 5455870,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a187d4-efe9-7f53-bca2-c67ae88466c1/exec-d524f229-0ee9-4beb-b12f-110b78d091b5.png",
+    "sha256": "a494e4d0f6146d404ecc9f0c39d0d0025dedf30ce622855ffbc287b1d181aad3"
+   },
+   "retouch": [],
+   "window": {
+    "crop": [
+     0,
+     366,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-030",
+   "file": "deer-park-afterglow",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "鹿の夕映え",
+    "en": "Deer Park Afterglow",
+    "collection": "Japan Routes",
+    "description": {
+     "ja": "鹿の眠る公園から、若草山の夕映えへ。",
+     "en": "From the sleeping deer park up into Wakakusa-yama's afterglow."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/deer-park-afterglow-v2.png",
+    "sha256": "ea1e20f465113390d8a2ae63bba0d8379465645cf11c9ed0eb094eaff0380689",
+    "bytes": 5810364,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a187d4-eff9-72a0-a387-3313ba8382b8/exec-6c23db1a-9663-40a2-b981-a3df9ba4f9a3.png",
+    "sha256": "beaa7fdc87028aa10421e107622c7a9cf028d90d4a8558247771e8423f7ee0f6"
+   },
+   "retouch": [],
+   "window": {
+    "crop": [
+     0,
+     146,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
   }
- ]
+ ],
+ "updatedAt": "2026-10-29"
 }

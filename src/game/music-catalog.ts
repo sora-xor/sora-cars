@@ -1,6 +1,7 @@
 import { MUSIC_LIBRARY } from './music-score';
 import generated from './music-assets.generated.json';
 import suppliedRecordings from './music-supplied-recordings.json';
+import { STREET_ROUTE_SONGS } from './street/route-songs';
 
 export interface MusicFile { path: string; bytes: number; sha256: string; }
 export type MusicProvenance = { kind: 'game-synthesizer-score' } | {
@@ -21,7 +22,7 @@ export interface MusicAssets { wav: MusicFile; mp3: MusicFile; preview: MusicFil
 export interface MusicItem {
   sku: string; kind: 'music'; sleeve: MusicSleeve; track: number; file: string; name: { ja: string; en: string }; artist: string;
   description: { ja: string; en: string }; bpm: number | null; durationSeconds: number;
-  collection: 'Roadside A' | 'After Hours B' | 'Side B Stories' | 'Tokyo Routes'; provenance: MusicProvenance;
+  collection: 'Roadside A' | 'After Hours B' | 'Side B Stories' | 'Tokyo Routes' | 'Japan Routes'; provenance: MusicProvenance;
   assets?: MusicAssets; artwork?: MusicFile; license: { id: string; path: string; sha256: string };
 }
 export const MUSIC_PRICE_XOR = '1';
@@ -53,6 +54,13 @@ const descriptions = [
  ['ジュンが最後まで弾いた、長く待たせた一曲。', 'The song Jun finally played all the way through.'],
  ['録音ボタンを押して、ふたりの朝を始めよう。', 'Press record, and let a morning together begin.'],
 ] as const;
+/** Liner notes for the street races' own songs, by route. */
+const routeDescriptions: Readonly<Record<string, readonly [string, string]>> = {
+  'irohazaka-1986': ['紅葉のいろは坂、四十八の曲がり角を駆け上がる。', 'Up the forty-eight turns of Irohazaka, through the maples.'],
+  'aizu-wakamatsu-1986': ['会津の町を抜けて、鶴ヶ城の夕暮れへ。', 'Through the streets of Aizu into evening at Tsuruga Castle.'],
+  'kyoto-1986': ['鴨川の灯をくぐり、四条から東山へ。', 'Under the lights of the Kamo, from Shijō to Higashiyama.'],
+  'nara-1986': ['鹿の眠る公園から、若草山の夕映えへ。', "From the sleeping deer park up into Wakakusa-yama's afterglow."],
+};
 const assets = generated as Record<string, MusicAssets>;
 export const MUSIC_ARTIST = 'SORA Cars';
 type MusicSong = Omit<MusicItem, 'sku' | 'sleeve' | 'artwork'>;
@@ -68,8 +76,16 @@ const songs: readonly MusicSong[] = [...MUSIC_LIBRARY.map((song, track): MusicSo
   bpm: song.bpm, durationSeconds: assets[song.file]?.durationSeconds ?? song.source.durationSeconds,
   collection: 'Tokyo Routes', assets: assets[song.file], license: MUSIC_LICENSE,
   provenance: { kind: 'supplied-lossy-recording', source: song.source, note: 'User-supplied AAC recording. WAV is a decoded and resampled distribution copy of a lossy source, not an original lossless master. MP3 and preview are derived from that copy; no new composition or synthesized score is claimed.' },
+})), ...STREET_ROUTE_SONGS.map((song, index): MusicSong => ({
+  // Each street race's own song, sold after Tokyo's: a fresh render of the route's score through the
+  // game synthesizer, mastered as the race plays it (scripts/export-street-songs.mjs --store).
+  kind: 'music', track: MUSIC_LIBRARY.length + suppliedRecordings.length + index, file: song.file,
+  name: { ja: song.japanese, en: song.name }, artist: MUSIC_ARTIST,
+  description: { ja: routeDescriptions[song.route]![0], en: routeDescriptions[song.route]![1] },
+  bpm: Math.round(song.sections * 32 * 60 / song.seconds), durationSeconds: assets[song.file]?.durationSeconds ?? song.seconds + 1.08,
+  collection: 'Japan Routes', assets: assets[song.file], license: MUSIC_LICENSE, provenance: { kind: 'game-synthesizer-score' },
 }))];
-/** 52 purchasable items in catalog order: each song's 表 followed by its 裏. */
+/** 60 purchasable items in catalog order: each song's 表 followed by its 裏. */
 export const MUSIC_ITEMS: readonly MusicItem[] = songs.flatMap(song => MUSIC_SLEEVES.map(({ id }): MusicItem => ({
   ...song, sku: musicSku(song.file, id), sleeve: id, artwork: id === 'omote' ? song.assets?.cover : song.assets?.coverUra,
 })));

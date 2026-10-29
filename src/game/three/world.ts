@@ -207,7 +207,7 @@ const ARCADE_MOODS: readonly RaceMood[] = [
     lamp: new THREE.Color('#ffb468'), lampIntensity: 620, lampCone: LAMP_POOL },
 ];
 /** Tokyo keeps its five-chapter night -> dusk -> sunrise progression. */
-const TOKYO_MOOD: RaceMood = { daylight: null, night: 'city', stars: 1.2, sunTurn: SUNRISE_TURN, damp: DAMP_ROAD_WETNESS,
+const TOKYO_MOOD: RaceMood = { daylight: null, night: 'city', stars: 1.5, sunTurn: SUNRISE_TURN, damp: DAMP_ROAD_WETNESS,
   lamp: new THREE.Color('#ffb065'), lampIntensity: 620, lampCone: LAMP_POOL };
 const worlds = new WeakMap<HTMLCanvasElement, RaceWorld | null>();
 const arcCourses = new Map<number, Course>();
@@ -580,7 +580,9 @@ export class RaceWorld {
       output.dataset.sceneryAsset = 'detailed';
     }).catch(error => { output.dataset.sceneryAsset = 'failed'; console.error('Detailed roadside assets failed to load.', error); });
     const emblemUrl = asset('branding/sora-emblem-source.png');
-    void loadDetailedCarFleet(this.flag, soraEmblemTexture(emblemUrl), soraStripTexture(emblemUrl)).then(fleet => {
+    // A wide white ring round the roof and bonnet emblems, so the exact emblem's red disc reads on a red car's roof
+    // seen at the chase camera's low angle (refine round 4; the garage's part viewer keeps the thin ring).
+    void loadDetailedCarFleet(this.flag, soraEmblemTexture(emblemUrl, 512, .3), soraStripTexture(emblemUrl)).then(fleet => {
       const geometry = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
       for (const model of this.cars) {
         this.scene.remove(model.group);
@@ -1393,6 +1395,7 @@ export class RaceWorld {
     }
     this.paintedSky.setArtCell(this.pixelArtActive ? this.artGridSupersample
       : Math.max(1, Math.round(Math.min(this.output.width, this.output.height) / 540)));
+    this.tailStreaks.setArtCell(this.pixelArtActive ? this.artGridSupersample : 0);
     this.pass.setPixelation(this.renderingMode === 'cinematic' && pixelFinish);
     // Streamed scenery can add materials after world creation. Install the
     // same analytic light-value shader on each newly visible material.

@@ -391,9 +391,12 @@ ${gradient}
         lit = mix(body, lit, skyRaceCloud.x);
         // Tokyo's night: undersides lit pink and magenta by the city, strongest low over the street; the masses
         // a step lighter plum, so the deck reads as lit cloud bands rather than dark smudges.
-        lit = mix(lit, vec3(1., .34, .6) * (1. - .5 * smoothstep(.08, .32, e)), skyRaceCityGlow);
+        lit = mix(lit, vec3(1., .3, .5) * (1. - .5 * smoothstep(.08, .32, e)), skyRaceCityGlow);
         body = mix(body, body * 1.6 + vec3(.07, .02, .05) * (1. - smoothstep(.1, .3, e)), skyRaceCityGlow * smoothstep(-.02, .06, field));
-        vec3 paint = sunriseCap(mix(body, lit, under * clusters), SUNRISE_BODY_L);
+        // Low over the street the city lights whole masses from below, not only their lowest cells (refine round 4:
+        // the cutscene-style repaint's horizon clouds are red-magenta streaks, its higher ones blue-grey).
+        float lowLit = skyRaceCityGlow * .85 * (1. - smoothstep(.05, .17, e)) * smoothstep(.3, .5, lattice(q * .5 + seed * 7., layer.z * 1.5));
+        vec3 paint = sunriseCap(mix(body, lit, max(under * clusters, lowLit)), SUNRISE_BODY_L);
         // Toward the sun the lit edge turns amber (peach and gold at sunrise);
         // only near the sunrise disc may it reach cream.
         vec3 amber = mix(lit * 1.1, mix(RIM_AMBER, RIM_CREAM, nearSun), skyRaceCloud.y);
@@ -474,7 +477,8 @@ ${gradient}
       // brightest are a 5-cell plus, a few are 2-cell dashes.
       vec3 raceStars(vec3 sky, float azimuth, float elevation) {
         if (skyRaceStars.x <= 0. || elevation < skyRaceStars.y) return sky;
-        const float ROW = .045, COLUMNS = 140.;
+        // A finer lattice than before (refine round 4: the cutscene-style repaint's night sky is thick with stars).
+        const float ROW = .03, COLUMNS = 210.;
         float row = floor(elevation / ROW);
         float columns = max(6., floor(COLUMNS * cos((row + .5) * ROW)));
         float column = floor(azimuth * columns);

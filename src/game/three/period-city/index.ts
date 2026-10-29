@@ -3,6 +3,7 @@ import type { SignPools } from './signs';
 import { CityMeshBuilder, type CityMaterialKey } from './geometry';
 import { buildLot, type CityFixture } from './buildings';
 import { farLights } from './far-lights';
+import { cityWires } from './wires';
 import { createPeriodCityLayout, periodCityChunksNear, periodCityOpenAt, periodCityPlantingClear,
   type PeriodCityCourse, type PeriodCityLayout, type PeriodCityOptions, type PeriodOpenRun, type PeriodSide } from './layout';
 import { cityNight, periodCityMaterials, setPeriodCityTime } from './materials';
@@ -167,6 +168,9 @@ export class PeriodCity {
     // The far street's lamps, lanterns and box signs as glowing points (far-lights.ts).
     const lights = farLights(builder.beacons);
     if (lights) group.add(lights);
+    // The overhead wires as screen-space lines (wires.ts).
+    const wires = cityWires(builder.wires);
+    if (wires) group.add(wires);
     group.updateMatrixWorld(true);
     this.group.add(group);
     return { group, fixtures, triangles: builder.triangles, used: this.frame };

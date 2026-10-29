@@ -13,7 +13,7 @@ const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/cs
 const requests = [], misses = [], errors = [], checks = [];
 const manifest = JSON.parse(await readFile('src/game/music-assets.generated.json', 'utf8'));
 const trackCount = Object.keys(manifest).length, packagedAssets = trackCount * 5;
-assert.equal(trackCount, 26);
+assert.equal(trackCount, 30);
 assert.ok(manifest['meet-me-at-yasukuni']);
 const server = createServer(async (request, response) => {
   const pathname = new URL(request.url, 'http://localhost').pathname;

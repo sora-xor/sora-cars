@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { MUSIC_ITEMS, MUSIC_LICENSE, MUSIC_SONGS, musicCoverPath, musicItemMetadata, musicSleeves } from '../src/game/music-catalog';
+import { STREET_ROUTE_SONGS } from '../src/game/street/route-songs';
 import sleeves from '../docs/art-prompts/soundtrack-covers-v2.json';
 const hash = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 
 test('Every released recording binds real audio, artwork and the exact license', () => {
-  assert.equal(MUSIC_SONGS.length, 26);
-  assert.equal(MUSIC_ITEMS.length, 52, 'Each song sells as a 表 OMOTE and a 裏 URA NFT');
+  assert.equal(MUSIC_SONGS.length, 30);
+  assert.equal(MUSIC_ITEMS.length, 60, 'Each song sells as a 表 OMOTE and a 裏 URA NFT');
   assert.ok(MUSIC_ITEMS.some(item => item.file === 'meet-me-at-yasukuni'), 'Approved supplied Tokyo recording is included');
   const coverHashes = new Set<string>();
   for (const item of MUSIC_ITEMS) {
@@ -30,7 +31,7 @@ test('Every released recording binds real audio, artwork and the exact license',
 });
 
 test('表 keeps the original sleeve and SKU; 裏 is a distinct back-jacket NFT with the same recording and license', () => {
-  assert.equal(new Set(MUSIC_ITEMS.map(item => item.sku)).size, 52);
+  assert.equal(new Set(MUSIC_ITEMS.map(item => item.sku)).size, 60);
   for (const song of MUSIC_SONGS) {
     const [omote, ura] = musicSleeves(song.sku);
     assert.deepEqual([omote?.sleeve, ura?.sleeve], ['omote', 'ura']);
@@ -88,3 +89,20 @@ test('Tokyo metadata binds supplied AAC provenance and the same artist, price an
   assert.throws(() => musicItemMetadata({ ...song, assets: { ...song.assets!, provenance: undefined } }, 'fixture', 'Fixture issuer'));
   assert.throws(() => musicItemMetadata({ ...song, artist: 'Unapproved artist' }, 'fixture', 'Fixture issuer'));
 });
+
+test("Each street race's own song sells after Tokyo's, rendered by the game synthesizer at the race's length", () => {
+  const routes = MUSIC_SONGS.slice(-STREET_ROUTE_SONGS.length);
+  assert.deepEqual(routes.map(song => song.file), STREET_ROUTE_SONGS.map(song => song.file));
+  assert.equal(MUSIC_SONGS[MUSIC_SONGS.length - STREET_ROUTE_SONGS.length - 1]!.file, 'meet-me-at-yasukuni', 'They follow the Tokyo route recording');
+  routes.forEach((song, index) => {
+    const route = STREET_ROUTE_SONGS[index]!;
+    assert.deepEqual(song.name, { ja: route.japanese, en: route.name });
+    assert.equal(song.collection, 'Japan Routes'); assert.equal(song.artist, 'SORA Cars');
+    assert.deepEqual(song.provenance, { kind: 'game-synthesizer-score' });
+    assert.equal(song.bpm, Math.round(route.sections * 32 * 60 / route.seconds));
+    // The race's score plus the render's lead-in and release tail.
+    assert.ok(Math.abs(song.durationSeconds - (route.seconds + 1.08)) < .01, `${song.file} is the race's full song`);
+    assert.ok(song.description.ja && song.description.en, `${song.file} has liner notes`);
+  });
+});
+

@@ -56,6 +56,8 @@ export class CityMeshBuilder {
   triangles = 0;
   /** Far lights (far-lights.ts): BEACON_STRIDE floats per light, in the chunk's frame. */
   readonly beacons: number[] = [];
+  /** Overhead wires (wires.ts): WIRE_STRIDE floats per segment, in the chunk's frame. */
+  readonly wires: number[] = [];
 
   constructor(readonly originX: number, readonly originZ: number) {}
 
