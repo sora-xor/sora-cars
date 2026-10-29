@@ -20,7 +20,9 @@ for (let i = 0; i < MUSIC_LIBRARY.length; i++) {
     { tick: 0, priority: 0, data: [255, 88, 4, 4, 2, 24, 8] },
   ])];
   for (const channel of [0, 1, 2, 3, 9]) {
-    const programs = { 'round-bass': 38, 'rubber-bass': 39, pulse: 80, 'fm-bell': 10, 'fm-reed': 85, glass: 98, 'warm-pad': 89, 'hollow-pad': 95 };
+    // General MIDI programs nearest to each synthesized patch, for use in other software.
+    const programs = { 'round-bass': 38, 'rubber-bass': 39, 'moog-bass': 38, 'fm-bass': 39, pulse: 80, 'sync-lead': 81, 'fm-reed': 65, whistle: 78, vocoder: 85,
+      'fm-bell': 10, glass: 98, pluck: 81, marimba: 12, koto: 107, clav: 7, epiano: 5, 'warm-pad': 89, 'hollow-pad': 95, 'string-pad': 50, brass: 62, 'vox-pad': 91 };
     const program = programs[score.patches?.[channel]] ?? [38, 80, 81, 89][channel] ?? 0;
     const events = [{ tick: 0, priority: 0, data: [192 | channel, program] }];
     for (const n of score.notes.filter(n => n.channel === channel)) {

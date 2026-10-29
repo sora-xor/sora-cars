@@ -1,4 +1,5 @@
 import cutArt from './story-cut-art.json';
+import type { Bilingual } from './story';
 
 export const STORY_SCENES = {
   garage: { art: 'garage-dusk-branded.png', effect: 'workshop', place: 'SORA ガレージ', english: 'SORA GARAGE' },
@@ -69,6 +70,17 @@ export function resolveStoryFrame(lines: readonly { scene?: StorySceneId; shot?:
   const art = sequence ? STORY_CUT_ART[sequence]?.[cut] : undefined;
   if (sequence && !art) throw new Error(`Missing cutscene art for ${sequence} cut ${cut + 1}`);
   return { ...frame, art: art ?? (beat ? STORY_BEAT_ART[beat] : STORY_ANGLE_ART[frame.scene][frame.shot]), ...(beat ? { beat } : {}) };
+}
+
+/** A time/place caption holds for the rest of its shot; the next camera cut returns to the scene's own caption. */
+export function resolveStorySetting(lines: readonly { scene?: StorySceneId; shot?: StoryShot; art?: StoryBeatArt; setting?: Bilingual }[], index: number): Bilingual {
+  let setting: Bilingual | undefined;
+  for (const [i, line] of lines.slice(0, index + 1).entries()) {
+    if (i > 0 && (line.scene !== undefined || line.shot !== undefined || line.art !== undefined)) setting = undefined;
+    if (line.setting) setting = line.setting;
+  }
+  const scene = STORY_SCENES[resolveStoryShot(lines, index).scene];
+  return setting ?? { ja: scene.place, en: scene.english };
 }
 
 /** A shot holds until the script explicitly cuts. Back/log navigation uses the same direction. */

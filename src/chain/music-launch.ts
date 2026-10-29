@@ -109,7 +109,7 @@ export function reviewMusicLaunch(input: MusicLaunchSnapshot): MusicLaunchReport
       if (usable) { const coverage = report.coverage.find(entry => entry.sku === sku)!; coverage.nftIds.push(item.nftId); coverage.offerIds.push(quote.offer.offer_id); }
     } catch (error) { issue('invalid_edition', reason(error), sku, editionIndex); }
   }
-  for (const row of report.coverage) if (!row.nftIds.length) issue('missing_sku', 'No verified open 1-XOR edition covers this song in the supplied snapshot.', row.sku);
+  for (const row of report.coverage) if (!row.nftIds.length) issue('missing_sku', 'No verified open 1-XOR edition covers this song sleeve (表 or 裏) in the supplied snapshot.', row.sku);
   report.coveredSkus = report.coverage.filter(row => row.nftIds.length > 0).length;
   report.ready = report.issues.length === 0 && report.coveredSkus === report.requiredSkus;
   return report;

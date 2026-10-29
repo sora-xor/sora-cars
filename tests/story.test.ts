@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { accessSync } from 'node:fs';
 import { CHAPTERS, CREW, STORY_CAST, RETRY_SCENE, completeStoryChapter, storyProgress, storyGrid, storyObjectiveMet } from '../src/game/story';
-import { STORY_SCENES, resolveStoryShot } from '../src/game/story-scenes';
+import { STORY_SCENES, resolveStoryShot, resolveStorySetting } from '../src/game/story-scenes';
 
 test('the complete three-act campaign has local art, bilingual dialogue and consistent characters', () => {
   assert.equal(CREW.length, 6);
@@ -35,6 +35,14 @@ test('dialogue can be revisited with the correct inherited shot and scene', () =
   assert.deepEqual(resolveStoryShot(lines, 3), { scene: 'ledger', shot: 'wide' });
   assert.deepEqual(resolveStoryShot(lines, 6), { scene: 'ledger', shot: 'detail' });
   assert.deepEqual(resolveStoryShot(lines, 0), { scene: 'garage', shot: 'wide' });
+});
+
+test('a time/place caption holds through its shot and the next camera cut restores the scene caption', () => {
+  const lines = CHAPTERS[10]!.intro, broadcast = { ja: '横浜・港の出走前放送', en: 'YOKOHAMA · PRE-RACE BROADCAST' };
+  assert.deepEqual(resolveStorySetting(lines, 11), broadcast);
+  assert.deepEqual(resolveStorySetting(lines, 12), broadcast, 'Aki answers in the same shot, so the caption holds');
+  assert.deepEqual(resolveStorySetting(lines, 13), { ja: STORY_SCENES.harbor.place, en: STORY_SCENES.harbor.english });
+  assert.deepEqual(resolveStorySetting(lines, 0), { ja: STORY_SCENES.harbor.place, en: STORY_SCENES.harbor.english });
 });
 
 test('story progression cannot skip chapters and the showdown requires beating its actual rival', () => {

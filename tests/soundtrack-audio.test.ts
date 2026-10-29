@@ -82,12 +82,12 @@ test('the supplied Tokyo recording retains its honest source provenance and comp
   }
 });
 
-test('adding the supplied song preserves the original 25 export records and all 75 recorded file hashes', () => {
-  // SHA-256 of the retained September 22 report's exact {sourceHashes, tracks}
-  // JSON. Actual file-byte checks below make this a byte preservation check,
-  // without depending on an ignored local output directory at test time.
+test('the 25 released score renders keep their exact export records and all 75 recorded file hashes', () => {
+  // SHA-256 of the October 28 export's exact {sourceHashes, tracks} JSON (the
+  // rewritten score and synthesizer). Actual file-byte checks below make this a
+  // byte preservation check, without depending on an ignored local output directory.
   const previous = { sourceHashes: manifest.sourceHashes, tracks: manifest.tracks.slice(0, MUSIC_LIBRARY.length) };
-  assert.equal(createHash('sha256').update(JSON.stringify(previous)).digest('hex'), '0a015b89bda2af4056db3e9f18dc2605f64cdbcced6c34bf778d83e8c84f4b65');
+  assert.equal(createHash('sha256').update(JSON.stringify(previous)).digest('hex'), 'bfd0660749b2a0d47f4da526cbbf192e9412b94556f2f3b14fe4280b94109ef2');
 });
 
 test('every downloadable and preview byte matches its published content hash', async () => {
@@ -119,7 +119,7 @@ test('supplied-recording conversion pins its separate source definition and expo
 });
 
 test('audio manifest pins the score, synthesizer and reproducible export sources', () => {
-  for (const source of ['src/game/audio.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs']) {
+  for (const source of ['src/game/audio.ts', 'src/game/music-synth.ts', 'src/game/music-composer.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs']) {
     assert.equal(createHash('sha256').update(readFileSync(path.join(root, source))).digest('hex'), manifest.sourceHashes[source], `${source} changed: rebuild soundtrack before shipping it`);
   }
 });

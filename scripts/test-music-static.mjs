@@ -12,7 +12,7 @@ const root = resolve(process.env.STATIC_ROOT ?? 'dist'), prefix = '/sorafs/cid/s
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.mp3': 'audio/mpeg', '.wav': 'audio/wav', '.json': 'application/json', '.txt': 'text/plain' };
 const requests = [], misses = [], errors = [], checks = [];
 const manifest = JSON.parse(await readFile('src/game/music-assets.generated.json', 'utf8'));
-const trackCount = Object.keys(manifest).length, packagedAssets = trackCount * 4;
+const trackCount = Object.keys(manifest).length, packagedAssets = trackCount * 5;
 assert.equal(trackCount, 26);
 assert.ok(manifest['meet-me-at-yasukuni']);
 const server = createServer(async (request, response) => {
@@ -74,6 +74,17 @@ try {
       assert.equal(response.status(), 200);
       assert.equal(createHash('sha256').update(await response.body()).digest('hex'), manifest[file].cover.sha256);
     }
+    // 裏 URA: the same song's back-jacket NFT shows its own packaged sleeve.
+    for (const file of ['midnight-transistor', 'meet-me-at-yasukuni']) {
+      await page.locator(`[data-record="select:music-${file}"]`).first().click();
+      await page.locator('[data-record="sleeve:ura"]').click();
+      await page.waitForFunction(expected => JSON.parse(window.render_game_to_text()).soundtrack.selected === expected, `music-${file}-ura`);
+      assert.ok((await page.locator('.record-sleeve img').getAttribute('src')).endsWith(manifest[file].coverUra.path));
+      const response = await page.request.get(`${origin}${prefix}${manifest[file].coverUra.path}`);
+      assert.equal(response.status(), 200);
+      assert.equal(createHash('sha256').update(await response.body()).digest('hex'), manifest[file].coverUra.sha256);
+      await page.locator('[data-record="sleeve:omote"]').click();
+    }
     const auditioned = ['midnight-transistor', 'one-umbrella-two-chairs', 'side-b-press-record', 'meet-me-at-yasukuni'];
     for (const file of auditioned) {
       await page.locator(`[data-record="select:music-${file}"]`).click();
@@ -100,7 +111,7 @@ try {
     checks.push({ label, tracks: trackCount, layout: await layout(), playbackPauseSeek: auditioned.length, auditioned, screenshotSong: 'meet-me-at-yasukuni', routeLeaveStopsAudio: true, reload: true });
     await page.close();
   }
-  for (const assets of Object.values(manifest)) for (const name of ['wav', 'mp3', 'preview', 'cover']) {
+  for (const assets of Object.values(manifest)) for (const name of ['wav', 'mp3', 'preview', 'cover', 'coverUra']) {
     const file = assets[name], bytes = await readFile(resolve(root, file.path));
     assert.equal(bytes.length, file.bytes); assert.equal(createHash('sha256').update(bytes).digest('hex'), file.sha256);
   }

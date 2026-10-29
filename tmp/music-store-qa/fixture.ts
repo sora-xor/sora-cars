@@ -14,7 +14,8 @@ const network = nftContentHashV1({ network: 'EXPLICIT MUSIC STORE TEST FIXTURE' 
 const app = nftContentHashV1({ app: 'EXPLICIT MUSIC STORE TEST FIXTURE' });
 const licensor = 'Explicit test fixture issuer';
 const requestedSong = new URLSearchParams(location.search).get('song');
-const song = requestedSong ? MUSIC_ITEMS.find(item => item.file === requestedSong) : MUSIC_ITEMS[0];
+const requestedSleeve = new URLSearchParams(location.search).get('sleeve') ?? 'omote';
+const song = MUSIC_ITEMS.find(item => item.file === (requestedSong ?? MUSIC_ITEMS[0].file) && item.sleeve === requestedSleeve);
 if (!song) throw new Error('Unknown explicitly requested music fixture song.');
 const catalog = releaseMusicCatalog(JSON.stringify({ domain: 'sora_cars.universal', sellers: [seller], licensor }), app, '62Fk4FPcMuLvW5QjDGNF2a4jAmjM');
 const metadata = musicItemMetadata(song, app, licensor);

@@ -36,7 +36,38 @@ Camera direction changes the arrangement while the song keeps its place:
 - Right reverse angles answer with arpeggios and a firmer bass pulse.
 - Details foreground glass/bell ostinatos and pads, with restrained bass and percussion.
 
-Scene and dramatic mood also shape brightness and instrument levels. A new camera arrangement settles over a short, smooth parameter ramp. A new composition crossfades over about 0.8 seconds. Held dialogue, text reveal, the dialogue log, and motion pause leave the musical transport running; Back restores the cue appropriate to that earlier line. The cue sheet can change a scene's mood without restarting its theme, such as the admission and rejection within the blackout.
+Scene and dramatic mood also shape brightness and instrument levels. A new camera arrangement settles over a short, smooth parameter ramp. Held dialogue, text reveal, the dialogue log, and motion pause leave the musical transport running; Back restores the cue appropriate to that earlier line. The cue sheet can change a scene's mood without restarting its theme, such as the admission and rejection within the blackout.
+
+### Transitions and silence
+
+Each cue names how the score reaches it, so the music moves the way the scene does:
+
+| Transition | Sound | Used for |
+| --- | --- | --- |
+| `fade` (default) | The outgoing song plays on under a 0.72 s fade while the next arrives over 0.78 s | Ordinary turns in a conversation |
+| `cut` | The old song is gone within 40 ms and the next starts at once, without a click | Interruptions and decisive turns |
+| `slow` | The old song plays on under a 2.6 s fade; the next swells in over 3.2 s | Intimate turns, and fading into or out of silence |
+| `powerdown` | Notes stop, the effects are no longer fed, and the music and its echoes collapse to a 60 Hz thud in 0.35 s before the level is gone at 0.8 s | The 2 a.m. blackout |
+
+A cue with no composition is a deliberate silence: nothing plays until the next cue. Skipping out of a scene during a silence brings its last song back with a slow fade.
+
+| Story event | Score |
+| --- | --- |
+| Ch. 1: “This is less sweet” — the bank's notice | Cut to Three Weeks of Paper |
+| Ch. 5: Rain begins once Aki and Ren are alone | Slow fade into One Umbrella, Two Chairs |
+| Ch. 5: The sponsor's call interrupts Ren's confession | Cut to Glass Permission |
+| Ch. 6: Celeste calls about Ren's list of relay hosts | Cut to Glass Permission |
+| Ch. 7: Two o'clock — the broadcast power is gone | Power-down into dead air for two lines, then Dead Air Confession swells in slowly as Aki asks how they knew |
+| Ch. 8: Her father's notebook | Slow fade into Borrowed Power Waltz |
+| Ch. 8: Aki gives up the recovery key she kept | No Master Key, full statement (it was Open Circuit Breakfast) |
+| Ch. 10: Aki returns Celeste's key | Cut into No Master Key's lifted final answer |
+| Ch. 10: “Their line's been cut” | Cut to Two A.M. Relay |
+| Ch. 11: Celeste, the same morning | Cut to Crown on the Grid |
+| Ch. 12: Ren leaves silence after Jun's song | Jun's premiere fades out slowly; Aki's “I love you” is spoken into the silence, and Side B: Press Record swells in as Ren answers |
+
+Two other cues changed to match the scene: in chapter 3, Aki keeping the recovery key to herself now uses Three Weeks of Paper (her concealed anxiety) rather than the evidence theme, and Borrowed Power Waltz carries on through her first step towards asking for help instead of switching to No Master Key.
+
+Before October 29 every fade dropped the outgoing song almost at once. A layer's fade began with `cancelAndHoldAtTime`, which inserts no event once a ramp has finished, so the new ramp was anchored at the end of the earlier fade-in and the gain jumped most of the way down. The transport had also stopped scheduling the old song's notes the moment a cue changed. Fades now ramp from the parameter's present value, and an outgoing song keeps being scheduled into its fading layer until its fade ends.
 
 Returning themes have authored entrances into their later phrases. Ordinary dialogue pacing often changes the song before an entire opening finishes; starting every reprise at beat zero would hide most of the written music. `entryBeat` is measured in quarter notes and defaults to zero. Beat 32 enters the full statement, beats 64 and 96 its answering phrases, beat 128 the spare middle, and beat 192 the lifted final answer. The compositions and their complete MIDI downloads remain unchanged.
 
@@ -62,6 +93,8 @@ An entrance applies only when a song is selected. Camera cuts and a later narrat
 - `npm run test:audio` and `npm run test:external-music` retain the driving-sound and recorded-music regressions.
 - `npm run assets:music` regenerates the downloadable `.mid` files.
 
-Listening artifacts from the PCM validation are in `output/audio/cutscene-score/`: twelve seconds of each new full song, `jun-premiere-developed.wav` with eight seconds of the completed premiere, and `adaptive-score-demo.wav`, a 28-second sequence moving through the garage, deadline, rain, betrayal, Jun's premiere and the final confession. `report.json` records the measured levels, cue transitions and note scheduling checks.
+The PCM validation also measures each transition against the same music crossfaded normally, scheduling notes only a moment ahead as the live timer does: a cut leaves about a ninth of a crossfade's level just after the switch; a power-down's treble-to-mid balance falls below half a crossfade's before dead air; a slow swell starts at about a quarter of a crossfade's level and then plays at full level; and a slow fade-out keeps the song playing (about 90% at first, about half midway) before the silence becomes real.
+
+Listening artifacts from the PCM validation are in `output/audio/cutscene-score/`: twelve seconds of each new full song, `jun-premiere-developed.wav` with eight seconds of the completed premiere, `adaptive-score-demo.wav`, a 28-second sequence moving through the garage, deadline, rain, betrayal, Jun's premiere and the final confession, and `story-transitions-demo.wav`, 32 seconds through the sponsor's call, the 2 a.m. power-down, the betrayal swelling out of dead air, Jun's premiere, Ren's silence and the love theme's answer. `report.json` records the measured levels, transitions, cue boundaries and note scheduling checks.
 
 The browser's `render_game_to_text()` exposes `musicState`: title, tempo, cue, narrative, mood, arrangement, five stem levels, requested and actual entry beats, transport beat, transition counts, output ownership and volume. These are presentation values and do not affect race physics, signing or settlement.

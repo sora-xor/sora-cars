@@ -10,13 +10,14 @@ import { STORY_THEMES } from '../src/game/music-themes';
 test('sixteen new compositions have distinct written melodic, harmonic and rhythmic identities', () => {
   assert.equal(MUSIC_LIBRARY.length, 25);
   assert.equal(STORY_THEMES.length, 16);
-  for (const key of ['melody', 'response', 'chords', 'rhythm'] as const) {
-    assert.equal(new Set(STORY_THEMES.map(theme => JSON.stringify(theme[key]))).size, 16, `all ${key} phrases are individually composed`);
+  for (const key of ['hookA', 'hookB', 'verse', 'chorus'] as const) {
+    assert.equal(new Set(STORY_THEMES.map(theme => JSON.stringify(theme[key]))).size, 16, `all ${key} parts are individually composed`);
   }
   const melodicFingerprints = new Set<string>();
   for (let index = 9; index < MUSIC_LIBRARY.length; index++) {
     const score = makeScore(index), root = MUSIC_LIBRARY[index]!.root;
-    melodicFingerprints.add(JSON.stringify(score.notes.filter(note => note.channel === 1 && note.beat < 16).map(note => [note.beat, note.duration, note.pitch - root])));
+    // The lead enters with the first full statement at beat 32.
+    melodicFingerprints.add(JSON.stringify(score.notes.filter(note => note.channel === 1 && note.beat >= 32 && note.beat < 48).map(note => [note.beat, note.duration, note.pitch - root])));
     assert.equal(score.patches?.length, 4);
     assert.ok(score.notes.every(note => Number.isFinite(note.pitch) && note.pitch >= 0 && note.pitch <= 127 && note.duration > 0 && note.beat + note.duration <= score.beats));
   }
@@ -32,6 +33,8 @@ test('all 24 screenplay sequences have deliberate cues and every camera cut chan
     sheet.forEach((beat, index) => {
       assert.ok(beat.from >= 0 && beat.from < lines.length, `${chapter.id} ${phase} beat exists in the script`);
       if (index) assert.ok(beat.from > sheet[index - 1]!.from);
+      assert.ok(['fade', 'cut', 'slow', 'powerdown'].includes(beat.transition));
+      if (beat.track === null) { assert.equal(beat.entryBeat, 0, 'a silence has no entrance'); return; }
       assert.ok(MUSIC_LIBRARY[beat.track]); used.add(beat.track);
       assert.ok(Number.isInteger(beat.entryBeat) && beat.entryBeat >= 0 && beat.entryBeat < makeScore(beat.track).beats, 'authored entrances remain inside the score');
     });
@@ -70,21 +73,47 @@ test('returning themes enter developed phrases while Jun’s song grows from fir
     assert.throws(() => audio.setCutsceneCue({ ...premiere, key: `invalid-${entryBeat}`, entryBeat }), RangeError);
     assert.deepEqual(audio.musicState, before, 'an invalid entrance cannot change the active cue');
   }
-  audio.setTrack(premiere.track);
+  audio.setTrack(premiere.track!);
   assert.equal(audio.musicState.entryBeat, 0); assert.equal(audio.musicState.requestedEntryBeat, 0, 'the music library plays complete songs');
 });
 
 test('betrayal, intimate rain, public repair and consensual confession have separate intended music', () => {
   const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(CHAPTERS[chapter]![phase], line));
-  assert.equal(MUSIC_LIBRARY[cue(4, 'intro', 6).track]!.file, 'one-umbrella-two-chairs');
-  assert.equal(MUSIC_LIBRARY[cue(6, 'victory', 3).track]!.file, 'dead-air-confession');
+  assert.equal(MUSIC_LIBRARY[cue(4, 'intro', 6).track!]!.file, 'one-umbrella-two-chairs');
+  assert.equal(MUSIC_LIBRARY[cue(6, 'victory', 3).track!]!.file, 'dead-air-confession');
   assert.equal(cue(6, 'victory', 3).mood, 'tense');
   assert.equal(cue(6, 'victory', 6).mood, 'grief');
-  assert.equal(MUSIC_LIBRARY[cue(7, 'intro', 2).track]!.file, 'borrowed-power-waltz');
-  assert.equal(MUSIC_LIBRARY[cue(11, 'victory', 3).track]!.file, 'jun-the-first-light');
-  assert.equal(MUSIC_LIBRARY[cue(11, 'victory', 7).track]!.file, 'side-b-press-record');
+  assert.equal(MUSIC_LIBRARY[cue(7, 'intro', 2).track!]!.file, 'borrowed-power-waltz');
+  assert.equal(MUSIC_LIBRARY[cue(11, 'victory', 3).track!]!.file, 'jun-the-first-light');
+  assert.equal(MUSIC_LIBRARY[cue(11, 'victory', 7).track!]!.file, 'side-b-press-record');
   assert.equal(cue(11, 'victory', 7).mood, 'tender');
   assert.notEqual(cue(4, 'victory', 4).track, cue(4, 'victory', 5).track, 'the threatening phone call interrupts the romance');
+});
+
+test('the score cuts on interruptions, swells into intimacy and falls silent where the story does', () => {
+  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(CHAPTERS[chapter]![phase], line));
+  // Two a.m.: the broadcast power dies, the room is dead air, then the betrayal creeps in.
+  assert.equal(cue(6, 'victory', 0).track, null); assert.equal(cue(6, 'victory', 0).transition, 'powerdown');
+  assert.equal(cue(6, 'victory', 1).track, null);
+  assert.equal(MUSIC_LIBRARY[cue(6, 'victory', 2).track!]!.file, 'dead-air-confession'); assert.equal(cue(6, 'victory', 2).transition, 'slow');
+  assert.equal(cue(4, 'victory', 5).transition, 'cut', 'the sponsor’s call interrupts the umbrella scene');
+  assert.equal(cue(9, 'intro', 8).transition, 'cut', 'returning the key is decisive');
+  // Ren leaves silence after Jun's song; Aki speaks into it, and the love theme answers.
+  assert.equal(cue(11, 'victory', 4).track, cue(11, 'victory', 3).track);
+  assert.equal(cue(11, 'victory', 5).track, null); assert.equal(cue(11, 'victory', 5).transition, 'slow');
+  assert.equal(MUSIC_LIBRARY[cue(11, 'victory', 6).track!]!.file, 'side-b-press-record'); assert.equal(cue(11, 'victory', 6).transition, 'slow');
+  const audio = new GameAudio();
+  audio.setCutsceneCue(cue(6, 'intro', 13)); const playing = audio.musicState;
+  audio.setCutsceneCue(cue(6, 'victory', 0));
+  assert.equal(audio.musicState.silent, true); assert.equal(audio.musicState.track, null);
+  assert.equal(audio.musicState.transitions, playing.transitions + 1);
+  audio.setCutsceneCue(cue(6, 'victory', 1));
+  assert.equal(audio.musicState.silent, true); assert.equal(audio.musicState.transitions, playing.transitions + 1, 'a held silence changes nothing');
+  audio.setCutsceneCue(cue(6, 'victory', 2));
+  assert.equal(audio.musicState.silent, false); assert.equal(audio.musicState.file, 'dead-air-confession'); assert.equal(audio.musicState.transition, 'slow');
+  audio.setCutsceneCue(cue(6, 'victory', 0)); audio.endCutscene();
+  assert.equal(audio.musicState.silent, false, 'skipping out of a silence brings the last song back');
+  assert.equal(audio.musicState.source, 'song');
 });
 
 test('audio transport holds on repeated dialogue, morphs on an angle and changes song on the deadline', () => {

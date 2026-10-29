@@ -35,8 +35,9 @@ try {
     const rehash = row => { row.offer.offer_hash = nftSaleOfferHashV1(row.offer.offer); };
     const offerChange = terms => copy => { Object.assign(copy.editions[0].offer.offer, terms); rehash(copy.editions[0]); };
     const ready = reviewMusicLaunch(snapshot);
-    check(ready.ready && ready.requiredSkus === 26 && ready.coveredSkus === 26 && ready.coverage.every(row => row.nftIds.length === 1 && row.offerIds.length === 1), 'All 26 exact local metadata bindings and open one-XOR editions satisfy launch coverage');
-    check(ready.coverage.some(row => row.sku === 'music-meet-me-at-yasukuni'), 'Launch coverage includes the supplied Tokyo recording');
+    check(ready.ready && ready.requiredSkus === 52 && ready.coveredSkus === 52 && ready.coverage.every(row => row.nftIds.length === 1 && row.offerIds.length === 1), 'All 52 表/裏 exact local metadata bindings and open one-XOR editions satisfy launch coverage');
+    check(ready.coverage.some(row => row.sku === 'music-meet-me-at-yasukuni') && ready.coverage.some(row => row.sku === 'music-meet-me-at-yasukuni-ura'), 'Launch coverage includes the supplied Tokyo recording in both sleeves');
+    fails(copy => { copy.editions = copy.editions.filter(row => !row.sku.endsWith('-ura')); }, 'missing_sku', 'Front sleeves alone cannot launch the 表/裏 collection');
     check(ready.verification === 'endpoint_reported' && ready.scope.includes('No independent finality, freshness'), 'Success retains explicit endpoint-reported scope without freshness or finality claim');
     check(snapshot.editions.every(row => row.nft.ownedBy === row.offer.custody && row.nft.ownedBy !== seller), 'Launch stock is held by the quoted native sale custody');
     fails(copy => copy.editions.pop(), 'missing_sku', 'A missing song cannot launch the complete collection');

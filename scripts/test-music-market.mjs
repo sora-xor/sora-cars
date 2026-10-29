@@ -89,15 +89,15 @@ try {
       check((await probe.probeNftMarket()).ready === expected, label);
     }
     const actualCatalog = releaseMusicCatalog(JSON.stringify({ domain: catalog.domain, sellers: [seller], licensor: 'Explicit complete-collection fixture issuer' }), applicationId, catalog.xorAssetDefinition);
-    check(actualCatalog.items.length === 26 && actualCatalog.items.every(item => item.kind === 'music' && item.price === '1'), 'All 26 real asset metadata entries release at exactly one XOR');
-    check(actualCatalog.items.some(item => item.sku === 'music-meet-me-at-yasukuni'), 'Supplied Tokyo recording participates in the same reviewed release');
+    check(actualCatalog.items.length === 52 && actualCatalog.items.every(item => item.kind === 'music' && item.price === '1'), 'All 26 songs release as 52 表/裏 sleeve NFTs at exactly one XOR each');
+    check(actualCatalog.items.some(item => item.sku === 'music-meet-me-at-yasukuni') && actualCatalog.items.some(item => item.sku === 'music-meet-me-at-yasukuni-ura'), 'Supplied Tokyo recording participates in the same reviewed release in both sleeves');
     check(new Set(actualCatalog.items.map(item => item.contentHash)).size === MUSIC_ITEMS.length, 'All released recordings have distinct exact native content commitments');
     for (const song of MUSIC_ITEMS) {
       const metadata = musicItemMetadata(song, applicationId, 'Explicit complete-collection fixture issuer');
       const entry = actualCatalog.items.find(item => item.sku === song.sku);
-      if (!entry || entry.contentHash !== nftSdk.nftContentHashV1(metadata) || metadata.recording.wav.sha256 !== song.assets.wav.sha256 || metadata.artwork.sha256 !== song.assets.cover.sha256 || metadata.license.sha256 !== song.license.sha256) throw new Error(`Complete real metadata binding failed: ${song.sku}`);
+      if (!entry || entry.contentHash !== nftSdk.nftContentHashV1(metadata) || metadata.recording.wav.sha256 !== song.assets.wav.sha256 || metadata.artwork.sha256 !== song.artwork.sha256 || metadata.sleeve.id !== song.sleeve || metadata.license.sha256 !== song.license.sha256) throw new Error(`Complete real metadata binding failed: ${song.sku}`);
     }
-    checks.push('Every real recording, cover and license hash is included in its released NFT metadata');
+    checks.push('Every real recording, sleeve artwork and license hash is included in its released NFT metadata');
     // Real production codec normalizes AccountId display prefixes. These are
     // explicitly simulated Taira offers/ownership, never endpoint or ledger claims.
     const tairaSeller = AccountAddress.fromI105(seller).toI105(369);
@@ -156,10 +156,11 @@ try {
     store.close(); dialog.close();
     // Isolated browser-only fixture assets exercise offline issuance structure.
     // These hashes do not claim to describe the final audio/art on disk.
-    const song = MUSIC_ITEMS[0], originalAssets = song.assets;
+    const song = MUSIC_ITEMS[0], originalAssets = song.assets, originalArtwork = song.artwork;
     const file = path => ({ path, bytes: 100, sha256: 'f'.repeat(64) });
     try {
-      song.assets = { wav: file(`assets/music/audio/${song.file}.wav`), mp3: file(`assets/music/audio/${song.file}.mp3`), preview: file(`assets/music/audio/${song.file}-preview.mp3`), cover: file(`assets/music/covers/${song.file}-v1.png`), durationSeconds: song.durationSeconds };
+      song.assets = { wav: file(`assets/music/audio/${song.file}.wav`), mp3: file(`assets/music/audio/${song.file}.mp3`), preview: file(`assets/music/audio/${song.file}-preview.mp3`), cover: file(`assets/music/covers/${song.file}-v1.png`), coverUra: file(`assets/music/covers/${song.file}-v2.png`), durationSeconds: song.durationSeconds };
+      song.artwork = song.assets.cover;
       const licensor = 'Synthetic issuance fixture only';
       const contentHash = nftSdk.nftContentHashV1(musicItemMetadata(song, applicationId, licensor));
       const issuanceCatalog = { ...catalog, items: [{ sku: song.sku, kind: 'music', contentHash, price: '1', sellers: [seller] }] };
@@ -171,7 +172,7 @@ try {
       for (const changed of [{ seller: cosmeticSeller }, { licensor: 'Another issuer' }, { nftId: 'music_fixture$foreign.universal' }, { sku: 'unknown' }, { expiresAtHeight: '0' }, { networkId: 'not-a-network-hash' }]) rejects(() => prepareMusicEdition({ ...input, ...changed }), `Reject invalid offline edition ${Object.keys(changed)[0]}`);
       song.assets = { ...song.assets, wav: { ...song.assets.wav, sha256: 'e'.repeat(64) } };
       rejects(() => prepareMusicEdition(input), 'Offline issuance rejects a changed master after catalog approval');
-    } finally { song.assets = originalAssets; }
+    } finally { song.assets = originalAssets; song.artwork = originalArtwork; }
     return checks;
   });
   checks.push(...await runMusicWalletIdentityChecks());

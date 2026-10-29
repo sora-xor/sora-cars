@@ -1,50 +1,50 @@
 {
   "passed": true,
-  "testedAt": "2026-09-22T07:12:30.408Z",
-  "origin": "http://127.0.0.1:5212",
+  "testedAt": "2026-10-29T01:43:41.905Z",
+  "origin": "http://127.0.0.1:5187",
   "sourcesBefore": {
-    "scripts/test-story.mjs": "cfcb8b81e5a0664a67aafaa3e57a3546434295f65dc8486dbca661c70fbb2d2b",
-    "src/main.ts": "2a407d08fe0a57b2edca00a7de9d2a0d9b0352adc4ccb5822d0664a6033bdd3d",
-    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
-    "src/game/story-dialogue.ts": "afdd939a504b642cf5b653f4d468e0a0094ab11a09ffddc549472327e7849d71",
+    "scripts/test-story.mjs": "8748e5d3d5c821e6d19e3ab29de9d59d57b70286172c9288debecff90a5eb28c",
+    "src/main.ts": "81d7449ec9ad5831a4247829a9b51980961af1300ecf4cbf1490622ec7067ab0",
+    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-dialogue.ts": "9be1a7c09689d6a72a180c1d34d42434838df5e7a042dbfe0303d3822d30c341",
     "src/game/story-campaign.ts": "e0125f696767a86ff016ea1d64a9ace13da5611d6c73e13079b465c65502408d",
-    "src/game/story-campaign-act1.ts": "6a40a6be45d77785cb239682a432da9da21e4f32992d7aa70983f65d7a9eefbc",
-    "src/game/story-campaign-act2.ts": "ec541989ff2e82828d7d99440e93753fad57bfb6ba724bedf8d615e41801b1d3",
-    "src/game/story-campaign-act3.ts": "9316b41c7f0921ddb203ec6ad40768be8129964698e8a5400c57739aa3742f62",
-    "src/game/story-scenes.ts": "849ad082572e451b7c82892ef14c17febfdae31c04ef695dba7856c086ad971e",
-    "src/game/story-cinema.ts": "62742873f99255aa63974803cbb3019f790e3abe5e279e32ffee62db461babb7",
+    "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
+    "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
+    "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c",
+    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
+    "src/game/story-cinema.ts": "5f16da048926a51253153ca3c05c19dc09fb7a386a12f429094e5f4e170d6eb4",
     "src/game/story-workshop.ts": "6d919d567d3027547f292dde39cdee082eac9c8b5530ad4a14a6fe072c7fc503",
-    "src/ui/story.ts": "5fbcf8a46bbf10eb5bc7229cbacec9f59e26a9b26f13c890d1e82fc58218ceed",
-    "src/ui/story.css": "3e3f24b7084a0193e857e4e4fe037c939ed64435778ad72212df00ec833f6a05",
-    "src/style.css": "ba9dce96a17088746476a608b938bc56311016c17d4c2cd3aec8e1dbd70eca5d",
+    "src/ui/story.ts": "8d9362f236439ff2833b9a83a31a041717647f24c42f4e8b0fb56ec9f0f74b28",
+    "src/ui/story.css": "091e22d692160f0c9ffd67105d4672f48f48ad502fbb28c4bcd74558fc295a5b",
+    "src/style.css": "64ebd394ef6b1930892ac9203f234eb5108eea3bc27ee03dbfcc578ebb0de82d",
     "src/ui/story-workshop.ts": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128",
     "src/ui/story-workshop.css": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec",
-    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
-    "src/game/music-score.ts": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513",
-    "src/game/music-themes.ts": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488",
-    "src/game/music-cues.ts": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7"
+    "src/game/audio.ts": "5bbd06d629274a18b4cfbffacced843d45d65b6c186e3659b1fecd4ed208a29f",
+    "src/game/music-score.ts": "7ca2709b6191e15cf0d20329216d27bc650ad106adeb08b091e1440756650d55",
+    "src/game/music-themes.ts": "3deace0dc85fca667ef9195371583f916a37088337cc514964a5e48407cad7e1",
+    "src/game/music-cues.ts": "2a0e092be07f1e0649a2a5ba842b1caf7c363ef394734b8628d45b1bafed3f9a"
   },
   "sourcesAfter": {
-    "scripts/test-story.mjs": "cfcb8b81e5a0664a67aafaa3e57a3546434295f65dc8486dbca661c70fbb2d2b",
-    "src/main.ts": "2a407d08fe0a57b2edca00a7de9d2a0d9b0352adc4ccb5822d0664a6033bdd3d",
-    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
-    "src/game/story-dialogue.ts": "afdd939a504b642cf5b653f4d468e0a0094ab11a09ffddc549472327e7849d71",
+    "scripts/test-story.mjs": "8748e5d3d5c821e6d19e3ab29de9d59d57b70286172c9288debecff90a5eb28c",
+    "src/main.ts": "81d7449ec9ad5831a4247829a9b51980961af1300ecf4cbf1490622ec7067ab0",
+    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-dialogue.ts": "9be1a7c09689d6a72a180c1d34d42434838df5e7a042dbfe0303d3822d30c341",
     "src/game/story-campaign.ts": "e0125f696767a86ff016ea1d64a9ace13da5611d6c73e13079b465c65502408d",
-    "src/game/story-campaign-act1.ts": "6a40a6be45d77785cb239682a432da9da21e4f32992d7aa70983f65d7a9eefbc",
-    "src/game/story-campaign-act2.ts": "ec541989ff2e82828d7d99440e93753fad57bfb6ba724bedf8d615e41801b1d3",
-    "src/game/story-campaign-act3.ts": "9316b41c7f0921ddb203ec6ad40768be8129964698e8a5400c57739aa3742f62",
-    "src/game/story-scenes.ts": "849ad082572e451b7c82892ef14c17febfdae31c04ef695dba7856c086ad971e",
-    "src/game/story-cinema.ts": "62742873f99255aa63974803cbb3019f790e3abe5e279e32ffee62db461babb7",
+    "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
+    "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
+    "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c",
+    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
+    "src/game/story-cinema.ts": "5f16da048926a51253153ca3c05c19dc09fb7a386a12f429094e5f4e170d6eb4",
     "src/game/story-workshop.ts": "6d919d567d3027547f292dde39cdee082eac9c8b5530ad4a14a6fe072c7fc503",
-    "src/ui/story.ts": "5fbcf8a46bbf10eb5bc7229cbacec9f59e26a9b26f13c890d1e82fc58218ceed",
-    "src/ui/story.css": "3e3f24b7084a0193e857e4e4fe037c939ed64435778ad72212df00ec833f6a05",
-    "src/style.css": "ba9dce96a17088746476a608b938bc56311016c17d4c2cd3aec8e1dbd70eca5d",
+    "src/ui/story.ts": "8d9362f236439ff2833b9a83a31a041717647f24c42f4e8b0fb56ec9f0f74b28",
+    "src/ui/story.css": "091e22d692160f0c9ffd67105d4672f48f48ad502fbb28c4bcd74558fc295a5b",
+    "src/style.css": "64ebd394ef6b1930892ac9203f234eb5108eea3bc27ee03dbfcc578ebb0de82d",
     "src/ui/story-workshop.ts": "a4ea716b33c3a838d8802d1a36f25a901e19a5e77954f08c239fccd287fbd128",
     "src/ui/story-workshop.css": "b433b7b316fe266b57d80091680fc90d43ba9801f57f0ca5dfe41e451e9a6cec",
-    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
-    "src/game/music-score.ts": "55511712198a1366a408b1d6c4a437e6aac6f343f3fe0ac3d815df58f1ce0513",
-    "src/game/music-themes.ts": "37f8134600b5836a6d87ce90507012b45e37d9bc48ede59ed7c653fdd3b94488",
-    "src/game/music-cues.ts": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7"
+    "src/game/audio.ts": "5bbd06d629274a18b4cfbffacced843d45d65b6c186e3659b1fecd4ed208a29f",
+    "src/game/music-score.ts": "7ca2709b6191e15cf0d20329216d27bc650ad106adeb08b091e1440756650d55",
+    "src/game/music-themes.ts": "3deace0dc85fca667ef9195371583f916a37088337cc514964a5e48407cad7e1",
+    "src/game/music-cues.ts": "2a0e092be07f1e0649a2a5ba842b1caf7c363ef394734b8628d45b1bafed3f9a"
   },
   "primaryLanguage": "ja",
   "subtitles": "en",
@@ -137,7 +137,7 @@
     }
   ],
   "checks": [
-    "Real intro → deterministic AI race → outcome → result → chapter retry; animation, back, log, pause, frozen physics.",
+    "Real intro → pre-race garage → deterministic AI race → outcome with its result → story result → next/retry; animation, back, log, pause, picture click, two-press skip, frozen physics.",
     "Real touch events advance/back/log/skip into touch driving; a gamepad counterpart exercises A edge detection.",
     "All 12 introductions, 8 scene assets, 9 speakers, three acts and unlocked clue file; actual rival grid and reduced-motion pixels.",
     "Every intro/victory caption checked against its line and scene; finale recorded-morning → now → ordinary Nikko captions survive Next, Back and the 320px log without leaking unseen dialogue.",
@@ -214,8 +214,8 @@
         "ja": "アキ。冗談にしないで言いたいことが……ああ、こんな時に電話か。",
         "en": "Aki. There is something I want to say without making a joke… Of course the phone rings now.",
         "displayedSetting": {
-          "ja": "SORA レコード・放送室",
-          "en": "SORA RECORDS · RADIO ROOM"
+          "ja": "遠回りの帰り道・SORAレコード前",
+          "en": "THE LONG WAY HOME · OUTSIDE SORA RECORDS"
         }
       },
       "shot": {
@@ -229,32 +229,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 579.90625,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 250.09375
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 671.90625,
                 "right": 361,
-                "bottom": 577.921875,
+                "bottom": 728,
                 "width": 329,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -265,19 +265,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 584.921875,
+                "top": 735,
                 "right": 361,
-                "bottom": 620.921875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -286,11 +286,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 150.859375,
-            "bottom": 143,
-            "width": 134.859375,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -301,32 +301,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 429.859375,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 296.140625
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 521.859375,
                 "right": 291,
-                "bottom": 568.53125,
+                "bottom": 606,
                 "width": 259,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -337,19 +337,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 575.53125,
+                "top": 613,
                 "right": 291,
-                "bottom": 629.53125,
+                "bottom": 667,
                 "width": 259,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -358,11 +358,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 150.859375,
-            "bottom": 143,
-            "width": 134.859375,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -397,32 +397,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 533.859375,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 296.140625
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 625.859375,
                 "right": 361,
-                "bottom": 605.96875,
+                "bottom": 710,
                 "width": 329,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -433,19 +433,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 612.96875,
+                "top": 717,
                 "right": 361,
-                "bottom": 666.96875,
+                "bottom": 771,
                 "width": 329,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -454,11 +454,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 150.859375,
-            "bottom": 143,
-            "width": 134.859375,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -469,32 +469,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 383.8125,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 342.1875
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 340,
+          "panelClientHeight": 340,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 475.8125,
                 "right": 291,
-                "bottom": 591.359375,
+                "bottom": 588,
                 "width": 259,
-                "height": 106.96875
+                "height": 112.1875
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 383.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 342.1875
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -505,19 +505,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 598.359375,
+                "top": 595,
                 "right": 291,
                 "bottom": 667,
                 "width": 259,
-                "height": 68.640625
+                "height": 72
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 383.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 342.1875
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -526,11 +526,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 150.859375,
-            "bottom": 143,
-            "width": 134.859375,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -566,32 +566,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 551.859375,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 278.140625
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 276,
+          "panelClientHeight": 276,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 643.859375,
                 "right": 361,
-                "bottom": 605.96875,
+                "bottom": 728,
                 "width": 329,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 551.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -602,19 +602,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 612.96875,
+                "top": 735,
                 "right": 361,
-                "bottom": 648.96875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 551.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -623,11 +623,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 131.15625,
-            "bottom": 143,
-            "width": 115.15625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -638,32 +638,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 429.859375,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 296.140625
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 521.859375,
                 "right": 291,
-                "bottom": 568.53125,
+                "bottom": 606,
                 "width": 259,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -674,19 +674,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 575.53125,
+                "top": 613,
                 "right": 291,
-                "bottom": 629.53125,
+                "bottom": 667,
                 "width": 259,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -695,11 +695,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 131.15625,
-            "bottom": 143,
-            "width": 115.15625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -734,32 +734,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 579.90625,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 250.09375
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 671.90625,
                 "right": 361,
-                "bottom": 577.921875,
+                "bottom": 728,
                 "width": 329,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -770,19 +770,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 584.921875,
+                "top": 735,
                 "right": 361,
-                "bottom": 620.921875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -791,11 +791,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 131.15625,
-            "bottom": 143,
-            "width": 115.15625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -806,32 +806,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 429.859375,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 296.140625
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 521.859375,
                 "right": 291,
-                "bottom": 568.53125,
+                "bottom": 606,
                 "width": 259,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -842,19 +842,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 575.53125,
+                "top": 613,
                 "right": 291,
-                "bottom": 629.53125,
+                "bottom": 667,
                 "width": 259,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 429.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -863,11 +863,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 131.15625,
-            "bottom": 143,
-            "width": 115.15625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -907,32 +907,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 551.859375,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 278.140625
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 276,
+          "panelClientHeight": 276,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 643.859375,
                 "right": 361,
-                "bottom": 605.96875,
+                "bottom": 728,
                 "width": 329,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 551.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -943,19 +943,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 612.96875,
+                "top": 735,
                 "right": 361,
-                "bottom": 648.96875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 551.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -964,11 +964,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 228.265625,
-            "bottom": 143,
-            "width": 212.265625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -979,32 +979,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 427.859375,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 298.140625
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 296,
+          "panelClientHeight": 296,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 521.859375,
                 "right": 291,
-                "bottom": 568.53125,
+                "bottom": 606,
                 "width": 259,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 427.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 298.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1015,19 +1015,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 575.53125,
+                "top": 613,
                 "right": 291,
-                "bottom": 629.53125,
+                "bottom": 667,
                 "width": 259,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 427.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 298.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1036,11 +1036,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 228.265625,
-            "bottom": 143,
-            "width": 212.265625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -1080,32 +1080,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 533.859375,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 296.140625
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 625.859375,
                 "right": 361,
-                "bottom": 605.96875,
+                "bottom": 710,
                 "width": 329,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1116,19 +1116,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 612.96875,
+                "top": 717,
                 "right": 361,
-                "bottom": 666.96875,
+                "bottom": 771,
                 "width": 329,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1137,11 +1137,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 228.265625,
-            "bottom": 143,
-            "width": 212.265625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -1152,32 +1152,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 383.8125,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 342.1875
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 340,
+          "panelClientHeight": 340,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 475.8125,
                 "right": 291,
-                "bottom": 591.359375,
+                "bottom": 588,
                 "width": 259,
-                "height": 106.96875
+                "height": 112.1875
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 383.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 342.1875
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1188,19 +1188,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 598.359375,
+                "top": 595,
                 "right": 291,
                 "bottom": 667,
                 "width": 259,
-                "height": 68.640625
+                "height": 72
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 383.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 342.1875
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1209,11 +1209,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 228.265625,
-            "bottom": 143,
-            "width": 212.265625,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -1252,32 +1252,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 533.859375,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 296.140625
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 294,
+          "panelClientHeight": 294,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 625.859375,
                 "right": 361,
-                "bottom": 605.96875,
+                "bottom": 710,
                 "width": 329,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1288,19 +1288,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 612.96875,
+                "top": 717,
                 "right": 361,
-                "bottom": 666.96875,
+                "bottom": 771,
                 "width": 329,
                 "height": 54
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 533.859375,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 296.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1309,11 +1309,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 124,
-            "bottom": 143,
-            "width": 108,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -1324,32 +1324,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 381.8125,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 344.1875
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 342,
+          "panelClientHeight": 342,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 475.8125,
                 "right": 291,
-                "bottom": 591.359375,
+                "bottom": 588,
                 "width": 259,
-                "height": 106.96875
+                "height": 112.1875
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 381.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 344.1875
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1360,19 +1360,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 598.359375,
+                "top": 595,
                 "right": 291,
                 "bottom": 667,
                 "width": 259,
-                "height": 68.640625
+                "height": 72
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 381.8125,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 344.1875
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1381,11 +1381,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 124,
-            "bottom": 143,
-            "width": 108,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -1419,32 +1419,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 579.90625,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 250.09375
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 671.90625,
                 "right": 361,
-                "bottom": 577.921875,
+                "bottom": 728,
                 "width": 329,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1455,19 +1455,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 584.921875,
+                "top": 735,
                 "right": 361,
-                "bottom": 620.921875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1476,11 +1476,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -1491,32 +1491,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 473.90625,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 252.09375
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 250,
+          "panelClientHeight": 250,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 567.90625,
                 "right": 291,
-                "bottom": 540.484375,
+                "bottom": 624,
                 "width": 259,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 473.90625,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 252.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1527,19 +1527,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 547.484375,
+                "top": 631,
                 "right": 291,
-                "bottom": 583.484375,
+                "bottom": 667,
                 "width": 259,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 473.90625,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 252.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1548,11 +1548,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -1586,32 +1586,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 579.90625,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 250.09375
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 671.90625,
                 "right": 361,
-                "bottom": 577.921875,
+                "bottom": 728,
                 "width": 329,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1622,19 +1622,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 584.921875,
+                "top": 735,
                 "right": 361,
-                "bottom": 620.921875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1643,11 +1643,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -1658,32 +1658,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 447.859375,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 278.140625
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 276,
+          "panelClientHeight": 276,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 539.859375,
                 "right": 291,
-                "bottom": 568.53125,
+                "bottom": 624,
                 "width": 259,
                 "height": 84.140625
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 447.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1694,19 +1694,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 575.53125,
+                "top": 631,
                 "right": 291,
-                "bottom": 611.53125,
+                "bottom": 667,
                 "width": 259,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 447.859375,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 278.140625
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1715,11 +1715,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -1754,32 +1754,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 446.828125,
+            "top": 579.90625,
             "right": 378,
             "bottom": 830,
             "width": 366,
-            "height": 383.171875
+            "height": 250.09375
           },
-          "panelScrollHeight": 381,
-          "panelClientHeight": 381,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 521.828125,
+                "top": 671.90625,
                 "right": 361,
-                "bottom": 577.921875,
+                "bottom": 728,
                 "width": 329,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1790,19 +1790,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 584.921875,
+                "top": 735,
                 "right": 361,
-                "bottom": 620.921875,
+                "bottom": 771,
                 "width": 329,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 446.828125,
+                "top": 579.90625,
                 "right": 378,
                 "bottom": 830,
                 "width": 366,
-                "height": 383.171875
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1811,11 +1811,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 378,
+            "bottom": 138.59375,
+            "width": 366,
             "height": 44
           },
           "locationOverflow": false
@@ -1826,32 +1826,32 @@
           "documentOverflow": false,
           "panel": {
             "left": 12,
-            "top": 409.390625,
+            "top": 475.90625,
             "right": 308,
             "bottom": 726,
             "width": 296,
-            "height": 316.609375
+            "height": 250.09375
           },
-          "panelScrollHeight": 315,
-          "panelClientHeight": 315,
+          "panelScrollHeight": 248,
+          "panelClientHeight": 248,
           "texts": [
             {
               "selector": "#scene-japanese",
               "rect": {
                 "left": 32,
-                "top": 484.390625,
+                "top": 567.90625,
                 "right": 291,
-                "bottom": 540.484375,
+                "bottom": 624,
                 "width": 259,
                 "height": 56.09375
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 475.90625,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "17px",
@@ -1862,19 +1862,19 @@
               "selector": ".scene-subtitle",
               "rect": {
                 "left": 32,
-                "top": 547.484375,
+                "top": 631,
                 "right": 291,
-                "bottom": 583.484375,
+                "bottom": 667,
                 "width": 259,
                 "height": 36
               },
               "panel": {
                 "left": 12,
-                "top": 409.390625,
+                "top": 475.90625,
                 "right": 308,
                 "bottom": 726,
                 "width": 296,
-                "height": 316.609375
+                "height": 250.09375
               },
               "scrollTop": 0,
               "fontSize": "12px",
@@ -1883,11 +1883,11 @@
             }
           ],
           "location": {
-            "left": 16,
-            "top": 99,
-            "right": 143.8125,
-            "bottom": 143,
-            "width": 127.8125,
+            "left": 12,
+            "top": 94.59375,
+            "right": 308,
+            "bottom": 138.59375,
+            "width": 296,
             "height": 44
           },
           "locationOverflow": false
@@ -2043,7 +2043,7 @@
     {
       "cue": "0:intro:9:radio:left",
       "title": "Open Circuit Breakfast",
-      "narrative": "An invitation to the airwaves",
+      "narrative": "Ren offers airtime at Hakone",
       "arrangement": "hope:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2052,7 +2052,7 @@
     {
       "cue": "0:intro:9:radio:left",
       "title": "Open Circuit Breakfast",
-      "narrative": "An invitation to the airwaves",
+      "narrative": "Ren offers airtime at Hakone",
       "arrangement": "hope:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2061,7 +2061,7 @@
     {
       "cue": "0:intro:9:radio:right",
       "title": "Open Circuit Breakfast",
-      "narrative": "An invitation to the airwaves",
+      "narrative": "Ren offers airtime at Hakone",
       "arrangement": "hope:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2070,7 +2070,7 @@
     {
       "cue": "0:intro:9:garage:left",
       "title": "Open Circuit Breakfast",
-      "narrative": "An invitation to the airwaves",
+      "narrative": "Ren offers airtime at Hakone",
       "arrangement": "hope:garage:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2079,7 +2079,7 @@
     {
       "cue": "0:intro:9:garage:detail",
       "title": "Open Circuit Breakfast",
-      "narrative": "An invitation to the airwaves",
+      "narrative": "Ren offers airtime at Hakone",
       "arrangement": "hope:garage:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2284,37 +2284,37 @@
       "transitions": 2
     },
     {
-      "cue": "2:intro:4:boardroom:wide",
+      "cue": "2:intro:4:office:wide",
       "title": "Crown on the Grid",
       "narrative": "The CROWN withdrawal plan",
-      "arrangement": "tense:boardroom:wide",
+      "arrangement": "tense:office:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 3
     },
     {
-      "cue": "2:intro:4:boardroom:detail",
+      "cue": "2:intro:4:office:detail",
       "title": "Crown on the Grid",
       "narrative": "The CROWN withdrawal plan",
-      "arrangement": "tense:boardroom:detail",
+      "arrangement": "tense:office:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 3
     },
     {
-      "cue": "2:intro:4:boardroom:left",
+      "cue": "2:intro:4:office:left",
       "title": "Crown on the Grid",
       "narrative": "The CROWN withdrawal plan",
-      "arrangement": "tense:boardroom:left",
+      "arrangement": "tense:office:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 3
     },
     {
-      "cue": "2:intro:4:boardroom:right",
+      "cue": "2:intro:4:office:right",
       "title": "Crown on the Grid",
       "narrative": "The CROWN withdrawal plan",
-      "arrangement": "tense:boardroom:right",
+      "arrangement": "tense:office:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 3
@@ -2358,7 +2358,7 @@
     {
       "cue": "2:intro:12:ledger:detail",
       "title": "Borrowed Power Waltz",
-      "narrative": "Her father’s borrowed vise",
+      "narrative": "Her father’s borrowed vise, and asking for help",
       "arrangement": "tender:ledger:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2367,7 +2367,7 @@
     {
       "cue": "2:intro:12:ledger:detail",
       "title": "Borrowed Power Waltz",
-      "narrative": "Her father’s borrowed vise",
+      "narrative": "Her father’s borrowed vise, and asking for help",
       "arrangement": "tender:ledger:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2376,20 +2376,20 @@
     {
       "cue": "2:intro:12:ledger:right",
       "title": "Borrowed Power Waltz",
-      "narrative": "Her father’s borrowed vise",
+      "narrative": "Her father’s borrowed vise, and asking for help",
       "arrangement": "tender:ledger:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 5
     },
     {
-      "cue": "2:intro:15:garage:wide",
-      "title": "No Master Key",
-      "narrative": "Aki offers to handle the repair questions",
-      "arrangement": "hope:garage:wide",
+      "cue": "2:intro:12:garage:wide",
+      "title": "Borrowed Power Waltz",
+      "narrative": "Her father’s borrowed vise, and asking for help",
+      "arrangement": "tender:garage:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 6
+      "transitions": 5
     },
     {
       "cue": "3:intro:0:boardroom:wide",
@@ -2583,7 +2583,7 @@
     {
       "cue": "4:intro:5:radio:left",
       "title": "One Umbrella, Two Chairs",
-      "narrative": "Move your chair closer",
+      "narrative": "Alone with the rain: move your chair closer",
       "arrangement": "tender:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2592,7 +2592,7 @@
     {
       "cue": "4:intro:5:radio:right",
       "title": "One Umbrella, Two Chairs",
-      "narrative": "Move your chair closer",
+      "narrative": "Alone with the rain: move your chair closer",
       "arrangement": "tender:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2601,7 +2601,7 @@
     {
       "cue": "4:intro:5:radio:right",
       "title": "One Umbrella, Two Chairs",
-      "narrative": "Move your chair closer",
+      "narrative": "Alone with the rain: move your chair closer",
       "arrangement": "tender:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -2987,29 +2987,29 @@
     },
     {
       "cue": "7:intro:8:ledger:detail",
-      "title": "Open Circuit Breakfast",
-      "narrative": "Giving up the single recovery key",
+      "title": "No Master Key",
+      "narrative": "Aki gives up the recovery key she kept",
       "arrangement": "hope:ledger:detail",
-      "entryBeat": 64,
-      "requestedEntryBeat": 64,
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
       "transitions": 4
     },
     {
       "cue": "7:intro:8:ledger:detail",
-      "title": "Open Circuit Breakfast",
-      "narrative": "Giving up the single recovery key",
+      "title": "No Master Key",
+      "narrative": "Aki gives up the recovery key she kept",
       "arrangement": "hope:ledger:detail",
-      "entryBeat": 64,
-      "requestedEntryBeat": 64,
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
       "transitions": 4
     },
     {
       "cue": "7:intro:8:ledger:right",
-      "title": "Open Circuit Breakfast",
-      "narrative": "Giving up the single recovery key",
+      "title": "No Master Key",
+      "narrative": "Aki gives up the recovery key she kept",
       "arrangement": "hope:ledger:right",
-      "entryBeat": 64,
-      "requestedEntryBeat": 64,
+      "entryBeat": 32,
+      "requestedEntryBeat": 32,
       "transitions": 4
     },
     {
@@ -3267,7 +3267,7 @@
     {
       "cue": "9:intro:10:radio:wide",
       "title": "Two A.M. Relay",
-      "narrative": "Spare transmitters replace the lost line",
+      "narrative": "The hearing’s line is cut; spare transmitters arrive",
       "arrangement": "urgent:radio:wide",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
@@ -3276,7 +3276,7 @@
     {
       "cue": "9:intro:10:radio:left",
       "title": "Two A.M. Relay",
-      "narrative": "Spare transmitters replace the lost line",
+      "narrative": "The hearing’s line is cut; spare transmitters arrive",
       "arrangement": "urgent:radio:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
@@ -3285,7 +3285,7 @@
     {
       "cue": "9:intro:10:radio:detail",
       "title": "Two A.M. Relay",
-      "narrative": "Spare transmitters replace the lost line",
+      "narrative": "The hearing’s line is cut; spare transmitters arrive",
       "arrangement": "urgent:radio:detail",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
@@ -3303,7 +3303,7 @@
     {
       "cue": "10:intro:0:harbor:detail",
       "title": "Carbon Copy Testimony",
-      "narrative": "Toru offers only his own purchase options",
+      "narrative": "Toru offers only his own rights to the land",
       "arrangement": "tense:harbor:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -3312,7 +3312,7 @@
     {
       "cue": "10:intro:0:harbor:left",
       "title": "Carbon Copy Testimony",
-      "narrative": "Toru offers only his own purchase options",
+      "narrative": "Toru offers only his own rights to the land",
       "arrangement": "tense:harbor:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -3609,7 +3609,7 @@
     {
       "cue": "0:victory:6:ledger:detail",
       "title": "Carbon Copy Testimony",
-      "narrative": "Two doors bear the same crown",
+      "narrative": "The same crown on both notices",
       "arrangement": "tense:ledger:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -3618,7 +3618,7 @@
     {
       "cue": "0:victory:6:ledger:left",
       "title": "Carbon Copy Testimony",
-      "narrative": "Two doors bear the same crown",
+      "narrative": "The same crown on both notices",
       "arrangement": "tense:ledger:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -3752,8 +3752,8 @@
     },
     {
       "cue": "2:victory:2:garage:left",
-      "title": "Carbon Copy Testimony",
-      "narrative": "Who holds the recovery key",
+      "title": "Three Weeks of Paper",
+      "narrative": "Aki keeps the recovery key to herself",
       "arrangement": "tense:garage:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
@@ -3761,30 +3761,30 @@
     },
     {
       "cue": "2:victory:2:garage:left",
-      "title": "Carbon Copy Testimony",
-      "narrative": "Who holds the recovery key",
+      "title": "Three Weeks of Paper",
+      "narrative": "Aki keeps the recovery key to herself",
       "arrangement": "tense:garage:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
       "transitions": 9
     },
     {
-      "cue": "2:victory:2:ledger:detail",
+      "cue": "2:victory:4:ledger:detail",
       "title": "Carbon Copy Testimony",
-      "narrative": "Who holds the recovery key",
+      "narrative": "Two names stay on the article",
       "arrangement": "tense:ledger:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 9
+      "transitions": 10
     },
     {
-      "cue": "2:victory:2:ledger:right",
+      "cue": "2:victory:4:ledger:right",
       "title": "Carbon Copy Testimony",
-      "narrative": "Who holds the recovery key",
+      "narrative": "Two names stay on the article",
       "arrangement": "tense:ledger:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 9
+      "transitions": 10
     },
     {
       "cue": "2:victory:6:radio:left",
@@ -3793,7 +3793,7 @@
       "arrangement": "tense:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 10
+      "transitions": 11
     },
     {
       "cue": "2:victory:6:garage:left",
@@ -3802,7 +3802,7 @@
       "arrangement": "tense:garage:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 10
+      "transitions": 11
     },
     {
       "cue": "2:victory:8:garage:right",
@@ -3811,7 +3811,7 @@
       "arrangement": "tender:garage:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 11
+      "transitions": 12
     },
     {
       "cue": "2:victory:8:garage:detail",
@@ -3820,7 +3820,7 @@
       "arrangement": "tender:garage:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 11
+      "transitions": 12
     },
     {
       "cue": "3:victory:0:sunrise:wide",
@@ -3829,7 +3829,7 @@
       "arrangement": "hope:sunrise:wide",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 12
+      "transitions": 13
     },
     {
       "cue": "3:victory:0:sunrise:left",
@@ -3838,7 +3838,7 @@
       "arrangement": "hope:sunrise:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 12
+      "transitions": 13
     },
     {
       "cue": "3:victory:0:sunrise:left",
@@ -3847,7 +3847,7 @@
       "arrangement": "hope:sunrise:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 12
+      "transitions": 13
     },
     {
       "cue": "3:victory:3:sunrise:detail",
@@ -3856,7 +3856,7 @@
       "arrangement": "warm:sunrise:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 13
+      "transitions": 14
     },
     {
       "cue": "3:victory:3:sunrise:right",
@@ -3865,7 +3865,7 @@
       "arrangement": "warm:sunrise:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 13
+      "transitions": 14
     },
     {
       "cue": "3:victory:3:sunrise:wide",
@@ -3874,7 +3874,7 @@
       "arrangement": "warm:sunrise:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 13
+      "transitions": 14
     },
     {
       "cue": "3:victory:6:sunrise:left",
@@ -3883,7 +3883,7 @@
       "arrangement": "tender:sunrise:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 14
+      "transitions": 15
     },
     {
       "cue": "3:victory:6:sunrise:right",
@@ -3892,7 +3892,7 @@
       "arrangement": "tender:sunrise:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 14
+      "transitions": 15
     },
     {
       "cue": "3:victory:6:sunrise:left",
@@ -3901,7 +3901,7 @@
       "arrangement": "tender:sunrise:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 14
+      "transitions": 15
     },
     {
       "cue": "3:victory:6:sunrise:wide",
@@ -3910,15 +3910,6 @@
       "arrangement": "tender:sunrise:wide",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 14
-    },
-    {
-      "cue": "4:victory:0:harbor:left",
-      "title": "One Umbrella, Two Chairs",
-      "narrative": "One umbrella at the harbor",
-      "arrangement": "tender:harbor:left",
-      "entryBeat": 64,
-      "requestedEntryBeat": 64,
       "transitions": 15
     },
     {
@@ -3928,7 +3919,16 @@
       "arrangement": "tender:harbor:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 15
+      "transitions": 16
+    },
+    {
+      "cue": "4:victory:0:harbor:left",
+      "title": "One Umbrella, Two Chairs",
+      "narrative": "One umbrella at the harbor",
+      "arrangement": "tender:harbor:left",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 16
     },
     {
       "cue": "4:victory:0:radio:left",
@@ -3937,7 +3937,7 @@
       "arrangement": "tender:radio:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 15
+      "transitions": 16
     },
     {
       "cue": "4:victory:0:radio:right",
@@ -3946,7 +3946,7 @@
       "arrangement": "tender:radio:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 15
+      "transitions": 16
     },
     {
       "cue": "4:victory:4:radio:right",
@@ -3955,42 +3955,33 @@
       "arrangement": "tender:radio:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 16
+      "transitions": 17
     },
     {
       "cue": "4:victory:5:boardroom:right",
       "title": "Glass Permission",
-      "narrative": "The sponsor calls about his mother",
+      "narrative": "The sponsor’s call cuts him off",
       "arrangement": "tense:boardroom:right",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 17
+      "transitions": 18
     },
     {
       "cue": "4:victory:5:radio:detail",
       "title": "Glass Permission",
-      "narrative": "The sponsor calls about his mother",
+      "narrative": "The sponsor’s call cuts him off",
       "arrangement": "tense:radio:detail",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 17
+      "transitions": 18
     },
     {
       "cue": "4:victory:5:radio:right",
       "title": "Glass Permission",
-      "narrative": "The sponsor calls about his mother",
+      "narrative": "The sponsor’s call cuts him off",
       "arrangement": "tense:radio:right",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 17
-    },
-    {
-      "cue": "4:victory:8:radio:right",
-      "title": "Three Weeks of Paper",
-      "narrative": "Ren hides the shaking hands",
-      "arrangement": "grief:radio:right",
-      "entryBeat": 0,
-      "requestedEntryBeat": 0,
       "transitions": 18
     },
     {
@@ -4000,7 +3991,16 @@
       "arrangement": "grief:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 18
+      "transitions": 19
+    },
+    {
+      "cue": "4:victory:8:radio:right",
+      "title": "Three Weeks of Paper",
+      "narrative": "Ren hides the shaking hands",
+      "arrangement": "grief:radio:right",
+      "entryBeat": 0,
+      "requestedEntryBeat": 0,
+      "transitions": 19
     },
     {
       "cue": "5:victory:0:sunrise:wide",
@@ -4009,7 +4009,7 @@
       "arrangement": "warm:sunrise:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 19
+      "transitions": 20
     },
     {
       "cue": "5:victory:0:sunrise:left",
@@ -4018,7 +4018,7 @@
       "arrangement": "warm:sunrise:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 19
+      "transitions": 20
     },
     {
       "cue": "5:victory:0:sunrise:left",
@@ -4027,7 +4027,7 @@
       "arrangement": "warm:sunrise:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 19
+      "transitions": 20
     },
     {
       "cue": "5:victory:3:office:detail",
@@ -4036,7 +4036,7 @@
       "arrangement": "tense:office:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 20
+      "transitions": 21
     },
     {
       "cue": "5:victory:3:ledger:right",
@@ -4045,34 +4045,34 @@
       "arrangement": "tense:ledger:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 20
-    },
-    {
-      "cue": "5:victory:5:boardroom:right",
-      "title": "Glass Permission",
-      "narrative": "The agreement exposes Ren’s betrayal",
-      "arrangement": "tense:boardroom:right",
-      "entryBeat": 64,
-      "requestedEntryBeat": 64,
       "transitions": 21
     },
     {
       "cue": "5:victory:5:boardroom:right",
       "title": "Glass Permission",
-      "narrative": "The agreement exposes Ren’s betrayal",
+      "narrative": "Celeste has Ren’s list of relay hosts",
       "arrangement": "tense:boardroom:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 21
+      "transitions": 22
     },
     {
       "cue": "5:victory:5:boardroom:right",
       "title": "Glass Permission",
-      "narrative": "The agreement exposes Ren’s betrayal",
+      "narrative": "Celeste has Ren’s list of relay hosts",
       "arrangement": "tense:boardroom:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 21
+      "transitions": 22
+    },
+    {
+      "cue": "5:victory:5:boardroom:right",
+      "title": "Glass Permission",
+      "narrative": "Celeste has Ren’s list of relay hosts",
+      "arrangement": "tense:boardroom:right",
+      "entryBeat": 64,
+      "requestedEntryBeat": 64,
+      "transitions": 22
     },
     {
       "cue": "5:victory:8:radio:left",
@@ -4081,7 +4081,7 @@
       "arrangement": "grief:radio:left",
       "entryBeat": 128,
       "requestedEntryBeat": 128,
-      "transitions": 22
+      "transitions": 23
     },
     {
       "cue": "5:victory:8:garage:wide",
@@ -4090,61 +4090,61 @@
       "arrangement": "grief:garage:wide",
       "entryBeat": 128,
       "requestedEntryBeat": 128,
-      "transitions": 22
+      "transitions": 23
     },
     {
       "cue": "6:victory:0:radio:wide",
-      "title": "Dead Air Confession",
-      "narrative": "Blackout: every relay falls silent",
+      "title": null,
+      "narrative": "Dead air: every relay goes silent at two",
       "arrangement": "grief:radio:wide",
-      "entryBeat": 0,
+      "entryBeat": 128,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 24
     },
     {
       "cue": "6:victory:0:garage:detail",
-      "title": "Dead Air Confession",
-      "narrative": "Blackout: every relay falls silent",
+      "title": null,
+      "narrative": "Dead air: every relay goes silent at two",
       "arrangement": "grief:garage:detail",
-      "entryBeat": 0,
+      "entryBeat": 128,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 24
     },
     {
-      "cue": "6:victory:0:radio:right",
+      "cue": "6:victory:2:radio:right",
       "title": "Dead Air Confession",
-      "narrative": "Blackout: every relay falls silent",
-      "arrangement": "grief:radio:right",
+      "narrative": "Only the crew had the list, and Ren gave it away",
+      "arrangement": "tense:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
-      "cue": "6:victory:3:radio:left",
+      "cue": "6:victory:2:radio:left",
       "title": "Dead Air Confession",
-      "narrative": "Ren admits giving away the locations",
+      "narrative": "Only the crew had the list, and Ren gave it away",
       "arrangement": "tense:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
-      "cue": "6:victory:3:radio:left",
+      "cue": "6:victory:2:radio:left",
       "title": "Dead Air Confession",
-      "narrative": "Ren admits giving away the locations",
+      "narrative": "Only the crew had the list, and Ren gave it away",
       "arrangement": "tense:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
-      "cue": "6:victory:3:radio:left",
+      "cue": "6:victory:2:radio:left",
       "title": "Dead Air Confession",
-      "narrative": "Ren admits giving away the locations",
+      "narrative": "Only the crew had the list, and Ren gave it away",
       "arrangement": "tense:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
       "cue": "6:victory:6:radio:right",
@@ -4153,7 +4153,7 @@
       "arrangement": "grief:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
       "cue": "6:victory:6:radio:detail",
@@ -4162,7 +4162,7 @@
       "arrangement": "grief:radio:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 23
+      "transitions": 25
     },
     {
       "cue": "6:victory:8:ledger:wide",
@@ -4171,7 +4171,7 @@
       "arrangement": "tense:ledger:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 24
+      "transitions": 26
     },
     {
       "cue": "6:victory:9:garage:right",
@@ -4180,7 +4180,7 @@
       "arrangement": "grief:garage:right",
       "entryBeat": 128,
       "requestedEntryBeat": 128,
-      "transitions": 25
+      "transitions": 27
     },
     {
       "cue": "7:victory:0:harbor:left",
@@ -4189,7 +4189,7 @@
       "arrangement": "tense:harbor:left",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 26
+      "transitions": 28
     },
     {
       "cue": "7:victory:0:harbor:left",
@@ -4198,7 +4198,7 @@
       "arrangement": "tense:harbor:left",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 26
+      "transitions": 28
     },
     {
       "cue": "7:victory:0:harbor:right",
@@ -4207,7 +4207,7 @@
       "arrangement": "tense:harbor:right",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 26
+      "transitions": 28
     },
     {
       "cue": "7:victory:3:harbor:right",
@@ -4216,7 +4216,7 @@
       "arrangement": "hope:harbor:right",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 27
+      "transitions": 29
     },
     {
       "cue": "7:victory:4:ledger:detail",
@@ -4225,7 +4225,7 @@
       "arrangement": "hope:ledger:detail",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 28
+      "transitions": 30
     },
     {
       "cue": "7:victory:4:ledger:detail",
@@ -4234,7 +4234,7 @@
       "arrangement": "hope:ledger:detail",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 28
+      "transitions": 30
     },
     {
       "cue": "7:victory:4:ledger:detail",
@@ -4243,7 +4243,7 @@
       "arrangement": "hope:ledger:detail",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 28
+      "transitions": 30
     },
     {
       "cue": "7:victory:7:garage:left",
@@ -4252,7 +4252,7 @@
       "arrangement": "tender:garage:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 29
+      "transitions": 31
     },
     {
       "cue": "7:victory:7:garage:right",
@@ -4261,7 +4261,7 @@
       "arrangement": "tender:garage:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 29
+      "transitions": 31
     },
     {
       "cue": "7:victory:9:garage:wide",
@@ -4270,7 +4270,7 @@
       "arrangement": "hope:garage:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 30
+      "transitions": 32
     },
     {
       "cue": "8:victory:0:sunrise:wide",
@@ -4279,7 +4279,7 @@
       "arrangement": "hope:sunrise:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 31
+      "transitions": 33
     },
     {
       "cue": "8:victory:0:sunrise:detail",
@@ -4288,7 +4288,7 @@
       "arrangement": "hope:sunrise:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 31
+      "transitions": 33
     },
     {
       "cue": "8:victory:0:sunrise:left",
@@ -4297,7 +4297,7 @@
       "arrangement": "hope:sunrise:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 31
+      "transitions": 33
     },
     {
       "cue": "8:victory:3:community:right",
@@ -4306,7 +4306,7 @@
       "arrangement": "warm:community:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 32
+      "transitions": 34
     },
     {
       "cue": "8:victory:3:community:right",
@@ -4315,7 +4315,7 @@
       "arrangement": "warm:community:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 32
+      "transitions": 34
     },
     {
       "cue": "8:victory:5:office:wide",
@@ -4324,7 +4324,7 @@
       "arrangement": "hope:office:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 33
+      "transitions": 35
     },
     {
       "cue": "8:victory:6:radio:detail",
@@ -4333,7 +4333,7 @@
       "arrangement": "tender:radio:detail",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 34
+      "transitions": 36
     },
     {
       "cue": "8:victory:6:radio:right",
@@ -4342,7 +4342,7 @@
       "arrangement": "tender:radio:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 34
+      "transitions": 36
     },
     {
       "cue": "8:victory:6:radio:left",
@@ -4351,7 +4351,7 @@
       "arrangement": "tender:radio:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 34
+      "transitions": 36
     },
     {
       "cue": "8:victory:9:radio:left",
@@ -4360,7 +4360,7 @@
       "arrangement": "tender:radio:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 35
+      "transitions": 37
     },
     {
       "cue": "9:victory:0:community:wide",
@@ -4369,7 +4369,7 @@
       "arrangement": "hope:community:wide",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 36
+      "transitions": 38
     },
     {
       "cue": "9:victory:1:office:detail",
@@ -4378,7 +4378,7 @@
       "arrangement": "tense:office:detail",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 37
+      "transitions": 39
     },
     {
       "cue": "9:victory:1:office:detail",
@@ -4387,7 +4387,7 @@
       "arrangement": "tense:office:detail",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 37
+      "transitions": 39
     },
     {
       "cue": "9:victory:3:radio:left",
@@ -4396,7 +4396,7 @@
       "arrangement": "hope:radio:left",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 38
+      "transitions": 40
     },
     {
       "cue": "9:victory:3:radio:right",
@@ -4405,7 +4405,7 @@
       "arrangement": "hope:radio:right",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 38
+      "transitions": 40
     },
     {
       "cue": "9:victory:3:community:left",
@@ -4414,7 +4414,7 @@
       "arrangement": "hope:community:left",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 38
+      "transitions": 40
     },
     {
       "cue": "9:victory:6:community:right",
@@ -4423,7 +4423,7 @@
       "arrangement": "tender:community:right",
       "entryBeat": 128,
       "requestedEntryBeat": 128,
-      "transitions": 39
+      "transitions": 41
     },
     {
       "cue": "9:victory:6:community:right",
@@ -4432,7 +4432,7 @@
       "arrangement": "tender:community:right",
       "entryBeat": 128,
       "requestedEntryBeat": 128,
-      "transitions": 39
+      "transitions": 41
     },
     {
       "cue": "9:victory:8:harbor:wide",
@@ -4441,7 +4441,7 @@
       "arrangement": "urgent:harbor:wide",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 40
+      "transitions": 42
     },
     {
       "cue": "9:victory:8:harbor:wide",
@@ -4450,7 +4450,7 @@
       "arrangement": "urgent:harbor:wide",
       "entryBeat": 32,
       "requestedEntryBeat": 32,
-      "transitions": 40
+      "transitions": 42
     },
     {
       "cue": "10:victory:0:harbor:wide",
@@ -4459,7 +4459,7 @@
       "arrangement": "hope:harbor:wide",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 41
+      "transitions": 43
     },
     {
       "cue": "10:victory:0:harbor:right",
@@ -4468,7 +4468,7 @@
       "arrangement": "hope:harbor:right",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 41
+      "transitions": 43
     },
     {
       "cue": "10:victory:2:harbor:detail",
@@ -4477,7 +4477,7 @@
       "arrangement": "hope:harbor:detail",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 42
+      "transitions": 44
     },
     {
       "cue": "10:victory:3:community:wide",
@@ -4486,7 +4486,7 @@
       "arrangement": "hope:community:wide",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 43
+      "transitions": 45
     },
     {
       "cue": "10:victory:4:boardroom:right",
@@ -4495,7 +4495,7 @@
       "arrangement": "tense:boardroom:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 44
+      "transitions": 46
     },
     {
       "cue": "10:victory:5:harbor:left",
@@ -4504,7 +4504,7 @@
       "arrangement": "hope:harbor:left",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 45
+      "transitions": 47
     },
     {
       "cue": "10:victory:5:harbor:right",
@@ -4513,7 +4513,7 @@
       "arrangement": "hope:harbor:right",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 45
+      "transitions": 47
     },
     {
       "cue": "10:victory:5:harbor:right",
@@ -4522,7 +4522,7 @@
       "arrangement": "hope:harbor:right",
       "entryBeat": 96,
       "requestedEntryBeat": 96,
-      "transitions": 45
+      "transitions": 47
     },
     {
       "cue": "10:victory:8:radio:left",
@@ -4531,7 +4531,7 @@
       "arrangement": "tender:radio:left",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 46
+      "transitions": 48
     },
     {
       "cue": "10:victory:8:radio:right",
@@ -4540,7 +4540,7 @@
       "arrangement": "tender:radio:right",
       "entryBeat": 64,
       "requestedEntryBeat": 64,
-      "transitions": 46
+      "transitions": 48
     },
     {
       "cue": "11:victory:0:sunrise:wide",
@@ -4549,7 +4549,7 @@
       "arrangement": "warm:sunrise:wide",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 47
+      "transitions": 49
     },
     {
       "cue": "11:victory:0:sunrise:left",
@@ -4558,7 +4558,7 @@
       "arrangement": "warm:sunrise:left",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 47
+      "transitions": 49
     },
     {
       "cue": "11:victory:2:ledger:detail",
@@ -4567,7 +4567,7 @@
       "arrangement": "hope:ledger:detail",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 48
+      "transitions": 50
     },
     {
       "cue": "11:victory:3:radio:wide",
@@ -4576,7 +4576,7 @@
       "arrangement": "hope:radio:wide",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 49
+      "transitions": 51
     },
     {
       "cue": "11:victory:3:radio:left",
@@ -4585,25 +4585,25 @@
       "arrangement": "hope:radio:left",
       "entryBeat": 192,
       "requestedEntryBeat": 192,
-      "transitions": 49
+      "transitions": 51
     },
     {
       "cue": "11:victory:5:sunrise:right",
-      "title": "Side B: Press Record",
-      "narrative": "Aki and Ren say I love you",
+      "title": null,
+      "narrative": "Ren leaves silence after the song, and Aki fills it",
       "arrangement": "tender:sunrise:right",
-      "entryBeat": 0,
+      "entryBeat": 192,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 52
     },
     {
-      "cue": "11:victory:5:sunrise:left",
+      "cue": "11:victory:6:sunrise:left",
       "title": "Side B: Press Record",
-      "narrative": "Aki and Ren say I love you",
+      "narrative": "Ren answers: I love you too",
       "arrangement": "tender:sunrise:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 53
     },
     {
       "cue": "11:victory:7:sunrise:right",
@@ -4612,7 +4612,7 @@
       "arrangement": "tender:sunrise:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 53
     },
     {
       "cue": "11:victory:7:sunrise:left",
@@ -4621,7 +4621,7 @@
       "arrangement": "tender:sunrise:left",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 53
     },
     {
       "cue": "11:victory:9:sunrise:right",
@@ -4630,7 +4630,7 @@
       "arrangement": "warm:sunrise:right",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 53
     },
     {
       "cue": "11:victory:9:sunrise:wide",
@@ -4639,7 +4639,7 @@
       "arrangement": "warm:sunrise:wide",
       "entryBeat": 0,
       "requestedEntryBeat": 0,
-      "transitions": 50
+      "transitions": 53
     }
   ],
   "captionChecks": [
@@ -4659,32 +4659,32 @@
         "documentOverflow": false,
         "panel": {
           "left": 12,
-          "top": 409.390625,
+          "top": 427.859375,
           "right": 308,
           "bottom": 726,
           "width": 296,
-          "height": 316.609375
+          "height": 298.140625
         },
-        "panelScrollHeight": 315,
-        "panelClientHeight": 315,
+        "panelScrollHeight": 296,
+        "panelClientHeight": 296,
         "texts": [
           {
             "selector": "#scene-japanese",
             "rect": {
               "left": 32,
-              "top": 484.390625,
+              "top": 521.859375,
               "right": 291,
-              "bottom": 568.53125,
+              "bottom": 606,
               "width": 259,
               "height": 84.140625
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 427.859375,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 298.140625
             },
             "scrollTop": 0,
             "fontSize": "17px",
@@ -4695,19 +4695,19 @@
             "selector": ".scene-subtitle",
             "rect": {
               "left": 32,
-              "top": 575.53125,
+              "top": 613,
               "right": 291,
-              "bottom": 629.53125,
+              "bottom": 667,
               "width": 259,
               "height": 54
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 427.859375,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 298.140625
             },
             "scrollTop": 0,
             "fontSize": "12px",
@@ -4716,11 +4716,11 @@
           }
         ],
         "location": {
-          "left": 16,
-          "top": 99,
-          "right": 228.265625,
-          "bottom": 143,
-          "width": 212.265625,
+          "left": 12,
+          "top": 94.59375,
+          "right": 308,
+          "bottom": 138.59375,
+          "width": 296,
           "height": 44
         },
         "locationOverflow": false
@@ -4749,32 +4749,32 @@
         "documentOverflow": false,
         "panel": {
           "left": 12,
-          "top": 409.390625,
+          "top": 383.8125,
           "right": 308,
           "bottom": 726,
           "width": 296,
-          "height": 316.609375
+          "height": 342.1875
         },
-        "panelScrollHeight": 315,
-        "panelClientHeight": 315,
+        "panelScrollHeight": 340,
+        "panelClientHeight": 340,
         "texts": [
           {
             "selector": "#scene-japanese",
             "rect": {
               "left": 32,
-              "top": 484.390625,
+              "top": 475.8125,
               "right": 291,
-              "bottom": 591.359375,
+              "bottom": 588,
               "width": 259,
-              "height": 106.96875
+              "height": 112.1875
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 383.8125,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 342.1875
             },
             "scrollTop": 0,
             "fontSize": "17px",
@@ -4785,19 +4785,19 @@
             "selector": ".scene-subtitle",
             "rect": {
               "left": 32,
-              "top": 598.359375,
+              "top": 595,
               "right": 291,
               "bottom": 667,
               "width": 259,
-              "height": 68.640625
+              "height": 72
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 383.8125,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 342.1875
             },
             "scrollTop": 0,
             "fontSize": "12px",
@@ -4806,11 +4806,11 @@
           }
         ],
         "location": {
-          "left": 16,
-          "top": 99,
-          "right": 228.265625,
-          "bottom": 143,
-          "width": 212.265625,
+          "left": 12,
+          "top": 94.59375,
+          "right": 308,
+          "bottom": 138.59375,
+          "width": 296,
           "height": 44
         },
         "locationOverflow": false
@@ -4839,32 +4839,32 @@
         "documentOverflow": false,
         "panel": {
           "left": 12,
-          "top": 409.390625,
+          "top": 381.8125,
           "right": 308,
           "bottom": 726,
           "width": 296,
-          "height": 316.609375
+          "height": 344.1875
         },
-        "panelScrollHeight": 315,
-        "panelClientHeight": 315,
+        "panelScrollHeight": 342,
+        "panelClientHeight": 342,
         "texts": [
           {
             "selector": "#scene-japanese",
             "rect": {
               "left": 32,
-              "top": 484.390625,
+              "top": 475.8125,
               "right": 291,
-              "bottom": 591.359375,
+              "bottom": 588,
               "width": 259,
-              "height": 106.96875
+              "height": 112.1875
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 381.8125,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 344.1875
             },
             "scrollTop": 0,
             "fontSize": "17px",
@@ -4875,19 +4875,19 @@
             "selector": ".scene-subtitle",
             "rect": {
               "left": 32,
-              "top": 598.359375,
+              "top": 595,
               "right": 291,
               "bottom": 667,
               "width": 259,
-              "height": 68.640625
+              "height": 72
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 381.8125,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 344.1875
             },
             "scrollTop": 0,
             "fontSize": "12px",
@@ -4896,11 +4896,11 @@
           }
         ],
         "location": {
-          "left": 16,
-          "top": 99,
-          "right": 124,
-          "bottom": 143,
-          "width": 108,
+          "left": 12,
+          "top": 94.59375,
+          "right": 308,
+          "bottom": 138.59375,
+          "width": 296,
           "height": 44
         },
         "locationOverflow": false
@@ -4929,32 +4929,32 @@
         "documentOverflow": false,
         "panel": {
           "left": 12,
-          "top": 409.390625,
+          "top": 429.859375,
           "right": 308,
           "bottom": 726,
           "width": 296,
-          "height": 316.609375
+          "height": 296.140625
         },
-        "panelScrollHeight": 315,
-        "panelClientHeight": 315,
+        "panelScrollHeight": 294,
+        "panelClientHeight": 294,
         "texts": [
           {
             "selector": "#scene-japanese",
             "rect": {
               "left": 32,
-              "top": 484.390625,
+              "top": 521.859375,
               "right": 291,
-              "bottom": 568.53125,
+              "bottom": 606,
               "width": 259,
               "height": 84.140625
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 429.859375,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 296.140625
             },
             "scrollTop": 0,
             "fontSize": "17px",
@@ -4965,19 +4965,19 @@
             "selector": ".scene-subtitle",
             "rect": {
               "left": 32,
-              "top": 575.53125,
+              "top": 613,
               "right": 291,
-              "bottom": 629.53125,
+              "bottom": 667,
               "width": 259,
               "height": 54
             },
             "panel": {
               "left": 12,
-              "top": 409.390625,
+              "top": 429.859375,
               "right": 308,
               "bottom": 726,
               "width": 296,
-              "height": 316.609375
+              "height": 296.140625
             },
             "scrollTop": 0,
             "fontSize": "12px",
@@ -4986,11 +4986,11 @@
           }
         ],
         "location": {
-          "left": 16,
-          "top": 99,
-          "right": 143.8125,
-          "bottom": 143,
-          "width": 127.8125,
+          "left": 12,
+          "top": 94.59375,
+          "right": 308,
+          "bottom": 138.59375,
+          "width": 296,
           "height": 44
         },
         "locationOverflow": false

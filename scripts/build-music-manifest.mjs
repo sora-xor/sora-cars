@@ -24,10 +24,16 @@ for (const track of manifest.tracks) {
     const bytes = await readFile(path.join(root, 'public', file.path));
     if (bytes.length !== file.bytes || sha(bytes) !== file.sha256) throw new Error(`Audio integrity: ${track.file}/${format}`);
   }
-  const coverPath = `assets/music/covers/${track.file}-v1.png`, cover = await readFile(path.join(root, 'public', coverPath));
-  if (cover.subarray(1, 4).toString() !== 'PNG' || cover.readUInt32BE(16) < 1024 || cover.readUInt32BE(20) < 1024) throw new Error(`Cover dimensions: ${track.file}`);
-  assets[track.file] = { ...files, cover: { path: coverPath, bytes: cover.length, sha256: sha(cover) }, durationSeconds: track.durationSeconds, ...(track.provenance ? { provenance: track.provenance } : {}) };
+  // 表 (OMOTE) keeps the original sleeve; 裏 (URA) is the back-jacket edition.
+  const covers = {};
+  for (const [key, version] of [['cover', 'v1'], ['coverUra', 'v2']]) {
+    const coverPath = `assets/music/covers/${track.file}-${version}.png`, cover = await readFile(path.join(root, 'public', coverPath));
+    if (cover.subarray(1, 4).toString() !== 'PNG' || cover.readUInt32BE(16) < 1024 || cover.readUInt32BE(20) < 1024) throw new Error(`Cover dimensions: ${track.file} ${version}`);
+    covers[key] = { path: coverPath, bytes: cover.length, sha256: sha(cover) };
+  }
+  if (covers.cover.sha256 === covers.coverUra.sha256) throw new Error(`表 and 裏 sleeves must differ: ${track.file}`);
+  assets[track.file] = { ...files, ...covers, durationSeconds: track.durationSeconds, ...(track.provenance ? { provenance: track.provenance } : {}) };
 }
 const output = path.join(root, 'src/game/music-assets.generated.json');
 await writeFile(output, JSON.stringify(assets, null, 2) + '\n');
-console.log(JSON.stringify({ tracks: Object.keys(assets).length, assets: Object.keys(assets).length * 4, output, bytes: (await stat(output)).size }));
+console.log(JSON.stringify({ tracks: Object.keys(assets).length, assets: Object.keys(assets).length * 5, output, bytes: (await stat(output)).size }));

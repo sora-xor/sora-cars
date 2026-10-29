@@ -1,97 +1,135 @@
-import type { MusicScore, ScoreNote } from './music-score';
+import { composeSong, type SongSpec } from './music-composer.ts';
+import type { MusicScore } from './music-score';
 
-export type SynthPatch = 'round-bass' | 'rubber-bass' | 'pulse' | 'fm-bell' | 'fm-reed' | 'glass' | 'warm-pad' | 'hollow-pad';
-export interface ThemeRecipe {
-  name: string; japanese: string; file: string; bpm: number; root: number;
-  chords: readonly number[]; voicing: readonly number[];
-  melody: readonly number[]; response: readonly number[]; rhythm: readonly number[];
-  bass: readonly number[]; bassNotes: readonly number[]; kick: readonly number[]; hats: number;
-  arp: readonly number[]; swing: number; patches: readonly SynthPatch[];
-}
-// Each cue has its own harmonic route, two written phrases and drum/bass pattern.
-// Interval values are relative to the cue's tonic, not shifted copies of one theme.
-export const STORY_THEMES: readonly ThemeRecipe[] = [
-  { name: 'Blank Side Promise', japanese: '空白のB面', file: 'blank-side-promise', bpm: 104, root: 48,
-    chords: [0, 5, 2, 7, 0, 9, 5, 7], voicing: [0, 4, 7, 11], melody: [12, 16, 19, 18, 16, 14, 12], response: [19, 21, 23, 21, 19, 16, 14, 16], rhythm: [0, .75, 1.5, 2.5, 3, 4.5, 6],
-    bass: [0, 3, 7, 8, 11, 14], bassNotes: [0, 7, 12, 4], kick: [0, 7, 8], hats: 2, arp: [0, 11, 7, 16, 7, 12], swing: .045, patches: ['round-bass', 'fm-bell', 'glass', 'warm-pad'] },
-  { name: 'Three Weeks of Paper', japanese: '三週間の紙', file: 'three-weeks-of-paper', bpm: 92, root: 41,
-    chords: [0, 0, 1, -2, -5, 1, 0, -1], voicing: [0, 3, 7, 14], melody: [19, 18, 15, 14, 12, 13], response: [12, 13, 19, 18, 15, 11, 12], rhythm: [0, 1.5, 2, 3.75, 5, 6.5],
-    bass: [0, 5, 8, 13], bassNotes: [0, 0, 7, -1], kick: [0, 10], hats: 4, arp: [0, 7, 1, 12, 7], swing: 0, patches: ['rubber-bass', 'fm-reed', 'pulse', 'hollow-pad'] },
-  { name: 'Milk Crates at Midnight', japanese: '真夜中の牛乳箱', file: 'milk-crates-at-midnight', bpm: 116, root: 43,
-    chords: [0, 5, 0, -2, 3, 5, 7, 5], voicing: [0, 3, 7, 10], melody: [12, 15, 17, 19, 22, 19, 17, 15], response: [24, 22, 19, 17, 15, 17, 19, 12], rhythm: [0, .5, 1.75, 2.5, 3.5, 4.75, 5.5, 7],
-    bass: [0, 2, 6, 8, 10, 15], bassNotes: [0, 12, 7, 10], kick: [0, 6, 9, 14], hats: 2, arp: [0, 7, 10, 15, 12, 7, 3], swing: .07, patches: ['rubber-bass', 'fm-reed', 'glass', 'warm-pad'] },
-  { name: 'Carbon Copy Testimony', japanese: '複写紙の証言', file: 'carbon-copy-testimony', bpm: 108, root: 46,
-    chords: [0, -2, -5, 0, 3, 1, -2, 0], voicing: [0, 2, 7, 10], melody: [12, 14, 15, 14, 19, 17, 14, 12, 10], response: [22, 19, 17, 15, 14, 10, 12], rhythm: [0, .5, 1.25, 2, 3, 4, 5.5, 6.25, 7],
-    bass: [0, 3, 6, 8, 12], bassNotes: [0, 7, 10, 2], kick: [0, 8, 11], hats: 2, arp: [0, 2, 7, 14, 10, 7], swing: 0, patches: ['round-bass', 'pulse', 'fm-bell', 'hollow-pad'] },
-  { name: 'Crown on the Grid', japanese: '回路の王冠', file: 'crown-on-the-grid', bpm: 120, root: 36,
-    chords: [0, 1, 0, 6, 0, -1, 6, 1], voicing: [0, 6, 7, 13], melody: [24, 25, 19, 18, 24, 30, 25, 24], response: [31, 30, 25, 24, 19, 18, 13, 12], rhythm: [0, .75, 1.5, 2.25, 4, 4.75, 5.5, 7],
-    bass: [0, 3, 6, 9, 12, 14], bassNotes: [0, 0, 6, 1], kick: [0, 6, 8, 14], hats: 1, arp: [0, 6, 7, 13, 12], swing: 0, patches: ['rubber-bass', 'fm-reed', 'pulse', 'hollow-pad'] },
-  { name: 'Open Circuit Breakfast', japanese: '朝食の回路', file: 'open-circuit-breakfast', bpm: 124, root: 50,
-    chords: [0, 7, 5, 2, 0, 4, 5, 7], voicing: [0, 4, 7, 14], melody: [12, 19, 16, 21, 19, 14, 16, 12, 14], response: [24, 21, 19, 16, 14, 19, 21, 23], rhythm: [0, .5, 1, 2.25, 3, 4, 4.75, 6, 7],
-    bass: [0, 2, 5, 8, 10, 13, 15], bassNotes: [0, 4, 7, 12], kick: [0, 4, 8, 10, 12], hats: 2, arp: [0, 4, 14, 7, 12, 16, 7], swing: .035, patches: ['round-bass', 'fm-bell', 'pulse', 'warm-pad'] },
-  { name: 'One Umbrella, Two Chairs', japanese: 'ひとつの傘、ふたつの椅子', file: 'one-umbrella-two-chairs', bpm: 82, root: 45,
-    chords: [0, 5, 9, 4, 2, 7, 5, 0], voicing: [0, 4, 7, 14], melody: [16, 19, 21, 23, 19, 16], response: [14, 16, 19, 16, 14, 12, 11], rhythm: [0, 1, 2.5, 4, 5.5, 7],
-    bass: [0, 6, 10], bassNotes: [0, 7, 4, 12], kick: [0, 9], hats: 4, arp: [0, 14, 7, 16, 11, 7], swing: .085, patches: ['round-bass', 'fm-bell', 'glass', 'warm-pad'] },
-  { name: 'Glass Permission', japanese: '硝子の許可', file: 'glass-permission', bpm: 98, root: 40,
-    chords: [0, 4, 1, -3, 0, 6, 1, -1], voicing: [0, 4, 8, 11], melody: [24, 20, 19, 16, 13, 12, 11], response: [16, 17, 20, 23, 24, 20, 18], rhythm: [0, 1.25, 2, 3.5, 4.25, 6, 7],
-    bass: [0, 7, 8, 15], bassNotes: [0, 8, 11, 4], kick: [0, 8], hats: 4, arp: [0, 8, 4, 11, 16, 8], swing: 0, patches: ['rubber-bass', 'glass', 'fm-reed', 'hollow-pad'] },
-  { name: 'Two A.M. Relay', japanese: '午前二時のリレー', file: 'two-am-relay', bpm: 132, root: 42,
-    chords: [0, -2, 3, 0, 5, 3, -2, -5], voicing: [0, 3, 7, 14], melody: [12, 19, 14, 15, 19, 22, 19, 14, 12, 10], response: [24, 22, 19, 17, 15, 14, 19, 17], rhythm: [0, .25, 1, 1.75, 2.5, 3.5, 4, 5, 6, 7.25],
-    bass: [0, 2, 4, 7, 8, 10, 12, 15], bassNotes: [0, 7, 0, 12], kick: [0, 4, 7, 8, 12], hats: 1, arp: [0, 7, 14, 15, 19, 14, 7], swing: 0, patches: ['rubber-bass', 'pulse', 'fm-bell', 'hollow-pad'] },
-  { name: 'Dead Air Confession', japanese: '無音の告白', file: 'dead-air-confession', bpm: 68, root: 38,
-    chords: [0, 1, -2, -5, 0, 6, 1, 0], voicing: [0, 3, 7, 13], melody: [19, 18, 15, 13, 12], response: [12, 10, 7, 8, 6, 3], rhythm: [0, 1.75, 3.5, 5, 7],
-    bass: [0, 11], bassNotes: [0, 7, 1, -5], kick: [0], hats: 8, arp: [0, 7, 13, 3, 12], swing: 0, patches: ['round-bass', 'fm-reed', 'glass', 'hollow-pad'] },
-  { name: 'Borrowed Power Waltz', japanese: '借りた電気のワルツ', file: 'borrowed-power-waltz', bpm: 94, root: 47,
-    chords: [0, 5, 2, 7, 9, 4, 5, 0], voicing: [0, 4, 7, 11], melody: [12, 16, 14, 19, 16, 21, 19, 14], response: [23, 21, 19, 16, 14, 12, 16, 19], rhythm: [0, .75, 1.5, 2.25, 3.75, 4.5, 5.25, 6.75],
-    bass: [0, 3, 6, 9, 12], bassNotes: [0, 7, 12, 4], kick: [0, 6, 12], hats: 3, arp: [0, 7, 16, 11, 7, 12], swing: .03, patches: ['round-bass', 'fm-bell', 'glass', 'warm-pad'] },
-  { name: 'The Frequency Home', japanese: '帰り道の周波数', file: 'the-frequency-home', bpm: 110, root: 44,
-    chords: [0, 3, 8, 5, 0, 7, 5, 3], voicing: [0, 3, 7, 10], melody: [12, 15, 22, 19, 17, 15, 14, 12], response: [19, 22, 24, 22, 19, 15, 17, 19], rhythm: [0, 1, 1.5, 2.75, 3.5, 4.5, 6, 7.25],
-    bass: [0, 3, 5, 8, 11, 14], bassNotes: [0, 10, 7, 12], kick: [0, 5, 8, 14], hats: 2, arp: [0, 10, 7, 15, 12, 19], swing: .055, patches: ['rubber-bass', 'fm-reed', 'fm-bell', 'warm-pad'] },
-  { name: 'No Master Key', japanese: '王様のいない鍵', file: 'no-master-key', bpm: 122, root: 41,
-    chords: [0, 5, 7, 3, 0, 8, 5, 7], voicing: [0, 3, 7, 14], melody: [12, 12, 19, 17, 15, 19, 24, 22, 19], response: [24, 26, 27, 26, 22, 19, 17, 19], rhythm: [0, .5, 1.25, 2, 3.5, 4, 5, 6, 7.25],
-    bass: [0, 2, 6, 7, 8, 12, 14], bassNotes: [0, 7, 12, 3], kick: [0, 4, 8, 11, 12], hats: 2, arp: [0, 7, 12, 14, 15, 19, 7], swing: 0, patches: ['rubber-bass', 'pulse', 'fm-bell', 'warm-pad'] },
-  { name: 'Outrun the Dawn', japanese: '夜明けを追い越せ', file: 'outrun-the-dawn', bpm: 148, root: 45,
-    chords: [0, -2, 5, 7, 0, 3, 8, 7], voicing: [0, 3, 7, 10], melody: [24, 19, 22, 24, 27, 26, 24, 19, 17, 19], response: [31, 29, 27, 26, 24, 22, 24, 19], rhythm: [0, .5, 1, 1.5, 2.5, 3, 4, 5, 6, 7],
-    bass: [0, 2, 4, 6, 7, 8, 10, 12, 14, 15], bassNotes: [0, 12, 7, 10], kick: [0, 4, 8, 12, 15], hats: 1, arp: [0, 7, 10, 12, 19, 15, 14, 7], swing: 0, patches: ['rubber-bass', 'pulse', 'fm-bell', 'warm-pad'] },
-  { name: 'Jun: The First Light', japanese: 'ジュン・最初の光', file: 'jun-the-first-light', bpm: 114, root: 48,
-    chords: [0, 9, 5, 7, 4, 2, 5, 0], voicing: [0, 4, 7, 14], melody: [12, 14, 19, 16, 21, 19, 23, 24], response: [28, 26, 24, 23, 21, 19, 16, 14, 12], rhythm: [0, .75, 1.5, 2.75, 4, 5, 6, 7],
-    bass: [0, 3, 6, 8, 11, 13, 15], bassNotes: [0, 4, 7, 11], kick: [0, 4, 8, 14], hats: 2, arp: [0, 4, 7, 14, 16, 19, 11], swing: .04, patches: ['rubber-bass', 'fm-bell', 'pulse', 'warm-pad'] },
-  { name: 'Side B: Press Record', japanese: 'B面・録音を押して', file: 'side-b-press-record', bpm: 88, root: 50,
-    chords: [0, 5, 9, 7, 2, 5, 7, 0], voicing: [0, 4, 7, 11], melody: [19, 16, 14, 12, 16, 19, 21], response: [24, 23, 21, 19, 16, 14, 12], rhythm: [0, 1, 2, 3.5, 4.5, 6, 7],
-    bass: [0, 7, 10, 14], bassNotes: [0, 7, 4, 12], kick: [0, 10], hats: 4, arp: [0, 11, 16, 7, 14, 12], swing: .075, patches: ['round-bass', 'fm-bell', 'glass', 'warm-pad'] },
+export type { SynthPatch } from './music-composer.ts';
+export type ThemeRecipe = SongSpec;
+// Story cues. Each theme has its own key, groove, harmonic route and two written hooks,
+// so a cutscene can enter its statement, chorus answer, quiet middle or lifted finale.
+export const STORY_THEMES: readonly SongSpec[] = [
+  { name: 'Blank Side Promise', japanese: '空白のB面', file: 'blank-side-promise', bpm: 104, root: 48, mode: 'major',
+    groove: 'citypop', swing: .045, bass: 'funk', arp: 'bells', pad: 'sustain', patches: ['round-bass', 'whistle', 'fm-bell', 'warm-pad'],
+    verse: 'Imaj9 vi9 ii9 V13 | Imaj9 vi9 IVmaj7 IVmaj7/V',
+    chorus: 'IVmaj7 iii7 vi7 I/V | IVmaj7 iii7 ii7 V7sus4',
+    bridge: 'bVImaj7 bVIImaj7 Imaj7 vi7 | bVImaj7 bVIImaj7 IVmaj7/V IVmaj7/V',
+    hookA: 'E5:1 G5:.5 E5:.5 D5:1 C5:1 | A4:1.5 C5:.5 E5:2 | F5:1 E5:.5 D5:.5 C5:1 A4:1 | B4:1 D5:1 G5:2 | E5:1 G5:.5 E5:.5 D5:1 C5:1 | A4:1.5 C5:.5 E5:2 | F5:1 A5:.5 G5:.5 F5:1 E5:1 | D5:1 E5:.5 D5:.5 C5:2',
+    hookB: 'A5:1.5 G5:.5 E5:1 C5:1 | B4:1 D5:1 G5:2 | C5:1 E5:.5 G5:.5 A5:1 C6:1 | B5:2 G5:2 | A5:1.5 G5:.5 E5:1 C5:1 | B4:1 D5:1 G5:2 | F5:1 E5:.5 D5:.5 C5:1 A4:1 | C5:2 D5:2',
+    lift: 1 },
+  { name: 'Three Weeks of Paper', japanese: '三週間の紙', file: 'three-weeks-of-paper', bpm: 92, root: 41, mode: 'minor',
+    groove: 'halftime', bass: 'pulse8', arp: 'pulse16', pad: 'sustain', patches: ['rubber-bass', 'fm-reed', 'clav', 'hollow-pad'],
+    verse: 'i9 i9 bIImaj7 bIImaj7 | iv9 iv9 V7 V7',
+    chorus: 'bVImaj7 bVII7 i9 i9 | bVImaj7 bVII7 V7sus4 V7',
+    bridge: 'iv9:8 bIImaj7:8 | iv9:8 V7:8',
+    hookA: 'C5:.5 C5:.5 Db5:.5 C5:.5 Bb4:1 Ab4:1 | G4:1 Ab4:.5 Bb4:.5 C5:2 | C5:.5 C5:.5 Db5:.5 C5:.5 F5:1 Eb5:1 | Db5:3 r:1 | C5:.5 C5:.5 Db5:.5 C5:.5 Bb4:1 Ab4:1 | Bb4:1 C5:.5 Db5:.5 F5:2 | E5:1 G5:1 Bb5:.5 Db6:.5 C6:1 | G5:3 r:1',
+    hookB: 'F5:1.5 Eb5:.5 C5:2 | Db5:1 Eb5:.5 F5:.5 G5:2 | Ab5:1 G5:.5 F5:.5 C5:2 | F5:3 r:1 | F5:1.5 Eb5:.5 C5:2 | Db5:1 Eb5:.5 F5:.5 G5:2 | F5:2 G5:1 F5:1 | E5:2 G5:1 Bb5:1' },
+  { name: 'Milk Crates at Midnight', japanese: '真夜中の牛乳箱', file: 'milk-crates-at-midnight', bpm: 116, root: 43, mode: 'dorian',
+    groove: 'citypop', swing: .07, bass: 'funk', arp: 'comp', pad: 'sustain', patches: ['rubber-bass', 'pulse', 'clav', 'warm-pad'],
+    verse: 'i7 IV9 i7 IV9 | i7 IV9 bVII6 IV9',
+    chorus: 'bIIImaj7 IV9 v7 i7 | bIIImaj7 IV9 bVIImaj7 V7sus4',
+    bridge: 'bVIImaj7 bVIImaj7 bIIImaj7 bIIImaj7 | ii7 v7 IV9 IV9',
+    hookA: 'D5:.5 F5:.5 G5:1 F5:.5 D5:.5 C5:1 | Bb4:1 C5:.5 D5:2.5 | D5:.5 F5:.5 G5:1 A5:.5 Bb5:.5 A5:1 | G5:1.5 F5:.5 E5:2 | D5:.5 F5:.5 G5:1 F5:.5 D5:.5 C5:1 | Bb4:1 C5:.5 D5:2.5 | F5:.5 G5:.5 A5:1 C6:.5 A5:.5 G5:1 | G5:1 D5:1 E5:2',
+    hookB: 'F5:1 D5:.5 F5:.5 A5:2 | G5:1 E5:.5 G5:.5 Bb5:2 | A5:1 F5:.5 D5:.5 C5:1 A4:1 | Bb4:3 r:1 | F5:1 D5:.5 F5:.5 A5:2 | G5:1 E5:.5 G5:.5 Bb5:2 | A5:1 G5:.5 F5:.5 E5:1 C5:1 | D5:3 r:1' },
+  { name: 'Carbon Copy Testimony', japanese: '複写紙の証言', file: 'carbon-copy-testimony', bpm: 108, root: 46, mode: 'minor',
+    groove: 'technopop', bass: 'sequencer16', arp: 'signal', pad: 'sustain', patches: ['moog-bass', 'vocoder', 'fm-bell', 'vox-pad'],
+    verse: 'i9 bVII6 bVImaj7 V7sus4 | i9 bVII6 bVImaj7 V7',
+    chorus: 'bVImaj7 iv9 i9 bVII6 | bVImaj7 iv9 V7sus4 V7',
+    bridge: 'iv9 iv9 v7 v7 | bVImaj7 bVImaj7 bVII6 V7',
+    hookA: 'F5:1 Db5:.5 Eb5:.5 F5:1 Ab5:1 | F5:1 Eb5:.5 Db5:.5 C5:2 | Eb5:1 Db5:.5 C5:.5 Db5:1 F5:1 | Eb5:2 C5:2 | F5:1 Db5:.5 Eb5:.5 F5:1 Ab5:1 | F5:1 Eb5:.5 Db5:.5 C5:2 | Db5:1 Eb5:.5 F5:.5 Gb5:1 Bb5:1 | A5:2 F5:2',
+    hookB: 'Bb5:1.5 Ab5:.5 F5:2 | Gb5:1 F5:.5 Eb5:.5 Bb4:2 | Db5:1 F5:1 Ab5:1 C6:1 | Ab5:3 r:1 | Bb5:1.5 Ab5:.5 F5:2 | Gb5:1 Bb5:.5 Db6:.5 Eb6:2 | Eb6:1 C6:1 Bb5:1 Ab5:1 | A5:2 C6:2' },
+  { name: 'Crown on the Grid', japanese: '回路の王冠', file: 'crown-on-the-grid', bpm: 120, root: 36, mode: 'phrygian',
+    groove: 'technopop', bass: 'sequencer16', arp: 'pulse16', pad: 'stab', patches: ['rubber-bass', 'sync-lead', 'pluck', 'brass'],
+    verse: 'i7 i7 bIImaj7 i7 | bVImaj7 bVmaj7 i7 V7',
+    chorus: 'bVImaj7 bVII6 i9 i9 | bVImaj7 bVII6 bIImaj7 V7',
+    bridge: 'bIImaj7:8 bVmaj7:8 | bIImaj7:8 V7sus4 V7',
+    hookA: 'C5:1 Db5:.5 C5:.5 G4:1 Gb4:1 | G4:2 r:1 C5:1 | Eb5:1 Db5:.5 C5:.5 Ab4:1 G4:1 | C5:3 r:1 | C5:1 Db5:.5 C5:.5 G4:1 Eb4:1 | Ab4:2 r:1 C5:1 | Eb5:1 F5:1 G5:1 Eb5:1 | B4:2 G4:2',
+    hookB: 'Eb5:1 G5:1 C6:2 | D6:1 C6:.5 Bb5:.5 G5:2 | Bb5:1 G5:.5 Eb5:.5 D5:1 C5:1 | C5:3 r:1 | Eb5:1 G5:1 C6:2 | D6:1 Eb6:.5 D6:.5 Bb5:2 | F5:1 Ab5:1 C6:1 Db6:1 | B5:2 D6:2' },
+  { name: 'Open Circuit Breakfast', japanese: '朝食の回路', file: 'open-circuit-breakfast', bpm: 124, root: 50, mode: 'major',
+    groove: 'technopop', bass: 'funk', arp: 'updown16', pad: 'sustain', patches: ['round-bass', 'pulse', 'marimba', 'string-pad'],
+    verse: 'Iadd9 IVmaj7 Iadd9 IVmaj7 | vi7 ii7 V7sus4 V7',
+    chorus: 'IVmaj7 V/IV iii7 vi7 | IVmaj7 V/IV V7sus4 V7',
+    bridge: 'bVIImaj7 bVIImaj7 IVmaj7 IVmaj7 | bVImaj7 bVIImaj7 V7sus4 V7',
+    hookA: 'F#5:.5 A5:.5 D6:.5 A5:.5 F#5:.5 A5:.5 B5:1 | A5:.5 F#5:.5 E5:.5 D5:.5 E5:2 | F#5:.5 A5:.5 B5:.5 A5:.5 F#5:.5 E5:.5 D5:1 | B5:.5 A5:.5 F#5:.5 E5:.5 F#5:2 | F#5:.5 A5:.5 D6:.5 A5:.5 F#5:.5 A5:.5 B5:1 | A5:.5 F#5:.5 E5:.5 D5:.5 E5:2 | D5:.5 E5:.5 F#5:.5 A5:.5 B5:1 G5:1 | A5:3 r:1',
+    hookB: 'B5:1 A5:.5 B5:.5 D6:2 | C#6:1 B5:.5 A5:.5 E5:2 | A5:1 F#5:.5 E5:.5 C#5:2 | D5:3 r:1 | B5:1 A5:.5 B5:.5 D6:2 | E5:1 A5:.5 C#6:.5 B5:2 | A5:1 G5:.5 F#5:.5 E5:1 D5:1 | C#5:2 E5:1 A5:1',
+    lift: 2 },
+  { name: 'One Umbrella, Two Chairs', japanese: 'ひとつの傘、ふたつの椅子', file: 'one-umbrella-two-chairs', bpm: 82, root: 45, mode: 'major',
+    groove: 'ballad', swing: .03, bass: 'ballad', arp: 'bells', pad: 'sustain', patches: ['round-bass', 'whistle', 'glass', 'string-pad'],
+    verse: 'IVmaj7 iii7 vi9 I/V | IVmaj7 III7 vi9 V7sus4',
+    chorus: 'ii9 V13 Imaj9 vi9 | ii9 V13 IVmaj7 V7sus4',
+    bridge: 'bVImaj7 bVImaj7 bVIImaj7 bVIImaj7 | IVmaj7 III7 vi9 V7sus4',
+    hookA: 'C#5:1.5 E5:.5 A5:1 G#5:1 | G#5:1 F#5:.5 E5:.5 C#5:2 | C#5:1.5 E5:.5 A5:1 B5:1 | C#6:2 B5:1 A5:1 | A5:1.5 G#5:.5 F#5:1 E5:1 | E#5:1 G#5:.5 B5:.5 C#6:2 | C#6:1 B5:.5 A5:.5 F#5:1 A5:1 | B5:3 r:1',
+    hookB: 'D6:1 C#6:.5 B5:.5 F#5:2 | G#5:1 A5:.5 B5:.5 C#6:2 | E6:1 C#6:.5 B5:.5 A5:2 | A5:3 r:1 | D6:1 C#6:.5 B5:.5 F#5:2 | G#5:1 B5:.5 D6:.5 E6:2 | C#6:1 B5:.5 A5:.5 F#5:1 A5:1 | B5:3 r:1',
+    lift: 1 },
+  { name: 'Glass Permission', japanese: '硝子の許可', file: 'glass-permission', bpm: 98, root: 40, mode: 'lydian',
+    groove: 'halftime', bass: 'pulse8', arp: 'up16', pad: 'sustain', patches: ['rubber-bass', 'whistle', 'glass', 'hollow-pad'],
+    verse: 'Imaj7 II/I Imaj7 II/I | bVImaj7 bVImaj7 V7sus4 V7',
+    chorus: 'vi9 IVmaj7#11 I/V bVIImaj7 | vi9 IVmaj7#11 bIImaj7 V7sus4',
+    bridge: 'bIIImaj7 bIIImaj7 bVImaj7 bVImaj7 | IVmaj7#11 IVmaj7#11 V7sus4 V7',
+    hookA: 'B5:1 G#5:.5 A#5:.5 B5:1 D#6:1 | C#6:2 A#5:2 | B5:1 G#5:.5 F#5:.5 E5:1 D#5:1 | E5:3 r:1 | C5:1 E5:.5 G5:.5 B5:1 G5:1 | A5:1 G5:.5 E5:.5 C5:2 | B4:1 E5:1 F#5:1 A5:1 | G#5:3 r:1',
+    hookB: 'G#5:1 E5:.5 D#5:.5 C#5:2 | C#6:1 B5:.5 G#5:.5 D#6:2 | B5:1 G#5:1 E5:2 | F#5:1 A5:1 C#6:2 | G#5:1 E5:.5 D#5:.5 C#5:2 | C#6:1 B5:.5 G#5:.5 D#6:2 | E6:1 C6:1 A5:1 G5:1 | F#5:3 r:1' },
+  { name: 'Two A.M. Relay', japanese: '午前二時のリレー', file: 'two-am-relay', bpm: 132, root: 42, mode: 'minor',
+    groove: 'motorik', bass: 'sequencer16', arp: 'up16', pad: 'sustain', patches: ['moog-bass', 'sync-lead', 'pluck', 'hollow-pad'],
+    verse: 'i7 i7 bVII6 bVII6 | bVImaj7 bVImaj7 V7sus4 V7',
+    chorus: 'iv7 v7 bVImaj7 bVII6 | iv7 v7 bVImaj7 V7',
+    bridge: 'bIIImaj7 bIIImaj7 bVII6 bVII6 | bVImaj7 bVImaj7 V7sus4 V7',
+    hookA: 'C#5:.5 F#5:.5 A5:.5 G#5:.5 F#5:.5 E5:.5 C#5:1 | E5:.5 F#5:.5 A5:1 C#6:1.5 r:.5 | B5:.5 G#5:.5 E5:.5 G#5:.5 B5:1 C#6:1 | B5:2 G#5:1 E5:1 | A5:.5 F#5:.5 D5:.5 F#5:.5 A5:1 C#6:1 | C#6:1 A5:1 F#5:1 E5:1 | F#5:.5 G#5:.5 B5:.5 G#5:.5 F#5:1 C#5:1 | E#5:2 G#5:1 B5:1',
+    hookB: 'D5:1 F#5:.5 A5:.5 B5:2 | C#6:1 B5:.5 G#5:.5 E5:2 | F#5:1 A5:.5 C#6:.5 E6:1 C#6:1 | B5:3 r:1 | D5:1 F#5:.5 A5:.5 B5:2 | C#6:1 E6:.5 C#6:.5 G#5:2 | A5:1 C#6:.5 A5:.5 F#5:1 D5:1 | E#5:2 G#5:2',
+    lift: 1 },
+  { name: 'Dead Air Confession', japanese: '無音の告白', file: 'dead-air-confession', bpm: 68, root: 38, mode: 'minor',
+    groove: 'ballad', bass: 'ballad', arp: 'bells', pad: 'sustain', patches: ['round-bass', 'fm-reed', 'glass', 'vox-pad'],
+    verse: 'i9 i9 bVImaj7 bVImaj7 | iv9 iv9 V7sus4 V7',
+    chorus: 'bIIImaj7 bVII6 bVImaj7 iv9 | bIIImaj7 bVII6 V7sus4 V7',
+    bridge: 'bVImaj7:8 bIImaj7:8 | iv9:8 V7sus4 V7',
+    hookA: 'A5:2 F5:1 E5:1 | D5:3 r:1 | Bb5:2 A5:1 G5:1 | F5:2 E5:1 r:1 | A5:2 C6:1 Bb5:1 | G5:3 r:1 | E5:1 G5:1 A5:1 D6:1 | C#6:2 A5:2',
+    hookB: 'C6:2 A5:1 G5:1 | E5:2 G5:1 A5:1 | F5:2 D5:1 C5:1 | D5:3 r:1 | C6:2 A5:1 G5:1 | E5:2 G5:1 C6:1 | D6:1 C6:1 A5:1 G5:1 | E5:2 C#5:2',
+    fx: { reverb: 1.2 } },
+  { name: 'Borrowed Power Waltz', japanese: '借りた電気のワルツ', file: 'borrowed-power-waltz', bpm: 94, root: 47, mode: 'major',
+    groove: 'waltz12', bass: 'twelve8', arp: 'triplet', pad: 'sustain', patches: ['round-bass', 'whistle', 'epiano', 'warm-pad'],
+    verse: 'Imaj7 IVmaj7 Imaj7 IVmaj7 | vi7 ii7 V7sus4 V7',
+    chorus: 'IVmaj7 iii7 ii7 Imaj7 | IVmaj7 iii7 ii7 V7sus4',
+    bridge: 'vi7 vi7 iii7 iii7 | IVmaj7 IVmaj7 V7sus4 V7',
+    hookA: 'F#5:2/3 D#5:1/3 F#5:2/3 B5:1/3 A#5:1 F#5:1 | G#5:2/3 F#5:1/3 E5:2/3 D#5:1/3 E5:2 | D#5:2/3 C#5:1/3 D#5:2/3 F#5:1/3 B5:1 A#5:1 | G#5:3 r:1 | B5:2/3 A#5:1/3 G#5:2/3 F#5:1/3 D#5:1 F#5:1 | E5:2/3 D#5:1/3 C#5:2/3 E5:1/3 G#5:2 | F#5:1 B5:1 C#6:1 B5:1 | A#5:2 r:2',
+    hookB: 'G#5:2/3 B5:1/3 D#6:2/3 B5:1/3 G#5:2 | F#5:2/3 A#5:1/3 C#6:2/3 A#5:1/3 F#5:2 | E5:2/3 G#5:1/3 B5:2/3 C#6:1/3 B5:1 G#5:1 | F#5:3 r:1 | G#5:2/3 B5:1/3 D#6:2/3 B5:1/3 G#5:2 | F#5:2/3 A#5:1/3 C#6:2/3 A#5:1/3 F#5:2 | E5:2/3 F#5:1/3 G#5:2/3 B5:1/3 C#6:2 | B5:2 F#5:2',
+    lift: 1 },
+  { name: 'The Frequency Home', japanese: '帰り道の周波数', file: 'the-frequency-home', bpm: 110, root: 44, mode: 'major',
+    groove: 'citypop', swing: .05, bass: 'funk', arp: 'signal', pad: 'sustain', patches: ['fm-bass', 'vocoder', 'glass', 'warm-pad'],
+    verse: 'Imaj9 IVmaj9 Imaj9 IVmaj9 | vi9 ii9 IVmaj7/V IVmaj7/V',
+    chorus: 'ii9 V13 iii7 vi9 | ii9 V13 Imaj9 Imaj9',
+    bridge: 'bVImaj7 bVIImaj7 Imaj9 Imaj9 | bVImaj7 bVIImaj7 V7sus4 V7',
+    hookA: 'Eb5:1 C5:.5 Db5:.5 Eb5:1 Ab5:1 | F5:1.5 Eb5:.5 C5:2 | F5:1 Eb5:.5 Db5:.5 C5:1 Bb4:1 | C5:3 r:1 | Eb5:1 C5:.5 Db5:.5 Eb5:1 Ab5:1 | Bb5:1.5 Ab5:.5 F5:2 | F5:1 Eb5:.5 Db5:.5 C5:1 Bb4:1 | Bb4:2 C5:1 Eb5:1',
+    hookB: 'Db6:1 C6:.5 Bb5:.5 F5:2 | G5:1 Ab5:.5 Bb5:.5 C6:2 | Eb6:1 C6:.5 Bb5:.5 G5:2 | Ab5:3 r:1 | Db6:1 C6:.5 Bb5:.5 F5:2 | G5:1 Bb5:.5 Db6:.5 Eb6:2 | C6:1 Bb5:.5 Ab5:.5 Eb5:1 G5:1 | Ab5:3 r:1' },
+  { name: 'No Master Key', japanese: '王様のいない鍵', file: 'no-master-key', bpm: 122, root: 41, mode: 'major',
+    groove: 'drive', bass: 'octave', arp: 'updown16', pad: 'stab', patches: ['moog-bass', 'sync-lead', 'fm-bell', 'brass'],
+    verse: 'vi7 IVmaj7 I V | vi7 IVmaj7 ii7 V7sus4',
+    chorus: 'I V vi7 IVmaj7 | I V IVmaj7 V7sus4',
+    bridge: 'bVIImaj7 bVIImaj7 IVmaj7 IVmaj7 | bVImaj7 bVIImaj7 V7sus4 V7',
+    hookA: 'A5:1 G5:.5 F5:.5 D5:2 | D5:1 C5:.5 D5:.5 F5:2 | E5:1 F5:.5 G5:.5 A5:1 C6:1 | G5:3 r:1 | A5:1 G5:.5 F5:.5 D5:2 | D5:1 C5:.5 D5:.5 F5:2 | G5:1 F5:.5 G5:.5 Bb5:1 A5:1 | G5:3 r:1',
+    hookB: 'C6:1.5 A5:.5 F5:1 A5:1 | G5:1.5 E5:.5 C5:2 | D5:1 F5:.5 A5:.5 C6:2 | D6:2 C6:1 A5:1 | C6:1.5 A5:.5 F5:1 A5:1 | G5:1 E5:.5 G5:.5 C6:2 | D6:1 C6:.5 Bb5:.5 F5:1 A5:1 | G5:2 F5:1 C6:1',
+    lift: 2 },
+  { name: 'Outrun the Dawn', japanese: '夜明けを追い越せ', file: 'outrun-the-dawn', bpm: 148, root: 45, mode: 'minor',
+    groove: 'drive', bass: 'sequencer16', arp: 'pulse16', pad: 'sustain', patches: ['moog-bass', 'sync-lead', 'pluck', 'string-pad'],
+    verse: 'i9 bIIImaj7 bVII6 iv9 | i9 bIIImaj7 bVImaj7 V7',
+    chorus: 'bVImaj7 bVII6 bIIImaj7 bVImaj7 | iv9 V7sus4 i9 V7',
+    bridge: 'iv9 iv9 bVImaj7 bVImaj7 | bIImaj7 bIImaj7 V7sus4 V7',
+    hookA: 'E5:.5 A5:.5 B5:.5 C6:.5 B5:1 A5:1 | G5:1 E5:.5 G5:.5 C6:2 | B5:.5 A5:.5 G5:.5 A5:.5 B5:1 D6:1 | A5:3 r:1 | E5:.5 A5:.5 B5:.5 C6:.5 B5:1 A5:1 | G5:1 E5:.5 G5:.5 C6:2 | C6:.5 B5:.5 A5:.5 G5:.5 A5:1 C6:1 | B5:2 G#5:2',
+    hookB: 'A5:1 C6:.5 E6:.5 E6:1 D6:1 | B5:2 D6:1 G5:1 | E5:1 G5:.5 B5:.5 C6:2 | A5:3 r:1 | F5:1 A5:.5 C6:.5 E6:2 | E6:1 D6:1 B5:1 A5:1 | C6:1 B5:.5 A5:.5 E5:2 | G#5:2 B5:2',
+    lift: 1 },
+  { name: 'Jun: The First Light', japanese: 'ジュン・最初の光', file: 'jun-the-first-light', bpm: 114, root: 48, mode: 'major',
+    groove: 'citypop', bass: 'funk', arp: 'up16', pad: 'sustain', patches: ['round-bass', 'pulse', 'fm-bell', 'warm-pad'],
+    verse: 'Iadd9 IVadd9 vi7 V | IVmaj7 iii7 ii7 V7sus4',
+    chorus: 'IVmaj7 V7 iii7 vi7 | ii7 V7 Iadd9 Iadd9',
+    bridge: 'bVImaj7 bVIImaj7 Iadd9 Iadd9 | bVImaj7 bVIImaj7 V7sus4 V7',
+    hookA: 'G4:1 C5:1 D5:1 E5:1 | E5:1.5 D5:.5 C5:2 | A4:1 C5:1 E5:1 G5:1 | G5:1.5 F5:.5 D5:2 | F5:1 E5:.5 D5:.5 C5:1 E5:1 | E5:1.5 D5:.5 B4:2 | A4:1 B4:.5 C5:.5 D5:1 F5:1 | E5:2 D5:2',
+    hookB: 'A5:1 G5:.5 F5:.5 E5:1 C5:1 | D5:1 B4:.5 D5:.5 G5:2 | G5:1 E5:.5 D5:.5 E5:1 B4:1 | C5:1 E5:.5 A5:.5 A5:2 | F5:1 E5:.5 D5:.5 A5:1 F5:1 | G5:1 F5:.5 D5:.5 B4:2 | C5:1 D5:.5 E5:.5 G5:1 D6:1 | C6:3 r:1',
+    lift: 2 },
+  { name: 'Side B: Press Record', japanese: 'B面・録音を押して', file: 'side-b-press-record', bpm: 88, root: 50, mode: 'major',
+    groove: 'ballad', swing: .05, bass: 'ballad', arp: 'comp', pad: 'sustain', patches: ['fm-bass', 'fm-reed', 'epiano', 'warm-pad'],
+    verse: 'Imaj7 vi9 ii9 V13 | iii7 VI7 ii9 V7sus4',
+    chorus: 'IVmaj7 V/IV iii7 VI7 | ii9 V13 Imaj7 I7',
+    bridge: 'bVImaj7 bVIImaj7 Imaj7 vi9 | bVImaj7 bVIImaj7 IVmaj7/V IVmaj7/V',
+    hookA: 'F#5:1.5 E5:.5 D5:1 A4:1 | B4:1 C#5:.5 D5:.5 F#5:2 | G5:1 F#5:.5 E5:.5 D5:1 B4:1 | C#5:3 r:1 | A5:1.5 G5:.5 F#5:1 C#5:1 | D#5:1 F#5:.5 A5:.5 B5:2 | B5:1 A5:.5 G5:.5 F#5:1 E5:1 | E5:3 r:1',
+    hookB: 'B5:1 A5:.5 G5:.5 D5:2 | C#5:1 E5:.5 A5:.5 B5:2 | A5:1 F#5:.5 E5:.5 C#5:2 | D#5:1 F#5:.5 A5:.5 B5:2 | G5:1 F#5:.5 E5:.5 B4:2 | C#5:1 E5:.5 G5:.5 F#5:1 E5:1 | D5:3 r:1 | r:2 F#5:1 A5:1',
+    lift: 1 },
 ];
 
-export function makeThemeScore(theme: ThemeRecipe): MusicScore {
-  const notes: ScoreNote[] = [];
-  const add = (channel: number, beat: number, duration: number, pitch: number, velocity: number) => {
-    if (beat + duration <= 256) notes.push({ channel, beat, duration, pitch, velocity: Math.round(velocity) });
-  };
-  for (let bar = 0; bar < 64; bar++) {
-    const section = Math.floor(bar / 8), root = theme.root + theme.chords[Math.floor(bar / 2) % theme.chords.length]!;
-    const thin = section === 0 || section === 4 || section === 7;
-    for (const step of theme.bass) {
-      if (section === 4 && step !== theme.bass[0]) continue;
-      add(0, bar * 4 + step / 4, .22, root + theme.bassNotes[Math.floor(step / 4) % theme.bassNotes.length]!, step === 0 ? 91 : 72);
-    }
-    for (let step = 0; step < 16; step++) {
-      const beat = bar * 4 + step / 4 + (step % 2 ? theme.swing : 0);
-      if (step % (thin ? 4 : 2) === 0) add(2, beat, .17, root + 24 + theme.arp[(step / 2 + bar) % theme.arp.length]!, thin ? 35 : 46);
-      if (step % theme.hats === 0 && (section !== 4 || step === 0)) add(9, beat, .05, section === 5 && step % 4 === 2 ? 46 : 42, thin ? 29 : step % 4 ? 43 : 56);
-      if (theme.kick.includes(step) && section !== 4) add(9, beat, .1, 36, thin ? 62 : 86);
-      if ((step === 4 || step === 12) && !thin) add(9, beat, .09, 38, 64);
-      if (bar % 8 === 7 && [10, 13, 15].includes(step) && section !== 4) add(9, beat, .08, step === 15 ? 45 : 37, 49);
-    }
-    if (bar % 2 === 0) {
-      const response = [2, 3, 5, 6].includes(section), melody = response ? theme.response : theme.melody;
-      for (let n = 0; n < theme.rhythm.length; n++) {
-        if (section === 4 && n % 2 !== 0) continue;
-        const onset = theme.rhythm[n]!, next = theme.rhythm[n + 1] ?? 8;
-        // Different second phrases, sparse middle-eight and a higher final answer.
-        add(1, bar * 4 + onset, Math.min(next - onset - .12, thin ? 1.15 : .68), theme.root + 12 + melody[n % melody.length]! + (section === 6 ? 12 : 0), thin ? 56 : 75);
-      }
-    }
-    for (const interval of theme.voicing) add(3, bar * 4, 3.75, root + 12 + interval, section === 4 ? 38 : 29);
-  }
-  return { name: theme.name, bpm: theme.bpm, beats: 256, patches: theme.patches,
-    notes: notes.sort((a, b) => a.beat - b.beat || a.channel - b.channel || a.pitch - b.pitch) };
+export function makeThemeScore(theme: SongSpec): MusicScore {
+  return composeSong(theme);
 }

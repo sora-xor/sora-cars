@@ -6,12 +6,23 @@ export interface MusicFile { path: string; bytes: number; sha256: string; }
 export type MusicProvenance = { kind: 'game-synthesizer-score' } | {
   kind: 'supplied-lossy-recording'; source: typeof suppliedRecordings[number]['source']; note: string;
 };
-export interface MusicAssets { wav: MusicFile; mp3: MusicFile; preview: MusicFile; cover: MusicFile; durationSeconds: number; provenance?: MusicProvenance; }
+/** Each song sells as two NFTs: 表 (OMOTE) with the original illustrated sleeve and
+ * 裏 (URA) with the back-jacket sleeve. Both carry the same recording and license. */
+export type MusicSleeve = 'omote' | 'ura';
+export const MUSIC_SLEEVES = [
+  { id: 'omote', ja: '表', en: 'OMOTE', side: { ja: '表ジャケット', en: 'FRONT SLEEVE' } },
+  { id: 'ura', ja: '裏', en: 'URA', side: { ja: '裏ジャケット', en: 'BACK SLEEVE' } },
+] as const satisfies readonly { id: MusicSleeve; ja: string; en: string; side: { ja: string; en: string } }[];
+export const musicSleeve = (id: MusicSleeve) => MUSIC_SLEEVES.find(sleeve => sleeve.id === id)!;
+/** 表 keeps the original per-song SKU; 裏 is a separate SKU. */
+export const musicSku = (file: string, sleeve: MusicSleeve) => sleeve === 'omote' ? `music-${file}` : `music-${file}-ura`;
+export const musicCoverPath = (file: string, sleeve: MusicSleeve) => `assets/music/covers/${file}-${sleeve === 'omote' ? 'v1' : 'v2'}.png`;
+export interface MusicAssets { wav: MusicFile; mp3: MusicFile; preview: MusicFile; cover: MusicFile; coverUra?: MusicFile; durationSeconds: number; provenance?: MusicProvenance; }
 export interface MusicItem {
-  sku: string; kind: 'music'; track: number; file: string; name: { ja: string; en: string }; artist: string;
+  sku: string; kind: 'music'; sleeve: MusicSleeve; track: number; file: string; name: { ja: string; en: string }; artist: string;
   description: { ja: string; en: string }; bpm: number | null; durationSeconds: number;
   collection: 'Roadside A' | 'After Hours B' | 'Side B Stories' | 'Tokyo Routes'; provenance: MusicProvenance;
-  assets?: MusicAssets; license: { id: string; path: string; sha256: string };
+  assets?: MusicAssets; artwork?: MusicFile; license: { id: string; path: string; sha256: string };
 }
 export const MUSIC_PRICE_XOR = '1';
 export const MUSIC_LICENSE = Object.freeze({ id: 'sora-music-unlimited-v1', path: 'assets/music/sora-music-license-v1.txt', sha256: 'f492695f1c9ce7fe4534400dd047af97aa14d587410d152b5249f9efedd20b57' });
@@ -44,39 +55,51 @@ const descriptions = [
 ] as const;
 const assets = generated as Record<string, MusicAssets>;
 export const MUSIC_ARTIST = 'SORA Cars';
-export const MUSIC_ITEMS: readonly MusicItem[] = [...MUSIC_LIBRARY.map((song, track): MusicItem => ({
-  sku: `music-${song.file}`, kind: 'music', track, file: song.file,
+type MusicSong = Omit<MusicItem, 'sku' | 'sleeve' | 'artwork'>;
+const songs: readonly MusicSong[] = [...MUSIC_LIBRARY.map((song, track): MusicSong => ({
+  kind: 'music', track, file: song.file,
   name: { ja: song.japanese, en: song.name }, artist: MUSIC_ARTIST, description: { ja: descriptions[track]![0], en: descriptions[track]![1] },
   bpm: song.bpm, durationSeconds: assets[song.file]?.durationSeconds ?? 256 * 60 / song.bpm + 2,
   collection: track < 3 ? 'Roadside A' : track < 9 ? 'After Hours B' : 'Side B Stories',
   assets: assets[song.file], license: MUSIC_LICENSE, provenance: { kind: 'game-synthesizer-score' },
-})), ...suppliedRecordings.map((song, index): MusicItem => ({
-  sku: `music-${song.file}`, kind: 'music', track: MUSIC_LIBRARY.length + index, file: song.file,
+})), ...suppliedRecordings.map((song, index): MusicSong => ({
+  kind: 'music', track: MUSIC_LIBRARY.length + index, file: song.file,
   name: { ja: song.japanese, en: song.name }, artist: song.artist, description: song.description,
   bpm: song.bpm, durationSeconds: assets[song.file]?.durationSeconds ?? song.source.durationSeconds,
   collection: 'Tokyo Routes', assets: assets[song.file], license: MUSIC_LICENSE,
   provenance: { kind: 'supplied-lossy-recording', source: song.source, note: 'User-supplied AAC recording. WAV is a decoded and resampled distribution copy of a lossy source, not an original lossless master. MP3 and preview are derived from that copy; no new composition or synthesized score is claimed.' },
 }))];
+/** 52 purchasable items in catalog order: each song's 表 followed by its 裏. */
+export const MUSIC_ITEMS: readonly MusicItem[] = songs.flatMap(song => MUSIC_SLEEVES.map(({ id }): MusicItem => ({
+  ...song, sku: musicSku(song.file, id), sleeve: id, artwork: id === 'omote' ? song.assets?.cover : song.assets?.coverUra,
+})));
+/** One entry per song (its 表 item), for track listings. */
+export const MUSIC_SONGS: readonly MusicItem[] = MUSIC_ITEMS.filter(item => item.sleeve === 'omote');
 export const musicItem = (sku: string | null | undefined): MusicItem | undefined => MUSIC_ITEMS.find(item => item.sku === sku);
+/** Both sleeves of the song a SKU belongs to, 表 first. */
+export const musicSleeves = (sku: string | null | undefined): MusicItem[] => { const file = musicItem(sku)?.file; return file ? MUSIC_ITEMS.filter(item => item.file === file) : []; };
 export function musicItemMetadata(item: MusicItem, applicationId: string, licensor: string) {
   if (typeof licensor !== 'string' || !licensor.trim() || licensor.length > 240 || /[\u0000-\u001f\u007f]/.test(licensor)) throw new Error('A named music licensor is required.');
   const validFile = (file: MusicFile | undefined, path: string) => !!file && file.path === path && /^[a-f0-9]{64}$/.test(file.sha256) && Number.isSafeInteger(file.bytes) && file.bytes > 0 && file.bytes <= 64_000_000;
   if (!item.assets || !validFile(item.assets.wav, `assets/music/audio/${item.file}.wav`)
     || !validFile(item.assets.mp3, `assets/music/audio/${item.file}.mp3`)
     || !validFile(item.assets.preview, `assets/music/audio/${item.file}-preview.mp3`)
-    || !validFile(item.assets.cover, `assets/music/covers/${item.file}-v1.png`)
+    || item.sku !== musicSku(item.file, item.sleeve) || !validFile(item.artwork, musicCoverPath(item.file, item.sleeve))
     || !Number.isFinite(item.durationSeconds) || item.durationSeconds < 30 || item.durationSeconds > 600
     || item.assets.durationSeconds !== item.durationSeconds
     || item.artist !== MUSIC_ARTIST
     || item.provenance.kind === 'supplied-lossy-recording' && JSON.stringify(item.assets.provenance) !== JSON.stringify(item.provenance)
     || item.license.id !== MUSIC_LICENSE.id || item.license.path !== MUSIC_LICENSE.path || item.license.sha256 !== MUSIC_LICENSE.sha256)
     throw new Error('Music release needs complete, hash-pinned local assets and license.');
+  const sleeve = musicSleeve(item.sleeve);
   return {
     sora_cars: { version: 1, application_id: applicationId, sku: item.sku, kind: item.kind },
-    name: item.name.ja, subtitle: item.name.en, artist: item.artist, description: item.description.ja, description_en: item.description.en,
+    name: `${item.name.ja}［${sleeve.ja}］`, subtitle: `${item.name.en} — ${sleeve.en}`,
+    sleeve: { id: sleeve.id, name: sleeve.ja, name_en: sleeve.en, side: sleeve.side.en },
+    artist: item.artist, description: item.description.ja, description_en: item.description.en,
     collection: 'SORA RECORDS · Original Soundtrack', edition_policy: 'Multiple non-exclusive licensed editions; no fixed scarcity claim.',
     price_xor: MUSIC_PRICE_XOR, bpm: item.bpm, duration_seconds: item.durationSeconds,
-    recording: { wav: item.assets.wav, mp3: item.assets.mp3, preview: item.assets.preview, provenance: item.provenance }, artwork: item.assets.cover,
+    recording: { wav: item.assets.wav, mp3: item.assets.mp3, preview: item.assets.preview, provenance: item.provenance }, artwork: item.artwork!,
     license: { ...item.license, licensor: licensor.trim(), grant: 'Worldwide, perpetual, non-exclusive, irrevocable, royalty-free personal and commercial use; unlimited projects, copies and revenue; survives NFT transfer.' },
   };
 }

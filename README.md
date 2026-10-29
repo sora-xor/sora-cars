@@ -61,11 +61,14 @@ implemented circuits; the 49-location expansion remains separate work.
 
 Choose **物語 / STORY** for Japanese dialogue with English subtitles, changing
 pixel-art scenes, animated radio equipment, rain, reflections and camera shots.
-Enter/A advances dialogue; Left returns to the previous line; L opens the dialogue
-log; P pauses scene motion; Escape closes the log or skips the scene. Cleared
-chapters add clues to the workshop file. Podium finishes unlock chapters; the
-harbor showdown also requires finishing ahead of Toru Amamiya. Results offer a
-chapter retry and, when unlocked, the next chapter. Local progress does not mint
+Enter/A, or a click or tap on the picture or dialogue box, advances dialogue; Left
+returns to the previous line; L opens the dialogue log; P pauses scene motion;
+Escape closes the log, and pressing Escape or Skip twice skips the scene. Captions
+mark phone calls, flashbacks and time jumps. Cleared chapters add clues to the
+workshop file. Podium finishes unlock chapters; the harbor showdown also requires
+finishing ahead of Toru Amamiya. The after-race scene states the result, and the
+results lead on to the next chapter after a clear; after a miss, Retry goes straight
+back to the pre-race garage without replaying the introduction. Local progress does not mint
 NFTs or move XOR. Each chapter now has an optional **工房の寄り道 / Workshop
 pit stop** with its own crew conversation and recommended design. Visit from
 the story menu or results, browse the NFT garage, then return to the chapter.
@@ -85,6 +88,20 @@ kits, with exact-price XOR purchase review and optional explicit NFT race stakes
 Current RaceV1 competitive physics retains equal performance. Native market/item
 custody and wallet integration are implemented; native runtime, deployed wallet
 interoperability and separate performance upgrade classes remain open gates.
+
+The garage's **整備ノート / tech tree** (`#/tuning`) sells performance parts for
+prize money won in local practice and story races; every part spins in 3D, drawn as
+cutscene-palette pixel art. Story mode opens it after each
+chapter's cutscenes as a **pre-race garage**: a briefing on the course, weather and
+objective, how far Rei and Toru have tuned, and a crew member's pick for that
+course, bought in one click before the start. It has four branches: engine,
+turbo, chassis and body. Each has a setup fork and a cross-branch capstone,
+including drift charging, slipstream and anti-lag. Practice offers four fields of
+increasingly tuned rivals, from Club night to Legends, and the story's rivals tune
+up as the plot escalates. Parts never reach live XOR races, proofs or the Tokyo
+street run. **EQUAL CARS** restores the original stock RaceV1 practice and story
+for everyone. `npm run balance:garage` reprints the simulated balance tables. See
+[the garage tech tree](docs/garage-tech-tree.md).
 
 ## 証明 / Proof workshop
 

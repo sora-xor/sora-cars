@@ -32,3 +32,31 @@ The current source passed the production build and all 15 focused story, art, mu
 The complete application traversal passed at 2026-09-22 07:12:30 UTC. `artifacts/story-browser.json` matches the final source hashes and records all twelve introductions and twelve aftermaths, 305 music observations, ten pivotal desktop/390px/320px capture sets, six explicit caption-history checks, real local AI result/retry, keyboard/gamepad/touch, pause/log/Back and reduced motion, with no browser errors. The recorded → present → ordinary-location captions also survive Back and the 320px log without revealing future dialogue.
 
 An earlier run timed out creating a fresh touch page while the desktop 3D race was still rendering. A separate mobile boot and the complete rerun passed; `output/browser/touch-startup-audit/report.json` retains the diagnostic. This was not a dialogue or caption failure. This review does not claim a human-earned full campaign, a live transaction, NFT delivery or deployment.
+
+## October 29, 2026: clarity and story-mode pass
+
+A first-time-player read of all 24 sequences beside every cut's illustration, followed by a play-through of story mode. Chapter numbers in this section are player-facing (one-based).
+
+### Story clarity
+
+| Problem | Resolution |
+| --- | --- |
+| Conversations cut between the garage, the harbor and the radio room while people kept answering each other, so characters seemed to teleport (chapters 1, 2, 5, 6, 10 and 11). The hearing hall was labelled "shopping street" and the harbor pit "SORA Garage". | Time/place captions mark phone calls, the chapter 2 flashback, montage cuts and time jumps, and give the hearing and pit their real places. A caption now holds until the next camera cut (`resolveStorySetting`), which also stops chapter 11's pre-race broadcast caption flipping back mid-shot. Lines that answered someone elsewhere now make the call or the move explicit. |
+| Chapter 3 showed Aki at a boardroom table with Celeste and Toru while Rei explained CROWN, a chapter before Aki meets them. | Four new office frames for cuts 5–8; see [the artwork record](cutscene-art.md). |
+| CROWN, SORA X.O.R., the recovery key and Toru's "purchase options" were never put in plain words. | Rei explains the lend-then-call-in scheme in one line, Yui explains the exchange ("three terminals write down every exchange"), Aki says what the recovery key does, and Toru holds "rights to buy the land". The deadline is consistently "the three-week deadline". |
+| Missing links: the crown on the bank notice, why Ren keeps the cassette, the broadcast Celeste threatens, the "briefing" versus the hearing, the "venue's line", and why the garage "reopens". | Each is set up in the line before it matters. |
+
+Line counts, stage directions (except chapter 3 lines 5–8, now `office`), music cues and the 228 distinct cut images are unchanged.
+
+### Story mode
+
+| Problem | Fix |
+| --- | --- |
+| Only the small Next link advanced dialogue; clicking the picture or the dialogue box did nothing. | Clicking or tapping either advances like Next, except while text is selected. |
+| After clicking a toolbar button (Pause, Music, Log), Enter or Space pressed that button again instead of advancing. | A pointer click releases the button's focus; keyboard activation of buttons is unchanged. |
+| One Escape or Skip tap discarded the whole scene. | Skip needs a second press within four seconds. The button shows もう一度でスキップ / PRESS AGAIN TO SKIP, and advancing cancels it. |
+| The after-race scene gave no result, so the retry scene was unexplained. | The toolbar states the placing and either 章クリア / CHAPTER CLEARED or the objective that was missed. |
+| Nothing showed that the last line would end the scene. | Its button names what follows: 出走前の整備へ / TO THE PRE-RACE GARAGE or 結果を見る / SEE THE RESULTS. |
+| Story results said PRACTICE COMPLETE, headlined もう一度、走ろう。 even after a podium cleared the chapter, and put Retry before Next chapter. | Results name the chapter and whether it was cleared, show the objective, and lead with Next chapter after a clear or Retry after a miss. |
+| Retrying a missed race replayed the whole introduction. | Retry (button or R) goes straight to the pre-race garage; Replay the chapter still offers the introduction. |
+| Screen readers heard nothing as lines changed. | A polite live region announces each line. |

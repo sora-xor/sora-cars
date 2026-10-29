@@ -147,12 +147,26 @@ try {
   assert.deepEqual(errors, []);
   assert.equal(new Set(tracks.map(track => track.wav.sha256)).size, tracks.length, 'every composition produces distinct PCM');
   const sourceHashes = {};
-  for (const relative of ['src/game/audio.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs']) {
+  for (const relative of ['src/game/audio.ts', 'src/game/music-synth.ts', 'src/game/music-composer.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs']) {
     sourceHashes[relative] = createHash('sha256').update(await readFile(path.join(root, relative))).digest('hex');
   }
   const manifest = { schema: 'sora-cars-soundtrack-audio-v1', generatedAt: new Date().toISOString(), source: 'Original MUSIC_LIBRARY scores rendered through GameAudio in Chromium OfflineAudioContext',
     sampleRate, channels, ffmpegVersion, chromiumVersion: browser.version(), sourceHashes, tracks };
   await writeFile(path.join(evidence, requested === undefined ? 'report.json' : `report-${requested}.json`), JSON.stringify({ ...manifest, browserErrors: errors, totalBytes: tracks.reduce((total, track) => total + track.wav.bytes + track.mp3.bytes + track.preview.bytes, 0) }, null, 2) + '\n');
   // A single-track audition must never silently replace the complete catalog.
-  if (requested === undefined) { assert.equal(tracks.length, library.length); await writeFile(path.join(destination, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n'); }
+  if (requested === undefined) {
+    assert.equal(tracks.length, library.length);
+    // Re-rendering the score keeps supplied recordings exactly as released: their
+    // entries and provenance carry over only while every file still matches its hash.
+    const previous = JSON.parse(await readFile(path.join(destination, 'manifest.json'), 'utf8').catch(() => '{"tracks":[]}'));
+    const supplied = previous.tracks.filter(track => track.provenance?.kind === 'supplied-lossy-recording');
+    for (const track of supplied) for (const format of ['wav', 'mp3', 'preview']) {
+      const bytes = await readFile(path.join(root, 'public', track[format].path));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), track[format].sha256, `${track.file} ${format} is unchanged`);
+    }
+    const carried = Object.fromEntries(Object.entries(previous).filter(([key]) => key.startsWith('supplied') || key === 'artist' || key === 'catalogUpdatedAt'));
+    const output = supplied.length ? { ...manifest, source: previous.source ?? manifest.source, synthesizedSource: manifest.source, ...carried,
+      tracks: [...tracks, ...supplied.map((track, offset) => ({ ...track, index: tracks.length + offset }))] } : manifest;
+    await writeFile(path.join(destination, 'manifest.json'), JSON.stringify(output, null, 2) + '\n');
+  }
 } finally { await browser.close(); await server.close(); }

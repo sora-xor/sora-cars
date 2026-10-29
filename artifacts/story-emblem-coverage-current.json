@@ -1,6 +1,6 @@
 {
   "schema": "sora-cars.story-emblem-coverage.v1",
-  "checkedAt": "2026-10-23T13:37:57.047Z",
+  "checkedAt": "2026-10-29T00:27:26.446Z",
   "passed": true,
   "scope": "Current chapter/menu, scene, fallback-angle, story-beat and actual per-cut artwork references. Historical unused images and soundtrack covers are outside this report.",
   "method": "Resolve every authored line; require each referenced file to match a passed individual visual-review audit by path and SHA-256. This script does not recognize logos automatically.",
@@ -22,35 +22,38 @@
     {
       "path": "artifacts/story-expanded-emblem-audit-2026-09-26.json",
       "sha256": "0961ab0754a9ddbbfc182d0c8fced522d6db9b291d8b9bcce3aad96273a08846"
+    },
+    {
+      "path": "artifacts/story-office-emblem-audit-2026-10-29.json",
+      "sha256": "63de79b5f4cc276e588f876476faee2e07fe6adb8935795fa799c01184a2d07b"
     }
   ],
   "sourcesUnchanged": true,
   "sourceHashes": {
-    "src/game/story-scenes.ts": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
-    "src/game/story-cut-art.json": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
-    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
-    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
-    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
-    "src/game/story-campaign-act3.ts": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa"
+    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
+    "src/game/story-cut-art.json": "6a24d169b663719a3fa9e625ec51ef3bf9614217b7a69a17bea4d7fc05b496ac",
+    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
+    "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
+    "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c"
   },
   "finalSourceHashes": {
-    "src/game/story-scenes.ts": "636b72f242bf800237f8490d2c7508d42bb0024e5d46a71c0d973fa2a7b7a07f",
-    "src/game/story-cut-art.json": "1a7199ab2f9abd0eec8f5f69d352cfc8f1c6132e64d6e2123c6bba1de7e8fe9f",
-    "src/game/story.ts": "d7f19692a6b1c8838db5366a721da54609ae862f67e38d693b7a94f9184175cb",
-    "src/game/story-campaign-act1.ts": "881c64df31a5fded8aeb5faaf607f79f1ae82ae8cc0f411e563e2202d9e52673",
-    "src/game/story-campaign-act2.ts": "48208e075f4cebd9013d45c8488f6537e2eccc1eff809b3e1ea8495ce252fc10",
-    "src/game/story-campaign-act3.ts": "44aec282cfd7695c50cc132fc50c563ec78dd1851eaeb40ed58fbf1a6a2b57aa"
+    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
+    "src/game/story-cut-art.json": "6a24d169b663719a3fa9e625ec51ef3bf9614217b7a69a17bea4d7fc05b496ac",
+    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
+    "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
+    "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c"
   },
-  "total": 236,
-  "reviewed": 236,
+  "total": 240,
+  "reviewed": 240,
   "pending": [],
   "files": [
     {
       "path": "public/assets/story/angles/boardroom-detail-v3.png",
       "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
       "contexts": [
-        "fallback:boardroom/detail",
-        "ch03-intro:6"
+        "fallback:boardroom/detail"
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
@@ -59,8 +62,7 @@
       "path": "public/assets/story/angles/boardroom-left-v3.png",
       "sha256": "3a2b5d08cbb356f01d1ad9dc32ba7733ae57fe0f744ec2cb16e5526a519d8b0e",
       "contexts": [
-        "fallback:boardroom/left",
-        "ch03-intro:7"
+        "fallback:boardroom/left"
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
@@ -69,8 +71,7 @@
       "path": "public/assets/story/angles/boardroom-right-v3.png",
       "sha256": "6161a40a5be5aaadd7ddca0c41dcf46b4656026791a1420cbe17816ed250fc93",
       "contexts": [
-        "fallback:boardroom/right",
-        "ch03-intro:8"
+        "fallback:boardroom/right"
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
@@ -79,8 +80,7 @@
       "path": "public/assets/story/angles/boardroom-wide-v3.png",
       "sha256": "1dfe1734bf9149ed9e3e771ea9b6b1429638c8197d534ae05dd2b37304c0e64b",
       "contexts": [
-        "fallback:boardroom/wide",
-        "ch03-intro:5"
+        "fallback:boardroom/wide"
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
@@ -895,6 +895,42 @@
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut05-office-v1.png",
+      "sha256": "796e0bd7ac21387e1fae5980cc6126c13e6ae2ad8495d6ef99a9830ce8a8a6d4",
+      "contexts": [
+        "ch03-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-office-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut06-office-v1.png",
+      "sha256": "b6f0add1c48690f89f918e36ac536828b89f870794781d0286d83c963eac61e8",
+      "contexts": [
+        "ch03-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-office-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut07-office-v1.png",
+      "sha256": "a6732edd3e41842d78dbb6383e9c88398fd9efd9b75061c2a4f0ab723f852f80",
+      "contexts": [
+        "ch03-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-office-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut08-office-v1.png",
+      "sha256": "8354d0c18ef20727412cadacb890799764bc8b6279fddb368c48769fe73a6b1d",
+      "contexts": [
+        "ch03-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-office-emblem-audit-2026-10-29.json"
     },
     {
       "path": "public/assets/story/scenes/ch03-intro-cut09.png",

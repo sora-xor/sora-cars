@@ -21,6 +21,8 @@ function musicCue(actual, expected, previous) {
   assert.equal(actual.source, 'cutscene');
   assert.equal(actual.cue, expected.key, 'the displayed dialogue selects its exact authored music cue');
   assert.equal(actual.track, expected.track); assert.equal(actual.narrative, expected.narrative);
+  assert.equal(actual.silent, expected.track === null, 'a cue without a song is a deliberate silence');
+  assert.equal(actual.transition, expected.transition);
   assert.equal(actual.mood, expected.mood); assert.equal(actual.arrangement, expected.arrangement.id);
   assert.equal(actual.requestedEntryBeat, expected.entryBeat, 'the current line requests its authored musical section');
   assert.deepEqual(actual.stems, expected.arrangement.gains);
@@ -29,7 +31,7 @@ function musicCue(actual, expected, previous) {
     assert.equal(actual.transitions, previous.transitions, 'camera arrangement changes never restart the song');
     assert.equal(actual.entryBeat, previous.entryBeat, 'camera cuts retain the section used at the song entrance');
   }
-  if (previous && previous.track !== actual.track) assert.equal(actual.entryBeat, expected.entryBeat, 'a new song enters its authored phrase');
+  if (previous && previous.track !== actual.track && actual.track !== null) assert.equal(actual.entryBeat, expected.entryBeat, 'a new song enters its authored phrase');
   if (previous && previous.cue === actual.cue) assert.equal(actual.arrangementChanges, previous.arrangementChanges, 'held dialogue does not repeat an arrangement change');
   musicChecks.push({ cue: actual.cue, title: actual.title, narrative: actual.narrative, arrangement: actual.arrangement, entryBeat: actual.entryBeat, requestedEntryBeat: actual.requestedEntryBeat, transitions: actual.transitions });
   return actual;
@@ -99,12 +101,9 @@ try {
   await page.waitForFunction(() => typeof window.render_game_to_text === 'function' && document.fonts.status === 'loaded');
   const campaign = await page.evaluate(async () => {
     const { CHAPTERS } = await import('/src/game/story.ts');
-    const { resolveStoryShot, STORY_SCENES } = await import('/src/game/story-scenes.ts');
+    const { resolveStoryShot, resolveStorySetting } = await import('/src/game/story-scenes.ts');
     const { resolveCutsceneCue } = await import('/src/game/music-cues.ts');
-    const withSettings = lines => lines.map((line, index) => {
-      const scene = STORY_SCENES[resolveStoryShot(lines, index).scene];
-      return { ...line, displayedSetting: line.setting ?? { ja: scene.place, en: scene.english } };
-    });
+    const withSettings = lines => lines.map((line, index) => ({ ...line, displayedSetting: resolveStorySetting(lines, index) }));
     return CHAPTERS.map(chapter => ({ ...chapter,
       intro: withSettings(chapter.intro), victory: withSettings(chapter.victory),
       introMusic: chapter.intro.map((_, index) => resolveCutsceneCue(chapter.id, 'intro', index, resolveStoryShot(chapter.intro, index))),
@@ -181,7 +180,23 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await shot(page, 'ledger-mobile');
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+  // Clicking the picture advances like Next; a clicked toolbar button hands Enter back to the dialogue.
+  const clickedLine = (await read(page)).story.cutscene.line;
+  await page.locator('.cutscene-canvas').click();
+  assert.equal((await read(page)).story.cutscene.line, clickedLine + 1, 'clicking the picture advances the dialogue');
+  await page.locator('[data-action="scene-pause"]').click();
+  await page.keyboard.press('Enter'); await page.keyboard.press('Enter');
+  assert.equal((await read(page)).story.cutscene.line, clickedLine + 2, 'Enter advances after a toolbar click');
+  assert.equal((await read(page)).story.cutscene.motionPaused, true, 'Enter does not press the clicked toolbar button again');
+  await page.keyboard.press('KeyP');
+  // One Escape only arms the skip; the second skips to the pre-race garage.
   await page.keyboard.press('Escape');
+  assert.equal((await read(page)).mode, 'cutscene', 'a single Escape cannot discard the scene');
+  assert.equal((await read(page)).story.cutscene.skipArmed, true);
+  assert.match(await page.locator('[data-action="scene-skip"]').innerText(), /PRESS AGAIN TO SKIP/);
+  await page.keyboard.press('Escape');
+  assert.equal((await read(page)).mode, 'pit', 'the introduction leads to the pre-race garage');
+  await page.locator('[data-action="pit-go"]').click();
   assert.equal((await read(page)).mode, 'race');
   assert.equal((await read(page)).story.activeChapter, 0);
   assert.equal((await read(page)).musicState.source, 'song');
@@ -190,13 +205,23 @@ try {
   const outcome = await read(page);
   assert.equal(outcome.mode, 'cutscene', 'actual simulated result triggers the story outcome');
   assert.equal(outcome.drivingSound.active, false);
-  await page.locator('[data-action="scene-skip"]').click();
+  const cleared = outcome.story.cutscene.phase === 'victory';
+  assert.match(await page.locator('.cutscene-status').innerText(), cleared ? /CHAPTER CLEARED/ : /NEEDED/, 'the aftermath states the race result it reacts to');
+  await page.locator('[data-action="scene-skip"]').click(); await page.locator('[data-action="scene-skip"]').click();
   const result = await read(page);
   assert.equal(result.mode, 'results'); assert.equal(result.story.resultChapter, 0);
   assert.equal(result.stakeEnabled, false);
-  await page.locator('.result-actions [data-action="chapter-0"]').click();
-  assert.equal((await read(page)).story.cutscene.chapter, 0, 'retry returns to the chapter, not anonymous practice');
-  checks.push('Real intro → deterministic AI race → outcome → result → chapter retry; animation, back, log, pause, frozen physics.');
+  assert.match(await page.locator('.results-panel .eyebrow').innerText(), cleared ? /CHAPTER CLEARED/ : /OBJECTIVE MISSED/);
+  assert.equal(await page.locator('.result-actions .primary').first().getAttribute('data-action'), cleared ? 'chapter-1' : 'chapter-retry-0', 'a clear leads on; a miss retries the race');
+  if (cleared) {
+    await page.locator('.result-actions [data-action="chapter-0"]').click();
+    assert.equal((await read(page)).story.cutscene.chapter, 0, 'replay returns to the chapter, not anonymous practice');
+  } else {
+    await page.locator('.result-actions [data-action="chapter-retry-0"]').click();
+    assert.equal((await read(page)).mode, 'pit', 'a retry skips the introduction it has already shown');
+    assert.equal((await read(page)).story.activeChapter, 0);
+  }
+  checks.push('Real intro → pre-race garage → deterministic AI race → outcome with its result → story result → next/retry; animation, back, log, pause, picture click, two-press skip, frozen physics.');
   // Chapter-selection fixture unlocks access only; each intro and its race transition run through the real app.
   await page.evaluate(() => localStorage.setItem('sora-cars:story:sky-1986', '12'));
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -241,8 +266,11 @@ try {
         await page.evaluate(() => window.advanceTime(2000));
         assert.equal(await pixels(page), still, 'reduced motion keeps the full illustration static');
       }
+      if (line === count - 1) assert.match(await page.locator('[data-action="scene-next"]').innerText(), /TO THE PRE-RACE GARAGE/, 'the last line says where it leads');
       await page.locator('[data-action="scene-next"]').click();
     }
+    assert.equal((await read(page)).mode, 'pit'); assert.equal((await read(page)).story.activeChapter, id);
+    await page.locator('[data-action="pit-go"]').click();
     const race = await read(page); assert.equal(race.mode, 'race'); assert.equal(race.story.activeChapter, id);
     assert.equal(race.names.indexOf('YOU'), race.playerSlot);
     assert.equal(race.musicState.source, 'song'); assert.equal(race.musicState.track, campaign[id].trackId);
@@ -262,7 +290,14 @@ try {
   assert.equal((await read(touch)).story.cutscene.logOpen, true);
   await shot(touch, 'touch-dialogue-log');
   await touch.locator('[data-action="scene-log-close"]').tap();
+  await touch.locator('.cutscene-canvas').tap();
+  assert.equal((await read(touch)).story.cutscene.line, 1, 'tapping the picture advances the dialogue');
   await touch.locator('[data-action="scene-skip"]').tap();
+  assert.equal((await read(touch)).mode, 'cutscene', 'one tap only arms the skip');
+  // The pre-race garage builds its 3D part art on arrival, which can hold touch acknowledgement for seconds.
+  await touch.locator('[data-action="scene-skip"]').tap({ timeout: 90_000 });
+  assert.equal((await read(touch)).mode, 'pit');
+  await touch.locator('[data-action="pit-go"]').tap({ timeout: 90_000 });
   assert.equal((await read(touch)).mode, 'race');
   assert.equal(await touch.locator('#touch-controls').isVisible(), true);
   await touch.close();

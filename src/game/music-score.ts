@@ -1,52 +1,85 @@
-import { makeThemeScore, STORY_THEMES, type SynthPatch } from './music-themes.ts';
+import { composeSong, type MusicFx, type SongSpec, type SynthPatch } from './music-composer.ts';
+import { STORY_THEMES } from './music-themes.ts';
 /** Original compositions: MIDI pitches, quarter-note beats; no sampled commercial music. */
 export interface ScoreNote { beat: number; duration: number; pitch: number; velocity: number; channel: number; }
-export interface MusicScore { name: string; bpm: number; beats: number; notes: ScoreNote[]; patches?: readonly SynthPatch[]; }
-export const MUSIC_LIBRARY = [
-  { name: 'Midnight Transistor', japanese: '真夜中のトランジスタ', file: 'midnight-transistor', bpm: 142, root: 45, style: 0 },
-  { name: 'Harbor Signals', japanese: '港のシグナル', file: 'harbor-signals', bpm: 126, root: 38, style: 1 },
-  { name: 'Sakura Express', japanese: '桜エクスプレス', file: 'sakura-express', bpm: 156, root: 42, style: 2 },
-  { name: 'Soramotos Workshop', japanese: '空本工房の灯り', file: 'soramotos-workshop', bpm: 96, root: 48, style: 1 },
-  { name: 'Paper Towers', japanese: '紙の摩天楼', file: 'paper-towers', bpm: 112, root: 41, style: 0 },
-  { name: 'A Future We Build', japanese: '私たちがつくる明日', file: 'a-future-we-build', bpm: 118, root: 47, style: 2 },
-  { name: 'After the Last Train', japanese: '終電のあとで', file: 'after-the-last-train', bpm: 102, root: 43, style: 1 },
-  { name: 'Credit Line', japanese: '信用の向こう側', file: 'credit-line', bpm: 136, root: 40, style: 0 },
-  { name: 'SORA Dawn Broadcast', japanese: 'SORA 夜明けの放送', file: 'sora-dawn-broadcast', bpm: 128, root: 50, style: 2 },
-  ...STORY_THEMES,
-] as const;
-const harmonies = [[0, 0, 3, -2, -4, -2, 0, -5], [0, 3, 5, 0, 8, 5, 3, 7], [0, 3, 5, 0, -2, 3, 5, 7]];
-const melodies = [[12, 19, 16, 14, 12, 7, 9, 12, 16, 19, 21, 19, 16, 14, 12, 7], [12, 14, 17, 19, 17, 14, 12, 9, 7, 12, 14, 17, 21, 19, 17, 14], [19, 16, 14, 12, 9, 12, 14, 16, 24, 21, 19, 16, 14, 12, 9, 7]];
+export interface MusicScore { name: string; bpm: number; beats: number; notes: ScoreNote[]; patches?: readonly SynthPatch[]; fx?: MusicFx; }
+
+// Race and library songs. Each pairs a written verse/chorus/bridge with two hooks;
+// the composer arranges them into the shared 64-bar form (see music-composer.ts).
+const CORE_SONGS: readonly SongSpec[] = [
+  { name: 'Midnight Transistor', japanese: '真夜中のトランジスタ', file: 'midnight-transistor', bpm: 142, root: 45, mode: 'minor',
+    groove: 'technopop', bass: 'octave', arp: 'up16', pad: 'stab', patches: ['moog-bass', 'pulse', 'pluck', 'brass'],
+    verse: 'i7 bVImaj7 bVIIadd9 v7 | i7 bVImaj7 iv7 V7sus4',
+    chorus: 'bVImaj7 bVII6 v7 i9 | iv9 bVII9 bVImaj7 V7sus4:2 V7:2',
+    bridge: 'iv9 iv9 i9 i9 | bIIImaj7 bIIImaj7 V7sus4 V7',
+    hookA: 'E5:.5 A4:.5 C5:.5 E5:.5 D5:1 C5:.5 D5:.5 | E5:1.5 r:.5 G5:.5 E5:.5 D5:1 | B4:.5 D5:.5 E5:1 A4:.5 C5:.5 B4:1 | A4:2.5 r:1.5',
+    hookB: 'C6:1.5 B5:.5 A5:1 G5:1 | G5:1 A5:.5 B5:2.5 | B5:1 A5:.5 G5:.5 E5:2 | A5:2.5 G5:.5 A5:.5 C6:.5',
+    hookBEnd: 'A5:2 G#5:1 r:1' },
+  { name: 'Harbor Signals', japanese: '港のシグナル', file: 'harbor-signals', bpm: 126, root: 38, mode: 'dorian',
+    groove: 'technopop', bass: 'octave', arp: 'signal', pad: 'sustain', patches: ['rubber-bass', 'fm-reed', 'fm-bell', 'warm-pad'],
+    verse: 'i9 IV9 i9 IV9 | bIIImaj7 bVIImaj7 v7 IV7sus4',
+    chorus: 'bIIImaj7 IV7 v7 i7 | bIIImaj7 IV7 bVIImaj7 V7sus4',
+    bridge: 'bVIImaj7 bVIImaj7 bIIImaj7 bIIImaj7 | ii7 ii7 V7sus4 V7',
+    hookA: 'A4:.5 D5:.5 F5:.5 A5:1 G5:.5 F5:.5 D5:.5 | E5:1 C5:.5 D5:2.5 | A4:.5 D5:.5 F5:.5 A5:1 C6:.5 B5:.5 A5:.5 | G5:1.5 F5:.5 E5:1 r:1',
+    hookB: 'C6:1 A5:.5 G5:.5 A5:2 | B5:1 A5:.5 G5:.5 F5:2 | E5:1 G5:.5 A5:.5 C6:1 A5:1 | D5:3 r:1' },
+  { name: 'Sakura Express', japanese: '桜エクスプレス', file: 'sakura-express', bpm: 156, root: 42, mode: 'major',
+    groove: 'drive', bass: 'octave', arp: 'up16', pad: 'sustain', patches: ['moog-bass', 'sync-lead', 'koto', 'string-pad'],
+    verse: 'Iadd9 V/VII vi7 V | IVmaj7 iii7 ii7 V7sus4',
+    chorus: 'IVmaj7 V iii7 vi7 | ii7 V7sus4 Iadd9 Iadd9',
+    bridge: 'bVImaj7 bVIImaj7 Imaj7 Imaj7 | bVImaj7 bVIImaj7 V7sus4 V7',
+    hookA: 'C#5:.5 D#5:.5 F#5:1 D#5:.5 C#5:.5 A#4:1 | G#4:.5 A#4:.5 C#5:2 r:1 | D#5:.5 F#5:.5 G#5:1 F#5:.5 D#5:.5 C#5:1 | A#4:1 C#5:1 G#4:2',
+    hookB: 'D#5:1 C#5:.5 D#5:.5 F#5:1 D#5:1 | E#5:1.5 F#5:.5 G#5:2 | A#5:1 G#5:.5 F#5:.5 C#5:1 A#4:1 | D#5:2.5 C#5:.5 D#5:.5 F#5:.5 | G#5:1 F#5:.5 D#5:.5 B4:2 | C#5:1 F#5:1 G#5:1 B5:1 | F#5:4 | r:2 C#5:.5 D#5:.5 F#5:1',
+    lift: 1 },
+  { name: 'Soramotos Workshop', japanese: '空本工房の灯り', file: 'soramotos-workshop', bpm: 96, root: 48, mode: 'major',
+    groove: 'citypop', swing: .05, bass: 'funk', arp: 'comp', pad: 'sustain', patches: ['fm-bass', 'pulse', 'epiano', 'warm-pad'],
+    verse: 'Imaj9 IVmaj9 iii7 vi7 | ii9 V13 Imaj9 IVmaj7/V',
+    chorus: 'IVmaj7 III7 vi7 v7:2 I7:2 | IVmaj7 III7 vi7 v7:2 I7:2',
+    bridge: 'ii7 ii7 bVIImaj7 bVIImaj7 | bVImaj7 bVImaj7 V7sus4 V7',
+    hookA: 'E5:1 D5:.5 C5:.5 G4:2 | A4:.5 C5:.5 E5:1 D5:1.5 r:.5 | E5:.5 F5:.5 E5:.5 D5:.5 B4:1 G4:1 | B4:1 C5:.5 D5:2.5',
+    hookAEnd: 'C5:1 D5:.5 E5:2.5',
+    hookB: 'A5:1 G5:.5 E5:.5 C5:1 E5:1 | G#5:1.5 F5:.5 E5:1 D5:1 | C5:1 E5:.5 G5:.5 A5:2 | G5:1 F5:.5 E5:.5 E5:1 r:1',
+    hookBEnd: 'G5:1 A5:.5 Bb5:.5 C6:2', fx: { chorus: 1.15 } },
+  { name: 'Paper Towers', japanese: '紙の摩天楼', file: 'paper-towers', bpm: 112, root: 41, mode: 'minor',
+    groove: 'technopop', bass: 'sequencer16', arp: 'pulse16', pad: 'sustain', patches: ['rubber-bass', 'vocoder', 'glass', 'hollow-pad'],
+    verse: 'i9 i9 bVImaj9 bVImaj9 | iv9 bVII9 i9 V7sus4',
+    chorus: 'bIIImaj7 bVII6 iv9 i9 | bVImaj7 bVII6 V7sus4:2 V7:2 i9',
+    bridge: 'bVImaj7:8 bIIImaj7:8 | iv9:8 V7sus4 V7',
+    hookA: 'C5:1 F5:1 Eb5:.5 C5:.5 Bb4:1 | C5:3 r:1 | Ab4:1 Db5:1 C5:.5 Ab4:.5 G4:1 | F4:3 r:1 | Bb4:1 Db5:1 C5:.5 Bb4:.5 Ab4:1 | G4:2 Bb4:1 Eb5:1 | C5:1 Ab4:1 G4:.5 F4:.5 G4:1 | G4:2 C5:2',
+    hookB: 'Eb5:1.5 C5:.5 G5:2 | G5:1 F5:.5 Eb5:.5 C5:2 | Db5:1 F5:1 Ab5:1 G5:1 | F5:3 r:1 | F5:1.5 Eb5:.5 C5:2 | Bb4:1 C5:.5 Eb5:.5 G5:2 | F5:2 E5:2 | F5:3 r:1' },
+  { name: 'A Future We Build', japanese: '私たちがつくる明日', file: 'a-future-we-build', bpm: 118, root: 47, mode: 'major',
+    groove: 'citypop', bass: 'funk', arp: 'up16', pad: 'stab', patches: ['moog-bass', 'pulse', 'fm-bell', 'brass'],
+    verse: 'Iadd9 iii7 IVmaj7 V7sus4 | vi7 iii7 IVmaj7 V7sus4',
+    chorus: 'I V/VII vi I/V | IV I/III ii7 V7sus4',
+    bridge: 'IVmaj7 IVmaj7 iii7 vi7 | ii7 ii7 bVIImaj7 V7sus4',
+    hookA: 'F#5:1 D#5:.5 E5:.5 F#5:1 B5:1 | A#5:1.5 G#5:.5 F#5:2 | E5:1 D#5:.5 C#5:.5 B4:1 C#5:1 | D#5:1 C#5:1 B4:2',
+    hookB: 'D#5:2 C#5:1 B4:1 | C#5:2 F#5:2 | D#5:1 B4:1 G#4:1 B4:1 | F#5:3 r:1 | G#5:1 F#5:.5 E5:.5 D#5:2 | F#5:1 E5:.5 D#5:.5 B4:2 | E5:1 G#5:1 B5:1 G#5:1 | F#5:3 r:1',
+    lift: 1 },
+  { name: 'After the Last Train', japanese: '終電のあとで', file: 'after-the-last-train', bpm: 102, root: 43, mode: 'minor',
+    groove: 'ballad', swing: .06, bass: 'ballad', arp: 'comp', pad: 'sustain', patches: ['round-bass', 'fm-reed', 'epiano', 'string-pad'],
+    verse: 'i9 iv9 bVII7 bIIImaj7 | bVImaj7 iiø V7 i9',
+    chorus: 'iv9 bVII13 bIIImaj9 bVImaj7 | iiø V7 i9 i9',
+    bridge: 'bVImaj7 bVImaj7 v7 v7 | iv9 iv9 V7sus4 V7',
+    hookA: 'D5:1.5 Bb4:.5 C5:1 D5:1 | F5:1 Eb5:.5 D5:.5 C5:2 | C5:1 Bb4:.5 C5:.5 F5:1 Eb5:1 | D5:3 r:1 | Eb5:1.5 D5:.5 C5:1 Bb4:1 | A4:1 C5:1 Eb5:2 | D5:1 C5:.5 Bb4:.5 A4:1 F#4:1 | G4:3 r:1',
+    hookB: 'G5:1 F5:.5 Eb5:.5 D5:1 C5:1 | A5:2 G5:1 F5:1 | D5:1.5 C5:.5 D5:1 F5:1 | G5:3 r:1 | Eb5:1 D5:.5 C5:.5 Eb5:2 | F#5:1 A5:1 C6:1 A5:1 | Bb5:2 A5:1 G5:1 | G5:2 r:2' },
+  { name: 'Credit Line', japanese: '信用の向こう側', file: 'credit-line', bpm: 136, root: 40, mode: 'phrygian',
+    groove: 'motorik', bass: 'sequencer16', arp: 'up16', pad: 'stab', patches: ['moog-bass', 'pulse', 'glass', 'brass'],
+    verse: 'i7 i7 bIImaj7 bIImaj7 | iv7 iv7 bVImaj7 bII6',
+    chorus: 'iv9 bVII9 bIIImaj7 bVImaj7 | iv9 bVII9 bIImaj7 bIImaj7',
+    bridge: 'bIImaj7:8 i7:8 | bIImaj7:8 V7sus4 V7',
+    hookA: 'B4:.5 E5:.5 G5:.5 F5:.5 E5:1 D5:1 | E5:2 r:1 B4:1 | C5:.5 B4:.5 A4:.5 B4:.5 E5:1 G5:1 | F5:3 r:1 | E5:.5 A5:.5 C6:.5 B5:.5 A5:1 G5:1 | A5:2 r:1 E5:1 | G5:.5 E5:.5 D5:.5 E5:.5 G5:1 B5:1 | A5:3 r:1',
+    hookB: 'C6:1 B5:.5 A5:.5 E5:2 | F#5:1 E5:.5 D5:.5 C5:2 | B4:1 D5:.5 F#5:.5 A5:2 | G5:3 r:1 | C6:1 B5:.5 A5:.5 E5:2 | F#5:1 A5:.5 C6:.5 D6:2 | C6:1 A5:1 F5:1 E5:1 | E5:3 r:1' },
+  { name: 'SORA Dawn Broadcast', japanese: 'SORA 夜明けの放送', file: 'sora-dawn-broadcast', bpm: 128, root: 50, mode: 'major',
+    groove: 'motorik', bass: 'pulse8', arp: 'signal', pad: 'sustain', patches: ['round-bass', 'sync-lead', 'fm-bell', 'string-pad'],
+    verse: 'I IVmaj7/I I IVmaj7/I | vi7 V IVmaj7 V7sus4',
+    chorus: 'bVIImaj7 IV I I | bVIImaj7 IV V7sus4 V7',
+    bridge: 'vi7 vi7 iii7 iii7 | IVmaj7 IVmaj7 V7sus4 V7',
+    hookA: 'A5:1 F#5:.5 G5:.5 A5:1 D6:1 | C#6:1.5 B5:.5 A5:2 | B5:1 A5:.5 G5:.5 F#5:1 E5:1 | F#5:3 r:1 | D5:1 E5:.5 F#5:.5 B5:1 A5:1 | A5:1 G5:.5 F#5:.5 E5:2 | G5:1 F#5:.5 E5:.5 D5:1 B4:1 | E5:3 r:1',
+    hookB: 'E5:1 G5:.5 B5:.5 C6:1 B5:1 | B5:1 A5:.5 G5:.5 D5:2 | F#5:1 A5:1 D6:2 | D6:2 C#6:1 A5:1 | E5:1 G5:.5 B5:.5 C6:1 B5:1 | D6:1 B5:.5 G5:.5 B5:2 | A5:1 B5:1 D6:2 | C#6:2 A5:2',
+    lift: 2 },
+];
+export const MUSIC_LIBRARY: readonly SongSpec[] = [...CORE_SONGS, ...STORY_THEMES];
 export function makeScore(index: number): MusicScore {
   const song = MUSIC_LIBRARY[index];
   if (!song) throw new RangeError('Unknown SORA composition');
-  if (index >= 9) return makeThemeScore(STORY_THEMES[index - 9]!);
-  const notes: ScoreNote[] = [], style = 'style' in song ? song.style : 0;
-  const add = (channel: number, beat: number, duration: number, pitch: number, velocity = 88) => notes.push({ channel, beat, duration, pitch, velocity });
-  // Four-bar introduction, two themes, breakdown, developing solo and final chorus.
-  // Changes in orchestration prevent a short loop from flattening an entire race.
-  for (let bar = 0; bar < 64; bar++) {
-    const section = Math.floor(bar / 8), quiet = section === 0 || section === 4;
-    const root = song.root + harmonies[style]![Math.floor(bar / 2 + index) % 8]!;
-    for (let step = 0; step < 16; step++) {
-      const beat = bar * 4 + step / 4, swing = style === 1 && step % 2 ? 0.065 : 0;
-      const bass = style === 1 ? [0, 3, 6, 8, 11, 14].includes(step) : style === 2 ? step % 2 === 0 : step % 2 === 0 || step === 7 || step === 15;
-      if (bass && (bar >= 4 || step % 4 === 0)) add(0, beat + swing, style === 1 ? 0.27 : 0.17, root + ([0, 0, 12, 7][Math.floor(step / 4)] ?? 0), step % 4 ? 78 : 100);
-      if (!quiet || step % 2 === 0) add(2, beat + swing, 0.14, root + 24 + [0, 7, 12, style === 2 ? 14 : 16, 19, 16, 12, 7][(step + bar + index) % 8]!, quiet ? 30 : 43);
-      if (step % 2 === 0 && (bar > 3 || step % 4 === 0)) add(9, beat + swing, 0.05, 42, quiet ? 30 : step % 4 ? 45 : 65);
-      const kick = style === 1 ? [0, 6, 8, 14].includes(step) : step % 4 === 0;
-      if (kick && section !== 4) add(9, beat, 0.1, 36, 88);
-      if (step % 8 === 4 && bar > 3 && section !== 4) { add(9, beat, 0.1, 38, 78); add(9, beat + 0.015, 0.08, 39, 45); }
-      if (bar % 8 === 7 && step >= 12) add(9, beat, 0.08, 37, 45 + (step - 12) * 9);
-    }
-    if (!quiet) {
-      const solo = section === 5, count = solo || style === 2 ? 8 : 4;
-      for (let n = 0; n < count; n++) {
-        const off = melodies[style]![(bar * 4 + n + index * 3) % 16]!;
-        const response = section === 3 || section === 7 ? 12 : 0;
-        add(1, bar * 4 + n * 4 / count + (style === 1 && n % 2 ? 0.15 : 0), count === 8 ? 0.27 : 0.55, root + 12 + off + response, solo ? 70 : 76);
-      }
-    } else if (bar % 2 === 0) add(1, bar * 4 + 2, 1.5, root + 36 + index % 3 * 2, 46);
-    for (const off of style === 1 ? [0, 7, 14, 21] : [0, 7, 15, 22]) add(3, bar * 4, 3.6, root + 12 + off, quiet ? 38 : 28);
-  }
-  return { name: song.name, bpm: song.bpm, beats: 256, notes: notes.sort((a, b) => a.beat - b.beat || a.channel - b.channel || a.pitch - b.pitch) };
+  return composeSong(song);
 }

@@ -22,6 +22,10 @@ export const CHAPTERS: readonly StoryChapter[] = CAMPAIGN;
 export function storyGrid(chapter: number): string[] {
   return [...CREW.slice(1).map(c => c.name.ja), chapter >= 2 ? RIVALS[0]!.name.ja : '港のドライバー', 'YOU', chapter >= 3 ? RIVALS[1]!.name.ja : 'SORAゲスト'];
 }
+/** The goal `storyObjectiveMet` checks, as the story menu and pre-race garage state it. */
+export function storyObjective(chapter: number): Bilingual {
+  return chapter === 10 ? { ja: '3位以内 ＋ 天宮より先着', en: 'PODIUM + BEAT AMAMIYA' } : { ja: '3位以内', en: 'FINISH ON THE PODIUM' };
+}
 export function storyObjectiveMet(chapter: number, place: number, rivalPlace?: number): boolean {
   return Number.isInteger(place) && place >= 1 && place <= 3
     && (chapter !== 10 || (Number.isInteger(rivalPlace) && rivalPlace! >= 1 && rivalPlace! <= 8 && place < rivalPlace!));

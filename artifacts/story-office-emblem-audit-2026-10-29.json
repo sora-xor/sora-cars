@@ -1,0 +1,79 @@
+{
+  "schema": "sora-cars.story-per-cut-emblem-audit.v1",
+  "passed": true,
+  "completeBatch": true,
+  "checkedAt": "2026-10-29T00:27:11+00:00",
+  "reference": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+  },
+  "scope": "The four chapter 3 office frames added on 2026-10-29; this audit certifies only the listed files.",
+  "requestedCount": 4,
+  "pending": [],
+  "files": [
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut05-office-v1.png",
+      "sha256": "796e0bd7ac21387e1fae5980cc6126c13e6ae2ad8495d6ef99a9830ce8a8a6d4",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replacesCut": "ch03-intro cut 5 (was angles/boardroom-wide-v3.png, unchanged on disk)",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch03-intro-cut05-office-v1.png",
+        "sha256": "796e0bd7ac21387e1fae5980cc6126c13e6ae2ad8495d6ef99a9830ce8a8a6d4",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session, full-resolution inspection and emblem crop beside the reference",
+        "observation": "Rei pins the crown-and-string chart over a harbor map; Aki, Mei and Yui watch. Emblem centred on the upright cream folder; straight equal bars, centre stem and straight legs opening through the lower rim."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut06-office-v1.png",
+      "sha256": "b6f0add1c48690f89f918e36ac536828b89f870794781d0286d83c963eac61e8",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replacesCut": "ch03-intro cut 6 (was angles/boardroom-detail-v3.png, unchanged on disk)",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch03-intro-cut06-office-v1.png",
+        "sha256": "b6f0add1c48690f89f918e36ac536828b89f870794781d0286d83c963eac61e8",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session, full-resolution inspection and emblem crop beside the reference",
+        "observation": "Top-down desk: rise-and-plunge graph with red arrow over a crown-stamped harbor map. Emblem centred on the cream folder at upper left with the same geometry, seen in perspective."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut07-office-v1.png",
+      "sha256": "a6732edd3e41842d78dbb6383e9c88398fd9efd9b75061c2a4f0ab723f852f80",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replacesCut": "ch03-intro cut 7 (was angles/boardroom-left-v3.png, unchanged on disk)",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch03-intro-cut07-office-v1.png",
+        "sha256": "a6732edd3e41842d78dbb6383e9c88398fd9efd9b75061c2a4f0ab723f852f80",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session, full-resolution inspection and emblem crop beside the reference",
+        "observation": "Yui points at the stamped plots while Aki folds her arms; Rei in the foreground. Emblem centred on the upright folder at right; legs straight and open through the rim."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch03-intro-cut08-office-v1.png",
+      "sha256": "8354d0c18ef20727412cadacb890799764bc8b6279fddb368c48769fe73a6b1d",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "replacesCut": "ch03-intro cut 8 (was angles/boardroom-right-v3.png, unchanged on disk)",
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch03-intro-cut08-office-v1.png",
+        "sha256": "8354d0c18ef20727412cadacb890799764bc8b6279fddb368c48769fe73a6b1d",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session, full-resolution inspection and emblem crop beside the reference",
+        "observation": "Rei holds the CROWN terminal brochure (crown mark clearly distinct from SORA); Aki and Mei listen, camera lowered. Emblem centred on the folder between Mei and the brochure."
+      }
+    }
+  ],
+  "limitations": [
+    "Visual review by an agent session, as in earlier per-cut audits; no automatic logo recognition.",
+    "Provenance and prompts: docs/art-prompts/cutscene-ch03-office-v1.json."
+  ]
+}

@@ -42,13 +42,17 @@
 .crew-roster article .english-subtitle { font-size: 11px; }
 #app[data-view="cutscene"] { min-height: 0; }
 .cutscene { position: absolute; inset: 0; color: #f5ebdb; background: #0d0d1b; display: grid; grid-template-areas: 'location toolbar' 'art art' 'dialogue dialogue'; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: max-content minmax(0, 1fr) auto; gap: 12px; padding: 20px 28px 24px; }
-.cutscene-world { grid-area: art; min-width: 0; min-height: 0; position: relative; }
+.cutscene-world { grid-area: art; min-width: 0; min-height: 0; position: relative; cursor: pointer; }
+.scene-announcer { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; margin: 0; }
 .cutscene-canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
 .cutscene-grain { grid-area: art; z-index: 1; pointer-events: none; background: linear-gradient(#0c0a1b55, transparent 27%, transparent 75%, #06060b77), repeating-linear-gradient(transparent 0 3px, #00000013 3px 4px); }
 .cutscene-top { grid-area: toolbar; display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; font-size: 10px; letter-spacing: .13em; gap: 12px; }
 .cutscene-top > div { display: flex; gap: 10px; }
 .cutscene-top .small-button { background: #100f1bac; color: #f5ebdb; border-color: #fff6; font-size: 11px; }
 .cutscene-top small { font-size: 8px; padding-left: 6px; }
+.cutscene-top .small-button.armed { background: #f2c35f; color: #14121f; border-color: #f2c35f; }
+.cutscene-status { color: #f2c35f; font-weight: 700; }
+.cutscene-status span { font-weight: 400; padding-left: 6px; }
 .cutscene-location { grid-area: location; text-shadow: 0 2px 5px #000; }
 .cutscene-location p { margin: 0 0 6px; font-size: 16px; }
 .cutscene-location > span { font-size: 10px; opacity: .8; }

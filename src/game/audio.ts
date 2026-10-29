@@ -1,6 +1,7 @@
 import { makeScore, MUSIC_LIBRARY, type MusicScore, type ScoreNote } from './music-score';
-import type { CutsceneMusicCue, MusicArrangement } from './music-cues';
+import type { CutsceneMusicCue, MusicArrangement, MusicTransition } from './music-cues';
 import type { SynthPatch } from './music-themes';
+import { DRUM_SENDS, drumKit, MusicEffects, patchSends, playVoice, saturation } from './music-synth';
 
 export interface DriveDetail {
   /** RaceV1 six-bit controls; omitted controls infer throttle from acceleration. */
@@ -232,11 +233,30 @@ class DriveSynth {
   }
 }
 
+type SendKind = 'reverb' | 'delay' | 'chorus' | 'gated';
 interface MusicLayer {
   bus: GainNode; filter: BiquadFilterNode; pan: StereoPannerNode;
   stems: GainNode[]; positions: StereoPannerNode[]; retireAt: number;
+  /** Effect sends taken after each stem's arrangement gain; `wet` fades with `bus`. */
+  wet: Record<SendKind, GainNode>; sends: GainNode[]; drumVerb: GainNode; drumGate: GainNode;
+}
+/** Where a song has reached: every note before `index` (in pass `loop`) is already scheduled. */
+interface Transport { score: MusicScore; start: number; entryBeat: number; index: number; loop: number }
+/** Ramp from the parameter's present value. After a completed ramp, cancelAndHoldAtTime inserts
+ * no event, so a following ramp would otherwise start from that old event and jump at once. */
+function glide(param: AudioParam, now: number, end: number, target: number, curve: 'linear' | 'exponential' = 'linear'): void {
+  param.cancelAndHoldAtTime(now); param.setValueAtTime(param.value, now);
+  if (curve === 'linear') param.linearRampToValueAtTime(target, end); else param.exponentialRampToValueAtTime(target, end);
 }
 const FULL_MIX: MusicArrangement = { id: 'full-song', gains: [1, 1, 1, 1, 1], cutoff: 8800, width: .55, pan: 0 };
+/** Seconds for the outgoing layer to go, the incoming one to arrive, and before the new song's first note. */
+const TRANSITIONS: Record<MusicTransition, { out: number; in: number; lead: number }> = {
+  fade: { out: .72, in: .78, lead: .08 },
+  cut: { out: .04, in: .03, lead: .02 },
+  slow: { out: 2.6, in: 3.2, lead: .08 },
+  powerdown: { out: .8, in: 2.4, lead: .9 },
+};
+const DEFAULT_PATCHES: readonly SynthPatch[] = ['round-bass', 'pulse', 'pluck', 'warm-pad'];
 
 /** Local analog/FM palette playing the exact original notes exported as MIDI. */
 export class GameAudio {
@@ -252,9 +272,13 @@ export class GameAudio {
   #score: MusicScore = makeScore(0);
   #track = 0;
   #sceneCue: CutsceneMusicCue | null = null;
+  /** A cutscene silence: no layer plays and the transport schedules nothing. */
+  #silent = false;
   #arrangement: MusicArrangement = FULL_MIX;
   #layer: MusicLayer | null = null;
   #retiring: MusicLayer[] = [];
+  /** Outgoing songs that keep playing into their retiring layer until their fade ends. */
+  #fading: (Transport & { layer: MusicLayer; until: number })[] = [];
   #transitions = 0;
   #arrangementChanges = 0;
   #transitionUntil = 0;
@@ -264,6 +288,13 @@ export class GameAudio {
   #loop = 0;
   #timer: ReturnType<typeof setInterval> | null = null;
   #noise: AudioBuffer | null = null;
+  #mix: GainNode | null = null;
+  #bus: AudioNode[] = [];
+  #fx: MusicEffects | null = null;
+  #kit: Map<number, AudioBuffer> | null = null;
+  #openHat: GainNode | null = null;
+  /** Diagnostics: called with every score note as the transport schedules it. */
+  onNote: ((note: ScoreNote, time: number) => void) | null = null;
   constructor(context?: AudioContext | OfflineAudioContext) {
     if (context) this.#initialize(context);
   }
@@ -271,6 +302,15 @@ export class GameAudio {
     this.context = ctx;
     this.#master = ctx.createGain(); this.#master.gain.value = 0.7; this.#master.connect(ctx.destination);
     this.#music = ctx.createGain(); this.#music.connect(this.#master);
+    // Music bus: dry layers and effect returns, gentle glue compression and tape-like warmth.
+    this.#mix = ctx.createGain();
+    const headroom = ctx.createGain(), rumble = ctx.createBiquadFilter(), glue = ctx.createDynamicsCompressor(), warmth = ctx.createWaveShaper(), trim = ctx.createGain();
+    headroom.gain.value = .3; rumble.type = 'highpass'; rumble.frequency.value = 36; rumble.Q.value = .6;
+    glue.threshold.value = -20; glue.knee.value = 8; glue.ratio.value = 2; glue.attack.value = .015; glue.release.value = .2;
+    warmth.curve = saturation(1.1); warmth.oversample = '2x'; trim.gain.value = .38;
+    this.#mix.connect(headroom).connect(rumble).connect(glue).connect(warmth).connect(trim).connect(this.#music);
+    this.#bus = [headroom, rumble, glue, warmth, trim];
+    this.#fx = new MusicEffects(ctx, this.#mix); this.#fx.setTempo(this.#score.bpm); this.#kit = drumKit(ctx);
     this.#effects = ctx.createGain(); this.#effects.connect(this.#master);
     this.#noise = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
     const samples = this.#noise.getChannelData(0);
@@ -278,7 +318,7 @@ export class GameAudio {
     let seed = 987234;
     for (let i = 0; i < samples.length; i++) { seed = (Math.imul(seed, 1664525) + 1013904223) | 0; samples[i] = seed / 2147483648; }
     this.#drive = new DriveSynth(ctx, this.#noise, this.#effects);
-    this.#replaceLayer();
+    if (!this.#silent) this.#replaceLayer();
     this.#start = ctx.currentTime + 0.08;
     if (ctx instanceof AudioContext) this.#timer = setInterval(() => this.#schedule(), 30);
     this.#updateGains();
@@ -295,9 +335,10 @@ export class GameAudio {
   get musicState() {
     const now = this.context?.currentTime ?? 0;
     return { enabled: this.musicEnabled, audible: this.musicEnabled && !this.#externalMusic && this.musicVolume > 0 && this.context?.state === 'running',
-      external: this.#externalMusic, track: this.#track, title: this.#score.name, file: MUSIC_LIBRARY[this.#track]!.file,
+      external: this.#externalMusic, silent: this.#silent, track: this.#silent ? null : this.#track,
+      title: this.#silent ? null : this.#score.name, file: this.#silent ? null : MUSIC_LIBRARY[this.#track]!.file,
       bpm: this.#score.bpm, source: this.#sceneCue ? 'cutscene' : 'song', cue: this.#sceneCue?.key ?? null,
-      narrative: this.#sceneCue?.narrative ?? null, mood: this.#sceneCue?.mood ?? null,
+      narrative: this.#sceneCue?.narrative ?? null, mood: this.#sceneCue?.mood ?? null, transition: this.#sceneCue?.transition ?? null,
       arrangement: this.#arrangement.id, stems: [...this.#arrangement.gains],
       // The clock starts when playback starts; the score may enter at a later phrase.
       entryBeat: this.#entryBeat, requestedEntryBeat: this.#sceneCue?.entryBeat ?? 0,
@@ -310,51 +351,98 @@ export class GameAudio {
     this.#sceneCue = null; this.#arrangement = FULL_MIX;
     this.#selectScore(index, score);
   }
-  /** Held dialogue leaves the transport untouched. Camera cuts morph stems;
-   * narrative changes crossfade complete compositions without abrupt tails. */
+  /** Held dialogue leaves the transport untouched. Camera cuts morph stems; narrative
+   * changes move between compositions, or into silence, with the cue's own transition. */
   setCutsceneCue(cue: CutsceneMusicCue): void {
     if (cue.key === this.#sceneCue?.key) return;
-    const changedSong = cue.track !== this.#track || this.#sceneCue === null;
+    if (cue.track === null) {
+      this.#sceneCue = cue; this.#arrangement = cue.arrangement;
+      if (!this.#silent) { this.#silent = true; this.#transitions++; this.#retireCurrent(cue.transition); }
+      return;
+    }
+    const changedSong = this.#silent || cue.track !== this.#track || this.#sceneCue === null;
     const score = changedSong ? makeScore(cue.track) : this.#score;
     if (!Number.isFinite(cue.entryBeat) || cue.entryBeat < 0 || cue.entryBeat >= score.beats) throw new RangeError('Cutscene music entrance is outside the composition');
     this.#sceneCue = cue; this.#arrangement = cue.arrangement;
-    if (changedSong) this.#selectScore(cue.track, score, cue.entryBeat);
+    if (changedSong) this.#selectScore(cue.track, score, cue.entryBeat, cue.transition);
     else { this.#arrangementChanges++; this.#applyArrangement(); }
   }
   endCutscene(): void {
     if (!this.#sceneCue) return;
-    this.#sceneCue = null; this.#arrangement = FULL_MIX; this.#applyArrangement();
+    this.#sceneCue = null; this.#arrangement = FULL_MIX;
+    // A scene skipped during a silence hands the next view its last song again.
+    if (this.#silent) this.#selectScore(this.#track, makeScore(this.#track), 0, 'slow');
+    else this.#applyArrangement();
   }
-  #selectScore(index: number, score: MusicScore, entryBeat = 0): void {
-    this.#score = score; this.#track = index; this.#entryBeat = entryBeat; this.#loop = 0;
+  #selectScore(index: number, score: MusicScore, entryBeat = 0, transition: MusicTransition = 'fade'): void {
+    const outgoing = this.#outgoing();
+    this.#score = score; this.#track = index; this.#entryBeat = entryBeat; this.#loop = 0; this.#silent = false;
     this.#index = score.notes.findIndex(note => note.beat >= entryBeat);
     // An entrance in a final rest still wraps at the composition's real end.
     if (this.#index === -1) { this.#index = 0; this.#loop = 1; }
-    this.#start = (this.context?.currentTime ?? 0) + 0.08;
-    this.#transitions++; this.#replaceLayer();
+    this.#start = (this.context?.currentTime ?? 0) + TRANSITIONS[transition].lead;
+    this.#fx?.setTempo(score.bpm);
+    this.#transitions++; this.#replaceLayer(transition, outgoing);
+  }
+  /** The playing song's position, so it can play on under its own fade-out. */
+  #outgoing(): Transport | null {
+    if (!this.context || !this.#layer || this.context.currentTime < this.#start) return null;
+    return { score: this.#score, start: this.#start, entryBeat: this.#entryBeat, index: this.#index, loop: this.#loop };
+  }
+  /** Fade a layer out with the transition's timing. Fades let the outgoing song play on underneath;
+   * a cut or powerdown stops it. A powerdown also stops feeding the effects at once and drags
+   * the top end of the music and its echoes down, like a failing supply. */
+  #retire(layer: MusicLayer, transition: MusicTransition, outgoing: Transport | null): void {
+    const now = this.context!.currentTime, { out } = TRANSITIONS[transition], powerdown = transition === 'powerdown';
+    glide(layer.bus.gain, now, now + out, 0);
+    for (const wet of Object.values(layer.wet)) glide(wet.gain, now, now + (powerdown ? .2 : out), 0);
+    // The sound collapses to a low thud well before it is gone. The next song's first
+    // arrangement resets the shared effects tone.
+    if (powerdown) for (const filter of [layer.filter, this.#fx?.tone]) if (filter) glide(filter.frequency, now, now + .35, 60, 'exponential');
+    if (outgoing && (transition === 'fade' || transition === 'slow')) this.#fading.push({ ...outgoing, layer, until: now + out });
+    layer.retireAt = now + out + .04; this.#retiring.push(layer);
+    // Rapid Back/Next cannot retain an unbounded graph of silent mix buses.
+    while (this.#retiring.length > 4) this.#disconnectLayer(this.#retiring.shift()!);
+  }
+  /** Into silence: the playing layer leaves and nothing replaces it. */
+  #retireCurrent(transition: MusicTransition): void {
+    if (!this.context || !this.#layer) return;
+    this.#retire(this.#layer, transition, this.#outgoing()); this.#layer = null;
+    this.#transitionUntil = this.context.currentTime + TRANSITIONS[transition].out;
   }
   #disconnectLayer(layer: MusicLayer): void {
     layer.bus.disconnect(); layer.filter.disconnect(); layer.pan.disconnect();
     layer.stems.forEach(stem => stem.disconnect()); layer.positions.forEach(position => position.disconnect());
+    Object.values(layer.wet).forEach(wet => wet.disconnect()); layer.sends.forEach(send => send.disconnect());
+    layer.drumVerb.disconnect(); layer.drumGate.disconnect();
   }
-  #replaceLayer(): void {
+  #replaceLayer(transition: MusicTransition = 'fade', outgoing: Transport | null = null): void {
     if (!this.context || !this.#music) return;
-    const ctx = this.context, now = ctx.currentTime;
-    if (this.#layer) {
-      const old = this.#layer;
-      old.bus.gain.cancelAndHoldAtTime(now); old.bus.gain.linearRampToValueAtTime(0, now + .72);
-      old.retireAt = now + .76; this.#retiring.push(old);
-      // Rapid Back/Next cannot retain an unbounded graph of silent mix buses.
-      while (this.#retiring.length > 2) this.#disconnectLayer(this.#retiring.shift()!);
-    }
+    const ctx = this.context, now = ctx.currentTime, timing = TRANSITIONS[transition];
+    if (this.#layer) this.#retire(this.#layer, transition, outgoing);
     const bus = ctx.createGain(), filter = ctx.createBiquadFilter(), pan = ctx.createStereoPanner();
     filter.type = 'lowpass'; filter.Q.value = .45; bus.gain.setValueAtTime(0, now);
-    bus.gain.linearRampToValueAtTime(1, now + .78);
-    filter.connect(pan).connect(bus).connect(this.#music);
+    bus.gain.linearRampToValueAtTime(1, now + timing.in);
+    filter.connect(pan).connect(bus).connect(this.#mix ?? this.#music);
     const stems = Array.from({ length: 5 }, () => ctx.createGain());
     const positions = stems.map(stem => { const position = ctx.createStereoPanner(); stem.connect(position).connect(filter); return position; });
-    this.#layer = { bus, filter, pan, stems, positions, retireAt: Infinity };
-    this.#transitionUntil = now + .78; this.#applyArrangement(true);
+    // Each instrument's reverb/delay/chorus amount comes from its patch and the song's mix.
+    const fx = this.#fx!, wet = { reverb: ctx.createGain(), delay: ctx.createGain(), chorus: ctx.createGain(), gated: ctx.createGain() };
+    for (const kind of ['reverb', 'delay', 'chorus', 'gated'] as const) {
+      wet[kind].gain.setValueAtTime(0, now); wet[kind].gain.linearRampToValueAtTime(1, now + timing.in); wet[kind].connect(fx[kind]);
+    }
+    const patches = this.#score.patches ?? DEFAULT_PATCHES, mix = this.#score.fx ?? { reverb: 1, delay: 1, chorus: 1 }, sends: GainNode[] = [];
+    stems.slice(0, 4).forEach((stem, index) => {
+      const amounts = patchSends(patches[index] ?? DEFAULT_PATCHES[index]!);
+      for (const kind of ['reverb', 'delay', 'chorus'] as const) {
+        if (!amounts[kind]) continue;
+        const send = ctx.createGain(); send.gain.value = amounts[kind] * mix[kind]; stem.connect(send).connect(wet[kind]); sends.push(send);
+      }
+    });
+    const drumVerb = ctx.createGain(), drumGate = ctx.createGain();
+    drumVerb.connect(wet.reverb); drumGate.connect(wet.gated);
+    this.#layer = { bus, filter, pan, stems, positions, retireAt: Infinity, wet, sends, drumVerb, drumGate };
+    this.#transitionUntil = now + Math.max(timing.in, timing.out); this.#applyArrangement(true);
   }
   #applyArrangement(initial = false): void {
     const layer = this.#layer, ctx = this.context;
@@ -365,6 +453,8 @@ export class GameAudio {
       else parameter.setTargetAtTime(value, ctx.currentTime, .16);
     };
     layer.stems.forEach((stem, index) => set(stem.gain, this.#arrangement.gains[index]!));
+    set(layer.drumVerb.gain, this.#arrangement.gains[4]); set(layer.drumGate.gain, this.#arrangement.gains[4]);
+    if (this.#fx) set(this.#fx.tone.frequency, Math.min(16000, this.#arrangement.cutoff * 1.15));
     layer.positions.forEach((position, index) => set(position.pan, [0, -.24, .7, -.45, .12][index]! * this.#arrangement.width));
     set(layer.filter.frequency, this.#arrangement.cutoff); set(layer.pan.pan, this.#arrangement.pan);
   }
@@ -407,60 +497,42 @@ export class GameAudio {
   }
   #schedule(until?: number, offline = false): void {
     const ctx = this.context;
-    if (!ctx || !this.#layer || (!offline && ctx.state !== 'running')) return;
+    if (!ctx || (!offline && ctx.state !== 'running')) return;
     this.#retiring = this.#retiring.filter(layer => { if (ctx.currentTime < layer.retireAt) return true; this.#disconnectLayer(layer); return false; });
+    const horizon = until ?? ctx.currentTime + 0.15;
+    // An outgoing song plays on into its fading layer rather than stopping where the cue changed.
+    this.#fading = this.#fading.filter(fade => {
+      if (!this.#retiring.includes(fade.layer)) return false;
+      this.#play(fade, fade.layer, Math.min(horizon, fade.until), offline);
+      return fade.until > horizon;
+    });
+    if (!this.#layer) return;
     const beatDuration = 60 / this.#score.bpm;
     if (ctx.currentTime - this.#start > beatDuration * (this.#score.beats * (this.#loop + 2) - this.#entryBeat)) {
       this.#start = ctx.currentTime; this.#index = this.#score.notes.findIndex(note => note.beat >= this.#entryBeat); this.#loop = 0;
       if (this.#index === -1) { this.#index = 0; this.#loop = 1; }
     }
+    const transport: Transport = { score: this.#score, start: this.#start, entryBeat: this.#entryBeat, index: this.#index, loop: this.#loop };
+    this.#play(transport, this.#layer, horizon, offline);
+    this.#index = transport.index; this.#loop = transport.loop;
+  }
+  /** Schedule a transport's notes into a layer up to `until`, advancing its position. */
+  #play(transport: Transport, layer: MusicLayer, until: number, offline: boolean): void {
+    const ctx = this.context!, { score } = transport, beatDuration = 60 / score.bpm;
     let scheduled = 0;
     while (scheduled++ < (offline ? 100000 : 200)) {
-      const note = this.#score.notes[this.#index]!;
-      const time = this.#start + (this.#loop * this.#score.beats + note.beat - this.#entryBeat) * beatDuration;
-      if (time > (until ?? ctx.currentTime + 0.15)) break;
-      if (time >= ctx.currentTime - 0.01 && this.musicEnabled && !this.#externalMusic) this.#note(note, Math.max(time, ctx.currentTime), beatDuration);
-      if (++this.#index === this.#score.notes.length) { this.#index = 0; this.#loop++; }
+      const note = score.notes[transport.index]!;
+      const time = transport.start + (transport.loop * score.beats + note.beat - transport.entryBeat) * beatDuration;
+      if (time > until) break;
+      if (time >= ctx.currentTime - 0.01 && this.musicEnabled && !this.#externalMusic) this.#note(note, Math.max(time, ctx.currentTime), beatDuration, layer, score);
+      if (++transport.index === score.notes.length) { transport.index = 0; transport.loop++; }
     }
   }
-  #note(note: ScoreNote, time: number, beat: number): void {
-    const layer = this.#layer!;
-    if (note.channel === 9) { this.#drum(note.pitch, time, note.velocity / 127, layer.stems[4]!); return; }
-    const volume = note.velocity / 127 * [0.2, 0.115, 0.07, 0.065][note.channel]!;
-    const patch = this.#score.patches?.[note.channel];
-    if (patch) this.#synthNote(note.pitch, time, note.duration * beat, volume, patch, layer.stems[note.channel]!);
-    else this.#tone(note.pitch, time, note.duration * beat, volume, note.channel === 0 ? 'triangle' : note.channel === 3 ? 'sine' : 'square', layer.stems[note.channel]!);
-  }
-  #synthNote(pitch: number, time: number, duration: number, volume: number, patch: SynthPatch, out: AudioNode): void {
-    const ctx = this.context!, carrier = ctx.createOscillator(), gain = ctx.createGain(), filter = ctx.createBiquadFilter();
-    const frequency = 440 * 2 ** ((pitch - 69) / 12), pad = patch.endsWith('pad'), bass = patch.endsWith('bass');
-    const release = pad ? .38 : patch === 'fm-bell' || patch === 'glass' ? .22 : .09;
-    const end = time + duration + release;
-    const oscillators: OscillatorNode[] = [carrier], nodes: AudioNode[] = [gain, filter];
-    carrier.frequency.setValueAtTime(frequency, time);
-    carrier.type = patch === 'pulse' ? 'square' : patch === 'rubber-bass' || patch === 'warm-pad' ? 'sawtooth' : 'sine';
-    filter.type = 'lowpass'; filter.Q.value = bass ? 2 : .55;
-    filter.frequency.setValueAtTime(bass ? 1800 : pad ? 1400 : 6400, time);
-    if (bass) filter.frequency.exponentialRampToValueAtTime(280, time + Math.max(.1, duration));
-    carrier.connect(filter).connect(gain).connect(out);
-    if (patch.startsWith('fm') || patch === 'glass') {
-      const modulator = ctx.createOscillator(), depth = ctx.createGain();
-      modulator.frequency.value = frequency * (patch === 'fm-reed' ? 1 : patch === 'glass' ? 3.01 : 2);
-      depth.gain.setValueAtTime(frequency * (patch === 'fm-reed' ? 1.35 : 2.4), time);
-      depth.gain.exponentialRampToValueAtTime(frequency * .015, end);
-      modulator.connect(depth).connect(carrier.frequency); oscillators.push(modulator); nodes.push(depth);
-    } else if (pad || bass) {
-      const second = ctx.createOscillator(), blend = ctx.createGain();
-      second.frequency.value = bass ? frequency / 2 : frequency;
-      second.type = patch === 'hollow-pad' ? 'triangle' : 'sine'; second.detune.value = pad ? 7 : 0; blend.gain.value = bass ? .32 : .28;
-      second.connect(blend).connect(filter); oscillators.push(second); nodes.push(blend);
-    }
-    const attack = Math.min(pad ? .22 : .012, duration * .4), sustain = pad ? .82 : .42;
-    gain.gain.setValueAtTime(0, time); gain.gain.linearRampToValueAtTime(volume * (pad ? .7 : .9), time + attack);
-    gain.gain.exponentialRampToValueAtTime(Math.max(.0001, volume * sustain), time + Math.max(attack + .01, duration * .8));
-    gain.gain.exponentialRampToValueAtTime(.0001, end);
-    for (const oscillator of oscillators) { oscillator.start(time); oscillator.stop(end + .015); }
-    carrier.onended = () => { oscillators.forEach(oscillator => oscillator.disconnect()); nodes.forEach(node => node.disconnect()); };
+  #note(note: ScoreNote, time: number, beat: number, layer: MusicLayer, score: MusicScore): void {
+    this.onNote?.(note, time);
+    if (note.channel === 9) { this.#drum(note.pitch, time, note.velocity / 127, layer); return; }
+    const patch = score.patches?.[note.channel] ?? DEFAULT_PATCHES[note.channel]!;
+    playVoice(this.context!, layer.stems[note.channel]!, patch, note.pitch, time, note.duration * beat, note.velocity / 127, note.beat * 31 + note.pitch);
   }
   #tone(pitch: number, time: number, duration: number, volume: number, type: OscillatorType, out: AudioNode): void {
     const ctx = this.context!, osc = ctx.createOscillator(), gain = ctx.createGain();
@@ -471,30 +543,28 @@ export class GameAudio {
     osc.connect(gain).connect(out); osc.start(time); osc.stop(time + duration + 0.07);
     osc.onended = () => { osc.disconnect(); gain.disconnect(); };
   }
-  #drum(pitch: number, time: number, velocity: number, out: AudioNode): void {
-    const ctx = this.context!;
-    if (pitch === 36) {
-      const osc = ctx.createOscillator(), gain = ctx.createGain();
-      osc.frequency.setValueAtTime(130, time); osc.frequency.exponentialRampToValueAtTime(38, time + 0.14);
-      gain.gain.setValueAtTime(velocity * 0.4, time); gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.19);
-      osc.connect(gain).connect(out); osc.start(time); osc.stop(time + 0.2);
-      osc.onended = () => { osc.disconnect(); gain.disconnect(); };
-    } else {
-      const source = ctx.createBufferSource(), filter = ctx.createBiquadFilter(), gain = ctx.createGain();
-      source.buffer = this.#noise; filter.type = pitch === 42 || pitch === 46 ? 'highpass' : 'bandpass';
-      filter.frequency.value = pitch === 42 || pitch === 46 ? 7500 : 1800; filter.Q.value = pitch === 42 || pitch === 46 ? 0.8 : 1.2;
-      const duration = pitch === 42 ? 0.048 : pitch === 46 ? 0.18 : 0.115;
-      gain.gain.setValueAtTime(velocity * (pitch === 42 || pitch === 46 ? 0.13 : 0.25), time);
-      gain.gain.exponentialRampToValueAtTime(0.0001, time + duration);
-      source.connect(filter).connect(gain).connect(out); source.start(time); source.stop(time + duration + 0.01);
-      source.onended = () => { source.disconnect(); filter.disconnect(); gain.disconnect(); };
+  #drum(pitch: number, time: number, velocity: number, layer: MusicLayer): void {
+    const ctx = this.context!, buffer = this.#kit?.get(pitch);
+    if (!buffer) return;
+    const [reverb, gated, pan, level] = DRUM_SENDS[pitch] ?? [.1, 0, 0, .4];
+    const source = ctx.createBufferSource(), gain = ctx.createGain(), position = ctx.createStereoPanner(), nodes: AudioNode[] = [source, gain, position];
+    source.buffer = buffer; gain.gain.value = level * velocity ** 1.3; position.pan.value = pan;
+    source.connect(gain).connect(position).connect(layer.stems[4]!);
+    for (const [amount, target] of [[reverb, layer.drumVerb], [gated, layer.drumGate]] as const) {
+      if (!amount) continue;
+      const send = ctx.createGain(); send.gain.value = amount; position.connect(send).connect(target); nodes.push(send);
     }
+    // A closed hat chokes the ringing open hat, as on a drum machine.
+    if (pitch === 42 && this.#openHat) this.#openHat.gain.setTargetAtTime(0, time, .008);
+    if (pitch === 46) this.#openHat = gain;
+    source.start(time); source.onended = () => nodes.forEach(node => node.disconnect());
   }
   dispose(): void {
     if (this.#timer) clearInterval(this.#timer);
     this.#timer = null; this.#drive?.dispose(); this.#drive = null;
     if (this.#layer) this.#disconnectLayer(this.#layer); this.#layer = null;
-    this.#retiring.forEach(layer => this.#disconnectLayer(layer)); this.#retiring = [];
+    this.#retiring.forEach(layer => this.#disconnectLayer(layer)); this.#retiring = []; this.#fading = [];
+    this.#fx?.dispose(); this.#fx = null; this.#mix?.disconnect(); this.#bus.forEach(node => node.disconnect()); this.#bus = [];
     this.#music?.disconnect(); this.#effects?.disconnect(); this.#master?.disconnect();
     if (this.context instanceof AudioContext) void this.context.close();
     this.context = null;

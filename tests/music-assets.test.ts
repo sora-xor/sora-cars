@@ -2,11 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import { MUSIC_ITEMS, MUSIC_LICENSE, musicItemMetadata } from '../src/game/music-catalog';
+import { MUSIC_ITEMS, MUSIC_LICENSE, MUSIC_SONGS, musicCoverPath, musicItemMetadata, musicSleeves } from '../src/game/music-catalog';
+import sleeves from '../docs/art-prompts/soundtrack-covers-v2.json';
 const hash = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 
 test('Every released recording binds real audio, artwork and the exact license', () => {
-  assert.equal(MUSIC_ITEMS.length, 26);
+  assert.equal(MUSIC_SONGS.length, 26);
+  assert.equal(MUSIC_ITEMS.length, 52, 'Each song sells as a 表 OMOTE and a 裏 URA NFT');
   assert.ok(MUSIC_ITEMS.some(item => item.file === 'meet-me-at-yasukuni'), 'Approved supplied Tokyo recording is included');
   const coverHashes = new Set<string>();
   for (const item of MUSIC_ITEMS) {
@@ -27,13 +29,45 @@ test('Every released recording binds real audio, artwork and the exact license',
   assert.equal(coverHashes.size, MUSIC_ITEMS.length);
 });
 
+test('表 keeps the original sleeve and SKU; 裏 is a distinct back-jacket NFT with the same recording and license', () => {
+  assert.equal(new Set(MUSIC_ITEMS.map(item => item.sku)).size, 52);
+  for (const song of MUSIC_SONGS) {
+    const [omote, ura] = musicSleeves(song.sku);
+    assert.deepEqual([omote?.sleeve, ura?.sleeve], ['omote', 'ura']);
+    assert.equal(omote!.sku, `music-${song.file}`, '表 keeps the original per-song SKU');
+    assert.equal(ura!.sku, `music-${song.file}-ura`);
+    assert.equal(omote!.artwork!.path, musicCoverPath(song.file, 'omote')); assert.match(omote!.artwork!.path, /-v1\.png$/);
+    assert.equal(ura!.artwork!.path, musicCoverPath(song.file, 'ura')); assert.match(ura!.artwork!.path, /-v2\.png$/);
+    assert.deepEqual(omote!.artwork, omote!.assets!.cover, '表 is the original cover recorded for the song');
+    const front = musicItemMetadata(omote!, 'fixture-application', 'Fixture licensor'), back = musicItemMetadata(ura!, 'fixture-application', 'Fixture licensor');
+    assert.deepEqual(back.recording, front.recording); assert.deepEqual(back.license, front.license); assert.equal(back.price_xor, '1');
+    assert.notEqual(back.artwork.sha256, front.artwork.sha256);
+    assert.deepEqual([front.sleeve.name, back.sleeve.name], ['表', '裏']);
+    assert.match(front.name, /［表］$/); assert.match(back.name, /［裏］$/);
+  }
+});
+
+test('Every 裏 back jacket printed the current catalog title and liner notes, in catalog order', () => {
+  assert.deepEqual(sleeves.covers.map(cover => cover.file), MUSIC_SONGS.map(song => song.file));
+  sleeves.covers.forEach((cover, index) => {
+    const song = MUSIC_SONGS[index]!, item = musicSleeves(song.sku)[1]!;
+    assert.equal(cover.catalog, `SR-${String(index + 1).padStart(3, '0')}`);
+    assert.deepEqual(cover.printed, { ja: song.name.ja, en: song.name.en, collection: song.collection, description: song.description }, `${cover.file}: re-run npx tsx scripts/compose-covers.mjs`);
+    assert.equal(cover.output.path, `public/${item.artwork!.path}`); assert.equal(cover.output.sha256, item.artwork!.sha256);
+  });
+});
+
 test('Music release rejects incomplete, unsafe or unbound asset metadata', () => {
   const song = MUSIC_ITEMS[0]!;
   const metadata = (change: object) => musicItemMetadata({ ...song, ...change }, 'fixture-application', 'Fixture issuer');
-  for (const key of ['wav', 'mp3', 'preview', 'cover']) {
+  for (const key of ['wav', 'mp3', 'preview']) {
     assert.throws(() => metadata({ assets: { ...song.assets, [key]: undefined } }));
     assert.throws(() => metadata({ assets: { ...song.assets, [key]: { ...song.assets![key as 'wav'], path: 'assets/music/../foreign.wav' } } }));
   }
+  assert.throws(() => metadata({ artwork: undefined }));
+  assert.throws(() => metadata({ artwork: { ...song.artwork!, path: 'assets/music/../foreign.png' } }));
+  assert.throws(() => metadata({ artwork: MUSIC_ITEMS[1]!.artwork }), '表 cannot carry the 裏 sleeve');
+  assert.throws(() => metadata({ sku: `${song.sku}-ura` }), 'SKU must match its sleeve');
   assert.throws(() => metadata({ durationSeconds: NaN }));
   assert.throws(() => metadata({ license: { ...MUSIC_LICENSE, sha256: '0'.repeat(64) } }));
   assert.throws(() => musicItemMetadata(song, 'fixture', ''));

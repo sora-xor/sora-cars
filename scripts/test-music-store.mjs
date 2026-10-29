@@ -18,12 +18,13 @@ await server.listen();
 const origin = `http://127.0.0.1:${server.httpServer.address().port}`;
 const browser = await chromium.launch({ headless: true, channel: 'chromium' });
 const checks = [], errors = [], pages = [];
-async function page(viewport = { width: 1440, height: 1000 }, song = '') {
+async function page(viewport = { width: 1440, height: 1000 }, song = '', sleeve = 'omote') {
   const p = await browser.newPage({ viewport, reducedMotion: 'reduce', acceptDownloads: true }); pages.push(p);
   p.on('pageerror', error => errors.push(error.message));
-  await p.goto(`${origin}/tmp/music-store-qa/fixture.html${song ? `?song=${encodeURIComponent(song)}` : ''}`, { waitUntil: 'domcontentloaded' });
+  const query = new URLSearchParams({ ...(song ? { song } : {}), ...(sleeve === 'ura' ? { sleeve } : {}) }).toString();
+  await p.goto(`${origin}/tmp/music-store-qa/fixture.html${query ? `?${query}` : ''}`, { waitUntil: 'domcontentloaded' });
   await p.waitForFunction(() => Boolean(window.musicStoreHarness), undefined, { timeout: 60_000 });
-  if (song) await run(p, `select:music-${song}`);
+  if (song || sleeve === 'ura') await run(p, `select:${await p.evaluate(() => window.musicStoreHarness.song.sku)}`);
   return p;
 }
 const view = p => p.evaluate(() => window.musicStoreHarness.view());
@@ -47,7 +48,9 @@ async function checkDownloads(p) {
     const downloadEvent = p.waitForEvent('download');
     const state = await run(p, `download:${format}`), download = await downloadEvent;
     const path = `${out}/${download.suggestedFilename()}`; await download.saveAs(path); const bytes = await readFile(path);
-    if (format !== 'license') { assert.equal(hash(bytes), song.assets[format].sha256); assert.equal(bytes.length, song.assets[format].bytes); }
+    // The artwork download is the owned sleeve's own cover (表 v1 or 裏 v2).
+    const expected = format === 'cover' ? song.artwork : song.assets[format];
+    if (format !== 'license') { assert.equal(hash(bytes), expected.sha256); assert.equal(bytes.length, expected.bytes); }
     else {
       const grant = await readFile(`public/${song.license.path}`, 'utf8'); const record = bytes.toString('utf8');
       assert.ok(record.endsWith(grant)); assert.match(record, /Licensor: Explicit test fixture issuer/); assert.match(record, /not independently verified finality/); assert.match(record, new RegExp(song.license.sha256));
@@ -202,6 +205,29 @@ try {
     await owned(p); assert.equal((await view(p)).state.purchase.received, true);
     assert.equal(await p.locator('[data-record^="download:"]').count(), 4);
     await checkDownloads(p); await p.screenshot({ path: `${out}/tokyo-owned-mobile.png` }); await p.close();
+  });
+  await complete('裏 URA back-jacket NFT sells separately for one XOR, shows its own sleeve, and unlocks the same recording with its own artwork', async () => {
+    const p = await page({ width: 1440, height: 1000 }, 'one-umbrella-two-chairs', 'ura');
+    const song = await p.evaluate(() => window.musicStoreHarness.song);
+    assert.equal(song.sku, 'music-one-umbrella-two-chairs-ura'); assert.equal(song.sleeve, 'ura');
+    await p.waitForFunction(() => { const image = document.querySelector('.record-sleeve img'); return image.complete && image.naturalWidth >= 1024; });
+    assert.ok((await p.locator('.record-sleeve img').getAttribute('src')).endsWith(song.artwork.path));
+    assert.equal(await p.locator('.record-sleeve-choice').count(), 2);
+    assert.equal(await p.locator('[data-record="sleeve:ura"]').getAttribute('aria-pressed'), 'true');
+    const id = await review(p);
+    assert.match(await p.locator('.record-checkout').innerText(), /裏 URA/);
+    await p.locator('#record-license-consent').check(); await p.locator('#record-fee-cap').fill('0.025');
+    await run(p, `buy:${id}`);
+    assert.equal((await view(p)).purchases[0].instruction.BuyNftV1.offer.price, '1');
+    await owned(p);
+    assert.deepEqual(await p.locator('[data-record^="download:"]').evaluateAll(nodes => nodes.map(n => n.dataset.record)), ['download:mp3', 'download:wav', 'download:cover:ura', 'download:license']);
+    await checkDownloads(p);
+    // Owning 裏 already unlocks the recording; the 表 sleeve stays separately purchasable.
+    await run(p, 'sleeve:omote');
+    assert.equal((await view(p)).state.selected, 'music-one-umbrella-two-chairs');
+    assert.equal(await p.locator('[data-record="download:mp3"]').count(), 1);
+    assert.deepEqual(await p.locator('[data-record^="download:cover"]').evaluateAll(nodes => nodes.map(n => n.dataset.record)), ['download:cover:ura'], 'Only the owned sleeve artwork downloads');
+    await p.screenshot({ path: `${out}/ura-owned.png`, fullPage: true }); await p.close();
   });
   await complete('Corrupted or oversized assets cannot become downloads', async () => {
     for (const oversized of [false, true]) {

@@ -1,0 +1,265 @@
+/* SORA Garage tech tree: the workshop notebook beside the NFT custom works,
+ * and the pre-race garage ("pit") that opens after a story chapter's cutscenes. */
+#app[data-view="tuning"], #app[data-view="pit"] { color: var(--ink); }
+[data-view="tuning"] .world-shade, [data-view="pit"] .world-shade { background: rgba(239, 232, 222, .98); }
+[data-view="tuning"] .header, [data-view="tuning"] .footer, [data-view="pit"] .header, [data-view="pit"] .footer { border-color: #4a344433; }
+[data-view="tuning"] .wallet-button, [data-view="pit"] .wallet-button { border-color: #8a7889; }
+.tech-garage { max-width: 1320px; padding-bottom: 40px; }
+.tech-garage h1 { font-size: clamp(30px, 3.4vw, 54px); letter-spacing: -.035em; }
+.tech-garage h1 .english-subtitle { font-size: 13px; letter-spacing: .06em; margin-top: 12px; }
+.tech-garage .eyebrow { color: #746470; }
+.tech-garage small[lang="en"] { display: block; font-size: 9px; letter-spacing: .07em; font-weight: 600; margin-top: 3px; opacity: .8; }
+.tech-heading-tools { display: flex; align-items: center; gap: 18px; }
+.tech-heading-tools .small-button { border-color: #a395a0; font-size: 11px; }
+.tech-wallet { display: flex; align-items: baseline; gap: 12px; font-size: 11px; color: #5d4f5c; }
+.tech-wallet span { white-space: nowrap; }
+.tech-wallet b { font-size: 26px; color: var(--ink); letter-spacing: -.02em; }
+.tech-intro { font-size: 14px; line-height: 1.8; margin: 14px 0 22px; max-width: 760px; }
+.tech-intro span { display: block; font-size: 12px; color: #6b5d69; }
+.tech-layout { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 34px; align-items: start; }
+.tech-tiers, .tech-branch { display: grid; grid-template-columns: 116px repeat(4, minmax(0, 1fr)); gap: 10px; }
+.tech-tiers { font: 10px monospace; letter-spacing: 2px; color: #8a7889; padding-bottom: 8px; border-bottom: 1px solid #b8abab; }
+.tech-tiers span { text-align: center; }
+.tech-branch { position: relative; padding: 14px 0; border-bottom: 1px solid #cfc3bb; align-items: center; }
+/* One thread runs through each branch, from the first part to the capstone. */
+.tech-branch::after { content: ''; position: absolute; left: 126px; right: 12%; top: 50%; height: 2px; background: #cbbdb5; z-index: 0; }
+.tech-branch header h2 { font-size: 17px; line-height: 1.2; }
+.tech-branch header p { font-size: 11px; color: #6b5d69; margin-top: 8px; line-height: 1.3; }
+.tech-part { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto auto 1fr; gap: 5px 6px; text-align: left; padding: 10px 11px 9px; min-height: 108px;
+  background: #fbf7ef; border: 1px solid #b8abab; color: var(--ink); cursor: pointer; font: inherit; transition: transform .12s, box-shadow .12s; }
+.tech-part:hover { transform: translateY(-1px); box-shadow: 0 3px 0 #2a1f2c22; }
+.tech-part strong { grid-area: 2 / 1 / 3 / 3; font-size: 13px; line-height: 1.3; font-weight: 800; }
+.tech-part > .tech-tier { grid-area: 1 / 1 / 2 / 3; }
+.tech-part > .effect-chips { grid-area: 3 / 1 / 4 / 3; align-self: start; }
+.tech-part > .tech-status { grid-area: 4 / 1; }
+/* Each card's part turns beside its note and price, drawn at the cutscenes' art-pixel size. */
+.part-art { display: block; image-rendering: crisp-edges; image-rendering: pixelated; }
+.tech-part > .part-art { grid-area: 4 / 2; align-self: end; width: 52px; height: 52px; margin: -4px -5px -5px 0; }
+.tech-fork .tech-part > .part-art { width: 46px; height: 46px; }
+.tech-part .tech-tier { font: 9px monospace; letter-spacing: 1.5px; color: #8a7889; }
+/* Effect chips: a part's stats as arrows (green up, red down) and its special mechanics. */
+.effect-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.effect-chip { display: inline-flex; flex-direction: column; gap: 1px; padding: 3px 6px 3px 5px; border: 1px solid #a9d0c2; background: #e9f4ef; color: #1f6150; line-height: 1.1; }
+.effect-chip b { font-size: 10px; font-weight: 800; white-space: nowrap; }
+.effect-chip b i { font-style: normal; font-size: 8px; letter-spacing: -1px; margin-left: 3px; }
+.effect-chip small[lang="en"] { display: block; margin: 0; font-size: 7px; font-weight: 700; letter-spacing: .06em; opacity: .85; }
+.effect-chip.down { border-color: #e7b3aa; background: #fbedea; color: #b42a22; }
+.effect-chip.special { border-color: #2a1f2c; background: var(--ink); color: #ffcf8a; }
+.effect-chip.special small[lang="en"] { color: #e7dbe6; }
+.tech-part.is-fitted .effect-chip.up { border-color: #6fb79f66; background: #6fb79f26; color: #a8e6cf; }
+.tech-part.is-fitted .effect-chip.down { border-color: #ff8a7a66; background: #ff8a7a22; color: #ffb3a8; }
+.tech-part.is-fitted .effect-chip.special { border-color: #ffcf8a66; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.tech-part .tech-status { align-self: end; font: 700 11px monospace; letter-spacing: .5px; color: var(--red); }
+.tech-part.is-fitted { background: var(--ink); color: #f6f0e6; border-color: var(--ink); }
+.tech-part.is-fitted .tech-tier { color: #d5c8d6; }
+.tech-part.is-fitted .tech-status { color: #ffcf8a; }
+.tech-part.is-stored { border-style: dashed; background: #f3ede2; }
+.tech-part.is-stored .tech-status { color: #6b5d69; }
+.tech-part.is-short .tech-status { color: #9c8c98; }
+.tech-part.is-locked { opacity: .5; background: #efe8dd; }
+.tech-part.is-locked .tech-status { color: #8a7889; }
+.tech-part.selected { box-shadow: inset 0 0 0 2px var(--red), 0 3px 0 #2a1f2c22; }
+.tech-part:focus-visible, .tech-field:focus-visible, .tech-toggle:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.tech-fork { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 4px; }
+.tech-fork .tech-part { min-height: 92px; }
+.tech-or { text-align: center; font-size: 10px; color: #8a7889; line-height: 1; }
+.tech-or small[lang="en"] { display: inline; margin-left: 5px; }
+.tech-side { position: sticky; top: 0; display: flex; flex-direction: column; gap: 22px; }
+.tech-side h3 { font-size: 14px; margin-bottom: 12px; }
+.tech-part-detail, .tech-car, .tech-fields { border-top: 2px solid var(--ink); padding-top: 14px; }
+.tech-part-detail .eyebrow { margin-bottom: 8px; font-size: 8px; }
+.tech-part-detail h2 { font-size: 22px; line-height: 1.25; }
+.tech-part-detail h2 small[lang="en"] { font-size: 11px; }
+.tech-note-long { font-size: 13px; line-height: 1.7; margin: 10px 0; }
+.tech-note-long span { display: block; font-size: 11px; color: #6b5d69; }
+.tech-part-detail .effect-chips { margin: 0 0 12px; gap: 5px; }
+.tech-part-detail .effect-chip { padding: 5px 8px 4px 7px; }
+.tech-part-detail .effect-chip b { font-size: 12px; }
+.tech-part-detail .effect-chip b i { font-size: 10px; }
+.tech-part-detail .effect-chip small[lang="en"] { font-size: 8px; }
+/* Measured race time saved on each course; the pre-race garage marks tonight's. */
+.tech-gains { margin: 0 0 14px; padding: 10px 12px 9px; background: #f3ede2; border: 1px solid #d8cdc4; }
+.tech-gains > p:first-child { font-size: 11px; font-weight: 800; color: #3d3140; }
+.tech-gains > p:first-child small[lang="en"] { font-size: 8px; margin-top: 2px; }
+.tech-gains ol { list-style: none; padding: 0; margin: 8px 0 6px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.tech-gains li { display: flex; flex-direction: column; gap: 3px; padding-left: 7px; border-left: 2px solid #cbbdb5; }
+.tech-gains li > span { font-size: 10px; font-weight: 700; color: #5d4f5c; }
+.tech-gains li > span small[lang="en"] { font-size: 7px; margin-top: 1px; }
+.tech-gains li b { font-size: 20px; font-weight: 900; line-height: 1; color: #1f6150; letter-spacing: -.02em; }
+.tech-gains li.is-tonight { border-left-color: var(--red); }
+.tech-gains-note { font-size: 9px; color: #7a6b78; }
+.tech-gains-note small[lang="en"] { display: inline; margin-left: 5px; }
+/* What the part changes on your car: before → after in race units, trade-offs marked red. */
+.tech-effects { margin: 0 0 12px; }
+.tech-effects-head { display: flex; justify-content: space-between; gap: 10px; padding-bottom: 5px; border-bottom: 1px solid #b8abab; font-size: 10px; font-weight: 800; color: #3d3140; }
+.tech-effects-head small[lang="en"] { font-size: 7px; }
+.tech-effects-head span:last-child { text-align: right; }
+.tech-effects ul { list-style: none; padding: 0; margin: 0; }
+.tech-effects li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #d8cdc4; font-size: 12px; font-weight: 700; }
+.tech-effects li > span { min-width: 0; }
+.tech-effects li small[lang="en"] { font-size: 8px; }
+.tech-effects li em { display: block; margin-top: 3px; font-style: normal; font-weight: 400; font-size: 10px; color: #6b5d69; }
+.tech-effects li em small[lang="en"] { display: inline; margin-left: 5px; }
+.tech-effects li b { flex: none; font: 700 10px monospace; white-space: nowrap; color: #7a6b78; text-align: right; }
+.tech-effects li b strong { font-size: 12px; color: #1f6150; }
+.tech-effects li.cost { box-shadow: inset 3px 0 var(--red); padding-left: 9px; }
+.tech-effects li.cost b strong { color: var(--red); }
+.tech-part-detail .primary { flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13px; width: 100%; }
+.tech-part-detail .primary small[lang="en"] { color: #ffe9de; }
+.tech-part-detail .primary[disabled] { background: #b9adb0; border-color: transparent; cursor: default; }
+.tech-fitted, .tech-locked { font-size: 12px; padding: 12px; background: #f3ede2; border: 1px dashed #b8abab; }
+.tech-stats { margin: 0; }
+.tech-stats > div { display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: center; padding: 5px 0; }
+.tech-stats dt { font-size: 11px; font-weight: 700; }
+.tech-stats dt small[lang="en"] { font-size: 8px; }
+.tech-stats dd { margin: 0; }
+.tech-stats dd small { display: block; font: 9px monospace; color: #6b5d69; margin-top: 3px; min-height: 1em; }
+.tech-bar { position: relative; display: block; height: 8px; background: #ddd2c4; }
+.tech-bar i { position: absolute; left: 0; top: 0; bottom: 0; }
+.tech-bar i:first-child { width: var(--high); background: #4fa58c; }
+.tech-bar.is-loss i:first-child { background: repeating-linear-gradient(135deg, #d4473b 0 3px, #f0a49a 3px 6px); }
+.tech-bar i:last-child { width: var(--low); background: var(--ink); }
+.tech-specials { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.tech-specials span { font-size: 10px; font-weight: 700; padding: 4px 7px; background: var(--ink); color: #ffcf8a; }
+.tech-specials small[lang="en"] { color: #e7dbe6; }
+.tech-toggle { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 14px; padding: 10px 12px; border: 1px solid #a395a0; background: #fbf7ef; color: var(--ink); font: inherit; font-size: 12px; text-align: left; cursor: pointer; }
+.tech-toggle b { font: 700 12px monospace; }
+.tech-toggle[aria-pressed="true"] { background: var(--ink); color: #f6f0e6; }
+.tech-car .fine-print, .tech-fine { color: #655667; font-size: 11px; line-height: 1.6; }
+.tech-fine small[lang="en"], .tech-car .fine-print small[lang="en"] { font-size: 10px; font-weight: 400; }
+.tech-field { display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; width: 100%; padding: 9px 10px; margin-bottom: 6px; border: 1px solid #b8abab; background: #fbf7ef; color: var(--ink); font: inherit; font-size: 12px; text-align: left; cursor: pointer; }
+.tech-field em { font: 700 12px monospace; font-style: normal; color: var(--red); }
+.tech-field > small { grid-column: 1 / -1; font-size: 10px; color: #6b5d69; }
+.tech-field.chosen { box-shadow: inset 4px 0 var(--red); background: #fff9eb; }
+.tech-field[disabled] { opacity: .5; cursor: default; }
+
+/* The detail panel's turntable: a night display case, the part spinning on its deck. */
+.part-stage { position: relative; height: 210px; margin-bottom: 14px; overflow: hidden; border: 1px solid #2a1f2c;
+  background: radial-gradient(ellipse 60% 55% at 50% 30%, #5a3f7a66, transparent 70%), radial-gradient(ellipse 80% 45% at 50% 100%, #ffb35c33, transparent 70%), linear-gradient(#1b1328, #241a36 60%, #150f1f); }
+.part-stage::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(90deg, #ffffff0a 0 1px, transparent 1px 24px), repeating-linear-gradient(0deg, #ffffff07 0 1px, transparent 1px 24px); }
+.part-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+.part-stage canvas:active { cursor: grabbing; }
+.part-stage-hint { position: absolute; left: 10px; bottom: 8px; font: 700 9px monospace; letter-spacing: 1px; color: #cbb8e0aa; pointer-events: none; }
+.part-stage-hint small[lang="en"] { display: inline; margin-left: 6px; font-size: 8px; }
+.part-stamp { position: absolute; left: 50%; top: 44%; padding: 8px 14px 7px; border: 3px solid #ffcf8a; color: #ffcf8a; background: #1d1423cc;
+  font-size: 24px; font-weight: 900; letter-spacing: .08em; text-align: center; pointer-events: none; transform: translate(-50%, -50%) rotate(-8deg);
+  animation: part-stamp 1.9s cubic-bezier(.2, 1.5, .4, 1) both; }
+.part-stamp small[lang="en"] { display: block; font-size: 10px; letter-spacing: .2em; margin-top: 2px; }
+@keyframes part-stamp {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(-8deg) scale(2.6); }
+  16% { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+  78% { opacity: 1; transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) rotate(-8deg) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) { .part-stamp { animation-timing-function: linear; animation-name: part-stamp-still; } }
+@keyframes part-stamp-still { 0%, 80% { opacity: 1; } 100% { opacity: 0; } }
+
+/* Pre-race garage: tonight's race above the tree, the crew's pick marked in it. */
+.tech-pit .pit-go { flex-direction: column; align-items: flex-start; gap: 3px; font-size: 13px; }
+.tech-pit .pit-go small[lang="en"] { font-size: 10px; color: #ffe9de; }
+.pit-brief { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); gap: 24px; margin: 18px 0 24px; align-items: start; }
+.pit-brief dl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: 2px solid var(--ink); }
+.pit-brief dl > div { padding: 12px 14px 12px 0; border-right: 1px solid #d8cdc4; }
+.pit-brief dl > div + div { padding-left: 14px; }
+.pit-brief dl > div:last-child { border-right: 0; }
+.pit-brief dt { font-size: 11px; font-weight: 800; color: #5d4f5c; }
+.pit-brief dt small[lang="en"] { display: inline; margin-left: 6px; font-size: 9px; }
+.pit-brief dd { margin: 8px 0 0; font-size: 15px; font-weight: 800; line-height: 1.4; }
+.pit-brief dd small[lang="en"] { font-size: 9px; color: #6b5d69; margin-top: 5px; }
+.pit-tip { margin: 0; padding: 12px 16px; background: #fbf7ef; border: 1px solid #d8cdc4; border-left: 5px solid var(--crew-color); display: flex; flex-direction: column; gap: 8px; }
+.pit-tip figcaption { font-size: 12px; font-weight: 800; }
+.pit-tip figcaption small[lang="en"] { display: inline; margin-left: 6px; }
+.pit-tip blockquote { margin: 0; font-size: 13px; line-height: 1.7; }
+.pit-tip blockquote p[lang="en"] { font-size: 11px; line-height: 1.55; color: #6b5d69; margin-top: 4px; }
+.pit-pick { margin-top: auto; padding-top: 10px; border-top: 1px dashed #c9bbb3; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; }
+.pit-pick p { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 13px; }
+.pit-pick p > .part-art { width: 44px; height: 44px; }
+.pit-pick p > small[lang="en"] { font-size: 9px; color: #6b5d69; }
+.pit-pick .tech-pick { padding: 3px 6px; background: var(--red); color: #fff4ed; font-size: 9px; font-weight: 800; line-height: 1; }
+.pit-pick .tech-pick small[lang="en"] { display: inline; margin-left: 4px; font-size: 8px; color: #ffe9de; }
+.pit-pick > div { display: flex; align-items: center; gap: 12px; }
+.pit-pick .primary { min-height: 0; padding: 9px 14px; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 12px; }
+.pit-pick .primary small[lang="en"] { font-size: 9px; color: #ffe9de; }
+.pit-pick .primary[disabled] { background: #b9adb0; border-color: transparent; cursor: default; }
+.pit-pick .text-button { font-size: 11px; color: var(--ink); }
+.pit-pick .text-button small[lang="en"] { display: inline; margin-left: 4px; }
+.pit-pick-done { font-size: 11px; color: #5d4f5c; margin-top: auto; }
+.pit-pick > .effect-chips { flex-basis: 100%; }
+.pit-pick-gain { flex-basis: 100%; font-size: 12px; font-weight: 800; color: #1f6150; }
+.pit-pick-gain small[lang="en"] { display: inline; margin-left: 6px; font-size: 9px; }
+.tech-branch.is-tip { background: linear-gradient(90deg, #ffcf8a33, transparent 70%); }
+.tech-branch.is-tip::before { content: ''; position: absolute; left: -10px; top: 10px; bottom: 10px; width: 3px; background: var(--red); }
+.tech-tip-mark { margin-top: 6px; font: 700 9px monospace; letter-spacing: 1px; color: var(--red) !important; }
+.tech-part .tech-pick { position: absolute; top: -8px; right: 8px; padding: 3px 6px; background: var(--red); color: #fff4ed; font-size: 9px; font-weight: 800; line-height: 1; }
+.tech-part .tech-pick small[lang="en"] { display: inline; margin: 0 0 0 4px; font-size: 8px; color: #ffe9de; opacity: 1; }
+.tech-pick-note { font-size: 11px; line-height: 1.5; color: var(--red); margin: -4px 0 12px; }
+.pit-grid ul { list-style: none; padding: 0; margin: 0 0 8px; }
+.pit-grid li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 8px 0; border-bottom: 1px solid #d8cdc4; font-size: 12px; font-weight: 700; }
+.pit-grid li b { font: 700 12px monospace; text-align: right; white-space: nowrap; }
+.pit-grid li b small { display: block; font: 600 9px Sora, SoraJP, sans-serif; color: #6b5d69; margin-top: 3px; }
+.pit-grid li.you { color: var(--red); }
+.pit-grid .fine-print { color: #655667; font-size: 11px; line-height: 1.6; }
+
+/* Build line beside the showroom car. */
+.tech-summary { margin: 0 0 18px; max-width: 300px; }
+.tech-summary-head { display: flex; justify-content: space-between; align-items: baseline; font-size: 10px; color: #6b5d69; padding-bottom: 6px; border-bottom: 1px solid #30233222; }
+.tech-summary-head small[lang="en"] { display: inline; font-size: 8px; letter-spacing: .06em; margin-left: 6px; }
+.tech-summary-head b { font-size: 19px; color: var(--ink); }
+.tech-summary .garage-shop-link { margin-top: 8px; }
+.tech-summary-build { margin-top: 6px; font-size: 10px; color: #6b5d69; }
+.tech-summary-build small[lang="en"] { display: inline; margin-left: 6px; font-size: 8px; }
+/* Like the shop and session headings: a full .75em subtitle under the garage's
+ * display heading pushed this column, and its links, below the footer. */
+.garage-copy h1 .english-subtitle { font-size: 13px; letter-spacing: .06em; margin-top: 12px; }
+
+/* Practice field on the home circuit picker. */
+.field-picker { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #f4e8ec2b; }
+.field-picker button { font-family: monospace; font-size: 15px; padding: 0 2px; }
+.field-picker div { text-align: center; font-size: 11px; font-weight: 700; }
+.field-picker div small { display: block; font: 8px monospace; letter-spacing: 1px; color: #c5b2cb; margin-top: 4px; }
+
+/* Race feedback for garage-only mechanics. */
+.tune-hud { position: absolute; left: 50%; bottom: 74px; transform: translateX(-50%); display: flex; gap: 8px; pointer-events: none; z-index: 8; }
+.tune-hud span { font: 700 10px monospace; letter-spacing: 1px; padding: 6px 10px; background: #1d1423cc; color: #ffcf8a; border: 1px solid #ffcf8a66; }
+.tune-hud span[hidden] { display: none; }
+
+/* Prize money on the results panel. */
+.prize-box { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 4px 0 18px; padding: 12px 14px; border: 1px solid #ffcf8a55; background: #ffcf8a12; font: 11px monospace; }
+.prize-box b { font: 900 24px Sora, SoraJP, sans-serif; color: #ffdfa6; }
+.prize-box span { color: #d7c3dc; }
+.prize-box .prize-unlock { color: #ffcf8a; }
+
+@media (max-width: 1100px) {
+  .tech-layout, .pit-brief { grid-template-columns: 1fr; }
+  .tech-side { position: static; display: grid; grid-template-columns: 1fr 1fr; }
+  .tech-side .tech-part-detail { grid-column: 1 / -1; }
+}
+@media (max-width: 700px) {
+  /* Clear the wrapped mobile navigation, as the custom works shop does. */
+  .tech-garage { padding-top: 20px; }
+  .tech-garage .section-heading { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .tech-heading-tools { width: 100%; justify-content: space-between; }
+  .tech-pit .tech-heading-tools { flex-wrap: wrap; gap: 10px; }
+  .tech-pit .pit-go { width: 100%; }
+  .tech-intro { font-size: 12px; }
+  .tech-tiers { display: none; }
+  .tech-branch { grid-template-columns: 1fr 1fr; }
+  .tech-branch::after { display: none; }
+  .tech-branch header { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: baseline; }
+  .tech-branch header p { margin-top: 0; text-align: right; }
+  .tech-fork { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .tech-fork .tech-or { display: none; }
+  .tech-branch > .tech-part:last-child { grid-column: 1 / -1; min-height: 0; }
+  .tech-branch.is-tip::before { left: -6px; }
+  .pit-brief dl { grid-template-columns: 1fr 1fr; }
+  .pit-brief dl > div { padding: 10px 10px 10px 0; border-right: 0; border-bottom: 1px solid #d8cdc4; }
+  .pit-brief dl > div + div { padding-left: 0; }
+  .pit-brief dd { font-size: 13px; }
+  .tech-part { min-height: 96px; }
+  .tech-part > .part-art, .tech-fork .tech-part > .part-art { width: 42px; height: 42px; }
+  .part-stage { height: 190px; }
+  .tech-side { display: flex; }
+  .tune-hud { bottom: 205px; }
+}

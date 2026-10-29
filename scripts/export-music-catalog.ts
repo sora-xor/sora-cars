@@ -22,8 +22,9 @@ async function checkFile(file: { path: string; sha256: string; bytes?: number })
 }
 // Check the complete released collection, not only today's editions.
 for (const item of MUSIC_ITEMS) {
-  if (!item.assets) throw new Error(`Missing rendered music assets: ${item.sku}`);
-  for (const name of ['wav', 'mp3', 'preview', 'cover'] as const) await checkFile(item.assets[name]);
+  if (!item.assets || !item.artwork) throw new Error(`Missing rendered music assets or sleeve artwork: ${item.sku}`);
+  for (const name of ['wav', 'mp3', 'preview'] as const) await checkFile(item.assets[name]);
+  await checkFile(item.artwork);
   await checkFile(item.license);
 }
 const nftIds = new Set<string>(), offerIds = new Set<string>();

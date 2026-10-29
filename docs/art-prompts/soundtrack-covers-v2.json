@@ -1,0 +1,1731 @@
+{
+ "schemaVersion": 1,
+ "createdAt": "2026-10-28",
+ "series": "SORA RECORDS — 裏 (URA) back-jacket edition",
+ "editions": {
+  "omote": "表 OMOTE: the original illustrated cover, public/assets/music/covers/<file>-v1.png, unchanged.",
+  "ura": "裏 URA: this back-jacket design, public/assets/music/covers/<file>-v2.png."
+ },
+ "method": "Programmatic composition (npx tsx scripts/compose-covers.mjs, with scripts/cover-retouch.mjs). No new image generation. Logo-free original generations (Yasukuni: the approved corrected v1, plaque retouched out) are cleaned of AI lettering, framed as a landscape detail and set in a printed back-jacket layout.",
+ "layout": {
+  "size": 2048,
+  "window": {
+   "x": 112,
+   "y": 150,
+   "w": 1824,
+   "h": 1088
+  },
+  "paper": "#ECE3CF",
+  "ink": "#211D2B",
+  "emblem": {
+   "red": "#D13A37",
+   "centre": [
+    1024,
+    1288
+   ],
+   "radius": 112,
+   "label": "white circular label r=140 centred on the jacket; exact traced geometry, not a font glyph",
+   "geometry": {
+    "bars": [
+     [
+      -0.61158,
+      -0.49953,
+      1.22316,
+      0.16433
+     ],
+     [
+      -0.0831,
+      -0.3352,
+      0.1662,
+      0.16993
+     ],
+     [
+      -0.61158,
+      -0.16527,
+      1.22316,
+      0.16527
+     ]
+    ],
+    "chevron": [
+     [
+      -0.0831,
+      0
+     ],
+     [
+      -0.95761,
+      1.3
+     ],
+     [
+      -0.7602,
+      1.3
+     ],
+     [
+      0,
+      0.16993
+     ],
+     [
+      0.7602,
+      1.3
+     ],
+     [
+      0.95761,
+      1.3
+     ],
+     [
+      0.0831,
+      0
+     ]
+    ]
+   },
+   "source": "public/assets/branding/sora-emblem-source.png"
+  },
+  "editionMark": "裏 hanko, bottom right"
+ },
+ "fonts": {
+  "Noto Sans JP": "public/assets/fonts/noto-sans-jp.ttf (SIL OFL, public/assets/fonts/noto-sans-jp-OFL.txt)",
+  "Sora": "public/assets/sora-regular.woff2, public/assets/sora-extrabold.woff2 (SIL OFL)"
+ },
+ "covers": [
+  {
+   "catalog": "SR-001",
+   "file": "midnight-transistor",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "真夜中のトランジスタ",
+    "en": "Midnight Transistor",
+    "collection": "Roadside A",
+    "description": {
+     "ja": "夜の峠を走る、鋭いベースとトランジスタの光。",
+     "en": "A night-road pulse of sharp bass and transistor light."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/midnight-transistor-v2.png",
+    "sha256": "0c521fff51e2759f1b5c567bded2249915ea080c59d53bda5c331f9c971367b1",
+    "bytes": 5738767,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-c8ea8bb5-9c3e-46dd-b2d6-a79a2525559c.png",
+    "sha256": "61a7701b360084a81fe04331e9cc2325f036689f9dc878d77b1675cb2c3e028b"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      195,
+      67
+     ],
+     "glyphs": 5,
+     "donor": [
+      48,
+      157,
+      151,
+      34
+     ],
+     "grainGain": 1.039
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     106,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-002",
+   "file": "harbor-signals",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "港のシグナル",
+    "en": "Harbor Signals",
+    "collection": "Roadside A",
+    "description": {
+     "ja": "港の灯が、跳ねるベースと交信する。",
+     "en": "Harbor lights answer a syncopated bass line."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/harbor-signals-v2.png",
+    "sha256": "0d7708d78d00209a82dd465267972e591d0577199a19b6937f2e472a0c56c7f9",
+    "bytes": 5699697,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-15360ceb-b326-4678-a524-0de61fa44b9c.png",
+    "sha256": "a71d757abfecdc53978df338a63527339dd1ff5b34c8dcbe2edf3500cde6f8f6"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      195,
+      67
+     ],
+     "glyphs": 6,
+     "donor": [
+      48,
+      77,
+      151,
+      34
+     ],
+     "grainGain": 0.966
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     166,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-003",
+   "file": "sakura-express",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "桜エクスプレス",
+    "en": "Sakura Express",
+    "collection": "Roadside A",
+    "description": {
+     "ja": "桜のトンネルを抜ける、疾走する電子音。",
+     "en": "Fast sequencers through a tunnel of spring blossoms."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/sakura-express-v2.png",
+    "sha256": "5b77e4fe1b222ffc17732a122d829eadc81f4bdee4438e0442d50e66ab5857ec",
+    "bytes": 6075295,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5a167d86-74d6-4c86-abfe-6cc1398eaf27.png",
+    "sha256": "d307ad853155659570d111561a3b2207c4f0c4ffb1655e1351d7834ded6baf7c"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      194,
+      67
+     ],
+     "glyphs": 4,
+     "donor": [
+      204,
+      37,
+      150,
+      34
+     ],
+     "grainGain": 0.891
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-004",
+   "file": "soramotos-workshop",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "空本工房の灯り",
+    "en": "Soramotos Workshop",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "シャッターの向こう、帰りを待つ温かい和音。",
+     "en": "Warm chords behind a shutter left open for you."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/soramotos-workshop-v2.png",
+    "sha256": "0ebe577ea839caf66f99d5068b74abda26ac563cba8e1e5825e64d615d794fda",
+    "bytes": 5884448,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-313c61ab-5d94-44e8-bd03-1b7c06861a2f.png",
+    "sha256": "73f08ce2fe53d6f8fc667cd91e96660d0aa4750255f8f1fcd4c3c5c9ae5bea8e"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      194,
+      66
+     ],
+     "glyphs": 4,
+     "donor": [
+      204,
+      76,
+      150,
+      33
+     ],
+     "grainGain": 0.97
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-005",
+   "file": "paper-towers",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "紙の摩天楼",
+    "en": "Paper Towers",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "書類の街に浮かぶ、冷たい輪郭のメロディー。",
+     "en": "A cool-edged melody above a city made of paper."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/paper-towers-v2.png",
+    "sha256": "ecb90cbbf583b951e357e1d4de99bb5242ffa1e91b66c13046755cd4f1532984",
+    "bytes": 5637964,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-bb1fab3b-4c1a-422e-bd70-387b56a6a053.png",
+    "sha256": "882d0ab2c6485a6d3e42db2a63fecc6e1fae07f5cd10beb81150c49213af46c5"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      195,
+      67
+     ],
+     "glyphs": 5,
+     "donor": [
+      205,
+      77,
+      151,
+      34
+     ],
+     "grainGain": 0.871
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     146,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-006",
+   "file": "a-future-we-build",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "私たちがつくる明日",
+    "en": "A Future We Build",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "小さな回路から始まる、明日への合奏。",
+     "en": "A bright ensemble building tomorrow one circuit at a time."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/a-future-we-build-v2.png",
+    "sha256": "b9f2f1479868fe0d7d0db79ed18b4e821a58b0daca02ed2114e4f3bc4f2bec6b",
+    "bytes": 5980284,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5b31d00f-ea56-4c13-8d76-8c78c84f1db5.png",
+    "sha256": "60c27ad9046e243525211d9d0accfda3973a32b3651c17a9d4ffd694957d3531"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      195,
+      67
+     ],
+     "glyphs": 4,
+     "donor": [
+      48,
+      117,
+      151,
+      34
+     ],
+     "grainGain": 0.835
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-007",
+   "file": "after-the-last-train",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "終電のあとで",
+    "en": "After the Last Train",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "終電が去ったホームに残る、やわらかな余韻。",
+     "en": "Soft echoes on the platform after the last train."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/after-the-last-train-v2.png",
+    "sha256": "7349b16d563a619f0b906567c1d11b5961a62e5a9c5c0add79af21f79d9fb6db",
+    "bytes": 5857375,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-9985ef4b-a8ad-43f4-88d7-ea56d6777b14.png",
+    "sha256": "385f58cb0a3564a6bdd3bdf561ba0706b41ff35a82744ed56ca62b888c9d1ad7"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      195,
+      67
+     ],
+     "glyphs": 4,
+     "donor": [
+      48,
+      77,
+      151,
+      34
+     ],
+     "grainGain": 0.962
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-008",
+   "file": "credit-line",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "信用の向こう側",
+    "en": "Credit Line",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "数字の向こうの暮らしを刻む、切迫したビート。",
+     "en": "An urgent beat for the lives behind the numbers."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/credit-line-v2.png",
+    "sha256": "5d352341afbe47e21c2fbc446c2fd3b241c54c017c5d18bb7510e96118b58ef4",
+    "bytes": 5702792,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-5cdbb305-febd-44ec-8cd0-9d28b39aaeeb.png",
+    "sha256": "4fa4bc022347f0472aa5bb36385e5b1408f3bba40e6d757dec96571f15fa099a"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      194,
+      67
+     ],
+     "glyphs": 5,
+     "donor": [
+      48,
+      117,
+      150,
+      34
+     ],
+     "grainGain": 0.98
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-009",
+   "file": "sora-dawn-broadcast",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "SORA 夜明けの放送",
+    "en": "SORA Dawn Broadcast",
+    "collection": "After Hours B",
+    "description": {
+     "ja": "夜明けの空へ、アナログの電波を送る。",
+     "en": "An analog transmission into the first light."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/sora-dawn-broadcast-v2.png",
+    "sha256": "0bd8369460cc92ed548524d11af5ac23ee4e9dbe68f1c990c9adb1d7a3c50e97",
+    "bytes": 5810017,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-d92cca34-5e84-4771-9ec2-7591b3a41ff7.png",
+    "sha256": "01e81ba2cb5424bfbb8eec81fa863de82b75d148d72c4d6b8f4e1473ab61aad0"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      194,
+      67
+     ],
+     "glyphs": 5,
+     "donor": [
+      204,
+      77,
+      150,
+      34
+     ],
+     "grainGain": 0.882
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-010",
+   "file": "blank-side-promise",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "空白のB面",
+    "en": "Blank Side Promise",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "空白のカセットに、まだ言えない約束を。",
+     "en": "A blank cassette holds a promise still unspoken."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/blank-side-promise-v2.png",
+    "sha256": "6ffe0ed3ec56b5c24a11e0197b0d3c97c16a142baa9f49cd64d39bf9e3397f50",
+    "bytes": 5580997,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-e3a0163d-ce00-4782-ad14-09d7222d132d.png",
+    "sha256": "1686e04d7865f3b081ef498537c8924e446640b406c1a455411d925eed0f3de3"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      52,
+      41,
+      194,
+      67
+     ],
+     "glyphs": 4,
+     "donor": [
+      204,
+      37,
+      150,
+      34
+     ],
+     "grainGain": 0.944
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     146,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-011",
+   "file": "three-weeks-of-paper",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "三週間の紙",
+    "en": "Three Weeks of Paper",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "返済期限の紙をめくる、静かな緊張。",
+     "en": "Quiet tension as the repayment deadline draws closer."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/three-weeks-of-paper-v2.png",
+    "sha256": "5b3eacf05bc979b5f4970d88db34467dd76ea0f9cbeca029bc0ddd21f1064f01",
+    "bytes": 5294720,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-0cbb78f8-e954-4b6e-b74d-e1137eb91151.png",
+    "sha256": "437ce966931032b4f019387af963e77bdfa4efae929c13e53d9a9cc7c1fd5476"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      47,
+      42,
+      190,
+      64
+     ],
+     "glyphs": 4,
+     "donor": [
+      200,
+      74,
+      151,
+      30
+     ],
+     "grainGain": 1.07
+    },
+    {
+     "kind": "tokyo-tower",
+     "note": "The source casts a sphere-on-needle TV-tower shadow (Berlin Fernsehturm type) that never stood in 1986 Tokyo. Lift it out of the sky and cast a period-correct Tokyo Tower (1958) shadow on the same diagonal.",
+     "region": [
+      380,
+      360,
+      1254,
+      1040
+     ],
+     "oldAxis": [
+      [
+       560,
+       975
+      ],
+      [
+       1240,
+       494
+      ]
+     ],
+     "oldHalfWidth": [
+      74,
+      18
+     ],
+     "sphere": [
+      986,
+      679,
+      52
+     ],
+     "base": [
+      512,
+      1012
+     ],
+     "tip": [
+      1238,
+      488
+     ],
+     "squeeze": 0.72,
+     "ratio": [
+      0.53,
+      0.595,
+      0.7
+     ],
+     "horizon": 976,
+     "removedPixels": 91159,
+     "grainMissing": 1442,
+     "shadedPixels": 44963,
+     "towerLengthPx": 895
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-012",
+   "file": "milk-crates-at-midnight",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "真夜中の牛乳箱",
+    "en": "Milk Crates at Midnight",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "街を起こす配達車と、眠らないリズム。",
+     "en": "Delivery vans wake the city to a sleepless rhythm."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/milk-crates-at-midnight-v2.png",
+    "sha256": "a4103ddea8c9d114b2e310a3bf29187a0577a8a5aa3217c60dcb1bbd892b321a",
+    "bytes": 5790671,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-35712dcc-ed3c-45f8-a015-0cf38d9c6bd5.png",
+    "sha256": "396a8e440140be744ea6fc00b34f80e26106b71b65612c483aa6abd812403696"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      44,
+      34,
+      213,
+      64
+     ],
+     "glyphs": 5,
+     "donor": [
+      40,
+      118,
+      177,
+      38
+     ],
+     "grainGain": 0.903
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     366,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-013",
+   "file": "carbon-copy-testimony",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "複写紙の証言",
+    "en": "Carbon Copy Testimony",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "複写紙の署名が語る、ためらいと決意。",
+     "en": "Hesitation and resolve in a carbon-copy signature."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/carbon-copy-testimony-v2.png",
+    "sha256": "0ebeca6921bc57e65d0b6aa3b9c6d419d7c012c21eb55c42ca6c6044e976a4d0",
+    "bytes": 5841969,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-70caf4da-d598-4ab7-8485-e6e5c7146232.png",
+    "sha256": "2fc5ac49de1ecf6c32be0d85010a66ada75f41cc5d242a14b068dc57cc413c18"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      54,
+      53,
+      211,
+      75
+     ],
+     "glyphs": 4,
+     "donor": [
+      50,
+      121,
+      165,
+      30
+     ],
+     "grainGain": 0.791
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     76,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-014",
+   "file": "crown-on-the-grid",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "回路の王冠",
+    "en": "Crown on the Grid",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "冷たい王冠が、整然とした回路を見下ろす。",
+     "en": "A cold crown above a precisely ordered circuit."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/crown-on-the-grid-v2.png",
+    "sha256": "b8b11598a815b73c76116830c9c398109af1974e6ceb534d4458a76ec13ebf95",
+    "bytes": 5407657,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-185f5dff-9ec6-4ca2-a2d5-e6c570bef501.png",
+    "sha256": "4a6a5778b0ed51fa73ccd7427f45a46b338d755ed0fda33f4b86d00150c463fa"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      39,
+      37,
+      205,
+      65
+     ],
+     "glyphs": 4,
+     "donor": [
+      35,
+      117,
+      174,
+      36
+     ],
+     "grainGain": 1.072
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     126,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-015",
+   "file": "open-circuit-breakfast",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "朝食の回路",
+    "en": "Open Circuit Breakfast",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "パンと修理、初めて届いた交換の記録。",
+     "en": "Bread, repairs, and the first exchanged receipt."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/open-circuit-breakfast-v2.png",
+    "sha256": "89373511f62b6695af369e9fd5f3a585ce60dcec2f6db07de491af16c6b1f8be",
+    "bytes": 5866387,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-7ddbdf19-502e-4548-b12d-0d47b4afbe42.png",
+    "sha256": "9f21177ae023651923c8bc65d2e5aada0b0d63077cb1e7f4640d56908dab17a1"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      37,
+      29,
+      194,
+      54
+     ],
+     "glyphs": 5,
+     "donor": [
+      33,
+      64,
+      165,
+      33
+     ],
+     "grainGain": 0.947
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-016",
+   "file": "one-umbrella-two-chairs",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "ひとつの傘、ふたつの椅子",
+    "en": "One Umbrella, Two Chairs",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "雨の向こうで、ふたつの椅子が近づく。",
+     "en": "Two chairs move closer while the rain keeps falling."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/one-umbrella-two-chairs-v2.png",
+    "sha256": "aa11584caff768b0efdece7fc7ded2687a70520ecea9c94c675db7bb13c4421d",
+    "bytes": 6397918,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-d71eca51-2071-43a4-a567-22a0179aa4cb.png",
+    "sha256": "6073b07cebe6e1d90b0bd4cbad940ba40c76610998643358fa9462e497f40658"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      36,
+      26,
+      252,
+      64
+     ],
+     "glyphs": 5,
+     "donor": [
+      32,
+      74,
+      224,
+      46
+     ],
+     "grainGain": 0.889
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-017",
+   "file": "glass-permission",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "硝子の許可",
+    "en": "Glass Permission",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "ガラス越しの申し出。美しく、危うい静けさ。",
+     "en": "An offer behind glass: beautiful, uneasy stillness."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/glass-permission-v2.png",
+    "sha256": "c81241bcefcebd1af8a4f37f7e0c6fe927525456e204c480d82fe30d403725e7",
+    "bytes": 5298364,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-e1df5c2d-728f-4208-bc88-112503d328d6.png",
+    "sha256": "b0e2f99f49755d7bcbda716c790d05264cfe10bad03ea7444b92833126f66039"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      39,
+      38,
+      197,
+      61
+     ],
+     "glyphs": 4,
+     "donor": [
+      35,
+      71,
+      166,
+      31
+     ],
+     "grainGain": 1.129
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     146,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-018",
+   "file": "two-am-relay",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "午前二時のリレー",
+    "en": "Two A.M. Relay",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "午前二時へ向かう、電波と鼓動のリレー。",
+     "en": "Radio pulses and heartbeats race toward two a.m."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/two-am-relay-v2.png",
+    "sha256": "4cf6553f58e9a724ab0087cb114fb930e3822400ea127fa9c6017e0375ddd6b9",
+    "bytes": 6068702,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-e6a97f2a-2e58-4c70-a745-3082c43ac54f.png",
+    "sha256": "d76e049e5c4c69b33d744860c77558220fefd467215d0117743597cdaba4d9e6"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      41,
+      36,
+      251,
+      80
+     ],
+     "glyphs": 4,
+     "donor": [
+      261,
+      90,
+      218,
+      52
+     ],
+     "grainGain": 0.744
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-019",
+   "file": "dead-air-confession",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "無音の告白",
+    "en": "Dead Air Confession",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "放送が途切れ、隠していた言葉だけが残る。",
+     "en": "The broadcast falls silent; the hidden words remain."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/dead-air-confession-v2.png",
+    "sha256": "a2d26c427ff51e7b04b35681d0806ef308825e8cdd225d20308e635b33503dd2",
+    "bytes": 5337321,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-c7e559e1-c88a-468e-b4af-f28251f6f15c.png",
+    "sha256": "ad919d4fd5a612f1fc1a4eb64763974efeb0b52690d80c113ef302053220b464"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      40,
+      37,
+      168,
+      56
+     ],
+     "glyphs": 4,
+     "donor": [
+      178,
+      33,
+      136,
+      27
+     ],
+     "grainGain": 1.13
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     146,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-020",
+   "file": "borrowed-power-waltz",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "借りた電気のワルツ",
+    "en": "Borrowed Power Waltz",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "借りた電気で灯る、もう一度の最初の音。",
+     "en": "Borrowed power lights the first note of a new beginning."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/borrowed-power-waltz-v2.png",
+    "sha256": "8f9dc09a4f1df1f7fcb49c4a6629a4091bd3ab262adaf8049aaa4cdb309846ce",
+    "bytes": 5746932,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-05d79298-cb24-4039-80bf-92a6a8487e91.png",
+    "sha256": "9b66588c3bafefbaddb432a2018c527771316bd01ed4fdeb83864e01ef91b573"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      41,
+      35,
+      195,
+      64
+     ],
+     "glyphs": 5,
+     "donor": [
+      205,
+      31,
+      162,
+      37
+     ],
+     "grainGain": 1.022
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-021",
+   "file": "the-frequency-home",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "帰り道の周波数",
+    "en": "The Frequency Home",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "帰り道はひとつじゃない。誰かにつなぐ周波数。",
+     "en": "More than one road home, carried from hand to hand."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/the-frequency-home-v2.png",
+    "sha256": "5d2f72aeef2ffce3c072013a2f5af0b4aba45309e3fcfa3d4b1fda8d2df3c1fe",
+    "bytes": 5431635,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-bf4dcef2-6ddf-4f80-b0eb-5766ce9f9037.png",
+    "sha256": "85204e793a8d40775bee55b65fc36f532b035b7d8c4a787ccbbc32851ce89ad7"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      43,
+      41,
+      173,
+      66
+     ],
+     "glyphs": 4,
+     "donor": [
+      183,
+      76,
+      138,
+      33
+     ],
+     "grainGain": 1.039
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-022",
+   "file": "no-master-key",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "王様のいない鍵",
+    "en": "No Master Key",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "ひとりの鍵を返して、街へ開くメロディー。",
+     "en": "A melody opens to the city as one key is returned."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/no-master-key-v2.png",
+    "sha256": "bc80e4f91320b675b4f1646112f13bd79c5d3988048482dbf9b985aa11333ecc",
+    "bytes": 5299540,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-d2eca1eb-872a-4fd5-82bf-6d8dafd7348f.png",
+    "sha256": "ebb32f6355692ece39ad11b7d28d0a8edac2b3e77875498ec4d2811569d2e45e"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      43,
+      39,
+      233,
+      73
+     ],
+     "glyphs": 4,
+     "donor": [
+      39,
+      131,
+      198,
+      42
+     ],
+     "grainGain": 1.033
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     26,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-023",
+   "file": "outrun-the-dawn",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "夜明けを追い越せ",
+    "en": "Outrun the Dawn",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "夜明けの港へ、最後のコーナーを抜ける。",
+     "en": "Through the final corner toward a harbor dawn."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/outrun-the-dawn-v2.png",
+    "sha256": "c0fa22451f2916a606c98cd449c138ad7aa1e9edbde8d565767e9e90574e86a3",
+    "bytes": 5916847,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-33a6197f-d3e7-49bd-b0bc-7e0c828d8788.png",
+    "sha256": "07ce14ca6897c1f38b316962d38608eb5f0c999a820ec8c10b626b61001348cc"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      46,
+      36,
+      177,
+      60
+     ],
+     "glyphs": 4,
+     "donor": [
+      187,
+      32,
+      139,
+      32
+     ],
+     "grainGain": 0.857
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-024",
+   "file": "jun-the-first-light",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "ジュン・最初の光",
+    "en": "Jun: The First Light",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "ジュンが最後まで弾いた、長く待たせた一曲。",
+     "en": "The song Jun finally played all the way through."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/jun-the-first-light-v2.png",
+    "sha256": "bba0da90785e5dc769a742a439660e8d061d675e1122704b0f5dc1795b05dfc7",
+    "bytes": 5895093,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-4a7d59b1-d53b-4117-8ca0-84a815236e0c.png",
+    "sha256": "632daef6b011a08205b63f9d8a6f2536a903082be8c1786083a60da670030b33"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      41,
+      32,
+      204,
+      58
+     ],
+     "glyphs": 5,
+     "donor": [
+      214,
+      68,
+      171,
+      34
+     ],
+     "grainGain": 1.056
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     253,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-025",
+   "file": "side-b-press-record",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "B面・録音を押して",
+    "en": "Side B: Press Record",
+    "collection": "Side B Stories",
+    "description": {
+     "ja": "録音ボタンを押して、ふたりの朝を始めよう。",
+     "en": "Press record, and let a morning together begin."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/side-b-press-record-v2.png",
+    "sha256": "4bffced1251847b8a0722900e20f05600e27e513d679380f87d85444bd8f3c1e",
+    "bytes": 5610423,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0c7fa-b751-7241-941e-4fcfdc603a25/exec-bc043b05-7734-463c-a755-2fec81f6ab70.png",
+    "sha256": "01db43c73fdcbe6cf9b4a3715838a305950741fcf7d13a4aada25dbd303d5593"
+   },
+   "retouch": [
+    {
+     "kind": "lettering",
+     "note": "Removed the small AI-drawn \"SORA\" lettering (membrane fill + matched grain).",
+     "bbox": [
+      29,
+      34,
+      240,
+      63
+     ],
+     "glyphs": 4,
+     "donor": [
+      250,
+      30,
+      219,
+      37
+     ],
+     "grainGain": 1.029
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     326,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  },
+  {
+   "catalog": "SR-026",
+   "file": "meet-me-at-yasukuni",
+   "sleeve": "ura",
+   "printed": {
+    "ja": "靖國神社で会おう",
+    "en": "Meet Me at Yasukuni",
+    "collection": "Tokyo Routes",
+    "description": {
+     "ja": "東京ルートを彩る、待ち合わせの一曲。",
+     "en": "A song for a rendezvous along the Tokyo route."
+    }
+   },
+   "output": {
+    "path": "public/assets/music/covers/meet-me-at-yasukuni-v2.png",
+    "sha256": "c4704fae90c4916d870029e789810d774fb6ee7254f20dbc774de035963dcd25",
+    "bytes": 5661039,
+    "width": 2048,
+    "height": 2048
+   },
+   "source": {
+    "path": "~/.codex/generated_images/01a0945c-fdc1-7493-8e04-41abe31f7a69/exec-18bbeff4-7044-4b77-ae51-af60e319242c.png",
+    "sha256": "82b3c145977e19744fe2c18ef934c4a4b322d54df45dbf6c133afe26ccc9be24"
+   },
+   "retouch": [
+    {
+     "kind": "membrane",
+     "rect": [
+      206,
+      78,
+      446,
+      114
+     ],
+     "note": "Remove the old \"SORA CARS\" plaque wordmark over open sky.",
+     "donor": [
+      452,
+      78,
+      240,
+      36
+     ],
+     "grainGain": 0.911
+    },
+    {
+     "kind": "clone",
+     "rect": [
+      46,
+      40,
+      197,
+      192
+     ],
+     "windows": [
+      [
+       8,
+       8,
+       640,
+       560
+      ],
+      [
+       620,
+       8,
+       1246,
+       560
+      ]
+     ],
+     "ring": 30,
+     "guide": 1,
+     "note": "Replace the old white emblem plaque with matched foliage (seamless membrane clone).",
+     "source": [
+      1032,
+      8,
+      211,
+      212
+     ],
+     "mirrored": true,
+     "cost": 86901841
+    }
+   ],
+   "window": {
+    "crop": [
+     0,
+     186,
+     1254,
+     748
+    ],
+    "zoom": 1,
+    "rect": [
+     112,
+     150,
+     1824,
+     1088
+    ]
+   }
+  }
+ ]
+}
