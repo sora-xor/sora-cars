@@ -11,6 +11,8 @@ import { CityMeshBuilder } from '../src/game/three/period-city/geometry';
 import { buildLot, type CityFixture } from '../src/game/three/period-city/buildings';
 import { buildOpenGround } from '../src/game/three/period-city/open-ground';
 import { buildStreet, streetCrossings } from '../src/game/three/period-city/street';
+import { BEACON_STRIDE } from '../src/game/three/period-city/far-lights';
+import { cityLampHeads, setPeriodCityLampHeads } from '../src/game/three/period-city/materials';
 import { PeriodPeople } from '../src/game/three/period-city/people';
 import { SPRITE_ATLAS, SPRITE_BASELINE, SPRITE_CELL, SPRITE_ROWS } from '../src/game/three/period-city/street-sprites';
 import { readFileSync } from 'node:fs';
@@ -18,6 +20,7 @@ import pngjs from 'pngjs';
 import { neonFor, noboriFor } from '../src/game/three/period-city/nightlife';
 import { SORA_NEON, SORA_NOBORI, VNEON_TOP_V } from '../src/game/three/period-city/signs';
 import { PeriodSky } from '../src/game/three/period-city/sky';
+import { awningFor, NOREN_COUNT, NOREN_HEIGHT, norenFor, norenPrint, norenWidth } from '../src/game/three/period-city/awnings';
 import { TRACKS, curvature } from '../src/game/rules';
 import { arcadeDistrictAt, ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, TOKYO_1986_LANDMARKS, TOKYO_1986_STREET, landmarkFootprint, seeded } from '../src/game/three/period-city/layout';
 
@@ -142,6 +145,48 @@ test('each chunk builds finite, budgeted geometry and shop lights', () => {
   }
   assert.ok(worst < 90000, `a chunk built ${worst} triangles`);
   assert.ok(fixtures > 100, 'shop fronts light the pavement');
+});
+
+test('noren: eateries hang one by their trade, printed at their own proportions', () => {
+  assert.ok(norenFor('手打そば 更科') >= 0 && norenFor('鮨処 銀座') >= 0);
+  assert.equal(norenFor('三栄倉庫'), -1);
+  for (let i = 0; i < NOREN_COUNT; i++) {
+    const [u0, v0, u1, v1] = norenPrint(i), w = norenWidth(i);
+    assert.ok(u0 >= 0 && u1 <= 1 && v0 >= 0 && v1 <= 1 && u1 > u0 && v1 > v0);
+    // Two to four panels of 0.55 m; the print's width over its height is the cloth's (the atlas is 2 cells by
+    // 21 rows of 512 x 160).
+    assert.ok(w >= 1.1 && w <= 2.2);
+    assert.ok(Math.abs(((u1 - u0) * 1024) / ((v1 - v0) * 3360) - w / NOREN_HEIGHT) < .05, `noren ${i}`);
+  }
+});
+
+test('lamp wash: the nearest lamp heads light the facades, the unused slots stay dark', () => {
+  setPeriodCityLampHeads([new THREE.Vector3(1, 6.6, 2), new THREE.Vector3(-3, 6.6, 40)]);
+  assert.deepEqual(cityLampHeads.value.map(head => head.w), [1, 1, 0, 0, 0, 0]);
+  assert.deepEqual(cityLampHeads.value[1]!.toArray().slice(0, 3), [-3, 6.6, 40]);
+  setPeriodCityLampHeads([]);
+  assert.ok(cityLampHeads.value.every(head => head.w === 0));
+});
+
+test('far lights: the shopping street keeps its lamps, lanterns and box signs as glowing points', () => {
+  let beacons = 0, red = 0;
+  for (const key of periodCityChunksNear(layout, 0, 0, 1200)) {
+    const lots = layout.chunks.get(key) ?? [], builder = new CityMeshBuilder(lots[0]?.x ?? 0, lots[0]?.z ?? 0);
+    for (const lot of lots) buildLot(builder, lot, []);
+    buildStreet(builder, layout, key * layout.chunkLength, (key + 1) * layout.chunkLength);
+    const b = builder.beacons;
+    assert.equal(b.length % BEACON_STRIDE, 0);
+    for (let i = 0; i < b.length; i += BEACON_STRIDE) {
+      assert.ok(b.slice(i, i + BEACON_STRIDE).every(Number.isFinite));
+      // Bright enough for the glow stage's halo (linear luminance above its emitter threshold, 0.9), a light's size.
+      const luminance = .2126 * b[i + 3]! + .7152 * b[i + 4]! + .0722 * b[i + 5]!;
+      assert.ok(luminance > .9 && b[i + 6]! > .2 && b[i + 6]! < 1, `beacon ${i / BEACON_STRIDE}`);
+      beacons++; if (b[i + 3]! > 3 * b[i + 4]!) red++;
+    }
+    for (const geometry of builder.finish().values()) geometry.dispose();
+  }
+  // The first 1.2 km (Kanda, then Ichibancho): two globes on every shopping-street lamp, red lanterns at most shop doors.
+  assert.ok(beacons > 150 && red > 50, `${beacons} beacons, ${red} red`);
 });
 
 // Arcade: the same presentation geometry RaceWorld builds (three laps unrolled).
@@ -349,6 +394,7 @@ test('the shipped sprite atlas has every frame the shader picks, each standing o
     squat: [0, 1, 2, 3].map(c => [c, false] as const), signal: [0, 2, 4, 6, 8, 10].map(c => [c, true] as const),
     cat: Array.from({ length: 8 }, (_, c) => [c, false] as const), rider: [[0, true], [2, true], [4, true], [6, true], [8, false], [9, false], [10, false], [11, false]],
     bike: [[0, true], [2, false], [3, false]],
+    deer: [[0, true], [2, true], [4, true], [6, true], [8, true], [10, true], [12, false], [13, false], [14, false], [15, false]],
   };
   SPRITE_ROWS.forEach(({ name, layout }, row) => {
     for (const [column, wide] of frames[layout]!) {
@@ -400,4 +446,35 @@ test('the sky flies ad balloons over tall roofs and searchlights from club roofs
   spheres.getMatrixAt(0, at);
   assert.ok(new THREE.Vector3().setFromMatrixPosition(at).distanceTo(new THREE.Vector3(first[0], first[1], first[2])) > .05, 'balloons sway');
   sky.dispose();
+});
+
+test('umbrellas open on a wet night and fold away when the road dries', () => {
+  const people = new PeriodPeople(), kanda = stretch('kanda'), umbrellas = (wetness: number) => {
+    people.update(street, kanda, 12.5, wetness);
+    const cell = people.mesh.geometry.getAttribute('spriteA');
+    let n = 0;
+    for (let i = 0; i < people.mesh.count; i++) if (SPRITE_ROWS[cell.getX(i)]!.name.startsWith('umbrella')) n++;
+    return n;
+  };
+  assert.ok(umbrellas(.85) >= 5, 'umbrellas on a wet Kanda night');
+  assert.equal(umbrellas(.2), 0, 'no umbrellas once the road is drying');
+});
+
+test('shops in Kanda hang striped awnings printed with their trade, steep enough never to read as wet road', () => {
+  assert.ok(awningFor('やきとり 鳥八') > 0 && awningFor('寿司 政') > 0 && awningFor('寿司 政') !== awningFor('やきとり 鳥八'));
+  assert.ok(awningFor('九段不動産') > 0, 'every shop prints its trade');
+  assert.equal(awningFor('三栄倉庫'), 0, 'a warehouse keeps plain stripes');
+  const kanda = stretch('kanda');
+  let vertices = 0;
+  for (let key = Math.floor(kanda / street.chunkLength); key < Math.floor(kanda / street.chunkLength) + 4; key++) {
+    const lots = street.chunks.get(key) ?? [], builder = new CityMeshBuilder(lots[0]?.x ?? 0, lots[0]?.z ?? 0);
+    for (const lot of lots) buildLot(builder, lot, []);
+    const geometry = builder.finish().get('awning');
+    if (!geometry) continue;
+    const normal = geometry.getAttribute('normal');
+    vertices += normal.count;
+    // The pixel-art ground stage treats surfaces facing up more than 0.85 as wet road.
+    for (let i = 0; i < normal.count; i++) assert.ok(normal.getY(i) < .8, `awning normal y ${normal.getY(i).toFixed(2)}`);
+  }
+  assert.ok(vertices > 0, 'no awnings in Kanda');
 });

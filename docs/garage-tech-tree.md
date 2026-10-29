@@ -78,7 +78,7 @@ Every capstone needs a part from another branch.
 | 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥16k | Touge setup ¥40k / Rally setup ¥28k | Mechanical LSD ¥80k (+ Boost controller) |
 | ボディ BODY (Yui) | Roll cage ¥6k | Reinforced bumpers ¥10k | Lightweight ¥36k / Steel armor ¥42k | Wind-tunnel body ¥78k (+ Coilovers) |
 
-One full path costs about ¥620k; every part costs ¥807k. Effects are in
+One full path costs about ¥620k; every part costs ¥783k. Effects are in
 `TECH_NODES` (`src/game/garage-tech.ts`), and each part carries a `bestFor` tag
 that the page shows beside its measured seconds a race ("FOR DRIFTERS"). The
 balance tests hold each tag to its promise.

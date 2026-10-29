@@ -80,3 +80,20 @@ The September 22 full application traversal passed all 12 introductions and 12 a
 Chapter 3's introduction used the boardroom angles (`angles/boardroom-{wide,detail,left,right}-v3.png`) for cuts 5–8. Those frames show Aki at a table with Celeste and Toru while Rei explains CROWN in her office, a chapter before Aki meets either of them. Four new frames keep the explanation in Rei's credit office: `scenes/ch03-intro-cut05-office-v1.png` to `cut08-office-v1.png` (Rei's crown-and-string chart, the rise-and-plunge lending graph, Yui at the stamped harbor plots, and the CROWN terminal brochure). The four lines now use the `office` scene, so their caption reads 融資相談室 / CREDIT OFFICE.
 
 Codex (`gpt-6-astra`, ultra reasoning) drew them with its built-in image generation from the chapter's office angles, character references and the supplied emblem. Prompts, ordered inputs, generated sources and hashes are in `docs/art-prompts/cutscene-ch03-office-v1.json`. The boardroom files are unchanged on disk and remain the boardroom fallback angles. Each new frame carries the exact emblem centred on a folder; `artifacts/story-office-emblem-audit-2026-10-29.json` records the review, and `scripts/check-story-emblem-coverage.mjs` passes 240/240.
+
+## October 29: the street-race chapters
+
+Five chapters (ids 12–16, woven in before the finale) added 47 authored cuts. Every cut has its own new 1672×941 frame, so the campaign now has 275 distinct cut illustrations across 35 sequences.
+
+- **New locations:** `iroha` (Nikko · Irohazaka), `kudan` (Tokyo · Kudan), `aizu` (Aizu-Wakamatsu · Nanokamachi), `gion` (Kyoto · Gion) and `nara` (Nara · Sarusawa Pond). Each has four angle frames (`angles/<scene>-<shot>-v1.png`), each used once as a cut.
+- **The other 27 cuts** are `scenes/ch13`–`ch17-*-v1.png`.
+- **Places shown:**
+  - Umagaeshi and the Akechidaira overlook above Lake Chūzenji;
+  - Yasukuni's steel Shinmei great torii at Kudanshita before dawn, and the palace moat at Marunouchi at sunrise;
+  - Nanokamachi's kura and lacquer workshop, and the Iimoriyama lookout toward Tsuruga-jō;
+  - Gion's lattices, the brick Keage power station and Shijō Ōhashi;
+  - Sarusawa Pond under Kōfuku-ji's pagoda, the Great Buddha Hall and the Wakakusa-yama summit.
+- **Generation:** Codex (`gpt-6-astra`, `image_gen`) drew each frame from the crew's existing angle art as character references, with the exact emblem as the last reference. A second built-in generated edit then redrew every SORA badge as the reference emblem, because the first pass had drawn several as the kanji 夫 or 未. The same edit turned one background torii (`ch14-intro-cut05`) from a vermilion Myōjin form into Yasukuni's plain steel Shinmei form.
+- **Nara summit view:** `ch17-victory-cut03` and `cut04` first showed a lit bay and a harbour skyline below the hill, carried over from their harbour character reference. A further generated edit replaced that view with the Nara basin seen from Wakakusa-yama, matched to `ch17-victory-cut01`: Nara Park's woods, the Daibutsuden roof, Kōfuku-ji's pagoda, low roofs and the Ikoma range. The prompt record keeps both edit stages. All three summit frames place the pagoda right of the Daibutsuden; seen from the summit it stands to the left.
+- **Records:** prompts, references, first-pass and edited sources, and hashes are in `docs/art-prompts/cutscene-street-chapters-v1.json`. The visual emblem review is `artifacts/story-street-chapters-emblem-audit-2026-10-29.json`, and `scripts/check-story-emblem-coverage.mjs` passes for all 287 current story images.
+- **Seasons:** the street routes' races are dressed for autumn, and Tokyo for spring, and the cutscene art follows the race each chapter leads into. The dialogue stays season-neutral, so the screenplay keeps its August–September 1986 timeline.

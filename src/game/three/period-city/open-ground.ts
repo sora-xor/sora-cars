@@ -262,6 +262,63 @@ function shrine(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
   }
 }
 
+/**
+ * A Buddhist temple's frontage: the tile-capped earthen wall (築地塀) with the
+ * five white rules of a high-ranking temple's 筋塀, behind a granite curb, and
+ * stone lanterns inside. Unlike a shrine there is no torii.
+ */
+function temple(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
+  const list = sections(layout, run, from, to, 40), wall = MOAT.curb + 1.2;
+  for (let i = 0; i < list.length - 1; i++) {
+    const s0 = list[i]!, s1 = list[i + 1]!;
+    b.colour.set('#8f8a7e');
+    strip(b, 'stone', s0, s1, () => wall - .2, -.1, () => wall - .2, .45, toRoad);
+    b.colour.set('#d8c79a');
+    strip(b, 'floodlit', s0, s1, () => wall, .45, () => wall, 3.4, toRoad);
+    b.colour.set('#f1ece0');
+    for (const y of [1.1, 1.55, 2, 2.45, 2.9]) strip(b, 'floodlit', s0, s1, () => wall - .02, y, () => wall - .02, y + .1, toRoad);
+    b.colour.set('#43474c');
+    strip(b, 'roof', s0, s1, () => wall - .55, 3.35, () => wall + .4, 3.95, () => UP);
+    if (Math.round(s0.p / STEP) % 6 === 0) {
+      const base = at(s0, wall + 5, 0);
+      b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+      b.colour.set('#9b968a');
+      b.box('stone', -.5, .5, 0, .3, -.5, .5); b.box('stone', -.16, .16, .3, 1.5, -.16, .16, 'b');
+      b.box('stone', -.4, .4, 1.5, 1.65, -.4, .4, 'b'); b.box('stone', -.55, .55, 2.3, 2.45, -.55, .55, 'b');
+      b.colour.set('#ffbe73'); b.box('lamp', -.27, .27, 1.65, 2.3, -.27, .27, 'b');
+      b.frame(0, 0, 0, 0);
+    }
+  }
+}
+
+/**
+ * A temple pond beside the road, such as Sarusawa-ike or Daibutsu-ike: a grass
+ * verge with a stone curb, a dressed-stone edge falling to water a few metres
+ * below the road, willows leaning over it and a grassy far bank.
+ */
+function pond(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
+  const list = sections(layout, run, from, to, 90), edge = MOAT.curb + .6, level = -3.4;
+  for (let i = 0; i < list.length - 1; i++) {
+    const s0 = list[i]!, s1 = list[i + 1]!, far = (s: Section) => Math.max(edge + 8, Math.min(70, s.reach - 6));
+    b.colour.set('#5d6b45'); strip(b, 'ground', s0, s1, () => SIDEWALK, -.05, () => MOAT.curb, -.05, () => UP);
+    b.colour.set('#9a958a');
+    strip(b, 'stone', s0, s1, () => MOAT.curb, -.1, () => MOAT.curb, .45, toRoad);
+    strip(b, 'stone', s0, s1, () => MOAT.curb, .45, () => edge, .45, () => UP);
+    b.colour.set('#8a8478'); strip(b, 'stone', s0, s1, () => edge, .45, () => edge + .4, level, away);
+    b.colour.set('#ffffff'); strip(b, 'water', s0, s1, () => edge + .4, level, far, level, () => UP);
+    b.colour.set('#4f5e3c'); strip(b, 'ground', s0, s1, far, level, s => far(s) + 14, .5, toRoad);
+    if (Math.round(s0.p / STEP) % 7 === 0) {
+      // A weeping willow on the near edge.
+      const base = at(s0, edge - .4, .45);
+      b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+      b.colour.set('#4a3c30'); b.box('wall', -.18, .18, 0, 4.2, -.18, .18, 'b');
+      b.colour.set('#6f8a4a'); b.box('wall', -2.2, 2.2, 2.6, 5.2, -1.2, 2.8, 'b');
+      b.colour.set('#7e9a56'); b.box('wall', -1.6, 1.6, 1.4, 2.6, .2, 3.4, 'b');
+      b.frame(0, 0, 0, 0);
+    }
+  }
+}
+
 /** A horizontal round beam along local X (a torii's lintel). */
 function rod(b: CityMeshBuilder, x0: number, x1: number, y: number, radius: number, segments = 12): void {
   const ring = (i: number) => [Math.cos(i / segments * Math.PI * 2) * radius, Math.sin(i / segments * Math.PI * 2) * radius] as const;
@@ -387,7 +444,7 @@ function shinkyo(b: CityMeshBuilder, layout: PeriodCityLayout, c: PeriodCrossing
   const pose = poseAt(layout.course, c.p), w = pose.width, edge = w + 1.7, level = -7;
   const left = w + periodCityReach(layout, c.p, 1, c.span), right = -(w + periodCityReach(layout, c.p, -1, c.span));
   b.frame(pose.x, pose.y, pose.z, pose.heading);
-  const half = 12;
+  const half = c.half ?? 12;
   for (const [x0, x1] of [[edge, left], [right, -edge]] as const) {
     if (x1 - x0 < 4) continue;
     b.colour.set('#ffffff'); b.flat('water', x0, x1, -half, half, level);
@@ -396,6 +453,8 @@ function shinkyo(b: CityMeshBuilder, layout: PeriodCityLayout, c: PeriodCrossing
     b.face('stone', [[x0, -.05, -half - 3], [x1, -.05, -half - 3], [x1, level - .2, -half], [x0, level - .2, -half]], [0, .6, .8]);
     b.face('stone', [[x0, -.05, half + 3], [x1, -.05, half + 3], [x1, level - .2, half], [x0, level - .2, half]], [0, .6, -.8]);
   }
+  // A plain mountain gorge has no arch beside its road bridge.
+  if (c.kind === 'gorge') { b.frame(0, 0, 0, 0); return; }
   // The arch runs parallel to the road bridge, on the left, 18 m out.
   const vermilion = new THREE.Color('#c8362b'), x = w + 18, span = 2 * (half + 3), rise = 3.2;
   b.colour.set('#8a8478');
@@ -427,8 +486,36 @@ function shinkyo(b: CityMeshBuilder, layout: PeriodCityLayout, c: PeriodCrossing
  * and green steel in 1986): a walled channel, T-piers standing in the water,
  * the deck with its sodium lamps, and a SORA board on the fascia over the road.
  */
+/**
+ * A plain city river under its road bridge, such as the Kamo at Shijō Ōhashi:
+ * a broad shallow channel between stone revetments and dry riverside walks
+ * (河原), with low concrete parapets and bridge lamps; no expressway overhead.
+ */
+function river(b: CityMeshBuilder, layout: PeriodCityLayout, c: PeriodCrossing): void {
+  const pose = poseAt(layout.course, c.p), w = pose.width, edge = w + 1.7, half = c.half ?? RIVER.half, level = -3.2;
+  const left = w + periodCityReach(layout, c.p, 1, c.span), right = -(w + periodCityReach(layout, c.p, -1, c.span));
+  b.frame(pose.x, pose.y, pose.z, pose.heading);
+  const walk = Math.min(9, half * .25), water = half - walk;
+  for (const [x0, x1] of [[edge, left], [right, -edge]] as const) {
+    if (x1 - x0 < 4) continue;
+    b.colour.set('#ffffff'); b.flat('water', x0, x1, -water, water, level - .4);
+    b.colour.set('#9a958a');
+    for (const s of [-1, 1]) {
+      b.flat('ground', x0, x1, Math.min(s * water, s * (half - .4)), Math.max(s * water, s * (half - .4)), level);
+      b.front('stone', x0, x1, level - .4, level, s * water, -s as -1 | 1);
+    }
+    b.colour.set('#8a867c'); b.front('stone', x0, x1, level, -.05, -half, 1); b.front('stone', x0, x1, level, -.05, half, -1);
+    b.colour.set('#b8b2a6'); b.box('stone', x0, x1, -.05, .95, -half - .45, -half, 'b'); b.box('stone', x0, x1, -.05, .95, half, half + .45, 'b');
+  }
+  for (const x of [-(w + .9), w + .9]) for (const z of [-half - .3, half + .3]) {
+    b.colour.set('#2e3032'); b.cylinder('metal', x, 0, z, .1, 4.4, 8);
+    b.colour.set('#ffd08a'); b.cylinder('lamp', x, 4.4, z, .28, .5, 10);
+  }
+  b.frame(0, 0, 0, 0);
+}
 function crossing(b: CityMeshBuilder, layout: PeriodCityLayout, c: PeriodCrossing): void {
-  if (c.kind === 'shinkyo') { shinkyo(b, layout, c); return; }
+  if (c.kind === 'shinkyo' || c.kind === 'gorge') { shinkyo(b, layout, c); return; }
+  if (c.kind === 'river') { river(b, layout, c); return; }
   const pose = poseAt(layout.course, c.p), w = pose.width, edge = w + 1.7;
   const left = w + periodCityReach(layout, c.p, 1, c.span), right = -(w + periodCityReach(layout, c.p, -1, c.span));
   b.frame(pose.x, pose.y, pose.z, pose.heading);
@@ -505,6 +592,8 @@ export function buildOpenGround(b: CityMeshBuilder, layout: PeriodCityLayout, fr
     if (run.district === 'moat') moat(b, layout, run, a, c);
     else if (run.district === 'park') park(b, layout, run, a, c);
     else if (run.district === 'shrine') shrine(b, layout, run, a, c);
+    else if (run.district === 'temple') temple(b, layout, run, a, c);
+    else if (run.district === 'pond') pond(b, layout, run, a, c);
     else if (run.district === 'quay') quay(b, layout, run, a, c);
     // Forest districts keep the race's own forest pools.
   }

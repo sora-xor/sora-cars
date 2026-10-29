@@ -1,4 +1,5 @@
 import type { CompiledStreetTrack } from './track';
+import { STREET_ROUTE_STYLES } from './routes';
 
 export interface StreetPresentation {
   readonly index: number;
@@ -14,22 +15,14 @@ export interface StreetPresentation {
   readonly transition: number;
 }
 
-// Authored chapter names for the packaged Tokyo soundtrack. These are creative
-// markers, not a claim that its tempo or musical structure has been measured.
-const TOKYO_CHAPTERS = [
-  { stage: '序', japanese: '序・静かな点火', english: 'QUIET IGNITION' },
-  { stage: '破', japanese: '破・街の鼓動', english: 'CITY PULSE' },
-  { stage: '破', japanese: '破・交錯', english: 'CROSSCURRENTS' },
-  { stage: '急', japanese: '急・解放', english: 'BREAK FREE' },
-  { stage: '急', japanese: '急・暁へ', english: 'INTO THE DAWN' },
-] as const;
 const NEUTRAL = { stage: '序', japanese: '走りの時間', english: 'ON THE ROAD' } as const;
 const START_ONLY: readonly number[] = Object.freeze([0]);
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 /** Presentation only: never modifies the admitted track, native state or proof
  * inputs. The simulation tick is its only clock, so seeking, pausing and muted
- * playback all select the same chapter. Unknown tracks keep neutral artwork.
+ * playback all select the same chapter. Unknown tracks, and tracks whose cues
+ * do not match their authored chapters, keep neutral artwork.
  */
 export function streetPresentation(track: CompiledStreetTrack, tick: number): Readonly<StreetPresentation> {
   const duration = Number.isSafeInteger(track.sound.durationMs) && track.sound.durationMs > 0
@@ -47,9 +40,10 @@ export function streetPresentation(track: CompiledStreetTrack, tick: number): Re
   const durationMs = Math.max(0, (cues[index + 1] ?? duration) - cues[index]!);
   const elapsedMs = Math.min(durationMs, Math.max(0, time - cues[index]!));
   const progress = durationMs > 0 ? clamp(elapsedMs / durationMs) : 0;
-  const tokyo = valid && track.id === 'tokyo-1986' && cues.length === TOKYO_CHAPTERS.length;
-  const chapter = tokyo ? TOKYO_CHAPTERS[index]! : NEUTRAL;
+  const chapters = STREET_ROUTE_STYLES.find(route => route.id === track.id)?.chapters;
+  const titled = valid && !!chapters && cues.length === chapters.length;
+  const chapter = titled ? chapters[index]! : NEUTRAL;
   return Object.freeze({ index, ...chapter, elapsedMs, durationMs, progress,
-    dawn: tokyo ? clamp((index + progress) / TOKYO_CHAPTERS.length) : 0,
-    transition: tokyo ? clamp((4000 - elapsedMs) / 1000) : 0 });
+    dawn: titled ? clamp((index + progress) / chapters.length) : 0,
+    transition: titled ? clamp((4000 - elapsedMs) / 1000) : 0 });
 }

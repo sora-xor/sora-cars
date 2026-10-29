@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
+import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodLocals, type PeriodSide } from './layout';
 import { cityNight } from './materials';
 import { streetCrossings } from './street';
 import { SPRITE_CELL, SPRITE_COLUMNS, SPRITE_LAYOUT, SPRITE_PIXELS_PER_METRE, SPRITE_ROWS, spriteRow } from './street-sprites';
@@ -11,7 +11,8 @@ import { SPRITE_CELL, SPRITE_COLUMNS, SPRITE_LAYOUT, SPRITE_PIXELS_PER_METRE, SP
  * lounging by their bikes, SORA's crew and fans (cheering with SORA's flag at
  * the start), shoppers, obaachan, yukata strollers in the onsen town, school
  * trips in Nikko, dock workers on the quay, cyclists on mamachari and stray
- * cats. Each sprite turns to the camera and shows its front, back or side
+ * cats; and each route's locals: maiko in Gion, deer in Nara Park, monkeys on
+ * the Irohazaka guard rails. Each sprite turns to the camera and shows its front, back or side
  * (mirrored for the other side) for the way it faces, walking, cheering and
  * pedalling on the render clock, with a soft shadow at its feet.
  * Presentation only: deterministic per course position and the clock.
@@ -40,23 +41,34 @@ const CROWDS: Partial<Record<PeriodDistrict, Crowd>> = {
   government: { density: .18, cats: 0, cast: [['salaryman', 8], ['trench', 4], ['office-lady', 3], ['police', 3]] },
   onsen: { density: .6, cats: .1, cast: [['yukata-woman', 6], ['yukata-man', 6], ['tourist', 4], ['obaachan', 2], ['old-man', 2], ['housewife', 1]] },
   nikko: { density: .5, cats: .08, cast: [['tourist', 6], ['schoolgirl', 4], ['schoolboy', 4], ['obaachan', 2], ['old-man', 2], ['yukata-woman', 1]] },
+  town: { density: .45, cats: .1, cast: [['salaryman', 4], ['obaachan', 4], ['schoolgirl', 4], ['schoolboy', 4], ['old-man', 3], ['office-lady', 2], ['tourist', 2]] },
   harbour: { density: .16, cats: .08, gangs: true, cast: [['dock', 8], ['salaryman', 2], ['denim', 2], ['youth', 1]] },
   moat: { density: .16, cats: .02, cast: [['salaryman', 3], ['office-lady', 2], ['youth', 2], ['denim', 2], ['old-man', 2], ['tourist', 1]] },
   park: { density: .14, cats: .06, cast: [['old-man', 3], ['obaachan', 2], ['housewife', 2], ['youth', 2], ['schoolgirl', 1], ['denim', 1]] },
   shrine: { density: .2, cats: .12, cast: [['tourist', 3], ['obaachan', 3], ['old-man', 2], ['schoolgirl', 1], ['yukata-woman', 1]] },
+  temple: { density: .18, cats: .14, cast: [['tourist', 3], ['obaachan', 3], ['old-man', 2], ['schoolgirl', 2]] },
+  pond: { density: .12, cats: .1, cast: [['tourist', 3], ['obaachan', 2], ['old-man', 2]] },
 };
 const FANS: Cast = [['fan', 5], ['crew', 3], ['youth', 2], ['denim', 2], ['schoolgirl', 2], ['schoolboy', 1]];
 /** Friends who walk together. */
 const COMPANIONS: Readonly<Record<string, readonly string[]>> = {
   schoolgirl: ['schoolgirl', 'schoolgirl', 'sukeban'], schoolboy: ['schoolboy', 'schoolgirl'], youth: ['denim', 'youth'], denim: ['youth'],
   'yukata-woman': ['yukata-man', 'yukata-woman'], tourist: ['tourist', 'obaachan', 'old-man'], 'office-lady': ['office-lady', 'salaryman'],
-  salaryman: ['salaryman', 'trench', 'office-lady'],
+  salaryman: ['salaryman', 'trench', 'office-lady'], maiko: ['maiko'],
 };
 const CATS = ['calico', 'orange-tabby', 'black-cat'] as const;
+/** Walkers who open an umbrella when the road is wet, and how wet (0-1) it must be. */
+const UMBRELLAS: Readonly<Record<string, string>> = { salaryman: 'umbrella-salaryman', trench: 'umbrella-salaryman', 'office-lady': 'umbrella-woman',
+  housewife: 'umbrella-woman', maiko: 'umbrella-maiko' };
+const UMBRELLA_WETNESS = .7;
 const GANG = ['bosozoku', 'bosozoku-black'] as const;
 const CYCLED: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'residential', 'office', 'onsen', 'nikko']);
-/** Walker actions (the shader's spriteA.z): standing, walking, a drunk's sway; cats sit, walk or curl up. */
-const ACT = { stand: 0, walk: 1, sway: 2, sit: 0, prowl: 1, curl: 2 } as const;
+/** Walker actions (the shader's spriteA.z): standing, walking, a drunk's sway; cats sit, walk or curl up (a monkey eats);
+ * deer also graze, bow and lie down. */
+const ACT = { stand: 0, walk: 1, sway: 2, sit: 0, prowl: 1, curl: 2, graze: 2, bow: 3, lie: 4 } as const;
+/** The guard rail (world.ts): 0.6 m beyond the road edge, its top 0.84 m up, 0.66 m above the pavement's height there. */
+const RAIL = { e: .6, lift: .66 } as const;
+const DEER_SHADOW = [.32, .75] as const, MONKEY_SHADOW = [.22, .2] as const;
 
 function pick(cast: Cast, random: () => number): string {
   let total = 0; for (const [, w] of cast) total += w;
@@ -71,8 +83,10 @@ interface Figure {
   /** Walkers: +1 or -1 along the road. Everyone else: yaw from the road's heading. */
   facing: number;
   /** Walkers pace `span` metres at `speed`. */ span: number; speed: number;
+  /** The same walker under an open umbrella, for wet roads (-1 none). */ wet: number;
   /** Animation cycles per second. */ rate: number;
   /** Ground shadow: half-width and half-length in metres. */ shadow: readonly [number, number];
+  /** Metres above the pavement, for a monkey on the guard rail (no shadow). */ lift?: number;
 }
 interface Rider { p: number; side: PeriodSide; e: number; dir: 1 | -1; speed: number; phase: number; row: number; scale: number }
 
@@ -99,6 +113,40 @@ function gangStation(k: number): boolean {
   if (own >= .03) return false;
   for (let j = k - 25; j <= k + 25; j++) if (j !== k && gangDraw(j) < Math.min(.03, own)) return false;
   return true;
+}
+
+/** A cast with `name` added as `share` of it. */
+function withShare(cast: Cast, name: string, share: number): Cast {
+  let total = 0; for (const [, w] of cast) total += w;
+  return [...cast, [name, total * share / (1 - share)]];
+}
+
+/** Nara's deer or an Irohazaka monkey troop at the 6 m station `k`, from their own random stream so the people stay as they were. */
+function animals(local: PeriodLocals, district: PeriodDistrict, k: number, side: PeriodSide): Figure[] {
+  const random = seeded(hashInts(k, side, local.kind === 'deer' ? 1300 : 1400));
+  if (local.kind === 'maiko' || random() >= local.density) return [];
+  const list: Figure[] = [], p = k * STATION, still = { phase: 0, span: 0, speed: 0, rate: 0, wet: -1 };
+  if (local.kind === 'deer') {
+    // A few deer grazing, lying down, bowing for crackers, standing about or ambling: on the pavement, and back
+    // across the grass to the curb in the park, by the ponds and before the temple walls.
+    const room = district === 'park' || district === 'pond' || district === 'temple' ? 2.2 : 1.4;
+    for (let i = 0, n = 1 + Math.floor(random() * 3); i < n; i++) {
+      const row = spriteRow(random() < .3 ? 'deer-stag' : 'deer'), roll = random();
+      const deer = { ...still, p: p + random() * STATION, side, e: 1.1 + random() * room, row, step: random(), scale: .92 + random() * .12, shadow: DEER_SHADOW };
+      list.push(roll < .3 ? { ...deer, action: ACT.walk, facing: random() < .5 ? 1 : -1, phase: random() * 2, span: 2 + random() * 5, speed: .55, rate: 1.1 }
+        : { ...deer, action: roll < .58 ? ACT.graze : roll < .8 ? ACT.lie : roll < .9 ? ACT.bow : ACT.stand, facing: random() * Math.PI * 2, rate: .45 });
+    }
+    return list;
+  }
+  // A troop: some perch on the guard rail watching the traffic, the rest sit, eat or amble on the verge behind it.
+  for (let i = 0, n = 2 + Math.floor(random() * 4); i < n; i++) {
+    const row = spriteRow(random() < .35 ? 'monkey-mother' : 'monkey'), perch = random() < .45, roll = random();
+    const monkey = { ...still, p: p + random() * STATION, side, e: perch ? RAIL.e : 1.9 + random() * .7, lift: perch ? RAIL.lift : 0, row,
+      step: random(), scale: .9 + random() * .15, shadow: MONKEY_SHADOW };
+    list.push(roll < .25 ? { ...monkey, action: ACT.prowl, facing: random() < .5 ? 1 : -1, phase: random() * 2, span: 2 + random() * 4, speed: .5, rate: 1.2 }
+      : { ...monkey, action: roll < .7 ? ACT.sit : ACT.curl, facing: perch ? -side * Math.PI / 2 + (random() - .5) * 2 : random() * Math.PI * 2 });
+  }
+  return list;
 }
 
 /** A soft round shadow for the sprites' feet. */
@@ -172,7 +220,13 @@ void main() {`)
             else column = action > .5 ? (view < .5 ? 5. : view < 1.5 ? 6. : 3. + f2) : view < .5 ? 0. : view < 1.5 ? 1. : 2.;
           }
           else if (sheet < ${L.bike - .5}) { if (view > 1.5) { column = f4 * 2.; wide = 2.; } else column = (view < .5 ? 8. : 10.) + f2; }
-          else { if (view > 1.5) { column = 0.; wide = 2.; } else column = view < .5 ? 2. : 3.; }
+          else if (sheet < ${L.deer - .5}) { if (view > 1.5) { column = 0.; wide = 2.; } else column = view < .5 ? 2. : 3.; }
+          else {
+            // Deer graze, bow (dipping and rising again) and lie down side-on; they stand and walk from any side.
+            if (action > 1.5) { column = action > 3.5 ? 10. : action > 2.5 ? 8. * f2 : 6.; wide = 2.; profile = 1.; }
+            else if (view > 1.5) { column = action > .5 ? 2. + f2 * 2. : 0.; wide = 2.; }
+            else column = (view < .5 ? 12. : 14.) + (action > .5 ? f2 : 0.);
+          }
           // Sprites face right in profile: mirror them for those facing the viewer's left.
           float u = profile > .5 && across < 0. ? 1. - uv.x : uv.x;
           float height = spriteB.z, width = height * wide * ${(SPRITE_CELL.width / SPRITE_CELL.height).toFixed(4)};
@@ -184,9 +238,11 @@ void main() {`)
       // At night the shop fronts and signs light the crowd a little.
       shader.fragmentShader = shader.fragmentShader
         .replace('void main() {', 'uniform float spriteNight;\nvoid main() {')
+        // A sharper mip on far sprites, so faces and clothes stay clear in the distance (refine round 4).
+        .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )', 'texture2D( map, vMapUv, -1. )'))
         .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += diffuseColor.rgb * spriteNight * .1;');
     };
-    material.customProgramCacheKey = () => 'period-city-street-sprites-v1';
+    material.customProgramCacheKey = () => 'period-city-street-sprites-v2';
     this.mesh = new THREE.InstancedMesh(quad, material, CAPACITY);
     this.mesh.name = 'SORA street people (1986 sprites)';
     this.mesh.count = 0; this.mesh.frustumCulled = false; this.mesh.receiveShadow = true;
@@ -220,18 +276,21 @@ void main() {`)
     const fans = PeriodPeople.apart(layout, k * STATION + STATION / 2, start) < START_CROWD;
     const person: readonly [number, number] = [.3, .2];
     for (const side of [-1, 1] as PeriodSide[]) {
-      const p = k * STATION, district = layout.districtAt(p, side), crowd = CROWDS[district];
+      const p = k * STATION, district = layout.districtAt(p, side), crowd = CROWDS[district], local = layout.localsAt(p);
+      if (local) list.push(...animals(local, district, k, side));
       if (!crowd) continue;
+      const cast = local?.kind === 'maiko' ? withShare(crowd.cast, 'maiko', local.density) : crowd.cast;
       const random = seeded(hashInts(k, side, 1986));
       /** Facing the road (yaw from the heading) with a little turn of its own. */
       const roadward = (turn: number) => -side * Math.PI / 2 + (random() - .5) * turn;
       const stander = (row: string, at: number, e: number, facing: number, extra: Partial<Figure> = {}): Figure => ({ p: at, side, e,
-        row: spriteRow(row), action: ACT.stand, phase: 0, step: random(), scale: .94 + random() * .1, facing, span: 0, speed: 0, rate: 0, shadow: person, ...extra });
+        row: spriteRow(row), action: ACT.stand, phase: 0, step: random(), scale: .94 + random() * .1, facing, span: 0, speed: 0, rate: 0, shadow: person,
+        wet: -1, ...extra });
       if (crossing !== undefined) {
         // A knot of people waiting at the zebra crossing; a fan cheers the race; at some a police officer signals.
         for (let i = 0, n = 3 + Math.floor(random() * 4); i < n; i++) {
           const cheer = random() < .18;
-          list.push(stander(cheer ? 'fan-cheer' : pick(crowd.cast, random), crossing - .4 + random() * 4.8, 1 + random() * .55, roadward(.5),
+          list.push(stander(cheer ? 'fan-cheer' : pick(cast, random), crossing - .4 + random() * 4.8, 1 + random() * .55, roadward(.5),
             cheer ? { rate: 1.6 } : {}));
         }
         if ((hashInts(Math.round(crossing), 9) >>> 0) % 3 === 0 && side === ((hashInts(Math.round(crossing), 10) >>> 0) % 2 ? 1 : -1))
@@ -268,12 +327,12 @@ void main() {`)
       if (count > 1 && random() < .3) {
         // Friends stopped to talk before the shops, turned toward each other.
         const at = p + random() * (STATION - 1.5), e = 2 + random() * .5;
-        for (let i = 0; i < count; i++) list.push(stander(pick(crowd.cast, random), at + (i % 2) * .8, e + (i > 1 ? .55 : 0),
+        for (let i = 0; i < count; i++) list.push(stander(pick(cast, random), at + (i % 2) * .8, e + (i > 1 ? .55 : 0),
           i > 1 ? side * Math.PI / 2 + Math.PI : (i % 2 ? -Math.PI / 2 : Math.PI / 2) + (random() - .5) * .4));
         continue;
       }
       for (let i = 0; i < count; i++) {
-        const look = pick(crowd.cast, random), walking = random() < .72;
+        const look = pick(cast, random), walking = random() < .72;
         if (!walking) {
           // Some stand by the guard rail, others before the shops.
           const kerb = random() < .5;
@@ -281,14 +340,19 @@ void main() {`)
           continue;
         }
         const drunk = look === 'drunk', speed = drunk ? .6 + random() * .25 : 1.1 + random() * .5, facing = random() < .5 ? 1 : -1;
+        // Most of those with an umbrella open it on a wet road; a few hurry on without.
+        const umbrella = UMBRELLAS[look] && random() < .8 ? spriteRow(UMBRELLAS[look]!) : -1;
         const walker: Figure = { p: p + random() * STATION, side, e: 1 + random() * .5, row: spriteRow(look), action: drunk ? ACT.sway : ACT.walk,
-          phase: random() * 2, step: random(), scale: .94 + random() * .1, facing, span: 8 + random() * 16, speed, rate: speed / (drunk ? 1.2 : 1.5), shadow: person };
+          phase: random() * 2, step: random(), scale: .94 + random() * .1, facing, span: 8 + random() * 16, speed, rate: speed / (drunk ? 1.2 : 1.5), shadow: person,
+          wet: umbrella };
         list.push(walker);
         const friends = COMPANIONS[look];
         if (friends && random() < .4) {
           // A friend alongside, keeping pace, on the other foot.
-          list.push({ ...walker, row: spriteRow(friends[Math.floor(random() * friends.length)]!), e: walker.e < 1.25 ? walker.e + .45 : Math.max(1, walker.e - .45),
-            p: walker.p + (random() - .5) * .6, step: walker.step + .5, scale: .94 + random() * .1 });
+          const friend = friends[Math.floor(random() * friends.length)]!;
+          list.push({ ...walker, row: spriteRow(friend), e: walker.e < 1.25 ? walker.e + .45 : Math.max(1, walker.e - .45),
+            p: walker.p + (random() - .5) * .6, step: walker.step + .5, scale: .94 + random() * .1,
+            wet: UMBRELLAS[friend] && random() < .8 ? spriteRow(UMBRELLAS[friend]!) : -1 });
         }
       }
     }
@@ -297,20 +361,23 @@ void main() {`)
     return list;
   }
 
-  /** Write sprite `n`: its foot at lateral `e` off the course pose `at`, its frame data and its shadow. */
+  /** Write sprite `n`: its foot at lateral `e` off the course pose `at`, `lift` above the pavement, its frame data and its shadow. */
   private put(n: number, at: { x: number; y: number; z: number; heading: number; width: number }, side: PeriodSide, e: number, yaw: number,
-    row: number, action: number, phase: number, rate: number, scale: number, shadow: readonly [number, number]): void {
+    row: number, action: number, phase: number, rate: number, scale: number, shadow: readonly [number, number], lift = 0): void {
     const lateral = side * (at.width + e);
-    this.position.set(at.x + Math.cos(at.heading) * lateral, at.y + (e > PAVEMENT.edge ? PAVEMENT.ground : PAVEMENT.top), at.z - Math.sin(at.heading) * lateral);
+    this.position.set(at.x + Math.cos(at.heading) * lateral, at.y + (e > PAVEMENT.edge ? PAVEMENT.ground : PAVEMENT.top) + lift, at.z - Math.sin(at.heading) * lateral);
     this.mesh.setMatrixAt(n, this.matrix.compose(this.position, this.identity, this.one));
     this.cellA.setXYZW(n, row, SPRITE_LAYOUT[SPRITE_ROWS[row]!.layout], action, phase);
     this.cellB.setXYZW(n, yaw, rate, CELL_HEIGHT * scale, 0);
-    this.position.y += .015; this.rotation.setFromAxisAngle(this.axis, yaw); this.scale.set(shadow[0] * scale, 1, shadow[1] * scale);
+    // A monkey on the guard rail casts no shadow there.
+    const shade = lift ? 0 : scale;
+    this.position.y += .015; this.rotation.setFromAxisAngle(this.axis, yaw); this.scale.set(shadow[0] * shade, 1, shadow[1] * shade);
     this.shadows.setMatrixAt(n, this.matrix.compose(this.position, this.rotation, this.scale));
   }
 
-  /** Place everyone near `progress` at render time `time` (seconds). */
-  update(layout: PeriodCityLayout | null, progress: number, time: number): void {
+  /** Place everyone near `progress` at render time `time` (seconds); on a road wetter than UMBRELLA_WETNESS umbrellas open. */
+  update(layout: PeriodCityLayout | null, progress: number, time: number, wetness = 0): void {
+    const wet = wetness >= UMBRELLA_WETNESS;
     this.time.value = time;
     if (!layout) { this.mesh.count = this.shadows.count = 0; return; }
     const { course } = layout, stations = Math.ceil(course.length / STATION);
@@ -325,7 +392,8 @@ void main() {`)
         const forward = travel < 1, along = pacing ? (forward ? travel : 2 - travel) * figure.span * figure.facing : 0;
         const at = poseAt(course, figure.p + (k - station) * STATION + along);
         const yaw = at.heading + (pacing ? (forward === (figure.facing > 0) ? 0 : Math.PI) : figure.facing);
-        this.put(n++, at, figure.side, figure.e, yaw, figure.row, figure.action, figure.step, figure.rate, figure.scale, figure.shadow);
+        this.put(n++, at, figure.side, figure.e, yaw, wet && figure.wet >= 0 ? figure.wet : figure.row, figure.action, figure.step, figure.rate,
+          figure.scale, figure.shadow, figure.lift);
       }
     }
     // Cyclists ride on through the town streets, either way along the pavement.

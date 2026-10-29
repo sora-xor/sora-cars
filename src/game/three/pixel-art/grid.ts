@@ -1,13 +1,15 @@
 /**
  * Art-grid sizing for the pixel-art race renderer (docs/pixel-art-renderer.md).
  *
- * The cutscene illustrations are drawn on a ~560x315 grid of hard-edged art
- * pixels. The race keeps that density: the short side of the view is 315 art
- * pixels (never finer than 2 backing pixels per cell), the long side follows
- * the aspect ratio, and the 3D scene is supersampled S x S per art cell so the
- * cell resolve has real sub-cell detail to choose from.
+ * The short side of the view is 470 art pixels (never finer than 2 backing
+ * pixels per cell), the long side follows the aspect ratio, and the 3D scene
+ * is supersampled S x S per art cell so the cell resolve has real sub-cell
+ * detail to choose from. 470 is the density of the user's rain-night concept
+ * (art/reference/rain-night-target.png, about 836 x 470 art pixels), where
+ * sign text reads in the distance and faces and room interiors are clear; the
+ * cutscenes' coarser ~560 x 315 grid lost all three (refine round 4).
  */
-export const ART_SHORT_SIDE = 315;
+export const ART_SHORT_SIDE = 470;
 /** Smallest art cell, in backing pixels. */
 export const MIN_CELL_BACKING_PIXELS = 2;
 export const MIN_SCENE_SUPERSAMPLE = 2;

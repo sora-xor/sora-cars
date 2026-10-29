@@ -12,8 +12,12 @@
 import type { PeriodLandmarkKind } from './landmarks';
 
 export type PeriodSide = -1 | 1;
-export type PeriodDistrict = 'kanda' | 'residential' | 'office' | 'government' | 'moat' | 'park' | 'shrine'
+export type PeriodDistrict = 'kanda' | 'residential' | 'town' | 'office' | 'government' | 'moat' | 'park' | 'shrine' | 'temple' | 'pond'
   | 'onsen' | 'rural' | 'nikko' | 'harbour' | 'forest' | 'quay';
+/** People and animals found on one route only (street-scenes.ts): Gion's maiko, Nara's deer, the Irohazaka monkeys. */
+export type PeriodLocal = 'maiko' | 'deer' | 'monkeys';
+/** Locals at a place: who, and how thick (maiko: their share of the walkers; deer and monkeys: a herd's or troop's chance per 6 m station). */
+export interface PeriodLocals { readonly kind: PeriodLocal; readonly density: number }
 export type PeriodTypology = 'shophouse' | 'machiya' | 'zakkyo' | 'office' | 'mansion' | 'ministry'
   | 'pachinko' | 'station' | 'parking' | 'ryokan' | 'hotel' | 'house' | 'warehouse' | 'containers';
 export interface PeriodCityPose { readonly p: number; readonly x: number; readonly y: number; readonly z: number; readonly heading: number; readonly width: number }
@@ -41,7 +45,13 @@ export interface PeriodLot {
 }
 /** A river crossing the route square at progress `p`, `span` metres each way: under the Shuto
  * Expressway (Manaita Bridge) or beside Nikko's vermilion Shinkyo. */
-export interface PeriodCrossing { readonly p: number; readonly span: number; readonly kind?: 'expressway' | 'shinkyo' }
+export interface PeriodCrossing {
+  readonly p: number; readonly span: number;
+  /** The Nihonbashi River under the expressway (default), Nikko's Shinkyo gorge, or a plain river such as the Kamo. */
+  readonly kind?: 'expressway' | 'shinkyo' | 'river' | 'gorge';
+  /** Half the channel's width along the road, in metres (the Nihonbashi River's 11 m by default). */
+  readonly half?: number;
+}
 /** A single landmark beside the road, its footprint reserved before lots are placed. */
 export interface PeriodLandmark {
   readonly p: number; readonly side: PeriodSide;
@@ -50,7 +60,13 @@ export interface PeriodLandmark {
   readonly clearance: number; readonly length: number; readonly depth: number;
 }
 /** Route furniture placed by hand: footbridges (歩道橋) and blue guide signs (`guide` atlas index), by progress. */
-export interface PeriodStreetPlan { readonly footbridges: readonly number[]; readonly guides: readonly { readonly p: number; readonly sign: number }[] }
+export interface PeriodStreetPlan {
+  readonly footbridges: readonly number[]; readonly guides: readonly { readonly p: number; readonly sign: number }[];
+  /** Great structures that straddle the road, such as Heian Jingū's torii over Jingū-michi. */
+  readonly arches?: readonly { readonly p: number; readonly kind: 'heian-torii' }[];
+  /** Small roadside boards, such as Irohazaka's numbered kana at each curve. */
+  readonly markers?: readonly { readonly p: number; readonly side: PeriodSide; readonly text: string }[];
+}
 /** Where a district asks for open ground (moat, park, shrine precinct) instead of lots. */
 export interface PeriodOpenRun { readonly district: PeriodDistrict; readonly side: PeriodSide; readonly start: number; readonly end: number }
 export interface PeriodCityLayout {
@@ -61,6 +77,8 @@ export interface PeriodCityLayout {
   readonly landmarks: readonly PeriodLandmark[];
   /** The district on each side, as the layout was built. */
   readonly districtAt: (p: number, side: PeriodSide) => PeriodDistrict;
+  /** The route's own locals at a progress, if any. */
+  readonly localsAt: (p: number) => PeriodLocals | null;
   readonly street: PeriodStreetPlan;
   readonly chunkLength: number;
   readonly chunks: ReadonlyMap<number, readonly PeriodLot[]>;
@@ -69,6 +87,7 @@ export interface PeriodCityLayout {
 export interface PeriodCityOptions {
   /** The district on one side of the road at a progress. */
   readonly districtAt?: (p: number, side: PeriodSide) => PeriodDistrict;
+  readonly localsAt?: (p: number) => PeriodLocals | null;
   /** Open runs already computed for the ground cut (periodCityOpenRuns). */
   readonly open?: readonly PeriodOpenRun[];
   readonly crossings?: readonly PeriodCrossing[];
@@ -165,7 +184,7 @@ export function arcadeDistrictAt(style: number, p: number, side: PeriodSide): Pe
   const table = ARCADE_1986_DISTRICTS[style] ?? ARCADE_1986_DISTRICTS[0]!, list = side < 0 ? table.right : table.left;
   return list[mod(Math.floor((p + 100) / table.block), list.length)]!;
 }
-const OPEN: ReadonlySet<PeriodDistrict> = new Set(['moat', 'park', 'shrine', 'forest', 'quay']);
+const OPEN: ReadonlySet<PeriodDistrict> = new Set(['moat', 'park', 'shrine', 'temple', 'pond', 'forest', 'quay']);
 
 type Range = readonly [number, number];
 interface TypologySpec { readonly width: Range; readonly depth: Range; readonly storeys: Range; readonly setback: Range }
@@ -206,6 +225,13 @@ const DISTRICTS: Readonly<Record<PeriodDistrict, DistrictSpec>> = {
     { weights: { mansion: 50, office: 50 }, clearance: [42, 64], storeys: [6, 12] },
     { weights: { office: 50, mansion: 50 }, clearance: [72, 98], storeys: [8, 15], scale: 1.2 },
   ] },
+  // A provincial town of 1986 (Aizu's back streets, Nara, Kyoto's side streets):
+  // low shop-houses, machiya and houses, with the odd small tenant building or mansion.
+  town: { alley: 0.18, rows: [
+    { weights: { shophouse: 30, machiya: 18, house: 22, zakkyo: 7, parking: 9, office: 5, mansion: 4, pachinko: 2, station: 3 }, clearance: [0, 0], storeys: [2, 4] },
+    { weights: { house: 46, machiya: 20, shophouse: 16, mansion: 18 }, clearance: [15, 24], storeys: [2, 5] },
+    { weights: { house: 52, mansion: 30, office: 18 }, clearance: [32, 50], storeys: [3, 6] },
+  ] },
   office: { alley: 0.1, rows: [
     { weights: { office: 74, zakkyo: 10, ministry: 8, parking: 4, station: 4 }, clearance: [0, 0] },
     { weights: { office: 80, mansion: 8, ministry: 12 }, clearance: [30, 46] },
@@ -238,6 +264,8 @@ const DISTRICTS: Readonly<Record<PeriodDistrict, DistrictSpec>> = {
   moat: { alley: 0, rows: [] },
   park: { alley: 0, rows: [] },
   shrine: { alley: 0, rows: [] },
+  temple: { alley: 0, rows: [] },
+  pond: { alley: 0, rows: [] },
   forest: { alley: 0, rows: [] },
   quay: { alley: 0, rows: [] },
 };
@@ -379,29 +407,36 @@ export function periodCityRouteFrame(course: PeriodCityCourse, reach: number): (
 /** Where the park and moat replace the paved ground (a cut for createUrbanGround). */
 export function periodCityGroundCut(course: PeriodCityCourse, runs: readonly PeriodOpenRun[],
   crossings: readonly PeriodCrossing[] = []): (x: number, z: number) => boolean {
-  const cuts = runs.filter(run => run.district === 'moat' || run.district === 'park');
+  const cuts = runs.filter(run => run.district === 'moat' || run.district === 'park' || run.district === 'pond' || run.district === 'forest');
   if (!cuts.length && !crossings.length) return () => false;
   const frame = periodCityRouteFrame(course, MOAT.water + 48 + MOAT.batter + MOAT.platform + 8);
+  // A sprint that finishes in a park or forest on a hill (Iimoriyama, Wakakusa-yama): paving past the finish
+  // line would run on level with the road and read as a lake from the car. Leave that ground to the far land.
+  const finish = course.poses.at(-1)!, openFinish = !course.circuit
+    && cuts.some(run => run.end >= course.length - 1 && (run.district === 'forest' || run.district === 'park'));
   return (x, z) => {
     const best = frame(x, z);
     if (!best) return false;
     const { side, beyond } = best;
+    if (openFinish && best.p >= course.length - 20
+      && (x - finish.x) * Math.sin(finish.heading) + (z - finish.z) * Math.cos(finish.heading) > 4) return true;
     for (const crossing of crossings) {
       // The river channel, beside its own bridge only (never under another street).
       const near = course.circuit ? Math.abs(mod(best.p - crossing.p + course.length / 2, course.length) - course.length / 2) : Math.abs(best.p - crossing.p);
       if (near > 60) continue;
       const f = crossingFootprint(course, crossing), point = local(x, z, f);
-      if (Math.abs(point.z) < RIVER.half + 1 && Math.abs(point.x) > poseAt(course, crossing.p).width + 2.5 && Math.abs(point.x) < crossing.span) return true;
+      if (Math.abs(point.z) < (crossing.half ?? RIVER.half) + 1 && Math.abs(point.x) > poseAt(course, crossing.p).width + 2.5 && Math.abs(point.x) < crossing.span) return true;
     }
-    return cuts.some(run => run.side === side && best!.p >= run.start && best!.p <= run.end && beyond >= 3
-      && beyond <= (run.district === 'moat' ? MOAT.water + moatWidth(best!.p) + MOAT.batter + MOAT.platform : 64));
+    // Forest districts on a city route take the Arcade's forest banks instead of paving.
+    return cuts.some(run => run.side === side && best!.p >= run.start && best!.p <= run.end && beyond >= (run.district === 'forest' ? 1.7 : 3)
+      && beyond <= (run.district === 'moat' ? MOAT.water + moatWidth(best!.p) + MOAT.batter + MOAT.platform : run.district === 'forest' ? 120 : run.district === 'pond' ? 90 : 64));
   };
 }
 
 /** The crossing's corridor: local X runs across the route (side +1 positive), local Z along it. */
 export function crossingFootprint(course: PeriodCityCourse, crossing: PeriodCrossing): PeriodFootprint {
   const at = poseAt(course, crossing.p);
-  return { x: at.x, z: at.z, yaw: at.heading, halfX: crossing.span, halfZ: RIVER.half + 2 };
+  return { x: at.x, z: at.z, yaw: at.heading, halfX: crossing.span, halfZ: (crossing.half ?? RIVER.half) + 2 };
 }
 
 /** A landmark's reserved footprint (local X along the road, local -Z toward it). */
@@ -485,7 +520,7 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
     const key = Math.floor(lot.p / chunkLength), list = chunks.get(key) ?? [];
     list.push(lot); chunks.set(key, list);
   }
-  const layout: PeriodCityLayout = { course, lots, open, crossings, landmarks, districtAt,
+  const layout: PeriodCityLayout = { course, lots, open, crossings, landmarks, districtAt, localsAt: options.localsAt ?? (() => null),
     street: options.street ?? { footbridges: [], guides: [] }, chunkLength, chunks, stats };
   indices.set(layout, occupied); roadIndices.set(layout, roads);
   return layout;

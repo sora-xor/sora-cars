@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
-  createLampHeadSlots, FOLIAGE_GLINTS, FOLIAGE_TONES, GLOW_REACH, LAMP_HEAD_CORE, LAMP_HEAD_SLOTS, LAMP_RING_COLOURS,
+  createLampHeadSlots, FOLIAGE_GLINTS, FOLIAGE_TONE_COLOURS, FOLIAGE_TONES, GLOW_REACH, LAMP_HEAD_CORE, LAMP_HEAD_SLOTS, LAMP_RING_COLOURS,
   LAMP_TIER_HALO, LINEWORK_COLOURS, LINEWORK_DEFAULTS, lineworkOptionsFromQuery, MAX_LAMP_HEADS, nearestPaletteIndex,
 } from '../src/game/three/pixel-art/linework';
-import { hueDistance, oklch, PIXEL_PALETTE } from '../src/game/three/pixel-art/palette';
+import { hueDistance, oklabFromHex, oklch, PIXEL_PALETTE } from '../src/game/three/pixel-art/palette';
 
 const lchOf = (index: number) => oklch(Array.from(PIXEL_PALETTE.oklab.subarray(index * 4, index * 4 + 3)));
 
@@ -149,6 +149,19 @@ test('refine round 3: night clump tones are palette steps one band apart, dark t
   assert.ok(hueDistance(olive[2], 100) < 25);
   const d = LINEWORK_DEFAULTS;
   assert.ok(d.foliageTones === 1 && d.foliageToneMax > 0.2 && d.foliageToneMax < 0.4 && d.foliageToneFar >= 30 && d.lineSkipCanopy === 1);
+});
+
+test('refine round 4: full-colour clump tones keep the palette steps, dark green and olive-gold', () => {
+  for (const name of ['navy', 'teal', 'olive'] as const) {
+    const L = FOLIAGE_TONE_COLOURS[name].map(hex => oklabFromHex(hex)[0]);
+    for (let i = 1; i < L.length; i++) assert.ok(L[i]! > L[i - 1]!, `${name} ordered`);
+    // Step for step about the palette tone's lightness, so the clump choice and the sky cap behave as before.
+    FOLIAGE_TONES[name].forEach((hex, i) => assert.ok(Math.abs(L[i]! - oklabFromHex(hex)[0]) < .05, `${name} step ${i}`));
+  }
+  // Unlit crowns are dark green or teal-green (the concept's), never navy; lamp-lit crowns are olive-gold.
+  for (const hex of [...FOLIAGE_TONE_COLOURS.navy.slice(1), ...FOLIAGE_TONE_COLOURS.teal.slice(1)])
+    assert.ok(hueDistance(oklch(oklabFromHex(hex))[2], 160) < 30, hex);
+  for (const hex of FOLIAGE_TONE_COLOURS.olive.slice(2)) assert.ok(hueDistance(oklch(oklabFromHex(hex))[2], 100) < 20, hex);
 });
 
 test('refine round 3: stable emitters, confirmed glints, no bead strings on lit bars, connected wires', () => {

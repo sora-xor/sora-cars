@@ -386,6 +386,10 @@ uniform float carChromaKeep;
 uniform vec4 plumDrive;
 uniform vec3 groundFloor;
 uniform float plumNight; // 1 at night (street lamps at night strength), 0 at sunrise: the plum drive and ground floor fade with it
+uniform vec3 gradeContrast; // x: stretch below the pivot (0 off), y: the pivot, z: stretch above it (refine round 4, night)
+uniform float gradeFloor;   // OKLab L the deepest darks are lifted toward (0 off): the concept's night darks are navy, never black
+uniform float gradeCarContrast; // the share of the contrast stretch car paint takes
+uniform vec3 gradeFoliage;  // night canopy: x lightness and y chroma taken off its darker leaves, z green leaves' turn toward olive (0 off)
 vec3 toneMap(vec3 c) {
   if (toneMapper == 1) return NeutralToneMapping(c);
   if (toneMapper == 2) return ACESFilmicToneMapping(c);
@@ -410,6 +414,42 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   radiance = max(radiance, vec3(0.));
   vec3 lab = artLinearToOklab(clamp(toneMap(radiance), 0., 1.));
   lab.yz *= chromaGain;
+  // Night contrast (refine round 4, the user's rain-night concept): lightness
+  // stretched about a low pivot, strongly below it so walls and asphalt sink
+  // toward navy, gently above it so windows, signs and their reflections glow
+  // amber without washing out to cream. It eases off toward black and white
+  // (nothing crushes or clips); the authored sky keeps its paint and car
+  // paint takes half.
+  if (gradeContrast.x > 0. || gradeContrast.z > 0.) {
+    float sky = texelFetch(resolvedData, cell, 0).w;
+    float k = (lab.x < gradeContrast.y ? gradeContrast.x : gradeContrast.z) * (1. - sky) * (artCarKind(cell) == 1 ? gradeCarContrast : 1.)
+      * smoothstep(.02, .14, lab.x) * (1. - smoothstep(.8, .97, lab.x));
+    lab.x = clamp(lab.x + (lab.x - gradeContrast.y) * k, 0., 1.);
+  }
+  // Night foliage (refine round 4): the concept's street trees are dark green with lamp-lit leaves; ours turned lime
+  // and teal under the night grade. Canopy cells (the surface stage's leaf flag) below mid lightness lose some
+  // lightness and chroma; lamp-lit leaves above it keep theirs and take the highlight drive's gold.
+  float canopy = 0.;
+  if (gradeFoliage.x > 0. && artSurfaceReady > .5 && abs(texelFetch(anchors, cell, 0).w - .25) < .01) {
+    canopy = 1.;
+    float dark = 1. - smoothstep(.42, .66, lab.x);
+    lab.x *= 1. - gradeFoliage.x * dark;
+    lab.yz *= 1. - gradeFoliage.y * dark;
+    // Green and teal leaves (OKLab hue about 105-225 degrees) turn toward the concept's olive (about 115), and the
+    // shadow and plum drives below spare them as much, so dark leaves stay dark olive instead of violet-grey;
+    // blossom, autumn reds and ginkgo gold lie outside the window and keep their colour.
+    float hue = atan(lab.z, lab.y);
+    float green = 1. - smoothstep(1.05, 1.4, abs(arc(2.88, hue)));
+    hue += arc(hue, 2.) * gradeFoliage.z * green;
+    lab.yz = length(lab.yz) * vec2(cos(hue), sin(hue));
+  }
+  // A soft floor under the night's darks (refine round 4): lightness below 2.5 x the floor is lifted toward it, the
+  // lift fading out linearly, so shadows read as deep navy with their structure kept (the shadow drive gives the
+  // hue) instead of crushing to black. Monotonic; the sky keeps its paint.
+  if (gradeFloor > 0.) {
+    float t = clamp(lab.x / (2.5 * gradeFloor), 0., 1.);
+    lab.x += gradeFloor * (1. - t) * (1. - texelFetch(resolvedData, cell, 0).w);
+  }
   // Monotonic in chroma: mid chroma is compressed in darks (lamp-lit asphalt)
   // and lights (white paint under amber lamps); saturated paint is kept.
   float chroma = length(lab.yz);
@@ -423,7 +463,7 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   float sky = texelFetch(resolvedData, cell, 0).w;
   lab.yz *= 1. - darkChroma.x * dark * (1. - paint) * (1. - smoothstep(darkChroma.y, darkChroma.z, chroma))
     - lightChroma.x * light * (1. - sky) * (1. - smoothstep(lightChroma.y, lightChroma.z, chroma));
-  float shadow = shadowDrive.y * (1. - smoothstep(shadowRange.x, shadowRange.y, lab.x));
+  float shadow = shadowDrive.y * (1. - smoothstep(shadowRange.x, shadowRange.y, lab.x)) * (1. - gradeFoliage.z * canopy);
   float highlight = highlightDrive.y * smoothstep(highlightRange.x, highlightRange.y, lab.x);
   // The protection follows the chroma before the compression, so saturated
   // darks (a red vending machine, a teal car in shade) keep their hue.
@@ -442,7 +482,8 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   }
   if (plumDrive.y * plumNight > 0.) {
     float lit = artSurfaceReady > .5 ? texelFetch(groundFields, cell, 0).w : 0.;
-    float plum = plumDrive.y * plumNight * smoothstep(plumDrive.z, plumDrive.w, lab.x) * (1. - sky) * (artCarKind(cell) > 0 ? 0. : 1.) * (1. - lit);
+    float plum = plumDrive.y * plumNight * smoothstep(plumDrive.z, plumDrive.w, lab.x) * (1. - sky) * (artCarKind(cell) > 0 ? 0. : 1.) * (1. - lit)
+      * (1. - gradeFoliage.z * canopy);
     shadowTarget.x += arc(shadowDrive.x, plumDrive.x) * plum;
   }
   lab.yz = drive(lab.yz, shadow, shadowTarget, shadowProtect, chroma);
@@ -487,6 +528,10 @@ export function createGradeStage(shared: PixelArtSharedUniforms) {
     // Set each frame by the reflect stage (surfaces.ts) from the street lamps'
     // level: 1 at night, 0 once they fade at sunrise (sunrise-wide's ground is violet).
     plumNight: { value: 1 },
+    gradeContrast: { value: new THREE.Vector3(0, .38, 0) },
+    gradeFloor: { value: 0 },
+    gradeFoliage: { value: new THREE.Vector3(0, 0, 0) },
+    gradeCarContrast: { value: .5 },
   };
   const material = stageMaterial('SORA pixel-art grade', shared, /* glsl */ `
 ${PIXEL_ART_GRADE}
@@ -510,17 +555,24 @@ void main() {
 }
 
 /**
- * Stable value-band offset, then the palette LUT. Writes the palette colour
- * (sRGB bytes) and the palette index (alpha) into the art image chain.
+ * Stable value-band offset, then the palette LUT. Writes the palette index
+ * (alpha) into the art image chain, with the palette colour (sRGB bytes) or,
+ * with `paletteFull`, the graded colour itself (refine round 4: the user's
+ * concept holds about 195,000 colours at its own art grid where the palette
+ * held 128, which turned lettering, faces and rooms into blotches). Later
+ * stages read the index for their decisions and draw their marks in palette
+ * colours either way.
  */
 export function createQuantizeStage(shared: PixelArtSharedUniforms) {
   const uniforms = { bandStep: { value: 0.07 }, bandStrength: { value: 0.6 }, bandFeatureCells: { value: 2 }, bandSkyScale: { value: 0.35 },
+    paletteFull: { value: 1 },
     carBandStreaks: { value: new THREE.Vector3(0.5, 0.3, 0.42) }, carFarBand: { value: new THREE.Vector2(1e4, 1e4 + 1) } };
   const material = stageMaterial('SORA pixel-art quantize', shared, /* glsl */ `
 ${lutAddress}
 ${PIXEL_ART_BAND_OFFSET}
 uniform float bandStep;
 uniform float bandStrength;
+uniform float paletteFull; // 1: the graded colour itself; 0: the palette entry's
 layout(location = 0) out vec4 outImage;
 void main() {
   ivec2 cell = artCell();
@@ -532,7 +584,8 @@ void main() {
     if (bandStrength > 0.) lab.x += artBandOffset(cell, texelFetch(resolvedData, cell, 0)) * bandStep * bandStrength;
   }
   int index = int(texelFetch(paletteLut, lutTexel(lutNode(lab)), 0).r * 255. + .5);
-  outImage = vec4(texelFetch(paletteColors, ivec2(index, 0), 0).rgb, float(index) / 255.);
+  vec3 colour = paletteFull > .5 ? clamp(artLinearToDisplay(artOklabToLinear(lab)), 0., 1.) : texelFetch(paletteColors, ivec2(index, 0), 0).rgb;
+  outImage = vec4(colour, float(index) / 255.);
 }`, uniforms);
   const stage: PixelArtStage = {
     name: 'quantize', enabled: true,

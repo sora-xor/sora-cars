@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "trackId": "irohazaka-1986",
+  "objects": [
+    { "id": "umagaeshi-sora-sign", "kind": "breakaway_sign", "anchorGate": "umagaeshi", "offsetMm": 45000, "lateralMm": -3000, "halfLengthMm": 400, "halfWidthMm": 800 },
+    { "id": "gorge-oil", "kind": "oil", "anchorGate": "curve-i", "offsetMm": -190000, "lateralMm": 900, "halfLengthMm": 8000, "halfWidthMm": 1400 },
+    { "id": "curve-i-sora-sign", "kind": "breakaway_sign", "anchorGate": "curve-i", "offsetMm": -45000, "lateralMm": -3000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "curve-ha-planter", "kind": "tree_planter", "anchorGate": "curve-ha", "offsetMm": 70000, "lateralMm": 3200, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "ni-oil", "kind": "oil", "anchorGate": "curve-ni", "offsetMm": -110000, "lateralMm": -800, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "curve-he-sora-sign", "kind": "breakaway_sign", "anchorGate": "curve-he", "offsetMm": 45000, "lateralMm": 3000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "staircase-oil", "kind": "oil", "anchorGate": "curve-chi", "offsetMm": 120000, "lateralMm": 600, "halfLengthMm": 8000, "halfWidthMm": 1400 },
+    { "id": "curve-wo-planter", "kind": "tree_planter", "anchorGate": "curve-wo", "offsetMm": -45000, "lateralMm": -3200, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "curve-ka-sora-sign", "kind": "breakaway_sign", "anchorGate": "curve-ka", "offsetMm": 70000, "lateralMm": -3000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "kurokamidaira-planter", "kind": "tree_planter", "anchorGate": "kurokamidaira", "offsetMm": 35000, "lateralMm": -3200, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "upper-oil", "kind": "oil", "anchorGate": "curve-so", "offsetMm": -140000, "lateralMm": 800, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "curve-ne-sora-sign", "kind": "breakaway_sign", "anchorGate": "curve-ne", "offsetMm": 75000, "lateralMm": 3000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "akechi-sora-sign", "kind": "breakaway_sign", "anchorGate": "akechidaira", "offsetMm": -130000, "lateralMm": -3000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "akechi-planter", "kind": "tree_planter", "anchorGate": "akechidaira", "offsetMm": -45000, "lateralMm": 3200, "halfLengthMm": 600, "halfWidthMm": 500 }
+  ]
+}

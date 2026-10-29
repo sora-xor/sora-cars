@@ -6,6 +6,10 @@ import { resolveStoryShot } from '../src/game/story-scenes';
 import { CUTSCENE_CUE_SHEETS, resolveCutsceneCue } from '../src/game/music-cues';
 import { MUSIC_LIBRARY, makeScore } from '../src/game/music-score';
 import { STORY_THEMES } from '../src/game/music-themes';
+import { PLACE_THEMES, PLACE_THEME_BASE, storyScore, storySong } from '../src/game/story-place-themes';
+
+/** Cue sheets and cue tests address chapters by stable id, not by place in play order. */
+const byId = (id: number) => CHAPTERS.find(chapter => chapter.id === id)!;
 
 test('sixteen new compositions have distinct written melodic, harmonic and rhythmic identities', () => {
   assert.equal(MUSIC_LIBRARY.length, 25);
@@ -24,7 +28,7 @@ test('sixteen new compositions have distinct written melodic, harmonic and rhyth
   assert.equal(melodicFingerprints.size, 16, 'the playable themes are not transpositions of each other');
 });
 
-test('all 24 screenplay sequences have deliberate cues and every camera cut changes arrangement', () => {
+test('all 34 screenplay sequences have deliberate cues and every camera cut changes arrangement', () => {
   assert.equal(CUTSCENE_CUE_SHEETS.length, CHAPTERS.length);
   const used = new Set<number>();
   for (const chapter of CHAPTERS) for (const phase of ['intro', 'victory'] as const) {
@@ -35,8 +39,8 @@ test('all 24 screenplay sequences have deliberate cues and every camera cut chan
       if (index) assert.ok(beat.from > sheet[index - 1]!.from);
       assert.ok(['fade', 'cut', 'slow', 'powerdown'].includes(beat.transition));
       if (beat.track === null) { assert.equal(beat.entryBeat, 0, 'a silence has no entrance'); return; }
-      assert.ok(MUSIC_LIBRARY[beat.track]); used.add(beat.track);
-      assert.ok(Number.isInteger(beat.entryBeat) && beat.entryBeat >= 0 && beat.entryBeat < makeScore(beat.track).beats, 'authored entrances remain inside the score');
+      assert.ok(storySong(beat.track)); used.add(beat.track);
+      assert.ok(Number.isInteger(beat.entryBeat) && beat.entryBeat >= 0 && beat.entryBeat < storyScore(beat.track).beats, 'authored entrances remain inside the score');
     });
     lines.forEach((_, index) => {
       const shot = resolveStoryShot(lines, index), cue = resolveCutsceneCue(chapter.id, phase, index, shot);
@@ -47,11 +51,28 @@ test('all 24 screenplay sequences have deliberate cues and every camera cut chan
       if (previousShot.shot === shot.shot && previousShot.scene === shot.scene && !sheet.some(beat => beat.from === index)) assert.deepEqual(cue, previous, 'held lines do not restart music');
     });
   }
-  assert.deepEqual([...used].sort((a, b) => a - b), Array.from({ length: 16 }, (_, i) => i + 9));
+  assert.deepEqual([...used].sort((a, b) => a - b), [...Array.from({ length: 16 }, (_, i) => i + 9), ...PLACE_THEMES.map((_, i) => PLACE_THEME_BASE + i)]);
+});
+
+test('each street-race chapter has its own town theme, outside the released soundtrack', () => {
+  assert.equal(PLACE_THEMES.length, 5);
+  assert.equal(MUSIC_LIBRARY.length, 25, 'the downloadable soundtrack is unchanged');
+  for (const key of ['hookA', 'hookB', 'verse', 'chorus'] as const) assert.equal(new Set([...STORY_THEMES, ...PLACE_THEMES].map(theme => JSON.stringify(theme[key]))).size, 21, `every ${key} is its own`);
+  for (const [index, theme] of PLACE_THEMES.entries()) {
+    const score = storyScore(PLACE_THEME_BASE + index);
+    assert.equal(score.beats, 256, `${theme.name} is a full 64-bar composition`); assert.equal(score.patches?.length, 4);
+    assert.ok(score.notes.every(note => Number.isFinite(note.pitch) && note.pitch >= 0 && note.pitch <= 127 && note.duration > 0 && note.beat + note.duration <= score.beats));
+    assert.ok(!MUSIC_LIBRARY.some(song => song.file === theme.file));
+  }
+  // Each town's introduction opens on its own theme or the story theme it answers.
+  for (const [id, theme] of [[12, 0], [13, 1], [14, 2], [16, 4]] as const) assert.equal(CUTSCENE_CUE_SHEETS[id]!.intro[0]!.track, PLACE_THEME_BASE + theme);
+  const audio = new GameAudio(), shot = resolveStoryShot(byId(13).intro, 0);
+  audio.setCutsceneCue(resolveCutsceneCue(13, 'intro', 0, shot));
+  assert.equal(audio.musicState.title, 'Kudan Before Dawn'); assert.equal(audio.musicState.file, 'kudan-before-dawn');
 });
 
 test('returning themes enter developed phrases while Jun’s song grows from first note to premiere', () => {
-  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(CHAPTERS[chapter]![phase], line));
+  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(byId(chapter)[phase], line));
   assert.equal(cue(7, 'victory', 9).entryBeat, 0, 'Jun first plays the opening on borrowed power');
   assert.equal(cue(9, 'victory', 3).entryBeat, 32, 'the public hearing gets his full statement');
   assert.equal(cue(11, 'intro', 7).entryBeat, 64, 'the finished song introduces its answering phrase');
@@ -78,7 +99,7 @@ test('returning themes enter developed phrases while Jun’s song grows from fir
 });
 
 test('betrayal, intimate rain, public repair and consensual confession have separate intended music', () => {
-  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(CHAPTERS[chapter]![phase], line));
+  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(byId(chapter)[phase], line));
   assert.equal(MUSIC_LIBRARY[cue(4, 'intro', 6).track!]!.file, 'one-umbrella-two-chairs');
   assert.equal(MUSIC_LIBRARY[cue(6, 'victory', 3).track!]!.file, 'dead-air-confession');
   assert.equal(cue(6, 'victory', 3).mood, 'tense');
@@ -91,7 +112,7 @@ test('betrayal, intimate rain, public repair and consensual confession have sepa
 });
 
 test('the score cuts on interruptions, swells into intimacy and falls silent where the story does', () => {
-  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(CHAPTERS[chapter]![phase], line));
+  const cue = (chapter: number, phase: 'intro' | 'victory', line: number) => resolveCutsceneCue(chapter, phase, line, resolveStoryShot(byId(chapter)[phase], line));
   // Two a.m.: the broadcast power dies, the room is dead air, then the betrayal creeps in.
   assert.equal(cue(6, 'victory', 0).track, null); assert.equal(cue(6, 'victory', 0).transition, 'powerdown');
   assert.equal(cue(6, 'victory', 1).track, null);

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { TECH_BRANCHES, TECH_NODES, buildValue, buyPart, fittedParts, newGarage, partState, rivalBuild, storyRivals, STORY_REI, STORY_TORU, techNode, type GarageSave } from '../src/game/garage-tech';
-import { CHAPTERS, CREW, storyObjective } from '../src/game/story';
+import { CHAPTERS, CREW, chapterPosition, storyObjective } from '../src/game/story';
 import { COURSE_TIPS, courseConditions, nextPick, pitBriefing } from '../src/game/story-pit';
 import { purchasable } from './helpers/garage-drivers';
 
@@ -60,24 +60,26 @@ test('the pre-race briefing states the goal and how far the rivals have tuned', 
   assert.equal(first.chapter, CHAPTERS[0]);
   assert.deepEqual(first.objective, storyObjective(0));
   assert.deepEqual(first.rivals.map(rival => [rival.name.en, rival.style, rival.value]), [['HARBOR DRIVER', null, 0], ['SORA GUEST', null, 0]]);
-  assert.equal(first.pick!.id, COURSE_TIPS[CHAPTERS[0]!.trackId]!.plan[0]);
+  assert.equal(first.pick!.id, COURSE_TIPS[CHAPTERS[0]!.trackId!]!.plan[0]);
 
-  for (const chapter of CHAPTERS.keys()) {
-    const brief = pitBriefing(chapter, newGarage()), rivals = storyRivals(chapter, 8, 6);
+  for (const [chapter, story] of CHAPTERS.entries()) {
+    // Street-race chapters race equal cars and have no pre-race garage.
+    if (story.route) { assert.throws(() => pitBriefing(chapter, newGarage()), RangeError); continue; }
+    const brief = pitBriefing(chapter, newGarage()), rivals = storyRivals(story.id, 8, 6);
     assert.deepEqual(brief.rivals.map(rival => rival.value), [rivals[5]!.value, rivals[7]!.value], `chapter ${chapter + 1} shows the builds it races`);
     // Each label names the purchase order that produced the build.
-    brief.rivals.forEach((rival, i) => assert.equal(rival.style ? buildValue(rivalBuild(rival.style, [STORY_REI, STORY_TORU][i]![chapter]! * 1000)) : 0, rival.value));
+    brief.rivals.forEach((rival, i) => assert.equal(rival.style ? buildValue(rivalBuild(rival.style, [STORY_REI, STORY_TORU][i]![story.id]! * 1000)) : 0, rival.value));
   }
-  const showdown = pitBriefing(10, newGarage());
+  const showdown = pitBriefing(chapterPosition(10), newGarage());
   assert.deepEqual(showdown.rivals.map(rival => rival.name.en), ['Rei Sorashiro', 'Toru Amamiya']);
   assert.deepEqual(showdown.rivals.map(rival => rival.name.ja), ['空城レイ', '天宮トオル']);
-  assert.notDeepEqual(showdown.objective, storyObjective(9), 'the showdown adds beating Toru');
+  assert.notDeepEqual(showdown.objective, storyObjective(chapterPosition(9)), 'the showdown adds beating Toru');
 
   const parts = ['turbo-controller', 'chassis-tyres'], built = owning(parts);
-  assert.equal(pitBriefing(4, built).build, buildValue(parts));
+  assert.equal(pitBriefing(chapterPosition(4), built).build, buildValue(parts));
   assert.deepEqual(fittedParts(built), parts);
   // Equal cars: everyone stock, as the race will be.
-  const equal = pitBriefing(10, { ...built, stock: true });
+  const equal = pitBriefing(chapterPosition(10), { ...built, stock: true });
   assert.equal(equal.build, 0);
   assert.ok(equal.rivals.every(rival => rival.value === 0 && rival.style === null));
   assert.throws(() => pitBriefing(CHAPTERS.length, newGarage()), RangeError);

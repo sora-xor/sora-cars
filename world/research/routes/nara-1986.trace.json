@@ -1,0 +1,1982 @@
+{
+  "version": 1,
+  "topology": "sprint",
+  "id": "nara-1986",
+  "name": {
+    "ja": "春日・空色の稜線",
+    "en": "Kasuga Sky Ridge"
+  },
+  "year": 1986,
+  "points": [
+    {
+      "id": "sanjo-crossing",
+      "positionE7": [
+        1358189031,
+        346819736
+      ],
+      "elevationMm": 65972,
+      "halfWidthMm": 3800,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "jnr-nara-station",
+      "positionE7": [
+        1358207673,
+        346819970
+      ],
+      "elevationMm": 66835,
+      "halfWidthMm": 3800,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "mochiidono",
+      "positionE7": [
+        1358287473,
+        346819779
+      ],
+      "elevationMm": 79396,
+      "halfWidthMm": 3800,
+      "sector": 1,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "tarui-cho",
+      "positionE7": [
+        1358303351,
+        346819890
+      ],
+      "elevationMm": 84195,
+      "halfWidthMm": 4200,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "sarusawa-ike",
+      "positionE7": [
+        1358312820,
+        346820025
+      ],
+      "elevationMm": 90553,
+      "halfWidthMm": 4400,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "gojunoto-slope",
+      "positionE7": [
+        1358332120,
+        346820777
+      ],
+      "elevationMm": 96766,
+      "halfWidthMm": 4400,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "ichi-no-torii",
+      "positionE7": [
+        1358347350,
+        346820840
+      ],
+      "elevationMm": 98938,
+      "halfWidthMm": 4800,
+      "sector": 4,
+      "gate": true,
+      "cornerTrimMm": 18000
+    },
+    {
+      "id": "kencho-higashi",
+      "positionE7": [
+        1358347378,
+        346844680
+      ],
+      "elevationMm": 95566,
+      "halfWidthMm": 4800,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "yoshiki-bridge",
+      "positionE7": [
+        1358346883,
+        346883345
+      ],
+      "elevationMm": 84449,
+      "halfWidthMm": 4600,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "kaidan-in",
+      "positionE7": [
+        1358346730,
+        346892880
+      ],
+      "elevationMm": 84318,
+      "halfWidthMm": 3600,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "daibutsu-ike",
+      "positionE7": [
+        1358367550,
+        346894260
+      ],
+      "elevationMm": 92013,
+      "halfWidthMm": 3000,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "shosoin",
+      "positionE7": [
+        1358367000,
+        346927450
+      ],
+      "elevationMm": 86672,
+      "halfWidthMm": 3000,
+      "sector": 7,
+      "gate": true,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "drive-2925",
+      "positionE7": [
+        1358380509,
+        346927069
+      ],
+      "elevationMm": 89945,
+      "halfWidthMm": 3300,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-2996",
+      "positionE7": [
+        1358388124,
+        346926141
+      ],
+      "elevationMm": 94566,
+      "halfWidthMm": 3300,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3035",
+      "positionE7": [
+        1358392020,
+        346924826
+      ],
+      "elevationMm": 97944,
+      "halfWidthMm": 3300,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3069",
+      "positionE7": [
+        1358395698,
+        346924712
+      ],
+      "elevationMm": 101479,
+      "halfWidthMm": 3300,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3130",
+      "positionE7": [
+        1358401241,
+        346927719
+      ],
+      "elevationMm": 107707,
+      "halfWidthMm": 3300,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "toll-gate",
+      "positionE7": [
+        1358405555,
+        346933009
+      ],
+      "elevationMm": 111778,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3235",
+      "positionE7": [
+        1358408650,
+        346934642
+      ],
+      "elevationMm": 115813,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3284",
+      "positionE7": [
+        1358413935,
+        346935067
+      ],
+      "elevationMm": 120267,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3355",
+      "positionE7": [
+        1358421422,
+        346936728
+      ],
+      "elevationMm": 126439,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3389",
+      "positionE7": [
+        1358425094,
+        346936988
+      ],
+      "elevationMm": 129502,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3399",
+      "positionE7": [
+        1358426085,
+        346936654
+      ],
+      "elevationMm": 130474,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3411",
+      "positionE7": [
+        1358426784,
+        346935761
+      ],
+      "elevationMm": 131794,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3441",
+      "positionE7": [
+        1358427191,
+        346933094
+      ],
+      "elevationMm": 135380,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3449",
+      "positionE7": [
+        1358427694,
+        346932544
+      ],
+      "elevationMm": 136298,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3456",
+      "positionE7": [
+        1358428513,
+        346932380
+      ],
+      "elevationMm": 137223,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3464",
+      "positionE7": [
+        1358429257,
+        346932707
+      ],
+      "elevationMm": 138149,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3515",
+      "positionE7": [
+        1358432521,
+        346936389
+      ],
+      "elevationMm": 144229,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3541",
+      "positionE7": [
+        1358433031,
+        346938679
+      ],
+      "elevationMm": 146899,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3549",
+      "positionE7": [
+        1358433549,
+        346939203
+      ],
+      "elevationMm": 147478,
+      "halfWidthMm": 3200,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3557",
+      "positionE7": [
+        1358434372,
+        346939166
+      ],
+      "elevationMm": 148012,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3565",
+      "positionE7": [
+        1358434995,
+        346938692
+      ],
+      "elevationMm": 148544,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3572",
+      "positionE7": [
+        1358435119,
+        346938010
+      ],
+      "elevationMm": 149072,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3595",
+      "positionE7": [
+        1358434269,
+        346936073
+      ],
+      "elevationMm": 150690,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3611",
+      "positionE7": [
+        1358434485,
+        346934665
+      ],
+      "elevationMm": 151958,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3624",
+      "positionE7": [
+        1358435227,
+        346933687
+      ],
+      "elevationMm": 153085,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3641",
+      "positionE7": [
+        1358436784,
+        346932888
+      ],
+      "elevationMm": 154652,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3673",
+      "positionE7": [
+        1358440230,
+        346933044
+      ],
+      "elevationMm": 157861,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3688",
+      "positionE7": [
+        1358441612,
+        346933733
+      ],
+      "elevationMm": 159351,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3696",
+      "positionE7": [
+        1358441986,
+        346934360
+      ],
+      "elevationMm": 160106,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3704",
+      "positionE7": [
+        1358441890,
+        346935053
+      ],
+      "elevationMm": 160843,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3712",
+      "positionE7": [
+        1358441345,
+        346935585
+      ],
+      "elevationMm": 161567,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3725",
+      "positionE7": [
+        1358440223,
+        346936411
+      ],
+      "elevationMm": 162839,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3746",
+      "positionE7": [
+        1358439930,
+        346938263
+      ],
+      "elevationMm": 164867,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3766",
+      "positionE7": [
+        1358440382,
+        346940008
+      ],
+      "elevationMm": 166758,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3774",
+      "positionE7": [
+        1358441013,
+        346940443
+      ],
+      "elevationMm": 167387,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3782",
+      "positionE7": [
+        1358441816,
+        346940316
+      ],
+      "elevationMm": 167990,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3790",
+      "positionE7": [
+        1358442381,
+        346939791
+      ],
+      "elevationMm": 168621,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3809",
+      "positionE7": [
+        1358442552,
+        346938018
+      ],
+      "elevationMm": 170241,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3818",
+      "positionE7": [
+        1358442924,
+        346937292
+      ],
+      "elevationMm": 170897,
+      "halfWidthMm": 2900,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3826",
+      "positionE7": [
+        1358443674,
+        346937072
+      ],
+      "elevationMm": 171414,
+      "halfWidthMm": 2700,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3834",
+      "positionE7": [
+        1358444290,
+        346937569
+      ],
+      "elevationMm": 171918,
+      "halfWidthMm": 2900,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3844",
+      "positionE7": [
+        1358444163,
+        346938440
+      ],
+      "elevationMm": 172440,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3872",
+      "positionE7": [
+        1358443490,
+        346940864
+      ],
+      "elevationMm": 174381,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3915",
+      "positionE7": [
+        1358445706,
+        346944180
+      ],
+      "elevationMm": 177814,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3970",
+      "positionE7": [
+        1358449362,
+        346948078
+      ],
+      "elevationMm": 181948,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-3995",
+      "positionE7": [
+        1358451910,
+        346948816
+      ],
+      "elevationMm": 183559,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4016",
+      "positionE7": [
+        1358453871,
+        346949760
+      ],
+      "elevationMm": 184875,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4074",
+      "positionE7": [
+        1358456382,
+        346954580
+      ],
+      "elevationMm": 189748,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4145",
+      "positionE7": [
+        1358458117,
+        346960774
+      ],
+      "elevationMm": 196655,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4204",
+      "positionE7": [
+        1358462197,
+        346964848
+      ],
+      "elevationMm": 200048,
+      "halfWidthMm": 3300,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "mikasa-onsen",
+      "positionE7": [
+        1358467344,
+        346967529
+      ],
+      "elevationMm": 201748,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4270",
+      "positionE7": [
+        1358468409,
+        346967427
+      ],
+      "elevationMm": 202215,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4278",
+      "positionE7": [
+        1358469015,
+        346966959
+      ],
+      "elevationMm": 202604,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4291",
+      "positionE7": [
+        1358469165,
+        346965812
+      ],
+      "elevationMm": 203353,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4302",
+      "positionE7": [
+        1358468855,
+        346964876
+      ],
+      "elevationMm": 204100,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4347",
+      "positionE7": [
+        1358465232,
+        346962163
+      ],
+      "elevationMm": 207777,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4373",
+      "positionE7": [
+        1358463797,
+        346960197
+      ],
+      "elevationMm": 210100,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4385",
+      "positionE7": [
+        1358463878,
+        346959139
+      ],
+      "elevationMm": 211250,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4393",
+      "positionE7": [
+        1358464444,
+        346958511
+      ],
+      "elevationMm": 212106,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4401",
+      "positionE7": [
+        1358465210,
+        346958222
+      ],
+      "elevationMm": 212859,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4409",
+      "positionE7": [
+        1358466041,
+        346958288
+      ],
+      "elevationMm": 213597,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4433",
+      "positionE7": [
+        1358468039,
+        346959664
+      ],
+      "elevationMm": 215854,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4495",
+      "positionE7": [
+        1358474227,
+        346961880
+      ],
+      "elevationMm": 222003,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4503",
+      "positionE7": [
+        1358475043,
+        346961706
+      ],
+      "elevationMm": 222740,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4510",
+      "positionE7": [
+        1358475579,
+        346961182
+      ],
+      "elevationMm": 223457,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4518",
+      "positionE7": [
+        1358475743,
+        346960491
+      ],
+      "elevationMm": 224174,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4526",
+      "positionE7": [
+        1358475343,
+        346959914
+      ],
+      "elevationMm": 224854,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4570",
+      "positionE7": [
+        1358471628,
+        346957436
+      ],
+      "elevationMm": 228943,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4579",
+      "positionE7": [
+        1358471411,
+        346956668
+      ],
+      "elevationMm": 229810,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4587",
+      "positionE7": [
+        1358471700,
+        346956012
+      ],
+      "elevationMm": 230647,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4594",
+      "positionE7": [
+        1358472376,
+        346955598
+      ],
+      "elevationMm": 231536,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4612",
+      "positionE7": [
+        1358474293,
+        346955758
+      ],
+      "elevationMm": 233612,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4646",
+      "positionE7": [
+        1358477625,
+        346957046
+      ],
+      "elevationMm": 237420,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "hairpin-stack",
+      "positionE7": [
+        1358482484,
+        346960047
+      ],
+      "elevationMm": 242729,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4712",
+      "positionE7": [
+        1358483540,
+        346960129
+      ],
+      "elevationMm": 243894,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4720",
+      "positionE7": [
+        1358484214,
+        346959728
+      ],
+      "elevationMm": 244807,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4727",
+      "positionE7": [
+        1358484353,
+        346959054
+      ],
+      "elevationMm": 245718,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4742",
+      "positionE7": [
+        1358483582,
+        346957888
+      ],
+      "elevationMm": 247488,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4813",
+      "positionE7": [
+        1358478564,
+        346953084
+      ],
+      "elevationMm": 253763,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4828",
+      "positionE7": [
+        1358477608,
+        346952012
+      ],
+      "elevationMm": 255026,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4836",
+      "positionE7": [
+        1358477495,
+        346951320
+      ],
+      "elevationMm": 255704,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4844",
+      "positionE7": [
+        1358477949,
+        346950736
+      ],
+      "elevationMm": 256392,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4852",
+      "positionE7": [
+        1358478691,
+        346950446
+      ],
+      "elevationMm": 257074,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4859",
+      "positionE7": [
+        1358479522,
+        346950590
+      ],
+      "elevationMm": 257753,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4920",
+      "positionE7": [
+        1358484614,
+        346954099
+      ],
+      "elevationMm": 262110,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4929",
+      "positionE7": [
+        1358485556,
+        346954236
+      ],
+      "elevationMm": 262658,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4937",
+      "positionE7": [
+        1358486271,
+        346953896
+      ],
+      "elevationMm": 263147,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4948",
+      "positionE7": [
+        1358486926,
+        346953089
+      ],
+      "elevationMm": 263852,
+      "halfWidthMm": 3300,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4959",
+      "positionE7": [
+        1358487013,
+        346952122
+      ],
+      "elevationMm": 264537,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-4971",
+      "positionE7": [
+        1358486360,
+        346951212
+      ],
+      "elevationMm": 265230,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5008",
+      "positionE7": [
+        1358483147,
+        346949215
+      ],
+      "elevationMm": 266509,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5022",
+      "positionE7": [
+        1358482313,
+        346948183
+      ],
+      "elevationMm": 266621,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5032",
+      "positionE7": [
+        1358482211,
+        346947223
+      ],
+      "elevationMm": 266531,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5056",
+      "positionE7": [
+        1358483320,
+        346945294
+      ],
+      "elevationMm": 265818,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5126",
+      "positionE7": [
+        1358488747,
+        346940857
+      ],
+      "elevationMm": 263980,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5159",
+      "positionE7": [
+        1358491607,
+        346939136
+      ],
+      "elevationMm": 265602,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5173",
+      "positionE7": [
+        1358493102,
+        346939229
+      ],
+      "elevationMm": 266757,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5194",
+      "positionE7": [
+        1358495292,
+        346939731
+      ],
+      "elevationMm": 268886,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5218",
+      "positionE7": [
+        1358497736,
+        346939082
+      ],
+      "elevationMm": 271704,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5235",
+      "positionE7": [
+        1358499055,
+        346938033
+      ],
+      "elevationMm": 273717,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5264",
+      "positionE7": [
+        1358499900,
+        346935566
+      ],
+      "elevationMm": 277138,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5291",
+      "positionE7": [
+        1358501054,
+        346933374
+      ],
+      "elevationMm": 280325,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5310",
+      "positionE7": [
+        1358502772,
+        346932457
+      ],
+      "elevationMm": 282572,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5342",
+      "positionE7": [
+        1358506065,
+        346931533
+      ],
+      "elevationMm": 286390,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5349",
+      "positionE7": [
+        1358506655,
+        346931053
+      ],
+      "elevationMm": 287300,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5357",
+      "positionE7": [
+        1358506618,
+        346930398
+      ],
+      "elevationMm": 288175,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5365",
+      "positionE7": [
+        1358505966,
+        346929971
+      ],
+      "elevationMm": 289089,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5372",
+      "positionE7": [
+        1358505127,
+        346929930
+      ],
+      "elevationMm": 290011,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5399",
+      "positionE7": [
+        1358502345,
+        346930698
+      ],
+      "elevationMm": 293232,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5415",
+      "positionE7": [
+        1358500626,
+        346930621
+      ],
+      "elevationMm": 294713,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5424",
+      "positionE7": [
+        1358499797,
+        346930231
+      ],
+      "elevationMm": 294716,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5434",
+      "positionE7": [
+        1358499405,
+        346929414
+      ],
+      "elevationMm": 294685,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "jikkoku-dai",
+      "positionE7": [
+        1358499499,
+        346928270
+      ],
+      "elevationMm": 294585,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5518",
+      "positionE7": [
+        1358504463,
+        346923395
+      ],
+      "elevationMm": 294142,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5581",
+      "positionE7": [
+        1358508179,
+        346918679
+      ],
+      "elevationMm": 291054,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5591",
+      "positionE7": [
+        1358508312,
+        346917812
+      ],
+      "elevationMm": 290296,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5603",
+      "positionE7": [
+        1358507588,
+        346916832
+      ],
+      "elevationMm": 289138,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5635",
+      "positionE7": [
+        1358504377,
+        346915792
+      ],
+      "elevationMm": 285386,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5648",
+      "positionE7": [
+        1358503278,
+        346915093
+      ],
+      "elevationMm": 283861,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5660",
+      "positionE7": [
+        1358502664,
+        346914162
+      ],
+      "elevationMm": 282447,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5679",
+      "positionE7": [
+        1358502826,
+        346912479
+      ],
+      "elevationMm": 280195,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5690",
+      "positionE7": [
+        1358503510,
+        346911693
+      ],
+      "elevationMm": 278905,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5702",
+      "positionE7": [
+        1358504682,
+        346911252
+      ],
+      "elevationMm": 277928,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5722",
+      "positionE7": [
+        1358506846,
+        346911260
+      ],
+      "elevationMm": 276797,
+      "halfWidthMm": 3300,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5772",
+      "positionE7": [
+        1358511441,
+        346913547
+      ],
+      "elevationMm": 274071,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5786",
+      "positionE7": [
+        1358512754,
+        346914319
+      ],
+      "elevationMm": 273124,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5818",
+      "positionE7": [
+        1358516233,
+        346914273
+      ],
+      "elevationMm": 271629,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5838",
+      "positionE7": [
+        1358518196,
+        346914995
+      ],
+      "elevationMm": 271385,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5908",
+      "positionE7": [
+        1358524374,
+        346918713
+      ],
+      "elevationMm": 273550,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-5973",
+      "positionE7": [
+        1358529961,
+        346922242
+      ],
+      "elevationMm": 276407,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6006",
+      "positionE7": [
+        1358530966,
+        346925075
+      ],
+      "elevationMm": 278358,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "sky-ridge",
+      "positionE7": [
+        1358534494,
+        346928125
+      ],
+      "elevationMm": 281018,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6066",
+      "positionE7": [
+        1358535817,
+        346928495
+      ],
+      "elevationMm": 281418,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6106",
+      "positionE7": [
+        1358539956,
+        346927409
+      ],
+      "elevationMm": 282514,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6115",
+      "positionE7": [
+        1358540917,
+        346927366
+      ],
+      "elevationMm": 282685,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6142",
+      "positionE7": [
+        1358543612,
+        346928318
+      ],
+      "elevationMm": 283134,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6150",
+      "positionE7": [
+        1358544463,
+        346928274
+      ],
+      "elevationMm": 283313,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6162",
+      "positionE7": [
+        1358545621,
+        346927635
+      ],
+      "elevationMm": 283652,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6232",
+      "positionE7": [
+        1358550690,
+        346922917
+      ],
+      "elevationMm": 287869,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6303",
+      "positionE7": [
+        1358554850,
+        346917567
+      ],
+      "elevationMm": 295778,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6359",
+      "positionE7": [
+        1358558024,
+        346913321
+      ],
+      "elevationMm": 302400,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "drive-6367",
+      "positionE7": [
+        1358558819,
+        346913131
+      ],
+      "elevationMm": 303309,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "wakakusa-summit",
+      "positionE7": [
+        1358565036,
+        346912853
+      ],
+      "elevationMm": 309652,
+      "halfWidthMm": 3300,
+      "sector": 11,
+      "gate": true,
+      "cornerTrimMm": 100000
+    }
+  ],
+  "laps": 1,
+  "maxTicks": 9000,
+  "targetMs": 179080,
+  "sound": {
+    "asset": "nara-1986.m4a",
+    "sha256": "e4c874d6237cd4dbf792cf0e7ee6ce95ae29fc033d3b3d9b9faf0edc3044525e",
+    "durationMs": 179080,
+    "cuesMs": [
+      0,
+      44580,
+      74247,
+      118747,
+      148413
+    ]
+  },
+  "authoringNotes": {
+    "status": "approximate centreline from 2026 OpenStreetMap ways, traced against GSI gazo3 1984–1986 aerials and the 1:25,000 Nara sheet (1983 revision, published 1984-05-30); not surveyed or native-qualified",
+    "sprintRoute": "Sanjō-dōri west of the JNR level crossing → JNR Nara Station front → Sanjō-dōri east past Sarusawa-ike and the Kōfuku-ji pagoda → Ichi-no-torii → north past the museum to Kenchō-higashi → Route 369 north → east past Kaidan-in, north beside Daibutsu-ike and the Shōsō-in → Shin-Wakakusayama toll gate → switchbacks via Mikasa Onsen and Jikkoku-dai → Wakakusa-yama summit car park",
+    "topologyReason": "A city run into a hill climb with real, distinct endpoints. Sanjō-dōri's station section was eastbound-only and the driveway beyond the summit is a one-way, unpaved forest road, so no legal 1986 loop returns to the start without a fabricated return leg.",
+    "oneWay": "Sanjō-dōri 樽井町–国鉄奈良駅前 eastbound only 8:00–21:00 from December 1965 (奈良県公報4473); driven eastbound on a weekday before 21:00. The climb is driven uphill from the north gate, the legal direction whether two-way (today) or one-way north→south (the through course). The one-way unpaved Kasuga Okuyama road beyond the summit is not used.",
+    "designations": "Route 369 (designated 1975-04-01) along 登大路 and north from 県庁東, shown in national-road colour on the 1983 map. The Ichi-no-torii–Kenchō-higashi road became Route 169 only on 1993-04-01; show no 169 shield.",
+    "elevationsAndWidths": "Elevations from the GSI dem5a laser DEM (modern), smoothed over about ±40 m and limited to 12% per control-point edge; at most about 6 m below the raw DEM near Jikkoku-dai. Half-widths are authored estimates: Sanjō-dōri 3.8–4.4 m (about 8 m wide in 1986), Ichi-no-torii–Route 369 4.6–4.8 m, the Tōdai-ji lane 3.0 m, the driveway 3.3 m, narrowed to 2.7–3.2 m in the tightest hairpins to satisfy the curvature bound.",
+    "cornerGeometry": "Quadratic tangent trims in millimetres, not physical radii. City corners use one control point with 12–18 m trims (compiled radii 8.6–13.4 m). On the driveway a control point is placed on the smoothed OSM centreline after about 28° of heading change or 70 m, never closer than 7.5 m, with the maximum trim. Compiled tightest radius 5.8 m against 5.6 m on the OSM centreline.",
+    "pacing": "One-dimensional model of the handling constants and the test-driver rule (check.ts): 146.5 s. Run read-only against the repo's generated eight-car AI races, the same model was within 1% of the AI winner on irohazaka-1986 (170.6 against 172.4 s) and kyoto-1986 (198.6 against 201.0 s), and 13% fast on aizu-wakamatsu-1986 (129.2 against 148.3 s). Expect an AI winner of about 150–170 s and a last car of about 160–185 s; targetMs 180000 sits at the slow end. The AI never targets below 850 mm/tick, above the steering limit in the 6–10 m hairpins, so time the field in the driving lab before qualification.",
+    "musicCues": "Provisional jo-ha-kyū markers at the modelled arrival times: level crossing start, Ichi-no-torii, toll gate, Mikasa Onsen hairpins, Jikkoku-dai, sky ridge. The asset and digest are placeholders.",
+    "notForProfile": "Not in STREET_ROUTE_IDS or the native catalog. This input cannot be submitted to any live profile.",
+    "unconfirmed": "1986 public status and direction of the Tōdai-ji lane (大仏殿北・正倉院西); 1986 paving, width and toll of the climb; the 1986 prefectural number of the Ichi-no-torii–Kenchō-higashi road; whether Sanjō-dōri was under community-road works in 1986."
+  },
+  "sources": [
+    {
+      "url": "https://maps.gsi.go.jp/#17/34.6820/135.8265/&base=std&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected 1984–1986 Sanjō-dōri from the JNR level crossing and station plaza to Ichi-no-torii, Sarusawa-ike and the Kōfuku-ji grounds."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#17/34.6905/135.8360/&base=std&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected 1984–1986 Route 369 north of 県庁東, the open 登大路 car park, the lane past Kaidan-in, Daibutsu-ike and the Shōsō-in west and north sides."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/34.6940/135.8490/&base=std&ls=gazo3&disp=1",
+      "usedFor": "Visually inspected 1984–1986 Shin-Wakakusayama climb: toll gate, switchbacks, Mikasa Onsen loop, Jikkoku-dai rest house and the summit car park; matches the OSM centreline."
+    },
+    {
+      "url": "https://ktgis.net/kjmapw/",
+      "usedFor": "今昔マップ 京阪神圏 1983–1988 layer (1:25,000 奈良, 昭和58年二改): Sanjō-dōri level crossing north of the station, Route 369 coloured along 登大路 and north from 県庁東, the road south of 県庁東 uncoloured, the driveway and its switchbacks."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/136389922",
+      "usedFor": "Sanjō-dōri centreline (present one-way eastbound); with ways 297502474, 770966107, 770966109, 1559886807, 770966115, 321455694 and 1506811048."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/462354712",
+      "usedFor": "Lane from Route 369 past Kaidan-in and Daibutsu-ike along the Shōsō-in west side; way 97082271 along its north side; Route 369 ways 1506806292, 238412688, 238412689, 238412687; Route 169 way 259733279."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/921719459",
+      "usedFor": "Shin-Wakakusayama driveway (D2a, toll) with ways 921719458 and 134184501; toll booth node 1475622979; summit car park way 322131665; 鎌研交番所 node 1868237989."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/三条通り",
+      "usedFor": "Eastbound one-way 樽井町–駅前 from December 1965 (奈良県公報4473), 1971 pedestrian Sundays, community road completed 1988-03-20, about 8 m wide, national road until 1972, level crossing removed 2008."
+    },
+    {
+      "url": "https://www.city.nara.lg.jp/soshiki/3/2789.html",
+      "usedFor": "Nara city chronology: 1928 Kasugayama motor road, 1957 deer natural monument, 1969-12-09 Kintetsu Nara underground, 1980-10-15 Daibutsuden repair ceremony, 1988-03-20 Sanjō-dōri community road, 1988 Silk Road Expo."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/奈良奥山ドライブウェイ",
+      "usedFor": "Opened 1955-10-22, full route 1960-11 (uncited lead); operator 新若草山自動車道; one-way unpaved forest section beyond the summit; north toll gate behind the Shōsō-in."
+    },
+    {
+      "url": "https://tabi-mag.jp/na0203/",
+      "usedFor": "Shin-Wakakusayama drive opened 1955 with the Kasuga forest designation; north toll gate behind the Shōsō-in."
+    },
+    {
+      "url": "https://shinwaka.com/course1/",
+      "usedFor": "Present course: gate A north of the Shōsō-in to the summit car park, 3.7 km each way, turning at the summit; views of the Daibutsuden, the pagoda and the Heijō site."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/国道369号",
+      "usedFor": "Route 369 designated 1975-04-01, via 大宮通り, 登大路, 県庁東 and 転害門前."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/国道169号",
+      "usedFor": "Nara city start at 県庁東 added only on 1993-04-01; not Route 169 in 1986."
+    },
+    {
+      "url": "https://www.city.nara.lg.jp/uploaded/attachment/6252.pdf",
+      "usedFor": "JNR Nara Station 1934 building; moved 18 m north-east and turned 13° in 2004."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/興福寺",
+      "usedFor": "Pagoda 1426 (50.1 m), 東金堂 1415, 南円堂 1789, the 1819 temporary 中金堂 standing until 2000; new 中金堂 2018."
+    },
+    {
+      "url": "https://www.kasugataisha.or.jp/?p=1519",
+      "usedFor": "一之鳥居 rebuilt 1634, 6.75 m; repainted 2007."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/奈良国立博物館",
+      "usedFor": "本館 1894, 西新館 1972; 東新館 and underground passage 1997 excluded."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/南都銀行",
+      "usedFor": "Head office at 橋本町 on Sanjō-dōri, built 1926, registered tangible cultural property; moved away 2025."
+    },
+    {
+      "url": "https://cyberjapandata.gsi.go.jp/xyz/dem5a/{z}/{x}/{y}.txt",
+      "usedFor": "Elevations along the centreline (GSI 5 m laser DEM, modern ground), sampled every 10 m and smoothed."
+    }
+  ]
+}

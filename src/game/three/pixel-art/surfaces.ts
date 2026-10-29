@@ -65,9 +65,76 @@ export interface SurfaceOptions {
   wetSkyReflection: number;
   /** Longest reflection ray (m). */
   wetMaxDistance: number;
-  /** Reflection columns: cells stretched toward the camera (down) and away (up). */
+  /** Reflection columns: cells stretched toward the camera (down, at most 96) and away (up). */
   wetColumnDown: number;
   wetColumnUp: number;
+  /** Exposure-scaled reflected light at which a reflection starts / fully stretches into a column; dimmer ones stay in their cell. */
+  wetColumnStart: number;
+  wetColumnFull: number;
+  /** The least Fresnel share wet ground mirrors, where the view looks steeply down at the near road (0: physical). */
+  wetFresnelFloor: number;
+  /**
+   * Refine round 4 ripple: before the columns stretch, each row of the wet road (world-anchored, about a cell tall)
+   * spreads the reflections in it up to this many cells left and right, its own reach each side (0 off), losing
+   * wetSpreadFalloff of the light per cell. A cutscene-style repaint of a race frame draws every light's reflection
+   * wider than the light and rippled at its edges; stretched column by column, ours were as narrow as the lights.
+   */
+  wetSpread: number;
+  wetSpreadFalloff: number;
+  /**
+   * Refine round 4 ripples (the user: "the road is more textured in the cutscene style mockups"): a light's column
+   * breaks into organic blobs of water and dark asphalt, as the repaints draw a wet road, rather than stacked
+   * one-cell dashes, which read as a scanline mosaic beside them. 1 on, 0 the dashes. Blobs about wetRippleCells
+   * wide and wetRippleRows tall, holes where the field falls below wetRippleHoles, and wetRipplePebbles of the cells
+   * dark specks. The field is laid out from the column's own source (rows counted from the light's mirror point,
+   * across in world-anchored lateral cells), so it rides with the light at speed, as a reflection does.
+   */
+  wetRipple: number;
+  wetRippleCells: number;
+  wetRippleRows: number;
+  wetRippleHoles: number;
+  wetRipplePebbles: number;
+  /**
+   * The ripples' shape farther off: blobs wetRippleCellsFar wide and wetRippleRowsFar tall from wetRippleFarStart
+   * metres (the reflection's own distance) on, eased from the near shape. The repaints break a reflection into
+   * organic blobs near the camera and long vertical streaks down the road.
+   */
+  wetRippleCellsFar: number;
+  wetRippleRowsFar: number;
+  wetRippleFarStart: number;
+  /**
+   * Refine round 4 waves (the user: "cutscene road has horizontal wave patterns and lights that are vertical
+   * reflections"): horizontal wave bands across the whole wet road, shared by every reflection, as the cutscenes
+   * paint a wet street (radio-rain-v1: a light's reflection a vertical streak of horizontal strokes, the road between
+   * in long horizontal bands). 1 on (in place of wetRipple's blobs). Bands wetWaveRowsNear rows apart at the bottom of
+   * the screen, wetWaveRowsFar at wetWaveHorizon of its height and above; a band is a crest above wetWaveThreshold
+   * (0-1), else a trough, where reflections fall to wetWaveTrough of their light. Crests on the dark road carry a sheen
+   * of the night's ambient colour, wetWaveSheen (exposure-scaled luminance), in strokes about wetWaveStroke cells long.
+   * Each row's reflections shift up to wetWaveJitter cells sideways (smoothly from row to row), so a light's streak
+   * wavers like a reflection in rippled water.
+   */
+  wetWaves: number;
+  wetWaveRowsNear: number;
+  wetWaveRowsFar: number;
+  wetWaveHorizon: number;
+  wetWaveThreshold: number;
+  wetWaveTrough: number;
+  wetWaveSheen: number;
+  wetWaveStroke: number;
+  wetWaveJitter: number;
+  /**
+   * Refine round 4 drizzle: on a wet road (wetness 0.7 and up, when the walkers open umbrellas) this share of wet
+   * cells takes a pale speck, re-rolled about every other frame: drops landing in a still, light drizzle in motion.
+   * Nearest the camera, where the road slides too fast for glitter, it is the asphalt's speckle.
+   */
+  wetDrizzle: number;
+  /**
+   * Refine round 4: how far pale reflections (white and cream signs, lit panels, the sky) turn toward the street
+   * lamps' gold, 0-1, their light kept. The cutscene-style repaints draw the whole wet road gold under the street's
+   * light, the white SORA billboard's reflection included; ours mirrored it cream-white. Coloured reflections (tail
+   * lamps, neon) keep their hue.
+   */
+  wetReflectionWarmth: number;
   /** Dash mask: segment length in cells, fraction of segments on, reflection kept between dashes. */
   wetDashCells: number;
   wetDashDuty: number;
@@ -81,6 +148,18 @@ export interface SurfaceOptions {
   /** Sparkle density (fraction of wet cells) in lit or reflecting areas, and the rain-splash density in rain. */
   sparkleLit: number;
   sparkleRain: number;
+  /**
+   * Refine round 4 glitter (the user's rain-night concept, whose wet asphalt
+   * is speckled all over with the light it mirrors): in full colour, this
+   * share of calm damp-or-wetter cells (0 off) takes its own colour lifted by
+   * wetGlitterLift (OKLab L) with its chroma raised, so specks read violet off
+   * the night sky, gold under lamps and pink or green under signs. Surface
+   * anchored like the sparkles, and gone where the ground slides fast.
+   */
+  wetGlitter: number;
+  wetGlitterLift: number;
+  /** The share of the glitter drawn as trails where the ground slides fast (0 off). */
+  wetGlitterTrail: number;
   /** Warm key glints on sunlit ground: density at the key's specular peak, and the lobe exponent (larger: a tighter glare zone). */
   sparkleKey: number;
   sparkleKeyLobe: number;
@@ -94,6 +173,12 @@ export interface SurfaceOptions {
   temporalCarMargin: number;
   /** Ground at speed: edge-preserving smoothing of the rendered asphalt (0-1), whose texture aliases at 30+ cells per frame. */
   groundSpeedSmooth: number;
+  /**
+   * Refine round 4: the share of that smoothing upright world surfaces (walls, shop windows, signs, walkers) take at
+   * speed. 0 keeps them crisp: smoothed, a shop's interior, its lettering and the walkers' faces blurred into soft
+   * blobs whenever the car moved, where a cutscene-style repaint of the same frame draws them sharp.
+   */
+  wallSpeedSmooth: number;
   /**
    * Refine round 2: walls, kerbs and trees sliding at least wallMotionStart
    * cells per frame average their light over this many frames of their screen
@@ -272,21 +357,33 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   surfaceField: 1, wetGround: 1, temporal: 1,
   fieldDashCells: 6, fieldRowCells: 1, fieldGroundGain: 3, fieldMotionStretch: 2, fieldWallSpeed: 0.4, fieldWallGain: 1.6,
   skyFieldScale: 0.8, skyDashCells: 8, skyRowCells: 1, skyClusterScale: 4, skyClusterWeight: 0.55,
-  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 1, wetSkyReflection: 0.35, wetMaxDistance: 160,
-  wetColumnDown: 24, wetColumnUp: 4,
-  wetDashCells: 4, wetDashDuty: 0.65, wetDashGap: 0, wetSheen: 0.35,
-  wetColumnDashCells: 6, wetColumnDashDuty: 0.85, wetColumnRowKeep: 0.9,
-  sparkleLit: 0.05, sparkleRain: 0.04, sparkleKey: 0.12, sparkleKeyLobe: 12,
-  temporalMargin: 0.025, temporalDepthTolerance: 0.04, temporalSpeedMargin: 0.04, temporalCarMargin: 0.05, groundSpeedSmooth: 1, wallMotionFilter: 0, wallMotionStart: 2, wallMotionEdge: 0,
+  // Refine round 4: a stronger mirror on wet ground, longer lamp columns (the user's rain-night target).
+  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 2.2, wetSkyReflection: 0.3, wetMaxDistance: 160,
+  // Refine round 4: lit facades, shop fronts and signs stretch into columns too, as every light does in the concept,
+  // and the streaks of the far street reach the near road, which keeps a share of the mirror where it is seen steeply.
+  wetColumnDown: 96, wetColumnUp: 4, wetColumnStart: 0.15, wetColumnFull: 0.4, wetFresnelFloor: 0.3, wetSpread: 4, wetSpreadFalloff: 0.08,
+  wetRipple: 0, wetRippleCells: 4.5, wetRippleRows: 4, wetRippleHoles: 0.42, wetRipplePebbles: 0.05, wetDrizzle: 0, wetReflectionWarmth: 0.75,
+  wetRippleCellsFar: 2.5, wetRippleRowsFar: 11, wetRippleFarStart: 12,
+  wetWaves: 1, wetWaveRowsNear: 5, wetWaveRowsFar: 2.2, wetWaveHorizon: 0.55, wetWaveThreshold: 0.45, wetWaveTrough: 0.12,
+  wetWaveSheen: 0.08, wetWaveStroke: 24, wetWaveJitter: 1.5,
+  // Refine round 4: the wet road mirrors in a rippled mosaic, as a cutscene-style repaint of a race frame draws it
+  // (art/reference/mockups): short broken dashes with dark gaps, some whole rows dropped. Unbroken, glossy columns
+  // (the fifth pass) read as solid synthetic bars beside it, the SORA billboard's reflection a cream block.
+  wetDashCells: 4, wetDashDuty: 0.65, wetDashGap: 0.2, wetSheen: 0.6,
+  wetColumnDashCells: 3, wetColumnDashDuty: 0.55, wetColumnRowKeep: 0.78,
+  // Refine round 4 (the concept's speckled wet asphalt): full-colour glitter all over calm wet ground.
+  sparkleLit: 0.05, sparkleRain: 0.04, wetGlitter: 0.18, wetGlitterLift: 0.17, wetGlitterTrail: 0.3, sparkleKey: 0.12, sparkleKeyLobe: 12,
+  temporalMargin: 0.025, temporalDepthTolerance: 0.04, temporalSpeedMargin: 0.04, temporalCarMargin: 0.05, groundSpeedSmooth: 1, wallSpeedSmooth: 0, wallMotionFilter: 0, wallMotionStart: 2, wallMotionEdge: 0,
   groundDashes: 1, litFlecks: 1, lampColumns: 1, wetDryFade: 1, keyGlints: 1,
-  groundDashCells: 2.5, groundDashSpread: 0.35, groundSpeckle: 0.3, groundMottle: 0.45, groundDryMottle: 0.5,
-  fleckDensity: 0.25, fleckLitStart: 0.02, fleckLitFull: 0.25, fleckGap: 0.15, fleckBoost: 3.5, fleckKeep: 0.65, fleckSparse: 0.3, fleckFloor: 0.05, fleckSpeckle: 0.5,
+  // Refine round 4: a calmer road, its grain cool and fine rather than warm speckle (the rain-night target).
+  groundDashCells: 2.5, groundDashSpread: 0.35, groundSpeckle: 0.2, groundMottle: 0.35, groundDryMottle: 0.35,
+  fleckDensity: 0.22, fleckLitStart: 0.02, fleckLitFull: 0.25, fleckGap: 0.15, fleckBoost: 4, fleckKeep: 0.65, fleckSparse: 0.3, fleckFloor: 0.05, fleckSpeckle: 0.5,
   fleckTint: 0.65, fleckSpeedKeep: 1, groundAmbientScale: 1,
   markingStart: 1.6, markingFull: 2.3,
-  lampColumnGain: 0.8, lampLobeDamp: 0.11, lampLobeWet: 0.2, lampColumnWidth: 6, lampColumnFar: 140,
+  lampColumnGain: 1.8, lampLobeDamp: 0.11, lampLobeWet: 0.2, lampColumnWidth: 6, lampColumnFar: 140,
   lampColumnCore: 1.6, lampColumnEdge: 0.6, lampColumnFringe: 0.25, columnBreak: 0,
   groundSpeedStart: 0.15, groundSpeedFull: 0.5, groundSpeedMottle: 0.7, groundRowOctave: 0.5,
-  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 0.8,
+  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 1.2,
   sparkleKeyDry: 0.15, oilHazards: 1,
   foliageTurns: 0.6, foliageClumpCells: 5, foliageClumpOffset: 1.5, foliageHysteresis: 0.12, foliageSmooth: 0.8, foliageMemory: 0,
   groundScroll: 0, groundScrollSpread: 0.5, groundScrollHold: 1, groundScrollStep: 1, groundScrollTurn: 0, temporalScrollShift: 0, groundSlideLengthen: 0,
@@ -309,6 +406,13 @@ export interface GroundEmitter {
   intensity: number;
   /** Emitter width across the column (m). */
   width: number;
+  /**
+   * Refine round 4: false for a light that casts a column but is no lamp head (a lit shop front): the linework draws
+   * no lamp core or halo for it and it does not count toward the lamps' night level. Default true.
+   */
+  head?: boolean;
+  /** Widest column (art cells) for this emitter, in place of the stage's lampColumnWidth (0 or absent: that). */
+  maxCells?: number;
 }
 
 /** Race hazards on the road (oil slicks) drawn as flat, outlined dark gloss. */
@@ -1099,6 +1203,42 @@ void main() {
   outScroll = vec4(drawn, move, exact, mix(last.w, abs(shift), scrollStep.z > .5 ? .25 : 1.));
 }`;
 
+/**
+ * Ripple spread (refine round 4): each row of the wet road carries the
+ * brightest reflection within its own reach left and right (a hash of the
+ * row's world position, so the ripples ride with the road), a little dimmer
+ * per cell; the composite then stretches the widened reflections into
+ * columns.
+ */
+const SPREAD_FRAGMENT = /* glsl */ `
+uniform sampler2D wetTraceRaw;
+uniform vec2 spreadParams; // x: most cells either side (0 off); y: light lost per cell
+uniform vec4 groundAcross; // xyz: the road's lateral axis (world)
+layout(location = 0) out vec4 outTrace;
+void main() {
+  ivec2 cell = artCell();
+  vec4 own = texelFetch(wetTraceRaw, cell, 0);
+  outTrace = own;
+  if (spreadParams.x < .5) return;
+  vec4 data = texelFetch(resolvedData, cell, 0);
+  if (data.w >= .5) return;
+  vec3 world = artWorldPosition(vec2(cell) + .5, data.x);
+  vec3 forward = normalize(cross(vec3(0., 1., 0.), groundAcross.xyz));
+  float level = floor(log2(max(artCellWorldSize(data.x), 1e-4)));
+  int row = int(floor(dot(world, forward) / exp2(level)));
+  float reach = spreadParams.x + 1.;
+  int left = int(floor(artHash01(ivec3(row, int(level), 5501)) * reach)), right = int(floor(artHash01(ivec3(row, int(level), 5503)) * reach));
+  vec3 best = own.rgb;
+  float strongest = artLuminance(own.rgb);
+  for (int dx = -4; dx <= 4; dx++) {
+    if (dx == 0 || dx < -left || dx > right) continue;
+    vec3 c = texelFetch(wetTraceRaw, artClamp(cell + ivec2(dx, 0)), 0).rgb * max(1. - spreadParams.y * float(abs(dx)), 0.);
+    float l = artLuminance(c);
+    if (l > strongest) { strongest = l; best = c; }
+  }
+  outTrace = vec4(best, own.a);
+}`;
+
 const TRACE_FRAGMENT = /* glsl */ `
 uniform vec4 traceParams;  // x: max ray length (m); y: sky reflection factor; z: screen-edge fade (cells)
 layout(location = 0) out vec4 outTrace;
@@ -1185,6 +1325,14 @@ void main() {
 const COMPOSITE_FRAGMENT = /* glsl */ `
 uniform sampler2D wetTrace;
 uniform vec4 columnParams;  // x: cells down (toward the camera), y: cells up, z: reflection strength, w: dash gap
+uniform float wetFresnelFloor; // the least share of the mirror wet ground keeps where the view looks steeply down
+uniform vec4 rippleParams;    // refine round 4: x 1 organic ripples on light columns; y blob width (cells); z blob height (rows); w hole threshold
+uniform float ripplePebbles;  // share of column cells that are dark specks
+uniform vec3 rippleFar;       // the ripples' shape farther off: x blob width (cells), y blob height (rows), z metres where it is reached (eased from half that)
+uniform vec4 waveParams;      // refine round 4 waves: x 1 on; y crest threshold; z trough share of a reflection; w crest sheen (exposure-scaled luminance)
+uniform vec4 waveShape;       // x band rows at the bottom of the screen; y band rows at the horizon row and above; z horizon row (share of the height); w stroke length (cells)
+uniform float waveJitter;     // most cells a row's reflections shift sideways
+uniform float reflectionWarmth; // refine round 4: how far pale reflections turn toward the lamps' gold (0-1)
 uniform vec3 sheenParams;   // x: brightness swing; y, z: exposure-scaled luminance where the swing starts / is full
 uniform vec2 columnSource;  // exposure-scaled reflected luminance where a reflection starts / fully stretches into a column
 uniform float surfaceExposure;
@@ -1196,6 +1344,7 @@ uniform vec4 fleckSplit;       // x: share of the lit light the flecks carry; y:
 uniform float groundMottle;     // brightness swing of the ground dashes (+-)
 uniform vec3 groundAmbientTint; // unit-luminance colour of the ambient light on the ground
 uniform vec4 groundCaps;        // x: mottle kept at full speed; y: paint cap (x the darker ground either side); z: wet patch cap; w: smoothing at speed
+uniform float wallSpeedSmooth;  // the share of the smoothing at speed upright world cells take
 uniform vec3 groundFar;         // x, y: distance (m) over which the ground calms; z: how much
 uniform vec4 groundAcross;      // xyz: the camera's level right vector; w: its accumulated lateral travel (m)
 uniform vec2 dashParams;        // x: wet dash segment cells; y: duty
@@ -1366,6 +1515,34 @@ vec3 lampColumns(ivec2 cell, vec3 world) {
  * dashes), and the analytic lamp columns. Hazard cells (oil) keep their
  * light: the sparkle stage draws them.
  */
+/**
+ * Horizontal wave bands across the wet road (refine round 4): returns the band
+ * value at a cell (0-1, crests high) and, in v, the band coordinate. Screen
+ * rows, so every reflection breaks along the same wave lines; the bands
+ * widen toward the camera (the row coordinate is the integral of one over a
+ * period growing from waveShape.y at the horizon row to waveShape.x at the
+ * bottom, so it never chirps), wander a little across the screen and fade in
+ * and out along it.
+ */
+float waveBand(ivec2 cell, out float v) {
+  float y = float(cell.y), x = float(cell.x), Y = max(artSize.y * waveShape.z, 1.), p0 = waveShape.x, p1 = waveShape.y;
+  if (abs(p1 - p0) < 1e-3) v = y / p0;
+  else if (y < Y) v = Y / (p1 - p0) * log(mix(p0, p1, y / Y) / p0);
+  else v = Y / (p1 - p0) * log(p1 / p0) + (y - Y) / p1;
+  v += (artValueNoise(vec3(x * .018, 0., 0.), 811) - .5) * 1.6;
+  return .7 * artValueNoise(vec3(v, x * .006, 3.), 823) + .3 * artValueNoise(vec3(v * 2.3, x * .015, 9.), 829);
+}
+/** Whether a crest cell lies on one of its band's strokes (long horizontal pieces about waveShape.w cells, a few gaps). */
+float waveStroke(ivec2 cell, float v) {
+  float band = floor(v), length = waveShape.w * mix(.5, 1.5, artHash01(ivec3(int(band), 41, 8807)));
+  float offset = artHash01(ivec3(int(band), 43, 8809)) * length;
+  return artHash01(ivec3(int(band), int(floor((float(cell.x) + offset) / length)), 8803)) < .72 ? 1. : 0.;
+}
+/** Two octaves of value noise at a ripple lattice level (refine round 4). */
+float rippleNoise(float x, float y, float k) {
+  vec3 q = vec3(x, y, k * 13.);
+  return .62 * artValueNoise(q, 421) + .38 * artValueNoise(vec3(q.xy * 2.3, q.z + 5.), 433);
+}
 void composite() {
   ivec2 cell = artCell();
   vec4 base = texelFetch(resolvedColor, cell, 0);
@@ -1394,7 +1571,7 @@ void composite() {
   // edge-preserving 5 x 3 mean over cells of the same depth layer and similar
   // light removes it; pools, shadows, windows, silhouettes and paint are edges
   // or smooth and stay, and the stable dashes redraw the ground's texture.
-  float moving = groundCaps.w * smoothstep(.03, .3, motion * speedParams.y);
+  float moving = groundCaps.w * smoothstep(.03, .3, motion * speedParams.y) * (ground.z > .5 ? 1. : wallSpeedSmooth);
   // Canopy (refine round 2) is smoothed at rest too, over canopy cells only,
   // and more broadly: per-leaf light breaks a canopy into boiling lace; its
   // clumps' band offsets redraw it as massed tones.
@@ -1484,13 +1661,20 @@ void composite() {
   hdrOut = vec4(colour, marking > .5 ? 1. : 0.);
   if (fields.y <= 0.) return;
   int down = int(columnParams.x), up = int(columnParams.y);
+  // Waves (refine round 4): this row's band, and its sideways shift (smooth from row to row, so a light's streak
+  // wavers rather than shattering).
+  float waveV = 0., wave = waveParams.x > .5 ? waveBand(cell, waveV) : 1.;
+  int jx = waveParams.x > .5 ? int(floor((artValueNoise(vec3(float(cell.y) * .45, 2., 0.), 857) - .5) * 2. * waveJitter + .5)) : 0;
   vec3 column = vec3(0.);
   float strongest = 0.;
   int bestDy = 0;
   bool stretched = false;
-  for (int dy = -8; dy <= 32; dy++) {
+  // Past 32 cells every other row (refine round 4): the far street's lights mirror near the horizon, and their
+  // streaks reach the near road only with a longer window (up to 96 cells).
+  for (int k = -8; k <= 64; k++) {
+    int dy = k <= 32 ? k : 32 + (k - 32) * 2;
     if (dy < -up || dy > down) continue;
-    ivec2 source = cell + ivec2(0, dy);
+    ivec2 source = cell + ivec2(jx, dy);
     if (source.y < 0 || source.y >= int(artSize.y)) continue;
     vec4 trace = texelFetch(wetTrace, source, 0);
     float reach = float(dy >= 0 ? down : up) + 1.;
@@ -1503,7 +1687,9 @@ void composite() {
   }
   vec3 ray = artWorldRay(vec2(cell) + .5);
   float cosine = abs(dot(ray, texelFetch(normals, cell, 0).xyz));
-  float fresnel = .02 + .98 * pow(1. - cosine, 5.);
+  // Refine round 4: a floor under the Fresnel term, so the near road, seen steeply, still mirrors the street's
+  // light as the user's rain-night concept paints it (a pure Fresnel term left it eight times darker than 20 m on).
+  float fresnel = max(.02 + .98 * pow(1. - cosine, 5.), wetFresnelFloor);
   bool on = fields.z > 0.;
   vec3 world = artWorldPosition(vec2(cell) + .5, depth);
   // A light's column (refine round 2: at rest too) and, at speed, every
@@ -1535,7 +1721,34 @@ void composite() {
       float lattice = exp2(k);
       segment = int(floor((lateral + artHash01(ivec3(row, 67, 9101)) * lattice) / lattice));
     }
-    if (stretched) {
+    if (stretched && waveParams.x > .5) {
+      // Waves (refine round 4): the streak whole on a crest, a few tones by the band's height; dark in a trough.
+      on = wave > waveParams.y;
+      dashTone = on ? mix(.82, 1.12, smoothstep(waveParams.y, .85, wave)) : waveParams.z;
+    } else if (stretched && rippleParams.x > .5) {
+      // Organic ripples (refine round 4): blobs of water and dark asphalt with their own tones, from a noise field
+      // laid out across from the column's source (its world-anchored lateral cells at a power-of-two lattice level,
+      // the two nearest levels blended so the scale never jumps), so the pattern rides sideways with the light; and
+      // scattered dark specks.
+      // Across, the source cell's lateral position (all of the column's cells share it, so the blobs stand upright on
+      // screen; the current cell's own lateral position sheared them toward the vanishing point).
+      ivec2 sourceCell = artClamp(cell + ivec2(0, bestDy));
+      float sourceDepth = texelFetch(resolvedData, sourceCell, 0).x;
+      vec3 sourceWorld = artWorldPosition(vec2(sourceCell) + .5, sourceDepth);
+      float across = dot(sourceWorld - artCameraWorld[3].xyz, groundAcross.xyz) + groundAcross.w;
+      // Near the camera organic blobs, down the road long vertical streaks (rippleFar), by the reflection's own distance.
+      float farShape = smoothstep(.5 * rippleFar.z, rippleFar.z, sourceDepth);
+      float blobCells = mix(rippleParams.y, rippleFar.x, farShape), blobRows = mix(rippleParams.z, rippleFar.y, farShape);
+      float level = log2(max(artCellWorldSize(sourceDepth), 1e-5) * blobCells), lk = floor(level), lf = level - lk;
+      // Down, the screen row: counted from each column's source, the blobs sheared along a sign's slanted lower edge
+      // (its columns start on different rows); on screen rows a moving light's column slides through the field,
+      // which reads as ripples running through its reflection.
+      float y = float(cell.y) / blobRows;
+      float n = mix(rippleNoise(across / exp2(lk), y, lk), rippleNoise(across / exp2(lk + 1.), y, lk + 1.), lf);
+      float pebble = artHash01(ivec3(int(floor(across * blobCells / exp2(lk))), cell.y, 9241 + int(lk) * 64));
+      on = n > rippleParams.w && pebble >= ripplePebbles;
+      dashTone = on ? mix(.62, 1.15, smoothstep(rippleParams.w, .85, n)) : columnParams.w * .5;
+    } else if (stretched) {
       on = artHash01(ivec3(row, 71, 9101)) < columnDash.z && artHash01(ivec3(segment, row, 9187 + int(k) * 4096)) < columnDash.y;
       // Stacked dashes of a few tones with mid-tone breaks (columnBreak): a
       // lit panel's column is no longer a smooth gradient cut by dark gaps.
@@ -1545,6 +1758,9 @@ void composite() {
       on = artHash01(ivec3(segment, row, 9181 + int(k) * 4096)) < dashParams.y;
   }
   float dash = dashTone >= 0. ? dashTone : on ? 1. : columnParams.w;
+  // Waves on the rest of the wet road (refine round 4): its dim reflections (sky, walls) follow the bands too.
+  float crest = waveParams.x > .5 ? smoothstep(waveParams.y, waveParams.y + .12, wave) : 1.;
+  if (waveParams.x > .5 && !stretched) dash = mix(waveParams.z, 1., crest);
   // The earlier sheen (lit wet ground swung by the dash mask) stands in for
   // the flecks when they are off.
   float lit = smoothstep(sheenParams.y, sheenParams.z, artLuminance(base.rgb) * surfaceExposure);
@@ -1560,8 +1776,24 @@ void composite() {
   if (lampColumnParams.z > 0. && emitterCount > 0) {
     // Lamp columns follow the road's wetness more than the damp patches.
     float wet = ground.z * lampColumnParams.z * mix(.55, 1., fields.y / max(ground.z, 1e-3)) * smoothstep(0., .03, fields.y);
-    vec3 lamps = lampColumns(cell, world) * fresnel * wet;
+    vec3 lamps = lampColumns(cell, world) * fresnel * wet * (waveParams.x > .5 ? mix(waveParams.z, 1., crest) : 1.);
     if (artLuminance(lamps) > artLuminance(reflection)) reflection = lamps;
+  }
+  // Pale reflections take the street lamps' gold (refine round 4), their luminance kept: a white sign mirrors
+  // gold in the wet road, as the repaints paint it; tail lamps and neon keep their own colour. Only while the
+  // lamps burn at night strength (fleckSplit.w), so the sunrise road keeps the sky's peach.
+  float reflected = artLuminance(reflection);
+  if (reflectionWarmth * fleckSplit.w > 0. && reflected > 1e-5) {
+    vec3 rlab = artLinearToOklab(reflection);
+    float pale = 1. - smoothstep(.06, .16, length(rlab.yz) / max(rlab.x, .05));
+    reflection = mix(reflection, vec3(1., .55, .22) * (reflected / .6219), reflectionWarmth * fleckSplit.w * pale);
+  }
+  // The crests' sheen on the dark road (refine round 4): long horizontal strokes of the night's ambient colour, as
+  // the cutscenes paint the bands of a wet street; never brighter than a reflection already there.
+  if (waveParams.x > .5 && waveParams.w > 0.) {
+    vec3 sheenColour = groundAmbientTint * waveParams.w / max(surfaceExposure, 1e-4);
+    float stroke = crest * waveStroke(cell, waveV) * smoothstep(0., .35, fields.y);
+    reflection = max(reflection, sheenColour * stroke);
   }
   // Lane paint is never painted over by reflections.
   reflection *= 1. - marking;
@@ -1589,6 +1821,7 @@ uniform vec4 speedParams;           // x, y: slide where ground turns to screen-
 uniform vec2 lutWeights;
 uniform float bandStep;
 uniform float bandStrength;
+uniform float paletteFull;          // 1: the graded colour itself; the palette index still rides in alpha (stages.ts)
 layout(location = 0) out vec4 outImage;
 layout(location = 1) out vec4 outHistory;
 const float DEPTH_LOG_MIN = -8., DEPTH_LOG_RANGE = 24.;
@@ -1647,6 +1880,7 @@ void main() {
   vec3 lab = offsetLab(cell);
   int best = int(texelFetch(paletteLut, lutTexel(lutNode(lab)), 0).r * 255. + .5);
   vec4 current = vec4(texelFetch(paletteColors, ivec2(best, 0), 0).rgb, float(best) / 255.);
+  if (paletteFull > .5) current.rgb = clamp(artLinearToDisplay(artOklabToLinear(lab)), 0., 1.);
   vec4 data = texelFetch(resolvedData, cell, 0);
   vec4 anchor = artAnchor(cell, data);
   int kind = anchorKind(anchor.w);
@@ -1693,7 +1927,8 @@ void main() {
   // 2): rival cars' band edges hopped between entries on sub-cell motion.
   float margin = min(screenRows ? temporalParams.z : kind > 0 ? temporalCar : temporalParams.x, .5 * step);
   if (matchDistance(lab, held) > matchDistance(lab, best) + margin) return;
-  outImage = vec4(texelFetch(paletteColors, ivec2(held, 0), 0).rgb, float(held) / 255.);
+  // Holding steadies the index the line stages decide by; in full colour the cell keeps its own colour.
+  outImage = vec4(paletteFull > .5 ? current.rgb : texelFetch(paletteColors, ivec2(held, 0), 0).rgb, float(held) / 255.);
   outHistory = vec4(outImage.a, packDepth(data.x), packState(kind, 2, glint));
 }`;
 
@@ -1707,6 +1942,10 @@ uniform vec2 keyGlint;          // x: density of key glints at the key's specula
 uniform ivec4 oilNight;         // core, ring, outline, streak (cool key)
 uniform ivec4 oilDawn;          // the same under a warm key
 uniform vec2 markingRatio;      // albedo ratio to the darker ground either side where a cell is lane paint (start, full)
+uniform vec4 sparkleGlitter;    // refine round 4: x glitter density on calm wet ground (0 off), y its OKLab lightness lift, z the cars' raindrops (wet, 0-1), w the trails' share
+uniform float sparkleDrizzle;   // refine round 4: share of wet cells taking a drizzle speck this moment (0 off)
+uniform float paletteFull;      // 1: full colour (glitter draws), 0: palette lock
+uniform vec4 surfaceMotion;     // xyz: the camera's travel per nominal frame (stepped)
 layout(location = 0) out vec4 outImage;
 int hazardAt(ivec2 c) { return int(floor(texelFetch(groundFields, artClamp(c), 0).y * .25 + .125)); }
 /**
@@ -1730,6 +1969,68 @@ bool drawHazard(ivec2 cell) {
   return true;
 }
 /**
+ * A glitter cell's colour (refine round 4): the shown colour lifted by lift
+ * (OKLab L) and a little more saturated, so it keeps the hue of the light it
+ * mirrors; on dark asphalt (low chroma) a pale cool blue-white, as the
+ * cutscene-style repaints speckle it (a saturated violet read as lavender
+ * snow on the rainy dusk road).
+ */
+vec3 glitterColour(vec3 own, float lift) {
+  vec3 shown = artLinearToOklab(mix(own / 12.92, pow((own + .055) / 1.055, vec3(2.4)), step(vec3(.04045), own)));
+  float chroma = length(shown.yz), lit = smoothstep(.03, .07, chroma);
+  vec2 hue = chroma > .02 ? shown.yz / chroma : vec2(-.25, -.97);
+  hue = normalize(mix(vec2(-.25, -.97), hue, lit));
+  shown.yz = hue * mix(.035, max(chroma * 1.3, .08), lit);
+  shown.x = min(shown.x + lift, .92);
+  return clamp(artLinearToDisplay(artOklabToLinear(shown)), 0., 1.);
+}
+/**
+ * Raindrops on the cars (refine round 4: the user's rain-night concept, whose
+ * cars' roofs, boot lids and bonnets glitter with drops catching the street
+ * light). On a wet night a few cells of upward-facing paint on near cars, on a
+ * lattice about a cell across in the car's own frame (the anchors' car-local
+ * position), so the drops ride with the car instead of crawling over it.
+ */
+bool carDrop(ivec2 cell) {
+  if (sparkleGlitter.z <= 0. || artCarKind(cell) != 1) return false;
+  int id = artCarId(cell);
+  vec4 anchor = texelFetch(anchors, cell, 0);
+  if (abs(anchor.w - float(id)) > .5 || texelFetch(normals, cell, 0).y < .55) return false;
+  float depth = texelFetch(resolvedData, cell, 0).x;
+  if (depth > 30.) return false;
+  float level = floor(log2(max(artCellWorldSize(depth), 1e-4)) + .5), size = exp2(level);
+  return artHash01(ivec3(ivec2(floor(anchor.xz / size)), int(level) + 64 * id + 7919)) < .055 * sparkleGlitter.z;
+}
+/**
+ * Glitter at speed (refine round 4): where the ground slides more than a cell
+ * or two a frame a single speck would jump, so each speck is drawn as the path
+ * it travelled since the last frame, bright at its head and fading behind, and
+ * the paths of successive frames join into the streaks of light a wet road
+ * throws at speed. The longer the path, the fewer the specks, so the cover
+ * stays about the glitter's; they hand over to the still glitter as the ground
+ * calms. Returns the trail's strength at this cell (0 none).
+ */
+float glitterTrail(ivec2 cell, vec4 fields, float calm) {
+  float depth = texelFetch(resolvedData, cell, 0).x;
+  vec3 world = artWorldPosition(vec2(cell) + .5, depth);
+  vec3 before = transpose(mat3(artCameraWorld)) * (world + surfaceMotion.xyz - artCameraWorld[3].xyz);
+  vec4 clip = artProjection * vec4(before, 1.);
+  if (clip.w <= 1e-3) return 0.;
+  // This cell's travel since the last frame: a speck now at cell + travel * t passed here t of a frame ago.
+  vec2 travel = vec2(cell) + .5 - (clip.xy / clip.w * .5 + .5) * artSize;
+  float cells = length(travel);
+  if (cells < 1.5) return 0.;
+  float share = sparkleGlitter.x * sparkleGlitter.w * smoothstep(0., .35, fields.y) * (1. - calm) / cells;
+  int taps = int(min(ceil(cells), 16.));
+  for (int k = 0; k < 16; k++) {
+    if (k >= taps) break;
+    float t = float(k) / float(taps);
+    vec4 source = texelFetch(surfaceFields, artClamp(ivec2(floor(vec2(cell) + .5 + travel * t))), 0);
+    if (source.y > 0. && source.w < share) return 1. - t;
+  }
+  return 0.;
+}
+/**
  * Sparse single-cell sparkles on wet ground, denser in lamp pools and
  * reflection columns: amber and gold under warm light, lavender in cool
  * light, pale rain splashes in rain. A warm key (dusk or sunrise sun) also
@@ -1745,6 +2046,12 @@ void main() {
   outImage = current;
   if (artSurfaceReady < .5) return;
   if (oilNight.x >= 0 && drawHazard(cell)) return;
+  if (paletteFull > .5 && carDrop(cell)) {
+    vec4 drawn = texelFetch(marks, cell, 0);
+    // Warm: a drop catches the street's lamps (the repaints draw gold specks on the red paint, not pink ones).
+    if (max(drawn.r, max(drawn.g, drawn.b)) <= .5) outImage = vec4(mix(glitterColour(current.rgb, sparkleGlitter.y + .05), vec3(1., .8, .52), .45), current.a);
+    return;
+  }
   vec4 fields = texelFetch(surfaceFields, cell, 0);
   float ground = texelFetch(groundFields, cell, 0).z;
   if (fields.y <= 0. && (ground <= 0. || keyGlint.x <= 0.)) return;
@@ -1765,7 +2072,17 @@ void main() {
     // Level ground only (the road, not the grass banks).
     key = keyGlint.x * keyLight.x * lobe * sunlit * ground * calm * smoothstep(.93, .98, texelFetch(normals, cell, 0).y);
   }
-  if (fields.w >= density + splash + key) return;
+  // Full where the ground is damp (its reflection weight .35 and up): a soaked road in rain carries no more specks
+  // than a damp one (proportional to the weight, rain doubled them into a snowfall at dusk).
+  float glitter = paletteFull > .5 ? smoothstep(0., .35, fields.y) * sparkleGlitter.x * calm * step(.5, ground) : 0.;
+  float trail = paletteFull > .5 && sparkleGlitter.x * sparkleGlitter.w > 0. && calm < 1. && ground > .5 && fields.y > 0. ? glitterTrail(cell, fields, calm) : 0.;
+  // Drizzle (refine round 4): drops landing on the wet road, re-rolled about every other frame, on screen cells
+  // (a drop lands where it lands; it does not ride with the road). A cell's own rain-drop draw, so a still frame
+  // shows the speckled asphalt of the repaints and motion shows a light drizzle.
+  bool drop = paletteFull > .5 && sparkleDrizzle > 0. && ground > .5 && fields.y > 0.
+    && artHash01(ivec3(cell, int(floor(artTime * 15.)) + 7703)) < sparkleDrizzle * smoothstep(0., .35, fields.y);
+  if (drop && trail <= 0.) trail = .7;
+  if (trail <= 0. && fields.w >= density + splash + key + glitter) return;
   // Never on lane paint (albedo brighter than the darker ground either side).
   float lum = artLuminance(texelFetch(resolvedColor, cell, 0).rgb), around = 1e9;
   for (int k = 3; k <= 4; k++) {
@@ -1773,6 +2090,11 @@ void main() {
     around = min(around, artLuminance(texelFetch(resolvedColor, artClamp(cell - ivec2(k, 0)), 0).rgb));
   }
   if (lum > markingRatio.x * around) return;
+  if (trail > 0. || fields.w >= density + splash + key) {
+    // Glitter (refine round 4); a trail fades toward its tail.
+    outImage = vec4(glitterColour(current.rgb, sparkleGlitter.y * (trail > 0. ? trail : 1.)), current.a);
+    return;
+  }
   vec3 lab = artLinearToOklab(light / max(max(light.r, max(light.g, light.b)), 1e-5));
   float hue = atan(lab.z, lab.y);
   bool warm = length(lab.yz) > .03 && abs(mod(hue - 1.2 + 3.14159265, 6.28318531) - 3.14159265) < 1.1;
@@ -1858,6 +2180,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     artTarget(THREE.FloatType, 'SORA pixel-art surface anchors B', 3)] as const;
   let surfaceIndex = 0, surfaceFrame = -2;
   const traceTarget = artTarget(THREE.HalfFloatType, 'SORA pixel-art wet reflection trace');
+  const spreadTarget = artTarget(THREE.HalfFloatType, 'SORA pixel-art wet reflection ripple spread');
   // HDR with the reflections (0; alpha: reflection share + 1 on road paint) and, when deps.grade is given, its graded OKLab (1).
   const wetTarget = artTarget(THREE.HalfFloatType, 'SORA pixel-art wet HDR', 2);
   // Image + history pairs that alternate: one is written, the other's history is read.
@@ -1894,9 +2217,13 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     scrollRows, scrollParams,
   };
   const traceUniforms = { traceParams: { value: new THREE.Vector4() } };
+  const spreadUniforms = { wetTraceRaw: { value: traceTarget.texture }, spreadParams: { value: new THREE.Vector2(4, .08) },
+    groundAcross: surfaceUniforms.groundAcross };
   const compositeUniforms = {
     wetTrace: { value: traceTarget.texture }, columnParams: { value: new THREE.Vector4() },
-    sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, surfaceExposure: deps.exposure,
+    sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, wetFresnelFloor: { value: 0 },
+    rippleParams: { value: new THREE.Vector4(1, 4.5, 4, .42) }, ripplePebbles: { value: .05 }, rippleFar: { value: new THREE.Vector3(2.5, 11, 12) },
+    waveParams: { value: new THREE.Vector4(1, .45, .12, .08) }, waveShape: { value: new THREE.Vector4(5, 2.2, .55, 24) }, waveJitter: { value: 1.5 }, reflectionWarmth: { value: .75 }, surfaceExposure: deps.exposure,
     fleckParams: { value: new THREE.Vector4() },
     fleckShape: { value: new THREE.Vector3() }, groundAmbientTint: { value: new THREE.Vector3(1, 1, 1) },
     emitterCount: { value: 0 },
@@ -1905,7 +2232,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     emitterColour: { value: Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector3()) },
     lampColumnParams: { value: new THREE.Vector4() }, fleckLit: { value: new THREE.Vector2() }, fleckSplit: { value: new THREE.Vector4(0, 0, 0, 1) }, fleckSplit2: { value: 0 },
     groundMottle: { value: 0 },
-    groundCaps: { value: new THREE.Vector4() }, groundFar: surfaceUniforms.groundFar, groundAcross: surfaceUniforms.groundAcross,
+    groundCaps: { value: new THREE.Vector4() }, wallSpeedSmooth: { value: 0 }, groundFar: surfaceUniforms.groundFar, groundAcross: surfaceUniforms.groundAcross,
     speedParams: surfaceUniforms.speedParams, surfaceMotion: surfaceUniforms.surfaceMotion,
     dashParams: surfaceUniforms.dashParams, lampTones: { value: new THREE.Vector4() }, foliageSmooth: { value: 0 },
     columnDash: { value: new THREE.Vector4(4, 0.75, 0.85, 0) }, motionBlur: { value: new THREE.Vector4() },
@@ -1931,11 +2258,14 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     oilDawn: { value: new THREE.Vector4(entry(OIL_COLOURS.dawn.core), entry(OIL_COLOURS.dawn.ring),
       entry(OIL_COLOURS.dawn.outline), entry(OIL_COLOURS.dawn.streak)) },
     markingRatio: { value: new THREE.Vector2() },
+    sparkleGlitter: { value: new THREE.Vector4() }, sparkleDrizzle: { value: 0 }, paletteFull: deps.band.paletteFull ?? { value: 1 },
+    surfaceMotion: surfaceUniforms.surfaceMotion,
   };
   const oilEntries = sparkleUniforms.oilNight.value.x;
 
   const surfaceMaterial = stageMaterial('SORA pixel-art surfaces', shared, SURFACE_FRAGMENT, surfaceUniforms);
   const traceMaterial = stageMaterial('SORA pixel-art wet trace', shared, TRACE_FRAGMENT, traceUniforms);
+  const spreadMaterial = stageMaterial('SORA pixel-art wet ripple spread', shared, SPREAD_FRAGMENT, spreadUniforms);
   const compositeMaterial = stageMaterial('SORA pixel-art wet composite', shared, COMPOSITE_FRAGMENT, compositeUniforms);
   // The temporal match distance uses the band offset exactly as quantize did.
   const temporalMaterial = stageMaterial('SORA pixel-art temporal', shared,
@@ -1953,13 +2283,13 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
   // Camera speed (m per nominal frame, from 0.01) and turn (cells per frame, from 0.1) in steps.
   const speedSteps = createStepper(0.01), turnSteps = createStepper(0.1);
   let pickTime = NaN;
-  let keyGlintDensity = 0, keyGlintDry = SURFACE_DEFAULTS.sparkleKeyDry, sparkleLit = 0, sparkleRain = 0, oilOn = true;
+  let keyGlintDensity = 0, keyGlintDry = SURFACE_DEFAULTS.sparkleKeyDry, sparkleLit = 0, sparkleRain = 0, glitter = 0, drizzle = 0, oilOn = true;
   const lateral = createLateralTravel();
 
   const surface: PixelArtStage = {
     name: 'surface', enabled: true,
     setSize(grid: PixelArtGrid) {
-      for (const target of [...surfaceTargets, traceTarget, wetTarget, ...historyTargets]) target.setSize(grid.artWidth, grid.artHeight);
+      for (const target of [...surfaceTargets, traceTarget, spreadTarget, wetTarget, ...historyTargets]) target.setSize(grid.artWidth, grid.artHeight);
       for (const target of scrollTargets) target.setSize(1, grid.artHeight);
       historyReset = true;
       scrollReset = true;
@@ -2053,6 +2383,9 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.lampColumnParams.value.set(lobe, 0.5 * lobe, weight, columnFar);
       ground.projectEmitters(frame.camera, shared.artSize.value, shared.artCellWorldScale.value, lampGain, columnWidth, weight > 0);
       frame.draw(traceMaterial, traceTarget);
+      // Ripple spread (refine round 4), when on: the composite stretches the widened reflections.
+      if (spreadUniforms.spreadParams.value.x >= 0.5) frame.draw(spreadMaterial, spreadTarget);
+      compositeUniforms.wetTrace.value = spreadUniforms.spreadParams.value.x >= 0.5 ? spreadTarget.texture : traceTarget.texture;
       frame.draw(compositeMaterial, wetTarget);
       shared.hdr.value = wetTarget.textures[0]!;
       reflectReady.value = 1;
@@ -2061,7 +2394,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
         deps.grade.done.value = true;
       }
     },
-    dispose() { traceMaterial.dispose(); compositeMaterial.dispose(); traceTarget.dispose(); wetTarget.dispose(); },
+    dispose() { traceMaterial.dispose(); spreadMaterial.dispose(); compositeMaterial.dispose(); traceTarget.dispose(); spreadTarget.dispose(); wetTarget.dispose(); },
   };
 
   const temporal: PixelArtStage = {
@@ -2098,6 +2431,9 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       // glints thin out as the road dries (sunrise-wide's calm asphalt).
       const dry = THREE.MathUtils.lerp(keyGlintDry, 1, THREE.MathUtils.smoothstep(wetness, 0.2, 0.6));
       sparkleUniforms.sparkleParams.value.set(wetOn ? sparkleLit : 0, wetOn ? sparkleRain : 0, rain);
+      sparkleUniforms.sparkleGlitter.value.x = wetOn ? glitter : 0;
+      sparkleUniforms.sparkleGlitter.value.z = wetOn && glitter > 0 ? THREE.MathUtils.clamp((wetness - 0.3) / 0.55, 0, 1) : 0;
+      sparkleUniforms.sparkleDrizzle.value = wetOn ? drizzle * THREE.MathUtils.smoothstep(Math.max(wetness, rain), 0.65, 0.85) : 0;
       sparkleUniforms.keyGlint.value.x = wetOn ? keyGlintDensity * Math.max(dry, rain) : 0;
       sparkleUniforms.oilNight.value.x = oilOn ? oilEntries : -1;
       frame.draw(sparkleMaterial, frame.beginImageWrite());
@@ -2131,7 +2467,20 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       dampBase = THREE.MathUtils.clamp(o.wetDampBase, 0, 1);
       surfaceUniforms.dashParams.value.set(Math.max(1, o.wetDashCells), o.wetDashDuty);
       traceUniforms.traceParams.value.set(Math.max(1, o.wetMaxDistance), o.wetSkyReflection, 6, 0);
-      compositeUniforms.columnParams.value.set(THREE.MathUtils.clamp(Math.round(o.wetColumnDown), 0, 32),
+      compositeUniforms.columnSource.value.set(Math.max(0, o.wetColumnStart), Math.max(o.wetColumnStart + 1e-3, o.wetColumnFull));
+      compositeUniforms.wetFresnelFloor.value = THREE.MathUtils.clamp(o.wetFresnelFloor, 0, 1);
+      spreadUniforms.spreadParams.value.set(THREE.MathUtils.clamp(Math.round(o.wetSpread), 0, 4), THREE.MathUtils.clamp(o.wetSpreadFalloff, 0, 1));
+      compositeUniforms.rippleParams.value.set(o.wetRipple > 0 ? 1 : 0, Math.max(1, o.wetRippleCells), Math.max(1, o.wetRippleRows),
+        THREE.MathUtils.clamp(o.wetRippleHoles, 0, 1));
+      compositeUniforms.ripplePebbles.value = THREE.MathUtils.clamp(o.wetRipplePebbles, 0, 1);
+      compositeUniforms.rippleFar.value.set(Math.max(1, o.wetRippleCellsFar), Math.max(1, o.wetRippleRowsFar), Math.max(1, o.wetRippleFarStart));
+      compositeUniforms.waveParams.value.set(o.wetWaves > 0 ? 1 : 0, THREE.MathUtils.clamp(o.wetWaveThreshold, 0, 1),
+        THREE.MathUtils.clamp(o.wetWaveTrough, 0, 1), Math.max(0, o.wetWaveSheen));
+      compositeUniforms.waveShape.value.set(Math.max(1, o.wetWaveRowsNear), Math.max(1, o.wetWaveRowsFar), THREE.MathUtils.clamp(o.wetWaveHorizon, .1, 1),
+        Math.max(2, o.wetWaveStroke));
+      compositeUniforms.waveJitter.value = THREE.MathUtils.clamp(o.wetWaveJitter, 0, 4);
+      compositeUniforms.reflectionWarmth.value = THREE.MathUtils.clamp(o.wetReflectionWarmth, 0, 1);
+      compositeUniforms.columnParams.value.set(THREE.MathUtils.clamp(Math.round(o.wetColumnDown), 0, 96),
         THREE.MathUtils.clamp(Math.round(o.wetColumnUp), 0, 8), o.wetReflection, o.wetDashGap);
       // The flecks replace the earlier dash sheen on lit wet ground.
       compositeUniforms.sheenParams.value.set(flecksOn ? 0 : o.wetSheen, 0.08, 0.5);
@@ -2153,7 +2502,9 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.fleckSplit.value.set(THREE.MathUtils.clamp(o.fleckKeep, 0, 2), THREE.MathUtils.clamp(o.fleckSparse, 0, 1),
         Math.max(0, o.fleckFloor), compositeUniforms.fleckSplit.value.w);
       compositeUniforms.fleckSplit2.value = THREE.MathUtils.clamp(o.fleckSpeckle, 0, 1);
-      sparkleLit = o.sparkleLit; sparkleRain = o.sparkleRain;
+      sparkleLit = o.sparkleLit; sparkleRain = o.sparkleRain; glitter = Math.max(0, o.wetGlitter); drizzle = THREE.MathUtils.clamp(o.wetDrizzle, 0, 1);
+      sparkleUniforms.sparkleGlitter.value.y = Math.max(0, o.wetGlitterLift);
+      sparkleUniforms.sparkleGlitter.value.w = Math.max(0, o.wetGlitterTrail);
       keyGlintDensity = o.keyGlints > 0 ? Math.max(0, o.sparkleKey) : 0;
       keyGlintDry = THREE.MathUtils.clamp(o.sparkleKeyDry, 0, 1);
       sparkleUniforms.keyGlint.value.y = Math.max(1, o.sparkleKeyLobe);
@@ -2161,6 +2512,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       surfaceUniforms.speedParams.value.set(Math.max(0, o.groundSpeedStart), Math.max(o.groundSpeedStart + 1e-3, o.groundSpeedFull),
         THREE.MathUtils.clamp(o.groundRowOctave, 0, 2), THREE.MathUtils.clamp(o.groundSpeedMottle, 0, 1));
       surfaceUniforms.groundFar.value.set(o.groundFarStart, Math.max(o.groundFarStart + 1, o.groundFarEnd), THREE.MathUtils.clamp(o.groundFarCalm, 0, 1));
+      compositeUniforms.wallSpeedSmooth.value = THREE.MathUtils.clamp(o.wallSpeedSmooth, 0, 1);
       compositeUniforms.groundCaps.value.set(THREE.MathUtils.clamp(o.groundSpeedMottle, 0, 1), Math.max(1, o.groundPaintCap),
         Math.max(0, o.wetPatchCap), THREE.MathUtils.clamp(o.groundSpeedSmooth, 0, 1));
       compositeUniforms.lampTones.value.set(Math.max(0, o.lampColumnCore), Math.max(0, o.lampColumnEdge), Math.max(0, o.lampColumnFringe),
@@ -2256,8 +2608,12 @@ function createGroundLights(
   const pools: (THREE.SpotLight | null)[] = new Array(MAX_POOL_LIGHTS).fill(null);
   const emitterPosition = Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4());
   const emitterRadiance = Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4());
+  const emitterCells = new Float32Array(MAX_GROUND_EMITTERS);
+  // The lamp heads among the emitters (shop fronts cast columns but are no lamp heads).
+  const headPosition = Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4());
+  const headRadiance = Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4());
   let emitters = 0, ambient = 0.3;
-  const heads = { positions: emitterPosition as readonly THREE.Vector4[], radiance: emitterRadiance as readonly THREE.Vector4[],
+  const heads = { positions: headPosition as readonly THREE.Vector4[], radiance: headRadiance as readonly THREE.Vector4[],
     level: new Float32Array(MAX_GROUND_EMITTERS), count: 0 };
   const position = new THREE.Vector3(), target = new THREE.Vector3();
   const viewProjection = new THREE.Matrix4();
@@ -2270,13 +2626,17 @@ function createGroundLights(
     },
     setEmitters(list: readonly GroundEmitter[], count: number) {
       emitters = Math.max(0, Math.min(MAX_GROUND_EMITTERS, list.length, Math.floor(count) || 0));
+      let lamps = 0;
       for (let i = 0; i < emitters; i++) {
         const e = list[i]!;
         emitterPosition[i]!.set(e.position.x, e.position.y, e.position.z, e.groundY);
         emitterRadiance[i]!.set(e.color.r * e.intensity, e.color.g * e.intensity, e.color.b * e.intensity, e.width);
-        heads.level[i] = e.intensity / GROUND_EMITTER_NOMINAL;
+        emitterCells[i] = e.maxCells ?? 0;
+        if (e.head === false) continue;
+        headPosition[lamps]!.copy(emitterPosition[i]!); headRadiance[lamps]!.copy(emitterRadiance[i]!);
+        heads.level[lamps++] = e.intensity / GROUND_EMITTER_NOMINAL;
       }
-      heads.count = emitters;
+      heads.count = lamps;
     },
     setAmbient(irradiance: THREE.Color) {
       const l = luminance(irradiance.r, irradiance.g, irradiance.b);
@@ -2308,7 +2668,7 @@ function createGroundLights(
         viewProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
         for (let i = 0; i < emitters; i++) {
           const e = emitterPosition[i]!, r = emitterRadiance[i]!;
-          if (!lampColumnScreen(viewProjection, e.x, e.y, e.z, e.w, r.w, size, cellScale, maxWidth,
+          if (!lampColumnScreen(viewProjection, e.x, e.y, e.z, e.w, r.w, size, cellScale, emitterCells[i]! > 0 ? emitterCells[i]! : maxWidth,
             composite.emitterScreen.value[count]!)) continue;
           // A stable seed per emitter (its world position), so rows keep their dashes.
           const seed = Math.abs(Math.sin(e.x * 12.9898 + e.z * 78.233) * 43758.5453) % 1;

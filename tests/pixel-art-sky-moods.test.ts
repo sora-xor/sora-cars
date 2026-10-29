@@ -30,7 +30,7 @@ test('the dusk sky holds a constant high chroma through the indigo -> vermilion 
   sky.dispose();
 });
 
-test('each night mood has its own keyframe, and the city night is nearly flat indigo', () => {
+test('each night mood has its own keyframe, and the city night is indigo over a plum-magenta city glow', () => {
   const stopsFor = (night: 'city' | 'mountain' | 'harbor') => {
     const sky = createPaintedSky();
     sky.setRacingSky(0, sun, 0, { night, stars: 1 });
@@ -39,9 +39,11 @@ test('each night mood has its own keyframe, and the city night is nearly flat in
     return stops;
   };
   const city = stopsFor('city'), mountain = stopsFor('mountain'), harbor = stopsFor('harbor');
-  // Tokyo: #151239 .. #1d1a4d, a narrow lightness range.
-  assert.ok(Math.max(...city.map(s => s[0])) - Math.min(...city.map(s => s[0])) < .1);
-  for (const [L, , h] of city) { assert.ok(L < .32); assert.ok(h > 270 && h < 300); }
+  // Tokyo (refine round 4, the user's rain-night target): indigo (#151239 .. #1d1a4d) from halfway up, over a
+  // plum-magenta glow of the city at the horizon, lighter than the zenith.
+  for (const [L, , h] of city.slice(4)) { assert.ok(L < .32); assert.ok(h > 270 && h < 300); }
+  assert.ok(city[0]![2] > 300 && city[0]![2] < 345, `city horizon hue ${city[0]![2]}`);
+  assert.ok(city[0]![0] > city[8]![0] + .1 && Math.max(...city.map(s => s[0])) - Math.min(...city.map(s => s[0])) < .2);
   // Hakone is the brighter, saturated violet-indigo; Yokohama the darkest.
   const mean = (stops: number[][], k: number) => stops.reduce((sum, s) => sum + s[k]!, 0) / stops.length;
   assert.ok(mean(mountain, 1) > mean(city, 1) + .03, 'mountain night is more saturated');

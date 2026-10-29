@@ -1,0 +1,15 @@
+{
+  "route": "aizu-wakamatsu-1986",
+  "edits": [
+    {
+      "name": "canal-turn",
+      "fillet": "canal-lane",
+      "radiusMm": 13500
+    },
+    {
+      "name": "forest-foot",
+      "fillet": "forest-road-foot",
+      "radiusMm": 13500
+    }
+  ]
+}

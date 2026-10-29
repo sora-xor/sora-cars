@@ -11,5 +11,53 @@ export const STREET_ASSET_MANIFEST = [
     "musicSha256": "85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6",
     "musicBytes": 6215027,
     "musicDurationSeconds": 254.952
+  },
+  {
+    "id": "irohazaka-1986",
+    "japanese": "日光・いろは坂",
+    "name": "Nikko · Irohazaka",
+    "bundlePath": "assets/street/irohazaka-1986-6800a74f3b7bd19bd2c7812b483be8e00f70a131b9bbf81d0bcece2ae399a334.json",
+    "bundleSha256": "6800a74f3b7bd19bd2c7812b483be8e00f70a131b9bbf81d0bcece2ae399a334",
+    "bundleBytes": 6514546,
+    "musicPath": "assets/street/irohazaka-1986-a267ab48c72b416f8f76c502d310e319a3d553b9d4122aaac51bb7f36939ea25.m4a",
+    "musicSha256": "a267ab48c72b416f8f76c502d310e319a3d553b9d4122aaac51bb7f36939ea25",
+    "musicBytes": 4691617,
+    "musicDurationSeconds": 187.08
+  },
+  {
+    "id": "aizu-wakamatsu-1986",
+    "japanese": "会津若松・城を望む丘へ",
+    "name": "Aizu-Wakamatsu · To the Hill Facing the Castle",
+    "bundlePath": "assets/street/aizu-wakamatsu-1986-9cf669c53b89dbaf556f215ce469d16f813785146802ecc0ec99d45495d159c6.json",
+    "bundleSha256": "9cf669c53b89dbaf556f215ce469d16f813785146802ecc0ec99d45495d159c6",
+    "bundleBytes": 6544284,
+    "musicPath": "assets/street/aizu-wakamatsu-1986-9ae6d8c31d6e5d7d3335872214b27b3c595ab7c9915d8b9df11ee459d0c46ee8.m4a",
+    "musicSha256": "9ae6d8c31d6e5d7d3335872214b27b3c595ab7c9915d8b9df11ee459d0c46ee8",
+    "musicBytes": 4085702,
+    "musicDurationSeconds": 161.08
+  },
+  {
+    "id": "kyoto-1986",
+    "japanese": "京都・蹴上の煉瓦",
+    "name": "Kyoto · Keage Brick Echo",
+    "bundlePath": "assets/street/kyoto-1986-8401e738226ec9088f7c4cb1e0d10540ff7358613283c5fc89b421f399c8a646.json",
+    "bundleSha256": "8401e738226ec9088f7c4cb1e0d10540ff7358613283c5fc89b421f399c8a646",
+    "bundleBytes": 6939083,
+    "musicPath": "assets/street/kyoto-1986-44e5318cc7e18c163004f7daee262aee4def469292a147bfa75d0a3dd44a4878.m4a",
+    "musicSha256": "44e5318cc7e18c163004f7daee262aee4def469292a147bfa75d0a3dd44a4878",
+    "musicBytes": 5297255,
+    "musicDurationSeconds": 209.08
+  },
+  {
+    "id": "nara-1986",
+    "japanese": "奈良・春日の稜線",
+    "name": "Nara · Kasuga Sky Ridge",
+    "bundlePath": "assets/street/nara-1986-007e2f8416e7a47a4024b80b93207773961ca417b23a8844d277c5acc2bf23e7.json",
+    "bundleSha256": "007e2f8416e7a47a4024b80b93207773961ca417b23a8844d277c5acc2bf23e7",
+    "bundleBytes": 6484254,
+    "musicPath": "assets/street/nara-1986-e4c874d6237cd4dbf792cf0e7ee6ce95ae29fc033d3b3d9b9faf0edc3044525e.m4a",
+    "musicSha256": "e4c874d6237cd4dbf792cf0e7ee6ce95ae29fc033d3b3d9b9faf0edc3044525e",
+    "musicBytes": 4509001,
+    "musicDurationSeconds": 179.08
   }
 ] as const;

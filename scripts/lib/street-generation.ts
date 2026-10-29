@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { withStreetNative, STREET_NATIVE_LAUNCHER, streetNativeModulePath } from './street-native.ts';
 import { readBoundedNativeFile as readDirect, hashBoundedNativePath as hashDirect, readBoundedNativeJson, nativeFileModulePath } from './native-file-io.mjs';
 import type { StreetRaceBundle } from '../../src/game/street/session';
+import { STREET_ROUTE_IDS } from './street-routes.ts';
 
 export const streetArtifactHash = (value: Uint8Array) => createHash('sha256').update(value).digest('hex');
 const digest = (value: unknown): value is string => typeof value === 'string' && /^[0-9a-f]{64}$/.test(value);
@@ -103,7 +104,7 @@ export async function loadStreetGeneration(projectRoot: string, generationFile: 
     const data = record(JSON.parse(bytes.toString()), 'Street bundle');
     const bundleSources = sourceInventory(data.sources);
     const graph = record(data.graph, 'Street graph');
-    if (data.version !== 1 || data.domain !== 'sora-cars.street-race-draft.v1' || data.roster !== roster || record(data.track, 'Street track').id !== 'tokyo-1986'
+    if (data.version !== 1 || data.domain !== 'sora-cars.street-race-draft.v1' || data.roster !== roster || !(STREET_ROUTE_IDS as readonly unknown[]).includes(record(data.track, 'Street track').id)
         || !Array.isArray(graph.nodes) || graph.nodes.length !== entry.nodes
         || Object.keys(bundleSources).length !== Object.keys(sources).length || Object.entries(sources).some(([path, expected]) => bundleSources[path] !== expected)) throw new Error('Producer inventory or bundle structure differs.');
     const exportBytes = await admit(entry.nativeExport.path, 32 * MiB, entry.nativeExport.sha256, entry.nativeExport.bytes, 'Native export');
@@ -133,7 +134,7 @@ export async function loadStreetGeneration(projectRoot: string, generationFile: 
     }
   }
   async function evaluateInputs(roster: number, inputs: readonly (readonly number[])[]) {
-    await readBundle(roster); await verifyUnchanged();
+    const route = (await readBundle(roster)).bundle.track.id; await verifyUnchanged();
     if (!inputs.length || inputs.length > 20_000 || inputs.some(row => row.length !== 3 + 13 * roster || row.some(v => !Number.isSafeInteger(v)))) throw new Error('Invalid bounded parity corpus.');
     const temporary = await mkdtemp(resolve(directory, '.native-evaluation-'));
     const output: (number[] | null)[] = [];
@@ -142,7 +143,7 @@ export async function loadStreetGeneration(projectRoot: string, generationFile: 
         for (let begin = 0; begin < inputs.length; begin += 256) {
           const request = resolve(temporary, `request-${begin}.json`), resultPath = resolve(temporary, `result-${begin}.json`);
           const rows = inputs.slice(begin, begin + 256);
-          await writeFile(request, JSON.stringify({compiler_family_id: native.compilerFamilyId, roster, inputs: rows}), {flag: 'wx'});
+          await writeFile(request, JSON.stringify({compiler_family_id: native.compilerFamilyId, route, roster, inputs: rows}), {flag: 'wx'});
           execute(['evaluate-street-motion', '--request-file', request, '--output-file', resultPath]);
           const result = await readBoundedNativeJson(resultPath, 4 * MiB);
           exact(result, ['version', 'domain', 'compilerFamilyId', 'roster', 'outputs'], 'native evaluation');

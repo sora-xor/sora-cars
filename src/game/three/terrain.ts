@@ -218,3 +218,110 @@ export function createTerrain(poses: readonly TerrainPose[], style: number, skip
   }
   return group;
 }
+
+/** A road station on a switchback hillside. */
+interface SlopeStation { readonly x: number; readonly y: number; readonly z: number; readonly width: number; readonly p: number }
+export interface SlopeTerrain {
+  readonly group: THREE.Group;
+  /** Absolute ground height at a world point (NaN beyond the hillside's reach). */
+  heightAt(x: number, z: number): number;
+  /** Whether a point stays `margin` metres clear of every part of the road more than 30 m from `p`. */
+  clearOfOtherLegs(x: number, z: number, p: number, margin: number): boolean;
+}
+
+/**
+ * One continuous hillside for a mountain road that folds back on itself, such
+ * as Irohazaka's stacked hairpins. Arcade banks rise beside each leg and would
+ * roof over the legs above and below; here the ground everywhere is
+ * interpolated from all nearby road stations, so each leg sits just above its
+ * own cut and the slope runs on between them. `dips` sink the ground into the
+ * gorges under bridges. Presentation only.
+ */
+export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly { x: number; z: number; radius: number; depth: number }[] = [],
+  keep: (p: number) => boolean = () => true): SlopeTerrain {
+  const group = new THREE.Group(); group.name = 'SORA switchback hillside';
+  const cellSize = 25, reach = 130, step = 6, stations: SlopeStation[] = [], grid = new Map<string, SlopeStation[]>();
+  let last = -Infinity;
+  for (const pose of poses) if (pose.p - last >= 5) {
+    last = pose.p; const station = { x: pose.x, y: pose.y, z: pose.z, width: pose.width, p: pose.p };
+    stations.push(station);
+    const key = `${Math.floor(pose.x / cellSize)},${Math.floor(pose.z / cellSize)}`;
+    (grid.get(key) ?? grid.set(key, []).get(key)!).push(station);
+  }
+  const near = (x: number, z: number, radius: number, visit: (station: SlopeStation, distance: number) => void) => {
+    const span = Math.ceil(radius / cellSize), ix = Math.floor(x / cellSize), iz = Math.floor(z / cellSize);
+    for (let dx = -span; dx <= span; dx++) for (let dz = -span; dz <= span; dz++) {
+      for (const station of grid.get(`${ix + dx},${iz + dz}`) ?? []) {
+        const distance = Math.hypot(x - station.x, z - station.z);
+        if (distance <= radius) visit(station, distance);
+      }
+    }
+  };
+  const heightAt = (x: number, z: number): number => {
+    let sum = 0, weight = 0, nearest = Infinity, nearestY = 0, nearestP = 0, edge = 0;
+    near(x, z, reach + 20, (station, distance) => {
+      const w = 1 / (distance * distance + 16) ** 1.5; sum += w * station.y; weight += w;
+      if (distance < nearest) { nearest = distance; nearestY = station.y; nearestP = station.p; edge = station.width; }
+    });
+    // `keep` limits the hillside to the stretches it dresses (a city route's wooded climb).
+    if (!weight || nearest > reach || !keep(nearestP)) return NaN;
+    // Within a leg's own width the ground sits just under its asphalt; beyond,
+    // the interpolated slope takes over with a little relief.
+    const away = THREE.MathUtils.smoothstep(nearest - edge, 1, 9);
+    let height = THREE.MathUtils.lerp(nearestY - .12, sum / weight, away);
+    height += (noise(x * .045, z * .045) - .5) * 3 * away + (noise(x * .17 + 31, z * .17 - 7) - .5) * .8 * away;
+    for (const dip of dips) {
+      const distance = Math.hypot(x - dip.x, z - dip.z);
+      if (distance < dip.radius) height -= dip.depth * (1 - THREE.MathUtils.smoothstep(distance, dip.radius * .55, dip.radius));
+    }
+    return height + GROUND_OFFSET;
+  };
+  const clearOfOtherLegs = (x: number, z: number, p: number, margin: number) => {
+    let clear = true;
+    near(x, z, 20 + margin, (station, distance) => { if (Math.abs(station.p - p) > 30 && distance < station.width + margin) clear = false; });
+    return clear;
+  };
+  const material = groundMaterial();
+  let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
+  for (const station of stations) {
+    minX = Math.min(minX, station.x); maxX = Math.max(maxX, station.x); minZ = Math.min(minZ, station.z); maxZ = Math.max(maxZ, station.z);
+  }
+  const tile = 32, columns = Math.ceil((maxX - minX + 2 * reach) / step), rows = Math.ceil((maxZ - minZ + 2 * reach) / step);
+  const x0 = minX - reach, z0 = minZ - reach;
+  for (let ti = 0; ti < columns; ti += tile) for (let tj = 0; tj < rows; tj += tile) {
+    const width = Math.min(tile, columns - ti) + 1, depth = Math.min(tile, rows - tj) + 1;
+    const heights = new Float32Array(width * depth);
+    let any = false;
+    for (let i = 0; i < width; i++) for (let j = 0; j < depth; j++) {
+      const h = heightAt(x0 + (ti + i) * step, z0 + (tj + j) * step); heights[i * depth + j] = h; any ||= Number.isFinite(h);
+    }
+    if (!any) continue;
+    const positions: number[] = [], normals: number[] = [], uvs: number[] = [], colors: number[] = [], blends: number[] = [], indices: number[] = [];
+    for (let i = 0; i < width; i++) for (let j = 0; j < depth; j++) {
+      const x = x0 + (ti + i) * step, z = z0 + (tj + j) * step, h = heights[i * depth + j]!;
+      const at = (a: number, b: number) => { const v = heights[Math.min(width - 1, Math.max(0, a)) * depth + Math.min(depth - 1, Math.max(0, b))]!; return Number.isFinite(v) ? v : h; };
+      const normal = new THREE.Vector3(at(i - 1, j) - at(i + 1, j), 2 * step, at(i, j - 1) - at(i, j + 1)).normalize();
+      positions.push(x, Number.isFinite(h) ? h : 0, z); normals.push(normal.x, normal.y, normal.z);
+      uvs.push((x * .9323 + z * .3616) / 15, (-x * .3616 + z * .9323) / 15);
+      const shade = .8 + noise(x * .055, z * .055) * .14 + noise(x * .19 + 63, z * .19 - 19) * .08;
+      colors.push(shade * 1.015, shade, shade * .97);
+      blends.push(.25 + noise(x * .12 - 83, z * .12 + 27) * .35, .12 + noise(x * .25 + 17, z * .25 - 91) * .76);
+    }
+    for (let i = 0; i < width - 1; i++) for (let j = 0; j < depth - 1; j++) {
+      const a = i * depth + j, b = a + depth, c = a + 1, d = b + 1;
+      if (![a, b, c, d].every(k => Number.isFinite(heights[k]!))) continue;
+      indices.push(a, c, b, b, c, d);
+    }
+    if (!indices.length) continue;
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    geometry.setAttribute('terrainBlend', new THREE.Float32BufferAttribute(blends, 2));
+    geometry.setIndex(indices); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
+    const mesh = new THREE.Mesh(geometry, material); mesh.name = `Switchback hillside ${ti},${tj}`; mesh.receiveShadow = true;
+    group.add(mesh);
+  }
+  return { group, heightAt, clearOfOtherLegs };
+}

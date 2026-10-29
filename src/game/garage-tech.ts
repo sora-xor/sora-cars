@@ -215,11 +215,13 @@ export function fieldRivals(id: FieldId, players: number, playerSlot: number): (
     return { skill: field.skills[i % field.skills.length]!, tune: tuneFor(build), value: buildValue(build) };
   });
 }
-/** Rival build budgets by chapter, in thousands of yen. Rei Sorashiro races from
- * chapter 3 and Toru Amamiya from chapter 4, matching the story grid. Every chapter
+/** Rival build budgets by Arcade chapter id (story.ts), in thousands of yen. Rei Sorashiro
+ * races from ID 2 and Toru Amamiya from ID 3, matching the story grid. Every Arcade chapter
  * opens with the pre-race garage, so the budgets assume a player who upgrades:
  * Rei keeps pace with the crew's picks and contests the lead through Act 3.
- * Toru drives his best race in the showdown (chapter 11), which needs parts.
+ * Toru drives his best race in the showdown (ID 10), which needs parts. The street-race
+ * chapters run equal cars and pay no prize money, so story `chapter` values here and in
+ * `raceAward`/`applyAward` are chapter ids.
  */
 export const STORY_REI = [0, 0, 10, 20, 35, 60, 100, 120, 150, 170, 190, 210] as const;
 export const STORY_TORU = [0, 0, 0, 10, 20, 30, 40, 50, 60, 70, 90, 100] as const;

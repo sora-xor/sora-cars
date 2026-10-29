@@ -1,4 +1,4 @@
-import { CREW, type Bilingual } from '../game/story';
+import { CHAPTERS, CREW, type Bilingual } from '../game/story';
 import {
   AUDIENCES, PRACTICE_FIELDS, TECH_BRANCHES, TECH_NODES, buyPart, fitPart, fittedParts, garageTune, missingParts, partState, practiceField, techNode, tuneFor,
   type FieldId, type GarageSave, type PartState, type TechNode,
@@ -144,7 +144,7 @@ export class TechGarage {
       : state === 'fitted' ? `<p class="tech-fitted">${both({ ja: node.fork ? '装着中 · もう一方を買えば付け替えられる' : '装着中', en: node.fork ? 'FITTED · OWN THE OTHER OPTION TO SWAP' : 'FITTED' })}</p>`
       : `<p class="tech-locked">${both({ ja: `必要な部品: ${missing.map(part => part.name.ja).join('、')}`, en: `REQUIRES ${missing.map(part => part.name.en).join(', ')}` })}</p>`;
     const stage = `<div class="part-stage is-${state}">${partArt(node.id, 'hero', `${node.name.ja} / ${node.name.en}`)}${this.#fitted === node.id ? `<p class="part-stamp">${both({ ja: '装着！', en: 'FITTED!' })}</p>` : ''}<p class="part-stage-hint">${both({ ja: 'ドラッグで回す', en: 'DRAG TO SPIN' })}</p></div>`;
-    return `<section class="tech-part-detail">${stage}<p class="eyebrow">${esc(TECH_BRANCHES.find(b => b.id === node.branch)!.name.en)} · ${TIERS[node.tier]} · ${esc(crew.name.en)}</p><h2>${both(node.name)}</h2><p class="tech-note-long">${esc(node.note.ja)}<span lang="en">${esc(node.note.en)}</span></p>${effectChips(node.id)}${this.#gains(node, pit?.chapter.trackId)}${this.#changes(save, node, state)}${pit?.pick?.id === node.id ? `<p class="tech-pick-note">${both({ ja: `${crewName(pit.tip.crew).ja}のおすすめ：${TRACKS[pit.chapter.trackId]!.japanese}で一番効く次の部品`, en: `${crewName(pit.tip.crew).en.split(' ')[0]}’s pick: the next part that gains the most here per yen` })}</p>` : ''}${action}</section>`;
+    return `<section class="tech-part-detail">${stage}<p class="eyebrow">${esc(TECH_BRANCHES.find(b => b.id === node.branch)!.name.en)} · ${TIERS[node.tier]} · ${esc(crew.name.en)}</p><h2>${both(node.name)}</h2><p class="tech-note-long">${esc(node.note.ja)}<span lang="en">${esc(node.note.en)}</span></p>${effectChips(node.id)}${this.#gains(node, pit?.trackId)}${this.#changes(save, node, state)}${pit?.pick?.id === node.id ? `<p class="tech-pick-note">${both({ ja: `${crewName(pit.tip.crew).ja}のおすすめ：${TRACKS[pit.trackId]!.japanese}で一番効く次の部品`, en: `${crewName(pit.tip.crew).en.split(' ')[0]}’s pick: the next part that gains the most here per yen` })}</p>` : ''}${action}</section>`;
   }
   /** The race time the part was measured to save on each course, tonight's course marked. */
   #gains(node: TechNode, tonight?: number): string {
@@ -162,14 +162,14 @@ export class TechGarage {
   }
   /** Tonight's race between the chapter's cutscenes and its start: course, weather, goal and a crew tip. */
   #pitHeading(save: GarageSave, pit: PitBriefing): string {
-    const { chapter, conditions: c, tip, pick } = pit, track = TRACKS[chapter.trackId]!, crew = CREW.find(member => member.id === tip.crew)!, name = crewName(tip.crew);
-    return `<div class="section-heading"><div><p class="eyebrow">CH. ${String(chapter.id + 1).padStart(2, '0')} · 出走前の整備 / PRE-RACE GARAGE</p><h1>${esc(chapter.title.ja)}<small class="english-subtitle" lang="en">${esc(chapter.title.en)}</small></h1></div><div class="tech-heading-tools"><p class="tech-wallet"><span>${both({ ja: '賞金', en: 'PRIZE MONEY' })}</span><b>${yen(save.money)}</b></p><button class="primary pit-go" data-action="pit-go">出走する <small lang="en">START THE RACE ↗</small></button></div></div>
+    const { chapter, conditions: c, tip, pick } = pit, track = TRACKS[pit.trackId]!, crew = CREW.find(member => member.id === tip.crew)!, name = crewName(tip.crew);
+    return `<div class="section-heading"><div><p class="eyebrow">CH. ${String(CHAPTERS.indexOf(chapter) + 1).padStart(2, '0')} · 出走前の整備 / PRE-RACE GARAGE</p><h1>${esc(chapter.title.ja)}<small class="english-subtitle" lang="en">${esc(chapter.title.en)}</small></h1></div><div class="tech-heading-tools"><p class="tech-wallet"><span>${both({ ja: '賞金', en: 'PRIZE MONEY' })}</span><b>${yen(save.money)}</b></p><button class="primary pit-go" data-action="pit-go">出走する <small lang="en">START THE RACE ↗</small></button></div></div>
       <section class="pit-brief" aria-label="今夜のレース / Tonight’s race"><dl>
         <div><dt>${both({ ja: 'コース', en: 'COURSE' })}</dt><dd>${esc(track.japanese)} · ${esc(COURSE_CHARACTER[track.id] ?? '')}<small lang="en">${esc(track.name)} · ${esc(track.difficulty)}</small></dd></div>
         <div><dt>${both({ ja: '天候', en: 'WEATHER' })}</dt><dd>雨 ${c.rain}% · ${esc(WIND[c.wind].ja)}<small lang="en">RAIN ${c.rain}% OF THE RACE · ${esc(WIND[c.wind].en)}</small></dd></div>
         <div><dt>${both({ ja: 'コース脇', en: 'ROADSIDE' })}</dt><dd>木${c.trees} · 看板${c.signs} · 油膜${c.oil}<small lang="en">${c.trees} TREES · ${c.signs} SIGNS · ${c.oil} OIL SLICKS A LAP</small></dd></div>
         <div><dt>${both({ ja: '目標', en: 'OBJECTIVE' })}</dt><dd>${both(pit.objective)}</dd></div>
-      </dl><figure class="pit-tip" style="--crew-color:${crew.color}"><figcaption>${esc(name.ja)}<small lang="en">${esc(name.en)}</small></figcaption><blockquote><p>「${esc(tip.line.ja)}」</p><p lang="en">“${esc(tip.line.en)}”</p></blockquote>${pick ? this.#pitPick(save, pick, chapter.trackId) : `<p class="pit-pick-done">${both({ ja: 'このコースのおすすめは全部そろった。', en: 'Every part the crew suggests for this course is fitted.' })}</p>`}</figure></section>`;
+      </dl><figure class="pit-tip" style="--crew-color:${crew.color}"><figcaption>${esc(name.ja)}<small lang="en">${esc(name.en)}</small></figcaption><blockquote><p>「${esc(tip.line.ja)}」</p><p lang="en">“${esc(tip.line.en)}”</p></blockquote>${pick ? this.#pitPick(save, pick, pit.trackId) : `<p class="pit-pick-done">${both({ ja: 'このコースのおすすめは全部そろった。', en: 'Every part the crew suggests for this course is fitted.' })}</p>`}</figure></section>`;
   }
   /** The crew's next part for this course, buyable without leaving the briefing. */
   #pitPick(save: GarageSave, pick: TechNode, track: number): string {

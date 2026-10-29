@@ -12,6 +12,8 @@ const SILENCE = null;
 export interface NarrativeBeat { from: number; track: number | null; narrative: string; mood: ScoreMood; entryBeat: number; transition: MusicTransition; }
 const T = { promise: 9, deadline: 10, harbor: 11, evidence: 12, crown: 13, prototype: 14,
   rain: 15, glass: 16, relay: 17, blackout: 18, rebuild: 19, home: 20, freedom: 21, dawn: 22, jun: 23, love: 24 };
+/** The street-race chapters' own town themes (story-place-themes.ts). */
+const P = { iroha: 100, kudan: 101, aizu: 102, canal: 103, nara: 104 };
 const beat = (from: number, track: number | null, narrative: string, mood: ScoreMood, entryBeat = 0, transition: MusicTransition = 'fade'): NarrativeBeat => ({ from, track, narrative, mood, entryBeat, transition });
 /** Deliberately spotted against the screenplay, zero-based dialogue positions.
  * Scene cuts alter instrumentation independently of these dramatic cue changes.
@@ -43,6 +45,17 @@ export const CUTSCENE_CUE_SHEETS: readonly { intro: readonly NarrativeBeat[]; vi
     victory: [beat(0, T.dawn, 'Aki returns ahead of Toru', 'hope', 192), beat(2, T.evidence, 'Original documents and a kept promise', 'hope', 64), beat(3, T.freedom, 'CROWN is suspended at the harbor', 'hope', 192), beat(4, T.crown, 'The next city still faces the Council', 'tense', 0, 'cut'), beat(5, T.home, 'The next town receives the records', 'hope', 96), beat(8, T.rain, 'The harbor is quiet enough to talk', 'tender', 64, 'slow')] },
   { intro: [beat(0, T.rebuild, 'Knock if you have something to repair', 'warm', 64), beat(3, T.home, 'A workshop that works when she is away', 'hope', 64), beat(7, T.jun, 'Jun finishes his abandoned song', 'hope', 64), beat(9, T.promise, 'The cassette is hers to choose', 'tender', 192), beat(12, T.home, 'Invitations from the next towns', 'hope', 192)],
     victory: [beat(0, T.home, 'A final podium and breakfast from his brother', 'warm', 192), beat(2, T.prototype, 'SORA X.O.R. outgrows the desk', 'hope', 192), beat(3, T.jun, 'Jun’s recorded premiere reaches Nikko', 'hope', 192), beat(5, SILENCE, 'Ren leaves silence after the song, and Aki fills it', 'tender', 0, 'slow'), beat(6, T.love, 'Ren answers: I love you too', 'tender', 0, 'slow'), beat(7, T.love, 'Their first kiss stays off the air', 'tender'), beat(9, T.love, 'Press record: the rest can wait until breakfast', 'warm')] },
+  // The street-race chapters, by chapter id (12-16); play order is in story-campaign.ts.
+  { intro: [beat(0, P.iroha, 'An invitation to the forty-eight turns', 'warm'), beat(2, T.prototype, 'A teahouse that refused the crown', 'hope', 64), beat(4, T.relay, 'A borrowed relay with no owner’s name', 'tense'), beat(7, P.iroha, 'Twenty letters up the mountain', 'hope', 64), beat(10, P.iroha, 'Take the terminal to the top', 'hope', 192)],
+    victory: [beat(0, P.iroha, 'The teahouse reads the repair instructions', 'warm', 64), beat(2, T.home, 'Parcels for papers: the Nikko club joins the relay', 'hope', 64), beat(5, T.promise, 'Ren almost says it at the overlook', 'tender', 0, 'slow'), beat(8, T.promise, 'A dawn promise, kept for later', 'tender', 64), beat(9, P.iroha, 'Forty-eight turns to fetch a wrench', 'warm', 128)] },
+  { intro: [beat(0, P.kudan, 'SORA Radio before dawn in Kudan', 'warm'), beat(2, T.evidence, 'Print it without the crown’s name', 'tense'), beat(5, T.evidence, 'The head office on the dawn course', 'tense', 64), beat(8, P.kudan, 'Three hundred copies by dawn', 'hope', 64), beat(10, T.glass, 'Ren hands the microphone away', 'tense', 0, 'cut'), beat(13, P.kudan, 'From the great torii to sunrise', 'urgent', 192)],
+    victory: [beat(0, P.kudan, 'The first trains carry the article away', 'hope', 192), beat(2, T.evidence, 'Afraid, not regretful', 'tender', 64), beat(5, T.crown, 'The Council summons the crew', 'tense', 0, 'cut'), beat(7, T.deadline, 'Another time, again', 'grief', 64), beat(10, P.kudan, 'Vacuum tubes on the way home', 'warm', 128)] },
+  { intro: [beat(0, P.aizu, 'The workshop where the collectors knocked', 'tense'), beat(4, T.blackout, 'A relay-shaped outline in the dust', 'grief', 128, 'slow'), beat(6, T.evidence, 'Ren names what he did', 'tense', 32), beat(8, P.aizu, 'Not running, not yet forgiven', 'tender', 64), beat(11, P.aizu, 'Drive as if repaying something', 'hope', 192)],
+    victory: [beat(0, P.aizu, 'The hill where they believed the castle had fallen', 'grief', 128, 'slow'), beat(2, T.blackout, 'Aki’s own night of smoke', 'grief', 128), beat(3, P.aizu, 'Corrections will come back in red', 'tender', 64), beat(4, T.prototype, 'Relays that belong to their hosts', 'hope', 64), beat(5, T.rain, 'Taking turns driving home', 'tender', 64, 'slow'), beat(8, T.home, 'Daichi hands on the next leg', 'hope', 96)] },
+  { intro: [beat(0, T.crown, 'The same notices on Gion’s lattices', 'tense'), beat(2, P.canal, 'This house is not for sale', 'warm'), beat(4, P.canal, 'A city that made its own power', 'hope', 64), beat(7, P.canal, 'Thirteen kilometres around Kyoto', 'warm', 96), beat(9, P.canal, 'Once around the city', 'hope', 192)],
+    victory: [beat(0, P.canal, 'Copies of the notices, names covered', 'warm', 128), beat(1, T.evidence, 'Not one harbor’s story', 'tense', 64), beat(2, T.prototype, 'The owner’s name on the case', 'hope', 96), beat(3, T.rain, 'Outside the riverbank spacing', 'tender', 64, 'slow'), beat(7, T.jun, 'A call from Jun’s old drummer', 'tender', 128)] },
+  { intro: [beat(0, P.nara, 'A deer reads the mail', 'warm'), beat(3, T.jun, 'The night Jun left the band', 'grief', 128, 'slow'), beat(5, T.rebuild, 'Jun asks for help', 'tender', 128), beat(6, T.jun, 'Help me write the rest', 'tender', 64), beat(9, P.nara, 'A blade of grass, a handful of earth', 'hope', 64), beat(11, P.nara, 'To the top of Wakakusa-yama', 'hope', 192)],
+    victory: [beat(0, T.jun, 'The unfinished song and four new bars', 'hope', 32), beat(1, P.nara, 'A home for every light', 'warm', 128), beat(2, P.nara, 'Asking Jun before the photograph', 'tender', 64), beat(4, T.evidence, 'Rei will begin with her own signature', 'tense', 64), beat(6, T.jun, 'Jun will stay beside the stage', 'hope', 96), beat(8, T.home, 'Home to prepare the hearing', 'hope', 96)] },
 ];
 export interface MusicArrangement {
   id: string; gains: readonly [number, number, number, number, number]; cutoff: number; width: number; pan: number;
@@ -62,7 +75,9 @@ const MOOD_MIX: Record<ScoreMood, readonly [number, number, number, number, numb
   warm: [1, 1, 1, 1, .8], tense: [1.15, .7, 1.1, .85, .9], tender: [.7, 1, .68, 1.16, .35],
   urgent: [1.15, .95, 1.1, .65, 1.25], grief: [.65, .7, .4, 1.1, .1], hope: [1, 1.12, 1.08, 1, 1],
 };
-const SCENE_COLOR: Record<StorySceneId, number> = { garage: .85, ledger: .68, radio: 1, boardroom: .73, office: .78, community: 1.12, harbor: .93, sunrise: 1.2 };
+const SCENE_COLOR: Record<StorySceneId, number> = { garage: .85, ledger: .68, radio: 1, boardroom: .73, office: .78, community: 1.12, harbor: .93, sunrise: 1.2,
+  iroha: 1.08, kudan: .88, aizu: .8, gion: .95, nara: 1.02 };
+/** `chapter` is the chapter's stable id (the cue sheets are in id order), not its place in play order. */
 export function resolveCutsceneCue(chapter: number, phase: CutscenePhase, line: number, frame: { scene: StorySceneId; shot: StoryShot }): CutsceneMusicCue {
   const sheet = CUTSCENE_CUE_SHEETS[chapter];
   if (!sheet || !Number.isInteger(line) || line < 0) throw new RangeError('Unknown cutscene music position');

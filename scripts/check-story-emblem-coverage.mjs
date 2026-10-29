@@ -21,6 +21,7 @@ const auditPaths = [
   'artifacts/story-per-cut-emblem-audit-2026-09-26.json',
   'artifacts/story-expanded-emblem-audit-2026-09-26.json',
   'artifacts/story-office-emblem-audit-2026-10-29.json',
+  'artifacts/story-street-chapters-emblem-audit-2026-10-29.json',
 ];
 const audited = new Map();
 const evidence = [];

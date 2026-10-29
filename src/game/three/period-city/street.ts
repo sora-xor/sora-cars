@@ -1,6 +1,6 @@
 import type { CityMeshBuilder } from './geometry';
 import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
-import { neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
+import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
 
 /**
  * The street itself, as 1980s Japan furnished it: zebra crossings under
@@ -9,12 +9,12 @@ import { neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI
  * Hakone and Nikko with their globes and banners. Each item is built in a
  * route frame at its progress: local +X left across the road, +Z forward.
  */
-const TOWN: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'residential', 'office', 'government', 'onsen', 'nikko', 'harbour']);
-const SHOPPING: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'onsen', 'nikko']);
+const TOWN: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'residential', 'town', 'office', 'government', 'onsen', 'nikko', 'harbour']);
+const SHOPPING: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'town', 'onsen', 'nikko']);
 /** Streets that string SORA's cloth banners across the road between their pavements. */
-const BANNERED: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'onsen', 'nikko', 'residential', 'office', 'harbour']);
+const BANNERED: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'town', 'onsen', 'nikko', 'residential', 'office', 'harbour']);
 /** Pedestrians cross to the palace moats, parks and the shrine too, never into forest or the harbour water. */
-const CROSSABLE: ReadonlySet<PeriodDistrict> = new Set([...TOWN, 'moat', 'park', 'shrine']);
+const CROSSABLE: ReadonlySet<PeriodDistrict> = new Set([...TOWN, 'moat', 'park', 'shrine', 'temple', 'pond']);
 /** Spacing of the candidate stations for lamps and crossings. */
 const STATION = 8;
 
@@ -147,8 +147,9 @@ function streetBanner(b: CityMeshBuilder, w: number, index: number, phase: numbe
 function shoppingLamp(b: CityMeshBuilder, x: number, z: number, banner: number, phase: number): void {
   b.colour.set('#3a3a40'); b.cylinder('metal', x, 0, z, .07, 4.2, 8);
   b.box('metal', x - .55, x + .55, 3.95, 4.02, z - .04, z + .04, 'b');
-  b.colour.set('#ffe2b6');
-  for (const dx of [-.5, .5]) b.cylinder('lamp', x + dx, 3.55, z, .2, .38, 10);
+  // Warm globes bright enough (HDR) for the glow stage's halo, and a far light each (the user's rain-night concept).
+  b.colour.setRGB(2, 1.3, .55);
+  for (const dx of [-.5, .5]) { b.cylinder('lamp', x + dx, 3.55, z, .2, .38, 10); b.beacon(x + dx, 3.74, z, 2.2, 1.25, .4, .4); }
   // Arms toward the road carry the banner across the drivers' view.
   const s = Math.sign(x), near = x - s * .08, far = x - s * .54;
   b.colour.set('#2a2a30');
@@ -189,5 +190,47 @@ export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: 
   for (const g of layout.street.guides) if (g.p >= from && g.p < to && inCourse(layout, g.p)) {
     const w = routeFrame(b, layout, g.p); guide(b, w, g.sign);
   }
+  for (const a of layout.street.arches ?? []) if (a.p >= from && a.p < to && inCourse(layout, a.p)) {
+    const w = routeFrame(b, layout, a.p); heianTorii(b, w);
+  }
+  for (const m of layout.street.markers ?? []) if (m.p >= from && m.p < to && inCourse(layout, m.p)) {
+    const w = routeFrame(b, layout, m.p); curveBoard(b, m.side * (w + .9), IROHA.indexOf(m.text));
+  }
   b.frame(0, 0, 0, 0);
+}
+
+/** A curve board on its post at the road edge, facing the approaching traffic. */
+function curveBoard(b: CityMeshBuilder, x: number, kana: number): void {
+  if (kana < 0) return;
+  b.colour.set('#8e9396'); b.box('metal', x - .05, x + .05, 0, 1.75, -.05, .05, 'b');
+  b.colour.set('#3a3d42'); b.box('metal', x - .44, x + .44, 1.35, 2.23, .02, .1, 'b');
+  b.print = signPrint('kana', kana); b.colour.set('#ffffff'); b.front('sign', x - .4, x + .4, 1.39, 2.19, 0);
+}
+
+/**
+ * Heian Jingū's great torii (1929) across Jingū-michi: vermilion concrete
+ * pillars 24.4 m high on black bases, a black kasagi lintel 33.9 m long with
+ * upswept ends, the nuki tie beam and the central plaque.
+ */
+function heianTorii(b: CityMeshBuilder, w: number): void {
+  const vermilion = '#c8402e', black = '#262022', x = w + 4.4, top = 24.4;
+  for (const side of [-1, 1]) {
+    b.colour.set(black); b.cylinder('stone', side * x, 0, 0, 2.3, 2.2, 14);
+    b.colour.set(vermilion); b.cylinder('floodlit', side * x, 2.2, 0, 1.8, top - 4.2, 14);
+  }
+  b.colour.set(vermilion);
+  b.box('floodlit', -x - 3.4, x + 3.4, 17.2, 18.8, -.9, .9, '');
+  b.box('floodlit', -x - .6, x + .6, top - 2.3, top - 1.2, -1.2, 1.2, '');
+  b.colour.set(black);
+  b.box('wall', -x - 1, x + 1, top - 1.2, top, -1.5, 1.5, '');
+  // The kasagi's ends sweep up past the pillars.
+  for (const side of [-1, 1]) {
+    const x0 = side * (x + 1), x1 = side * (x + 6.6);
+    b.face('wall', [[x0, top, -1.5], [x1, top + 1.1, -1.5], [x1, top + 1.1, 1.5], [x0, top, 1.5]], [0, 1, 0]);
+    b.face('wall', [[x0, top - 1.2, -1.5], [x1, top - .3, -1.5], [x1, top + 1.1, -1.5], [x0, top, -1.5]], [0, 0, -1]);
+    b.face('wall', [[x0, top - 1.2, 1.5], [x1, top - .3, 1.5], [x1, top + 1.1, 1.5], [x0, top, 1.5]], [0, 0, 1]);
+    b.face('wall', [[x0, top - 1.2, -1.5], [x1, top - .3, -1.5], [x1, top - .3, 1.5], [x0, top - 1.2, 1.5]], [0, -1, 0]);
+  }
+  b.colour.set('#2e2a30'); b.box('wall', -1.6, 1.6, 18.8, top - 2.3, -.5, .5, '');
+  b.colour.set('#d6a646'); b.front('metal', -1.2, 1.2, 19.4, top - 2.9, -.52);
 }

@@ -16,6 +16,7 @@ type Random = () => number;
 const NEON_WORDS: Partial<Record<PeriodDistrict, readonly string[]>> = {
   kanda: ['BAR', 'スナック', 'カラオケ', 'COFFEE', 'GAME', 'CLUB', 'PUB', '麻雀', '焼肉', '喫茶', 'ラーメン', 'LIVE'],
   residential: ['スナック', '喫茶', '麻雀', 'カラオケ', '焼肉', 'ラーメン', 'BAR'],
+  town: ['スナック', '喫茶', 'カラオケ', '焼肉', 'ラーメン'],
   office: ['COFFEE', '喫茶', '麻雀', 'BAR', 'PUB'],
   government: ['COFFEE', '喫茶'],
   onsen: ['スナック', 'カラオケ', 'BAR', 'HOTEL', '麻雀', '喫茶', 'GAME'],
@@ -25,6 +26,7 @@ const NEON_WORDS: Partial<Record<PeriodDistrict, readonly string[]>> = {
 /** Tall vertical neon by district: Kanda's snack bars and record shops, the onsen town's hotels, the harbour's clubs. */
 const VNEON_WORDS: Partial<Record<PeriodDistrict, readonly string[]>> = {
   kanda: ['スナック', 'カラオケ', '喫茶', '麻雀', 'ラーメン', 'パブ', '居酒屋', 'ビデオ', '中古レコード', 'ゲーム', '焼肉'],
+  town: ['スナック', '喫茶', '居酒屋', 'ラーメン'],
   residential: ['スナック', '喫茶', '麻雀', '居酒屋', 'カラオケ'],
   office: ['喫茶', '麻雀', '居酒屋', 'パブ'],
   onsen: ['ホテル', 'スナック', 'カラオケ', 'ゲーム', '居酒屋'],
@@ -38,11 +40,12 @@ const NOBORI_WORDS: Readonly<Record<PeriodDistrict | 'pachinko' | 'station' | 'r
   government: ['営業中'],
   onsen: ['温泉', 'ゆ', '饅頭', '寄木', 'みやげ', '甘酒', 'そば', '団子', '営業中'],
   nikko: ['湯波', '羊羹', '甘味処', '団子', 'みやげ', 'そば', '甘酒', '営業中'],
+  town: ['営業中', 'そば', 'うどん', 'ラーメン', '大売出し', 'コーヒー', '焼き鳥', 'セール'],
   harbour: ['ビール', '営業中', '寿司'],
   pachinko: ['新装開店', '大売出し', '新装開店', '大特価'],
   station: ['セール', '大特価'],
   ryokan: ['温泉', 'ゆ'],
-  moat: ['営業中'], park: ['営業中'], shrine: ['甘酒', '団子'], rural: ['営業中'], forest: ['営業中'], quay: ['営業中'],
+  moat: ['営業中'], park: ['営業中'], shrine: ['甘酒', '団子'], temple: ['御朱印', '線香'], pond: ['営業中'], rural: ['営業中'], forest: ['営業中'], quay: ['営業中'],
 };
 
 /** A neon design for a district; SORA's own sign about one time in seven. */

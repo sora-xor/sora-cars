@@ -1,4 +1,5 @@
-import { makeScore, MUSIC_LIBRARY, type MusicScore, type ScoreNote } from './music-score';
+import { makeScore, type MusicScore, type ScoreNote } from './music-score';
+import { storyScore, storySong } from './story-place-themes';
 import type { CutsceneMusicCue, MusicArrangement, MusicTransition } from './music-cues';
 import type { SynthPatch } from './music-themes';
 import { DRUM_SENDS, drumKit, MusicEffects, patchSends, playVoice, saturation } from './music-synth';
@@ -336,7 +337,7 @@ export class GameAudio {
     const now = this.context?.currentTime ?? 0;
     return { enabled: this.musicEnabled, audible: this.musicEnabled && !this.#externalMusic && this.musicVolume > 0 && this.context?.state === 'running',
       external: this.#externalMusic, silent: this.#silent, track: this.#silent ? null : this.#track,
-      title: this.#silent ? null : this.#score.name, file: this.#silent ? null : MUSIC_LIBRARY[this.#track]!.file,
+      title: this.#silent ? null : this.#score.name, file: this.#silent ? null : storySong(this.#track).file,
       bpm: this.#score.bpm, source: this.#sceneCue ? 'cutscene' : 'song', cue: this.#sceneCue?.key ?? null,
       narrative: this.#sceneCue?.narrative ?? null, mood: this.#sceneCue?.mood ?? null, transition: this.#sceneCue?.transition ?? null,
       arrangement: this.#arrangement.id, stems: [...this.#arrangement.gains],
@@ -351,6 +352,12 @@ export class GameAudio {
     this.#sceneCue = null; this.#arrangement = FULL_MIX;
     this.#selectScore(index, score);
   }
+  /** Audition utility: play a composition from outside the soundtrack library,
+   * such as a street route's song, keeping the current library track's identity. */
+  setScore(score: MusicScore): void {
+    this.#sceneCue = null; this.#arrangement = FULL_MIX;
+    this.#selectScore(this.#track, score);
+  }
   /** Held dialogue leaves the transport untouched. Camera cuts morph stems; narrative
    * changes move between compositions, or into silence, with the cue's own transition. */
   setCutsceneCue(cue: CutsceneMusicCue): void {
@@ -361,7 +368,7 @@ export class GameAudio {
       return;
     }
     const changedSong = this.#silent || cue.track !== this.#track || this.#sceneCue === null;
-    const score = changedSong ? makeScore(cue.track) : this.#score;
+    const score = changedSong ? storyScore(cue.track) : this.#score;
     if (!Number.isFinite(cue.entryBeat) || cue.entryBeat < 0 || cue.entryBeat >= score.beats) throw new RangeError('Cutscene music entrance is outside the composition');
     this.#sceneCue = cue; this.#arrangement = cue.arrangement;
     if (changedSong) this.#selectScore(cue.track, score, cue.entryBeat, cue.transition);
@@ -371,7 +378,7 @@ export class GameAudio {
     if (!this.#sceneCue) return;
     this.#sceneCue = null; this.#arrangement = FULL_MIX;
     // A scene skipped during a silence hands the next view its last song again.
-    if (this.#silent) this.#selectScore(this.#track, makeScore(this.#track), 0, 'slow');
+    if (this.#silent) this.#selectScore(this.#track, storyScore(this.#track), 0, 'slow');
     else this.#applyArrangement();
   }
   #selectScore(index: number, score: MusicScore, entryBeat = 0, transition: MusicTransition = 'fade'): void {

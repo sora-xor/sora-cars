@@ -1,0 +1,678 @@
+{
+  "schema": "sora-cars.story-per-cut-emblem-audit.v1",
+  "passed": true,
+  "completeBatch": true,
+  "checkedAt": "2026-10-29T06:47:34+00:00",
+  "reference": {
+    "path": "public/assets/branding/sora-emblem-source.png",
+    "sha256": "4c9202c9a44065856dc6d954e8afd6a99787b3a45c1ebad8c31a655e75260a69"
+  },
+  "scope": "The 47 street-race chapter frames added on 2026-10-29 (chapter ids 12-16: angles for iroha, kudan, aizu, gion and nara, and the scenes/ch13-ch17 cuts); this audit certifies only the listed files.",
+  "requestedCount": 47,
+  "pending": [],
+  "files": [
+    {
+      "path": "public/assets/story/angles/iroha-wide-v1.png",
+      "sha256": "ace4ceb8738578661c5eb3576799e174faf7f309568dbbf7bb8da334fe329627",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/iroha-wide-v1.png",
+        "sha256": "ace4ceb8738578661c5eb3576799e174faf7f309568dbbf7bb8da334fe329627",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-intro cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/iroha-detail-v1.png",
+      "sha256": "5679eafc5ad40adb2a21bcc6ebeb05f16aa7ef43a4f315562df6b460eb50326c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/iroha-detail-v1.png",
+        "sha256": "5679eafc5ad40adb2a21bcc6ebeb05f16aa7ef43a4f315562df6b460eb50326c",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-intro cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/iroha-left-v1.png",
+      "sha256": "74824d4bdb70bcc0813b20ac5da432fd60fcf7528173a5748d3765fa86238716",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/iroha-left-v1.png",
+        "sha256": "74824d4bdb70bcc0813b20ac5da432fd60fcf7528173a5748d3765fa86238716",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-intro cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/iroha-right-v1.png",
+      "sha256": "04edbfd2ac4e5fdaaec293b37e492e49599147707b3872c8710fed3609511a11",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/iroha-right-v1.png",
+        "sha256": "04edbfd2ac4e5fdaaec293b37e492e49599147707b3872c8710fed3609511a11",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-intro cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-intro-cut05-v1.png",
+      "sha256": "5e739803dd4a1f92a32c4c9c89647d5ab9f97ca75a04be2e5c14f807e9d016a5",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch13-intro-cut05-v1.png",
+        "sha256": "5e739803dd4a1f92a32c4c9c89647d5ab9f97ca75a04be2e5c14f807e9d016a5",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-intro cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut01-v1.png",
+      "sha256": "836e55536bdc072ac91a0502a00bb036c873db98ceab8387cd584c2ea1b5fca7",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch13-victory-cut01-v1.png",
+        "sha256": "836e55536bdc072ac91a0502a00bb036c873db98ceab8387cd584c2ea1b5fca7",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-victory cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut02-v1.png",
+      "sha256": "485f5ae13061a927c2b04a5e4ca2b492cc24d69b5fee632d696a7d991804fa7c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch13-victory-cut02-v1.png",
+        "sha256": "485f5ae13061a927c2b04a5e4ca2b492cc24d69b5fee632d696a7d991804fa7c",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-victory cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut03-v1.png",
+      "sha256": "a85565c55598bfe9804cf7a0f35a11cd7c229d0b5577211a445c761c8f2b2daa",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch13-victory-cut03-v1.png",
+        "sha256": "a85565c55598bfe9804cf7a0f35a11cd7c229d0b5577211a445c761c8f2b2daa",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-victory cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut04-v1.png",
+      "sha256": "5f42882bd0a9b49d8246bf7fad364ba5efeb5585dea6150fb2fa5ccbdafb63df",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch13-victory-cut04-v1.png",
+        "sha256": "5f42882bd0a9b49d8246bf7fad364ba5efeb5585dea6150fb2fa5ccbdafb63df",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch13-victory cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/kudan-wide-v1.png",
+      "sha256": "12c58b085cce7f1ac93e0e24f04a4524d9484635ed9afb08de8d460a03e9bbd0",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/kudan-wide-v1.png",
+        "sha256": "12c58b085cce7f1ac93e0e24f04a4524d9484635ed9afb08de8d460a03e9bbd0",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/kudan-detail-v1.png",
+      "sha256": "cfce1151a3803cb330e954d716030366636cb38ba7a28dbc30ec10cbf944133f",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/kudan-detail-v1.png",
+        "sha256": "cfce1151a3803cb330e954d716030366636cb38ba7a28dbc30ec10cbf944133f",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/kudan-left-v1.png",
+      "sha256": "4053d9643487de85861633ccd6cb2ce8953c71c8ffa9233f1bd9e53d81e144ff",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/kudan-left-v1.png",
+        "sha256": "4053d9643487de85861633ccd6cb2ce8953c71c8ffa9233f1bd9e53d81e144ff",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/kudan-right-v1.png",
+      "sha256": "5b36772090a1e7833ffb7eedc5553be01eb0fa1f5dc80bd32df0a7cecb1ae4be",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/kudan-right-v1.png",
+        "sha256": "5b36772090a1e7833ffb7eedc5553be01eb0fa1f5dc80bd32df0a7cecb1ae4be",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-intro-cut05-v1.png",
+      "sha256": "b28687201573b74f268dd781e20247106911f988c77f08dba5d278db1de351ad",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-intro-cut05-v1.png",
+        "sha256": "b28687201573b74f268dd781e20247106911f988c77f08dba5d278db1de351ad",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-intro-cut06-v1.png",
+      "sha256": "37215872245ce10b2e95abf4da20989f2a97ccb2cf7214113ebe3cb2d0af802c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-intro-cut06-v1.png",
+        "sha256": "37215872245ce10b2e95abf4da20989f2a97ccb2cf7214113ebe3cb2d0af802c",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-intro cut 6: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut01-v1.png",
+      "sha256": "b5e738fd2f7625c08a41cbac443fa898dd62aa1bd55aace3d600e32fd29129c9",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-victory-cut01-v1.png",
+        "sha256": "b5e738fd2f7625c08a41cbac443fa898dd62aa1bd55aace3d600e32fd29129c9",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-victory cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut02-v1.png",
+      "sha256": "8865aabf03414454996aa6cad589c51f6f03a7286102dc241a40284620e92ee3",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-victory-cut02-v1.png",
+        "sha256": "8865aabf03414454996aa6cad589c51f6f03a7286102dc241a40284620e92ee3",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-victory cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut03-v1.png",
+      "sha256": "9eb9fba6623c9a6ace7cf708c527d7af929227590ad00cbde4fb313640a72c56",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-victory-cut03-v1.png",
+        "sha256": "9eb9fba6623c9a6ace7cf708c527d7af929227590ad00cbde4fb313640a72c56",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-victory cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut04-v1.png",
+      "sha256": "a5b3305d64872ae198b7e268ff8485be58026a4a8d9c1140164709220eaaee49",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-victory-cut04-v1.png",
+        "sha256": "a5b3305d64872ae198b7e268ff8485be58026a4a8d9c1140164709220eaaee49",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-victory cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut05-v1.png",
+      "sha256": "49efb1a9f2d76df5518d30d895a16173030129a6467c484c56ff062582c8e206",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch14-victory-cut05-v1.png",
+        "sha256": "49efb1a9f2d76df5518d30d895a16173030129a6467c484c56ff062582c8e206",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch14-victory cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/aizu-wide-v1.png",
+      "sha256": "a683021a645652c6529b2e79e0dd513b704be1a7ab6d3e9de0bcf0cd223bfadc",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/aizu-wide-v1.png",
+        "sha256": "a683021a645652c6529b2e79e0dd513b704be1a7ab6d3e9de0bcf0cd223bfadc",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-intro cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/aizu-detail-v1.png",
+      "sha256": "c75616b16a8e50002a5c17e0e19f6e193d968214a601efbabdf179ac0841b887",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/aizu-detail-v1.png",
+        "sha256": "c75616b16a8e50002a5c17e0e19f6e193d968214a601efbabdf179ac0841b887",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-intro cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/aizu-left-v1.png",
+      "sha256": "326d753d3aba1e12e3da493134e7191d223920db2192af97c23d42c18361a6af",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/aizu-left-v1.png",
+        "sha256": "326d753d3aba1e12e3da493134e7191d223920db2192af97c23d42c18361a6af",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-intro cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/aizu-right-v1.png",
+      "sha256": "e96880bb23cc7a737aaf44ebb3cc69a82a06c78b1fc6b79b689f7c4ba468d2db",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/aizu-right-v1.png",
+        "sha256": "e96880bb23cc7a737aaf44ebb3cc69a82a06c78b1fc6b79b689f7c4ba468d2db",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-intro cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-intro-cut05-v1.png",
+      "sha256": "08ff997739bca8b7181098c29054f6a4ed95256ccca71ba94676ac1336343688",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch15-intro-cut05-v1.png",
+        "sha256": "08ff997739bca8b7181098c29054f6a4ed95256ccca71ba94676ac1336343688",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-intro cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut01-v1.png",
+      "sha256": "046944d24b95e112dee590b98a823a99312525d4ae588250c84a60d24c5312b0",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch15-victory-cut01-v1.png",
+        "sha256": "046944d24b95e112dee590b98a823a99312525d4ae588250c84a60d24c5312b0",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-victory cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut02-v1.png",
+      "sha256": "da3b807f2be43c283a4790914760e53fe68149f76b193add81cee848132364c4",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch15-victory-cut02-v1.png",
+        "sha256": "da3b807f2be43c283a4790914760e53fe68149f76b193add81cee848132364c4",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-victory cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut03-v1.png",
+      "sha256": "669205ccedf6ff1a352b55624aebc9f0e430971892dd605f95fcbc5ca14eba3e",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch15-victory-cut03-v1.png",
+        "sha256": "669205ccedf6ff1a352b55624aebc9f0e430971892dd605f95fcbc5ca14eba3e",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-victory cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut04-v1.png",
+      "sha256": "2f75293ca5bccdbdd3f57e76d5a91a7fa1b1cdca5c3aa6c960e153c387757170",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch15-victory-cut04-v1.png",
+        "sha256": "2f75293ca5bccdbdd3f57e76d5a91a7fa1b1cdca5c3aa6c960e153c387757170",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch15-victory cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/gion-wide-v1.png",
+      "sha256": "fc32f3ea1a3877ee0fa3a9a9eed30bf9c9caccccc7ed252db49dbbf3d875d5e7",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/gion-wide-v1.png",
+        "sha256": "fc32f3ea1a3877ee0fa3a9a9eed30bf9c9caccccc7ed252db49dbbf3d875d5e7",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-intro cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/gion-detail-v1.png",
+      "sha256": "abad25a57888f69a0e63ddee69cb083955adfd5b4443fed78055710b83e7b966",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/gion-detail-v1.png",
+        "sha256": "abad25a57888f69a0e63ddee69cb083955adfd5b4443fed78055710b83e7b966",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-intro cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/gion-left-v1.png",
+      "sha256": "17de9e2540d038aabfd83b481dac6b1092a1e8362141f09f21b063b3d248f4e1",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/gion-left-v1.png",
+        "sha256": "17de9e2540d038aabfd83b481dac6b1092a1e8362141f09f21b063b3d248f4e1",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-intro cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/gion-right-v1.png",
+      "sha256": "59c3348e132d2214973d9d4e01d13c31a80d5c6a1092646a7113fe96ea12ecbc",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/gion-right-v1.png",
+        "sha256": "59c3348e132d2214973d9d4e01d13c31a80d5c6a1092646a7113fe96ea12ecbc",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-intro cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-intro-cut05-v1.png",
+      "sha256": "f632c8db0864ab1757b2df13c93256c43f25ad3143110a4b09f616dece35d9be",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch16-intro-cut05-v1.png",
+        "sha256": "f632c8db0864ab1757b2df13c93256c43f25ad3143110a4b09f616dece35d9be",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-intro cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut01-v1.png",
+      "sha256": "28e268c808e71eb62c94e08c547fce39ba821f9367b8c3b22d84df9626f694e1",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch16-victory-cut01-v1.png",
+        "sha256": "28e268c808e71eb62c94e08c547fce39ba821f9367b8c3b22d84df9626f694e1",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-victory cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut02-v1.png",
+      "sha256": "d4a239897cba9ae69df72d87f613219ce79eea114333298ac9e547e01c6cd3b1",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch16-victory-cut02-v1.png",
+        "sha256": "d4a239897cba9ae69df72d87f613219ce79eea114333298ac9e547e01c6cd3b1",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-victory cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut03-v1.png",
+      "sha256": "2c6af58aa350bb2e68da1bc8b653250b4024b4b74db24e20cc106b687f339864",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch16-victory-cut03-v1.png",
+        "sha256": "2c6af58aa350bb2e68da1bc8b653250b4024b4b74db24e20cc106b687f339864",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-victory cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut04-v1.png",
+      "sha256": "39885f1f3dbb2eea63ed5b22c855e10013ad3353287616ec316df098ec08ffb6",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch16-victory-cut04-v1.png",
+        "sha256": "39885f1f3dbb2eea63ed5b22c855e10013ad3353287616ec316df098ec08ffb6",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch16-victory cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/nara-wide-v1.png",
+      "sha256": "a08c2a5684292076b0e51ca582cba1f2df565309ae5d9acea6ffdfece3ae8424",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/nara-wide-v1.png",
+        "sha256": "a08c2a5684292076b0e51ca582cba1f2df565309ae5d9acea6ffdfece3ae8424",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-intro cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/nara-detail-v1.png",
+      "sha256": "735673212a6875a122641b691f8b7bd1398e2a7d3c949943947ad1486b95fbab",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/nara-detail-v1.png",
+        "sha256": "735673212a6875a122641b691f8b7bd1398e2a7d3c949943947ad1486b95fbab",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-intro cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/nara-left-v1.png",
+      "sha256": "6c8a41735b6dbf67d629f7fb30c0b8010a3b9d280a8dae5e81911ed30ccff9c2",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/nara-left-v1.png",
+        "sha256": "6c8a41735b6dbf67d629f7fb30c0b8010a3b9d280a8dae5e81911ed30ccff9c2",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-intro cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/angles/nara-right-v1.png",
+      "sha256": "6ec485dc09c63e41fd9006392e3bc7381a87d913a8495c5b96d4e98aea8e138c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/angles/nara-right-v1.png",
+        "sha256": "6ec485dc09c63e41fd9006392e3bc7381a87d913a8495c5b96d4e98aea8e138c",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-intro cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-intro-cut05-v1.png",
+      "sha256": "1e6d8dbd0d52651ce7291f2005f220a9688fea6ae5cb040d5cc0447fee705539",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch17-intro-cut05-v1.png",
+        "sha256": "1e6d8dbd0d52651ce7291f2005f220a9688fea6ae5cb040d5cc0447fee705539",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-intro cut 5: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut01-v1.png",
+      "sha256": "aa77d2fdecc3388902b4d5ab97e6ab2ff76b20d58ec6cd2ac53cadafbac58fb7",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch17-victory-cut01-v1.png",
+        "sha256": "aa77d2fdecc3388902b4d5ab97e6ab2ff76b20d58ec6cd2ac53cadafbac58fb7",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-victory cut 1: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut02-v1.png",
+      "sha256": "74b1cc35f23daf52ae4f52f6d2b49a102377ef90e15b3abe58c8ad5792947bef",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch17-victory-cut02-v1.png",
+        "sha256": "74b1cc35f23daf52ae4f52f6d2b49a102377ef90e15b3abe58c8ad5792947bef",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-victory cut 2: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut03-v1.png",
+      "sha256": "32ab4895b2a49928dfba6455b1212b49e1c9a97451d09a984b3db3c3895a225c",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch17-victory-cut03-v1.png",
+        "sha256": "32ab4895b2a49928dfba6455b1212b49e1c9a97451d09a984b3db3c3895a225c",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-victory cut 3: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass. A later generated edit replaced the harbour-like view below the hill with the Nara basin; both badges were re-checked in 3x crops beside the pre-edit frame."
+      }
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut04-v1.png",
+      "sha256": "5fdb28dafc690a6b9edae038844ba7ff2a81344e1f325e08ef7e58b262c13e8e",
+      "visuallyInspected": true,
+      "hasRecognizableReferenceGeometry": true,
+      "visualReview": {
+        "path": "public/assets/story/scenes/ch17-victory-cut04-v1.png",
+        "sha256": "5fdb28dafc690a6b9edae038844ba7ff2a81344e1f325e08ef7e58b262c13e8e",
+        "accepted": true,
+        "hasRecognizableReferenceGeometry": true,
+        "reviewer": "Claude (Opus 5.5) agent session: per-chapter contact sheets of every frame, enlarged crops of the edited badge regions, and a full-resolution badge crop beside the reference",
+        "observation": "ch17-victory cut 4: every SORA badge was redrawn by a generated edit against the reference and reviewed as two equal bars joined at the centre, with straight legs running through the lower rim; composition and faces unchanged from the first pass. A later generated edit replaced the harbour-like view below the hill with the Nara basin; both badges were re-checked in 3x crops beside the pre-edit frame."
+      }
+    }
+  ],
+  "limitations": [
+    "Badges were reviewed in per-chapter contact sheets and in enlarged crops of the regions the emblem edit changed (up to six per frame); small background badges were checked at contact-sheet scale.",
+    "The first-pass frames drew several badges as the kanji 夫 or 未; they were not shipped. ch14-intro-cut05 also had its background torii corrected to Yasukuni’s plain steel Shinmei form in the same edit.",
+    "ch17-victory-cut03 and cut04 were edited again after the emblem pass to correct the view from Wakakusa-yama; their badges were re-reviewed in enlarged before/after crops."
+  ]
+}

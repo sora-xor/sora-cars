@@ -1,15 +1,19 @@
 import * as THREE from 'three';
+import type { SignPools } from './signs';
 
 /** Shared city materials; every chunk merges each into one mesh. */
-export type CityMaterialKey = 'wall' | 'stone' | 'roof' | 'metal' | 'glass' | 'sign' | 'lamp' | 'water' | 'ground' | 'floodlit' | 'neon' | 'flag';
+export type CityMaterialKey = 'wall' | 'stone' | 'roof' | 'metal' | 'glass' | 'sign' | 'lamp' | 'water' | 'ground' | 'floodlit' | 'neon' | 'flag' | 'awning';
 /** World-scale texture size per material; glass and print use their own UVs. */
 const SURFACE_METRES: Partial<Record<CityMaterialKey, number>> = { wall: 3, stone: 2, roof: 2, metal: 1.5, water: 6, ground: 4, floodlit: 3 };
 export type Vec3 = readonly [number, number, number];
 /** Upward faces of these materials gather lying snow when a course snows. */
 const SNOWY: ReadonlySet<CityMaterialKey> = new Set(['wall', 'stone', 'roof', 'metal', 'ground', 'floodlit']);
 const SNOW = new THREE.Color('#e6eaf4');
-/** Lit-window classes (materials.ts): residential, office, shop, never lit, and dim ground-floor halls. */
-export const WINDOW_KIND = { home: 0, office: 1, shop: 2, dark: 3, lobby: 4 } as const;
+/**
+ * Lit-window classes (materials.ts): residential, office, shop, never lit, dim ground-floor lobbies, and the
+ * blazing halls of pachinko parlours and stations (lit flat, with no room behind the glass).
+ */
+export const WINDOW_KIND = { home: 0, office: 1, shop: 2, dark: 3, lobby: 4, hall: 5 } as const;
 
 class Stream {
   readonly positions: number[] = [];
@@ -17,7 +21,14 @@ class Stream {
   readonly uvs: number[] = [];
   readonly colors: number[] = [];
   readonly windows: number[] = [];
+  readonly patterns: number[] = [];
 }
+/**
+ * Wall finishes the wall shader draws as joints (materials.ts): plain, tile
+ * (二丁掛け), brick, vertical seams or boards, cladding panels, mosaic tile,
+ * horizontal siding.
+ */
+export const WALL_PATTERN = { plain: 0, tile: 1, brick: 2, seams: 3, panels: 4, mosaic: 5, siding: 6 } as const;
 
 /**
  * Building-local primitives written straight into per-material vertex streams.
@@ -32,13 +43,19 @@ export class CityMeshBuilder {
   readonly colour = new THREE.Color();
   /** Current glass window: seed in [0, 1) and WINDOW_KIND. */
   window: [number, number] = [0, WINDOW_KIND.dark];
+  /** Current wall finish (WALL_PATTERN), drawn on wall faces. */
+  pattern: number = WALL_PATTERN.plain;
   /** Current print rectangle in the sign atlas (u0, v0, u1, v1). */
   print: [number, number, number, number] = [0, 0, 1, 1];
   /** Lying snow (0-1) on upward faces: roofs, slabs, awnings, sills and parked cars. */
   snow = 0;
+  /** The street's own shop-sign pools; null keeps the whole original atlas. */
+  signs: SignPools | null = null;
   /** Lamp animation written into a lamp face's UVs: phase (0-1) and mode (0 steady, 1 chasing bulbs, 2 a slow aviation blink). */
   animation: [number, number] = [0, 0];
   triangles = 0;
+  /** Far lights (far-lights.ts): BEACON_STRIDE floats per light, in the chunk's frame. */
+  readonly beacons: number[] = [];
 
   constructor(readonly originX: number, readonly originZ: number) {}
 
@@ -51,6 +68,11 @@ export class CityMeshBuilder {
   world(p: THREE.Vector3): THREE.Vector3 {
     return new THREE.Vector3(this.originX + this.ox + p.x * this.c + p.z * this.s, this.oy + p.y,
       this.originZ + this.oz - p.x * this.s + p.z * this.c);
+  }
+
+  /** A light the far street keeps as a glowing point (far-lights.ts): local point, linear HDR colour, its size in metres. */
+  beacon(x: number, y: number, z: number, r: number, g: number, b: number, size: number): void {
+    this.beacons.push(this.ox + x * this.c + z * this.s, this.oy + y, this.oz - x * this.s + z * this.c, r, g, b, size);
   }
 
   /** A planar polygon (3 or 4 points), wound to face `normal` (local). */
@@ -80,7 +102,7 @@ export class CityMeshBuilder {
         stream.uvs.push(u / metres, v / metres);
       } else if (key === 'lamp') {
         stream.uvs.push(this.animation[0], this.animation[1]);
-      } else if (key === 'sign' || key === 'neon' || key === 'flag') {
+      } else if (key === 'sign' || key === 'neon' || key === 'flag' || key === 'awning') {
         const [u0, v0, u1, v1] = this.print, k = corner[index]!;
         stream.uvs.push(u0 + (u1 - u0) * k[0], v0 + (v1 - v0) * k[1]);
       } else {
@@ -88,6 +110,7 @@ export class CityMeshBuilder {
       }
       stream.colors.push(r, g, bl);
       if (key === 'glass') stream.windows.push(this.window[0], this.window[1]);
+      if (key === 'wall') stream.patterns.push(this.pattern);
     }
     this.triangles += order.length / 3;
   }
@@ -154,6 +177,7 @@ export class CityMeshBuilder {
       geometry.setAttribute('uv', new THREE.Float32BufferAttribute(stream.uvs, 2));
       geometry.setAttribute('color', new THREE.Float32BufferAttribute(stream.colors, 3));
       if (key === 'glass') geometry.setAttribute('cityWindow', new THREE.Float32BufferAttribute(stream.windows, 2));
+      if (key === 'wall') geometry.setAttribute('cityPattern', new THREE.Float32BufferAttribute(stream.patterns, 1));
       geometry.computeBoundingBox(); geometry.computeBoundingSphere();
       result.set(key, geometry);
     }

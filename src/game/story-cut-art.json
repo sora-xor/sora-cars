@@ -276,5 +276,72 @@
   ],
   "retry": [
     "scenes/retry-opening-logo-v2.png"
+  ],
+  "ch13-intro": [
+    "angles/iroha-wide-v1.png",
+    "angles/iroha-detail-v1.png",
+    "angles/iroha-left-v1.png",
+    "angles/iroha-right-v1.png",
+    "scenes/ch13-intro-cut05-v1.png"
+  ],
+  "ch13-victory": [
+    "scenes/ch13-victory-cut01-v1.png",
+    "scenes/ch13-victory-cut02-v1.png",
+    "scenes/ch13-victory-cut03-v1.png",
+    "scenes/ch13-victory-cut04-v1.png"
+  ],
+  "ch14-intro": [
+    "angles/kudan-wide-v1.png",
+    "angles/kudan-detail-v1.png",
+    "angles/kudan-left-v1.png",
+    "angles/kudan-right-v1.png",
+    "scenes/ch14-intro-cut05-v1.png",
+    "scenes/ch14-intro-cut06-v1.png"
+  ],
+  "ch14-victory": [
+    "scenes/ch14-victory-cut01-v1.png",
+    "scenes/ch14-victory-cut02-v1.png",
+    "scenes/ch14-victory-cut03-v1.png",
+    "scenes/ch14-victory-cut04-v1.png",
+    "scenes/ch14-victory-cut05-v1.png"
+  ],
+  "ch15-intro": [
+    "angles/aizu-wide-v1.png",
+    "angles/aizu-detail-v1.png",
+    "angles/aizu-left-v1.png",
+    "angles/aizu-right-v1.png",
+    "scenes/ch15-intro-cut05-v1.png"
+  ],
+  "ch15-victory": [
+    "scenes/ch15-victory-cut01-v1.png",
+    "scenes/ch15-victory-cut02-v1.png",
+    "scenes/ch15-victory-cut03-v1.png",
+    "scenes/ch15-victory-cut04-v1.png"
+  ],
+  "ch16-intro": [
+    "angles/gion-wide-v1.png",
+    "angles/gion-detail-v1.png",
+    "angles/gion-left-v1.png",
+    "angles/gion-right-v1.png",
+    "scenes/ch16-intro-cut05-v1.png"
+  ],
+  "ch16-victory": [
+    "scenes/ch16-victory-cut01-v1.png",
+    "scenes/ch16-victory-cut02-v1.png",
+    "scenes/ch16-victory-cut03-v1.png",
+    "scenes/ch16-victory-cut04-v1.png"
+  ],
+  "ch17-intro": [
+    "angles/nara-wide-v1.png",
+    "angles/nara-detail-v1.png",
+    "angles/nara-left-v1.png",
+    "angles/nara-right-v1.png",
+    "scenes/ch17-intro-cut05-v1.png"
+  ],
+  "ch17-victory": [
+    "scenes/ch17-victory-cut01-v1.png",
+    "scenes/ch17-victory-cut02-v1.png",
+    "scenes/ch17-victory-cut03-v1.png",
+    "scenes/ch17-victory-cut04-v1.png"
   ]
 }

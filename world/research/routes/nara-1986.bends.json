@@ -1,0 +1,188 @@
+{
+  "route": "nara-1986",
+  "trims": [
+    {
+      "point": "kaidan-in",
+      "cornerTrimMm": 17000
+    },
+    {
+      "point": "daibutsu-ike",
+      "cornerTrimMm": 18000
+    },
+    {
+      "point": "shosoin",
+      "cornerTrimMm": 18000
+    }
+  ],
+  "edits": [
+    {
+      "name": "park-hairpin",
+      "from": {
+        "point": "drive-3411",
+        "along": 17000
+      },
+      "to": {
+        "point": "drive-3515",
+        "back": 30000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "mikasa-loop",
+      "from": {
+        "point": "drive-3515",
+        "along": 17000
+      },
+      "to": {
+        "point": "drive-3595",
+        "back": 14000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "s-upper",
+      "from": {
+        "point": "drive-3746",
+        "along": 9000
+      },
+      "to": {
+        "point": "drive-3809",
+        "back": 9000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "s-lower",
+      "from": {
+        "point": "drive-3809",
+        "heading": "in"
+      },
+      "to": {
+        "point": "drive-3915",
+        "back": 20000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "onsen-turn",
+      "from": {
+        "point": "drive-4204",
+        "along": 35000
+      },
+      "to": {
+        "point": "drive-4347",
+        "back": 25000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "stack-upper",
+      "from": {
+        "point": "drive-4433",
+        "along": 45000
+      },
+      "to": {
+        "point": "drive-4570",
+        "back": 25000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "stack-lower",
+      "from": {
+        "point": "drive-4570",
+        "heading": "in"
+      },
+      "to": {
+        "point": "drive-4646",
+        "back": 15000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "stack-turn",
+      "from": {
+        "point": "drive-4646",
+        "along": 34000
+      },
+      "to": {
+        "point": "drive-4742",
+        "heading": "in"
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "forest-turn",
+      "from": {
+        "point": "drive-4813",
+        "back": 10000
+      },
+      "to": {
+        "point": "drive-4920",
+        "back": 40000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "jikkoku-turn",
+      "from": {
+        "point": "drive-5310",
+        "along": 18000
+      },
+      "to": {
+        "point": "drive-5399",
+        "back": 14000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "upper-stack",
+      "from": {
+        "point": "drive-4920",
+        "back": 20000
+      },
+      "to": {
+        "point": "drive-5008",
+        "back": 15000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "jikkoku-dai-turn",
+      "from": {
+        "point": "drive-5399",
+        "back": 7000
+      },
+      "to": {
+        "point": "drive-5518",
+        "back": 40000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "ridge-bend",
+      "from": {
+        "point": "drive-5581",
+        "back": 20000
+      },
+      "to": {
+        "point": "drive-5635",
+        "back": 15000
+      },
+      "radiusMm": 13000
+    },
+    {
+      "name": "summit-bend",
+      "from": {
+        "point": "drive-6359",
+        "back": 20000
+      },
+      "to": {
+        "point": "wakakusa-summit",
+        "back": 40000
+      },
+      "radiusMm": 13000
+    }
+  ],
+  "maxGrade": 0.12
+}

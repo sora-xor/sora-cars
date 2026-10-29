@@ -1,6 +1,6 @@
 # SORA CARS — campaign implementation
 
-A twelve-chapter, three-act racing story with six adult crew members and three named rivals. The visual direction is a warm Japanese electronic-music serial: working garages, paper records, borrowed machinery, rainy radio rooms and a lake at dawn. [The story bible](story-bible.md) defines plot, character and continuity; the three `story-campaign-act*.ts` files hold the bilingual screenplay.
+A seventeen-chapter, three-act racing story with six adult crew members and three named rivals. The visual direction is a warm Japanese electronic-music serial: working garages, paper records, borrowed machinery, rainy radio rooms and a lake at dawn. [The story bible](story-bible.md) defines plot, character and continuity; the three `story-campaign-act*.ts` files and `story-campaign-roads.ts` hold the bilingual screenplay.
 
 ## Narrative and progression
 
@@ -8,7 +8,13 @@ The fictional Meridian Council's CROWN project links the garage's accelerated lo
 
 The early repayment demand is paused after chapter ID 7, before the following week's time jump. Its later withdrawal follows a lender review; normal installments remain. The two-a.m. blackout results from collection of sponsor-owned relay kits and the borrowed unit feeding the garage work lamps. The finale's studio images depict a programme recorded the preceding morning, heard at Nikko at dawn; the garage opens after the crew returns that afternoon.
 
-The campaign uses the three existing course IDs for Hakone, Yokohama harbor and Nikko, twelve ordered introductions and aftermaths, and one retry scene: 301 dialogue lines in 25 sequences. Each chapter has a synopsis and a completion-gated dossier. Locked chapter synopses are concealed.
+Twelve chapters race the three Arcade circuits (Hakone, Yokohama harbor and Nikko). Five race 1986 street routes: Irohazaka, Tokyo, Aizu-Wakamatsu, Kyoto and Nara. The campaign has seventeen ordered introductions and aftermaths and one retry scene: 408 dialogue lines in 35 sequences. Each chapter has a synopsis and a completion-gated dossier. Locked chapter synopses are concealed.
+
+**Chapter identity and play order.** A chapter's `id` is its stable identity: its cut art (`chNN-intro` is id + 1), its cue sheet, its workshop visit, its rival budgets and its dossier. Its index in `CHAPTERS` (`story-campaign.ts`) is its place in play order. That index drives the menu numbering, unlocks, objectives and saved progress. The street-race chapters have ids 12–16 and are woven in before the finale. Only the showdown (ID 10) asks for more than a podium.
+
+**Street-race chapters.** These run with equal cars. The introduction leads straight to the start line, with no pre-race garage, because parts never reach street runs. The street session races the chapter's own grid: Aki, the crew and two drivers from the host club. Its finish decides the chapter, which then plays the aftermath or the retry scene. The results show the finishing order and lead on to the next chapter; the recorded run can be verified and replayed from the street history. Street-race chapters pay no prize money, so the Arcade economy and rival budgets are exactly as tuned for the twelve circuit chapters, which keep their ids.
+
+**Saved progress.** Saves from the twelve-chapter campaign carry a progress count in the old order. On first load, `migrateStoryProgress` moves that count to the new place of the save's next chapter, and `sora-cars:story:order` records the new order. Street-race chapters placed before that point open as playable.
 
 All objectives require a podium. ID 10 also requires a result strictly ahead of the actual Toru driver; ties or a missing rival result do not clear it. Toru's declared stake is his own purchase options, while the inquiry and residents' rights remain independent of the race. Earlier meets build attention, gather witnesses and carry document handoffs. The final Nikko run celebrates the crew's return. Results retain chapter context for retry and unlocked continuation.
 

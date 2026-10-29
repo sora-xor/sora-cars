@@ -14,7 +14,8 @@ export async function streetGenerationFixture(run: (root: string, manifest: any,
         sources: {[key]: hash(Buffer.from('layout'))}, binary: {path: `${lane}/native/iroha`, sha256: hash(Buffer.from('binary')), bytes: 6},
         launcher: {key: 'javascript/iroha_js/verify-pinned-native.mjs', sha256: hash(Buffer.from('launcher')), bytes: 8}},
       bundles: [] as any[], qualification: {proof: false, ledger: false, playability: false}};
-    const track = {id: 'tokyo-1986', topology: 'circuit', lengthMm: 500000, laps: 1, maxTicks: 30, samples: [], gates: []};
+    const track = {id: 'tokyo-1986', topology: 'circuit', lengthMm: 500000, laps: 1, maxTicks: 30, samples: [], gates: [],
+      sound: {asset: 'yasukuni-1986.m4a', sha256: hash(Buffer.from('test-only music')), durationMs: 254952, cuesMs: [0]}};
     const catalog = {track: track.id, topology: track.topology, lengthMm: track.lengthMm, laps: track.laps, maxTicks: track.maxTicks, road: [], gates: [], objects: []};
     async function save(path: string, bytes: string | Buffer) {await mkdir(dirname(join(root, path)), {recursive: true}); await writeFile(join(root, path), bytes);}
     let selected!: Buffer;

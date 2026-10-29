@@ -61,6 +61,46 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
   highlightStart: number;
   highlightFull: number;
   chroma: number;
+  /**
+   * Refine round 4 (the user's rain-night target): at night (setNight 1) the
+   * grade eases to these values: darks keep more chroma, the shadow drive
+   * turns navy instead of violet and chroma rises, so a wet road reads navy
+   * under saturated amber reflections. Dusk and sunrise keep the day values.
+   */
+  nightDarkChromaCompression: number;
+  nightShadowHue: number;
+  nightChroma: number;
+  /**
+   * Lightness stretch about contrastPivot (OKLab L): below the pivot by day `contrast`, at night `nightContrast`;
+   * above it `contrastLight` and `nightContrastLight`, gentler, so lights glow without washing out (0 off).
+   */
+  contrast: number;
+  nightContrast: number;
+  contrastLight: number;
+  nightContrastLight: number;
+  contrastPivot: number;
+  /**
+   * 1 snaps the whole image to the 128-colour cutscene palette (the build until refine round 4); 0 (the default) keeps
+   * the graded colour of every cell, with the palette for the drawn marks only (lines, rims, glints, halos). The
+   * user's concept holds about 195,000 colours at its art grid. `?pixelPalette=lock` sets 1.
+   */
+  paletteLock: number;
+  /** At night the highlights keep more chroma (lit windows stay amber, not cream): lightChromaCompression's night value. */
+  nightLightChromaCompression: number;
+  /** OKLab L the deepest darks are lifted toward: by day `floor`, at night `nightFloor` (0 off). */
+  floor: number;
+  nightFloor: number;
+  /**
+   * At night, how far green and teal leaves turn toward olive and how much of the shadow drive's violet they are
+   * spared (0 off, 1 all the way): the concept's street trees are dark olive with gold where the lamps catch them,
+   * where the night grade turned ours teal and violet-grey.
+   */
+  nightFoliageOlive: number;
+  /**
+   * The share of the night contrast car paint takes (by day half, so liveries stay bright; 0-1). Refine round 4: all
+   * of it at night, so the cars sit deep in the night like the concept's instead of reading as bright plastic.
+   */
+  nightCarContrast: number;
   /** Relative depth tolerance that groups samples into one surface layer. */
   depthTolerance: number;
   /** Band offset amplitude in bands (0 disables) and band size in OKLab L. */
@@ -96,6 +136,8 @@ export interface PixelArtPass {
   grid(): PixelArtGrid | null;
   /** Road wetness (the road finish's 0.6 damp dusk .. 1 rain) and rain (0-1) for wet-ground reflections. */
   setWetness(wetness: number, rain: number): void;
+  /** How much of the night grade applies (0 day, dusk and sunrise .. 1 night); see nightShadowHue. */
+  setNight(night: number): void;
   /** Rigid moving objects (the cars, at most 8), anchored in their own frame and reprojected with their motion. */
   setMovers(objects: readonly THREE.Object3D[]): void;
   /** Drop the temporal history (camera cut, course change, seek). */
@@ -138,14 +180,24 @@ const DEFAULTS: PixelArtOptions = {
   lightChromaCompression: 0.4, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
   shadowHue: 295, plumHue: 335, plumStrength: 0, plumStart: 0.13, plumFull: 0.26, groundFloor: 0.22, groundLift: 0, shadowStrength: 0.9, shadowChroma: 0.025, shadowStart: 0.22, shadowEnd: 0.5,
   highlightHue: 78, highlightStrength: 0.8, highlightChroma: 0.04, highlightStart: 0.6, highlightFull: 0.9,
-  chroma: 1, depthTolerance: 0.06,
-  bandStrength: 0.6, bandStep: 0.07, bandFeatureCells: 2, bandSkyScale: 0.35,
+  chroma: 1, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0,
+  nightContrastLight: 0.12, contrastPivot: 0.38, nightLightChromaCompression: 0.1, floor: 0, nightFloor: 0.18, nightFoliageOlive: 0.7, nightCarContrast: 1, paletteLock: 0,
+  depthTolerance: 0.06,
+  // Refine round 4 (the user's rain-night target, "it looks shabby"): no band offset (the full-colour image needs no
+  // dither between palette entries), and a crisper upscale.
+  bandStrength: 0, bandStep: 0.07, bandFeatureCells: 2, bandSkyScale: 0.35,
   lightnessWeight: 1.6, chromaWeight: 1,
-  upscaleSoftness: 1, sceneSamples: 4,
+  upscaleSoftness: 0.4, sceneSamples: 4,
   ...LINEWORK_DEFAULTS,
   ...SURFACE_DEFAULTS,
   ...CAR_DEFAULTS,
   ...ACCUMULATE_DEFAULTS,
+  // The orphan-cell cleanup mended palette speckle; in full colour it only erased one-cell detail (lettering strokes,
+  // eyes), so it runs with the palette lock (?pixelPalette=lock) alone.
+  cleanup: 0,
+  // Temporal accumulation steadied palette flicker but smeared everything that moves against the world: walkers'
+  // faces and clothes ghosted into blurs (refine round 4). The index hold (temporal) still steadies the line stages.
+  temporalAccumulate: 0,
 };
 
 /**
@@ -178,7 +230,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   const quantize = createQuantizeStage(shared);
   const debug = createDebugStage(shared, quantize.uniforms);
   const upscale = createUpscale(shared);
-  const linework = createLinework(shared, PIXEL_PALETTE, grade.uniforms.toneMappingExposure);
+  const linework = createLinework(shared, PIXEL_PALETTE, grade.uniforms.toneMappingExposure, quantize.uniforms.paletteFull);
   const surfaces = createSurfaces(shared, PIXEL_PALETTE,
     { exposure: grade.uniforms.toneMappingExposure, lutWeights: lut.weights, band: quantize.uniforms, key: linework.carHandoff,
       grade: { uniforms: grade.uniforms, done: grade.done } });
@@ -219,23 +271,30 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     endImageWrite: () => { imageIndex = 1 - imageIndex; shared.image.value = targets.images[imageIndex]!.texture; },
   };
 
+  let night = 0;
   function applySettings() {
-    const radians = Math.PI / 180;
-    grade.uniforms.darkChroma.value.set(settings.darkChromaCompression, settings.darkChromaLow,
+    const radians = Math.PI / 180, lerp = THREE.MathUtils.lerp;
+    grade.uniforms.darkChroma.value.set(lerp(settings.darkChromaCompression, settings.nightDarkChromaCompression, night), settings.darkChromaLow,
       settings.darkChromaHigh, settings.darkChromaEnd);
-    grade.uniforms.lightChroma.value.set(settings.lightChromaCompression, settings.lightChromaLow,
+    grade.uniforms.lightChroma.value.set(lerp(settings.lightChromaCompression, settings.nightLightChromaCompression, night), settings.lightChromaLow,
       settings.lightChromaHigh, settings.lightChromaStart);
-    grade.uniforms.shadowDrive.value.set(settings.shadowHue * radians, settings.shadowStrength, settings.shadowChroma);
+    grade.uniforms.shadowDrive.value.set(lerp(settings.shadowHue, settings.nightShadowHue, night) * radians, settings.shadowStrength, settings.shadowChroma);
     grade.uniforms.shadowRange.value.set(settings.shadowStart, settings.shadowEnd);
     grade.uniforms.plumDrive.value.set(settings.plumHue * radians, THREE.MathUtils.clamp(settings.plumStrength, 0, 1),
       settings.plumStart, Math.max(settings.plumStart + 1e-3, settings.plumFull));
     grade.uniforms.groundFloor.value.set(THREE.MathUtils.clamp(settings.groundFloor, 0.05, 0.5), THREE.MathUtils.clamp(settings.groundLift, 0, 1), 0.5);
     grade.uniforms.highlightDrive.value.set(settings.highlightHue * radians, settings.highlightStrength, settings.highlightChroma);
     grade.uniforms.highlightRange.value.set(settings.highlightStart, settings.highlightFull);
-    grade.uniforms.chromaGain.value = settings.chroma;
+    grade.uniforms.chromaGain.value = lerp(settings.chroma, settings.nightChroma, night);
+    grade.uniforms.gradeContrast.value.set(Math.max(0, lerp(settings.contrast, settings.nightContrast, night)), settings.contrastPivot,
+      Math.max(0, lerp(settings.contrastLight, settings.nightContrastLight, night)));
+    grade.uniforms.gradeFloor.value = Math.max(0, lerp(settings.floor, settings.nightFloor, night));
+    grade.uniforms.gradeFoliage.value.set(.3 * night, .5 * night, THREE.MathUtils.clamp(settings.nightFoliageOlive, 0, 1) * night);
+    grade.uniforms.gradeCarContrast.value = lerp(.5, THREE.MathUtils.clamp(settings.nightCarContrast, 0, 1), night);
     grade.uniforms.carChromaKeep.value = THREE.MathUtils.clamp(settings.carChromaKeep, 0, 1);
     resolve.depthTolerance.value = settings.depthTolerance;
     quantize.uniforms.bandStrength.value = settings.bandStrength;
+    quantize.uniforms.paletteFull.value = settings.paletteLock > 0 ? 0 : 1;
     quantize.uniforms.bandStep.value = settings.bandStep;
     quantize.uniforms.bandFeatureCells.value = settings.bandFeatureCells;
     quantize.uniforms.bandSkyScale.value = settings.bandSkyScale;
@@ -398,6 +457,22 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     stageNames: () => stages.map(stage => stage.name),
     grid: () => grid,
     setWetness: (wetness, rain) => surfaces.setWetness(wetness, rain),
+    setNight: value => {
+      const next = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0;
+      // The grade's uniforms only: nothing else in applySettings depends on the night.
+      if (Math.abs(next - night) < 1e-3) return;
+      night = next;
+      const radians = Math.PI / 180, lerp = THREE.MathUtils.lerp;
+      grade.uniforms.darkChroma.value.x = lerp(settings.darkChromaCompression, settings.nightDarkChromaCompression, night);
+      grade.uniforms.shadowDrive.value.x = lerp(settings.shadowHue, settings.nightShadowHue, night) * radians;
+      grade.uniforms.chromaGain.value = lerp(settings.chroma, settings.nightChroma, night);
+      grade.uniforms.gradeContrast.value.x = Math.max(0, lerp(settings.contrast, settings.nightContrast, night));
+      grade.uniforms.gradeContrast.value.z = Math.max(0, lerp(settings.contrastLight, settings.nightContrastLight, night));
+      grade.uniforms.lightChroma.value.x = lerp(settings.lightChromaCompression, settings.nightLightChromaCompression, night);
+      grade.uniforms.gradeFloor.value = Math.max(0, lerp(settings.floor, settings.nightFloor, night));
+      grade.uniforms.gradeFoliage.value.set(.3 * night, .5 * night, THREE.MathUtils.clamp(settings.nightFoliageOlive, 0, 1) * night);
+      grade.uniforms.gradeCarContrast.value = lerp(.5, THREE.MathUtils.clamp(settings.nightCarContrast, 0, 1), night);
+    },
     setMovers: objects => surfaces.setMovers(objects),
     resetHistory: () => { surfaces.resetHistory(); accumulate.reset(); },
     setPoolLights: lights => surfaces.setPoolLights(lights),
@@ -492,6 +567,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   const initialView = debugViewFromLocation();
   if (initialView) pass.setDebugView(initialView);
   if (searchParam('pixelUpscale') === 'nearest') pass.configure({ upscaleSoftness: 0 });
+  if (searchParam('pixelPalette') === 'lock') pass.configure({ paletteLock: 1, cleanup: 1, temporalAccumulate: 1, bandStrength: 0.3 });
   if (searchParam('pixelLinework') !== null) pass.configure(lineworkOptionsFromQuery(window.location.search));
   if (searchParam('pixelSurfaces') !== null || searchParam('pixelGround') !== null) pass.configure(surfaceOptionsFromQuery(window.location.search));
   if (searchParam('pixelCars') !== null) pass.configure(carOptionsFromQuery(window.location.search));

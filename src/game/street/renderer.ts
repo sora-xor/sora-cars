@@ -1,6 +1,7 @@
 import type { CompiledStreetTrack } from './track';
 import type { StreetObject } from './objects';
 import { streetPresentation, type StreetPresentation } from './presentation';
+import { streetRouteStyle } from './routes';
 import { drawIllustratedShop, drawIllustratedTree } from '../illustrated-scenery';
 import { getRaceWorld } from '../three/world';
 import { PIXEL_OVERLAY_COLOURS, dashedCellLine, drawAtmosphere, pixelOverlayGrid, rainColumn } from '../three/pixel-art/overlay';
@@ -127,12 +128,15 @@ function offset(p: RoadPose, lateral: number, up = 0, forward = 0, heading = p.h
 
 /** Cinematic rear-following renderer. Drawing units stay independent of device pixels. */
 /** Petal density (0-1) along Chidorigafuchi, the route's sector 2, easing in and out over 120 m. */
-function chidorigafuchi(track: CompiledStreetTrack, progressMm: number): number {
+/** Particle density for a route's atmosphere: everywhere, or fading in and out
+ * over the span of its listed sectors (Tokyo's petals fall at Chidorigafuchi). */
+function atmosphereZone(track: CompiledStreetTrack, progressMm: number, sectors: readonly number[] | undefined): number {
+  if (!sectors) return 1;
   const p = mod(progressMm, track.lengthMm);
   let start = -1, end = -1;
   for (const sample of track.samples) {
-    if (sample.sector === 2 && start < 0) start = sample.progressMm;
-    if (sample.sector === 2) end = sample.progressMm;
+    if (sectors.includes(sample.sector) && start < 0) start = sample.progressMm;
+    if (sectors.includes(sample.sector)) end = sample.progressMm;
   }
   if (start < 0) return 0;
   return Math.max(0, Math.min(1, (p - start + 60000) / 120000, (end - p + 60000) / 120000));
@@ -205,11 +209,11 @@ export class StreetRaceRenderer {
     if (!player || track.samples.length < 2) { ctx.fillStyle = '#211b32'; ctx.fillRect(0, 0, w, h); return; }
     const camera = options.camera ?? 'chase';
     const chapter = streetPresentation(track, state.tick), sceneTime = Math.max(0, state.tick) / 30;
-    const tokyo = track.id === 'tokyo-1986' && chapter.english !== 'ON THE ROAD';
-    const palette = tokyo ? atmosphere(chapter) : null;
+    const style = streetRouteStyle(track.id), titled = chapter.english !== 'ON THE ROAD';
+    const palette = titled && style.dawnArc ? atmosphere(chapter) : null;
     this.#fogColor = palette ? mixColor(palette.sky[2], palette.skyline[1], 0.38) : '#8f7c98';
     this.#wet = (options.rain ?? 0) > 0;
-    const chapterTitle = tokyo && options.presentationTitles !== false && chapter.transition > 0;
+    const chapterTitle = titled && options.presentationTitles !== false && chapter.transition > 0;
     const reset = track !== this.#lastTrack || state.tick < this.#lastTick || camera !== this.#lastCamera;
     if (reset) {
       this.#trails = []; this.#previousTyres = []; this.#lastTime = null;
@@ -277,10 +281,14 @@ export class StreetRaceRenderer {
     if (world) {
       ctx.drawImage(world.renderStreet(track, state, options, time), 0, 0, w, h);
       if (camera !== 'aerial' && !reduced && !still && velocity > 0.5) this.#speedLines(player.progressMm, velocity, surge);
-      if ((options.rain ?? 0) > 0) this.#rain(sceneTime, reduced);
-      // Chidorigafuchi's cherry trees shed petals along the moat.
-      else if (track.id === 'tokyo-1986') drawAtmosphere(ctx, this.#canvas, w, h, 'blossom', reduced || still ? 0 : sceneTime, 1,
-        chidorigafuchi(track, player.progressMm));
+      // The native weather window falls as rain, or as snow on the snow routes.
+      if ((options.rain ?? 0) > 0 && style.id === track.id && style.precipitation === 'snow') {
+        drawAtmosphere(ctx, this.#canvas, w, h, 'snow', reduced || still ? 0 : sceneTime, 1, 1);
+      } else if ((options.rain ?? 0) > 0) this.#rain(sceneTime, reduced);
+      // Chidorigafuchi's cherry trees shed petals along the moat; other routes
+      // carry their own snow or leaves.
+      else if (style.id === track.id && style.atmosphere) drawAtmosphere(ctx, this.#canvas, w, h, style.atmosphere,
+        reduced || still ? 0 : sceneTime, 1, atmosphereZone(track, player.progressMm, style.atmosphereSectors));
       if (chapterTitle) this.#chapterTitle(chapter, reduced, options.hud !== false, options.presentationTopInset ?? 0);
       if (options.hud !== false) this.#hud(track, state, options, player, centre, kmh, chapterTitle);
       this.#lastTrack = track; this.#lastTick = state.tick; this.#lastCamera = camera;
@@ -983,7 +991,7 @@ export class StreetRaceRenderer {
     ctx.fillStyle = '#251f35'; ctx.globalAlpha = 0.77; ctx.fillRect(0, 0, w, mobile ? 78 : 67); ctx.globalAlpha = 1;
     if (this.#flag.complete && this.#flag.naturalWidth) ctx.drawImage(this.#flag, pad, 12, 23, 14);
     ctx.textAlign = 'left'; ctx.fillStyle = CREAM; ctx.font = 'bold 11px Sora, LabSora, SoraJP, LabJP, sans-serif'; ctx.fillText('SORA CARS', pad + 30, 23);
-    ctx.font = '9px SoraJP, LabJP, sans-serif'; ctx.fillStyle = '#cbbacb'; ctx.fillText(options.raceMode ?? '東京 1986 / TOKYO', pad, 39);
+    ctx.font = '9px SoraJP, LabJP, sans-serif'; ctx.fillStyle = '#cbbacb'; ctx.fillText(options.raceMode ?? `${streetRouteStyle(track.id).place.ja} 1986 / ${streetRouteStyle(track.id).place.en}`, pad, 39);
     ctx.font = `900 ${mobile ? 24 : 29}px Sora, LabSora, sans-serif`; ctx.fillStyle = CREAM;
     ctx.fillText(String(car.rank || 1).padStart(2, '0'), pad, mobile ? 66 : 65);
     ctx.font = '9px SoraJP, LabJP, sans-serif'; ctx.fillText(`/ ${state.cars.length} 順位 / POS`, pad + 42, mobile ? 63 : 61);

@@ -1,6 +1,20 @@
 import { streetHeadingAt, streetSampleAt, type CompiledStreetTrack } from './track';
 import type { StreetRaceState } from './session';
 
+/** A 20 m heading change (microturns) sharper than any corner on the Tokyo route. */
+const HAIRPIN_TURN = 170000;
+/** Roads narrower than any Tokyo street (its narrowest half-width is 4,408 mm). */
+const NARROW_HALF_WIDTH = 4400;
+/** The fastest speed (mm/tick) whose steering can follow a curvature of `k`
+ * microturns per millimetre. Native handling turns the body by
+ * clamp(9000 − 2v, 1800, 9000) × min(v, 600) / 600 per tick, while the road
+ * turns v·k. Below about a 10.6 m radius no speed is slow enough, so the car
+ * keeps a crawl and lets the guard rail turn it. */
+function steerableSpeed(k: number): number {
+  const speed = k <= 13 ? 9000 / (Math.max(0, k) + 2) : (9000 - 600 * k) / 2;
+  return Math.max(260, Math.floor(speed));
+}
+
 function relativeProgress(track: CompiledStreetTrack, from: number, to: number): number {
   const gap = to - from;
   if (track.topology !== 'circuit') return gap;
@@ -17,6 +31,19 @@ export function streetDriver(track: CompiledStreetTrack, state: StreetRaceState,
     streetSampleAt(track, car.progressMm + 12000).halfWidthMm) - 1250;
   let lane = (slot % 2 === 0 ? -1 : 1) * Math.min(1100, width);
   let targetSpeed = Math.max(850, Math.min(2350, 2350 - Math.trunc(Math.abs(upcoming) / 90)));
+  // Mountain hairpins turn harder than any Tokyo corner (its sharpest 20 m is
+  // 169,571 microturns): brake from further ahead to the speed whose steering
+  // can follow each bend, and take it on the outside line, where the radius is
+  // largest. Tokyo's field never meets this branch.
+  let hairpin = false;
+  for (let ahead = 0; ahead <= 60000; ahead += 2500) {
+    const at = car.progressMm + ahead, turn = Math.abs(streetHeadingAt(track, at + 20000) - streetHeadingAt(track, at));
+    if (turn <= HAIRPIN_TURN) continue;
+    if (ahead <= 10000) hairpin = true;
+    const bend = Math.abs(streetHeadingAt(track, at + 5000) - streetHeadingAt(track, at)) / 5000;
+    targetSpeed = Math.min(targetSpeed, Math.floor(Math.sqrt(steerableSpeed(bend * 1.15) ** 2 + 150 * ahead)));
+  }
+  if (hairpin) lane = -Math.sign(upcoming) * Math.min(width, 2600);
   // At 2400 mm/tick, braking at 96 mm/tick² needs about 30 metres.
   // Look far enough ahead to slow before the collision solver has to stop us.
   const followDistance = Math.max(14000, Math.ceil(car.speedMmPerTick ** 2 / 192) + car.speedMmPerTick + 8000);
@@ -66,7 +93,11 @@ export function streetDriver(track: CompiledStreetTrack, state: StreetRaceState,
   }
   // Do not immediately merge back through a car still alongside us.
   if (occupied(lane, 4500) && !occupied(car.lateralMm, 4500)) lane = car.lateralMm;
-  const targetYaw = escapeYaw ?? Math.max(-110000, Math.min(110000, Math.trunc(upcoming / 3) + (lane - car.lateralMm) * 3));
+  // On mountain roads a full corner anticipation would pin the car to the
+  // inside wall, so lean less into the bend and hold the lane harder.
+  const narrow = streetSampleAt(track, car.progressMm).halfWidthMm < NARROW_HALF_WIDTH;
+  const targetYaw = escapeYaw ?? Math.max(-110000, Math.min(110000, narrow
+    ? Math.trunc(upcoming / 8) + (lane - car.lateralMm) * 12 : Math.trunc(upcoming / 3) + (lane - car.lateralMm) * 3));
   let error = targetYaw - car.bodyYawMicroturn;
   if (error > 500000) error -= 1000000; else if (error < -500000) error += 1000000;
   // A genuinely blocked stop means brake/hold. An open passing lane above

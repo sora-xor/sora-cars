@@ -6,11 +6,83 @@ This directory prepares the requested 1986 world expansion outside the maintaine
 
 ## Tokyo authoring
 
-`authoring/tokyo-1986.json` follows Manaita Bridge, Yasukuni-dori, Chidorigafuchi, Hanzomon, Diet frontage, Kasumigaseki and a moat-side return. The geographic coordinates, widths, elevations and joins are provisional authoring values, not an exact1986 survey. No new track is enabled in the game.
+`authoring/tokyo-1986.json` follows Manaita Bridge, Yasukuni-dori, Chidorigafuchi, Hanzomon, Diet frontage, Kasumigaseki and a moat-side return. The geographic coordinates, widths, elevations and joins are provisional authoring values, not an exact1986 survey. It is playable only as street practice; no live execution profile consumes it.
 
 The current draft is7.013328km per lap, two laps,13gates and1,404integer samples. Matching the supplied254.952-second song would require198.06km/h average speed. This is a pacing target, not a demonstrated drive time. The300-second maximum is distinct from the existing180-second proof profiles. The song's provisional section cues still require listening and driving calibration.
 
 `audio/yasukuni-1986.m4a` contains the complete supplied recording, transcoded to AAC192k without changing duration. Original WAV SHA-256: `1dec9e5363f891601a1758daaccd0197621cbb6f15c94b1607b4e9c500916055`. Transcoded asset SHA-256: `85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6`. Assets are local; there is no streaming/CDN dependency. The original user file is untouched.
+
+## Local routes
+
+Four more 1986 routes share Tokyo's pipeline and run in the game's street practice beside it (`#/street/<id>`, or the route picker on the ready screen). Each one is a researched draft and has its own song. Alignments were checked against the GSI 1974–78 aerial photographs and dated maps where those exist. Nothing is surveyed or qualified. The research notes are in [`research/routes/`](research/routes/), with sources, timing evidence and open questions.
+
+| Route | Catalog | Road | Topology | Length | Elevation | Song |
+|---|---|---|---|---|---|---|
+| `irohazaka-1986` いろは、空への四十八 | 09 | The Second Irohazaka (uphill-only since 1965) from Umagaeshi to Akechidaira, through all twenty kana curves い to ね | sprint | 7.169 km | 864 → 1,275 m | Forty-Eight Turns / 四十八の曲がり角, 3:07 |
+| `aizu-wakamatsu-1986` 会津、城を望む丘へ | extra (Fukushima) | From the station through the merchant streets, past Tsuruga-jō's moats, then up Iimoriyama | sprint | 8.056 km | 214–297 m | Evening over Tsuruga / 鶴ヶ城の夕べ, 2:41 |
+| `kyoto-1986` 蹴上・煉瓦の余韻 | 26 | Shiokōji, Karasuma and Shijō past Gion to Yasaka; Sanjō to Keage; under Heian Jingū's torii; back by Marutamachi and Horikawa | circuit, 1 lap | 13.176 km | 26–62 m | Kamogawa Lights / 鴨川ライト, 3:29 |
+| `nara-1986` 春日・空色の稜線 | 29 | Sanjō-dōri from the JNR station past Sarusawa-ike, through Nara Park, then the Wakakusa-yama driveway's switchbacks | sprint | 6.225 km | 66 → 310 m | Deer Park Afterglow / 鹿の夕映え, 2:59 |
+
+Each route, Tokyo included, is also a story chapter (`src/game/story-campaign-roads.ts`), raced with equal cars and its own cutscenes; see [the campaign design](../docs/story-campaign-design.md). Each of the four has 14 or 15 gates and `maxTicks` 9,000 (5:00). `targetMs` is the length of its song. In the eight-car practice field all eight cars finish every route:
+
+| Route | Winner | Last |
+|---|---|---|
+| Irohazaka | 173.3 s | 184.7 s |
+| Aizu-Wakamatsu | 141.2 s | 168.3 s |
+| Kyoto | 201.0 s | 203.1 s |
+| Nara | 158.9 s | 176.1 s |
+
+To add a route:
+
+1. Author `authoring/<id>.json` and `<id>.objects.json` in the Tokyo format. `npx tsx scripts/street-landmark-placement.ts world/authoring/<id>.json name=lat,lon …` reports the route progress, side and clearance of real places. Every bend must be one a car can steer (see [Drivable bends](#drivable-bends)).
+2. Register it in `scripts/lib/street-routes.ts` (`STREET_ROUTE_IDS`, display names and file stems).
+3. `npx tsx scripts/generate-native-street-track.ts --iroha-root <checkout> [--check]` writes, or checks, the native street compiler's tables:
+   - each local route's table;
+   - `routes.rs`;
+   - `ROUTE_PROVENANCE.json`.
+
+   Tokyo's table, and with it the compiler family ID, does not change. Only the browser-export module reads local routes; `iroha execution export-street-motion --route <id>` exports one (the default is `tokyo-1986`).
+4. `npx tsx scripts/generate-street-race.ts --output <fresh output/ dir> --iroha-root … --native-binary … --native-sha256 … --route <id>` exports and checks the motion graphs for rosters 2–8.
+
+   Rebuild the native binary first whenever the tables changed: `cargo build -p iroha_cli --bin iroha --features cli` in the checkout.
+5. Compose the song in `src/game/street/route-songs.ts`. Each song is two 64-bar movements cut at 8-bar sections, and its tempo is set from the duration it must fill.
+   - `node scripts/export-street-songs.mjs --route=<id>` renders it to `audio/<id>.m4a` through the game's own synth, in an offline audio context, mastered to −16 LUFS as AAC at 192 kbit/s.
+   - `npx tsx scripts/apply-street-song.ts <id> <section>…` binds the sound record and its chapter cues, and sets `targetMs`.
+6. `npx tsx scripts/street-route-timing.ts --generation <generation.json>` races eight practice cars. All eight must finish inside `maxTicks`.
+7. `npx tsx scripts/package-street-assets.ts --generation <generation.json> …` (pass `--generation` once per route) writes the content-addressed bundles and songs to `public/assets/street` and regenerates the manifest.
+
+   Each generation pins the whole native catalog. After any route's table changes, re-export every local route before packaging; unchanged routes come out byte-identical.
+8. Dress the route:
+   - its style in `src/game/street/routes.ts`: place, title, chapters, light and weather;
+   - its scene in `src/game/three/period-city/street-scenes.ts` (see [the period city](../docs/period-city.md)).
+
+   `tests/street-routes.test.ts` checks that every catalog route has a style, a scene covering each of its sectors, a song and a packaged bundle.
+
+The practice AI (`src/game/street/test-driver.ts`) brakes for each mountain hairpin to a speed it can steer through, and takes hairpins on the outside line. On roads narrower than any of Tokyo's streets it steers harder toward its lane. Tokyo's field never takes these branches, so its races are unchanged.
+
+## Drivable bends
+
+Native steering turns a car by at most clamp(9000 − 2v, 1800, 9000) × min(v, 600) / 600 microturns a tick, so no car can hold a path tighter than about 10.6 m at any speed. The engine reads the road's heading once per 5 m cell, so each cell's widest line must clear that: the centreline radius, plus the half-width, less the car's 900 mm half-width. `tests/street-routes.test.ts` requires at least 12 m in every cell, which allows about 55 km/h.
+
+Traced from the map, some bends were tighter than that:
+
+- fourteen hairpins on Nara's Wakakusa driveway, 6.7–9.5 m at 2.7–3.3 m half-widths, one of which no car could steer at all;
+- Aizu's 91° turn onto the Iimoriyama forest road, 7.6 m;
+- Irohazaka's curve た, 8.4 m in one cell.
+
+On 2026-10-29 `scripts/street-open-bends.ts` redrew them as shortest minimum-radius (Dubins) paths between anchors on each bend's own legs: 13 m on Nara, 12.5 m at た, and 13.5 m single arcs at Aizu's two lane corners. Nara's three right-angle corners at Kaidan-in, Daibutsu-ike and the Shōsō-in took 17–18 m trims instead.
+
+- The legs of a switchback stay at least 4 m apart, and grades stay at or under 12%.
+- Gates move to the nearest new point. Gate-anchored props keep their ground positions.
+- Each route's original trace stays in `research/routes/<id>.trace.json`, and its edits in `<id>.bends.json`. `npx tsx scripts/street-open-bends.ts <id> --check` confirms that the authoring file is that trace with those edits.
+
+Every bend now allows at least 68 km/h on its widest line, and the routes are shorter: Nara by 135 m, Irohazaka by 18 m, Aizu by 3 m. In a one-off check, a scripted driver braked to each bend's steerable speed and held the outside line:
+
+| Route | Before | After |
+|---|---|---|
+| Nara | 207 s, wall contact in 14 bends | 151 s, no wall contact |
+| Aizu | 135 s, wall contact in 1 bend | 131 s, no wall contact |
+| Irohazaka | 184 s, wall contact in 1 bend | 183 s, no wall contact |
 
 ## Geometry contract
 

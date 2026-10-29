@@ -19,6 +19,13 @@ export interface RoadFinish {
    * reflections itself (dashed columns and flecks).
    */
   setSpotSpecularLimit(value: number): void;
+  /**
+   * Share (0-1) of the environment's reflection taken off the road (refine
+   * round 4): on a soaked night road the dusk HDR's lavender mirrored over
+   * the whole carriageway, where the rain-night target keeps it navy under
+   * the lamps' and signs' own reflections. 0 (the default) keeps it all.
+   */
+  setEnvironmentDim(value: number): void;
 }
 
 const decorated = new WeakMap<THREE.MeshStandardMaterial, RoadFinish>();
@@ -109,7 +116,7 @@ const keySpecularLimit = /* glsl */ `
  */
 export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFinish {
   const existing = decorated.get(material); if (existing) return existing;
-  const wetness = { value: 0 }, enabled = { value: 1 }, keySpecular = { value: 0 }, spotSpecular = { value: 0 };
+  const wetness = { value: 0 }, enabled = { value: 1 }, keySpecular = { value: 0 }, spotSpecular = { value: 0 }, environmentDim = { value: 0 };
   const previousCompile = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   // Three's default key reads this.onBeforeCompile. Capture that original hook
   // while continuing to evaluate authored dynamic cache keys at call time.
@@ -128,6 +135,7 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     shader.uniforms.soraRoadFinishEnabled = enabled;
     shader.uniforms.soraRoadKeySpecular = keySpecular;
     shader.uniforms.soraRoadSpotSpecular = spotSpecular;
+    shader.uniforms.soraRoadEnvironmentDim = environmentDim;
     shader.vertexShader = 'varying vec3 soraRoadFinishWorldPosition;\n' + shader.vertexShader;
     shader.vertexShader = shader.vertexShader.replace('#include <project_vertex>', /* glsl */ `
       #include <project_vertex>
@@ -169,7 +177,9 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
         mix(soraRoadDryRoughness, soraRoadDampRoughness, soraRoadPatch), soraRoadFinishEnabled);
       // Wet aggregate loses diffuse brightness while its dielectric specular
       // reflection becomes more coherent. No light color is painted into it.
-      diffuseColor.rgb *= 1.0 - 0.28 * soraRoadPatch;
+      // A soaked road darkens all over, not only in its patches (refine round
+      // 4, the user's rain-night target: a navy road under bright reflections).
+      diffuseColor.rgb *= (1.0 - 0.28 * soraRoadPatch) * (1.0 - 0.5 * smoothstep(0.55, 0.9, soraRoadWetness) * soraRoadFinishEnabled);
     `);
     shader.fragmentShader = shader.fragmentShader.replace('#include <metalnessmap_fragment>', /* glsl */ `
       #include <metalnessmap_fragment>
@@ -177,8 +187,10 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     `);
     shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_pars_fragment>',
       `#include <lights_physical_pars_fragment>\n${keySpecularLimit}`);
+    shader.fragmentShader = 'uniform float soraRoadEnvironmentDim;\n' + shader.fragmentShader.replace('#include <lights_fragment_end>',
+      '#include <lights_fragment_end>\nreflectedLight.indirectSpecular *= 1.0 - soraRoadEnvironmentDim * soraRoadFinishEnabled;');
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v1`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v3`;
   material.metalness = 0;
   material.needsUpdate = true;
   const controller: RoadFinish = {
@@ -186,6 +198,7 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     setEnabled(value) { enabled.value = value ? 1 : 0; },
     setKeySpecularLimit(value) { keySpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
     setSpotSpecularLimit(value) { spotSpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
+    setEnvironmentDim(value) { environmentDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
   };
   decorated.set(material, controller);
   ceilings.set(controller, { enabled, keySpecular, spotSpecular });

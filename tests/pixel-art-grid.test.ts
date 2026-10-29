@@ -2,15 +2,15 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { ART_SHORT_SIDE, pixelArtGrid, sameGrid } from '../src/game/three/pixel-art/grid';
 
-test('1080p uses the cutscene 560x315 art grid with a 3x scene supersample', () => {
+test('1080p uses the 836x470 art grid of the rain-night concept with a 2x scene supersample', () => {
   const grid = pixelArtGrid(1920, 1080);
-  assert.deepEqual([grid.artWidth, grid.artHeight, grid.supersample], [560, 315, 3]);
-  assert.deepEqual([grid.sceneWidth, grid.sceneHeight], [1680, 945]);
-  assert.ok(Math.abs(grid.cellWidth - 1920 / 560) < 1e-9 && Math.abs(grid.cellHeight - 1080 / 315) < 1e-9);
+  assert.deepEqual([grid.artWidth, grid.artHeight, grid.supersample], [836, 470, 2]);
+  assert.deepEqual([grid.sceneWidth, grid.sceneHeight], [1672, 940]);
+  assert.ok(Math.abs(grid.cellWidth - 1920 / 836) < 1e-9 && Math.abs(grid.cellHeight - 1080 / 470) < 1e-9);
 });
 
-test('the short side stays 315 art pixels and the grid scales with the window', () => {
-  for (const [w, h] of [[960, 640], [1821, 1138], [1280, 720], [2560, 1440]] as const) {
+test('the short side is 470 art pixels where the window allows, and the grid scales with the window', () => {
+  for (const [w, h] of [[1821, 1138], [1920, 1200], [2560, 1440]] as const) {
     const grid = pixelArtGrid(w, h);
     assert.equal(grid.artHeight, ART_SHORT_SIDE, `${w}x${h}`);
     assert.equal(grid.artWidth, Math.round(ART_SHORT_SIDE * w / h), `${w}x${h}`);
@@ -18,7 +18,9 @@ test('the short side stays 315 art pixels and the grid scales with the window', 
     assert.equal(grid.sceneWidth, grid.artWidth * grid.supersample);
     assert.equal(grid.sceneHeight, grid.artHeight * grid.supersample);
   }
-  assert.deepEqual([pixelArtGrid(960, 640).artWidth, pixelArtGrid(960, 640).supersample], [473, 2]);
+  // Smaller windows keep two backing pixels per cell: 720p is 640 x 360.
+  assert.deepEqual([pixelArtGrid(1280, 720).artWidth, pixelArtGrid(1280, 720).artHeight, pixelArtGrid(1280, 720).supersample], [640, 360, 2]);
+  assert.deepEqual([pixelArtGrid(960, 640).artWidth, pixelArtGrid(960, 640).supersample], [480, 2]);
 });
 
 test('cells never get smaller than two backing pixels', () => {
@@ -37,12 +39,12 @@ test('portrait windows keep the short side (width) at the art density', () => {
   const phone = pixelArtGrid(390, 844);
   assert.deepEqual([phone.artWidth, phone.artHeight, phone.supersample], [195, 422, 2]);
   const tall = pixelArtGrid(781, 1688);
-  assert.deepEqual([tall.artWidth, tall.artHeight], [315, Math.round(315 * 1688 / 781)]);
+  assert.deepEqual([tall.artWidth, tall.artHeight], [390, Math.round(390 * 1688 / 781)]);
 });
 
 test('supersample is clamped to 2..3 and degenerate sizes stay valid', () => {
   assert.equal(pixelArtGrid(3840, 2160).supersample, 3);
-  assert.deepEqual([pixelArtGrid(3840, 2160).sceneWidth, pixelArtGrid(3840, 2160).sceneHeight], [1680, 945]);
+  assert.deepEqual([pixelArtGrid(3840, 2160).sceneWidth, pixelArtGrid(3840, 2160).sceneHeight], [2508, 1410]);
   for (const [w, h] of [[0, 0], [1, 1], [3, 2], [Number.NaN, 5], [-4, 10]] as const) {
     const grid = pixelArtGrid(w, h);
     assert.ok(grid.artWidth >= 1 && grid.artHeight >= 1 && grid.supersample >= 2, `${w}x${h}`);

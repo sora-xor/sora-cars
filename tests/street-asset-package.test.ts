@@ -6,6 +6,7 @@ import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { packageStreetAssets } from '../scripts/package-street-assets.ts';
+import { STREET_ROUTE_IDS } from '../scripts/lib/street-routes.ts';
 
 const hash = (bytes: string | Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 import { streetGenerationFixture as fixture } from './helpers/street-generation-fixture';
@@ -14,7 +15,8 @@ async function noPublication(root: string) { await assert.rejects(access(join(ro
 
 test('packages the exact selected fresh generation path with relative content-addressed assets', async () => {
   await fixture(async (root, _manifest, generation, bundle) => {
-    const result = await packageStreetAssets(root, generation);
+    const [result] = await packageStreetAssets(root, [generation]);
+    assert.ok(result);
     assert.equal(result.bundleSha256, hash(bundle)); assert.equal(result.bundleBytes, bundle.length);
     assert.deepEqual(await readFile(join(root, 'public', result.bundlePath)), bundle);
     assert.equal((await readFile(join(root, 'public', result.musicPath))).toString(), 'test-only music');
@@ -26,7 +28,7 @@ test('packages the exact selected fresh generation path with relative content-ad
 test('changed producer or selected bundle never publishes', async () => {
   for (const target of ['source', 'bundle']) await fixture(async (root, manifest, generation) => {
     await writeFile(join(root, target === 'source' ? 'scripts/fixture.ts' : manifest.bundles[6].path), 'changed');
-    await assert.rejects(packageStreetAssets(root, generation), target === 'source' ? /Producer differs/ : /differs/);
+    await assert.rejects(packageStreetAssets(root, [generation]), target === 'source' ? /Producer differs/ : /differs/);
     await noPublication(root);
   });
 });
@@ -34,7 +36,7 @@ test('changed producer or selected bundle never publishes', async () => {
 test('changed selected native layout rejects stale app copies and manifest', async () => {
   await fixture(async (root, _manifest, generation) => {
     await writeFile(join(root, 'native/crates/iroha_data_model/src/street_v1/layout.rs'), 'new-layout');
-    await assert.rejects(packageStreetAssets(root, generation), /Selected native source differs/); await noPublication(root);
+    await assert.rejects(packageStreetAssets(root, [generation]), /Selected native source differs/); await noPublication(root);
   });
 });
 
@@ -43,7 +45,7 @@ test('bundle producer inventory must match generation even with recomputed bundl
     const data = JSON.parse(bundle.toString()); data.sources = { 'scripts/other.rs': hash('other') };
     const changed = Buffer.from(JSON.stringify(data)); await writeFile(join(root, manifest.bundles[6].path), changed);
     Object.assign(manifest.bundles[6], { bytes: changed.length, sha256: hash(changed) }); await rewrite(root, generation, manifest);
-    await assert.rejects(packageStreetAssets(root, generation), /Producer inventory or bundle structure differs/); await noPublication(root);
+    await assert.rejects(packageStreetAssets(root, [generation]), /Producer inventory or bundle structure differs/); await noPublication(root);
   });
 });
 
@@ -58,7 +60,7 @@ test('malformed, incomplete and ambiguous generation manifests fail before publi
   ];
   for (const mutate of mutations) await fixture(async (root, manifest, generation) => {
     mutate(manifest); await rewrite(root, generation, manifest);
-    await assert.rejects(packageStreetAssets(root, generation)); await noPublication(root);
+    await assert.rejects(packageStreetAssets(root, [generation])); await noPublication(root);
   });
 });
 
@@ -67,7 +69,7 @@ test('missing selected artifact cannot fall back to the retired output/street-ra
     await mkdir(join(root, 'output/street-race'), { recursive: true });
     await writeFile(join(root, 'output/street-race/tokyo-1986-8.json'), bundle);
     await rm(join(root, manifest.bundles[6].path));
-    await assert.rejects(packageStreetAssets(root, generation), { code: 'ENOENT' }); await noPublication(root);
+    await assert.rejects(packageStreetAssets(root, [generation]), { code: 'ENOENT' }); await noPublication(root);
   });
 });
 
@@ -78,6 +80,26 @@ test('packaging CLI requires explicit generation and accepts its path as one arg
     const missing = spawnSync(process.execPath, [tsx, script], { cwd: root, encoding: 'utf8' });
     assert.notEqual(missing.status, 0); assert.match(missing.stderr, /Use --generation/); await noPublication(root);
     const applied = spawnSync(process.execPath, [tsx, script, '--generation', generation], { cwd: root, encoding: 'utf8' });
-    assert.equal(applied.status, 0, applied.stderr); assert.equal(JSON.parse(applied.stdout).bundleSha256, hash(bundle));
+    assert.equal(applied.status, 0, applied.stderr); assert.equal(JSON.parse(applied.stdout)[0].bundleSha256, hash(bundle));
+  });
+});
+
+test('packaging one route keeps the other packaged routes in the manifest', async () => {
+  await fixture(async (root, _manifest, generation) => {
+    const other = { id: 'kyoto-1986', japanese: '京都', name: 'Kyoto', bundlePath: 'assets/street/kyoto-1986-x.json', bundleSha256: hash('x'),
+      bundleBytes: 1, musicPath: 'assets/street/kyoto-1986-y.m4a', musicSha256: hash('y'), musicBytes: 1, musicDurationSeconds: 200 };
+    await writeFile(join(root, 'src/game/street/asset-manifest.ts'), `export const STREET_ASSET_MANIFEST = ${JSON.stringify([other], null, 2)} as const;\n`);
+    await packageStreetAssets(root, [generation]);
+    const written = await readFile(join(root, 'src/game/street/asset-manifest.ts'), 'utf8');
+    assert.match(written, /"id": "tokyo-1986"/);
+    // Entries survive only for routes the native catalog still lists.
+    assert.equal(written.includes('"id": "kyoto-1986"'), (STREET_ROUTE_IDS as readonly string[]).includes('kyoto-1986'));
+  });
+});
+
+test('a recording that differs from its authored digest never publishes', async () => {
+  await fixture(async (root, _manifest, generation) => {
+    await writeFile(join(root, 'world/audio/yasukuni-1986.m4a'), 'other music');
+    await assert.rejects(packageStreetAssets(root, [generation]), /differs from the authored digest/); await noPublication(root);
   });
 });

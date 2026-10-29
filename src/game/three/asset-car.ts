@@ -350,7 +350,9 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         wheel.steering.rotation.y = wheel.front ? steering : 0;
         wheel.spin.rotation.x = angle / wheel.radius;
       }
-      for (const material of brakes) material.emissiveIntensity = braking ? 2.1 : 0.1;
+      // Tail and parking lamps stay lit on the move, brighter under braking, so wet roads mirror them in red streaks
+      // and they glow red-orange in the pixel art as in the user's concept (dim, they read as dark red blocks).
+      for (const material of brakes) material.emissiveIntensity = braking ? 3.2 : 1.8;
       exhaust.visible = boosting; exhaust.scale.z = boosting ? 0.9 + Math.sin(now * 37) * 0.14 : 1;
     },
   };

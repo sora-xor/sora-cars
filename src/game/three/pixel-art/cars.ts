@@ -193,6 +193,17 @@ export const CAR_COLOURS = {
     amber: ['#b65d2e', '#fab15a', '#fdd176'],
     pale: ['#bd9a85', '#e7d3bb', '#fbf5d2'],
   },
+  /**
+   * Refine round 4 (the user's concept): the same tones drawn as their own colours rather than palette entries, the
+   * red lenses glowing a clean signal red with a pink-white hot core, as the concept's tail lights do (the palette's
+   * crimson ramp read as dark red blocks; red-orange read as salmon beside the concept). The palette entries above
+   * still give the cells' index.
+   */
+  lampGlow: {
+    red: ['#a9141b', '#ec2427', '#ff7a6c'],
+    amber: ['#d0702c', '#ffb85a', '#ffe08a'],
+    pale: ['#c9a68c', '#efdcc2', '#fff6dc'],
+  },
 } as const;
 
 const CAR_BOXES = /* glsl */ `
@@ -572,6 +583,7 @@ uniform int carLampRed;              // the cutscene lamp red (#d13d32)
 uniform vec4 carTailMin[MAX_CARS];   // taillight frame box in the car's own frame (w: 1 known)
 uniform vec4 carTailMax[MAX_CARS];
 uniform int carLampTones[9];         // refine round 3: red, amber, pale lens: shade, lit, lamp on
+uniform vec3 carLampGlow[9];         // refine round 4: the same tones' own display colours (CAR_COLOURS.lampGlow)
 uniform float carLampFlat;           // 1: flat lamp tones (refine round 3)
 uniform vec4 carPlateRect[MAX_CARS]; // held plate rectangle in cells (x0, y0, x1, y1)
 uniform vec4 carPlateState[MAX_CARS];// x: view depth of the plate; y: 1 held
@@ -818,7 +830,8 @@ void main() {
       vec4 lo = carTailMin[id - 1], hi = carTailMax[id - 1];
       bool upper = artSurfaceReady > .5 && abs(anchor.w - float(id)) < .5 && lo.w > .5
         ? anchor.y >= mix(lo.y, hi.y, .5) : own.x >= mean.x - .015;
-      outImage = entryTexel(carLampTones[family * 3 + (upper ? 1 : 0) + (emitter ? 1 : 0)]);
+      int tone = family * 3 + (upper ? 1 : 0) + (emitter ? 1 : 0);
+      outImage = vec4(carLampGlow[tone], entryTexel(carLampTones[tone]).a);
       outMarks = vec4(0., 0., prior.b, 1.);
       return;
     }
@@ -1019,6 +1032,8 @@ export function createCars(shared: PixelArtSharedUniforms, palette: PixelPalette
     carTailState: { value: Array.from({ length: MAX_MOVERS }, () => new THREE.Vector4()) },
     carTailMin: { value: features.tailMin }, carTailMax: { value: features.tailMax },
     carLampTones: { value: [...CAR_COLOURS.lampTones.red, ...CAR_COLOURS.lampTones.amber, ...CAR_COLOURS.lampTones.pale].map(entry) },
+    carLampGlow: { value: [...CAR_COLOURS.lampGlow.red, ...CAR_COLOURS.lampGlow.amber, ...CAR_COLOURS.lampGlow.pale]
+      .map(hex => { const c = new THREE.Color(hex).getRGB({ r: 0, g: 0, b: 0 }, THREE.SRGBColorSpace); return new THREE.Vector3(c.r, c.g, c.b); }) },
     carLampFlat: { value: 1 }, carPlateRect: plateRect, carPlateState: plateState,
     carTone: { value: toneTargets[0].texture as THREE.Texture }, carToneReady: { value: 0 }, carEdgeSteady: { value: 1 },
   };

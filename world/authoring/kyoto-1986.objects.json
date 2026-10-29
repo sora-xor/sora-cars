@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "trackId": "kyoto-1986",
+  "objects": [
+    { "id": "honganji-planter", "kind": "tree_planter", "anchorGate": "higashi-honganji", "offsetMm": -70000, "lateralMm": -8200, "halfLengthMm": 600, "halfWidthMm": 600 },
+    { "id": "karasuma-sora-sign", "kind": "breakaway_sign", "anchorGate": "shijo-karasuma", "offsetMm": -120000, "lateralMm": 8000, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "keihan-crossing-oil", "kind": "oil", "anchorGate": "shijo-ohashi", "offsetMm": 75000, "lateralMm": -1100, "halfLengthMm": 7000, "halfWidthMm": 1500 },
+    { "id": "gion-sora-sign", "kind": "breakaway_sign", "anchorGate": "yasaka-gate", "offsetMm": -110000, "lateralMm": 5800, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "higashiyama-planter", "kind": "tree_planter", "anchorGate": "higashiyama-sanjo", "offsetMm": -100000, "lateralMm": -5600, "halfLengthMm": 600, "halfWidthMm": 600 },
+    { "id": "sanjo-tramway-oil", "kind": "oil", "anchorGate": "higashiyama-sanjo", "offsetMm": 170000, "lateralMm": 1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "keage-sora-sign", "kind": "breakaway_sign", "anchorGate": "keage", "offsetMm": -120000, "lateralMm": 5200, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "incline-planter", "kind": "tree_planter", "anchorGate": "nanzenji", "offsetMm": -110000, "lateralMm": 4300, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "torii-planter", "kind": "tree_planter", "anchorGate": "great-torii", "offsetMm": 50000, "lateralMm": -4000, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "marutamachi-oil", "kind": "oil", "anchorGate": "marutamachi-bashi", "offsetMm": -130000, "lateralMm": -1100, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "gyoen-sora-sign", "kind": "breakaway_sign", "anchorGate": "sakaimachi-gomon", "offsetMm": 110000, "lateralMm": 5900, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "nijo-castle-planter", "kind": "tree_planter", "anchorGate": "nijo-castle", "offsetMm": -150000, "lateralMm": 9800, "halfLengthMm": 600, "halfWidthMm": 600 },
+    { "id": "horikawa-oil", "kind": "oil", "anchorGate": "nishi-honganji", "offsetMm": -170000, "lateralMm": 1100, "halfLengthMm": 12000, "halfWidthMm": 1800 },
+    { "id": "station-sora-sign", "kind": "breakaway_sign", "anchorGate": "horikawa-shiokoji", "offsetMm": 150000, "lateralMm": 6200, "halfLengthMm": 400, "halfWidthMm": 900 }
+  ]
+}

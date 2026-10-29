@@ -1,15 +1,15 @@
 {
   "kind": "native-tokyo-main-game-browser",
-  "base": "http://127.0.0.1:5173",
+  "base": "http://127.0.0.1:63299",
   "sources": {
-    "src/main.ts": "ae88c8a0c396b7eac1f1c64a8a0c2b3d1b453edb0ce889d5eb9cb30ae8158851",
-    "src/game/audio.ts": "58a795fc39b99a034a222aac1e848935da6e8565abc2f58c30411a49d572a0f6",
-    "src/ui/street-practice.ts": "d4d8e610de58740ec6648b76070a576cf33604f35c94fac4daea7f8f47c781c7",
-    "src/ui/street-practice.css": "c56fb0b982b3df2c6c1426dd4fffd087253ca063dd4d36fbc9068bfaee20b754",
+    "src/main.ts": "7b1261fcedc59ef589b7bd0f606b3300f84e2f562c86be5cfdc99f70a95a545e",
+    "src/game/audio.ts": "f4adcd5c71267ac672a5330468b7fa0523a0abb215fe37501ccd9652bd37ea2f",
+    "src/ui/street-practice.ts": "e929b5c69d405771dd590f8b93f05ffc8f17082a0935af28f5d0154afb4f1a2d",
+    "src/ui/street-practice.css": "f12a2b6aa06545aa34d8ef9c94348ccb60060e74b2828561acabe6194a0ebc73",
     "src/game/street/assets.ts": "635c748aab36d357ad828b5f6da5f5f390b4215047213989f1d8a443b1c01d67",
-    "src/game/street/asset-manifest.ts": "fc342259f6c90a208d84e0e103e73df80edd81425bf7dc22d42fe00052379342",
+    "src/game/street/asset-manifest.ts": "2a6bcc9837d42bcca286d7aef8a7fe276f2db5807965b9b1579bc71a1e7da747",
     "src/game/street/replay.ts": "816999aa9f64a22fe8c0d8db337c9c00fb5e0fc6ca55098a7b2e335273d514b1",
-    "src/game/street/renderer.ts": "163a9358fbfa682e4afa9180469562db6771af64d0b7482250a75e370c372bf1",
+    "src/game/street/renderer.ts": "e654b96917593d532e07808a62daac25398fc27ab1a8bebada1999881d6eb926",
     "scripts/test-street-practice.mjs": "b3b90491c7b1e86c51c4a97cef665b0ed99a839ab8e93337ba955ba995bc82af"
   },
   "checks": [
@@ -66,7 +66,7 @@
   "humanPlaythrough": false,
   "proofQualified": false,
   "published": false,
-  "canonicalBotCompletionMs": 52440,
+  "canonicalBotCompletionMs": 56280,
   "outcome": {
     "tick": 8462,
     "cars": [
@@ -250,9 +250,9 @@
   },
   "replay": {
     "bytes": 167787,
-    "sha256": "113682260db59a8550da28a29eda1da67dbbc90f587b008ae332b20b9df981f2",
+    "sha256": "e8bc480f8fe74818bda51a62308da2d70aab7d477c3d275eec5c5fb6acde5f41",
     "ticks": 8462,
-    "computationHash": "92da95c575ba50ab42e940702ec110173b44e19030ad006a800893eacd4592ca"
+    "computationHash": "6079d25e741387badbf199361b05d8b5ee3d181139a31a43bf7b3dfd3054ee7d"
   },
-  "verificationMs": 65750
+  "verificationMs": 50793
 }

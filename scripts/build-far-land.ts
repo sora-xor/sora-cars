@@ -1,0 +1,80 @@
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { compileStreetTrack, type AuthoredStreetTrack } from './lib/street-track-compiler';
+
+/** The land around a street route out to its horizon, for its far-land backdrop (period-city/far-land.ts):
+ * GSI DEM10B elevation tiles (国土地理院 標高タイル, zoom 10, about 130 m a pixel) resampled to a grid of
+ * `cell` metres over a latitude/longitude box, written as a generated module. Tiles are cached in
+ * output/far-land-tiles. Usage: tsx scripts/build-far-land.ts <route id> <south> <north> <west> <east> <cell metres> */
+const [id, ...numbers] = process.argv.slice(2);
+const [south, north, west, east, cell] = numbers.map(Number) as [number, number, number, number, number];
+if (!id || !/^[a-z][a-z0-9-]+$/.test(id) || numbers.length !== 5 || [south, north, west, east, cell].some(v => !Number.isFinite(v))
+  || south >= north || west >= east || cell < 50) throw new Error('Use <route id> <south> <north> <west> <east> <cell metres>');
+const Z = 10, SIZE = 256, URL_TEMPLATE = 'https://cyberjapandata.gsi.go.jp/xyz/dem/{z}/{x}/{y}.txt';
+const tileX = (lon: number) => (lon + 180) / 360 * 2 ** Z;
+const tileY = (lat: number) => { const r = lat * Math.PI / 180; return (1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2 * 2 ** Z; };
+const tiles = new Map<string, Float32Array>();
+await mkdir('output/far-land-tiles', { recursive: true });
+async function tile(x: number, y: number): Promise<Float32Array> {
+  const key = `${x}/${y}`, cached = tiles.get(key);
+  if (cached) return cached;
+  const path = `output/far-land-tiles/${Z}-${x}-${y}.txt`;
+  let text = await readFile(path, 'utf8').catch(() => '');
+  if (!text) {
+    const url = URL_TEMPLATE.replace('{z}', String(Z)).replace('{x}', String(x)).replace('{y}', String(y));
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`${url}: ${response.status}`);
+    text = await response.text(); await writeFile(path, text);
+  }
+  const rows = text.trim().split('\n');
+  if (rows.length !== SIZE) throw new Error(`${path}: expected ${SIZE} rows`);
+  // "e" marks no data (open sea); the basins and hills here have none, but read it as sea level.
+  const values = new Float32Array(SIZE * SIZE);
+  rows.forEach((row, j) => row.split(',').forEach((v, i) => { values[j * SIZE + i] = v === 'e' ? 0 : Number(v); }));
+  tiles.set(key, values); return values;
+}
+/** Bilinear height at a point, from the pixel centres of the zoom-10 tiles. */
+async function heightAt(lat: number, lon: number): Promise<number> {
+  const gx = tileX(lon) * SIZE - .5, gy = tileY(lat) * SIZE - .5, x0 = Math.floor(gx), y0 = Math.floor(gy), fx = gx - x0, fy = gy - y0;
+  const sample = async (px: number, py: number) => (await tile(Math.floor(px / SIZE), Math.floor(py / SIZE)))[(py % SIZE) * SIZE + (px % SIZE)]!;
+  const [a, b, c, d] = [await sample(x0, y0), await sample(x0 + 1, y0), await sample(x0, y0 + 1), await sample(x0 + 1, y0 + 1)];
+  return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy;
+}
+const metresNorth = 110574, metresEast = 111320 * Math.cos((south + north) / 2 * Math.PI / 180);
+const rows = Math.round((north - south) * metresNorth / cell) + 1, cols = Math.round((east - west) * metresEast / cell) + 1;
+const heights = new Int16Array(rows * cols);
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  heights[r * cols + c] = Math.round(await heightAt(south + (north - south) * r / (rows - 1), west + (east - west) * c / (cols - 1)));
+}
+// The camera looks down on its own road, and land above the camera faces away and vanishes, showing the sky.
+// Hold the land 3 m under the nearest road point within 130 m (the slope terrain's reach), rising at most 25%
+// beyond it out to 400 m. Distances use the track compiler's projection, as the far land does.
+const track = compileStreetTrack(JSON.parse(await readFile(`world/authoring/${id}.json`, 'utf8')) as AuthoredStreetTrack);
+const [lon0, lat0] = track.originE7.map(v => v / 1e7) as [number, number];
+const perDegree = 6371008.8 * Math.PI / 180, eastScale = perDegree * Math.cos(lat0 * Math.PI / 180);
+const stations = track.samples.map(s => ({ e: s.eastMm / 1000, n: s.northMm / 1000, h: s.elevationMm / 1000 }));
+let lowered = 0, deepest = 0;
+for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+  const e = (west + (east - west) * c / (cols - 1) - lon0) * eastScale, n = (south + (north - south) * r / (rows - 1) - lat0) * perDegree;
+  let limit = Infinity;
+  for (const s of stations) { const d = Math.hypot(e - s.e, n - s.n); if (d < 400) limit = Math.min(limit, s.h - 3 + .25 * Math.max(0, d - 130)); }
+  const i = r * cols + c;
+  if (limit < heights[i]!) { deepest = Math.max(deepest, heights[i]! - Math.floor(limit)); heights[i] = Math.floor(limit); lowered++; }
+}
+const name = `${id.toUpperCase().replace(/-/g, '_')}_LAND`;
+const used = [...tiles.keys()].sort();
+const module = `// Generated by scripts/build-far-land.ts. Do not edit; rerun it instead:
+// npx tsx scripts/build-far-land.ts ${id} ${south} ${north} ${west} ${east} ${cell}
+import type { FarLandGrid } from '../far-land';
+
+/** Elevation (metres) over ${south}–${north}°N, ${west}–${east}°E, row-major from the south-west corner, as little-endian
+ * int16 in base64. Source: 国土地理院 標高タイル DEM10B (${URL_TEMPLATE.replace('{z}', String(Z))}), tiles ${used.join(', ')}.
+ * Held under ${id}'s road (3 m within 130 m, rising at most 25% to 400 m): ${lowered} points lowered, by up to ${deepest} m. */
+export const ${name}: FarLandGrid = {
+  south: ${south}, north: ${north}, west: ${west}, east: ${east}, rows: ${rows}, cols: ${cols},
+  heights: '${Buffer.from(heights.buffer).toString('base64')}',
+};
+`;
+await mkdir('src/game/three/period-city/generated', { recursive: true });
+const out = `src/game/three/period-city/generated/${id}-land.ts`;
+await writeFile(out, module);
+console.log(`Wrote ${out}: ${rows} × ${cols} cells of ${cell} m from ${used.length} tiles; ${Math.min(...heights)}–${Math.max(...heights)} m; ${lowered} points held under the road, by up to ${deepest} m.`);

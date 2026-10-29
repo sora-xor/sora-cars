@@ -4,8 +4,10 @@ import * as THREE from 'three';
 import { nearestPaletteIndex } from '../src/game/three/pixel-art/linework';
 import { hueDistance, oklch, PIXEL_PALETTE } from '../src/game/three/pixel-art/palette';
 import {
-  createCameraTravel, createMovers, MAX_MOVERS, SPARKLE_COLOURS, SURFACE_DEFAULTS, surfaceOptionsFromQuery,
+  createCameraTravel, createMovers, createSurfaces, MAX_MOVERS, SPARKLE_COLOURS, SURFACE_DEFAULTS, surfaceOptionsFromQuery,
+  type GroundEmitter,
 } from '../src/game/three/pixel-art/surfaces';
+import { createSharedUniforms } from '../src/game/three/pixel-art/stages';
 
 const lchOf = (index: number) => oklch(Array.from(PIXEL_PALETTE.oklab.subarray(index * 4, index * 4 + 3)));
 
@@ -26,11 +28,44 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   // 2-cell dashes at half duty read as a leopard-spot dissolve); sparkles 1-5% of lit wet cells.
   assert.ok(d.wetDashCells >= 2 && d.wetDashCells <= 6 && d.wetDashDuty >= 0.5 && d.wetDashDuty <= 0.8);
   assert.ok(d.sparkleLit >= 0.01 && d.sparkleLit <= 0.05 && d.sparkleRain <= 0.05);
-  // Upward-facing ground only, and the column window fits the composite shader (at most 32 cells down, 8 up).
+  // Refine round 4 glitter (the user's rain-night concept): a speck on some calm wet cells, never all of them,
+  // lifted enough to read against the navy road without reaching cream.
+  assert.ok(d.wetGlitter > 0 && d.wetGlitter <= 0.6 && d.wetGlitterLift >= 0.1 && d.wetGlitterLift <= 0.3);
+  // At speed the glitter becomes trails, no more of them than still specks.
+  assert.ok(d.wetGlitterTrail > 0 && d.wetGlitterTrail <= 1);
+  // Lit facades and shop fronts stretch into reflection columns too, with a ramp between start and full.
+  assert.ok(d.wetColumnStart > 0 && d.wetColumnStart < d.wetColumnFull && d.wetColumnFull <= 1);
+  // Upward-facing ground only, and the column window fits the composite shader (at most 96 cells down, every other
+  // row past 32, and 8 up); the near road keeps some of the mirror, never all of it.
   assert.ok(d.wetNormal >= 0.8 && d.wetNormal < 1);
-  assert.ok(d.wetColumnDown <= 32 && d.wetColumnUp <= 8 && d.wetColumnDown > d.wetColumnUp);
+  assert.ok(d.wetColumnDown <= 96 && d.wetColumnUp <= 8 && d.wetColumnDown > d.wetColumnUp);
+  // The ripple spread fits its shader's window (4 cells either side) and loses some light per cell.
+  assert.ok(d.wetSpread >= 0 && d.wetSpread <= 4 && d.wetSpreadFalloff > 0 && d.wetSpreadFalloff < 0.25);
+  // Light columns break into ripple blobs a few cells across with holes and a few dark specks, never solid or empty;
+  // the drizzle stays a light speckle.
+  assert.ok(d.wetRipple === 1 && d.wetRippleCells >= 2 && d.wetRippleCells <= 8 && d.wetRippleRows >= 1 && d.wetRippleRows <= 8);
+  assert.ok(d.wetRippleHoles > 0.2 && d.wetRippleHoles < 0.6 && d.wetRipplePebbles >= 0 && d.wetRipplePebbles < 0.15);
+  assert.ok(d.wetDrizzle >= 0 && d.wetDrizzle <= 0.1);
+  // Pale reflections lean toward the lamps' gold, never all the way.
+  assert.ok(d.wetReflectionWarmth >= 0 && d.wetReflectionWarmth < 1);
+  // Ripples near the camera are blobs, farther off taller, narrower streaks.
+  assert.ok(d.wetRippleRowsFar > d.wetRippleRows && d.wetRippleCellsFar <= d.wetRippleCells && d.wetRippleFarStart > 0);
+  assert.ok(d.wetFresnelFloor >= 0 && d.wetFresnelFloor < 0.5);
+  // The ground keeps its smoothing at speed; upright surfaces (shop interiors, lettering, walkers) stay crisp.
+  assert.ok(d.groundSpeedSmooth > 0 && d.wallSpeedSmooth >= 0 && d.wallSpeedSmooth < d.groundSpeedSmooth);
   assert.ok(d.temporalMargin > 0 && d.temporalMargin < 0.05 && d.temporalDepthTolerance < 0.1);
   assert.ok(d.fieldMotionStretch >= 1);
+});
+
+test('shop fronts cast wet-ground columns but are no lamp heads', () => {
+  const surfaces = createSurfaces(createSharedUniforms(), PIXEL_PALETTE,
+    { exposure: { value: 1 }, lutWeights: { value: null } as never, band: { paletteFull: { value: 1 } } });
+  const emitter = (y: number, head?: boolean): GroundEmitter => ({ position: new THREE.Vector3(0, y, 0), groundY: 0,
+    color: new THREE.Color(1, .7, .4), intensity: 5, width: 1.2, head, maxCells: head === false ? 16 : 0 });
+  surfaces.setGroundEmitters([emitter(6.6), emitter(2.4, false), emitter(6.6, true), emitter(2.5, false)], 4);
+  // The linework's lamp heads (cores, halos, lamp-lit foliage) and the lamps' night level see only the lamps.
+  assert.equal(surfaces.lampHeads.count, 2);
+  for (let i = 0; i < 2; i++) assert.equal(surfaces.lampHeads.positions[i]!.y, 6.6);
 });
 
 test('sparkles snap to warm amber/gold and cool lavender/pale palette entries', () => {

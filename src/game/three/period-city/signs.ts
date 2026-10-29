@@ -8,13 +8,17 @@ import { EMBLEM_CIRCLE } from '../sora-emblem';
  * (branding/sora-emblem-source.png), centred on the board above the
  * wordmark. Signs are internally lit boxes: the face is colour and emissive map.
  */
-const WIDTH = 2048, HEIGHT = 3456;
+const WIDTH = 2048, HEIGHT = 5376;
 const VERTICAL = { width: 128, height: 512, columns: 16, rows: 3, top: 0 } as const;
 const FASCIA = { width: 512, height: 128, columns: 4, rows: 5, top: 1536 } as const;
 const BOARD = { width: 512, height: 256, columns: 4, rows: 3, top: 2176 } as const;
-const GUIDE = { width: 512, height: 256, columns: 4, rows: 2, top: 2944 } as const;
+const GUIDE = { width: 512, height: 256, columns: 4, rows: 5, top: 2944 } as const;
+const KANA = { width: 128, height: 128, columns: 16, rows: 3, top: 4224 } as const;
+/** Regional shop words for the street routes beyond Tokyo, after the original sets. */
+const VERTICAL_LOCAL = { width: 128, height: 512, columns: 16, rows: 1, top: 4608 } as const;
+const FASCIA_LOCAL = { width: 512, height: 128, columns: 4, rows: 2, top: 5120 } as const;
 export type PrintRect = [number, number, number, number];
-export type SignKind = 'vertical' | 'fascia' | 'board' | 'guide';
+export type SignKind = 'vertical' | 'fascia' | 'board' | 'guide' | 'kana';
 
 interface Scheme { readonly ground: string; readonly ink: string; readonly rule?: string }
 /** Period sign colours: lacquer red, cream, ink black, cobalt, emerald, mustard. */
@@ -53,7 +57,26 @@ const GUIDE_WORDS: readonly (readonly (readonly [string, string, string])[])[] =
   [['山下公園', 'Yamashita Park', '↑'], ['横浜駅', 'Yokohama Sta.', '→']],
   [['日光', 'Nikko', '↑'], ['中禅寺湖', 'Lake Chuzenji', '←']],
   [['神保町', 'Jimbocho', '↑'], ['御茶ノ水', 'Ochanomizu', '→']],
+  // The street routes beyond Tokyo.
+  [['中禅寺湖', 'Lake Chuzenji', '↑'], ['明智平', 'Akechidaira', '↑']],
+  [['鶴ヶ城', 'Tsurugajo Castle', '↑'], ['七日町', 'Nanokamachi', '→']],
+  [['飯盛山', 'Iimoriyama', '↑'], ['東山温泉', 'Higashiyama Onsen', '→']],
+  [['四条通', 'Shijo-dori', '→'], ['烏丸御池', 'Karasuma-Oike', '↑']],
+  [['祇園', 'Gion', '↑'], ['河原町', 'Kawaramachi', '←']],
+  [['蹴上', 'Keage', '↑'], ['平安神宮', 'Heian Shrine', '←']],
+  [['京都御所', 'Kyoto Imperial Palace', '↑'], ['二条城', 'Nijo Castle', '←']],
+  [['京都駅', 'Kyoto Sta.', '↑'], ['西本願寺', 'Nishi Hongwanji', '→']],
+  [['東大寺', 'Todai-ji', '↑'], ['春日大社', 'Kasuga Taisha', '→']],
+  [['奈良公園', 'Nara Park', '↑'], ['奈良駅', 'Nara Sta.', '←']],
 ];
+/** Kyoto, Nara and Aizu shop words (invented shop names; regional goods). */
+const LOCAL_VERTICAL_WORDS = ['京菓子', '漬物', '湯葉', '扇子', '西陣織', '豆腐', '茶舗', '甘味', '酒蔵', '赤べこ', '会津塗', '鹿せんべい', '奈良漬', '墨', '筆', '仏具'];
+const LOCAL_FASCIA_WORDS: readonly (readonly [string, string])[] = [
+  ['京漬物 花よし', '千枚漬・すぐき'], ['甘味処 まつ乃', 'あんみつ・わらび餅'], ['京扇子 白梅堂', 'SENSU'], ['茶舗 宇治園', '玉露・抹茶'],
+  ['会津塗 漆器 塗師屋', '会津塗・赤べこ'], ['酒造 鶴の井', '会津の地酒'], ['奈良漬 森の屋', '奈良名物'], ['奈良墨 古梅堂', '墨・筆'],
+];
+/** The iroha poem's kana, one per curve board on Irohazaka. */
+export const IROHA = [...'いろはにほへとちりぬるをわかよたれそつねならむうゐのおくやまけふこえてあさきゆめみしゑひもせすん'];
 const FONT = '"Hiragino Kaku Gothic ProN", SoraJP, "Noto Sans JP", sans-serif';
 const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", SoraJP, serif';
 
@@ -66,7 +89,10 @@ function rect(region: { width: number; height: number; columns: number; top: num
 }
 /** The atlas rectangle of sign `index` of a kind (wraps). */
 export function signPrint(kind: SignKind, index: number): PrintRect {
-  const region = kind === 'vertical' ? VERTICAL : kind === 'fascia' ? FASCIA : kind === 'board' ? BOARD : GUIDE;
+  // Indices past the original vertical and fascia sets select the regional words.
+  if (kind === 'vertical' && index >= SIGN_COUNTS.vertical && index < SIGN_COUNTS.vertical + LOCAL_VERTICAL_WORDS.length) return rect(VERTICAL_LOCAL, index - SIGN_COUNTS.vertical);
+  if (kind === 'fascia' && index >= SIGN_COUNTS.fascia && index < SIGN_COUNTS.fascia + LOCAL_FASCIA_WORDS.length) return rect(FASCIA_LOCAL, index - SIGN_COUNTS.fascia);
+  const region = kind === 'vertical' ? VERTICAL : kind === 'fascia' ? FASCIA : kind === 'board' ? BOARD : kind === 'kana' ? KANA : GUIDE;
   return rect(region, ((index % (region.columns * region.rows)) + region.columns * region.rows) % (region.columns * region.rows));
 }
 /** A horizontal slice (0 bottom .. 1 top) of a print, for one tenant panel of a stacked sign. */
@@ -74,7 +100,44 @@ export function printSlice(print: PrintRect, from: number, to: number): PrintRec
   return [print[0], print[1] + (print[3] - print[1]) * from, print[2], print[1] + (print[3] - print[1]) * to];
 }
 export const SIGN_COUNTS = { vertical: VERTICAL.columns * VERTICAL.rows, fascia: FASCIA.columns * FASCIA.rows, board: BOARD.columns * BOARD.rows,
-  guide: GUIDE.columns * GUIDE.rows } as const;
+  guide: GUIDE.columns * GUIDE.rows, kana: KANA.columns * KANA.rows } as const;
+/** A street's own choice of shop signs, as atlas indices. */
+export interface SignPools { readonly vertical: readonly number[]; readonly fascia: readonly number[]; readonly board: readonly number[] }
+/** A sign from the street's pool, or from the whole original set exactly as before. Both draw `random` once. */
+export function pickSign(pools: SignPools | null, kind: 'vertical' | 'fascia' | 'board', random: () => number): number {
+  const pool = pools?.[kind];
+  return pool?.length ? pool[Math.floor(random() * pool.length)]! : Math.floor(random() * SIGN_COUNTS[kind]);
+}
+const VERTICAL_ALL = [...VERTICAL_WORDS, ...LOCAL_VERTICAL_WORDS], FASCIA_ALL = [...FASCIA_WORDS, ...LOCAL_FASCIA_WORDS];
+/** A fascia's shop title by its atlas index (awnings.ts prints the shop's trade from it); '' past the sets. */
+export function fasciaTitle(index: number): string { return FASCIA_ALL[index]?.[0] ?? ''; }
+const pick = (words: readonly string[], all: readonly string[]) => words.map(word => {
+  const index = all.indexOf(word); if (index < 0) throw new Error(`No sign word ${word}.`); return index;
+});
+const fascias = (titles: readonly string[]) => pick(titles, FASCIA_ALL.map(([title]) => title));
+/** Shop words found on any 1986 street; no Tokyo, Hakone, Nikko or harbour place names. */
+const COMMON_VERTICAL = ['喫茶', '麻雀', '焼肉', '寿司', '中華', '質', '薬局', '歯科', '内科', '不動産', '古書', '書店', '学習塾', '英会話',
+  '理容', '写真', '時計', '電器', 'スナック', '居酒屋', 'ラーメン', 'そば', '天ぷら', '洋食', '旅館', '金融', 'カメラ', 'たばこ', 'レコード', 'ビデオ', 'やきとり'];
+const COMMON_FASCIA = ['喫茶 白鳥', '中華料理 龍門', 'とんかつ 平八', '寿司 政', 'そば処 長寿庵', 'やきとり 鳥八', '松風書店', '丸山時計店',
+  '小林薬局', 'レコード 音楽堂', 'SORA 自動車', '純喫茶 夕凪', '居酒屋 さくら', '旅館 山水'];
+const COMMON_BOARDS = BOARD_WORDS.flatMap(([title], index) => ['ホテル 湯の花', '三栄海運', 'みなと丸'].includes(title) ? [] : [index]);
+/** Regional sign pools for the street routes; Tokyo and the Arcade keep the whole original set. */
+export const SIGN_REGIONS: Readonly<Record<'kyoto' | 'nara' | 'aizu' | 'nikko', SignPools>> = {
+  kyoto: { vertical: pick([...COMMON_VERTICAL, '京菓子', '漬物', '湯葉', '扇子', '西陣織', '豆腐', '茶舗', '甘味', 'みやげ', '茶屋'], VERTICAL_ALL),
+    fascia: fascias([...COMMON_FASCIA, '京漬物 花よし', '甘味処 まつ乃', '京扇子 白梅堂', '茶舗 宇治園']), board: COMMON_BOARDS },
+  nara: { vertical: pick([...COMMON_VERTICAL, '奈良漬', '鹿せんべい', '墨', '筆', '仏具', '甘味', '茶舗', 'みやげ', '茶屋', '饅頭'], VERTICAL_ALL),
+    fascia: fascias([...COMMON_FASCIA, '奈良漬 森の屋', '奈良墨 古梅堂', '茶舗 宇治園']), board: COMMON_BOARDS },
+  aizu: { vertical: pick([...COMMON_VERTICAL, '酒蔵', '赤べこ', '会津塗', 'みやげ', '民宿', '温泉', '饅頭', '茶屋'], VERTICAL_ALL),
+    fascia: fascias([...COMMON_FASCIA, '会津塗 漆器 塗師屋', '酒造 鶴の井']), board: COMMON_BOARDS },
+  nikko: { vertical: pick(['そば', '茶屋', 'みやげ', '民宿', '旅館', '湯波', '羊羹', '日光', '饅頭', 'ホテル', 'たばこ', 'カメラ'], VERTICAL_ALL),
+    fascia: fascias(['そば処 長寿庵', '湯波 日光堂', '旅館 山水', '純喫茶 夕凪', 'SORA 自動車']), board: COMMON_BOARDS },
+};
+/** The guide sign naming `kanji` first, for the street plans. */
+export function guideIndex(kanji: string): number {
+  const index = GUIDE_WORDS.findIndex(([[first]]) => first === kanji);
+  if (index < 0) throw new Error(`No guide sign for ${kanji}.`);
+  return index;
+}
 /** SORA emblem billboards in the board region. */
 export const SORA_BOARDS = BOARD_WORDS.flatMap(([, , scheme], index) => scheme < 0 ? [index] : []);
 /** The atlas index of a named sign (vertical word, fascia or board title). */
@@ -124,6 +187,31 @@ function draw(context: CanvasRenderingContext2D, emblem: HTMLImageElement | null
     });
     context.textAlign = 'center';
   });
+  LOCAL_VERTICAL_WORDS.forEach((word, index) => {
+    const x = index % VERTICAL_LOCAL.columns * VERTICAL_LOCAL.width, y = VERTICAL_LOCAL.top + Math.floor(index / VERTICAL_LOCAL.columns) * VERTICAL_LOCAL.height;
+    const scheme = SCHEMES[(index * 5 + 1) % SCHEMES.length]!, characters = [...word];
+    frame(x, y, VERTICAL_LOCAL.width, VERTICAL_LOCAL.height, scheme);
+    const step = Math.min(104, (VERTICAL_LOCAL.height - 44) / characters.length);
+    context.fillStyle = scheme.ink; context.font = `800 ${Math.round(step * .9)}px ${index % 3 ? SERIF : FONT}`;
+    characters.forEach((character, i) => context.fillText(character, x + VERTICAL_LOCAL.width / 2,
+      y + VERTICAL_LOCAL.height / 2 + (i - (characters.length - 1) / 2) * step, VERTICAL_LOCAL.width - 22));
+  });
+  LOCAL_FASCIA_WORDS.forEach(([title, subtitle], index) => {
+    const x = index % FASCIA_LOCAL.columns * FASCIA_LOCAL.width, y = FASCIA_LOCAL.top + Math.floor(index / FASCIA_LOCAL.columns) * FASCIA_LOCAL.height;
+    const scheme = SCHEMES[(index * 7 + 4) % SCHEMES.length]!;
+    frame(x, y, FASCIA_LOCAL.width, FASCIA_LOCAL.height, scheme);
+    context.fillStyle = scheme.ink; context.font = `800 54px ${index % 2 ? SERIF : FONT}`;
+    context.fillText(title, x + FASCIA_LOCAL.width / 2, y + 52, FASCIA_LOCAL.width - 36);
+    context.font = `600 24px ${FONT}`; context.fillText(subtitle, x + FASCIA_LOCAL.width / 2, y + 100, FASCIA_LOCAL.width - 60);
+  });
+  // Curve boards: a white enamel plate, a red ring and the kana in black.
+  IROHA.forEach((kana, index) => {
+    const x = index % KANA.columns * KANA.width, y = KANA.top + Math.floor(index / KANA.columns) * KANA.height;
+    context.fillStyle = '#f6f4ee'; context.fillRect(x, y, KANA.width, KANA.height);
+    context.strokeStyle = '#2b2b30'; context.lineWidth = 6; context.strokeRect(x + 3, y + 3, KANA.width - 6, KANA.height - 6);
+    context.strokeStyle = '#c8312b'; context.lineWidth = 8; context.beginPath(); context.arc(x + 64, y + 64, 46, 0, Math.PI * 2); context.stroke();
+    context.fillStyle = '#1c1c22'; context.font = `800 64px ${FONT}`; context.fillText(kana, x + 64, y + 68);
+  });
   BOARD_WORDS.forEach(([title, subtitle, schemeIndex], index) => {
     const x = index % BOARD.columns * BOARD.width, y = BOARD.top + Math.floor(index / BOARD.columns) * BOARD.height;
     if (schemeIndex < 0) {
@@ -172,14 +260,33 @@ export function signAtlas(emblemUrl: string): { texture: THREE.CanvasTexture; re
  * (16, 128 x 512). The SORA designs draw the exact emblem, centred: a lit
  * plaque in a neon ring, a white roundel on red cloth.
  */
-const NEON_WIDTH = 2048, NEON_HEIGHT = 2816;
+const NEON_WIDTH = 2048, NEON_HEIGHT = 3072;
 const NEON = { width: 512, height: 256, columns: 4, rows: 4, top: 0 } as const;
 const NOBORI = { width: 128, height: 512, columns: 16, rows: 2, top: 1024 } as const;
 /** Cloth banners strung across the street (横断幕), the exact emblem centred between two words. */
 const BANNER = { width: 1024, height: 128, columns: 2, rows: 2, top: 2048 } as const;
 /** Tall vertical neon signs (縦型ネオン), one character above another; the bottom row of the atlas (materials.ts reads where it starts). */
 const VNEON = { width: 128, height: 512, columns: 16, rows: 1, top: 2304 } as const;
+/** Where the vertical neon row starts and ends in texture v (materials.ts spells those signs out from the top). */
 export const VNEON_TOP_V = (NEON_HEIGHT - VNEON.top) / NEON_HEIGHT;
+export const VNEON_BOTTOM_V = (NEON_HEIGHT - VNEON.top - VNEON.height) / NEON_HEIGHT;
+/**
+ * Shop-front lights (refine round 4, the user's rain-night concept): red paper lanterns (赤提灯) printed with the
+ * shop's trade, and small lit box signs (行灯看板) of one or two characters, cream with ink lettering. The SORA
+ * designs draw the exact emblem, centred.
+ */
+const LANTERN = { width: 128, height: 256, columns: 8, rows: 1, top: 2816, left: 0 } as const;
+const BOX = { width: 128, height: 128, columns: 8, rows: 2, top: 2816, left: 1024 } as const;
+const LANTERN_WORDS: readonly (readonly [string, string, string])[] = [
+  ['やきとり', '#c8312b', '#1a1012'], ['酒', '#c8312b', '#1a1012'], ['おでん', '#d8402c', '#1a1012'], ['居酒屋', '#c8312b', '#f6ead2'],
+  ['ラーメン', '#c8312b', '#f6ead2'], ['焼肉', '#b8281f', '#f6ead2'], ['寿司', '#f2ead8', '#c8312b'], ['SORA', '#f6f2e8', '#c8312b'],
+];
+const BOX_WORDS: readonly (readonly [string, string, string])[] = [
+  ['酒', '#f6efdc', '#1a1012'], ['焼鳥', '#f6efdc', '#1a1012'], ['喫茶', '#f6efdc', '#5a2a1a'], ['質', '#f6efdc', '#c8312b'],
+  ['湯', '#f6efdc', '#1f4fae'], ['麺', '#f6efdc', '#c8312b'], ['寿司', '#f6efdc', '#1a1012'], ['薬', '#f6efdc', '#1e6a4c'],
+  ['茶', '#f6efdc', '#1e6a4c'], ['本', '#f6efdc', '#1a1012'], ['酒場', '#f2c53d', '#1a1012'], ['BAR', '#2c2523', '#f2a640'],
+  ['スナック', '#6b2a5c', '#ffd9ef'], ['理容', '#f6efdc', '#1f3f7a'], ['写真', '#f6efdc', '#1a1012'], ['SORA', '#f6f2e8', '#c8312b'],
+];
 const VNEON_WORDS: readonly (readonly [string, string])[] = [
   ['スナック', '#ff4fa0'], ['カラオケ', '#ffe040'], ['喫茶', '#ffe8c0'], ['麻雀', '#50ff9a'], ['ホテル', '#5a8aff'], ['パチンコ', '#ffd040'],
   ['ラーメン', '#ff5a3a'], ['SORA', '#ff3a3a'], ['クラブ', '#b070ff'], ['ディスコ', '#ff3ad8'], ['焼肉', '#ff8a3a'], ['ゲーム', '#50ff7a'],
@@ -203,16 +310,20 @@ const NOBORI_WORDS: readonly (readonly [string, string, string])[] = [
   ['寿司', '#f4f0e4', '#1f3f7a'], ['天ぷら', '#e7b53a', '#2c2523'], ['そば', '#2c2523', '#f4ead2'], ['饅頭', '#f4f0e4', '#8c1f24'],
   ['羊羹', '#4a2a1a', '#f4ead2'], ['寄木', '#8a6a44', '#ffffff'], ['焼肉', '#2c2523', '#ff8a3a'], ['質', '#f4f0e4', '#c8312b'],
 ];
-export type NeonKind = 'neon' | 'nobori' | 'banner' | 'vneon';
+export type NeonKind = 'neon' | 'nobori' | 'banner' | 'vneon' | 'lantern' | 'box';
 export const NEON_COUNTS = { neon: NEON.columns * NEON.rows, nobori: NOBORI.columns * NOBORI.rows, banner: BANNER.columns * BANNER.rows,
-  vneon: VNEON.columns * VNEON.rows } as const;
+  vneon: VNEON.columns * VNEON.rows, lantern: LANTERN.columns * LANTERN.rows, box: BOX.columns * BOX.rows } as const;
+/** The index of a lantern or box design by its word. */
+export function lanternIndex(word: string): number { const i = LANTERN_WORDS.findIndex(([w]) => w === word); if (i < 0) throw new Error(`No lantern "${word}".`); return i; }
+export function boxIndex(word: string): number { const i = BOX_WORDS.findIndex(([w]) => w === word); if (i < 0) throw new Error(`No box sign "${word}".`); return i; }
 /** The SORA designs in each region. */
 export const SORA_NEON = NEON_WORDS.findIndex(([word]) => word === 'SORA');
 export const SORA_VNEON = VNEON_WORDS.findIndex(([word]) => word === 'SORA');
 export const SORA_NOBORI = NOBORI_WORDS.flatMap(([word], index) => word === 'SORA' ? [index] : []);
 export function neonPrint(kind: NeonKind, index: number): PrintRect {
-  const region = kind === 'neon' ? NEON : kind === 'nobori' ? NOBORI : kind === 'vneon' ? VNEON : BANNER, count = region.columns * region.rows, i = ((index % count) + count) % count;
-  const x = i % region.columns * region.width, y = region.top + Math.floor(i / region.columns) * region.height;
+  const region = kind === 'neon' ? NEON : kind === 'nobori' ? NOBORI : kind === 'vneon' ? VNEON : kind === 'lantern' ? LANTERN : kind === 'box' ? BOX : BANNER;
+  const count = region.columns * region.rows, i = ((index % count) + count) % count, left = 'left' in region ? region.left : 0;
+  const x = left + i % region.columns * region.width, y = region.top + Math.floor(i / region.columns) * region.height;
   return [(x + .5) / NEON_WIDTH, 1 - (y + region.height - .5) / NEON_HEIGHT, (x + region.width - .5) / NEON_WIDTH, 1 - (y + .5) / NEON_HEIGHT];
 }
 export function neonIndex(word: string): number {
@@ -290,6 +401,42 @@ function drawNeon(context: CanvasRenderingContext2D, emblem: HTMLImageElement | 
     context.fillStyle = ink; context.font = `900 76px ${FONT}`;
     context.fillText(left, cx - 80 - (BANNER.width / 2 - 120) / 2, cy + 4, BANNER.width / 2 - 140);
     context.fillText(right, cx + 80 + (BANNER.width / 2 - 120) / 2, cy + 4, BANNER.width / 2 - 140);
+  });
+  LANTERN_WORDS.forEach(([word, paper, ink], index) => {
+    // A paper lantern seen flat: the paper between dark rims at top and bottom, ribbed, the word down its middle.
+    const x = LANTERN.left + index * LANTERN.width, y = LANTERN.top, cx = x + LANTERN.width / 2;
+    context.fillStyle = paper; context.fillRect(x, y, LANTERN.width, LANTERN.height);
+    context.fillStyle = 'rgba(0,0,0,.16)';
+    for (let r = y + 22; r < y + LANTERN.height - 20; r += 18) context.fillRect(x, r, LANTERN.width, 2);
+    context.fillStyle = 'rgba(255,255,255,.18)'; context.fillRect(x + 18, y, 16, LANTERN.height);
+    context.fillStyle = '#1c1416'; context.fillRect(x, y, LANTERN.width, 16); context.fillRect(x, y + LANTERN.height - 16, LANTERN.width, 16);
+    if (word === 'SORA') {
+      // The exact emblem centred on the paper, the name below it.
+      if (emblem) drawEmblem(context, emblem, cx, y + 92, 44);
+      context.fillStyle = ink; context.font = `900 36px ${FONT}`; context.fillText(word, cx, y + 182, LANTERN.width - 20);
+      return;
+    }
+    const characters = [...word], step = Math.min(64, (LANTERN.height - 64) / characters.length);
+    context.fillStyle = ink; context.font = `900 ${Math.round(step * .86)}px ${FONT}`;
+    characters.forEach((character, i) => context.fillText(character, cx, y + LANTERN.height / 2 + (i - (characters.length - 1) / 2) * step, LANTERN.width - 28));
+  });
+  BOX_WORDS.forEach(([word, ground, ink], index) => {
+    // A small lit box: a dark frame round a glowing face, the word big in the middle.
+    const x = BOX.left + index % BOX.columns * BOX.width, y = BOX.top + Math.floor(index / BOX.columns) * BOX.height;
+    const cx = x + BOX.width / 2, cy = y + BOX.height / 2;
+    context.fillStyle = '#1c1416'; context.fillRect(x, y, BOX.width, BOX.height);
+    context.fillStyle = ground; context.fillRect(x + 10, y + 10, BOX.width - 20, BOX.height - 20);
+    if (word === 'SORA') {
+      if (emblem) drawEmblem(context, emblem, cx, cy - 10, 36);
+      context.fillStyle = ink; context.font = `900 22px ${FONT}`; context.fillText(word, cx, y + BOX.height - 24, BOX.width - 30);
+      return;
+    }
+    const characters = [...word], size = characters.length === 1 ? 84 : characters.length === 2 ? 50 : 30;
+    context.fillStyle = ink; context.font = `900 ${size}px ${FONT}`;
+    if (characters.length === 2 && /[\u3000-\u9fff]/.test(word)) {
+      // Two kanji stacked, as box signs set them.
+      characters.forEach((character, i) => context.fillText(character, cx, cy + (i - .5) * 48, BOX.width - 26));
+    } else context.fillText(word, cx, cy + 3, BOX.width - 26);
   });
   VNEON_WORDS.forEach(([word, colour], index) => {
     const x = index * VNEON.width, y = VNEON.top, cx = x + VNEON.width / 2;

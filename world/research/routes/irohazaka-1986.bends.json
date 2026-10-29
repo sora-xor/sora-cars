@@ -1,0 +1,17 @@
+{
+  "route": "irohazaka-1986",
+  "edits": [
+    {
+      "name": "curve-ta-loop",
+      "from": {
+        "point": "kurokamidaira-4900",
+        "along": 25000
+      },
+      "to": {
+        "point": "kurokamidaira-5009",
+        "back": 10000
+      },
+      "radiusMm": 12500
+    }
+  ]
+}

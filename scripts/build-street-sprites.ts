@@ -2,9 +2,9 @@
 // sprite atlas (src/game/three/period-city/street-sprites.ts), from the
 // generated sprite sheets in art/street-sprites (prompts and sources:
 // docs/art-prompts/street-sprites-v1.json). Each sheet cell is cropped to its
-// figure, reduced with a box filter to the atlas scale (a 1.70 m adult is 78
+// figure, reduced with a box filter to the atlas scale (a 1.70 m adult is 117
 // pixels), its feet set on the baseline and its head centred. Rows with no
-// sheet yet fall back to the code-drawn sprites (sprites.ts), enlarged x1.5.
+// sheet yet fall back to the code-drawn sprites (sprites.ts), enlarged to the cell.
 //
 // usage: npx tsx scripts/build-street-sprites.ts [--review <png>] [--allow-stand-ins]
 // It refuses to overwrite the atlas while any sheet is missing unless
@@ -15,7 +15,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import pngjs from 'pngjs';
 import { drawnRow, drawSprites, DRAWN_CELL, type Pixels, type Prints } from '../src/game/three/period-city/sprites';
-import { SPRITE_ATLAS, SPRITE_BASELINE, SPRITE_CELL, SPRITE_ROWS, spriteRow } from '../src/game/three/period-city/street-sprites';
+import { SPRITE_ATLAS, SPRITE_BASELINE, SPRITE_CELL, SPRITE_ROWS, SPRITE_SCALE, spriteRow } from '../src/game/three/period-city/street-sprites';
 import { EMBLEM_CIRCLE } from '../src/game/three/sora-emblem';
 
 const { PNG } = pngjs;
@@ -34,6 +34,8 @@ interface Sheet {
   readonly reference: readonly [number, number]; readonly size: number; readonly axis?: 'height' | 'width';
   /** Centre each figure on its head (people) or on its whole extent (cats, bikes). */
   readonly centre?: 'head' | 'box';
+  /** Clear stray clusters smaller than this share of the figure's largest, then re-crop (image models leave the odd speck). */
+  readonly despeck?: number;
 }
 /** A walk sheet: row 1 front (standing, left foot, passing, right foot), row 2 back, row 3 a side walk cycle. */
 function walker(name: string, size: number): Sheet {
@@ -50,6 +52,8 @@ export const SHEET_SPECS: readonly Sheet[] = [
   walker('schoolgirl', 72), walker('sukeban', 74), walker('schoolboy', 77), walker('bosozoku', 82), walker('bosozoku-black', 81),
   walker('fan', 76), walker('crew', 77), walker('obaachan', 67), walker('housewife', 72), walker('youth', 75), walker('denim', 76),
   walker('yukata-woman', 73), walker('yukata-man', 77), walker('dock', 79), walker('tourist', 77), walker('old-man', 72),
+  // Umbrellas open on wet nights: the size covers the canopy over a 1.65 m figure.
+  walker('umbrella-salaryman', 90), walker('umbrella-woman', 84),
   // Fans' cheers in double-width cells (the flag swings wide): row 1 four front frames; row 2 two from behind,
   // one from the side, then standing for scale.
   { file: 'fan-cheer.png', columns: 4, rows: 2, reference: [3, 1], size: 76, frames: [
@@ -84,6 +88,19 @@ export const SHEET_SPECS: readonly Sheet[] = [
   { file: 'bosozoku-bikes.png', columns: 3, rows: 2, reference: [0, 0], size: 94, axis: 'width', centre: 'box', frames: (['bike-purple', 'bike-black'] as const)
     .flatMap((bike, r) => [{ row: bike, column: 0, from: [0, r] as const, wide: true }, { row: bike, column: 2, from: [1, r] as const },
       { row: bike, column: 3, from: [2, r] as const }]) },
+  // The routes' locals. Gion's maiko (okobo and her tall hair make her 1.74 m), with a janome-gasa for wet nights.
+  walker('maiko', 80), walker('umbrella-maiko', 92),
+  // Irohazaka's monkeys on the cats' layout, a third larger than life: sitting front and side, two strides; then from behind,
+  // eating, walking toward and away.
+  ...(['monkey', 'monkey-mother'] as const).map((name): Sheet => ({ file: `${name}.png`, columns: 4, rows: 2, reference: [0, 0],
+    size: name === 'monkey' ? 33 : 31, centre: 'box', frames: ([[0, 0, 0], [2, 1, 0], [3, 2, 0], [4, 3, 0], [1, 0, 1], [7, 1, 1], [5, 2, 1], [6, 3, 1]] as const)
+      .map(([column, c, r]) => ({ row: name, column, from: [c, r] as const })) })),
+  // Nara's deer: sides in double-width cells (standing, two strides, grazing, bowing, lying), then front and back, standing and walking.
+  ...(['deer', 'deer-stag'] as const).map((name): Sheet => ({ file: `${name}.png`, columns: 4, rows: 3, reference: [0, 0],
+    size: name === 'deer' ? 60 : 70, centre: 'box', despeck: .05, frames: [
+      ...([[0, 0, 0], [2, 1, 0], [4, 2, 0], [6, 3, 0], [8, 0, 1], [10, 1, 1]] as const).map(([column, c, r]) => ({ row: name, column, from: [c, r] as const, wide: true })),
+      ...([[12, 2, 1], [13, 3, 1], [14, 0, 2], [15, 1, 2]] as const).map(([column, c, r]) => ({ row: name, column, from: [c, r] as const })),
+    ] })),
 ];
 
 /**
@@ -145,6 +162,37 @@ function reduce(image: Image, box: { x0: number; y0: number; x1: number; y1: num
   return { width, height, data };
 }
 
+/** Clear 8-connected opaque clusters under `share` of the largest, and crop to what is left. */
+function despeck(figure: Image, share: number): Image {
+  const { width, height, data } = figure, label = new Int32Array(width * height).fill(-1), sizes: number[] = [];
+  for (let start = 0; start < width * height; start++) {
+    if (label[start]! >= 0 || !data[start * 4 + 3]) continue;
+    const id = sizes.length, stack = [start]; let size = 0;
+    label[start] = id;
+    while (stack.length) {
+      const k = stack.pop()!, x = k % width, y = (k - x) / width; size++;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) {
+        const nx = x + dx, ny = y + dy, n = ny * width + nx;
+        if (nx >= 0 && ny >= 0 && nx < width && ny < height && label[n]! < 0 && data[n * 4 + 3]) { label[n] = id; stack.push(n); }
+      }
+    }
+    sizes.push(size);
+  }
+  const keep = Math.max(0, ...sizes) * share;
+  let x0 = width, y0 = height, x1 = 0, y1 = 0;
+  for (let k = 0; k < width * height; k++) if (label[k]! >= 0 && sizes[label[k]!]! >= keep) {
+    const x = k % width, y = (k - x) / width;
+    x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x + 1); y1 = Math.max(y1, y + 1);
+  }
+  if (x1 <= x0) return figure;
+  const out = new Uint8ClampedArray((x1 - x0) * (y1 - y0) * 4);
+  for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) {
+    const k = y * width + x; if (label[k]! < 0 || sizes[label[k]!]! < keep) continue;
+    out.set(data.subarray(k * 4, k * 4 + 4), ((y - y0) * (x1 - x0) + x - x0) * 4);
+  }
+  return { width: x1 - x0, height: y1 - y0, data: out };
+}
+
 /** The x of a figure's head: the mean column of its top quarter. */
 function headCentre(figure: Image): number {
   let sum = 0, count = 0;
@@ -169,12 +217,15 @@ class Atlas {
     }
     this.filled.add(`${row}:${column}`); if (wide) this.filled.add(`${row}:${column + 1}`);
   }
-  /** Copy a code-drawn cell, enlarged x1.5 (32 x 64 to 48 x 96). */
+  /** Copy a code-drawn cell, enlarged to the atlas cell's height (32 x 64 to 72 x 144), centred across it. */
   enlarge(drawn: Image, fromRow: number, fromColumn: number, row: number, column: number, wide = false): void {
     if (this.filled.has(`${row}:${column}`)) return;
-    const cellWidth = SPRITE_CELL.width * (wide ? 2 : 1);
+    const enlarge = SPRITE_CELL.height / DRAWN_CELL.height;
+    const cellWidth = SPRITE_CELL.width * (wide ? 2 : 1), drawnWidth = DRAWN_CELL.width * enlarge * (wide ? 2 : 1), margin = (cellWidth - drawnWidth) / 2;
     for (let y = 0; y < SPRITE_CELL.height; y++) for (let x = 0; x < cellWidth; x++) {
-      const sx = fromColumn * DRAWN_CELL.width + Math.floor(x / 1.5), sy = fromRow * DRAWN_CELL.height + Math.floor(y / 1.5);
+      const local = x - margin;
+      if (local < 0 || local >= drawnWidth) continue;
+      const sx = fromColumn * DRAWN_CELL.width + Math.floor(local / enlarge), sy = fromRow * DRAWN_CELL.height + Math.floor(y / enlarge);
       const i = (sy * drawn.width + sx) * 4, o = ((row * SPRITE_CELL.height + y) * SPRITE_ATLAS.width + column * SPRITE_CELL.width + x) * 4;
       for (let k = 0; k < 4; k++) this.data[o + k] = drawn.data[i + k]!;
     }
@@ -216,7 +267,7 @@ function fallbacks(atlas: Atlas, drawn: Image): void {
   const walkers: Record<string, string> = { salaryman: 'salaryman', trench: 'trench', drunk: 'drunk', 'office-lady': 'office-lady', police: 'police',
     schoolgirl: 'schoolgirl', sukeban: 'sukeban', schoolboy: 'schoolboy-cap', bosozoku: 'bosozoku', 'bosozoku-black': 'bosozoku-black', fan: 'fan',
     crew: 'crew', obaachan: 'obaachan', housewife: 'housewife', youth: 'brights', denim: 'denim', 'yukata-woman': 'yukata-white', 'yukata-man': 'yukata',
-    dock: 'dock', tourist: 'tourist', 'old-man': 'old-man' };
+    dock: 'dock', tourist: 'tourist', 'old-man': 'old-man', 'umbrella-salaryman': 'salaryman', 'umbrella-woman': 'office-lady' };
   for (const [row, look] of Object.entries(walkers)) for (let c = 0; c < 15; c++) atlas.enlarge(drawn, drawnRow(look), c, spriteRow(row), c);
   [15, 16, 17, 18, 19, 20, 15, 16].forEach((from, c) => atlas.enlarge(drawn, drawnRow('fan'), from, spriteRow('fan-cheer'), c * 2));
   [24, 25, 26, 27, 24, 25].forEach((from, c) => atlas.enlarge(drawn, drawnRow('police-traffic'), from, spriteRow('police-signal'), c * 2));
@@ -244,11 +295,12 @@ export function buildStreetSprites(): { atlas: Uint8ClampedArray; used: string[]
     const cellBox = ([c, r]: readonly [number, number]) => grid[r]?.[c] ?? null;
     const ref = cellBox(sheet.reference);
     if (!ref) throw new Error(`${sheet.file}: the scale reference cell is empty.`);
-    const scale = sheet.size / (sheet.axis === 'width' ? ref.x1 - ref.x0 : ref.y1 - ref.y0);
+    // Sheet sizes are at the first atlas scale (78 pixels to an adult).
+    const scale = sheet.size * SPRITE_SCALE / (sheet.axis === 'width' ? ref.x1 - ref.x0 : ref.y1 - ref.y0);
     for (const frame of sheet.frames) {
       const box = cellBox(frame.from);
       if (!box) throw new Error(`${sheet.file}: cell ${frame.from} is empty.`);
-      const figure = reduce(image, box, scale);
+      const figure = sheet.despeck ? despeck(reduce(image, box, scale), sheet.despeck) : reduce(image, box, scale);
       atlas.place(spriteRow(frame.row), frame.column, figure, sheet.centre === 'box' ? figure.width / 2 : headCentre(figure), frame.wide);
     }
   }

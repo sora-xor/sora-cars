@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "trackId": "aizu-wakamatsu-1986",
+  "objects": [
+    { "id": "omachi-sora-sign", "kind": "breakaway_sign", "anchorGate": "aizu-station", "offsetMm": 150000, "lateralMm": -3200, "halfLengthMm": 400, "halfWidthMm": 800 },
+    { "id": "omachi-oil", "kind": "oil", "anchorGate": "omachi-yotsukado", "offsetMm": -120000, "lateralMm": 1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "nanokamachi-planter", "kind": "tree_planter", "anchorGate": "nanokamachi-turn", "offsetMm": 70000, "lateralMm": 3600, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "nishisakae-sora-sign", "kind": "breakaway_sign", "anchorGate": "nishisakae", "offsetMm": 120000, "lateralMm": -3900, "halfLengthMm": 400, "halfWidthMm": 800 },
+    { "id": "yonedai-oil", "kind": "oil", "anchorGate": "minami-hanabatake", "offsetMm": -150000, "lateralMm": -1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "jonan-planter", "kind": "tree_planter", "anchorGate": "minami-hanabatake", "offsetMm": 150000, "lateralMm": 4400, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "nishidemaru-sora-sign", "kind": "breakaway_sign", "anchorGate": "castle-southwest", "offsetMm": 120000, "lateralMm": -4500, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "castle-oil", "kind": "oil", "anchorGate": "castle-northwest", "offsetMm": -100000, "lateralMm": 1200, "halfLengthMm": 8000, "halfWidthMm": 1500 },
+    { "id": "kitademaru-planter", "kind": "tree_planter", "anchorGate": "kitademaru", "offsetMm": 80000, "lateralMm": -4100, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "sannomaru-sora-sign", "kind": "breakaway_sign", "anchorGate": "sannomaru-museum", "offsetMm": 150000, "lateralMm": 3900, "halfLengthMm": 400, "halfWidthMm": 900 },
+    { "id": "tenneiji-oil", "kind": "oil", "anchorGate": "tenneiji-junction", "offsetMm": -110000, "lateralMm": -1000, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "keizan-planter", "kind": "tree_planter", "anchorGate": "keizan", "offsetMm": 120000, "lateralMm": -3600, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "iimori-sora-sign", "kind": "breakaway_sign", "anchorGate": "iimori-itchome", "offsetMm": -100000, "lateralMm": 3400, "halfLengthMm": 400, "halfWidthMm": 800 },
+    { "id": "shoulder-sora-sign", "kind": "breakaway_sign", "anchorGate": "iimoriyama-shoulder", "offsetMm": -45000, "lateralMm": -1700, "halfLengthMm": 400, "halfWidthMm": 700 }
+  ]
+}

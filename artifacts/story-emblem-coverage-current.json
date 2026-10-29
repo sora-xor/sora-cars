@@ -1,6 +1,6 @@
 {
   "schema": "sora-cars.story-emblem-coverage.v1",
-  "checkedAt": "2026-10-29T00:27:26.446Z",
+  "checkedAt": "2026-10-29T07:03:52.988Z",
   "passed": true,
   "scope": "Current chapter/menu, scene, fallback-angle, story-beat and actual per-cut artwork references. Historical unused images and soundtrack covers are outside this report.",
   "method": "Resolve every authored line; require each referenced file to match a passed individual visual-review audit by path and SHA-256. This script does not recognize logos automatically.",
@@ -26,29 +26,82 @@
     {
       "path": "artifacts/story-office-emblem-audit-2026-10-29.json",
       "sha256": "63de79b5f4cc276e588f876476faee2e07fe6adb8935795fa799c01184a2d07b"
+    },
+    {
+      "path": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json",
+      "sha256": "fe4cabe2f85ac4781b986f090b42bb23f7d9752b9663eecfc8d254ae78849aa1"
     }
   ],
   "sourcesUnchanged": true,
   "sourceHashes": {
-    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
-    "src/game/story-cut-art.json": "6a24d169b663719a3fa9e625ec51ef3bf9614217b7a69a17bea4d7fc05b496ac",
-    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-scenes.ts": "ba7c08d4bfb8b82c32d3a7041c5a04f8c1d23e16a46cd537e00d42af883205a1",
+    "src/game/story-cut-art.json": "581f8ab640b2e36301500c06d58933d05569faee432bb076d8f8aeb302d73d21",
+    "src/game/story.ts": "66151984a0ceafdea55f5e13c8086ec48eb0c6082f8b0a5c24885d0335537401",
     "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
     "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
     "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c"
   },
   "finalSourceHashes": {
-    "src/game/story-scenes.ts": "4c66ec571f9c05538a065bd721ce049bde02077b385b3db389158e036df87b64",
-    "src/game/story-cut-art.json": "6a24d169b663719a3fa9e625ec51ef3bf9614217b7a69a17bea4d7fc05b496ac",
-    "src/game/story.ts": "aa458a671345fed0de2c6ededebdb0c7c6ec4e7951c20c89bf617a935bf71e21",
+    "src/game/story-scenes.ts": "ba7c08d4bfb8b82c32d3a7041c5a04f8c1d23e16a46cd537e00d42af883205a1",
+    "src/game/story-cut-art.json": "581f8ab640b2e36301500c06d58933d05569faee432bb076d8f8aeb302d73d21",
+    "src/game/story.ts": "66151984a0ceafdea55f5e13c8086ec48eb0c6082f8b0a5c24885d0335537401",
     "src/game/story-campaign-act1.ts": "f12f84e99afddfcfbc45e8821fcdd86d0c313b1dd50abfb7a75132dccfd02c37",
     "src/game/story-campaign-act2.ts": "100dfdbf06b717b8a52c4f3d40ab11b9ea4508552c8e455069949d4ed5252b16",
     "src/game/story-campaign-act3.ts": "2b41254bd364e3ee2d100f2a9b105ca1568b3b91b78bf5430952066e5f61269c"
   },
-  "total": 240,
-  "reviewed": 240,
+  "total": 287,
+  "reviewed": 287,
   "pending": [],
   "files": [
+    {
+      "path": "public/assets/story/angles/aizu-detail-v1.png",
+      "sha256": "c75616b16a8e50002a5c17e0e19f6e193d968214a601efbabdf179ac0841b887",
+      "contexts": [
+        "fallback:aizu/detail",
+        "ch15-intro:5",
+        "ch15-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/aizu-left-v1.png",
+      "sha256": "326d753d3aba1e12e3da493134e7191d223920db2192af97c23d42c18361a6af",
+      "contexts": [
+        "fallback:aizu/left",
+        "ch15-intro:7",
+        "ch15-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/aizu-right-v1.png",
+      "sha256": "e96880bb23cc7a737aaf44ebb3cc69a82a06c78b1fc6b79b689f7c4ba468d2db",
+      "contexts": [
+        "fallback:aizu/right",
+        "ch15-intro:9",
+        "ch15-intro:10",
+        "ch15-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/aizu-wide-v1.png",
+      "sha256": "a683021a645652c6529b2e79e0dd513b704be1a7ab6d3e9de0bcf0cd223bfadc",
+      "contexts": [
+        "location:aizu",
+        "fallback:aizu/wide",
+        "chapter-menu:15",
+        "ch15-intro:1",
+        "ch15-intro:2",
+        "ch15-intro:3",
+        "ch15-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
     {
       "path": "public/assets/story/angles/boardroom-detail-v3.png",
       "sha256": "1014817d3c99ec875fb0394018db5d180edb7644dccece17d3f550d6ed4db855",
@@ -167,6 +220,53 @@
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
     },
     {
+      "path": "public/assets/story/angles/gion-detail-v1.png",
+      "sha256": "abad25a57888f69a0e63ddee69cb083955adfd5b4443fed78055710b83e7b966",
+      "contexts": [
+        "fallback:gion/detail",
+        "ch16-intro:3",
+        "ch16-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/gion-left-v1.png",
+      "sha256": "17de9e2540d038aabfd83b481dac6b1092a1e8362141f09f21b063b3d248f4e1",
+      "contexts": [
+        "fallback:gion/left",
+        "ch16-intro:5",
+        "ch16-intro:6",
+        "ch16-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/gion-right-v1.png",
+      "sha256": "59c3348e132d2214973d9d4e01d13c31a80d5c6a1092646a7113fe96ea12ecbc",
+      "contexts": [
+        "fallback:gion/right",
+        "ch16-intro:8",
+        "ch16-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/gion-wide-v1.png",
+      "sha256": "fc32f3ea1a3877ee0fa3a9a9eed30bf9c9caccccc7ed252db49dbbf3d875d5e7",
+      "contexts": [
+        "location:gion",
+        "fallback:gion/wide",
+        "chapter-menu:16",
+        "ch16-intro:1",
+        "ch16-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
       "path": "public/assets/story/angles/harbor-detail-v3.png",
       "sha256": "a8db24f1cad331bb6c48f14003fd317f78ea83462112a28721520069959e425a",
       "contexts": [
@@ -209,6 +309,101 @@
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
     },
     {
+      "path": "public/assets/story/angles/iroha-detail-v1.png",
+      "sha256": "5679eafc5ad40adb2a21bcc6ebeb05f16aa7ef43a4f315562df6b460eb50326c",
+      "contexts": [
+        "fallback:iroha/detail",
+        "ch13-intro:3",
+        "ch13-intro:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/iroha-left-v1.png",
+      "sha256": "74824d4bdb70bcc0813b20ac5da432fd60fcf7528173a5748d3765fa86238716",
+      "contexts": [
+        "fallback:iroha/left",
+        "ch13-intro:5",
+        "ch13-intro:6",
+        "ch13-intro:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/iroha-right-v1.png",
+      "sha256": "04edbfd2ac4e5fdaaec293b37e492e49599147707b3872c8710fed3609511a11",
+      "contexts": [
+        "fallback:iroha/right",
+        "ch13-intro:8",
+        "ch13-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/iroha-wide-v1.png",
+      "sha256": "ace4ceb8738578661c5eb3576799e174faf7f309568dbbf7bb8da334fe329627",
+      "contexts": [
+        "location:iroha",
+        "fallback:iroha/wide",
+        "chapter-menu:13",
+        "ch13-intro:1",
+        "ch13-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/kudan-detail-v1.png",
+      "sha256": "cfce1151a3803cb330e954d716030366636cb38ba7a28dbc30ec10cbf944133f",
+      "contexts": [
+        "fallback:kudan/detail",
+        "ch14-intro:3",
+        "ch14-intro:4",
+        "ch14-intro:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/kudan-left-v1.png",
+      "sha256": "4053d9643487de85861633ccd6cb2ce8953c71c8ffa9233f1bd9e53d81e144ff",
+      "contexts": [
+        "fallback:kudan/left",
+        "ch14-intro:6",
+        "ch14-intro:7",
+        "ch14-intro:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/kudan-right-v1.png",
+      "sha256": "5b36772090a1e7833ffb7eedc5553be01eb0fa1f5dc80bd32df0a7cecb1ae4be",
+      "contexts": [
+        "fallback:kudan/right",
+        "ch14-intro:9",
+        "ch14-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/kudan-wide-v1.png",
+      "sha256": "12c58b085cce7f1ac93e0e24f04a4524d9484635ed9afb08de8d460a03e9bbd0",
+      "contexts": [
+        "location:kudan",
+        "fallback:kudan/wide",
+        "chapter-menu:14",
+        "ch14-intro:1",
+        "ch14-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
       "path": "public/assets/story/angles/ledger-detail-v2.png",
       "sha256": "af2a5e69dea2cb1d2bfe560c13712d603e7c1c488ea48e10665a127f875f7109",
       "contexts": [
@@ -248,6 +443,53 @@
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/angles/nara-detail-v1.png",
+      "sha256": "735673212a6875a122641b691f8b7bd1398e2a7d3c949943947ad1486b95fbab",
+      "contexts": [
+        "fallback:nara/detail",
+        "ch17-intro:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/nara-left-v1.png",
+      "sha256": "6c8a41735b6dbf67d629f7fb30c0b8010a3b9d280a8dae5e81911ed30ccff9c2",
+      "contexts": [
+        "fallback:nara/left",
+        "ch17-intro:4",
+        "ch17-intro:5",
+        "ch17-intro:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/nara-right-v1.png",
+      "sha256": "6ec485dc09c63e41fd9006392e3bc7381a87d913a8495c5b96d4e98aea8e138c",
+      "contexts": [
+        "fallback:nara/right",
+        "ch17-intro:7",
+        "ch17-intro:8",
+        "ch17-intro:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/angles/nara-wide-v1.png",
+      "sha256": "a08c2a5684292076b0e51ca582cba1f2df565309ae5d9acea6ffdfece3ae8424",
+      "contexts": [
+        "location:nara",
+        "fallback:nara/wide",
+        "chapter-menu:17",
+        "ch17-intro:1",
+        "ch17-intro:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
     },
     {
       "path": "public/assets/story/angles/office-detail-v3.png",
@@ -2310,6 +2552,281 @@
       ],
       "reviewedCurrentBytes": true,
       "audit": "artifacts/story-opening-emblem-audit-2026-09-26.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-intro-cut05-v1.png",
+      "sha256": "5e739803dd4a1f92a32c4c9c89647d5ab9f97ca75a04be2e5c14f807e9d016a5",
+      "contexts": [
+        "ch13-intro:10",
+        "ch13-intro:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut01-v1.png",
+      "sha256": "836e55536bdc072ac91a0502a00bb036c873db98ceab8387cd584c2ea1b5fca7",
+      "contexts": [
+        "ch13-victory:1",
+        "ch13-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut02-v1.png",
+      "sha256": "485f5ae13061a927c2b04a5e4ca2b492cc24d69b5fee632d696a7d991804fa7c",
+      "contexts": [
+        "ch13-victory:3",
+        "ch13-victory:4",
+        "ch13-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut03-v1.png",
+      "sha256": "a85565c55598bfe9804cf7a0f35a11cd7c229d0b5577211a445c761c8f2b2daa",
+      "contexts": [
+        "ch13-victory:6",
+        "ch13-victory:7",
+        "ch13-victory:8",
+        "ch13-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch13-victory-cut04-v1.png",
+      "sha256": "5f42882bd0a9b49d8246bf7fad364ba5efeb5585dea6150fb2fa5ccbdafb63df",
+      "contexts": [
+        "ch13-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-intro-cut05-v1.png",
+      "sha256": "b28687201573b74f268dd781e20247106911f988c77f08dba5d278db1de351ad",
+      "contexts": [
+        "ch14-intro:11",
+        "ch14-intro:12",
+        "ch14-intro:13"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-intro-cut06-v1.png",
+      "sha256": "37215872245ce10b2e95abf4da20989f2a97ccb2cf7214113ebe3cb2d0af802c",
+      "contexts": [
+        "ch14-intro:14"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut01-v1.png",
+      "sha256": "b5e738fd2f7625c08a41cbac443fa898dd62aa1bd55aace3d600e32fd29129c9",
+      "contexts": [
+        "ch14-victory:1",
+        "ch14-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut02-v1.png",
+      "sha256": "8865aabf03414454996aa6cad589c51f6f03a7286102dc241a40284620e92ee3",
+      "contexts": [
+        "ch14-victory:3",
+        "ch14-victory:4",
+        "ch14-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut03-v1.png",
+      "sha256": "9eb9fba6623c9a6ace7cf708c527d7af929227590ad00cbde4fb313640a72c56",
+      "contexts": [
+        "ch14-victory:6",
+        "ch14-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut04-v1.png",
+      "sha256": "a5b3305d64872ae198b7e268ff8485be58026a4a8d9c1140164709220eaaee49",
+      "contexts": [
+        "ch14-victory:8",
+        "ch14-victory:9",
+        "ch14-victory:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch14-victory-cut05-v1.png",
+      "sha256": "49efb1a9f2d76df5518d30d895a16173030129a6467c484c56ff062582c8e206",
+      "contexts": [
+        "ch14-victory:11"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-intro-cut05-v1.png",
+      "sha256": "08ff997739bca8b7181098c29054f6a4ed95256ccca71ba94676ac1336343688",
+      "contexts": [
+        "ch15-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut01-v1.png",
+      "sha256": "046944d24b95e112dee590b98a823a99312525d4ae588250c84a60d24c5312b0",
+      "contexts": [
+        "ch15-victory:1",
+        "ch15-victory:2",
+        "ch15-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut02-v1.png",
+      "sha256": "da3b807f2be43c283a4790914760e53fe68149f76b193add81cee848132364c4",
+      "contexts": [
+        "ch15-victory:4",
+        "ch15-victory:5"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut03-v1.png",
+      "sha256": "669205ccedf6ff1a352b55624aebc9f0e430971892dd605f95fcbc5ca14eba3e",
+      "contexts": [
+        "ch15-victory:6",
+        "ch15-victory:7",
+        "ch15-victory:8"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch15-victory-cut04-v1.png",
+      "sha256": "2f75293ca5bccdbdd3f57e76d5a91a7fa1b1cdca5c3aa6c960e153c387757170",
+      "contexts": [
+        "ch15-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-intro-cut05-v1.png",
+      "sha256": "f632c8db0864ab1757b2df13c93256c43f25ad3143110a4b09f616dece35d9be",
+      "contexts": [
+        "ch16-intro:10"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut01-v1.png",
+      "sha256": "28e268c808e71eb62c94e08c547fce39ba821f9367b8c3b22d84df9626f694e1",
+      "contexts": [
+        "ch16-victory:1",
+        "ch16-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut02-v1.png",
+      "sha256": "d4a239897cba9ae69df72d87f613219ce79eea114333298ac9e547e01c6cd3b1",
+      "contexts": [
+        "ch16-victory:3"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut03-v1.png",
+      "sha256": "2c6af58aa350bb2e68da1bc8b653250b4024b4b74db24e20cc106b687f339864",
+      "contexts": [
+        "ch16-victory:4",
+        "ch16-victory:5",
+        "ch16-victory:6",
+        "ch16-victory:7"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch16-victory-cut04-v1.png",
+      "sha256": "39885f1f3dbb2eea63ed5b22c855e10013ad3353287616ec316df098ec08ffb6",
+      "contexts": [
+        "ch16-victory:8",
+        "ch16-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-intro-cut05-v1.png",
+      "sha256": "1e6d8dbd0d52651ce7291f2005f220a9688fea6ae5cb040d5cc0447fee705539",
+      "contexts": [
+        "ch17-intro:10",
+        "ch17-intro:11",
+        "ch17-intro:12"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut01-v1.png",
+      "sha256": "aa77d2fdecc3388902b4d5ab97e6ab2ff76b20d58ec6cd2ac53cadafbac58fb7",
+      "contexts": [
+        "ch17-victory:1",
+        "ch17-victory:2"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut02-v1.png",
+      "sha256": "74b1cc35f23daf52ae4f52f6d2b49a102377ef90e15b3abe58c8ad5792947bef",
+      "contexts": [
+        "ch17-victory:3",
+        "ch17-victory:4"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut03-v1.png",
+      "sha256": "32ab4895b2a49928dfba6455b1212b49e1c9a97451d09a984b3db3c3895a225c",
+      "contexts": [
+        "ch17-victory:5",
+        "ch17-victory:6"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
+    },
+    {
+      "path": "public/assets/story/scenes/ch17-victory-cut04-v1.png",
+      "sha256": "5fdb28dafc690a6b9edae038844ba7ff2a81344e1f325e08ef7e58b262c13e8e",
+      "contexts": [
+        "ch17-victory:7",
+        "ch17-victory:8",
+        "ch17-victory:9"
+      ],
+      "reviewedCurrentBytes": true,
+      "audit": "artifacts/story-street-chapters-emblem-audit-2026-10-29.json"
     },
     {
       "path": "public/assets/story/scenes/retry-opening-logo-v2.png",

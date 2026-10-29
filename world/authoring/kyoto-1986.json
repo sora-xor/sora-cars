@@ -1,0 +1,800 @@
+{
+  "version": 1,
+  "topology": "circuit",
+  "id": "kyoto-1986",
+  "name": {
+    "ja": "蹴上・煉瓦の余韻",
+    "en": "Keage Brick Echo"
+  },
+  "year": 1986,
+  "points": [
+    {
+      "id": "station-front",
+      "positionE7": [
+        1357584510,
+        349871862
+      ],
+      "elevationMm": 27800,
+      "halfWidthMm": 8000,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "kyoto-tower",
+      "positionE7": [
+        1357597738,
+        349871820
+      ],
+      "elevationMm": 28200,
+      "halfWidthMm": 8500,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 32000
+    },
+    {
+      "id": "karasuma-shichijo",
+      "positionE7": [
+        1357597677,
+        349896066
+      ],
+      "elevationMm": 29600,
+      "halfWidthMm": 10000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 28000
+    },
+    {
+      "id": "karasuma-bend-south",
+      "positionE7": [
+        1357601947,
+        349904292
+      ],
+      "elevationMm": 30300,
+      "halfWidthMm": 10000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "higashi-honganji",
+      "positionE7": [
+        1357601982,
+        349910579
+      ],
+      "elevationMm": 30700,
+      "halfWidthMm": 10000,
+      "sector": 1,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "karasuma-bend-north",
+      "positionE7": [
+        1357601869,
+        349917312
+      ],
+      "elevationMm": 31000,
+      "halfWidthMm": 10000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "karasuma-shomen",
+      "positionE7": [
+        1357597609,
+        349930298
+      ],
+      "elevationMm": 31200,
+      "halfWidthMm": 10000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "karasuma-gojo",
+      "positionE7": [
+        1357597138,
+        349961732
+      ],
+      "elevationMm": 32600,
+      "halfWidthMm": 10000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "shijo-karasuma",
+      "positionE7": [
+        1357596806,
+        350036547
+      ],
+      "elevationMm": 36900,
+      "halfWidthMm": 9000,
+      "sector": 3,
+      "gate": true,
+      "cornerTrimMm": 34000
+    },
+    {
+      "id": "shijo-kawaramachi",
+      "positionE7": [
+        1357689975,
+        350037677
+      ],
+      "elevationMm": 37300,
+      "halfWidthMm": 7500,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "shijo-ohashi",
+      "positionE7": [
+        1357714634,
+        350038206
+      ],
+      "elevationMm": 38200,
+      "halfWidthMm": 7500,
+      "sector": 4,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "keihan-shijo-crossing",
+      "positionE7": [
+        1357722311,
+        350038266
+      ],
+      "elevationMm": 38300,
+      "halfWidthMm": 7500,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "gion-hanamikoji",
+      "positionE7": [
+        1357752474,
+        350038357
+      ],
+      "elevationMm": 39100,
+      "halfWidthMm": 7500,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "yasaka-gate",
+      "positionE7": [
+        1357772175,
+        350037588
+      ],
+      "elevationMm": 41100,
+      "halfWidthMm": 7000,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 24000
+    },
+    {
+      "id": "higashioji-chionin",
+      "positionE7": [
+        1357775453,
+        350046819
+      ],
+      "elevationMm": 40900,
+      "halfWidthMm": 7000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "higashiyama-sanjo",
+      "positionE7": [
+        1357781409,
+        350094446
+      ],
+      "elevationMm": 43200,
+      "halfWidthMm": 7000,
+      "sector": 7,
+      "gate": true,
+      "cornerTrimMm": 26000
+    },
+    {
+      "id": "sanjo-awata",
+      "positionE7": [
+        1357792649,
+        350094874
+      ],
+      "elevationMm": 43400,
+      "halfWidthMm": 7000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "sanjo-shoren-in",
+      "positionE7": [
+        1357812226,
+        350092858
+      ],
+      "elevationMm": 44100,
+      "halfWidthMm": 7000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "sanjo-jingumichi",
+      "positionE7": [
+        1357824285,
+        350092643
+      ],
+      "elevationMm": 45600,
+      "halfWidthMm": 7000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "keage-approach",
+      "positionE7": [
+        1357855904,
+        350095457
+      ],
+      "elevationMm": 54300,
+      "halfWidthMm": 7000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "keage-stop",
+      "positionE7": [
+        1357883288,
+        350093293
+      ],
+      "elevationMm": 60300,
+      "halfWidthMm": 7000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "keage-hairpin-1",
+      "positionE7": [
+        1357891504,
+        350091712
+      ],
+      "elevationMm": 62000,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-2",
+      "positionE7": [
+        1357892115,
+        350091712
+      ],
+      "elevationMm": 61800,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-3",
+      "positionE7": [
+        1357892710,
+        350091827
+      ],
+      "elevationMm": 61700,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-4",
+      "positionE7": [
+        1357893257,
+        350092050
+      ],
+      "elevationMm": 61500,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-5",
+      "positionE7": [
+        1357893727,
+        350092370
+      ],
+      "elevationMm": 61400,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage",
+      "positionE7": [
+        1357894094,
+        350092770
+      ],
+      "elevationMm": 61200,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-7",
+      "positionE7": [
+        1357894341,
+        350093228
+      ],
+      "elevationMm": 61100,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-8",
+      "positionE7": [
+        1357894452,
+        350093720
+      ],
+      "elevationMm": 60900,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-9",
+      "positionE7": [
+        1357894423,
+        350094220
+      ],
+      "elevationMm": 60800,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-hairpin-10",
+      "positionE7": [
+        1357894255,
+        350094701
+      ],
+      "elevationMm": 60600,
+      "halfWidthMm": 9000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 1621
+    },
+    {
+      "id": "keage-incline",
+      "positionE7": [
+        1357890525,
+        350100167
+      ],
+      "elevationMm": 57100,
+      "halfWidthMm": 6000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 20000
+    },
+    {
+      "id": "nanzenji-funadamari",
+      "positionE7": [
+        1357878872,
+        350115380
+      ],
+      "elevationMm": 51300,
+      "halfWidthMm": 5500,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "nanzenji",
+      "positionE7": [
+        1357875423,
+        350117569
+      ],
+      "elevationMm": 50400,
+      "halfWidthMm": 5200,
+      "sector": 9,
+      "gate": true,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "niomon-canal",
+      "positionE7": [
+        1357871179,
+        350118325
+      ],
+      "elevationMm": 49800,
+      "halfWidthMm": 5000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "niomon-jingumichi",
+      "positionE7": [
+        1357827406,
+        350118494
+      ],
+      "elevationMm": 47000,
+      "halfWidthMm": 5500,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 24000
+    },
+    {
+      "id": "great-torii",
+      "positionE7": [
+        1357826830,
+        350125742
+      ],
+      "elevationMm": 48200,
+      "halfWidthMm": 5500,
+      "sector": 10,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "jingumichi-nijo",
+      "positionE7": [
+        1357825976,
+        350136410
+      ],
+      "elevationMm": 49500,
+      "halfWidthMm": 5500,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "nijo-higashioji",
+      "positionE7": [
+        1357783524,
+        350136947
+      ],
+      "elevationMm": 45200,
+      "halfWidthMm": 6000,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 28000
+    },
+    {
+      "id": "kumano-jinja",
+      "positionE7": [
+        1357784020,
+        350173752
+      ],
+      "elevationMm": 47300,
+      "halfWidthMm": 7000,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "marutamachi-okazaki",
+      "positionE7": [
+        1357739346,
+        350175564
+      ],
+      "elevationMm": 44900,
+      "halfWidthMm": 7500,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "marutamachi-bashi",
+      "positionE7": [
+        1357715331,
+        350175632
+      ],
+      "elevationMm": 46000,
+      "halfWidthMm": 7500,
+      "sector": 12,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "marutamachi-kawaramachi",
+      "positionE7": [
+        1357703157,
+        350175765
+      ],
+      "elevationMm": 45200,
+      "halfWidthMm": 7500,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "marutamachi-teramachi",
+      "positionE7": [
+        1357673621,
+        350174272
+      ],
+      "elevationMm": 45200,
+      "halfWidthMm": 7500,
+      "sector": 13,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "sakaimachi-gomon",
+      "positionE7": [
+        1357632610,
+        350174138
+      ],
+      "elevationMm": 45600,
+      "halfWidthMm": 7500,
+      "sector": 13,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "marutamachi-karasuma",
+      "positionE7": [
+        1357596309,
+        350173865
+      ],
+      "elevationMm": 44900,
+      "halfWidthMm": 7500,
+      "sector": 13,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "marutamachi-horikawa",
+      "positionE7": [
+        1357517944,
+        350173496
+      ],
+      "elevationMm": 41400,
+      "halfWidthMm": 8500,
+      "sector": 14,
+      "gate": false,
+      "cornerTrimMm": 28000
+    },
+    {
+      "id": "nijo-castle",
+      "positionE7": [
+        1357516844,
+        350128951
+      ],
+      "elevationMm": 38100,
+      "halfWidthMm": 12000,
+      "sector": 14,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "horikawa-oike",
+      "positionE7": [
+        1357517819,
+        350108847
+      ],
+      "elevationMm": 37100,
+      "halfWidthMm": 12000,
+      "sector": 15,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "horikawa-shijo",
+      "positionE7": [
+        1357519843,
+        350035510
+      ],
+      "elevationMm": 33900,
+      "halfWidthMm": 12000,
+      "sector": 15,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "horikawa-gojo",
+      "positionE7": [
+        1357524406,
+        349961288
+      ],
+      "elevationMm": 31200,
+      "halfWidthMm": 12000,
+      "sector": 16,
+      "gate": false,
+      "cornerTrimMm": 40000
+    },
+    {
+      "id": "horikawa-hanayacho",
+      "positionE7": [
+        1357528169,
+        349930442
+      ],
+      "elevationMm": 29400,
+      "halfWidthMm": 12000,
+      "sector": 16,
+      "gate": false,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "nishi-honganji",
+      "positionE7": [
+        1357530289,
+        349915546
+      ],
+      "elevationMm": 28500,
+      "halfWidthMm": 12000,
+      "sector": 16,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "horikawa-shichijo",
+      "positionE7": [
+        1357530758,
+        349893096
+      ],
+      "elevationMm": 27800,
+      "halfWidthMm": 12000,
+      "sector": 16,
+      "gate": false,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "horikawa-shiokoji",
+      "positionE7": [
+        1357530827,
+        349871547
+      ],
+      "elevationMm": 26300,
+      "halfWidthMm": 9000,
+      "sector": 17,
+      "gate": true,
+      "cornerTrimMm": 30000
+    },
+    {
+      "id": "central-post-office",
+      "positionE7": [
+        1357566743,
+        349871792
+      ],
+      "elevationMm": 27600,
+      "halfWidthMm": 8000,
+      "sector": 17,
+      "gate": false,
+      "cornerTrimMm": 0
+    }
+  ],
+  "laps": 1,
+  "maxTicks": 9000,
+  "targetMs": 209080,
+  "sound": {
+    "asset": "kyoto-1986.m4a",
+    "sha256": "44e5318cc7e18c163004f7daee262aee4def469292a147bfa75d0a3dd44a4878",
+    "durationMs": 209080,
+    "cuesMs": [
+      0,
+      48080,
+      96080,
+      128080,
+      176080
+    ]
+  },
+  "authoringNotes": {
+    "status": "approximate corridor: OpenStreetMap road axes (dual carriageways averaged) checked against the GSI 1979–1983 (gazo2) and 1974–1978 (gazo1) aerial layers; the 1984–1986 (gazo3) and 1988–1990 (gazo4) layers return HTTP 404 for central Kyoto. Not surveyed or native-qualified.",
+    "closedCircuit": "Kyoto Station front on Shiokoji-dori → Kyoto Tower corner → Karasuma-dori past Higashi Honganji → Shijo-dori east over Shijo Ohashi and the Keihan level crossing, past Minamiza and Gion → Yasaka west gate T → Higashioji-dori north → Sanjo-dori east beside the Keishin street tramway → Keage hairpin → south end of Shirakawa-dori past the brick power station and the incline → Niomon-dori west along the canal → Jingu-michi north under the great torii → Nijo-dori west → Higashioji-dori north → Marutamachi-dori west over the Kamo and past the Gyoen → Horikawa-dori south past Nijo Castle and Nishi Honganji → Shiokoji-dori east to the station.",
+    "lapsReason": "One 13.18 km lap shows the whole tour once without repeating streets. The repository's own single-car handling graph and practice AI (pace.ts) take 3:24.7–3:28.9 here and 3:46–4:25 on Tokyo; scaled by the recorded eight-car Tokyo race (6,841–8,462 ticks) the eight-car field should finish in about 3:26–4:15, inside the 5:00 cap. targetMs is the 3:27 good-driver estimate, not a measured human drive.",
+    "elevationsAndWidths": "Elevations: GSI DEM5A tiles every 10 m along the axis, ±40 m smoothing, Shijo Ohashi and Marutamachi-bashi spans interpolated, Keage hairpin hand-set. Widths: Shijo 15 m carriageway before the 2015 narrowing (sourced); Karasuma 20.3 m kerb to kerb from the 2018 MLIT cross-section (1986 assumed similar, unconfirmed); the rest estimated from the aerials and modern lane counts. Not historical survey measurements.",
+    "directions": "Every street is driven in a direction that is legal today. Karasuma, Shijo, Higashioji, Sanjo, Marutamachi, Horikawa and Shiokoji were two-way arterials in 1986; the 1986 regulation of the Keage connector, Niomon-dori east of Higashioji, Jingu-michi and Okazaki Nijo-dori, and the legality of the Sanjo-to-connector left turn at Keage in 1986, are unconfirmed.",
+    "rail": "Crosses the at-grade Keihan main line at the east end of Shijo Ohashi (Shijo crossing barriers from November 1982; line underground from 24 May 1987). Shares Sanjo-dori with the Keishin line's street track from Higashiyama-Sanjo to the Keage stop (closed after 11 October 1997). Kyoto City Trams were abolished on 30 September 1978; no tram tracks on Shijo, Higashioji, Marutamachi, Karasuma or Horikawa.",
+    "musicCues": "Placeholder asset and hash. Cues mark the start at the 1952 station, Shijo Ohashi and Gion, the Sanjo tramway climb to Keage, the Okazaki torii, the Kamo crossing at Marutamachi, and the Nijo Castle–Horikawa home run, from single-car gate splits scaled to targetMs.",
+    "notForProfile": "Current RaceV1 accepts only 3 tracks/5400 ticks. This input cannot be submitted to it.",
+    "cornerGeometry": "Quadratic tangent trims in millimetres, not physical circular radii. The start gate is on the straight in front of the station (zero trim), about 120 m before the Kyoto Tower corner. The Keage hairpin is a ten-vertex, 24 m-radius polygon with a 9 m half-width standing for the open Y-junction; the 1986 kerb layout there is unconfirmed. Okazaki's narrow corners use 24–30 m trims so the practice AI does not pin itself against the inside wall."
+  },
+  "sources": [
+    {
+      "url": "https://maps.gsi.go.jp/#17/35.0094/135.7893/&base=std&ls=gazo2&disp=1",
+      "usedFor": "Visually inspected 1979–1983 Keage junction, the road beside the incline (Shirakawa-dori south end), Sanjo-dori and the power station; the same junction on the 1974–1978 gazo1 layer."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/35.0125/135.7820/&base=std&ls=gazo2&disp=1",
+      "usedFor": "Visually inspected 1979–1983 Niomon-dori, Jingu-michi with the great torii, Okazaki Nijo-dori, Higashioji and Marutamachi."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/34.9895/135.7570/&base=std&ls=gazo2&disp=1",
+      "usedFor": "Visually inspected 1979–1983 Shiokoji-dori, the station plaza, Kyoto Tower at the NW corner of Karasuma, the Karasuma bend and median island at Higashi Honganji, and Horikawa at Nishi Honganji."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/35.0060/135.7740/&base=std&ls=gazo2&disp=1",
+      "usedFor": "Visually inspected 1979–1983 Shijo Ohashi, the Keihan line on the Kamo east bank, Gion, the Yasaka T and Higashioji to Sanjo."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/35.0135/135.7510/&base=std&ls=gazo2&disp=1",
+      "usedFor": "Visually inspected 1979–1983 Horikawa-dori along Nijo Castle and the dry Horikawa channel."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/京阪京津線",
+      "usedFor": "Keishin street running moved onto Sanjo-dori 1931; Sanjo–Higashiyama-Sanjo street-track works 1951; Sanjo–Misasagi closed with the Tozai line on 12 October 1997; stop distances."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/蹴上駅_(京阪)",
+      "usedFor": "Keage stop on Sanjo-dori street track with safety-island platforms; closed 12 October 1997."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/京阪80型電車",
+      "usedFor": "Keishin local cars 1961–1997: two-car sets, two-tone green, air-conditioning only from 1989."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/祇園四条駅",
+      "usedFor": "At-grade Shijo station and Shijo-dori level crossing; barriers added November 1982; underground 24 May 1987; renamed Gion-Shijo 2008."
+    },
+    {
+      "url": "https://tetsudo-ch.com/12822.html",
+      "usedFor": "Keihan Tofukuji–Sanjo underground completed 24 May 1987 after 8 years 2 months; eight level crossings removed."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/京都市電",
+      "usedFor": "Shijo line closed 1972, Marutamachi 1976, Karasuma 1977, Higashiyama 1978; total abolition 30 September 1978."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/京都駅",
+      "usedFor": "Third station building completed 27 May 1952 (two storeys with an eight-storey central tower); temporary station from 1993; present building 1997."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/京都タワー",
+      "usedFor": "Opened 28 December 1964; 131 m (31 m building + 100 m tower); white with red deck; Nidec naming from 2024."
+    },
+    {
+      "url": "https://trafficnews.jp/post/92160",
+      "usedFor": "Shijo-dori had two lanes each way on a 15 m carriageway until the 2015 narrowing of the 1.1 km shopping section."
+    },
+    {
+      "url": "https://www.kkr.mlit.go.jp/kyoto/project/kyougikaiiinkai/hokousyajitensya/grt3670000002q2j-att/07_shiryou4.pdf",
+      "usedFor": "Karasuma-dori (Route 24) cross-section between Gojo and Shichijo, 2018."
+    },
+    {
+      "url": "https://trafficnews.jp/post/129290",
+      "usedFor": "Karasuma-dori bent east around Higashi Honganji when widened for the 1912 tram; plaza built on the triangle in March 2023."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/八坂神社",
+      "usedFor": "West gate rebuilt 1497 (Important Cultural Property), moved 6 m east and 3 m north in 1913 for the Shijo widening."
+    },
+    {
+      "url": "https://tabi-mag.jp/ky0730",
+      "usedFor": "Heian Jingu great torii: 24.42 m by 18.18 m concrete myojin torii, completed 6 October 1928, ceremony 10 April 1929."
+    },
+    {
+      "url": "https://www.momak.go.jp/Japanese/about/history.html",
+      "usedFor": "National Museum of Modern Art: old building cleared 1984; Maki building completed 15 September 1986, opened 25 October 1986."
+    },
+    {
+      "url": "https://kyoto-irodoru.city.kyoto.lg.jp/sakyo/keagehydropowerplant.html",
+      "usedFor": "Second Keage power station of 1912 survives in red brick with arched detailing (Kyoto City; catalog code 26 source)."
+    },
+    {
+      "url": "https://www.nippon.com/ja/guide-to-japan/gu003014/",
+      "usedFor": "Keage incline: 582 m, about 36 m drop, built 1890, boat traffic ended 1948, now a historic site along Niomon-dori."
+    },
+    {
+      "url": "https://www.shochiku.co.jp/wp-content/uploads/2018/01/20180207pdf.pdf",
+      "usedFor": "Minamiza's present building completed 1929: Momoyama-style gabled facade with the licence turret; exterior kept through the 2018 seismic renovation."
+    }
+  ]
+}

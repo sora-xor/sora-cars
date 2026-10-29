@@ -23,7 +23,7 @@ test('overlays snap only when the frame came from the pixel-art renderer, using 
   assert.equal(pixelOverlayGrid(canvas(1920, 1080, 'cinematic')), null);
   assert.equal(pixelOverlayGrid(canvas(1920, 1080, 'grouped-pixels')), null);
   const grid = pixelOverlayGrid(canvas(1920, 1080, 'pixel-art'))!;
-  assert.deepEqual([grid.artWidth, grid.artHeight], [560, 315]);
+  assert.deepEqual([grid.artWidth, grid.artHeight], [836, 470]);
   assert.deepEqual(pixelOverlayGrid(canvas(390, 844, 'pixel-art')), pixelArtGrid(390, 844));
 });
 

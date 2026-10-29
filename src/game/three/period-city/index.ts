@@ -1,6 +1,8 @@
 import * as THREE from 'three';
+import type { SignPools } from './signs';
 import { CityMeshBuilder, type CityMaterialKey } from './geometry';
 import { buildLot, type CityFixture } from './buildings';
+import { farLights } from './far-lights';
 import { createPeriodCityLayout, periodCityChunksNear, periodCityOpenAt, periodCityPlantingClear,
   type PeriodCityCourse, type PeriodCityLayout, type PeriodCityOptions, type PeriodOpenRun, type PeriodSide } from './layout';
 import { cityNight, periodCityMaterials, setPeriodCityTime } from './materials';
@@ -10,7 +12,8 @@ import { PeriodSky } from './sky';
 import { PeriodSkyline, type PeriodDistant } from './skyline';
 import { buildStreet } from './street';
 
-export { setPeriodCityLighting } from './materials';
+export { setPeriodCityLampHeads, setPeriodCityLighting } from './materials';
+export { MovingFarLights } from './far-lights';
 export { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, MOAT, TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS,
   TOKYO_1986_STREET, arcadeDistrictAt,
   moatWidth, periodCityGroundCut, periodCityOpenRuns, periodCityRouteFrame, type PeriodDistrict, type PeriodOpenRun, type PeriodSide } from './layout';
@@ -39,12 +42,16 @@ export class PeriodCity {
   private progress = 0;
   private time = 0;
   private snow = 0;
+  private signs: SignPools | null = null;
   private frame = 0;
 
-  /** `emblemUrl`: the exact SORA emblem image for the city's billboards; `spritesUrl`: the street-people sprite atlas. */
-  constructor(private readonly emblemUrl: string, spritesUrl?: string) {
+  /**
+   * `emblemUrl`: the exact SORA emblem image for the city's billboards; `spritesUrl`: the street-people sprite atlas;
+   * `interiorsUrl`: the rooms seen through lit windows.
+   */
+  constructor(private readonly emblemUrl: string, spritesUrl?: string, interiorsUrl?: string) {
     this.group.name = 'SORA period city (Tokyo 1986)';
-    this.materials = periodCityMaterials(emblemUrl);
+    this.materials = periodCityMaterials(emblemUrl, interiorsUrl);
     this.people = new PeriodPeople(spritesUrl);
   }
 
@@ -54,10 +61,10 @@ export class PeriodCity {
 
   /** `origin` (the course's real latitude and longitude) adds the distant 1986 skyline; `distant` adds far mountains. */
   setCourse(course: PeriodCityCourse, options: PeriodCityOptions & { readonly origin?: { readonly lat: number; readonly lon: number };
-    readonly distant?: readonly PeriodDistant[]; readonly snow?: number }): void {
+    readonly distant?: readonly PeriodDistant[]; readonly snow?: number; readonly signs?: SignPools | null }): void {
     this.clear();
     this.layout = createPeriodCityLayout(course, options);
-    this.snow = options.snow ?? 0;
+    this.snow = options.snow ?? 0; this.signs = options.signs ?? null;
     this.group.add(this.people.mesh, this.people.shadows);
     this.sky = new PeriodSky(this.layout, this.emblemUrl); this.group.add(this.sky.group);
     if (options.origin || options.distant?.length) {
@@ -73,11 +80,14 @@ export class PeriodCity {
     this.chunks.clear(); this.layout = null; this.people.clear(); this.group.clear();
   }
 
-  /** Walk the crowds near `progress` and run the neon, chasing bulbs, banners and the sky at render time `time` (seconds). */
-  animate(progress: number, time: number): void {
+  /**
+   * Walk the crowds near `progress` and run the neon, chasing bulbs, banners and the sky at render time `time` (seconds);
+   * `wetness` (0-1, the road's) opens umbrellas.
+   */
+  animate(progress: number, time: number, wetness = 0): void {
     this.progress = progress; this.time = time;
     setPeriodCityTime(time);
-    this.people.update(this.layout, progress, time);
+    this.people.update(this.layout, progress, time, wetness);
   }
 
   /**
@@ -142,7 +152,7 @@ export class PeriodCity {
     const lots = layout.chunks.get(key) ?? [];
     const origin = lots[0] ?? { x: 0, z: 0 };
     const builder = new CityMeshBuilder(origin.x, origin.z), fixtures: CityFixture[] = [];
-    builder.snow = this.snow;
+    builder.snow = this.snow; builder.signs = this.signs;
     for (const lot of lots) buildLot(builder, lot, fixtures);
     buildOpenGround(builder, layout, key * layout.chunkLength, (key + 1) * layout.chunkLength, this.snow);
     buildStreet(builder, layout, key * layout.chunkLength, (key + 1) * layout.chunkLength);
@@ -154,13 +164,16 @@ export class PeriodCity {
       mesh.castShadow = !SHADOWLESS.has(material); mesh.receiveShadow = material !== 'lamp';
       group.add(mesh);
     }
+    // The far street's lamps, lanterns and box signs as glowing points (far-lights.ts).
+    const lights = farLights(builder.beacons);
+    if (lights) group.add(lights);
     group.updateMatrixWorld(true);
     this.group.add(group);
     return { group, fixtures, triangles: builder.triangles, used: this.frame };
   }
 
   private dispose(chunk: Chunk): void {
-    chunk.group.traverse(object => { if (object instanceof THREE.Mesh) object.geometry.dispose(); });
+    chunk.group.traverse(object => { if (object instanceof THREE.Mesh || object instanceof THREE.Points) object.geometry.dispose(); });
     this.group.remove(chunk.group);
   }
 }

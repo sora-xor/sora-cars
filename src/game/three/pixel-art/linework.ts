@@ -49,6 +49,16 @@ export interface LineworkOptions {
   foliageGlintFar: number;
   /** Refine round 2: an interior canopy cell this much lighter (OKLab L) than the canopy around it takes the canopy's common entry (0 off). */
   foliageCalm: number;
+  /**
+   * Refine round 4 (the user's rain-night target): value-edge outlines. A
+   * cell of a plain darker stretch of upright surface (3 cells of it) next to
+   * a region at least contrastStep (OKLab L) lighter and 2 cells deep takes a
+   * dark line, so lit windows, sign boxes and shop panels are framed as in the
+   * cutscenes. Nearer than contrastFadeEnd m; 0 contrastLines turns it off.
+   */
+  contrastLines: number;
+  contrastStep: number;
+  contrastFadeEnd: number;
   /** Relative inverse-depth jump, beyond the planar trend, where silhouettes start and are full. */
   lineGapStart: number;
   lineGapFull: number;
@@ -220,6 +230,7 @@ export interface LineworkOptions {
 
 export const LINEWORK_DEFAULTS: LineworkOptions = {
   lines: 1, glints: 1, glow: 1, cleanup: 1, foliage: 1, foliageFill: 5, foliageGlint: 0.35, foliageGlintFar: 90, foliageCalm: 0.12,
+  contrastLines: 1, contrastStep: 0.17, contrastFadeEnd: 85,
   lineGapStart: 0.03, lineGapFull: 0.08, lineGapMetres: 0.4, lineStepHeight: 0.35, lineFadeStart: 90, lineFadeEnd: 140, lineMinFill: 0.25,
   emitterThreshold: 0.9,
   // World rims are off (refine round 1, the user's "whatever looks cooler"):
@@ -263,6 +274,21 @@ export const FOLIAGE_TONES = {
   navy: ['#03040a', '#0a0d1d', '#161625', '#222239', '#2d3252'],
   teal: ['#03040a', '#0a0d1d', '#161625', '#22362d', '#36514a'],
   olive: ['#161112', '#1a1300', '#3f3900', '#666808', '#8b8b35'],
+} as const;
+/**
+ * Refine round 4 (the user's rain-night concept): in full colour the clump
+ * tones draw these colours, step for step at about the same lightness; the
+ * palette entries above still give each cell's index (and draw under
+ * ?pixelPalette=lock). The concept's crowns are near-black green, olive-gold
+ * where the lamps reach; the palette's teal-navy read as blue-grey blots
+ * beside them. Families as above: dark green (most unlit crowns), dark
+ * teal-green, lamp-lit olive-gold (its lit steps warmed toward the concept's
+ * gold, OKLab hue 88-95).
+ */
+export const FOLIAGE_TONE_COLOURS = {
+  navy: ['#030504', '#0b120d', '#141d16', '#1e2c20', '#263627'],
+  teal: ['#030504', '#0b120d', '#141d16', '#1e332d', '#2e4a42'],
+  olive: ['#120e0b', '#211c0e', '#3f3614', '#6a5a1d', '#987c33'],
 } as const;
 /** Refine round 3: rings of collapsed far lamp heads (style spec: distant lamp #f4e9d9 -> #ae8773 -> background; harbour lamp #b47e5f, #714d49). */
 export const LAMP_RING_COLOURS = { farRing: '#ae8675', midRing: '#be855e', midOuter: '#6d4635' } as const;
@@ -380,6 +406,7 @@ uniform vec4 rimParams;     // x: bead keep; y: min fill L; z, w: edge-toward-ke
 uniform float rimBeadCells;
 uniform float rimThin;      // cells inward a silhouette must stay one surface to take a rim
 uniform vec4 creaseParams;  // x: cos of the crease angle; y: max depth (m); z: bright bead keep
+uniform vec3 contrastParams; // x: 1 value-edge outlines; y: lightness step; z: max depth (m)
 layout(location = 0) out vec4 outImage;
 layout(location = 1) out vec4 outMarks;
 
@@ -528,6 +555,25 @@ void main() {
     outImage = entryTexel(drawnIndex(darkLine(lch), index, false));
     outMarks = vec4(1., prior.g, prior.b, 1.);
     return;
+  }
+
+  // Value-edge outlines (refine round 4): a plain darker stretch of an
+  // upright surface meeting a lit region two cells deep (a lit window, a sign
+  // box, a shop panel) takes a dark line on its own side, framing the region
+  // as the cutscenes do. The same surface on both sides (no depth jump), and
+  // the far side plain too, so mullions between lit panes, foliage, sprites'
+  // small details and the lit road keep their fill.
+  if (contrastParams.x > .5 && !carCell && abs(n.y) < .55 && data.x < contrastParams.z && value >= lineGap.z * .5) {
+    for (int k = 0; k < 4; k++) {
+      float lit1 = texelFetch(graded, cell + STEPS[k], 0).x, lit2 = texelFetch(graded, cell + 2 * STEPS[k], 0).x;
+      if (lit1 - value < contrastParams.y || lit2 - value < contrastParams.y * .75) continue;
+      if (near1[k] < 0. || abs(near1[k] - wc) > wc * lineGap.y) continue;
+      float back1 = texelFetch(graded, cell - STEPS[k], 0).x, back2 = texelFetch(graded, cell - 2 * STEPS[k], 0).x;
+      if (abs(back1 - value) > .06 || abs(back2 - value) > .09) continue;
+      outImage = entryTexel(drawnIndex(darkLine(lch), index, false));
+      outMarks = vec4(.9, prior.g, prior.b, 1.);
+      return;
+    }
   }
 
   // Sparse interior creases between neighbouring faces of one surface.
@@ -961,6 +1007,7 @@ uniform sampler2D glowSpread;
 uniform ivec4 glowEntries;  // lamp core, lamp rim, small lamp core, analytic lamp-head core (cream)
 uniform ivec3 glowRings;    // far lamp ring, mid lamp ring, mid lamp outer ring (refine round 3)
 uniform vec4 glowShape;     // x: speckle fraction; y, z: innermost ring L and C; w: ramp cells (0: rings by radius, round 2)
+uniform float glowExact;    // refine round 4: 1 full colour (a halo draws its ramp's own colours), 0 palette lock
 layout(location = 0) out vec4 outImage;
 layout(location = 1) out vec4 outMarks;
 void main() {
@@ -1078,7 +1125,11 @@ void main() {
     halo = vec3(mix(glowShape.y, own.x, t), max(mix(glowShape.z, own.y, t), .03), fromHue + hueArc(fromHue, toHue) * t * t);
   }
   if (halo.x < background.x + .03) return;
-  outImage = entryTexel(snapToPalette(labOf(halo)));
+  // In full colour the ramp draws its own colours (refine round 4): snapped, the rings fell on the palette's few
+  // browns and a lamp's halo read as a dull ring rather than the concept's warm glow. The entry keeps the index.
+  vec3 haloLab = labOf(halo);
+  vec4 entry = entryTexel(snapToPalette(haloLab));
+  outImage = glowExact > .5 ? vec4(clamp(artLinearToDisplay(artOklabToLinear(haloLab)), 0., 1.), entry.a) : entry;
   outMarks = vec4(0., prior.g, .6, 1.);
 }`;
 
@@ -1299,6 +1350,9 @@ uniform mat4 foliageViewProjection; // this frame's projection x view (clump cen
 uniform int foliageLampCount;
 uniform vec4 foliageLamp[${MAX_LAMP_HEADS}]; // street-lamp heads (world xyz)
 uniform int foliageTones[15];    // teal-navy, teal, olive: five palette steps each, dark to light
+uniform vec3 foliageToneColours[15]; // refine round 4: the same steps' own display colours (FOLIAGE_TONE_COLOURS)
+uniform float foliageToneL[15];  // and their OKLab lightness
+uniform float foliageExact;      // 1: full colour (the colours), 0: palette lock (the entries)
 layout(location = 0) out vec4 outImage;
 const ivec2 CROSS[4] = ivec2[4](ivec2(1, 0), ivec2(-1, 0), ivec2(0, 1), ivec2(0, -1));
 bool rawCanopy(ivec2 c) { return abs(texelFetch(anchors, artClamp(c), 0).w - .25) < .01; }
@@ -1410,7 +1464,14 @@ vec2 skyAround(ivec2 cell) {
   return vec2(L < 0. ? 9. : L, warm);
 }
 int toneEntry(int family, int s) { return foliageTones[family * 5 + s]; }
-float toneL(int family, int s) { return texelFetch(paletteLab, ivec2(toneEntry(family, s), 0), 0).x; }
+float toneL(int family, int s) {
+  return foliageExact > .5 ? foliageToneL[family * 5 + s] : texelFetch(paletteLab, ivec2(toneEntry(family, s), 0), 0).x;
+}
+/** A tone slot's cell: its colour in full colour, its palette entry under the lock; the entry's index either way. */
+vec4 toneTexel(int slot) {
+  vec4 entry = entryTexel(foliageTones[slot]);
+  return foliageExact > .5 ? vec4(foliageToneColours[slot], entry.a) : entry;
+}
 /**
  * Clump tone of a canopy cell (refine round 3; community-wide and
  * garage-wide draw trees as clumps one band apart). The family is chosen per
@@ -1419,6 +1480,7 @@ float toneL(int family, int s) { return texelFetch(paletteLab, ivec2(toneEntry(f
  * step is the one nearest the canopy's smoothed light, one lighter on about
  * half the clumps, plus lift (1 a clump's top cells, 2 the sky-side rim), and
  * never above cap (a night crown stays darker than the sky behind it).
+ * Returns the tone's slot (family x 5 + step; toneTexel draws it).
  */
 int clumpTone(vec3 light, ivec3 id, ivec3 region, float lit, int lift, float cap) {
   float h1 = artHash01(region + ivec3(0, 0, 1103)), h2 = artHash01(id + ivec3(0, 0, 2207));
@@ -1427,11 +1489,14 @@ int clumpTone(vec3 light, ivec3 id, ivec3 region, float lit, int lift, float cap
   int s = 0;
   for (int k = 1; k < 5; k++) if (abs(toneL(family, k) - L) < abs(toneL(family, s) - L)) s = k;
   s = clamp(s + (h2 > .5 ? 1 : 0) + lift, 0, 4);
+  // A lamp-lit crown (refine round 4) is a dark mass with gold-lit clusters, as the user's rain-night concept paints
+  // its street trees, not an even olive: only some clumps catch the lamp, more the nearer it is; the rest stay dark.
+  if (family == 2 && artHash01(id + ivec3(0, 0, 3301)) > .25 + .4 * clamp(lit, 0., 1.)) s = min(s, 1);
   for (int k = 0; k < 4; k++) {
     if (s == 0 || toneL(family, s) <= cap) break;
     s--;
   }
-  return toneEntry(family, s);
+  return family * 5 + s;
 }
 /**
  * The light of a whole clump (refine round 3): the canopy light at the cell
@@ -1451,7 +1516,7 @@ vec3 clumpLight(vec3 p, float level, ivec2 cell, float depth, vec3 own) {
   if (!canopy(c) || abs(d - depth) > .25 * depth) return own;
   return canopyLight(c, d);
 }
-/** The tone of a canopy cell's clump body (no lift): a hole it closes takes it. */
+/** The tone slot of a canopy cell's clump body (no lift): a hole it closes takes it. */
 int bodyTone(ivec2 c, float cap) {
   float depth = depthAt(c);
   float front = canopyFront(c, depth), level = clumpLevel(c, depth);
@@ -1523,7 +1588,7 @@ void main() {
       // another clump (one clean boundary, not a per-leaf depth comparison).
       bool top = foliageToneLift > .5 && !open1 && clumpId(artWorldPosition(vec2(cell + ivec2(0, 1)) + .5, front), level) != id;
       float cap = lit > .25 || sky.x > 8. ? 9. : sky.x + (rim ? .07 : top ? 0. : -.03);
-      outImage = entryTexel(clumpTone(light, id, region, lit, rim ? 2 : top ? 1 : 0, cap));
+      outImage = toneTexel(clumpTone(light, id, region, lit, rim ? 2 : top ? 1 : 0, cap));
       if (lit > .25 && (rim || top) && foliageTone.w > 0.
         && anchoredHash(cell, texelFetch(resolvedData, cell, 0), 2., 71) < foliageTone.w * lit) {
         outImage = entryTexel(rim ? foliageGlints.y : foliageGlints.x);
@@ -1552,7 +1617,7 @@ void main() {
           vec3 light = canopyLight(c, depthAt(c));
           if (light.x >= foliageTone.z) break;
           vec2 sky = skyAround(cell);
-          if (sky.x < 8. ? sky.y < .5 : keyLight.y < .5) outImage = entryTexel(bodyTone(c, sky.x < 8. ? sky.x - .03 : 9.));
+          if (sky.x < 8. ? sky.y < .5 : keyLight.y < .5) outImage = toneTexel(bodyTone(c, sky.x < 8. ? sky.x - .03 : 9.));
           break;
         }
       }
@@ -1625,8 +1690,9 @@ export interface Linework {
  * uniform (shared by reference) so emitter and glint thresholds follow the
  * same exposure as the single tone map.
  */
+/** `paletteFull`: the quantize stage's switch (1 full colour, 0 palette lock), which the foliage stage's clump tones follow. */
 export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPalette,
-  exposure: THREE.IUniform<number>): Linework {
+  exposure: THREE.IUniform<number>, paletteFull: THREE.IUniform<number> = { value: 1 }): Linework {
   const entry = (hex: string) => nearestPaletteIndex(palette, hex);
   const c = LINEWORK_COLOURS;
   // Two MRT targets (image, marks) ping-pong between the drawing stages.
@@ -1655,6 +1721,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
     lineGap: { value: new THREE.Vector4() }, lineGapMetres: { value: 0 }, lineStepHeight: { value: 0 }, lineFade: { value: new THREE.Vector2() },
     keyLightDirection: { value: keyDirection }, keyLight: { value: keyLight }, keyLightScreen: { value: keyScreen },
     rimParams: { value: new THREE.Vector4() }, rimBeadCells: { value: 1 }, rimThin: { value: 8 }, creaseParams: { value: new THREE.Vector4() },
+    contrastParams: { value: new THREE.Vector3() },
   };
   const glintUniforms = {
     lineExposure: exposure, glintParams: { value: new THREE.Vector4() }, glintEmitter: { value: 1 }, glintHold: { value: 1 }, glintCarFar: { value: 22 },
@@ -1663,6 +1730,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
     glintConfirm: { value: new THREE.Vector3() },
   };
   const glowUniforms = {
+    glowExact: paletteFull,
     lineExposure: exposure, glowParams: { value: new THREE.Vector4() }, glowLimits: { value: new THREE.Vector3(GLOW_REACH, 12, 2) }, glowDark: { value: 0.3 },
     glowSeed: { value: glowSeeds[0].texture as THREE.Texture }, glowSpread: { value: glowSpread.texture },
     glowSeedPrevious: { value: glowSeeds[1].texture as THREE.Texture }, glowSeedValid: { value: 0 },
@@ -1726,6 +1794,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
   let visibilityIndex = 0, visibilityFrame = -2, glowFrame = 0;
   const cleanupUniforms = { lineExposure: exposure, cleanupKeep: { value: 0 }, cleanupEmitter: { value: 1 }, cleanupSimilar: { value: 0.08 },
     inkCleanup: { value: 1 }, inkRun: { value: 0 }, wireShape: { value: new THREE.Vector2() } };
+  const toneColours = [...FOLIAGE_TONE_COLOURS.navy, ...FOLIAGE_TONE_COLOURS.teal, ...FOLIAGE_TONE_COLOURS.olive];
   const foliageUniforms = {
     lineExposure: exposure, foliageShape: { value: new THREE.Vector4() },
     foliageGlints: { value: new THREE.Vector2(entry(FOLIAGE_GLINTS.amber), entry(FOLIAGE_GLINTS.gold)) },
@@ -1734,6 +1803,10 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
     foliageTone: { value: new THREE.Vector4() }, foliageLampReach: { value: 6 }, foliageToneFar: { value: 45 }, foliageToneLift: { value: 1 }, foliageViewProjection: { value: new THREE.Matrix4() }, foliageLampCount: { value: 0 },
     foliageLamp: { value: Array.from({ length: MAX_LAMP_HEADS }, () => new THREE.Vector4()) },
     foliageTones: { value: [...FOLIAGE_TONES.navy, ...FOLIAGE_TONES.teal, ...FOLIAGE_TONES.olive].map(entry) },
+    foliageToneColours: { value: toneColours.map(hex => { const c = new THREE.Color(hex).getRGB({ r: 0, g: 0, b: 0 }, THREE.SRGBColorSpace);
+      return new THREE.Vector3(c.r, c.g, c.b); }) },
+    foliageToneL: { value: toneColours.map(hex => oklabFromHex(hex)[0]) },
+    foliageExact: paletteFull,
   };
   /** This frame's street-lamp heads (world) for the foliage stage's lamp-lit clumps (allocation-free). */
   const updateFoliageLamps = () => {
@@ -1868,6 +1941,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
       lineUniforms.rimThin.value = THREE.MathUtils.clamp(o.rimThinCells, 4, 12);
       lineUniforms.rimParams.value.set(o.rimBeadKeep, o.rimMinFill, o.rimKeyStart, Math.max(o.rimKeyFull, o.rimKeyStart + 1e-3));
       lineUniforms.creaseParams.value.set(Math.cos(o.creaseAngle * Math.PI / 180), o.creaseFadeEnd, o.creaseBeadKeep, 0);
+      lineUniforms.contrastParams.value.set(o.contrastLines > 0 ? 1 : 0, Math.max(.02, o.contrastStep), Math.max(0, o.contrastFadeEnd));
       glintUniforms.glintParams.value.set(o.glintThreshold, o.glintContrast, o.glintStreak, o.glintFadeEnd);
       glintUniforms.glintEmitter.value = o.emitterThreshold;
       glintUniforms.glintHold.value = THREE.MathUtils.clamp(o.glintHold, 0.1, 1);

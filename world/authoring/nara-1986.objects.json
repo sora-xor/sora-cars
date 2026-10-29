@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "trackId": "nara-1986",
+  "objects": [
+    { "id": "station-sora-sign", "kind": "breakaway_sign", "anchorGate": "jnr-nara-station", "offsetMm": 45000, "lateralMm": -3000, "halfLengthMm": 400, "halfWidthMm": 600 },
+    { "id": "sanjo-oil", "kind": "oil", "anchorGate": "mochiidono", "offsetMm": -200000, "lateralMm": 900, "halfLengthMm": 9000, "halfWidthMm": 1300 },
+    { "id": "mochiidono-planter", "kind": "tree_planter", "anchorGate": "mochiidono", "offsetMm": 50000, "lateralMm": 3100, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "sarusawa-willow", "kind": "tree_planter", "anchorGate": "sarusawa-ike", "offsetMm": 60000, "lateralMm": 3700, "halfLengthMm": 600, "halfWidthMm": 600 },
+    { "id": "gojunoto-sora-sign", "kind": "breakaway_sign", "anchorGate": "ichi-no-torii", "offsetMm": -150000, "lateralMm": -3700, "halfLengthMm": 400, "halfWidthMm": 600 },
+    { "id": "torii-oil", "kind": "oil", "anchorGate": "ichi-no-torii", "offsetMm": 70000, "lateralMm": 1500, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "park-planter", "kind": "tree_planter", "anchorGate": "kencho-higashi", "offsetMm": -80000, "lateralMm": 4100, "halfLengthMm": 600, "halfWidthMm": 500 },
+    { "id": "kencho-sora-sign", "kind": "breakaway_sign", "anchorGate": "kencho-higashi", "offsetMm": 90000, "lateralMm": -3900, "halfLengthMm": 400, "halfWidthMm": 700 },
+    { "id": "yoshiki-oil", "kind": "oil", "anchorGate": "kaidan-in", "offsetMm": -110000, "lateralMm": 0, "halfLengthMm": 9000, "halfWidthMm": 1500 },
+    { "id": "daibutsu-ike-planter", "kind": "tree_planter", "anchorGate": "daibutsu-ike", "offsetMm": 90000, "lateralMm": 2200, "halfLengthMm": 500, "halfWidthMm": 400 },
+    { "id": "toll-sora-sign", "kind": "breakaway_sign", "anchorGate": "toll-gate", "offsetMm": -45000, "lateralMm": 2500, "halfLengthMm": 300, "halfWidthMm": 500 },
+    { "id": "hairpin-oil", "kind": "oil", "anchorGate": "mikasa-onsen", "offsetMm": 170000, "lateralMm": 0, "halfLengthMm": 7000, "halfWidthMm": 1200 },
+    { "id": "jikkoku-planter", "kind": "tree_planter", "anchorGate": "jikkoku-dai", "offsetMm": 50000, "lateralMm": -2500, "halfLengthMm": 500, "halfWidthMm": 400 },
+    { "id": "ridge-sora-sign", "kind": "breakaway_sign", "anchorGate": "sky-ridge", "offsetMm": 150000, "lateralMm": 2600, "halfLengthMm": 400, "halfWidthMm": 600 }
+  ]
+}

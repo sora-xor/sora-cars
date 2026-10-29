@@ -25,9 +25,28 @@ Every song is a 64-bar composition with an opening statement, contrasting answer
 | Jun: The First Light | 114 BPM; open chords, syncopated FM melody and a lifted final chorus | Jun's finished song, first played on borrowed power and premiered at sunrise |
 | Side B: Press Record | 88 BPM; unhurried major-seventh resolution and an answering bell phrase | Mutual confession, the private first kiss and breakfast |
 
+## Town themes for the street-race chapters
+
+Each street-race chapter has its own cutscene theme. The five themes are written and scored like the story themes: 64 bars, two hooks, their own chord routes, and the same cue entrances. They live in `src/game/story-place-themes.ts`, outside the released soundtrack library, so the 25 downloadable compositions, their renders, MIDI files and sleeves are unchanged. Cue sheets address them from track 100 upward. The races themselves play each route's own song.
+
+| Song | Musical character | Dramatic role |
+| --- | --- | --- |
+| Akechidaira Teahouse (明智平の茶屋) | 96 BPM, D major; koto lead, bells, a pentatonic climb | The Nikko club, the twenty curves and the overlook at sunset |
+| Kudan Before Dawn (九段、夜明け前) | 112 BPM, A dorian; sync lead, glass arpeggios, city-pop bass | Tokyo before dawn: mini-FM, the printer and the first trains |
+| Red Ink, Black Lacquer (朱と漆) | 78 BPM, G minor ballad; koto and FM bells over hollow pads | The apology in Aizu and the hill facing the castle |
+| Canal Current (疏水の流れ) | 104 BPM, F lydian; motorik pulse, sequenced bass and running arpeggios | Keage's canal and power station, and the notices in Gion |
+| A Handful of Earth (一把の土) | 90 BPM, A♭ major; FM reed over electric piano and voice pads | Nara: the deer, the drummer's coffee shop and Wakakusa-yama |
+
+The street chapters' cue sheets also bring back story themes where a scene answers them:
+
+- Glass Permission as Ren hands away the microphone in Tokyo;
+- Dead Air Confession at the empty relay shelf in Aizu;
+- One Umbrella, Two Chairs on the Kamo riverbank;
+- Jun: The First Light when his old drummer calls, and again when the four new bars play in Nara.
+
 ## Scoring behavior
 
-`src/game/music-cues.ts` contains explicit dialogue positions for all 12 introductions and 12 victory scenes, plus the retry scene. A cue's name describes the actual dramatic event. Music is not selected by chapter modulo, random index, or speaker identity.
+`src/game/music-cues.ts` contains explicit dialogue positions for all 17 introductions and 17 victory scenes, plus the retry scene. Cue sheets are in chapter-id order. A cue's name describes the actual dramatic event. Music is not selected by chapter modulo, random index, or speaker identity.
 
 Camera direction changes the arrangement while the song keeps its place:
 

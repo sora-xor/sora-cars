@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
+import { STREET_ROUTE_IDS } from './lib/street-routes.ts';
 
 type Bilingual = { ja: string; en: string };
 type Entry = { code: string; prefecture: Bilingual; proposedTitle: Bilingual; corridor: Bilingual; geography: Bilingual; periodNotes: Bilingual;
@@ -40,8 +41,15 @@ const tokyo = entries.find(entry => entry.code === '13')!;
 assert.match(tokyo.corridor.en, /Manaita/); assert.match(tokyo.corridor.en, /Yasukuni/); assert.match(tokyo.corridor.en, /Diet/);
 assert.match(entries.find(entry => entry.code === 'pyongyang')!.periodNotes.en, /Kim Il Sung/);
 assert.match(entries.find(entry => entry.code === 'moscow')!.periodNotes.en, /USSR/);
+// Catalog entries with a compiled street route. Aizu-Wakamatsu is an extra
+// Fukushima route; the catalog's own Fukushima corridor (Bandai) is still pending.
+const drafts: Readonly<Record<string, string>> = { '09': 'irohazaka-1986', '13': 'tokyo-1986', '26': 'kyoto-1986', '29': 'nara-1986' };
+const extras: Readonly<Record<string, string>> = { '07': 'aizu-wakamatsu-1986' };
+for (const id of [...Object.values(drafts), ...Object.values(extras)]) assert.ok(STREET_ROUTE_IDS.includes(id), `${id} is a packaged street route`);
+assert.equal(Object.keys(drafts).length + Object.keys(extras).length, STREET_ROUTE_IDS.length, 'every street route is indexed');
+const authoring = (code: string) => drafts[code] ? `Compiled draft (\`${drafts[code]}\`)` : extras[code] ? `Pending; extra route \`${extras[code]}\`` : 'Pending';
 const directory = 'output/street-tracks'; await mkdir(directory, { recursive: true });
 await writeFile(`${directory}/world-catalog.json`, JSON.stringify({ version: 1, year: 1986, sources, entries }, null, 2) + '\n');
-const markdown = `# SORA CARS — 1986 route research index\n\n47都道府県と2特別遠征。以下は資料に基づく候補地・走路の設計案で、プレイ可能な49コースではありません。\n\nThese are49 distinct researched corridor proposals. Tokyo has an unqualified compiled authoring draft; the others still require geographic authoring. Every entry retains explicit missing historical/geometry/playability qualification. Source facts, proposed route order and later landmarks are separated in the two source catalogs.\n\nSources: [East](research/japan-east-1986.json), [West and specials](research/japan-west-special-1986.json). Regenerate/check with \`npx tsx scripts/check-world-catalog.ts\`.\n\n|Code|場所 / Place|コース案 / Proposed race|Sources|Authoring|\n|---|---|---|---:|---|\n${entries.map(e => `|${e.code}|${e.prefecture.ja} / ${e.prefecture.en}|${e.proposedTitle.ja} / ${e.proposedTitle.en}|${e.sources.length}|${e.code === '13' ? 'Tokyo draft only' : 'Pending'}|`).join('\n')}\n\nRoute topology is not assumed to be a loop: point-to-point candidates need sprint support before their actual road geometry can be compiled. No fabricated return leg, modern shortcut, pedestrian staircase or repeated reskin may stand in for the requested location.\n`;
+const markdown = `# SORA CARS — 1986 route research index\n\n47都道府県と2特別遠征。以下は資料に基づく候補地・走路の設計案で、プレイ可能な49コースではありません。\n\nThese are49 distinct researched corridor proposals. Four entries (Tochigi, Tokyo, Kyoto and Nara) have unqualified compiled street-route drafts, playable as practice, and Aizu-Wakamatsu is an extra Fukushima route; the others still require geographic authoring. Every entry retains explicit missing historical/geometry/playability qualification. Source facts, proposed route order and later landmarks are separated in the two source catalogs.\n\nSources: [East](research/japan-east-1986.json), [West and specials](research/japan-west-special-1986.json). Regenerate/check with \`npx tsx scripts/check-world-catalog.ts\`.\n\n|Code|場所 / Place|コース案 / Proposed race|Sources|Authoring|\n|---|---|---|---:|---|\n${entries.map(e => `|${e.code}|${e.prefecture.ja} / ${e.prefecture.en}|${e.proposedTitle.ja} / ${e.proposedTitle.en}|${e.sources.length}|${authoring(e.code)}|`).join('\n')}\n\nRoute topology is not assumed to be a loop: Irohazaka, Aizu-Wakamatsu and Nara compile as point-to-point sprints with their real endpoints. No fabricated return leg, modern shortcut, pedestrian staircase or repeated reskin may stand in for the requested location.\n`;
 await writeFile('world/catalog-1986.md', markdown);
 console.log(`49 distinct locations, ${entries.reduce((n,e)=>n+e.sources.length,0)} source references, complete prefecture coverage. Historical geometry and playability remain unqualified.`);

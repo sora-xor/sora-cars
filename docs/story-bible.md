@@ -2,7 +2,7 @@
 
 An original alternate-history racing romance. Aki Soramoto tries to save her late father's garage without depending on anyone. A threatened courier depot, a borrowed tool and a promise she cannot keep alone draw her into a larger fight. The ending protects a working neighborhood and opens a relationship; ordinary debt, repair work and public accountability continue.
 
-This is the narrative canon for the twelve chapters in `src/game/story-campaign-act1.ts`, `story-campaign-act2.ts` and `story-campaign-act3.ts`. IDs below are zero-based; the player sees chapters 1–12. Japanese is the original dialogue and English the subtitle.
+This is the narrative canon for the seventeen chapters: twelve in `src/game/story-campaign-act1.ts`, `story-campaign-act2.ts` and `story-campaign-act3.ts`, and five street-race chapters in `story-campaign-roads.ts`. IDs below are stable, zero-based identities; `story-campaign.ts` sets the play order, and the player sees positions 1–17. Japanese is the original dialogue and English the subtitle.
 
 ## The conflict
 
@@ -26,7 +26,7 @@ The garage has enough booked repair work for normal installments, but cannot rep
 
 ## Continuity anchors
 
-**Time and debt.** ID 0 begins in early August 1986 with a three-week repayment demand. ID 4 moves forward one week. The deadline is approaching during IDs 5–7; after ID 7, the lender has examined the originals and granted a standstill. Only then does ID 8 advance another week. ID 10 reports the lender's separate withdrawal of the accelerated demand. Original installments continue, funded by repair income and reserves. ID 11 occurs several days later, during reopening preparations.
+**Time and debt.** ID 0 begins in early August 1986 with a three-week repayment demand. ID 12 follows ID 3 by three days. ID 4 moves forward one week, and ID 13 is two days after it, at dawn; the Council's summons that morning leads to ID 5. The deadline is approaching during IDs 5–7; after ID 7, the lender has examined the originals and granted a standstill. ID 14 falls three days into that week. Only then does ID 8 advance another week. IDs 15 and 16 follow ID 8 by two days and three days, and the hearing in ID 9 comes three days after ID 16. ID 10 reports the lender's separate withdrawal of the accelerated demand. Original installments continue, funded by repair income and reserves. ID 11 occurs several days later, during reopening preparations.
 
 **The blackout.** Ren obtained mobile relay kits from the sponsor and lent them onward to shops. The hosts did not know the agreement's connection to his mother's debt, its content-approval terms or his disclosure of their locations. His list enables coordinated collection at two a.m. The borrowed power unit in the garage supplies both its relay and the work lamps; recovering that unit darkens the work area. This is a physical equipment dependency, not the sponsor ordering an unexplained municipal blackout. Distributed records and copies of the CROWN evidence survive. Ren had time to confess during the shared drive home and explicitly owns his decision to remain silent.
 
@@ -51,10 +51,28 @@ The garage has enough booked repair work for normal installments, but cannot rep
 | 10 | Outrun the dawn | Aki makes the harbor podium ahead of Toru. He releases only the personal options he declared. Evidence and the hearing separately prompt the lender's decision and the local project suspension. |
 | 11 | Your voice on side B | Reopening preparations lead to a final Nikko run. The crew hears Jun's recorded premiere at dawn; Aki and Ren confess, consent and start Side B. Work and future invitations await at home. |
 
+Street-race chapters, by ID and where they play:
+
+| ID | Plays after | Chapter | What changes |
+| --- | --- | --- | --- |
+| 12 | 3 | Forty-eight to the sky | The Nikko club invites the crew up the Second Irohazaka. A teahouse that refused CROWN hosts the first terminal outside the city on Ren's unnamed borrowed relay. Ren turns his promised confession into a dawn someday. |
+| 13 | 4 | Meet me at Yasukuni | Mei will not cut CROWN's name. Tokyo's dawn club prints her article for Marunouchi and the taxis. Rei passes her head office. Celeste summons everyone, and Ren defers the truth again. |
+| 14 | 7 | To the hill facing the castle | Ren apologizes to an Aizu relay host and leaves a written account for correction. On Iimoriyama, Aki recognizes her own night of smoke. Yui will make relays the hosts' own. Daichi hands the next leg to the Aizu club. |
+| 15 | 8 | Keage brick echo | The same CROWN notices hang in Gion. Rei will bring them to the hearing. Yui designs relays on each host's battery and solar panel. Jun's old drummer calls from Nara. |
+| 16 | 15 | Kasuga sky ridge | Jun asks his old drummer for help and writes four bars with her. The Great Buddha's handful-of-earth edict frames voluntary participation. Jun will run the hearing's sound. |
+
+**The street-race chapters.** Each one sits where the story already travels and changes nothing that follows it.
+
+- **ID 12, Irohazaka.** The crew lends Ren's borrowed relay to the Akechidaira teahouse. Ren leaves its owner's name off the case and turns his promised confession into a someday-at-dawn wish. Both are part of what ID 6 reveals. The overlook's sunset foreshadows the finale's dawn.
+- **ID 13, Tokyo.** Mei refuses to cut CROWN's name from her article. The dawn club prints it for Marunouchi and Tokyo's taxis, and Rei runs past her own head office. That is how the investors in ID 5 have "noticed." Ren deflects the "equipment company" question again.
+- **ID 14, Aizu.** Ren apologizes in person to one relay host. That host's later correction is the one ID 8 reports. On Iimoriyama, the Byakkotai's mistaken view of the castle echoes Aki's night of the blackout. The owner says the account will come back corrected in red.
+- **ID 15, Kyoto.** The same CROWN notices appear in another city, giving Celeste's "next city" a face. At Keage, Yui redesigns the relays to run on each host's own power. That is the independent equipment that keeps ID 9's hearing audible.
+- **ID 16, Nara.** Jun asks his old drummer for help and writes four new bars with her. He agrees to run the hearing's sound, so ID 9's "I will keep the sound going" is a promise kept.
+
 ## Races and presentation
 
-All chapters require a podium. ID 10 additionally requires finishing ahead of Toru; no dialogue may assume first place when third satisfies the objective. Races provide different opportunities: initial publicity, a place to meet shopkeepers, record handoffs, rebuilding friendships, Toru's personal challenge and a final celebration. Essential evidence and permission to ask questions never depend on winning a microphone.
+All chapters require a podium. The street-race chapters run the 1986 street routes with equal cars and pay no prize money. ID 10 additionally requires finishing ahead of Toru; no dialogue may assume first place when third satisfies the objective. Races provide different opportunities: initial publicity, a place to meet shopkeepers, record handoffs, rebuilding friendships, Toru's personal challenge and a final celebration. Essential evidence and permission to ask questions never depend on winning a microphone.
 
-The campaign has 298 authored chapter lines plus three retry lines. Preserve deliberate camera and music directions when editing. The current presentation uses 54 cutscene illustrations and a 25-composition soundtrack; see [artwork](cutscene-art.md), [music](cutscene-music.md) and [implementation design](story-campaign-design.md). Time/place captions mark phone calls, the chapter 2 flashback, montage cuts, time jumps and the recorded programme whenever the artwork alone could be ambiguous; each holds until the next camera cut. Locked chapters conceal their synopses, and dossiers unlock after completion.
+The campaign has 405 authored chapter lines plus three retry lines. Preserve deliberate camera and music directions when editing. Every one of the 275 authored camera cuts has its own illustration, and the score draws on the 25-composition soundtrack plus five town themes; see [artwork](cutscene-art.md), [music](cutscene-music.md) and [implementation design](story-campaign-design.md). Time/place captions mark phone calls, the chapter 2 flashback, montage cuts, time jumps and the recorded programme whenever the artwork alone could be ambiguous; each holds until the next camera cut. Locked chapters conceal their synopses, and dossiers unlock after completion.
 
 Story progress is local gameplay. It does not mint tokens, award NFTs or prove a live network deployment. Optional modern workshop purchases remain separate, explicit wallet-approved transactions; cosmetics do not pay fictional debts, repair relationships or alter race performance.

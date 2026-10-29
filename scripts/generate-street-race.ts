@@ -8,24 +8,30 @@ import { withStreetNative, STREET_NATIVE_LAUNCHER, createStreetOutputDirectory }
 import { readBoundedNativeFile, readBoundedNativeJson, hashBoundedNativePath } from './lib/native-file-io.mjs';
 import { streetPathEscapesRoot } from './lib/street-generation';
 import type { StreetRaceBundle } from '../src/game/street/session';
+import { LEDGER_STREET_ROUTE, STREET_ROUTE_IDS, streetRouteAuthoring } from './lib/street-routes';
 
-const args = process.argv.slice(2), flags = ['--output', '--iroha-root', '--native-binary', '--native-sha256'];
-if (args.length !== 8 || flags.some(flag => args.filter(value => value === flag).length !== 1)
-    || args.some((value, i) => i % 2 === 0 ? !flags.includes(value) : !value)) throw new Error('Use --output <fresh child of output/> --iroha-root <absolute checkout> --native-binary <absolute iroha> --native-sha256 <trusted executable SHA-256>.');
-const selected = Object.fromEntries(flags.map(flag => [flag, args[args.indexOf(flag) + 1]!]));
+const args = process.argv.slice(2), flags = ['--output', '--iroha-root', '--native-binary', '--native-sha256'], optional = ['--route'];
+if (args.length % 2 || flags.some(flag => args.filter(value => value === flag).length !== 1)
+    || optional.some(flag => args.filter(value => value === flag).length > 1)
+    || args.some((value, i) => i % 2 === 0 ? ![...flags, ...optional].includes(value) : !value)) throw new Error('Use --output <fresh child of output/> --iroha-root <absolute checkout> --native-binary <absolute iroha> --native-sha256 <trusted executable SHA-256> [--route <catalog route>].');
+const selected = Object.fromEntries([...flags, ...optional].filter(flag => args.includes(flag)).map(flag => [flag, args[args.indexOf(flag) + 1]!]));
+const route = selected['--route'] ?? LEDGER_STREET_ROUTE;
+if (!(STREET_ROUTE_IDS as readonly string[]).includes(route)) throw new Error(`Unknown street route ${route}; add it to scripts/lib/street-routes.ts and the native catalog first.`);
+const authoring = streetRouteAuthoring(route);
 if (!isAbsolute(selected['--iroha-root']!) || !isAbsolute(selected['--native-binary']!) || !/^[0-9a-f]{64}$/.test(selected['--native-sha256']!)) throw new Error('Explicit absolute native paths and an independently pinned executable hash are required.');
 const output = resolve(selected['--output']!), root = await realpath(selected['--iroha-root']!);
 if (streetPathEscapesRoot(relative(resolve('output'), output))) throw new Error('Street generation must use a child directory of output/.');
 await verifyStreetLayout(root);
 const hash = (bytes: string | Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 const sourcePaths = ['scripts/generate-street-race.ts', 'scripts/lib/street-native.ts', 'scripts/lib/street-generation.ts',
-  'scripts/lib/native-file-io.mjs', 'scripts/lib/native-file-io.d.mts',
+  'scripts/lib/native-file-io.mjs', 'scripts/lib/native-file-io.d.mts', 'scripts/lib/street-routes.ts',
   'scripts/lib/street-track-compiler.ts', 'scripts/lib/street-object-compiler.ts', 'src/game/street/objects.ts',
-  'world/authoring/tokyo-1986.json', 'world/authoring/tokyo-1986.objects.json', STREET_LAYOUT_COPY, STREET_LAYOUT_METADATA, STREET_LAYOUT_BROWSER,
+  authoring.track, authoring.objects, STREET_LAYOUT_COPY, STREET_LAYOUT_METADATA, STREET_LAYOUT_BROWSER,
   'scripts/lib/street-layout-source.mjs', 'scripts/lib/street-layout-source.d.mts'];
 const sources = Object.fromEntries(await Promise.all(sourcePaths.map(async path => [path, (await hashBoundedNativePath(path, 16 * 1024 ** 2)).sha256])));
-const track = compileStreetTrack(await readBoundedNativeJson('world/authoring/tokyo-1986.json') as AuthoredStreetTrack);
-const catalog = compileStreetObjects(track, await readBoundedNativeJson('world/authoring/tokyo-1986.objects.json') as AuthoredStreetObjects);
+const track = compileStreetTrack(await readBoundedNativeJson(authoring.track) as AuthoredStreetTrack);
+const catalog = compileStreetObjects(track, await readBoundedNativeJson(authoring.objects) as AuthoredStreetObjects);
+if (track.id !== route) throw new Error(`${authoring.track} names ${track.id}, not ${route}.`);
 await createStreetOutputDirectory(process.cwd(), output);
 await mkdir(resolve(output, 'bundles'));
 await mkdir(resolve(output, 'native'));
@@ -41,7 +47,7 @@ await withStreetNative(root, selected['--native-binary']!, native.binary.sha256,
   native.binary.bytes = retainedBinary.bytes;
   for (const roster of [2, 3, 4, 5, 6, 7, 8]) {
     const exportPath = resolve(output, `native-motion-${roster}.json`);
-    execute(['export-street-motion', '--roster', String(roster), '--output-file', exportPath]);
+    execute(['export-street-motion', '--route', route, '--roster', String(roster), '--output-file', exportPath]);
     const exported = await readBoundedNativeFile(exportPath);
     const value = JSON.parse(exported.toString());
     if (value.version !== 1 || value.domain !== 'iroha.street-motion-export.v1' || value.roster !== roster
@@ -74,4 +80,4 @@ for (const [path, expected] of Object.entries(sources)) if ((await hashBoundedNa
 if ((await hashBoundedNativePath(resolve(root, STREET_NATIVE_LAUNCHER), 1024 ** 2)).sha256 !== native.launcher.sha256) throw new Error('Native launcher changed during export.');
 await writeFile(resolve(output, 'generation.json'), JSON.stringify({ version: 1, domain: 'sora-cars.native-street-generation.v1', sources, native, bundles,
   qualification: { proof: false, ledger: false, playability: false } }, null, 2) + '\n', { flag: 'wx' });
-console.log(`Exported native Street motion graphs for rosters 2–8: ${native.compilerFamilyId}. Arithmetic only; no proof or ledger qualification.`);
+console.log(`Exported native ${route} Street motion graphs for rosters 2–8: ${native.compilerFamilyId}. Arithmetic only; no proof or ledger qualification.`);

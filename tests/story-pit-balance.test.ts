@@ -39,7 +39,8 @@ test('following the crew’s picks carries rookies and regulars through the whol
     assert.deepEqual(stuck(runs), [], `${profile} never stalls`);
     // The first harbor night is the hard lesson; nothing else averages two races.
     assert.ok(triesAt(runs, 1) <= 4, `${profile} chapter 2: ${triesAt(runs, 1)}`);
-    CHAPTERS.forEach((_, chapter) => chapter !== 1 && assert.ok(triesAt(runs, chapter) < 2, `${profile} chapter ${chapter + 1}: ${triesAt(runs, chapter)}`));
+    // Arcade chapters in id order (the campaign simulation skips the street-race chapters).
+    CHAPTERS.filter(c => c.trackId !== undefined).forEach((_, chapter) => chapter !== 1 && assert.ok(triesAt(runs, chapter) < 2, `${profile} chapter ${chapter + 1}: ${triesAt(runs, chapter)}`));
   }
 });
 

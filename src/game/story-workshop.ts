@@ -1,7 +1,7 @@
 import { CHAPTERS, CREW, storyProgress, type Bilingual } from './story';
 
 interface WorkshopVisit { speaker: string; sku: string; line: Bilingual }
-/** Narrative recommendations only: neither chapter progress nor a visit grants an NFT. */
+/** Narrative recommendations only: neither chapter progress nor a visit grants an NFT. By chapter id. */
 const VISITS: readonly WorkshopVisit[] = [
   { speaker: 'aki', sku: 'aki-first-light', line: { ja: '父は、朝焼けの赤に少し黄色を混ぜてた。この塗装にも、その色を残したんだ。標準の白で走ってもいいし、自分の朝を選んでもいい。ゆっくり見ていって。', en: 'Dad mixed a little yellow into his sunrise red. I kept that color in this livery. The standard white is lovely too, or you can choose a dawn of your own. Take your time.' } },
   { speaker: 'daichi', sku: 'daichi-harbor-line', line: { ja: '配達が終わると、弟を連れて海を見るんだ。この青は、その帰り道。車体の色が変わるだけで、速さは同じ。値段と持ち主を確かめて、気に入ったら選んでよ。', en: 'After deliveries, I take my brother to see the sea. This blue is our road home. It changes the livery, with the same performance. Check the price and owner, and choose it if it feels right.' } },
@@ -15,11 +15,17 @@ const VISITS: readonly WorkshopVisit[] = [
   { speaker: 'mei', sku: 'mei-sakura-film', line: { ja: '明日は、撮っていいか先に聞く。好きな色の車と、その隣に立つ顔を残したいから。この桜色も候補にどうぞ。買い物は後にして、今夜は休んでもいいのよ。', en: 'Tomorrow I will ask before taking the picture. I want the car in its favorite colors, and the face beside it. Blossom pink is one option. Shopping can wait if you need some sleep tonight.' } },
   { speaker: 'aki', sku: 'club-aero-86', line: { ja: 'このウイングで天宮に勝てる、とは言えない。速さも曲がり方も同じだから。好きな姿でスタートに立つためのパーツだよ。勝負の準備は、ブレーキとラインを確かめてから。', en: 'I cannot promise this wing will beat Amamiya. Speed and handling are unchanged. It is a way to arrive at the grid looking like yourself. Race preparation still means checking your braking and your line.' } },
   { speaker: 'jun', sku: 'jun-transistor', line: { ja: '昔、途中で止めた曲。今度は最後まで弾くよ。この四角い模様は、その頃から好きなリズム。車の塗装も、自分の音も、好きなままで続けていいんだな。', en: 'That song I once abandoned—I will play it to the end this time. These square patterns are a rhythm I have loved since then. A livery, a sound: perhaps we are allowed to keep what we love.' } },
+  // The street-race chapters (ids 12-16).
+  { speaker: 'yui', sku: 'yui-solar-grid', line: { ja: '峠の茶屋で、充電の話ばかりしてた。この塗装の線は、山の向こうからでも読める太さにしたの。発電はしないけど、遠くからでもSORAだって分かる。', en: 'At the teahouse I talked about nothing but charging. I drew these lines thick enough to read from across a mountain. The livery generates no power, but you can tell it is SORA from a distance.' } },
+  { speaker: 'mei', sku: 'mei-sakura-film', line: { ja: '東京の朝は、新聞の紙の色だった。この桜色は、九段の大鳥居の前で迷ってから残したの。車に着せる色だから、眺めて決めればいい。', en: 'Tokyo’s morning was the colour of newsprint. I kept this blossom pink after a long think beneath the great torii in Kudan. It is a colour for your car; decide by looking.' } },
+  { speaker: 'ren', sku: 'ren-radio-night', line: { ja: '会津の工房で、本物の漆の黒を見せてもらった。この紺は、それに比べたら軽い。塗装は謝罪の代わりにならない。それだけは、先に言っておく。', en: 'In Aizu they showed me true lacquer black. This navy is light by comparison. A livery is no substitute for an apology. I will say that first.' } },
+  { speaker: 'daichi', sku: 'daichi-harbor-line', line: { ja: '京都の疏水の色、港の青に少し似てた。この塗装で走っても、速さは同じ。弟には、水の流れに沿った道の話をするよ。', en: 'The Kyoto canal looked a little like our harbor blue. This livery runs at the same speed. I will tell my brother about the road beside the water.' } },
+  { speaker: 'jun', sku: 'club-neon-pulse', line: { ja: '奈良の喫茶店で、昔の仲間とブーストの炎の色の話をした。シンセみたいな色になるだけで、速くはならない。続きの四小節は、僕らの手で書く。', en: 'In a Nara coffee shop, my old bandmate and I argued about boost-flame colours. They only turn synthesizer colours; nothing gets faster. The next four bars are ours to write.' } },
 ];
 
 export function storyWorkshop(chapter: number) {
-  if (!Number.isInteger(chapter) || !VISITS[chapter] || !CHAPTERS[chapter]) throw new Error('Unknown workshop chapter.');
-  const visit = VISITS[chapter]!;
+  const visit = Number.isInteger(chapter) ? VISITS[CHAPTERS[chapter]?.id ?? -1] : undefined;
+  if (!visit) throw new Error('Unknown workshop chapter.');
   return { chapter: CHAPTERS[chapter]!, character: CREW.find(c => c.id === visit.speaker)!, sku: visit.sku, line: visit.line };
 }
 

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { FarLand, type FarLandPlan } from './far-land';
 import { CityMeshBuilder } from './geometry';
 import { hashInts, seeded } from './layout';
 
@@ -112,7 +113,7 @@ function nikolai(b: Builder): void {
   b.colour.copy(copper); b.box('wall', -3, 3, 30, 36, 21, 27); b.box('wall', -.3, .3, 28, 40, -.3, .3);
 }
 /** A distant volcano: concave slopes and a snow cap with a ragged lower edge. */
-function mountain(height: number, radius: number, snowLine: number, body: string, snow: string) {
+export function mountain(height: number, radius: number, snowLine: number, body: string, snow: string) {
   return (b: Builder, random: Random) => {
     const rings = 18, segments = 44, rock = new THREE.Color(body), cap = new THREE.Color(snow), phase = random() * 10;
     const r = (t: number) => radius * (.03 + (1 - t) ** 1.9);
@@ -126,7 +127,15 @@ function mountain(height: number, radius: number, snowLine: number, body: string
   };
 }
 /** Something far off at fixed render coordinates (Arcade courses have no real origin). */
-export interface PeriodDistant { readonly x: number; readonly z: number; readonly build: (b: Builder, random: Random) => void }
+export interface PeriodDistant {
+  readonly x: number; readonly z: number; readonly build: (b: Builder, random: Random) => void;
+  /** Ground elevation under it, in the route's metres (Tokyo's city stands near 10 m). */
+  readonly y?: number;
+  /** Hidden within this many metres, where the full landmark model stands instead. */
+  readonly hideWithin?: number;
+  /** The ground itself out to the horizon (far-land.ts), drawn instead of a far object. */
+  readonly land?: FarLandPlan;
+}
 /** Mt. Fuji over the Hakone pass; Nantai-san behind Nikko. */
 export const ARCADE_DISTANT: readonly (readonly PeriodDistant[])[] = [
   [{ x: 9000, z: 30000, build: mountain(3000, 14000, .58, '#4a5684', '#eceaf2') }],
@@ -141,6 +150,11 @@ function shinjuku(lat: number, lon: number, w: number, d: number, h: number, pai
 const LANDMARKS: readonly Landmark[] = [
   { lat: 35.65858, lon: 139.74543, build: tokyoTower },
   { lat: 35.67080, lon: 139.74960, build: tower(52, 32, 147, '#cdcbc4', 'mast', .5) },   // Kasumigaseki Building, 1968
+  // Uchisaiwaichō, over Hibiya Park (heights approximate): Fukoku Seimei (1980, 29 floors), Hibiya Kokusai (1981)
+  // and the Imperial Hotel's tower (1983).
+  { lat: 35.67060, lon: 139.75510, build: tower(50, 40, 120, '#c8c6c0', 'flat', .45) },
+  { lat: 35.66930, lon: 139.75510, build: tower(56, 40, 110, '#b7b2a6', 'flat', .45) },
+  { lat: 35.67180, lon: 139.75920, build: tower(52, 30, 115, '#d8d2c4', 'step', .5) },
   { lat: 35.65550, lon: 139.75690, build: tower(48, 30, 163, '#5c5a5c', 'step', .45) },  // World Trade Center, Hamamatsucho
   { lat: 35.66690, lon: 139.74070, build: tower(46, 38, 153, '#bdb39e', 'step', .5) },   // ARK Mori Building, 1986
   { lat: 35.67960, lon: 139.73720, build: akasakaPrince },
@@ -162,7 +176,8 @@ const LANDMARKS: readonly Landmark[] = [
 /** Distant landmark silhouettes for a course whose origin is a real place. */
 export class PeriodSkyline {
   readonly group = new THREE.Group();
-  private readonly towers: { readonly mesh: THREE.Group; readonly x: number; readonly z: number }[] = [];
+  private readonly towers: { readonly mesh: THREE.Group; readonly x: number; readonly z: number; readonly y: number; readonly hideWithin: number }[] = [];
+  private readonly land: FarLand | undefined;
   private readonly silhouette = new THREE.MeshBasicMaterial({ vertexColors: true, fog: false });
   private readonly lights = new THREE.MeshBasicMaterial({ vertexColors: true, fog: false });
   /** At night the far towers catch the city's glow: a violet skyline, as in the cutscenes' far shores. */
@@ -176,7 +191,11 @@ export class PeriodSkyline {
     const east = origin ? 111320 * Math.cos(origin.lat * Math.PI / 180) : 0;
     const items: PeriodDistant[] = [...(origin ? LANDMARKS.map(landmark => ({ build: landmark.build,
       x: -(landmark.lon - origin.lon) * east, z: (landmark.lat - origin.lat) * METRES_PER_DEGREE_NORTH })) : []), ...distant];
+    const land = distant.find(item => item.land)?.land;
+    this.land = land ? new FarLand(land) : undefined;
+    if (this.land) this.group.add(this.land.group);
     items.forEach((item, index) => {
+      if (item.land) return;
       const b = new CityMeshBuilder(0, 0);
       b.frame(0, 0, 0, 0);
       item.build(b, seeded(hashInts(index, 1986)));
@@ -186,7 +205,7 @@ export class PeriodSkyline {
         part.frustumCulled = false; mesh.add(part);
       }
       this.group.add(mesh);
-      this.towers.push({ mesh, x: item.x, z: item.z });
+      this.towers.push({ mesh, x: item.x, z: item.z, y: item.y ?? 10, hideWithin: item.hideWithin ?? 0 });
     });
   }
 
@@ -194,17 +213,19 @@ export class PeriodSkyline {
   update(camera: THREE.Vector3, daylight: number): void {
     this.silhouette.color.lerpColors(this.night, this.dawn, THREE.MathUtils.smoothstep(daylight, .2, 1));
     this.lights.color.setScalar(THREE.MathUtils.lerp(1, .12, THREE.MathUtils.smoothstep(daylight, .45, 1)));
+    this.land?.update(daylight);
     for (const tower of this.towers) {
       const dx = tower.x - camera.x, dz = tower.z - camera.z, distance = Math.hypot(dx, dz);
       const scale = distance > PLACE ? PLACE / distance : 1;
-      // Grade near 10 m above the datum, like the city around the route.
-      tower.mesh.position.set(camera.x + dx * scale, camera.y + (10 - camera.y) * scale, camera.z + dz * scale);
+      // Graded at its own ground (Tokyo's city near 10 m above the datum).
+      tower.mesh.position.set(camera.x + dx * scale, camera.y + (tower.y - camera.y) * scale, camera.z + dz * scale);
       tower.mesh.scale.setScalar(scale);
+      tower.mesh.visible = distance >= tower.hideWithin;
     }
   }
 
   dispose(): void {
     this.group.traverse(object => { if (object instanceof THREE.Mesh) object.geometry.dispose(); });
-    this.silhouette.dispose(); this.lights.dispose();
+    this.silhouette.dispose(); this.lights.dispose(); this.land?.dispose();
   }
 }

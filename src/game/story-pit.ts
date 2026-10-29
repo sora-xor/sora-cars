@@ -82,6 +82,8 @@ export interface PitRival {
 }
 export interface PitBriefing {
   readonly chapter: StoryChapter;
+  /** The chapter's Arcade circuit. */
+  readonly trackId: number;
   readonly conditions: CourseConditions;
   readonly objective: Bilingual;
   /** The two non-crew cars. The five crew cars are always stock. */
@@ -97,12 +99,13 @@ const STORY_RIVAL_SLOTS = [
   { slot: 7, rival: RIVALS[1]!, style: 'power', stand: { ja: 'SORAゲスト', en: 'SORA GUEST' } },
 ] as const;
 const plainName = (name: Bilingual): Bilingual => ({ ja: name.ja.replace(/（.*?）/, ''), en: name.en });
-export function pitBriefing(chapterId: number, save: GarageSave): PitBriefing {
-  const chapter = CHAPTERS[chapterId];
-  if (!chapter) throw new RangeError('Unknown chapter');
-  const grid = storyGrid(chapterId), rivals = storyRivals(chapterId, grid.length, grid.indexOf('YOU'));
+/** `chapterIndex` is the chapter's place in play order. Street-race chapters have no pre-race garage. */
+export function pitBriefing(chapterIndex: number, save: GarageSave): PitBriefing {
+  const chapter = CHAPTERS[chapterIndex];
+  if (!chapter || chapter.trackId === undefined) throw new RangeError('Unknown Arcade chapter');
+  const trackId = chapter.trackId, grid = storyGrid(chapterIndex), rivals = storyRivals(chapter.id, grid.length, grid.indexOf('YOU'));
   return {
-    chapter, conditions: courseConditions(chapter.trackId), objective: storyObjective(chapterId), tip: courseTip(chapter.trackId), pick: nextPick(save, chapter.trackId),
+    chapter, trackId, conditions: courseConditions(trackId), objective: storyObjective(chapterIndex), tip: courseTip(trackId), pick: nextPick(save, trackId),
     build: save.stock ? 0 : buildValue(fittedParts(save)),
     rivals: STORY_RIVAL_SLOTS.map(({ slot, rival, style, stand }) => {
       const value = save.stock ? 0 : rivals[slot]!.value;

@@ -43,6 +43,8 @@ export const PIXEL_OVERLAY_COLOURS = {
   blossom: [paletteColour('#f6c0d2'), paletteColour('#e88fb2'), paletteColour('#ffffff'), paletteColour('#f9d8e4')] as const,
   /** Snowflakes in the far, middle and near layers: lavender to moonlit white. */
   snow: [paletteColour('#9ea6d6'), paletteColour('#c9cff0'), paletteColour('#f2f0fa')] as const,
+  /** Autumn maple leaves: crimson, vermilion, gold and a deep rust. */
+  leaves: [paletteColour('#c8402a'), paletteColour('#e07a2c'), paletteColour('#e8b440'), paletteColour('#8a3a2a')] as const,
   dust: paletteColour('#b7b591'),
   speedLine: paletteColour('#8a7a92'),
   speedLineSurge: paletteColour('#e7cfb2'),
@@ -115,14 +117,14 @@ export function dashedCellLine(ctx: CanvasRenderingContext2D, grid: PixelArtGrid
 }
 
 /**
- * Atmosphere particles over a race frame: snowfall or sakura petals on the
- * wind. Presentation only, on the render clock. On a pixel-art frame every
+ * Atmosphere particles over a race frame: snowfall, sakura petals or maple
+ * leaves on the wind. Presentation only, on the render clock. On a pixel-art frame every
  * particle is whole art cells in palette colours; clean frames draw small
  * rectangles. `width` and `height` are the renderer's logical size;
  * `amount` (0-1) thins the particles toward the edge of a zone.
  */
 export function drawAtmosphere(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, width: number, height: number,
-  kind: 'snow' | 'blossom', time: number, wind: number, amount = 1): void {
+  kind: 'snow' | 'blossom' | 'leaves', time: number, wind: number, amount = 1): void {
   if (amount <= 0) return;
   const grid = pixelOverlayGrid(canvas), sx = grid ? grid.artWidth / width : 0, sy = grid ? grid.artHeight / height : 0;
   const mod = (v: number, n: number) => (v % n + n) % n;
@@ -145,17 +147,20 @@ export function drawAtmosphere(ctx: CanvasRenderingContext2D, canvas: HTMLCanvas
     }
   } else {
     // Petals ride the wind in gusts and tumble: a two-cell petal turns edge-on.
-    const count = Math.round(150 * amount), direction = wind < 0 ? -1 : 1;
+    // Maple leaves are fewer, heavier and slower, and spin more lazily.
+    const leaves = kind === 'leaves', direction = wind < 0 ? -1 : 1;
+    const count = Math.round((leaves ? 70 : 150) * amount), pace = leaves ? .7 : 1;
+    const clean = leaves ? ['#c8402a', '#e07a2c', '#e8b440', '#8a3a2a'] : ['#f6c0d2', '#e88fb2', '#ffffff', '#f9d8e4'];
     for (let i = 0; i < count; i++) {
       const layer = i % 2, gust = 1 + .5 * Math.sin(time * .7 + i * .37);
-      const x = mod(i * 97.3 + time * direction * (Math.abs(wind) * [10, 18][layer]! + [16, 30][layer]!) * gust, width + 30) - 15;
-      const y = mod(i * 61.1 + time * [14, 24][layer]! + Math.sin(time * 2.3 + i) * [6, 10][layer]!, height + 10) - 5;
-      const turn = Math.sin(time * 6 + i * 2.1), w = turn > .3 ? 2 : 1, h = turn < -.3 ? 2 : 1;
+      const x = mod(i * 97.3 + time * direction * (Math.abs(wind) * [10, 18][layer]! + [16, 30][layer]!) * gust * pace, width + 30) - 15;
+      const y = mod(i * 61.1 + time * [14, 24][layer]! * pace + Math.sin(time * 2.3 * pace + i) * [6, 10][layer]!, height + 10) - 5;
+      const turn = Math.sin(time * (leaves ? 3.5 : 6) + i * 2.1), w = turn > .3 ? 2 : 1, h = turn < -.3 ? 2 : 1;
       if (grid) {
-        ctx.fillStyle = PIXEL_OVERLAY_COLOURS.blossom[(i + layer) % 4]!;
+        ctx.fillStyle = PIXEL_OVERLAY_COLOURS[leaves ? 'leaves' : 'blossom'][(i + layer) % 4]!;
         fillArtCells(ctx, grid, x * sx, y * sy, w + layer, h + layer * (turn < 0 ? 1 : 0));
       } else {
-        ctx.fillStyle = ['#f6c0d2', '#e88fb2', '#ffffff', '#f9d8e4'][(i + layer) % 4]!;
+        ctx.fillStyle = clean[(i + layer) % 4]!;
         ctx.fillRect(Math.round(x), Math.round(y), (w + layer) * 2, h * 2);
       }
     }

@@ -70,7 +70,8 @@ test('practice fields form a ladder: each needs a better car, the last needs a f
 
 test('a stock car can meet every story objective except Toru’s showdown', () => {
   // The rivals assume a player who upgrades in the pre-race garage (tests/story-pit-balance.test.ts).
-  for (const chapter of CHAPTERS.keys()) assert.equal(storyCleared(chapter, 'pro', STOCK_TUNE), chapter !== 10, `chapter ${chapter + 1} with a stock car`);
+  // Arcade chapters by id; the street-race chapters race equal cars on their own routes.
+  for (const chapter of CHAPTERS.filter(c => c.trackId !== undefined).map(c => c.id)) assert.equal(storyCleared(chapter, 'pro', STOCK_TUNE), chapter !== 10, `chapter ID ${chapter} with a stock car`);
   // The windy harbor chapters before the showdown reward a modest build.
   for (const chapter of [4, 7]) {
     const budget = 12000 + 7000 * chapter, upgraded = clearRate(chapter, 'regular', rivalBuild('tough', budget)), stock = clearRate(chapter, 'regular', []);

@@ -1,0 +1,2940 @@
+{
+  "version": 1,
+  "topology": "sprint",
+  "id": "irohazaka-1986",
+  "name": {
+    "ja": "いろは、空への四十八",
+    "en": "Iroha: Forty-eight to the Sky"
+  },
+  "year": 1986,
+  "points": [
+    {
+      "id": "umagaeshi",
+      "positionE7": [
+        1395272846,
+        367387631
+      ],
+      "elevationMm": 863900,
+      "halfWidthMm": 4000,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "umagaeshi-0110",
+      "positionE7": [
+        1395263350,
+        367393917
+      ],
+      "elevationMm": 870097,
+      "halfWidthMm": 4000,
+      "sector": 0,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0120",
+      "positionE7": [
+        1395262308,
+        367394245
+      ],
+      "elevationMm": 870490,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0147",
+      "positionE7": [
+        1395259318,
+        367394222
+      ],
+      "elevationMm": 871587,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "oya-bridge",
+      "positionE7": [
+        1395257261,
+        367393334
+      ],
+      "elevationMm": 872440,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0205",
+      "positionE7": [
+        1395254708,
+        367390743
+      ],
+      "elevationMm": 873833,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0237",
+      "positionE7": [
+        1395253895,
+        367387976
+      ],
+      "elevationMm": 874449,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0272",
+      "positionE7": [
+        1395254457,
+        367384886
+      ],
+      "elevationMm": 874146,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0318",
+      "positionE7": [
+        1395257429,
+        367381535
+      ],
+      "elevationMm": 872653,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0419",
+      "positionE7": [
+        1395265619,
+        367375276
+      ],
+      "elevationMm": 868859,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0487",
+      "positionE7": [
+        1395272046,
+        367372004
+      ],
+      "elevationMm": 867728,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0541",
+      "positionE7": [
+        1395277655,
+        367370171
+      ],
+      "elevationMm": 868345,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "daiya-gorge-0597",
+      "positionE7": [
+        1395283460,
+        367368248
+      ],
+      "elevationMm": 870693,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "chichinoki-bridge",
+      "positionE7": [
+        1395289277,
+        367365366
+      ],
+      "elevationMm": 874165,
+      "halfWidthMm": 4000,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0700",
+      "positionE7": [
+        1395293240,
+        367363325
+      ],
+      "elevationMm": 876719,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0726",
+      "positionE7": [
+        1395296034,
+        367362781
+      ],
+      "elevationMm": 878369,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0772",
+      "positionE7": [
+        1395301029,
+        367363735
+      ],
+      "elevationMm": 881345,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0787",
+      "positionE7": [
+        1395302641,
+        367363451
+      ],
+      "elevationMm": 882336,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-i",
+      "positionE7": [
+        1395303422,
+        367362837
+      ],
+      "elevationMm": 882996,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0807",
+      "positionE7": [
+        1395303564,
+        367361966
+      ],
+      "elevationMm": 883649,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0823",
+      "positionE7": [
+        1395302809,
+        367360687
+      ],
+      "elevationMm": 884679,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0897",
+      "positionE7": [
+        1395296377,
+        367356517
+      ],
+      "elevationMm": 888926,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0905",
+      "positionE7": [
+        1395296011,
+        367355866
+      ],
+      "elevationMm": 889377,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ro",
+      "positionE7": [
+        1395295912,
+        367355251
+      ],
+      "elevationMm": 889784,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0923",
+      "positionE7": [
+        1395296405,
+        367354370
+      ],
+      "elevationMm": 890442,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0933",
+      "positionE7": [
+        1395297328,
+        367353896
+      ],
+      "elevationMm": 891060,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0940",
+      "positionE7": [
+        1395298090,
+        367353874
+      ],
+      "elevationMm": 891503,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-0957",
+      "positionE7": [
+        1395299668,
+        367354679
+      ],
+      "elevationMm": 892598,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1012",
+      "positionE7": [
+        1395303274,
+        367358666
+      ],
+      "elevationMm": 896175,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1054",
+      "positionE7": [
+        1395307247,
+        367360649
+      ],
+      "elevationMm": 898764,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1164",
+      "positionE7": [
+        1395318944,
+        367363784
+      ],
+      "elevationMm": 907931,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1201",
+      "positionE7": [
+        1395323064,
+        367363864
+      ],
+      "elevationMm": 910986,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1252",
+      "positionE7": [
+        1395328309,
+        367362093
+      ],
+      "elevationMm": 914595,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1263",
+      "positionE7": [
+        1395329328,
+        367361541
+      ],
+      "elevationMm": 915279,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ha",
+      "positionE7": [
+        1395330069,
+        367360773
+      ],
+      "elevationMm": 915942,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1287",
+      "positionE7": [
+        1395330149,
+        367359630
+      ],
+      "elevationMm": 916733,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1302",
+      "positionE7": [
+        1395329388,
+        367358456
+      ],
+      "elevationMm": 917645,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1315",
+      "positionE7": [
+        1395328120,
+        367357933
+      ],
+      "elevationMm": 918443,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1333",
+      "positionE7": [
+        1395326167,
+        367358207
+      ],
+      "elevationMm": 919594,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "first-switchbacks-1388",
+      "positionE7": [
+        1395320507,
+        367360130
+      ],
+      "elevationMm": 923610,
+      "halfWidthMm": 4000,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1400",
+      "positionE7": [
+        1395319168,
+        367360217
+      ],
+      "elevationMm": 924580,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1429",
+      "positionE7": [
+        1395316103,
+        367359453
+      ],
+      "elevationMm": 926974,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1481",
+      "positionE7": [
+        1395311840,
+        367356289
+      ],
+      "elevationMm": 931305,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1547",
+      "positionE7": [
+        1395307649,
+        367351417
+      ],
+      "elevationMm": 936775,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1607",
+      "positionE7": [
+        1395302417,
+        367348061
+      ],
+      "elevationMm": 941664,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1674",
+      "positionE7": [
+        1395299115,
+        367342680
+      ],
+      "elevationMm": 947194,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1768",
+      "positionE7": [
+        1395291253,
+        367337082
+      ],
+      "elevationMm": 955367,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1825",
+      "positionE7": [
+        1395287998,
+        367332689
+      ],
+      "elevationMm": 960237,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1871",
+      "positionE7": [
+        1395285337,
+        367329165
+      ],
+      "elevationMm": 963680,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1903",
+      "positionE7": [
+        1395283406,
+        367326782
+      ],
+      "elevationMm": 965841,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1913",
+      "positionE7": [
+        1395283509,
+        367325904
+      ],
+      "elevationMm": 966534,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1924",
+      "positionE7": [
+        1395284292,
+        367325169
+      ],
+      "elevationMm": 967307,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1934",
+      "positionE7": [
+        1395285353,
+        367324945
+      ],
+      "elevationMm": 968019,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ni",
+      "positionE7": [
+        1395286209,
+        367325117
+      ],
+      "elevationMm": 968597,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-1956",
+      "positionE7": [
+        1395287234,
+        367326036
+      ],
+      "elevationMm": 969617,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2035",
+      "positionE7": [
+        1395290808,
+        367332509
+      ],
+      "elevationMm": 975152,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2084",
+      "positionE7": [
+        1395294598,
+        367335668
+      ],
+      "elevationMm": 978476,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2192",
+      "positionE7": [
+        1395304725,
+        367340968
+      ],
+      "elevationMm": 985942,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ho",
+      "positionE7": [
+        1395306034,
+        367340918
+      ],
+      "elevationMm": 986620,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2213",
+      "positionE7": [
+        1395306799,
+        367340418
+      ],
+      "elevationMm": 987119,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2223",
+      "positionE7": [
+        1395307148,
+        367339584
+      ],
+      "elevationMm": 987672,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2233",
+      "positionE7": [
+        1395306881,
+        367338733
+      ],
+      "elevationMm": 988231,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2248",
+      "positionE7": [
+        1395305636,
+        367337852
+      ],
+      "elevationMm": 989079,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "south-flank-2262",
+      "positionE7": [
+        1395304235,
+        367337283
+      ],
+      "elevationMm": 989907,
+      "halfWidthMm": 4000,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2300",
+      "positionE7": [
+        1395300639,
+        367335479
+      ],
+      "elevationMm": 992515,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2365",
+      "positionE7": [
+        1395295993,
+        367330995
+      ],
+      "elevationMm": 997441,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2465",
+      "positionE7": [
+        1395291053,
+        367322941
+      ],
+      "elevationMm": 1005399,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2549",
+      "positionE7": [
+        1395284349,
+        367317648
+      ],
+      "elevationMm": 1012117,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2647",
+      "positionE7": [
+        1395275797,
+        367312127
+      ],
+      "elevationMm": 1019648,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2757",
+      "positionE7": [
+        1395267903,
+        367304533
+      ],
+      "elevationMm": 1027347,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2799",
+      "positionE7": [
+        1395264096,
+        367302348
+      ],
+      "elevationMm": 1030395,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2840",
+      "positionE7": [
+        1395259679,
+        367301400
+      ],
+      "elevationMm": 1033272,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2922",
+      "positionE7": [
+        1395250497,
+        367301557
+      ],
+      "elevationMm": 1038723,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2962",
+      "positionE7": [
+        1395246387,
+        367302930
+      ],
+      "elevationMm": 1040958,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-2998",
+      "positionE7": [
+        1395242818,
+        367304384
+      ],
+      "elevationMm": 1042918,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-3008",
+      "positionE7": [
+        1395241706,
+        367304379
+      ],
+      "elevationMm": 1043448,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-he",
+      "positionE7": [
+        1395240696,
+        367304024
+      ],
+      "elevationMm": 1043967,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-3031",
+      "positionE7": [
+        1395239918,
+        367303062
+      ],
+      "elevationMm": 1044631,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-3044",
+      "positionE7": [
+        1395239933,
+        367301917
+      ],
+      "elevationMm": 1045278,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-3059",
+      "positionE7": [
+        1395240848,
+        367300813
+      ],
+      "elevationMm": 1046006,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "ridge-traverse-3076",
+      "positionE7": [
+        1395242579,
+        367300235
+      ],
+      "elevationMm": 1046799,
+      "halfWidthMm": 4000,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3100",
+      "positionE7": [
+        1395245268,
+        367300131
+      ],
+      "elevationMm": 1047907,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3143",
+      "positionE7": [
+        1395250008,
+        367299546
+      ],
+      "elevationMm": 1049887,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3175",
+      "positionE7": [
+        1395252976,
+        367297982
+      ],
+      "elevationMm": 1051241,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3218",
+      "positionE7": [
+        1395255001,
+        367294500
+      ],
+      "elevationMm": 1053103,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3251",
+      "positionE7": [
+        1395255712,
+        367291616
+      ],
+      "elevationMm": 1054627,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3264",
+      "positionE7": [
+        1395255197,
+        367290547
+      ],
+      "elevationMm": 1055221,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-to",
+      "positionE7": [
+        1395254507,
+        367290103
+      ],
+      "elevationMm": 1055576,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3283",
+      "positionE7": [
+        1395253313,
+        367289962
+      ],
+      "elevationMm": 1056063,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3304",
+      "positionE7": [
+        1395251292,
+        367290871
+      ],
+      "elevationMm": 1057019,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3370",
+      "positionE7": [
+        1395245848,
+        367294870
+      ],
+      "elevationMm": 1060475,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3443",
+      "positionE7": [
+        1395238024,
+        367296725
+      ],
+      "elevationMm": 1064966,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3497",
+      "positionE7": [
+        1395232837,
+        367299189
+      ],
+      "elevationMm": 1068111,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3511",
+      "positionE7": [
+        1395231296,
+        367299194
+      ],
+      "elevationMm": 1068888,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3522",
+      "positionE7": [
+        1395230316,
+        367298626
+      ],
+      "elevationMm": 1069471,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3529",
+      "positionE7": [
+        1395229959,
+        367298076
+      ],
+      "elevationMm": 1069830,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-chi",
+      "positionE7": [
+        1395229908,
+        367297460
+      ],
+      "elevationMm": 1070171,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3546",
+      "positionE7": [
+        1395230412,
+        367296680
+      ],
+      "elevationMm": 1070623,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3564",
+      "positionE7": [
+        1395232190,
+        367295970
+      ],
+      "elevationMm": 1071330,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3609",
+      "positionE7": [
+        1395237080,
+        367295048
+      ],
+      "elevationMm": 1072866,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3642",
+      "positionE7": [
+        1395239909,
+        367293182
+      ],
+      "elevationMm": 1073975,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3703",
+      "positionE7": [
+        1395243470,
+        367288525
+      ],
+      "elevationMm": 1076329,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3716",
+      "positionE7": [
+        1395243470,
+        367287379
+      ],
+      "elevationMm": 1076998,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3729",
+      "positionE7": [
+        1395242703,
+        367286414
+      ],
+      "elevationMm": 1077788,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ri",
+      "positionE7": [
+        1395241627,
+        367285966
+      ],
+      "elevationMm": 1078557,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3751",
+      "positionE7": [
+        1395240432,
+        367286100
+      ],
+      "elevationMm": 1079435,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3822",
+      "positionE7": [
+        1395234478,
+        367290319
+      ],
+      "elevationMm": 1084553,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3861",
+      "positionE7": [
+        1395231117,
+        367292564
+      ],
+      "elevationMm": 1086237,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3932",
+      "positionE7": [
+        1395224720,
+        367296338
+      ],
+      "elevationMm": 1089583,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3945",
+      "positionE7": [
+        1395223298,
+        367296457
+      ],
+      "elevationMm": 1090387,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3955",
+      "positionE7": [
+        1395222324,
+        367296053
+      ],
+      "elevationMm": 1091030,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-nu",
+      "positionE7": [
+        1395221790,
+        367295285
+      ],
+      "elevationMm": 1091687,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3975",
+      "positionE7": [
+        1395221911,
+        367294412
+      ],
+      "elevationMm": 1092348,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-3993",
+      "positionE7": [
+        1395223231,
+        367293224
+      ],
+      "elevationMm": 1093505,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4063",
+      "positionE7": [
+        1395230262,
+        367290473
+      ],
+      "elevationMm": 1097786,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4075",
+      "positionE7": [
+        1395230913,
+        367289555
+      ],
+      "elevationMm": 1098591,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4088",
+      "positionE7": [
+        1395230760,
+        367288417
+      ],
+      "elevationMm": 1099476,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ru",
+      "positionE7": [
+        1395230100,
+        367287708
+      ],
+      "elevationMm": 1100164,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4110",
+      "positionE7": [
+        1395228868,
+        367287331
+      ],
+      "elevationMm": 1101027,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4125",
+      "positionE7": [
+        1395227259,
+        367287639
+      ],
+      "elevationMm": 1102161,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4203",
+      "positionE7": [
+        1395220071,
+        367291613
+      ],
+      "elevationMm": 1108333,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4257",
+      "positionE7": [
+        1395214387,
+        367293236
+      ],
+      "elevationMm": 1112350,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4270",
+      "positionE7": [
+        1395212980,
+        367293029
+      ],
+      "elevationMm": 1113265,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-wo",
+      "positionE7": [
+        1395212031,
+        367292188
+      ],
+      "elevationMm": 1114164,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4294",
+      "positionE7": [
+        1395212014,
+        367291221
+      ],
+      "elevationMm": 1114909,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4305",
+      "positionE7": [
+        1395212666,
+        367290404
+      ],
+      "elevationMm": 1115650,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4319",
+      "positionE7": [
+        1395214075,
+        367289902
+      ],
+      "elevationMm": 1116560,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4360",
+      "positionE7": [
+        1395218654,
+        367289920
+      ],
+      "elevationMm": 1119090,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-wa",
+      "positionE7": [
+        1395219895,
+        367289348
+      ],
+      "elevationMm": 1119908,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4385",
+      "positionE7": [
+        1395220457,
+        367288392
+      ],
+      "elevationMm": 1120731,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4397",
+      "positionE7": [
+        1395220257,
+        367287349
+      ],
+      "elevationMm": 1121718,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4409",
+      "positionE7": [
+        1395219394,
+        367286550
+      ],
+      "elevationMm": 1122709,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4422",
+      "positionE7": [
+        1395218001,
+        367286283
+      ],
+      "elevationMm": 1123710,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4492",
+      "positionE7": [
+        1395210670,
+        367288474
+      ],
+      "elevationMm": 1128978,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4556",
+      "positionE7": [
+        1395203593,
+        367289292
+      ],
+      "elevationMm": 1133697,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4567",
+      "positionE7": [
+        1395202420,
+        367289005
+      ],
+      "elevationMm": 1134490,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ka",
+      "positionE7": [
+        1395201625,
+        367288398
+      ],
+      "elevationMm": 1135189,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4587",
+      "positionE7": [
+        1395201392,
+        367287539
+      ],
+      "elevationMm": 1135879,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4598",
+      "positionE7": [
+        1395201834,
+        367286639
+      ],
+      "elevationMm": 1136624,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4608",
+      "positionE7": [
+        1395202747,
+        367286152
+      ],
+      "elevationMm": 1137297,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4631",
+      "positionE7": [
+        1395205279,
+        367286251
+      ],
+      "elevationMm": 1138842,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4659",
+      "positionE7": [
+        1395208378,
+        367286362
+      ],
+      "elevationMm": 1140746,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4741",
+      "positionE7": [
+        1395216751,
+        367283359
+      ],
+      "elevationMm": 1146680,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4755",
+      "positionE7": [
+        1395217529,
+        367282295
+      ],
+      "elevationMm": 1147846,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4768",
+      "positionE7": [
+        1395217385,
+        367281154
+      ],
+      "elevationMm": 1149039,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-yo",
+      "positionE7": [
+        1395216721,
+        367280451
+      ],
+      "elevationMm": 1150011,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4790",
+      "positionE7": [
+        1395215468,
+        367280118
+      ],
+      "elevationMm": 1151172,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4804",
+      "positionE7": [
+        1395213961,
+        367280388
+      ],
+      "elevationMm": 1152433,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4858",
+      "positionE7": [
+        1395209198,
+        367283360
+      ],
+      "elevationMm": 1156040,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "staircase-4878",
+      "positionE7": [
+        1395207043,
+        367283746
+      ],
+      "elevationMm": 1157071,
+      "halfWidthMm": 4000,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-4900",
+      "positionE7": [
+        1395204681,
+        367283196
+      ],
+      "elevationMm": 1158381,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-4946",
+      "positionE7": [
+        1395199991,
+        367281534
+      ],
+      "elevationMm": 1161621,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-4957",
+      "positionE7": [
+        1395199338,
+        367280716
+      ],
+      "elevationMm": 1162297,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ta",
+      "positionE7": [
+        1395199622,
+        367279625
+      ],
+      "elevationMm": 1163084,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-4979",
+      "positionE7": [
+        1395200444,
+        367279194
+      ],
+      "elevationMm": 1163611,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-4989",
+      "positionE7": [
+        1395201541,
+        367279206
+      ],
+      "elevationMm": 1164180,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5009",
+      "positionE7": [
+        1395203341,
+        367280227
+      ],
+      "elevationMm": 1165278,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5037",
+      "positionE7": [
+        1395205630,
+        367281901
+      ],
+      "elevationMm": 1166934,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5061",
+      "positionE7": [
+        1395208243,
+        367282232
+      ],
+      "elevationMm": 1168429,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira",
+      "positionE7": [
+        1395210155,
+        367281365
+      ],
+      "elevationMm": 1169673,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5105",
+      "positionE7": [
+        1395211103,
+        367279385
+      ],
+      "elevationMm": 1171186,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5131",
+      "positionE7": [
+        1395210756,
+        367277101
+      ],
+      "elevationMm": 1172838,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5162",
+      "positionE7": [
+        1395208584,
+        367274967
+      ],
+      "elevationMm": 1175019,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5193",
+      "positionE7": [
+        1395205438,
+        367273864
+      ],
+      "elevationMm": 1177372,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5230",
+      "positionE7": [
+        1395201319,
+        367273928
+      ],
+      "elevationMm": 1180007,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5255",
+      "positionE7": [
+        1395198788,
+        367274790
+      ],
+      "elevationMm": 1181477,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "kurokamidaira-5281",
+      "positionE7": [
+        1395197294,
+        367276752
+      ],
+      "elevationMm": 1182708,
+      "halfWidthMm": 4000,
+      "sector": 6,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5300",
+      "positionE7": [
+        1395196611,
+        367278371
+      ],
+      "elevationMm": 1183464,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5348",
+      "positionE7": [
+        1395194454,
+        367282306
+      ],
+      "elevationMm": 1185207,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5376",
+      "positionE7": [
+        1395192138,
+        367283955
+      ],
+      "elevationMm": 1186229,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5401",
+      "positionE7": [
+        1395189398,
+        367284283
+      ],
+      "elevationMm": 1187172,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5429",
+      "positionE7": [
+        1395186549,
+        367283303
+      ],
+      "elevationMm": 1188254,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5474",
+      "positionE7": [
+        1395182507,
+        367280921
+      ],
+      "elevationMm": 1190006,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5500",
+      "positionE7": [
+        1395179633,
+        367280830
+      ],
+      "elevationMm": 1190947,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5528",
+      "positionE7": [
+        1395176944,
+        367282065
+      ],
+      "elevationMm": 1191867,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5551",
+      "positionE7": [
+        1395175660,
+        367283831
+      ],
+      "elevationMm": 1192565,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5565",
+      "positionE7": [
+        1395175775,
+        367285064
+      ],
+      "elevationMm": 1192951,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5607",
+      "positionE7": [
+        1395178554,
+        367288083
+      ],
+      "elevationMm": 1194166,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5636",
+      "positionE7": [
+        1395179956,
+        367290397
+      ],
+      "elevationMm": 1195039,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5676",
+      "positionE7": [
+        1395179129,
+        367293904
+      ],
+      "elevationMm": 1196290,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5702",
+      "positionE7": [
+        1395177355,
+        367295717
+      ],
+      "elevationMm": 1197160,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-traverse-5732",
+      "positionE7": [
+        1395174290,
+        367296746
+      ],
+      "elevationMm": 1198238,
+      "halfWidthMm": 4000,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5800",
+      "positionE7": [
+        1395166664,
+        367296940
+      ],
+      "elevationMm": 1201018,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5816",
+      "positionE7": [
+        1395164880,
+        367297081
+      ],
+      "elevationMm": 1201710,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-so",
+      "positionE7": [
+        1395163403,
+        367297661
+      ],
+      "elevationMm": 1202359,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5842",
+      "positionE7": [
+        1395162905,
+        367298542
+      ],
+      "elevationMm": 1202835,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5857",
+      "positionE7": [
+        1395163158,
+        367299855
+      ],
+      "elevationMm": 1203475,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5871",
+      "positionE7": [
+        1395164195,
+        367300769
+      ],
+      "elevationMm": 1204062,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5910",
+      "positionE7": [
+        1395167910,
+        367302576
+      ],
+      "elevationMm": 1205923,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5924",
+      "positionE7": [
+        1395168602,
+        367303682
+      ],
+      "elevationMm": 1206695,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5937",
+      "positionE7": [
+        1395168363,
+        367304809
+      ],
+      "elevationMm": 1207468,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5956",
+      "positionE7": [
+        1395166921,
+        367306026
+      ],
+      "elevationMm": 1208616,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-5987",
+      "positionE7": [
+        1395163639,
+        367306906
+      ],
+      "elevationMm": 1210349,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-tsu",
+      "positionE7": [
+        1395162479,
+        367307726
+      ],
+      "elevationMm": 1211063,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6014",
+      "positionE7": [
+        1395162120,
+        367308836
+      ],
+      "elevationMm": 1211702,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6031",
+      "positionE7": [
+        1395162783,
+        367310239
+      ],
+      "elevationMm": 1212516,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6058",
+      "positionE7": [
+        1395165164,
+        367311680
+      ],
+      "elevationMm": 1213952,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6108",
+      "positionE7": [
+        1395170414,
+        367313213
+      ],
+      "elevationMm": 1217148,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6137",
+      "positionE7": [
+        1395173564,
+        367312713
+      ],
+      "elevationMm": 1219168,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6173",
+      "positionE7": [
+        1395177429,
+        367311866
+      ],
+      "elevationMm": 1221608,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6209",
+      "positionE7": [
+        1395181399,
+        367312320
+      ],
+      "elevationMm": 1224002,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6230",
+      "positionE7": [
+        1395183316,
+        367313371
+      ],
+      "elevationMm": 1225419,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "curve-ne",
+      "positionE7": [
+        1395183692,
+        367314012
+      ],
+      "elevationMm": 1225961,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6249",
+      "positionE7": [
+        1395183561,
+        367314973
+      ],
+      "elevationMm": 1226722,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "upper-hairpins-6285",
+      "positionE7": [
+        1395180842,
+        367317340
+      ],
+      "elevationMm": 1229263,
+      "halfWidthMm": 4000,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6300",
+      "positionE7": [
+        1395180182,
+        367318566
+      ],
+      "elevationMm": 1230316,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6348",
+      "positionE7": [
+        1395179650,
+        367322839
+      ],
+      "elevationMm": 1233797,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6369",
+      "positionE7": [
+        1395178245,
+        367324321
+      ],
+      "elevationMm": 1235469,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6420",
+      "positionE7": [
+        1395173033,
+        367326163
+      ],
+      "elevationMm": 1239507,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6454",
+      "positionE7": [
+        1395170784,
+        367328600
+      ],
+      "elevationMm": 1241808,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6482",
+      "positionE7": [
+        1395168863,
+        367330548
+      ],
+      "elevationMm": 1243629,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6504",
+      "positionE7": [
+        1395166571,
+        367331195
+      ],
+      "elevationMm": 1244895,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6562",
+      "positionE7": [
+        1395160094,
+        367330976
+      ],
+      "elevationMm": 1247658,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6672",
+      "positionE7": [
+        1395147907,
+        367332551
+      ],
+      "elevationMm": 1253901,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6697",
+      "positionE7": [
+        1395145385,
+        367333464
+      ],
+      "elevationMm": 1255130,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6716",
+      "positionE7": [
+        1395144303,
+        367334902
+      ],
+      "elevationMm": 1255983,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6735",
+      "positionE7": [
+        1395144432,
+        367336579
+      ],
+      "elevationMm": 1256527,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6797",
+      "positionE7": [
+        1395147800,
+        367341432
+      ],
+      "elevationMm": 1259390,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6826",
+      "positionE7": [
+        1395148051,
+        367343998
+      ],
+      "elevationMm": 1261025,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6914",
+      "positionE7": [
+        1395144423,
+        367351332
+      ],
+      "elevationMm": 1266414,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6935",
+      "positionE7": [
+        1395144628,
+        367353188
+      ],
+      "elevationMm": 1267775,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6957",
+      "positionE7": [
+        1395146277,
+        367354620
+      ],
+      "elevationMm": 1269204,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechi-approach-6992",
+      "positionE7": [
+        1395150024,
+        367355447
+      ],
+      "elevationMm": 1271226,
+      "halfWidthMm": 4000,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7000",
+      "positionE7": [
+        1395150918,
+        367355513
+      ],
+      "elevationMm": 1271638,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7015",
+      "positionE7": [
+        1395152453,
+        367356007
+      ],
+      "elevationMm": 1272361,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7027",
+      "positionE7": [
+        1395153125,
+        367356917
+      ],
+      "elevationMm": 1272879,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7040",
+      "positionE7": [
+        1395153077,
+        367358063
+      ],
+      "elevationMm": 1273358,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7074",
+      "positionE7": [
+        1395150906,
+        367360554
+      ],
+      "elevationMm": 1274307,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7089",
+      "positionE7": [
+        1395150480,
+        367361834
+      ],
+      "elevationMm": 1274580,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7102",
+      "positionE7": [
+        1395151051,
+        367362883
+      ],
+      "elevationMm": 1274711,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7161",
+      "positionE7": [
+        1395156459,
+        367365895
+      ],
+      "elevationMm": 1274628,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7207",
+      "positionE7": [
+        1395161424,
+        367366949
+      ],
+      "elevationMm": 1274189,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7240",
+      "positionE7": [
+        1395165119,
+        367366834
+      ],
+      "elevationMm": 1273858,
+      "halfWidthMm": 4000,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7257",
+      "positionE7": [
+        1395167019,
+        367366695
+      ],
+      "elevationMm": 1273679,
+      "halfWidthMm": 4150,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7273",
+      "positionE7": [
+        1395168796,
+        367366791
+      ],
+      "elevationMm": 1273583,
+      "halfWidthMm": 4550,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira-7282",
+      "positionE7": [
+        1395169611,
+        367367233
+      ],
+      "elevationMm": 1273512,
+      "halfWidthMm": 4800,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 100000
+    },
+    {
+      "id": "akechidaira",
+      "positionE7": [
+        1395170098,
+        367367820
+      ],
+      "elevationMm": 1273500,
+      "halfWidthMm": 5000,
+      "sector": 10,
+      "gate": true,
+      "cornerTrimMm": 100000
+    }
+  ],
+  "laps": 1,
+  "maxTicks": 9000,
+  "targetMs": 187080,
+  "sound": {
+    "asset": "irohazaka-1986.m4a",
+    "sha256": "a267ab48c72b416f8f76c502d310e319a3d553b9d4122aaac51bb7f36939ea25",
+    "durationMs": 187080,
+    "cuesMs": [
+      0,
+      43003,
+      85926,
+      114542,
+      157465
+    ]
+  },
+  "authoringNotes": {
+    "status": "Approximate centreline from OpenStreetMap ways, checked against the GSI 1974–1978 aerial layer (gazo1); the 1979–1990 layers have no coverage here. Not surveyed or native-qualified.",
+    "sprintRoute": "Umagaeshi junction → Ōya-bashi over the Daiya → Chichinoki-bashi → curves い to ね (1–20) → Kurokamidaira (れ) → Akechidaira ropeway car park, the 1986 top of the uphill one-way section. Driven uphill, the only legal direction since 7 October 1965. The last ~200 m above the junction with the 1932 lake road may have carried two-way traffic in 1986 (unconfirmed); uphill is legal either way.",
+    "topologyReason": "Sprint. The Second Irohazaka is uphill-only and the First downhill-only, so a loop needs the 6.5 km First as a second leg (about 16 km in all) and cannot fit 5:00. The 1986 continuation from Akechidaira to the lake was the two-way 1932 road through the old Akechi and Hakuun tunnels (closed 1994); it would add about 2.1 km, beyond the slower cars' budget.",
+    "elevationsAndWidths": "Elevations: GSI 1 m laser DEM every 20 m, with bridge decks and a 1994 bypass-structure artefact interpolated, then a ±45 m moving average (864 → 1,275 m). Half-width 4.0 m throughout (an 8 m two-lane carriageway with shoulders; not a 1986 survey value), widening to 5.0 m into the car park. Hairpin widening is not modelled: the native wall solver stops a car hugging the outside wall wherever the corridor narrows.",
+    "kanaCurves": "Each kana curve is a named control point at the tightest radius within 30 m of its OSM guidepost (2023 sign positions; the 1986 positions are assumed unchanged). Eleven kana curves plus Kurokamidaira (curve れ) are gates.",
+    "cornerGeometry": "Quadratic tangent trims at the 30% cap. Vertices lie on a ±3 m smoothed OSM line every ≤32° of heading change, ≤110 m apart, chord error ≤2 m; edges are then split until no vertex turns more than 40°. The compiled centreline stays within 2.3 m of the OSM line; the tightest 20 m-averaged radius is about 13 m (curve た).",
+    "timing": "targetMs is a scripted test driver at 75% of the native yaw-limited corner speed: 3:05.1 on the Tokyo 8-car graph used only as a motion engine. 45% took 4:36; the 300 s cap (86.2 km/h average) falls near 43%. The repository practice AI (streetDriver) did not finish: it pins itself to the walls at the first loop and the hairpins.",
+    "musicCues": "Placeholder asset and digest. Cues mark the start, curve い, the staircase from へ, the Nantai view at Kurokamidaira and curve ね, timed from the 3:05 test run.",
+    "notForProfile": "Not admitted to any live profile. Current RaceV1 accepts only 3 tracks and 5,400 ticks."
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/48049510",
+      "usedFor": "Second Irohazaka centreline (oneway, two lanes) to Akechidaira, with ways 426182285, 426182284 (Ōya-bashi), 986511510 and 986511511 (Chichinoki-bashi)."
+    },
+    {
+      "url": "https://www.openstreetmap.org/node/6704987975",
+      "usedFor": "Curve guideposts い (ref 1) to ね (ref 20), nodes 6704987956–6704987975: kana order and positions."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/36.7320/139.5240/&base=std&ls=gazo1&disp=1",
+      "usedFor": "Visually compared 1974–1978 aerials with the OSM alignment: junction, all hairpins and Akechidaira match. gazo2/3/4 return no tiles here."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/development/elevation_s.html",
+      "usedFor": "GSI elevation API (1 m laser DEM): climb profile and line-of-sight checks."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/%E3%81%84%E3%82%8D%E3%81%AF%E5%9D%82",
+      "usedFor": "Toll from 1 Oct 1954; Second opened 7 Oct 1965 Umagaeshi–Akechidaira; free from 1 Oct 1984; Akechidaira bypass built 1989–30 Mar 1994; old Akechi and Hakuun tunnels closed."
+    },
+    {
+      "url": "https://www.pref.tochigi.lg.jp/h53/system/desaki/desaki/1182157078006.html",
+      "usedFor": "1954 rebuild, 1965 Second Irohazaka with 20 curves, 48 curves in all, 15.8 km."
+    },
+    {
+      "url": "https://www.mlit.go.jp/tagengo-db/common/001556131.pdf",
+      "usedFor": "The uphill Second carries the first twenty kana; First 6.5 km, Second 9.5 km."
+    },
+    {
+      "url": "https://tabi-mag.jp/tg0130/",
+      "usedFor": "Until September 2019, uphill-only from Umagaeshi to the Akechidaira ropeway car park and two-way beyond."
+    },
+    {
+      "url": "https://sp.jorudan.co.jp/leaf/news/jrd_191108_1.html",
+      "usedFor": "The 2 km above Akechidaira stayed two-way until the permanent one-way order of 1 Oct 2019."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/%E6%98%8E%E6%99%BA%E5%B9%B3%E3%83%AD%E3%83%BC%E3%83%97%E3%82%A6%E3%82%A7%E3%82%A4",
+      "usedFor": "Opened 3 Nov 1933, removed 1943, reopened 5 Oct 1950, Nikko Kotsu from 1 Apr 1985; rest house in the former funicular station, demolished 2017–2018."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E6%AD%A6%E6%97%A5%E5%85%89%E9%8B%BC%E7%B4%A2%E9%89%84%E9%81%93%E7%B7%9A",
+      "usedFor": "Funicular Umagaeshi–Akechidaira 28 Aug 1932–1 Apr 1970; Akechidaira–Chūgūshi motor road 1932; Umagaeshi tram closed 1968."
+    },
+    {
+      "url": "https://www.pref.tochigi.lg.jp/h02/pref/seisakuhyouka/documents/h250909_09_sabou_daiyagawa.pdf",
+      "usedFor": "Kegon Falls lip collapse in October 1986 (about 4,000 m³) and the 1976 left-bank collapse."
+    },
+    {
+      "url": "https://www.pref.tochigi.lg.jp/h53/r5kikaku/hyoushikigaiyou.html",
+      "usedFor": "Curve signs installed March 1995 and replaced May 2023, so neither design is the 1986 one."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/%E7%94%B7%E4%BD%93%E5%B1%B1",
+      "usedFor": "Nantai-san 2,486 m since a 2003 GSI survey; 2,484 m was the accepted height in 1986."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "mode": "built-in image_gen (Codex, gpt-6-astra, reasoning ultra, opaque)",
+  "use": "Comparison targets only (never shipped): a cutscene-style repaint of an actual race frame keeps our camera and layout, so the pixel-art renderer can be judged against the same composition (docs/pixel-art-renderer.md, refine round 4, twelfth pass).",
+  "prompts": [
+    {
+      "id": "kanda-night-l095",
+      "file": "art/reference/mockups/kanda-night-l095-v1.png",
+      "source": "race frame: Tokyo street race, chapter time 0 (night), lap 0.95, 1920x1080 (tmp/pixel-art/variants.mjs)",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "art/reference/rain-night-target.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same street, buildings, signs and their positions, the two cars in the same places, the same road markings. Mood: a rainy 1986 Tokyo night: navy sky with stars and pink-lit clouds, a wet mirror road with long warm gold reflections, warm lit windows and shop fronts, glowing street lamps, red tail-light reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    },
+    {
+      "id": "tokyo-dusk-l040",
+      "file": "art/reference/mockups/tokyo-dusk-l040-v1.png",
+      "source": "race frame: Tokyo street race, chapter time 0.5 (dusk), lap 0.4, 1280x720 (tmp/pixel-art/mood-capture.mjs)",
+      "references": [
+        "public/assets/story/radio-rain-v1.png",
+        "art/reference/rain-night-target.png",
+        "public/assets/branding/sora-emblem-source.png"
+      ],
+      "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same street, buildings, signs and their positions, the two cars in the same places, the same road markings. Mood: a damp 1986 Tokyo dusk: violet-pink evening sky, a wet road mirroring the sky and the lamps, warm lit windows beginning to glow, street lamps just lit. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "mode": "built-in image_gen (Codex, gpt-6-astra, reasoning ultra, opaque)",
+  "build": "npx tsx scripts/build-window-interiors.ts -> public/assets/sprites/window-interiors.png (src/game/three/period-city/materials.ts)",
+  "prompts": [
+    {
+      "id": "window-interiors",
+      "file": "art/interiors/window-interiors.png",
+      "prompt": "Use your built-in image generation tool (image_gen), not code, to draw exactly ONE image, opaque (no transparency). Do not create, edit or delete any files; just generate the image and then reply with the absolute path of the generated PNG.\n\nYou are drawing a texture sheet for the original racing game SORA CARS, set in Japan in 1986: the lit rooms seen through windows at night, in the pixel-art style of the attached references (crisp square pixel clusters, dark outlines, warm amber interior light with violet-shifted shadows, a limited 1980s palette, clear readable detail). Never draw any national flag or rising-sun motif, and no real brand logos.\n\nSheet rules (strict): a 4 column by 4 row grid of equal rectangular cells separated by straight solid black gutters about 8 pixels wide, with a black border round the outside. Each cell is completely filled by one room seen straight on from outside at night, as if looking through a window at eye level from across a street (no window frame or glass drawn, the room fills the cell edge to edge). Warm lit interiors, bright enough to read as glowing windows, with clear details. No text labels, no numbers, no captions.\n\nRow 1, offices working late: (a) rows of desks under long white fluorescent ceiling lights, papers and phones; (b) a salaryman in shirtsleeves at his desk with a desk lamp, filing cabinets behind; (c) a meeting room with a whiteboard and chairs round a table; (d) a drafting office with tilted drawing boards and a potted plant.\nRow 2, homes: (a) a living room with a glowing TV, a sofa and curtains, a plant on the sill; (b) a family round a kotatsu table under a hanging lamp; (c) a small kitchen with a hanging pendant lamp and shelves of pots; (d) a tatami room with a shoji screen, a paper floor lamp and a low table.\nRow 3, eateries and bars: (a) a ramen counter with a cook in a white cap behind it, steam rising; (b) a kissa coffee shop with booth seats and stained-glass lamps; (c) a narrow bar with rows of bottles on shelves and a bartender; (d) an izakaya with red paper lanterns, wooden tables and customers.\nRow 4, shops: (a) a bookshop with tall shelves full of colourful books; (b) a record shop with LP racks and posters (no readable text); (c) a hair salon with chairs and mirrors; (d) a small electronics shop with TV sets and radios on shelves.\n\nReference images: the first two (community-dawn-v1.png, harbor-wide-v3.png) are cutscenes for the art style; the third is a concept frame (rain-night-target.png) whose lit windows show the level of interior detail wanted.",
+      "source": "/Users/takemiyamakoto/.codex/generated_images/01a1860b-384f-7813-ac20-7efd67d00fec/exec-513ef4fa-2362-4f01-9002-cef9489a8cfe.png",
+      "references": [
+        "public/assets/story/community-dawn-v1.png",
+        "public/assets/story/angles/harbor-wide-v3.png",
+        "art/reference/rain-night-target.png"
+      ]
+    }
+  ]
+}

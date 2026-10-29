@@ -1,0 +1,774 @@
+{
+  "version": 1,
+  "topology": "sprint",
+  "id": "aizu-wakamatsu-1986",
+  "name": {
+    "ja": "会津、城を望む丘へ",
+    "en": "Aizu: To the Hill Facing the Castle"
+  },
+  "year": 1986,
+  "points": [
+    {
+      "id": "aizu-station",
+      "positionE7": [
+        1399311888,
+        375068315
+      ],
+      "elevationMm": 214900,
+      "halfWidthMm": 4200,
+      "sector": 0,
+      "gate": true,
+      "cornerTrimMm": 0
+    },
+    {
+      "id": "omachi-north",
+      "positionE7": [
+        1399300288,
+        375041715
+      ],
+      "elevationMm": 216000,
+      "halfWidthMm": 4200,
+      "sector": 0,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "omachi-kura",
+      "positionE7": [
+        1399284993,
+        375007121
+      ],
+      "elevationMm": 216900,
+      "halfWidthMm": 4200,
+      "sector": 1,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "omachi-yotsukado",
+      "positionE7": [
+        1399275757,
+        374986214
+      ],
+      "elevationMm": 218200,
+      "halfWidthMm": 4400,
+      "sector": 1,
+      "gate": true,
+      "cornerTrimMm": 24000
+    },
+    {
+      "id": "nanokamachi-turn",
+      "positionE7": [
+        1399251855,
+        374992737
+      ],
+      "elevationMm": 214300,
+      "halfWidthMm": 4600,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 24000
+    },
+    {
+      "id": "nisshinmachi",
+      "positionE7": [
+        1399239230,
+        374966117
+      ],
+      "elevationMm": 214400,
+      "halfWidthMm": 4800,
+      "sector": 2,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "nishisakae",
+      "positionE7": [
+        1399229465,
+        374945316
+      ],
+      "elevationMm": 214900,
+      "halfWidthMm": 4800,
+      "sector": 2,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "yonedai",
+      "positionE7": [
+        1399216403,
+        374913302
+      ],
+      "elevationMm": 214900,
+      "halfWidthMm": 4800,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "yonedai-south",
+      "positionE7": [
+        1399206259,
+        374888490
+      ],
+      "elevationMm": 216000,
+      "halfWidthMm": 4800,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "yonedai-south-1",
+      "positionE7": [
+        1399197261,
+        374866760
+      ],
+      "elevationMm": 214600,
+      "halfWidthMm": 5100,
+      "sector": 3,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "minami-hanabatake",
+      "positionE7": [
+        1399194759,
+        374859579
+      ],
+      "elevationMm": 214600,
+      "halfWidthMm": 5200,
+      "sector": 4,
+      "gate": true,
+      "cornerTrimMm": 26000
+    },
+    {
+      "id": "jonan-dori",
+      "positionE7": [
+        1399243312,
+        374854777
+      ],
+      "elevationMm": 216500,
+      "halfWidthMm": 5600,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "jonan-dori-1",
+      "positionE7": [
+        1399248919,
+        374854326
+      ],
+      "elevationMm": 216800,
+      "halfWidthMm": 5600,
+      "sector": 4,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "castle-southwest",
+      "positionE7": [
+        1399262552,
+        374852305
+      ],
+      "elevationMm": 217800,
+      "halfWidthMm": 5600,
+      "sector": 5,
+      "gate": true,
+      "cornerTrimMm": 28000
+    },
+    {
+      "id": "castle-southwest-1",
+      "positionE7": [
+        1399263903,
+        374870386
+      ],
+      "elevationMm": 219400,
+      "halfWidthMm": 5600,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "nishidemaru-moat",
+      "positionE7": [
+        1399265912,
+        374880673
+      ],
+      "elevationMm": 219900,
+      "halfWidthMm": 5600,
+      "sector": 5,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "castle-northwest",
+      "positionE7": [
+        1399270777,
+        374906173
+      ],
+      "elevationMm": 219500,
+      "halfWidthMm": 5200,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 28000
+    },
+    {
+      "id": "kitademaru",
+      "positionE7": [
+        1399302951,
+        374902440
+      ],
+      "elevationMm": 222500,
+      "halfWidthMm": 5000,
+      "sector": 6,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "sannomaru-museum",
+      "positionE7": [
+        1399345370,
+        374897474
+      ],
+      "elevationMm": 226500,
+      "halfWidthMm": 5000,
+      "sector": 7,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "jozen",
+      "positionE7": [
+        1399391270,
+        374892130
+      ],
+      "elevationMm": 230900,
+      "halfWidthMm": 4800,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "jozen-1",
+      "positionE7": [
+        1399403026,
+        374890769
+      ],
+      "elevationMm": 232500,
+      "halfWidthMm": 4800,
+      "sector": 7,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "takaramachi",
+      "positionE7": [
+        1399410502,
+        374889502
+      ],
+      "elevationMm": 233500,
+      "halfWidthMm": 4800,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "hanaharu",
+      "positionE7": [
+        1399445604,
+        374883832
+      ],
+      "elevationMm": 236800,
+      "halfWidthMm": 4600,
+      "sector": 8,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-bend",
+      "positionE7": [
+        1399480722,
+        374878294
+      ],
+      "elevationMm": 242700,
+      "halfWidthMm": 4600,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-bend-1",
+      "positionE7": [
+        1399485756,
+        374879096
+      ],
+      "elevationMm": 243300,
+      "halfWidthMm": 4600,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-bend-2",
+      "positionE7": [
+        1399493712,
+        374880987
+      ],
+      "elevationMm": 244800,
+      "halfWidthMm": 4600,
+      "sector": 8,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-junction",
+      "positionE7": [
+        1399497464,
+        374883250
+      ],
+      "elevationMm": 245500,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-junction-1",
+      "positionE7": [
+        1399499108,
+        374885499
+      ],
+      "elevationMm": 245700,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "tenneiji-north",
+      "positionE7": [
+        1399499160,
+        374889570
+      ],
+      "elevationMm": 246100,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "keizan",
+      "positionE7": [
+        1399495242,
+        374944292
+      ],
+      "elevationMm": 254100,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": true,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "keizan-1",
+      "positionE7": [
+        1399494663,
+        374958078
+      ],
+      "elevationMm": 248300,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "keizan-2",
+      "positionE7": [
+        1399495606,
+        374964762
+      ],
+      "elevationMm": 246000,
+      "halfWidthMm": 4600,
+      "sector": 9,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "wada",
+      "positionE7": [
+        1399497330,
+        374970896
+      ],
+      "elevationMm": 245100,
+      "halfWidthMm": 4600,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "iimori-sancho",
+      "positionE7": [
+        1399507609,
+        375007201
+      ],
+      "elevationMm": 255100,
+      "halfWidthMm": 4600,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "iimori-sancho-1",
+      "positionE7": [
+        1399508381,
+        375009879
+      ],
+      "elevationMm": 255900,
+      "halfWidthMm": 4500,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "iimori-sancho-2",
+      "positionE7": [
+        1399509677,
+        375012207
+      ],
+      "elevationMm": 256200,
+      "halfWidthMm": 4400,
+      "sector": 10,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "iimori-itchome",
+      "positionE7": [
+        1399517810,
+        375022808
+      ],
+      "elevationMm": 258600,
+      "halfWidthMm": 3800,
+      "sector": 11,
+      "gate": true,
+      "cornerTrimMm": 17000
+    },
+    {
+      "id": "iimori-lane",
+      "positionE7": [
+        1399524635,
+        375021044
+      ],
+      "elevationMm": 259700,
+      "halfWidthMm": 3000,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "canal-lane",
+      "positionE7": [
+        1399529262,
+        375019952
+      ],
+      "elevationMm": 263100,
+      "halfWidthMm": 3000,
+      "sector": 11,
+      "gate": false,
+      "cornerTrimMm": 13000
+    },
+    {
+      "id": "forest-road-foot",
+      "positionE7": [
+        1399528435,
+        375015937
+      ],
+      "elevationMm": 264500,
+      "halfWidthMm": 2800,
+      "sector": 12,
+      "gate": true,
+      "cornerTrimMm": 12000
+    },
+    {
+      "id": "forest-road-foot-1",
+      "positionE7": [
+        1399532011,
+        375015500
+      ],
+      "elevationMm": 266400,
+      "halfWidthMm": 2700,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 4000
+    },
+    {
+      "id": "forest-road-bend",
+      "positionE7": [
+        1399533333,
+        375014501
+      ],
+      "elevationMm": 268400,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 3000
+    },
+    {
+      "id": "forest-road-bend-1",
+      "positionE7": [
+        1399534391,
+        375013807
+      ],
+      "elevationMm": 270000,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 3000
+    },
+    {
+      "id": "forest-road-ramp",
+      "positionE7": [
+        1399537314,
+        375013414
+      ],
+      "elevationMm": 271300,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 5000
+    },
+    {
+      "id": "forest-road-ramp-1",
+      "positionE7": [
+        1399539443,
+        375013819
+      ],
+      "elevationMm": 272800,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 5000
+    },
+    {
+      "id": "forest-road-ramp-2",
+      "positionE7": [
+        1399541790,
+        375014765
+      ],
+      "elevationMm": 275000,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 4000
+    },
+    {
+      "id": "rindo-gate",
+      "positionE7": [
+        1399542832,
+        375015756
+      ],
+      "elevationMm": 277000,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 4000
+    },
+    {
+      "id": "rindo-cutting",
+      "positionE7": [
+        1399548898,
+        375019787
+      ],
+      "elevationMm": 286700,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 5000
+    },
+    {
+      "id": "rindo-cutting-1",
+      "positionE7": [
+        1399550938,
+        375020372
+      ],
+      "elevationMm": 287000,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 5000
+    },
+    {
+      "id": "south-shoulder",
+      "positionE7": [
+        1399555741,
+        375020347
+      ],
+      "elevationMm": 292000,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 8000
+    },
+    {
+      "id": "south-shoulder-1",
+      "positionE7": [
+        1399565390,
+        375019898
+      ],
+      "elevationMm": 296800,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": false,
+      "cornerTrimMm": 6000
+    },
+    {
+      "id": "iimoriyama-shoulder",
+      "positionE7": [
+        1399567684,
+        375019160
+      ],
+      "elevationMm": 297200,
+      "halfWidthMm": 2600,
+      "sector": 12,
+      "gate": true,
+      "cornerTrimMm": 0
+    }
+  ],
+  "laps": 1,
+  "maxTicks": 9000,
+  "targetMs": 161080,
+  "sound": {
+    "asset": "aizu-wakamatsu-1986.m4a",
+    "sha256": "9ae6d8c31d6e5d7d3335872214b27b3c595ab7c9915d8b9df11ee459d0c46ee8",
+    "durationMs": 161080,
+    "cuesMs": [
+      0,
+      43716,
+      72807,
+      116444,
+      145535
+    ]
+  },
+  "authoringNotes": {
+    "status": "approximate corridor traced from OpenStreetMap (snapshot 2026-10-29) and checked against GSI 1974–1978 aerial photos (gazo1), the 1972–1975 and 1988–1991 1:25,000 topographic maps (今昔マップ on the web, dataset 会津) and the GSI DEM; GSI has no 1979–1990 aerial tiles (gazo2/gazo3/gazo4) for Aizu-Wakamatsu; not surveyed or native-qualified",
+    "sprintRoute": "JNR Aizu-Wakamatsu Station plaza → Ōmachi-dōri (south) → Ōmachi-yotsukado → Nanokamachi-dōri (west) → prefectural road 59 (south) → Yonedai → Jōnan-dōri (east) → National Route 118 along the Nishi-demaru moat (north) → castle north street past Kita-demaru and the Fukushima Museum (east) → Tenneiji-machi → Iimoriyama-dōri (north) → Iimori 1-chōme lanes → Keizan forest road to Iimoriyama's south shoulder",
+    "lapsReason": "Sprint: one lap with real start and finish; no return leg.",
+    "finish": "Highest point of Iimoriyama reachable by road: the Keizan forest road (林道慶山線) where it crests the south shoulder and bends away south, ≈297 m by GSI DEM, level with the Byakkotai graves (≈297 m) and ≈175 m south of the 371 m summit. The castle keep is 2.85 km away on bearing 237°. The stone stairs and the slope conveyor are not used. Past the bend the track leaves Iimoriyama south-east into the Keizan hills.",
+    "oneWay": "Ōmachi-dōri is driven southbound, its present one-way direction (OSM oneway=yes); the 1986 regulation is unconfirmed. Every other leg is two-way today.",
+    "unconfirmed": "Public car access to the forest road in 1986 is unconfirmed: today it is a road under 3 m wide (GSI category 市区町村道等); it shows as a track on the 1974–1978 photos and as a light road on the 1988-revised map. The Iimori 1-chōme lanes are absent from the 1972–1975 map and 1974–1978 photos and present on the 1988-revised map.",
+    "elevationsAndWidths": "Elevations from the GSI DEM (5 m and 1 m laser meshes), smoothed over 120 m in town and 40 m on the hill; not survey levels. Half-widths are game corridors: 4.2–5.6 m in town, 3.0 m in the lanes and 2.6 m on the forest road. That makes the forest road 5.2 m wide, against under 3 m in reality, because the compiler minimum is 2.5 m.",
+    "musicCues": "Placeholder audio and hash. Cues: start at the JNR station; castle reveal turning north along the Nishi-demaru moat; turn north at Tenneiji-machi toward Iimoriyama; the climb from Iimori 1-chōme; the forest-road finale.",
+    "pacing": "targetMs is an estimate, not a drive. A speed-profile model, with grip calibrated so the Tokyo draft averages 200 km/h, gives ≈153 s for computer cars and ≈162 s at 70% grip. 165 s is the good-driver target. maxTicks 9000 (300 s) leaves ≈135 s for slow cars.",
+    "notForProfile": "Current RaceV1 accepts only 3 tracks and 5400 ticks. This input cannot be submitted to it.",
+    "cornerGeometry": "Quadratic tangent trims in millimetres, not physical radii (the Tokyo convention). Town corners use 24–28 m trims. Outside corner fillets the centreline stays within 3 m of the OSM centreline; at fillets the offset reaches ≈6 m."
+  },
+  "sources": [
+    {
+      "url": "https://www.openstreetmap.org/way/44768709",
+      "usedFor": "Ōmachi-dōri alignment from the station plaza to Ōmachi-yotsukado; oneway=yes, flowing south (present regulation)."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/44769537",
+      "usedFor": "Nanokamachi-dōri (National Route 252), two lanes, two-way, west from Ōmachi-yotsukado."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/1560659008",
+      "usedFor": "Prefectural road 59 (会津若松三島線) south from Nanokamachi-dōri; continues as way 25058326 to Jōnan-dōri."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/23946287",
+      "usedFor": "Jōnan-dōri (prefectural road 211) east to National Route 118 at the castle's south-west."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/44769536",
+      "usedFor": "National Route 118 along the Nishi-demaru moat, two lanes."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/207434606",
+      "usedFor": "Castle north street (追手町–城前) east from Route 118; continues as way 25056639 to Tenneiji-machi."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/26386736",
+      "usedFor": "Iimoriyama-dōri along the foot of the hills from Tenneiji-machi north to Iimori."
+    },
+    {
+      "url": "https://www.openstreetmap.org/way/173230619",
+      "usedFor": "林道慶山線 (Keizan forest road) climbing Iimoriyama's south flank; joined from way 394732248 and the Iimori 1-chōme lanes 173230695/173230690/173230649."
+    },
+    {
+      "url": "https://cyberjapandata.gsi.go.jp/xyz/experimental_rdcl/16/58246/25393.geojson",
+      "usedFor": "GSI road centre lines (z16 tiles across the route): road category and width class (forest road 3 m未満; castle street 5.5–13 m; Route 118 national road)."
+    },
+    {
+      "url": "https://cyberjapandata2.gsi.go.jp/general/dem/scripts/getelevation.php?lon=139.956768&lat=37.501916&outtype=JSON",
+      "usedFor": "GSI DEM elevations along the route at 20 m spacing (example: finish 297.8 m). Summit 371 m; Byakkotai graves ≈297 m."
+    },
+    {
+      "url": "https://maps.gsi.go.jp/#16/37.4950/139.9380/&base=gazo1&ls=gazo1&disp=1",
+      "usedFor": "Visually inspected 1974–1978 aerial photos (gazo1) for every leg; 千石通り absent; forest-road track visible; Iimori 1-chōme still orchards."
+    },
+    {
+      "url": "https://ktgis.net/kjmapw/kjtilemap/aizu/03/16/58246/40142.png",
+      "usedFor": "今昔マップ on the web (谷謙二), dataset 会津: 1:25,000 若松 (昭和63年修正) and 会津広田 (平成3年修正) — whole route drawn, 博物館 at the Sannomaru, Iimori 1-chōme block and forest road present; compared with era 02 (若松 昭和49年改測)."
+    },
+    {
+      "url": "https://www.tsurugajo.com/history/",
+      "usedFor": "Keep reconstruction completed 1965; Rinkaku moved back 1990; Hoshii-yagura and Minami-hashiri-nagaya restored 2001; red tiles 2011."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/会津若松城",
+      "usedFor": "1965 reinforced-concrete exterior reconstruction; black tiles before the 2010–2011 re-roofing; 2001 wooden reconstructions; national historic site 1934."
+    },
+    {
+      "url": "https://www.mlit.go.jp/tagengo-db/R4-00497.html",
+      "usedFor": "Official interpretive text: the 1965 keep's grey tiles were changed to red in 2011."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Aizuwakamatsu_Castle",
+      "usedFor": "A gate was completed at the same time as the 1965 concrete keep."
+    },
+    {
+      "url": "https://www.tsurugajo.com/tsurugajo/rinkaku/",
+      "usedFor": "Chashitsu Rinkaku returned to the castle on 12 September 1990; absent in 1986."
+    },
+    {
+      "url": "https://www.bunka.go.jp/kindai/kenzoubutsu/research/fukushima/015/index.html",
+      "usedFor": "Fukushima Museum completed 1986 on the Sannomaru: two storeys, kura-style plaster- and smoked-tile-coloured panels, smoked-tile-coloured steel roof, U-plan open to the south."
+    },
+    {
+      "url": "https://www.edohakuarchives.jp/detail-315126.html",
+      "usedFor": "Fukushima Museum opening poster: opened 18 October 1986."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/会津若松駅",
+      "usedFor": "Station building rebuilt 2 May 1961; castle-style remodel April 2001; JR from 1 April 1987; switchback terminus, 3 platforms 5 tracks."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/磐越西線",
+      "usedFor": "AC 20 kV electrification 1967; ED77 locomotives 1967–1993; 455-series EMUs; express Bandai downgraded 1984; SL Banetsu Monogatari only from 1999."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/会津鉄道会津線",
+      "usedFor": "JNR Aizu Line passed to Aizu Railway on 16 July 1987; JNR-era Kiha 40/45/55/52 diesel cars."
+    },
+    {
+      "url": "https://ja.wikipedia.org/wiki/さざえ堂",
+      "usedFor": "Sazaedō (旧正宗寺三匝堂): built 1796, hexagonal double-helix wooden hall 16.5 m high; Important Cultural Property 27 June 1995; copper roof today."
+    },
+    {
+      "url": "https://www.mlit.go.jp/tagengo-db/R4-00511.html",
+      "usedFor": "Byakkotai on Iimoriyama: saw smoke over the town and believed the castle had fallen; reached by steps or a paid escalator."
+    },
+    {
+      "url": "https://tabi-mag.jp/hs0122/",
+      "usedFor": "Present grave plot of the nineteen Byakkotai laid out in 1890 (明治23年)."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Byakkotai",
+      "usedFor": "Column from Pompeii given by Rome in 1928 stands by the graves; a German monument also stands there."
+    },
+    {
+      "url": "https://tabi-mag.jp/hs0028/",
+      "usedFor": "Shirokiya lacquerware shop: 1914 Western-style three-storey storehouse building at Ōmachi 1-chōme."
+    }
+  ]
+}

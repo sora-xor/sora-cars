@@ -1,8 +1,10 @@
 import * as THREE from 'three';
-import { type CityMeshBuilder, type CityMaterialKey, WINDOW_KIND } from './geometry';
+import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WALL_PATTERN, WINDOW_KIND } from './geometry';
 import { seeded, type PeriodDistrict, type PeriodLot } from './layout';
 import { aviationLight, hangingBanner, neonBlade, neonFor, nobori, noboriFor, rooftopNeon, verticalNeon, vneonFor, windowNeon } from './nightlife';
-import { neonIndex, signIndex, signPrint, printSlice, SIGN_COUNTS, SORA_BOARDS, SORA_NOBORI, SORA_VNEON, vneonIndex, type PrintRect } from './signs';
+import { boxIndex, fasciaTitle, lanternIndex, NEON_COUNTS, neonIndex, neonPrint, pickSign, signIndex, signPrint, printSlice, SORA_BOARDS, SORA_NOBORI, SORA_VNEON,
+  vneonIndex, type PrintRect } from './signs';
+import { AWNING_VALANCE, awningFor, awningPrint, NOREN_HEIGHT, norenFor, norenIndex, norenPrint, norenWidth } from './awnings';
 
 /** A shop light the race can assign to one of its spot lights (world space). */
 export interface CityFixture { readonly position: THREE.Vector3; readonly target: THREE.Vector3 }
@@ -31,8 +33,12 @@ const PASTEL = ['#e8dccc', '#e3d8cb', '#d9cbb7', '#e6dccf', '#d7cdbd', '#e4d8cc'
 const STATELY = ['#9a968c', '#b4aa94', '#a39b88', '#8c8a84', '#b9ae98', '#a0927e'];
 const FRAMES = ['#b9bcbc', '#b9bcbc', '#4b3f36', '#e2e0da', '#2a2a2e'];
 const GLASS = ['#3c4a5e', '#4a4038', '#2f3a40', '#465868', '#3a3f52'];
-const AWNINGS = ['#b8352f', '#2f6a4f', '#2f4f8a', '#c86a2a', '#7a4a3a', '#d9b44a', '#3a7a7a', '#8a2f4a'];
+// Deep enough that an awning's stripes stand out from its cream under a street lamp (refine round 4).
+const AWNINGS = ['#b8352f', '#2f6a4f', '#2f4f8a', '#b8502a', '#7a4a3a', '#a07a26', '#2f6a6a', '#8a2f4a'];
+/** Noren cloth: indigo most of all, then maroon, plum, dark green and brown. */
+const NOREN = ['#26346a', '#26346a', '#2a2f5e', '#6a2226', '#4a2c5e', '#2c4a36', '#6a4428'];
 const BODY = ['#c23a30', '#2f5fa8', '#e9e6dc', '#e7b53a', '#2f7a52'];
+const LAUNDRY = ['#e8e0f0', '#f0c8c8', '#c8d8f0', '#f4ecd0', '#5a7ab0', '#c8504a', '#e8c86a', '#6a9a7a', '#f0f0e8'];
 
 const colour = (random: Random, list: readonly string[]) => new THREE.Color(list[Math.floor(random() * list.length)]!);
 /** Small hue/value drift so neighbours from one palette never match exactly. */
@@ -117,12 +123,15 @@ function shell(x: Context, f: Facade, w: number, d: number, h: number, roof = tr
   b.side('wall', -w / 2, 0, d, 0, h, -1); b.side('wall', w / 2, 0, d, 0, h, 1);
   b.colour.copy(shade(f.flank, .92)); b.front('wall', -w / 2, w / 2, 0, h, d, 1);
   if (roof) { b.colour.set('#77736c'); b.flat('wall', -w / 2, w / 2, 0, d, h); }
-  if (!flankWindows || detail === 0 || h < 7) return;
+  if (!flankWindows || h < 7) return;
+  if (detail === 0) { flankGrid(x, f, w, d, h, 0, 1); return; }
+  let advertised = 0;
   if (h > 11 && d > 9 && random() < .3) {
     // A painted advertisement on the flank that faces oncoming traffic.
     const aw = Math.min(d * .75, 11), ah = aw / 2, y = h - ah - 1 - random() * Math.max(0, h - ah - 6);
-    b.print = signPrint('board', Math.floor(random() * SIGN_COUNTS.board)); b.colour.set('#c8c2b8');
+    b.print = signPrint('board', pickSign(x.b.signs, 'board', random)); b.colour.set('#c8c2b8');
     b.side('sign', toward * (w / 2 + .03), d / 2 - aw / 2, d / 2 + aw / 2, y, y + ah, toward);
+    advertised = toward;
   }
   // Japanese flanks are mostly blank; a few stair and toilet windows.
   for (const s of [-1, 1] as const) {
@@ -131,6 +140,31 @@ function shell(x: Context, f: Facade, w: number, d: number, h: number, roof = tr
       const z = d * (.2 + random() * .6), y = 3 + random() * (h - 5);
       b.window = [random(), f.kind]; b.colour.copy(f.glass);
       b.side('glass', s * (w / 2 + .02), z - .4, z + .4, y, y + 1.1, s);
+    }
+  }
+  flankGrid(x, f, w, d, h, advertised, detail === 1 ? 1 : .4);
+}
+
+/**
+ * Down a straight street the flanks that rise above their neighbours are what the camera sees of the far city.
+ * Blank, they read as dark slabs where the user's rain-night concept paints layers of lit windows, so they carry
+ * windows floor by floor, lit at night like the fronts (offices whole floors at a time): every grid position on the
+ * back rows, `keep` of them on the frontage, whose flanks stay mostly blank. `skip` is a flank (-1 or 1) already
+ * carrying an advertisement. Their own stream (extra), so the building is unchanged.
+ */
+function flankGrid(x: Context, f: Facade, w: number, d: number, h: number, skip: number, keep: number): void {
+  const { b, extra } = x, columns = Math.floor((d - 1.6) / 3.4), shared = f.kind === WINDOW_KIND.office ? .78 : .3;
+  if (h < 10 || columns < 1) return;
+  for (const s of [-1, 1] as const) {
+    if (s === skip) continue;
+    for (let y = 3.2; y + 1.4 < h - 1; y += 3.2) {
+      const floorSeed = extra();
+      for (let i = 0; i < columns; i++) {
+        const z = .8 + (d - 1.6) * (i + .5) / columns, seed = floorSeed * shared + extra() * (1 - shared);
+        if (keep < 1 && extra() > keep) continue;
+        b.window = [seed, f.kind]; b.colour.copy(f.glass);
+        b.side('glass', s * (w / 2 + .035), z - .7, z + .7, y, y + 1.4, s);
+      }
     }
   }
 }
@@ -196,15 +230,19 @@ function billboard(x: Context, w: number, d: number, h: number, index: number, t
 }
 
 /** A protruding vertical sign (袖看板): prints on both flanks, lit from within. */
-function verticalSign(x: Context, px: number, y0: number, y1: number, out: number, panels: number, word?: string): void {
-  const { b, random } = x, t = .26, z0 = -out, z1 = -.18;
+function verticalSign(x: Context, px: number, y0: number, y1: number, reach: number, panels: number, word?: string): void {
+  // A third deeper than life (refine round 4): the concept paints its signs big, so their lettering reads far down
+  // the street; at true size it fell under a few art cells.
+  const { b, random } = x, t = .26, out = reach * 1.35, z0 = -out, z1 = -.18;
   b.colour.set('#2f2d30');
   b.box('metal', px - t / 2, px + t / 2, y0 - .06, y1 + .06, z0 - .04, z1, 'b');
   for (const y of [y0 + .4, y1 - .4]) b.box('metal', px - .04, px + .04, y - .04, y + .04, z1, 0, 'b');
-  const base = word ? signIndex('vertical', word) : Math.floor(random() * SIGN_COUNTS.vertical), step = (y1 - y0) / panels;
+  const base = word ? signIndex('vertical', word) : pickSign(b.signs, 'vertical', random), step = (y1 - y0) / panels;
+  const pool = word ? null : b.signs?.vertical, at = pool ? pool.indexOf(base) : -1;
   for (let i = 0; i < panels; i++) {
     // A stacked sign gives each floor's tenant its own panel.
-    const print = panels === 1 ? signPrint('vertical', base) : printSlice(signPrint('vertical', base + i * 7), .3 + random() * .1, .7 + random() * .1);
+    const tenant = pool && at >= 0 ? pool[(at + i * 7) % pool.length]! : base + i * 7;
+    const print = panels === 1 ? signPrint('vertical', base) : printSlice(signPrint('vertical', tenant), .3 + random() * .1, .7 + random() * .1);
     const a = y0 + step * i + (panels > 1 ? .08 : 0), c = y0 + step * (i + 1) - (panels > 1 ? .08 : 0);
     b.print = print; b.colour.set('#ffffff');
     b.side('sign', px - t / 2 - .01, z0, z1, a, c, -1);
@@ -218,21 +256,92 @@ function fascia(x: Context, x0: number, x1: number, y0: number, y1: number, prin
   b.print = print; b.colour.set('#ffffff'); b.front('sign', x0 + .04, x1 - .04, y0 + .04, y1 - .04, -.25);
 }
 /** A sloping awning with its valance; both faces, so a low camera sees the underside. */
-function awning(x: Context, x0: number, x1: number, y: number, depth: number, tint: THREE.Color): void {
-  const { b } = x, drop = .4, n = Math.hypot(depth, drop);
+/**
+ * A canvas shop awning (テント) mounted where the fascia would be: steep, as
+ * 1980s shop awnings are (so the pixel-art ground stage never takes its slope
+ * for wet road), striped in its colour over cream with the shop's trade
+ * printed across it and a scalloped valance (awnings.ts), its underside in
+ * shadow. Its outer edge stays above head height. `design` is an awning design.
+ */
+function awning(x: Context, x0: number, x1: number, y: number, depth: number, tint: THREE.Color, design = 0): void {
+  const { b } = x, d = depth * .7, drop = Math.min(d * 1.3, y - 2.05), n = Math.hypot(d, drop), lip = .26;
+  const print = awningPrint(design), plain = awningPrint(0);
   b.colour.copy(tint);
-  b.face('wall', [[x0, y, 0], [x1, y, 0], [x1, y - drop, -depth], [x0, y - drop, -depth]], [0, depth / n, -drop / n]);
-  b.colour.copy(shade(tint, .55));
-  b.face('wall', [[x0, y - .03, 0], [x1, y - .03, 0], [x1, y - drop - .03, -depth], [x0, y - drop - .03, -depth]], [0, -depth / n, drop / n]);
-  b.colour.copy(shade(tint, .8)); b.box('wall', x0, x1, y - drop - .3, y - drop, -depth - .02, -depth + .01, 'bk');
+  // The slope: the print's top at the wall, read left to right from the street.
+  b.print = printSlice(print, AWNING_VALANCE, 1);
+  b.face('awning', [[x1, y - drop, -d], [x0, y - drop, -d], [x0, y, 0], [x1, y, 0]], [0, d / n, -drop / n]);
+  b.print = printSlice(print, 0, AWNING_VALANCE);
+  b.front('awning', x0, x1, y - drop - lip, y - drop, -d);
+  // Side flaps in the plain stripes.
+  b.print = printSlice(plain, AWNING_VALANCE, 1);
+  b.face('awning', [[x0, y - drop - lip, -d], [x0, y - drop, -d], [x0, y, 0]], [-1, 0, 0]);
+  b.face('awning', [[x1, y - drop - lip, -d], [x1, y - drop, -d], [x1, y, 0]], [1, 0, 0]);
+  const pattern = b.pattern;
+  b.pattern = WALL_PATTERN.plain;
+  b.colour.copy(shade(tint, .4));
+  b.face('wall', [[x0, y - .03, 0], [x1, y - .03, 0], [x1, y - drop - .03, -d], [x0, y - drop - .03, -d]], [0, -d / n, drop / n]);
+  b.pattern = pattern;
 }
-/** Red paper lanterns (赤提灯) either side of a door. */
-function lanterns(x: Context, cx: number, y: number, spacing: number): void {
-  const { b } = x;
+/**
+ * Red paper lanterns (赤提灯) either side of a door, printed with the shop's word (signs.ts lanterns) on the faces
+ * toward the street and lit from within, steady (the neon material's lamp mode); `word` picks the print, by default
+ * from the street-life stream.
+ */
+function lanterns(x: Context, cx: number, y: number, spacing: number, word?: string): void {
+  const { b, extra } = x, sides = 8, radius = .22, height = .6, z = -.38;
+  const design = word ? lanternIndex(word) : Math.floor(extra() * NEON_COUNTS.lantern), print = neonPrint('lantern', design);
   for (const s of [-1, 1]) {
-    b.colour.set('#ff5a24'); b.cylinder('lamp', cx + s * spacing, y - .58, -.35, .2, .52, 10);
-    b.colour.set('#1c1a1c'); b.cylinder('metal', cx + s * spacing, y - .06, -.35, .14, .06, 8);
+    const px = cx + s * spacing, y0 = y - .1 - height;
+    for (let i = 0; i < sides; i++) {
+      // Faces round the lantern; the four toward the street (-Z) carry the print across them, the rest glow plain.
+      const a0 = Math.PI + (i - 2) * Math.PI * 2 / sides, a1 = a0 + Math.PI * 2 / sides, m = (a0 + a1) / 2;
+      const p0: Vec3 = [px + Math.sin(a0) * radius, 0, z + Math.cos(a0) * radius], p1: Vec3 = [px + Math.sin(a1) * radius, 0, z + Math.cos(a1) * radius];
+      // Faces 0-3 run from +X to -X, the street viewer's left to right: the print's u runs the same way.
+      const u0 = i < 4 ? i / 4 : .02, u1 = i < 4 ? (i + 1) / 4 : .08, v0 = i < 4 ? 0 : .4, v1 = i < 4 ? 1 : .5;
+      b.print = [print[0] + (print[2] - print[0]) * u0, print[1] + (print[3] - print[1]) * v0, print[0] + (print[2] - print[0]) * u1, print[1] + (print[3] - print[1]) * v1];
+      b.colour.setRGB(.5, 4, 0);
+      b.face('neon', [[p0[0], y0, p0[2]], [p1[0], y0, p1[2]], [p1[0], y0 + height, p1[2]], [p0[0], y0 + height, p0[2]]], [Math.sin(m), 0, Math.cos(m)]);
+    }
+    b.colour.set('#1c1a1c'); b.cylinder('metal', px, y0 + height, z, .14, .05, 8); b.cylinder('metal', px, y0 - .05, z, .14, .05, 8);
+    b.box('metal', px - .01, px + .01, y0 + height + .05, y + .1, z - .01, z + .01, 'b');
+    b.beacon(px, y0 + height / 2, z, 2.6, .5, .2, .45);
   }
+}
+
+/**
+ * A noren (暖簾) in the shop's doorway, hung from its rod just inside the facade, before the lit room (the
+ * cutscene-style repaint of a race frame hangs one in its eatery's doorway): `design` from awnings.ts, centred at cx.
+ */
+function noren(x: Context, cx: number, top: number, design: number, tint: THREE.Color): void {
+  const { b } = x, w = norenWidth(design), y1 = top - .03, y0 = y1 - NOREN_HEIGHT, z = .14;
+  b.colour.set('#2a2622'); b.box('metal', cx - w / 2 - .06, cx + w / 2 + .06, y1, y1 + .04, z - .02, z + .02, 'b');
+  b.print = norenPrint(design); b.colour.copy(tint);
+  b.front('awning', cx - w / 2, cx + w / 2, y0, y1, z);
+}
+
+/**
+ * An eatery hangs its noren in its doorway; on the shopping and nightlife streets other open shops often do too:
+ * `shop` the fascia sign (its title picks the trade), across the shop front x0..x1 under its top. Only where no
+ * awning hangs (it would hide the doorway). The street-life stream, so the building is unchanged.
+ */
+function shopNoren(x: Context, shop: number, x0: number, x1: number, top: number): void {
+  const own = norenFor(fasciaTitle(shop)), street = SHOPPING.has(x.lot.district) || NIGHTLIFE.has(x.lot.district);
+  const design = own >= 0 ? own : street && x.extra() < .4 ? norenIndex(['酒', 'めし', 'おでん', 'やきとり', 'そば'][Math.floor(x.extra() * 5)]!) : -1;
+  const span = x1 - x0 - .2, cloth = design >= 0 ? norenWidth(design) : 0;
+  if (design >= 0 && cloth <= span) noren(x, (x0 + x1) / 2 + (x.extra() - .5) * (span - cloth), top, design, colour(x.extra, NOREN));
+}
+
+/** A small lit box sign (行灯看板) on a bracket beside the shop, both faces toward the street's two directions. */
+function boxSign(x: Context, px: number, y: number, word?: string): void {
+  const { b, extra } = x, size = .62, z0 = -.32, z1 = z0 - size;
+  const design = word ? boxIndex(word) : Math.floor(extra() * NEON_COUNTS.box);
+  b.colour.set('#1c1a1c');
+  b.box('metal', px - .1, px + .1, y - .04, y + size + .04, z1 - .04, z0, 'b');
+  b.box('metal', px - .03, px + .03, y + size * .5 - .03, y + size * .5 + .03, z0, 0, 'b');
+  b.print = neonPrint('box', design); b.colour.setRGB(extra(), 4, 0);
+  b.side('neon', px - .11, z1, z0, y, y + size, -1);
+  b.side('neon', px + .11, z1, z0, y, y + size, 1);
+  b.beacon(px, y + size / 2, (z0 + z1) / 2, 1.9, 1.55, 1.05, size);
 }
 /** A glowing period vending machine against the facade. */
 function vending(x: Context, px: number, facing = -1): void {
@@ -254,20 +363,11 @@ function shopfront(x: Context, x0: number, x1: number, top: number, open: boolea
   b.colour.set('#3a3632');
   b.side('wall', x0, 0, recess, 0, top, 1); b.side('wall', x1, 0, recess, 0, top, -1); b.flat('wall', x0, x1, 0, recess, top, -1);
   if (open) {
-    b.window = [0, WINDOW_KIND.shop]; b.colour.set('#6a5a48');
+    // Shops stay lit (a low seed); the seed also picks the room seen inside (materials.ts), per lot without using the lot's streams.
+    b.window = [(lot.seed % 997) / 997 * .2, WINDOW_KIND.shop]; b.colour.set('#6a5a48');
     b.front('glass', x0, x1, .12, top, recess);
-    // The lit interior: fluorescent tubes under the ceiling and shelves of goods.
-    b.colour.set('#fff4dc');
-    for (let i = 0; i < 2; i++) b.box('lamp', x0 + .4, x1 - .4, top - .16, top - .1, .14 + i * .16, .2 + i * .16);
-    for (let i = 0, rows = 2 + Math.floor(random() * 2); i < rows; i++) {
-      const y = .45 + i * (top - .7) / rows;
-      b.colour.set('#3a2e28'); b.box('metal', x0 + .2, x1 - .2, y, y + .07, recess - .32, recess - .02, 'bk');
-      for (let gx = x0 + .25; gx < x1 - .4; gx += .18 + random() * .22) {
-        const gw = .1 + random() * .16, gh = .14 + random() * .22;
-        b.colour.copy(colour(random, ['#c23a30', '#2f5fa8', '#e7b53a', '#2f7a52', '#e8e0d0', '#d85a8a', '#7a4ab0'])).multiplyScalar(.32);
-        b.box('lamp', gx, gx + gw, y + .07, y + .07 + gh, recess - .28, recess - .08, 'bk');
-      }
-    }
+    // The room itself is the glass's: an eatery or a shop from the interiors atlas (materials.ts), lit from within;
+    // the earlier tubes and shelves of glowing boxes before it read as one cream band (refine round 4).
     b.colour.copy(frame);
     for (let i = 0, n = Math.max(2, Math.round((x1 - x0) / 1.1)); i <= n; i++) {
       const m = x0 + (x1 - x0) * i / n;
@@ -278,12 +378,12 @@ function shopfront(x: Context, x0: number, x1: number, top: number, open: boolea
     fixtures.push({ position: x.b.world(centre), target: x.b.world(aim) });
   } else {
     // Roll-down shutter: ribbed steel in its box.
-    b.colour.copy(colour(random, ['#9da3a6', '#8e9496', '#6f7f78', '#a6a29a']));
+    // Darker steel than before: under a street lamp a pale shutter blazed as a blank board (refine round 4).
+    b.colour.copy(colour(random, ['#6a6e70', '#5e6264', '#4f5a55', '#6e6a62']));
     b.front('metal', x0, x1, 0, top, .06);
     b.colour.multiplyScalar(.7);
     for (let y = .3; y < top - .1; y += .32) b.box('metal', x0, x1, y, y + .05, .02, .06, 'bkt');
   }
-  void lot;
 }
 
 
@@ -322,7 +422,7 @@ function streetFurniture(x: Context, w: number, books: boolean): void {
   } else if (roll < .55) {
     const z = apron + .2;
     b.colour.set('#3a3a3c'); b.box('metal', px - .3, px + .3, 0, .95, z, z + .06, 'b');
-    b.print = printSlice(signPrint('vertical', Math.floor(random() * SIGN_COUNTS.vertical)), .25, .75); b.colour.set('#ffffff');
+    b.print = printSlice(signPrint('vertical', pickSign(x.b.signs, 'vertical', random)), .25, .75); b.colour.set('#ffffff');
     b.front('sign', px - .26, px + .26, .1, .9, z - .01);
   } else if (roll < .75) {
     for (const dx of [-.4, .4]) {
@@ -339,6 +439,8 @@ const SHOPPING: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'onsen', 'nikko'
 function shopLife(x: Context, w: number, shopTop: number | null): void {
   const { b, lot, extra, toward } = x;
   if (lot.row !== 1 || x.detail !== 2) return;
+  // A small lit box sign at the shop's outer edge, clear of its awning (the concept's 酒 box).
+  if ((SHOPPING.has(lot.district) || NIGHTLIFE.has(lot.district)) && extra() < .5) boxSign(x, -toward * (w / 2 - .12), 1.7);
   if (shopTop !== null && shopTop > 2.2 && extra() < .3) windowNeon(b, (extra() - .5) * Math.max(0, w - 2), shopTop - .95, neonFor(lot.district, extra, .1), extra, .35);
   if (lot.clearance >= 2.6 && extra() < (SHOPPING.has(lot.district) ? .65 : .3)) {
     const apron = -(lot.clearance - 2.15) + .15;
@@ -350,6 +452,7 @@ function shophouse(x: Context): void {
   const { b, lot, random, detail, toward } = x, w = lot.width, d = lot.depth;
   const style = random(), ground = 3.1 + random() * .35, storey = 2.6 + random() * .3;
   const wall = drift(style < .4 ? colour(random, MORTAR) : style < .6 ? colour(random, COPPER) : style < .82 ? colour(random, TILE_WARM) : colour(random, SHEET), random);
+  b.pattern = style < .4 ? WALL_PATTERN.plain : style < .82 && style >= .6 ? WALL_PATTERN.tile : WALL_PATTERN.seams;
   const f = facade(random, wall, WINDOW_KIND.home), h = ground + storey * (lot.storeys - 1), front = h + .5 + random() * .7;
   // Kanban-kenchiku: a flat false front over a pitched roof.
   shell(x, f, w, d, h, false, false);
@@ -359,12 +462,22 @@ function shophouse(x: Context): void {
   b.colour.copy(colour(random, ['#4f5357', '#6a4038', '#3f4f5a', '#5a5850']));
   b.gableRoof('roof', -w / 2 + .05, w / 2 - .05, .3, d, h, 1.1 + random() * .6, .3);
   b.colour.copy(shade(wall, .9)); b.gableEnds('wall', -w / 2, w / 2, .3, d, h, 1.1);
-  const open = random() < .72, fasciaTop = ground - .05, shopTop = ground - .75;
+  // Most shops on the shopping streets are still open after dark (the concept's street is one lit shop after another).
+  const open = random() < (SHOPPING.has(lot.district) ? .9 : .72), fasciaTop = ground - .05, shopTop = ground - .75;
   b.colour.copy(wall); b.front('wall', -w / 2, w / 2, shopTop, ground, 0);
   b.front('wall', -w / 2, -w / 2 + .25, 0, shopTop, 0); b.front('wall', w / 2 - .25, w / 2, 0, shopTop, 0);
   shopfront(x, -w / 2 + .25, w / 2 - .25, shopTop, open);
-  fascia(x, -w / 2 + .2, w / 2 - .2, shopTop + .1, fasciaTop, signPrint('fascia', Math.floor(random() * SIGN_COUNTS.fascia)));
-  if (random() < .55) awning(x, -w / 2 + .3, w / 2 - .3, shopTop - .02, .9 + random() * .5, colour(random, AWNINGS));
+  // The shop's name on its fascia, or printed across a canvas awning mounted there instead; the same draws in the
+  // same order as before, and the shopping streets' other open shops take an awning from their own stream.
+  const shop = pickSign(x.b.signs, 'fascia', random), own = random() < .55;
+  // An eatery on the shopping street hangs its noren rather than taking the street's extra awning (a steep awning
+  // hides the doorway, and the noren with it).
+  const eatery = open && detail === 2 && norenFor(fasciaTitle(shop)) >= 0;
+  const cloth = own ? { depth: .9 + random() * .5, tint: colour(random, AWNINGS) }
+    : open && SHOPPING.has(lot.district) && !eatery && x.extra() < .5 ? { depth: .9 + x.extra() * .5, tint: colour(x.extra, AWNINGS) } : null;
+  if (cloth) awning(x, -w / 2 + .3, w / 2 - .3, fasciaTop, cloth.depth, cloth.tint, awningFor(fasciaTitle(shop)));
+  else fascia(x, -w / 2 + .2, w / 2 - .2, shopTop + .1, fasciaTop, signPrint('fascia', shop));
+  if (open && detail === 2 && !cloth) shopNoren(x, shop, -w / 2 + .25, w / 2 - .25, shopTop);
   const windows = Math.max(1, Math.round(w / 2.6));
   windowRows(x, f, -w / 2, w / 2, levels(ground, storey, lot.storeys).slice(1).map(v => v), evenColumns(-w / 2, w / 2, windows, Math.min(1.7, w / windows - .6)), .8, 2.15);
   if (detail === 2 && random() < .5) {
@@ -373,11 +486,26 @@ function shophouse(x: Context): void {
     b.box('metal', -w / 2 + .3, w / 2 - .3, ground + .95, ground + 1.0, -.6, -.55, 'bk');
     for (let px = -w / 2 + .3; px <= w / 2 - .3; px += .12) b.box('metal', px - .01, px + .01, ground + .1, ground + .95, -.6, -.58, 'bkt');
     b.box('metal', -w / 2 + .3, w / 2 - .3, ground + .05, ground + .12, -.62, 0, 'k');
-    if (random() < .5) { b.colour.copy(colour(random, ['#e8e0f0', '#f0c8c8', '#c8d8f0', '#f4ecd0'])); b.front('wall', -w / 4, w / 4, ground + .5, ground + 1.6, -.66); }
+    if (random() < .5) {
+      // Washing hung over the rail: shirts and towels, now and then a futon, each its own colour (refine round 4: one
+      // big sheet under the street lamp read as a blank board). Its own stream keeps the building as it was.
+      const first = colour(random, LAUNDRY), { extra } = x, pattern = b.pattern;
+      b.pattern = WALL_PATTERN.plain;
+      for (let px = -w / 2 + .5, n = 0; n < 8; n++) {
+        const futon = extra() < .12, width = futon ? 1.1 + extra() * .4 : .32 + extra() * .3, drop = futon ? .9 : .42 + extra() * .4;
+        if (px + width > w / 2 - .4) break;
+        b.colour.copy(n === 0 ? first : colour(extra, LAUNDRY));
+        b.front('wall', px, px + width, ground + 1.55 - drop, ground + 1.55, -.66);
+        px += width + .1 + extra() * .3;
+      }
+      b.pattern = pattern;
+    }
   }
   if (random() < .5) verticalSign(x, toward * (w / 2 - .45), ground + .4, Math.min(front - .1, ground + .4 + 2 + random() * 2.5), .95, 1);
   if (detail === 2) {
-    if (random() < .3) lanterns(x, 0, shopTop - .05, Math.min(1.2, w / 3));
+    // The shopping and nightlife streets hang lanterns at more doors, rows of red lights down the street as in the
+    // user's rain-night concept (their own stream, so the building is unchanged).
+    if (random() < .3 || (SHOPPING.has(lot.district) || NIGHTLIFE.has(lot.district)) && x.extra() < .8) lanterns(x, 0, shopTop - .05, Math.min(1.2, w / 3));
     if (random() < .3) vending(x, toward * (w / 2 - .7));
     if (random() < .5) acUnit(x, -toward * (w / 2 - .7), ground + .3, 0);
   }
@@ -426,6 +554,7 @@ function zakkyo(x: Context): void {
   const { b, lot, random, detail, toward } = x, w = lot.width, d = lot.depth, storeys = Math.max(3, lot.storeys);
   const ground = 3.5 + random() * .5, storey = 3 + random() * .35, h = ground + storey * (storeys - 1);
   const pick = random(), wall = drift(pick < .45 ? colour(random, TILE_WARM) : pick < .8 ? colour(random, TILE_LIGHT) : colour(random, CONCRETE), random);
+  b.pattern = pick < .45 ? WALL_PATTERN.tile : pick < .8 ? WALL_PATTERN.mosaic : WALL_PATTERN.panels;
   const f = facade(random, wall, random() < .5 ? WINDOW_KIND.office : WINDOW_KIND.home);
   f.weathered = true;
   shell(x, f, w, d, h);
@@ -440,27 +569,35 @@ function zakkyo(x: Context): void {
   const split = w > 7.5 ? -w / 2 + 1.6 : null, shopTop = ground - .7;
   b.colour.copy(wall); b.front('wall', -w / 2, w / 2, shopTop, ground, 0);
   b.front('wall', w / 2 - .25, w / 2, 0, shopTop, 0); b.front('wall', -w / 2, -w / 2 + .25, 0, shopTop, 0);
+  // The shop's open draw is the one shopfront took before, in the same order.
+  let open: boolean;
   if (split !== null) {
-    shopfront(x, split + .15, w / 2 - .25, shopTop, random() < .8);
+    open = random() < .8;
+    shopfront(x, split + .15, w / 2 - .25, shopTop, open);
     b.colour.copy(wall); b.front('wall', split - .05, split + .15, 0, shopTop, 0);
     b.window = [random() * .5, WINDOW_KIND.lobby]; b.colour.set('#5a5048'); b.front('glass', -w / 2 + .25, split - .05, 0, shopTop - .3, .8);
     b.colour.set('#3a3632'); b.side('wall', -w / 2 + .25, 0, .8, 0, shopTop, 1); b.side('wall', split - .05, 0, .8, 0, shopTop, -1);
     b.flat('wall', -w / 2 + .25, split - .05, 0, .8, shopTop, -1); b.front('wall', -w / 2 + .25, split - .05, shopTop - .3, shopTop, .8);
-  } else shopfront(x, -w / 2 + .25, w / 2 - .25, shopTop, random() < .8);
-  fascia(x, (split ?? -w / 2) + .2, w / 2 - .2, shopTop + .08, ground - .06, signPrint('fascia', Math.floor(random() * SIGN_COUNTS.fascia)));
-  if (random() < .35) awning(x, (split ?? -w / 2) + .3, w / 2 - .3, shopTop - .02, 1 + random() * .4, colour(random, AWNINGS));
+  } else { open = random() < .8; shopfront(x, -w / 2 + .25, w / 2 - .25, shopTop, open); }
+  const shop = pickSign(x.b.signs, 'fascia', random), own = random() < .35;
+  const eatery = open && detail === 2 && norenFor(fasciaTitle(shop)) >= 0;
+  const cloth = own ? { depth: 1 + random() * .4, tint: colour(random, AWNINGS) }
+    : SHOPPING.has(lot.district) && !eatery && x.extra() < .4 ? { depth: 1 + x.extra() * .4, tint: colour(x.extra, AWNINGS) } : null;
+  if (cloth) awning(x, (split ?? -w / 2) + .3, w / 2 - .3, ground - .06, cloth.depth, cloth.tint, awningFor(fasciaTitle(shop)));
+  else fascia(x, (split ?? -w / 2) + .2, w / 2 - .2, shopTop + .08, ground - .06, signPrint('fascia', shop));
+  if (open && detail === 2 && !cloth) shopNoren(x, shop, (split ?? -w / 2) + .25, w / 2 - .25, shopTop);
   // The tenant tower: one lit panel per upper floor.
   if (random() < .78) verticalSign(x, toward * (w / 2 - .5), ground + .3, h - .3, 1.05 + random() * .3, Math.max(1, storeys - 1));
   // Tenant names on some upper windows.
   if (detail) for (let floor = 0; floor < storeys - 1; floor++) if (random() < .3) {
     const y = ground + floor * storey + 1.35;
-    b.print = printSlice(signPrint('fascia', Math.floor(random() * SIGN_COUNTS.fascia)), .45, 1); b.colour.set('#d8d8d8');
+    b.print = printSlice(signPrint('fascia', pickSign(x.b.signs, 'fascia', random)), .45, 1); b.colour.set('#d8d8d8');
     b.front('sign', -w / 2 + .9, Math.min(w / 2 - .9, -w / 2 + 4.4), y, y + .5, -.02);
   }
   if (detail && random() < .4) for (let floor = 1; floor < storeys - 1; floor++) if (random() < .45) acUnit(x, -toward * (w / 2 - .7), ground + floor * storey - .1, 0);
   if (detail === 2 && random() < .25) vending(x, -toward * (w / 2 - .7));
-  if (detail === 2 && random() < .2) lanterns(x, (split ?? -w / 2) / 2 + w / 4, shopTop - .05, 1);
-  const board = random() < .5 ? (random() < .4 ? SORA_BOARDS[Math.floor(random() * SORA_BOARDS.length)]! : Math.floor(random() * SIGN_COUNTS.board)) : undefined;
+  if (detail === 2 && (random() < .2 || (NIGHTLIFE.has(lot.district) || SHOPPING.has(lot.district)) && x.extra() < .8)) lanterns(x, (split ?? -w / 2) / 2 + w / 4, shopTop - .05, 1);
+  const board = random() < .5 ? (random() < .4 ? SORA_BOARDS[Math.floor(random() * SORA_BOARDS.length)]! : pickSign(x.b.signs, 'board', random)) : undefined;
   rooftop(x, w, d, h, { billboard: board });
   streetFurniture(x, w, false);
   // Bars and clubs hang neon at the corner: a tall vertical sign, or blades floor above floor; a rooftop neon where no billboard stands.
@@ -489,6 +626,7 @@ function office(x: Context): void {
   const ground = 4.6 + random() * .8, storey = 3.5 + random() * .3, h = ground + storey * (storeys - 1);
   const style = random(), floors = levels(ground, storey, storeys).slice(1);
   const wall = drift(style < .3 ? colour(random, TILE_WARM) : style < .6 ? colour(random, STATELY) : style < .85 ? colour(random, TILE_LIGHT) : new THREE.Color('#5a5650'), random);
+  b.pattern = style < .3 ? WALL_PATTERN.tile : style >= .6 && style < .85 ? WALL_PATTERN.mosaic : WALL_PATTERN.panels;
   const f = facade(random, wall, WINDOW_KIND.office);
   f.weathered = style < .85;
   shell(x, f, w, d, h);
@@ -530,10 +668,10 @@ function office(x: Context): void {
   // The company name across the top.
   if (random() < .7) {
     const nw = Math.min(w * .6, 12);
-    b.print = printSlice(signPrint('board', Math.floor(random() * SIGN_COUNTS.board)), .45, 1); b.colour.set('#ffffff');
+    b.print = printSlice(signPrint('board', pickSign(x.b.signs, 'board', random)), .45, 1); b.colour.set('#ffffff');
     b.front('sign', -nw / 2, nw / 2, h - 1.3, h - .3, -.38);
   }
-  const tower = random() < .6, tank = random() < .5, board = random() < .3 ? Math.floor(random() * SIGN_COUNTS.board) : undefined, { extra, toward } = x;
+  const tower = random() < .6, tank = random() < .5, board = random() < .3 ? pickSign(x.b.signs, 'board', random) : undefined, { extra, toward } = x;
   rooftop(x, w, d, h, { tower, tank, billboard: board !== undefined && extra() < .35 ? SORA_BOARDS[Math.floor(extra() * SORA_BOARDS.length)]! : board });
   // A SORA banner hung down the front; red lights blinking on the tall roofs.
   if (detail && h > 15 && extra() < .2) hangingBanner(b, -toward * (w / 2 - 1.4), h - .5, 1.5, SORA_NOBORI[Math.floor(extra() * SORA_NOBORI.length)]!, extra);
@@ -543,7 +681,8 @@ function office(x: Context): void {
 function mansion(x: Context): number {
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, storeys = lot.storeys;
   const ground = 3.3 + random() * .3, storey = 2.85 + random() * .15, h = ground + storey * (storeys - 1);
-  const wall = drift(random() < .65 ? colour(random, PASTEL) : colour(random, TILE_LIGHT), random);
+  const pastel = random() < .65, wall = drift(pastel ? colour(random, PASTEL) : colour(random, TILE_LIGHT), random);
+  b.pattern = !pastel || lot.seed % 2 ? WALL_PATTERN.mosaic : WALL_PATTERN.plain;
   const f = facade(random, wall, WINDOW_KIND.home);
   f.weathered = true;
   shell(x, f, w, d, h);
@@ -591,7 +730,7 @@ function mansion(x: Context): number {
     const sx = s < 0 ? (-w / 2 + hall - 1.3) / 2 : (w / 2 + hall + 1.3) / 2;
     b.window = [random(), WINDOW_KIND.home]; b.colour.copy(f.glass); b.front('glass', sx - 1, sx + 1, .9, ground - 1, -.02);
   }
-  b.print = printSlice(signPrint('fascia', Math.floor(random() * SIGN_COUNTS.fascia)), .4, 1); b.colour.set('#ffffff');
+  b.print = printSlice(signPrint('fascia', pickSign(x.b.signs, 'fascia', random)), .4, 1); b.colour.set('#ffffff');
   b.front('sign', hall - 1.1, hall + 1.1, ground - .48, ground - .1, -.03);
   x.fixtures.push({ position: b.world(new THREE.Vector3(hall, ground - .7, -.8)), target: b.world(new THREE.Vector3(hall, 0, -2.5)) });
   rooftop(x, w, d, h, { tank: random() < .75 });
@@ -602,6 +741,7 @@ function ministry(x: Context): void {
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, storeys = lot.storeys;
   const brick = random() < .14, ground = 4.4, storey = 3.7, h = ground + storey * (storeys - 1);
   const wall = drift(brick ? new THREE.Color('#9a4a38') : colour(random, STATELY), random, .03);
+  b.pattern = brick ? WALL_PATTERN.brick : WALL_PATTERN.panels;
   const f = facade(random, wall, WINDOW_KIND.office);
   shell(x, f, w, d, h);
   if (brick) {
@@ -643,7 +783,7 @@ function pachinko(x: Context): void {
   shell(x, f, w, d, h + 2.2);
   // A great sign face over the whole upper front, bulbs around it.
   b.colour.copy(wall); b.front('wall', -w / 2, w / 2, ground, h + 2.2, 0);
-  b.print = signPrint('board', Math.floor(random() * SIGN_COUNTS.board)); b.colour.set('#ffffff');
+  b.print = signPrint('board', pickSign(x.b.signs, 'board', random)); b.colour.set('#ffffff');
   b.front('sign', -w / 2 + .6, w / 2 - .6, ground + .5, h + 1.9, -.2);
   const bulbs = new THREE.Color(colour(random, ['#ffd27a', '#ff6a5a', '#fff2d8']));
   b.colour.copy(bulbs);
@@ -662,7 +802,7 @@ function pachinko(x: Context): void {
   b.front('wall', -w / 2, -w / 2 + .3, 0, ground - .6, 0); b.front('wall', w / 2 - .3, w / 2, 0, ground - .6, 0);
   b.side('wall', -w / 2 + .3, 0, .7, 0, ground - .6, 1); b.side('wall', w / 2 - .3, 0, .7, 0, ground - .6, -1);
   b.flat('wall', -w / 2 + .3, w / 2 - .3, 0, .7, ground - .6, -1);
-  b.window = [0, WINDOW_KIND.shop]; b.colour.set('#7a6a5a'); b.front('glass', -w / 2 + .3, w / 2 - .3, 0, ground - .6, .7);
+  b.window = [0, WINDOW_KIND.hall]; b.colour.set('#7a6a5a'); b.front('glass', -w / 2 + .3, w / 2 - .3, 0, ground - .6, .7);
   b.colour.set('#fff0c8'); b.flat('lamp', -w / 2 + .3, w / 2 - .3, -.8, 0, ground - .61, -1);
   x.fixtures.push({ position: b.world(new THREE.Vector3(0, ground - .7, -.8)), target: b.world(new THREE.Vector3(0, 0, -2.6)) });
   verticalSign(x, toward * (w / 2 - .6), 1.2, h + 1.6, 1.3, 1);
@@ -698,7 +838,7 @@ function station(x: Context): void {
   b.colour.copy(f.wall); b.box('wall', -w * .35, w * .1, 0, 3.4, d * .8, d, 'b');
   // The kiosk's glass front: mullions, ceiling tubes and shelves of oil cans and snacks.
   const kz = d * .8 - .02, k0 = -w * .33, k1 = w * .08;
-  b.window = [0, WINDOW_KIND.shop]; b.colour.set('#5a5048'); b.front('glass', k0, k1, .2, 2.6, kz);
+  b.window = [0, WINDOW_KIND.hall]; b.colour.set('#5a5048'); b.front('glass', k0, k1, .2, 2.6, kz);
   b.colour.set('#fff4dc'); b.box('lamp', k0 + .3, k1 - .3, 2.4, 2.46, kz - .3, kz - .24);
   b.colour.set('#3a3c40');
   for (let mx = k0; mx <= k1 + .01; mx += (k1 - k0) / Math.max(2, Math.round((k1 - k0) / 1.3))) b.box('metal', mx - .03, mx + .03, .2, 2.6, kz - .06, kz - .01, 'bkt');
@@ -725,7 +865,7 @@ function parking(x: Context): void {
   b.colour.set('#4a4a4e');
   for (const px of [-w / 2 + .2, w / 2 - .2]) b.box('metal', px - .05, px + .05, -.1, .7, .1, .2);
   b.box('metal', -w / 2 + .2, w / 2 - .2, .55, .58, .14, .16, 'b');
-  b.print = signPrint('fascia', Math.floor(random() * SIGN_COUNTS.fascia)); b.colour.set('#e8e8e8');
+  b.print = signPrint('fascia', pickSign(x.b.signs, 'fascia', random)); b.colour.set('#e8e8e8');
   b.box('metal', toward * (w / 2 - .4) - .04, toward * (w / 2 - .4) + .04, -.1, 2.2, .15, .25);
   b.front('sign', toward * (w / 2 - .4) - .8, toward * (w / 2 - .4) + .8, 1.5, 1.9, .1);
   if (!detail || !level) return;
@@ -807,6 +947,7 @@ function house(x: Context): void {
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, storeys = Math.max(1, Math.min(2, lot.storeys));
   const ground = 2.9, storey = 2.7, h = ground + storey * (storeys - 1);
   const wall = drift(colour(random, HOUSE_WALLS), random), f = facade(random, wall, WINDOW_KIND.home);
+  b.pattern = WALL_PATTERN.siding;
   f.flank.copy(shade(wall, .92));
   shell(x, f, w, d, h, false, false);
   windowRows(x, f, -w / 2, w / 2, [0, ground], [[-w * .18, 2.3], [w * .27, 1.1]], .35, 2.2, 1);
@@ -845,6 +986,7 @@ function warehouse(x: Context): void {
   if (kind < .25) {
     // Red brick (赤レンガ): iron-shuttered windows in rows, stone bands, a slate roof.
     const h = 9 + random() * 3, wall = drift(new THREE.Color('#87493c'), random, .04), f = facade(random, wall, WINDOW_KIND.dark);
+    b.pattern = WALL_PATTERN.brick;
     f.flank.copy(shade(wall, .9)); f.glass.set('#2a2624');
     shell(x, f, w, d, h, false, false);
     windowRows(x, f, -w / 2, w / 2, [0, h / 2, h], evenColumns(-w / 2, w / 2, Math.max(3, Math.round(w / 3.4)), 1.3), .9, h / 2 - .9, 0);
@@ -854,6 +996,7 @@ function warehouse(x: Context): void {
   } else if (kind < .75) {
     // Corrugated shed: sliding doors, a dock canopy and the painted name.
     const h = 7 + random() * 3, sheet = drift(colour(random, SHEETS), random), f = facade(random, sheet, WINDOW_KIND.dark);
+    b.pattern = WALL_PATTERN.seams;
     f.flank.copy(shade(sheet, .9));
     shell(x, f, w, d, h, false, false);
     b.colour.copy(sheet); b.front('wall', -w / 2, w / 2, 0, h, 0);
@@ -873,6 +1016,7 @@ function warehouse(x: Context): void {
   } else {
     // A concrete store: few windows, a freight door on every floor.
     const storeys = Math.max(3, lot.storeys + 1), h = 4.4 * storeys, wall = drift(colour(random, CONCRETE), random), f = facade(random, wall, WINDOW_KIND.office);
+    b.pattern = WALL_PATTERN.panels;
     shell(x, f, w, d, h);
     parapet(x, f.trim, w, d, h, .8, .25);
     windowRows(x, f, -w / 2, w / 2, levels(4.4, 4.4, storeys).slice(1), evenColumns(-w / 2, w / 2, Math.max(2, Math.round(w / 7)), 1.2), 2.4, 3.4, 0);
@@ -929,5 +1073,7 @@ export function buildLot(b: CityMeshBuilder, lot: PeriodLot, fixtures: CityFixtu
   }
   const x: Context = { b, lot, random, extra: seeded(lot.seed ^ 0x2f6b1d3c), detail: lot.row === 1 ? 2 : lot.row === 2 ? 1 : 0,
     toward: lot.side < 0 ? -1 : 1, fixtures };
+  b.pattern = WALL_PATTERN.plain;
   BUILDERS[lot.typology](x);
+  b.pattern = WALL_PATTERN.plain;
 }

@@ -10,12 +10,18 @@ export const STORY_SCENES = {
   community: { art: 'community-dawn-v1.png', effect: 'dawn', place: 'SORA 商店街', english: 'SORA SHOPPING STREET' },
   harbor: { art: 'harbor-1986-v1.png', effect: 'rain', place: '横浜・港の集会所', english: 'YOKOHAMA · HARBOR MEET' },
   sunrise: { art: 'sunrise-crew-branded-v2-centered-v2.png', effect: 'dawn', place: '日光・峠の展望台', english: 'NIKKO · MOUNTAIN OVERLOOK' },
+  // The street-race chapters' places.
+  iroha: { art: 'angles/iroha-wide-v1.png', effect: 'none', place: '日光・いろは坂', english: 'NIKKO · IROHAZAKA' },
+  kudan: { art: 'angles/kudan-wide-v1.png', effect: 'dawn', place: '東京・九段', english: 'TOKYO · KUDAN' },
+  aizu: { art: 'angles/aizu-wide-v1.png', effect: 'none', place: '会津若松・七日町', english: 'AIZU-WAKAMATSU · NANOKAMACHI' },
+  gion: { art: 'angles/gion-wide-v1.png', effect: 'none', place: '京都・祇園', english: 'KYOTO · GION' },
+  nara: { art: 'angles/nara-wide-v1.png', effect: 'none', place: '奈良・猿沢池', english: 'NARA · SARUSAWA POND' },
 } as const;
 export type StorySceneId = keyof typeof STORY_SCENES;
 export type StoryShot = 'wide' | 'left' | 'right' | 'detail';
 
 /** Each camera direction is a separately illustrated composition. */
-const STORY_ANGLE_VERSIONS: Partial<Record<StorySceneId, number>> = { boardroom: 3, office: 3, harbor: 3, sunrise: 3 };
+const STORY_ANGLE_VERSIONS: Partial<Record<StorySceneId, number>> = { boardroom: 3, office: 3, harbor: 3, sunrise: 3, iroha: 1, kudan: 1, aizu: 1, gion: 1, nara: 1 };
 const STORY_ANGLE_OVERRIDES: Partial<Record<StorySceneId, Partial<Record<StoryShot, string>>>> = {
   "garage": {
     "detail": "angles/garage-detail-v2-centered-oct23-v1.png",

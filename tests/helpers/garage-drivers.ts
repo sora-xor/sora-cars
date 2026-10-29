@@ -7,7 +7,7 @@ import {
 } from '../../src/game/garage-tech';
 import { nextPick } from '../../src/game/story-pit';
 import { CONTROL as C, RULES, TRACKS, curvature } from '../../src/game/rules';
-import { CHAPTERS, storyObjectiveMet } from '../../src/game/story';
+import { CHAPTERS, chapterPosition, storyObjectiveMet } from '../../src/game/story';
 import { STOCK_TUNE, stepTunedRace, type CarTune } from '../../src/game/tuned-engine';
 
 /** Balance reference drivers. A rookie corrects late, ignores corner push,
@@ -121,10 +121,11 @@ export function partContext(id: string): string[] {
 export function fieldPlace(field: FieldId, trackId: number, profile: DriverProfile, tune: CarTune, seed = 0): number {
   return place(garageRace(trackId, 6, profile, tune, seed, fieldRivals(field, 8, 6)).state, 6);
 }
-/** Whether a story chapter's objective is met from the player's slot, with tuned or equal rivals. */
+/** Whether an Arcade story chapter's objective is met from the player's slot, with tuned or equal rivals. `chapter` is its id. */
 export function storyCleared(chapter: number, profile: DriverProfile, tune: CarTune, seed = 0, equalCars = false): boolean {
-  const { state } = garageRace(CHAPTERS[chapter]!.trackId, 6, profile, tune, seed, equalCars ? undefined : storyRivals(chapter, 8, 6));
-  return storyObjectiveMet(chapter, place(state, 6), place(state, 7));
+  const index = chapterPosition(chapter);
+  const { state } = garageRace(CHAPTERS[index]!.trackId!, 6, profile, tune, seed, equalCars ? undefined : storyRivals(chapter, 8, 6));
+  return storyObjectiveMet(index, place(state, 6), place(state, 7));
 }
 
 /** Mean race ticks on one course for the drivers closest to new players: rookies and regulars. */
@@ -151,15 +152,18 @@ export interface Campaign {
 export function storyCampaign(profile: DriverProfile, seed: number, policy: SpendPolicy, limit = 10): Campaign {
   let save = newGarage();
   const tries: number[] = [], leads: number[] = [];
-  for (const chapter of CHAPTERS) {
+  for (const [index, chapter] of CHAPTERS.entries()) {
+    // Street-race chapters run equal cars for no prize money: they neither spend nor earn.
+    if (chapter.trackId === undefined) continue;
+    const trackId = chapter.trackId;
     let races = 0, cleared = false;
     while (!cleared && races < limit) {
-      for (let part = shoppingChoice(save, chapter.trackId, policy); part; part = shoppingChoice(save, chapter.trackId, policy)) {
+      for (let part = shoppingChoice(save, trackId, policy); part; part = shoppingChoice(save, trackId, policy)) {
         save = partState(save, part.id) === 'stored' ? fitPart(save, part.id) : buyPart(save, part.id);
       }
-      const run = garageRace(chapter.trackId, 6, profile, garageTune(save), seed * 1000 + chapter.id * 20 + races, storyRivals(chapter.id, 8, 6));
+      const run = garageRace(trackId, 6, profile, garageTune(save), seed * 1000 + chapter.id * 20 + races, storyRivals(chapter.id, 8, 6));
       const mine = place(run.state, 6);
-      cleared = storyObjectiveMet(chapter.id, mine, place(run.state, 7));
+      cleared = storyObjectiveMet(index, mine, place(run.state, 7));
       if (!races) leads.push(Math.min(raceTicks(run.state, 5), raceTicks(run.state, 7)) - raceTicks(run.state, 6));
       save = applyAward(save, raceAward(save, { place: mine, cars: 8, field: null, chapter: chapter.id, objective: cleared, clean: run.impacts === 0 && run.offroad <= 30 }), chapter.id);
       races++;

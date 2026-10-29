@@ -1,7 +1,7 @@
 # SORA CARS — the 1986 period city
 
-Status (2026-10-29): the default city for the Tokyo street route and all
-three Arcade courses. The race's pixel-art renderer
+Status (2026-10-29): the default city for the five street routes (Tokyo,
+Irohazaka, Aizu-Wakamatsu, Kyoto and Nara) and all three Arcade courses. The race's pixel-art renderer
 ([notes](pixel-art-renderer.md)) still draws the final frame; this is the 3D
 content under it. `?city=classic` restores the earlier template city on any
 course for comparison.
@@ -24,17 +24,18 @@ Code: `src/game/three/period-city/`.
 |---|---|
 | `layout.ts` | Pure layout: districts per route sector, lots in up to four depth rows per side, open runs (moat, park, shrine), the river crossing, the ground cut, planting tests. Unit-tested. |
 | `buildings.ts` | Nine typologies, each generated from continuous parameters. |
-| `open-ground.ts` | Moat, park and shrine cross-sections that follow the route; the expressway crossing; the yagura and the torii. |
+| `open-ground.ts` | Moat, park, shrine, temple and pond cross-sections that follow the route; the expressway, river and gorge crossings; the yagura and the torii. |
 | `signs.ts` | Two canvas atlases of original period signage: shop signs, boards and guide signs; then neon tube signs, nobori and street banners. Every SORA design draws the exact emblem (`branding/sora-emblem-source.png`), clipped to its circle and centred on its object. |
 | `materials.ts` | Twelve shared materials, the lit-window shader, the mood-driven emitters and the render clock for neon, chasing bulbs and cloth. |
 | `nightlife.ts` | Neon blades and rooftop neon, nobori, hanging banners, window neon and aviation lights, each from the lot's second random stream so a building keeps its look. |
 | `people.ts` | The 1986 street people as camera-facing pixel-art sprites with soft ground shadows: per-district casts, walkers and friends, knots at the crossings, police signalling, fans cheering at the start, bosozoku gangs by their bikes, cats and cyclists. |
 | `street-sprites.ts` | The sprite atlas layout (`public/assets/sprites/street-people.png`): rows, frame columns per layout, scale and baseline. |
 | `sprites.ts` | Code-drawn fallback sprites, used by the atlas build for any sheet not yet generated. |
-| `street.ts` | Crossings, footbridges, guide signs, shopping-street lamps and SORA's banners across the road. |
-| `skyline.ts` | Distant real towers placed in their true directions. |
+| `street.ts` | Crossings, footbridges, guide signs, kana curve boards, arches over the road, shopping-street lamps and SORA's banners across the road. |
+| `skyline.ts` | Distant real towers, mountains and far landmark silhouettes placed in their true directions. |
 | `sky.ts` | SORA's airship over the road ahead, ad balloons trailing banners over tall roofs, and searchlights at night. |
 | `index.ts` | `PeriodCity`: per-chunk streaming, shop-light fixtures, planting tests. |
+| `street-scenes.ts` | How each street route is dressed: districts by sector, landmarks, crossings, street furniture, far silhouettes, trees, sign pool and light. |
 
 **Districts** (`TOKYO_1986_DISTRICTS`, by the route's own `sector` field; the loop runs counter-clockwise, so the palace is on the driver's left):
 
@@ -79,6 +80,7 @@ The urban ground is cut under moats, parks and the river (`createUrbanGround(...
 **Skyline:**
 - Tokyo Tower: its 1986 edge bulbs (the floodlighting came in 1989), decks and aviation lights.
 - Kasumigaseki Building, World Trade Center, ARK Mori Building (1986), Akasaka Prince, Hotel New Otani, Sunshine 60 and eight Shinjuku west-side towers.
+- Hibiya's three towers beyond the park: Fukoku Seimei (1980), Hibiya Kokusai (1981) and the Imperial Hotel's tower (1983), heights approximate. From the route they show only between Kasumigaseki's buildings.
 
 Each tower is drawn at most 520 m from the camera in its true direction, scaled to its true angular size, so it never meets the 600 m far plane or the fog. Positions are approximate (WGS84, tens of metres). The route projection itself matches real gate positions to within 40–220 m.
 
@@ -184,7 +186,7 @@ The cutscenes' streets are busy, lit and branded; the race's now are too.
 ### How the sprites are made
 
 The user asked for the street people as sprites of Japanese archetypes. The
-29 sheets in `art/street-sprites/` were drawn by Codex's image model
+37 sheets in `art/street-sprites/` were drawn by Codex's image model
 (`gpt-6-astra`, `image_gen`, transparent background) from the cutscenes
 `community-dawn-v1.png` and `angles/harbor-wide-v3.png` as style references,
 with the SORA flag and emblem as references for the fans and crew, and earlier
@@ -195,9 +197,55 @@ references are in `docs/art-prompts/street-sprites-v1.json`.
 - **Action sheets** carry fans' cheers, police signals, bosozoku squats, extra cat poses, cyclists and bikes; each includes a standing figure for scale.
 - `npx tsx scripts/build-street-sprites.ts [--review out.png]` builds the atlas:
   1. It cuts each sheet along the emptiest lines near its nominal grid lines, because image models keep only roughly to a grid.
-  2. It box-filters each figure down to the atlas scale: a 1.70 m adult is 78 pixels in a 48 x 96 cell, and wide poses take two cells.
+  2. It box-filters each figure down to the atlas scale: a 1.70 m adult is 78 pixels in a 64 x 96 cell, and wide poses take two cells.
   3. It sets the feet on row 93 and centres the head.
   4. Any sheet not yet made falls back to the code-drawn sprites (`sprites.ts`), enlarged x1.5. The script will not overwrite the atlas while a sheet is missing unless given `--allow-stand-ins`.
+
+## Refine round 4: closer to the rain-night target (2026-10-29)
+
+Measured against the user's target image (`art/reference/rain-night-target.png`; renderer changes are in [the pixel-art notes](pixel-art-renderer.md)):
+
+- **Wall finishes** (`geometry.ts` `WALL_PATTERN`): tile (二丁掛け), brick, vertical seams, cladding panels, mosaic tile and siding.
+  - Each typology picks one: tile and mosaic tenant buildings and offices, seamed copper and sheet fronts, brick ministries and warehouses, mosaic mansions, sided houses.
+  - The wall shader draws the joints at least one art cell wide, so they survive the pixel pass as courses. Each tile is a shade apart, and the joints fade out where they would fall closer than about four cells.
+  - Walls darken by up to 42% at night, so the lit windows and signs carry the night. Floodlit landmark stone shows staggered blocks under a softer wash.
+- **Lit windows** draw their rooms in flat steps:
+  - offices have a bright ceiling band over the desks, some with blinds;
+  - homes have curtains drawn to the sides, a plant on some sills and blinds on others;
+  - every window has its cross mullion;
+  - lit panes no longer mirror the sky, and office windows are now mostly warm, about a quarter fluorescent blue.
+- **Street trees:** a row of young trees along Kanda's kerbs, clear of the shopping-street lamps.
+- **Windows as the concept paints them (fourth pass):** a window small on screen is warm amber light with one clear silhouette (a potted plant on the sill, someone at a desk, a standard lamp, or drawn curtains) and the evening sky caught in soft streaks across its upper glass. Only shop windows, and windows very near the camera, show a whole room from the interiors atlas; shrunk to a few cells a room turned to noise. Office light is a paler warm white, never blue; a few homes keep the TV's blue.
+- **Shop-front lights** (fifth pass), from two new rows of the neon atlas (`signs.ts`):
+  - **Paper lanterns** (赤提灯) printed with やきとり, 酒, おでん, 居酒屋, ラーメン, 焼肉, 寿司 or SORA (the exact emblem, centred), drawn as eight-sided prisms lit from within. They burn steadily: the neon material's mode 4 skips the tube flicker and dropout. More doors on the shopping streets and in the nightlife districts hang them.
+  - **Lit box signs** (行灯看板) of one or two characters (酒, 焼鳥, 喫茶, 質, 湯, 麺, 薬, 本, 酒場, BAR and others, and SORA) stand out from the shop's outer edge on half the shops in those districts, clear of the awning.
+  - The vertical neon's reveal now reads its row's own top and bottom (`VNEON_TOP_V`, `VNEON_BOTTOM_V`), since the new rows sit below it.
+  - The shopping and nightlife streets hang lanterns at about four in five shophouse and zakkyo doors (the street-life stream, so buildings are unchanged): rows of red lights down the street, as in the concept.
+- **Noren** (fifteenth pass, `awnings.ts`, `shopNoren` in `buildings.ts`). The cutscene-style repaint hangs a split cloth curtain in its eatery's doorway. Twelve noren designs share the awning atlas and material: solid cloth (indigo most of all, then maroon, plum, dark green, brown), one cream character per panel with a dark outline, slits cut through the alpha, a one-character word (酒) spanning two panels with the slit through it. Each print is the left part of its cell at the cloth's own proportions (panels of 0.55 m, 0.72 m tall), so the characters are never stretched. An open eatery (its fascia title names a trade: そば, 寿司, やきとり, 居酒屋, ラーメン, おでん, 天ぷら, うどん, 甘味, 食堂, 酒) hangs its own noren from a rod just inside the doorway; on the shopping and nightlife streets two in five other open shops hang a generic one (酒, めし, おでん, やきとり, そば). Only where no awning hangs: a steep awning hid the doorway, so an eatery on the shopping street now takes its noren instead of the street's extra awning. All from the street-life stream, so buildings are unchanged. In the first 1.2 km of the route, eleven shops hang noren; from the road they often sit behind the street banners and lanterns, and read clearly within about 20 m.
+- **Slate facades at night** (twelfth pass). A cutscene-style repaint of a race frame (`art/reference/mockups/kanda-night-l095-v1.png`) paints unlit facades as dark indigo-slate tile (OKLab L about 0.24, chroma 0.05, hue 285) whose grid reads all over; ours fell to flat dark plum (hue 339) where the grid vanished. After dark the wall pigment now turns 90% of the way to a cool slate grey (`wallSlate`; it was half way to grey-brown), the facades take a cool slate fill from the city's glow (`wallAmbient` 0.07, 0.075, 0.125 linear), and they lose 60% of their albedo (`wallNightCut`; it was 35%). The lamp wash dropped to 1.2 and less orange, since the repaint keeps the wall beside a lamp mostly slate. Windows are warmer (the office tone 1, 0.66, 0.38, so no pane reads cream-white), and two in five windows carry a plant on the sill (was three in ten).
+- **Lamp wash** (ninth pass). The concept's tile glows warm around each street lamp while the wall above and between the lamps stays dark. Ours stayed dark: the lamps' pool lights are spots pointing down (60° half-angle), and a facade 4 m back and 1.6 m below the head lies about 68° off their axis. Widening the cones would wash the road orange (refine round 1 rejected that for the harbour). Instead the wall material takes an analytic wash from the six nearest lamp heads (`setPeriodCityLampHeads`, from world.ts each frame): warm sodium light on the faces turned toward a head, falling off over 9 m and fading out 3 m above the head (a cobra head throws its light down), at full strength (`lampWash` 2) at night and none by day. It lights the tile grid beside the lamps, and costs six distance checks per wall pixel. Landmarks keep their own floodlit material and its wash.
+- **Tile at night** (eighth pass). After dark a wall's finish grid carries more of the facade: the grout a shade deeper (34% → 50%), the tiles further apart (±5% → ±11%), and a lit cell under each course's upper joint, where lamps above catch the tile's edge. Unlit walls stay near-dark, so it reads where the shops, windows and lamps light the wall.
+- **Lit flanks** (seventh pass). Down a straight street the camera sees the flanks of buildings that rise above their neighbours. "Japanese flanks are mostly blank" left those as dark slabs, where the concept paints the far city as layers of lit windows. The back rows (2-4: offices and mansions behind the street) now carry a window on every grid position of their flanks above 3.2 m, floor by floor; frontage flanks carry two in five, besides their stair windows; a flank with a painted advertisement keeps it clear. The glass lights them at night like the fronts (offices whole floors at a time). They come from the street-life stream, so each building is otherwise unchanged; the chunk triangle budget still holds.
+- **Far lights** (`far-lights.ts`, sixth pass). The concept's street glows with lamp heads, lanterns and signs all the way to the vanishing point. Ours went dark in the distance, because a lamp globe 100 m away covers well under one art cell and the cell resolve averaged it into the night.
+  - Every shopping-street globe, lantern and box sign now also leaves a beacon (`CityMeshBuilder.beacon`): a position, a linear HDR colour and the light's size.
+  - Each chunk draws its beacons as one additive points object, at least two art cells across and bright enough for the glow stage's halo. The race's own street lamps get the same through `MovingFarLights`, refilled each frame.
+  - Beacons fade in from 24 to 55 m, where a light's own geometry starts to fall below a few cells. They are pulled just in front of their globe or lantern so it never hides them, are depth tested so buildings do, and burn with the street's ground-floor light (`cityGroundLights`, 0 by day, 1 at night).
+  - The globes themselves are HDR sodium gold (they were cream, below the glow stage's emitter threshold, so they never took a halo). Colours stay below the tone curve's shoulder so they read gold, not cream; the first try took the sign gain (`cityNight`, up to 2.4) and washed every far light to cream.
+- **Every awning prints its trade**, now including 不動産, 歯科, 旅館, 墨 and SORA (the SORA garage); only warehouses keep plain stripes.
+- **Vertical shop signs** stand a third deeper than life, so their lettering reads far down the street, as the concept paints them.
+- **Night walls** lose half their warm colour toward a cool grey-brown, and so does floodlit landmark stone (Kudan Kaikan stood orange at the start); the lamps and shops put the warmth back where they shine. The floodlight wash is softer (0.55) and gone by 14 m.
+- **Rooms behind the glass:** lit windows show a room from `public/assets/sprites/window-interiors.png`, built by `scripts/build-window-interiors.ts` from a Codex sheet (`art/interiors/window-interiors.png`, prompt in `docs/art-prompts/window-interiors-v1.json`). The atlas holds four offices, four homes, four eateries and bars, and four shops; each window picks one by its kind and seed. Homes lit by the television turn blue. Pachinko halls and station concourses are a separate `hall` kind that stays flat lit.
+- **At night:** walls lose the dusk sky map's warm ambient light and a little albedo, so unlit facades fall to dark tile. Landmark floodlights now fade out by about 16 m up the facade, lighting landmarks from the foot instead of washing them orange to the roof.
+- **Washing** hangs over balcony rails as separate shirts, towels and futons in their own colours (one big sheet under a street lamp read as a blank board). Awnings draw as plain canvas, not the facade's tiles.
+- **Shop fronts** (the user asked to fix them against the concept's yakitori shop):
+  - **Canvas awnings** (`awnings.ts`, the `awning` material) are mounted where the fascia would be. They are striped in the awning's colour over cream, printed with the shop's trade (やきとり, 寿司, そば, 喫茶, 居酒屋, and on the routes 漬物, 甘味, 扇子 and more, matched from the fascia's title), with a scalloped valance and an underside in shadow. The atlas holds masks (stripes, lettering, shading, scallops), so one design takes any awning colour.
+  - Awnings slope about 52°, as real ones do. A gentler slope faced up enough for the pixel-art ground stage to treat it as wet road, which smeared it into sideways streaks at speed. A test keeps every awning normal below 0.8.
+  - Shophouses keep their awning odds, tenant buildings theirs; on the shopping streets other open shops take one from their own random stream, so the rest of each building is unchanged.
+  - The shop's room is the glass's (the interiors atlas). The tubes and shelves of glowing boxes in front of it are gone; they read as one cream band. Closed shutters are darker steel.
+  - At night street lamps light facades and awnings less (direct light ×0.55 on walls, ×0.65 on awnings), so their pools stay on the pavement and road.
+- **Sharper street people:** the sprite atlas is drawn at 1.5x (`SPRITE_SCALE`; a 1.70 m adult is 117 pixels in a 96 x 144 cell), so faces stay clear on the finer art grid.
+- **Umbrellas:** two more Codex sheets, a salaryman under a black umbrella and an office worker under a clear vinyl one (`docs/art-prompts/street-sprites-v1.json`). When the road is wetter than 0.7, most salarymen, office ladies and housewives walk under them (Tokyo's night, Yokohama). The sprite cells are now 64 px wide so the canopies fit.
+- A test checks that umbrellas open on a wet Kanda night and fold away on a drying road (19 city tests in all).
 
 ## Arcade courses
 
@@ -209,6 +257,137 @@ blocks of district (300-360 m) that never line up with a lap.
 - **Sakura Pass (Nikko, sunrise):** the old street of machiya, shop-houses and ryokan (湯波 and 羊羹 shops), 1980s houses with glazed blue or brown tile roofs and block walls, cedar and broadleaf forest. Near the start, the vermilion Shinkyo (神橋) arches over a rocky gorge beside the road bridge.
 
 Towns stand on the flat strip before the banks rise (18 m), and back rows follow the terrain. Forest districts keep the race's own tree pools and their stone retaining walls. In harbour districts the hills are skipped (`createTerrain(..., skip)`) and the flat ribbon stops at the quay edge. The Nikko gorge cuts both ribbon and banks.
+
+## Local routes
+
+The four routes added on 2026-10-29 (Irohazaka, Aizu-Wakamatsu, Kyoto and Nara; see [the world notes](../world/README.md#local-routes)) are dressed from `street-scenes.ts`. Each route has a `StreetScene` holding:
+
+- the districts right and left of the road, indexed by the route's own `sector` field;
+- landmarks, crossings and street furniture;
+- far silhouettes;
+- flowering or autumn trees;
+- a regional sign pool;
+- a light mood.
+
+Only `world.ts` reads the scenes; the native road table and the physics never do. Tokyo's scene points at its existing tables, so Tokyo keeps its districts, landmarks, crossings and light.
+
+**New districts** (`layout.ts`):
+
+- **Town:** the low-rise provincial street. Shop-houses, machiya and houses stand in front, with a few tenant buildings, car parks and offices, two to four storeys high. Houses and mansions stand behind. Tokyo's residential district was too tall for these towns.
+- **Temple** (`open-ground.ts` `temple()`): a Buddhist frontage. A tile-capped earthen wall (築地塀) with the five white rules of a high-ranking temple's 筋塀 runs behind a granite curb, with stone lanterns inside. It has no torii, so a temple never shows Yasukuni's.
+- **Pond:** a stone edge, open water below the road, willows leaning over it and a grassy far bank (Sarusawa-ike and Daibutsu-ike in Nara, the castle park in Aizu).
+
+The urban ground is cut under ponds and under forest runs, as it is under moats and parks.
+
+**Crossings** now come in three kinds:
+
+| Kind | What it draws | Where |
+|---|---|---|
+| Expressway | Tokyo's Manaita Bridge | Tokyo |
+| `river` | A broad shallow city river between stone revetments and dry riverside walks (河原), with low parapets and bridge lamps | Kyoto: the Kamo at Shijō Ōhashi and at Marutamachi |
+| `gorge` | A rocky ravine under the road bridge, its width set by the crossing's `half` | Irohazaka: Ōya-bashi over the Daiya and Chichinoki-bashi |
+
+**Slope terrain** (`terrain.ts` `createSlopeTerrain`). A road that folds back on itself, like Irohazaka's stacked hairpins and Nara's Wakakusa switchbacks, cannot use the Arcade banks: the bank beside each leg would roof over the legs above and below it. Instead the ground is interpolated from every nearby road station (inverse-distance weighted, on a 6 m grid), so each leg sits just above its own cut and the hillside runs on between them. Gorges sink it under the bridges. Trees and lots are kept off the other legs (`clearOfOtherLegs`).
+
+**Far silhouettes** (`skyline.ts` `PeriodDistant`) take a ground elevation `y`, because Irohazaka starts at 864 m. They can also take a `hideWithin` distance: a silhouette disappears inside that distance, where the real landmark of the same name is drawn instead, as Kyoto Tower is.
+
+| Route | Silhouettes, at their real bearings |
+|---|---|
+| Irohazaka | Nantai-san (2,486 m) and Nyohō-san |
+| Aizu-Wakamatsu | Bandai-san, and Tsuruga-jō's keep, which is still in view from the finish on Iimoriyama, where the Byakkotai looked back to it |
+| Kyoto | Tōji's pagoda, Kyoto Tower, Yasaka's pagoda (Hōkan-ji, 1440) over Higashiyama's roofs, and Hiei-zan |
+| Nara | The Ikoma ridge and its broadcast towers with their red lights; Yakushi-ji's two pagodas (the west one rebuilt in 1981) and Nara Dreamland's castle (1961–2006) out in the basin; from the summit, the Great Buddha Hall and Kōfuku-ji's pagoda below |
+
+**Far land** (`far-land.ts`). The slope terrain and the town ground end 110–130 m from the road. From Nara's upper driveway and summit, and from Aizu's finish on Iimoriyama, the camera used to look past them at a level plane that read as a calm sea. A far-land plan now draws the real ground there out to the horizon. It is a `PeriodDistant` entry with `land`, so it travels with the scene's far silhouettes.
+
+- **Ground.** `scripts/build-far-land.ts` resamples GSI DEM10B elevation tiles (国土地理院 標高タイル, zoom 10) into a 250 m grid and writes it to `generated/<route>-land.ts`.
+  - Nara's grid covers 34.50–34.82°N and 135.64–136.00°E, from the Kizu valley to Kashihara and from past the Ikoma ridge to the eastern highlands.
+  - Aizu's covers 37.38–37.70°N and 139.74–140.10°E: the whole Aizu basin, Kitakata and Bandai-san.
+  - Within 130 m of the road the script holds the land 3 m under it, rising at most 25% out to 400 m. The camera looks down on its own road, and land above the camera would face away and vanish.
+  - Positions use the track compiler's projection, so the land meets the road where it should.
+- **Colour.** The plan's floor height divides late-autumn paddies from wooded hills. Ellipses mark the towns' grey roofs, dark parks (Nara Park, and the Heijō palace site, open fields in 1986) and Wakakusa-yama's golden lawns. Aizu darkens Tsuruga-jō's grounds and moats. West-facing slopes catch the evening light.
+- **Lights.** Points scatter through the 1986 built-up areas, along the main roads (Routes 24 and 25 at Nara, 49 and 121 at Aizu) and in farm-village clusters: fluorescent, mercury, sodium and incandescent. Each is at least two art cells across, and they come on with the street lamps (`cityGroundLights`).
+- **Placement.** Every vertex keeps its direction from the camera but moves onto a shell 560–596 m out, ordered by true distance. That is inside the camera's 600 m far plane and behind the skyline's 520 m. Everything the route builds is nearer and wins the depth test, the sky stays behind, and the land's nearer hills still hide what lies beyond them.
+- **Haze.** The land fades with true distance toward the far ridges' tone. Like the silhouettes, it skips the street fog, which would blank it out beyond 400 m.
+- **Finish line.** A sprint that finishes in a park or forest on a hill no longer lays town paving past its finish line (`periodCityGroundCut`). That paving ran on level with the road and was itself the lake at Aizu's finish.
+
+The slope terrain's own straight edge still shows near Nara's summit, now against the hillside instead of the sky.
+
+**Landmarks** (`landmarks.ts`). Each is simplified as Tokyo's are:
+
+| Building | Route place |
+|---|---|
+| Kyoto Tower (1964), 131 m: a white shaft on the tower building, with its ringed drum and red-tipped mast | Shiokōji, opposite Kyoto Station |
+| Kyoto Station's third building (1952): a long, low concrete block with a tall central block, across its forecourt. It was JNR's until April 1987 | Shiokōji, at the start |
+| Higashi Honganji's great gate, drawn with the Nandaimon builder: unpainted timber under two tiled roofs | Karasuma-dōri |
+| Higashi Honganji's Goei-dō (1895), 76 m across and 38 m high, and its Amida-dō: column verandas under skirt roofs and vast tiled roofs | Behind the gate, their roofs over the temple wall |
+| Minami-za (1929): a white front under tiled eaves and karahafu, the yagura turret on the roof, the kaomise maneki boards | The east end of Shijō Ōhashi, across an open Kawabata-dōri from the river |
+| Yasaka Shrine's west gate (西楼門, 1497): vermilion, two storeys, up its stone steps | The head of Shijō-dōri |
+| Keage power station (1912): red brick, stone string courses, a slate hipped roof | Sanjō-dōri at Keage |
+| The Kyoto City Museum of Art (1933): tan wings and a central block under tiled roofs | Jingū-michi, beside the torii |
+| Heian Jingū's great torii (1929): vermilion pillars 24.4 m high, a black kasagi 33.9 m long | Across Jingū-michi, as an arch over the road |
+| Heian Jingū's Ōtenmon (1895): vermilion, two storeys, green-glazed tiles | At the head of Jingū-michi, seen ahead before the turn into Niōmon-dōri |
+| A castle gate standing in for Nijō-jō's Higashi Ōte-mon, using the Sakuradamon builder | Horikawa-dōri |
+| Nishi Honganji's Goei-dō (1636) behind its gate | Horikawa-dōri, near the finish |
+| JNR Nara Station (1934): a temple-roofed hall with its sōrin between low white wings | The start |
+| Kōfuku-ji's five-storey pagoda (1426), 50 m, unpainted timber and white plaster | Above Sarusawa-ike |
+| Kasuga Taisha's first torii (一之鳥居, 1634): vermilion, 6.75 m, the straight Kasuga kasagi | Where Sanjō-dōri enters Nara Park |
+| The Great Buddha Hall (大仏殿, 1709): 57 m wide and 49 m high, with its karahafu and gold shibi | 270 m back across Nara Park |
+
+Tsuruga-jō's keep (rebuilt in concrete, 1965) and Tōji's pagoda (1644, 55 m) are drawn only as far silhouettes. The keep stands 276 m inside its moats at the nearest point. `landmarks.ts` also builds Sazaedō on Iimoriyama (1796), which no scene places. The research puts it on the west slope, out of sight of the road.
+
+**1986 landmark audit (2026-10-29).** Each route was checked for buildings that stood in 1986 and that a driver would see. Some were left out:
+- Kegon Falls and Lake Chūzenji, which are not in view from the Irohazaka road.
+- Sazaedō, on the far slope of Iimoriyama.
+- Tōdai-ji's Nandaimon, behind the park's trees on Nara's route.
+- Anything built later, such as Kyoto's present station (1997) and Heijō's Suzaku-mon (1998).
+
+Two footprints run past their buildings to keep lots out of the view: Kyoto Station's forecourt, and Kawabata-dōri between the Kamo and the Minami-za.
+
+**Street furniture** (`street.ts`, `signs.ts`):
+
+- **Kana curve boards:** all twenty of the Second Irohazaka's numbered curves get a board, い to ね, on its post at the outside of the bend, 20 m before the apex. The kana are drawn in a third atlas region (`KANA`, the 48 iroha kana).
+- **Guide signs:** these carry the routes' destinations, such as 中禅寺湖, 鶴ヶ城, 飯盛山, 四条通, 祇園, 蹴上, 京都御所, 京都駅, 奈良公園 and 東大寺.
+- **Arches:** these span the road. The first is Heian Jingū's torii.
+- **Regional signs** (`SIGN_REGIONS`): each local route draws its shop signs from its own pool instead of Kanda's. Kyoto's, Nara's and Aizu's pools add their towns' trades to the common ones:
+  - Kyoto: 京菓子, 漬物, 湯葉, 扇子, 西陣織 and 茶舗;
+  - Nara: 奈良漬, 鹿せんべい, 墨, 筆 and 仏具;
+  - Aizu: 酒蔵, 赤べこ and 会津塗.
+
+  Irohazaka uses a mountain-resort pool of its own (そば, 民宿, 旅館, 湯波, 羊羹 and the like). Shop names are invented.
+
+**Trees and season.** The scene's `trees` line the given sectors with flowering trees on both sides. On these routes they are autumn maples (`momiji`): all of Irohazaka's climb, Iimoriyama's flank, the Keage and Okazaki stretch in Kyoto, and Nara Park and the driveway. They use the blossom material in maple red. Leaves blow across the frame there (`'leaves'` in the pixel overlay; everywhere on Irohazaka). The native recipe's wet stretch, from a fifth to four-fifths of `maxTicks` (1:00 to 4:00), falls as rain. A route's style can turn it to snow; none does yet.
+
+**Route locals** (`people.ts`, from each scene's `locals`). Each route has people or animals found only there. Codex drew them in the same style on six more sheets; the prompts are in `docs/art-prompts/street-sprites-v1.json`.
+
+- **Gion's maiko:**
+  - They wear November's maple kanzashi, a vermilion hikizuri and the long darari obi, on tall okobo.
+  - They make up about a third of the walkers in Gion itself (sector 5), with fewer on Shijō Ōhashi and Higashiōji. They walk in pairs.
+  - On a wet night they open a red janome-gasa.
+- **Nara's deer:**
+  - Does and stags. The stags' antlers have been sawn to stumps at the October antler-cutting, as they would be in November.
+  - They graze, lie down, stand about, amble along the pavement and bow, dipping and rising again.
+  - They range from Sanjō-dōri by Kōfuku-ji through the park to Tōdai-ji. A few are in the hill forest and more on the summit lawns.
+  - Deer have their own sprite layout. Side views take double-width cells (standing, two strides, grazing, bowing, lying), followed by front and back views, standing and walking.
+- **Irohazaka's monkeys:**
+  - Troops of Japanese macaques, some of them mothers with babies on their backs.
+  - Some perch on the guard rail, 0.84 m up and with no shadow, watching the traffic. The rest sit, eat (a rice cracker or a persimmon) or amble on the verge behind it.
+  - Troops are sparse on the climb and thickest at Kurokamidaira and Akechidaira.
+  - Monkeys use the cats' sprite layout, eating in place of curling up.
+
+Locals are placed from their own random stream, so the routes' other people still stand where they did. The deer are drawn a little larger than life and the monkeys a third larger, as the cats are drawn half again as large. The atlas build clears stray specks from the deer sheets (`despeck`).
+
+**Light.** Each scene's mood sets the night palette (mountain or city), the stars, the dry-road dampness, the lamp colour and a daylight value at the start of each soundtrack chapter and at the finish:
+
+| Route | Light |
+|---|---|
+| Tokyo | Keeps its night-to-sunrise arc |
+| Irohazaka | Fades from full daylight toward sunset as it climbs |
+| Aizu-Wakamatsu | Fades from late afternoon to dusk |
+| Kyoto | Runs from evening into night |
+| Nara | Dims toward dusk in the park, then brightens again toward the summit |
+
+The chapter titles and HUD place name come from each route's style (`src/game/street/routes.ts`).
 
 ## Streaming and cost
 
@@ -247,7 +426,23 @@ On Midnight Circuit, measured the same way under heavy host load (1-minute load 
   - The shipped atlas has every frame the shader can pick, each standing on the baseline.
   - Kanda hangs vertical neon, and at least a sixth of its neon faces spell themselves out.
   - The sky flies at least three ad balloons, each more than 20 m above the street, and at least one searchlight on Tokyo's loop. The same clock places the same sky, and the balloons sway.
-  - 18 tests in all.
+  - Umbrellas open on a wet night and fold away when the road dries.
+  - Shops in Kanda hang awnings printed with their trade, all steep enough never to read as wet road.
+  - 20 tests in all.
+- `npx tsx --test tests/street-routes.test.ts` checks the local routes:
+  - each route has its own wording and a chapter for each soundtrack cue;
+  - each route has a scene covering every one of its sectors;
+  - each route has its own song, cued on its sections;
+  - every packaged route is a catalog route;
+  - Nara Park has grazing, bowing and lying deer, both does and stags, and the station front has none;
+  - maiko walk in Gion, open janome-gasa on a wet night, and stay off Horikawa;
+  - monkeys gather toward Akechidaira, some on the guard rail;
+  - Tokyo has none of the three.
+- Each local route was driven in the browser and judged at night, dusk and daylight against the period city's Tokyo look:
+  - Irohazaka: the hairpins, kana boards, maples and gorge bridges;
+  - Aizu-Wakamatsu: the town and the moat;
+  - Kyoto: Kyoto Tower, the temple wall, Gion with Yasaka's gate, the Heian torii and Shijō Ōhashi;
+  - Nara: the station, Kōfuku-ji's pagoda and the Wakakusa switchbacks.
 
 ## Known limits
 
@@ -257,3 +452,12 @@ On Midnight Circuit, measured the same way under heavy host load (1-minute load 
 - The ad balloons hang over the roadside buildings, so the nearer roofs hide them until they are a few hundred metres ahead, where they are small. The airship keeps station with the leaders rather than flying a fixed course of its own.
 - The emblem on the generated fans' and crew's clothes and flags was drawn by the image model from the exact emblem as a reference. It reads correctly at sprite size, but it is not a paste of the source file.
 - The opponent cars' paint compiles about eight seconds into a race in both cities (a car-material key change). That is outside the city.
+- Local routes:
+  - Tsuruga-jō's keep is rarely in view from the road. Beside the moat it stands 69–111° off the car's nose. On the Jōnan-dōri approach, where it is about 27° off, houses and walls hide it.
+  - Irohazaka's kana boards are a plain provisional design. The 1986 boards are unconfirmed, and neither the 1995 nor the 2023 set may be shown.
+  - Kyoto's Keage junction is modelled as a 24 m arc 18 m wide, more generous than the real Y-junction, so that the practice AI can take it.
+  - Kyoto Tower's drum is drawn white. The research describes a red deck and top, and the tower's 1986 night lighting is unconfirmed.
+  - Two Kyoto gates are stand-ins drawn with other builders: Higashi Honganji's gate uses the Nandaimon builder, and Nijō-jō's gate uses the Sakuradamon builder.
+  - Public car access in 1986 is unconfirmed for Aizu's Keizan forest road and for Nara's Tōdai-ji lane. The Wakakusa driveway's 1986 operation (one-way or two-way climb, hours, toll booth) is also unconfirmed.
+  - The locals keep to the pavements and verges. Nara's deer never step into the road, though in life they stop the traffic. Nobody sells or feeds them shika senbei, and the Irohazaka monkeys never raid a car.
+  - The research notes list every remaining open question (`world/research/routes/`).

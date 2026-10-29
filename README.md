@@ -51,13 +51,45 @@ Music follows simulation time across pause, mute and replay seeking, without
 stretching or looping the recording. These creative cue times do not establish
 historically accurate scenery or calibrated human race duration.
 
+Four more 1986 street routes join Tokyo in practice. Each has its own composed
+song in five chapters, its own light and its own town:
+
+- **いろは、空への四十八 / Forty-Eight to the Sky** climbs the Second Irohazaka's
+  twenty kana hairpins from Umagaeshi to Akechidaira under autumn maples.
+- **城を望む丘へ / To the Hill Facing the Castle** runs from Aizu-Wakamatsu
+  Station past Tsuruga-jō's moats and up Iimoriyama.
+- **蹴上、煉瓦の余韻 / Keage Brick Echo** circles Kyoto from Kyoto Tower past
+  Higashi Honganji, through Gion to Yasaka's gate, to Keage and under Heian
+  Jingū's torii, and back by Marutamachi and Horikawa.
+- **春日、空色の稜線 / Kasuga Sky Ridge** runs from JNR Nara Station past
+  Kōfuku-ji's pagoda and Nara Park, then up the Wakakusa-yama switchbacks.
+
+The roadsides have their own locals as pixel-art sprites: maiko in Gion, under
+red janome-gasa when it rains; deer grazing, lying and bowing in Nara Park; and
+macaque troops on the Irohazaka guard rails.
+
+Pick a route on the street ready screen, or open `#/street/<route id>`. Every route
+is also a chapter of the story. Each is a researched draft, not a survey. [The world notes](world/README.md#local-routes)
+and [the period city](docs/period-city.md#local-routes) give their sources,
+pipeline and known limits.
+
 ## 物語 / Story
 
 Japan, 1986. Aki Soramoto and the SORA Motor Club follow the paper trail behind
-a threat to their workshop. Twelve chapters across three acts bring six friends
-and three rivals into a fictional struggle over credit, redevelopment and who
-gets to decide a neighborhood's future. The events currently use the three
-implemented circuits; the 49-location expansion remains separate work.
+a threat to their workshop. Seventeen chapters across three acts bring six
+friends and three rivals into a fictional struggle over credit, redevelopment and
+who gets to decide a neighborhood's future. Twelve chapters race the three
+Arcade circuits. Five race the 1986 street routes, woven in before the finale,
+each with its own cutscenes and town theme:
+
+- the Irohazaka climb to the Akechidaira teahouse;
+- Tokyo's dawn run from the great torii at Kudan;
+- Aizu-Wakamatsu, where Ren answers to a relay host;
+- Kyoto, where the records reach Gion and Keage;
+- Nara, where Jun finds his old drummer.
+
+Street chapters race equal cars for no prize money. The rest of the 49-location
+expansion remains separate work.
 
 Choose **物語 / STORY** for Japanese dialogue with English subtitles, changing
 pixel-art scenes, animated radio equipment, rain, reflections and camera shots.
@@ -98,8 +130,8 @@ course, bought in one click before the start. It has four branches: engine,
 turbo, chassis and body. Each has a setup fork and a cross-branch capstone,
 including drift charging, slipstream and anti-lag. Practice offers four fields of
 increasingly tuned rivals, from Club night to Legends, and the story's rivals tune
-up as the plot escalates. Parts never reach live XOR races, proofs or the Tokyo
-street run. **EQUAL CARS** restores the original stock RaceV1 practice and story
+up as the plot escalates. Parts never reach live XOR races, proofs or the 1986
+street runs. **EQUAL CARS** restores the original stock RaceV1 practice and story
 for everyone. `npm run balance:garage` reprints the simulated balance tables. See
 [the garage tech tree](docs/garage-tech-tree.md).
 

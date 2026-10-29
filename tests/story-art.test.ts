@@ -5,9 +5,12 @@ import { createHash } from 'node:crypto';
 import { CHAPTERS, RETRY_SCENE } from '../src/game/story';
 import { STORY_ANGLE_ART, STORY_BEAT_ART, STORY_CUT_ART, resolveStoryFrame, type StorySceneId, type StoryShot } from '../src/game/story-scenes';
 
+/** Beat checks name chapters by stable id, not place in play order. */
+const byId = (id: number) => CHAPTERS.find(chapter => chapter.id === id)!;
+
 test('every camera direction and story illustration ships as a distinct landscape PNG', () => {
   const files = [...Object.values(STORY_ANGLE_ART).flatMap(shots => Object.values(shots)), ...Object.values(STORY_BEAT_ART)];
-  assert.equal(Object.keys(STORY_ANGLE_ART).length, 8);
+  assert.equal(Object.keys(STORY_ANGLE_ART).length, 13);
   assert.equal(new Set(files).size, files.length);
   const hashes = new Set<string>();
   for (const file of files) {
@@ -36,7 +39,7 @@ test('all cutscenes resolve to new art, with every location and angle exercised 
       previous = frame;
     }
   }
-  assert.equal(used.size, 32);
+  assert.equal(used.size, 52);
 });
 
 test('each authored camera cut uses a fresh, distinct illustration across the campaign', () => {
@@ -73,11 +76,11 @@ test('each authored camera cut uses a fresh, distinct illustration across the ca
       previous = frame;
     }
   }
-  assert.equal(cuts, 228);
+  assert.equal(cuts, 275);
 });
 
 test('special illustrations hold for dialogue and reset at explicit cuts, including back navigation', () => {
-  const lines = CHAPTERS[6]!.victory;
+  const lines = byId(6).victory;
   assert.equal(resolveStoryFrame(lines, 0).beat, 'radio-blackout');
   assert.equal(resolveStoryFrame(lines, 1).beat, 'garage-blackout-detail');
   assert.equal(resolveStoryFrame(lines, 2).beat, 'radio-betrayal');
@@ -87,7 +90,7 @@ test('special illustrations hold for dialogue and reset at explicit cuts, includ
   assert.equal(resolveStoryFrame(lines, 7).beat, 'radio-contract');
   assert.equal(resolveStoryFrame(lines, 8).beat, undefined);
   assert.equal(resolveStoryFrame(lines, 3).beat, 'radio-betrayal-reverse');
-  const ending = CHAPTERS[11]!.victory;
+  const ending = byId(11).victory;
   assert.equal(resolveStoryFrame(ending, 8).beat, undefined, 'consent precedes the kiss illustration');
   assert.equal(resolveStoryFrame(ending, 9).beat, 'sunrise-kiss');
   assert.equal(resolveStoryFrame(ending, 10).art, STORY_ANGLE_ART.sunrise.wide);
@@ -100,19 +103,19 @@ test('explicit repeated shot directions return from beat artwork to the normal c
 });
 
 test('accountability, returned key and completed song have dedicated action and reverse illustrations', () => {
-  const publicScene = CHAPTERS[7]!.victory;
+  const publicScene = byId(7).victory;
   assert.equal(resolveStoryFrame(publicScene, 0).beat, 'public-confession');
   assert.equal(resolveStoryFrame(publicScene, 1).beat, 'public-confession');
   assert.equal(resolveStoryFrame(publicScene, 2).beat, 'public-confession-reverse');
   assert.equal(resolveStoryFrame(publicScene, 3).beat, 'public-confession-reverse');
   assert.equal(resolveStoryFrame(publicScene, 4).beat, 'shared-prototype');
-  const keyScene = CHAPTERS[9]!.intro;
+  const keyScene = byId(9).intro;
   assert.equal(resolveStoryFrame(keyScene, 1).beat, 'boardroom-key-offer');
   assert.equal(resolveStoryFrame(keyScene, 2).beat, undefined);
   assert.equal(resolveStoryFrame(keyScene, 8).beat, 'boardroom-key-return');
   assert.equal(resolveStoryFrame(keyScene, 9).beat, 'boardroom-key-return');
   assert.equal(resolveStoryFrame(keyScene, 10).beat, undefined);
-  const ending = CHAPTERS[11]!.victory;
+  const ending = byId(11).victory;
   assert.equal(resolveStoryFrame(ending, 3).beat, 'radio-jun-premiere');
   assert.equal(resolveStoryFrame(ending, 4).beat, 'radio-jun-premiere-reverse');
   assert.equal(resolveStoryFrame(ending, 5).beat, undefined);
