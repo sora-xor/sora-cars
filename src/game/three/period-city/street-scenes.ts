@@ -7,6 +7,7 @@ import { TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS, TOKYO
   type PeriodCrossing, type PeriodDistrict, type PeriodLandmark, type PeriodLocals, type PeriodSide, type PeriodStreetPlan } from './layout';
 import { farLand, type FarLandPlan } from './far-land';
 import { AIZU_WAKAMATSU_1986_LAND } from './generated/aizu-wakamatsu-1986-land';
+import { IROHAZAKA_1986_LAND } from './generated/irohazaka-1986-land';
 import { NARA_1986_LAND } from './generated/nara-1986-land';
 import { buildLandmark } from './landmarks';
 import { mountain, type PeriodDistant } from './skyline';
@@ -82,6 +83,21 @@ const IROHAZAKA_CURVES: readonly (readonly [string, number, PeriodSide])[] = [
 /** The Second Irohazaka, Umagaeshi to Akechidaira: an autumn-coloured climb
  * through forest, its bridges over the Daiya gorge, with Nantai-san to the north-west. */
 const IROHAZAKA_ORIGIN = { lat: 36.7387631, lon: 139.5272846 };
+/** The mountains round the climb (far-land.ts): the Daiya valley falling east to Nikko and the ranges beyond, fading
+ * into a blue-violet haze so they step back ridge by ridge, as the cutscene-style repaints of the hairpins paint them.
+ * Without it the valley side showed the sky's own lower half, a flat pink sheet below the guard wall. */
+const IROHAZAKA_LAND: FarLandPlan = {
+  origin: IROHAZAKA_ORIGIN, grid: IROHAZAKA_1986_LAND, floor: 700,
+  towns: [
+    { lat: 36.7500, lon: 139.6050, rx: 1800, rz: 900, lit: .7 },    // Nikko, from the shrines down to the stations
+    { lat: 36.7370, lon: 139.5650, rx: 700, rz: 350, lit: .5 },     // Kiyotaki and the Furukawa works
+  ],
+  roads: [[[36.7387, 139.5273], [36.7370, 139.5670], [36.7535, 139.6034], [36.7476, 139.6197]]],   // Route 120 down to Nikko
+  parks: [], grass: [],
+  light: 245, haze: { away: '#7a6c9c', toward: '#7a6c9c', metres: 3000 },
+  // The mountainsides the road climbs between, crown by crown in autumn colour and at afternoon brightness.
+  autumn: .6, canopy: true, dayGain: 2.5,
+};
 const IROHAZAKA: StreetScene = {
   style: 2, terrain: 'slope',
   districts: [{ right: 'rural', left: 'forest' }, forest, forest, forest, forest, forest,
@@ -89,16 +105,28 @@ const IROHAZAKA: StreetScene = {
   crossings: [{ p: 168, span: 80, kind: 'gorge', half: 30 }, { p: 654, span: 60, kind: 'gorge', half: 22 }],
   landmarks: [],
   street: { footbridges: [], guides: [{ p: 60, sign: guideIndex('中禅寺湖') }],
-    markers: IROHAZAKA_CURVES.map(([text, p, side]) => ({ p: p - 20, side, text })) },
-  distant: [sky(IROHAZAKA_ORIGIN, 36.7650, 139.4908, 1270, mountain(1214, 6500, .97, '#3e5a62', '#e8e6ee')),
-    sky(IROHAZAKA_ORIGIN, 36.8114, 139.5307, 1300, mountain(1183, 5500, .97, '#46606a', '#e8e6ee'))],
+    markers: IROHAZAKA_CURVES.map(([text, p, side]) => ({ p: p - 20, side, text })),
+    // Fallen maple leaves wherever the maples stand (`trees`: sectors 0-10, the whole climb).
+    // Nikko's mountain roads run through cedar plantations and mixed forest, the cedars dark among the maples.
+    // Gold leaves and thick kerb drifts through the afternoon chapters; the last chapter's dusk at Akechidaira keeps them
+    // crimson and sparse (its repaint's dusk road is dark).
+    litter: [[0, 7170]], cedars: [[0, 7170]], autumn: true, afternoonLeaves: { gold: .2, drifts: 12, until: 5730 } },
+  // Nantai-san and Nyohō-san stand in the far land's own elevation grid, hazed by distance behind the nearer ridges; the
+  // cone silhouettes they replaced filled the sky as one flat dark slab low on the climb.
+  distant: [farLand(IROHAZAKA_LAND)],
   tokyoSkyline: false, snow: 0,
   trees: { kind: 'momiji', sectors: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], bothSides: true },
   signs: 'nikko',
   // Macaque troops sit by the road all the way up, most of all at the Kurokamidaira rest area and Akechidaira.
   locals: [{ kind: 'monkeys', sectors: [0, 1, 2, 3, 4, 5, 7, 8], density: .02 }, { kind: 'monkeys', sectors: [6, 9], density: .08 },
     { kind: 'monkeys', sectors: [10], density: .2 }],
-  mood: { night: 'mountain', stars: .7, damp: .45, lamp: '#ffb468', daylight: [1, .95, .86, .76, .64, .52] },
+  // A wet evening (damp .75), so the dusk at Akechidaira stays dark between its lamps' streaks as the repaint paints it
+  // (measured: .318 -> .252); by afternoon light the renderer dries the road toward its sunrise wetness, so the golden
+  // climb stays dry (its frames unchanged).
+  mood: { night: 'mountain', stars: .7, damp: .75, lamp: '#ffb468', daylight: [1, .97, .94, .9, .78, .52], sun: 245,
+    // A mid-afternoon sun, about 9 degrees up: hidden behind the valley's ridges low on the climb, as it is in life, and
+    // over them higher up, where the repaints set it.
+    sunHeight: 9 },
 };
 
 /** Aizu-Wakamatsu: the station's merchant streets, Tsuruga-jō across its moats,
@@ -126,6 +154,7 @@ const AIZU_LAND: FarLandPlan = {
   ],
   parks: [{ lat: 37.4876, lon: 139.9298, rx: 450, rz: 400 }],   // Tsuruga-jō's grounds and moats
   grass: [],
+  autumn: .5,
 };
 const AIZU: StreetScene = {
   style: 3,
@@ -140,14 +169,20 @@ const AIZU: StreetScene = {
   // The keep stands 276 m inside its moats at the nearest, so it is drawn as a
   // far silhouette (unfogged, like the cutscenes' distant shapes) the whole way.
   landmarks: [],
-  street: { footbridges: [], guides: [{ p: 900, sign: guideIndex('鶴ヶ城') }, { p: 5880, sign: guideIndex('飯盛山') }] },
+  // Fallen maple leaves under the maples (`trees`: sectors 9-12, the climb up Iimoriyama).
+  street: { footbridges: [], guides: [{ p: 900, sign: guideIndex('鶴ヶ城') }, { p: 5880, sign: guideIndex('飯盛山') }], litter: [[5947, 8057]],
+    // Iimoriyama's flank, where the Byakkotai graves stand under old cedars.
+    // Its forests rise as banks beside the road (no shared hillside), so their verges hold only the understory.
+    cedars: [[6932, 8057]], autumn: true, forestBanks: true },
   // From the finish on Iimoriyama the keep is still there, as the Byakkotai looked back to it.
   distant: [farLand(AIZU_LAND), sky(AIZU_ORIGIN, 37.6012, 140.0723, 230, mountain(1586, 9000, 1.01, '#4a5a72', '#e8e6ee')),
     sky(AIZU_ORIGIN, 37.48775, 139.92980, 220, (b, random) => buildLandmark(b, 'tsuruga-keep', random))],
   tokyoSkyline: false, snow: 0,
   trees: { kind: 'momiji', sectors: [9, 10, 11, 12], bothSides: true },
   signs: 'aizu',
-  mood: { night: 'mountain', stars: .4, damp: .5, lamp: '#ffb065', daylight: [.8, .72, .62, .54, .47, .42] },
+  // A wet evening (damp .75): the renderer's dusk-road dim reaches near full, so the road stays dark between its streaks,
+  // as the repaints paint Aizu's streets (measured: the station street .238 -> .198).
+  mood: { night: 'mountain', stars: .4, damp: .75, lamp: '#ffb065', daylight: [.6, .55, .5, .46, .42, .38], windows: .9 },
 };
 
 /** Kyoto: Shiokōji, Karasuma and Shijō past Gion to Yasaka, Sanjō to Keage,
@@ -184,7 +219,9 @@ const KYOTO: StreetScene = {
   ],
   street: { footbridges: [], guides: [{ p: 1880, sign: guideIndex('四条通') }, { p: 2840, sign: guideIndex('祇園') },
     { p: 4800, sign: guideIndex('蹴上') }, { p: 8000, sign: guideIndex('京都御所') }, { p: 11900, sign: guideIndex('京都駅') }],
-    arches: [{ p: 6038, kind: 'heian-torii' }] },
+    arches: [{ p: 6038, kind: 'heian-torii' }],
+    // Fallen maple leaves under the maples (`trees`: sectors 8-10, Keage to Okazaki and the great torii).
+    litter: [[4844, 6528]], autumn: true, forestBanks: true },
   distant: [sky(KYOTO_ORIGIN, 34.9806, 135.7476, 25, (b, random) => buildLandmark(b, 'pagoda-toji', random)),
     sky(KYOTO_ORIGIN, 34.98755, 135.75933, 28, (b, random) => buildLandmark(b, 'kyoto-tower', random), 420),
     // Yasaka's pagoda (Hōkan-ji) rises over Higashiyama's roofs south of the shrine.
@@ -195,7 +232,7 @@ const KYOTO: StreetScene = {
   signs: 'kyoto',
   // Maiko walk between the ochaya of Gion, and a few cross Shijō Ōhashi or turn up Higashiōji.
   locals: [{ kind: 'maiko', sectors: [5], density: .35 }, { kind: 'maiko', sectors: [4], density: .12 }, { kind: 'maiko', sectors: [3, 6], density: .05 }],
-  mood: { night: 'city', stars: .3, damp: .55, lamp: '#ffb065', daylight: [.72, .6, .5, .42, .32, .22] },
+  mood: { night: 'city', stars: .3, damp: .55, lamp: '#ffb065', daylight: [.55, .5, .45, .4, .32, .22], windows: .9 },
 };
 
 /** Nara: Sanjō-dōri from the JNR station past Sarusawa-ike and Kōfuku-ji's
@@ -231,6 +268,7 @@ const NARA_LAND: FarLandPlan = {
     { lat: 34.6920, lon: 135.7925, rx: 650, rz: 600 },   // the Heijō palace site, open fields in 1986
   ],
   grass: [{ lat: 34.6905, lon: 135.8512, rx: 640, rz: 360 }],   // Wakakusa-yama's lawns, from its foot to the summit
+  autumn: .4, light: 240, haze: { away: '#8478a6', toward: '#d99a7c', metres: 9000 },
 };
 const NARA: StreetScene = {
   style: 3, terrain: 'slope',
@@ -247,7 +285,11 @@ const NARA: StreetScene = {
     { p: 1448, side: -1, kind: 'kasuga-torii', clearance: 11, length: 11, depth: 3 },
     { p: 2433, side: -1, kind: 'daibutsuden', clearance: 270, length: 62, depth: 56 },
   ],
-  street: { footbridges: [], guides: [{ p: 520, sign: guideIndex('奈良公園') }, { p: 1560, sign: guideIndex('東大寺') }] },
+  // Fallen maple leaves under the maples (`trees`: sectors 1-11, Sarusawa-ike to the summit).
+  street: { footbridges: [], guides: [{ p: 520, sign: guideIndex('奈良公園') }, { p: 1560, sign: guideIndex('東大寺') }], litter: [[1310, 6225]],
+    afternoonLeaves: { gold: .2, drifts: 12 },
+    // The driveway's climb through the Kasuga hill forest, cedars among its old broadleaves.
+    cedars: [[2785, 5580]], autumn: true },
   // From the summit the city lies below: the Great Buddha Hall and Kōfuku-ji's pagoda, the Ikoma ridge beyond.
   distant: [farLand(NARA_LAND), sky(NARA_ORIGIN, 34.6781, 135.6786, 80, mountain(560, 9000, 1.01, '#4a5468', '#e8e6ee')),
     sky(NARA_ORIGIN, 34.68899, 135.83987, 100, (b, random) => buildLandmark(b, 'daibutsuden', random), 520),
@@ -259,12 +301,14 @@ const NARA: StreetScene = {
     sky(NARA_ORIGIN, 34.699444, 135.8225, 117, (b, random) => buildLandmark(b, 'dreamland-castle', random)),
     sky(NARA_ORIGIN, 34.6781, 135.6786, 621, (b, random) => buildLandmark(b, 'ikoma-towers', random))],
   tokyoSkyline: false, snow: 0,
-  trees: { kind: 'momiji', sectors: [4, 5, 6, 7, 8, 9, 10], bothSides: true },
+  // From the Kasuga approach up: along Sanjō-dōri and Sarusawa-ike the view stays open to Kōfuku-ji's pagoda over the
+  // temple wall and to the pond, as the cutscene and its repaint show them (roadside crowns hid the pagoda).
+  trees: { kind: 'momiji', sectors: [3, 4, 5, 6, 7, 8, 9, 10, 11], bothSides: true },
   signs: 'nara',
   // Deer roam from Sanjō-dōri by Kōfuku-ji through the park to Tōdai-ji, a few in the hill forest, and graze the summit lawns.
   locals: [{ kind: 'deer', sectors: [1], density: .05 }, { kind: 'deer', sectors: [2, 3, 4, 5, 6], density: .15 }, { kind: 'deer', sectors: [7], density: .08 },
     { kind: 'deer', sectors: [8, 9, 10], density: .03 }, { kind: 'deer', sectors: [11], density: .12 }],
-  mood: { night: 'mountain', stars: .5, damp: .45, lamp: '#ffb468', daylight: [.9, .82, .7, .66, .8, .95] },
+  mood: { night: 'mountain', stars: .5, damp: .12, lamp: '#ffb468', daylight: [.96, .93, .9, .9, .93, .97], sun: 240 },
 };
 
 const SCENES: Readonly<Record<string, StreetScene>> = { 'tokyo-1986': TOKYO, 'irohazaka-1986': IROHAZAKA, 'aizu-wakamatsu-1986': AIZU, 'kyoto-1986': KYOTO, 'nara-1986': NARA };

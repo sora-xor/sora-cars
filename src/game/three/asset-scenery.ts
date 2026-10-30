@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { autumnFoliage } from './autumn-foliage';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
@@ -170,6 +171,8 @@ async function loadTemplates(): Promise<DetailedScenery> {
           leaves.alphaTest = 0.4;
           leaves.transparent = false;
           leaves.depthWrite = true;
+          // The autumn routes turn these crowns crimson, orange and gold (autumn-foliage.ts).
+          autumnFoliage(leaves);
         }
         treeMaterials.set(mesh.material.name, mesh.material);
       }

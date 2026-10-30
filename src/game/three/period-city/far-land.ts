@@ -38,6 +38,23 @@ export interface FarLandPlan {
   readonly parks: readonly FarLandArea[];
   /** Open grass hills, such as Wakakusa-yama's lawns. */
   readonly grass: readonly FarLandArea[];
+  /** Share of the wooded hills in late-autumn colour (crimson, orange and gold among the dark conifers), 0–1; the
+   * route cutscenes paint every hillside so (iroha-wide, nara-wide, aizu-right). Absent: evergreen. */
+  readonly autumn?: number;
+  /** Compass bearing (degrees) of the light that shades the slopes: the route's low sun. Absent: 90, the original
+   * shading, which brightens east-facing slopes. */
+  readonly light?: number;
+  /** The daylight haze the far ridges fade into: its colour away from and toward `light`, and the metres over which it
+   * takes 63% of a ridge, so ranges at different distances step apart as in the repaints' layered mountains. Absent:
+   * one lavender-grey haze all round over 9000 m. */
+  readonly haze?: { readonly away: string; readonly toward: string; readonly metres: number };
+  /** Draw the near wooded slopes crown by crown (a mountain road's own mountainside). Absent: plain colour. */
+  readonly canopy?: boolean;
+  /** How much brighter the near land stands in full afternoon light than at dusk (1 the default): an unlit far land
+   * tuned for dusk basins reads nearly black against a sunlit scene. The gain fades out between 1.2 and 3.5 km, so the
+   * far ridges keep their depth in the haze: lifted alike, they washed out pale pink where the Irohazaka repaints paint
+   * blue-violet mountains (laps .3 and .45). */
+  readonly dayGain?: number;
 }
 
 /** The land as an entry in a scene's far silhouettes; the skyline builds it instead of a far object. */
@@ -73,20 +90,88 @@ function landMaterial(uniforms: Record<string, THREE.IUniform>): THREE.ShaderMat
     name: 'Period far land', uniforms, fog: false, toneMapped: false,
     vertexShader: /* glsl */ `
       attribute vec3 landColour;
+      attribute float landWood;
+      uniform vec3 farSun;
+      uniform float farHaze;
       varying vec3 vColour;
       varying float vHaze;
+      varying float vSunward;
+      varying float vWood;
+      varying vec3 vWorld;
+      varying float vFar;
+      uniform vec2 farGainReach;
       ${SHELL_VERTEX}
       void main() {
         gl_Position = farPlace(position, 0.);
         vColour = landColour;
-        vHaze = 1. - exp(-farTrue / 9000.);
+        vHaze = 1. - exp(-farTrue / farHaze);
+        vFar = smoothstep(farGainReach.x, farGainReach.y, farTrue);
+        vWorld = (modelMatrix * vec4(position, 1.)).xyz;
+        // Ridges toward a route's low sun fade into its warm glow, as in the painted sky (z 0: no sun given).
+        vec3 d = vWorld - cameraPosition;
+        vSunward = farSun.z * smoothstep(-.25, 1., dot(normalize(d.xz + vec2(1e-5, 0.)), farSun.xy));
+        // Within about 3 km a wooded slope shows its crowns, each two art cells or more across.
+        vWood = landWood * (1. - smoothstep(1500., 3500., farTrue));
       }`,
     fragmentShader: /* glsl */ `
       uniform vec3 landTint;
       uniform vec3 hazeColour;
+      uniform vec3 hazeSunward;
+      uniform vec3 farSun;
+      uniform vec3 farCanopy;
+      uniform float farDayGain;
+      varying float vFar;
       varying vec3 vColour;
       varying float vHaze;
-      void main() { gl_FragColor = vec4(mix(vColour * landTint, hazeColour, vHaze), 1.); }`,
+      varying float vSunward;
+      varying float vWood;
+      varying vec3 vWorld;
+      float farHash(vec3 p) { return fract(sin(dot(p, vec3(127.1, 311.7, 74.7))) * 43758.5453); }
+      vec3 farHash3(vec3 p) { return fract(sin(vec3(dot(p, vec3(127.1, 311.7, 74.7)), dot(p, vec3(269.5, 183.3, 246.1)), dot(p, vec3(113.5, 271.9, 124.6)))) * 43758.5453); }
+      float farNoise(vec2 p) {
+        vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
+        return mix(mix(farHash(vec3(i, 0.)), farHash(vec3(i + vec2(1., 0.), 0.)), u.x), mix(farHash(vec3(i + vec2(0., 1.), 0.)), farHash(vec3(i + vec2(1., 1.), 0.)), u.x), u.y);
+      }
+      // The forest canopy on a near slope, crown by crown, anchored in the world. Stands about 90 m across are either
+      // broadleaf (crimson, orange and gold in farCanopy.y of them, a few still green) or dark conifer. Broadleaf crowns are
+      // rounded, conifers narrow spires (their cells stretched upright); every crown takes its own size, so they overlap in
+      // places and leave shaded gaps in others, and clumps of leaves light and shade its inside. A lattice of equal crowns
+      // with even seams read as cobblestones.
+      vec3 canopy(vec3 base) {
+        float stand = farNoise(vWorld.xz / 90.) * .75 + farNoise(vWorld.xz / 31. + 7.) * .25;
+        bool conifer = stand > farCanopy.y;
+        vec3 scale = conifer ? vec3(4.2, 9., 4.2) : vec3(farCanopy.x, farCanopy.x * .8, farCanopy.x);
+        vec3 q = vWorld / scale, cell = floor(q);
+        float best = 9.; vec3 nearest = vec3(0.), seed = vec3(0.); float radius = .5;
+        for (int i = 0; i < 27; i++) {
+          vec3 c = cell + vec3(float(i % 3 - 1), float(i / 3 % 3 - 1), float(i / 9 - 1)), feature = c + farHash3(c) * .9 + .05;
+          // Each crown its own size: the distance is measured against its radius, so big crowns win over small ones.
+          float r = .38 + .34 * farHash(c + 9.1), d = length(q - feature) / r;
+          if (d < best) { best = d; nearest = feature; seed = c; radius = r; }
+        }
+        // Broadleaf crowns take their colour by the grove: a colour field about 70 m across, with a little play from crown to
+        // crown, so a slope reads as groves of crimson, orange and gold. One random tone per crown read as polka dots.
+        vec2 at = nearest.xz * scale.xz;
+        float grove = farNoise(at / 70. + 13.) * .7 + farNoise(at / 23. - 5.) * .3 + (farHash(seed + 41.7) - .5) * .16;
+        vec3 tone = conifer ? vec3(.06, .12, .07)
+          : grove < .44 ? vec3(.64, .12, .04) : grove < .58 ? vec3(.82, .3, .06) : grove < .68 ? vec3(.8, .54, .12) : vec3(.14, .24, .08);
+        float value = dot(base, vec3(.2126, .7152, .0722)), own = dot(tone, vec3(.2126, .7152, .0722));
+        vec2 sun = farSun.z > 0. ? farSun.xy : vec2(-1., 0.);
+        vec3 o = (q - nearest) * vec3(1., conifer ? .5 : 1., 1.);
+        vec3 normal = normalize(o + vec3(0., .45, 0.)), light = normalize(vec3(sun.x, .7, sun.y));
+        float lit = clamp(dot(normal, light) * .55 + .5, 0., 1.);
+        // Clumps of leaves inside the crown: a finer world-anchored noise brightens some and shades others.
+        float clump = farNoise(vWorld.xz / (conifer ? 1.6 : 2.4) + vWorld.y * .3) * .6 + farNoise(vWorld.xz / .9 - vWorld.y * .5) * .4;
+        vec3 leaves = tone * (value / own) * (.62 + 1. * lit) * (.75 + .5 * clump) * (.88 + .24 * farHash(seed + 3.1));
+        // Inside the crown (best < 1) its leaves; outside, the shaded understory, darker the farther from any crown.
+        float inside = 1. - smoothstep(.82, 1.08, best + (clump - .5) * .25);
+        vec3 shade = mix(base * .7, tone * (value / own) * .45, .4);
+        return mix(shade, leaves, inside);
+      }
+      void main() {
+        vec3 ground = vWood > .01 ? mix(vColour, canopy(vColour), vWood * farCanopy.z) : vColour;
+        gl_FragColor = vec4(mix(ground * landTint * mix(farDayGain, 1., vFar), mix(hazeColour, hazeSunward, vSunward), vHaze), 1.);
+      }`,
   });
 }
 
@@ -125,15 +210,29 @@ export class FarLand {
   private readonly uniforms = {
     farShell: { value: SHELL }, farDepth: { value: DEPTH }, farPixels: { value: new THREE.Vector2(800, 3) }, farNight: cityGroundLights,
     landTint: { value: new THREE.Color() }, hazeColour: { value: new THREE.Color() },
+    hazeSunward: { value: new THREE.Color() }, farSun: { value: new THREE.Vector3() }, farHaze: { value: 9000 },
+    // x crown spacing (m), y the share of crowns in autumn colour (the plan's `autumn`), z the canopy's strength (0 off).
+    farCanopy: { value: new THREE.Vector3(9, 0, 0) },
+    // The day gain at this hour, and the distances (m) over which it fades out.
+    farDayGain: { value: 1 }, farGainReach: { value: new THREE.Vector2(1200, 3500) },
   };
   private readonly land: THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>;
   private readonly lights: THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>;
   private readonly night = { tint: new THREE.Color('#5d5878'), haze: new THREE.Color('#3f3a58') };
   private readonly dusk = { tint: new THREE.Color('#d8c4c0'), haze: new THREE.Color('#8f7f98') };
+  /** The plan's own daylight haze, away from and toward its light (`plan.haze`), if any. */
+  private readonly dayHaze: { readonly away: THREE.Color; readonly toward: THREE.Color } | null;
+  private readonly dayGain: number;
 
   constructor(plan: FarLandPlan) {
     this.group.name = 'SORA far land';
     const { grid, origin, floor } = plan, heights = farLandHeights(grid), random = seeded(hashInts(grid.rows, grid.cols, 1986));
+    // Toward the sun in render XZ (X west, Z north).
+    if (plan.light !== undefined) this.uniforms.farSun.value.set(-Math.sin(plan.light * Math.PI / 180), Math.cos(plan.light * Math.PI / 180), 1);
+    this.dayHaze = plan.haze ? { away: new THREE.Color(plan.haze.away), toward: new THREE.Color(plan.haze.toward) } : null;
+    this.uniforms.farHaze.value = plan.haze?.metres ?? 9000;
+    this.uniforms.farCanopy.value.set(9, plan.autumn ?? 0, plan.canopy ? 1 : 0);
+    this.dayGain = plan.dayGain ?? 1;
     const east = NORTH_METRES * Math.cos(origin.lat * Math.PI / 180);
     const place = (lat: number, lon: number) => ({ x: -(lon - origin.lon) * east, z: (lat - origin.lat) * NORTH_METRES });
     const heightAt = (lat: number, lon: number) => {
@@ -153,19 +252,32 @@ export class FarLand {
     // Ground: late-autumn paddies on the floor, wooded hills, grey roofs in the towns, dark parks, golden lawns.
     const fields = new THREE.Color('#6a5f45'), forest = new THREE.Color('#29352f'), roofs = new THREE.Color('#5f5a66');
     const park = new THREE.Color('#2b332d'), lawn = new THREE.Color('#9a8450'), colour = new THREE.Color();
-    const positions = new Float32Array(grid.rows * grid.cols * 3), colours = new Float32Array(grid.rows * grid.cols * 3);
+    // Late-autumn broadleaf stands, in patches about a kilometre across among the conifers.
+    const turned = [new THREE.Color('#7c2a20'), new THREE.Color('#9c4a22'), new THREE.Color('#9a7428')], autumn = plan.autumn ?? 0;
+    const patch = (lat: number, lon: number, scale: number, salt: number) => {
+      const x = lon * east / scale, z = lat * NORTH_METRES / scale, ix = Math.floor(x), iz = Math.floor(z), fx = x - ix, fz = z - iz;
+      const v = (a: number, b: number) => hashInts(a, b, salt) / 4294967296;
+      const u = fx * fx * (3 - 2 * fx), w = fz * fz * (3 - 2 * fz);
+      return (v(ix, iz) * (1 - u) + v(ix + 1, iz) * u) * (1 - w) + (v(ix, iz + 1) * (1 - u) + v(ix + 1, iz + 1) * u) * w;
+    };
+    const positions = new Float32Array(grid.rows * grid.cols * 3), colours = new Float32Array(grid.rows * grid.cols * 3), wood = new Float32Array(grid.rows * grid.cols);
     const dLat = (grid.north - grid.south) / (grid.rows - 1), dLon = (grid.east - grid.west) / (grid.cols - 1);
     const cellX = dLon * east, cellZ = dLat * NORTH_METRES;
+    const bearing = (plan.light ?? 90) * Math.PI / 180, lightEast = Math.sin(bearing), lightNorth = Math.cos(bearing);
     for (let r = 0; r < grid.rows; r++) for (let c = 0; c < grid.cols; c++) {
       const i = r * grid.cols + c, lat = grid.south + r * dLat, lon = grid.west + c * dLon, h = heights[i]!, at = place(lat, lon);
       positions.set([at.x, h, at.z], i * 3);
       const hill = THREE.MathUtils.smoothstep(h, floor, floor + 70);
-      colour.copy(fields).lerp(forest, hill).lerp(roofs, most(plan.towns, lat, lon) * (1 - hill * .6))
-        .lerp(park, most(plan.parks, lat, lon)).lerp(lawn, most(plan.grass, lat, lon));
-      // Evening light from the west on slopes that face it, and a little grain for the art cells to catch.
-      const west = (heights[r * grid.cols + Math.max(c - 1, 0)]! - heights[r * grid.cols + Math.min(c + 1, grid.cols - 1)]!) / (2 * cellX);
+      const town = most(plan.towns, lat, lon), parkland = most(plan.parks, lat, lon), grassland = most(plan.grass, lat, lon);
+      colour.copy(forest);
+      if (autumn > 0 && patch(lat, lon, 900, 7) < autumn) colour.lerp(turned[Math.floor(patch(lat, lon, 420, 11) * 3) % 3]!, .55 + .45 * random());
+      colour.lerp(fields, 1 - hill).lerp(roofs, town * (1 - hill * .6)).lerp(park, parkland).lerp(lawn, grassland);
+      wood[i] = hill * (1 - town) * (1 - parkland) * (1 - grassland);
+      // The low sun on slopes that face it, and a little grain for the art cells to catch.
+      const dEast = (heights[r * grid.cols + Math.min(c + 1, grid.cols - 1)]! - heights[r * grid.cols + Math.max(c - 1, 0)]!) / (2 * cellX);
       const north = (heights[Math.min(r + 1, grid.rows - 1) * grid.cols + c]! - heights[Math.max(r - 1, 0) * grid.cols + c]!) / (2 * cellZ);
-      colour.multiplyScalar(THREE.MathUtils.clamp(1 + west * 1.6 - north * .4, .6, 1.35) * (.92 + random() * .16));
+      const facing = -(dEast * lightEast + north * lightNorth);
+      colour.multiplyScalar(THREE.MathUtils.clamp(1 + facing * 1.6 - north * .4, .6, 1.35) * (.92 + random() * .16));
       colours.set([colour.r, colour.g, colour.b], i * 3);
     }
     const index: number[] = [];
@@ -177,6 +289,7 @@ export class FarLand {
     const ground = new THREE.BufferGeometry();
     ground.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     ground.setAttribute('landColour', new THREE.BufferAttribute(colours, 3));
+    ground.setAttribute('landWood', new THREE.BufferAttribute(wood, 1));
     ground.setIndex(index);
     this.land = new THREE.Mesh(ground, landMaterial(this.uniforms));
     this.land.name = 'Period far land'; this.land.frustumCulled = false;
@@ -239,7 +352,9 @@ export class FarLand {
   update(daylight: number): void {
     const t = THREE.MathUtils.smoothstep(daylight, .2, 1);
     this.uniforms.landTint.value.lerpColors(this.night.tint, this.dusk.tint, t);
-    this.uniforms.hazeColour.value.lerpColors(this.night.haze, this.dusk.haze, t);
+    this.uniforms.farDayGain.value = THREE.MathUtils.lerp(1, this.dayGain, THREE.MathUtils.smoothstep(daylight, .6, .95));
+    this.uniforms.hazeColour.value.lerpColors(this.night.haze, this.dayHaze?.away ?? this.dusk.haze, t);
+    this.uniforms.hazeSunward.value.lerpColors(this.night.haze, this.dayHaze?.toward ?? this.dusk.haze, t);
   }
 
   dispose(): void {

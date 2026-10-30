@@ -360,21 +360,62 @@ function nikkoStation(b: CityMeshBuilder, random: Random): void {
   b.window = [random() * .3, WINDOW_KIND.lobby]; b.colour.set('#4a4038'); b.front('glass', -3, 3, .2, 3.2, 3.95);
 }
 
-/** The unpainted five-storey pagodas of Kyoto and Nara: dark timber, white plaster,
- * grey tiles and a bronze sōrin. Tōji's (1644) is 55 m, Kōfuku-ji's (1426) 50 m,
- * Yasaka's (Hōkan-ji, 1440) 46 m. Yakushi-ji's pair, 34 m, are drawn the same way
- * at their distance, the west one (rebuilt 1981) in fresh vermilion. */
-function timberPagoda(b: CityMeshBuilder, random: Random, height: number, wood = '#4a3428'): void {
+/**
+ * A pagoda roof with its corners turned up (反り): each side falls from the top ring to an eave that runs level at the
+ * middle and lifts `lift` at the corners, with a thick tile edge and a dark soffit. Flat eaves read as thin slabs.
+ */
+function pagodaRoof(b: CityMeshBuilder, tile: string, z: number, eave: number, top: number, low: number, high: number, lift: number, edge: number): void {
+  const corner = (sx: number, sz: number, r: number, y: number): Vec3 => [sx * r, y, z + sz * r];
+  const sides: readonly (readonly [number, number, number, number, Vec3])[] = [[-1, -1, 1, -1, [0, 1, -1]], [1, -1, 1, 1, [1, 1, 0]], [1, 1, -1, 1, [0, 1, 1]], [-1, 1, -1, -1, [-1, 1, 0]]];
+  for (const [ax, az, bx, bz, hint] of sides) {
+    const a = corner(ax, az, eave, low + lift), c = corner(bx, bz, eave, low + lift), m: Vec3 = [(a[0] + c[0]) / 2, low, (a[2] + c[2]) / 2];
+    const ta = corner(ax, az, top, high), tc = corner(bx, bz, top, high);
+    b.colour.set(tile);
+    b.face('roof', [a, m, ta], hint); b.face('roof', [m, tc, ta], hint); b.face('roof', [m, c, tc], hint);
+    // The tile edge, as deep as the tiles' thickness, along both halves of the eave.
+    const out: Vec3 = [hint[0], 0, hint[2]];
+    b.colour.set(tile).multiplyScalar(.72);
+    for (const [p, q] of [[a, m], [m, c]] as const) b.face('roof', [p, q, [q[0], q[1] - edge, q[2]], [p[0], p[1] - edge, p[2]]], out);
+  }
+  b.colour.set('#2a2224'); b.flat('roof', -eave, eave, z - eave, z + eave, low - edge - .02, -1);
+}
+/**
+ * The unpainted five-storey pagodas of Kyoto and Nara, as the Nara cutscene and its repaints paint Kōfuku-ji over
+ * Sarusawa-ike: dark timber on every face (posts, a plank door, latticed side bays, plaster only in a band under the
+ * beams), a railed veranda round each storey, a ring of bracket sets under deep grey-tiled eaves whose corners turn up,
+ * and a bronze sōrin. Plaster walls with posts on one face read as a white tower. Tōji's (1644) is 55 m, Kōfuku-ji's
+ * (1426) 50 m, Yasaka's (Hōkan-ji, 1440) 46 m. Yakushi-ji's pair, 34 m, are drawn the same way at their distance, the
+ * west one (rebuilt 1981) in fresh vermilion.
+ */
+function timberPagoda(b: CityMeshBuilder, height: number, wood = '#4a3428'): void {
   const s = height / 50, z = 10 * s, plaster = '#e6dfcf', tile = '#4b4f55', bronze = '#6b5a3a';
+  const post = new THREE.Color(wood).multiplyScalar(.72), door = new THREE.Color(wood).multiplyScalar(.82);
   block(b, 'stone', '#8a8478', -7.4 * s, 7.4 * s, -.3, 1.4 * s, z - 7.4 * s, z + 7.4 * s);
   let y = 1.4 * s;
   for (let i = 0; i < 5; i++) {
-    const w = (4.6 - i * .45) * s, h = 3.4 * s, eave = w + 3.4 * s;
-    block(b, 'floodlit', plaster, -w, w, y, y + h, z - w, z + w);
-    for (const x of [-w, -w / 3, w / 3, w]) block(b, 'wall', wood, x - .28 * s, x + .28 * s, y, y + h, z - w - .06, z - w + .4 * s, 'bk');
-    block(b, 'wall', wood, -w - .12, w + .12, y + h - .7 * s, y + h, z - w - .12, z + w + .12);
-    b.window = [random() * .5, WINDOW_KIND.home]; b.colour.set('#3a2a20'); b.front('glass', -.8 * s, .8 * s, y + .3, y + h - .9 * s, z - w - .08);
-    skirt(b, tile, 0, z, eave, eave, w + .3 * s, w + .3 * s, y + h + .2 * s, y + h + 1.9 * s);
+    const w = (4.6 - i * .45) * s, h = 3.4 * s, eave = w + 3.4 * s, deck = w + .7 * s;
+    block(b, 'floodlit', wood, -w, w, y, y + h, z - w, z + w);
+    // Every face: the plaster band under the beams, four posts, the plank door in the middle bay and latticed side bays.
+    const faces: readonly (readonly [number, number])[] = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+    for (const [fx, fz] of faces) {
+      const at = (u: number, out: number, y0: number, y1: number, half: number, depth: number, colour: string | THREE.Color) => {
+        const cx = fx ? fx * (w + out) : u, cz = z + (fz ? fz * (w + out) : u);
+        const hx = fx ? depth / 2 : half, hz = fz ? depth / 2 : half;
+        block(b, 'wall', colour, cx - hx, cx + hx, y0, y1, cz - hz, cz + hz, 'b');
+      };
+      at(0, .02, y + h - 1.05 * s, y + h - .6 * s, w, .06, plaster);
+      for (const u of [-w, -w / 3, w / 3, w]) at(u, .1 * s, y, y + h, .26 * s, .24 * s, post);
+      at(0, .03, y + .25 * s, y + h - 1.15 * s, w / 3 - .3 * s, .06, door);
+      for (const side of [-1, 1]) for (let k = 0; k < 4; k++) at(side * (w * 2 / 3) + (k - 1.5) * .34 * s, .06, y + 1 * s, y + h - 1.25 * s, .05 * s, .1, post);
+    }
+    // The veranda: a deck round the storey on its beams, and a rail on short posts.
+    block(b, 'wall', post, -deck, deck, y - .05 * s, y + .15 * s, z - deck, z + deck);
+    for (const [x0, x1, z0, z1] of [[-deck, deck, -deck, -deck + .1 * s], [-deck, deck, deck - .1 * s, deck], [-deck, -deck + .1 * s, -deck, deck], [deck - .1 * s, deck, -deck, deck]] as const)
+      block(b, 'wall', wood, x0, x1, y + .75 * s, y + .85 * s, z + z0, z + z1, 'b');
+    // The bracket sets (組物) under the eaves: a stepped ring of dark timber.
+    block(b, 'wall', post, -w - .7 * s, w + .7 * s, y + h - .15 * s, y + h + .3 * s, z - w - .7 * s, z + w + .7 * s);
+    block(b, 'wall', post, -w - 1.5 * s, w + 1.5 * s, y + h + .3 * s, y + h + .65 * s, z - w - 1.5 * s, z + w + 1.5 * s);
+    pagodaRoof(b, tile, z, eave, w + .3 * s, y + h + .55 * s, y + h + 2.1 * s, .75 * s, .32 * s);
     y += h + 2.9 * s;
   }
   // The sōrin: a bronze mast with nine rings above the top roof.
@@ -523,14 +564,54 @@ function minamiza(b: CityMeshBuilder, random: Random): void {
 /** Keage power station (1912) on the Lake Biwa canal: a long two-storey hall of red brick with
  * stone string courses and tall paired windows, under a slate hipped roof. */
 function keagePower(b: CityMeshBuilder, random: Random): void {
-  const brick = '#8c3f2c', stone = '#cfc6b4';
-  block(b, 'floodlit', brick, -30, 30, -.3, 12, 0, 20);
-  for (const y of [5.6, 11.4]) block(b, 'floodlit', stone, -30.2, 30.2, y, y + .5, -.1, 20.1);
+  const brick = '#8c3f2c', stone = '#cfc6b4', dark = '#2a2422';
+  // The canal (琵琶湖疏水) along its front: stone embankments down to the water, a rail on the road side, stairs at one end.
+  b.colour.set('#8e8678'); b.flat('stone', -34, 34, -9.2, -1.4, -.04);
+  b.colour.set('#7e7668'); b.front('stone', -34, 34, -2.8, -.04, -8.4, 1); b.front('stone', -34, 34, -2.8, -.04, -2.6, -1);
+  b.colour.set('#ffffff'); b.flat('water', -34, 34, -8.4, -2.6, -2.4);
+  b.colour.set('#3a3a3e');
+  for (let x = -34; x <= 34; x += 2.4) b.box('metal', x - .04, x + .04, -.04, 1.05, -8.6, -8.5, 'b');
+  b.box('metal', -34, 34, .98, 1.06, -8.62, -8.48, 'b');
+  for (let k = 0; k < 9; k++) block(b, 'stone', '#9a9284', 22 + k * .45, 22.45 + k * .45, -2.4 + k * .27, -2.1 + k * .27, -8.4, -6.8, 'b');
+  // The stone plinth, the brick walls between pilasters, stone string courses and a cornice with its parapet.
+  block(b, 'floodlit', stone, -30.2, 30.2, -.3, 1.4, -.1, 20.1);
+  block(b, 'floodlit', brick, -30, 30, 1.4, 12.6, 0, 20, 'b');
+  for (let i = 0; i <= 12; i++) { const x = -30 + i * 5; block(b, 'floodlit', i % 6 === 0 ? stone : brick, x - .35, x + .35, 1.4, 12.6, -.25, 0, 'bk'); }
+  for (const y of [6.2, 12.6]) block(b, 'floodlit', stone, -30.4, 30.4, y, y + .45, -.35, 20.2, 'b');
+  block(b, 'floodlit', brick, -30.2, 30.2, 13.05, 14.1, -.2, 20.1, 'b');
+  block(b, 'floodlit', stone, -30.4, 30.4, 14.1, 14.35, -.3, 20.2, 'b');
+  // Tall arched windows, lit by the machine hall within: a pane with a round head (a polygon) in a stone surround.
   for (let i = 0; i < 12; i++) {
     const x = -27.5 + i * 5;
-    for (const [y0, y1] of [[1.4, 5], [6.9, 10.7]] as const) { b.window = [random() * .3, WINDOW_KIND.dark]; b.colour.set('#2e2a2a'); b.front('glass', x - 1.1, x + 1.1, y0, y1, -.03); }
+    for (const [y0, y1] of [[2.1, 5.5], [7.2, 11.6]] as const) {
+      const w = 1.25, spring = y1 - w;
+      b.window = [random() * .3, WINDOW_KIND.lobby]; b.colour.set('#4a3a2e');
+      b.front('glass', x - w, x + w, y0, spring, -.03);
+      for (let s = 0; s < 6; s++) {
+        const a0 = Math.PI * s / 6, a1 = Math.PI * (s + 1) / 6;
+        b.face('glass', [[x, spring, -.03], [x + Math.cos(a0) * w, spring + Math.sin(a0) * w, -.03], [x + Math.cos(a1) * w, spring + Math.sin(a1) * w, -.03]], [0, 0, -1]);
+      }
+      // The arch's stone voussoirs and keystone, and the sill.
+      b.colour.set(stone);
+      for (let s = 0; s < 6; s++) {
+        const a0 = Math.PI * s / 6, a1 = Math.PI * (s + 1) / 6, r0 = w, r1 = w + .32;
+        b.face('floodlit', [[x + Math.cos(a0) * r0, spring + Math.sin(a0) * r0, -.08], [x + Math.cos(a0) * r1, spring + Math.sin(a0) * r1, -.08],
+          [x + Math.cos(a1) * r1, spring + Math.sin(a1) * r1, -.08], [x + Math.cos(a1) * r0, spring + Math.sin(a1) * r0, -.08]], [0, 0, -1]);
+      }
+      block(b, 'floodlit', stone, x - .22, x + .22, y1 - .05, y1 + .45, -.14, 0, 'bk');
+      block(b, 'floodlit', stone, x - w - .15, x + w + .15, y0 - .22, y0, -.18, 0, 'bk');
+      b.colour.set(dark);
+      b.box('metal', x - .03, x + .03, y0, spring + w * .9, -.06, -.02, 'bkt');
+      b.box('metal', x - w, x + w, (y0 + spring) / 2 - .03, (y0 + spring) / 2 + .03, -.06, -.02, 'bkt');
+    }
   }
-  hipRoof(b, '#3e4044', -30.8, 30.8, -.8, 20.8, 12, 16.5);
+  // A low hipped roof behind the parapet, and period lamps along the canal rail.
+  hipRoof(b, '#3e4044', -30.6, 30.6, -.6, 20.6, 14.1, 17.6);
+  for (let x = -30; x <= 30; x += 12) {
+    block(b, 'metal', '#2e3032', x - .08, x + .08, -.04, 3.6, -8.9, -8.75, 'b');
+    b.colour.set('#ffd08a'); b.box('lamp', x - .22, x + .22, 3.6, 4.1, -9.05, -8.6, 'b');
+    b.beacon(x, 3.85, -8.8, 2.6, 1.7, .9, .5);
+  }
 }
 /** The Kyoto City Museum of Art (1933) at Okazaki, in the Imperial Crown style: long tan wings
  * either side of a central block crowned by a tiled Japanese roof. */
@@ -614,13 +695,13 @@ const BUILDERS: Readonly<Record<PeriodLandmarkKind, (b: CityMeshBuilder, random:
   diet, budokan, 'kudan-kaikan': kudanKaikan, 'national-theatre': nationalTheatre, justice, police,
   daiichi, kaijo, 'palace-side': palaceSide, jack, queen, king, pagoda, fujiya, 'new-grand': newGrand,
   zenrinmon, 'nikko-station': nikkoStation,
-  'pagoda-toji': (b, random) => timberPagoda(b, random, 55), 'pagoda-yasaka': (b, random) => timberPagoda(b, random, 46),
-  'pagoda-kofukuji': (b, random) => timberPagoda(b, random, 50), 'tsuruga-keep': tsurugaKeep, sazaedo,
+  'pagoda-toji': b => timberPagoda(b, 55), 'pagoda-yasaka': b => timberPagoda(b, 46),
+  'pagoda-kofukuji': b => timberPagoda(b, 50), 'tsuruga-keep': tsurugaKeep, sazaedo,
   'kyoto-tower': kyotoTower, 'yasaka-gate': yasakaGate, nandaimon, daibutsuden, 'nara-station': naraStation,
   'honganji-goeido': (b, random) => honganjiHall(b, random, 76, 58, 38), 'honganji-amidado': (b, random) => honganjiHall(b, random, 52, 47, 29),
   'nishi-goeido': (b, random) => honganjiHall(b, random, 62, 48, 29), minamiza, 'keage-power': keagePower, 'kyoto-museum': kyotoMuseum,
   'kyoto-station-1952': kyotoStation1952, otenmon, 'kasuga-torii': kasugaTorii,
-  'pagoda-yakushiji': (b, random) => timberPagoda(b, random, 34), 'pagoda-yakushiji-west': (b, random) => timberPagoda(b, random, 34, '#b8402e'),
+  'pagoda-yakushiji': b => timberPagoda(b, 34), 'pagoda-yakushiji-west': b => timberPagoda(b, 34, '#b8402e'),
   'dreamland-castle': dreamlandCastle, 'ikoma-towers': ikomaTowers,
 };
 export function isBuildingLandmark(kind: string): kind is PeriodLandmarkKind { return kind in BUILDERS; }

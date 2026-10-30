@@ -12,6 +12,8 @@ import { buildOpenGround } from './open-ground';
 import { PeriodSky } from './sky';
 import { PeriodSkyline, type PeriodDistant } from './skyline';
 import { buildStreet } from './street';
+import { setAutumnFoliage } from '../autumn-foliage';
+import { floraMeshes } from './flora';
 
 export { setPeriodCityLampHeads, setPeriodCityLighting } from './materials';
 export { MovingFarLights } from './far-lights';
@@ -65,6 +67,7 @@ export class PeriodCity {
     readonly distant?: readonly PeriodDistant[]; readonly snow?: number; readonly signs?: SignPools | null }): void {
     this.clear();
     this.layout = createPeriodCityLayout(course, options);
+    setAutumnFoliage(this.layout.street.autumn ? 1 : 0);
     this.snow = options.snow ?? 0; this.signs = options.signs ?? null;
     this.group.add(this.people.mesh, this.people.shadows);
     this.sky = new PeriodSky(this.layout, this.emblemUrl); this.group.add(this.sky.group);
@@ -75,6 +78,7 @@ export class PeriodCity {
   }
 
   clear(): void {
+    setAutumnFoliage(0);
     this.skyline?.dispose(); this.skyline = null;
     this.sky?.dispose(); this.sky = null;
     for (const chunk of this.chunks.values()) this.dispose(chunk);
@@ -171,13 +175,18 @@ export class PeriodCity {
     // The overhead wires as screen-space lines (wires.ts).
     const wires = cityWires(builder.wires);
     if (wires) group.add(wires);
+    // The modelled maples, cedars and grass of the autumn routes (flora.ts).
+    for (const mesh of floraMeshes(builder.flora)) group.add(mesh);
     group.updateMatrixWorld(true);
     this.group.add(group);
     return { group, fixtures, triangles: builder.triangles, used: this.frame };
   }
 
   private dispose(chunk: Chunk): void {
-    chunk.group.traverse(object => { if (object instanceof THREE.Mesh || object instanceof THREE.Points) object.geometry.dispose(); });
+    chunk.group.traverse(object => {
+      if (object instanceof THREE.BatchedMesh) object.dispose();
+      else if (object instanceof THREE.Mesh || object instanceof THREE.Points) object.geometry.dispose();
+    });
     this.group.remove(chunk.group);
   }
 }

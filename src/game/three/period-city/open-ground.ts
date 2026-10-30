@@ -1,9 +1,10 @@
 import * as THREE from 'three';
-import type { CityMeshBuilder, CityMaterialKey, Vec3 } from './geometry';
+import { WINDOW_KIND, type CityMeshBuilder, type CityMaterialKey, type Vec3 } from './geometry';
 import { MOAT, RIVER, hashInts, moatWidth, periodCityReach, poseAt, seeded, landmarkFootprint,
   type PeriodCityLayout, type PeriodCrossing, type PeriodLandmark, type PeriodOpenRun } from './layout';
 import { SORA_BOARDS, signIndex, signPrint } from './signs';
 import { buildLandmark, isBuildingLandmark } from './landmarks';
+import { FLORA_KIND } from './flora';
 
 /**
  * The palace side of the route: Uchibori's moats (a grass bank, dark water,
@@ -100,6 +101,18 @@ function moat(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, 
     strip(b, 'ground', s0, s1, s => profile(s).wall + MOAT.batter, MOAT.top, s => profile(s).top, MOAT.top, () => UP);
     b.colour.copy(shade(stone, .7));
     strip(b, 'stone', s0, s1, s => profile(s).top, MOAT.top, s => profile(s).top, -.3, away);
+    // Black pines (黒松) along the top of a castle moat's wall, leaning out over the water (the autumn routes' Tsuruga-jō
+    // and Nijō-jō; flora.ts), one every eight to twelve metres.
+    if (layout.street.autumn) {
+      const station = Math.round(s0.p / STEP), pines = seeded(hashInts(station, run.side, 61));
+      if (station % 3 === 0 && pines() < .8) {
+        const base = at(s0, profile(s0).wall + MOAT.batter + 1 + pines() * 3, MOAT.top);
+        b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+        // Local -Z faces the road (the lot frame's convention), so a pine leans toward the water at a yaw near pi.
+        b.plant(FLORA_KIND.pine, 0, 0, 0, Math.PI + (pines() - .5) * 1.2, .8 + pines() * .45, .1, .2, .09, Math.floor(pines() * 1000));
+        b.frame(0, 0, 0, 0);
+      }
+    }
     // White plaster walls (塀) with a tiled cap along some stretches.
     const random = seeded(hashInts(Math.floor(s0.p / 120), run.side, 77));
     if (random() < .45) {
@@ -267,6 +280,58 @@ function shrine(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
  * five white rules of a high-ranking temple's 筋塀, behind a granite curb, and
  * stone lanterns inside. Unlike a shrine there is no torii.
  */
+/** A prism (or frustum) of `sides` faces in the current frame, `r0` at y0 narrowing (or widening) to `r1` at y1, capped. */
+function prism(b: CityMeshBuilder, key: CityMaterialKey, sides: number, r0: number, y0: number, r1: number, y1: number, turn = 0, caps = true): void {
+  const ring = (r: number, y: number) => Array.from({ length: sides }, (_, i) => {
+    const a = turn + i / sides * Math.PI * 2; return [Math.cos(a) * r, y, Math.sin(a) * r] as Vec3;
+  });
+  const low = ring(r0, y0), high = ring(r1, y1), slope = (r0 - r1) / Math.max(.01, y1 - y0);
+  for (let i = 0; i < sides; i++) {
+    const j = (i + 1) % sides, a = turn + (i + .5) / sides * Math.PI * 2;
+    b.face(key, [low[i]!, low[j]!, high[j]!, high[i]!], [Math.cos(a), slope, Math.sin(a)]);
+  }
+  if (!caps) return;
+  for (let i = 1; i < sides - 1; i++) {
+    b.face(key, [high[0]!, high[i]!, high[i + 1]!], [0, 1, 0]);
+    b.face(key, [low[0]!, low[i + 1]!, low[i]!], [0, -1, 0]);
+  }
+}
+/**
+ * A Kasuga stone lantern (春日灯籠) in the current frame, standing on its base at the origin: a hexagonal footing, a
+ * round post with a collar, the lotus-carved middle platform, the firebox (its windows lit at dusk), a hexagonal roof
+ * whose six corners curl up (蕨手), and the jewel finial. About 2.3 m tall, as the lanterns lining Nara's and Kyoto's
+ * temple walls and ponds.
+ */
+function stoneLantern(b: CityMeshBuilder, scale = 1): void {
+  const s = scale, granite = new THREE.Color('#9a958b');
+  b.colour.copy(granite).multiplyScalar(.85);
+  prism(b, 'wall', 6, .5 * s, 0, .42 * s, .22 * s);
+  b.colour.copy(granite);
+  prism(b, 'wall', 8, .15 * s, .22 * s, .13 * s, 1.1 * s, 0, false);
+  prism(b, 'wall', 8, .19 * s, .62 * s, .19 * s, .7 * s);
+  prism(b, 'wall', 6, .2 * s, 1.1 * s, .44 * s, 1.24 * s);
+  prism(b, 'wall', 6, .44 * s, 1.24 * s, .4 * s, 1.34 * s);
+  // The firebox: posts at the corners and the lit paper behind its open windows.
+  b.colour.set('#ffbe73'); prism(b, 'lamp', 6, .22 * s, 1.36 * s, .22 * s, 1.72 * s, Math.PI / 6);
+  b.colour.copy(granite).multiplyScalar(.95);
+  for (let i = 0; i < 6; i++) {
+    const a = i / 6 * Math.PI * 2, x = Math.cos(a) * .27 * s, z = Math.sin(a) * .27 * s;
+    b.box('wall', x - .05 * s, x + .05 * s, 1.34 * s, 1.76 * s, z - .05 * s, z + .05 * s, 'b');
+  }
+  prism(b, 'wall', 6, .3 * s, 1.34 * s, .3 * s, 1.38 * s);
+  // The roof: a broad, low hexagonal hat, its corners curling up.
+  b.colour.copy(granite).multiplyScalar(.9);
+  prism(b, 'wall', 6, .62 * s, 1.76 * s, .62 * s, 1.84 * s);
+  prism(b, 'wall', 6, .62 * s, 1.84 * s, .14 * s, 2.08 * s, 0, false);
+  for (let i = 0; i < 6; i++) {
+    const a = i / 6 * Math.PI * 2, x = Math.cos(a) * .6 * s, z = Math.sin(a) * .6 * s;
+    b.box('wall', x - .045 * s, x + .045 * s, 1.84 * s, 1.97 * s, z - .045 * s, z + .045 * s, 'b');
+  }
+  b.colour.copy(granite);
+  prism(b, 'wall', 6, .1 * s, 2.08 * s, .07 * s, 2.14 * s);
+  prism(b, 'wall', 8, .09 * s, 2.14 * s, .01 * s, 2.32 * s, 0, false);
+}
+
 function temple(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
   const list = sections(layout, run, from, to, 40), wall = MOAT.curb + 1.2;
   for (let i = 0; i < list.length - 1; i++) {
@@ -277,18 +342,69 @@ function temple(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
     strip(b, 'floodlit', s0, s1, () => wall, .45, () => wall, 3.4, toRoad);
     b.colour.set('#f1ece0');
     for (const y of [1.1, 1.55, 2, 2.45, 2.9]) strip(b, 'floodlit', s0, s1, () => wall - .02, y, () => wall - .02, y + .1, toRoad);
-    b.colour.set('#43474c');
-    strip(b, 'roof', s0, s1, () => wall - .55, 3.35, () => wall + .4, 3.95, () => UP);
-    if (Math.round(s0.p / STEP) % 6 === 0) {
-      const base = at(s0, wall + 5, 0);
+    // The coping: a small tiled roof (築地塀の瓦屋根) over the wall's thickness, eaves out both sides, a ridge of round tiles.
+    const ridge = wall + .45, front = wall - .55, back = wall + 1.45;
+    b.colour.set('#2e3136');
+    strip(b, 'wall', s0, s1, () => wall, 3.3, () => front, 3.3, () => [0, -1, 0]);
+    b.colour.set('#4a4f56');
+    strip(b, 'roof', s0, s1, () => front, 3.3, () => ridge, 3.86, s => [-s.cx, 1.6, -s.cz]);
+    strip(b, 'roof', s0, s1, () => ridge, 3.86, () => back, 3.3, s => [s.cx, 1.6, s.cz]);
+    b.colour.set('#3a3e44');
+    strip(b, 'roof', s0, s1, () => front, 3.3, () => front, 3.18, toRoad);
+    b.colour.set('#2a2d32');
+    strip(b, 'roof', s0, s1, () => ridge - .14, 3.86, () => ridge - .14, 4.02, toRoad);
+    strip(b, 'roof', s0, s1, () => ridge - .14, 4.02, () => ridge + .14, 4.02, () => UP);
+    if (Math.round(s0.p / STEP) % 4 === 0) {
+      const base = at(s0, wall - 1.3, 0);
       b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
-      b.colour.set('#9b968a');
-      b.box('stone', -.5, .5, 0, .3, -.5, .5); b.box('stone', -.16, .16, .3, 1.5, -.16, .16, 'b');
-      b.box('stone', -.4, .4, 1.5, 1.65, -.4, .4, 'b'); b.box('stone', -.55, .55, 2.3, 2.45, -.55, .55, 'b');
-      b.colour.set('#ffbe73'); b.box('lamp', -.27, .27, 1.65, 2.3, -.27, .27, 'b');
+      stoneLantern(b, .9);
       b.frame(0, 0, 0, 0);
     }
   }
+}
+
+/**
+ * A townhouse on a pond's far bank, facing the water (local -Z), in the current frame: two storeys of dark timber or
+ * plaster under a tiled roof with its eaves to the water, the street floor a row of lit shoji, the upper floor glazed
+ * windows (lit rooms, as the period city's windows), and a lantern by the door. Seen 60-90 m off across the water, as
+ * the inns and shops of Naramachi line Sarusawa-ike's south bank; their lights mirror in the pond.
+ */
+function bankHouse(b: CityMeshBuilder, random: () => number, w: number, d: number): void {
+  const timber = new THREE.Color(random() < .55 ? '#4a3a30' : '#d8cdb8').multiplyScalar(.9 + random() * .15), ground = 3, h = ground + 2.7;
+  const tile = new THREE.Color('#3e4248');
+  b.colour.copy(timber);
+  b.side('wall', -w / 2, 0, d, 0, h, -1); b.side('wall', w / 2, 0, d, 0, h, 1); b.front('wall', -w / 2, w / 2, 0, h, d, 1);
+  // Street floor: timber posts between lit shoji (a lamp face, warm paper lit from within).
+  b.colour.copy(timber).multiplyScalar(.75);
+  b.front('wall', -w / 2, w / 2, ground - .4, ground, 0); b.front('wall', -w / 2, w / 2, 0, .25, 0);
+  const bays = Math.max(2, Math.round(w / 2.2));
+  for (let i = 0; i < bays; i++) {
+    const x0 = -w / 2 + w * i / bays + .12, x1 = -w / 2 + w * (i + 1) / bays - .12;
+    if (random() < .8) { b.colour.setRGB(1.05, .72, .36); b.front('lamp', x0, x1, .25, ground - .4, .15); }
+    else { b.window = [random(), WINDOW_KIND.shop]; b.colour.set('#6a5a44'); b.front('glass', x0, x1, .25, ground - .4, .15); }
+    b.colour.copy(timber).multiplyScalar(.7); b.box('wall', x1, x1 + .24, .25, ground - .4, -.04, .15, 'bk');
+  }
+  b.colour.copy(timber).multiplyScalar(.7); b.box('wall', -w / 2, -w / 2 + .12, 0, ground, -.04, .15, 'bk');
+  // A pent roof between the storeys.
+  b.colour.copy(tile);
+  b.face('roof', [[-w / 2 - .1, ground + .2, 0], [w / 2 + .1, ground + .2, 0], [w / 2 + .1, ground - .2, -.8], [-w / 2 - .1, ground - .2, -.8]], [0, .9, -.43]);
+  // Upper floor: plaster with two or three glazed windows.
+  b.colour.copy(timber).multiplyScalar(1.1); b.front('wall', -w / 2, w / 2, ground + .2, h, 0);
+  const windows = w > 9 ? 3 : 2;
+  for (let i = 0; i < windows; i++) {
+    const c = -w / 2 + w * (i + .5) / windows;
+    b.window = [random(), WINDOW_KIND.home]; b.colour.set('#4a4038');
+    b.front('glass', c - .8, c + .8, ground + .75, ground + 2.15, -.02);
+  }
+  // The roof, eaves to the water, and its ridge.
+  b.colour.copy(tile); b.gableRoof('roof', -w / 2, w / 2, 0, d, h, 1.8, .7);
+  b.colour.copy(timber); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, 1.8);
+  b.colour.copy(tile).multiplyScalar(.75); b.box('roof', -w / 2 - .3, w / 2 + .3, h + 1.75, h + 1.95, d / 2 - .15, d / 2 + .15, 'b');
+  // A red lantern by the door, kept as a far light.
+  const lx = (random() - .5) * (w - 2);
+  b.colour.setRGB(2.4, .5, .25); b.box('lamp', lx - .2, lx + .2, ground - 1.1, ground - .5, -.5, -.1);
+  b.beacon(lx, ground - .8, -.3, 2.4, .5, .2, .5);
+  b.beacon(0, 1.4, -.2, 1.6, 1.05, .5, Math.min(2.4, w * .25));
 }
 
 /**
@@ -299,21 +415,46 @@ function temple(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
 function pond(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
   const list = sections(layout, run, from, to, 90), edge = MOAT.curb + .6, level = -3.4;
   for (let i = 0; i < list.length - 1; i++) {
-    const s0 = list[i]!, s1 = list[i + 1]!, far = (s: Section) => Math.max(edge + 8, Math.min(70, s.reach - 6));
+    // The water runs out to about 40 m (Sarusawa-ike is about that across from the road), its far bank rising steeply.
+    const s0 = list[i]!, s1 = list[i + 1]!, far = (s: Section) => Math.max(edge + 8, Math.min(40, s.reach - 6));
     b.colour.set('#5d6b45'); strip(b, 'ground', s0, s1, () => SIDEWALK, -.05, () => MOAT.curb, -.05, () => UP);
     b.colour.set('#9a958a');
     strip(b, 'stone', s0, s1, () => MOAT.curb, -.1, () => MOAT.curb, .45, toRoad);
     strip(b, 'stone', s0, s1, () => MOAT.curb, .45, () => edge, .45, () => UP);
     b.colour.set('#8a8478'); strip(b, 'stone', s0, s1, () => edge, .45, () => edge + .4, level, away);
     b.colour.set('#ffffff'); strip(b, 'water', s0, s1, () => edge + .4, level, far, level, () => UP);
-    b.colour.set('#4f5e3c'); strip(b, 'ground', s0, s1, far, level, s => far(s) + 14, .5, toRoad);
-    if (Math.round(s0.p / STEP) % 7 === 0) {
-      // A weeping willow on the near edge.
+    b.colour.set('#4f5e3c'); strip(b, 'ground', s0, s1, far, level, s => far(s) + 6, .5, toRoad);
+    strip(b, 'ground', s0, s1, s => far(s) + 6, .5, s => far(s) + 24, .5, () => UP);
+    const station = Math.round(s0.p / STEP);
+    // Townhouses along the far bank, one every 12-16 m where the ground beyond runs clear of the road's other legs, and
+    // willows between them at the water's edge.
+    if (station % 3 === 0) {
+      const random = seeded(hashInts(station, run.side, 83)), bank = far(s0) + 7, w = 8 + random() * 5, depth = 9;
+      if (periodCityReach(layout, s0.p, run.side, bank + depth + 12) >= bank + depth + 6) {
+        const base = at(s0, bank + .5, .5);
+        b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+        bankHouse(b, random, w, depth);
+        b.frame(0, 0, 0, 0);
+      }
+    } else if (station % 3 === 1 && seeded(hashInts(station, run.side, 89))() < .6) {
+      const random = seeded(hashInts(station, run.side, 89)), base = at(s0, far(s0) + 2, level + 1.2);
+      random();
+      b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+      b.plant(FLORA_KIND.willow, 0, 0, 0, -Math.PI / 2 + (random() - .5) * .5, .85 + random() * .3, .3, .36, .1, Math.floor(random() * 1000));
+      b.frame(0, 0, 0, 0);
+    }
+    if (station % 7 === 0) {
+      // A weeping willow on the near edge, leaning out over the water (flora.ts), its autumn strands yellow-green.
       const base = at(s0, edge - .4, .45);
       b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
-      b.colour.set('#4a3c30'); b.box('wall', -.18, .18, 0, 4.2, -.18, .18, 'b');
-      b.colour.set('#6f8a4a'); b.box('wall', -2.2, 2.2, 2.6, 5.2, -1.2, 2.8, 'b');
-      b.colour.set('#7e9a56'); b.box('wall', -1.6, 1.6, 1.4, 2.6, .2, 3.4, 'b');
+      const random = seeded(hashInts(station, 77));
+      b.plant(FLORA_KIND.willow, 0, 0, 0, Math.PI / 2 + (random() - .5) * .5, .9 + random() * .3, .3, .36, .1, Math.floor(random() * 1000));
+      b.frame(0, 0, 0, 0);
+    } else if (station % 7 === 3) {
+      // A stone lantern on the curb between the willows.
+      const base = at(s0, MOAT.curb + .8, .45);
+      b.frame(base[0], base[1], base[2], Math.atan2(s0.cx, s0.cz));
+      stoneLantern(b, .8);
       b.frame(0, 0, 0, 0);
     }
   }

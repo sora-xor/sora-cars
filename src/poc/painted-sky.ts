@@ -431,6 +431,8 @@ ${gradient}
         // A late-day route's golden hours light the whole underside toward the sun, not only its lowest cell (refine
         // round 4: the repaints' clouds there are broad orange-gold undersides).
         paint = mix(paint, amber, max(edge, under * .75 * skyRaceGolden) * clusters * sunward * skyRaceCloud.y);
+        // Away from the sun the low light catches the undersides' faces, coral (the popcorn lobes' front light, below).
+        paint = mix(paint, vec3(1., .58, .42) * .95, under * .6 * skyRaceGolden * (1. - sunward) * (1. - sunward) * clusters * skyRaceCloud.y);
         return mix(sky, paint, cloud * min(1., skyRaceCloud.x * 1.5));
       }
 
@@ -497,6 +499,9 @@ ${gradient}
         vec3 shadeBody = mix(mix(sky, raceGradient(e + .08) * .92, .75), mix(sky, raceGradient(e + .13) * .86, .8), skyRaceCloud.z);
         // Golden hours: the lit lobes toward the sun turn amber (refine round 4, the late-day routes' repaints).
         litBody = mix(litBody, RIM_AMBER * 1.04, skyRaceGolden * sunward * sunward * .8);
+        // Away from the low sun its light falls on the clouds' faces: coral and orange lobes ahead with the sun behind the
+        // camera (refine round 4: Nara's true-sun repaints), where they kept the away gradient's lavender.
+        litBody = mix(litBody, vec3(1., .58, .42), skyRaceGolden * (1. - sunward) * (1. - sunward) * .6);
         // Fewer lobes lit at sunrise (refine round 4: the dawn cutscenes' puffs are mostly violet, pink-edged).
         vec3 body = lobeHash < mix(.5, .42, skyRaceCloud.z) ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
         // The underside cell is lit: pink, turning amber only toward the sun

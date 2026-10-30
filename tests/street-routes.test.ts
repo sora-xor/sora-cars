@@ -15,6 +15,9 @@ import { PeriodPeople } from '../src/game/three/period-city/people';
 import { SPRITE_ROWS } from '../src/game/three/period-city/street-sprites';
 import { IROHA } from '../src/game/three/period-city/signs';
 import { FarLand, farLandHeights, FAR_LAND_METRES_PER_DEGREE } from '../src/game/three/period-city/far-land';
+import { CityMeshBuilder } from '../src/game/three/period-city/geometry';
+import { buildStreet } from '../src/game/three/period-city/street';
+import { FLORA_KIND, FLORA_STRIDE, floraMeshes } from '../src/game/three/period-city/flora';
 
 const read = (path: string) => JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), 'utf8'));
 const routes = STREET_ROUTE_IDS.map(id => {
@@ -174,6 +177,133 @@ test('far land fills the hill views of Nara and Aizu: lit basins, dark parks and
     const course = { length: track.lengthMm / 1000, circuit: false, poses }, cut = periodCityGroundCut(course, periodCityOpenRuns(course, districtAt), []);
     const finish = poses.at(-1)!;
     for (const d of [10, 50, 100]) assert.ok(cut(finish.x + Math.sin(finish.heading) * d, finish.z + Math.cos(finish.heading) * d), `${id}: no paving ${d} m past the finish`);
+  }
+});
+
+test('Irohazaka climbs before its own mountains: Nantai-san over the climb, the valley always under the road', () => {
+  const id = 'irohazaka-1986', plan = streetScene(id)!.distant.find(item => item.land)?.land;
+  assert.ok(plan, 'Irohazaka draws its far land');
+  const { grid, origin } = plan, heights = farLandHeights(grid), track = routes.find(route => route.id === id)!.track;
+  const north = FAR_LAND_METRES_PER_DEGREE, east = north * Math.cos(origin.lat * Math.PI / 180);
+  for (const s of track.samples) {
+    const lat = origin.lat + s.northMm / 1000 / north, lon = origin.lon + s.eastMm / 1000 / east;
+    assert.ok(lat - grid.south > .09 && grid.north - lat > .09 && lon - grid.west > .1 && grid.east - lon > .1, `${(s.progressMm / 1000).toFixed(0)} m lies well inside the grid`);
+  }
+  const at = (lat: number, lon: number) => heights[Math.round((lat - grid.south) / (grid.north - grid.south) * (grid.rows - 1)) * grid.cols
+    + Math.round((lon - grid.west) / (grid.east - grid.west) * (grid.cols - 1))]!;
+  assert.ok(at(36.7650, 139.4908) > 2300, 'Nantai-san rises over the climb');
+  for (let r = 0; r < grid.rows; r++) for (let c = 0; c < grid.cols; c++) {
+    const e = (grid.west + (grid.east - grid.west) * c / (grid.cols - 1) - origin.lon) * east, n = (grid.south + (grid.north - grid.south) * r / (grid.rows - 1) - origin.lat) * north;
+    for (const s of track.samples) {
+      if (Math.hypot(e - s.eastMm / 1000, n - s.northMm / 1000) < 130) assert.ok(heights[r * grid.cols + c]! <= s.elevationMm / 1000 - 3, `land at ${r},${c} stays under the road`);
+    }
+  }
+  const land = new FarLand(plan);
+  assert.ok(land.lightCount > 500, `${land.lightCount} lights in Nikko and Kiyotaki`);
+  land.dispose();
+});
+
+test('the autumn wood, fallen leaves and shrubs lie only along a route\u2019s autumn stretches, on its hillside, the same however the chunks fall', () => {
+  const { track } = routes.find(route => route.id === 'nara-1986')!, scene = streetScene('nara-1986')!;
+  const [start] = scene.street!.litter![0]!;
+  const poses = track.samples.map(s => ({ p: s.progressMm / 1000, x: -s.eastMm / 1000, z: s.northMm / 1000, y: s.elevationMm / 1000,
+    heading: -s.headingMicroturn * Math.PI * 2 / 1e6, width: s.halfWidthMm / 1000 }));
+  const course = { length: track.lengthMm / 1000, circuit: false, poses };
+  const nearest = (x: number, z: number) => poses.reduce((best, pose) => Math.hypot(pose.x - x, pose.z - z) < Math.hypot(best.x - x, best.z - z) ? pose : best);
+  const plain = { footbridges: [], guides: [] };
+  // `fall`: how far the hillside lies below the road beyond its shoulder (0.2 m: level; 4 m: a valley side).
+  const layout = (street: object, fall = .2) => createPeriodCityLayout(course, { groundHeightAt: (x, z) => nearest(x, z).y - fall,
+    districtAt: () => 'forest', street: { ...plain, ...street } });
+  const build = (l: ReturnType<typeof layout>, from: number, to: number) => {
+    const b = new CityMeshBuilder(0, 0); buildStreet(b, l, from, to);
+    const meshes = b.finish(), ground = meshes.get('ground'), position = ground?.getAttribute('position');
+    const plants = Array.from({ length: b.flora.length / FLORA_STRIDE }, (_, i) => ({ kind: b.flora[i * FLORA_STRIDE]!, x: b.flora[i * FLORA_STRIDE + 1]!,
+      y: b.flora[i * FLORA_STRIDE + 2]!, z: b.flora[i * FLORA_STRIDE + 3]! }));
+    return { triangles: (position?.count ?? 0) / 3, low: position ? Math.min(...Array.from({ length: position.count }, (_, i) => position.getY(i))) : 0, plants,
+      stone: (meshes.get('stone')?.getAttribute('position').count ?? 0) / 3 };
+  };
+  const autumn = { litter: [[start, start + 600]] }, littered = layout(autumn), bare = layout({});
+  const before = build(littered, start - 160, start - 80);
+  assert.equal(before.triangles, build(bare, start - 160, start - 80).triangles, 'no leaves before the maples');
+  assert.equal(before.plants.length, 0, 'and no wood');
+  const inside = build(littered, start + 400, start + 480);
+  assert.ok(inside.triangles - build(bare, start + 400, start + 480).triangles > 80 * 20 * 2, `${inside.triangles} triangles of leaves and shrubs in 80 m`);
+  const maples = inside.plants.filter(p => p.kind === FLORA_KIND.maple).length, susuki = inside.plants.filter(p => p.kind === FLORA_KIND.susuki).length;
+  assert.ok(maples > 40 && susuki > 15, `${maples} maples and ${susuki} susuki clumps in 80 m of autumn wood`);
+  for (const p of inside.plants) assert.ok(Math.abs(p.y - (nearest(p.x, p.z).y - .2)) < .01, 'every tree and clump stands on the ground under it');
+  const whole = inside.triangles + inside.plants.length;
+  const halves = [build(littered, start + 400, start + 440), build(littered, start + 440, start + 480)];
+  assert.equal(halves.reduce((sum, h) => sum + h.triangles + h.plants.length, 0), whole, 'chunk seams change nothing');
+  // Where the hillside falls away, a stone parapet runs along the verge and the wood thins, so the valley stays in view;
+  // the planting that remains stands on the slope below the road.
+  const valley = build(layout(autumn, 4), start + 400, start + 480);
+  assert.ok(valley.stone >= 80 * 2 * 4, `${valley.stone} triangles of parapet in 80 m of valley side`);
+  const valleyMaples = valley.plants.filter(p => p.kind === FLORA_KIND.maple).length;
+  assert.ok(valleyMaples < maples / 2, `the valley side keeps ${valleyMaples} of ${maples} maples`);
+  for (const p of valley.plants) assert.ok(Math.abs(p.y - (nearest(p.x, p.z).y - 4)) < .01, 'and they stand on the slope below');
+  // Sugi only inside their own ranges.
+  const wooded = layout({ ...autumn, cedars: [[start, start + 300]] });
+  assert.ok(build(wooded, start + 100, start + 180).plants.some(p => p.kind === FLORA_KIND.cedar), 'cedars stand in their range');
+  assert.ok(!build(wooded, start + 400, start + 480).plants.some(p => p.kind === FLORA_KIND.cedar), 'and nowhere else');
+
+  // The afternoon routes pile thicker kerb drifts up to their dusk (`until`), from their own stream: the wood and the other
+  // leaves stand where they did.
+  const afternoon = layout({ ...autumn, afternoonLeaves: { gold: .2, drifts: 12, until: start + 300 } });
+  const sunny = build(afternoon, start + 100, start + 180), plain80 = build(littered, start + 100, start + 180);
+  assert.ok(sunny.triangles - plain80.triangles >= 80 * 2 * 12 * 2, `${sunny.triangles - plain80.triangles} more leaf triangles in 80 m of afternoon`);
+  assert.deepEqual(sunny.plants, plain80.plants, 'the wood is unchanged');
+  assert.equal(build(afternoon, start + 400, start + 480).triangles, inside.triangles, 'past its dusk the litter is as before');
+
+  // A forest bank's verge (a city route's forests, `forestBanks`) keeps to its understory: the race's own forest stands
+  // on the bank, so no modelled trees, but its shrubs, susuki and grass grow.
+  const banked = build(layout({ ...autumn, forestBanks: true }), start + 400, start + 480);
+  assert.ok(!banked.plants.some(p => p.kind === FLORA_KIND.maple || p.kind === FLORA_KIND.cedar), 'no modelled trees on a bank verge');
+  assert.ok(banked.plants.some(p => p.kind === FLORA_KIND.susuki) && banked.plants.some(p => p.kind === FLORA_KIND.grass), 'but its susuki and grass');
+});
+
+test('a city route paves a forest bank\u2019s verge up to the bank, and only there; lots keep off it', () => {
+  for (const id of ['aizu-wakamatsu-1986', 'kyoto-1986', 'nara-1986']) {
+    const { track } = routes.find(route => route.id === id)!, scene = streetScene(id)!;
+    const poses = track.samples.map(s => ({ p: s.progressMm / 1000, x: -s.eastMm / 1000, z: s.northMm / 1000, y: s.elevationMm / 1000,
+      heading: -s.headingMicroturn * Math.PI * 2 / 1e6, width: s.halfWidthMm / 1000 }));
+    const course = { length: track.lengthMm / 1000, circuit: false, poses };
+    // The sector at each metre, so the district lookups stay cheap.
+    const sectors: number[] = [];
+    for (const s of track.samples) for (let m = sectors.length; m <= s.progressMm / 1000; m++) sectors.push(s.sector);
+    const districtAt = (p: number, side: -1 | 1) => { const row = scene.districts[sectors[Math.max(0, Math.min(sectors.length - 1, Math.floor(p)))]!]!; return side < 0 ? row.right : row.left; };
+    const open = periodCityOpenRuns(course, districtAt), forest = open.find(run => run.district === 'forest' && run.end - run.start > 200);
+    if (!forest) continue;
+    // The bank routes say so, the hillside route does not: its slope covers the verge.
+    assert.equal(!!scene.street?.forestBanks, scene.terrain !== 'slope', `${id}: forestBanks matches its terrain`);
+    const cut = periodCityGroundCut(course, open, [], scene.street?.forestBanks);
+    const mid = poses.reduce((best, pose) => Math.abs(pose.p - (forest.start + forest.end) / 2) < Math.abs(best.p - (forest.start + forest.end) / 2) ? pose : best);
+    const at = (beyond: number) => { const lateral = forest.side * (mid.width + beyond); return [mid.x + Math.cos(mid.heading) * lateral, mid.z - Math.sin(mid.heading) * lateral] as const; };
+    assert.equal(cut(...at(10)), !scene.street?.forestBanks, `${id}: the verge 10 m out is ${scene.street?.forestBanks ? 'paved' : 'cut for the hillside'}`);
+    assert.equal(cut(...at(30)), true, `${id}: the bank or hillside beyond is cut`);
+    // The lots stand exactly where they stood when the whole verge was cut: none takes the paved forest verge.
+    const before = periodCityGroundCut(course, open, []), lots = (ground: (x: number, z: number) => boolean) =>
+      createPeriodCityLayout(course, { groundHeightAt: (x, z) => ground(x, z) ? null : 0, districtAt, open }).lots.map(lot => lot.id).join();
+    assert.equal(lots(cut), lots(before), `${id}: the lots stand where they did`);
+  }
+});
+
+test('the modelled plants batch into bark and foliage, each kind finite, within its triangle budget, tinted per plant', () => {
+  const budgets = { [FLORA_KIND.maple]: 1400, [FLORA_KIND.cedar]: 900, [FLORA_KIND.susuki]: 40, [FLORA_KIND.willow]: 800, [FLORA_KIND.pine]: 900,
+    [FLORA_KIND.grass]: 8 } as const;
+  for (const [kind, budget] of Object.entries(budgets)) {
+    const data: number[] = [];
+    for (let i = 0; i < 6; i++) data.push(Number(kind), i * 7, 0, 3, i, 1, .5, .2, .1, i * 13);
+    const meshes = floraMeshes(data), leaves = meshes.find(m => m.name.includes('leaves'))!;
+    assert.ok(leaves, `kind ${kind} draws foliage`);
+    let triangles = 0;
+    for (const mesh of meshes) {
+      assert.ok(Number.isFinite(mesh.boundingSphere!.radius) && mesh.boundingSphere!.radius > 0, `kind ${kind}: a finite bound`);
+      triangles += mesh.geometry.index!.count / 3;
+    }
+    // The batch holds each variant once; 6 plants of a kind use at most all of its variants.
+    assert.ok(triangles / 6 < budget * 1.01 || triangles < budget * 5, `kind ${kind}: ${triangles} triangles for its variants`);
+    assert.equal(leaves.instanceCount, 6, `kind ${kind}: one foliage instance per plant`);
+    for (const mesh of meshes) mesh.dispose();
   }
 });
 

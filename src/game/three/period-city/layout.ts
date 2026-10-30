@@ -66,6 +66,20 @@ export interface PeriodStreetPlan {
   readonly arches?: readonly { readonly p: number; readonly kind: 'heian-torii' }[];
   /** Small roadside boards, such as Irohazaka's numbered kana at each curve. */
   readonly markers?: readonly { readonly p: number; readonly side: PeriodSide; readonly text: string }[];
+  /** Progress ranges (metres, start and end) carpeted with fallen maple leaves, their open verges thick with autumn
+   * shrubs: the routes' autumn stretches. */
+  readonly litter?: readonly (readonly [number, number])[];
+  /** Progress ranges where Japanese cedars (杉) stand dark among the trees behind the verge, as on Nikko's mountain roads. */
+  readonly cedars?: readonly (readonly [number, number])[];
+  /** Late autumn: the broadleaf woods along the route turn crimson, orange and gold (autumn-foliage.ts). */
+  readonly autumn?: boolean;
+  /** The share of fallen leaves that are gold (0 by default), and extra leaves a metre in each kerb drift, up to `until`
+   * (progress, m; the route's end by default): the afternoon routes' repaints strew gold among the crimson and pile the
+   * kerbs thick, where under the dusk routes' lamp pools gold leaves read as a gold speckle. */
+  readonly afternoonLeaves?: { readonly gold: number; readonly drifts: number; readonly until?: number };
+  /** The route's forest districts rise as forest banks (terrain.ts `createTerrain`), not a shared hillside: their verge is
+   * paved up to the bank (periodCityGroundCut) and holds only its understory, the race's own forest standing on the bank. */
+  readonly forestBanks?: boolean;
 }
 /** Where a district asks for open ground (moat, park, shrine precinct) instead of lots. */
 export interface PeriodOpenRun { readonly district: PeriodDistrict; readonly side: PeriodSide; readonly start: number; readonly end: number }
@@ -80,6 +94,8 @@ export interface PeriodCityLayout {
   /** The route's own locals at a progress, if any. */
   readonly localsAt: (p: number) => PeriodLocals | null;
   readonly street: PeriodStreetPlan;
+  /** The ground's height at a point (the options' sampler), so verge planting stands on a falling or rising hillside. */
+  readonly groundHeightAt: (x: number, z: number) => number | null;
   readonly chunkLength: number;
   readonly chunks: ReadonlyMap<number, readonly PeriodLot[]>;
   readonly stats: { readonly attempts: number; readonly placed: number; readonly road: number; readonly occupied: number; readonly grade: number };
@@ -405,8 +421,20 @@ export function periodCityRouteFrame(course: PeriodCityCourse, reach: number): (
 }
 
 /** Where the park and moat replace the paved ground (a cut for createUrbanGround). */
+/**
+ * Where a forest bank (terrain.ts `createTerrain`, its first clearance) begins beyond the road edge. On the Arcade
+ * courses a flat ribbon covers the ground before it; on a city route whose forests are banks (`street.forestBanks`)
+ * the paving does, so a forest district keeps its paving up to here. Cut from the shoulder (1.7 m), the verge of
+ * Kyoto's Keage and Aizu's forests was a 16 m hole that showed the sky dome's dusk below the horizon, and the autumn
+ * understory had no ground to stand on. A hillside route (Nara) is cut from the shoulder: its slope covers the verge.
+ * Lots keep off a forest's verge from the shoulder (`createPeriodCityLayout`), so the towns are placed as they were.
+ */
+const FOREST_BANK_START = 18;
+/** Where the shoulder ends beyond the road edge, and a forest district's verge begins. */
+const FOREST_VERGE = 1.7;
 export function periodCityGroundCut(course: PeriodCityCourse, runs: readonly PeriodOpenRun[],
-  crossings: readonly PeriodCrossing[] = []): (x: number, z: number) => boolean {
+  crossings: readonly PeriodCrossing[] = [], forestBanks = false): (x: number, z: number) => boolean {
+  const forestFrom = forestBanks ? FOREST_BANK_START : FOREST_VERGE;
   const cuts = runs.filter(run => run.district === 'moat' || run.district === 'park' || run.district === 'pond' || run.district === 'forest');
   if (!cuts.length && !crossings.length) return () => false;
   const frame = periodCityRouteFrame(course, MOAT.water + 48 + MOAT.batter + MOAT.platform + 8);
@@ -428,7 +456,7 @@ export function periodCityGroundCut(course: PeriodCityCourse, runs: readonly Per
       if (Math.abs(point.z) < (crossing.half ?? RIVER.half) + 1 && Math.abs(point.x) > poseAt(course, crossing.p).width + 2.5 && Math.abs(point.x) < crossing.span) return true;
     }
     // Forest districts on a city route take the Arcade's forest banks instead of paving.
-    return cuts.some(run => run.side === side && best!.p >= run.start && best!.p <= run.end && beyond >= (run.district === 'forest' ? 1.7 : 3)
+    return cuts.some(run => run.side === side && best!.p >= run.start && best!.p <= run.end && beyond >= (run.district === 'forest' ? forestFrom : 3)
       && beyond <= (run.district === 'moat' ? MOAT.water + moatWidth(best!.p) + MOAT.batter + MOAT.platform : run.district === 'forest' ? 120 : run.district === 'pond' ? 90 : 64));
   };
 }
@@ -458,6 +486,7 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
   const start = course.circuit ? 0 : course.poses[0]!.p, end = course.circuit ? course.length : course.poses.at(-1)!.p;
   const lots: PeriodLot[] = [], open: PeriodOpenRun[] = [];
   const stats = { attempts: 0, placed: 0, road: 0, occupied: 0, grade: 0 };
+  let forestVerge: (x: number, z: number) => boolean = () => false;
   const place = (row: 1 | 2 | 3 | 4, side: PeriodSide, p: number, typology: PeriodTypology, district: PeriodDistrict,
     width: number, depth: number, storeys: number, clearances: readonly number[], seed: number): boolean => {
     stats.attempts++;
@@ -473,7 +502,7 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
       for (const [u, v] of [[-1, -1], [1, -1], [1, 1], [-1, 1], [0, 0], [0, -1]] as const) {
         const gx = footprint.x + Math.cos(yaw) * u * width / 2 * .96 + Math.sin(yaw) * v * depth / 2 * .96;
         const gz = footprint.z - Math.sin(yaw) * u * width / 2 * .96 + Math.cos(yaw) * v * depth / 2 * .96;
-        const y = options.groundHeightAt(gx, gz);
+        const y = forestVerge(gx, gz) ? null : options.groundHeightAt(gx, gz);
         if (y === null) { missing = true; break; }
         low = Math.min(low, y); high = Math.max(high, y);
       }
@@ -486,6 +515,9 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
     return false;
   };
   open.push(...options.open ?? periodCityOpenRuns(course, districtAt));
+  // A forest's verge is paved up to its bank (periodCityGroundCut) for the planting to stand on, never for lots.
+  const forestRuns = open.filter(run => run.district === 'forest');
+  forestVerge = forestRuns.length ? periodCityGroundCut(course, forestRuns, [], false) : () => false;
   const crossings = options.crossings ?? [], landmarks = options.landmarks ?? [];
   for (const crossing of crossings) { const f = crossingFootprint(course, crossing); occupied.add(f, boxOf(f)); }
   for (const landmark of landmarks) { const f = landmarkFootprint(course, landmark); occupied.add(f, boxOf(f)); }
@@ -521,7 +553,7 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
     list.push(lot); chunks.set(key, list);
   }
   const layout: PeriodCityLayout = { course, lots, open, crossings, landmarks, districtAt, localsAt: options.localsAt ?? (() => null),
-    street: options.street ?? { footbridges: [], guides: [] }, chunkLength, chunks, stats };
+    street: options.street ?? { footbridges: [], guides: [] }, groundHeightAt: options.groundHeightAt, chunkLength, chunks, stats };
   indices.set(layout, occupied); roadIndices.set(layout, roads);
   return layout;
 }

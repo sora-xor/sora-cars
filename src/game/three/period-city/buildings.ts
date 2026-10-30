@@ -2,8 +2,9 @@ import * as THREE from 'three';
 import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WALL_PATTERN, WINDOW_KIND } from './geometry';
 import { hashInts, seeded, type PeriodDistrict, type PeriodLot } from './layout';
 import { aviationLight, hangingBanner, neonBlade, neonFor, nobori, noboriFor, rooftopNeon, verticalNeon, vneonFor, windowNeon } from './nightlife';
-import { boxIndex, fasciaTitle, lanternIndex, NEON_COUNTS, neonIndex, neonPrint, pickSign, signIndex, signPrint, printSlice, SORA_BOARDS, SORA_NOBORI, SORA_VNEON,
-  vneonIndex, type PrintRect } from './signs';
+import { boxIndex, fasciaTitle, lanternIndex, NEON_COUNTS, neonIndex, neonPrint, pickSign, signIndex, signPrint, printSlice, SIGN_REGIONS, SORA_BOARDS, SORA_NOBORI, SORA_VNEON,
+  vneonIndex, type PrintRect, type SignPools } from './signs';
+import { FLORA_KIND } from './flora';
 import { AWNING_VALANCE, awningFor, awningPrint, NOREN_HEIGHT, norenFor, norenIndex, norenPrint, norenWidth } from './awnings';
 
 /** A shop light the race can assign to one of its spot lights (world space). */
@@ -42,6 +43,8 @@ const LAUNDRY = ['#e8e0f0', '#f0c8c8', '#c8d8f0', '#f4ecd0', '#5a7ab0', '#c8504a
 
 const colour = (random: Random, list: readonly string[]) => new THREE.Color(list[Math.floor(random() * list.length)]!);
 /** Small hue/value drift so neighbours from one palette never match exactly. */
+/** A timber's shadowed side: its colour at about two thirds. */
+const dark = (c: THREE.Color) => shade(c, .62);
 function drift(c: THREE.Color, random: Random, amount = .04): THREE.Color {
   const hsl = { h: 0, s: 0, l: 0 }; c.getHSL(hsl);
   return c.setHSL(hsl.h + (random() - .5) * amount * .5, THREE.MathUtils.clamp(hsl.s + (random() - .5) * amount, 0, 1),
@@ -529,6 +532,10 @@ function shopLife(x: Context, w: number, shopTop: number | null): void {
 }
 
 function shophouse(x: Context): void {
+  // Aizu's merchant streets mix shop-kura and Taishō brick shops among their shophouses.
+  const aizu = x.b.signs === SIGN_REGIONS.aizu && x.lot.storeys <= 3, pick = (hashInts(x.lot.seed, 1986, 17) >>> 0) % 100;
+  if (aizu && pick < 20) { kura(x); return; }
+  if (aizu && pick < 60) { brickShop(x); return; }
   const { b, lot, random, detail, toward } = x, w = lot.width, d = lot.depth;
   const style = random(), ground = 3.1 + random() * .35, storey = 2.6 + random() * .3;
   const wall = drift(style < .4 ? colour(random, MORTAR) : style < .6 ? colour(random, COPPER) : style < .82 ? colour(random, TILE_WARM) : colour(random, SHEET), random);
@@ -566,6 +573,10 @@ function shophouse(x: Context): void {
     b.box('metal', -w / 2 + .3, w / 2 - .3, ground + .95, ground + 1.0, -.6, -.55, 'bk');
     for (let px = -w / 2 + .3; px <= w / 2 - .3; px += .12) b.box('metal', px - .01, px + .01, ground + .1, ground + .95, -.6, -.58, 'bkt');
     b.box('metal', -w / 2 + .3, w / 2 - .3, ground + .05, ground + .12, -.62, 0, 'k');
+    // Potted plants along one end of it (the Tokyo moat repaint fills such balconies), from the lot's own hash stream so the
+    // street life after it is unchanged.
+    const pots = seeded(hashInts(lot.seed, 1986, 19));
+    if (pots() < .55) balconyPlants({ ...x, extra: pots }, -w / 2 + .3, Math.min(w / 2 - .3, -w / 2 + 2.7), ground + .12, .62);
     if (random() < .5) {
       // Washing hung over the rail: shirts and towels, now and then a futon, each its own colour (refine round 4: one
       // big sheet under the street lamp read as a blank board). Its own stream keeps the building as it was.
@@ -602,12 +613,235 @@ function rooftopAntenna(x: Context, w: number, d: number, h: number): void {
   for (let k = 0; k < 3; k++) b.box('metal', ax - .55, ax + .55, h + 1.6 - k * .3, h + 1.64 - k * .3, az - .02, az + .02, 'b');
 }
 
+/** A plaster wall over x0..x1, y0..y1 on the facade plane, open where `holes` are (each x0, x1, y0, y1, within the wall). */
+function wallAround(b: CityMeshBuilder, x0: number, x1: number, y0: number, y1: number, holes: readonly (readonly [number, number, number, number])[]): void {
+  const bottom = Math.min(...holes.map(h => h[2])), top = Math.max(...holes.map(h => h[3]));
+  b.front('wall', x0, x1, y0, bottom, 0); b.front('wall', x0, x1, top, y1, 0);
+  let edge = x0;
+  for (const [h0, h1, hy0, hy1] of [...holes].sort((p, q) => p[0] - q[0])) {
+    if (h0 > edge) b.front('wall', edge, h0, bottom, top, 0);
+    if (hy0 > bottom) b.front('wall', h0, h1, bottom, hy0, 0);
+    if (hy1 < top) b.front('wall', h0, h1, hy1, top, 0);
+    edge = h1;
+  }
+  if (x1 > edge) b.front('wall', edge, x1, bottom, top, 0);
+}
+/** The four reveal faces of a rectangular opening, `depth` deep into the wall. */
+function reveals(b: CityMeshBuilder, x0: number, x1: number, y0: number, y1: number, depth: number): void {
+  b.side('wall', x0, 0, depth, y0, y1, 1); b.side('wall', x1, 0, depth, y0, y1, -1);
+  b.flat('wall', x0, x1, 0, depth, y1, -1); b.flat('wall', x0, x1, 0, depth, y0, 1);
+}
+/**
+ * Inuyarai (犬矢来): the curved bamboo fence that sweeps out from a machiya's base, a quarter-ellipse 0.9 m high and half
+ * a metre out at the ground, its slats drawn by the wall finish's vertical seams.
+ */
+function inuyarai(b: CityMeshBuilder, x0: number, x1: number, tint: THREE.Color): void {
+  if (x1 - x0 < .4) return;
+  b.pattern = WALL_PATTERN.seams; b.colour.copy(tint);
+  const steps = 4, point = (i: number) => { const a = i / steps * Math.PI / 2; return { y: .9 * Math.sin(a), z: -.5 * Math.cos(a) - .02 }; };
+  for (let i = 0; i < steps; i++) {
+    const p = point(i), q = point(i + 1), m = (i + .5) / steps * Math.PI / 2;
+    b.face('wall', [[x0, p.y, p.z], [x1, p.y, p.z], [x1, q.y, q.z], [x0, q.y, q.z]], [0, Math.sin(m) * .5, -Math.cos(m) * .9]);
+  }
+  b.pattern = WALL_PATTERN.plain;
+}
+
+/**
+ * Namako-kabe (海鼠壁): black square tiles set diagonally, their joints raised in white plaster, over x0..x1, y0..y1 on
+ * the facade plane: the dark field, then the white joints as thin strips along both diagonals, clipped to the panel.
+ */
+function namako(b: CityMeshBuilder, x0: number, x1: number, y0: number, y1: number, z = -.03): void {
+  b.colour.set('#2b2c30'); b.front('wall', x0, x1, y0, y1, z);
+  b.colour.set('#e8e4da');
+  const pitch = .3, half = .018;
+  for (const slope of [1, -1]) {
+    // Lines y - slope * x = c across the panel, each clipped to the rectangle and drawn as a thin parallelogram.
+    const cs = [y0 - slope * x1, y0 - slope * x0, y1 - slope * x0, y1 - slope * x1];
+    for (let c = Math.ceil(Math.min(...cs) / pitch) * pitch; c <= Math.max(...cs); c += pitch) {
+      const ends: [number, number][] = [];
+      for (const px of [x0, x1]) { const py = slope * px + c; if (py >= y0 && py <= y1) ends.push([px, py]); }
+      for (const py of [y0, y1]) { const px = (py - c) / slope; if (px > x0 && px < x1) ends.push([px, py]); }
+      if (ends.length < 2) continue;
+      const [[ax, ay], [bx, by]] = ends as [[number, number], [number, number]], nx = -slope * half, ny = half;
+      b.face('wall', [[ax - nx, ay - ny, z - .01], [bx - nx, by - ny, z - .01], [bx + nx, by + ny, z - .01], [ax + nx, ay + ny, z - .01]], [0, 0, -1]);
+    }
+  }
+}
+
+/**
+ * A shop-kura (店蔵) of Aizu-Wakamatsu's Nanokamachi (and Kitakata nearby): a merchant's fireproof storehouse front,
+ * thick earthen walls finished in white shikkui, a heavy black-tiled roof with a tall ridge and its end tiles, the white
+ * moulded bands under the eaves, small iron-shuttered windows (観音開き) standing open, namako-kabe on the piers and the
+ * plinth, and on the street floor the lit shop behind its timber front, its name on a board over the door.
+ */
+function kura(x: Context): void {
+  const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, ground = 3.1, h = 6.6;
+  const own = seeded(hashInts(lot.seed, 1986, 11)), plaster = drift(new THREE.Color(own() < .75 ? '#ece8df' : '#2e2c2c'), own, .03);
+  const tile = new THREE.Color('#25272b'), timber = drift(new THREE.Color('#3d2f26'), own, .05);
+  const f = facade(random, plaster, WINDOW_KIND.home);
+  f.flank.copy(shade(plaster, .93));
+  shell(x, f, w, d, h, false, false);
+  // Street floor: the shop behind a timber front, piers in namako-kabe either side.
+  const pier = Math.min(.9, w * .14), shopTop = ground - .55;
+  b.colour.copy(timber); b.front('wall', -w / 2 + pier, w / 2 - pier, shopTop, ground, 0);
+  if (detail) { namako(b, -w / 2, -w / 2 + pier, 0, ground); namako(b, w / 2 - pier, w / 2, 0, ground); }
+  else { b.colour.set('#2b2c30'); b.front('wall', -w / 2, -w / 2 + pier, 0, ground, 0); b.front('wall', w / 2 - pier, w / 2, 0, ground, 0); }
+  b.window = [random() * .3, WINDOW_KIND.shop]; b.colour.set('#8a6a48');
+  b.front('glass', -w / 2 + pier, w / 2 - pier, 0, shopTop, .6);
+  b.colour.copy(shade(timber, .8)); reveals(b, -w / 2 + pier, w / 2 - pier, 0, shopTop, .6);
+  if (detail) {
+    b.colour.copy(timber);
+    for (let px = -w / 2 + pier + .9; px < w / 2 - pier - .3; px += .9) b.box('metal', px - .05, px + .05, 0, shopTop, -.04, .06, 'bkt');
+    // The shop's name on a black board over the door (看板), gold lettering.
+    const shop = pickSign(x.b.signs, 'fascia', x.extra);
+    fascia(x, -w / 2 + pier + .15, w / 2 - pier - .15, shopTop + .05, ground - .08, signPrint('fascia', shop));
+    if (detail === 2) shopNoren(x, shop, -w / 2 + pier, w / 2 - pier, shopTop);
+  }
+  // A small tiled pent roof (下屋) over the shop front.
+  b.colour.copy(tile);
+  b.face('roof', [[-w / 2 - .05, ground + .3, 0], [w / 2 + .05, ground + .3, 0], [w / 2 + .05, ground - .05, -.8], [-w / 2 - .05, ground - .05, -.8]], [0, .92, -.39]);
+  if (detail) { b.colour.copy(tile).multiplyScalar(.75); b.box('roof', -w / 2 - .07, w / 2 + .07, ground - .15, ground - .03, -.86, -.76, 'bk'); }
+  // The upper storey: thick white plaster, small windows with their iron shutters standing open.
+  b.colour.copy(plaster);
+  const windows = w < 7 ? [0] : [-w / 4 + .2, w / 4 - .2], ww = .95, wy0 = ground + 1.15, wy1 = wy0 + .95;
+  wallAround(b, -w / 2, w / 2, ground + .3, h - .55, windows.map(c => [c - ww / 2, c + ww / 2, wy0, wy1] as const));
+  const floorSeed = random();
+  windows.forEach(c => {
+    b.colour.copy(shade(plaster, .82)); reveals(b, c - ww / 2, c + ww / 2, wy0, wy1, .4);
+    b.window = [floorSeed * .3 + own() * .7, WINDOW_KIND.home]; b.colour.copy(f.glass);
+    b.front('glass', c - ww / 2, c + ww / 2, wy0, wy1, .4);
+    if (!detail) return;
+    // The thick moulded surround, and the two heavy leaves open flat against the wall either side (観音開き).
+    b.colour.copy(plaster).multiplyScalar(.96);
+    b.box('wall', c - ww / 2 - .18, c + ww / 2 + .18, wy0 - .14, wy0, -.16, 0, 'bk'); b.box('wall', c - ww / 2 - .18, c + ww / 2 + .18, wy1, wy1 + .16, -.16, 0, 'bk');
+    b.box('wall', c - ww / 2 - .18, c - ww / 2, wy0, wy1, -.16, 0, 'bk'); b.box('wall', c + ww / 2, c + ww / 2 + .18, wy0, wy1, -.16, 0, 'bk');
+    b.colour.set('#2a2a2e');
+    b.box('wall', c - ww - .2, c - ww / 2 - .2, wy0 + .02, wy1 - .02, -.22, -.12, 'bk'); b.box('wall', c + ww / 2 + .2, c + ww + .2, wy0 + .02, wy1 - .02, -.22, -.12, 'bk');
+  });
+  // The moulded bands (鉢巻) under the eaves, two steps out.
+  if (detail) {
+    b.colour.copy(plaster); b.box('wall', -w / 2 - .12, w / 2 + .12, h - .55, h - .3, -.18, 0, 'bk');
+    b.colour.copy(plaster).multiplyScalar(.95); b.box('wall', -w / 2 - .25, w / 2 + .25, h - .3, h - .08, -.32, 0, 'bk');
+    // The plinth in namako-kabe below the shop front's piers is drawn with them; a low one runs under the flank too.
+  }
+  // The heavy black-tiled roof, short eaves, its tall ridge with end tiles (鬼瓦).
+  const rise = 2.3, overhang = .5;
+  b.colour.copy(tile); b.gableRoof('roof', -w / 2 - .1, w / 2 + .1, 0, d, h, rise, overhang);
+  b.colour.copy(plaster); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, rise);
+  if (detail) {
+    b.colour.copy(tile).multiplyScalar(.85);
+    b.box('roof', -w / 2 - .5, w / 2 + .5, h + rise - .1, h + rise + .45, d / 2 - .22, d / 2 + .22, 'b');
+    for (const s of [-1, 1]) b.box('roof', s * (w / 2 + .3) - .32, s * (w / 2 + .3) + .32, h + rise - .1, h + rise + .85, d / 2 - .26, d / 2 + .26, 'b');
+  }
+  streetFurniture(x, w, false);
+  shopLife(x, w, shopTop);
+}
+
+/**
+ * A Taishō shop of brick or stucco (大正の洋風商家), as Aizu's Nanokamachi street keeps them among its kura, and as the
+ * Nanokamachi repaint paints one beside the road where a kura's blank gable stood: two or three storeys of red-brown
+ * brick or cream stucco between quoins, tall sash windows under stone lintels, a string course at each floor, a moulded
+ * cornice under a parapet with its name panel, and a lit shop at the street behind a canvas awning or a fascia board,
+ * with a bracket lamp either side. Its party walls are plain render. Its own stream picks the cladding, so the lot's
+ * other draws come in the same order as a shophouse's.
+ */
+function brickShop(x: Context): void {
+  const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, pattern = b.pattern;
+  const own = seeded(hashInts(lot.seed, 1986, 23)), storeys = THREE.MathUtils.clamp(lot.storeys, 2, 3);
+  const ground = 3.4, storey = 3.1, h = ground + storey * (storeys - 1), stucco = own() < .3;
+  const wall = drift(colour(own, stucco ? ['#d8c6a2', '#cfb58e', '#c9bfa6'] : ['#8c3f2c', '#9a4a32', '#7e3a2a', '#a4553a']), own, .03);
+  const stone = drift(new THREE.Color('#d6ccb6'), own, .03), quoin = stucco ? shade(wall, .9) : stone;
+  const f = facade(random, wall, WINDOW_KIND.home);
+  f.flank.copy(drift(new THREE.Color('#c9bb9c'), own, .04));
+  b.pattern = WALL_PATTERN.plain;
+  shell(x, f, w, d, h, true, false);
+  // Upper floors: tall sash windows, two or three to a floor, in brick (or stucco) between the quoins.
+  b.pattern = stucco ? WALL_PATTERN.plain : WALL_PATTERN.brick;
+  const count = Math.max(2, Math.round((w - 1) / 2.3)), width = Math.min(1.15, (w - 1.2) / count - .5);
+  const columns = evenColumns(-w / 2 + .5, w / 2 - .5, count, width), floors = levels(ground, storey, storeys).slice(1);
+  windowRows(x, f, -w / 2, w / 2, floors, columns, .85, 2.35, 1);
+  b.pattern = WALL_PATTERN.plain;
+  if (detail) for (let i = 0; i + 1 < floors.length; i++) {
+    const ws = floors[i]! + .85, wh = Math.min(floors[i + 1]! - .2, floors[i]! + 2.35);
+    for (const [c, span] of columns) {
+      // A stone lintel with its keystone over each window, a sill under it.
+      b.colour.copy(stone);
+      b.box('wall', c - span / 2 - .14, c + span / 2 + .14, wh, wh + .24, -.12, 0, 'bk');
+      b.box('wall', c - span / 2 - .1, c + span / 2 + .1, ws - .14, ws - .04, -.14, 0, 'bk');
+      if (detail === 2) b.box('wall', c - .13, c + .13, wh - .04, wh + .32, -.16, 0, 'bk');
+    }
+  }
+  // Quoins up both corners, long and short in turn; a string course over the shop and at each floor.
+  b.colour.copy(quoin);
+  for (const s of [-1, 1]) for (let k = 0, y = ground; y < h - .05; k++, y += .46) {
+    const reach = k % 2 ? .3 : .46, x0 = s < 0 ? -w / 2 - .02 : w / 2 - reach, x1 = s < 0 ? -w / 2 + reach : w / 2 + .02;
+    b.box('wall', x0, x1, y, Math.min(h, y + .4), -.1, 0, 'bk');
+  }
+  b.colour.copy(stone);
+  for (const y of floors.slice(0, -1)) b.box('wall', -w / 2 - .03, w / 2 + .03, y - .08, y + .1, -.13, 0, 'bk');
+  // The moulded cornice with dentils, the parapet over it with its coping and the shop's name panel at its middle.
+  b.box('wall', -w / 2 - .12, w / 2 + .12, h - .06, h + .26, -.42, 0, 'bk');
+  if (detail === 2) for (let px = -w / 2 + .15; px < w / 2 - .1; px += .3) b.box('wall', px, px + .14, h - .22, h - .06, -.2, 0, 'bk');
+  b.pattern = stucco ? WALL_PATTERN.plain : WALL_PATTERN.brick;
+  parapet(x, wall, w, d, h + .26, .82, .2);
+  b.pattern = WALL_PATTERN.plain;
+  b.colour.copy(stone);
+  b.box('wall', -w / 2 - .06, w / 2 + .06, h + 1.08, h + 1.2, -.16, .22, 'bk');
+  if (detail) {
+    b.box('wall', -Math.min(1.3, w / 4), Math.min(1.3, w / 4), h + .38, h + .98, -.12, 0, 'bk');
+    b.box('wall', -.7, .7, h + 1.2, h + 1.46, -.12, .22, 'b');
+  }
+  // The street floor: the shop between brick piers, under an awning or a fascia board.
+  const open = random() < .85, shopTop = ground - .7, pier = .42;
+  b.pattern = stucco ? WALL_PATTERN.plain : WALL_PATTERN.brick;
+  b.colour.copy(wall);
+  b.front('wall', -w / 2, w / 2, shopTop, ground, 0);
+  b.front('wall', -w / 2, -w / 2 + pier, 0, shopTop, 0); b.front('wall', w / 2 - pier, w / 2, 0, shopTop, 0);
+  b.pattern = WALL_PATTERN.plain;
+  shopfront(x, -w / 2 + pier, w / 2 - pier, shopTop, open);
+  const shop = pickSign(x.b.signs, 'fascia', random);
+  if (random() < .6) awning(x, -w / 2 + pier + .05, w / 2 - pier - .05, ground - .12, .95 + random() * .4, colour(random, AWNINGS), awningFor(fasciaTitle(shop)));
+  else fascia(x, -w / 2 + pier + .1, w / 2 - pier - .1, shopTop + .1, ground - .12, signPrint('fascia', shop));
+  if (detail === 2 && open) {
+    // Bracket lamps either side of the shop, lit through the evening.
+    for (const s of [-1, 1]) {
+      const px = s * (w / 2 - pier / 2);
+      b.colour.set('#2e2a28'); b.box('metal', px - .03, px + .03, ground - .05, ground + .02, -.42, 0, 'b');
+      b.colour.set('#ffd08a'); b.box('lamp', px - .1, px + .1, ground - .42, ground - .05, -.5, -.3, 'b');
+      b.beacon(px, ground - .24, -.4, 1.4, .95, .5, .35);
+    }
+  }
+  b.pattern = pattern;
+  streetFurniture(x, w, false);
+  shopLife(x, w, open ? shopTop : null);
+}
+
+/**
+ * Kyō-machiya (京町家), and their kin in Nara-machi and Aizu: a narrow two-storey timber townhouse with its eaves to the
+ * street. The ground floor is a lit room behind a fine timber lattice (千本格子) with a curved bamboo inuyarai at its
+ * foot and a noren in its doorway; a tiled pent roof (一文字瓦の庇) runs across under the upper floor; the upper floor is
+ * slatted plaster (虫籠窓), a lit wooden lattice band with bamboo blinds, or glazed windows behind a railing; and the
+ * main roof carries a ridge cap. The Gion and Nara-machi repaints line whole streets with them.
+ */
 function machiya(x: Context): void {
+  // Aizu's merchant streets (its own sign pools) line up shop-kura where other towns have machiya.
+  // Aizu's merchant streets line up shop-kura, and here and there a Taishō brick shop, where other towns have machiya.
+  const aizu = (hashInts(x.lot.seed, 1986, 13) >>> 0) % 100;
+  if (x.b.signs === SIGN_REGIONS.aizu && aizu < 45) { kura(x); return; }
+  if (x.b.signs === SIGN_REGIONS.aizu && aizu < 65) { brickShop(x); return; }
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, ground = 3, upper = 2.5, h = ground + upper;
   const wood = drift(new THREE.Color('#4a3a30'), random, .06), plaster = drift(colour(random, ['#d9cfbd', '#cfc5b1', '#3a3430']), random);
   const f = facade(random, plaster, WINDOW_KIND.home);
   shell(x, f, w, d, h, false, false);
-  // Ground floor: a lit shoji door behind a timber lattice (格子), in a timber frame.
+  // The new detail draws from the lot's own hash, so the building's streams (and everything after it) stay as they were.
+  const own = seeded(hashInts(lot.seed, 1986, 7)), upperStyle = own(), blinds = own() < .55, tile = new THREE.Color('#3c3f45');
+  // Kyoto's teahouses and many of its townhouses wear bengara (紅殻): red-ochre lattices and timber, and on some a red
+  // plaster wall, as the Gion cutscenes paint Hanamikoji's ochaya.
+  if (x.b.signs === SIGN_REGIONS.kyoto && own() < .45) {
+    wood.set('#5e231b').multiplyScalar(.9 + own() * .2);
+    if (plaster.r > .3) plaster.set(own() < .5 ? '#9a3b2b' : '#e2d6c2');
+  }
+  // Ground floor: a lit shoji room behind a timber lattice (格子), in a timber frame.
   b.colour.copy(wood);
   b.front('wall', -w / 2, -w / 2 + .5, 0, ground, 0); b.front('wall', w / 2 - .5, w / 2, 0, ground, 0);
   b.front('wall', -w / 2 + .5, w / 2 - .5, ground - .35, ground, 0); b.front('wall', -w / 2 + .5, w / 2 - .5, 0, .15, 0);
@@ -616,16 +850,95 @@ function machiya(x: Context): void {
   b.colour.copy(shade(wood, .8));
   b.side('wall', -w / 2 + .5, 0, .35, .15, ground - .35, 1); b.side('wall', w / 2 - .5, 0, .35, .15, ground - .35, -1);
   b.flat('wall', -w / 2 + .5, w / 2 - .5, 0, .35, ground - .35, -1); b.flat('wall', -w / 2 + .5, w / 2 - .5, 0, .35, .15, 1);
-  if (detail) for (let px = -w / 2 + .55; px < w / 2 - .5; px += .11) b.box('metal', px, px + .045, .15, ground - .35, .02, .07, 'bkt');
-  // Pent roof between storeys and the main tiled roof, eaves to the street.
-  b.colour.set('#3c3f45');
+  if (detail) {
+    for (let px = -w / 2 + .55; px < w / 2 - .5; px += .11) b.box('metal', px, px + .045, .15, ground - .35, .02, .07, 'bkt');
+    // The lattice's head and middle rails.
+    b.colour.copy(shade(wood, .9));
+    b.box('metal', -w / 2 + .5, w / 2 - .5, ground - .5, ground - .42, -.02, .07, 'bk');
+    b.box('metal', -w / 2 + .5, w / 2 - .5, 1.25, 1.31, -.02, .07, 'bk');
+  }
+  // The bamboo inuyarai either side of the central doorway.
+  if (detail === 2) {
+    const bamboo = drift(new THREE.Color('#5a4630'), own, .08);
+    inuyarai(b, -w / 2 + .55, -.85, bamboo); inuyarai(b, .85, w / 2 - .55, bamboo);
+  }
+  // The pent roof between the storeys: a tiled slope, its tile edge and the dark soffit under it.
+  b.colour.copy(tile);
   b.face('roof', [[-w / 2 - .1, ground + .25, 0], [w / 2 + .1, ground + .25, 0], [w / 2 + .1, ground - .15, -.9], [-w / 2 - .1, ground - .15, -.9]], [0, .91, -.41]);
-  b.gableRoof('roof', -w / 2, w / 2, 0, d, h, 2.1, .75);
-  b.colour.copy(plaster); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, 2.1);
-  // Upper floor: plaster pierced by two glazed windows.
-  windowRows(x, f, -w / 2, w / 2, [ground, h], [[-w / 4, 1.4], [w / 4, 1.4]], .6, upper - .45, 2);
-  if (random() < .45) { b.colour.set('#2e3d5c'); b.front('wall', -.7, .7, ground - 1.25, ground - .35, -.05); }
-  if (detail === 2 && random() < .5) { b.colour.set('#ffcf7a'); b.cylinder('lamp', w / 2 - .6, ground - .9, -.3, .16, .4, 8); }
+  if (detail) {
+    b.colour.copy(tile).multiplyScalar(.7);
+    b.box('roof', -w / 2 - .12, w / 2 + .12, ground - .27, ground - .13, -.96, -.86, 'bk');
+    b.box('roof', -w / 2 - .1, w / 2 + .1, ground + .2, ground + .32, -.06, .04, 'b');
+    b.colour.copy(dark(wood)); b.flat('wall', -w / 2 - .1, w / 2 + .1, -.88, 0, ground - .15, -1);
+  }
+  // The main roof, eaves to the street, with its ridge cap and the street eave's tile edge and soffit.
+  const rise = 2.1, overhang = .75, run = d / 2 + overhang, drop = rise * overhang / run;
+  b.colour.copy(tile); b.gableRoof('roof', -w / 2, w / 2, 0, d, h, rise, overhang);
+  b.colour.copy(plaster); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, rise);
+  if (detail) {
+    b.colour.copy(tile).multiplyScalar(.72);
+    b.box('roof', -w / 2 - .5, w / 2 + .5, h + rise - .06, h + rise + .2, d / 2 - .17, d / 2 + .17, 'b');
+    b.box('roof', -w / 2 - .45, w / 2 + .45, h - drop - .16, h - drop, -overhang - .06, -overhang + .06, 'bk');
+    b.colour.copy(dark(wood)); b.flat('wall', -w / 2 - .45, w / 2 + .45, -overhang, 0, h - drop, -1);
+  }
+  // The upper floor, consuming the building stream's three draws as its window seeds.
+  const floorSeed = random(), seeds = [floorSeed * .25 + random() * .75, floorSeed * .25 + random() * .75];
+  const y0 = ground + .25, y1 = h;
+  if (upperStyle < .4) {
+    // Mushiko-mado: plaster slats over a dim room, one wide opening or two.
+    const width = w < 7 ? Math.min(2, w - 2.2) : 1.5, centres = w < 7 ? [0] : [-w / 4 + .1, w / 4 - .1];
+    const holes = centres.map(c => [c - width / 2, c + width / 2, 3.85, 4.5] as const);
+    b.colour.copy(plaster); wallAround(b, -w / 2, w / 2, y0, y1, holes);
+    holes.forEach(([h0, h1, hy0, hy1], i) => {
+      if (detail) { b.colour.copy(shade(plaster, .78)); reveals(b, h0, h1, hy0, hy1, .14); }
+      b.window = [seeds[i]!, WINDOW_KIND.home]; b.colour.set('#6a5a44');
+      b.front('glass', h0, h1, hy0, hy1, .14);
+      if (detail) { b.colour.copy(plaster); for (let px = h0 + .05; px < h1 - .05; px += .14) b.box('wall', px, px + .065, hy0, hy1, -.01, .1, 'bkt'); }
+    });
+  } else if (upperStyle < .8) {
+    // A lit wooden lattice band across the frontage (二階格子), bamboo blinds (簾) half down over half of them.
+    const h0 = -w / 2 + .35, h1 = w / 2 - .35, hy0 = 3.5, hy1 = 4.95;
+    b.colour.copy(plaster); wallAround(b, -w / 2, w / 2, y0, y1, [[h0, h1, hy0, hy1]]);
+    if (detail) { b.colour.copy(shade(wood, .85)); reveals(b, h0, h1, hy0, hy1, .3); }
+    b.window = [seeds[0]!, WINDOW_KIND.home]; b.colour.set('#7a6a52');
+    b.front('glass', h0, h1, hy0, hy1, .3);
+    if (detail) {
+      b.colour.copy(wood);
+      for (let px = h0 + .06; px < h1 - .04; px += .095) b.box('metal', px, px + .035, hy0, hy1, -.02, .04, 'bkt');
+      b.box('metal', h0, h1, hy0, hy0 + .1, -.06, .04, 'bk'); b.box('metal', h0, h1, hy1 - .08, hy1, -.06, .04, 'bk');
+      if (blinds) {
+        b.pattern = WALL_PATTERN.siding; b.colour.set('#a88a58');
+        b.front('wall', h0 + .05, h1 - .05, hy1 - .62, hy1 - .08, -.07);
+        b.pattern = WALL_PATTERN.plain;
+      }
+    }
+  } else {
+    // Glazed windows behind a timber railing (手摺).
+    const width = Math.min(1.6, w / 2 - .5), holes = [[-w / 4 - width / 2, -w / 4 + width / 2, 3.45, 4.9], [w / 4 - width / 2, w / 4 + width / 2, 3.45, 4.9]] as const;
+    b.colour.copy(plaster); wallAround(b, -w / 2, w / 2, y0, y1, holes);
+    holes.forEach(([h0, h1, hy0, hy1], i) => {
+      if (detail) { b.colour.copy(shade(plaster, .78)); reveals(b, h0, h1, hy0, hy1, .16); }
+      b.window = [seeds[i]!, WINDOW_KIND.home]; b.colour.copy(f.glass);
+      b.front('glass', h0, h1, hy0, hy1, .16);
+      if (detail) { b.colour.copy(f.frame); b.box('metal', (h0 + h1) / 2 - .025, (h0 + h1) / 2 + .025, hy0, hy1, .1, .14, 'bkt'); }
+    });
+    if (detail) {
+      b.colour.copy(wood);
+      b.box('metal', -w / 2 + .25, w / 2 - .25, 4.02, 4.1, -.42, -.34, 'b');
+      b.box('metal', -w / 2 + .25, w / 2 - .25, 3.6, 3.66, -.42, -.36, 'b');
+      for (let px = -w / 2 + .3; px < w / 2 - .2; px += .62) b.box('metal', px, px + .06, 3.3, 4.1, -.42, -.36, 'b');
+    }
+  }
+  // A noren split in three panels across the doorway, and the lantern beside it.
+  if (random() < .45) {
+    b.colour.set('#2e3d5c');
+    for (const [p0, p1] of [[-.7, -.25], [-.23, .23], [.25, .7]] as const) b.front('wall', p0, p1, ground - 1.25, ground - .35, -.05);
+    b.box('metal', -.78, .78, ground - .37, ground - .33, -.08, -.04, 'b');
+  }
+  if (detail === 2 && random() < .5) {
+    b.colour.copy(dark(wood)); b.box('metal', w / 2 - .62, w / 2 - .58, ground - .5, ground - .38, -.34, -.26, 'b');
+    b.colour.set('#ffcf7a'); b.cylinder('lamp', w / 2 - .6, ground - .95, -.3, .17, .45, 8);
+  }
   streetFurniture(x, w, false);
   shopLife(x, w, null);
 }
@@ -967,17 +1280,18 @@ function parking(x: Context): void {
   if (!detail || !level) return;
   for (let i = 0; i < bays; i++) {
     if (random() < .45) continue;
-    // A boxy period saloon.
+    // A period saloon in its bay.
     const cx = -w / 2 + w * (i + .5) / bays, z0 = d * .35, body = colour(random, ['#e8e4da', '#3a4a6a', '#7a2a2a', '#b8b4aa', '#2a2a2e', '#c8b07a']);
-    b.colour.copy(body); b.box('metal', cx - .82, cx + .82, .25, .95, z0, z0 + 4.4);
-    b.box('metal', cx - .72, cx + .72, .95, 1.38, z0 + 1.2, z0 + 3.4);
-    b.colour.set('#202630'); b.front('metal', cx - .66, cx + .66, 1.0, 1.33, z0 + 1.19);
-    b.colour.set('#141416'); for (const s of [-1, 1]) for (const zz of [z0 + .8, z0 + 3.6]) b.box('metal', cx + s * .84 - .1, cx + s * .84 + .1, 0, .55, zz - .3, zz + .3, 'b');
+    parkedCar(b, cx, z0, body);
   }
 }
 
 
 const HOUSE_WALLS = ['#d8cfbd', '#e2dccd', '#c9c2b4', '#bfae94', '#e6e1d6', '#b8b2a6', '#d1c3a8'];
+/** The old towns' houses (Kyoto, Nara, Aizu): weathered siding in cool greys and greige, as the Iimoriyama repaint
+ * paints its hillside houses; the bright new-build palette lit them warmer and brighter (right side warm .34 against
+ * .15). Seven entries, so the lot's draws are unchanged. */
+const TOWN_HOUSE_WALLS = ['#a9a5a0', '#b4ada3', '#9c9893', '#a39a8c', '#b9b4ab', '#928e8a', '#aaa093'];
 /** 1970s-80s glazed roof tiles: blue-black, cobalt, brown and plain grey kawara. */
 const ROOF_TILES = ['#3e4552', '#2f4f7a', '#7a4a32', '#5a5d63', '#8a3a2a', '#465a4a'];
 const SHEETS = ['#7c8a90', '#c9c2ae', '#5e7a6a', '#7a3a32', '#9aa4a8', '#4f6a86'];
@@ -989,21 +1303,63 @@ function ryokan(x: Context): void {
   const ground = 3.2, storey = 2.9, h = ground + storey * (storeys - 1);
   const timber = drift(new THREE.Color('#4a3a2e'), random, .05), plaster = drift(colour(random, ['#e6dfcf', '#ddd4c0', '#d8cbb2']), random);
   const f = facade(random, plaster, WINDOW_KIND.home);
-  f.flank.copy(shade(plaster, .9)); f.glass.set('#8a7a5c'); f.frame.copy(timber);
+  // A timber inn: board walls and flanks a weathered brown, the plaster kept for the gable ends.
+  const boards = shade(timber, 1.35);
+  f.flank.copy(shade(boards, .85)); f.glass.set('#8a7a5c'); f.frame.copy(timber);
   shell(x, f, w, d, h, false, false);
-  const bays = Math.max(3, Math.round(w / 2.6)), columns = evenColumns(-w / 2, w / 2, bays, w / bays - .7);
-  for (let floor = 1; floor < storeys; floor++) {
-    const y0 = ground + (floor - 1) * storey, y1 = y0 + storey;
-    windowRows(x, f, -w / 2, w / 2, [y0, y1], columns, .45, 2.35, 2);
+  // The flanks carry the inn's side rooms: on each upper floor a row of glazed windows between posts, a beam at every
+  // floor, lit like the front. Blank, the flanks of the inns standing behind Gion's lower machiya read as dark grey
+  // blocks where the Shijō–Gion repaint paints lit timber inns. Their own stream, so the building is unchanged.
+  const rooms = Math.max(2, Math.floor((d - 1.2) / 3.2)), sideStream = seeded(hashInts(lot.seed, 1986, 29));
+  for (const s of [-1, 1] as const) for (let floor = 1; floor < storeys; floor++) {
+    const y0 = ground + (floor - 1) * storey, sill = y0 + .7, head = y0 + storey - .5, floorSeed = sideStream(), px = s * (w / 2 + .03);
+    for (let i = 0; i < rooms; i++) {
+      const z = .6 + (d - 1.2) * (i + .5) / rooms, half = Math.min(1.1, (d - 1.2) / rooms / 2 - .35);
+      b.window = [floorSeed * .25 + sideStream() * .75, WINDOW_KIND.home]; b.colour.copy(f.glass);
+      b.side('glass', px, z - half, z + half, sill, head, s);
+    }
+    if (!detail) continue;
     b.colour.copy(timber);
-    for (let i = 0; i <= bays; i++) { const px = -w / 2 + w * i / bays; b.box('wall', px - .1, px + .1, y0, y1, -.08, 0, 'bk'); }
+    const outer = s < 0 ? [-w / 2 - .09, -w / 2] : [w / 2, w / 2 + .09];
+    b.box('wall', outer[0]!, outer[1]!, y0 - .1, y0 + .08, 0, d, 'b');
+    for (let i = 0; i <= rooms; i++) { const z = .6 + (d - 1.2) * i / rooms; b.box('wall', outer[0]!, outer[1]!, y0, y0 + storey, z - .1, z + .1, 'b'); }
+  }
+  const bays = Math.max(3, Math.round(w / 2.6)), tile = new THREE.Color('#3e4248'), deep = 1.15;
+  for (let floor = 1; floor < storeys; floor++) {
+    const y0 = ground + (floor - 1) * storey, y1 = y0 + storey, sill = y0 + .12, head = y1 - .45;
+    // The building stream's draws for this floor (as windowRows took them): its seed, then one per bay.
+    const floorSeed = random(), seeds = Array.from({ length: bays }, () => floorSeed * .25 + random() * .75);
+    // Board walls above and below the glazing.
+    b.pattern = WALL_PATTERN.siding; b.colour.copy(boards);
+    b.front('wall', -w / 2, w / 2, y0, sill, 0); b.front('wall', -w / 2, w / 2, head, y1, 0);
+    b.pattern = WALL_PATTERN.plain;
+    // Each bay a pair of glazed sliding doors (ガラス戸) across its whole width, the room lit behind.
+    for (let i = 0; i < bays; i++) {
+      const g0 = -w / 2 + w * i / bays + .11, g1 = -w / 2 + w * (i + 1) / bays - .11;
+      if (detail) { b.colour.copy(shade(timber, .8)); reveals(b, g0, g1, sill, head, .28); }
+      b.window = [seeds[i]!, WINDOW_KIND.home]; b.colour.copy(f.glass);
+      b.front('glass', g0, g1, sill, head, .28);
+      if (detail) {
+        b.colour.copy(timber);
+        for (const m of [1 / 3, 1 / 2, 2 / 3]) { const mx = g0 + (g1 - g0) * m; b.box('metal', mx - .03, mx + .03, sill, head, .2, .26, 'bkt'); }
+        b.box('metal', g0, g1, head - .58, head - .52, .2, .26, 'bk');
+      }
+    }
+    b.colour.copy(timber);
+    for (let i = 0; i <= bays; i++) { const px = -w / 2 + w * i / bays; b.box('wall', px - .11, px + .11, y0, y1, -.1, 0, 'bk'); }
     if (detail) {
-      // The veranda (縁側) rail and its little tiled pent roof.
-      b.box('wall', -w / 2, w / 2, y0 - .12, y0, -.9, 0, 'k');
-      b.box('wall', -w / 2, w / 2, y0 + .82, y0 + .9, -.9, -.82, 'k');
-      for (let px = -w / 2; px <= w / 2; px += detail === 2 ? .45 : .9) b.box('wall', px - .03, px + .03, y0, y0 + .82, -.88, -.84, 'bkt');
-      b.colour.set('#3e4248');
-      b.face('roof', [[-w / 2 - .1, y1 - .05, 0], [w / 2 + .1, y1 - .05, 0], [w / 2 + .1, y1 - .45, -1.1], [-w / 2 - .1, y1 - .45, -1.1]], [0, .94, -.34]);
+      // The balcony (縁側): a deep floor on brackets, a rail on close balusters, and the tiled pent roof over it.
+      b.box('wall', -w / 2, w / 2, y0 - .14, y0, -deep, 0, 'k');
+      b.colour.copy(shade(timber, 1.15));
+      b.box('wall', -w / 2, w / 2, y0 + .86, y0 + .95, -deep, -deep + .1, 'k');
+      b.box('wall', -w / 2, w / 2, y0 + .08, y0 + .14, -deep + .02, -deep + .08, 'k');
+      b.colour.copy(timber);
+      for (let px = -w / 2 + .05; px <= w / 2; px += detail === 2 ? .2 : .6) b.box('wall', px - .025, px + .025, y0, y0 + .86, -deep + .03, -deep + .07, 'bkt');
+      b.colour.copy(tile);
+      b.face('roof', [[-w / 2 - .1, y1 - .05, 0], [w / 2 + .1, y1 - .05, 0], [w / 2 + .1, y1 - .48, -deep - .25], [-w / 2 - .1, y1 - .48, -deep - .25]], [0, .94, -.34]);
+      b.colour.copy(tile).multiplyScalar(.7);
+      b.box('roof', -w / 2 - .12, w / 2 + .12, y1 - .58, y1 - .46, -deep - .3, -deep - .2, 'bk');
+      b.colour.copy(dark(timber)); b.flat('wall', -w / 2 - .1, w / 2 + .1, -deep - .22, 0, y1 - .48, -1);
     }
   }
   // Street floor: a lattice front, the entrance with its noren and lanterns.
@@ -1055,24 +1411,38 @@ function hotel(x: Context): void {
 function house(x: Context): void {
   const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, storeys = Math.max(1, Math.min(2, lot.storeys));
   const ground = 2.9, storey = 2.7, h = ground + storey * (storeys - 1);
-  const wall = drift(colour(random, HOUSE_WALLS), random), f = facade(random, wall, WINDOW_KIND.home);
+  const wall = drift(colour(random, AUTUMN_TOWNS.has(x.b.signs) ? TOWN_HOUSE_WALLS : HOUSE_WALLS), random), f = facade(random, wall, WINDOW_KIND.home);
   b.pattern = WALL_PATTERN.siding;
   f.flank.copy(shade(wall, .92));
   shell(x, f, w, d, h, false, false);
   windowRows(x, f, -w / 2, w / 2, [0, ground], [[-w * .18, 2.3], [w * .27, 1.1]], .35, 2.2, 1);
+  const upper = evenColumns(-w / 2, w / 2, 2, Math.min(1.7, w / 2 - 1.2));
   if (storeys > 1) {
-    windowRows(x, f, -w / 2, w / 2, [ground, h], evenColumns(-w / 2, w / 2, 2, Math.min(1.7, w / 2 - 1.2)), .85, 2.05, 1);
+    windowRows(x, f, -w / 2, w / 2, [ground, h], upper, .85, 2.05, 1);
     if (detail && random() < .6) {
       b.colour.copy(f.trim); b.box('wall', -w * .45, w * .05, ground - .12, ground, -.85, 0, 'k');
       b.colour.set('#3a3a3c'); b.box('metal', -w * .45, w * .05, ground + .9, ground + .95, -.85, -.8, 'k');
       if (random() < .6) { b.colour.copy(colour(random, ['#f4f0e8', '#f0c8d8', '#c8dcf4', '#f4e4b0', '#e8f0c8'])); b.front('wall', -w * .4, -w * .1, ground + .3, ground + 1.3, -.82); }
     }
   }
-  b.colour.copy(colour(random, ROOF_TILES));
-  b.gableRoof('roof', -w / 2, w / 2, 0, d, h, 1.5 + random() * .7, .6);
-  b.colour.copy(wall); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, 1.5);
+  // The same two draws as before, in the same order: the tile colour, then the pitch.
+  const roofTone = colour(random, ROOF_TILES), rise = 1.5 + random() * .7, overhang = .6;
+  b.colour.copy(roofTone);
+  b.gableRoof('roof', -w / 2, w / 2, 0, d, h, rise, overhang);
+  // Gable ends as tall as the roof (they stopped at 1.5 m, leaving a gap under a steeper roof).
+  b.colour.copy(wall); b.gableEnds('wall', -w / 2, w / 2, 0, d, h, rise);
+  if (detail) {
+    // The ridge cap with its end tiles, and the street eave's tile edge over a dark soffit.
+    const drop = rise * overhang / (d / 2 + overhang);
+    b.colour.copy(roofTone).multiplyScalar(.72);
+    b.box('roof', -w / 2 - .4, w / 2 + .4, h + rise - .05, h + rise + .16, d / 2 - .15, d / 2 + .15, 'b');
+    for (const s of [-1, 1]) b.box('roof', s * (w / 2 + .3) - .2, s * (w / 2 + .3) + .2, h + rise - .05, h + rise + .42, d / 2 - .18, d / 2 + .18, 'b');
+    b.box('roof', -w / 2 - .4, w / 2 + .4, h - drop - .13, h - drop, -overhang - .05, -overhang + .05, 'bk');
+    b.colour.copy(shade(wall, .45)); b.flat('wall', -w / 2 - .36, w / 2 + .36, -overhang, 0, h - drop, -1);
+  }
   // Porch light by the door.
   b.colour.set('#ffcf8a'); b.box('lamp', w * .27 - .1, w * .27 + .1, 2.3, 2.5, -.12, -.02);
+  houseDetail(x, f, w, ground, storeys > 1 ? upper : []);
   if (detail && lot.clearance > 4) {
     // The concrete-block wall (ブロック塀) at the lot line, a gate gap by the door.
     const z = -(lot.clearance - 2.1), gate = w * .27;
@@ -1082,12 +1452,82 @@ function house(x: Context): void {
       // A carport roof with a parked saloon.
       b.colour.set('#6a6a70'); b.box('metal', -w / 2, -w / 2 + .1, 0, 2.3, z + .4, z + .5, 'b'); b.box('metal', -w / 2 + 3, -w / 2 + 3.1, 0, 2.3, z + .4, z + .5, 'b');
       b.box('metal', -w / 2 - .1, -w / 2 + 3.2, 2.3, 2.38, z + .3, -.1);
-      b.colour.copy(colour(random, ['#e8e4da', '#3a4a6a', '#7a2a2a', '#b8b4aa']));
-      b.box('metal', -w / 2 + .7, -w / 2 + 2.4, .25, .95, z + .8, z + .8 + 4.3); b.box('metal', -w / 2 + .8, -w / 2 + 2.3, .95, 1.36, z + 2, z + 4);
+      parkedCar(b, -w / 2 + 1.55, z + .75, colour(random, ['#e8e4da', '#3a4a6a', '#7a2a2a', '#b8b4aa']));
     }
   }
   rooftopAntenna(x, w, d, h + 1);
 }
+
+/**
+ * A parked 1980s saloon, a Corona or a Bluebird, about 4.4 m long, its rear at `z0` and its length along +Z: a body on
+ * four wheels between black bumpers, a glasshouse of raked windscreens and side glass leaning in to a pillared roof,
+ * tail lamps, headlamps and a grille. Two plain boxes read as white blocks from the road (a carport, or Nara's Sanjō car
+ * park). About 150 triangles.
+ */
+function parkedCar(b: CityMeshBuilder, cx: number, z0: number, body: THREE.Color): void {
+  const at = (x: number, y: number, z: number): Vec3 => [cx + x, y, z0 + z], glass = new THREE.Color('#1e2430');
+  b.colour.copy(body); b.box('metal', cx - .83, cx + .83, .3, .78, z0 + .05, z0 + 4.35, 'b');
+  b.colour.copy(glass);
+  b.face('metal', [at(-.8, .78, 3.3), at(.8, .78, 3.3), at(.68, 1.36, 2.75), at(-.68, 1.36, 2.75)], [0, .69, .73]);
+  b.face('metal', [at(-.8, .78, 1), at(.8, .78, 1), at(.68, 1.36, 1.5), at(-.68, 1.36, 1.5)], [0, .65, -.76]);
+  for (const s of [-1, 1]) b.face('metal', [at(s * .8, .78, 1), at(s * .8, .78, 3.3), at(s * .68, 1.36, 2.75), at(s * .68, 1.36, 1.5)], [s * .98, .2, 0]);
+  b.colour.copy(body);
+  b.flat('metal', cx - .68, cx + .68, z0 + 1.5, z0 + 2.75, 1.36);
+  for (const s of [-1, 1]) b.box('metal', cx + s * .75 - .05, cx + s * .75 + .05, .78, 1.34, z0 + 2.05, z0 + 2.17, 'b');
+  b.colour.set('#2e2e30');
+  b.box('metal', cx - .86, cx + .86, .3, .46, z0 - .04, z0 + .1, 'b'); b.box('metal', cx - .86, cx + .86, .3, .46, z0 + 4.3, z0 + 4.44, 'b');
+  b.colour.set('#7a1414'); for (const s of [-1, 1]) b.box('metal', cx + s * .64 - .15, cx + s * .64 + .15, .52, .7, z0 + .01, z0 + .06, 'b');
+  b.colour.set('#d6d2c6'); for (const s of [-1, 1]) b.box('metal', cx + s * .6 - .17, cx + s * .6 + .17, .52, .66, z0 + 4.34, z0 + 4.39, 'b');
+  b.colour.set('#1a1a1c'); b.box('metal', cx - .42, cx + .42, .5, .68, z0 + 4.35, z0 + 4.38, 'b');
+  for (const s of [-1, 1] as const) for (const wz of [.9, 3.5]) wheel(b, cx + s * .76, z0 + wz, .29, s);
+}
+/** A car wheel: an octagonal tyre about the X axis, `radius` tall at the hub, and a grey hubcap on its outer face. */
+function wheel(b: CityMeshBuilder, x: number, z: number, radius: number, side: -1 | 1): void {
+  const ring = (r: number) => Array.from({ length: 8 }, (_, i) => { const a = (i + .5) / 8 * Math.PI * 2; return [Math.cos(a) * r, radius + Math.sin(a) * r] as const; });
+  const tyre = ring(radius), cap = ring(radius * .55), outer = x + side * .1, inner = x - side * .1;
+  b.colour.set('#141416');
+  tyre.forEach(([z1, y1], i) => {
+    const [z2, y2] = tyre[(i + 1) % 8]!, mz = (z1 + z2) / 2, my = (y1 + y2) / 2 - radius, l = Math.hypot(mz, my) || 1;
+    b.face('metal', [[inner, y1, z + z1], [outer, y1, z + z1], [outer, y2, z + z2], [inner, y2, z + z2]], [0, my / l, mz / l]);
+    b.face('metal', [[outer, radius, z], [outer, y1, z + z1], [outer, y2, z + z2]], [side, 0, 0]);
+  });
+  b.colour.set('#8a8c8e');
+  cap.forEach(([z1, y1], i) => { const [z2, y2] = cap[(i + 1) % 8]!; b.face('metal', [[outer + side * .01, radius, z], [outer + side * .01, y1, z + z1], [outer + side * .01, y2, z + z2]], [side, 0, 0]); });
+}
+/** Garden trees behind a house's block wall: mostly dark evergreens, or a maple turned crimson (linear tints). */
+const GARDEN_TINTS = [[.06, .13, .06], [.08, .16, .07], [.05, .11, .06], [.95, .052, .04], [.55, .04, .03]] as const;
+/**
+ * A house's lived-in detail, as the Iimoriyama repaint draws the houses on its hill (from the lot's own hash, so the
+ * house and the street are unchanged):
+ * - the entrance (玄関): a concrete step under the door and a small canopy (庇) over it, its porch lamp glowing at night;
+ * - storm-shutter cases (戸袋) in bronze or dark-stained wood beside the upper windows, with the shutters' rails over
+ *   and under them, as 1980s houses close their windows with amado at night;
+ * - on the autumn towns' frontage, a garden tree behind the block wall: a dark evergreen, or a crimson maple. Beige
+ *   cases and gold maples lit the Iimoriyama house brighter and warmer than the repaint's (right side .25 to .28).
+ */
+function houseDetail(x: Context, f: Facade, w: number, ground: number, upper: readonly (readonly [number, number])[]): void {
+  const { b, lot, detail } = x, own = seeded(hashInts(lot.seed, 1986, 31)), door = w * .27;
+  b.beacon(door, 2.4, -.08, 1.5, .95, .45, .28);
+  if (!detail) return;
+  b.colour.set('#9c988e'); b.box('stone', door - .8, door + .8, 0, .18, -.6, 0, 'b');
+  b.colour.copy(f.frame).multiplyScalar(.85);
+  b.box('metal', door - .9, door + .9, 2.62, 2.7, -.8, 0, 'b');
+  b.box('metal', door - .9, door + .9, 2.56, 2.62, -.82, -.76, 'bk');
+  const shutterCase = new THREE.Color(own() < .5 ? '#5a4a3c' : '#4a3f36');
+  for (const [c, span] of upper) {
+    const y0 = ground + .85, y1 = ground + 2.05, x0 = c + span / 2 + .04, x1 = x0 + .48;
+    if (x1 > w / 2 - .12) continue;
+    b.colour.copy(shutterCase); b.box('metal', x0, x1, y0 - .05, y1 + .05, -.2, 0, 'bk');
+    b.colour.copy(shutterCase).multiplyScalar(.8);
+    for (const y of [y0 - .06, y1]) b.box('metal', c - span / 2 - .05, x0, y, y + .06, -.14, 0, 'bk');
+  }
+  if (detail !== 2 || lot.clearance <= 4 || !AUTUMN_TOWNS.has(x.b.signs)) return;
+  const z = -(lot.clearance - 2.1) + 1.1 + own() * .4, side = own() < .5 ? -.32 : .02;
+  const tint: readonly [number, number, number] = GARDEN_TINTS[Math.floor(own() * GARDEN_TINTS.length)]!;
+  b.plant(FLORA_KIND.maple, w * side - .6, 0, z, own() * Math.PI * 2, .28 + own() * .12, ...tint, Math.floor(own() * 1000));
+}
+/** The autumn routes' town sign pools, whose houses keep garden maples. */
+const AUTUMN_TOWNS: ReadonlySet<SignPools | null> = new Set([SIGN_REGIONS.kyoto, SIGN_REGIONS.nara, SIGN_REGIONS.aizu]);
 
 /** Harbour warehouses: Meiji red brick, corrugated sheds or concrete stores, the operator's name on the face. */
 /**

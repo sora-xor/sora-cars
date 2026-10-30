@@ -250,7 +250,7 @@ export const LINEWORK_DEFAULTS: LineworkOptions = {
   inkRunCells: 2, glintConfirm: 1, glintRidgeCells: 3, glintRidgeKeep: 0.6,
   glowStable: 1, glowKeySpecular: 14, glowKeyLift: 1, glowRampCells: 5,
   lampHeadMid: 40, lampHeadFar: 80, lampHeadTierBand: 4,
-  foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 5, foliageLampGlint: 0.15, foliageToneFar: 45, foliageToneLift: 1,
+  foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 5, foliageLampGlint: 0, foliageToneFar: 45, foliageToneLift: 1,
   wireConnect: 1, wireCover: 0.2,
 };
 

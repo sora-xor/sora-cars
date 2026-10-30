@@ -44,7 +44,18 @@ export function setPeriodCityLighting(upper: number, ground: number, gain: numbe
  * carry the night (the user's rain-night target).
  */
 /** The share of direct light (lamps, shops, the moon) walls lose after dark. */
-const wallDirectCut = { value: .45 };
+// Refine round 4: .7 (was .45). A street lamp a few metres from a pale wall lit it as a broad beige panel (the moat
+// frame's flats, the office frame's entrance), where the repaints keep the walls by a lamp dark.
+const wallDirectCut = { value: .7 };
+/**
+ * The share of direct light walls lose in a late-day route's golden hours (refine round 4): under the low key the pale
+ * tile of Nara Sanjō's zakkyo blew out to flat peach (OKLab L median 0.70, 41% of it above 0.7), where its true-sun
+ * repaint keeps a warm beige tile grid (0.63, 8%).
+ */
+const WALL_GOLDEN_CUT = .2;
+const wallGoldenCut = { value: 0 };
+/** How far a late-day route's golden hours have come (0-1; world.ts, every frame). */
+export function setPeriodCityGolden(golden: number): void { wallGoldenCut.value = WALL_GOLDEN_CUT * THREE.MathUtils.clamp(golden, 0, 1); }
 /** The nearest street-lamp heads (world xyz; w 1 where a lamp stands) whose spill washes the facades around them. */
 export const cityLampHeads = { value: Array.from({ length: 6 }, () => new THREE.Vector4()) };
 /** The facades' lamp wash at full night (linear light at a lamp's foot). */
@@ -70,14 +81,14 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
   material.userData.wallDirectCut = wallDirectCut; material.userData.lampWash = lampWash; material.userData.wallAmbient = wallAmbient; material.userData.wallSlate = wallSlate; material.userData.wallNightCut = wallNightCut;
   material.onBeforeCompile = shader => {
     shader.uniforms.cityNight = cityNight;
-    shader.uniforms.cityWallDirectCut = wallDirectCut;
+    shader.uniforms.cityWallDirectCut = wallDirectCut; shader.uniforms.cityWallGoldenCut = wallGoldenCut;
     shader.uniforms.cityLampHeads = cityLampHeads; shader.uniforms.cityLampWash = lampWash; shader.uniforms.cityGroundLights = cityGroundLights;
     shader.uniforms.cityWallAmbient = wallAmbient; shader.uniforms.cityWallSlate = wallSlate; shader.uniforms.cityWallNightCut = wallNightCut;
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'attribute float cityPattern; varying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvCityPattern = cityPattern;\nvCityWorld = (modelMatrix * vec4(transformed, 1.)).xyz; vCityWorldNormal = normalize(mat3(modelMatrix) * objectNormal);');
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform float cityNight; uniform float cityWallDirectCut; uniform vec4 cityLampHeads[6]; uniform float cityLampWash; uniform float cityGroundLights; uniform vec3 cityWallAmbient; uniform float cityWallSlate; uniform float cityWallNightCut;\nvarying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\nvoid main() {')
+      .replace('void main() {', 'uniform float cityNight; uniform float cityWallDirectCut; uniform float cityWallGoldenCut; uniform vec4 cityLampHeads[6]; uniform float cityLampWash; uniform float cityGroundLights; uniform vec3 cityWallAmbient; uniform float cityWallSlate; uniform float cityWallNightCut;\nvarying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\nvoid main() {')
       .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('diffuseColor *= sampledDiffuseColor;', /* glsl */ `
         sampledDiffuseColor.rgb /= vec3(${mean.map(v => v.toFixed(6)).join(', ')});
         // The scan only roughens the pigment now: the finish's joints carry the texture, and a full-strength
@@ -165,7 +176,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
       .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
         reflectedLight.indirectDiffuse *= 1. - clamp(cityNight, 0., 1.) * .8;
         reflectedLight.indirectDiffuse += diffuseColor.rgb * cityWallAmbient * clamp(cityNight, 0., 1.);
-        reflectedLight.directDiffuse *= 1. - clamp(cityNight, 0., 1.) * cityWallDirectCut;
+        reflectedLight.directDiffuse *= 1. - clamp(cityNight, 0., 1.) * cityWallDirectCut - cityWallGoldenCut;
         // The street lamps' spill on the facades beside them (the user's rain-night concept: the tile around a lamp
         // glows warm while the wall above and between the lamps stays dark). The pools' cones point down and miss
         // the walls a few metres back, so the nearest heads wash the faces turned toward them, over about 9 m,
@@ -183,7 +194,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
           reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * min(wash, 1.) * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v14`;
+  material.customProgramCacheKey = () => `${name}-v15`;
   return material;
 }
 
@@ -209,7 +220,9 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
       {
         float seed = vCityWindow.x, kind = vCityWindow.y;
         float hall = step(4.5, kind), lobby = step(3.5, kind) * (1. - hall);
-        float share = lobby > .5 ? cityWindows.w * .6 : kind > 1.5 ? cityWindows.w : kind > .5 ? min(1., cityWindows.x * 1.2) : cityWindows.x;
+        // Lobbies light with the shops (refine round 4): every office repaint's ground floor is a lit glass hall, where at
+        // 60% lit with a dim room Horikawa's office stood dark at street level.
+        float share = kind > 1.5 ? cityWindows.w : kind > .5 ? min(1., cityWindows.x * 1.2) : cityWindows.x;
         if ((kind < 2.5 || kind > 3.5) && cityWindows.y > 0. && seed < share) {
           float level = fract(seed * 7.31 + .37), hue = fract(seed * 13.71 + .11);
           vec2 pane = vCityPane;
@@ -217,12 +230,13 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
           // plant on the sill, someone at a desk, a lamp, drawn curtains); only a window large on screen (a shop
           // front, a near window) shows its whole room from the interiors atlas, which shrunk to a few cells turned
           // to noise. The blend follows how many scene pixels the pane spans.
-          float spanned = 1. / max(fwidth(pane.x), 1e-4), shopGlass = kind > 1.5 && lobby < .5 ? 1. : 0.;
+          float spanned = 1. / max(fwidth(pane.x), 1e-4), shopGlass = kind > 1.5 ? 1. : 0.;
           // Refine round 4: a shop front shows its room from 16 scene pixels across (was 40-90): half mixed with the
           // flat glow, a near shop front read as an orange fog over a faint room, where the repaints draw the stall,
-          // its counter and the people inside. A window shows its room from 70 (was 150): the repaints' near
-          // windows show curtains, plants and people, where ours showed a big white ceiling-lamp oval.
-          float room = cityInteriorsReady > .5 && hall < .5 ? smoothstep(shopGlass > .5 ? 16. : 70., shopGlass > .5 ? 40. : 140., spanned) : 0.;
+          // its counter and the people inside; a lobby's glass is as broad. A window shows its room from 40 (was 150,
+          // then 70): the repaints' office windows show desks, plants and people, where ours showed a big white
+          // ceiling-lamp oval.
+          float room = cityInteriorsReady > .5 && hall < .5 ? smoothstep(shopGlass > .5 ? 16. : 40., shopGlass > .5 ? 40. : 80., spanned) : 0.;
           // The light: warm amber, brighter under the ceiling; some offices fluorescent; some homes lit by the TV.
           // Refine round 4: deeper amber (was 1, .5-.64, .18-.34): every repaint's lit windows measure OKLab chroma
           // about .15, where ours read cream (.08).
@@ -303,16 +317,21 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
           }
           if (room > 0.) {
             // The room: offices, homes, eateries and bars, shops (one each by the window's seed), upright from the
-            // street; lobbies a dim office. Bright enough to sit in the highlight range, where the grade keeps it
-            // amber; shop fronts, whole walls of glass, a little less so they keep their detail.
+            // street; lobbies a bright office (not the room behind blue blinds, which the night grade turned violet
+            // across a whole lobby). Bright enough to sit in the highlight range, where the grade keeps it amber; shop
+            // fronts, whole walls of glass, a little less so they keep their detail.
             float row = kind > 1.5 && lobby < .5 ? 2. + step(.5, fract(seed * 3.7)) : kind > .5 || lobby > .5 ? 0. : 1.;
             float column = floor(fract(seed * 11.3) * 4.);
+            if (lobby > .5 && column == 1.) column = 0.;
             vec2 roomUv = vec2((column + clamp(pane.x, .01, .99)) / 4., 1. - (row + 1. - clamp(pane.y, .01, .99)) / 4.);
             // Refine round 4: a window's room at 1.4 (was 1.9): brighter, it went into the tone map's shoulder.
-            vec3 inside = texture2D(cityInteriors, roomUv).rgb * (kind > 1.5 && lobby < .5 ? 1.5 : 1.4) * (lobby > .5 ? .45 : 1.);
+            vec3 inside = texture2D(cityInteriors, roomUv).rgb * (kind > 1.5 && lobby < .5 ? 1.5 : 1.4);
             // Warmer and a little dimmer before night falls (refine round 4: the office rooms' fluorescent white, lifted by
             // the dusk exposure, read cream, where every repaint keeps its rooms amber).
             inside *= mix(vec3(1.06, .9, .68), vec3(1.), .35 * clamp(cityNight, 0., 1.)) * mix(.75, 1., clamp(cityNight, 0., 1.));
+            // A lobby's room amber (refine round 4): its fluorescent office read salmon-pink behind the glass, where
+            // the repaints' lobbies glow warm.
+            if (lobby > .5) inside *= vec3(1.1, .84, .58);
             glow = mix(glow, inside, room);
           }
           // Every window its cross mullion.
@@ -324,7 +343,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
         }
       }`);
   };
-  material.customProgramCacheKey = () => 'period-city-window-glass-v13';
+  material.customProgramCacheKey = () => 'period-city-window-glass-v15';
   return material;
 }
 

@@ -48,8 +48,10 @@ import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCAD
   periodCityOpenRuns, periodCityRouteFrame, setPeriodCityLampHeads, setPeriodCityLighting,
   type CityFixture, type PeriodDistrict } from './period-city';
 import { streetScene, type StreetScene } from './period-city/street-scenes';
+import { setPeriodCityGolden } from './period-city/materials';
 import type { PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
+import { crownLight, crownLightGlsl } from './autumn-foliage';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
 // coordinates are right-positive. Convert once at the boundary: west = +X,
@@ -98,6 +100,13 @@ const ROAD_ALBEDO_SUNRISE = new THREE.Color('#b6b2ba');
 const ROAD_ALBEDO_GOLDEN = new THREE.Color('#c6c2c6');
 /** Extra hemisphere fill, key light and shadow opening in a late-day route's golden hours. */
 const GOLDEN_FILL = 0.3, GOLDEN_KEY = 2, GOLDEN_SHADOW_OPEN = 0.45;
+/** The shadow opening with the low sun behind the camera (refine round 4: Nara's true-sun repaints paint the road and
+ * verges sunlit, the long tree shadows across them light; at 0.45 the shadowed ground kept 40% of the key and the road
+ * read near black). With the sun ahead the backlit ground stays as dark as the Irohazaka repaints keep it. */
+const GOLDEN_SHADOW_OPEN_BEHIND = 0.85;
+/** A late-day route's lit rooms and shops in its golden hours, and how much brighter they glow (refine round 4: Nara
+ * Sanjō's true-sun repaint lights the tea shop and the rooms above it against the low sun, where ours stood dark). */
+const GOLDEN_WINDOW_SHARE = 0.9, GOLDEN_WINDOW_GAIN = 0.8;
 /** The key light's elevation (rad) in a late-day route's golden hours; the painted sun stays on the horizon. At 8-20
  * degrees the roadside trees' long shadows covered the whole road, which stayed dark under the repaints' sunlit asphalt
  * striped with tree shadows (Irohazaka's near road at 30 degrees: L median 0.45-0.50 against the repaint's 0.46). */
@@ -127,13 +136,37 @@ const BLOSSOM_DIRECT_CAP = 0.35;
 /** The same for the street trees' leaves (refine round 4: lit in full by the lamps beside them, Kanda's kerb trees glowed
  * bright yellow, where every night repaint keeps its street trees dark green with a few lamp-lit leaves). */
 const FOLIAGE_DIRECT_CAP = 0.08;
+/** The same for their trunks and branches (refine round 4: lit in full beside a lamp, the office frame's kerb tree stood
+ * as a bright orange trunk and boughs, where its repaint keeps the tree a dark mass with a faint warm side). */
+const BARK_DIRECT_CAP = 0.08;
 /** The ceiling by day (no effect: the sun lights the crowns in full). */
 const DAY_DIRECT_CAP = 50;
 /**
- * Caps a material's direct diffuse (scene-linear luminance) at `cap` after its own shader hooks (refine round 4), so a
- * lamp beside a crown lights it without blowing it out; the material's own cache key is kept as a prefix.
+ * The autumn maples' crowns take the painted crown light the street-routes session's flora and authored trees use
+ * (autumn-foliage.ts crownLightGlsl): the crown keeps its own crimson through light and shade, its sunlit leaves warm
+ * toward gold and its highlights stay under the tone curve's shoulder, where plain lighting paled the lit sides to peach.
+ * `amount` 0 for the cherries, which keep their own light.
  */
-function capDirectDiffuse(material: THREE.MeshStandardMaterial, cap: { value: number }, key: string): void {
+function mapleCrownLight(material: THREE.MeshStandardMaterial, amount: { value: number }): void {
+  const previous = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
+  const baseKey = previousKey === THREE.Material.prototype.customProgramCacheKey ? () => previous.toString() : () => previousKey.call(material);
+  material.onBeforeCompile = (shader, renderer) => {
+    previous.call(material, shader, renderer);
+    shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraMapleLight = amount;
+    shader.fragmentShader = shader.fragmentShader
+      .replace('void main() {', 'uniform vec2 soraCrownLight; uniform float soraMapleLight;\nvoid main() {')
+      .replace('#include <opaque_fragment>', `if (soraMapleLight > 0.) ${crownLightGlsl('soraMapleLight')}
+  #include <opaque_fragment>`);
+  };
+  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v1`;
+}
+
+/**
+ * Caps a material's direct diffuse (scene-linear luminance) at `cap` after its own shader hooks (refine round 4), so a
+ * lamp beside a crown lights it without blowing it out, and with `specular` its direct specular too (a lamp a metre
+ * from a street tree glared off its leaves and bark); the material's own cache key is kept as a prefix.
+ */
+function capDirectDiffuse(material: THREE.MeshStandardMaterial, cap: { value: number }, key: string, specular = false): void {
   const previous = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   const baseKey = previousKey === THREE.Material.prototype.customProgramCacheKey ? () => previous.toString() : () => previousKey.call(material);
   material.onBeforeCompile = (shader, renderer) => {
@@ -143,7 +176,9 @@ function capDirectDiffuse(material: THREE.MeshStandardMaterial, cap: { value: nu
       .replace('void main() {', 'uniform float soraDirectCap;\nvoid main() {')
       .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
   { float direct = dot(reflectedLight.directDiffuse, vec3(.2126, .7152, .0722));
-    if (direct > soraDirectCap) reflectedLight.directDiffuse *= soraDirectCap / direct; }`);
+    if (direct > soraDirectCap) reflectedLight.directDiffuse *= soraDirectCap / direct;${specular ? `
+    float glare = dot(reflectedLight.directSpecular, vec3(.2126, .7152, .0722));
+    if (glare > soraDirectCap) reflectedLight.directSpecular *= soraDirectCap / glare;` : ''} }`);
   };
   material.customProgramCacheKey = () => `${baseKey()}:${key}`;
 }
@@ -480,6 +515,10 @@ export class RaceWorld {
   private readonly blossomDirectCap = { value: BLOSSOM_DIRECT_CAP };
   /** The night ceiling on the lamps' direct light on the street trees' leaves (capDirectDiffuse). */
   private readonly foliageDirectCap = { value: DAY_DIRECT_CAP };
+  /** The night ceiling on the lamps' direct light on the street trees' trunks and branches (capDirectDiffuse). */
+  private readonly barkDirectCap = { value: DAY_DIRECT_CAP };
+  /** While the crowns are autumn maples, by day: how much of the painted crown light they take (mapleCrownLight). */
+  private readonly mapleLight = { value: 0 };
   /** Street lamps: the pool (20 a side) and their spacing (m). */
   private readonly lampPool = 40;
   private readonly lampSpacing = 22;
@@ -603,6 +642,7 @@ export class RaceWorld {
         tone.name = `Sakura blossom ${i + 1}`; tone.userData.directCap = directCap;
         capDirectDiffuse(tone, directCap, 'sora-blossom-cap-v2');
       }
+      mapleCrownLight(tone, this.mapleLight);
     });
     this.sakura.forEach((tree, i) => tree.traverse(object => {
       if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors)
@@ -668,7 +708,11 @@ export class RaceWorld {
         if (material instanceof THREE.MeshStandardMaterial && /leaves/i.test(material.name)
           && !this.foliageMaterials.includes(material)) {
           this.foliageMaterials.push(material);
-          capDirectDiffuse(material, this.foliageDirectCap, 'sora-foliage-cap-v1');
+          capDirectDiffuse(material, this.foliageDirectCap, 'sora-foliage-cap-v2', true);
+          material.needsUpdate = true;
+        } else if (material instanceof THREE.MeshStandardMaterial && /trunk|branches/i.test(material.name) && !material.userData.soraBarkCap) {
+          material.userData.soraBarkCap = true;
+          capDirectDiffuse(material, this.barkDirectCap, 'sora-bark-cap-v1', true);
           material.needsUpdate = true;
         }
       });
@@ -835,13 +879,14 @@ export class RaceWorld {
       const districtAt = districtsFor(course), open = this.classicCity ? [] : periodCityOpenRuns(course, districtAt);
       this.periodDistrictAt = this.classicCity ? null : districtAt;
       const crossings = !this.classicCity ? scene?.crossings ?? [] : [];
-      const urbanGround = createUrbanGround(course.poses, ground, periodCityGroundCut(course, open, crossings));
+      const urbanGround = createUrbanGround(course.poses, ground, periodCityGroundCut(course, open, crossings, scene?.street?.forestBanks));
       this.road.add(urbanGround);
       // Wooded hills on a city route (Iimoriyama, Keage) rise as forest banks;
       // a climb that switches back on itself (Wakakusa-yama) shares one hillside.
       const wooded = (p: number) => districtAt(p, -1) === 'forest' || districtAt(p, 1) === 'forest';
       if (open.some(run => run.district === 'forest') && scene?.terrain === 'slope') {
-        this.slope = createSlopeTerrain(course.poses, [], wooded); this.road.add(this.slope.group);
+        // Autumn routes lay leaf drifts over the hillside (terrain.ts), as their repaints carpet every verge.
+        this.slope = createSlopeTerrain(course.poses, [], wooded, scene?.trees?.kind === 'momiji' ? 1 : 0); this.road.add(this.slope.group);
       } else if (open.some(run => run.district === 'forest')) this.road.add(createTerrain(course.poses, 2, (p, side) => districtAt(p, side < 0 ? -1 : 1) !== 'forest'));
       this.cityGround = createGroundHeightSampler(urbanGround);
       const track = course.key as CompiledStreetTrack;
@@ -874,7 +919,7 @@ export class RaceWorld {
         // Stacked hairpins share one hillside; the flat strip and banks would roof over the other legs.
         const slope = this.slope = createSlopeTerrain(course.poses, crossings.map(c => {
           const at = poseAt(course, c.p); return { x: at.x, z: at.z, radius: (c.half ?? 12) + 8, depth: 7 };
-        }));
+        }), undefined, scene?.trees?.kind === 'momiji' ? 1 : 0);
         this.road.add(slope.group);
         groundHeightAt = (x, z) => { const at = frame(x, z), h = slope.heightAt(x, z); return !at || gorge(at.p) || !Number.isFinite(h) ? null : h; };
       } else {
@@ -1307,15 +1352,20 @@ export class RaceWorld {
     // A route that lights nearly every window at dusk (refine round 4: Kyoto's and Aizu's repaints) raises the dusk
     // shares toward its own, easing back to the night's and the sunrise's.
     const routeWindows = mood.windows === undefined ? 0 : THREE.MathUtils.clamp(mood.windows, 0, 1) * dusk * (1 - morning);
-    const upperLit = Math.max(windowLights('upper', dusk, morning), routeWindows);
-    const groundLit = Math.max(windowLights('ground', dusk, morning), routeWindows);
-    setWindowLights(upperLit, groundLit, windowLights('gain', dusk, morning), windowLights('cool', dusk, morning));
+    const goldenShare = GOLDEN_WINDOW_SHARE * golden;
+    const upperLit = Math.max(windowLights('upper', dusk, morning), routeWindows, goldenShare);
+    const groundLit = Math.max(windowLights('ground', dusk, morning), routeWindows, goldenShare);
+    const windowGain = windowLights('gain', dusk, morning) * (1 + GOLDEN_WINDOW_GAIN * goldenShare);
+    setWindowLights(upperLit, groundLit, windowGain, windowLights('cool', dusk, morning));
     setShopfrontGlow(windowLights('diffuser', dusk, morning), windowLights('signs', dusk, morning));
     setSignGlow(windowLights('signs', dusk, morning));
     // Maples glow far less than lit night cherries: an even glow over the crowns flattened them to salmon.
     const crownGlow = (.12 + .32 * (1 - dusk) + .28 * sunrise) * (this.momiji ? .35 : 1);
+    // The painted crown light only by day: at dusk it held the lamp-lit crowns under its highlight ceiling, darker than
+    // the repaints' lamp-lit reds (Kyoto's torii avenue).
+    this.mapleLight.value = this.momiji ? THREE.MathUtils.smoothstep(daylight, 0.55, 0.8) : 0;
     for (const tone of this.blossomTones) tone.emissiveIntensity = crownGlow;
-    setPeriodCityLighting(upperLit, groundLit, windowLights('gain', dusk, morning), windowLights('cool', dusk, morning),
+    setPeriodCityLighting(upperLit, groundLit, windowGain, windowLights('cool', dusk, morning),
       windowLights('signs', dusk, morning) * PERIOD_SIGN_GAIN, THREE.MathUtils.lerp(1, PERIOD_SUNRISE_LAMPS, morning) * lampsOn,
       windowLights('signs', dusk, morning) * PERIOD_FLOODLIGHTS);
     // The cutscenes separate cream/gold illuminated surfaces from charcoal
@@ -1330,6 +1380,7 @@ export class RaceWorld {
     // The ceiling only bites after dark: by day the sun lights the crowns in full.
     this.blossomDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BLOSSOM_DIRECT_CAP, night);
     this.foliageDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, FOLIAGE_DIRECT_CAP, night);
+    this.barkDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BARK_DIRECT_CAP, night);
     this.scene.environmentIntensity = 0.09 + daylight * 0.16 + 0.05 * night;
     this.fill.intensity = 0.08 + daylight * 0.12 + 0.12 * night + GOLDEN_FILL * golden;
     this.fill.color.copy(MOOD.fillSky).lerp(MOOD.fillGolden, golden);
@@ -1343,7 +1394,7 @@ export class RaceWorld {
     // The golden hours' low sun is the brightest light of the day, and its long tree shadows stay warm and open (the
     // late-day routes' repaints paint the road sunlit through the crowns).
     this.keyLight.intensity = 0.6 + 0.9 * dusk + 0.3 * morning + GOLDEN_KEY * golden;
-    this.keyLight.shadow.intensity = 1 - GOLDEN_SHADOW_OPEN * golden;
+    setPeriodCityGolden(golden);
     this.keyLight.color.lerpColors(MOOD.keyMoon, MOOD.keyDusk, dusk).lerp(MOOD.keySunrise, morning)
       .lerp(MOOD.keyWet, this.weather * dusk * (1 - sunrise));
     // The sun keeps its world direction through corners; only the shadow
@@ -1357,6 +1408,11 @@ export class RaceWorld {
     const elevation = THREE.MathUtils.lerp(THREE.MathUtils.lerp(KEY_ELEVATION, SUNRISE_ELEVATION, swing) + 0.05 * sunrise,
       GOLDEN_KEY_ELEVATION, golden);
     this.keyDirection.set(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation));
+    // The golden shadows open with the sun behind the camera (GOLDEN_SHADOW_OPEN_BEHIND).
+    const sunAhead = (this.keyDirection.x * Math.sin(at.heading) + this.keyDirection.z * Math.cos(at.heading))
+      / Math.max(Math.hypot(this.keyDirection.x, this.keyDirection.z), 1e-6);
+    this.keyLight.shadow.intensity = 1 - THREE.MathUtils.lerp(GOLDEN_SHADOW_OPEN, GOLDEN_SHADOW_OPEN_BEHIND,
+      THREE.MathUtils.smoothstep(-sunAhead, 0.2, 0.8)) * golden;
     this.keyLight.target.position.copy(point(at, 0, 0, 16));
     this.keyLight.position.copy(this.keyLight.target.position).addScaledVector(this.keyDirection, KEY_DISTANCE);
     this.scene.backgroundRotation.y = this.scene.environmentRotation.y = HDR_WARM_BAND_ANGLE - azimuth;

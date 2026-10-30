@@ -1,0 +1,201 @@
+{
+ "mode": "built-in image_gen (Codex CLI 0.165.0, gpt-6-astra, model_reasoning_effort ultra, opaque)",
+ "use": "Comparison targets only (never shipped): cutscene-style repaints of race frames on the four street routes beyond Tokyo (Irohazaka, Aizu-Wakamatsu, Kyoto, Nara), with our camera and layout kept, so each route's frames are judged against the same composition (docs/period-city.md, street routes against their repaints). Captured with the race renderer before the route changes of 2026-10-30.",
+ "prompts": [
+  {
+   "id": "irohazaka-umagaeshi-l120",
+   "file": "art/reference/mockups/irohazaka-umagaeshi-l120-v1.png",
+   "source": "race frame: Irohazaka street race, clock 0.12 (UMAGAESHI, daylight ~0.97), lap 0.12, 1280x720 (route-capture.mjs)",
+   "references": [
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/story/angles/iroha-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn afternoon at the foot of the 1986 Second Irohazaka in Nikko: a low golden sun, a warm gold and peach sky fading to violet with sunlit clouds, blazing red, orange and gold maples, dark cedars, blue-violet mountain ridges, a dry grey asphalt road with yellow centre lines, fallen red leaves along the kerbs, guard rails and a stone wall. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "irohazaka-maples-l450",
+   "file": "art/reference/mockups/irohazaka-maples-l450-v1.png",
+   "source": "race frame: Irohazaka street race, clock 0.45 (WALLS OF MAPLE, daylight ~0.86), lap 0.45, 1280x720",
+   "references": [
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/story/angles/iroha-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon on the hairpins of the 1986 Second Irohazaka in Nikko: a low golden sun behind the mountains, a gold and peach sky fading to violet with sunlit clouds, walls of red, orange and gold maples, dark cedars, blue-violet mountain ridges, a dry grey asphalt road with yellow centre lines catching the warm sky, fallen red leaves, guard rails and stone walls. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "irohazaka-akechidaira-l970",
+   "file": "art/reference/mockups/irohazaka-akechidaira-l970-v1.png",
+   "source": "race frame: Irohazaka street race, clock 0.97 (TO AKECHIDAIRA, daylight ~0.54), lap 0.97, 1280x720",
+   "references": [
+    "public/assets/story/angles/iroha-right-v1.png",
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: an autumn dusk at Akechidaira at the top of the 1986 Second Irohazaka: a violet and rose sky with a fading orange glow over dark blue mountain ridges, red maples, warm street lamps just lit, a lit rest house, a damp road with soft gold lamp reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "aizu-nanokamachi-l118",
+   "file": "art/reference/mockups/aizu-nanokamachi-l118-v1.png",
+   "source": "race frame: Aizu-Wakamatsu street race, clock 0.118 (STATION STREET, daylight ~0.77), lap 0.118, 1280x720",
+   "references": [
+    "public/assets/story/angles/aizu-wide-v1.png",
+    "public/assets/story/angles/aizu-right-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: an autumn early evening on the merchant streets of 1986 Aizu-Wakamatsu: a violet sky with rose and gold lit clouds and an orange glow low over the mountains, warm lit shop fronts and windows with their rooms and goods visible, glowing street lamps and lanterns, a damp road with warm gold reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "aizu-castle-moat-l450",
+   "file": "art/reference/mockups/aizu-castle-moat-l450-v1.png",
+   "source": "race frame: Aizu-Wakamatsu street race, clock 0.45 (TSURUGA CASTLE, daylight ~0.62), lap 0.45, 1280x720",
+   "references": [
+    "public/assets/story/angles/aizu-right-v1.png",
+    "public/assets/story/angles/aizu-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: an autumn evening beside the stone moat walls of Tsuruga Castle in 1986 Aizu-Wakamatsu: a violet and rose sky with an orange afterglow over the mountains, pines and autumn trees, warm lit windows, street lamps just lit, a damp road with gold reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "kyoto-shijo-gion-l262",
+   "file": "art/reference/mockups/kyoto-shijo-gion-l262-v1.png",
+   "source": "race frame: Kyoto street race, clock 0.262 (SHIJO LIGHTS, daylight ~0.59), lap 0.262, 1280x720",
+   "references": [
+    "public/assets/story/angles/gion-wide-v1.png",
+    "public/assets/story/angles/gion-right-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn dusk on Shijo-dori by Gion in 1986 Kyoto: a violet sky with pink and orange lit clouds, warm lit shop fronts with their rooms visible, vertical shop signs and paper lanterns, wooden machiya with lattices, glowing street lamps, a wet road with long warm gold reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "kyoto-heian-torii-l453",
+   "file": "art/reference/mockups/kyoto-heian-torii-l453-v1.png",
+   "source": "race frame: Kyoto street race, clock 0.453 (KEAGE, daylight ~0.50), lap 0.453, 1280x720",
+   "references": [
+    "public/assets/story/angles/gion-right-v1.png",
+    "public/assets/story/angles/gion-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn dusk on the approach to Heian Jingu in 1986 Kyoto: the great vermilion torii ahead, red maples on both sides, a violet sky with an orange glow at the horizon and pink lit clouds, glowing street lamps, a wet road mirroring the lamps, the maples and the torii. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "nara-sarusawa-l185",
+   "file": "art/reference/mockups/nara-sarusawa-l185-v1.png",
+   "source": "race frame: Nara street race, clock 0.185 (SANJO-DORI, daylight ~0.84), lap 0.185, 1280x720",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon in 1986 Nara by Sarusawa-ike and Kofuku-ji's five-storey pagoda: a low golden sun, a golden-peach sky fading to violet with sunlit clouds, autumn trees, stone lanterns, the pond mirroring the sky, a dry road and paving catching the warm light. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Light direction superseded: the prompt asked for a low sun ahead (east), from the race's first Nara sun bearing (95 degrees). A late-autumn afternoon sun in Nara stands at about 240 degrees (west-southwest), which the race now uses, so on these east-bound streets it lies behind the camera. Judge composition and detail against this repaint, not the direction of the light."
+  },
+  {
+   "id": "nara-wakakusa-l950",
+   "file": "art/reference/mockups/nara-wakakusa-l950-v1.png",
+   "source": "race frame: Nara street race, clock 0.95 (TO THE SUMMIT, daylight ~0.91), lap 0.95, 1280x720",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-detail-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon high on the Wakakusa-yama driveway in 1986 Nara: a low golden sun, a golden-peach sky fading to violet with sunlit clouds, the Nara basin and the Ikoma ridge below in a warm haze, autumn trees, a dry road catching the low sun. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Light direction superseded: the prompt asked for a low sun ahead (east), from the race's first Nara sun bearing (95 degrees). A late-autumn afternoon sun in Nara stands at about 240 degrees (west-southwest), which the race now uses, so on these east-bound streets it lies behind the camera. Judge composition and detail against this repaint, not the direction of the light."
+  },
+  {
+   "id": "kyoto-horikawa-l930",
+   "file": "art/reference/mockups/kyoto-horikawa-l930-v1.png",
+   "source": "race frame: Kyoto street race, clock 0.93 (DOWN HORIKAWA, daylight ~0.25), lap 0.93, 1280x720 (route-capture.mjs); captured after the first route changes (dry afternoon roads, sun bearings, dusk keys, fallen leaves)",
+   "references": [
+    "public/assets/story/angles/gion-right-v1.png",
+    "public/assets/story/angles/gion-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a 1986 Kyoto evening turning to night on Horikawa-dori: a navy-violet sky with stars and the last rose glow low on the horizon, office buildings with warm and fluorescent lit windows, the SORA RACING banner across the road, glowing street lamps, a wet road with long warm gold reflections and red tail-light streaks. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "aizu-iimoriyama-l950",
+   "file": "art/reference/mockups/aizu-iimoriyama-l950-v1.png",
+   "source": "race frame: Aizu-Wakamatsu street race, clock 0.95 (FROM THE HILL, daylight ~0.39), lap 0.95, 1280x720; captured after the first route changes (dry afternoon roads, sun bearings, dusk keys, fallen leaves)",
+   "references": [
+    "public/assets/story/angles/aizu-right-v1.png",
+    "public/assets/story/angles/aizu-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: an autumn dusk on the lane up Iimoriyama in 1986 Aizu-Wakamatsu: a violet sky with a rose afterglow over the hills, red and gold maples, small wooden houses with warm lit windows, street lamps just lit, a wet road strewn with fallen maple leaves and carrying gold lamp reflections. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "nara-sanjo-l050",
+   "file": "art/reference/mockups/nara-sanjo-l050-v1.png",
+   "source": "race frame: Nara street race, clock 0.05 (SANJO-DORI, daylight ~0.96), lap 0.05, 1280x720; captured after the first route changes (dry afternoon roads, sun bearings, dusk keys, fallen leaves)",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon on Sanjo-dori in 1986 Nara: a low golden sun at the end of the street, a gold and peach sky fading to violet with sunlit clouds, shop fronts with their goods and signs, utility poles and wires against the bright sky, a dry road catching the low sun. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Light direction superseded: the prompt asked for a low sun ahead (east), from the race's first Nara sun bearing (95 degrees). A late-autumn afternoon sun in Nara stands at about 240 degrees (west-southwest), which the race now uses, so on these east-bound streets it lies behind the camera. Judge composition and detail against this repaint, not the direction of the light."
+  },
+  {
+   "id": "irohazaka-bends-l300",
+   "file": "art/reference/mockups/irohazaka-bends-l300-v1.png",
+   "source": "race frame: Irohazaka street race, clock 0.30 (THE IROHA BENDS, daylight ~0.95, sun behind the camera), lap 0.30, 1280x720; captured after the first route changes (dry afternoon roads, sun bearings, dusk keys, fallen leaves)",
+   "references": [
+    "public/assets/story/angles/iroha-left-v1.png",
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon on the hairpins of the 1986 Second Irohazaka, looking away from the low sun: a rose and violet sky with sunlit clouds, red, orange and gold maples lit gold by the sun behind the camera, dark cedars, blue-violet mountain ridges, a dry road strewn with fallen maple leaves, guard rails and stone walls. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced."
+  },
+  {
+   "id": "nara-sanjo-l050-v2",
+   "file": "art/reference/mockups/nara-sanjo-l050-v2.png",
+   "source": "race frame: Nara street race, clock 0.05 (SANJO-DORI, daylight ~0.96), lap 0.05, heading east with the true late-afternoon sun (bearing 240) behind the camera, 1280x720; captured on 2026-10-30 after the modelling rounds (flora, crown light, pagoda, parked saloons)",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon on Sanjo-dori in 1986 Nara, the street running east with the low golden sun behind the camera in the west-southwest: warm gold light on every surface that faces it, long shadows of the cars, poles and people stretching ahead along the road, the sky ahead in the east rose and violet with sunlit pink and gold clouds, shop fronts with their goods and signs, utility poles and wires, a dry road. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Made on 2026-10-30 with the true late-afternoon sun (bearing 240, behind the camera on these east-bound streets), superseding the v1 Nara repaints for light; the v1 files are kept."
+  },
+  {
+   "id": "nara-sarusawa-l185-v2",
+   "file": "art/reference/mockups/nara-sarusawa-l185-v2.png",
+   "source": "race frame: Nara street race, clock 0.185 (SANJO-DORI, daylight ~0.93), lap 0.185, heading east with the true late-afternoon sun (bearing 240) behind the camera, 1280x720; captured on 2026-10-30 after the modelling rounds (flora, crown light, pagoda, parked saloons)",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon in 1986 Nara by Sarusawa-ike and Kofuku-ji's five-storey pagoda, the low golden sun behind the camera in the west-southwest: the maples lit blazing red and orange, warm gold light on the temple wall and the pavement, long shadows stretching ahead along the road, the sky ahead in the east rose and violet with sunlit pink clouds, the pond dark and still, a dry road. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Made on 2026-10-30 with the true late-afternoon sun (bearing 240, behind the camera on these east-bound streets), superseding the v1 Nara repaints for light; the v1 files are kept."
+  },
+  {
+   "id": "nara-park-l600-v1",
+   "file": "art/reference/mockups/nara-park-l600-v1.png",
+   "source": "race frame: Nara street race, clock 0.6 (THE GREAT BUDDHA HALL, daylight ~0.9), lap 0.6, heading north with the true late-afternoon sun (bearing 240) behind-left of the camera, 1280x720; captured on 2026-10-30 after the modelling rounds (flora, crown light, pagoda, parked saloons)",
+   "references": [
+    "public/assets/story/angles/nara-detail-v1.png",
+    "public/assets/story/angles/nara-right-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon in Nara Park in 1986, the low golden sun behind and to the left of the camera: maples and old trees lit red, orange and gold, long shadows across the grass and the road, a pond, sika deer grazing, the sky ahead rose and violet with sunlit clouds, a dry road strewn with fallen leaves. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Made on 2026-10-30 with the true late-afternoon sun (bearing 240, behind the camera on these east-bound streets), superseding the v1 Nara repaints for light; the v1 files are kept."
+  },
+  {
+   "id": "nara-wakakusa-l950-v2",
+   "file": "art/reference/mockups/nara-wakakusa-l950-v2.png",
+   "source": "race frame: Nara street race, clock 0.95 (TO THE SUMMIT, daylight ~0.96), lap 0.95, heading east-southeast with the true late-afternoon sun (bearing 240) behind the camera, 1280x720; captured on 2026-10-30 after the modelling rounds (flora, crown light, pagoda, parked saloons)",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-detail-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon high on the Wakakusa-yama driveway in 1986 Nara, the low golden sun behind the camera in the west-southwest: the hillside's maples and old trees lit blazing red, orange and gold, golden grass, long shadows stretching ahead along the climbing road, the sky ahead in the east rose and violet with sunlit pink clouds over the dark Kasuga hills, a dry road strewn with fallen leaves. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only. Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "note": "Made on 2026-10-30 with the true late-afternoon sun (bearing 240, behind the camera on these east-bound streets), superseding the v1 Nara repaints for light; the v1 files are kept."
+  }
+ ],
+ "status": "The Nara repaints with the true sun behind the camera, refused on 2026-10-30 by the Codex usage limit, were made later the same day once it lifted early: nara-sanjo-l050-v2, nara-sarusawa-l185-v2, nara-park-l600-v1 and nara-wakakusa-l950-v2. The v1 Nara repaints, asked for a low sun ahead, are kept for composition."
+}

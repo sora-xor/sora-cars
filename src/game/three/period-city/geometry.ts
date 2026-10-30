@@ -58,6 +58,8 @@ export class CityMeshBuilder {
   readonly beacons: number[] = [];
   /** Overhead wires (wires.ts): WIRE_STRIDE floats per segment, in the chunk's frame. */
   readonly wires: number[] = [];
+  /** Modelled plants (flora.ts): FLORA_STRIDE floats per plant, in the chunk's frame. */
+  readonly flora: number[] = [];
 
   constructor(readonly originX: number, readonly originZ: number) {}
 
@@ -70,6 +72,11 @@ export class CityMeshBuilder {
   world(p: THREE.Vector3): THREE.Vector3 {
     return new THREE.Vector3(this.originX + this.ox + p.x * this.c + p.z * this.s, this.oy + p.y,
       this.originZ + this.oz - p.x * this.s + p.z * this.c);
+  }
+
+  /** A modelled plant (flora.ts) at a local point: its kind, turn, scale, leaf tint (linear) and variant seed. */
+  plant(kind: number, x: number, y: number, z: number, yaw: number, scale: number, r: number, g: number, b: number, seed: number): void {
+    this.flora.push(kind, this.ox + x * this.c + z * this.s, this.oy + y, this.oz - x * this.s + z * this.c, yaw, scale, r, g, b, seed);
   }
 
   /** A light the far street keeps as a glowing point (far-lights.ts): local point, linear HDR colour, its size in metres. */

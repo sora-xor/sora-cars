@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import type { CityMeshBuilder, Vec3 } from './geometry';
-import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
+import { hashInts, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
 import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
+import { FLORA_KIND } from './flora';
 
 /**
  * The street itself, as 1980s Japan furnished it: zebra crossings under
@@ -153,6 +154,9 @@ function streetBanner(b: CityMeshBuilder, w: number, index: number, phase: numbe
 
 /** Points (route-frame local x, height) where a pole's wires hang: the crossarm's three, then the cable below. */
 const WIRE_POINTS: readonly (readonly [number, number])[] = [[-.6, 8.62], [0, 8.62], [.6, 8.62], [.18, 6.9]];
+/** The telephone and cable-TV lines lower on the poles of the autumn routes' towns, as the cutscenes and their repaints
+ * string five or six wires over every street. */
+const LOW_CABLES: readonly (readonly [number, number])[] = [[-.2, 5.6], [.22, 5.1]];
 /** Whether a pole stands at station k on `side` (chunk-independent). */
 function poleAt(layout: PeriodCityLayout, k: number, side: PeriodSide): boolean {
   if (((k + (side > 0 ? 0 : POLE_STATIONS / 2)) % POLE_STATIONS + POLE_STATIONS) % POLE_STATIONS !== 0) return false;
@@ -179,6 +183,20 @@ function utilityPole(b: CityMeshBuilder, x: number, side: PeriodSide, roll: numb
     b.colour.set('#34343a'); b.box('metal', x - side * .38 - .05, x - side * .05, 6.9, 6.96, -.03, .03);
   }
   b.colour.set('#e8e6dc'); b.box('metal', x - .155, x + .155, 2.4, 2.75, -.02, .02);
+}
+/**
+ * The autumn towns' extras on a pole: clamps for the low cables, and on about a third of the poles a crime-prevention
+ * light (防犯灯) on a short arm over the kerb, lit after dark, as the Nanokamachi repaint hangs one on its pole.
+ */
+function poleExtras(b: CityMeshBuilder, x: number, side: PeriodSide, lamp: boolean): void {
+  b.colour.set('#34343a');
+  for (const [dx, y] of LOW_CABLES) b.box('metal', x + dx - .05, x + dx + .05, y - .06, y + .06, -.06, .06, 'b');
+  if (!lamp) return;
+  const end = x - side * .75;
+  b.box('metal', Math.min(x, end), Math.max(x, end), 4.92, 4.98, -.03, .03, 'b');
+  b.box('metal', end - .03, end + .03, 4.75, 4.98, -.03, .03, 'b');
+  b.colour.setRGB(2, 1.85, 1.5); b.box('lamp', end - .2, end + .2, 4.62, 4.75, -.07, .07);
+  b.beacon(end, 4.66, 0, 1.6, 1.45, 1.15, .3);
 }
 /**
  * A wire hung from a to b (chunk-local coordinates), sagging `sag` at its middle: eight straight segments for the
@@ -212,6 +230,277 @@ function shoppingLamp(b: CityMeshBuilder, x: number, z: number, banner: number, 
   b.front('flag', Math.min(near, far), Math.max(near, far), 1.8, 3.42, z, -1);
 }
 
+/** Fallen maple leaves, mostly crimson as the repaints strew them: crimson, scarlet, vermilion, orange and browned. Gold
+ * leaves, a fifth of them, turned the lamp-lit night verges at Iimoriyama into a gold speckle (L .48 against .24), so
+ * only the afternoon routes take them (`street.afternoonLeaves`). */
+const LEAF_TONES = ['#a3261b', '#b42d1c', '#c23f1d', '#d9681f', '#7e351c'].map(tone => new THREE.Color(tone));
+const GOLD_LEAF = new THREE.Color('#d9a133');
+/** The leaves share the city's 'ground' material, whose forest-floor scan averages sRGB (107, 89, 68): dividing the
+ * leaf colours by that mean (linear) keeps each leaf its own colour on average, with the scan's grain as its veins. */
+const GROUND_SCAN_MEAN = new THREE.Color(.147, .100, .058);
+/** A colour on the 'ground' material, compensated for the scan as the leaves are, and varied by `spread`. */
+function groundTone(b: CityMeshBuilder, tone: THREE.Color, random: () => number, spread: number): void {
+  b.colour.setRGB(tone.r / GROUND_SCAN_MEAN.r, tone.g / GROUND_SCAN_MEAN.g, tone.b / GROUND_SCAN_MEAN.b).multiplyScalar(1 - spread / 2 + random() * spread);
+}
+/** Open ground whose verge, level with the road, takes the leaves too (in towns the pavement stands above it). */
+const VERGES: ReadonlySet<PeriodDistrict> = new Set(['forest', 'park', 'rural', 'temple', 'shrine', 'pond']);
+/** Open ground the autumn wood, its shrubs and its grass may grow on. A temple or shrine precinct stands behind its wall
+ * and a pond's water begins at its stone curb, so there only the grass verge before them takes leaves. */
+const WOODED: ReadonlySet<PeriodDistrict> = new Set(['forest', 'park', 'rural']);
+/** How far beyond the road edge the leaves may lie on a precinct's or pond's grass verge: short of its curb. */
+const CURBED_VERGE = 3.3;
+/** The road's shoulder strip runs this far past the asphalt at the road's own level (world.ts); the hillside beyond. */
+const SHOULDER = 1.6;
+/**
+ * The ground under a route-frame point, as a height in the frame (0 at the road), or null where there is none. On the
+ * climbs the hillside falls or rises away from the shoulder, so verge planting stands on it rather than floating at
+ * the road's level. Near the road, more than `limit` metres of drop or rise belongs to another leg's cut or bank, and
+ * nothing is planted; the wood's far rows, already kept short of other legs by their reach, climb the slope further.
+ */
+function verge(b: CityMeshBuilder, layout: PeriodCityLayout, roadY: number, x: number, z: number, limit = 6): number | null {
+  const at = b.world(new THREE.Vector3(x, 0, z)), h = layout.groundHeightAt(at.x, at.z);
+  return h === null || !Number.isFinite(h) || Math.abs(h - roadY) > limit ? null : h - roadY;
+}
+/** One fallen leaf about a hand across, a broad diamond (one quad: the city's faces are stored unindexed, so a leaf
+ * costs 6 vertices) at a random turn, lying `y` above the route frame's road. Leaves twice as long read as confetti
+ * beside the repaints' maple leaves. */
+function leaf(b: CityMeshBuilder, random: () => number, x: number, y: number, z: number, gold = 0): void {
+  const size = .09 + random() * .08, turn = random() * Math.PI, c = Math.cos(turn) * size, s = Math.sin(turn) * size, pick = random();
+  groundTone(b, pick < gold ? GOLD_LEAF : LEAF_TONES[Math.min(LEAF_TONES.length - 1, Math.floor((pick - gold) / (1 - gold) * LEAF_TONES.length))]!, random, .35);
+  b.face('ground', [[x - c, y, z - s], [x + s * .65, y, z - c * .65], [x + c, y, z + s], [x - s * .65, y, z + c * .65]], [0, 1, 0]);
+}
+/** Autumn undergrowth: azalea and maple scrub turned crimson, orange and gold, russet bracken, and a few evergreens. */
+const SHRUB_TONES = ['#8f2a1a', '#b5461c', '#cf7a22', '#b8902c', '#6e4122', '#2d4a2c'].map(tone => new THREE.Color(tone));
+/**
+ * One shrub: a mound of small tilted leaf plates, `radius` across and `height` tall, each plate a little lighter or
+ * darker than the shrub's own tone and turned its own way, so the art cells catch a speckled, lit-and-shaded mass as the
+ * repaints paint undergrowth. Solid six-sided mounds read as faceted gems. About thirty triangles.
+ */
+function shrub(b: CityMeshBuilder, random: () => number, x: number, y: number, z: number, radius: number, height: number): void {
+  const tone = SHRUB_TONES[Math.floor(random() * SHRUB_TONES.length)]!, normal = new THREE.Vector3(), across = new THREE.Vector3(), along = new THREE.Vector3();
+  for (let n = 0; n < 14; n++) {
+    // A point in the mound's upper half-ellipsoid, denser toward its middle; plates face mostly up and out.
+    const a = random() * Math.PI * 2, r = Math.sqrt(random()) * radius, lift = random() * (1 - (r / radius) ** 2) ** .5 * height;
+    const cx = x + Math.cos(a) * r, cy = y + lift, cz = z + Math.sin(a) * r, size = .16 + random() * .14;
+    normal.set(Math.cos(a) * (.4 + random()), 1.1 + random(), Math.sin(a) * (.4 + random())).normalize();
+    across.set(-normal.z, 0, normal.x).normalize(); along.crossVectors(normal, across);
+    const turn = random() * Math.PI, u = across.clone().multiplyScalar(Math.cos(turn) * size).addScaledVector(along, Math.sin(turn) * size);
+    const v = across.clone().multiplyScalar(-Math.sin(turn) * size * .7).addScaledVector(along, Math.cos(turn) * size * .7);
+    groundTone(b, tone, random, .55);
+    b.face('ground', [[cx - u.x, cy - u.y, cz - u.z], [cx - v.x, cy - v.y, cz - v.z], [cx + u.x, cy + u.y, cz + u.z], [cx + v.x, cy + v.y, cz + v.z]],
+      [normal.x, normal.y, normal.z]);
+  }
+}
+/** How high the hillside stands (m above the road) six metres beyond the road's edge on one side, or null. */
+function bankAt(layout: PeriodCityLayout, p: number, side: PeriodSide): number | null {
+  const pose = poseAt(layout.course, p), lateral = side * (pose.width + 6);
+  const h = layout.groundHeightAt(pose.x + Math.cos(pose.heading) * lateral, pose.z - Math.sin(pose.heading) * lateral);
+  return h === null || !Number.isFinite(h) ? null : h - pose.y;
+}
+/** A retaining wall's height at a station: where the hillside stands more than 2.5 m over the road six metres out, the
+ * road is cut into it and a wall holds the cut, as tall as the bank there. A lower bank stays a grassy, leaf-strewn slope,
+ * as the repaints draw it at Umagaeshi. */
+function wallHeight(layout: PeriodCityLayout, p: number, side: PeriodSide): number {
+  const bank = bankAt(layout, p, side);
+  return bank === null || bank < 2.5 ? 0 : Math.min(7, bank + .2);
+}
+/** The wall's footprint: its foot just beyond the shoulder strip, leaning back three in ten (間知石 masonry's batter). */
+const WALL_FOOT = 1.75, WALL_BATTER = .3;
+const STONE = new THREE.Color('#8e8a82'), COPING = new THREE.Color('#aaa69c');
+/**
+ * Retaining walls (擁壁) where a mountain road is cut into the hillside: battered masonry from the gutter to the slope,
+ * capped with a concrete coping, as the uphill side of every hairpin is walled in the Irohazaka and Nara repaints. Built
+ * in the chunk's own frame from the route's stations, so neighbouring metres (and chunks) meet edge to edge.
+ */
+function retainingWalls(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number): void {
+  const ranges = layout.street.litter;
+  if (!ranges?.length) return;
+  const point = (p: number, lateral: number, up: number): Vec3 => {
+    const pose = poseAt(layout.course, p);
+    return [pose.x + Math.cos(pose.heading) * lateral - b.originX, pose.y + up, pose.z - Math.sin(pose.heading) * lateral - b.originZ];
+  };
+  b.frame(b.originX, 0, b.originZ, 0);
+  for (let k = Math.ceil(from); k < to; k++) {
+    if (!inCourse(layout, k) || !inCourse(layout, k + 1) || !ranges.some(([start, end]) => k >= start && k < end)) continue;
+    for (const side of [-1, 1] as PeriodSide[]) {
+      if (!VERGES.has(layout.districtAt(k, side))) continue;
+      const h0 = wallHeight(layout, k, side), h1 = wallHeight(layout, k + 1, side);
+      if (!h0 && !h1) continue;
+      const w0 = poseAt(layout.course, k).width, w1 = poseAt(layout.course, k + 1).width;
+      const top0 = Math.max(h0, .4), top1 = Math.max(h1, .4);
+      const foot0 = point(k, side * (w0 + WALL_FOOT), -.15), foot1 = point(k + 1, side * (w1 + WALL_FOOT), -.15);
+      const head0 = point(k, side * (w0 + WALL_FOOT + WALL_BATTER * top0), top0), head1 = point(k + 1, side * (w1 + WALL_FOOT + WALL_BATTER * top1), top1);
+      const heading = poseAt(layout.course, k + .5).heading, inward: Vec3 = [-side * Math.cos(heading), WALL_BATTER, side * Math.sin(heading)];
+      b.colour.copy(STONE).multiplyScalar(.9 + ((k * 7919) % 13) / 13 * .16);
+      b.face('stone', [foot0, foot1, head1, head0], inward);
+      // The coping: a concrete cap along the wall's head, its face catching the light as a crisp line.
+      const capTop0 = point(k, side * (w0 + WALL_FOOT + WALL_BATTER * top0), top0 + .18), capTop1 = point(k + 1, side * (w1 + WALL_FOOT + WALL_BATTER * top1), top1 + .18);
+      const capBack0 = point(k, side * (w0 + WALL_FOOT + WALL_BATTER * top0 + .4), top0 + .18), capBack1 = point(k + 1, side * (w1 + WALL_FOOT + WALL_BATTER * top1 + .4), top1 + .18);
+      b.colour.copy(COPING);
+      b.face('wall', [head0, head1, capTop1, capTop0], [inward[0], 0, inward[2]]);
+      b.face('wall', [capTop0, capTop1, capBack1, capBack0], [0, 1, 0]);
+    }
+  }
+}
+/** The outward extent (m beyond the road edge) a retaining wall occupies at a station and side, or 0 where there is none. */
+function wallExtent(layout: PeriodCityLayout, p: number, side: PeriodSide): number {
+  const h = wallHeight(layout, Math.floor(p), side);
+  return h ? WALL_FOOT + WALL_BATTER * h + .6 : 0;
+}
+/** Where the hillside falls away beside a mountain road (more than 0.4 m below it six metres out), a low parapet. */
+function parapetAt(layout: PeriodCityLayout, p: number, side: PeriodSide): boolean {
+  const bank = bankAt(layout, p, side);
+  return bank !== null && bank < -.4 && !wallHeight(layout, p, side);
+}
+/**
+ * Stone parapets (石積みの擁壁笠) along the downhill side of a mountain road: a low wall of dressed stone a metre high and
+ * half a metre thick behind the guard rail, its concrete coping a pale line, its outer face falling to the slope below,
+ * as the Irohazaka repaints draw the valley side of every bend, with the view open over it. Built station by station in
+ * the chunk's frame, like the retaining walls, so they meet edge to edge.
+ */
+function parapets(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number): void {
+  const ranges = layout.street.litter;
+  if (!ranges?.length) return;
+  const point = (p: number, lateral: number, up: number): Vec3 => {
+    const pose = poseAt(layout.course, p);
+    return [pose.x + Math.cos(pose.heading) * lateral - b.originX, pose.y + up, pose.z - Math.sin(pose.heading) * lateral - b.originZ];
+  };
+  b.frame(b.originX, 0, b.originZ, 0);
+  for (let k = Math.ceil(from); k < to; k++) {
+    if (!inCourse(layout, k) || !inCourse(layout, k + 1) || !ranges.some(([start, end]) => k >= start && k < end)) continue;
+    for (const side of [-1, 1] as PeriodSide[]) {
+      if (!VERGES.has(layout.districtAt(k, side)) || !parapetAt(layout, k, side) || !parapetAt(layout, k + 1, side)) continue;
+      const w0 = poseAt(layout.course, k).width, w1 = poseAt(layout.course, k + 1).width, heading = poseAt(layout.course, k + .5).heading;
+      const out: Vec3 = [side * Math.cos(heading), 0, -side * Math.sin(heading)], back: Vec3 = [-out[0], 0, -out[2]];
+      const inner0 = side * (w0 + WALL_FOOT), inner1 = side * (w1 + WALL_FOOT), outer0 = side * (w0 + WALL_FOOT + .5), outer1 = side * (w1 + WALL_FOOT + .5);
+      // Inner face toward the road, the coping on top, the outer face down past the slope's edge.
+      b.colour.copy(STONE).multiplyScalar(.88 + ((k * 7919) % 13) / 13 * .16);
+      b.face('stone', [point(k, inner0, -.1), point(k + 1, inner1, -.1), point(k + 1, inner1, .95), point(k, inner0, .95)], back);
+      b.face('stone', [point(k, outer0, -2.2), point(k + 1, outer1, -2.2), point(k + 1, outer1, .95), point(k, outer0, .95)], out);
+      b.colour.copy(COPING);
+      b.face('wall', [point(k, inner0 - side * .04, .95), point(k + 1, inner1 - side * .04, .95), point(k + 1, inner1 - side * .04, 1.1), point(k, inner0 - side * .04, 1.1)], back);
+      b.face('wall', [point(k, inner0 - side * .04, 1.1), point(k + 1, inner1 - side * .04, 1.1), point(k + 1, outer1 + side * .04, 1.1), point(k, outer0 + side * .04, 1.1)], [0, 1, 0]);
+    }
+  }
+}
+
+/** Curve mirrors (カーブミラー): an orange pole and a round convex mirror at the outside of every hairpin. */
+const MIRROR = { orange: new THREE.Color('#e0601c'), glass: new THREE.Color('#c4ccd4') };
+function curveMirror(b: CityMeshBuilder, x: number, side: PeriodSide): void {
+  b.colour.copy(MIRROR.orange);
+  b.box('metal', x - .04, x + .04, 0, 2.95, -.04, .04, 'b');
+  // The mirror faces back down the road and a little across it, toward the drivers coming into the bend.
+  const facing = new THREE.Vector3(-side * .55, -.08, -1).normalize(), right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), facing).normalize();
+  const up = new THREE.Vector3().crossVectors(facing, right), centre = new THREE.Vector3(x, 2.72, 0), segments = 14, radius = .42;
+  const ring = (r: number, along: number) => Array.from({ length: segments }, (_, i) => {
+    const a = i / segments * Math.PI * 2;
+    return centre.clone().addScaledVector(right, Math.cos(a) * r).addScaledVector(up, Math.sin(a) * r).addScaledVector(facing, along);
+  });
+  const front = ring(radius * .9, .05), rim = ring(radius, .06), back = ring(radius, -.05), v = (p: THREE.Vector3): Vec3 => [p.x, p.y, p.z];
+  const centreFront = centre.clone().addScaledVector(facing, .07);
+  for (let i = 0; i < segments; i++) {
+    const j = (i + 1) % segments, a = (i + .5) / segments * Math.PI * 2;
+    const out = right.clone().multiplyScalar(Math.cos(a)).addScaledVector(up, Math.sin(a));
+    b.colour.copy(MIRROR.glass);
+    b.face('metal', [v(centreFront), v(front[i]!), v(front[j]!)], [facing.x, facing.y, facing.z]);
+    b.colour.copy(MIRROR.orange);
+    b.face('metal', [v(front[i]!), v(rim[i]!), v(rim[j]!), v(front[j]!)], [facing.x * .5 + out.x * .5, facing.y * .5 + out.y * .5, facing.z * .5 + out.z * .5]);
+    b.face('metal', [v(rim[i]!), v(back[i]!), v(back[j]!), v(rim[j]!)], [out.x, out.y, out.z]);
+    b.face('metal', [v(centre), v(back[j]!), v(back[i]!)], [-facing.x, -facing.y, -facing.z]);
+  }
+}
+/** Hairpins on the autumn mountain roads: where the road turns through more than 70 degrees within 30 m, at the turn's peak. */
+function hairpinTurn(layout: PeriodCityLayout, p: number): number {
+  const before = poseAt(layout.course, p - 15).heading, after = poseAt(layout.course, p + 15).heading;
+  return Math.atan2(Math.sin(after - before), Math.cos(after - before));
+}
+
+/** Maple crowns, one picked per tree (linear tints over the near-white leaf atlas, at the hues of the repaints' crowns):
+ * crimson, vermilion, orange, gold, a deep crimson, and now and then one still green. */
+const MAPLE_TINTS = [[.95, .052, .04], [.92, .15, .03], [.92, .3, .05], [.88, .47, .09], [.55, .04, .03], [.26, .36, .12]] as const;
+const MAPLE_ODDS = [.38, .2, .12, .07, .17, .06];
+/** Sugi: a dark, cool green, the repaints' near-black conifers among the maples. */
+const CEDAR_TINT = [.05, .1, .06] as const;
+function mapleTint(random: () => number): readonly [number, number, number] {
+  let roll = random();
+  for (let i = 0; i < MAPLE_ODDS.length; i++) if ((roll -= MAPLE_ODDS[i]!) < 0) return MAPLE_TINTS[i]!;
+  return MAPLE_TINTS[0]!;
+}
+/** Rows of the autumn wood behind the verge: nearest and farthest offsets beyond the road edge (m), a tree every so many metres. */
+const WOOD_ROWS = [[4.5, 10, 5, 0], [10, 20, 5, 2], [20, 34, 6, 4], [34, 56, 7, 1]] as const;
+/**
+ * Fallen maple leaves (紅葉の落ち葉) along a route's autumn stretches (`street.litter`): drifts in the gutters, a scatter
+ * across the carriageway and the open verges carpeted, as every autumn cutscene (iroha-wide, nara-detail) and every
+ * cutscene-style repaint of these routes paints the ground. Behind the verge stands the autumn wood, three rows of
+ * modelled maples (flora.ts) with sugi among them on the mountain roads (`street.cedars`), susuki and turned shrubs at
+ * its edge. One draw stream per metre, so chunks never disagree.
+ */
+function leafLitter(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number): void {
+  const ranges = layout.street.litter, cedars = layout.street.cedars, afternoon = layout.street.afternoonLeaves;
+  if (!ranges?.length) return;
+  const within = (list: readonly (readonly [number, number])[] | undefined, k: number) => !!list?.some(([start, end]) => k >= start && k < end);
+  for (let k = Math.ceil(from); k < to; k++) {
+    if (!inCourse(layout, k) || !within(ranges, k)) continue;
+    const random = seeded(hashInts(k, 1031)), w = routeFrame(b, layout, k), roadY = poseAt(layout.course, k).y, sugi = within(cedars, k);
+    const late = !afternoon || k >= (afternoon.until ?? Infinity), gold = late ? 0 : afternoon.gold, extra = late ? 0 : afternoon.drifts;
+    for (const side of [-1, 1] as PeriodSide[]) {
+      const district = layout.districtAt(k, side), open = VERGES.has(district), wooded = WOODED.has(district);
+      const reach = open ? Math.min(periodCityReach(layout, k, side, 58), wooded ? 58 : CURBED_VERGE) : 0, wall = open ? wallExtent(layout, k, side) : 0;
+      // Drifts piled against the kerb, thinning out into the lane; on the afternoon routes thicker, from their own stream.
+      for (let n = 0; n < 10; n++) leaf(b, random, side * (w - .2 - random() * random() * 1.6 + random() * .5), .02, random() - .5, gold);
+      const drift = seeded(hashInts(k, side, 1986, 47));
+      for (let n = 0; n < extra; n++) leaf(b, drift, side * (w - .15 - drift() * drift() * 1.3 + drift() * .4), .021, drift() - .5, gold);
+      if (!open) continue;
+      // Beyond a retaining wall the verge planting starts at its top, on the hillside above.
+      const clear = (off: number) => off > wall;
+      for (let n = 0; n < 7; n++) {
+        const off = .6 + random() * Math.min(4.4, reach), x = side * (w + off), z = random() - .5;
+        const y = off < SHOULDER ? .03 : verge(b, layout, roadY, x, z);
+        if (y !== null && (off < SHOULDER || clear(off))) leaf(b, random, x, y + .03, z, gold);
+      }
+      if (!wooded) continue;
+      // Turned shrubs every other metre, beyond the guard rail and short of any other leg of the road.
+      if (k % 2 === 0 && reach > 2) for (let n = 0; n < 2; n++) {
+        if (random() < .45) continue;
+        const off = SHOULDER + .2 + random() * Math.min(5, reach - 1), x = side * (w + off), z = random() * 2 - 1;
+        const y = verge(b, layout, roadY, x, z), radius = .35 + random() * .45;
+        if (y !== null && clear(off - radius)) shrub(b, random, x, y, z, radius, radius * (.9 + random() * .6));
+      }
+      // Low grass tufts carpet the bank beyond the shoulder, thickest near the road (the repaints' golden banks). Their own
+      // stream, so the planting after them is unchanged.
+      const tufts = seeded(hashInts(k, side, 1986, 43));
+      if (reach > SHOULDER + 1) for (let n = 0; n < 5; n++) {
+        const off = SHOULDER + .3 + tufts() * tufts() * Math.min(12, reach - .5), x = side * (w + off), z = tufts() - .5, y = verge(b, layout, roadY, x, z);
+        const shade = .8 + tufts() * .3;
+        if (y !== null && clear(off - .3)) b.plant(FLORA_KIND.grass, x, y, z, tufts() * Math.PI * 2, .7 + tufts() * .6, shade, shade * .97, shade * .9, Math.floor(tufts() * 1000));
+      }
+      // Susuki at the wood's edge.
+      if (k % 2 === 1 && reach > 3 && random() < .5) {
+        const off = SHOULDER + .5 + random() * Math.min(3.5, reach - 2), x = side * (w + off), z = random() * 2 - 1, y = verge(b, layout, roadY, x, z);
+        const shade = .85 + random() * .2;
+        if (y !== null && clear(off - .6)) b.plant(FLORA_KIND.susuki, x, y, z, random() * Math.PI * 2, .75 + random() * .45, shade, shade, shade, Math.floor(random() * 1000));
+      }
+      // The autumn wood; on the valley side (a parapet) only a thin near row, so the view over the valley stays open. A
+      // forest bank's verge (`street.forestBanks`) keeps to its understory: the race's own forest stands on the bank.
+      const valley = parapetAt(layout, k, side);
+      if (!(layout.street.forestBanks && district === 'forest')) for (const [near, far, every, salt] of WOOD_ROWS) {
+        if ((k + salt + (side > 0 ? 2 : 0)) % every !== 0 || reach < near + 1) continue;
+        if (valley && (near > 5 || random() < .5)) continue;
+        const off = near + random() * (Math.min(far, reach - 1) - near), x = side * (w + off), z = random() * 3 - 1.5;
+        const y = verge(b, layout, roadY, x, z, near > 15 ? 30 : 6);
+        if (y === null || !clear(off - 1)) continue;
+        const seed = Math.floor(random() * 10000);
+        if (sugi && random() < (near > 15 ? .5 : .25)) b.plant(FLORA_KIND.cedar, x, y, z, random() * Math.PI * 2, .7 + random() * .45, ...CEDAR_TINT, seed);
+        else b.plant(FLORA_KIND.maple, x, y, z, random() * Math.PI * 2, .7 + random() * .5, ...mapleTint(random), seed);
+      }
+    }
+    for (let n = 5 + Math.floor(random() * 3); n > 0; n--) {
+      const across = random() * 2 - 1, edgeward = Math.sign(across) * Math.sqrt(Math.abs(across));
+      leaf(b, random, edgeward * (w - .6), .02, random() - .5, gold);
+    }
+  }
+}
+
 /** Build the street furniture whose progress falls in [from, to). */
 export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number): void {
   const crossings = streetCrossings(layout).filter(p => p >= from && p < to);
@@ -233,13 +522,15 @@ export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: 
     if (!poleAt(layout, k, side)) continue;
     const p = k * STATION, roll = (hashInts(k, side, 53) >>> 0) / 4294967296, w = routeFrame(b, layout, p), x = side * (w + POLE_KERB);
     utilityPole(b, x, side, roll);
+    const town = !!layout.street.autumn;
+    if (town) poleExtras(b, x, side, (hashInts(k, side, 59) >>> 0) % 100 < 35);
     const lines: [Vec3, Vec3, number][] = [];
     const next = k + POLE_STATIONS;
     if (poleAt(layout, next, side)) {
       const wn = poseAt(layout.course, next * STATION).width;
-      for (const point of WIRE_POINTS) {
+      for (const point of town ? [...WIRE_POINTS, ...LOW_CABLES] : WIRE_POINTS) {
         const a = wireEnd(b, layout, p, x, point), c = wireEnd(b, layout, next * STATION, side * (wn + POLE_KERB), point);
-        lines.push([a, c, point[1] < 8 ? .9 : .55]);
+        lines.push([a, c, point[1] < 6 ? 1.1 : point[1] < 8 ? .9 : .55]);
       }
     }
     const across = k + POLE_STATIONS / 2;
@@ -273,6 +564,17 @@ export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: 
   for (const m of layout.street.markers ?? []) if (m.p >= from && m.p < to && inCourse(layout, m.p)) {
     const w = routeFrame(b, layout, m.p); curveBoard(b, m.side * (w + .9), IROHA.indexOf(m.text));
   }
+  leafLitter(b, layout, from, to);
+  for (let k = Math.ceil(from / 5) * 5; k < to; k += 5) {
+    if (!inCourse(layout, k) || !layout.street.litter?.some(([start, end]) => k >= start && k < end)) continue;
+    const turn = hairpinTurn(layout, k);
+    if (Math.abs(turn) < 1.2 || Math.abs(hairpinTurn(layout, k - 5)) > Math.abs(turn) || Math.abs(hairpinTurn(layout, k + 5)) >= Math.abs(turn)) continue;
+    const side: PeriodSide = turn > 0 ? -1 : 1, w = routeFrame(b, layout, k);
+    // In front of any retaining wall's foot, just behind the guard rail.
+    curveMirror(b, side * (w + 1.3), side);
+  }
+  retainingWalls(b, layout, from, to);
+  parapets(b, layout, from, to);
   b.frame(0, 0, 0, 0);
 }
 

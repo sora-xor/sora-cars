@@ -72,7 +72,35 @@ function groundScan(source: 'aerial_grass_rock' | 'sparse_grass') {
   return maps;
 }
 
-function groundMaterial(): THREE.MeshStandardMaterial {
+/**
+ * Late-autumn leaf litter laid over the moss (linear colours, about as bright as the moss scans they cover): crimson,
+ * orange, gold and russet in drifts about a metre across with ragged edges, speckled leaf by leaf, the moss showing
+ * between them. The autumn cutscenes and their race repaints carpet every verge so (iroha-wide, nara-detail).
+ */
+const AUTUMN_LITTER = /* glsl */ `
+  {
+    vec2 q = vSoraWorld.xz;
+    float drift = soraNoise(q / 1.1) * .7 + soraNoise(q / .37 + 9.) * .3;
+    float cover = smoothstep(.36, .5, drift) * soraAutumn, pick = soraNoise(q / 2.3 - 41.);
+    vec3 leaf = pick < .32 ? vec3(.30, .035, .02) : pick < .58 ? vec3(.38, .10, .02) : pick < .8 ? vec3(.30, .16, .03) : vec3(.17, .06, .025);
+    // Most fallen leaves have browned on the forest floor; fresh colour is the lesser share, so the slopes under the wood
+    // read as dark russet ground under their golden grass (the grass tufts, period-city/flora.ts) rather than a bright
+    // orange plane (Umagaeshi's bank: lightness .43 against the repaint's .34).
+    leaf = mix(leaf, vec3(.09, .046, .024), .6);
+    diffuseColor.rgb = mix(diffuseColor.rgb, leaf * (.38 + .7 * soraNoise(q / .13 + 17.)), cover);
+  }`;
+
+const AUTUMN_HEADER = /* glsl */ `varying vec3 vSoraWorld;
+uniform float soraAutumn;
+float soraHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float soraNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
+  return mix(mix(soraHash(i), soraHash(i + vec2(1., 0.)), u.x), mix(soraHash(i + vec2(0., 1.)), soraHash(i + vec2(1., 1.)), u.x), u.y);
+}
+`;
+
+/** `autumn` (0-1) lays late-autumn leaf litter over the moss (slope terrain of the autumn routes only). */
+function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
   const moss = groundScan('aerial_grass_rock'), grass = groundScan('sparse_grass');
   const material = new THREE.MeshStandardMaterial({ ...moss, color: '#ffffff',
     vertexColors: true, roughness: 0.96, metalness: 0, normalScale: new THREE.Vector2(0.62, 0.62), aoMapIntensity: 0.7 });
@@ -81,14 +109,18 @@ function groundMaterial(): THREE.MeshStandardMaterial {
   // surface texture is sampled once and shared by the roughness and AO paths.
   material.userData.terrainTextures = [moss.map, moss.normalMap, moss.roughnessMap,
     grass.map, grass.normalMap, grass.roughnessMap];
-  material.customProgramCacheKey = () => 'sora-forest-ground-blend-v1';
+  material.customProgramCacheKey = () => autumn > 0 ? 'sora-forest-ground-blend-v1-autumn' : 'sora-forest-ground-blend-v1';
   material.onBeforeCompile = shader => {
     shader.uniforms.soraGrassColor = { value: grass.map };
     shader.uniforms.soraGrassNormal = { value: grass.normalMap };
     shader.uniforms.soraGrassSurface = { value: grass.roughnessMap };
+    shader.uniforms.soraAutumn = { value: autumn };
     shader.vertexShader = shader.vertexShader
       .replace('#include <common>', '#include <common>\nattribute vec2 terrainBlend;\nvarying vec2 vTerrainBlend;')
       .replace('#include <uv_vertex>', '#include <uv_vertex>\nvTerrainBlend = terrainBlend;');
+    if (autumn > 0) shader.vertexShader = shader.vertexShader
+      .replace('#include <common>', '#include <common>\nvarying vec3 vSoraWorld;')
+      .replace('#include <project_vertex>', '#include <project_vertex>\nvSoraWorld = (modelMatrix * vec4(transformed, 1.)).xyz;');
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>
 varying vec2 vTerrainBlend;
@@ -102,7 +134,7 @@ const mat2 soraGrassRotationB = mat2(-0.8137335, 0.5812382, -0.5812382, -0.81373
 vec4 soraGrassSample(sampler2D source, vec2 uvA, vec2 uvB) {
   return mix(texture2D(source, uvA), texture2D(source, uvB), vTerrainBlend.y);
 }
-vec3 soraGrassNormalSample(vec2 uvA, vec2 uvB) {
+${autumn > 0 ? AUTUMN_HEADER : ''}vec3 soraGrassNormalSample(vec2 uvA, vec2 uvB) {
   vec3 a = texture2D(soraGrassNormal, uvA).xyz * 2.0 - 1.0;
   vec3 b = texture2D(soraGrassNormal, uvB).xyz * 2.0 - 1.0;
   // Row-vector multiplication applies the inverse rotation, keeping each
@@ -117,7 +149,7 @@ vec2 soraGrassUvB = soraGrassRotationB * vMapUv * 7.5 + vec2(-29.73, 11.23);
 vec4 soraTerrainSurface = mix(texture2D(roughnessMap, vRoughnessMapUv),
   soraGrassSample(soraGrassSurface, soraGrassUvA, soraGrassUvB), vTerrainBlend.x);
 ${THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )',
-  'mix(texture2D(map, vMapUv), soraGrassSample(soraGrassColor, soraGrassUvA, soraGrassUvB), vTerrainBlend.x)')}`)
+  'mix(texture2D(map, vMapUv), soraGrassSample(soraGrassColor, soraGrassUvA, soraGrassUvB), vTerrainBlend.x)')}${autumn > 0 ? AUTUMN_LITTER : ''}`)
       .replace('#include <roughnessmap_fragment>', THREE.ShaderChunk.roughnessmap_fragment
         .replace('texture2D( roughnessMap, vRoughnessMapUv )', 'soraTerrainSurface'))
       .replace('#include <normal_fragment_maps>', THREE.ShaderChunk.normal_fragment_maps
@@ -220,7 +252,7 @@ export function createTerrain(poses: readonly TerrainPose[], style: number, skip
 }
 
 /** A road station on a switchback hillside. */
-interface SlopeStation { readonly x: number; readonly y: number; readonly z: number; readonly width: number; readonly p: number }
+interface SlopeStation { readonly x: number; readonly y: number; readonly z: number; readonly width: number; readonly p: number; readonly index: number }
 export interface SlopeTerrain {
   readonly group: THREE.Group;
   /** Absolute ground height at a world point (NaN beyond the hillside's reach). */
@@ -238,12 +270,12 @@ export interface SlopeTerrain {
  * gorges under bridges. Presentation only.
  */
 export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly { x: number; z: number; radius: number; depth: number }[] = [],
-  keep: (p: number) => boolean = () => true): SlopeTerrain {
+  keep: (p: number) => boolean = () => true, autumn = 0): SlopeTerrain {
   const group = new THREE.Group(); group.name = 'SORA switchback hillside';
   const cellSize = 25, reach = 130, step = 6, stations: SlopeStation[] = [], grid = new Map<string, SlopeStation[]>();
   let last = -Infinity;
   for (const pose of poses) if (pose.p - last >= 5) {
-    last = pose.p; const station = { x: pose.x, y: pose.y, z: pose.z, width: pose.width, p: pose.p };
+    last = pose.p; const station = { x: pose.x, y: pose.y, z: pose.z, width: pose.width, p: pose.p, index: stations.length };
     stations.push(station);
     const key = `${Math.floor(pose.x / cellSize)},${Math.floor(pose.z / cellSize)}`;
     (grid.get(key) ?? grid.set(key, []).get(key)!).push(station);
@@ -257,14 +289,29 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
       }
     }
   };
+  /** The road under a point near station `s`: its height and half-width at the point's projection onto the leg on
+   * either side of the station, and the distance to it. Stations stand 5 m apart, so on a 10% grade the nearest
+   * station's own height is up to a quarter metre off the asphalt beside it, enough to lift the ground through it. */
+  const roadNear = (x: number, z: number, s: SlopeStation, distance: number) => {
+    let best = { distance, y: s.y, width: s.width };
+    for (const other of [stations[s.index - 1], stations[s.index + 1]]) {
+      if (!other) continue;
+      const dx = other.x - s.x, dz = other.z - s.z, t = THREE.MathUtils.clamp(((x - s.x) * dx + (z - s.z) * dz) / (dx * dx + dz * dz || 1), 0, 1);
+      const d = Math.hypot(x - s.x - dx * t, z - s.z - dz * t);
+      if (d < best.distance) best = { distance: d, y: s.y + (other.y - s.y) * t, width: s.width + (other.width - s.width) * t };
+    }
+    return best;
+  };
   const heightAt = (x: number, z: number): number => {
-    let sum = 0, weight = 0, nearest = Infinity, nearestY = 0, nearestP = 0, edge = 0;
+    let sum = 0, weight = 0, nearest = Infinity, nearestP = 0, closest: SlopeStation | null = null;
     near(x, z, reach + 20, (station, distance) => {
       const w = 1 / (distance * distance + 16) ** 1.5; sum += w * station.y; weight += w;
-      if (distance < nearest) { nearest = distance; nearestY = station.y; nearestP = station.p; edge = station.width; }
+      if (distance < nearest) { nearest = distance; nearestP = station.p; closest = station; }
     });
     // `keep` limits the hillside to the stretches it dresses (a city route's wooded climb).
-    if (!weight || nearest > reach || !keep(nearestP)) return NaN;
+    if (!weight || !closest || nearest > reach || !keep(nearestP)) return NaN;
+    const road = roadNear(x, z, closest, nearest), nearestY = road.y, edge = road.width;
+    nearest = road.distance;
     // Within a leg's own width the ground sits just under its asphalt; beyond,
     // the interpolated slope takes over with a little relief.
     const away = THREE.MathUtils.smoothstep(nearest - edge, 1, 9);
@@ -281,7 +328,7 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
     near(x, z, 20 + margin, (station, distance) => { if (Math.abs(station.p - p) > 30 && distance < station.width + margin) clear = false; });
     return clear;
   };
-  const material = groundMaterial();
+  const material = groundMaterial(autumn);
   let minX = Infinity, maxX = -Infinity, minZ = Infinity, maxZ = -Infinity;
   for (const station of stations) {
     minX = Math.min(minX, station.x); maxX = Math.max(maxX, station.x); minZ = Math.min(minZ, station.z); maxZ = Math.max(maxZ, station.z);
