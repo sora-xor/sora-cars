@@ -123,4 +123,15 @@ test('kerbs and the gutter strip share the road ceilings without its damp patche
   // The road itself is never wrapped twice.
   const roadCompile = road.onBeforeCompile; shareSpecularLimits(road, finish);
   assert.equal(road.onBeforeCompile, roadCompile);
+  // Wet paving (kerbs, pavements) also shares the road's night and dusk dims; plain sharing does not.
+  assert.equal(kerbProgram.uniforms.soraRoadPoolDim, undefined);
+  const paving = new THREE.MeshStandardMaterial(), pavingProgram = shader();
+  shareSpecularLimits(paving, finish, true);
+  paving.onBeforeCompile(pavingProgram, renderer);
+  assert.match(paving.customProgramCacheKey(), /sora-road-ceiling-v1-wet$/);
+  for (const name of ['soraRoadPoolDim', 'soraRoadEnvironmentDim', 'soraRoadAmbientDim']) {
+    assert.equal(pavingProgram.uniforms[name], roadProgram.uniforms[name], `${name} is the road's own uniform`);
+  }
+  finish.setPoolDim(.4); assert.equal(pavingProgram.uniforms.soraRoadPoolDim!.value, .4);
+  assert.ok(pavingProgram.fragmentShader.includes('reflectedLight.directDiffuse *= 1.0 - soraRoadPoolDim'));
 });

@@ -79,7 +79,7 @@ const SUNRISE_ROAD_WETNESS = 0.2;
 const KEY_ROAD_SPECULAR_DUSK = 0.3;
 const KEY_ROAD_SPECULAR_SUNRISE = 0.06;
 /** A late-day route's golden hours: the low sun's glare sheen on the dry asphalt ahead (its repaints). */
-const KEY_ROAD_SPECULAR_GOLDEN = 0.45;
+const KEY_ROAD_SPECULAR_GOLDEN = 0.2;
 /** In the pixel-art finish the spot lights' road specular gets a soft ceiling
  * too (refine round 2): their smooth highlights read as airbrushed blobs, and
  * the pass draws lamp reflections itself (dashed columns, flecks). Clean keeps
@@ -92,10 +92,16 @@ const PIXEL_ROAD_SPOT_SPECULAR = 0.01;
  * under the low sunrise so the key-lit road stays below the lit subjects. */
 const ROAD_ALBEDO = new THREE.Color('#b8b6bc');
 const ROAD_ALBEDO_SUNRISE = new THREE.Color('#b6b2ba');
-/** A late-day route's dry asphalt in the golden hours: warm grey. */
-const ROAD_ALBEDO_GOLDEN = new THREE.Color('#c6b4a2');
+/** A late-day route's dry asphalt in the golden hours: a light neutral grey, warmed by the low sun where the camera
+ * faces it (a warm albedo turned the road gold where the camera looks away from the sun, and its repaint paints it cool
+ * grey-violet). */
+const ROAD_ALBEDO_GOLDEN = new THREE.Color('#c6c2c6');
 /** Extra hemisphere fill, key light and shadow opening in a late-day route's golden hours. */
-const GOLDEN_FILL = 0.3, GOLDEN_KEY = 1.2, GOLDEN_SHADOW_OPEN = 0.45;
+const GOLDEN_FILL = 0.3, GOLDEN_KEY = 2, GOLDEN_SHADOW_OPEN = 0.45;
+/** The key light's elevation (rad) in a late-day route's golden hours; the painted sun stays on the horizon. At 8-20
+ * degrees the roadside trees' long shadows covered the whole road, which stayed dark under the repaints' sunlit asphalt
+ * striped with tree shadows (Irohazaka's near road at 30 degrees: L median 0.45-0.50 against the repaint's 0.46). */
+const GOLDEN_KEY_ELEVATION = 0.52;
 /** Street lamps fade toward sunrise (the city switching off), keeping weak streaks. */
 const SUNRISE_LAMP_GAIN = 0.45;
 /** Their pools on the road fade further (refine round 2): at 45% they still
@@ -108,12 +114,39 @@ const SUNRISE_POOL_GAIN = 0.15;
 const LAMP_POOL = { angle: 1.05, penumbra: 0.7, distance: 30 } as const;
 /** Autumn maple crowns, tree by tree (the street routes' repaints: crimson, orange and gold). */
 const MAPLE_TONES = [
-  { color: '#f07a34', emissive: '#a8401f' },
-  { color: '#d8331f', emissive: '#86190f' },
-  { color: '#eaa233', emissive: '#a5641a' },
+  // Refine round 4: mostly crimson (the repaints' crowns are about 70% crimson, a little vermilion and orange); a third
+  // each of crimson, orange and gold read two-thirds orange.
+  { color: '#e04a30', emissive: '#8e2a1a' },
+  { color: '#d8402c', emissive: '#882418' },
+  { color: '#ea6030', emissive: '#96361a' },
+  { color: '#e2502e', emissive: '#8e2c1a' },
+  { color: '#f08a3a', emissive: '#a84a20' },
 ] as const;
-/** Most direct light (scene-linear luminance of the diffuse) a lamp puts on the cherry crowns beside it. */
+/** Most direct light (scene-linear luminance of the diffuse) a lamp puts on the cherry crowns beside it at night. */
 const BLOSSOM_DIRECT_CAP = 0.35;
+/** The same for the street trees' leaves (refine round 4: lit in full by the lamps beside them, Kanda's kerb trees glowed
+ * bright yellow, where every night repaint keeps its street trees dark green with a few lamp-lit leaves). */
+const FOLIAGE_DIRECT_CAP = 0.08;
+/** The ceiling by day (no effect: the sun lights the crowns in full). */
+const DAY_DIRECT_CAP = 50;
+/**
+ * Caps a material's direct diffuse (scene-linear luminance) at `cap` after its own shader hooks (refine round 4), so a
+ * lamp beside a crown lights it without blowing it out; the material's own cache key is kept as a prefix.
+ */
+function capDirectDiffuse(material: THREE.MeshStandardMaterial, cap: { value: number }, key: string): void {
+  const previous = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
+  const baseKey = previousKey === THREE.Material.prototype.customProgramCacheKey ? () => previous.toString() : () => previousKey.call(material);
+  material.onBeforeCompile = (shader, renderer) => {
+    previous.call(material, shader, renderer);
+    shader.uniforms.soraDirectCap = cap;
+    shader.fragmentShader = shader.fragmentShader
+      .replace('void main() {', 'uniform float soraDirectCap;\nvoid main() {')
+      .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
+  { float direct = dot(reflectedLight.directDiffuse, vec3(.2126, .7152, .0722));
+    if (direct > soraDirectCap) reflectedLight.directDiffuse *= soraDirectCap / direct; }`);
+  };
+  material.customProgramCacheKey = () => `${baseKey()}:${key}`;
+}
 /** The harbour's lamp pools: a little wider than the other moods' but not a
  * wash (refine round 1: the 1.3 rad / 42 m cones lit the whole quay road
  * orange-brown, where harbor-wide keeps violet-grey ground between pools with
@@ -137,10 +170,12 @@ const WINDOW_LIGHTS = {
   // Refine round 4: more rooms lit, as the cutscene-style repaints of every course light them (the frames' warm-lit
   // share above the road measured 55-80% of theirs).
   night: { upper: 0.72, ground: 0.9, gain: 2, cool: 0.12, diffuser: 2.8, signs: 0.45 },
-  // Refine round 4: more of the city already lit at dusk, as a cutscene-style repaint of the dusk race paints it.
-  dusk: { upper: 0.45, ground: 0.65, gain: 1.6, cool: 0.1, diffuser: 1.9, signs: 0.28 },
+  // Refine round 4: more of the city already lit at dusk, as a cutscene-style repaint of the dusk race paints it. The
+  // gains about the night's radiance once the pixel pass's day exposure (1.45) lifts them: brighter, the windows went
+  // into the tone map's white shoulder and read cream, where the dusk repaints keep them deep amber.
+  dusk: { upper: 0.45, ground: 0.65, gain: 1.15, cool: 0.1, diffuser: 1.9, signs: 0.28 },
   // Refine round 4: the cutscene-style sunrise repaints keep many rooms lit, warm against the cool morning walls.
-  sunrise: { upper: 0.5, ground: 0.75, gain: 1.3, cool: 0.05, diffuser: 1, signs: 0 },
+  sunrise: { upper: 0.5, ground: 0.75, gain: 0.95, cool: 0.05, diffuser: 1, signs: 0 },
 } as const;
 const windowLights = (key: keyof typeof WINDOW_LIGHTS.night, dusk: number, morning: number) => THREE.MathUtils.lerp(
   THREE.MathUtils.lerp(WINDOW_LIGHTS.night[key], WINDOW_LIGHTS.dusk[key], dusk), WINDOW_LIGHTS.sunrise[key], morning);
@@ -187,6 +222,8 @@ const SUNRISE_ELEVATION = 0.14;
  * repaint of those routes sets it (at SUNRISE_ELEVATION it stood 9-11 degrees up, behind the roadside crowns). The key
  * light keeps SUNRISE_ELEVATION, so the road keeps its golden light. */
 const LOW_SUN_ELEVATION = 0.03;
+/** How much of the lamp pools' direct light a soaked road loses at night (road finish pool dim). */
+const NIGHT_ROAD_POOL_DIM = 0.8;
 /** How much of the direct light and of the ambient a damp road loses at dusk (road finish pool and ambient dims). */
 const DUSK_ROAD_DIM = 0.8, DUSK_ROAD_AMBIENT_DIM = 0.7;
 /** Shortest signed turn from the dusk key to the sunrise (through the east). */
@@ -439,6 +476,13 @@ export class RaceWorld {
   private weather = 0;
   private readonly keyDirection = new THREE.Vector3();
   private readonly paintedSun = new THREE.Vector3();
+  /** The night ceiling on the lamps' direct light on the cherry crowns (capDirectDiffuse). */
+  private readonly blossomDirectCap = { value: BLOSSOM_DIRECT_CAP };
+  /** The night ceiling on the lamps' direct light on the street trees' leaves (capDirectDiffuse). */
+  private readonly foliageDirectCap = { value: DAY_DIRECT_CAP };
+  /** Street lamps: the pool (20 a side) and their spacing (m). */
+  private readonly lampPool = 40;
+  private readonly lampSpacing = 22;
   /** This frame's road-finish pool dim (the share of the road's direct light taken off). */
   private roadPoolDim = 0;
   /** This frame's road-finish ambient dim. */
@@ -448,7 +492,7 @@ export class RaceWorld {
   /** Wet-road reflections of the cars' tail lamps. */
   private readonly tailStreaks = new TailStreaks();
   /** The street lamps' heads as glowing points down the street (period-city/far-lights.ts). */
-  private readonly lampFarLights = new MovingFarLights(32);
+  private readonly lampFarLights = new MovingFarLights(40);
   private readonly lampHead = new THREE.Vector3();
   /** The nearest lamp heads, whose spill washes the period city's facades (period-city/materials.ts). */
   private readonly washHeads = Array.from({ length: 6 }, () => new THREE.Vector3());
@@ -538,7 +582,8 @@ export class RaceWorld {
     };
     this.cityGardenBatch = new CityGardenBatch(gardenMaterials); this.scene.add(this.cityGardenBatch.group);
     for (let i = 0; i < 40; i++) { const t = createTree(i % 2, i % 2 === 0); this.trees.push(t); this.scene.add(t); }
-    for (let i = 0; i < 26; i++) { const t = createTree(i + 300, true); t.visible = false; this.sakura.push(t); this.scene.add(t); }
+    // 20 a side (refine round 4): the autumn routes' maples stand 8 m apart in two rows (see the population below).
+    for (let i = 0; i < 40; i++) { const t = createTree(i + 300, true); t.visible = false; this.sakura.push(t); this.scene.add(t); }
     // Blossom, not leaf: pale pink without the leaf texture, glowing softly as
     // lit night cherries (夜桜) and as petals backlit by the sunrise.
     this.blossom = new THREE.MeshStandardMaterial({ color: '#ffe1ea', vertexColors: true, roughness: .85,
@@ -547,31 +592,26 @@ export class RaceWorld {
     // Refine round 4: a lamp's pool light on the crowns beside it stays under a ceiling (scene-linear luminance of the
     // direct diffuse), so a night cherry is lit pink-white, not blown out brighter than the lit windows; the wet road
     // mirrored the blown-out crown as a broad pale bar where the cutscene-style repaints have the lamp's thin streak.
-    const directCap = { value: BLOSSOM_DIRECT_CAP };
+    const directCap = this.blossomDirectCap;
     this.blossom.userData.directCap = directCap;
-    this.blossom.onBeforeCompile = shader => {
-      shader.uniforms.blossomDirectCap = directCap;
-      shader.fragmentShader = shader.fragmentShader
-        .replace('void main() {', 'uniform float blossomDirectCap;\nvoid main() {')
-        .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
-  { float direct = dot(reflectedLight.directDiffuse, vec3(.2126, .7152, .0722));
-    if (direct > blossomDirectCap) reflectedLight.directDiffuse *= blossomDirectCap / direct; }`);
-    };
-    this.blossom.customProgramCacheKey = () => 'sora-blossom-cap-v1';
+    capDirectDiffuse(this.blossom, directCap, 'sora-blossom-cap-v2');
     // Refine round 4 (the street routes' cutscene-style repaints): autumn maples spread from crimson through orange to
     // gold tree by tree; one orange over every crown read salmon. Cherries share one pink.
-    this.blossomTones = [this.blossom, this.blossom.clone(), this.blossom.clone()];
+    this.blossomTones = [this.blossom, ...MAPLE_TONES.slice(1).map(() => this.blossom.clone())];
     this.blossomTones.forEach((tone, i) => {
-      if (!i) return;
-      tone.name = `Sakura blossom ${i + 1}`; tone.userData.directCap = directCap;
-      tone.onBeforeCompile = this.blossom.onBeforeCompile; tone.customProgramCacheKey = this.blossom.customProgramCacheKey;
+      if (i) {
+        tone.name = `Sakura blossom ${i + 1}`; tone.userData.directCap = directCap;
+        capDirectDiffuse(tone, directCap, 'sora-blossom-cap-v2');
+      }
     });
     this.sakura.forEach((tree, i) => tree.traverse(object => {
-      if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors) object.material = this.blossomTones[(i * 7) % 3]!;
+      if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors)
+        object.material = this.blossomTones[(i * 7) % this.blossomTones.length]!;
     }));
-    // Refine round 4: street lamps every 26 m (they stood 43 m apart), as the cutscene-style repaints of every course
-    // line their roads; 15 a side keeps the row's reach.
-    for (let i = 0; i < 30; i++) { const lamp = createStreetLamp(); this.lamps.push(lamp); this.scene.add(lamp); }
+    // Refine round 4: street lamps every 22 m (they stood 43 m apart, then 26), as the cutscene-style repaints of every
+    // course line their roads; 20 a side keeps the row's reach. Against seven repaints 22 m scored best (mean gap 0.259,
+    // 26 m 0.275, 18 m 0.271); scene by scene it swings either way with where the lamps fall.
+    for (let i = 0; i < this.lampPool; i++) { const lamp = createStreetLamp(); this.lamps.push(lamp); this.scene.add(lamp); }
     const railMaterial = new THREE.MeshStandardMaterial({ color: '#727b80', roughness: 0.55, metalness: 0.65 });
     this.posts = new THREE.InstancedMesh(new THREE.BoxGeometry(0.12, 0.85, 0.13), railMaterial, 200);
     this.rails = new THREE.InstancedMesh(guardrailGeometry(), railMaterial, 200);
@@ -626,7 +666,11 @@ export class RaceWorld {
       this.trees[0]?.traverse(object => {
         const material = (object as THREE.Mesh).material;
         if (material instanceof THREE.MeshStandardMaterial && /leaves/i.test(material.name)
-          && !this.foliageMaterials.includes(material)) this.foliageMaterials.push(material);
+          && !this.foliageMaterials.includes(material)) {
+          this.foliageMaterials.push(material);
+          capDirectDiffuse(material, this.foliageDirectCap, 'sora-foliage-cap-v1');
+          material.needsUpdate = true;
+        }
       });
       this.scene.add(this.treeBatch.group);
       this.detailedHazardTree = assets.createHazardTree;
@@ -784,7 +828,7 @@ export class RaceWorld {
     for (const material of [ground, shoulder, paint, yellow]) this.vehicleAmbient.decorate(material);
     // The gutter strip takes the road's key-specular ceiling (R3 Nikko glare),
     // and so does the moat: a smooth sheet otherwise mirrors the key as one pink band.
-    shareSpecularLimits(shoulder, this.roadFinish);
+    shareSpecularLimits(shoulder, this.roadFinish, true);
     shareSpecularLimits(this.periodCity.water, this.roadFinish);
     if (course.style === 3) {
       // The period city's moats and lawns replace the paved ground beside them.
@@ -861,7 +905,7 @@ export class RaceWorld {
     // where sunrise-wide's roadside stays diffuse (faint warm speckle).
     infrastructure.traverse(object => {
       if (object instanceof THREE.Mesh && object.name === 'Beveled curb and sidewalk'
-        && object.material instanceof THREE.MeshStandardMaterial) shareSpecularLimits(object.material, this.roadFinish);
+        && object.material instanceof THREE.MeshStandardMaterial) shareSpecularLimits(object.material, this.roadFinish, true);
     });
     this.road.add(infrastructure);
   }
@@ -953,8 +997,12 @@ export class RaceWorld {
     const blossoming = (p: number, side: number) => periodCity && (!sceneFor(course) && course.style === 2 ? wooded(p, side)
       : !!flowering && (side > 0 || flowering.bothSides) && !!this.sakuraRange && p >= this.sakuraRange[0] && p <= this.sakuraRange[1]
         && (!flowering.bothSides || wooded(p, side)));
-    populate(this.sakura, 12, 50, 6, (tree, station, p, side) => {
-      place(tree, p, side, course.style === 3 ? 2.9 : 3.1, false);
+    // Autumn maples (refine round 4): every repaint of the momiji routes lines both sides with a continuous wall of
+    // crowns, so they stand 8 m apart (cherries 12 m), every other one in a second row 6-9 m out, so the crowns overlap
+    // in depth rather than standing in one line; few are kept behind the chase camera, so the window reaches ahead.
+    const momiji = flowering?.kind === 'momiji';
+    populate(this.sakura, momiji ? 8 : 12, momiji ? 16 : 50, momiji ? 4 : 6, (tree, station, p, side) => {
+      place(tree, p, side, momiji && modulo(station, 2) === 1 ? 6 + modulo(station * 3, 4) : course.style === 3 ? 2.9 : 3.1, false);
       tree.scale.setScalar(1.15 + modulo(station * 7, 4) * .08);
       tree.rotation.y += station * 2.39996;
       tree.visible = tree.visible && blossoming(p, side) && this.periodCity.plantingClear(tree.position.x, tree.position.z, 2.2)
@@ -1064,7 +1112,7 @@ export class RaceWorld {
       }
       this.understory.setPatches(patches);
     }
-    populate(this.lamps, 26, 50, 0, (lamp, _station, p, side) => place(lamp, p, side, 1.8));
+    populate(this.lamps, this.lampSpacing, 50, 0, (lamp, _station, p, side) => place(lamp, p, side, 1.8));
     let index = 0;
     const railCount = Math.max(1, Math.ceil(course.length / 5));
     const railStep = course.circuit ? course.length / railCount : 5;
@@ -1114,7 +1162,7 @@ export class RaceWorld {
     setPeriodCityLampHeads(washed);
     let farLamps = 0;
     for (const lamp of closestLamps) {
-      if (farLamps >= 32) break;
+      if (farLamps >= 40) break;
       lamp.updateMatrixWorld();
       this.lampFarLights.set(farLamps++, lamp.localToWorld(this.lampHead.set(0, 6.58, -1.28)), LAMP_FAR_LIGHT, LAMP_FAR_LIGHT_SIZE);
     }
@@ -1226,14 +1274,20 @@ export class RaceWorld {
     const golden = mood.lowSun ? THREE.MathUtils.smoothstep(daylight, 0.7, 0.95) : 0;
     // Damp asphalt mirrors the lamps (most at the harbour) and dries toward
     // sunrise; rain saturates it. The low sun's specular gets a soft ceiling.
-    const roadWetness = THREE.MathUtils.lerp(THREE.MathUtils.lerp(mood.damp, SUNRISE_ROAD_WETNESS, sunrise), 1, this.weather);
+    // A late-day route dries in its golden hours too (refine round 4: its repaints keep the afternoon road dry under
+    // the low sun, wet only after dusk; half dry, the leaf carpets on its verges glittered like a wet road).
+    const roadWetness = THREE.MathUtils.lerp(THREE.MathUtils.lerp(mood.damp, SUNRISE_ROAD_WETNESS, Math.max(sunrise, golden)), 1, this.weather);
     this.roadFinish.setWetness(roadWetness); this.lastRoadWetness = roadWetness;
     // A soaked night road stays navy under the lamps' own reflections (the rain-night target); dusk keeps its glowing sky.
     // Refine round 4: a damp dusk road is dark too (the street routes' dusk repaints: a navy road between the lights'
     // streaks, where the dusk key and sky lit ours grey-violet); sunrise and afternoon roads keep their light.
     const duskRoad = dusk * (1 - morning) * THREE.MathUtils.smoothstep(roadWetness, 0.35, 0.8);
-    this.roadFinish.setEnvironmentDim(Math.max((1 - dusk) * THREE.MathUtils.smoothstep(roadWetness, 0.55, 0.9) * 0.8, duskRoad * DUSK_ROAD_DIM));
-    this.roadPoolDim = Math.max((1 - dusk) * THREE.MathUtils.smoothstep(roadWetness, 0.55, 0.9) * 0.6, duskRoad * DUSK_ROAD_DIM);
+    // Refine round 4: from a damp road (0.35; was 0.55) and to 80% of the pool light (was 60%): Hakone's damp night
+    // road (0.6) kept nearly all of its lamp pools and read as pale grey-violet asphalt between the streaks, where its
+    // repaint keeps the road dark.
+    const nightRoad = (1 - dusk) * THREE.MathUtils.smoothstep(roadWetness, 0.35, 0.9);
+    this.roadFinish.setEnvironmentDim(Math.max(nightRoad * 0.8, duskRoad * DUSK_ROAD_DIM));
+    this.roadPoolDim = Math.max(nightRoad * NIGHT_ROAD_POOL_DIM, duskRoad * DUSK_ROAD_DIM);
     this.roadFinish.setPoolDim(this.roadPoolDim);
     this.roadAmbientDim = duskRoad * DUSK_ROAD_AMBIENT_DIM;
     this.roadFinish.setAmbientDim(this.roadAmbientDim);
@@ -1273,6 +1327,9 @@ export class RaceWorld {
     const night = 1 - dusk;
     for (let i = 0; i < this.foliageMaterials.length; i++)
       this.foliageMaterials[i]!.envMapIntensity = THREE.MathUtils.lerp(1, NIGHT_FOLIAGE_ENVIRONMENT, night);
+    // The ceiling only bites after dark: by day the sun lights the crowns in full.
+    this.blossomDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BLOSSOM_DIRECT_CAP, night);
+    this.foliageDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, FOLIAGE_DIRECT_CAP, night);
     this.scene.environmentIntensity = 0.09 + daylight * 0.16 + 0.05 * night;
     this.fill.intensity = 0.08 + daylight * 0.12 + 0.12 * night + GOLDEN_FILL * golden;
     this.fill.color.copy(MOOD.fillSky).lerp(MOOD.fillGolden, golden);
@@ -1292,8 +1349,13 @@ export class RaceWorld {
     // The sun keeps its world direction through corners; only the shadow
     // volume follows the race to retain detail along long routes. Tokyo's
     // late chapters swing it low toward the painted sunrise, which rises.
-    const azimuth = KEY_AZIMUTH + mood.sunTurn * swing;
-    const elevation = THREE.MathUtils.lerp(KEY_ELEVATION, SUNRISE_ELEVATION, swing) + 0.05 * sunrise;
+    // A late-day route keeps its sun's bearing through dusk (refine round 4: Akechidaira's repaint sets the afterglow
+    // ahead over the mountains; swinging back to the dusk key put the glow behind the camera).
+    const azimuth = KEY_AZIMUTH + mood.sunTurn * (mood.lowSun ? 1 : swing);
+    // In a late-day route's golden hours the key stands higher than the painted sun (GOLDEN_KEY_ELEVATION): at the
+    // sun's 8-11 degrees it grazed the road and verges, which stayed dark where the repaints bathe them in warm light.
+    const elevation = THREE.MathUtils.lerp(THREE.MathUtils.lerp(KEY_ELEVATION, SUNRISE_ELEVATION, swing) + 0.05 * sunrise,
+      GOLDEN_KEY_ELEVATION, golden);
     this.keyDirection.set(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation));
     this.keyLight.target.position.copy(point(at, 0, 0, 16));
     this.keyLight.position.copy(this.keyLight.target.position).addScaledVector(this.keyDirection, KEY_DISTANCE);
@@ -1303,7 +1365,10 @@ export class RaceWorld {
       this.paintedSun.set(Math.cos(azimuth) * Math.cos(low), Math.sin(low), Math.sin(azimuth) * Math.cos(low));
     } else this.paintedSun.copy(this.keyDirection);
     this.paintedSky.setRacingSky(daylight, this.paintedSun, sunrise, mood);
-    this.paintedSky.setRacingGolden(mood.lowSun ? THREE.MathUtils.smoothstep(daylight, 0.6, 0.85) : 0);
+    // A late-day route's afterglow (refine round 4: Akechidaira's repaint, the sun just set ahead): the golden sky holds
+    // through dusk toward its bearing, fading into the night below daylight 0.3.
+    this.paintedSky.setRacingGolden(mood.lowSun ? Math.max(THREE.MathUtils.smoothstep(daylight, 0.6, 0.85),
+      THREE.MathUtils.smoothstep(daylight, 0.3, 0.5)) : 0);
     this.cars.forEach((model, i) => {
       const car = cars[i]; model.group.visible = !!car && !(view === 'bumper' && i === slot) && !(car?.retired && i !== slot);
       if (!car) { this.vehicleAmbient.setCar(i, model.group.position, 0, 0); return; }

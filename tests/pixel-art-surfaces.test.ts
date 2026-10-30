@@ -92,6 +92,11 @@ test('refine round 4 stones: the wet road mirrors in a mosaic of small stones', 
   // slowly than linearly, so the far street's streaks reach the bottom of the frame.
   assert.ok(d.wetReflectionKnee > 0 && d.wetReflectionChroma >= 1 && d.wetReflectionChroma < 2);
   assert.ok(d.wetColumnFade >= 1 && d.wetColumnFade <= 4);
+  // A cell's own mirror (the evening sky) keeps most of its light in an unlit stone, under a cap of several times the
+  // ground's own light, so the dusk road mirrors the sky between the streaks rather than going black.
+  assert.ok(d.wetStoneMirror > 0.3 && d.wetStoneMirror <= 1 && d.wetPatchCap >= 2 && d.wetPatchCap <= 10);
+  // Dark wet ground (moat water) keeps a dim sky mirror, and a streak's stones light together.
+  assert.ok(d.wetMirrorFloor > 0 && d.wetMirrorFloor < 0.2 && d.wetStoneCrisp >= 0 && d.wetStoneCrisp <= 1);
 });
 
 test('shop fronts cast wet-ground columns but are no lamp heads', () => {

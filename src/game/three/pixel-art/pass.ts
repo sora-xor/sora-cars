@@ -37,7 +37,10 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
   darkChromaEnd: number;
   /** Share of the dark-chroma compression skipped on car paint (1: none; distant liveries keep their hue). */
   carChromaKeep: number;
-  /** The same for highlights (white paint under amber lamps turns beige, not salmon). */
+  /**
+   * The same for highlights (white paint under amber lamps turns beige, not salmon). Refine round 4: 0.15 by day and
+   * dusk (was 0.4): it turned the dusk windows' amber cream, where every repaint keeps them amber.
+   */
   lightChromaCompression: number;
   lightChromaLow: number;
   lightChromaHigh: number;
@@ -188,7 +191,7 @@ export interface PixelArtPass {
 const DEFAULTS: PixelArtOptions = {
   toneMapping: 'renderer', exposure: 1, dayExposure: 1.45,
   darkChromaCompression: 0.45, darkChromaLow: 0.06, darkChromaHigh: 0.13, darkChromaEnd: 0.5, carChromaKeep: 1,
-  lightChromaCompression: 0.4, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
+  lightChromaCompression: 0.15, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
   shadowHue: 295, plumHue: 335, plumStrength: 0, plumStart: 0.13, plumFull: 0.26, groundFloor: 0.22, groundLift: 0, shadowStrength: 0.9, shadowChroma: 0.025, shadowStart: 0.22, shadowEnd: 0.5,
   highlightHue: 78, highlightStrength: 0.8, highlightChroma: 0.04, highlightStart: 0.6, highlightFull: 0.9,
   chroma: 1.2, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0,

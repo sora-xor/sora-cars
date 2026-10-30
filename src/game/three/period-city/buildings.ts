@@ -758,8 +758,23 @@ function office(x: Context): void {
   if (h > 28) for (const s of [-1, 1]) aviationLight(b, s * (w / 2 - .4), h + 1.5, .4, extra());
 }
 
+/** Potted plants set out along a balcony between x0 and x1 at floor y, the rail `depth` out (refine round 4: the Tokyo
+ * repaints put them on most balconies). Drawn from the detail stream, so the lot's own draws stay put. */
+function balconyPlants(x: Context, x0: number, x1: number, y: number, depth: number): void {
+  const { b, extra } = x, pots = 1 + Math.floor(extra() * 3);
+  for (let k = 0; k < pots; k++) {
+    const px = x0 + .3 + extra() * Math.max(x1 - x0 - .6, 0), size = .28 + extra() * .16, z = -depth + .18;
+    b.colour.copy(colour(extra, ['#8a4a30', '#7a5a48', '#5a5a58', '#a05a38']));
+    b.box('wall', px - size / 2, px + size / 2, y, y + size * 1.1, z, z + size, 'bk');
+    // Shrubs and potted trees whose crowns clear a solid balcony front (1.05 m), as the repaints show them over it.
+    b.colour.copy(colour(extra, ['#2f5a2c', '#3c6a30', '#28502e', '#4a6a2a', '#56783a']));
+    const r = .3 + extra() * .25, top = y + size * 1.1, crown = 1.15 + extra() * .5;
+    b.box('ground', px - r, px + r, Math.max(top, y + crown - 2 * r), y + crown, z - r * .3, z + size + r * .3, 'bk');
+  }
+}
+
 function mansion(x: Context): number {
-  const { b, lot, random, detail } = x, w = lot.width, d = lot.depth, storeys = lot.storeys;
+  const { b, lot, random, detail, extra } = x, w = lot.width, d = lot.depth, storeys = lot.storeys;
   const ground = 3.3 + random() * .3, storey = 2.85 + random() * .15, h = ground + storey * (storeys - 1);
   const pastel = random() < .65, wall = drift(pastel ? colour(random, PASTEL) : colour(random, TILE_LIGHT), random);
   b.pattern = !pastel || lot.seed % 2 ? WALL_PATTERN.mosaic : WALL_PATTERN.plain;
@@ -787,6 +802,7 @@ function mansion(x: Context): number {
         opening(x, f, wx0, wx1, y0 + 1, y1 - .7, 1);
       } else b.front('wall', dx + door, ux1, y0, y1 - .45, 0);
       if (detail && random() < .55) acUnit(x, ux1 - .7, y0 + .12, -.1);
+      if (detail && extra() < .6) balconyPlants(x, ux0 + .2, ux1 - 1.2, y0, depth);
       if (detail === 2 && random() < .18) { b.colour.copy(colour(random, ['#f4f0e8', '#f0c8d8', '#c8dcf4', '#f4e4b0'])); b.front('wall', dx + .3, dx + 1.6, y0 + .55, y0 + 1.15, -depth - .08); }
     }
     // The slab and its front: solid parapet or railing.

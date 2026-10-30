@@ -39,11 +39,14 @@ test('ground defaults follow the measured dash, fleck and column rules', () => {
   assert.ok(d.fleckSpeckle >= 0 && d.fleckSpeckle < 1);
   assert.ok(d.fleckFloor > 0 && d.fleckFloor < 0.1 && d.fleckKeep > 0.3 && d.fleckKeep <= 1 && d.fleckSparse > 0 && d.fleckSparse < 1);
   assert.ok(d.fleckSpeedKeep > 0.5);
+  // A soaked road keeps some flecks: the cut thins them, it never removes them all.
+  assert.ok(d.fleckWetCut >= 0 && d.fleckWetCut < 1);
   assert.ok(d.fleckLitFull > d.fleckLitStart && d.markingFull > d.markingStart && d.markingStart > 1);
   // Columns: up to a handful of cells wide (refine round 1: 1-3-cell columns
   // of flat, jittered dashes read as floating glyphs), longer on soaked ground,
   // fading with distance; a cream core over amber dashes with plum fringe cells.
-  assert.ok(d.lampColumnWidth >= 3 && d.lampColumnWidth <= 8 && d.lampLobeWet > d.lampLobeDamp && d.lampColumnFar > 40);
+  // Refine round 4: thin streaks (the repaints draw many thin lamp streaks, not a few broad columns).
+  assert.ok(d.lampColumnWidth >= 2 && d.lampColumnWidth <= 8 && d.lampLobeWet > d.lampLobeDamp && d.lampColumnFar > 40);
   assert.ok(d.lampColumnCore > d.lampColumnEdge && d.lampColumnEdge > d.lampColumnFringe && d.lampColumnFringe > 0);
   // Ground at speed: screen-row dashes take over before the world rows slide a cell per frame.
   assert.ok(d.groundSpeedStart < d.groundSpeedFull && d.groundSpeedFull <= 1.5);

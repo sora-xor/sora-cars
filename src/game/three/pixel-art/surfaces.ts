@@ -183,6 +183,25 @@ export interface SurfaceOptions {
   /** About the share of a broad reflection's width its streaks keep (the rest dark road between them). */
   wetStoneStreakDuty: number;
   /**
+   * The share of a cell's own mirror (the sky, walls: no light column) an unlit stone keeps, in its own tone. The dusk
+   * repaints' wet roads mirror the evening sky as a violet sheen between the lamps' streaks; at the trough share
+   * (wetWaveTrough) every unlit stone went navy and the dusk road read as a black field.
+   */
+  wetStoneMirror: number;
+  /** 1: a streak's stones are lit together and its edges cut sharply; 0: each stone is picked against the soft density. */
+  wetStoneCrisp: number;
+  /**
+   * The share of a lit stone's tone its side gaps (between stones side by side) keep; the gaps along the courses stay
+   * dark, the horizontal ripple breaks. Near 1 a streak reads as one vertical reflection; low, as a dotted column.
+   */
+  wetStoneSideGap: number;
+  /** Weight of a slower second octave in the streak pattern (0-1): varied widths and spacing rather than a barcode. */
+  wetStreakVariety: number;
+  /** How far the stones' tones vary one from the next (0 even, 1 full): the near road's cobble texture. */
+  wetStoneJitter: number;
+  /** How far an unlit stone's own mirror (the sky, walls) turns navy, keeping its light (0-1). */
+  wetStoneCool: number;
+  /**
    * Refine round 4 drizzle: on a wet road (wetness 0.7 and up, when the walkers open umbrellas) this share of wet
    * cells takes a pale speck, re-rolled about every other frame: drops landing in a still, light drizzle in motion.
    * Nearest the camera, where the road slides too fast for glitter, it is the asphalt's speckle.
@@ -275,6 +294,8 @@ export interface SurfaceOptions {
   groundDryMottle: number;
   /** Lit flecks: density at full lamp light, lit light kept between flecks, brightest fleck (x the lit light). */
   fleckDensity: number;
+  /** Share of the flecks a soaked road loses (eased in between wetness 0.6 and 0.9): wet ground shows a pool as its reflection. */
+  fleckWetCut: number;
   /** Exposure-scaled lamp-lit luminance where flecks start and where they reach full density (dim fringes: sparse flecks). */
   fleckLitStart: number;
   fleckLitFull: number;
@@ -347,8 +368,19 @@ export interface SurfaceOptions {
   groundFarCalm: number;
   /** Flecks and dash mottle never lift a cell above this many times the darker ground either side (road paint stays brightest). */
   groundPaintCap: number;
-  /** Non-emitter wet reflections (sky, walls in damp patches) add at most this fraction of the ground's own light (about one band). */
+  /**
+   * Non-emitter wet reflections (sky, walls in damp patches) add at most this fraction of the ground's own light.
+   * Refine round 4: 6 (was 1.2, about one band). Under the stones the wet road mirrors the evening sky as the dusk
+   * repaints paint it, a violet sheen between the lamps' streaks; capped at one band of the dimmed dusk road, the
+   * mirror was gone and the road read as a black field.
+   */
   wetPatchCap: number;
+  /**
+   * Refine round 4: the least that cap allows (exposure-scaled luminance), so wet ground with little light of its own
+   * (moat water, a dark road) still mirrors the sky's glow. Capped at a share of its own light, the moats of Aizu and
+   * Nijō-jō read as black slabs where their repaints paint a dark violet mirror apart from the stone walls.
+   */
+  wetMirrorFloor: number;
   /** Key glints kept on a dry road (x sparkleKey at wetness 0.2 and below; full from 0.6). */
   sparkleKeyDry: number;
   /** 1: race hazards handed over with setHazards (oil) are drawn as flat outlined dark gloss with 1-cell highlight streaks. */
@@ -420,7 +452,7 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   // Refine round 4: a stronger mirror on wet ground, longer lamp columns (the user's rain-night target).
   // Refine round 4: measured against cutscene-style repaints of race frames, the road's warm reflected light covered
   // about two thirds of theirs (16.7% of the road against 25.4% at Tokyo night); stronger, denser dashes close it.
-  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 3.2, wetSkyReflection: 0.3, wetSkyColumn: 1.2, wetMaxDistance: 160,
+  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 3.2, wetSkyReflection: 0.5, wetSkyColumn: 1.2, wetMaxDistance: 160,
   // Refine round 4: lit facades, shop fronts and signs stretch into columns too, as every light does in the concept,
   // and the streaks of the far street reach the near road, which keeps a share of the mirror where it is seen steeply.
   // Stones (refine round 4): a light's streak runs to the bottom of the frame (200 cells), half the mirror kept where
@@ -431,10 +463,10 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   wetWaves: 1, wetWaveRidge: 0.74, wetWaveRowsNear: 3.5, wetWaveRowsFar: 1.8, wetWaveHorizon: 0.55, wetWaveThreshold: 0.33,
   // Stones (refine round 4): the road between the streaks stays navy (a trough of 0.03 of the gold, a fainter sheen),
   // a streak's stones are lit through its core, and the streaks stand about 9 cells apart.
-  wetWaveTrough: 0.03, wetWaveSheen: 0.02, wetWaveStroke: 12, wetWaveJitter: 1.5,
-  wetWaveDashFull: 0.25, wetWaveDashBase: 0.15, wetWaveStreak: 7, wetWaveStreakFloor: 0.05,
+  wetWaveTrough: 0.03, wetWaveSheen: 0.03, wetWaveStroke: 12, wetWaveJitter: 1.5,
+  wetWaveDashFull: 0.25, wetWaveDashBase: 0.15, wetWaveStreak: 4, wetWaveStreakFloor: 0.05,
   wetStones: 1, wetStoneRowsNear: 2.2, wetStoneRowsFar: 1, wetStoneAspectNear: 1.4, wetStoneAspectFar: 2.2,
-  wetStoneGap: 0.12, wetStoneGround: 0.75, wetStoneRim: 0.25, wetStoneStreakDuty: 0.45,
+  wetStoneGap: 0.12, wetStoneGround: 0.75, wetStoneRim: 0.25, wetStoneStreakDuty: 0.35, wetStoneMirror: 0.85, wetStoneCrisp: 1, wetStoneSideGap: 0.5, wetStreakVariety: 0, wetStoneJitter: 1, wetStoneCool: 0,
   // Refine round 4: the wet road mirrors in a rippled mosaic, as a cutscene-style repaint of a race frame draws it
   // (art/reference/mockups): short broken dashes with dark gaps, some whole rows dropped. Unbroken, glossy columns
   // (the fifth pass) read as solid synthetic bars beside it, the SORA billboard's reflection a cream block.
@@ -446,13 +478,13 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   groundDashes: 1, litFlecks: 1, lampColumns: 1, wetDryFade: 1, keyGlints: 1,
   // Refine round 4: a calmer road, its grain cool and fine rather than warm speckle (the rain-night target).
   groundDashCells: 2.5, groundDashSpread: 0.35, groundSpeckle: 0.2, groundMottle: 0.15, groundDryMottle: 0.35,
-  fleckDensity: 0.22, fleckLitStart: 0.02, fleckLitFull: 0.25, fleckGap: 0.15, fleckBoost: 4, fleckKeep: 0.65, fleckSparse: 0.3, fleckFloor: 0.05, fleckSpeckle: 0.5,
+  fleckDensity: 0.22, fleckWetCut: 0.7, fleckLitStart: 0.02, fleckLitFull: 0.25, fleckGap: 0.15, fleckBoost: 4, fleckKeep: 0.65, fleckSparse: 0.3, fleckFloor: 0.05, fleckSpeckle: 0.5,
   fleckTint: 0.65, fleckSpeedKeep: 1, groundAmbientScale: 1,
   markingStart: 1.6, markingFull: 2.3,
-  lampColumnGain: 1.8, lampLobeDamp: 0.11, lampLobeWet: 0.2, lampColumnWidth: 3, lampColumnFar: 140,
+  lampColumnGain: 1.8, lampLobeDamp: 0.11, lampLobeWet: 0.2, lampColumnWidth: 2.5, lampColumnFar: 140,
   lampColumnCore: 1.6, lampColumnEdge: 0.6, lampColumnFringe: 0.25, columnBreak: 0,
   groundSpeedStart: 0.15, groundSpeedFull: 0.5, groundSpeedMottle: 0.7, groundRowOctave: 0.5,
-  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 1.2,
+  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 6, wetMirrorFloor: 0.06,
   sparkleKeyDry: 0.15, oilHazards: 1,
   foliageTurns: 0.6, foliageClumpCells: 5, foliageClumpOffset: 1.5, foliageHysteresis: 0.12, foliageSmooth: 0.8, foliageMemory: 0,
   groundScroll: 0, groundScrollSpread: 0.5, groundScrollHold: 1, groundScrollStep: 1, groundScrollTurn: 0, temporalScrollShift: 0, groundSlideLengthen: 0,
@@ -549,6 +581,24 @@ const int MAX_MOVERS = ${MAX_MOVERS};
 int anchorKind(float w) { return int(floor(w + .5)); }
 `;
 
+/**
+ * Water (refine round 4): the period city's water material writes alpha .5 into the scene target (opaque, so nothing
+ * blends it; the cell resolve reads colour only). The share of a cell's scene samples it drew: water mirrors in full at
+ * any road wetness, without the road's stones, flecks or damp-patch cap.
+ */
+const WATER_GLSL = /* glsl */ `
+float artWaterShare(ivec2 cell) {
+  ivec2 origin = cell * artSupersample;
+  int s = artSupersample, n = s * s;
+  float water = 0.;
+  for (int i = 0; i < 9; i++) {
+    if (i >= n) break;
+    water += step(texelFetch(sceneColor, origin + ivec2(i % s, i / s), 0).a, .75);
+  }
+  return water / float(n);
+}
+`;
+
 const SURFACE_NOISE = /* glsl */ `
 const float SURFACE_TAU = 6.28318531;
 /** Smooth 2D value noise in [0, 1] on the integer lattice; wrap > 0 repeats x every 'wrap' cells. */
@@ -610,6 +660,7 @@ float footprint(vec3 axis, vec3 footX, vec3 footY) {
 const SURFACE_FRAGMENT = /* glsl */ `
 ${SURFACE_COMMON}
 ${SURFACE_NOISE}
+${WATER_GLSL}
 uniform vec4 moverMin[MAX_MOVERS];     // xyz local box min; w 1 when last frame's transform is known
 uniform vec4 moverMax[MAX_MOVERS];     // xyz local box max; w 1 when the slot is active
 uniform mat4 moverToLocal[MAX_MOVERS];
@@ -1194,6 +1245,9 @@ void main() {
       // round 2): the road, pavements and kerb tops, never the grass banks
       // beside them (amber column glyphs landed on the verges).
       wet = together * smoothstep(.93, .98, lowest) * mix(wetParams.z, 1., dampPatch(world.xz, wetParams.x));
+      // Water mirrors in full whatever the road's wetness (refine round 4: Nara's ponds and the moats read dark navy
+      // under a bright afternoon sky, where the repaints paint a bright mirror of the sky and the far shore).
+      wet = max(wet, together * smoothstep(.93, .98, lowest) * smoothstep(.3, .7, artWaterShare(cell)));
       dash = groundDash(world, footX, footY);
     }
     // The ground style (mottle, lit flecks) follows the cell's own normal:
@@ -1310,6 +1364,7 @@ void main() {
 }`;
 
 const TRACE_FRAGMENT = /* glsl */ `
+${WATER_GLSL}
 uniform vec4 traceParams;  // x: max ray length (m); y: sky reflection factor; z: screen-edge fade (cells); w: sky luminance (exposure-scaled) that stretches
 uniform float surfaceExposure;
 layout(location = 0) out vec4 outTrace;
@@ -1394,13 +1449,14 @@ void main() {
   ivec2 skyCell = ivec2(p);
   if (texelFetch(resolvedData, skyCell, 0).w < .5) return;
   vec3 sky = texelFetch(resolvedColor, skyCell, 0).rgb;
-  outTrace = vec4(sky * traceParams.y, 1.) * edgeFade(p);
+  outTrace = vec4(sky * mix(traceParams.y, 1., smoothstep(.3, .7, artWaterShare(cell))), 1.) * edgeFade(p);
   // Only the sun or the moon stretches into a column (refine round 4); the rest of the sky mirrors where it is
   // (negative alpha, as canopy hits).
   if (artLuminance(sky) * surfaceExposure < traceParams.w) outTrace.a = -outTrace.a;
 }`;
 
 const COMPOSITE_FRAGMENT = /* glsl */ `
+${WATER_GLSL}
 uniform sampler2D wetTrace;
 uniform vec4 columnParams;  // x: cells down (toward the camera), y: cells up, z: reflection strength, w: dash gap
 uniform float wetFresnelFloor; // the least share of the mirror wet ground keeps where the view looks steeply down
@@ -1417,6 +1473,13 @@ uniform vec4 stoneShape;        // refine round 4 stones: x 1 on; y course rows 
 uniform vec2 stoneAspect;       // stones' width over their course's rows: x at the bottom of the screen, y at the horizon row and above
 uniform vec3 stoneTones;        // x: a gap's share of the reflection; y: of the ground's light; z: a lit stone's rim lift
 uniform vec2 stoneDuty;         // streak noise where a broad reflection's streak starts / is full (higher: narrower streaks)
+uniform float stoneMirror;      // the share of a cell's own mirror (no light column) an unlit stone keeps
+uniform float mirrorFloor;      // the least the damp-patch cap allows (exposure-scaled luminance)
+uniform float stoneCrisp;       // 1: a streak's stones are lit together, its edges sharp; 0: each stone picked against the density
+uniform float stoneSideGap;     // the share of a lit stone's tone its side (vertical) gaps keep
+uniform float streakVariety;    // weight of the streaks' slower second octave (0: one frequency)
+uniform float stoneJitter;      // how far stones' tones vary one from the next (0: even, 1: full)
+uniform float stoneCool;        // how far an unlit stone's own mirror turns navy (0-1)
 uniform vec3 sheenParams;   // x: brightness swing; y, z: exposure-scaled luminance where the swing starts / is full
 uniform vec2 columnSource;  // exposure-scaled reflected luminance where a reflection starts / fully stretches into a column
 uniform float columnDay;    // this frame's multiplier on columnSource (wetColumnDay by day .. 1 at night)
@@ -1430,6 +1493,7 @@ uniform float fleckSplit2;     // share of the one-cell speckle in the fleck pic
 uniform vec4 fleckSplit;       // x: share of the lit light the flecks carry; y: density share in dim fringes; z: floor kept in every cell (exposure-scaled); w: 0 as the street lamps fade out (sunrise)
 uniform float groundMottle;     // brightness swing of the ground dashes (+-)
 uniform vec3 groundAmbientTint; // unit-luminance colour of the ambient light on the ground
+uniform float groundAmbientLevel; // luminance of the ambient irradiance on upward ground
 uniform vec4 groundCaps;        // x: mottle kept at full speed; y: paint cap (x the darker ground either side); z: wet patch cap; w: smoothing at speed
 uniform float wallSpeedSmooth;  // the share of the smoothing at speed upright world cells take
 uniform vec3 groundFar;         // x, y: distance (m) over which the ground calms; z: how much
@@ -1652,7 +1716,7 @@ float stoneRow(float v, float Y, float p0, float p1) {
  * next stone, where the stone is big enough to keep a body), 1 on its rim (the band inside the border on its upper
  * half), else 0. Screen cells, like the waves: still under a still light.
  */
-ivec2 stoneAt(ivec2 cell, out ivec2 id, out int edge) {
+ivec2 stoneAt(ivec2 cell, out ivec2 id, out int edge, out float size) {
   float Y = max(artSize.y * waveShape.z, 1.), p0 = stoneShape.y, p1 = stoneShape.z;
   vec2 p = vec2(cell) + .5;
   float v = stoneCourse(p.y, Y, p0, p1);
@@ -1660,7 +1724,7 @@ ivec2 stoneAt(ivec2 cell, out ivec2 id, out int edge) {
   float width = rows * aspect, u = p.x / width;
   vec2 lattice = floor(vec2(u, v));
   float nearest = 1e9, second = 1e9;
-  vec2 centre = p;
+  vec2 centre = p, secondCentre = p;
   ivec2 best = ivec2(0);
   for (int j = -1; j <= 1; j++) for (int i = -1; i <= 1; i++) {
     vec2 l = lattice + vec2(i, j);
@@ -1671,18 +1735,27 @@ ivec2 stoneAt(ivec2 cell, out ivec2 id, out int edge) {
     vec2 c = vec2(q.x * w, y);
     vec2 d = (p - c) / vec2(aspect, 1.);
     float dist = dot(d, d);
-    if (dist < nearest) { second = nearest; nearest = dist; centre = c; best = ivec2(l); }
-    else if (dist < second) second = dist;
+    if (dist < nearest) { second = nearest; secondCentre = centre; nearest = dist; centre = c; best = ivec2(l); }
+    else if (dist < second) { second = dist; secondCentre = c; }
   }
   id = best;
   // Distance to the border with the next stone (in rows), from the two nearest distances.
   float border = (second - nearest) / max(2. * sqrt(second), 1e-3);
-  edge = rows >= 1.6 && border < .5 ? 2 : border < 1.1 && p.y > centre.y ? 1 : 0;
+  // The gaps thin out smoothly where the courses shrink toward a cell (a hard cut-off at 1.6 rows drew a seam across the
+  // whole road, darker below it). A gap between stones side by side (a vertical border) is 3, one between a stone and
+  // the next course (a horizontal border) 2: a lit streak keeps its vertical gaps light, so it reads as one vertical
+  // reflection broken only along the horizontal ripples, as the repaints draw it (dark in both, it was a dotted column).
+  vec2 apart = (secondCentre - centre) / vec2(aspect, 1.);
+  edge = border < .5 * smoothstep(1.1, 2., rows) ? (abs(apart.y) > abs(apart.x) ? 2 : 3)
+    : border < 1.1 && p.y > centre.y && rows > 2.4 ? 1 : 0;
+  size = rows;
   return artClamp(ivec2(floor(centre)));
 }
 void composite() {
   ivec2 cell = artCell();
   vec4 base = texelFetch(resolvedColor, cell, 0);
+  // Water (refine round 4): a smooth mirror, without the road's stones, flecks, mottle or damp-patch cap.
+  bool water = artWaterShare(cell) > .5;
   // Alpha: the share of the cell's light that is a reflection (fraction) and
   // 1 on road paint (accumulate.ts takes the current frame on both: columns
   // ride with their light, and paint streams past the screen-row dashes).
@@ -1772,7 +1845,7 @@ void composite() {
     }
   }
   colour = source;
-  if (ground.z > 0.) {
+  if (ground.z > 0. && !water) {
     // Road markings and kerb edges: brighter albedo (or, for sub-cell paint,
     // a brighter brightest sample) than the darker ground either side.
     // A marking is brighter than the ground on both sides (a line): measured
@@ -1802,8 +1875,9 @@ void composite() {
   // reflection is laid in whole stones.
   ivec2 stoneId = ivec2(0);
   int stoneEdgeKind = 0;
-  bool stones = stoneShape.x > .5;
-  ivec2 at = stones ? stoneAt(cell, stoneId, stoneEdgeKind) : cell;
+  float stoneSize = 0.;
+  bool stones = stoneShape.x > .5 && !water;
+  ivec2 at = stones ? stoneAt(cell, stoneId, stoneEdgeKind, stoneSize) : cell;
   // Waves (refine round 4): this row's band, and its sideways shift (smooth from row to row, so a light's streak
   // wavers rather than shattering).
   float waveV = 0., wave = waveParams.x > .5 ? waveBand(at, waveV) : 1.;
@@ -1906,8 +1980,8 @@ void composite() {
   // Damp-patch mirrors of the sky and walls stay within about a band of the
   // ground, so a puddle never out-shouts a hazard; lights and lit panels keep
   // their full columns.
-  if (!stretched) {
-    float cap = groundCaps.z * artLuminance(colour), l = artLuminance(reflection);
+  if (!stretched && !water) {
+    float cap = max(groundCaps.z * artLuminance(colour), mirrorFloor / max(surfaceExposure, 1e-4)), l = artLuminance(reflection);
     if (l > cap) reflection *= cap / l;
   }
   bool lampWon = false;
@@ -1963,7 +2037,10 @@ void composite() {
     // repaints' streaks are continuous columns broken by thin gaps, where ours dissolved into scattered stones).
     float band = stones ? mix(.75, 1.1, smoothstep(.2, .8, wave)) : mix(.35, 1.15, smoothstep(.2, .8, wave));
     // About a third of the width lit: the repaints' streaks are narrow columns with wider dark road between.
-    if (stones && !lampWon) streak = mix(waveDash.w, 1., smoothstep(stoneDuty.x, stoneDuty.y, artValueNoise(vec3(streakX, 0., 0.), 863)));
+    // Two octaves (refine round 4): at one frequency the streaks stood as regular as a barcode; the repaints' vary in
+    // width and spacing, a few broad warm columns among thin ones.
+    if (stones && !lampWon) streak = mix(waveDash.w, 1., smoothstep(stoneDuty.x, stoneDuty.y,
+      mix(artValueNoise(vec3(streakX, 0., 0.), 863), artValueNoise(vec3(streakX * .31 + 17.3, 0., 0.), 877), streakVariety)));
     // A steep ramp (refine round 4): a streak's core solid, its edges cut cleanly, rather than half its cells
     // flickering on and off (the repaints' streaks are smooth, broken only along the wave lines).
     float density = clamp(smoothstep(.15 * waveDash.x, waveDash.x, light) * streak * band, 0., 1.);
@@ -1988,15 +2065,30 @@ void composite() {
       // A stone is lit whole when its own threshold clears the density, in one of a few tones; its upper rim catches
       // more of the light, its gaps keep little of it. An unlit stone keeps the trough share or a faint sheen of the
       // night's ambient colour in its own tone (brighter on its rim), so the dark road reads as a navy cobble field.
-      float pick = artHash01(ivec3(stoneId, 8867));
-      bool litStone = pick < density;
-      float tone = litStone ? mix(.85, 1.15, artHash01(ivec3(stoneId, 8869))) * (stoneEdgeKind == 1 ? 1. + stoneTones.z : 1.) : waveParams.z;
+      // Stones too small to read (under about two rows, down the street) light and shade as one smooth streak: picked
+      // and toned one by one, the far road's streaks broke into gold glitter where the repaints draw smooth strokes.
+      float grain = smoothstep(1.6, 3.2, stoneSize), jitter = grain * stoneJitter;
+      float pick = mix(.5, artHash01(ivec3(stoneId, 8867)), grain);
+      // Crisp (refine round 4): a streak's stones are lit together and its edges cut sharply; picked one by one
+      // against a soft density, the far street's streaks broke into gold dust where the repaints draw thin unbroken
+      // lines.
+      bool litStone = pick < mix(density, smoothstep(.3, .6, density), stoneCrisp);
+      float own = stretched || lampWon ? 0. : stoneMirror * mix(1., mix(.7, 1.1, artHash01(ivec3(stoneId, 8873))), jitter);
+      float tone = litStone ? mix(1., mix(.85, 1.15, artHash01(ivec3(stoneId, 8869))), jitter) * (stoneEdgeKind == 1 ? 1. + stoneTones.z : 1.)
+        : max(waveParams.z, own);
       // A gap is darker than its stone: unlit stones keep the trough share, and a gap at 12% of a bright shop
       // front's mirror outlined every dark stone in gold, a woven curtain over the near road.
-      reflection *= stoneEdgeKind == 2 ? min(stoneTones.x, tone * .5) : tone;
-      if (!litStone && stoneEdgeKind != 2 && waveParams.w > 0.) {
+      reflection *= stoneEdgeKind == 2 || stoneEdgeKind == 3 && !litStone ? min(stoneTones.x, tone * .5)
+        : stoneEdgeKind == 3 ? tone * stoneSideGap : tone;
+      // An unlit stone's own mirror turns navy (refine round 4): the dusk sky's violet and pink mirrored stone by stone
+      // read as a magenta speckle between the streaks, where the repaints keep the wet road navy there.
+      if (!litStone && own > 0. && stoneCool > 0.) {
+        float l = artLuminance(reflection);
+        reflection = mix(reflection, vec3(.2, .26, .62) * (l / .2732), stoneCool);
+      }
+      if (!litStone && stoneEdgeKind < 2 && waveParams.w > 0.) {
         float gate = smoothstep(0., .35, fields.y) * mix(.25, 1., 1. - smoothstep(.05, .16, artLuminance(colour) * surfaceExposure));
-        float shade = mix(.3, 1.1, artHash01(ivec3(stoneId, 8871))) * (stoneEdgeKind == 1 ? 1.6 : 1.);
+        float shade = mix(.7, mix(.3, 1.1, artHash01(ivec3(stoneId, 8871))), jitter) * (stoneEdgeKind == 1 ? 1.6 : 1.);
         reflection = max(reflection, groundAmbientTint * vec3(.7, .8, 1.6) * waveParams.w * gate * shade / max(surfaceExposure, 1e-4));
       }
     } else if (threshold < density) reflection *= mix(1.15, 1., density);
@@ -2007,7 +2099,7 @@ void composite() {
     }
   }
   // A stone's gaps darken the wet ground's own light too.
-  if (stones && stoneEdgeKind == 2 && marking < .5) colour *= mix(1., stoneTones.y, smoothstep(0., .3, fields.y));
+  if (stones && stoneEdgeKind >= 2 && marking < .5) colour *= mix(1., stoneTones.y, smoothstep(0., .3, fields.y));
   // Lane paint is never painted over by reflections.
   reflection *= 1. - marking;
   vec3 total = colour * sheen + reflection;
@@ -2440,10 +2532,10 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, columnDay: { value: 1 }, reflectionKnee: { value: new THREE.Vector2(0, 1) }, columnFade: { value: 1 }, wetFresnelFloor: { value: 0 },
     rippleParams: { value: new THREE.Vector4(1, 4.5, 4, .42) }, ripplePebbles: { value: .05 }, rippleFar: { value: new THREE.Vector3(2.5, 11, 12) },
     waveParams: { value: new THREE.Vector4(1, .33, .1, .045) }, waveShape: { value: new THREE.Vector4(3.5, 1.8, .55, 12) }, waveJitter: { value: 1.5 },
-    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) },
+    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) }, stoneMirror: { value: .6 }, mirrorFloor: { value: .06 }, stoneCrisp: { value: 1 }, stoneSideGap: { value: .8 }, streakVariety: { value: .4 }, stoneJitter: { value: 1 }, stoneCool: { value: 0 },
     waveRidge: { value: .74 }, waveDash: { value: new THREE.Vector4(.6, .15, 5, .2) }, reflectionWarmth: { value: .9 }, surfaceExposure: deps.exposure,
     fleckParams: { value: new THREE.Vector4() },
-    fleckShape: { value: new THREE.Vector3() }, groundAmbientTint: { value: new THREE.Vector3(1, 1, 1) },
+    fleckShape: { value: new THREE.Vector3() }, groundAmbientTint: { value: new THREE.Vector3(1, 1, 1) }, groundAmbientLevel: { value: .3 },
     emitterCount: { value: 0 },
     emitterScreen: { value: Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4()) },
     emitterWorld: { value: Array.from({ length: MAX_GROUND_EMITTERS }, () => new THREE.Vector4()) },
@@ -2492,6 +2584,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
   const scrollMaterial = stageMaterial('SORA pixel-art ground scroll', shared, SCROLL_FRAGMENT, scrollUniforms);
 
   let wetness = 0.6, rain = 0, wetOn = true, dampBase = SURFACE_DEFAULTS.wetDampBase, nightLevel = 1, columnDay = SURFACE_DEFAULTS.wetColumnDay;
+  let fleckDensity = SURFACE_DEFAULTS.fleckDensity, fleckWetCut = SURFACE_DEFAULTS.fleckWetCut;
   const cameraTravel = createCameraTravel();
   const ground = createGroundLights(surfaceUniforms, compositeUniforms);
   let lampColumnsOn = true, flecksOn = true, dryFade = true, ambientScale = 1, lampGain = 1;
@@ -2596,6 +2689,10 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       // The grade's night darks (plum drive, ground floor) follow the same lamp level.
       if (deps.grade?.uniforms.plumNight) deps.grade.uniforms.plumNight.value = compositeUniforms.fleckSplit.value.w;
       const soak = Math.max(THREE.MathUtils.smoothstep(wetness, 0.6, 1), rain);
+      // Wet ground shows a lamp's pool as its reflection, not as lit grit (refine round 4): fewer flecks the wetter it
+      // is. Iimoriyama's and Akechidaira's wet roads read as gold fleck carpets under the lamps, where the repaints
+      // keep them dark between the lamps' streaks.
+      compositeUniforms.fleckParams.value.x = fleckDensity * (1 - fleckWetCut * THREE.MathUtils.smoothstep(Math.max(wetness, rain), 0.6, 0.9));
       const lobe = THREE.MathUtils.lerp(lobeDamp, lobeWet, soak);
       const damp = Math.max(THREE.MathUtils.smoothstep(wetness, 0.2, 0.6), rain);
       compositeUniforms.groundMottle.value = mottle * THREE.MathUtils.lerp(dryMottle, 1, damp);
@@ -2707,6 +2804,13 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
         Math.max(0, o.wetStoneRim));
       const duty = THREE.MathUtils.clamp(o.wetStoneStreakDuty, 0.05, 0.95);
       compositeUniforms.stoneDuty.value.set(1 - duty - 0.035, 1 - duty + 0.035);
+      compositeUniforms.stoneMirror.value = THREE.MathUtils.clamp(o.wetStoneMirror, 0, 1);
+      compositeUniforms.mirrorFloor.value = Math.max(0, o.wetMirrorFloor);
+      compositeUniforms.stoneCrisp.value = THREE.MathUtils.clamp(o.wetStoneCrisp, 0, 1);
+      compositeUniforms.stoneSideGap.value = THREE.MathUtils.clamp(o.wetStoneSideGap, 0, 1);
+      compositeUniforms.streakVariety.value = THREE.MathUtils.clamp(o.wetStreakVariety, 0, 1);
+      compositeUniforms.stoneJitter.value = THREE.MathUtils.clamp(o.wetStoneJitter, 0, 1);
+      compositeUniforms.stoneCool.value = THREE.MathUtils.clamp(o.wetStoneCool, 0, 1);
       compositeUniforms.waveRidge.value = THREE.MathUtils.clamp(o.wetWaveRidge, 0, 1);
       compositeUniforms.waveDash.value.set(Math.max(1e-3, o.wetWaveDashFull), THREE.MathUtils.clamp(o.wetWaveDashBase, 0, 1),
         Math.max(1, o.wetWaveStreak), THREE.MathUtils.clamp(o.wetWaveStreakFloor, 0, 1));
@@ -2717,7 +2821,8 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.sheenParams.value.set(flecksOn ? 0 : o.wetSheen, 0.08, 0.5);
       surfaceUniforms.segmentParams.value.set(Math.max(0.5, o.groundDashCells), Math.max(0, o.groundDashSpread),
         o.groundDashes > 0 ? 1 : 0, flecksOn ? 1 : 0);
-      compositeUniforms.fleckParams.value.set(flecksOn ? THREE.MathUtils.clamp(o.fleckDensity, 0, 1) : 0,
+      fleckDensity = flecksOn ? THREE.MathUtils.clamp(o.fleckDensity, 0, 1) : 0; fleckWetCut = THREE.MathUtils.clamp(o.fleckWetCut, 0, 1);
+      compositeUniforms.fleckParams.value.set(fleckDensity,
         THREE.MathUtils.clamp(o.fleckGap, 0, 1), Math.max(1, o.fleckBoost), THREE.MathUtils.clamp(o.fleckTint, 0, 1));
       compositeUniforms.fleckShape.value.set(THREE.MathUtils.clamp(o.fleckSpeedKeep, 0, 1), o.markingStart,
         Math.max(o.markingStart + 1e-3, o.markingFull));
@@ -2833,7 +2938,7 @@ export function lampColumnScreen(viewProjection: THREE.Matrix4, x: number, y: nu
 function createGroundLights(
   surface: { poolPosition: THREE.IUniform<THREE.Vector4[]>; poolDirection: THREE.IUniform<THREE.Vector4[]>;
     poolShape: THREE.IUniform<THREE.Vector4[]>; groundAmbient: THREE.IUniform<number> },
-  composite: { groundAmbientTint: THREE.IUniform<THREE.Vector3>; emitterCount: THREE.IUniform<number>;
+  composite: { groundAmbientTint: THREE.IUniform<THREE.Vector3>; groundAmbientLevel: THREE.IUniform<number>; emitterCount: THREE.IUniform<number>;
     emitterScreen: THREE.IUniform<THREE.Vector4[]>; emitterWorld: THREE.IUniform<THREE.Vector4[]>;
     emitterColour: THREE.IUniform<THREE.Vector3[]> },
 ) {
@@ -2878,6 +2983,7 @@ function createGroundLights(
     /** Once per frame, after the scene render (world matrices are current). */
     updatePools(ambientScale: number) {
       surface.groundAmbient.value = ambient * ambientScale;
+      composite.groundAmbientLevel.value = ambient;
       for (let i = 0; i < MAX_POOL_LIGHTS; i++) {
         const light = pools[i], p = surface.poolPosition.value[i]!;
         if (!light || !light.visible || !light.parent || light.intensity <= 0) { p.w = 0; continue; }

@@ -42,7 +42,8 @@ export interface RoadFinish {
 
 const decorated = new WeakMap<THREE.MeshStandardMaterial, RoadFinish>();
 /** A road finish's ceiling uniforms, shared with its neighbours (shareSpecularLimits). */
-type CeilingUniforms = { enabled: { value: number }; keySpecular: { value: number }; spotSpecular: { value: number } };
+type CeilingUniforms = { enabled: { value: number }; keySpecular: { value: number }; spotSpecular: { value: number };
+  environmentDim: { value: number }; poolDim: { value: number }; ambientDim: { value: number } };
 const ceilings = new WeakMap<RoadFinish, CeilingUniforms>();
 const limited = new WeakSet<THREE.Material>();
 
@@ -220,7 +221,7 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     setAmbientDim(value) { ambientDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
   };
   decorated.set(material, controller);
-  ceilings.set(controller, { enabled, keySpecular, spotSpecular });
+  ceilings.set(controller, { enabled, keySpecular, spotSpecular, environmentDim, poolDim, ambientDim });
   return controller;
 }
 
@@ -230,9 +231,11 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
  * glare). Under the low sunrise key their rough concrete scattered one smooth
  * cream glare band along the shoulder, since only the road had the ceiling;
  * now they share its uniforms, so the road's setKeySpecularLimit and
- * setSpotSpecularLimit drive them too. Idempotent per material.
+ * setSpotSpecularLimit drive them too. `wetPaving` (kerbs and pavements, not
+ * water) also shares its environment, pool and ambient dims. Idempotent per
+ * material.
  */
-export function shareSpecularLimits(material: THREE.MeshStandardMaterial, road: RoadFinish): void {
+export function shareSpecularLimits(material: THREE.MeshStandardMaterial, road: RoadFinish, wetPaving = false): void {
   const uniforms = ceilings.get(road);
   if (!uniforms || limited.has(material) || decorated.has(material)) return;
   limited.add(material);
@@ -249,7 +252,19 @@ export function shareSpecularLimits(material: THREE.MeshStandardMaterial, road: 
     shader.uniforms.soraRoadSpotSpecular = uniforms.spotSpecular;
     shader.fragmentShader = 'uniform float soraRoadFinishEnabled;\n' + shader.fragmentShader.replace('#include <lights_physical_pars_fragment>',
       `#include <lights_physical_pars_fragment>\n${keySpecularLimit}`);
+    if (wetPaving) {
+      // Kerbs and pavements are wet paving too (refine round 4): they share the road's dims, so under a street lamp at
+      // night or a damp dusk sky they stay dark like the carriageway beside them; lit in full, the concrete pavement
+      // under Iimoriyama's lamp read as a pale gold band where the repaint keeps it dark and wet.
+      shader.uniforms.soraRoadEnvironmentDim = uniforms.environmentDim; shader.uniforms.soraRoadPoolDim = uniforms.poolDim;
+      shader.uniforms.soraRoadAmbientDim = uniforms.ambientDim;
+      shader.fragmentShader = 'uniform float soraRoadEnvironmentDim; uniform float soraRoadPoolDim; uniform float soraRoadAmbientDim;\n'
+        + shader.fragmentShader.replace('#include <lights_fragment_end>',
+        '#include <lights_fragment_end>\nreflectedLight.indirectSpecular *= 1.0 - soraRoadEnvironmentDim * soraRoadFinishEnabled;'
+        + '\nreflectedLight.directDiffuse *= 1.0 - soraRoadPoolDim * soraRoadFinishEnabled;'
+        + '\nreflectedLight.indirectDiffuse *= 1.0 - soraRoadAmbientDim * soraRoadFinishEnabled;');
+    }
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-road-ceiling-v1`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-road-ceiling-v1${wetPaving ? '-wet' : ''}`;
   material.needsUpdate = true;
 }

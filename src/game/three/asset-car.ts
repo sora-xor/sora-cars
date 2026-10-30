@@ -187,18 +187,34 @@ async function prepareTemplate(): Promise<Template> {
   return { surfaces, wheels, decals, emblems, strip, aero, flame };
 }
 
+/**
+ * The most irradiance (scene-linear luminance) a street lamp's, shop light's or headlight's cone puts on a car (refine
+ * round 4). With the lamps every 22 m a pool often stands right over the cars, and its full 600 cd a few metres up
+ * washed a red coupe out to salmon and its windows to pale grey, where the cutscenes keep the paint red under a soft
+ * highlight. The key light and the sky are untouched.
+ */
+export const CAR_SPOT_CAP = { value: 1 };
+
 function addDissolve(material: THREE.Material, opacity: { value: number }): void {
   material.onBeforeCompile = shader => {
     shader.uniforms.soraAssetOpacity = opacity;
+    shader.uniforms.soraCarSpotCap = CAR_SPOT_CAP;
+    // The chunk is expanded here (onBeforeCompile sees only its #include), with the cap after each spot light's info.
+    shader.fragmentShader = shader.fragmentShader.replace('#include <lights_fragment_begin>', THREE.ShaderChunk.lights_fragment_begin.replace(
+      'getSpotLightInfo( spotLight, geometryPosition, directLight );',
+      `getSpotLightInfo( spotLight, geometryPosition, directLight );
+      { float soraSpot = dot( directLight.color, vec3( .2126, .7152, .0722 ) );
+        if ( soraSpot > soraCarSpotCap ) directLight.color *= soraCarSpotCap / soraSpot; }`));
     shader.fragmentShader = shader.fragmentShader.replace('void main() {', /* glsl */ `
       uniform float soraAssetOpacity;
+      uniform float soraCarSpotCap;
       float soraBayer2(vec2 p) { vec2 c = mod(p, 2.0); return 2.0*c.x + 3.0*c.y - 4.0*c.x*c.y; }
       float soraBayer4(vec2 p) { vec2 c = mod(floor(p), 4.0); return (4.0*soraBayer2(c) + soraBayer2(floor(c*0.5)) + 0.5) / 16.0; }
       void main() {
         if (soraAssetOpacity < 1.0 && soraBayer4(gl_FragCoord.xy) >= soraAssetOpacity) discard;
     `);
   };
-  material.customProgramCacheKey = () => 'sora-detailed-coupe-dissolve-v1';
+  material.customProgramCacheKey = () => 'sora-detailed-coupe-dissolve-v3';
 }
 
 /** Every detailed car's paint and emblem materials, for the night's street light (setDetailedCarNight). */

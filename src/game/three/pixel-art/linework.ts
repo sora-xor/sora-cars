@@ -229,7 +229,7 @@ export interface LineworkOptions {
 }
 
 export const LINEWORK_DEFAULTS: LineworkOptions = {
-  lines: 1, glints: 1, glow: 1, cleanup: 1, foliage: 1, foliageFill: 5, foliageGlint: 0.35, foliageGlintFar: 90, foliageCalm: 0.12,
+  lines: 1, glints: 1, glow: 1, cleanup: 1, foliage: 1, foliageFill: 5, foliageGlint: 0.15, foliageGlintFar: 90, foliageCalm: 0.12,
   contrastLines: 1, contrastStep: 0.17, contrastFadeEnd: 85,
   lineGapStart: 0.03, lineGapFull: 0.08, lineGapMetres: 0.4, lineStepHeight: 0.35, lineFadeStart: 90, lineFadeEnd: 140, lineMinFill: 0.25,
   emitterThreshold: 0.9,
@@ -250,7 +250,7 @@ export const LINEWORK_DEFAULTS: LineworkOptions = {
   inkRunCells: 2, glintConfirm: 1, glintRidgeCells: 3, glintRidgeKeep: 0.6,
   glowStable: 1, glowKeySpecular: 14, glowKeyLift: 1, glowRampCells: 5,
   lampHeadMid: 40, lampHeadFar: 80, lampHeadTierBand: 4,
-  foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 6, foliageLampGlint: 0.45, foliageToneFar: 45, foliageToneLift: 1,
+  foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 5, foliageLampGlint: 0.15, foliageToneFar: 45, foliageToneLift: 1,
   wireConnect: 1, wireCover: 0.2,
 };
 

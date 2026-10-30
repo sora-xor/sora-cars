@@ -48,7 +48,9 @@ const wallDirectCut = { value: .45 };
 /** The nearest street-lamp heads (world xyz; w 1 where a lamp stands) whose spill washes the facades around them. */
 export const cityLampHeads = { value: Array.from({ length: 6 }, () => new THREE.Vector4()) };
 /** The facades' lamp wash at full night (linear light at a lamp's foot). */
-const lampWash = { value: 1.2 };
+// Refine round 4: .5 (was 1.2). With the lamps every 22 m a head often stands right beside a shop front, and at 1.2 its
+// spill turned the whole face a flat saturated orange where the repaints keep the brick and the stall inside legible.
+const lampWash = { value: .5 };
 /**
  * The city's own glow on every facade after dark (linear light): a cool slate fill. A cutscene-style repaint of a race
  * frame (art/reference/mockups) paints unlit facades as slate-blue tile whose grid reads all over, where ours fell to
@@ -178,10 +180,10 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
             wash += max(dot(vCityWorldNormal, to / max(d, 1e-3)), 0.) * pow(max(1. - d / 9., 0.), 2.)
               * clamp(1. - (vCityWorld.y - head.y + .5) / 3.5, 0., 1.);
           }
-          reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * wash * cityLampWash * cityGroundLights;
+          reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * min(wash, 1.) * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v13`;
+  material.customProgramCacheKey = () => `${name}-v14`;
   return material;
 }
 
@@ -216,14 +218,22 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
           // front, a near window) shows its whole room from the interiors atlas, which shrunk to a few cells turned
           // to noise. The blend follows how many scene pixels the pane spans.
           float spanned = 1. / max(fwidth(pane.x), 1e-4), shopGlass = kind > 1.5 && lobby < .5 ? 1. : 0.;
-          float room = cityInteriorsReady > .5 && hall < .5 ? smoothstep(shopGlass > .5 ? 40. : 150., shopGlass > .5 ? 90. : 260., spanned) : 0.;
+          // Refine round 4: a shop front shows its room from 16 scene pixels across (was 40-90): half mixed with the
+          // flat glow, a near shop front read as an orange fog over a faint room, where the repaints draw the stall,
+          // its counter and the people inside. A window shows its room from 70 (was 150): the repaints' near
+          // windows show curtains, plants and people, where ours showed a big white ceiling-lamp oval.
+          float room = cityInteriorsReady > .5 && hall < .5 ? smoothstep(shopGlass > .5 ? 16. : 70., shopGlass > .5 ? 40. : 140., spanned) : 0.;
           // The light: warm amber, brighter under the ceiling; some offices fluorescent; some homes lit by the TV.
-          vec3 warm = level < .4 ? vec3(1., .5, .18) : level < .8 ? vec3(1., .56, .24) : vec3(1., .64, .34);
+          // Refine round 4: deeper amber (was 1, .5-.64, .18-.34): every repaint's lit windows measure OKLab chroma
+          // about .15, where ours read cream (.08).
+          vec3 warm = level < .4 ? vec3(1., .4, .11) : level < .8 ? vec3(1., .46, .15) : vec3(1., .53, .21);
           // Offices sometimes a paler fluorescent, still warm (the concept has no blue-white panes); a few homes the TV's blue, dimmer.
           // Refine round 4: the office tone warmer still, as a cutscene-style repaint keeps every window amber.
-          vec3 tone = kind > .5 && kind < 1.5 && hue < .3 ? vec3(1., .66, .38) : kind < .5 && hue < cityWindows.z * .5 ? vec3(.4, .45, .9) * .7 : warm;
+          vec3 tone = kind > .5 && kind < 1.5 && hue < .3 ? vec3(1., .58, .3) : kind < .5 && hue < cityWindows.z * .5 ? vec3(.4, .45, .9) * .7 : warm;
           // Held under the tone map's shoulder, so the light stays amber and the silhouettes stay dark against it.
-          vec3 glow = tone * mix(.4, .72, smoothstep(.0, .9, pane.y)) * (kind > 1.5 ? .5 : .55);
+          // A shop front's flat glow at .2 (refine round 4; was .5): over the room seen through it, it read as an
+          // orange fog, where the repaints draw the stall and the people inside at a lamp-lit middle tone.
+          vec3 glow = tone * mix(.4, .72, smoothstep(.0, .9, pane.y)) * (kind > 1.5 ? .2 : .55);
           float style = fract(seed * 23.7), side = fract(seed * 41.3) < .5 ? .28 : .72, silhouette = 0.;
           // A room behind the glass (refine round 4, the cutscene-style repaint's windows): a ceiling lamp, a bright
           // oval near the top of one sash with its light spread round it, and the room darker toward the floor.
@@ -287,7 +297,9 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
             float band = floor(pane.y * 14.), streak = fract(sin(band * 91.7 + seed * 53.1) * 43758.5453);
             float reach = fract(sin(band * 17.3 + seed * 11.9) * 43758.5453) * .6 + .2;
             if (streak > .45 && abs(pane.x - reach) < .22 + .2 * streak)
-              glow = mix(glow, vec3(1., .62, .46) * .62, mix(.5, .12, clamp(cityNight, 0., 1.)) * (1. - silhouette) * (1. - overlayMask));
+              // A lit window keeps little of the dusk sky (refine round 4: at half the street routes' dusk windows read
+              // cream, where their repaints glow amber).
+              glow = mix(glow, vec3(1., .62, .46) * .62, mix(.18, .08, clamp(cityNight, 0., 1.)) * (1. - silhouette) * (1. - overlayMask));
           }
           if (room > 0.) {
             // The room: offices, homes, eateries and bars, shops (one each by the window's seed), upright from the
@@ -296,7 +308,11 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
             float row = kind > 1.5 && lobby < .5 ? 2. + step(.5, fract(seed * 3.7)) : kind > .5 || lobby > .5 ? 0. : 1.;
             float column = floor(fract(seed * 11.3) * 4.);
             vec2 roomUv = vec2((column + clamp(pane.x, .01, .99)) / 4., 1. - (row + 1. - clamp(pane.y, .01, .99)) / 4.);
-            vec3 inside = texture2D(cityInteriors, roomUv).rgb * (kind > 1.5 && lobby < .5 ? 1.5 : 1.9) * (lobby > .5 ? .45 : 1.);
+            // Refine round 4: a window's room at 1.4 (was 1.9): brighter, it went into the tone map's shoulder.
+            vec3 inside = texture2D(cityInteriors, roomUv).rgb * (kind > 1.5 && lobby < .5 ? 1.5 : 1.4) * (lobby > .5 ? .45 : 1.);
+            // Warmer and a little dimmer before night falls (refine round 4: the office rooms' fluorescent white, lifted by
+            // the dusk exposure, read cream, where every repaint keeps its rooms amber).
+            inside *= mix(vec3(1.06, .9, .68), vec3(1.), .35 * clamp(cityNight, 0., 1.)) * mix(.75, 1., clamp(cityNight, 0., 1.));
             glow = mix(glow, inside, room);
           }
           // Every window its cross mullion.
@@ -308,7 +324,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
         }
       }`);
   };
-  material.customProgramCacheKey = () => 'period-city-window-glass-v7';
+  material.customProgramCacheKey = () => 'period-city-window-glass-v13';
   return material;
 }
 
@@ -559,12 +575,19 @@ export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): R
   sharpPrints(signMaterial, 'period-city-signs-v2');
   // Deep, dark moat water. The pixel pass draws its reflections and lamp
   // columns; the dusk HDR's warm band would otherwise mirror as a pink sheet.
-  // Refine round 4: rough and without the environment, so seen at a grazing
-  // angle it keeps no specular sheen of its own (at roughness .3 the moat and
-  // Nara's ponds read as flat pale salmon sheets where the repaints keep dark
-  // water under the lights' streaks).
-  const water = new THREE.MeshStandardMaterial({ color: '#0d1220', roughness: .9, metalness: 0, envMapIntensity: 0 });
+  // Refine round 4: half rough with a fifth of the environment. At roughness
+  // .3 and .05 of it the moat and Nara's ponds read as flat pale salmon sheets;
+  // fully rough without it, the moats of Aizu and Nijō-jō were black slabs
+  // merging with their stone walls, where the repaints paint a dark violet
+  // mirror carrying the sky's glow under the lights' streaks.
+  const water = new THREE.MeshStandardMaterial({ color: '#0d1220', roughness: .5, metalness: 0, envMapIntensity: .2 });
   water.name = 'period-city-moat-water';
+  // Tagged for the pixel pass (refine round 4): alpha .5 in the scene target marks water, which mirrors in full there
+  // at any road wetness (surfaces.ts artWaterShare). Opaque, so nothing blends it, and the canvas keeps no alpha.
+  water.onBeforeCompile = shader => {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.a = .5;');
+  };
+  water.customProgramCacheKey = () => 'period-city-water-v2';
   const ground = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('forest_ground_04'),
     normalScale: new THREE.Vector2(.7, .7), roughness: 1, metalness: 0 });
   ground.name = 'period-city-grass-and-soil';

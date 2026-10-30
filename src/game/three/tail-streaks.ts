@@ -9,7 +9,8 @@ import type { CarModel } from './car';
  * strong as the road is wet. Presentation only; kept apart from the car
  * groups so the pixel-art car stages never take them for bodywork.
  */
-const LAMP = { x: .55, z: -2.02 } as const, WIDTH = .26;
+/** Refine round 4: WIDTH .4 (was .26), about the lamp cluster's own width, as the repaints draw each car's twin streaks. */
+const LAMP = { x: .55, z: -2.02 } as const, WIDTH = .4;
 /**
  * Each streak starts this far under the car: from the chase camera the road
  * just behind the bumper shows through the gap under the rear overhang, in

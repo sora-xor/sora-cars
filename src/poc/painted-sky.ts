@@ -409,11 +409,10 @@ ${gradient}
           body = mix(raceGradient(e - .09) * mix(1.03, .96, tone), raceGradient(e + .03) * (depth + .18), smoothstep(.07, .14, field));
           lit = raceGradient(e - .16) * 1.08;
         }
-        // Sunrise and late afternoon (refine round 4: the community-dawn cutscene and every cutscene-style repaint of a
-        // race frame): the masses are lit coral and orange toward the sun and a lighter mauve away from it, a step off
-        // the sky; deepened, they read as grey-brown smudges on the peach.
-        vec3 warm = raceGradient(e - .1) * mix(.93, 1.02, tone);
-        body = mix(body, mix(body * 1.3, warm, sunward), skyRaceCloud.z);
+        // Sunrise and late afternoon (refine round 4: community-dawn and every cutscene-style repaint of a race frame):
+        // violet masses a step lighter than the sky behind them, their lit undersides pink and orange; deepened, they
+        // read as grey-brown smudges on the peach, and lit coral whole they washed the sky out.
+        body = mix(body, body * 1.3 + vec3(.03, 0., .04), skyRaceCloud.z);
         lit = mix(body, lit, skyRaceCloud.x);
         // Sunrise edges more saturated (refine round 4).
         lit = max(mix(vec3(dot(lit, vec3(.3, .59, .11))), lit, 1. + .35 * skyRaceCloud.z), 0.);
@@ -429,7 +428,9 @@ ${gradient}
         // only near the sunrise disc may it reach cream.
         vec3 amber = mix(lit * 1.1, mix(RIM_AMBER, RIM_CREAM, nearSun), skyRaceCloud.y);
         amber = sunriseCap(amber, mix(SUNRISE_RIM_L, 1., nearSun));
-        paint = mix(paint, amber, edge * clusters * sunward * skyRaceCloud.y);
+        // A late-day route's golden hours light the whole underside toward the sun, not only its lowest cell (refine
+        // round 4: the repaints' clouds there are broad orange-gold undersides).
+        paint = mix(paint, amber, max(edge, under * .75 * skyRaceGolden) * clusters * sunward * skyRaceCloud.y);
         return mix(sky, paint, cloud * min(1., skyRaceCloud.x * 1.5));
       }
 
@@ -494,7 +495,10 @@ ${gradient}
         // ones from above it (violet), as the cutscene-style repaints contrast them; a band apart they read as haze.
         vec3 litBody = mix(mix(sky, raceGradient(e - .09) * 1.07, .82), mix(sky, raceGradient(e - .14) * 1.04, .85), skyRaceCloud.z);
         vec3 shadeBody = mix(mix(sky, raceGradient(e + .08) * .92, .75), mix(sky, raceGradient(e + .13) * .86, .8), skyRaceCloud.z);
-        vec3 body = lobeHash < .5 ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
+        // Golden hours: the lit lobes toward the sun turn amber (refine round 4, the late-day routes' repaints).
+        litBody = mix(litBody, RIM_AMBER * 1.04, skyRaceGolden * sunward * sunward * .8);
+        // Fewer lobes lit at sunrise (refine round 4: the dawn cutscenes' puffs are mostly violet, pink-edged).
+        vec3 body = lobeHash < mix(.5, .42, skyRaceCloud.z) ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
         // The underside cell is lit: pink, turning amber only toward the sun
         // (cream only near the sunrise disc).
         vec3 lit = mix(raceGradient(e - .12) * 1.06, mix(RIM_AMBER, RIM_CREAM, nearSun), sunward * sunward * sunward * skyRaceCloud.y);
@@ -700,33 +704,58 @@ ${gradient}
       // of it, and under the quay a band of dark water glittering with 1-cell-
       // tall amber and pale dashes, densest just under the shore
       // (harbor-wide). Sky cells never grow halos or reflection columns.
+      // The harbour's far city (refine round 4: the Yokohama repaints): a dense city of towers across the water, a dozen
+      // or more in view, 4-10 degrees tall and several cells wide (44 a turn left three or four thin ones in the chase
+      // view). Its skyline top at an azimuth, whether a tower stands there, and whether a window lattice cell is lit.
+      const float HARBOR_WATER = .002, HARBOR_TOWERS = 220., HARBOR_COLUMNS = 1500.;
+      float harborTop(float azimuth, out bool tower, out float towerId, out float towerTop) {
+        float block = floor(azimuth * 420.);
+        float tall = step(.3, hash(vec2(block, 3.1)));
+        float top = HARBOR_WATER + .002 + (.012 + .04 * hash(vec2(block, 7.3)) * step(.55, hash(vec2(block, 9.1)))) * tall;
+        towerId = floor(azimuth * HARBOR_TOWERS); towerTop = HARBOR_WATER + radians(4.) + radians(6.) * hash(vec2(towerId, 5.5));
+        tower = hash(vec2(towerId, 12.7)) > .3 && abs(fract(azimuth * HARBOR_TOWERS) - .5) < .26 + .16 * hash(vec2(towerId, 2.2));
+        return tower ? max(top, towerTop) : top;
+      }
+      bool harborLit(float column, float row, bool tower) {
+        vec2 id = vec2(mod(column, HARBOR_COLUMNS), row);
+        return tower ? mod(row, 2.) < 1. && mod(column, 2.) < 1. && hash(id + 41.7) < .7 * skyRaceHarbor
+          : hash(id + 41.7) < .36 * skyRaceHarbor;
+      }
       vec3 raceHarborShore(vec3 sky, float azimuth, float elevation, float cellAngle) {
         if (skyRaceHarbor <= 0. || elevation > .28 || elevation < -.014) return sky;
-        // Refine round 4 (the Yokohama repaints): a dense city of towers across the water, about a dozen in view, 3-9
-        // degrees tall and several cells wide; 44 a turn left three or four thin ones in the chase view.
-        const float WATER = .002, TOWERS = 150.;
-        float row = floor(elevation / .0032), columns = 1500.;
+        const float WATER = HARBOR_WATER, TOWERS = HARBOR_TOWERS, columns = HARBOR_COLUMNS;
+        float row = floor(elevation / .0032);
         float column = floor(azimuth * columns);
         if (elevation < WATER) {
+          // The water mirrors the far city (refine round 4: the repaints draw each lit window's reflection as a broken
+          // vertical streak down the bay): the mirrored point above the waterline, stretched over a few rows, broken by
+          // the ripples (whole-row dashes, more of them nearer), plus the old scattered glints.
           vec3 water = raceGradient(.03) * .42;
+          float below = WATER - elevation, mirror = WATER + below * .55;
+          bool tower; float towerId, towerTop;
+          float top = harborTop(azimuth, tower, towerId, towerTop);
+          float near = smoothstep(.002, .014, below);
+          if (mirror < top) {
+            float mrow = floor(mirror / .0032);
+            bool lit = harborLit(column, mrow, tower) || harborLit(column, mrow + 1., tower) || harborLit(column, mrow - 1., tower);
+            float ripple = hash(vec2(floor((column + hash(vec2(row, 5.1)) * 6.) / 6.), row + 23.));
+            if (lit && ripple > mix(.15, .5, near))
+              water = mix(water, hash(vec2(column, mrow) + 3.3) < .7 ? vec3(.7, .45, .2) : vec3(.7, .66, .58), mix(.8, .55, near));
+            else water *= .85;
+          }
           float glint = hash(vec2(floor(column / 3.) + row * 7.13, row + 17.));
-          float density = mix(.06, .32, smoothstep(-.012, WATER, elevation));
-          if (glint < density) water = mix(water, glint < density * .2 ? vec3(.86, .8, .7) : vec3(.66, .42, .23), .85);
+          float density = mix(.04, .16, 1. - near);
+          if (glint < density) water = mix(water, glint < density * .2 ? vec3(.86, .8, .7) : vec3(.66, .42, .23), .7);
           return mix(sky, water, skyRaceHarbor);
         }
         if (elevation < .14) {
-          float block = floor(azimuth * 420.);
-          float tall = step(.3, hash(vec2(block, 3.1)));
-          float top = WATER + .002 + (.012 + .04 * hash(vec2(block, 7.3)) * step(.55, hash(vec2(block, 9.1)))) * tall;
-          float towerId = floor(azimuth * TOWERS), towerTop = WATER + radians(3.) + radians(6.) * hash(vec2(towerId, 5.5)) * hash(vec2(towerId, 6.1));
-          bool tower = hash(vec2(towerId, 12.7)) > .4 && abs(fract(azimuth * TOWERS) - .5) < .18 + .14 * hash(vec2(towerId, 2.2));
-          if (tower) top = max(top, towerTop);
+          bool tower; float towerId, towerTop;
+          float top = harborTop(azimuth, tower, towerId, towerTop);
           if (elevation < top) {
             sky = mix(sky, raceGradient(.03) * .52, skyRaceHarbor);
             // Window dots: one candidate per lattice cell; towers light a grid.
             vec2 id = vec2(mod(column, columns), row);
-            bool lit = tower ? mod(row, 2.) < 1. && mod(column, 2.) < 1. && hash(id + 41.7) < .55 * skyRaceHarbor
-              : hash(id + 41.7) < .36 * skyRaceHarbor;
+            bool lit = harborLit(column, row, tower);
             if (lit) {
               float theta = ((column + .5) / columns - .5) * 2. * PI, lift = (row + .5) * .0032;
               if (lift < top && oneCell(theta, lift)) sky = hash(id + 3.3) < .7 ? CRANE_LAMP : vec3(.93, .9, .8);
@@ -750,8 +779,12 @@ ${gradient}
         float ridge = (.018 + .05 * lattice(vec2(azimuth * 26., 7.1), 26.) + .016 * lattice(vec2(azimuth * 95., 3.7), 95.)) * sector * skyRaceSkyline.x;
         // A nearer, darker ridge below a farther, paler one where the mountains are tall (Hakone's layered pass).
         float near = (.012 + .03 * lattice(vec2(azimuth * 41., 5.3), 41.)) * sector * max(skyRaceSkyline.x - 1., 0.);
-        if (elevation < ridge) sky = mix(sky, mix(raceGradient(.05) * .62, sky, .25), skyRaceCity.x);
-        if (elevation < near) sky = mix(sky, raceGradient(.04) * .42, skyRaceCity.x);
+        // Where the mountains are tall, the night sky over them holds the towns' haze (refine round 4: the Hakone
+        // repaint sets its dark ridges against a lighter violet glow; at the sky's own navy they were hardly there).
+        float tall = smoothstep(1.4, 2.2, skyRaceSkyline.x) * (1. - skyRaceDay);
+        sky = mix(sky, sky * 1.7 + vec3(.035, .022, .06), tall * .7 * (1. - smoothstep(.01, .16, elevation)));
+        if (elevation < ridge) sky = mix(sky, mix(raceGradient(.05) * mix(.62, .5, tall), sky, .25 * (1. - tall)), skyRaceCity.x);
+        if (elevation < near) sky = mix(sky, raceGradient(.04) * mix(.42, .3, tall), skyRaceCity.x);
         if (skyRaceSkyline.y < .5) return sky;
         // The far city: blocks of differing heights, every so often a tower.
         const float TOWERS = 70., columns = 1600.;
