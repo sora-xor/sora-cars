@@ -28,7 +28,8 @@ try {
     await page.keyboard.down('ArrowUp');
     await advance(60);
     const slow = await capture('slow');
-    await advance(180);
+    // The driving model's car reaches 250 km/h after about five seconds of throttle.
+    await advance(300);
     const fast = await capture('fast');
     assert.ok(fast.cars[playerSlot].speed * 0.108 >= 250, 'capture actual 250+ km/h driving');
     assert.ok(slow.cars[playerSlot].speed < fast.cars[playerSlot].speed);
@@ -56,7 +57,7 @@ try {
     await page.keyboard.up('ArrowDown');
     await page.setViewportSize({ width: 390, height: 844 });
     await page.keyboard.press('KeyR'); await advance(192);
-    await page.keyboard.down('ArrowUp'); await advance(240);
+    await page.keyboard.down('ArrowUp'); await advance(360);
     const mobile = await page.evaluate(() => window.soraCars.state());
     assert.ok(mobile.cars[playerSlot].speed * 0.108 >= 250, 'mobile capture must also show actual high-speed driving');
     await page.screenshot({ path: `${out}/${reducedMotion}-mobile.png` });

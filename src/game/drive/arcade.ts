@@ -4,8 +4,9 @@ import type { EnvironmentContact } from '../environment-events';
 import { environmentAt } from '../environment';
 import { TRACKS } from '../rules';
 import { validateTune, type CarTune } from '../tuned-engine';
-import { atan2 } from './dmath';
-import { DRIVE_RULES, DriveStatus, type DriveRace } from './race';
+import { atan2, cos, sin } from './dmath';
+import { RECOVERY_NOTICE } from './hud';
+import { DRIVE_RULES, DriveStatus, RECOVERY_TICKS, type DriveRace } from './race';
 import { arcadeDriveRace } from './setup';
 
 /** A local Arcade race on the driving model: every car's tune and every tick's
@@ -53,7 +54,8 @@ export function syncDriveState(state: RaceState, race: DriveRace): RaceState {
     const target = state.cars[slot]!;
     target.progress = car.s * 1000; target.x = car.d * 1000;
     target.speed = Math.sqrt(car.u * car.u + car.v * car.v) * 1000 / 30;
-    target.vx = car.v * 1000 / 30; target.energy = car.energy;
+    // RaceV1's lateral velocity is across the road, not the body's sideslip.
+    target.vx = (car.u * sin(car.psi) + car.v * cos(car.psi)) * 1000 / 30; target.energy = car.energy;
     target.finishTick = car.status === DriveStatus.Finished ? car.finishTime : null;
     target.dnf = car.status === DriveStatus.Wrecked; target.dnfTick = target.dnf ? car.wreckTick : null;
     target.heading = car.psi; target.wheel = car.wheel; target.slip = car.u > 0.5 ? atan2(car.v, car.u) : 0;
@@ -61,6 +63,7 @@ export function syncDriveState(state: RaceState, race: DriveRace): RaceState {
     target.zones = [car.damage.front, car.damage.rear, car.damage.left, car.damage.right];
     target.drifting = car.drifting || Math.abs(car.slipRear) > 0.12 && car.u > 8;
     target.solid = race.solid(car); target.reverse = car.reverse;
+    target.recovery = car.status === DriveStatus.Racing && car.idle >= RECOVERY_NOTICE ? (RECOVERY_TICKS - car.idle) / 30 : undefined;
   });
   return state;
 }

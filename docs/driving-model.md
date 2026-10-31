@@ -39,14 +39,30 @@ into tyre grip, contact and impact losses into toughness, and so on).
   front-biased brakes with ABS that leaves the tyres able to steer. Holding
   the brake at a standstill selects reverse, so a spun car can back out.
 - **Steering.** The held key asks for a path curvature: at speed, the tyres'
-  cornering limit, so full lock corners as hard as the car can and a tap at
-  250 km/h is a gentle correction. The front wheels also follow the body's
-  sideslip, which countersteers a slide automatically while keeping the front
-  tyre's natural yaw damping. Holding drift lowers rear grip and allows more
-  steering to swing the tail.
+  cornering limit, so full lock corners as hard as the car can. The wheel
+  winds on in a fifth of a second at town speeds but in half a second at
+  250 km/h, and always unwinds in a sixth of a second, so a tap at speed is a
+  gentle correction: at 250 km/h a 0.1 s tap turns the car about half a
+  degree and a third of a second about 5°. The front wheels point where the
+  front axle travels on that path, which is the body's sideslip plus the
+  turn, and then a little further: the slip angle the front tyres need to
+  carry their share of the corner on the current surface. Without that slip
+  angle, full lock reached only a quarter of the car's grip at 250 km/h and
+  every fast bend ran wide. Following the sideslip countersteers a slide
+  automatically. The yaw-rate part of the front tyre's slip stays untouched,
+  which keeps its natural damping.
+- **Drift.** Holding drift lets the rear tyres go over a quarter of a second
+  (to 60% of their grip, less with the garage's drift parts). The car then
+  settles into a slide of 30–40° at full lock, scaled by how far the
+  steering is turned, whatever the speed. On the throttle it turns a little
+  tighter than a gripping car at 60–90 km/h and charges boost with the
+  drift-charge parts. Releasing the button lets the tyres bite again over the
+  same quarter second, and the car straightens without whipping back the
+  other way. Off the throttle a drift also drags the rear brakes.
 - **Stability control.** Outside a drift, a capped yaw moment keeps yaw near
   the steering's request and sideslip small; a hard hit still spins the car.
-  In a drift only spin protection remains.
+  In a drift, and while the car gathers itself after one, it instead holds
+  the slide the steering asks for and damps its swing.
 
 Integration runs four 120 Hz substeps per 30 Hz tick in road (Frenet)
 coordinates: progress, lateral offset and heading relative to the road, using
@@ -89,6 +105,18 @@ When the player is wrecked, the rest of the field races on and the results
 follow. A head-on hit at about 30 m/s wrecks a car outright; light contact and
 glancing rail hits only scuff it.
 
+## Marshals
+
+A car that gains no ground for five seconds (`RECOVERY_TICKS`) is set back on
+the road by the marshals. That covers a car pinned against a rail or a wreck,
+spun round, or driving the wrong way. The start allows five seconds more, so a
+slow getaway is left alone. The marshals put the car down at rest, pointing up
+the road, at the furthest point it reached and as near its own line as the
+traffic allows; with no gap, they wait a tick. The HUD warns 逆走 / WRONG WAY
+while the player's car points more than 100° off the road's direction. After
+two seconds without progress it shows 立ち往生 / STUCK, counting down to the
+marshals.
+
 ## Presentation
 
 `crash-effects.ts` draws sparks at rail and car contacts, smoke from damaged
@@ -114,14 +142,26 @@ against their recorded outcome; seeking restores one-second snapshots.
 ## Pace and limits
 
 `npm run check:drive [-- route…]` races eight AI drivers on every
-course and prints finishing times, contacts, wrecks and stalls. In the last
-run every car finished every course without a wreck or a stall. Arcade races
-take 77–109 s. Tokyo (265–273 s), Aizu (152–158 s), Kyoto (228–237 s) and Nara
-(192–206 s) finish within about 10% of their soundtracks. Irohazaka (245–259 s
-against its 187 s song) is slower than the earlier draft model, whose 3 g
-acceleration and 9 g braking made its twenty hairpins nearly free; the driving model gives
-street races 12,000 ticks (400 s) so slower drivers can still finish. The AI
-follows a minimum-curvature racing line at a grip-limited speed with pure
-pursuit steering and the same control bits a player presses; it has not been
-calibrated against measured human lap times. The garage balance tables in
-`docs/garage-tech-tree.md` were measured on the earlier tuned engine.
+course. It prints finishing times, contacts, wrecks, marshal recoveries and
+stalls. In the last run every car finished every course with no wreck,
+recovery or stall. A lone AI car stays within about 0.5 m of its racing line
+on average and finishes an Arcade race with almost no rail contact. Arcade races
+take 75–102 s, close to the earlier engine's 76–103 s with its club drivers.
+Tokyo (256–272 s against its 255 s song) and Aizu (150–159 s, 161 s song)
+finish close to the end of their songs; Kyoto (225–236 s, 209 s song) and Nara
+(191–206 s, 179 s song) run 10–15% long. Irohazaka (239–255 s against its
+187 s song) is slower than the earlier draft model, whose 3 g acceleration and
+9 g braking made its twenty hairpins nearly free. Even near-perfect AI drivers
+need about 236 s there. The street songs do not loop, so the end of a long
+race is silent. The driving model gives street races 12,000 ticks (400 s) so
+slower drivers can still finish.
+
+The AI follows a minimum-curvature racing line at a grip-limited speed with
+pure pursuit steering and the same control bits a player presses; it never
+drifts and has not been calibrated against measured human lap times. The
+garage balance tables in `docs/garage-tech-tree.md`, and the race time each
+part card shows (`RACE_GAINS`), were measured on the earlier tuned engine. On
+the driving model the engine parts and anti-lag save the AI drivers about as
+much as the cards say. The chassis and body parts and the big turbo save them
+almost nothing, because grip changes are small, the AI never drifts and clean
+races leave little damage to protect against.

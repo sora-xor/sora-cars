@@ -33,17 +33,38 @@ const WRECK_SOLID_TICKS = 90;
 /** Brake held at a standstill this long selects reverse. */
 const REVERSE_DELAY_TICKS = 8;
 const REVERSE_SPEED = 9;
+/** A car that gains no ground for this long (stuck, spun round or driving the
+ * wrong way) is put back on the road by the marshals. */
+export const RECOVERY_TICKS = 150;
+/** Sideslip (rad) a held drift settles at with full steering lock, and how
+ * fast (per second) the rear tyres let go and bite again. */
+const DRIFT_ANGLE = 0.45, SLIDE_RATE = 4;
 /** Everyone tows in a slipstream; the garage's wind-tunnel body tows more. */
 const NATURAL_DRAFT = 0.15;
 
 /** Path curvature (1/m) at full steering lock. Slow, it is the wheels' lock;
  * at speed, the tyres' dry cornering limit with a little to spare, so a held key
- * corners as hard as the car can and a tap at 250 km/h is a gentle correction.
- * Holding drift allows more, to swing the tail. */
-export function steeringCurvature(spec: VehicleSpec, forward: number, speed: number, drift: boolean): number {
+ * corners as hard as the car can and a tap at 250 km/h is a gentle correction. */
+export function steeringCurvature(spec: VehicleSpec, forward: number, speed: number): number {
   const lock = sin(spec.steerLock) / cos(spec.steerLock) / (spec.cgToFront + spec.cgToRear);
   const limit = spec.grip * G * (1 + spec.downforce * speed * speed / 5184) * 1.15 / Math.max(1, forward * forward);
-  return Math.min(lock, limit * (drift ? 1.6 : 1));
+  return Math.min(lock, limit);
+}
+
+/** The steering position after one substep towards `target` (−1, 0 or 1).
+ * It winds on in a fifth of a second at town speeds and in half a second at
+ * 250 km/h, so a tap at speed stays a small correction, and it always unwinds
+ * in a sixth of a second when the key is released. */
+export function steerSubstep(steer: number, target: number, forward: number): number {
+  const delta = target - steer;
+  const unwinding = delta !== 0 && Math.sign(delta) !== Math.sign(steer) && steer !== 0;
+  const rate = unwinding ? 6 : 5 / (1 + Math.max(0, forward - 15) / 40);
+  return steer + clamp(delta, -rate * DT, rate * DT);
+}
+/** The steering position after a whole tick with `target` held. */
+export function steerTick(steer: number, target: number, forward: number): number {
+  for (let sub = 0; sub < SUBSTEPS; sub++) steer = steerSubstep(steer, target, forward);
+  return steer;
 }
 
 export const enum DriveStatus { Racing = 0, Finished = 1, Wrecked = 2, TimedOut = 3 }
@@ -65,6 +86,11 @@ export interface DriveCar {
   /** Bitmask over CAR_PARTS. */
   detached: number;
   reverse: boolean; stillTicks: number;
+  /** Furthest progress reached (m) and ticks since it last grew: the marshals'
+   * watch. It starts a wait early, so a slow getaway is left alone. */
+  best: number; idle: number;
+  /** How far the rear has let go for a drift (0–1), easing in and out. */
+  slide: number;
   /** Smoothed longitudinal acceleration for load transfer (m/s²). */
   surge: number;
   /** This tick's feedback for the HUD, effects and sound. */
@@ -84,7 +110,7 @@ const PROP_BODY: Readonly<Record<Exclude<DrivePropKind, 'oil'>, { mass: number; 
   sign: { mass: 45, anchor: 300 }, planter: { mass: 180, anchor: 2200 },
 };
 
-export type DriveEventKind = 'wall' | 'scrape' | 'car' | 'prop' | 'part' | 'wreck' | 'finish';
+export type DriveEventKind = 'wall' | 'scrape' | 'car' | 'prop' | 'part' | 'wreck' | 'finish' | 'recover';
 /** Presentation record of something that happened this tick; never fed back into the simulation. */
 export interface DriveEvent {
   readonly tick: number; readonly kind: DriveEventKind; readonly slot: number;
@@ -118,7 +144,7 @@ const copyCar = (car: DriveCar): DriveCar => ({ ...car, damage: { ...car.damage 
 
 function newCar(slot: number, s: number, d: number): DriveCar {
   return { slot, s, d, psi: 0, u: 0, v: 0, r: 0, steer: 0, wheel: 0, energy: 1000, status: DriveStatus.Racing,
-    finishTime: 0, wreckTick: -1, damage: emptyDamage(), detached: 0, reverse: false, stillTicks: 0, surge: 0,
+    finishTime: 0, wreckTick: -1, damage: emptyDamage(), detached: 0, reverse: false, stillTicks: 0, best: s, idle: -RECOVERY_TICKS, slide: 0, surge: 0,
     boosting: false, drifting: false, braking: false, oil: false, offroad: false, wall: false, contact: false, slipFront: 0, slipRear: 0 };
 }
 
@@ -214,6 +240,11 @@ export class DriveRace {
         this.#event('finish', car, -1, car.s, car.d, car.u, 0, 0);
       }
     }
+    for (const car of this.cars) {
+      if (car.status !== DriveStatus.Racing) continue;
+      if (car.s > car.best + 0.05) { car.best = car.s; car.idle = 0; } else car.idle++;
+      if (car.idle >= RECOVERY_TICKS) this.#recover(car);
+    }
     const remaining = this.cars.filter(car => car.status === DriveStatus.Racing);
     if (this.tick >= this.course.maxTicks) {
       for (const car of remaining) car.status = DriveStatus.TimedOut;
@@ -241,6 +272,21 @@ export class DriveRace {
     this.events.push({ tick: this.tick, kind, slot: car.slot, other, s, d, strength, vs, vd });
   }
 
+  /** Marshals set a stuck car down, at rest and pointing up the road, where it
+   * got furthest: as near its own line as the traffic allows. With no gap they
+   * try again on the next tick. */
+  #recover(car: DriveCar): void {
+    const room = Math.max(0, sampleCourse(this.course, car.best).halfWidth - this.specs[car.slot]!.halfWidth - 0.3);
+    for (const d of [clamp(car.d, -room, room), 0, -room / 2, room / 2, -room, room]) {
+      if (this.cars.some(other => other !== car && this.solid(other)
+        && Math.abs(courseGap(this.course, car.best, other.s)) < 7 && Math.abs(other.d - d) < 2.3)) continue;
+      car.s = car.best; car.d = d; car.psi = 0; car.u = car.v = car.r = 0;
+      car.steer = car.wheel = car.surge = car.slide = 0; car.reverse = false; car.stillTicks = 0; car.idle = 0;
+      this.#event('recover', car, -1, car.s, car.d, 0, 0, 0);
+      return;
+    }
+  }
+
   #inWake(car: DriveCar): boolean {
     if (car.status !== DriveStatus.Racing || car.u < 30) return false;
     return this.cars.some(other => other !== car && other.status === DriveStatus.Racing && Math.abs(other.d - car.d) < 1.6
@@ -255,22 +301,13 @@ export class DriveRace {
     const throttle = racing && (control & CONTROL.throttle) !== 0;
     const brake = racing ? car.braking && !car.reverse : true;
     const drift = car.drifting;
-    // Steering eases toward the held direction; full lock takes a fifth of a second.
     const target = racing ? Number((control & CONTROL.right) !== 0) - Number((control & CONTROL.left) !== 0) : 0;
-    car.steer += clamp(target - car.steer, -5 * DT, 5 * DT);
+    car.steer = steerSubstep(car.steer, target, car.u);
     const speed = Math.sqrt(car.u * car.u + car.v * car.v);
     const a = spec.cgToFront, b = spec.cgToRear, length = a + b;
-    // Steering assist. The held key asks for a path curvature, at speed the
-    // tyres' cornering limit, so a tap at 250 km/h is a gentle correction. On
-    // top, the wheels follow the body's sideslip: a slide is countersteered
-    // automatically, while the yaw-rate part of the front tyre's slip (its
-    // natural damping) is left alone. At walking pace the wheels turn to lock.
-    const moving = car.u > 0 ? clamp((car.u - 3) / 5, 0, 1) : 0;
-    const sideslip = clamp(atan2(car.v, Math.max(Math.abs(car.u), 0.5)), -0.6, 0.6);
-    const wheel = clamp(moving * sideslip + atan(car.steer * steeringCurvature(spec, car.u, speed, drift) * length), -0.6, 0.6) + effects.pull;
-    car.wheel = wheel;
     // Normal loads: weight with downforce, moved front-to-back by acceleration.
-    const weight = spec.mass * G * (1 + spec.downforce * speed * speed / 5184);
+    const aero = 1 + spec.downforce * speed * speed / 5184;
+    const weight = spec.mass * G * aero;
     const transfer = spec.mass * car.surge * spec.cgHeight / length;
     const front = Math.max(0.15 * weight, weight * b / length - transfer);
     const rear = Math.max(0.15 * weight, weight * a / length + transfer);
@@ -282,9 +319,26 @@ export class DriveRace {
     car.offroad = car.offroad || offroad;
     const surface = (weather.rain ? spec.rainGrip : 1) * (offroad ? spec.offroadGrip : 1) * spec.grip * effects.grip;
     const muFront = surface * (oilFront ? spec.oilGrip : 1);
+    // Steering assist. The held key asks for a path curvature, at speed the
+    // tyres' cornering limit, so a tap at 250 km/h is a gentle correction. The
+    // front wheels point where the front axle travels on that path (the body's
+    // sideslip plus the turn), and a little further: the slip angle the tyres
+    // need to carry their share of the corner on this surface. A slide is
+    // therefore countersteered automatically, and the yaw-rate part of the front
+    // tyre's slip (its natural damping) is left alone. At walking pace the
+    // wheels simply turn to the kinematic angle.
+    const curvature = car.steer * steeringCurvature(spec, car.u, speed);
+    const moving = car.u > 0 ? clamp((car.u - 3) / 5, 0, 1) : 0;
+    const sideslip = clamp(atan2(car.v, Math.max(Math.abs(car.u), 0.5)), -0.6, 0.6);
+    const demand = Math.min(0.98, car.u * car.u * Math.abs(curvature) / Math.max(1e-6, muFront * G * aero));
+    const lean = atan2(demand, Math.sqrt(1 - demand * demand)) / TYRE_C;
+    const tyreSlip = (curvature < 0 ? -1 : 1) * sin(lean) / cos(lean) / TYRE_B;
+    const wheel = clamp(moving * (sideslip + a * curvature) + (1 - moving) * atan(curvature * length) + tyreSlip, -0.6, 0.6) + effects.pull;
+    car.wheel = wheel;
     // Slightly wider rear tyres: the car understeers gently at the limit.
-    let muRear = surface * (oilRear ? spec.oilGrip : 1) * effects.rearGrip * 1.06;
-    if (drift && Math.abs(car.u) > 6) muRear *= spec.driftGrip;
+    // Holding drift lets the rear go; releasing it lets the tyres bite again.
+    car.slide = clamp(car.slide + (drift && Math.abs(car.u) > 6 ? SLIDE_RATE : -SLIDE_RATE) * DT, 0, 1);
+    const muRear = surface * (oilRear ? spec.oilGrip : 1) * effects.rearGrip * 1.06 * (1 - car.slide * (1 - spec.driftGrip));
     // Longitudinal forces.
     let driveForce = 0, brakeFront = 0, brakeRear = 0;
     if (throttle) {
@@ -304,7 +358,7 @@ export class DriveRace {
       brakeFront = Math.min(0.68 * force, 0.85 * muFront * front);
       brakeRear = Math.min(0.32 * force, 0.7 * muRear * rear);
     }
-    if (drift && !throttle && Math.abs(car.u) > 3) brakeRear = Math.max(brakeRear, 0.55 * muRear * rear);
+    if (drift && !throttle && Math.abs(car.u) > 3) brakeRear = Math.max(brakeRear, 0.35 * muRear * rear);
     if (!throttle && !car.reverse && Math.abs(car.u) > 1) brakeRear += spec.coast;
     // Front tyre, in the wheel's own frame.
     const cw = cos(wheel), sw = sin(wheel);
@@ -339,18 +393,24 @@ export class DriveRace {
     // Stability control outside a drift, as a modern chassis would have it:
     // yaw follows the steering's request within the grip limit and sideslip
     // stays small. Its authority is capped, so a hard hit still spins the car.
-    // In a drift only spin protection remains.
+    // In a drift, and while the car gathers itself after one, it holds the
+    // slide the steering asks for and damps its swing instead, so a held drift
+    // settles into a controllable slide and letting go straightens the car.
     if (Math.abs(car.u) > 5) {
       const beta = atan2(car.v, Math.abs(car.u)), cap = 0.35 * spec.mass * G * length;
-      if (!drift) {
+      if (!drift && car.slide === 0) {
         const yawCap = muFront * G * (1 + spec.downforce * speed * speed / 5184) / Math.abs(car.u);
-        const request = clamp(car.u * car.steer * steeringCurvature(spec, car.u, speed, false), -yawCap, yawCap);
+        const request = clamp(car.u * car.steer * steeringCurvature(spec, car.u, speed), -yawCap, yawCap);
         const error = car.r - request;
         const gain = Math.sign(error) === Math.sign(car.r) && Math.abs(car.r) > Math.abs(request) ? 7 : 2;
         let correction = -error * gain * spec.inertia;
         if (Math.abs(beta) > 0.1) correction += (beta - Math.sign(beta) * 0.1) * 10 * spec.inertia;
         moment += clamp(correction, -cap, cap);
-      } else if (Math.abs(beta) > 0.75) moment += clamp((beta - Math.sign(beta) * 0.75) * spec.inertia * 9, -cap, cap);
+      } else {
+        const want = drift ? -car.steer * DRIFT_ANGLE : 0;
+        const swing = (car.u * fy - car.v * fx) / (spec.mass * (car.u * car.u + car.v * car.v)) - car.r;
+        moment += clamp(((beta - want) * 25 + swing * 10) * spec.inertia, -3 * cap, 3 * cap);
+      }
     }
     // The body turns under its velocity: rotate (u, v) exactly, which keeps
     // speed constant through a spin, then add the forces.

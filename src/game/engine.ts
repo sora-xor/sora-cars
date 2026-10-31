@@ -16,6 +16,8 @@ export interface CarState {
   braking?: boolean; boosting?: boolean; drifting?: boolean; reverse?: boolean;
   /** False once a wreck has been towed: the car no longer collides or shows. */
   solid?: boolean;
+  /** Seconds until the marshals recover a car that has stopped gaining ground, once the HUD shows the wait. */
+  recovery?: number;
 }
 export interface RaceState { tick: number; trackId: number; cars: CarState[]; }
 export interface ReplayV1 {

@@ -2,7 +2,8 @@ import type { StreetObject } from '../street/objects';
 import type { StreetCarState, StreetRaceState } from '../street/session';
 import type { CompiledStreetTrack } from '../street/track';
 import { TAU, atan2, wrapAngle } from './dmath';
-import { DriveStatus, type DriveCar, type DriveRace } from './race';
+import { RECOVERY_NOTICE } from './hud';
+import { DriveStatus, RECOVERY_TICKS, type DriveCar, type DriveRace } from './race';
 import { streetDriveRace } from './setup';
 
 /** A street route on the local driving model, presented in the street race
@@ -18,6 +19,8 @@ export interface DriveStreetCar extends StreetCarState {
   braking: number;
   /** 1 while the car still collides (a wreck is towed after three seconds). */
   solid: number;
+  /** Seconds until the marshals recover a car that has stopped gaining ground, once the HUD shows the wait; otherwise −1. */
+  recovery: number;
 }
 export interface DriveStreetState extends StreetRaceState { readonly cars: readonly DriveStreetCar[]; readonly physics: 'drive' }
 
@@ -50,6 +53,7 @@ export function driveStreetState(race: DriveRace, track: CompiledStreetTrack, sk
         skin: skins[slot] ?? slot % 6,
         damage: car.damage.total, damageFront: car.damage.front, damageRear: car.damage.rear, damageLeft: car.damage.left, damageRight: car.damage.right,
         detached: car.detached, wheel: car.wheel, steer: car.steer, braking: Number(car.braking), solid: Number(race.solid(car)),
+        recovery: car.status === DriveStatus.Racing && car.idle >= RECOVERY_NOTICE ? (RECOVERY_TICKS - car.idle) / 30 : -1,
       };
     }),
   };

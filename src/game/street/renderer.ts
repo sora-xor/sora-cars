@@ -1,7 +1,7 @@
 import type { CompiledStreetTrack } from './track';
 import type { StreetObject } from './objects';
 import type { DriveEvent } from '../drive/race';
-import { drawDamageGauge, drawWreckBanner } from '../drive/hud';
+import { WRONG_WAY, drawDamageGauge, drawRecoveryBanner, drawWreckBanner } from '../drive/hud';
 import { streetPresentation, type StreetPresentation } from './presentation';
 import { streetRouteStyle } from './routes';
 import { drawIllustratedShop, drawIllustratedTree } from '../illustrated-scenery';
@@ -29,6 +29,8 @@ export interface StreetRenderCar {
   /** Driving model only: damage points, zone damage, detached parts, wheel angle, brakes, and 1 while a wreck still collides. */
   damage?: number; damageFront?: number; damageRear?: number; damageLeft?: number; damageRight?: number;
   detached?: number; wheel?: number; braking?: number; solid?: number;
+  /** Seconds until the marshals recover a stuck car, while the HUD shows the wait; −1 otherwise. */
+  recovery?: number;
 }
 export interface StreetRenderState { tick: number; cars: readonly StreetRenderCar[]; worldBrokenMask?: number }
 export interface StreetRenderOptions {
@@ -1057,6 +1059,8 @@ export class StreetRaceRenderer {
       drawDamageGauge(ctx, pad + meterWidth + (mobile ? 12 : 22), bottom, { front: car.damageFront ?? 0, rear: car.damageRear ?? 0,
         left: car.damageLeft ?? 0, right: car.damageRight ?? 0, total: car.damage }, state.tick / 30, mobile);
       if (car.status === 2) { drawWreckBanner(ctx, w, h); return; }
+      if (car.status === 0 && !options.paused) drawRecoveryBanner(ctx, w, h, Math.abs(angle(car.bodyYawMicroturn * TAU / 1e6)) > WRONG_WAY,
+        (car.recovery ?? -1) >= 0 ? car.recovery : undefined, state.tick / 30);
     }
     if (options.paused || car.status !== 0) {
       const label = car.status === 1 ? ['ゴール', 'FINISHED'] : car.status === 2 ? ['走行終了', 'FORFEIT'] : car.status === 3 ? ['制限時間', 'TIME LIMIT'] : ['一時停止', 'PAUSED'];
