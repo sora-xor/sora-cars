@@ -1,11 +1,11 @@
-import { chromium } from 'playwright';
+import { launchChromium } from './lib/browser-launch.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 
 const url = process.env.GAME_URL ?? 'http://127.0.0.1:5173';
 const out = 'output/browser/driving-feedback';
 await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ headless: true });
+const browser = await launchChromium({ headless: true });
 const errors = [], checks = [], captures = [];
 const state = page => page.evaluate(() => JSON.parse(window.render_game_to_text()));
 try {
