@@ -73,16 +73,18 @@ const DRAG = (STOCK_POWER / 105 - 0.015 * MASS * G) / 105 ** 2;
  * becomes tyre grip, which also sets how hard the car launches. The RaceV1 impact
  * losses become toughness (damage per hit) and off-road loss becomes rail friction,
  * because Arcade rails stand just beyond the road edge. STOCK_TUNE gives the stock car
- * exactly, so equal-car races and their replays are unchanged.
+ * exactly, so equal-car races and their replays are unchanged. Powers are written as
+ * products: engines disagree on `**`, and replays must match on every browser.
  */
 export function vehicleSpec(tune: CarTune = STOCK_TUNE): VehicleSpec {
   const ratio = (field: keyof CarTune) => tune[field] / STOCK_TUNE[field];
+  const boost = ratio('boostSpeed'), rail = ratio('offroadLoss');
   return Object.freeze({
     mass: MASS, inertia: 1750, cgToFront: 1.05, cgToRear: 1.35, cgHeight: 0.48,
     halfLength: 1.95, halfWidth: 0.81,
     power: STOCK_POWER * (0.55 + 0.45 * ratio('accel')),
     topSpeed: tune.topSpeed * 0.03,
-    boostPower: STOCK_POWER * 0.9 * ratio('boostSpeed') ** 3,
+    boostPower: STOCK_POWER * 0.9 * boost * boost * boost,
     boostTopSpeed: tune.boostSpeed * 0.03,
     boostKick: tune.boostKick * 180,
     boostCost: tune.boostCost,
@@ -101,7 +103,7 @@ export function vehicleSpec(tune: CarTune = STOCK_TUNE): VehicleSpec {
     driftGrip: clamp(0.6 - (tune.driftSteer - STOCK_TUNE.driftSteer) * 0.004, 0.5, 0.68),
     windLoad: tune.windLoad / 16,
     toughness: clamp(0.5 * ratio('contactLoss') + 0.3 * ratio('treeLoss') + 0.2 * ratio('signLoss'), 0.5, 1.4),
-    railFriction: ratio('offroadLoss') ** 2,
+    railFriction: rail * rail,
     launch: tune.traction / 120,
     driftCharge: tune.driftCharge * 0.5,
     draft: tune.draft / 400,

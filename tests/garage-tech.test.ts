@@ -51,8 +51,12 @@ test('the stock tune is exactly the driving model\u2019s stock car, so equal-car
     [2.35, 0.5, 1, 0, 0, 0, 0, 0, 1]);
   assert.equal(spec.boostPower, spec.power * 0.9);
   assert.ok(engine > 0);
-  // Tuned fields reach the car: boost power grows as the cube of the boost top speed.
-  assert.equal(vehicleSpec(tuneFor(['turbo-controller', 'turbo-intercooler', 'turbo-big'])).boostPower, spec.boostPower * (3480 / 3000) ** 3);
+  // Tuned fields reach the car: boost power grows as the cube of the boost top speed, written as a
+  // product, which every JavaScript engine rounds alike (V8's ** 3 differs for both of these ratios).
+  for (const parts of [['turbo-controller', 'turbo-intercooler'], ['turbo-controller', 'turbo-intercooler', 'turbo-big']]) {
+    const ratio = tuneFor(parts).boostSpeed / STOCK_TUNE.boostSpeed;
+    assert.equal(vehicleSpec(tuneFor(parts)).boostPower, spec.boostPower * ratio * ratio * ratio, parts.join());
+  }
 });
 
 test('drift charge pays only for drifting into a corner at speed, scaled by its curvature', () => {
