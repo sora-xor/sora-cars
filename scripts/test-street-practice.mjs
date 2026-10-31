@@ -46,7 +46,12 @@ try{
  await page.keyboard.press('Escape');await advance(page,100);check((await state(page)).street.controls===0,'blur clears stale controls');
  const began=Date.now();await page.evaluate(()=>window.soraCars.finishStreetPractice());report.canonicalBotCompletionMs=Date.now()-began;
  s=await state(page);report.outcome={tick:s.tick,cars:s.cars};check(s.street.phase==='results'&&s.street.fullStreetState.done,'canonical controls complete the full eight-car course');
- check(!s.drivingSound.active&&!s.street.musicPlaying,'results stop engine and song');await capture(page,'desktop-results');
+ check(!s.drivingSound.active,'results stop the engine');await capture(page,'desktop-results');
+ // The song finishes its four-bar phrase, then plays its own final eight bars (from 3:55) once over the results.
+ const settled=async()=>{let t;for(let i=0;i<120;i++){await advance(page,0);await page.waitForTimeout(30);t=(await state(page)).street;if(t.soundtrackTarget>=254.9?!t.musicPlaying:t.musicPlaying&&Math.abs(t.soundtrackSeconds-t.soundtrackTarget)<.55)break}return t};
+ await advance(page,9000);let song=await settled();
+ check(song.soundtrackTarget>=235&&(song.soundtrackTarget>=254.9?!song.musicPlaying:song.musicPlaying&&Math.abs(song.soundtrackSeconds-song.soundtrackTarget)<.55),'results play only the song\'s own ending');
+ await advance(page,30000);song=await settled();check(!song.musicPlaying&&song.soundtrackTarget>=254.9,'the song does not start again after its ending');
  const stored=await page.evaluate(()=>JSON.parse(localStorage.getItem('sora-cars:street-history')));
  check(stored.length===1,'completed native practice saves one replay');
  const record=JSON.parse(stored[0]);report.replay={bytes:Buffer.byteLength(stored[0]),sha256:hash(stored[0]),ticks:record.controls.length,computationHash:record.computationHash};
