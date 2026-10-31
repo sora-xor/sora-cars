@@ -7,8 +7,8 @@ import { DriveStatus, type DriveRace } from '../src/game/drive/race';
 import { arcadeDriveRace, streetDriveRace } from '../src/game/drive/setup';
 
 /** Eight AI drivers on every Arcade circuit and street route: finishing times,
- * contacts, wrecks and stalls. A tuning aid for the local driving model.
- * `npx tsx scripts/drive-check.ts [route…]`
+ * contacts, wrecks, marshal recoveries and stalls. A tuning aid for the local
+ * driving model. `npx tsx scripts/drive-check.ts [route…]`
  */
 const only = process.argv.slice(2);
 const scale = Number(process.env.SKILL ?? 1);
@@ -17,7 +17,7 @@ const skills = [DRIVER_SKILLS.ace, DRIVER_SKILLS.pro, DRIVER_SKILLS.pro, DRIVER_
 
 function run(label: string, race: DriveRace, target?: number): void {
   const ai = new DriveAI(skills), started = performance.now();
-  const counts = { wall: 0, car: 0, prop: 0, part: 0, wreck: 0 }, stalls = new Array(race.cars.length).fill(0);
+  const counts = { wall: 0, car: 0, prop: 0, part: 0, wreck: 0, recover: 0 }, stalls = new Array(race.cars.length).fill(0);
   let peak = 0;
   while (!race.done) {
     race.step(race.cars.map(car => ai.control(race, car.slot)));
@@ -31,7 +31,7 @@ function run(label: string, race: DriveRace, target?: number): void {
     : car.status === DriveStatus.Wrecked ? 'WRECK' : `DNF@${Math.round(car.s)}m`);
   const damage = race.cars.map(car => Math.round(car.damage.total));
   console.log(`${label.padEnd(22)} ${target ? `song ${target.toFixed(0)}s ` : ''}times ${times.join(' ')}  dmg ${damage.join(',')}  ` +
-    `walls ${counts.wall} cars ${counts.car} props ${counts.prop} parts ${counts.part} wrecks ${counts.wreck} stalls ${stalls.map(t => (t / 30).toFixed(0)).join(',')} ` +
+    `walls ${counts.wall} cars ${counts.car} props ${counts.prop} parts ${counts.part} wrecks ${counts.wreck} recoveries ${counts.recover} stalls ${stalls.map(t => (t / 30).toFixed(0)).join(',')} ` +
     `peak ${(peak * 3.6).toFixed(0)}km/h  ${(performance.now() - started).toFixed(0)}ms`);
 }
 

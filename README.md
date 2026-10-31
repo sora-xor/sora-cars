@@ -82,8 +82,11 @@ the car ahead, a glancing rail hit deflects you, a square hit at speed is a
 crash. Cars take damage from every hard hit: bumpers, plates, pop-up lights,
 bonnets, boot lids, mirrors and doors break away, a crushed nose loses power
 and bent suspension loses grip, and at the damage limit the car is wrecked
-(大破 / WRECKED) and out of the race. Hold the brake at a standstill to reverse
-out of trouble. Live races keep the native RaceV1 rules; `?physics=native`
+(大破 / WRECKED) and out of the race. Hold drift and steer to hold a slide;
+let go and the car straightens. Hold the brake at a standstill to reverse out
+of trouble; a car that gains no ground for five seconds, stuck or pointing the
+wrong way (逆走 / WRONG WAY), is set back on the road by the marshals. Live
+races keep the native RaceV1 rules; `?physics=native`
 brings back the earlier local model for comparison. See
 [the driving model](docs/driving-model.md).
 

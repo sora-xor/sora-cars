@@ -6,7 +6,7 @@ import { clubItem, clubLivery, type ClubAppearance } from './catalog';
 import { environmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
 import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery';
 import { getRaceWorld } from './three/world';
-import { drawDamageGauge, drawWreckBanner } from './drive/hud';
+import { WRONG_WAY, drawDamageGauge, drawRecoveryBanner, drawWreckBanner } from './drive/hud';
 import { PIXEL_OVERLAY_COLOURS, drawAtmosphere, fillArtCells, pixelOverlayGrid, rainColumn } from './three/pixel-art/overlay';
 
 export type ReplayCamera = 'chase' | 'bumper' | 'aerial';
@@ -738,6 +738,7 @@ export class RaceRenderer {
       const [front, rear, left, right] = car.zones;
       drawDamageGauge(ctx, pad, hudBottom - (mobile ? 34 : 44), { front, rear, left, right, total: car.damage }, this.#time, mobile);
       if (car.dnf) drawWreckBanner(ctx, w, h);
+      else if (car.finishTick === null) drawRecoveryBanner(ctx, w, h, Math.abs(car.heading ?? 0) > WRONG_WAY, car.recovery, this.#time);
     }
     // Progress ribbon provides a compact live view of the entire grid.
     const mapX = w - pad - (mobile ? 30 : 85), mapY = mobile ? 144 : 39, mapH = mobile ? 60 : 100;

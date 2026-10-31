@@ -2,7 +2,7 @@ import { CONTROL } from '../rules';
 import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
 import { clamp, cos, sin } from './dmath';
 import { damageEffects } from './damage';
-import { DRIVE_HZ, DriveStatus, steeringCurvature, type DriveCar, type DriveRace } from './race';
+import { DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
 import type { VehicleSpec } from './vehicle';
 
 /** Practice and story AI. It reads the race and returns the same six control
@@ -99,6 +99,8 @@ export class DriveAI {
     const course = race.course, spec = race.specs[slot]!, skill = this.#skills[slot] ?? DRIVER_SKILLS.club;
     const line = racingLine(course), memory = this.#memory.get(slot) ?? { stuckTicks: 0, reverseTicks: 0, reverseSteer: 0 };
     this.#memory.set(slot, memory);
+    // Set back on the road by the marshals: drive on.
+    if (race.events.some(event => event.kind === 'recover' && event.slot === slot)) { memory.stuckTicks = 0; memory.reverseTicks = 0; }
     // Jammed against a wall or a wreck, or facing the wrong way: back out.
     if (memory.reverseTicks > 0) {
       memory.reverseTicks--;
@@ -167,10 +169,9 @@ export class DriveAI {
     const c = cos(car.psi), s = sin(car.psi);
     const bx = tx * c + ty * s, by = -tx * s + ty * c;
     const pursuit = 2 * by / Math.max(1, bx * bx + by * by);
-    const desired = clamp((pursuit - effects.pull / (spec.cgToFront + spec.cgToRear)) / steeringCurvature(spec, car.u, speed, false), -1, 1);
-    // Steering moves a sixth of its travel per tick; pick the input that lands nearest.
-    const rate = 5 / DRIVE_HZ;
-    const options = [[CONTROL.left, clamp(car.steer - rate, -1, 1)], [0, car.steer - clamp(car.steer, -rate, rate)], [CONTROL.right, clamp(car.steer + rate, -1, 1)]] as const;
+    const desired = clamp((pursuit - effects.pull / (spec.cgToFront + spec.cgToRear)) / steeringCurvature(spec, car.u, speed), -1, 1);
+    // Pick the input whose steering position after this tick lands nearest.
+    const options = [[CONTROL.left, steerTick(car.steer, -1, car.u)], [0, steerTick(car.steer, 0, car.u)], [CONTROL.right, steerTick(car.steer, 1, car.u)]] as const;
     let steering = 0, best = Infinity;
     for (const [bit, next] of options) { const error = Math.abs(next - desired); if (error < best - 1e-9) { best = error; steering = bit; } }
     this.targets.set(slot, target);

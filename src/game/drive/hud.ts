@@ -36,6 +36,27 @@ export function drawDamageGauge(ctx: CanvasRenderingContext2D, x: number, y: num
   ctx.restore();
 }
 
+/** Facing more than this far from the road's direction (rad) reads as the wrong way. */
+export const WRONG_WAY = 1.75;
+/** Ticks without gaining ground before the HUD counts down to the marshals' recovery. */
+export const RECOVERY_NOTICE = 60;
+
+/** Upper banner while the player's car points the wrong way or is about to be recovered. */
+export function drawRecoveryBanner(ctx: CanvasRenderingContext2D, width: number, height: number, wrongWay: boolean, seconds: number | undefined, time: number): void {
+  if (!wrongWay && seconds === undefined) return;
+  const compact = width < 400, y = height * (compact ? 0.3 : 0.26), band = compact ? 44 : 54;
+  ctx.save();
+  ctx.fillStyle = '#211b30'; ctx.globalAlpha = 0.8; ctx.fillRect(0, y, width, band); ctx.globalAlpha = 1;
+  ctx.textAlign = 'center';
+  ctx.fillStyle = wrongWay && Math.floor(time * 3) % 2 === 0 ? '#fff0cb' : '#ff9c84';
+  ctx.font = `bold ${compact ? 17 : 23}px SoraJP, LabJP, sans-serif`;
+  ctx.fillText(wrongWay ? '逆走' : '立ち往生', width / 2, y + (compact ? 21 : 26));
+  ctx.fillStyle = '#fff0cb'; ctx.font = `${compact ? 8 : 10}px Sora, LabSora, sans-serif`;
+  const recovery = seconds === undefined ? '' : `マーシャル救済まで ${Math.ceil(seconds)} · MARSHALS IN ${Math.ceil(seconds)}`;
+  ctx.fillText(wrongWay ? `WRONG WAY${recovery ? ` — ${recovery}` : ' — TURN AROUND'}` : `STUCK — ${recovery}`, width / 2, y + (compact ? 36 : 45));
+  ctx.restore();
+}
+
 /** Centre banner for the player's wreck. */
 export function drawWreckBanner(ctx: CanvasRenderingContext2D, width: number, height: number): void {
   ctx.save();
