@@ -57,7 +57,8 @@
     "test:music-static": "node scripts/test-music-static.mjs",
     "test:soundtrack-playback": "node scripts/test-soundtrack-playback.mjs",
     "test:finality-storage-browser": "node scripts/test-finality-storage-browser.mjs",
-    "balance:garage": "tsx scripts/garage-balance.ts"
+    "balance:garage": "tsx scripts/garage-balance.ts",
+    "check:drive": "tsx scripts/drive-check.ts"
   },
   "dependencies": {
     "@iroha/iroha-js": "file:../iroha-sora-cars-native/javascript/iroha_js",

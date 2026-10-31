@@ -1,10 +1,12 @@
 import { CONTROL, LIVERIES, TRACKS, curvature, modulo, type Livery } from './rules';
 import { type RaceState } from './engine';
+import type { DriveEvent } from './drive/race';
 import { raceResultPlaces } from './presentation';
 import { clubItem, clubLivery, type ClubAppearance } from './catalog';
 import { environmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
 import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery';
 import { getRaceWorld } from './three/world';
+import { drawDamageGauge, drawWreckBanner } from './drive/hud';
 import { PIXEL_OVERLAY_COLOURS, drawAtmosphere, fillArtCells, pixelOverlayGrid, rainColumn } from './three/pixel-art/overlay';
 
 export type ReplayCamera = 'chase' | 'bumper' | 'aerial';
@@ -17,6 +19,9 @@ export interface RenderOptions {
   contacts?: readonly EnvironmentContact[];
   /** Display weather/objects from the selected compiled relation. */
   environment?: Readonly<TrackEnvironment>;
+  /** Driving model only: RaceV1 ids of roadside objects knocked down, and crash events since the last frame. */
+  broken?: readonly number[];
+  events?: readonly DriveEvent[];
 }
 interface RoadPoint { x: number; y: number; half: number; z: number; scale: number; progress: number; }
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
@@ -728,6 +733,12 @@ export class RaceRenderer {
     ctx.fillStyle = '#2b2136'; ctx.fillRect(pad, hudBottom - 4, Math.min(w * 0.26, 180), 7);
     ctx.fillStyle = '#ede0a4'; ctx.fillRect(pad, hudBottom - 4, Math.min(w * 0.26, 180) * car.energy / 1000, 7);
     if (!mobile) { ctx.fillStyle = '#d1c8d4'; ctx.font = '10px SoraJP, monospace'; ctx.fillText(w < 600 ? 'ターボ' : 'SHIFT / X  ·  ターボ / TURBO', pad, hudBottom + 19); }
+    // Driving model: the car's damage by zone, and the wreck banner.
+    if (car.zones && car.damage !== undefined) {
+      const [front, rear, left, right] = car.zones;
+      drawDamageGauge(ctx, pad, hudBottom - (mobile ? 34 : 44), { front, rear, left, right, total: car.damage }, this.#time, mobile);
+      if (car.dnf) drawWreckBanner(ctx, w, h);
+    }
     // Progress ribbon provides a compact live view of the entire grid.
     const mapX = w - pad - (mobile ? 30 : 85), mapY = mobile ? 144 : 39, mapH = mobile ? 60 : 100;
     // A dark keyline under the light stroke and a dark ring around each dot

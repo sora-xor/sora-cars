@@ -20,7 +20,100 @@ interface Wheel { center: THREE.Vector3; radius: number; front: boolean }
 interface Template {
   surfaces: Surface[]; wheels: Wheel[]; decals: THREE.BufferGeometry; emblems: THREE.BufferGeometry | null;
   strip: THREE.BufferGeometry | null; aero: THREE.BufferGeometry; flame: THREE.BufferGeometry;
+  /** Breakable panels, in CAR_PARTS bit order (src/game/drive/damage.ts). */
+  breakage: Breakage;
 }
+/** Each body surface's index is sorted shell-first, then panel by panel, so a car with missing panels
+ * draws the remaining runs of the same shared index as geometry groups: no per-car GPU buffers. */
+interface Breakage {
+  ranges: ({ shell: number; parts: { start: number; count: number }[] } | null)[];
+  /** Per panel: compact pieces centred on the panel, and the centre it tumbles about (car space). */
+  parts: { pieces: { surface: number; geometry: THREE.BufferGeometry }[]; centre: THREE.Vector3; size: number }[];
+}
+const NO_PART = 255;
+const PART_COUNT = 12;
+
+/** Which breakable panel a triangle belongs to, from its centroid in the normalized car
+ * (metres; +Z forward, ground at y = 0). `left` is the sign of x on the driver's left. */
+function panelAt(surface: Surface, x: number, y: number, z: number, left: number): number {
+  const material = surface.material.name, onLeft = Math.sign(x) === left, glass = material === 'Windows';
+  if (surface.wheel >= 0) return NO_PART;
+  if (material === 'LicensePlate') return z > 0 ? 0 : 5;
+  if (surface.headlight) return onLeft ? 2 : 3;
+  if (material === 'Mirror' || !glass && Math.abs(x) > 0.7 && y > 0.86 && y < 1.08 && z > 0.05 && z < 0.55) return onLeft ? 8 : 9;
+  if (z > 1.76 && y < 0.6) return 1;
+  if (z < -1.8 && y < 0.64) return 6;
+  if (!glass && z > 0.62 && z < 1.95 && y > 0.6 && Math.abs(x) < 0.6) return 4;
+  if (!glass && z < -1.25 && y > 0.7 && Math.abs(x) < 0.62) return 7;
+  if (!glass && Math.abs(x) > 0.62 && z > -0.5 && z < 0.66 && y > 0.3 && y < 0.88) return onLeft ? 10 : 11;
+  return NO_PART;
+}
+
+/** Sort every body triangle into a panel and build each panel's own geometry for when it breaks away. */
+function prepareBreakage(surfaces: Surface[], left: number): Breakage {
+  const parts = Array.from({ length: PART_COUNT }, () => ({ pieces: [] as { surface: number; geometry: THREE.BufferGeometry }[], centre: new THREE.Vector3(), size: 0.2 }));
+  const bounds = parts.map(() => new THREE.Box3()), corner = new THREE.Vector3();
+  const selections: { surface: number; part: number; index: Uint32Array }[] = [];
+  const ranges = surfaces.map((surface, i) => {
+    if (surface.wheel >= 0) return null;
+    const index = surface.geometry.index!.array, position = surface.geometry.getAttribute('position');
+    const buckets: number[][] = Array.from({ length: PART_COUNT + 1 }, () => []);
+    for (let t = 0; t < index.length / 3; t++) {
+      const a = index[t * 3]!, b = index[t * 3 + 1]!, c = index[t * 3 + 2]!;
+      const part = panelAt(surface, (position.getX(a) + position.getX(b) + position.getX(c)) / 3,
+        (position.getY(a) + position.getY(b) + position.getY(c)) / 3, (position.getZ(a) + position.getZ(b) + position.getZ(c)) / 3, left);
+      buckets[part === NO_PART ? 0 : part + 1]!.push(a, b, c);
+      if (part !== NO_PART) for (const vertex of [a, b, c]) bounds[part]!.expandByPoint(corner.fromBufferAttribute(position, vertex));
+    }
+    if (buckets.slice(1).every(bucket => !bucket.length)) return null;
+    const sorted = new Uint32Array(index.length), result = { shell: buckets[0]!.length, parts: [] as { start: number; count: number }[] };
+    let at = 0;
+    buckets.forEach((bucket, k) => {
+      sorted.set(bucket, at);
+      if (k > 0) {
+        result.parts.push({ start: at, count: bucket.length });
+        if (bucket.length) selections.push({ surface: i, part: k - 1, index: Uint32Array.from(bucket) });
+      }
+      at += bucket.length;
+    });
+    surface.geometry.setIndex(new THREE.BufferAttribute(sorted, 1));
+    return result;
+  });
+  parts.forEach((part, i) => {
+    if (bounds[i]!.isEmpty()) return;
+    bounds[i]!.getCenter(part.centre); part.size = bounds[i]!.getSize(new THREE.Vector3()).length() / 2;
+  });
+  for (const { surface, part, index } of selections) {
+    parts[part]!.pieces.push({ surface, geometry: compactGeometry(surfaces[surface]!.geometry, index, parts[part]!.centre) });
+  }
+  return { ranges, parts };
+}
+
+/** A small standalone geometry holding only these triangles' vertices, moved so `centre` is its origin. */
+function compactGeometry(source: THREE.BufferGeometry, index: Uint32Array, centre: THREE.Vector3): THREE.BufferGeometry {
+  const remap = new Map<number, number>(), order: number[] = [];
+  const local = index.map(vertex => { let mapped = remap.get(vertex); if (mapped === undefined) { mapped = order.length; remap.set(vertex, mapped); order.push(vertex); } return mapped; });
+  const geometry = new THREE.BufferGeometry();
+  for (const [name, attribute] of Object.entries(source.attributes)) {
+    const size = attribute.itemSize, array = new Float32Array(order.length * size);
+    order.forEach((vertex, i) => { for (let k = 0; k < size; k++) array[i * size + k] = attribute.getComponent(vertex, k); });
+    geometry.setAttribute(name, new THREE.BufferAttribute(array, size));
+  }
+  geometry.setIndex(new THREE.BufferAttribute(local, 1));
+  geometry.translate(-centre.x, -centre.y, -centre.z);
+  geometry.computeBoundingSphere();
+  return geometry;
+}
+
+/** One car's view of a shared surface: the same buffers and index, its own draw groups. */
+function groupedGeometry(source: THREE.BufferGeometry): THREE.BufferGeometry {
+  const geometry = new THREE.BufferGeometry();
+  for (const [name, attribute] of Object.entries(source.attributes)) geometry.setAttribute(name, attribute);
+  geometry.setIndex(source.index);
+  geometry.boundingBox = source.boundingBox; geometry.boundingSphere = source.boundingSphere;
+  return geometry;
+}
+
 interface ShadowIndices { sourceIndexCount: number; vertexCount: number; index: THREE.BufferAttribute }
 let templatePromise: Promise<Template> | undefined;
 
@@ -184,7 +277,8 @@ async function prepareTemplate(): Promise<Template> {
   const aero = lip;
   const flame = new THREE.ConeGeometry(0.064, 0.38, 12, 1, true);
   flame.rotateX(-Math.PI / 2); flame.translate(0, 0, -0.19);
-  return { surfaces, wheels, decals, emblems, strip, aero, flame };
+  const breakage = prepareBreakage(surfaces, Math.sign(wheels[0]!.center.x) || 1);
+  return { surfaces, wheels, decals, emblems, strip, aero, flame, breakage };
 }
 
 /**
@@ -264,7 +358,10 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
     steering.position.copy(wheel.center); steering.add(spin); group.add(steering);
     return { steering, spin, ...wheel };
   });
-  for (const surface of template.surfaces) {
+  const breakable: { mesh: THREE.Mesh; surface: Surface; material: THREE.Material; ranges: NonNullable<Breakage['ranges'][number]>;
+    grouped?: THREE.BufferGeometry; beforeShadow: THREE.Mesh['onBeforeShadow']; afterShadow: THREE.Mesh['onAfterShadow'] }[] = [];
+  const surfaceMaterials: THREE.Material[] = [];
+  for (const [surfaceIndex, surface] of template.surfaces.entries()) {
     const materialKey = `${surface.material.uuid}:${surface.headlight}`;
     let material = materials.get(materialKey);
     if (!material) {
@@ -325,6 +422,9 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       mesh.onAfterShadow = (_renderer, _object, _camera, _shadowCamera, geometry) => { geometry.setIndex(sourceIndex); };
     }
     if (mesh.castShadow) shadowMeshes.push(mesh);
+    surfaceMaterials[surfaceIndex] = material;
+    const ranges = template.breakage.ranges[surfaceIndex];
+    if (ranges) breakable.push({ mesh, surface, material, ranges, beforeShadow: mesh.onBeforeShadow, afterShadow: mesh.onAfterShadow });
     if (surface.wheel < 0) group.add(mesh);
     else (surface.fixed ? wheelGroups[surface.wheel]!.steering : wheelGroups[surface.wheel]!.spin).add(mesh);
   }
@@ -356,9 +456,45 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
   const flame = new THREE.Mesh(template.flame, flameMaterial);
   flame.position.set(0.5, 0.16, -2.08); exhaust.add(flame);
   group.add(exhaust);
-  let lastTime: number | null = null, angle = 0, lastColor = '', lastTrim = '';
+  let lastTime: number | null = null, angle = 0, lastColor = '', lastTrim = '', lastDetached = 0;
   const car: CarModel = {
     group,
+    setDamage(detached) {
+      if (detached === lastDetached) return;
+      lastDetached = detached;
+      for (const body of breakable) {
+        const { mesh } = body;
+        if (!detached) {
+          mesh.geometry = body.surface.geometry; mesh.material = body.material;
+          mesh.onBeforeShadow = body.beforeShadow; mesh.onAfterShadow = body.afterShadow;
+          continue;
+        }
+        // Draw the shell and every attached panel; contiguous runs merge into one call.
+        const grouped = body.grouped ??= groupedGeometry(body.surface.geometry);
+        grouped.clearGroups();
+        let start = 0, count = body.ranges.shell;
+        body.ranges.parts.forEach((range, part) => {
+          if (!range.count) return;
+          if (Math.floor(detached / 2 ** part) % 2 === 1) { if (count) grouped.addGroup(start, count, 0); start = range.start + range.count; count = 0; }
+          else count += range.count;
+        });
+        if (count) grouped.addGroup(start, count, 0);
+        // A damaged car's shadow uses its full index: the reduced shadow index has no panel runs.
+        mesh.geometry = grouped; mesh.material = [body.material];
+        mesh.onBeforeShadow = mesh.onAfterShadow = () => {};
+      }
+    },
+    breakPart(bit) {
+      const part = template.breakage.parts[bit];
+      if (!part?.pieces.length) return null;
+      const piece = new THREE.Group(); piece.name = `Broken-off panel ${bit}`;
+      for (const { surface, geometry } of part.pieces) {
+        const mesh = new THREE.Mesh(geometry, surfaceMaterials[surface]!); mesh.castShadow = true; mesh.receiveShadow = true;
+        piece.add(mesh);
+      }
+      piece.position.copy(part.centre);
+      return { object: piece, size: part.size };
+    },
     setAppearance(color, accent = '#bbb9b0', hasAero = false) {
       if (color !== lastColor) { for (const material of paint) material.color.set(color); lastColor = color; }
       if (accent !== lastTrim) { for (const material of trim) material.color.set(accent).multiplyScalar(0.065); lastTrim = accent; }

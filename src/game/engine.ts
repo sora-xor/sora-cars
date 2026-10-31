@@ -7,6 +7,15 @@ import { validateClubAppearance, type ClubAppearance } from './catalog';
 export interface CarState {
   slot: number; progress: number; x: number; speed: number; vx: number;
   energy: number; finishTick: number | null; dnf: boolean; dnfTick: number | null;
+  /** Presentation from the local driving model (src/game/drive); RaceV1 never sets or reads these.
+   * Heading relative to the road and body slip (rad, clockwise), front wheel angle (rad, right),
+   * damage points and the detached-part mask. */
+  heading?: number; slip?: number; wheel?: number; damage?: number; detached?: number;
+  /** Damage points by zone: front, rear, left, right. */
+  zones?: readonly [number, number, number, number];
+  braking?: boolean; boosting?: boolean; drifting?: boolean; reverse?: boolean;
+  /** False once a wreck has been towed: the car no longer collides or shows. */
+  solid?: boolean;
 }
 export interface RaceState { tick: number; trackId: number; cars: CarState[]; }
 export interface ReplayV1 {

@@ -9,6 +9,10 @@ import { planStreetSoundtrack } from '../game/street/soundtrack-clock';
 import { streetDriver } from '../game/street/test-driver';
 import { decodeStreetReplay, encodeStreetReplay, exportStreetReplay, verifyStreetReplay, StreetReplayPlayback, type StreetReplay } from '../game/street/replay';
 import { readSceneReadiness } from './scene-preparation';
+import { DriveStreetSession, type DriveStreetState } from '../game/drive/street';
+import type { DriveEvent } from '../game/drive/race';
+import { DRIVER_SKILLS, DriveAI } from '../game/drive/ai';
+import { drivePhysics } from '../game/drive/mode';
 
 type Phase = 'loading' | 'ready' | 'countdown' | 'driving' | 'paused' | 'results' | 'error';
 type Camera = 'chase' | 'bumper' | 'aerial';
@@ -26,12 +30,17 @@ export interface StreetStoryResult {
   readonly chapter: number; readonly place: number;
   readonly ranking: readonly { readonly name: string; readonly rank: number; readonly time: string; readonly player: boolean; readonly skin: number }[];
 }
+/** The street field: two aces, three pros and two club drivers, spread across the road. */
+const STREET_FIELD = [DRIVER_SKILLS.club, DRIVER_SKILLS.ace, DRIVER_SKILLS.pro, DRIVER_SKILLS.club, DRIVER_SKILLS.pro, DRIVER_SKILLS.ace, DRIVER_SKILLS.club, DRIVER_SKILLS.pro]
+  .map((skill, slot) => ({ ...skill, lane: [0, 0.4, -0.4, 0.8, -0.2, -0.8, 0.2, 0.6][slot]! }));
 const crew = ['YOU · 空本アキ', '空井レン', '天羽メイ', '雲野ダイチ', '空木ユイ', '天野ジュン', '空城レイ', 'SORA ゲスト'];
 const esc = (value: unknown) => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const seconds = (ticks: number, digits = 2) => {
   const scale = 10 ** digits, rounded = Math.round(ticks / 30 * scale);
   return `${Math.floor(rounded / (60 * scale))}:${(rounded % (60 * scale) / scale).toFixed(digits).padStart(3 + digits, '0')}`;
 };
+/** A driving-model wreck is status 2; the native draft's status 2 is a forfeit. */
+const unfinished = (state: StreetRaceState, status: number) => status === 2 && (state as DriveStreetState).physics === 'drive' ? '大破 / WRECKED' : '未完走 / DNF';
 const button = (action: string, ja: string, en: string, primary = false) => `<button class="${primary ? 'primary' : 'small-button'}" data-action="street-${action}">${ja}<small lang="en">${en}</small></button>`;
 export function downloadStreetReplay(replay: StreetReplay): void {
   const url = URL.createObjectURL(new Blob([encodeStreetReplay(replay)], { type: 'application/json' }));
@@ -42,7 +51,10 @@ export function downloadStreetReplay(replay: StreetReplay): void {
 /** One main-game panel: no second animation loop, input listeners, or custody. */
 export class StreetPractice {
   readonly #options: Options; readonly #renderer: StreetRaceRenderer;
-  #loaded?: LoadedStreetRoute; #session?: StreetRaceSession; #playback?: StreetReplayPlayback;
+  #loaded?: LoadedStreetRoute; #session?: StreetRaceSession | DriveStreetSession; #playback?: StreetReplayPlayback;
+  #ai?: DriveAI;
+  /** Driving-model crash events since the last frame, for sparks and flying panels. */
+  #events: DriveEvent[] = [];
   #record?: StreetReplay; #song?: HTMLAudioElement; #abort?: AbortController;
   #phase: Phase = 'loading'; #resume: 'countdown' | 'driving' = 'driving';
   #camera: Camera = 'chase'; #routeId = 'tokyo-1986'; #skin = 0;
@@ -100,6 +112,10 @@ export class StreetPractice {
             } });
           if (!this.#open || generation !== this.#generation) return;
           this.#playback = new StreetReplayPlayback(verified);
+        } else if (drivePhysics()) {
+          const skins = this.#names.map((_, slot) => slot === 0 ? this.#skin : slot % 6);
+          this.#session = new DriveStreetSession(loaded.bundle.track, loaded.bundle.objects, loaded.bundle.roster, skins);
+          this.#ai = new DriveAI(STREET_FIELD);
         } else this.#session = new StreetRaceSession(loaded.bundle);
         this.#renderer.resize(); this.render();
       } catch (error) {
@@ -114,8 +130,8 @@ export class StreetPractice {
     this.#completeOpen();
     this.#pauseMusic(); if (this.#song) this.#song.removeAttribute('src'); this.#song = undefined;
     this.#options.audio.stopDrive(); this.#options.audio.setExternalMusic(false);
-    this.#loaded = undefined; this.#session = undefined; this.#playback = undefined; this.#record = undefined;
-    this.#previous = undefined; this.#impact = undefined; this.#playing = false; this.#musicBlocked = false; this.#camera = 'chase';
+    this.#loaded = undefined; this.#session = undefined; this.#playback = undefined; this.#record = undefined; this.#ai = undefined;
+    this.#previous = undefined; this.#impact = undefined; this.#playing = false; this.#musicBlocked = false; this.#camera = 'chase'; this.#events = [];
     this.#resyncMusic = true; this.#story = undefined;
   }
   resize(): void { this.#renderer.resize(); this.#measurePresentationInset(); }
@@ -171,13 +187,26 @@ export class StreetPractice {
         const cue = this.#options.screen.querySelector('#street-countdown'); if (cue) cue.textContent = String(Math.max(1, Math.ceil(this.#countdown)));
         if (this.#countdown <= 0) this.#setPhase('driving');
       }
-      if (this.#phase === 'driving') {
+      // Three seconds after the player's wreck the rest of the field races on to the flag.
+      const drive = this.#session instanceof DriveStreetSession && !this.#playback ? this.#session : null, wreck = drive?.race.cars[0];
+      if (this.#phase === 'driving' && drive && wreck && wreck.wreckTick >= 0 && drive.race.tick - wreck.wreckTick >= 90) {
+        for (let n = 0; n < 450 && !drive.race.done; n++) { const state = drive.state; drive.step(state.cars.map((_, slot) => slot === 0 ? 0 : this.#bot(state, slot))); }
+        this.#previous = undefined; this.#accumulator = 0;
+        if (drive.race.done) this.#finish();
+      } else if (this.#phase === 'driving') {
         this.#input = this.#playback ? 0 : input; this.#accumulator += dt;
         while (this.#accumulator >= 1 / 30 && this.#phase === 'driving') {
           this.#accumulator -= 1 / 30; this.#previous = this.#native!;
-          const state = this.#playback ? this.#playback.step() : this.#session!.step(this.#previous.cars.map((_, slot) => slot === 0 ? input : streetDriver(this.#loaded!.bundle.track, this.#previous!, slot)));
+          const state = this.#playback ? this.#playback.step() : this.#session!.step(this.#previous.cars.map((_, slot) => slot === 0 ? input : this.#bot(this.#previous!, slot)));
           const struck = this.#loaded!.bundle.objects.find((object, index) => object.kind !== 'oil' && Math.floor(state.cars[0]!.propHitMask / 2 ** index) % 2 === 1);
           if (struck) this.#impact = { tick: state.tick, kind: struck.kind === 'tree_planter' ? 'tree' : 'sign' };
+          // Driving-model contacts: a heavy thud for a big hit or a planter, a clang for a knock.
+          const race = this.#playback?.race ?? (this.#session instanceof DriveStreetSession ? this.#session.race : null);
+          const hit = race?.events.filter(event => event.slot === 0 && (event.kind === 'wall' || event.kind === 'car' || event.kind === 'prop'))
+            .reduce<{ strength: number; heavy: boolean } | null>((best, event) => !best || event.strength > best.strength
+              ? { strength: event.strength, heavy: event.strength > 9 || event.kind === 'prop' && race.props[event.other]?.kind === 'planter' } : best, null);
+          if (hit && hit.strength > 1.5) this.#impact = { tick: state.tick, kind: hit.heavy ? 'tree' : 'sign' };
+          if (race && this.#events.length < 400) this.#events.push(...race.events);
           if (state.done) this.#finish();
         }
         const slider = this.#options.screen.querySelector<HTMLInputElement>('#street-seek'); if (slider) slider.value = String(this.#native!.tick);
@@ -185,6 +214,10 @@ export class StreetPractice {
       }
       this.#syncAudio();
     } catch (error) { this.#error = String(error); this.#setPhase('error'); }
+  }
+  /** Bot controls: the driving model's AI, or the native draft's test driver. */
+  #bot(state: StreetRaceState, slot: number): number {
+    return this.#session instanceof DriveStreetSession ? this.#ai!.control(this.#session.race, slot) : streetDriver(this.#loaded!.bundle.track, state, slot);
   }
   #finish(): void {
     this.#setPhase('results');
@@ -197,7 +230,7 @@ export class StreetPractice {
       if (story) {
         const result: StreetStoryResult = { chapter: story.chapter, place: state.cars[0]!.rank,
           ranking: state.cars.map((car, slot) => ({ name: names[slot]!, rank: car.rank, player: slot === 0, skin: skins[slot] ?? 0,
-            time: car.status === 1 ? seconds(car.finishTick - 1 + car.finishNumerator / car.finishDenominator, 3) : '未完走 / DNF' }))
+            time: car.status === 1 ? seconds(car.finishTick - 1 + car.finishNumerator / car.finishDenominator, 3) : unfinished(state, car.status) }))
             .sort((a, b) => a.rank - b.rank) };
         // The story then leaves this view (closing the session), so let the current step unwind first.
         const generation = this.#generation;
@@ -268,7 +301,8 @@ export class StreetPractice {
       names: [...names], controls: this.#input, paused: this.#phase !== 'driving' && this.#phase !== 'countdown', bottomInset: matchMedia('(pointer: coarse)').matches && !this.#playback ? 110 : this.#playback ? 75 : 0, hud: ['driving', 'countdown'].includes(this.#phase), camera: this.#camera,
       presentationTitles: ['driving', 'countdown'].includes(this.#phase) || !!this.#playback && this.#phase === 'paused',
       presentationTopInset: this.#presentationTopInset,
-      rain: state.rain, objects: this.#loaded.bundle.objects, raceMode: this.#playback ? '再生 / REPLAY' : this.#story ? '物語 / STORY' : '練習 / PRACTICE' }, time);
+      rain: state.rain, objects: this.#loaded.bundle.objects, events: this.#events, raceMode: this.#playback ? '再生 / REPLAY' : this.#story ? '物語 / STORY' : '練習 / PRACTICE' }, time);
+      this.#events = [];
       const scene = readSceneReadiness(this.#options.canvas);
       if (scene.status === 'failed') {
         this.#visualError = true; this.#error = scene.message; this.#setPhase('error');
@@ -301,7 +335,7 @@ export class StreetPractice {
     if (this.#phase === 'paused' && !this.#playback) html = `<div class="street-panel">${heading}<h1>ひと息つこう。</h1><p lang="en">TAKE A BREATHER.</p><div class="street-actions">${button('pause', 'つづける', 'RESUME', true)}${button('restart', '走り直す', 'NEW RUN')}${exit}</div></div>`;
     if (this.#phase === 'results' && state) {
       const names = this.#record?.names ?? this.#names;
-      html = `<div class="street-panel street-results">${heading}<h1>${esc(style.finish.ja)}</h1><p lang="en">${esc(style.finish.en)}</p><div class="street-ranking">${state.cars.map((car, slot) => ({ car, slot })).sort((a, b) => a.car.rank - b.car.rank).map(({ car, slot }) => `<div><b>${car.rank}</b><span>${esc(names[slot])}</span><span>${car.status === 1 ? seconds(car.finishTick - 1 + car.finishNumerator / car.finishDenominator, 3) : '未完走 / DNF'}</span></div>`).join('')}</div><div class="street-actions">${button('restart', 'もう一度', 'NEW RUN', true)}${this.#record ? button('replay', '走りを再生', 'VERIFY & REPLAY') + button('export', '保存', 'DOWNLOAD') : ''}${exit}</div><p class="fine-print">無料練習の記録・XORの授受なし / Local practice · No XOR awarded</p></div>`;
+      html = `<div class="street-panel street-results">${heading}<h1>${esc(style.finish.ja)}</h1><p lang="en">${esc(style.finish.en)}</p><div class="street-ranking">${state.cars.map((car, slot) => ({ car, slot })).sort((a, b) => a.car.rank - b.car.rank).map(({ car, slot }) => `<div><b>${car.rank}</b><span>${esc(names[slot])}</span><span>${car.status === 1 ? seconds(car.finishTick - 1 + car.finishNumerator / car.finishDenominator, 3) : unfinished(state, car.status)}</span></div>`).join('')}</div><div class="street-actions">${button('restart', 'もう一度', 'NEW RUN', true)}${this.#record ? button('replay', '走りを再生', 'VERIFY & REPLAY') + button('export', '保存', 'DOWNLOAD') : ''}${exit}</div><p class="fine-print">無料練習の記録・XORの授受なし / Local practice · No XOR awarded</p></div>`;
     }
     if (this.#playback && !['ready', 'loading', 'error'].includes(this.#phase)) html += `<div class="street-replay-bar"><span>再生 / REPLAY · <b id="street-time">${seconds(this.#playback.tick)}</b></span><input aria-label="Replay time" type="range" id="street-seek" min="0" max="${this.#playback.length}" value="${this.#playback.tick}"><div>${(['chase', 'bumper', 'aerial'] as const).map((camera, i) => `<button data-action="street-camera-${camera}" aria-pressed="${this.#camera === camera}">${['追走', '路面', '上空'][i]}<small>${camera.toUpperCase()}</small></button>`).join('')}</div></div>`;
     screen.innerHTML = html;
@@ -312,7 +346,7 @@ export class StreetPractice {
     if (!this.#session || this.#playback || !this.#loaded || !this.#open) return;
     const generation = this.#generation; this.#setPhase('paused');
     while (!this.#session.state.done) {
-      const state = this.#session.state; this.#session.step(state.cars.map((_, slot) => streetDriver(this.#loaded!.bundle.track, state, slot)));
+      const state = this.#session.state; this.#session.step(state.cars.map((_, slot) => this.#bot(state, slot)));
       if (this.#session.state.tick % 30 === 0) { await new Promise(resolve => setTimeout(resolve, 0)); if (generation !== this.#generation) return; }
     }
     this.#previous = undefined; this.#finish();

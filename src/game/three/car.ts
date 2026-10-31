@@ -7,6 +7,10 @@ export interface CarModel {
   setAppearance(color: string, accent?: string, aero?: boolean): void;
   setOpacity(value: number): void;
   animate(speedMetersPerSecond: number, steerRadians: number, braking: boolean, boosting: boolean, time: number): void;
+  /** Hide panels that have broken off (CAR_PARTS bit mask, src/game/drive/damage.ts). */
+  setDamage?(detached: number): void;
+  /** The panel `bit` as a standalone piece in car space, positioned at its centre, to throw down the road. */
+  breakPart?(bit: number): { object: THREE.Object3D; size: number } | null;
 }
 
 type Paint = 'paint' | 'shade' | 'accent' | 'rubber' | 'black' | 'alloy' | 'chrome'

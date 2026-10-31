@@ -73,6 +73,20 @@ is also a chapter of the story. Each is a researched draft, not a survey. [The w
 and [the period city](docs/period-city.md#local-routes) give their sources,
 pipeline and known limits.
 
+## 走り / Driving
+
+Practice and story races drive on a rigid-body car model: tyres that grip,
+slide and drift, weight that shifts under braking and power, and contacts
+that trade momentum instead of stopping a car dead. A rear-end shunt shoves
+the car ahead, a glancing rail hit deflects you, a square hit at speed is a
+crash. Cars take damage from every hard hit: bumpers, plates, pop-up lights,
+bonnets, boot lids, mirrors and doors break away, a crushed nose loses power
+and bent suspension loses grip, and at the damage limit the car is wrecked
+(大破 / WRECKED) and out of the race. Hold the brake at a standstill to reverse
+out of trouble. Live races keep the native RaceV1 rules; `?physics=native`
+brings back the earlier local model for comparison. See
+[the driving model](docs/driving-model.md).
+
 ## 物語 / Story
 
 Japan, 1986. Aki Soramoto and the SORA Motor Club follow the paper trail behind
@@ -131,8 +145,8 @@ turbo, chassis and body. Each has a setup fork and a cross-branch capstone,
 including drift charging, slipstream and anti-lag. Practice offers four fields of
 increasingly tuned rivals, from Club night to Legends, and the story's rivals tune
 up as the plot escalates. Parts never reach live XOR races, proofs or the 1986
-street runs. **EQUAL CARS** restores the original stock RaceV1 practice and story
-for everyone. `npm run balance:garage` reprints the simulated balance tables. See
+street runs. **EQUAL CARS** gives every car the stock tune in practice and story.
+`npm run balance:garage` reprints the simulated balance tables. See
 [the garage tech tree](docs/garage-tech-tree.md).
 
 ## 証明 / Proof workshop

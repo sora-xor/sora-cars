@@ -38,6 +38,11 @@ import type { RaceSpectator } from './network/spectator';
 import type { MultiplayerRaceController } from './network/controller';
 import QRCode from 'qrcode';
 import { StreetPractice, downloadStreetReplay, type StreetStoryResult } from './ui/street-practice';
+import { DRIVE_RULES, DriveStatus, type DriveEvent, type DriveRace } from './game/drive/race';
+import { DRIVER_SKILLS, DriveAI, type DriverSkill } from './game/drive/ai';
+import { arcadeDriveRace } from './game/drive/setup';
+import { driveBrokenObjects, driveContacts, isDriveReplay, syncDriveState } from './game/drive/arcade';
+import { drivePhysics } from './game/drive/mode';
 import { decodeStreetReplay, encodeStreetReplay, STREET_REPLAY_TYPE, MAX_STREET_REPLAY_BYTES, type StreetReplay } from './game/street/replay';
 import { STREET_ROUTES } from './game/street/assets';
 import { streetRouteStyle } from './game/street/routes';
@@ -73,6 +78,15 @@ let countdown = 3, lastCountdown = 4, accumulated = 0, elapsed = 0, lastTime = p
 const garageKey = 'sora-cars:garage:v1';
 let garageSave = readGarage(storageRead<unknown>(garageKey, null));
 let raceTunes: CarTune[] | null = null, raceRivals: (Rival | null)[] = [], raceField: FieldId | null = null;
+// Local practice and story races run on the rigid-body driving model; RaceV1 stays for live races and old replays.
+let driveRace: DriveRace | null = null, driveAI: DriveAI | null = null, driveTunes: CarTune[] = [];
+/** Crash events since the last drawn frame, for sparks and flying panels. */
+let driveEvents: DriveEvent[] = [];
+/** Arcade practice field when no rival is named: spread skills and lines. */
+const PRACTICE_SKILLS: readonly DriverSkill[] = [DRIVER_SKILLS.pro, DRIVER_SKILLS.club, DRIVER_SKILLS.ace, DRIVER_SKILLS.club, DRIVER_SKILLS.pro, DRIVER_SKILLS.club, DRIVER_SKILLS.club, DRIVER_SKILLS.pro];
+const LANES = [0, 0.5, -0.5, 1, -0.3, -1, 0.3, 0.8];
+/** After the player's car is wrecked, the rest of the field races to the flag. */
+let wreckFinish = false;
 let raceStats = { offroad: 0, impacts: 0 }, lastAward: RaceAward | null = null;
 const selectedField = (): FieldId => garageSave.stock || !garageSave.fields.includes(prefs.field) ? 'club' : prefs.field;
 const replayCameras: ReplayCamera[] = ['chase', 'bumper', 'aerial'];
@@ -120,6 +134,7 @@ const live = new LiveRacingPanel({
   carId: () => carId, appearance: () => garage.appearance, input: () => view === 'race' && !paused ? playerControls() : 0,
   begin: (controller, names, colors, slot) => {
     spectator?.close(); spectator = null; networkRace = controller; replay = null; currentRace = controller.state; predictedRace = controller.predictedState;
+    driveRace = null; driveAI = null; driveEvents = [];
     trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = slot; countdown = -1;
     resultSaved = false; audio.setTrack(trackId); void audio.unlock(); setView('race');
   },
@@ -132,6 +147,7 @@ const live = new LiveRacingPanel({
   finished: () => finishSession(),
   spectate: (feed, names, colors) => {
     networkRace = null; spectator = feed; replay = null; currentRace = feed.state; predictedRace = null;
+    driveRace = null; driveAI = null; driveEvents = [];
     trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = 0; countdown = -1;
     resultSaved = true; audio.setTrack(trackId); setView('race');
   },
@@ -252,7 +268,7 @@ function renderScreen(): void {
   else if (view === 'results' && storyStreet && storyResult === storyStreet.chapter) screen.innerHTML = streetStoryResults(storyStreet);
   else if (view === 'results') {
     const ranking = rankCars(currentRace), places = raceResultPlaces(currentRace), player = currentRace.cars[playerSlot]!, placement = places.get(playerSlot)!;
-    const resultLabel = (car: typeof player) => car.finishTick !== null ? formatTime(car.finishTick) : car.dnf ? 'FORFEIT' : currentRace.tick < 5400 ? 'TECHNICAL WIN' : `${Math.max(0, car.progress / 1000).toFixed(1)} m`;
+    const resultLabel = (car: typeof player) => car.finishTick !== null ? formatTime(car.finishTick) : car.dnf ? car.damage !== undefined ? '大破 / WRECKED' : 'FORFEIT' : currentRace.tick < 5400 && car.damage === undefined ? 'TECHNICAL WIN' : `${Math.max(0, car.progress / 1000).toFixed(1)} m`;
     // A story race reports its chapter objective rather than a practice placing.
     const story = storyResult !== null && !replay && !networkRace ? { chapter: storyResult, cleared: storyObjectiveMet(storyResult, placement, places.get(7)), objective: storyObjective(storyResult) } : null;
     screen.innerHTML = `<div class="results-panel"><p class="eyebrow">${story ? `CH. ${String(story.chapter + 1).padStart(2, '0')} · ${story.cleared ? '章クリア / CHAPTER CLEARED' : '目標未達 / OBJECTIVE MISSED'}` : `${replay ? 'REPLAY COMPLETE' : networkRace ? 'LIVE RACE COMPLETE' : 'PRACTICE COMPLETE'} / お疲れ様でした`}</p><div class="result-title"><span>${String(placement).padStart(2, '0')}<small>/${currentRace.cars.length}</small></span><div><h1>${(story ? story.cleared : placement === 1 && (player.finishTick !== null || !player.dnf)) ? 'いい走りだった。' : 'もう一度、走ろう。'}</h1><p>${TRACKS[currentRace.trackId]!.name} · ${resultLabel(player)}</p>${story ? `<p>目標：${escape(story.objective.ja)} / ${escape(story.objective.en)}</p>` : ''}</div></div>${lastAward && !replay && !networkRace ? prizeBox(lastAward, storyResult !== null) : ''}<div class="results-list">${ranking.map(c => `<div class="result-row ${c.slot === playerSlot ? 'you' : ''}"><span>${String(places.get(c.slot)).padStart(2, '0')}</span><i style="background:${LIVERIES[skins[c.slot] ?? 0]!.color}"></i><strong>${escape(raceNames[c.slot])}</strong><span>${resultLabel(c)}</span></div>`).join('')}</div><div class="result-actions">${story ? storyResultActions(story.chapter, story.cleared) : `<button class="primary" data-action="${networkRace ? 'room' : 'rematch'}">${networkRace ? 'SESSION & SETTLEMENT' : 'RUN IT BACK'} <span>↗</span></button>`}${storyResult !== null ?`<button class="text-button" data-action="story-workshop-${Math.min(unlockedChapter, CHAPTERS.length - 1)}">工房で一息 <span lang="en">VISIT THE WORKSHOP →</span></button>` : ''}<button class="text-button" data-action="watch-last">WATCH REPLAY →</button><button class="text-button" data-action="home">ガレージへ <span lang="en">GARAGE</span></button><button class="text-button" data-action="story">物語へ <span lang="en">STORY →</span></button></div><p class="fine-print">${networkRace ? 'Certified simulation result · XOR settlement still requires an accepted native execution proof.' : replay?.source === 'multiplayer' ? 'Replay of a multiplayer session · This view does not authenticate ledger settlement.' : story ? '物語のレース・XORの預け入れや賞金はありません。 / Story race · No XOR was staked or awarded.' : 'Practice session · No XOR was staked or awarded.'}</p></div>`;
@@ -309,6 +325,14 @@ function startPractice(imported?: LocalReplay): void {
   raceRivals = imported || garageSave.stock ? [] : storyRun !== null ? storyRivals(CHAPTERS[storyRun]!.id, raceNames.length, playerSlot) : fieldRivals(raceField!, raceNames.length, playerSlot);
   const tunes = imported ? isGarageReplay(imported) ? imported.tunes : null : currentRace.cars.map(c => c.slot === playerSlot ? garageTune(garageSave) : raceRivals[c.slot]?.tune ?? STOCK_TUNE);
   raceTunes = tunes?.some(tune => !isStockTune(tune)) ? tunes : null;
+  driveRace = null; driveAI = null; wreckFinish = false; driveEvents = [];
+  if (imported ? isDriveReplay(imported) : drivePhysics()) {
+    driveTunes = imported && isDriveReplay(imported) ? imported.tunes.map(tune => ({ ...tune })) : tunes!.map(tune => ({ ...tune }));
+    raceTunes = driveTunes.some(tune => !isStockTune(tune)) ? driveTunes : null;
+    driveRace = arcadeDriveRace(trackId, driveTunes);
+    driveAI = new DriveAI(currentRace.cars.map(c => ({ ...(raceRivals[c.slot] ? DRIVER_SKILLS[raceRivals[c.slot]!.skill] : PRACTICE_SKILLS[c.slot]!), lane: LANES[c.slot]! })));
+    syncDriveState(currentRace, driveRace);
+  }
   raceStats = { offroad: 0, impacts: 0 }; lastAward = null;
   inputs = []; accumulated = 0; countdown = imported ? -1 : 3; lastCountdown = 4; resultSaved = false;
   // Prepare this selected course at its initial native snapshot. The existing
@@ -318,15 +342,32 @@ function startPractice(imported?: LocalReplay): void {
 }
 /** Rival drivers read their own tunes; everyone else is the unchanged practice AI. */
 function aiControl(slot: number): number {
+  if (driveRace && driveAI) return driveAI.control(driveRace, slot);
   const rival = raceRivals[slot];
   return rival ? garageBotControl(currentRace, slot, raceTunes?.[slot] ?? STOCK_TUNE, rival.skill) : botControl(currentRace, slot);
 }
-function advanceRace(row: readonly number[]): void { if (raceTunes) stepTunedRace(currentRace, row, raceTunes); else stepRace(currentRace, row); }
+function advanceRace(row: readonly number[]): void {
+  if (driveRace) {
+    driveRace.step(row); syncDriveState(currentRace, driveRace); setEnvironmentContacts(currentRace, driveContacts(driveRace, currentRace.trackId));
+    if (driveEvents.length < 400) driveEvents.push(...driveRace.events);
+  }
+  else if (raceTunes) stepTunedRace(currentRace, row, raceTunes); else stepRace(currentRace, row);
+}
+/** The race is over: every car finished or wrecked, or the clock ran out. */
+function raceOver(): boolean { return driveRace ? driveRace.done : raceFinished(currentRace); }
+/** The player's hardest hit this tick, for the crash sound: a heavy thud for a big hit, a clang for a knock. */
+function playerImpact(): { tick: number; kind: 'tree' | 'sign' } | undefined {
+  if (!driveRace) return undefined;
+  let strongest = 0, tick = 0;
+  for (const event of driveRace.events) if (event.slot === playerSlot && (event.kind === 'wall' || event.kind === 'car' || event.kind === 'prop') && event.strength > strongest) { strongest = event.strength; tick = event.tick; }
+  return strongest > 1.5 ? { tick, kind: strongest > 9 ? 'tree' : 'sign' } : undefined;
+}
 /** Clean-run bookkeeping and live feedback for drift charging and slipstreams. */
 function trackPlayer(energyBefore: number): void {
   const car = currentRace.cars[playerSlot]!, tune = raceTunes?.[playerSlot];
   if (car.finishTick === null && Math.abs(car.x) > 6000) raceStats.offroad++;
-  raceStats.impacts += environmentContacts(currentRace).filter(contact => contact.slot === playerSlot && contact.kind !== 'oil').length;
+  if (driveRace) raceStats.impacts += driveRace.events.filter(event => event.slot === playerSlot && (event.kind === 'prop' || event.kind === 'wall' || event.kind === 'car') && event.strength > 4).length;
+  else raceStats.impacts += environmentContacts(currentRace).filter(contact => contact.slot === playerSlot && contact.kind !== 'oil').length;
   const hud = document.querySelector<HTMLElement>('#tune-hud');
   if (!hud || !tune) return;
   hud.querySelector<HTMLElement>('[data-hud="drift"]')!.hidden = !(tune.driftCharge && car.energy - energyBefore > tune.boostRecharge);
@@ -369,13 +410,20 @@ function update(dt: number): void {
     while (accumulated >= 1 / 30 && view === 'race') {
       accumulated -= 1 / 30;
       let row: number[];
-      if (replay) { if (!isGarageReplay(replay)) applyReplayDnf(currentRace, replay); row = replay.inputs[currentRace.tick] ?? []; if (!row.length) { finishSession(); break; } }
+      if (replay) { if (!isGarageReplay(replay) && !isDriveReplay(replay)) applyReplayDnf(currentRace, replay); row = replay.inputs[currentRace.tick] ?? []; if (!row.length) { finishSession(); break; } }
       else { controls = playerControls(); row = currentRace.cars.map(c => c.slot === playerSlot ? controls : aiControl(c.slot)); inputs.push(row); }
       const energyBefore = currentRace.cars[playerSlot]!.energy;
       advanceRace(row);
       if (!replay) trackPlayer(energyBefore);
       stepped = true; frameContacts.push(...environmentContacts(currentRace));
-      if (raceFinished(currentRace)) { finishSession(); break; }
+      if (raceOver()) { finishSession(); break; }
+      // Three seconds after a wreck the rest of the field races on to the flag.
+      const wrecked = driveRace?.cars[playerSlot];
+      if (!replay && wrecked?.status === DriveStatus.Wrecked && driveRace!.tick - wrecked.wreckTick >= 90) { wreckFinish = true; break; }
+    }
+    if (wreckFinish && driveRace && view === 'race') {
+      for (let n = 0; n < 450 && !driveRace.done; n++) { const row = currentRace.cars.map(c => c.slot === playerSlot ? 0 : aiControl(c.slot)); inputs.push(row); advanceRace(row); }
+      if (driveRace.done) finishSession();
     }
     if (stepped) setEnvironmentContacts(currentRace, frameContacts);
     if (currentRace.tick > 120) document.querySelector('.race-start-hint')?.classList.add('faded');
@@ -383,6 +431,8 @@ function update(dt: number): void {
     // the engine from the now-finished frame after the results/cutscene silenced it.
     updateDrivingSound(controls);
   } else if (!networkRace && !spectator && view !== 'room') {
+    // The menus' attract race is RaceV1; leave the last local drive race behind.
+    if (driveRace) { driveRace = null; driveAI = null; driveEvents = []; currentRace = createRace(trackId, 8); }
     accumulated += dt;
     while (accumulated >= 1 / 30) {
       accumulated -= 1 / 30;
@@ -403,7 +453,8 @@ function draw(): void {
   if (view === 'proofs') { sceneCover.update(null); proofWorkshop.draw(elapsed); return; }
   if (view === 'cutscene') { sceneCover.update(null); cutscene.draw(elapsed); return; }
   if (view === 'garage') { sceneCover.update(null); renderer.drawShowroom(carId, elapsed, garage.appearance); return; }
-  else renderer.draw(presentation.sample(networkRace && predictedRace && view === 'race' ? predictedRace : currentRace, performance.now(), manualClock || paused), { camera: replay ? replayCameras[replayCamera] : 'chase', contacts: environmentContacts(currentRace), playerSlot, names: raceNames, skins, appearances: networkRace ? networkRace.appearances : spectator ? spectator.appearances : replay ? replay.appearances : { [playerSlot]: garage.appearance }, controls: networkRace ? playerControls() : controls, attract: view !== 'race', hud: view === 'race', countdown: view === 'race' && !replay && !networkRace && !spectator ? countdown : undefined, raceMode: spectator ? '観戦 / SPECTATING' : replay ? '再生 / REPLAY' : networkRace ? '対戦 / LIVE' : storyRun !== null ? `物語 / STORY ${storyRun + 1}` : '練習 / PRACTICE' }, elapsed);
+  else renderer.draw(presentation.sample(networkRace && predictedRace && view === 'race' ? predictedRace : currentRace, performance.now(), manualClock || paused), { camera: replay ? replayCameras[replayCamera] : 'chase', contacts: environmentContacts(currentRace), broken: driveRace && view === 'race' ? driveBrokenObjects(driveRace, currentRace.trackId) : undefined, events: driveRace && view === 'race' ? driveEvents : undefined, playerSlot, names: raceNames, skins, appearances: networkRace ? networkRace.appearances : spectator ? spectator.appearances : replay ? replay.appearances : { [playerSlot]: garage.appearance }, controls: networkRace ? playerControls() : controls, attract: view !== 'race', hud: view === 'race', countdown: view === 'race' && !replay && !networkRace && !spectator ? countdown : undefined, raceMode: spectator ? '観戦 / SPECTATING' : replay ? '再生 / REPLAY' : networkRace ? '対戦 / LIVE' : storyRun !== null ? `物語 / STORY ${storyRun + 1}` : '練習 / PRACTICE' }, elapsed);
+  driveEvents = [];
   const state = readSceneReadiness(canvas);
   // Asset preparation is presentation-only; an authoritative live race or
   // spectator feed must never be hidden or paused by this local loading gate.
@@ -429,11 +480,13 @@ function updateDrivingSound(input: number): void {
   if (currentRace.tick < lastSoundTick) lastSoundContactTick = -1;
   lastSoundTick = currentRace.tick;
   const active = view === 'race' && !paused && !replay && !spectator && countdown <= 0
-    && !car.dnf && car.finishTick === null && !raceFinished(currentRace)
+    && !car.dnf && car.finishTick === null && !raceOver()
     && (!networkRace || ['racing', 'waiting'].includes(networkRace.status.phase));
   if (!active) { audio.stopDrive(); return; }
   const contact = environmentContacts(currentRace).filter(event => event.slot === playerSlot && event.kind !== 'oil').at(-1);
-  const impact = contact && contact.kind !== 'oil' && contact.tick > lastSoundContactTick ? { tick: contact.tick, kind: contact.kind } : undefined;
+  const crash = playerImpact();
+  const impact = crash && crash.tick > lastSoundContactTick ? crash
+    : contact && contact.kind !== 'oil' && contact.tick > lastSoundContactTick ? { tick: contact.tick, kind: contact.kind } : undefined;
   if (impact) lastSoundContactTick = impact.tick;
   audio.drive(car.speed, true, !!(input & C.boost) && car.energy >= 25, {
     controls: input, lateral: car.vx, offroad: Math.abs(car.x) > 6000,
@@ -445,7 +498,9 @@ function finishSession(): void {
   audio.stopDrive();
   if (!replay && !spectator && !resultSaved) {
     const appearances = currentRace.cars.map(c => c.slot === playerSlot ? garage.appearance : { skin: null, upgrade: null });
-    const record: LocalReplay = networkRace?.exportReplay() ?? (raceTunes
+    const record: LocalReplay = networkRace?.exportReplay() ?? (driveRace
+      ? { version: 1, rules: DRIVE_RULES, trackId, names: [...raceNames], skins: [...skins], tunes: driveTunes.map(tune => ({ ...tune })), appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
+      : raceTunes
       ? { version: 1, rules: GARAGE_RULES, baseRulesHash: RACE_RULES_HASH, trackId, names: [...raceNames], skins: [...skins], tunes: raceTunes.map(tune => ({ ...tune })), appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
       : { version: 1, rules: 'RaceV1', rulesHash: RACE_RULES_HASH, trackId, names: [...raceNames], skins: [...skins], appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' });
     try { const history = getHistory(); localStorage.setItem(historyKey, JSON.stringify([record, ...history].slice(0, 10))); } catch { toast('Replay storage is full. Export this session from the results.'); }
@@ -742,4 +797,4 @@ declare global {
 }
 window.render_game_to_text = () => JSON.stringify({ mode: view, graphics: { ...readSceneReadiness(canvas), preparing: localScenePreparing || view === 'street' && street.state.phase === 'loading' }, nativeProof: view === 'prove' ? nativeProof.state : null, proofWorkshop: view === 'proofs' ? proofWorkshop.state : null, garage: garage.state, garageTech: { ...tuning.state, raceTuned: raceTunes !== null, raceField, award: lastAward }, soundtrack: records.state, story: { unlockedChapter, activeChapter: storyRun, resultChapter: storyResult, cutscene: view === 'cutscene' ? cutscene.state : null }, paused, replay: !!replay, replayCamera: replay ? replayCameras[replayCamera] : null, spectating: !!spectator, track: TRACKS[trackId]!.name, tick: currentRace.tick, countdown: Math.max(0, countdown), coordinates: 'progress:mm along track; x:mm rightward from road center; speed:mm/tick;30Hz', names: raceNames, playerSlot, player: currentRace.cars[playerSlot], cars: currentRace.cars, position: raceResultPlaces(currentRace).get(playerSlot), controls, gamepadActive, music: audio.musicEnabled, musicState: audio.musicState, drivingSound: audio.driveState, environment: { rain: environmentAt(currentRace.trackId, currentRace.tick).rain, wind: environmentAt(currentRace.trackId, currentRace.tick).wind, contacts: environmentContacts(currentRace), nearby: environmentAt(currentRace.trackId, currentRace.tick).objects.filter(object => Math.abs(object.progress - currentRace.cars[playerSlot]!.progress) < 100000) }, network: chain.state.phase, stakeEnabled: chain.canStake, previousView, street: view === 'street' ? street.state : null, ...(view === 'street' ? { tick: street.state.fullStreetState?.tick ?? 0, track: STREET_ROUTES.find(route => route.id === streetRoute)?.name ?? streetRoute, replay: street.state.replay, replayCamera: street.state.replay ? street.state.camera : null, playerSlot: street.state.playerSlot, names: street.state.names, coordinates: 'progressMm/lateralMm:mm; speedMmPerTick:mm/tick at30Hz; body/velocity yaw:microturn', position: street.state.fullStreetState?.cars[street.state.playerSlot]?.rank ?? null, player: street.state.fullStreetState?.cars[street.state.playerSlot] ?? null, cars: street.state.fullStreetState?.cars ?? [], paused: street.state.phase === 'paused', countdown: street.state.countdown, environment: null, stakeEnabled: false } : {}) });
 window.advanceTime = ms => { manualClock = true; const steps = Math.max(1, Math.ceil(ms / (1000 / 60))); for (let i = 0; i < steps; i++) update(ms / 1000 / steps); draw(); };
-window.soraCars = { startStreet: () => startStreet(), finishStreetPractice: () => street.finishPractice(), state: () => copyRace(currentRace), startPractice: () => startPractice(), setTrack: chooseTrack, finishPractice: () => { if (view !== 'race' || replay || networkRace || spectator) return; countdown = -1; while (!raceFinished(currentRace)) { const row = currentRace.cars.map(c => c.slot === playerSlot ? botControl(currentRace, c.slot) : aiControl(c.slot)); inputs.push(row); advanceRace(row); } finishSession(); } };
+window.soraCars = { startStreet: () => startStreet(), finishStreetPractice: () => street.finishPractice(), state: () => copyRace(currentRace), startPractice: () => startPractice(), setTrack: chooseTrack, finishPractice: () => { if (view !== 'race' || replay || networkRace || spectator) return; countdown = -1; while (!raceOver()) { const row = currentRace.cars.map(c => c.slot === playerSlot && !driveAI ? botControl(currentRace, c.slot) : aiControl(c.slot)); inputs.push(row); advanceRace(row); } finishSession(); } };

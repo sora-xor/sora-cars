@@ -23,6 +23,8 @@ import { loadDetailedScenery } from './asset-scenery';
 import { createRoadsideInfrastructure, guardrailGeometry } from './infrastructure';
 import { streetPresentation } from '../street/presentation';
 import { createDrivingEffects } from './driving-effects';
+import { createCrashEffects } from './crash-effects';
+import type { DriveEvent } from '../drive/race';
 import { createUnderstory, type UnderstoryField, type UnderstoryPatch } from './undergrowth';
 import { createSlopeTerrain, createTerrain, terrainHeightAt, type SlopeTerrain } from './terrain';
 import { createUrbanGround } from './urban-ground';
@@ -59,7 +61,9 @@ import { crownLight, crownLightGlsl } from './autumn-foliage';
 // scale so car liveries, signs, normals and shadows remain correctly oriented.
 interface Pose { x: number; y: number; z: number; heading: number; width: number; p: number }
 interface Course { key: unknown; length: number; circuit: boolean; poses: Pose[]; style: number }
-interface VisualCar { retired?: boolean; p: number; lateral: number; yaw: number; slip: number; speed: number; color: string; accent?: string; aero?: boolean; boosting: boolean; braking: boolean; steer: number }
+interface VisualCar { retired?: boolean; p: number; lateral: number; yaw: number; slip: number; speed: number; color: string; accent?: string; aero?: boolean; boosting: boolean; braking: boolean; steer: number;
+  /** Driving model only: damage points (100 wrecks), detached-part mask and a wreck still on the road. */
+  damage?: number; detached?: number; wreck?: boolean }
 interface Hazard { id: string; kind: 'tree' | 'sign' | 'oil'; p: number; lateral: number; halfWidth: number; halfLength: number; broken: boolean }
 interface ShopAreaLightSlot { fixtureId: string | null; gain: number }
 const TAU = Math.PI * 2;
@@ -413,6 +417,14 @@ function point(p: Pose, lateral: number, up = 0, forward = 0): THREE.Vector3 {
     p.y + up, p.z - Math.sin(p.heading) * lateral + Math.cos(p.heading) * forward);
 }
 
+const sootCache = new Map<string, string>();
+/** A wreck's paint, scorched and dulled. */
+function sooty(color: string): string {
+  let result = sootCache.get(color);
+  if (!result) sootCache.set(color, result = `#${new THREE.Color(color).lerp(new THREE.Color('#231d1c'), 0.62).getHexString()}`);
+  return result;
+}
+
 /** One WebGL scene per shared display canvas; both driving modes use the same real 3D assets. */
 export class RaceWorld {
   readonly canvas = document.createElement('canvas');
@@ -436,6 +448,10 @@ export class RaceWorld {
   private pixelArtView: string | null = null;
   private readonly groupedLighting = this.renderingMode === 'grouped' ? createClusteredLighting() : null;
   readonly effects;
+  /** Sparks, smoke, fire and broken-off panels from the local driving model. */
+  readonly crash;
+  private crashTime: number | null = null;
+  private readonly crashCarState: { detached: number; velocity: THREE.Vector3; position: THREE.Vector3 }[] = [];
   readonly flag: THREE.Texture;
   readonly roadMaterial: THREE.MeshStandardMaterial;
   private readonly roadFinish: RoadFinish;
@@ -565,6 +581,7 @@ export class RaceWorld {
       diffuseBands: 1, specularStrength: 0, shadeTint: .35,
     });
     this.effects = createDrivingEffects(this.scene);
+    this.crash = createCrashEffects(this.scene);
     const loader = new THREE.TextureLoader();
     this.flag = loader.load(asset('sora-flag.png')); this.flag.colorSpace = THREE.SRGBColorSpace;
     this.periodCity = new PeriodCity(asset('branding/sora-emblem-source.png'), asset('sprites/street-people.png'), asset('sprites/window-interiors.png'));
@@ -775,30 +792,40 @@ export class RaceWorld {
     const cars = state.cars.map((car, i): VisualCar => {
       const appearance = options.appearances?.[i];
       const livery = clubLivery(LIVERIES[options.skins[i] ?? i % 6] ?? LIVERIES[0]!, appearance);
-      return { retired: car.dnf || car.finishTick !== null, p: car.progress / 1000, lateral: -car.x / 1000, yaw: clamp(-car.vx / 450, -0.42, 0.42),
+      const base = { p: car.progress / 1000, lateral: -car.x / 1000, speed: car.speed * 0.03, color: livery.color, accent: clubItem(appearance?.skin)?.accent,
+        aero: appearance?.upgrade === 'club-aero-86' };
+      // The driving model supplies each car's real heading, slip, wheels and damage.
+      if (car.heading !== undefined) return { ...base, retired: car.finishTick !== null || car.dnf && !car.solid, wreck: car.dnf && car.solid,
+        yaw: -car.heading, slip: -(car.slip ?? 0), steer: -(car.wheel ?? 0), boosting: !!car.boosting, braking: !!car.braking,
+        damage: car.damage, detached: car.detached };
+      return { ...base, retired: car.dnf || car.finishTick !== null, yaw: clamp(-car.vx / 450, -0.42, 0.42),
         slip: i === options.playerSlot && controls & CONTROL.drift ? clamp(-car.vx / 450, -0.42, 0.42) : 0,
-        speed: car.speed * 0.03, color: livery.color, accent: clubItem(appearance?.skin)?.accent,
-        aero: appearance?.upgrade === 'club-aero-86', boosting: i === options.playerSlot && !!(controls & CONTROL.boost) && car.energy >= 25 && car.speed > 0,
+        boosting: i === options.playerSlot && !!(controls & CONTROL.boost) && car.energy >= 25 && car.speed > 0,
         braking: i === options.playerSlot && !!(controls & CONTROL.brake), steer: i === options.playerSlot ? ((controls & CONTROL.left ? 1 : 0) - (controls & CONTROL.right ? 1 : 0)) * 0.25 : 0 };
     });
     const env = options.environment ?? environmentAt(state.trackId, Math.round(state.tick));
     const hazards = env.objects.map(o => ({ id: `arc-${o.id}`, kind: o.kind, p: o.progress / 1000, lateral: -o.x / 1000,
-      halfWidth: o.halfWidth / 1000, halfLength: o.halfLength / 1000, broken: false }));
-    this.draw(course, cars, options.playerSlot, options.camera ?? 'chase', hazards, env.rain > 0, time);
+      halfWidth: o.halfWidth / 1000, halfLength: o.halfLength / 1000, broken: options.broken?.includes(o.id) ?? false }));
+    this.draw(course, cars, options.playerSlot, options.camera ?? 'chase', hazards, env.rain > 0, time, null,
+      options.events ? { events: options.events, props: hazards.filter(hazard => hazard.kind !== 'tree') } : null);
     return this.canvas;
   }
 
   renderStreet(track: CompiledStreetTrack, state: StreetRenderState, options: StreetRenderOptions, time: number): HTMLCanvasElement {
-    const cars = state.cars.map((car, i): VisualCar => ({ retired: car.status !== 0, p: car.progressMm / 1000, lateral: -car.lateralMm / 1000,
+    const cars = state.cars.map((car, i): VisualCar => ({
+      // A driving-model wreck (status 2) stays on the road until it is towed.
+      retired: car.status !== 0 && !(car.status === 2 && car.solid === 1), wreck: car.status === 2 && car.solid === 1,
+      p: car.progressMm / 1000, lateral: -car.lateralMm / 1000,
       yaw: -car.bodyYawMicroturn * TAU / 1e6, slip: (car.velocityYawMicroturn - car.bodyYawMicroturn) * TAU / 1e6, speed: car.speedMmPerTick * 0.03,
       color: LIVERIES[car.skin]?.color ?? LIVERIES[0]!.color, boosting: car.boosting === 1,
-      braking: i === options.playerSlot && !!(options.controls & CONTROL.brake),
-      steer: clamp((car.velocityYawMicroturn - car.bodyYawMicroturn) * TAU / 1e6, -0.4, 0.4) }));
+      braking: car.braking !== undefined ? car.braking === 1 : i === options.playerSlot && !!(options.controls & CONTROL.brake),
+      steer: car.wheel !== undefined ? -car.wheel : clamp((car.velocityYawMicroturn - car.bodyYawMicroturn) * TAU / 1e6, -0.4, 0.4),
+      damage: car.damage, detached: car.detached }));
     const hazards = (options.objects ?? []).map((o, i): Hazard => ({ id: `street-${o.id}`, kind: o.kind === 'oil' ? 'oil' : o.kind === 'tree_planter' ? 'tree' : 'sign',
       p: o.progressMm / 1000, lateral: -o.lateralMm / 1000, halfWidth: o.halfWidthMm / 1000, halfLength: o.halfLengthMm / 1000,
       broken: Math.floor((state.worldBrokenMask ?? 0) / 2 ** i) % 2 === 1 }));
     this.draw(streetCourse(track), cars, options.playerSlot, options.camera ?? 'chase', hazards, (options.rain ?? 0) > 0,
-      options.paused ? state.tick / 30 : time, streetLight(track, state.tick));
+      options.paused ? state.tick / 30 : time, streetLight(track, state.tick), options.events ? { events: options.events, props: hazards } : null);
     return this.canvas;
   }
 
@@ -806,6 +833,7 @@ export class RaceWorld {
     if (this.course === course) return;
     this.localCarReflections.invalidate();
     this.effects.reset();
+    this.crash.reset();
     this.course = course; this.sceneryCell = NaN; this.lastProgress = NaN;
     this.shopAreaLightSlots.forEach(slot => { slot.fixtureId = null; slot.gain = 0; });
     this.shopAreaLights.forEach(light => { light.intensity = 0; });
@@ -1176,8 +1204,52 @@ export class RaceWorld {
     this.posts.count = this.rails.count = index; this.posts.instanceMatrix.needsUpdate = this.rails.instanceMatrix.needsUpdate = true;
   }
 
+  /** Driving-model crashes: sparks at contacts, panels and props thrown down the road, smoke and fire from damaged cars. */
+  private crashFrame(course: Course, cars: VisualCar[], crashes: { events: readonly DriveEvent[]; props: readonly Hazard[] } | null, time: number, near: THREE.Vector3): void {
+    const reduced = this.reduced.matches, dt = Math.max(1e-3, time - (this.crashTime ?? time - 1 / 60));
+    this.crashTime = time;
+    const views = this.cars.map((model, i) => {
+      const car = cars[i], state = this.crashCarState[i] ??= { detached: 0, velocity: new THREE.Vector3(), position: new THREE.Vector3() };
+      const position = model.group.position;
+      if (position.distanceToSquared(state.position) < 400) state.velocity.subVectors(position, state.position).divideScalar(dt);
+      else state.velocity.set(0, 0, 0);
+      state.position.copy(position);
+      return { visible: model.group.visible && !!car, object: model.group, velocity: state.velocity, damage: car?.damage ?? 0, wreck: !!car?.wreck };
+    });
+    for (const event of crashes?.events ?? []) {
+      const pose = poseAt(course, event.s), at = point(pose, -event.d, 0.45);
+      const model = this.cars[event.slot], seed = (event.tick * 31 + event.slot * 7 + event.other * 13) % 997;
+      const jitter = (k: number) => ((seed * (k + 3) * 7919) % 1000) / 1000 - 0.5;
+      const forward = new THREE.Vector3(Math.sin(pose.heading), 0, Math.cos(pose.heading));
+      const right = new THREE.Vector3(-Math.cos(pose.heading), 0, Math.sin(pose.heading));
+      if (event.kind === 'wall' || event.kind === 'scrape' || event.kind === 'car' || event.kind === 'wreck') {
+        const velocity = this.crashCarState[event.slot]?.velocity ?? forward;
+        this.crash.sparks(at, velocity.clone().multiplyScalar(0.55), Math.min(event.kind === 'scrape' ? 4 : 18, event.kind === 'wreck' ? 14 : event.strength), time, reduced);
+      } else if (event.kind === 'part' && model?.breakPart) {
+        const piece = model.breakPart(event.other);
+        if (!piece) continue;
+        model.group.updateMatrixWorld();
+        piece.object.applyMatrix4(model.group.matrixWorld);
+        const velocity = forward.clone().multiplyScalar(event.vs * 0.82).addScaledVector(right, event.vd)
+          .add(new THREE.Vector3(jitter(1) * 4, 2 + Math.abs(jitter(2)) * 4, jitter(3) * 4));
+        this.crash.debris(piece.object, velocity, new THREE.Vector3(jitter(4) * 14, jitter(5) * 14, jitter(6) * 14), time, piece.size, pose.y);
+        this.crash.sparks(at, velocity.clone().multiplyScalar(0.3), 5, time, reduced);
+      } else if (event.kind === 'prop') {
+        const hazard = crashes?.props[event.other], source = hazard && this.hazards.get(hazard.id);
+        if (!source) continue;
+        const piece = source.clone(); piece.visible = true;
+        piece.position.copy(source.position); piece.quaternion.copy(source.quaternion); piece.scale.copy(source.scale);
+        const velocity = forward.clone().multiplyScalar(event.vs).addScaledVector(right, event.vd).add(new THREE.Vector3(0, 2.5 + Math.abs(jitter(1)) * 3, 0));
+        this.crash.debris(piece, velocity, new THREE.Vector3(jitter(2) * 6, jitter(3) * 3, jitter(4) * 6), time, 1, poseAt(course, hazard.p).y);
+      }
+    }
+    this.crash.update(views, time, reduced, near);
+    const stats = this.crash.stats;
+    this.output.dataset.crashEffects = `${stats.sparks} ${stats.smoke} ${stats.fire} ${stats.debris}`;
+  }
+
   private draw(course: Course, cars: VisualCar[], slot: number, view: 'chase' | 'bumper' | 'aerial', hazards: Hazard[], wet: boolean, time: number,
-    light: { readonly mood: RaceMood; readonly daylight: number } | null = null): void {
+    light: { readonly mood: RaceMood; readonly daylight: number } | null = null, crashes: { events: readonly DriveEvent[]; props: readonly Hazard[] } | null = null): void {
     this.setCourse(course);
     const player = cars[slot]; if (!player) return;
     const at = poseAt(course, player.p), ahead = poseAt(course, player.p + 20);
@@ -1442,7 +1514,8 @@ export class RaceWorld {
       // blocks sky light. Retired/distant cars and corridor fades clear the field.
       const castsAmbient = !(car.retired && i !== slot) && model.group.position.distanceToSquared(point(at, player.lateral)) <= 450 ** 2;
       this.vehicleAmbient.setCar(i, model.group.position, cp.heading + car.yaw, castsAmbient ? opacity : 0);
-      model.setAppearance(car.color, car.accent, car.aero);
+      model.setAppearance(car.wreck ? sooty(car.color) : car.color, car.accent, car.aero);
+      model.setDamage?.(car.detached ?? 0);
       model.animate(car.speed, car.steer, car.braking, car.boosting, time);
       // Distant cars are drawn in their livery's palette ramp.
       this.pixelArt.setMoverColour(i, car.color);
@@ -1516,6 +1589,7 @@ export class RaceWorld {
       mesh.visible = !hazard.broken;
       if (hazard.kind === 'tree') mesh.scale.setScalar(0.65);
     }
+    this.crashFrame(course, cars, crashes, time, point(at, player.lateral));
     const aspect = this.output.width / this.output.height, mobile = aspect < 0.8;
     this.camera.aspect = aspect;
     this.camera.fov = 55 + this.speedEnvelope * 5 + this.boostEnvelope * 3;

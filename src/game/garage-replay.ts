@@ -3,6 +3,7 @@ import { createRace, raceFinished, replayState, validateReplay, type RaceState, 
 import { validateClubAppearance, type ClubAppearance } from './catalog';
 import { RULES, TRACKS } from './rules';
 import { isStockTune, stepTunedRace, validateTune, type CarTune } from './tuned-engine';
+import { driveArcadeState, driveReplayRace, isDriveReplay, validateDriveReplay, type DriveReplayV1 } from './drive/arcade';
 
 /** A local garage race. Per-car tunes change the arithmetic, so it carries its own
  * rules identity and is never offered as a RaceV1 transcript, proof or settlement.
@@ -14,7 +15,7 @@ export interface GarageReplayV1 {
   names: string[]; skins: number[]; tunes: CarTune[]; inputs: number[][]; savedAt: string; source: 'practice';
   appearances?: ClubAppearance[];
 }
-export type LocalReplay = ReplayV1 | GarageReplayV1;
+export type LocalReplay = ReplayV1 | GarageReplayV1 | DriveReplayV1;
 export const isGarageReplay = (replay: LocalReplay): replay is GarageReplayV1 => replay.rules === GARAGE_RULES;
 
 export function validateGarageReplay(value: unknown): GarageReplayV1 {
@@ -34,9 +35,11 @@ export function validateGarageReplay(value: unknown): GarageReplayV1 {
   return structuredClone({ ...r, tunes });
 }
 export function validateLocalReplay(value: unknown): LocalReplay {
-  return (value as LocalReplay | null)?.rules === GARAGE_RULES ? validateGarageReplay(value) : validateReplay(value);
+  const rules = (value as LocalReplay | null)?.rules;
+  return rules === GARAGE_RULES ? validateGarageReplay(value) : rules && isDriveReplay({ rules }) ? validateDriveReplay(value) : validateReplay(value);
 }
 export function localReplayState(replay: LocalReplay): RaceState {
+  if (isDriveReplay(replay)) return driveArcadeState(replay.trackId, driveReplayRace(replay));
   if (!isGarageReplay(replay)) return replayState(replay);
   const state = createRace(replay.trackId, replay.names.length);
   for (const row of replay.inputs) stepTunedRace(state, row, replay.tunes);

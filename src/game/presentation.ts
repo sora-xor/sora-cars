@@ -49,6 +49,11 @@ export class RacePresentation {
       car.progress = from.progress + (car.progress - from.progress) * alpha;
       car.x = from.x + (car.x - from.x) * alpha;
       car.vx = from.vx + (car.vx - from.vx) * alpha;
+      // Driving-model headings turn smoothly between ticks, by the short way round.
+      if (car.heading !== undefined && from.heading !== undefined) {
+        const turn = car.heading - from.heading, short = turn - Math.PI * 2 * Math.round(turn / (Math.PI * 2));
+        car.heading = from.heading + short * alpha;
+      }
     }
     return rendered;
   }

@@ -1,5 +1,7 @@
 import type { CompiledStreetTrack } from './track';
 import type { StreetObject } from './objects';
+import type { DriveEvent } from '../drive/race';
+import { drawDamageGauge, drawWreckBanner } from '../drive/hud';
 import { streetPresentation, type StreetPresentation } from './presentation';
 import { streetRouteStyle } from './routes';
 import { drawIllustratedShop, drawIllustratedTree } from '../illustrated-scenery';
@@ -24,6 +26,9 @@ export interface StreetRenderCar {
   oil?: number;
   oilCrossed?: number;
   propHitMask?: number;
+  /** Driving model only: damage points, zone damage, detached parts, wheel angle, brakes, and 1 while a wreck still collides. */
+  damage?: number; damageFront?: number; damageRear?: number; damageLeft?: number; damageRight?: number;
+  detached?: number; wheel?: number; braking?: number; solid?: number;
 }
 export interface StreetRenderState { tick: number; cars: readonly StreetRenderCar[]; worldBrokenMask?: number }
 export interface StreetRenderOptions {
@@ -42,6 +47,8 @@ export interface StreetRenderOptions {
   presentationTitles?: boolean;
   /** Minimum mobile title top in CSS pixels, measured by the owning UI. */
   presentationTopInset?: number;
+  /** Driving model only: crash events since the last frame, for sparks and flying panels. */
+  events?: readonly DriveEvent[];
 }
 
 type Vec = { x: number; y: number; z: number };
@@ -1044,6 +1051,12 @@ export class StreetRaceRenderer {
     if (car.status === 0 && (car.propHitMask ?? 0) > 0) {
       ctx.fillStyle = '#ffd590'; ctx.font = 'bold 10px SoraJP, LabJP, sans-serif';
       ctx.fillText('接触 / IMPACT', pad, bottom - 63);
+    }
+    // Driving model: damage by zone beside the turbo meter, and a wreck is not a forfeit.
+    if (car.damage !== undefined) {
+      drawDamageGauge(ctx, pad + meterWidth + (mobile ? 12 : 22), bottom, { front: car.damageFront ?? 0, rear: car.damageRear ?? 0,
+        left: car.damageLeft ?? 0, right: car.damageRight ?? 0, total: car.damage }, state.tick / 30, mobile);
+      if (car.status === 2) { drawWreckBanner(ctx, w, h); return; }
     }
     if (options.paused || car.status !== 0) {
       const label = car.status === 1 ? ['ゴール', 'FINISHED'] : car.status === 2 ? ['走行終了', 'FORFEIT'] : car.status === 3 ? ['制限時間', 'TIME LIMIT'] : ['一時停止', 'PAUSED'];
