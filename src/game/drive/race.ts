@@ -41,6 +41,12 @@ export const RECOVERY_TICKS = 150;
 const DRIFT_ANGLE = 0.45, SLIDE_RATE = 4;
 /** Everyone tows in a slipstream; the garage's wind-tunnel body tows more. */
 const NATURAL_DRAFT = 0.15;
+/** The garage's launch traction works up to 160 km/h, as its card says. */
+export const LAUNCH_SPEED = 160 / 3.6;
+/** Drift charge: bends of at least this curvature (1/m) count, and a tight corner
+ * (380 m radius, curve 2 in RaceV1) earns the spec's full charge per tick. */
+export const DRIFT_BEND = 0.001;
+const TIGHT_CORNER = 1 / 380;
 
 /** Path curvature (1/m) at full steering lock. Slow, it is the wheels' lock;
  * at speed, the tyres' dry cornering limit with a little to spare, so a held key
@@ -227,8 +233,8 @@ export class DriveRace {
       if (car.boosting) car.energy = Math.max(0, car.energy - spec.boostCost);
       else car.energy = Math.min(1000, car.energy + spec.boostRecharge);
       const kappa = sampleCourse(this.course, car.s).kappa;
-      if (car.drifting && spec.driftCharge > 0 && car.u > 25 && Math.abs(kappa) > 0.004 && Math.abs(car.slipRear) > 0.1
-        && Math.sign(car.steer) === Math.sign(kappa)) car.energy = Math.min(1000, car.energy + spec.driftCharge);
+      if (car.drifting && spec.driftCharge > 0 && car.u > 25 && Math.abs(kappa) >= DRIFT_BEND && car.slide > 0.9 && Math.abs(car.slipRear) > 0.02
+        && Math.sign(car.steer) === Math.sign(kappa)) car.energy = Math.min(1000, car.energy + spec.driftCharge * Math.min(2, Math.abs(kappa) / TIGHT_CORNER));
     }
     this.tick++;
     for (const car of this.cars) {
@@ -342,12 +348,12 @@ export class DriveRace {
     // Longitudinal forces.
     let driveForce = 0, brakeFront = 0, brakeRear = 0;
     if (throttle) {
-      const limit = (car.boosting ? spec.boostTopSpeed : spec.topSpeed) * (wake ? 1.02 : 1);
+      const limit = wake ? ((car.boosting ? spec.boostTopSpeed : spec.topSpeed) + spec.draftSpeed) * 1.02 : car.boosting ? spec.boostTopSpeed : spec.topSpeed;
       const power = (spec.power + (car.boosting ? spec.boostPower : 0)) * effects.power;
       driveForce = power / Math.max(Math.abs(car.u), 6) + (car.boosting ? spec.boostKick : 0);
       driveForce *= clamp((limit - car.u) / (0.025 * limit), 0, 1);
       // Traction control trims wheelspin unless the driver asks for a slide.
-      const traction = muRear * rear * (drift ? 1 : 0.92) * (1 + (car.u < 25 ? spec.launch : 0));
+      const traction = muRear * rear * (drift ? 1 : 0.92) * (1 + (car.u < LAUNCH_SPEED ? spec.launch : 0));
       driveForce = Math.min(driveForce, traction);
     } else if (car.reverse && racing) {
       driveForce = car.u > -REVERSE_SPEED ? -Math.min(6000, muRear * rear * 0.8) : 0;
@@ -486,7 +492,7 @@ export class DriveRace {
       car.wall = true;
       // Push out along the wall normal, then resolve velocity at the contact point.
       car.d += hit.ny * deepest; car.s += hit.nx * deepest / stretch;
-      this.#resolveStatic(car, hit.x, hit.y, hit.nx, hit.ny, WALL_RESTITUTION, WALL_FRICTION, 'wall', -1);
+      this.#resolveStatic(car, hit.x, hit.y, hit.nx, hit.ny, WALL_RESTITUTION, WALL_FRICTION * spec.railFriction, 'wall', -1);
     }
   }
 

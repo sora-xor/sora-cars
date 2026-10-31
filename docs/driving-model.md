@@ -23,8 +23,11 @@ One AE86-sized rear-drive coupe: 1,050 kg, 2.40 m wheelbase with 56% of the
 weight on the front axle, 1,750 kg·m² yaw inertia and a 3.9 × 1.6 m collision
 box, slightly inside the drawn body. Garage parts keep their meaning:
 `vehicleSpec` turns each RaceV1-scaled tune field into a physical property
-(acceleration into engine power, top speed into the rev limiter, corner load
-into tyre grip, contact and impact losses into toughness, and so on).
+(acceleration into engine power, top speed into the rev limiter, boost top
+speed into the boost limiter and boost power, corner load into tyre grip,
+off-road loss into rail friction, contact and impact losses into toughness,
+and so on; [garage-tech-tree.md](garage-tech-tree.md) has the table). The
+stock tune gives exactly the stock car.
 
 - **Tyres.** Each axle follows a combined-slip Pacejka curve (B 11, C 1.4):
   peak grip near 9° of slip and about 80% of it when sliding, shared with
@@ -56,7 +59,8 @@ into tyre grip, contact and impact losses into toughness, and so on).
   settles into a slide of 30–40° at full lock, scaled by how far the
   steering is turned, whatever the speed. On the throttle it turns a little
   tighter than a gripping car at 60–90 km/h and charges boost with the
-  drift-charge parts. Releasing the button lets the tyres bite again over the
+  drift-charge parts, on any bend tighter than a kilometre's radius and more in
+  tighter ones. Releasing the button lets the tyres bite again over the
   same quarter second, and the car straightens without whipping back the
   other way. Off the throttle a drift also drags the rear brakes.
 - **Stability control.** Outside a drift, a capped yaw moment keeps yaw near
@@ -146,10 +150,11 @@ course. It prints finishing times, contacts, wrecks, marshal recoveries and
 stalls. In the last run every car finished every course with no wreck,
 recovery or stall. A lone AI car stays within about 0.5 m of its racing line
 on average and finishes an Arcade race with almost no rail contact. Arcade races
-take 75–102 s, close to the earlier engine's 76–103 s with its club drivers.
-Tokyo (256–272 s against its 255 s song) and Aizu (150–159 s, 161 s song)
-finish close to the end of their songs; Kyoto (225–236 s, 209 s song) and Nara
-(191–206 s, 179 s song) run 10–15% long. Irohazaka (239–255 s against its
+take 74–103 s, close to the earlier engine's 76–103 s with its club drivers;
+the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (256–274 s
+against its 255 s song) and Aizu (148–161 s, 161 s song) finish close to the
+end of their songs; Kyoto (222–240 s, 209 s song) and Nara (192–206 s, 179 s
+song) run 10–15% long. Irohazaka (239–255 s against its
 187 s song) is slower than the earlier draft model, whose 3 g acceleration and
 9 g braking made its twenty hairpins nearly free. Even near-perfect AI drivers
 need about 236 s there. The street songs do not loop, so the end of a long
@@ -157,11 +162,15 @@ race is silent. The driving model gives street races 12,000 ticks (400 s) so
 slower drivers can still finish.
 
 The AI follows a minimum-curvature racing line at a grip-limited speed with
-pure pursuit steering and the same control bits a player presses; it never
-drifts and has not been calibrated against measured human lap times. The
-garage balance tables in `docs/garage-tech-tree.md`, and the race time each
-part card shows (`RACE_GAINS`), were measured on the earlier tuned engine. On
-the driving model the engine parts and anti-lag save the AI drivers about as
-much as the cards say. The chassis and body parts and the big turbo save them
-almost nothing, because grip changes are small, the AI never drifts and clean
-races leave little damage to protect against.
+pure pursuit steering and the same control bits a player presses. The Arcade
+circuits' bends are 253–760 m in radius, so there no bend limits that speed, no
+driver brakes and the engine holds the rev limiter; the drivers differ in how
+they use the boost. A burst's extra speed coasts down slowly, so long bursts
+gain far more than short ones: club drivers never fire it, pro drivers wait for
+85% of a tank and ace drivers for 95%. A driver boosts past a car once its own
+path is clear, and an ace whose build has drift charge drifts through every
+bend. The AI has not been calibrated against measured human lap times. The
+garage balance, and the race time each part card shows (`RACE_GAINS`), are
+measured on this model with the AI and with keyboard reference drivers that
+steer late, lift and brake when they run wide and keep their own boost habits;
+see [garage-tech-tree.md](garage-tech-tree.md).

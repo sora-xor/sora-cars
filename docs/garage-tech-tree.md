@@ -14,17 +14,42 @@ multipliers ever reach a staked session, a proof or a RaceV1 transcript.
 | --- | --- | --- |
 | Practice, 練習 | Your fitted parts | The selected practice field |
 | Story, 物語 | Your fitted parts, set in the pre-race garage before each chapter's race | Crew in stock cars; Rei Sorashiro and Toru Amamiya tune up as the plot escalates |
-| Either, with **全車ノーマル / EQUAL CARS** on | Exact RaceV1 for everyone | The original stock practice and story grids |
+| Either, with **全車ノーマル / EQUAL CARS** on | The stock car for everyone | The original stock practice and story grids |
 | Live XOR races, spectating, Tokyo street run | Unchanged | Unchanged |
 
-A race in which every car is stock runs on the native RaceV1 kernel and saves a
-normal `RaceV1` replay. Any tuned car switches the race to
-`src/game/tuned-engine.ts`, which is a parameterised copy of the RaceV1 step.
-With `STOCK_TUNE` it reproduces the native circuit tick for tick, including
-every tree, sign and oil contact (checked on all tracks and grid sizes by
-`tests/garage-tech.test.ts`). Tuned races save a separate `SoraGarageV1` replay
-that records every car's tune and the RaceV1 rules hash it was derived from. It
-re-simulates exactly, and it is never accepted as a RaceV1 transcript.
+Practice and story races run on the rigid-body driving model
+([driving-model.md](driving-model.md)), where `vehicleSpec` turns every tune
+field into a property of the car (below), and save `SoraDriveV1` replays with
+every car's tune. With `?physics=native` they run on RaceV1 instead: an
+all-stock race on the native kernel, and a tuned one on
+`src/game/tuned-engine.ts`, a parameterised copy of the RaceV1 step that
+reproduces the native circuit tick for tick with `STOCK_TUNE` (checked on all
+tracks and grid sizes by `tests/garage-tech.test.ts`). Those tuned races save a
+separate `SoraGarageV1` replay that records every car's tune and the RaceV1
+rules hash it was derived from. It re-simulates exactly, and it is never
+accepted as a RaceV1 transcript. The balance below is measured on the driving
+model only.
+
+### How parts act on the driving model
+
+Tune fields keep RaceV1's scale, so the garage's km/h and seconds read the same,
+and `vehicleSpec(STOCK_TUNE)` is exactly the stock car: equal-car races and their
+replays are unaffected by the garage.
+
+| Fields | Driving model |
+| --- | --- |
+| `topSpeed`, `boostSpeed` | The rev limiter and the boost limiter (mm per tick × 0.03 = m/s). A bigger turbine also makes more boost power, as the cube of its top speed, because a burst rarely lasts long enough to reach the limiter. |
+| `accel` | Engine power: 55% fixed, 45% scaled by the field. |
+| `boostCost`, `boostRecharge`, `boostKick` | Energy per tick out of 1,000; anti-lag adds 180 N of push per point while boosting. |
+| `traction` | Extra rear-tyre traction below 160 km/h, for launches and recoveries. It stops paying once the engine, not the tyres, limits the launch, at about +10%. |
+| `cornerLoad`, `dryDamping` | Tyre grip, 2% per point. |
+| `rainSteer`, `wetDamping`, `oilSteer` | Grip in rain and on oil, as shares of the dry road's. |
+| `windLoad` | Crosswind push. |
+| `steer`, `driftSteer` | Steering lock, and how far the rear lets go in a drift. |
+| `offroadLoss` | Friction against the guard rails, as the square of the field's ratio to stock: Arcade rails stand just beyond the road edge, so leaving the road means scraping one. Beyond a street route's edge it is also the verge's drag. |
+| `contactLoss`, `treeLoss`, `signLoss` | Toughness: damage per hit, 50% from car contact, 30% from rail and tree impacts, 20% from props. |
+| `driftCharge` | Boost energy each tick of a drift through a bend, steering into it at more than 90 km/h: half a point per point of the field in a tight corner (380 m radius), scaled by the bend's curvature, up to double. |
+| `draft` | In another car's wake (5–26 m behind, within 1.6 m), more drag removed and the limiter raised by the field (mm per tick × 0.03 = m/s). |
 
 ## Story mode: the pre-race garage
 
@@ -53,13 +78,18 @@ pre-race garage, instead of linking away to the tech tree page.
 
 Each course has a fixed purchase order, `COURSE_TIPS[track].plan`. Each step is
 the part that saves rookie and regular drivers the most time per yen on that
-course, re-measured after every purchase:
+course on the driving model, re-measured after every purchase
+(`npm run balance:garage` prints the order):
 
 | Course | Crew | Opening of the plan |
 | --- | --- | --- |
-| Hakone | Yui | Boost controller → intake → tyres → intercooler → cams → big turbine → torque six |
-| Yokohama | Daichi | Tyres → intake → coilovers → boost controller → intercooler → big turbine → cams |
-| Nikko | Jun | Boost controller → intake → cams → intercooler → big turbine → torque six → tyres |
+| Hakone | Yui | Intake → boost controller → intercooler → tyres → big turbine → roll cage → cams |
+| Yokohama | Daichi | Boost controller → intake → tyres → intercooler → roll cage → big turbine → coilovers → rally |
+| Nikko | Jun | Boost controller → intake → roll cage → intercooler → tyres → twin turbo → coilovers |
+
+Even in Yokohama's rain and crosswinds, boost and engine parts win more time per
+yen than the chassis, so Daichi now says to get the speed first and then firm up
+the tyres and suspension.
 
 The pick skips a fork the player settled on the other option. Buying a fork
 option fits it, so a player who bought both may race the wrong one. When the
@@ -73,27 +103,30 @@ Every capstone needs a part from another branch.
 
 | Branch (crew) | I | II | III (fork) | IV |
 | --- | --- | --- | --- | --- |
-| エンジン ENGINE (Aki) | Intake & exhaust ¥10k | Cams & ported head ¥24k | High-rev six ¥52k / Torque six ¥52k | Full-tune six ¥96k (+ Intercooler) |
-| ターボ TURBO (Jun) | Boost controller ¥7k | Intercooler ¥20k | Big turbine ¥46k / Twin turbo ¥46k | Anti-lag ¥88k (+ Cams) |
-| 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥16k | Touge setup ¥40k / Rally setup ¥28k | Mechanical LSD ¥80k (+ Boost controller) |
-| ボディ BODY (Yui) | Roll cage ¥6k | Reinforced bumpers ¥10k | Lightweight ¥36k / Steel armor ¥42k | Wind-tunnel body ¥78k (+ Coilovers) |
+| エンジン ENGINE (Aki) | Intake & exhaust ¥10k | Cams & ported head ¥24k | High-rev six ¥52k / Torque six ¥52k | Full-tune six ¥64k (+ Intercooler) |
+| ターボ TURBO (Jun) | Boost controller ¥12k | Intercooler ¥24k | Big turbine ¥56k / Twin turbo ¥56k | Anti-lag ¥120k (+ Cams) |
+| 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥9k | Touge setup ¥48k / Rally setup ¥18k | Mechanical LSD ¥80k (+ Boost controller) |
+| ボディ BODY (Yui) | Roll cage ¥4k | Reinforced bumpers ¥7k | Lightweight ¥30k / Steel armor ¥9k | Wind-tunnel body ¥78k (+ Coilovers) |
 
-One full path costs about ¥620k; every part costs ¥783k. Effects are in
+One full path costs ¥573k–624k; every part costs ¥759k. Effects are in
 `TECH_NODES` (`src/game/garage-tech.ts`), and each part carries a `bestFor` tag
 that the page shows beside its measured seconds a race ("FOR DRIFTERS"). The
-balance tests hold each tag to its promise.
+balance tests hold each tag to its promise. Prices follow what each part is
+worth on the driving model: turbo parts cost the most, and the durability parts,
+which mostly protect the car, the least.
 
 Four garage-only mechanics are zero at stock, so RaceV1 never sees them:
 
-- **Drift charge** (Touge, LSD): holding a drift while steering *into* a corner
-  at speed refills the turbo, more in tighter corners. Steering out of the
-  corner charges nothing, so wiggling the wheel does not pay.
+- **Drift charge** (Touge, LSD): holding a drift through a bend while steering
+  *into* it at speed refills the turbo, more in tighter bends. Steering out of
+  the bend charges nothing, so wiggling the wheel does not pay. Ace drivers with
+  these parts drift through every bend.
 - **Slipstream** (Wind-tunnel body): the speed cap rises in another car's wake,
-  3.6–22 m behind and within one lane.
-- **Anti-lag**: extra acceleration while boosting, so short bursts reach boost
-  speed sooner.
-- **Traction** (Torque six, tyres, bumpers, rally, armor): extra acceleration
-  below 1,500 mm/tick for launches and recoveries.
+  5–26 m behind and within 1.6 m.
+- **Anti-lag**: extra push while boosting, so short bursts reach boost speed
+  sooner.
+- **Traction** (Torque six, tyres, cage, bumpers, rally, armour): extra rear-tyre
+  traction below 160 km/h for launches and recoveries.
 
 The race HUD shows ドリフト充電 / DRIFT CHARGE and スリップストリーム /
 SLIPSTREAM chips while those mechanics are working.
@@ -109,13 +142,16 @@ stock-to-finished scale (`src/game/part-effects.ts`).
 Selecting a part shows:
 
 - **Seconds saved a race** on Hakone, Yokohama and Nikko for the drivers its tag
-  names, measured in simulation (`RACE_GAINS`, re-measured by the balance tests).
-  The pre-race garage marks tonight's course, and the crew's pick quotes it.
-- **On your car:** every change in race units, from your current car to the car
-  with the part fitted (or without it, for a fitted part). That means km/h,
-  seconds of boost, percent of stock, and speed lost per tree, sign or bump. A
-  fork option also lists what the other option takes with it, so a swap shows
-  its trade-offs.
+  names, measured on the driving model (`RACE_GAINS`, held to the balance report
+  by the balance tests). The pre-race garage marks tonight's course, and the
+  crew's pick quotes it.
+- **On your car:** every change as the driving model reads it, from your current
+  car to the car with the part fitted (or without it, for a fitted part): km/h,
+  seconds of boost, engine power, tyre, rain and oil grip, rail scrape and damage
+  per hit as percentages. Fields the model folds into one quantity (the three
+  impact losses into damage per hit, the two rain fields into rain grip) share a
+  line. A fork option also lists what the other option takes with it, so a swap
+  shows its trade-offs.
 - **The stat bars preview the part:** green where it gains, striped red where it
   costs.
 
@@ -158,102 +194,140 @@ a part in flashes it, rings the deck, throws sparks and stamps 装着！ / FITTE
 
 | Field | Rival builds | Drivers |
 | --- | --- | --- |
-| Club night | Stock | The original practice AI |
-| Touge battle | ¥24k–96k | Practice AI and pro |
+| Club night | Stock | Club |
+| Touge battle | ¥24k–96k | Club and pro |
 | Championship | ¥72k–288k | Pro |
 | Legends | ¥168k–672k | Pro and ace |
 
 Rival builds spread from 40% to 160% of the field's budget through the grid, so
 mid-pack finishes are common and a podium needs a build near the field's median.
 Builds follow three purchase orders (power, boost, tough) through the same tree
-and prerequisites as yours. Pro and ace drivers (`src/game/garage-ai.ts`) read
-their own tune: they hold full boost bursts, prefer the oil-free centre lane,
-slingshot out of slipstreams and, with drift charge, drift into corners. The
-club driver is the unchanged practice AI.
+and prerequisites as yours. On the driving model the rivals are `DriveAI`
+drivers (`src/game/drive/ai.ts`), and boost use is what separates them, because
+the Arcade circuits are flat out (below):
 
-Story rivals use `STORY_REI` / `STORY_TORU`: Rei from chapter 3 (boost build, pro
-driver) and Toru from chapter 4 (power build, practice AI). Since every chapter
+- **Club** drivers, your crew and the club-night regulars, never fire the boost.
+- **Pro** drivers wait for 85% of a tank and hold the burst; **ace** drivers wait
+  for 95%. Both boost past a car once their path is clear.
+- **Ace** drivers drift through every bend when their build has drift charge.
+
+Story rivals use `STORY_REI` / `STORY_TORU`: Rei from chapter ID 2 (boost build,
+pro driver) and Toru from ID 3 (power build, club driver). Since every chapter
 opens with the pre-race garage, the budgets assume a player who upgrades. Rei
-reaches ¥210k by the finale and contests the lead through Act 3. Toru's
-chapter 11 showdown build is ¥90k with the pro driver, which needs parts.
+reaches ¥210k by the finale and contests the lead through Act 3. Toru's showdown
+(ID 10) build is ¥60k with the pro driver, which needs parts.
 
 ## How it was balanced
 
-Every number comes from simulated races, using reference drivers in
-`tests/helpers/garage-drivers.ts`:
+Every number comes from simulated races on the driving model, with reference
+drivers in `tests/helpers/garage-drivers.ts`:
 
-- **Rookie** reacts late, ignores corner push and loses concentration.
-- **Regular** reads corners a little and saves boost for straights.
+- **Rookie** and **regular** are keyboard players. They steer from what the car
+  did a moment ago (0.2 s for a rookie, 0.17 s for a regular), aim about a second
+  ahead, allow for only part of each bend, tap the keys rather than hold a steady
+  angle, have lapses, lift and then brake when they head for the outside rail of
+  a bend, pick a side to pass a car and keep to it, and never boost into the back
+  of a car. A rookie boosts only with a full tank, on a straight; a regular from
+  80% of one. Seeds vary their lane, judgement and lapses; lapses are tied to the
+  road, so a run with and without a part meets them at the same places.
 - **Club**, **pro** and **ace** are the opponent AIs.
 
-Seeds vary the rookie and regular drivers. Each part is measured along its
-unlock path from four grid slots on all three tracks (`FULL_PLAN`). Re-run after
-changing any effect, price, rival budget or physics:
+On a clear road a rookie is 2–3.5% slower than a pro, a regular 1–2.5% and a
+club driver 4.5–5%; in a pack the humans lose more. Each part is measured along its
+unlock path on all three tracks: on a clear road (40 rookie seeds, 12 regular
+seeds, one run per AI driver), or, for the pack-racing wind-tunnel body, from
+every grid slot of a club night. Gains are interquartile means of paired runs,
+so one spin or wreck does not swamp the rest. A driving-model race costs a few
+hundred milliseconds, so the measurement runs on every core and writes a report
+that the tests check (about two minutes on 15 workers, 13,000 races):
 
 ```sh
-npm run balance:garage
+npm run balance:garage            # writes tests/fixtures/garage-balance.json
+npm run balance:garage -- --quick # rough numbers for iterating, writes tmp/
 ```
+
+The tests re-run six fingerprint races (every driver kind, drift, slipstream,
+tuned rivals) and compare them bit for bit with the report, and they hash the
+tree's effects, prices, rival budgets, crew plans and reference drivers. Any
+change to the model, the AI or those inputs fails them until the report is
+re-measured.
 
 `tests/garage-balance.test.ts` enforces the resulting limits:
 
-- Every part saves at least 4 ticks a race (tiers I–II) or 10 ticks (III–IV) for
-  the drivers its tag names.
+- Every part saves at least a tenth of a second (3 ticks) a race for the drivers
+  its tag names. `RACE_GAINS`, the seconds the cards show, match the report.
 - Each tier is a worse deal than the one before, so the capstone is the costliest
   gain in every branch. Value per yen differs by at most 3× within a tier.
-- Every fork is a real choice. High-rev beats Torque for clean drivers and loses
-  for rookies and regulars. Touge beats Rally for drifters and loses for recovery.
-  Lightweight beats Armor for clean drivers and loses for recovery. Big and Twin
-  turbines each win on some track or for some driver.
-- A finished car is 6–14% faster than stock, never more.
-- The fields form a ladder. A stock car wins Club, but cannot podium in Touge.
-  ¥120k podiums Touge. ¥420k podiums Championship. A finished car contends in
-  Legends.
-- A stock pro can still meet every story objective except Toru's showdown. On
-  the windy Yokohama chapters 5 and 8, a modest build lifts regular drivers'
-  clear rate by at least 40 points.
+- Every fork is a real choice: each option saves its own tag's drivers more time
+  per yen than the other. High-rev beats Torque for clean drivers and loses for
+  rookies and regulars. Touge beats Rally for drifters and loses for recovery.
+  Lightweight beats Armour for clean drivers; Armour, at under a third of the
+  price, is the better buy for recovery and takes at most 70% of the damage per
+  hit. Big and Twin turbines each win on some track or for some driver.
+- A finished car is 8–16% faster than stock (12–15% measured).
+- The fields form a ladder for a pro starting 7th. A stock car cannot podium
+  club night every time, but ¥60k does. Touge and Championship shut out a stock
+  car and ¥120k respectively and are podiumed with ¥420k; Legends shuts out
+  ¥180k and a finished car contends in it.
+- With equal cars a regular clears every story chapter at least half the time
+  (Hakone and Nikko every time, Yokohama two times in three). Against the tuned
+  rivals a stock regular still wins through the harbor chapters IDs 4 and 7 more
+  often than not.
+- On the first harbor night, a rookie with Daichi's first picks (¥28k) clears it
+  four times as often as in a stock car, and more often than with ¥33k of chassis
+  parts or ¥46k of engine parts.
 
-`tests/story-pit-balance.test.ts` plays the whole story the way story mode runs
-it: pre-race garage, race, prize money, retry until cleared. It plays eight
-seeded runs per driver, with four garage habits: the crew's picks, cheapest part
-first, priciest part first, and never buying. It holds:
+`tests/story-pit-balance.test.ts` plays the story's Arcade chapters the way
+story mode runs them: pre-race garage, race, prize money, retry until cleared.
+It plays eight seeded runs per driver, with four garage habits: the crew's picks,
+cheapest part first, priciest part first, and never buying. A chapter still
+uncleared after 15 tries counts as a wall. It holds:
 
 - Each course plan's first three picks are within 90% of the best time per yen
   on offer at that step, re-measured.
-- On the crew's picks, rookies and regulars never stall. The first Yokohama
-  chapter averages at most four races; every other chapter, under two.
+- On the crew's picks, rookies and regulars never stall. The Yokohama chapters
+  average at most four races; every other chapter, at most two.
 - Never buying stalls rookies in the Yokohama chapters (at least four stalls in
-  eight runs before the showdown) and takes more than twice the races of
-  following the picks.
+  eight runs) and takes more than one and a half times the races of following
+  the picks.
 - Casual buying (cheapest or priciest first) never stalls anyone.
-- In Act 3, a driver on the crew's picks beats the faster of Rei and Toru by
-  under two seconds on average. Cheapest-first buyers are slower.
+- In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
+  first try by under two seconds on average; casual builds and rookies lose that
+  first race to her.
 
 | Garage habit (8 runs each) | Races to finish the story | Act 3 lead over the faster rival |
 | --- | --- | --- |
-| Crew's picks: rookie / regular | 15.5 / 13.5 | 0.8 s / 0.7 s |
-| Cheapest first: rookie / regular | 15.8 / 14.5 | −0.8 s / −1.0 s |
-| Priciest first: rookie / regular | 15.5 / 13.5 | 0.0 s / −0.1 s |
-| Never buys: rookie / regular | 43.6 / 29.8, stalls in Yokohama | −6.7 s / −5.4 s |
+| Crew's picks: rookie / regular | 17.6 / 12.0 | −6.3 s / 0.1 s |
+| Cheapest first: rookie / regular | 23.1 / 12.3 | −5.4 s / −0.9 s |
+| Priciest first: rookie / regular | 16.5 / 12.0 | −4.5 s / −1.0 s |
+| Never buys: rookie / regular | 66.3, stalls in Yokohama / 23.9, stalls at the showdown | −7.7 s / −5.2 s |
 
 ### Findings that shaped the tree
 
-- **Top speed dominates RaceV1.** Each +1% saves about 1% of race time for every
-  driver, so engine parts are the most expensive per point.
-- **Boost value depends on burst length.** Speed snaps back to the normal cap when
-  a boost ends, and the climb to boost speed takes 15 ticks, so long bursts are
-  roughly 12× more efficient than taps. The practice AI stops at half a tank,
-  which is why turbo parts barely help it and are tagged for boost users.
-- **Handling barely matters to a clean driver.** It decides how often a mistake
-  becomes an off-road disaster. Yokohama's crosswinds and rain are the original
-  game's difficulty spike: regular drivers clear chapters 2, 5, 8 and 11 only
-  8–17% of the time in equal cars. In chapter 2, ¥50k of tyres, coilovers and
-  rally setup lifts rookies from 13% to 79% and regulars from 25% to 92%. ¥41k of
-  engine and turbo parts reaches only 38% and 71%.
-- **With the garage in the story's path, the old rival budgets made the late
-  story a walkover.** On the crew's picks, rookies won every Act 3 race by about
-  four seconds, and Toru's ¥35k showdown car was never close. Raising Rei's
-  budgets keeps her within a couple of seconds. Raising Toru's showdown car past
-  ¥90k began to stall casual builds, so it stops there.
+- **The Arcade circuits are flat out.** Their bends are 253–760 m in radius, and
+  the car's grip and downforce take them at boost speed, so no driver brakes for
+  a bend. The engine's surplus at the rev limiter recovers small speed losses in
+  moments. Race time is the limiter, the boost and the start, which is why
+  grip, steering lock and oil grip save next to nothing.
+- **Long bursts gain far more than short ones.** A burst's extra speed coasts
+  down slowly, so the distance it gains grows with the square of its length. The
+  boost limiter was never reached, so the big turbine now also adds boost power.
+  The AI's thresholds were inverted (the ace boosted soonest), and a car blocked
+  by traffic never boosted at all, so the field never passed.
+- **Durability buys little time.** Clean drivers take almost no damage, and
+  even rookies end a race with 3–9 points and wreck about once in 360 races. The
+  cage, bumpers and armour therefore also add launch traction, rail friction or
+  crosswind resistance, and cost a few thousand yen.
+- **Traction saturates.** Below 160 km/h the stock car is limited by its rear
+  tyres, but from about +10% of traction the engine is, so stacking traction
+  parts stops paying.
+- **The story's crew had become unbeatable.** With equal cars on flat-out
+  circuits nobody passes, and the club AI held its line and boost perfectly.
+  Club drivers no longer boost, so a rookie with the crew's first picks can win
+  the first chapter. Toru's showdown car came down from ¥90k to ¥60k, where
+  rookies on the crew's picks stopped stalling.
+- Even in Yokohama, boost and engine parts win more time per yen than chassis
+  parts, so all three crew plans open with them.
 - Stacked parts used to make wind resistance negative, leaving the road free and
   contact losses tiny. Effects were trimmed so no build reaches an engine bound;
   a test checks all 16 fork combinations.
@@ -262,5 +336,8 @@ first, priciest part first, and never buying. It holds:
 
 The reference drivers are models, not playtests. They bound the balance and catch
 regressions, but human players will value boost, drifting and slipstreams
-differently. Watch real runs before large retuning. Parts are local progress in
+differently: the reference humans steer out of wakes and never drift, so the
+wind-tunnel body's slipstream and the drift parts are measured on the AI. The
+measured seconds are clear-road averages (packs for the wind-tunnel body); traffic
+changes them. Watch real runs before large retuning. Parts are local progress in
 `localStorage` (`sora-cars:garage:v1`), not NFTs, and are not tradeable.

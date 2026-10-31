@@ -5,6 +5,7 @@ import { RACE_RULES_HASH } from '../src/game/environment';
 import { GARAGE_RULES, isGarageReplay, localReplayState, validateLocalReplay, type GarageReplayV1 } from '../src/game/garage-replay';
 import { environmentContacts } from '../src/game/environment-events';
 import { CONTROL as C, TRACKS } from '../src/game/rules';
+import { vehicleSpec } from '../src/game/drive/vehicle';
 import { DRAFT_RANGE, STOCK_TUNE, TRACTION_SPEED, TUNE_BOUNDS, TUNE_FIELDS, inWake, isStockTune, stepTunedRace, validateTune, type CarTune } from '../src/game/tuned-engine';
 import {
   MAX_FUNDS, PRACTICE_FIELDS, PURSE, STARTING_FUNDS, STORY_TORU, TECH_BRANCHES, TECH_NODES, applyAward, buildValue, buyPart, fieldRivals,
@@ -42,6 +43,16 @@ test('tunes are validated, bounded and the garage-only mechanics are zero at sto
   assert.throws(() => validateTune({ ...STOCK_TUNE, topSpeed: 2400.5 }));
   assert.throws(() => validateTune({ ...STOCK_TUNE, topSpeed: 2800, boostSpeed: 2800 }));
   assert.throws(() => stepTunedRace(createRace(0, 2), [1, 1], [STOCK_TUNE]));
+});
+
+test('the stock tune is exactly the driving model\u2019s stock car, so equal-car races and replays ignore the garage', () => {
+  const spec = vehicleSpec(STOCK_TUNE), engine = vehicleSpec({ ...STOCK_TUNE, accel: STOCK_TUNE.accel + 1 }).power - spec.power;
+  assert.deepEqual([spec.grip, spec.steerLock, spec.railFriction, spec.launch, spec.driftCharge, spec.draft, spec.draftSpeed, spec.boostKick, spec.toughness],
+    [2.35, 0.5, 1, 0, 0, 0, 0, 0, 1]);
+  assert.equal(spec.boostPower, spec.power * 0.9);
+  assert.ok(engine > 0);
+  // Tuned fields reach the car: boost power grows as the cube of the boost top speed.
+  assert.equal(vehicleSpec(tuneFor(['turbo-controller', 'turbo-intercooler', 'turbo-big'])).boostPower, spec.boostPower * (3480 / 3000) ** 3);
 });
 
 test('drift charge pays only for drifting into a corner at speed, scaled by its curvature', () => {

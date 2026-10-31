@@ -2,7 +2,7 @@ import { CONTROL } from '../rules';
 import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
 import { clamp, cos, sin } from './dmath';
 import { damageEffects } from './damage';
-import { DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
+import { DRIFT_BEND, DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
 import type { VehicleSpec } from './vehicle';
 
 /** Practice and story AI. It reads the race and returns the same six control
@@ -17,13 +17,17 @@ export interface DriverSkill {
   readonly brake: number;
   /** Racing-line offset (m) that spreads the field across the road. */
   readonly lane: number;
-  /** Boost when this much energy is banked. */
+  /** Boost when this much energy is banked; above 1000, never. A burst's speed
+   * coasts down slowly, so long bursts gain far more than short ones and better
+   * drivers wait longer. */
   readonly boostAt: number;
+  /** Drifts through bends to charge the turbo when the car has drift charge. */
+  readonly drift: boolean;
 }
 export const DRIVER_SKILLS = {
-  club: { corner: 0.82, brake: 0.72, lane: 0, boostAt: 700 },
-  pro: { corner: 0.88, brake: 0.8, lane: 0, boostAt: 500 },
-  ace: { corner: 0.93, brake: 0.86, lane: 0, boostAt: 350 },
+  club: { corner: 0.82, brake: 0.72, lane: 0, boostAt: 1001, drift: false },
+  pro: { corner: 0.88, brake: 0.8, lane: 0, boostAt: 850, drift: false },
+  ace: { corner: 0.93, brake: 0.86, lane: 0, boostAt: 950, drift: true },
 } as const satisfies Record<string, DriverSkill>;
 
 interface RacingLine { readonly offset: Float64Array; readonly curvature: Float64Array; readonly step: number; readonly count: number; readonly periodic: boolean }
@@ -147,10 +151,12 @@ export class DriveAI {
       if ((Math.abs(other.d - lateral) < 2.1 || Math.abs(other.d - car.d) < 2.0 || sideways && Math.abs(other.d - car.d) < 3.5)
         && (closing > -1 || gap < 9) && gap < blockedGap) { blocked = other; blockedGap = gap; }
     }
+    let passing = false;
     if (blocked) {
       const left = blocked.d - 2.3, right = blocked.d + 2.3;
       const clearLeft = left >= -width && !this.#occupied(race, car, left), clearRight = right <= width && !this.#occupied(race, car, right);
-      if (clearLeft || clearRight) lateral = clearLeft && (!clearRight || Math.abs(left - car.d) <= Math.abs(right - car.d)) ? left : right;
+      passing = clearLeft || clearRight;
+      if (passing) lateral = clearLeft && (!clearRight || Math.abs(left - car.d) <= Math.abs(right - car.d)) ? left : right;
       // No way past: hold back and match its speed, braking hard if it has stopped or spun.
       else target = Math.min(target, Math.max(0, blocked.u) * 0.95 + Math.sqrt(2 * 9 * Math.max(0, blockedGap - 7)));
     }
@@ -178,8 +184,15 @@ export class DriveAI {
     let input = steering;
     if (speed > target + 0.6) input |= CONTROL.brake;
     else if (speed < target - 0.2 && !lift) input |= CONTROL.throttle;
-    // Boost on a clear straight once enough energy is banked, and keep a burst going.
-    if (input & CONTROL.throttle && target >= spec.topSpeed && speed > 30 && !blocked
+    // With drift charge, drift through each bend while steering into it, banking boost for the straight.
+    const bend = sampleCourse(course, car.s).kappa;
+    const charging = skill.drift && spec.driftCharge > 0 && !car.boosting && car.energy < 1000 - spec.boostRecharge && speed > 25
+      && Math.abs(bend) >= DRIFT_BEND && Math.sign(desired) === Math.sign(bend) && !blocked && (input & CONTROL.throttle) !== 0;
+    // Boost on a clear straight, or past a car once nothing is in the way for a second, once enough energy is banked, and keep a burst going.
+    const clearPath = passing && !race.cars.some(other => other !== car && race.solid(other) && Math.abs(other.d - car.d) < 2.4
+      && courseGap(course, car.s, other.s) > -2 && courseGap(course, car.s, other.s) < Math.max(30, speed * 1.2));
+    if (charging) input |= CONTROL.drift;
+    else if (input & CONTROL.throttle && target >= spec.topSpeed && speed > 30 && (!blocked || clearPath)
       && (car.boosting ? car.energy > spec.boostCost * 2 : car.energy >= skill.boostAt)) input |= CONTROL.boost;
     return input;
   }

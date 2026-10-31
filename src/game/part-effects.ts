@@ -1,11 +1,12 @@
+import { vehicleSpec } from './drive/vehicle';
 import { TECH_NODES, techNode, tuneFor } from './garage-tech';
 import type { Bilingual } from './story';
 import { STOCK_TUNE, type CarTune } from './tuned-engine';
 
 // What a garage part does, in a driver's terms: the five car stats the garage
 // draws as bars, the arrow chips on each part's card, before-and-after readings
-// in km/h, seconds and percent, and the race time each part was measured to save.
-// Presentation only: races always use the exact tune.
+// of the car the driving model races, in km/h, seconds and percent, and the race
+// time each part was measured to save. Presentation only: races always use the exact tune.
 
 export const LOWER_IS_BETTER: ReadonlySet<keyof CarTune> = new Set<keyof CarTune>(['boostCost', 'wetDamping', 'cornerLoad', 'windLoad', 'offroadLoss', 'treeLoss', 'signLoss', 'contactLoss']);
 /** The best value each tuning field reaches in any finished build. */
@@ -27,6 +28,11 @@ export function statProgress(tune: CarTune, field: keyof CarTune): number {
 }
 const average = (tune: CarTune, fields: (keyof CarTune)[]) => fields.reduce((sum, field) => sum + statProgress(tune, field), 0) / fields.length;
 const kmh = (mmPerTick: number) => Math.round(mmPerTick * 0.108);
+/** The driving model's car for a tune, against the stock car. */
+const STOCK_SPEC = vehicleSpec(STOCK_TUNE);
+const specs = new WeakMap<CarTune, ReturnType<typeof vehicleSpec>>();
+const spec = (tune: CarTune) => { let value = specs.get(tune); if (!value) specs.set(tune, value = vehicleSpec(tune)); return value; };
+const power = (tune: CarTune) => `${Math.round(spec(tune).power / STOCK_SPEC.power * 100)}%`;
 
 export type StatId = 'speed' | 'accel' | 'boost' | 'grip' | 'tough';
 export interface CarStat {
@@ -38,7 +44,7 @@ export interface CarStat {
 /** The garage's five summary stats, 0 at stock and 1 at a finished build. */
 export const CAR_STATS: readonly CarStat[] = [
   { id: 'speed', label: { ja: '最高速', en: 'TOP SPEED' }, short: { ja: '最高速', en: 'TOP SPEED' }, value: t => statProgress(t, 'topSpeed'), reading: t => `${kmh(t.topSpeed)} km/h` },
-  { id: 'accel', label: { ja: '加速', en: 'ACCELERATION' }, short: { ja: '加速', en: 'ACCEL' }, value: t => 0.7 * statProgress(t, 'accel') + 0.3 * statProgress(t, 'traction'), reading: t => `${Math.round(t.accel / STOCK_TUNE.accel * 100)}%` },
+  { id: 'accel', label: { ja: '加速', en: 'ACCELERATION' }, short: { ja: '加速', en: 'ACCEL' }, value: t => 0.7 * statProgress(t, 'accel') + 0.3 * statProgress(t, 'traction'), reading: power },
   { id: 'boost', label: { ja: 'ブースト', en: 'BOOST' }, short: { ja: 'ブースト', en: 'BOOST' }, value: t => average(t, ['boostSpeed', 'boostCost', 'boostRecharge', 'boostKick']), reading: t => `${kmh(t.boostSpeed)} km/h · ${(1000 / t.boostCost / 30).toFixed(1)} s` },
   { id: 'grip', label: { ja: '安定', en: 'STABILITY' }, short: { ja: '安定', en: 'STABILITY' }, value: t => average(t, ['cornerLoad', 'windLoad', 'rainSteer', 'oilSteer', 'steer']), reading: () => '' },
   { id: 'tough', label: { ja: '耐久', en: 'TOUGHNESS' }, short: { ja: '耐久', en: 'TOUGHNESS' }, value: t => average(t, ['contactLoss', 'offroadLoss', 'treeLoss', 'signLoss']), reading: () => '' },
@@ -76,52 +82,57 @@ export function partChips(id: string): EffectChip[] {
 interface Reading { readonly label: Bilingual; readonly hint: Bilingual; readonly show: (tune: CarTune) => string }
 const S = STOCK_TUNE;
 const percent = (value: number, stock: number) => `${Math.round(value / stock * 100)}%`;
-const extra = (value: number) => value ? `+${Math.round(value / S.accel * 100)}%` : '—';
+const share = (value: number) => `${Math.round(value * 100)}%`;
 const seconds = (value: number) => `${value.toFixed(1)} s`;
-/** Every field a part can change, in race units and in the order the detail panel lists them. */
+/** The stock car's push while boosting at its limiter, the scale for anti-lag's extra push. */
+const BOOST_PUSH = (STOCK_SPEC.power + STOCK_SPEC.boostPower) / STOCK_SPEC.topSpeed;
+const RAIN: Reading = { label: { ja: '雨のグリップ', en: 'Rain grip' }, hint: { ja: '乾いた路面に対して', en: 'Share of the dry road’s' }, show: t => share(spec(t).rainGrip) };
+const DAMAGE: Reading = { label: { ja: '1回の衝撃のダメージ', en: 'Damage per hit' }, hint: { ja: '車・ガードレール・看板。低いほど大破しにくい', en: 'Cars, rails and signs. Lower: further from a wreck' }, show: t => share(spec(t).toughness) };
+/** Every field a part can change, as the driving model reads it, in the order the detail panel lists them. */
 const READINGS: Readonly<Partial<Record<keyof CarTune, Reading>>> = {
   topSpeed: { label: { ja: '最高速', en: 'Top speed' }, hint: { ja: '直線で出る速さ', en: 'On the straights' }, show: t => `${kmh(t.topSpeed)} km/h` },
-  accel: { label: { ja: '加速', en: 'Acceleration' }, hint: { ja: '速度の乗り（ノーマル＝100%）', en: 'Picking up speed (stock = 100%)' }, show: t => percent(t.accel, S.accel) },
-  traction: { label: { ja: '低速での加速', en: 'Low-speed pull' }, hint: { ja: '160km/hまで：発進・立ち上がり・立て直し', en: 'Up to 160 km/h: launches, exits, recoveries' }, show: t => extra(t.traction) },
-  boostSpeed: { label: { ja: 'ブースト中の最高速', en: 'Boost top speed' }, hint: { ja: 'ターボで伸びる速さ', en: 'How fast the boost takes you' }, show: t => `${kmh(t.boostSpeed)} km/h` },
+  accel: { label: { ja: 'エンジン出力', en: 'Engine power' }, hint: { ja: '速度の乗り（ノーマル＝100%）', en: 'Picking up speed (stock = 100%)' }, show: power },
+  traction: { label: { ja: '低速での加速', en: 'Low-speed pull' }, hint: { ja: '160km/hまで：発進・立ち上がり・立て直し', en: 'Up to 160 km/h: launches, exits, recoveries' }, show: t => t.traction ? `+${share(spec(t).launch)}` : '—' },
+  boostSpeed: { label: { ja: 'ブースト中の最高速', en: 'Boost top speed' }, hint: { ja: 'タービンが大きいほど強く押し出す', en: 'A bigger turbine also pushes harder' }, show: t => `${kmh(t.boostSpeed)} km/h` },
   boostCost: { label: { ja: 'ブーストの持続', en: 'Boost lasts' }, hint: { ja: '満タンから押し続けて', en: 'A full tank, held down' }, show: t => seconds(1000 / t.boostCost / 30) },
   boostRecharge: { label: { ja: 'ブーストの回復', en: 'Boost refill' }, hint: { ja: '空から満タンまで', en: 'Empty to full' }, show: t => seconds(1000 / t.boostRecharge / 30) },
-  boostKick: { label: { ja: 'ブースト中の加速', en: 'Boost acceleration' }, hint: { ja: '押した瞬間から速く伸びる', en: 'Reaches boost speed sooner' }, show: t => extra(t.boostKick) },
-  draft: { label: { ja: 'スリップストリーム', en: 'Slipstream' }, hint: { ja: '前の車の4〜22m後ろで最高速が上がる', en: 'Extra top speed 4–22 m behind a car' }, show: t => t.draft ? `+${kmh(t.draft)} km/h` : '—' },
-  driftCharge: { label: { ja: 'ドリフト充電', en: 'Drift charge' }, hint: { ja: 'コーナーへドリフトで入ると毎秒ターボが溜まる', en: 'Turbo refilled each second drifting into a tight corner' }, show: t => t.driftCharge ? `+${t.driftCharge * 3}%` : '—' },
-  steer: { label: { ja: 'ハンドル', en: 'Steering' }, hint: { ja: '切ったときの曲がり', en: 'How sharply it turns in' }, show: t => percent(t.steer, S.steer) },
-  driftSteer: { label: { ja: 'ドリフト中の曲がり', en: 'Drift steering' }, hint: { ja: 'ドリフト中に向きを変える力', en: 'Turning while drifting' }, show: t => percent(t.driftSteer, S.driftSteer) },
-  cornerLoad: { label: { ja: 'コーナーで膨らむ力', en: 'Corner push' }, hint: { ja: '低いほど外へ流されない', en: 'Lower: less pushed wide' }, show: t => percent(t.cornerLoad, S.cornerLoad) },
+  boostKick: { label: { ja: 'ブースト中の加速', en: 'Boost acceleration' }, hint: { ja: '押した瞬間から速く伸びる', en: 'Reaches boost speed sooner' }, show: t => t.boostKick ? `+${share(spec(t).boostKick / BOOST_PUSH)}` : '—' },
+  draft: { label: { ja: 'スリップストリーム', en: 'Slipstream' }, hint: { ja: '前の車の5〜26m後ろで最高速が上がる', en: 'Extra top speed 5–26 m behind a car' }, show: t => t.draft ? `+${kmh(t.draft)} km/h` : '—' },
+  driftCharge: { label: { ja: 'ドリフト充電', en: 'Drift charge' }, hint: { ja: 'きついコーナーをドリフトで抜けると毎秒ターボが溜まる', en: 'Turbo refilled each second drifting through a tight corner' }, show: t => t.driftCharge ? `+${Math.round(spec(t).driftCharge * 3)}%` : '—' },
+  steer: { label: { ja: 'ハンドルの切れ角', en: 'Steering lock' }, hint: { ja: 'ヘアピンや立て直しでの曲がり', en: 'Tight turns at low speed' }, show: t => percent(spec(t).steerLock, STOCK_SPEC.steerLock) },
+  driftSteer: { label: { ja: 'ドリフトの滑り', en: 'Drift slide' }, hint: { ja: 'ドリフト中に後輪が手放すグリップ', en: 'Rear grip let go in a drift' }, show: t => share(1 - spec(t).driftGrip) },
+  cornerLoad: { label: { ja: 'タイヤのグリップ', en: 'Tyre grip' }, hint: { ja: 'コーナー・発進・立て直し', en: 'Corners, launches and recoveries' }, show: t => percent(spec(t).grip, STOCK_SPEC.grip) },
   windLoad: { label: { ja: '横風で流される力', en: 'Crosswind push' }, hint: { ja: '低いほど風に強い', en: 'Lower: steadier in wind' }, show: t => percent(t.windLoad, S.windLoad) },
-  rainSteer: { label: { ja: '雨のハンドル', en: 'Wet steering' }, hint: { ja: '雨の路面での曲がり', en: 'Turning on a wet road' }, show: t => percent(t.rainSteer, S.rainSteer) },
-  wetDamping: { label: { ja: '雨の横滑り', en: 'Rain slides' }, hint: { ja: '滑りが半分に収まるまで', en: 'Time for a slide to halve' }, show: t => `${(Math.log(0.5) / Math.log(t.wetDamping / 16) / 30).toFixed(2)} s` },
-  oilSteer: { label: { ja: '油膜のハンドル', en: 'Oil steering' }, hint: { ja: '油膜の上での曲がり', en: 'Turning on an oil slick' }, show: t => percent(t.oilSteer, S.oilSteer) },
-  offroadLoss: { label: { ja: 'コース外の失速', en: 'Off-road drag' }, hint: { ja: '低いほど道を外れても遅くならない', en: 'Lower: keeps speed off the road' }, show: t => percent(t.offroadLoss, S.offroadLoss) },
-  treeLoss: { label: { ja: '木に当たると', en: 'Hitting a tree' }, hint: { ja: '1回で失う速度', en: 'Speed lost per hit' }, show: t => `−${kmh(t.treeLoss)} km/h` },
-  signLoss: { label: { ja: '看板に当たると', en: 'Hitting a sign' }, hint: { ja: '1回で失う速度', en: 'Speed lost per hit' }, show: t => `−${kmh(t.signLoss)} km/h` },
-  contactLoss: { label: { ja: '車と当たると', en: 'Bumping a car' }, hint: { ja: '1回で失う速度', en: 'Speed lost per bump' }, show: t => `−${kmh(t.contactLoss)} km/h` },
+  rainSteer: RAIN, wetDamping: RAIN,
+  oilSteer: { label: { ja: '油膜のグリップ', en: 'Grip on oil' }, hint: { ja: '乾いた路面に対して', en: 'Share of the dry road’s' }, show: t => share(spec(t).oilGrip) },
+  offroadLoss: { label: { ja: 'ガードレールでの失速', en: 'Rail scrape' }, hint: { ja: '低いほどガードレールに沿って速度を保つ', en: 'Lower: keeps speed along a guard rail' }, show: t => percent(spec(t).railFriction, STOCK_SPEC.railFriction) },
+  treeLoss: DAMAGE, signLoss: DAMAGE, contactLoss: DAMAGE,
 };
 export const READING_FIELDS = Object.keys(READINGS) as (keyof CarTune)[];
 export interface EffectLine {
   readonly field: keyof CarTune; readonly label: Bilingual; readonly hint: Bilingual;
   readonly before: string; readonly after: string; readonly better: boolean;
 }
-/** What changes between two cars, field by field, in race units: improvements first, then trade-offs. */
+/** What changes between two cars, reading by reading: improvements first, then trade-offs.
+ * Fields the driving model folds into one quantity (rain grip, damage per hit) share a line. */
 export function effectLines(before: CarTune, after: CarTune): EffectLine[] {
-  const lines = READING_FIELDS.filter(field => before[field] !== after[field]).map((field): EffectLine => {
+  const lines: EffectLine[] = [];
+  for (const field of READING_FIELDS.filter(field => before[field] !== after[field])) {
     const { label, hint, show } = READINGS[field]!;
-    return { field, label, hint, before: show(before), after: show(after), better: LOWER_IS_BETTER.has(field) ? after[field] < before[field] : after[field] > before[field] };
-  });
+    if (lines.some(line => line.label === label)) continue;
+    lines.push({ field, label, hint, before: show(before), after: show(after), better: LOWER_IS_BETTER.has(field) ? after[field] < before[field] : after[field] > before[field] });
+  }
   return [...lines.filter(line => line.better), ...lines.filter(line => !line.better)];
 }
 
 /** Seconds a race each part saves on Hakone, Yokohama and Nikko (track order) for the drivers
- * its `bestFor` tag names, measured along its unlock path. tests/garage-balance.test.ts
- * re-measures them and `npm run balance:garage` prints fresh values after a rebalance.
+ * its `bestFor` tag names, measured on the driving model along its unlock path: on a clear
+ * road, or in a club-night pack for the parts whose tag is pack racing. `npm run balance:garage`
+ * measures them; tests/garage-balance.test.ts holds these values to its report.
  */
 export const RACE_GAINS: Readonly<Record<string, readonly [number, number, number]>> = {
-  'engine-intake': [0.9, 1.1, 0.9], 'engine-cams': [0.7, 1.1, 0.7], 'engine-highrev': [1.2, 1.4, 1.1], 'engine-torque': [1.4, 2.0, 1.0], 'engine-fulltune': [0.7, 0.9, 0.7],
-  'turbo-controller': [0.5, 0.6, 0.4], 'turbo-intercooler': [0.7, 0.9, 0.6], 'turbo-big': [1.2, 1.4, 1.0], 'turbo-twin': [1.1, 1.2, 1.0], 'turbo-antilag': [1.2, 1.2, 1.0],
-  'chassis-tyres': [0.3, 0.7, 0.3], 'chassis-coilovers': [0.3, 1.1, 0.0], 'chassis-touge': [1.2, 1.3, 0.8], 'chassis-rally': [0.2, 0.9, 0.2], 'chassis-lsd': [0.9, 0.8, 0.9],
-  'body-cage': [0.3, 0.3, 0.4], 'body-bumpers': [0.1, 0.2, 0.2], 'body-light': [0.6, 0.7, 0.5], 'body-armor': [0.6, 1.3, 0.2], 'body-windtunnel': [0.7, 0.9, 0.6],
+  'engine-intake': [0.7, 0.8, 0.6], 'engine-cams': [0.6, 0.8, 0.6], 'engine-highrev': [0.9, 1.2, 1.0], 'engine-torque': [0.9, 1.4, 0.8], 'engine-fulltune': [0.5, 0.7, 0.6],
+  'turbo-controller': [0.9, 1.4, 0.9], 'turbo-intercooler': [1.2, 1.1, 0.9], 'turbo-big': [2.0, 1.9, 1.7], 'turbo-twin': [1.9, 2.0, 1.8], 'turbo-antilag': [2.5, 2.5, 2.0],
+  'chassis-tyres': [0.3, 0.3, 0.3], 'chassis-coilovers': [0.1, 0.3, 0.2], 'chassis-touge': [0.9, 1.6, 1.0], 'chassis-rally': [0.4, 0.5, 0.2], 'chassis-lsd': [0.7, 1.6, 1.6],
+  'body-cage': [0.1, 0.2, 0.2], 'body-bumpers': [0.1, 0.2, 0.1], 'body-light': [0.4, 0.5, 0.3], 'body-armor': [0.1, 0.2, 0.1], 'body-windtunnel': [0.8, 0.8, 0.7],
 };

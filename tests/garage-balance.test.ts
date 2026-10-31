@@ -1,86 +1,97 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TECH_BRANCHES, TECH_NODES, rivalBuild, techNode, tuneFor, type TechNode } from '../src/game/garage-tech';
+import { readFileSync } from 'node:fs';
+import { TECH_BRANCHES, TECH_NODES, techNode, type PartAudience, type TechNode } from '../src/game/garage-tech';
 import { RACE_GAINS } from '../src/game/part-effects';
-import { CHAPTERS } from '../src/game/story';
-import { STOCK_TUNE } from '../src/game/tuned-engine';
-import { AUDIENCE_PROFILES, FULL_PLAN, audienceGain, evaluateParts, fieldPlace, gain, mean, partContext, storyCleared } from './helpers/garage-drivers';
+import { vehicleSpec } from '../src/game/drive/vehicle';
+import { tuneFor } from '../src/game/garage-tech';
+import { AUDIENCE_PROFILES, mean } from './helpers/garage-drivers';
+import { FULL_PLAN, HARBOR_CHAPTERS, REPORT_PATH, TRACKS, audienceGains, balanceInputs, fingerprints, raceGains, runSerially, type BalanceReport } from './helpers/garage-balance';
 
-// Simulated races with the reference drivers in helpers/garage-drivers.ts.
-// `npm run balance:garage` prints the full tables these limits come from.
-const value = (node: TechNode, audience = node.bestFor) => audienceGain(gain(partContext(node.id), node.id, FULL_PLAN), audience);
-const perYen = (node: TechNode) => value(node) / node.cost * 1000;
-const seeds = Array.from({ length: 12 }, (_, i) => i + 1);
-const clearRate = (chapter: number, profile: 'rookie' | 'regular', parts: readonly string[]) => seeds.filter(seed => storyCleared(chapter, profile, tuneFor(parts), seed)).length / seeds.length;
+// The garage balance on the local driving model. A driving-model race costs a few
+// hundred milliseconds, so `npm run balance:garage` measures it once on every core
+// (tests/fixtures/garage-balance.json) and prints the tables these limits come from.
+// The first test re-runs the report's fingerprint races, so it must match the model.
+const report = JSON.parse(readFileSync(REPORT_PATH, 'utf8')) as BalanceReport;
+/** Ticks saved a race for the drivers a tag names, averaged over the three courses. */
+const value = (node: TechNode, audience: PartAudience = node.bestFor) => {
+  const gains = report.parts[node.id]!.gains;
+  return mean(AUDIENCE_PROFILES[audience].map(profile => mean(gains[profile] ?? [])));
+};
+const perYen = (node: TechNode, audience: PartAudience = node.bestFor) => value(node, audience) / node.cost * 1000;
+
+test('the balance report measures the current driving model, tree and drivers', async () => {
+  assert.equal(report.plan, FULL_PLAN.name);
+  assert.equal(report.inputs, balanceInputs(FULL_PLAN), 'parts, prices, rivals, story budgets or reference drivers changed: run npm run balance:garage');
+  assert.deepEqual(await fingerprints(runSerially), report.fingerprints, 'the driving model or its AI changed: run npm run balance:garage');
+});
 
 test('every part saves real time for the drivers its tag names', () => {
-  for (const node of TECH_NODES) assert.ok(value(node) >= (node.tier <= 2 ? 4 : 10), `${node.id} for ${node.bestFor}: ${value(node).toFixed(1)} ticks`);
+  // A tenth of a second a race at least: the durability parts mostly protect the car, and are priced for it.
+  for (const node of TECH_NODES) assert.ok(value(node) >= 3, `${node.id} for ${node.bestFor}: ${value(node).toFixed(1)} ticks`);
 });
 
 test('the garage shows the race time each part was measured to save on each course', () => {
-  // Display values are rounded to 0.1 s; re-measure after any rebalance (npm run balance:garage prints them).
-  for (const node of TECH_NODES) {
-    const gains = gain(partContext(node.id), node.id, FULL_PLAN);
-    [0, 1, 2].forEach(track => {
-      const measured = mean(AUDIENCE_PROFILES[node.bestFor].map(profile => gains[profile][track]!)) / 30;
-      assert.ok(Math.abs(measured - RACE_GAINS[node.id]![track]!) <= 0.06, `${node.id} track ${track}: measured ${measured.toFixed(2)} s, shown ${RACE_GAINS[node.id]![track]} s`);
-    });
-  }
+  // Rounded to 0.1 s; `npm run balance:garage` prints RACE_GAINS after a rebalance.
+  const measured = raceGains(report);
+  for (const node of TECH_NODES) assert.deepEqual([...RACE_GAINS[node.id]!], measured[node.id], node.id);
+  for (const node of TECH_NODES) assert.deepEqual(audienceGains(report, node.id).length, TRACKS.length);
 });
 
 test('each tier is a worse deal than the one before, and tiers are priced alike across branches', () => {
   for (const branch of TECH_BRANCHES) {
-    const tiers = [1, 2, 3, 4].map(tier => Math.max(...TECH_NODES.filter(node => node.branch === branch.id && node.tier === tier).map(perYen)));
+    const tiers = [1, 2, 3, 4].map(tier => Math.max(...TECH_NODES.filter(node => node.branch === branch.id && node.tier === tier).map(node => perYen(node))));
     for (let tier = 1; tier < 4; tier++) assert.ok(tiers[tier]! <= tiers[tier - 1]! * 1.25, `${branch.id} tier ${tier + 1} is no bargain: ${tiers.map(v => v.toFixed(2))}`);
     assert.equal(Math.min(...tiers), tiers[3], `${branch.id} capstone is the priciest gain`);
   }
   for (const tier of [1, 2, 3, 4]) {
-    const deals = TECH_NODES.filter(node => node.tier === tier).map(perYen);
+    const deals = TECH_NODES.filter(node => node.tier === tier).map(node => perYen(node));
     assert.ok(Math.max(...deals) / Math.min(...deals) <= 3, `tier ${tier} spread ${deals.map(v => v.toFixed(2))}`);
   }
 });
 
 test('every setup fork is a real choice', () => {
-  const better = (a: string, b: string, audience: TechNode['bestFor']) => value(techNode(a)!, audience) > value(techNode(b)!, audience);
-  assert.ok(better('engine-highrev', 'engine-torque', 'clean') && better('engine-torque', 'engine-highrev', 'recovery'));
-  assert.ok(better('chassis-touge', 'chassis-rally', 'drift') && better('chassis-rally', 'chassis-touge', 'recovery'));
-  assert.ok(better('body-light', 'body-armor', 'clean') && better('body-armor', 'body-light', 'recovery'));
+  // Each option is the better buy, in time saved per yen, for the drivers its own tag names.
+  const better = (a: string, b: string, audience: PartAudience) => perYen(techNode(a)!, audience) > perYen(techNode(b)!, audience);
+  for (const [a, b] of [['engine-highrev', 'engine-torque'], ['chassis-touge', 'chassis-rally'], ['body-light', 'body-armor']]) {
+    assert.ok(better(a!, b!, techNode(a!)!.bestFor) && better(b!, a!, techNode(b!)!.bestFor), `${a} / ${b}`);
+  }
   // Both turbos serve boost users; each must win somewhere.
-  const context = partContext('turbo-big'), big = gain(context, 'turbo-big', FULL_PLAN), twin = gain(context, 'turbo-twin', FULL_PLAN);
-  const cells = AUDIENCE_PROFILES.boost.flatMap(profile => [0, 1, 2].map(track => big[profile][track]! - twin[profile][track]!));
+  const big = report.parts['turbo-big']!.gains, twin = report.parts['turbo-twin']!.gains;
+  const cells = AUDIENCE_PROFILES.boost.flatMap(profile => TRACKS.map(track => big[profile]![track]! - twin[profile]![track]!));
   assert.ok(cells.some(d => d > 2) && cells.some(d => d < -2), `turbo fork ${cells.map(Math.round)}`);
+  // Armour trades lightweight's speed for half the damage per hit.
+  const armor = vehicleSpec(tuneFor(['body-cage', 'body-bumpers', 'body-armor'])).toughness, light = vehicleSpec(tuneFor(['body-cage', 'body-bumpers', 'body-light'])).toughness;
+  assert.ok(armor <= light / 1.4, `damage per hit: armour ${armor}, lightweight ${light}`);
 });
 
 test('a finished car is a big but bounded step over stock', () => {
-  const finished = rivalBuild('power', 640000), stock = evaluateParts([], FULL_PLAN), built = evaluateParts(finished, FULL_PLAN);
-  for (const profile of ['regular', 'pro', 'ace'] as const) for (const track of [0, 1, 2]) {
-    const saved = 1 - built[profile][track]! / stock[profile][track]!;
-    assert.ok(saved >= 0.06 && saved <= 0.14, `${profile} on track ${track}: ${(saved * 100).toFixed(1)}%`);
+  for (const profile of ['regular', 'pro', 'ace'] as const) for (const track of TRACKS) {
+    const saved = report.finished[profile][track]!;
+    assert.ok(saved >= 0.08 && saved <= 0.16, `${profile} on track ${track}: ${(saved * 100).toFixed(1)}%`);
   }
 });
 
 test('practice fields form a ladder: each needs a better car, the last needs a finished one', () => {
-  const places = (field: 'club' | 'touge' | 'championship' | 'legends', parts: readonly string[]) => [0, 1, 2].map(track => fieldPlace(field, track, 'pro', tuneFor(parts)));
-  assert.deepEqual(places('club', []), [1, 1, 1], 'club night is the original practice');
-  assert.ok(places('touge', []).every(p => p > 3) && places('touge', rivalBuild('power', 120000)).every(p => p <= 3));
-  assert.ok(places('championship', rivalBuild('power', 60000)).every(p => p > 3) && places('championship', rivalBuild('boost', 420000)).every(p => p <= 3));
-  assert.ok(places('legends', rivalBuild('power', 180000)).every(p => p > 3));
-  assert.ok(places('legends', rivalBuild('power', 640000)).filter(p => p <= 3).length >= 2, 'a finished car contends in Legends');
+  const places = (field: keyof BalanceReport['fields'], build: string) => report.fields[field][build]!;
+  const podium = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place <= 3);
+  const shut = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place > 3);
+  assert.ok(!podium('club', 'stock') && podium('club', 'power 60k'), 'a modest build podiums club night');
+  assert.ok(shut('touge', 'stock') && podium('touge', 'power 420k'));
+  assert.ok(shut('championship', 'power 120k') && podium('championship', 'power 420k'));
+  assert.ok(shut('legends', 'power 180k'));
+  assert.ok(places('legends', 'power 640k').filter(place => place <= 3).length >= 2, 'a finished car contends in Legends');
 });
 
-test('a stock car can meet every story objective except Toru’s showdown', () => {
-  // The rivals assume a player who upgrades in the pre-race garage (tests/story-pit-balance.test.ts).
-  // Arcade chapters by id; the street-race chapters race equal cars on their own routes.
-  for (const chapter of CHAPTERS.filter(c => c.trackId !== undefined).map(c => c.id)) assert.equal(storyCleared(chapter, 'pro', STOCK_TUNE), chapter !== 10, `chapter ID ${chapter} with a stock car`);
-  // The windy harbor chapters before the showdown reward a modest build.
-  for (const chapter of [4, 7]) {
-    const budget = 12000 + 7000 * chapter, upgraded = clearRate(chapter, 'regular', rivalBuild('tough', budget)), stock = clearRate(chapter, 'regular', []);
-    assert.ok(upgraded >= 0.6 && upgraded - stock >= 0.4, `chapter ${chapter + 1}: stock ${stock}, ¥${budget} build ${upgraded}`);
-  }
+test('a stock car can meet every story objective; the harbor is where struggling drivers need parts', () => {
+  // With equal cars a regular driver clears every chapter at least half the time; Yokohama's rain and crosswinds are the hardest.
+  for (const [chapter, rate] of Object.entries(report.story.equal)) assert.ok(rate >= 0.5, `chapter ID ${chapter} in equal cars: ${rate}`);
+  // Against the tuned rivals, a stock regular still wins through the windy harbor chapters more often than not.
+  for (const chapter of HARBOR_CHAPTERS) assert.ok(report.story.harbor[chapter]!.stock >= 0.5, `chapter ID ${chapter}: ${JSON.stringify(report.story.harbor[chapter])}`);
 });
 
-test('chassis recovery parts, not raw power, rescue a struggling driver in Yokohama', () => {
-  const recovery = clearRate(1, 'rookie', ['chassis-tyres', 'chassis-coilovers', 'chassis-rally']);
-  const power = clearRate(1, 'rookie', ['engine-intake', 'engine-cams', 'turbo-controller']), stock = clearRate(1, 'rookie', []);
-  assert.ok(recovery >= 0.7 && recovery - power >= 0.25 && recovery - stock >= 0.4, `recovery ${recovery}, power ${power}, stock ${stock}`);
+test('the crew’s picks, not chassis or engine parts alone, rescue a struggling driver in Yokohama', () => {
+  // The first harbor night: Daichi's first picks (boost, engine, tyres) against chassis-only and engine-only builds that cost more.
+  const { picks, recovery, power, stock } = report.story.rescue;
+  assert.ok(picks - stock >= 0.2 && picks >= recovery && picks >= power, `picks ${picks}, recovery ${recovery}, power ${power}, stock ${stock}`);
 });

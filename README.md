@@ -149,7 +149,8 @@ including drift charging, slipstream and anti-lag. Practice offers four fields o
 increasingly tuned rivals, from Club night to Legends, and the story's rivals tune
 up as the plot escalates. Parts never reach live XOR races, proofs or the 1986
 street runs. **EQUAL CARS** gives every car the stock tune in practice and story.
-`npm run balance:garage` reprints the simulated balance tables. See
+`npm run balance:garage` re-measures the balance on the driving model, on every
+core, and rewrites the report the balance tests check. See
 [the garage tech tree](docs/garage-tech-tree.md).
 
 ## 証明 / Proof workshop
