@@ -54,6 +54,8 @@ import { setPeriodCityGolden } from './period-city/materials';
 import type { PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
 import { crownLight, crownLightGlsl } from './autumn-foliage';
+import { CarFleet, plateTexture } from './period-cars/fleet';
+import { buildColours, type CarBuild } from '../car-builds';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
 // coordinates are right-positive. Convert once at the boundary: west = +X,
@@ -63,7 +65,9 @@ interface Pose { x: number; y: number; z: number; heading: number; width: number
 interface Course { key: unknown; length: number; circuit: boolean; poses: Pose[]; style: number }
 interface VisualCar { retired?: boolean; p: number; lateral: number; yaw: number; slip: number; speed: number; color: string; accent?: string; aero?: boolean; boosting: boolean; braking: boolean; steer: number;
   /** Driving model only: damage points (100 wrecks), detached-part mask and a wreck still on the road. */
-  damage?: number; detached?: number; wreck?: boolean }
+  damage?: number; detached?: number; wreck?: boolean;
+  /** The car's body and parts (car-builds.ts); none draws the factory hachiroku. */
+  build?: CarBuild }
 interface Hazard { id: string; kind: 'tree' | 'sign' | 'oil'; p: number; lateral: number; halfWidth: number; halfLength: number; broken: boolean }
 interface ShopAreaLightSlot { fixtureId: string | null; gain: number }
 const TAU = Math.PI * 2;
@@ -459,6 +463,8 @@ export class RaceWorld {
   readonly fill = new THREE.HemisphereLight(MOOD.fillSky, MOOD.fillGround, 0.14);
   readonly road = new THREE.Group();
   readonly cars: CarModel[] = [];
+  /** Each slot's car to its build: the period bodies and built hachiroku (period-cars/fleet.ts). */
+  private carFleet: CarFleet | null = null;
   readonly buildings: THREE.Group[] = [];
   readonly trees: THREE.Group[] = [];
   readonly forest: THREE.Group[] = [];
@@ -763,7 +769,9 @@ export class RaceWorld {
     const emblemUrl = asset('branding/sora-emblem-source.png');
     // A wide white ring round the roof and bonnet emblems, so the exact emblem's red disc reads on a red car's roof
     // seen at the chase camera's low angle (refine round 4; the garage's part viewer keeps the thin ring).
-    void loadDetailedCarFleet(this.flag, soraEmblemTexture(emblemUrl, 512, .3), soraStripTexture(emblemUrl)).then(fleet => {
+    const carEmblem = soraEmblemTexture(emblemUrl, 512, .3), carStrip = soraStripTexture(emblemUrl);
+    const carFleet = this.carFleet = new CarFleet(this.scene, { flag: this.flag, emblem: carEmblem, strip: carStrip, plate: plateTexture() });
+    void loadDetailedCarFleet(this.flag, carEmblem, carStrip).then(fleet => {
       const geometry = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
       for (const model of this.cars) {
         this.scene.remove(model.group);
@@ -776,6 +784,7 @@ export class RaceWorld {
       geometry.forEach(g => g.dispose()); materials.forEach(m => m.dispose());
       this.cars.splice(0, this.cars.length, ...fleet);
       for (const model of fleet) this.scene.add(model.group);
+      carFleet.setStock(fleet);
       this.pixelArt.setMovers(this.cars.map(model => model.group));
       output.dataset.carAsset = 'detailed';
     }).catch(error => { output.dataset.carAsset = 'failed'; console.error('Detailed vehicle asset failed to load.', error); });
@@ -791,9 +800,10 @@ export class RaceWorld {
     const controls = options.controls ?? 0;
     const cars = state.cars.map((car, i): VisualCar => {
       const appearance = options.appearances?.[i];
-      const livery = clubLivery(LIVERIES[options.skins[i] ?? i % 6] ?? LIVERIES[0]!, appearance);
-      const base = { p: car.progress / 1000, lateral: -car.x / 1000, speed: car.speed * 0.03, color: livery.color, accent: clubItem(appearance?.skin)?.accent,
-        aero: appearance?.upgrade === 'club-aero-86' };
+      const livery = clubLivery(LIVERIES[options.skins[i] ?? i % 6] ?? LIVERIES[0]!, appearance), build = options.builds?.[i] ?? undefined;
+      // A club livery repaints the car; otherwise a build's own paint.
+      const base = { p: car.progress / 1000, lateral: -car.x / 1000, speed: car.speed * 0.03, accent: clubItem(appearance?.skin)?.accent,
+        color: build && !clubItem(appearance?.skin) ? buildColours(build).paint : livery.color, aero: appearance?.upgrade === 'club-aero-86', build };
       // The driving model supplies each car's real heading, slip, wheels and damage.
       if (car.heading !== undefined) return { ...base, retired: car.finishTick !== null || car.dnf && !car.solid, wreck: car.dnf && car.solid,
         yaw: -car.heading, slip: -(car.slip ?? 0), steer: -(car.wheel ?? 0), boosting: !!car.boosting, braking: !!car.braking,
@@ -817,7 +827,7 @@ export class RaceWorld {
       retired: car.status !== 0 && !(car.status === 2 && car.solid === 1), wreck: car.status === 2 && car.solid === 1,
       p: car.progressMm / 1000, lateral: -car.lateralMm / 1000,
       yaw: -car.bodyYawMicroturn * TAU / 1e6, slip: (car.velocityYawMicroturn - car.bodyYawMicroturn) * TAU / 1e6, speed: car.speedMmPerTick * 0.03,
-      color: LIVERIES[car.skin]?.color ?? LIVERIES[0]!.color, boosting: car.boosting === 1,
+      color: options.builds?.[i] ? buildColours(options.builds[i]!).paint : LIVERIES[car.skin]?.color ?? LIVERIES[0]!.color, build: options.builds?.[i] ?? undefined, boosting: car.boosting === 1,
       braking: car.braking !== undefined ? car.braking === 1 : i === options.playerSlot && !!(options.controls & CONTROL.brake),
       steer: car.wheel !== undefined ? -car.wheel : clamp((car.velocityYawMicroturn - car.bodyYawMicroturn) * TAU / 1e6, -0.4, 0.4),
       damage: car.damage, detached: car.detached }));
@@ -1497,6 +1507,7 @@ export class RaceWorld {
     // through dusk toward its bearing, fading into the night below daylight 0.3.
     this.paintedSky.setRacingGolden(mood.lowSun ? Math.max(THREE.MathUtils.smoothstep(daylight, 0.6, 0.85),
       THREE.MathUtils.smoothstep(daylight, 0.3, 0.5)) : 0);
+    if (this.carFleet?.sync(this.cars, cars.map(car => car?.build))) this.pixelArt.setMovers(this.cars.map(model => model.group));
     this.cars.forEach((model, i) => {
       const car = cars[i]; model.group.visible = !!car && !(view === 'bumper' && i === slot) && !(car?.retired && i !== slot);
       if (!car) { this.vehicleAmbient.setCar(i, model.group.position, 0, 0); return; }

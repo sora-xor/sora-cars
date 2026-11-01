@@ -5,6 +5,11 @@ import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { CarModel } from './car';
 import { createDetailedDriver } from './driver';
+import { buildColours, isFactoryHachiroku, resolvedBuild, type CarBuild } from '../car-builds';
+import { HACHIROKU_FRAME, HACHIROKU_WHEEL_WIDTH } from './period-cars/hachiroku';
+import { flareTrack, kitPieces, wheelGeometry } from './period-cars/kit';
+import { carMaterials, STANCE, stripeFrame } from './period-cars/model';
+import { applyFinish, stripeShader, stripeUniforms } from './period-cars/paint';
 
 /** Martin Trafas's detailed period AE86, independently adapted for the race.
  * Primary attribution, licensed redistribution and checksums accompany the GLB.
@@ -289,8 +294,11 @@ async function prepareTemplate(): Promise<Template> {
  */
 export const CAR_SPOT_CAP = { value: 1 };
 
-function addDissolve(material: THREE.Material, opacity: { value: number }): void {
+/** The race's screen-door fade and lamp cap on a car material; `extra` adds a shader edit of its own (painted stripes). */
+export function addDissolve(material: THREE.Material, opacity: { value: number },
+  extra?: { compile: (shader: THREE.WebGLProgramParametersWithUniforms) => void; key: string }): void {
   material.onBeforeCompile = shader => {
+    extra?.compile(shader);
     shader.uniforms.soraAssetOpacity = opacity;
     shader.uniforms.soraCarSpotCap = CAR_SPOT_CAP;
     // The chunk is expanded here (onBeforeCompile sees only its #include), with the cap after each spot light's info.
@@ -308,7 +316,7 @@ function addDissolve(material: THREE.Material, opacity: { value: number }): void
         if (soraAssetOpacity < 1.0 && soraBayer4(gl_FragCoord.xy) >= soraAssetOpacity) discard;
     `);
   };
-  material.customProgramCacheKey = () => 'sora-detailed-coupe-dissolve-v3';
+  material.customProgramCacheKey = () => extra ? `sora-detailed-coupe-dissolve-v3|${extra.key}` : 'sora-detailed-coupe-dissolve-v3';
 }
 
 /** Every detailed car's paint and emblem materials, for the night's street light (setDetailedCarNight). */
@@ -318,21 +326,35 @@ const nightPaint = new Set<THREE.MeshStandardMaterial>(), nightEmblems = new Set
  * emblems light a little from within: the cutscenes keep a white car warm cream and its roof emblem a bold red disc
  * under the street's lamps, where ours went grey-mauve and the emblem a pink smudge. `night` 0 by day, 1 at night.
  */
+let nightLevel = 0;
 export function setDetailedCarNight(night: number): void {
   const k = THREE.MathUtils.clamp(Number.isFinite(night) ? night : 0, 0, 1);
+  nightLevel = k;
   for (const material of nightPaint) material.envMapIntensity = 1 + 1.2 * k;
   for (const material of nightEmblems) material.emissiveIntensity = .35 * k;
 }
+/** Every car's paint and emblems take the night's street light; the release forgets a car that is replaced. */
+export function carNight(paint: THREE.MeshStandardMaterial[], emblems: THREE.MeshStandardMaterial[]): () => void {
+  for (const material of paint) { nightPaint.add(material); material.envMapIntensity = 1 + 1.2 * nightLevel; }
+  for (const material of emblems) { nightEmblems.add(material); material.emissiveIntensity = .35 * nightLevel; }
+  return () => { for (const material of paint) nightPaint.delete(material); for (const material of emblems) nightEmblems.delete(material); };
+}
 
 function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Texture | undefined, strip: THREE.Texture | undefined,
-  index: number, driver: THREE.Group): CarModel {
+  index: number, driver: THREE.Group, build?: CarBuild): CarModel {
   const group = new THREE.Group(); group.name = `SORA detailed period coupe ${index + 1}`;
   group.userData.asset = 'Toyota AE86 Sprinter Trueno Zenki';
   group.userData.attribution = 'Martin Trafas, CC BY 4.0';
+  // A build other than the factory car (car-builds.ts): its paint, stripes, wheels, kit and stance.
+  const custom = build && !isFactoryHachiroku(build) ? build : null, colours = custom ? buildColours(custom) : null;
+  const stance = STANCE[custom?.stance ?? 'stock'], flares = custom ? flareTrack(custom) : 0;
   // Neutral tire contact locations for world-space trails and smoke.
   // Order is front left, front right, rear left, rear right; +Z is forward.
-  group.userData.tyreContacts = template.wheels.map(wheel => [wheel.center.x, 0, wheel.center.z]);
+  group.userData.tyreContacts = template.wheels.map(wheel => [wheel.center.x + Math.sign(wheel.center.x) * flares, 0, wheel.center.z]);
   group.userData.rearTyreContacts = group.userData.tyreContacts.slice(2);
+  if (custom) group.userData.build = custom;
+  // Everything but the wheels rides on the suspension, so a stance can lower or lift it.
+  const body = new THREE.Group(); body.name = 'Body'; body.position.y = stance.drop; group.add(body);
   const opacity = { value: 1 };
   const driverMaterials = new Map<THREE.Material, THREE.Material>();
   driver.traverse(object => {
@@ -348,19 +370,22 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
     object.material = Array.isArray(object.material) ? object.material.map(withFade) : withFade(object.material);
   });
   driver.userData.prototype = false;
-  group.add(driver);
+  body.add(driver);
   const materials = new Map<string, THREE.MeshStandardMaterial>();
   const paint: THREE.MeshStandardMaterial[] = [], trim: THREE.MeshStandardMaterial[] = [], brakes: THREE.MeshStandardMaterial[] = [];
   const shadowMeshes: THREE.Mesh[] = [];
   const wheelGroups = template.wheels.map((wheel, wheelIndex) => {
-    const steering = new THREE.Group(), spin = new THREE.Group();
+    const steering = new THREE.Group(), spin = new THREE.Group(), side = Math.sign(wheel.center.x) || 1;
     steering.name = WHEEL_NAMES[wheelIndex]!; spin.name = `${steering.name} spin`;
-    steering.position.copy(wheel.center); steering.add(spin); group.add(steering);
-    return { steering, spin, ...wheel };
+    steering.position.copy(wheel.center); steering.position.x += side * flares; steering.rotation.z = -side * stance.camber;
+    steering.add(spin); group.add(steering);
+    return { steering, spin, side, ...wheel };
   });
   const breakable: { mesh: THREE.Mesh; surface: Surface; material: THREE.Material; ranges: NonNullable<Breakage['ranges'][number]>;
     grouped?: THREE.BufferGeometry; beforeShadow: THREE.Mesh['onBeforeShadow']; afterShadow: THREE.Mesh['onAfterShadow'] }[] = [];
   const surfaceMaterials: THREE.Material[] = [];
+  const stripes = custom && custom.stripe !== 'none' ? stripeShader(stripeUniforms(custom, colours!.stripe, stripeFrame(HACHIROKU_FRAME))) : undefined;
+  const customWheels = custom && custom.wheels !== 'stock';
   for (const [surfaceIndex, surface] of template.surfaces.entries()) {
     const materialKey = `${surface.material.uuid}:${surface.headlight}`;
     let material = materials.get(materialKey);
@@ -378,6 +403,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
           material.clearcoat = 0.85; material.clearcoatRoughness = 0.13;
           material.ior = 1.5; material.specularIntensity = 1;
         }
+        if (colours) applyFinish(material, colours.finish);
       } else if (material.name === 'Secondary') {
         trim.push(material);
         material.metalness = 0; material.roughness = 0.34;
@@ -406,7 +432,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         material.envMapIntensity = 1;
         material.depthWrite = false; material.side = THREE.FrontSide;
       }
-      addDissolve(material, opacity);
+      addDissolve(material, opacity, material.name === 'Primary' ? stripes : undefined);
     }
     const mesh = new THREE.Mesh(surface.geometry, material);
     mesh.name = `Detailed coupe ${material.name}`;
@@ -425,46 +451,78 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
     surfaceMaterials[surfaceIndex] = material;
     const ranges = template.breakage.ranges[surfaceIndex];
     if (ranges) breakable.push({ mesh, surface, material, ranges, beforeShadow: mesh.onBeforeShadow, afterShadow: mesh.onAfterShadow });
-    if (surface.wheel < 0) group.add(mesh);
+    // A build's own wheels replace the source rims; the tyres, discs and calipers stay.
+    if (customWheels && material.name === 'RimMaterial') mesh.visible = false;
+    if (surface.wheel < 0) body.add(mesh);
     else (surface.fixed ? wheelGroups[surface.wheel]!.steering : wheelGroups[surface.wheel]!.spin).add(mesh);
   }
   const flagMaterial = new THREE.MeshStandardMaterial({ map: flag, transparent: true, alphaTest: 0.03,
     roughness: 0.44, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   addDissolve(flagMaterial, opacity);
-  const flags = new THREE.Mesh(template.decals, flagMaterial); flags.name = 'Exact SORA flag body decals'; group.add(flags);
+  const flags = new THREE.Mesh(template.decals, flagMaterial); flags.name = 'Exact SORA flag body decals'; body.add(flags);
+  let emblemMaterial: THREE.MeshStandardMaterial | null = null;
   if (template.emblems && emblem) {
-    const emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
+    emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
       roughness: 0.4, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
       emissive: 0xffffff, emissiveMap: emblem, emissiveIntensity: 0 });
     nightEmblems.add(emblemMaterial);
     addDissolve(emblemMaterial, opacity);
-    const emblems = new THREE.Mesh(template.emblems, emblemMaterial); emblems.name = 'Exact SORA emblem roof and bonnet decals'; group.add(emblems);
+    const emblems = new THREE.Mesh(template.emblems, emblemMaterial); emblems.name = 'Exact SORA emblem roof and bonnet decals'; body.add(emblems);
   }
+  let stripMaterial: THREE.MeshStandardMaterial | null = null;
   if (template.strip && strip) {
-    const stripMaterial = new THREE.MeshStandardMaterial({ map: strip, roughness: 0.35, metalness: 0.02,
+    stripMaterial = new THREE.MeshStandardMaterial({ map: strip, roughness: 0.35, metalness: 0.02,
       polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
     addDissolve(stripMaterial, opacity);
-    const banner = new THREE.Mesh(template.strip, stripMaterial); banner.name = 'SORA club strip on the rear window'; group.add(banner);
+    const banner = new THREE.Mesh(template.strip, stripMaterial); banner.name = 'SORA club strip on the rear window'; body.add(banner);
   }
   const aeroMaterial = new THREE.MeshStandardMaterial({ color: '#20252b', metalness: 0.45, roughness: 0.32 });
   addDissolve(aeroMaterial, opacity);
-  const aero = new THREE.Mesh(template.aero, aeroMaterial); aero.name = 'Club aero chin lip'; aero.visible = false; group.add(aero);
+  const aero = new THREE.Mesh(template.aero, aeroMaterial); aero.name = 'Club aero chin lip'; aero.visible = false; body.add(aero);
   const flameMaterial = new THREE.MeshBasicMaterial({ color: '#72d0ff', transparent: true, opacity: 0.65,
     blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide, toneMapped: false });
   addDissolve(flameMaterial, opacity);
   const exhaust = new THREE.Group(); exhaust.name = 'Boost exhaust'; exhaust.visible = false;
   const flame = new THREE.Mesh(template.flame, flameMaterial);
   flame.position.set(0.5, 0.16, -2.08); exhaust.add(flame);
-  group.add(exhaust);
-  let lastTime: number | null = null, angle = 0, lastColor = '', lastTrim = '', lastDetached = 0;
+  body.add(exhaust);
+  // The build's bolt-on parts and wheels, in its own materials; its paint is the body's.
+  const kitMaterials = custom ? carMaterials(custom) : null, kitParted: THREE.Mesh[] = [];
+  let ownHidden = 0;
+  if (custom && kitMaterials) {
+    for (const material of Object.values(kitMaterials)) addDissolve(material, opacity);
+    const resolved = resolvedBuild(custom);
+    for (const piece of kitPieces('hachiroku', HACHIROKU_FRAME, custom, { mirrors: resolved.mirrors === 'door', exhaust: resolved.exhaust === 'stock' })) {
+      const mesh = new THREE.Mesh(piece.geometry, piece.material === 'paint' ? paint[0]! : kitMaterials[piece.material]);
+      mesh.name = `Kit ${piece.material}`; mesh.castShadow = !['glass', 'head', 'tail', 'amber'].includes(piece.material); mesh.receiveShadow = true;
+      mesh.userData.part = piece.part; if (piece.part >= 0) kitParted.push(mesh);
+      if (mesh.castShadow) shadowMeshes.push(mesh);
+      body.add(mesh);
+    }
+    // Fender mirrors stand in for the source's door mirrors.
+    if (resolved.mirrors === 'fender') ownHidden = 2 ** 8 + 2 ** 9;
+    if (resolved.exhaust === 'takeyari') { flame.position.set(-0.65, Math.max(0.17, HACHIROKU_FRAME.bumpers.rear[0] - 0.02) + 1.15, HACHIROKU_FRAME.rear - 0.85); flame.rotation.x = -0.9; }
+    if (customWheels) {
+      const style = resolved.wheels as Exclude<typeof resolved.wheels, 'stock'>;
+      for (const wheel of wheelGroups) {
+        const rim = new THREE.Group(); rim.name = 'Build rim'; rim.rotation.y = wheel.side > 0 ? 0 : Math.PI;
+        for (const piece of wheelGeometry(style, wheel.radius, HACHIROKU_WHEEL_WIDTH, true).spin) rim.add(new THREE.Mesh(piece.geometry, kitMaterials[piece.material]));
+        wheel.spin.add(rim);
+      }
+    }
+  }
+  const lowerColour = custom && custom.lower !== 'stock' ? colours!.lower : undefined;
+  let lastTime: number | null = null, angle = 0, lastColor = '', lastTrim = '', lastDetached = -1;
   const car: CarModel = {
     group,
     setDamage(detached) {
       if (detached === lastDetached) return;
       lastDetached = detached;
+      for (const mesh of kitParted) mesh.visible = !(Math.floor(detached / 2 ** mesh.userData.part) % 2 === 1);
+      const hidden = detached | ownHidden;
       for (const body of breakable) {
         const { mesh } = body;
-        if (!detached) {
+        if (!hidden) {
           mesh.geometry = body.surface.geometry; mesh.material = body.material;
           mesh.onBeforeShadow = body.beforeShadow; mesh.onAfterShadow = body.afterShadow;
           continue;
@@ -475,7 +533,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         let start = 0, count = body.ranges.shell;
         body.ranges.parts.forEach((range, part) => {
           if (!range.count) return;
-          if (Math.floor(detached / 2 ** part) % 2 === 1) { if (count) grouped.addGroup(start, count, 0); start = range.start + range.count; count = 0; }
+          if (Math.floor(hidden / 2 ** part) % 2 === 1) { if (count) grouped.addGroup(start, count, 0); start = range.start + range.count; count = 0; }
           else count += range.count;
         });
         if (count) grouped.addGroup(start, count, 0);
@@ -492,13 +550,20 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         const mesh = new THREE.Mesh(geometry, surfaceMaterials[surface]!); mesh.castShadow = true; mesh.receiveShadow = true;
         piece.add(mesh);
       }
-      piece.position.copy(part.centre);
+      piece.position.copy(part.centre); piece.position.y += stance.drop;
       return { object: piece, size: part.size };
     },
     setAppearance(color, accent = '#bbb9b0', hasAero = false) {
-      if (color !== lastColor) { for (const material of paint) material.color.set(color); lastColor = color; }
-      if (accent !== lastTrim) { for (const material of trim) material.color.set(accent).multiplyScalar(0.065); lastTrim = accent; }
-      aero.visible = hasAero;
+      if (color !== lastColor) {
+        for (const material of paint) material.color.set(color);
+        if (custom?.lower === 'body') for (const material of trim) material.color.set(color);
+        lastColor = color;
+      }
+      if (accent !== lastTrim) {
+        for (const material of trim) if (lowerColour) material.color.set(lowerColour); else if (custom?.lower !== 'body') material.color.set(accent).multiplyScalar(0.065);
+        lastTrim = accent;
+      }
+      aero.visible = hasAero && !(custom && custom.front !== 'stock');
     },
     setOpacity(value) {
       const next = Number.isFinite(value) ? clamp(value, 0, 1) : 1;
@@ -524,8 +589,16 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       for (const material of brakes) material.emissiveIntensity = braking ? 3.2 : 1.8;
       exhaust.visible = boosting; exhaust.scale.z = boosting ? 0.9 + Math.sin(now * 37) * 0.14 : 1;
     },
+    dispose() {
+      for (const material of paint) nightPaint.delete(material);
+      if (emblemMaterial) nightEmblems.delete(emblemMaterial);
+      for (const material of [...materials.values(), ...driverMaterials.values(), ...Object.values(kitMaterials ?? {}), flagMaterial, emblemMaterial,
+        stripMaterial, aeroMaterial, flameMaterial]) material?.dispose();
+      for (const body of breakable) body.grouped?.dispose();
+    },
   };
-  car.setAppearance('#e8e5d9');
+  car.setAppearance(colours?.paint ?? '#e8e5d9');
+  car.setDamage!(0);
   return car;
 }
 
@@ -539,4 +612,11 @@ export async function loadDetailedCarFleet(flag: THREE.Texture, emblem?: THREE.T
     templatePromise, Promise.all(Array.from({ length: 8 }, () => createDetailedDriver())),
   ]);
   return drivers.map((driver, index) => instantiate(template, flag, emblem, strip, index, driver.group));
+}
+
+/** One detailed hachiroku to a build (car-builds.ts), with its own seated driver. */
+export async function loadDetailedCar(build: CarBuild, flag: THREE.Texture, emblem?: THREE.Texture, strip?: THREE.Texture, index = 0): Promise<CarModel> {
+  templatePromise ??= prepareTemplate().catch(error => { templatePromise = undefined; throw error; });
+  const [template, driver] = await Promise.all([templatePromise, createDetailedDriver()]);
+  return instantiate(template, flag, emblem, strip, index, driver.group, build);
 }

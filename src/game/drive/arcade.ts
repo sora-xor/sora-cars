@@ -1,4 +1,5 @@
 import { validateClubAppearance, type ClubAppearance } from '../catalog';
+import { validateReplayBuilds, type CarBuild } from '../car-builds';
 import { createRace, type RaceState } from '../engine';
 import type { EnvironmentContact } from '../environment-events';
 import { environmentAt } from '../environment';
@@ -16,6 +17,8 @@ export interface DriveReplayV1 {
   version: 1; rules: typeof DRIVE_RULES; trackId: number;
   names: string[]; skins: number[]; tunes: CarTune[]; inputs: number[][]; savedAt: string; source: 'practice';
   appearances?: ClubAppearance[];
+  /** Each car's body and parts as raced (car-builds.ts); presentation only, absent in earlier replays. */
+  builds?: (CarBuild | null)[];
 }
 export const isDriveReplay = (replay: { rules: string }): replay is DriveReplayV1 => replay.rules === DRIVE_RULES;
 /** The model's own limit; RaceV1 keeps 5,400 ticks. */
@@ -33,9 +36,10 @@ export function validateDriveReplay(value: unknown): DriveReplayV1 {
   const tunes = r.tunes.map(validateTune);
   if (r.appearances !== undefined && (!Array.isArray(r.appearances) || r.appearances.length !== cars)) throw new TypeError('Cosmetic replay roster mismatch');
   r.appearances?.forEach(validateClubAppearance);
+  const builds = validateReplayBuilds(r.builds, cars);
   const race = arcadeDriveRace(r.trackId, tunes);
   for (const row of r.inputs) { if (race.done) throw new TypeError('Replay contains trailing terminal frames'); race.step(row); }
-  return structuredClone({ ...r, tunes });
+  return structuredClone({ ...r, tunes, ...(builds ? { builds } : {}) });
 }
 
 /** Re-execute a replay to its final frame. */

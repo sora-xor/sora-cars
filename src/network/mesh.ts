@@ -3,8 +3,9 @@ import { hex, unhex, MAX_RACERS } from './session';
 import type { PeerMessage, RaceParticipant } from './session';
 import type { ReplayChunk } from './replay';
 import { iceConfiguration } from './ice';
-import { signAppearance, verifyAppearance, type AppearancePacket } from './appearance';
+import { signAppearance, signBuild, verifyAppearance, verifyBuild, type AppearancePacket, type BuildPacket } from './appearance';
 import { emptyAppearance, type ClubAppearance } from '../game/catalog';
+import type { CarBuild } from '../game/car-builds';
 
 const MAX_PACKET_BYTES = 32 * 1024;
 interface Signal {
@@ -20,6 +21,8 @@ export interface MeshConfig {
   /** Explicitly opt a public session into the replaceable spectator feed. */
   publicFeed?: boolean;
   appearance?: ClubAppearance;
+  /** This racer's car as built (car-builds.ts); none draws the factory car on every screen. */
+  build?: CarBuild;
 }
 export type MeshEvent = { type: 'peer'; slot: number; status: RTCPeerConnectionState } | { type: 'signal'; packet: string } | { type: 'error'; reason: string };
 
@@ -28,6 +31,7 @@ export class RaceMesh {
   onMessage: (packet: PeerMessage) => void = () => {};
   onReplayChunk: (slot: number, chunk: unknown) => void = () => {};
   onAppearance: (slot: number, appearance: ClubAppearance) => void = () => {};
+  onBuild: (slot: number, build: CarBuild) => void = () => {};
   onEvent: (event: MeshEvent) => void = () => {};
   #config: MeshConfig;
   #peers = new Map<number, RTCPeerConnection>();
@@ -36,11 +40,14 @@ export class RaceMesh {
   #key: Uint8Array;
   #appearance: AppearancePacket;
   #seenAppearances = new Map<number, string>();
+  #build: BuildPacket | null;
+  #seenBuilds = new Map<number, string>();
   constructor(config: MeshConfig) {
     if (config.roster.length < 2 || config.roster.length > MAX_RACERS || config.roster[config.slot]?.inputKeyHex !== hex(ed25519.getPublicKey(config.privateKey))) throw new Error('Mesh identity must match the authenticated race roster.');
     this.#config = { ...config, roster: config.roster.map((p) => ({ ...p })), privateKey: new Uint8Array() };
     this.#key = config.privateKey.slice();
     this.#appearance = signAppearance(config.scope, config.slot, config.appearance ?? emptyAppearance(), config.privateKey);
+    this.#build = config.build ? signBuild(config.scope, config.slot, config.build, config.privateKey) : null;
   }
 
   #peer(slot: number): RTCPeerConnection {
@@ -56,7 +63,10 @@ export class RaceMesh {
   #attach(slot: number, channel: RTCDataChannel): void {
     if (channel.label !== 'sora-cars-v1' || this.#channels.has(slot)) { channel.close(); return; }
     this.#channels.set(slot, channel);
-    channel.addEventListener('open', () => channel.send(JSON.stringify(this.#appearance)), { once: true });
+    channel.addEventListener('open', () => {
+      channel.send(JSON.stringify(this.#appearance));
+      if (this.#build) channel.send(JSON.stringify(this.#build));
+    }, { once: true });
     channel.addEventListener('message', (event: MessageEvent<unknown>) => {
       try {
         if (typeof event.data !== 'string' || new TextEncoder().encode(event.data).byteLength > MAX_PACKET_BYTES) throw new Error('Oversized or non-text peer message.');
@@ -67,6 +77,13 @@ export class RaceMesh {
           const prior = this.#seenAppearances.get(slot);
           if (prior && prior !== packet.signature) throw new Error('Cosmetic choice changed during the session.');
           this.#seenAppearances.set(slot, packet.signature); this.onAppearance(slot, packet.appearance); return;
+        }
+        if (raw && typeof raw === 'object' && (raw as { kind?: string }).kind === 'build') {
+          const packet = verifyBuild(raw, this.#config.scope, this.#config.roster);
+          if (packet.slot !== slot) throw new Error('Car build sender differs from its transport slot.');
+          const prior = this.#seenBuilds.get(slot);
+          if (prior && prior !== packet.signature) throw new Error('Car build changed during the session.');
+          this.#seenBuilds.set(slot, packet.signature); this.onBuild(slot, packet.build); return;
         }
         if (raw && typeof raw === 'object' && (raw as { kind?: string }).kind === 'replay-chunk') { this.onReplayChunk(slot, raw); return; }
         const message = raw as PeerMessage;
@@ -133,7 +150,11 @@ export class RaceMesh {
     const socket = new WebSocket(parsed);
     this.#socket = socket;
     return new Promise((resolve, reject) => {
-      socket.addEventListener('open', () => { socket.send(JSON.stringify({ type: 'subscribe', scope: this.#config.scope, slot: this.#config.slot })); if (this.#config.publicFeed) socket.send(JSON.stringify({ type: 'game', scope: this.#config.scope, from: this.#config.slot, packet: this.#appearance })); resolve(); }, { once: true });
+      socket.addEventListener('open', () => {
+        socket.send(JSON.stringify({ type: 'subscribe', scope: this.#config.scope, slot: this.#config.slot }));
+        if (this.#config.publicFeed) for (const packet of [this.#appearance, this.#build]) if (packet) socket.send(JSON.stringify({ type: 'game', scope: this.#config.scope, from: this.#config.slot, packet }));
+        resolve();
+      }, { once: true });
       socket.addEventListener('error', () => reject(new Error('Signaling relay unavailable. Use manual signed offers.')), { once: true });
       socket.addEventListener('message', (event) => {
         if (typeof event.data !== 'string') return;

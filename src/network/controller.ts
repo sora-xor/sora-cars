@@ -12,12 +12,14 @@ import type { MeshEvent } from './mesh';
 import { replayChunks, ReplayReceiver } from './replay';
 import type { ReplayChunk } from './replay';
 import { emptyAppearance, validateClubAppearance, type ClubAppearance } from '../game/catalog';
+import { validateCarBuild, type CarBuild } from '../game/car-builds';
 
 export interface PeerTransport {
   onMessage: (packet: PeerMessage) => void;
   onEvent: (event: MeshEvent) => void;
   onReplayChunk: (slot: number, chunk: unknown) => void;
   onAppearance?: (slot: number, appearance: ClubAppearance) => void;
+  onBuild?: (slot: number, build: CarBuild) => void;
   readonly connectedSlots: number[];
   broadcast(packet: PeerMessage): void;
   offer(slot: number): Promise<string>;
@@ -43,6 +45,8 @@ export interface MultiplayerConfig {
   names?: readonly string[]; skins?: readonly number[]; iceServers?: RTCIceServer[]; relayOnly?: boolean; publicFeed?: boolean;
   peerTimeoutMs?: number; transport?: PeerTransport;
   appearance?: ClubAppearance;
+  /** This racer's car as built (car-builds.ts), announced to the peers and the public feed; presentation only. */
+  build?: CarBuild;
   /** After a native dispute, include the exact certified prefix plus consensus forced batches. */
   resume?: { replay: RaceReplayV1; activeSlots: readonly number[]; expectedTranscriptRoot: string };
 }
@@ -135,6 +139,8 @@ export class MultiplayerRaceController {
   #receivers = new Map<number, ReplayReceiver>();
   #lastReason = '';
   #appearances: ClubAppearance[];
+  /** Each racer's announced car; null until (unless) their client sends one. */
+  #builds: (CarBuild | null)[];
 
   constructor(config: MultiplayerConfig) {
     if (config.resume && checkpointTranscriptRoot(config.scope, config.resume.replay) !== config.resume.expectedTranscriptRoot) throw new Error('Resume transcript root mismatch.');
@@ -142,12 +148,14 @@ export class MultiplayerRaceController {
     this.#config = { ...config, privateKey: new Uint8Array() };
     this.#key = config.privateKey.slice();
     this.#appearances = config.scope.participants.map((_, slot) => slot === config.slot ? validateClubAppearance(config.appearance ?? emptyAppearance()) : emptyAppearance());
+    this.#builds = config.scope.participants.map((_, slot) => slot === config.slot && config.build ? validateCarBuild(config.build) : null);
     this.session = new RacePeerSession(config.scope, config.slot, config.privateKey, config.resume);
     this.#authoritative = config.resume ? simulateNativeReplay(config.resume.replay) : createRace(gameTrack(config.scope.track), config.scope.participants.length);
     this.#predicted = copyRace(this.#authoritative);
     this.#lastRemote = config.scope.participants.map(() => 0);
-    this.transport = config.transport ?? new RaceMesh({ scope: this.session.scope, slot: config.slot, roster: config.scope.participants, privateKey: config.privateKey, iceServers: config.iceServers, relayOnly: config.relayOnly, publicFeed: config.publicFeed, appearance: this.#appearances[config.slot] });
+    this.transport = config.transport ?? new RaceMesh({ scope: this.session.scope, slot: config.slot, roster: config.scope.participants, privateKey: config.privateKey, iceServers: config.iceServers, relayOnly: config.relayOnly, publicFeed: config.publicFeed, appearance: this.#appearances[config.slot], build: this.#builds[config.slot] ?? undefined });
     this.transport.onAppearance = (slot, appearance) => { this.#appearances[slot] = validateClubAppearance(appearance); };
+    this.transport.onBuild = (slot, build) => { if (this.#config.scope.participants[slot] && slot !== this.#config.slot) this.#builds[slot] = validateCarBuild(build); };
     this.session.send = packet => this.transport.broadcast(packet);
     this.session.onEvent = event => this.#protocol(event);
     this.transport.onMessage = packet => {
@@ -167,6 +175,7 @@ export class MultiplayerRaceController {
   }
   get state(): RaceState { return copyRace(this.#authoritative); }
   get appearances(): ClubAppearance[] { return this.#appearances.map(a => ({ ...a })); }
+  get builds(): (CarBuild | null)[] { return this.#builds.map(build => build && { ...build }); }
   get predictedState(): RaceState { return copyRace(this.#predicted); }
   get status(): MultiplayerStatus { return { phase: this.#phase, reason: this.#lastReason, connectedSlots: [...this.transport.connectedSlots], certifiedTick: this.#authoritative.tick, predictedTick: this.#predicted.tick }; }
   get checkpoint(): SignedGameCheckpointV1 | null { return this.#lastCheckpoint ? structuredClone(this.#lastCheckpoint) : null; }
@@ -273,7 +282,7 @@ export class MultiplayerRaceController {
   exportNativeReplay(): RaceReplayV1 { return this.session.exportNativeReplay(); }
   exportReplay(): ReplayV1 {
     const replay = this.exportNativeReplay();
-    return { version: 1, rules: 'RaceV1', rulesHash: RACE_RULES_HASH, trackId: gameTrack(replay.track), names: this.#config.scope.participants.map((p, i) => this.#config.names?.[i] ?? p.account), skins: this.#config.scope.participants.map((_, i) => this.#config.skins?.[i] ?? 0), appearances: this.appearances, inputs: replay.frames.map(frame => [...frame.controls]), dnfEvents: structuredClone(replay.dnf_events), savedAt: new Date().toISOString(), source: 'multiplayer' };
+    return { version: 1, rules: 'RaceV1', rulesHash: RACE_RULES_HASH, trackId: gameTrack(replay.track), names: this.#config.scope.participants.map((p, i) => this.#config.names?.[i] ?? p.account), skins: this.#config.scope.participants.map((_, i) => this.#config.skins?.[i] ?? 0), appearances: this.appearances, ...(this.#builds.some(Boolean) ? { builds: this.builds } : {}), inputs: replay.frames.map(frame => [...frame.controls]), dnfEvents: structuredClone(replay.dnf_events), savedAt: new Date().toISOString(), source: 'multiplayer' };
   }
   stop(): void {
     if (this.#timer !== null) clearInterval(this.#timer); this.#timer = null;

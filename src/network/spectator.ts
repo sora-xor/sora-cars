@@ -10,7 +10,8 @@ import { copyRace, createRace, stepRaceBatch, raceFinished } from '../game/engin
 import { gameTrack } from '../chain/races';
 import type { RaceState } from '../game/engine';
 import { emptyAppearance, type ClubAppearance } from '../game/catalog';
-import { verifyAppearance } from './appearance';
+import type { CarBuild } from '../game/car-builds';
+import { verifyAppearance, verifyBuild } from './appearance';
 
 /** Read-only feed verification; no wallet or participant input key is required. */
 export class RaceSpectator {
@@ -27,9 +28,13 @@ export class RaceSpectator {
   #activeSlots: readonly number[];
   #appearances: ClubAppearance[];
   #appearanceSignatures = new Map<number, string>();
+  /** Each racer's announced car (car-builds.ts); null until their packet arrives. */
+  #builds: (CarBuild | null)[];
+  #buildSignatures = new Map<number, string>();
   constructor(scope: RaceScope, resume?: { replay: RaceReplayV1; checkpoint: SignedGameCheckpointV1; activeSlots: readonly number[] }) {
     this.#scope = structuredClone(scope);
     this.#appearances = scope.participants.map(() => emptyAppearance());
+    this.#builds = scope.participants.map(() => null);
     this.#activeSlots = resume?.activeSlots ?? scope.participants.map(p => p.slot);
     this.#state = resume ? simulateNativeReplay(resume.replay) : createRace(gameTrack(scope.track), scope.participants.length);
     if (resume) this.#verifySnapshot(resume.replay, resume.checkpoint);
@@ -61,11 +66,17 @@ export class RaceSpectator {
   }
   get state(): RaceState { return copyRace(this.#state); }
   get appearances(): ClubAppearance[] { return this.#appearances.map(a => ({ ...a })); }
+  get builds(): (CarBuild | null)[] { return this.#builds.map(build => build && { ...build }); }
   receive(packet: unknown): void {
     if (packet && typeof packet === 'object' && (packet as { kind?: unknown }).kind === 'appearance') {
       const p = verifyAppearance(packet, this.#session.scope, this.#scope.participants), prior = this.#appearanceSignatures.get(p.slot);
       if (prior && prior !== p.signature) throw new Error('Spectator cosmetic choice changed during this session.');
       this.#appearanceSignatures.set(p.slot, p.signature); this.#appearances[p.slot] = p.appearance; return;
+    }
+    if (packet && typeof packet === 'object' && (packet as { kind?: unknown }).kind === 'build') {
+      const p = verifyBuild(packet, this.#session.scope, this.#scope.participants), prior = this.#buildSignatures.get(p.slot);
+      if (prior && prior !== p.signature) throw new Error('Spectator car build changed during this session.');
+      this.#buildSignatures.set(p.slot, p.signature); this.#builds[p.slot] = p.build; return;
     }
     if (this.#failed) throw new Error('Disputed spectator feed requires an authenticated native recovery frontier.');
     this.#session.receive(packet);

@@ -11,6 +11,8 @@ export interface CarModel {
   setDamage?(detached: number): void;
   /** The panel `bit` as a standalone piece in car space, positioned at its centre, to throw down the road. */
   breakPart?(bit: number): { object: THREE.Object3D; size: number } | null;
+  /** Release this car's own materials (shared geometry stays): a car built for one race, replaced by the next. */
+  dispose?(): void;
 }
 
 type Paint = 'paint' | 'shade' | 'accent' | 'rubber' | 'black' | 'alloy' | 'chrome'

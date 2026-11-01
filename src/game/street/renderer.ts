@@ -7,6 +7,7 @@ import { streetRouteStyle } from './routes';
 import { drawIllustratedShop, drawIllustratedTree } from '../illustrated-scenery';
 import { getRaceWorld } from '../three/world';
 import { PIXEL_OVERLAY_COLOURS, dashedCellLine, drawAtmosphere, pixelOverlayGrid, rainColumn } from '../three/pixel-art/overlay';
+import type { CarBuild } from '../car-builds';
 
 /** Presentation-only view of the native street session. These floats never return to physics. */
 export interface StreetRenderCar {
@@ -51,6 +52,8 @@ export interface StreetRenderOptions {
   presentationTopInset?: number;
   /** Driving model only: crash events since the last frame, for sparks and flying panels. */
   events?: readonly DriveEvent[];
+  /** Each car's body and parts (car-builds.ts), presentation only; none draws the factory hachiroku. */
+  builds?: readonly (CarBuild | null | undefined)[];
 }
 
 type Vec = { x: number; y: number; z: number };

@@ -153,6 +153,21 @@ street runs. **EQUAL CARS** gives every car the stock tune in practice and story
 core, and rewrites the report the balance tests check. See
 [the garage tech tree](docs/garage-tech-tree.md).
 
+**カスタム工房 / Build your car** (`#/custom`, from 車庫 / GARAGE) picks one of six
+1986 bodies, each named for SORA's sky: 天空86 TENKU 86 (the licensed AE86),
+翔 MR KAKERU (a midship wedge), 北斗 GT HOKUTO (a long-nose GT), 三日月 RE
+MIKAZUKI (a rotary coupe), 雷鳴ターボ RAIMEI (a four-door hardtop) and 雲雀ターボ
+HIBARI (a hot hatch). Each can be dressed with 19 paints, two-tone, stripes, six
+wheel styles, lip or deppa, wings, over-fenders, a slammed, demon-camber or rally
+stance, fog or rally lamps, louvres, takeyari pipes and fender mirrors. Your car
+turns on a pixel-art turntable as you build it. Practice fields bring varied
+period cars, more heavily modified in tougher fields. In story mode the crew keep
+the AE86s the cutscenes draw, each with their own touches, and the rivals and
+host clubs bring their own cars. Builds are looks only: every body races on the
+same car. Live XOR races show each racer's build to the others and to
+spectators, as a signed cosmetic, and still race equal cars. See
+[the period cars](docs/period-cars.md).
+
 ## 証明 / Proof workshop
 
 Choose **証明 / PROOFS** (`#/proofs`) for an animated Japanese/English walkthrough

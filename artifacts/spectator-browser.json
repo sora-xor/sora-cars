@@ -7,6 +7,7 @@
   "certifiedTick": 180,
   "realWebRtcAndWebSocket": true,
   "sameCertifiedStatesAndAppearances": true,
+  "sameAnnouncedCarBuilds": true,
   "observersHaveGameplayOrWalletKeys": false,
   "authoritativeLedger": false,
   "errors": []

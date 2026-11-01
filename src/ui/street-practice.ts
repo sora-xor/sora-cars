@@ -13,6 +13,7 @@ import { DriveStreetSession, type DriveStreetState } from '../game/drive/street'
 import type { DriveEvent } from '../game/drive/race';
 import { DRIVER_SKILLS, DriveAI } from '../game/drive/ai';
 import { drivePhysics } from '../game/drive/mode';
+import { rivalCar, storyCar, type CarBuild } from '../game/car-builds';
 
 type Phase = 'loading' | 'ready' | 'countdown' | 'driving' | 'paused' | 'results' | 'error';
 type Camera = 'chase' | 'bumper' | 'aerial';
@@ -23,6 +24,8 @@ interface Options {
   onRoute?(routeId: string): void;
   /** A story chapter's race finished (see `open`'s `story`). */
   onStoryResult?(result: StreetStoryResult): void;
+  /** The player's car as built in the garage (car-builds.ts); presentation only. None races every car as the factory car. */
+  build?(): CarBuild | undefined;
 }
 /** A story chapter raced on a street route: its heading, goal and grid. */
 export interface StreetStory { readonly chapter: number; readonly label: { ja: string; en: string }; readonly objective: { ja: string; en: string }; readonly names: readonly string[] }
@@ -289,6 +292,9 @@ export class StreetPractice {
     const state = this.#native;
     if (!state || !this.#loaded) { const ctx = this.#options.canvas.getContext('2d')!; ctx.fillStyle = '#160f24'; ctx.fillRect(0, 0, this.#options.canvas.width, this.#options.canvas.height); return; }
     const names = this.#record?.names ?? this.#names, skins = this.#record?.skins ?? names.map((_, slot) => slot === 0 ? this.#skin : slot % 6);
+    const playerSlot = this.#record?.playerSlot ?? 0, player = this.#options.build?.();
+    // Each driver's car: the player's build, the story's drivers' own, and period cars for the host clubs.
+    const builds = player ? names.map((name, slot) => slot === playerSlot ? player : storyCar(name) ?? rivalCar(slot * 7919 + 17, 0.4)) : undefined;
     const alpha = this.#phase === 'driving' ? Math.min(1, this.#accumulator * 30) : 1;
     const cars = state.cars.map((car, slot) => {
       const before = this.#previous?.cars[slot]; const mix = (a: number, b: number) => a + (b - a) * alpha;
@@ -297,7 +303,7 @@ export class StreetPractice {
         bodyYawMicroturn: yaw(before.bodyYawMicroturn, car.bodyYawMicroturn), velocityYawMicroturn: yaw(before.velocityYawMicroturn, car.velocityYawMicroturn) } : {}) };
     });
     try {
-      this.#renderer.draw(this.#loaded.bundle.track, { ...state, cars }, { playerSlot: this.#record?.playerSlot ?? 0,
+      this.#renderer.draw(this.#loaded.bundle.track, { ...state, cars }, { playerSlot, builds,
       names: [...names], controls: this.#input, paused: this.#phase !== 'driving' && this.#phase !== 'countdown', bottomInset: matchMedia('(pointer: coarse)').matches && !this.#playback ? 110 : this.#playback ? 75 : 0, hud: ['driving', 'countdown'].includes(this.#phase), camera: this.#camera,
       presentationTitles: ['driving', 'countdown'].includes(this.#phase) || !!this.#playback && this.#phase === 'paused',
       presentationTopInset: this.#presentationTopInset,

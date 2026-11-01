@@ -1,6 +1,7 @@
 import { RACE_RULES_HASH } from './environment';
 import { createRace, raceFinished, replayState, validateReplay, type RaceState, type ReplayV1 } from './engine';
 import { validateClubAppearance, type ClubAppearance } from './catalog';
+import { validateReplayBuilds, type CarBuild } from './car-builds';
 import { RULES, TRACKS } from './rules';
 import { isStockTune, stepTunedRace, validateTune, type CarTune } from './tuned-engine';
 import { driveArcadeState, driveReplayRace, isDriveReplay, validateDriveReplay, type DriveReplayV1 } from './drive/arcade';
@@ -14,6 +15,8 @@ export interface GarageReplayV1 {
   version: 1; rules: typeof GARAGE_RULES; baseRulesHash: string; trackId: number;
   names: string[]; skins: number[]; tunes: CarTune[]; inputs: number[][]; savedAt: string; source: 'practice';
   appearances?: ClubAppearance[];
+  /** Each car's body and parts as raced (car-builds.ts); presentation only. */
+  builds?: (CarBuild | null)[];
 }
 export type LocalReplay = ReplayV1 | GarageReplayV1 | DriveReplayV1;
 export const isGarageReplay = (replay: LocalReplay): replay is GarageReplayV1 => replay.rules === GARAGE_RULES;
@@ -30,9 +33,10 @@ export function validateGarageReplay(value: unknown): GarageReplayV1 {
   if (tunes.every(isStockTune)) throw new TypeError('A stock garage race is a RaceV1 replay');
   if (r.appearances !== undefined && (!Array.isArray(r.appearances) || r.appearances.length !== cars)) throw new TypeError('Cosmetic replay roster mismatch');
   r.appearances?.forEach(validateClubAppearance);
+  const builds = validateReplayBuilds(r.builds, cars);
   const state = createRace(r.trackId, cars);
   for (const row of r.inputs) { if (raceFinished(state)) throw new TypeError('Replay contains trailing terminal frames'); stepTunedRace(state, row, tunes); }
-  return structuredClone({ ...r, tunes });
+  return structuredClone({ ...r, tunes, ...(builds ? { builds } : {}) });
 }
 export function validateLocalReplay(value: unknown): LocalReplay {
   const rules = (value as LocalReplay | null)?.rules;

@@ -9,6 +9,7 @@ import './ui/story-workshop.css';
 import './ui/scene-preparation.css';
 import './ui/music-store.css';
 import './ui/tech-garage.css';
+import './ui/car-builder.css';
 import { MusicStore } from './ui/music-store';
 import { readSceneReadiness, ScenePreparationCover } from './ui/scene-preparation';
 import { CONTROL as C, LIVERIES, TRACKS } from './game/rules';
@@ -45,9 +46,11 @@ import { driveBrokenObjects, driveContacts, isDriveReplay, syncDriveState } from
 import { drivePhysics } from './game/drive/mode';
 import { decodeStreetReplay, encodeStreetReplay, STREET_REPLAY_TYPE, MAX_STREET_REPLAY_BYTES, type StreetReplay } from './game/street/replay';
 import { STREET_ROUTES } from './game/street/assets';
+import { BODIES, PAINTS, bodyInfo, liveryPaint, paintInfo, practiceCars, readCarBuild, stockBuild, storedCarBuild, storyCar, type CarBuild } from './game/car-builds';
+import { CarBuilder } from './ui/car-builder';
 import { streetRouteStyle } from './game/street/routes';
 
-type View = 'soundtrack' | 'street' | 'home' | 'prove' | 'proofs' | 'story' | 'cutscene' | 'pit' | 'garage' | 'tuning' | 'shop' | 'lobby' | 'room' | 'history' | 'settings' | 'race' | 'results';
+type View = 'soundtrack' | 'street' | 'home' | 'prove' | 'proofs' | 'story' | 'cutscene' | 'pit' | 'garage' | 'custom' | 'tuning' | 'shop' | 'lobby' | 'room' | 'history' | 'settings' | 'race' | 'results';
 const base = import.meta.env.BASE_URL;
 const flag = `${base}assets/sora-flag.png`;
 const escape = (v: unknown) => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
@@ -71,6 +74,14 @@ let storyResult: number | null = null;
 let storyStreet: StreetStoryResult | null = null;
 const prefs = storageRead(prefsKey, { car: 0, track: 0, music: 30, effects: 35, torii: TAIRA_TORII_URL, field: 'club' as FieldId });
 let carId = LIVERIES[prefs.car] ? prefs.car : 0, trackId = TRACKS[prefs.track] ? prefs.track : 0;
+// The player's car as built in the garage (car-builds.ts): local races draw it, live races announce it to every racer.
+const carBuildKey = 'sora-cars:car-build:v1';
+let carBuild = readCarBuild(storageRead<unknown>(carBuildKey, null), carId);
+/** Each grid slot's car in the current local race or replay (null for a slot that raced without one). Live and spectated
+ * races take theirs from the signed packets each racer announces (drawnBuilds). */
+let raceBuilds: (CarBuild | null)[] | null = null;
+/** `?cars=stock` races every car as the factory hachiroku again, for comparison (docs/period-cars.md). */
+const stockCars = new URLSearchParams(location.search).get('cars') === 'stock';
 let view: View = 'home', previousView: View = 'home', paused = false, currentRace = createRace(trackId, 8), playerSlot = 6;
 let skins = currentRace.cars.map(c => c.slot % 6), raceNames = [...names], inputs: number[][] = [];
 let countdown = 3, lastCountdown = 4, accumulated = 0, elapsed = 0, lastTime = performance.now(), replay: LocalReplay | null = null;
@@ -131,11 +142,11 @@ const renderer = new RaceRenderer(canvas), dialog = document.querySelector<HTMLD
 const observer = new ResizeObserver(() => view === 'street' ? street.resize() : renderer.resize()); observer.observe(canvas);
 const live = new LiveRacingPanel({
   client: () => chain, screen, showRoom: () => setView('room'), showDialog, notify: toast,
-  carId: () => carId, appearance: () => garage.appearance, input: () => view === 'race' && !paused ? playerControls() : 0,
+  carId: () => carId, appearance: () => garage.appearance, build: () => stockCars ? undefined : playerRaceBuild(), input: () => view === 'race' && !paused ? playerControls() : 0,
   begin: (controller, names, colors, slot) => {
     spectator?.close(); spectator = null; networkRace = controller; replay = null; currentRace = controller.state; predictedRace = controller.predictedState;
     driveRace = null; driveAI = null; driveEvents = [];
-    trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = slot; countdown = -1;
+    trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = slot; countdown = -1; raceBuilds = null;
     resultSaved = false; audio.setTrack(trackId); void audio.unlock(); setView('race');
   },
   state: (authoritative, predicted) => { currentRace = authoritative; predictedRace = predicted; },
@@ -148,7 +159,7 @@ const live = new LiveRacingPanel({
   spectate: (feed, names, colors) => {
     networkRace = null; spectator = feed; replay = null; currentRace = feed.state; predictedRace = null;
     driveRace = null; driveAI = null; driveEvents = [];
-    trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = 0; countdown = -1;
+    trackId = currentRace.trackId; raceNames = names; skins = colors; playerSlot = 0; countdown = -1; raceBuilds = null;
     resultSaved = true; audio.setTrack(trackId); setView('race');
   },
 });
@@ -159,6 +170,8 @@ function saveGarage(next: GarageSave): void {
   try { localStorage.setItem(garageKey, JSON.stringify(next)); } catch { toast('保存領域がいっぱいです。進行はこのページを閉じるまで保たれます。 / Storage is full; garage progress lasts until this page closes.'); }
 }
 // The tech tree page, and the pre-race garage between a story chapter's cutscenes and its race.
+const builder = new CarBuilder({ screen, active: () => view === 'custom', build: () => carBuild,
+  commit: build => { saveCarBuild(build); if (view === 'garage') renderScreen(); } });
 const tuning = new TechGarage({ screen, active: () => view === 'tuning' || view === 'pit', notify: toast, save: () => garageSave, commit: saveGarage,
   field: selectedField, setField: field => { prefs.field = field; savePrefs(); }, chapter: () => view === 'pit' ? storyRun : null });
 const records = new MusicStore({ client: () => chain, screen, active: () => view === 'soundtrack', showDialog, closeDialog: () => dialog.close(), notify: toast });
@@ -181,7 +194,7 @@ function syncStreetTools(): void {
 let streetRoute = 'tokyo-1986';
 const streetEntry = () => `<button class="street-entry" data-action="street-select">1986 街道・${STREET_ROUTES.map(route => streetRouteStyle(route.id).place.ja).join('・')} <small lang="en">STREET RUNS · ${STREET_ROUTES.map(route => streetRouteStyle(route.id).place.en).join(' · ')} →</small></button>`;
 const streetRouteFromHash = (route: string) => STREET_ROUTES.find(item => route === `street/${item.id}`)?.id ?? null;
-const street = new StreetPractice({ canvas, screen, audio, notify: toast, onChange: syncStreetTools,
+const street = new StreetPractice({ canvas, screen, audio, notify: toast, onChange: syncStreetTools, build: () => stockCars ? undefined : playerRaceBuild(),
   onExit: () => { currentRace = createRace(trackId, 8); setView('home'); },
   onStoryResult: result => finishStreetChapter(result),
   onRoute: routeId => { streetRoute = routeId; history.replaceState(null, '', `#/street/${routeId}`); },
@@ -201,6 +214,21 @@ async function startStreet(imported?: StreetReplay, routeId = streetRoute): Prom
 
 function makeChain(toriiUrl = prefs.torii): RaceChainClient {
   return new RaceChainClient({ toriiUrl, nftCatalog: mergeNftCatalogs(releaseClubCatalog(import.meta.env.VITE_NFT_COLLECTION, import.meta.env.VITE_GAME_APPLICATION_ID, import.meta.env.VITE_XOR_ASSET_DEFINITION), releaseMusicCatalog(import.meta.env.VITE_MUSIC_COLLECTION, import.meta.env.VITE_GAME_APPLICATION_ID, import.meta.env.VITE_XOR_ASSET_DEFINITION)), nftMarketQualified: import.meta.env.VITE_NFT_MARKET_QUALIFIED === 'true', nftMarketProfileId: import.meta.env.VITE_NFT_MARKET_PROFILE_ID || undefined, networkId: releaseNetworkId(import.meta.env.VITE_TAIRA_NETWORK_ID), profileId: import.meta.env.VITE_EXECUTION_PROFILE_ID || undefined, applicationId: import.meta.env.VITE_GAME_APPLICATION_ID || undefined });
+}
+/** The cars on screen: a live race's or spectated feed's announced builds, else the local race's or replay's. */
+function drawnBuilds(): (CarBuild | null)[] | undefined {
+  if (stockCars) return undefined;
+  return networkRace ? networkRace.builds : spectator ? spectator.builds : raceBuilds ?? undefined;
+}
+/** The player's build as raced: an equipped CLUB AERO 86 (catalog.ts) fits its chin lip on a period body too. */
+function playerRaceBuild(): CarBuild {
+  return garage.appearance.upgrade === 'club-aero-86' && carBuild.body !== 'hachiroku' && carBuild.front === 'stock' ? { ...carBuild, front: 'lip' } : carBuild;
+}
+function saveCarBuild(next: CarBuild): void {
+  carBuild = next;
+  const livery = paintInfo(next.paint).livery;
+  if (livery !== undefined) { carId = livery; savePrefs(); }
+  try { localStorage.setItem(carBuildKey, JSON.stringify(storedCarBuild(next))); } catch { /* Storage is optional for play. */ }
 }
 function savePrefs(): void { try { localStorage.setItem(prefsKey, JSON.stringify({ ...prefs, car: carId, track: trackId, music: audio.musicVolume * 100, effects: audio.effectsVolume * 100 })); } catch { /* Storage is optional for play. */ } }
 let toastTimer: ReturnType<typeof setTimeout>;
@@ -238,7 +266,7 @@ function fieldPicker(): string {
   return `<div class="field-picker">${arrows ? '<button data-action="field-prev" aria-label="Previous practice field">←</button>' : '<span></span>'}<div>${label}</div>${arrows ? '<button data-action="field-next" aria-label="Next practice field">→</button>' : '<span></span>'}</div>`;
 }
 function renderScreen(): void {
-  const track = TRACKS[trackId]!, car = LIVERIES[carId]!;
+  const track = TRACKS[trackId]!;
   if (view === 'race' && localScenePreparing) {
     screen.innerHTML = `<div class="pause-panel scene-preparation-panel"><p class="eyebrow">SORA MOTOR CLUB / 出発の準備</p><h1>${scenePreparationError ? '映像を読み込めませんでした。' : 'もうすぐ、走り出せる。'}<small lang="en">${scenePreparationError ? 'THE SCENE DIDN’T LOAD.' : 'PREPARING YOUR DRIVE.'}</small></h1><p>${scenePreparationError ? escape(scenePreparationError) : '車と街並みを読み込んでいます。<br><span lang="en">Loading cars and scenery. Your drive begins when everything is ready.</span>'}</p>${scenePreparationError ? '<button class="primary" data-action="scene-reload">再読み込み <small lang="en">RELOAD PAGE ↻</small></button>' : ''}<button class="text-button" data-action="home">戻る <small lang="en">BACK TO THE CLUB →</small></button></div>`;
     japaneseInterface(screen); return;
@@ -252,10 +280,15 @@ function renderScreen(): void {
   else if (view === 'prove') nativeProof.render();
   else if (view === 'shop') garage.render();
   else if (view === 'tuning' || view === 'pit') tuning.render();
+  else if (view === 'custom') builder.render();
   else if (view === 'soundtrack') records.render();
   else if (view === 'story') screen.innerHTML = storyMenu(unlockedChapter);
   else if (view === 'cutscene') { /* CutscenePlayer owns the dialogue scene. */ }
-  else if (view === 'garage') screen.innerHTML = `<div class="garage-copy"><p class="eyebrow">THE GARAGE / 六台のマシン</p><h1>自分だけの<br><em>一台に。</em><span class="english-subtitle" lang="en">MAKE IT YOURS.</span></h1><p class="body-copy">色を選んで、部品を組もう。<br><span lang="en">Pick a color, fit your parts. Live XOR races stay equal.</span></p><div class="car-name"><span>${String(car.id + 1).padStart(2, '0')}</span><h2>${car.japanese}<small lang="en">${car.name}</small></h2></div><div class="swatches" aria-label="Car colors">${LIVERIES.map(c => `<button data-action="car-${c.id}" style="--swatch:${c.color}" class="${c.id === carId ? 'active' : ''}" aria-label="Select ${c.name}" aria-pressed="${c.id === carId}"></button>`).join('')}</div>${garageSummary(garageSave)}<button class="primary" data-action="practice">TAKE IT FOR A SPIN <span>↗</span></button>${streetEntry()}<button class="garage-shop-link" data-action="shop">SORAカスタム工房 <small lang="en">LIVERIES & VISUAL UPGRADES →</small></button></div><div class="garage-caption"><img src="${flag}" alt="SORA flag"><span>SORA MOTOR CLUB<br><b>自分の道を走れ。</b></span></div>`;
+  else if (view === 'garage') {
+    const body = bodyInfo(carBuild.body), paint = paintInfo(carBuild.paint);
+    screen.innerHTML = `<canvas class="garage-car-view" data-car-view aria-label="${escape(body.name.en)} — ${escape(paint.name.en)}"></canvas><div class="garage-copy"><p class="eyebrow">THE GARAGE / ${BODIES.length}台の車種</p><h1>自分だけの<br><em>一台に。</em><span class="english-subtitle" lang="en">MAKE IT YOURS.</span></h1><p class="body-copy">車種と色を選んで、部品を組もう。<br><span lang="en">Pick a body and a colour, fit your parts. Live XOR races stay equal.</span></p><div class="car-name"><span>${String(BODIES.indexOf(body) + 1).padStart(2, '0')}</span><h2>${escape(body.name.ja)}<small lang="en">${escape(body.name.en)} · ${escape(paint.name.en)}</small></h2></div><div class="swatches" aria-label="Car colors">${PAINTS.map(p => `<button ${p.livery !== undefined ? `data-action="car-${p.livery}" aria-label="Select ${LIVERIES[p.livery]!.name}"` : `data-build="set:paint:${p.id}" aria-label="Paint ${escape(p.name.en)}"`} style="--swatch:${p.color}" class="${p.id === carBuild.paint ? 'active' : ''}" aria-pressed="${p.id === carBuild.paint}"></button>`).join('')}</div>${garageSummary(garageSave)}<button class="primary" data-action="practice">TAKE IT FOR A SPIN <span>↗</span></button>${streetEntry()}<button class="garage-shop-link garage-build-link" data-action="custom">カスタム工房 <small lang="en">BODIES, WHEELS, AERO & STANCE →</small></button><button class="garage-shop-link" data-action="shop">SORAカスタム工房 <small lang="en">LIVERIES & VISUAL UPGRADES →</small></button></div><div class="garage-caption"><img src="${flag}" alt="SORA flag"><span>SORA MOTOR CLUB<br><b>自分の道を走れ。</b></span></div>`;
+    builder.attachViewer(screen);
+  }
   else if (view === 'lobby') {
     screen.innerHTML = `<div class="workspace"><p class="eyebrow">MULTIPLAYER / 対戦</p><div class="section-heading"><h1>今夜のグリッド。<small class="english-subtitle" lang="en">THE GRID.</small></h1><button class="small-button" data-action="refresh">REFRESH ↻</button></div><p class="body-copy">Real drivers. Shared roads. XOR on the finish line.</p><div class="lobby-controls"><label>CIRCUIT<select id="lobby-track">${TRACKS.map(t => `<option value="${t.id}" ${t.id === trackId ? 'selected' : ''}>${t.japanese} / ${t.name}</option>`).join('')}</select></label><label>GRID SIZE<select id="grid-size">${[2, 3, 4, 5, 6, 7, 8].map(n => `<option value="${n}" ${n === 8 ? 'selected' : ''}>${n} racers</option>`).join('')}</select></label><label>ENTRY STAKE<input id="stake" type="number" min="1" step="1" value="10"><span class="input-unit">XOR</span></label></div><div id="chain-status" class="network-notice"><span class="status-dot"></span><div><h3>CHECKING THE STARTING LIGHTS</h3><p>Reading native race availability from Taira.</p></div></div><div class="lobby-table"><div class="table-head"><span>RACE</span><span>CIRCUIT</span><span>DRIVERS</span><span>ENTRY STAKE</span></div><div id="lobby-rows" class="empty-state"><span lang="ja">待</span><p>Live races appear here when the network is ready.</p></div></div><div class="lobby-actions"><button class="primary" data-action="create-race" disabled>CREATE A RACE <span>＋</span></button><button class="text-button" data-action="practice">PRACTICE WHILE YOU WAIT →</button></div><p class="fine-print">Testnet XOR · No house fee · Winner takes the pot · Exact ties split it</p></div>`;
     void refreshLobbies();
@@ -271,7 +304,7 @@ function renderScreen(): void {
     const resultLabel = (car: typeof player) => car.finishTick !== null ? formatTime(car.finishTick) : car.dnf ? car.damage !== undefined ? '大破 / WRECKED' : 'FORFEIT' : currentRace.tick < 5400 && car.damage === undefined ? 'TECHNICAL WIN' : `${Math.max(0, car.progress / 1000).toFixed(1)} m`;
     // A story race reports its chapter objective rather than a practice placing.
     const story = storyResult !== null && !replay && !networkRace ? { chapter: storyResult, cleared: storyObjectiveMet(storyResult, placement, places.get(7)), objective: storyObjective(storyResult) } : null;
-    screen.innerHTML = `<div class="results-panel"><p class="eyebrow">${story ? `CH. ${String(story.chapter + 1).padStart(2, '0')} · ${story.cleared ? '章クリア / CHAPTER CLEARED' : '目標未達 / OBJECTIVE MISSED'}` : `${replay ? 'REPLAY COMPLETE' : networkRace ? 'LIVE RACE COMPLETE' : 'PRACTICE COMPLETE'} / お疲れ様でした`}</p><div class="result-title"><span>${String(placement).padStart(2, '0')}<small>/${currentRace.cars.length}</small></span><div><h1>${(story ? story.cleared : placement === 1 && (player.finishTick !== null || !player.dnf)) ? 'いい走りだった。' : 'もう一度、走ろう。'}</h1><p>${TRACKS[currentRace.trackId]!.name} · ${resultLabel(player)}</p>${story ? `<p>目標：${escape(story.objective.ja)} / ${escape(story.objective.en)}</p>` : ''}</div></div>${lastAward && !replay && !networkRace ? prizeBox(lastAward, storyResult !== null) : ''}<div class="results-list">${ranking.map(c => `<div class="result-row ${c.slot === playerSlot ? 'you' : ''}"><span>${String(places.get(c.slot)).padStart(2, '0')}</span><i style="background:${LIVERIES[skins[c.slot] ?? 0]!.color}"></i><strong>${escape(raceNames[c.slot])}</strong><span>${resultLabel(c)}</span></div>`).join('')}</div><div class="result-actions">${story ? storyResultActions(story.chapter, story.cleared) : `<button class="primary" data-action="${networkRace ? 'room' : 'rematch'}">${networkRace ? 'SESSION & SETTLEMENT' : 'RUN IT BACK'} <span>↗</span></button>`}${storyResult !== null ?`<button class="text-button" data-action="story-workshop-${Math.min(unlockedChapter, CHAPTERS.length - 1)}">工房で一息 <span lang="en">VISIT THE WORKSHOP →</span></button>` : ''}<button class="text-button" data-action="watch-last">WATCH REPLAY →</button><button class="text-button" data-action="home">ガレージへ <span lang="en">GARAGE</span></button><button class="text-button" data-action="story">物語へ <span lang="en">STORY →</span></button></div><p class="fine-print">${networkRace ? 'Certified simulation result · XOR settlement still requires an accepted native execution proof.' : replay?.source === 'multiplayer' ? 'Replay of a multiplayer session · This view does not authenticate ledger settlement.' : story ? '物語のレース・XORの預け入れや賞金はありません。 / Story race · No XOR was staked or awarded.' : 'Practice session · No XOR was staked or awarded.'}</p></div>`;
+    screen.innerHTML = `<div class="results-panel"><p class="eyebrow">${story ? `CH. ${String(story.chapter + 1).padStart(2, '0')} · ${story.cleared ? '章クリア / CHAPTER CLEARED' : '目標未達 / OBJECTIVE MISSED'}` : `${replay ? 'REPLAY COMPLETE' : networkRace ? 'LIVE RACE COMPLETE' : 'PRACTICE COMPLETE'} / お疲れ様でした`}</p><div class="result-title"><span>${String(placement).padStart(2, '0')}<small>/${currentRace.cars.length}</small></span><div><h1>${(story ? story.cleared : placement === 1 && (player.finishTick !== null || !player.dnf)) ? 'いい走りだった。' : 'もう一度、走ろう。'}</h1><p>${TRACKS[currentRace.trackId]!.name} · ${resultLabel(player)}</p>${story ? `<p>目標：${escape(story.objective.ja)} / ${escape(story.objective.en)}</p>` : ''}</div></div>${lastAward && !replay && !networkRace ? prizeBox(lastAward, storyResult !== null) : ''}<div class="results-list">${ranking.map(c => `<div class="result-row ${c.slot === playerSlot ? 'you' : ''}"><span>${String(places.get(c.slot)).padStart(2, '0')}</span><i style="background:${drawnBuilds()?.[c.slot] ? paintInfo(drawnBuilds()![c.slot]!.paint).color : LIVERIES[skins[c.slot] ?? 0]!.color}"></i><strong>${escape(raceNames[c.slot])}</strong><span>${resultLabel(c)}</span></div>`).join('')}</div><div class="result-actions">${story ? storyResultActions(story.chapter, story.cleared) : `<button class="primary" data-action="${networkRace ? 'room' : 'rematch'}">${networkRace ? 'SESSION & SETTLEMENT' : 'RUN IT BACK'} <span>↗</span></button>`}${storyResult !== null ?`<button class="text-button" data-action="story-workshop-${Math.min(unlockedChapter, CHAPTERS.length - 1)}">工房で一息 <span lang="en">VISIT THE WORKSHOP →</span></button>` : ''}<button class="text-button" data-action="watch-last">WATCH REPLAY →</button><button class="text-button" data-action="home">ガレージへ <span lang="en">GARAGE</span></button><button class="text-button" data-action="story">物語へ <span lang="en">STORY →</span></button></div><p class="fine-print">${networkRace ? 'Certified simulation result · XOR settlement still requires an accepted native execution proof.' : replay?.source === 'multiplayer' ? 'Replay of a multiplayer session · This view does not authenticate ledger settlement.' : story ? '物語のレース・XORの預け入れや賞金はありません。 / Story race · No XOR was staked or awarded.' : 'Practice session · No XOR was staked or awarded.'}</p></div>`;
   }
   updateHeader(); japaneseInterface(root);
 }
@@ -303,7 +336,7 @@ function updateHeader(): void {
     button.setAttribute('aria-pressed', String(audio.musicEnabled));
     button.setAttribute('aria-label', `Turn music ${audio.musicEnabled ? 'off' : 'on'}`);
   });
-  document.querySelectorAll<HTMLButtonElement>('nav button').forEach(b => b.classList.toggle('active', b.dataset.action === view || b.dataset.action === 'home' && view === 'lobby' || b.dataset.action === 'garage' && (view === 'shop' || view === 'tuning') || b.dataset.action === 'story' && view === 'pit'));
+  document.querySelectorAll<HTMLButtonElement>('nav button').forEach(b => b.classList.toggle('active', b.dataset.action === view || b.dataset.action === 'home' && view === 'lobby' || b.dataset.action === 'garage' && (view === 'shop' || view === 'tuning' || view === 'custom') || b.dataset.action === 'story' && view === 'pit'));
   japaneseInterface(document.querySelector('.header')!);
 }
 function chainStateChanged(): void { updateHeader(); japaneseInterface(root); if (view === 'room') live.render(); garage.invalidate(); if (view === 'shop') garage.render(); records.invalidate(); if (view === 'soundtrack') records.render(); }
@@ -322,6 +355,11 @@ function startPractice(imported?: LocalReplay): void {
   currentRace = createRace(trackId, raceNames.length); skins = imported ? [...imported.skins] : currentRace.cars.map(c => c.slot === playerSlot ? carId : (c.slot + 1) % 6);
   // Garage races tune the player and the rivals; an all-stock grid stays the exact RaceV1 circuit.
   raceField = imported || storyRun !== null ? null : selectedField();
+  // The grid's cars: a replay's own, the story's drivers' cars, or a practice field of varied period cars.
+  raceBuilds = stockCars ? null : imported ? 'builds' in imported && imported.builds ? imported.builds.map(build => build && { ...build }) : null
+    : storyRun !== null ? raceNames.map((name, slot) => slot === playerSlot ? playerRaceBuild() : storyCar(name) ?? stockBuild(skins[slot]!))
+    : practiceCars(raceField!, raceNames.length, playerSlot, playerRaceBuild());
+  if (raceBuilds && !imported) skins = raceBuilds.map((build, slot) => (build && paintInfo(build.paint).livery) ?? skins[slot]!);
   raceRivals = imported || garageSave.stock ? [] : storyRun !== null ? storyRivals(CHAPTERS[storyRun]!.id, raceNames.length, playerSlot) : fieldRivals(raceField!, raceNames.length, playerSlot);
   const tunes = imported ? isGarageReplay(imported) ? imported.tunes : null : currentRace.cars.map(c => c.slot === playerSlot ? garageTune(garageSave) : raceRivals[c.slot]?.tune ?? STOCK_TUNE);
   raceTunes = tunes?.some(tune => !isStockTune(tune)) ? tunes : null;
@@ -393,7 +431,7 @@ function playerControls(): number {
 function update(dt: number): void {
   elapsed += dt;
   if (view === 'street') { controls = playerControls(); street.update(dt, controls); return; }
-  if (view === 'garage' || ['settings', 'history', 'results', 'story', 'cutscene', 'pit', 'shop', 'tuning', 'proofs', 'prove', 'soundtrack'].includes(view)) return;
+  if (view === 'garage' || ['settings', 'history', 'results', 'story', 'cutscene', 'pit', 'shop', 'custom', 'tuning', 'proofs', 'prove', 'soundtrack'].includes(view)) return;
   if (view === 'race') {
     if (spectator) { audio.stopDrive(); return; }
     if (networkRace) { updateDrivingSound(playerControls()); return; }
@@ -452,8 +490,9 @@ function draw(): void {
   }
   if (view === 'proofs') { sceneCover.update(null); proofWorkshop.draw(elapsed); return; }
   if (view === 'cutscene') { sceneCover.update(null); cutscene.draw(elapsed); return; }
-  if (view === 'garage') { sceneCover.update(null); renderer.drawShowroom(carId, elapsed, garage.appearance); return; }
-  else renderer.draw(presentation.sample(networkRace && predictedRace && view === 'race' ? predictedRace : currentRace, performance.now(), manualClock || paused), { camera: replay ? replayCameras[replayCamera] : 'chase', contacts: environmentContacts(currentRace), broken: driveRace && view === 'race' ? driveBrokenObjects(driveRace, currentRace.trackId) : undefined, events: driveRace && view === 'race' ? driveEvents : undefined, playerSlot, names: raceNames, skins, appearances: networkRace ? networkRace.appearances : spectator ? spectator.appearances : replay ? replay.appearances : { [playerSlot]: garage.appearance }, controls: networkRace ? playerControls() : controls, attract: view !== 'race', hud: view === 'race', countdown: view === 'race' && !replay && !networkRace && !spectator ? countdown : undefined, raceMode: spectator ? '観戦 / SPECTATING' : replay ? '再生 / REPLAY' : networkRace ? '対戦 / LIVE' : storyRun !== null ? `物語 / STORY ${storyRun + 1}` : '練習 / PRACTICE' }, elapsed);
+  // The garage's car turns on its own pixel-art turntable (car-viewer.ts) over the showroom floor.
+  if (view === 'garage' || view === 'custom') { sceneCover.update(null); renderer.drawShowroom(carId, elapsed, garage.appearance, false, bodyInfo(carBuild.body).mark); return; }
+  else renderer.draw(presentation.sample(networkRace && predictedRace && view === 'race' ? predictedRace : currentRace, performance.now(), manualClock || paused), { camera: replay ? replayCameras[replayCamera] : 'chase', contacts: environmentContacts(currentRace), broken: driveRace && view === 'race' ? driveBrokenObjects(driveRace, currentRace.trackId) : undefined, events: driveRace && view === 'race' ? driveEvents : undefined, playerSlot, names: raceNames, skins, appearances: networkRace ? networkRace.appearances : spectator ? spectator.appearances : replay ? replay.appearances : { [playerSlot]: garage.appearance }, builds: drawnBuilds(), controls: networkRace ? playerControls() : controls, attract: view !== 'race', hud: view === 'race', countdown: view === 'race' && !replay && !networkRace && !spectator ? countdown : undefined, raceMode: spectator ? '観戦 / SPECTATING' : replay ? '再生 / REPLAY' : networkRace ? '対戦 / LIVE' : storyRun !== null ? `物語 / STORY ${storyRun + 1}` : '練習 / PRACTICE' }, elapsed);
   driveEvents = [];
   const state = readSceneReadiness(canvas);
   // Asset preparation is presentation-only; an authoritative live race or
@@ -498,10 +537,11 @@ function finishSession(): void {
   audio.stopDrive();
   if (!replay && !spectator && !resultSaved) {
     const appearances = currentRace.cars.map(c => c.slot === playerSlot ? garage.appearance : { skin: null, upgrade: null });
+    const builds = raceBuilds && !networkRace ? { builds: raceBuilds.map(build => build && { ...build }) } : {};
     const record: LocalReplay = networkRace?.exportReplay() ?? (driveRace
-      ? { version: 1, rules: DRIVE_RULES, trackId, names: [...raceNames], skins: [...skins], tunes: driveTunes.map(tune => ({ ...tune })), appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
+      ? { version: 1, rules: DRIVE_RULES, trackId, names: [...raceNames], skins: [...skins], tunes: driveTunes.map(tune => ({ ...tune })), appearances, ...builds, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
       : raceTunes
-      ? { version: 1, rules: GARAGE_RULES, baseRulesHash: RACE_RULES_HASH, trackId, names: [...raceNames], skins: [...skins], tunes: raceTunes.map(tune => ({ ...tune })), appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
+      ? { version: 1, rules: GARAGE_RULES, baseRulesHash: RACE_RULES_HASH, trackId, names: [...raceNames], skins: [...skins], tunes: raceTunes.map(tune => ({ ...tune })), appearances, ...builds, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' }
       : { version: 1, rules: 'RaceV1', rulesHash: RACE_RULES_HASH, trackId, names: [...raceNames], skins: [...skins], appearances, inputs: inputs.map(r => [...r]), savedAt: new Date().toISOString(), source: 'practice' });
     try { const history = getHistory(); localStorage.setItem(historyKey, JSON.stringify([record, ...history].slice(0, 10))); } catch { toast('Replay storage is full. Export this session from the results.'); }
     resultSaved = true;
@@ -681,7 +721,8 @@ async function action(name: string): Promise<void> {
   else if (name === 'track-prev') chooseTrack(trackId - 1);
   else if (name === 'track-next') chooseTrack(trackId + 1);
   else if (name.startsWith('track-')) chooseTrack(Number(name.slice(6)));
-  else if (name.startsWith('car-')) { carId = Number(name.slice(4)); savePrefs(); renderScreen(); }
+  else if (name.startsWith('car-')) { carId = Number(name.slice(4)); saveCarBuild({ ...carBuild, paint: liveryPaint(carId).id }); renderScreen(); }
+  else if (name === 'custom') setView('custom');
   else if (name === 'pause') togglePause();
   else if (name === 'refresh') await refreshLobbies();
   else if (name === 'create-race') live.createDialog(Number(document.querySelector<HTMLSelectElement>('#lobby-track')!.value), Number(document.querySelector<HTMLSelectElement>('#grid-size')!.value), document.querySelector<HTMLInputElement>('#stake')!.value);
@@ -772,7 +813,7 @@ function frame(time: number): void {
 }
 const initialRoute = location.hash.slice(2);
 const initialWorkshop = storyWorkshopRoute(initialRoute, unlockedChapter);
-setView(initialWorkshop !== null ? 'shop' : ['story', 'garage', 'tuning', 'shop', 'lobby', 'history', 'settings', 'proofs', 'prove', 'soundtrack'].includes(initialRoute) ? initialRoute as View : 'home', initialWorkshop);
+setView(initialWorkshop !== null ? 'shop' : ['story', 'garage', 'custom', 'tuning', 'shop', 'lobby', 'history', 'settings', 'proofs', 'prove', 'soundtrack'].includes(initialRoute) ? initialRoute as View : 'home', initialWorkshop);
 if (streetRouteFromHash(initialRoute)) void startStreet(undefined, streetRouteFromHash(initialRoute)!).catch(e => toast(japaneseError(e)));
 if (initialRoute.startsWith('session/')) void live.open(decodeURIComponent(initialRoute.slice(8))).catch(e => toast(japaneseError(e)));
 window.addEventListener('hashchange', () => {
@@ -784,7 +825,7 @@ window.addEventListener('hashchange', () => {
     if (networkRace && !['finished', 'stopped'].includes(networkRace.status.phase)) { toast('ライブ対戦を終了してから工房へ。 / Leave your live race before visiting the workshop.'); return; }
     setView('shop', workshop);
   }
-  else if (['story', 'garage', 'tuning', 'shop', 'lobby', 'history', 'settings', 'proofs', 'prove', 'soundtrack', ''].includes(route)) setView((route || 'home') as View);
+  else if (['story', 'garage', 'custom', 'tuning', 'shop', 'lobby', 'history', 'settings', 'proofs', 'prove', 'soundtrack', ''].includes(route)) setView((route || 'home') as View);
 });
 requestAnimationFrame(frame);
 

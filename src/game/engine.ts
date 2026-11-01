@@ -3,6 +3,7 @@ import { executeRaceKernel } from './kernel';
 import { RACE_RULES_HASH } from './environment';
 import { copyEnvironmentContacts, environmentContacts, setEnvironmentContacts, type EnvironmentContact } from './environment-events';
 import { validateClubAppearance, type ClubAppearance } from './catalog';
+import { validateReplayBuilds, type CarBuild } from './car-builds';
 
 export interface CarState {
   slot: number; progress: number; x: number; speed: number; vx: number;
@@ -26,6 +27,8 @@ export interface ReplayV1 {
   dnfEvents?: { tick: number; slots: number[] }[];
   /** Optional presentation metadata; excluded from the native replay/proof transcript. */
   appearances?: ClubAppearance[];
+  /** Each racer's car as built (car-builds.ts), null where none was announced; presentation only, like appearances. */
+  builds?: (CarBuild | null)[];
 }
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n));
 export function createRace(trackId: number, count: number): RaceState {
@@ -104,6 +107,7 @@ export function validateReplay(value: unknown): ReplayV1 {
     if (!Array.isArray(r.appearances) || r.appearances.length !== r.names.length) throw new TypeError('Cosmetic replay roster mismatch');
     r.appearances.forEach(validateClubAppearance);
   }
+  const builds = validateReplayBuilds(r.builds, r.names.length);
   if (!Array.isArray(events) || events.length > r.names.length || events.some((event, i) => !event || !Number.isInteger(event.tick) || event.tick < 0 || event.tick > r.inputs.length || i > 0 && events[i - 1]!.tick >= event.tick || !Array.isArray(event.slots) || !event.slots.length || event.slots.some((slot, j) => !Number.isInteger(slot) || slot < 0 || slot >= r.names.length || j > 0 && event.slots[j - 1]! >= slot))) throw new TypeError('Noncanonical DNF history');
   const state = createRace(r.trackId, r.names.length);
   for (let tick = 0; tick <= r.inputs.length; tick++) {
@@ -111,7 +115,7 @@ export function validateReplay(value: unknown): ReplayV1 {
     if (tick < r.inputs.length) { if (raceFinished(state)) throw new TypeError('Replay contains trailing terminal frames'); stepRace(state, r.inputs[tick]!); }
   }
   if (!Number.isFinite(Date.parse(r.savedAt))) throw new TypeError('Invalid replay date');
-  return structuredClone(r);
+  return structuredClone(builds ? { ...r, builds } : r);
 }
 
 export function applyReplayDnf(state: RaceState, replay: ReplayV1): void {

@@ -3,6 +3,7 @@ import { type RaceState } from './engine';
 import type { DriveEvent } from './drive/race';
 import { raceResultPlaces } from './presentation';
 import { clubItem, clubLivery, type ClubAppearance } from './catalog';
+import type { CarBuild } from './car-builds';
 import { environmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
 import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery';
 import { getRaceWorld } from './three/world';
@@ -16,6 +17,8 @@ export interface RenderOptions {
   controls?: number; raceMode?: string; hud?: boolean;
   /** Presentation-only; never feeds physics, proof inputs or hit boxes. */
   appearances?: Readonly<Record<number, ClubAppearance>>;
+  /** Each car's body and parts (car-builds.ts), presentation only; none draws the factory hachiroku. */
+  builds?: readonly (CarBuild | null | undefined)[];
   contacts?: readonly EnvironmentContact[];
   /** Display weather/objects from the selected compiled relation. */
   environment?: Readonly<TrackEnvironment>;
@@ -632,14 +635,16 @@ export class RaceRenderer {
     ctx.strokeStyle='#fff0d1aa';ctx.lineWidth=0.55;ctx.beginPath();ctx.moveTo(-43,-28);ctx.lineTo(-35,-42);ctx.lineTo(-26,-58);ctx.lineTo(25,-58);ctx.stroke();
     ctx.restore();
   }
-  drawShowroom(carId: number, time: number, appearance?: ClubAppearance): void {
+  /** The garage floor under `mark` (the colour's kanji by default), and with `car` the 2D car (the 3D garage draws its own turntable). */
+  drawShowroom(carId: number, time: number, appearance?: ClubAppearance, car = true, mark = LIVERIES[carId]!.japanese): void {
     this.#prepareCanvas();
     const ctx = this.ctx, w = this.width, h = this.height, c = clubLivery(LIVERIES[carId]!, appearance);
     ctx.fillStyle = '#e6ded3'; ctx.fillRect(0, 0, w, h);
     ctx.strokeStyle = '#d4c9be'; ctx.lineWidth = 1;
     for (let i = -w; i < w * 2; i += 50) { ctx.beginPath(); ctx.moveTo(i, h * 0.48); ctx.lineTo(w / 2 + (i - w / 2) * 3, h); ctx.stroke(); }
     for (let y = h * 0.5; y < h; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
-    ctx.fillStyle = '#dbcfca'; ctx.font = `900 ${Math.min(w * 0.35, h * 0.65)}px sans-serif`; ctx.textAlign = 'center'; ctx.fillText(LIVERIES[carId]!.japanese, w * 0.61, h * 0.65);
+    ctx.fillStyle = '#dbcfca'; ctx.font = `900 ${Math.min(w * 0.35, h * 0.65)}px sans-serif`; ctx.textAlign = 'center'; ctx.fillText(mark, w * 0.61, h * 0.65);
+    if (!car) return;
     ctx.save(); ctx.translate(w * (w < 600 ? 0.59 : 0.70), h * (w < 600 ? 0.79 : 0.72) + Math.sin(time * 1.8)); const s = Math.min(w * 0.0021, h * 0.006); ctx.scale(s, s);
     ctx.fillStyle = '#ad9e9b'; ctx.fillRect(-115, 6, 237, 7);
     for (const wx of [-73, 76]) {

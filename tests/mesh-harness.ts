@@ -45,8 +45,8 @@ function timedDraw(...args: Parameters<RaceRenderer['draw']>): void {
 }
 function frame(now: number): void {
   rafCount++; lastRafTimestampMs = now;
-  if (active) timedDraw(presentation.sample(active.predictedState, now), { playerSlot: ownSlot, appearances: active.appearances, skins: active.state.cars.map(c => c.slot % 6), names: active.state.cars.map(c => c.slot === ownSlot ? 'YOU' : `DRIVER ${c.slot + 1}`), controls: capturedControls, attract: false, hud: true, raceMode: '対戦 / LIVE' }, now / 1000);
-  else if (spectator) timedDraw(presentation.sample(spectator.state, now), { playerSlot: 0, appearances: spectator.appearances, skins: spectator.state.cars.map(c => c.slot % 6), names: spectator.state.cars.map(c => `ドライバー ${c.slot + 1}`), attract: false, hud: true, raceMode: '観戦 / SPECTATOR' }, now / 1000);
+  if (active) timedDraw(presentation.sample(active.predictedState, now), { playerSlot: ownSlot, appearances: active.appearances, builds: active.builds, skins: active.state.cars.map(c => c.slot % 6), names: active.state.cars.map(c => c.slot === ownSlot ? 'YOU' : `DRIVER ${c.slot + 1}`), controls: capturedControls, attract: false, hud: true, raceMode: '対戦 / LIVE' }, now / 1000);
+  else if (spectator) timedDraw(presentation.sample(spectator.state, now), { playerSlot: 0, appearances: spectator.appearances, builds: spectator.builds, skins: spectator.state.cars.map(c => c.slot % 6), names: spectator.state.cars.map(c => `ドライバー ${c.slot + 1}`), attract: false, hud: true, raceMode: '観戦 / SPECTATOR' }, now / 1000);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);

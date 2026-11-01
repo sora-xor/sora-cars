@@ -7,6 +7,7 @@ import { decodeRaceValueV1, encodeRaceValueV1, type RaceReplayV1 } from '@iroha/
 import type { RaceChainClient } from '../chain/client';
 import { garageInventory, type GarageNft } from '../chain/inventory';
 import { clubItem, type ClubAppearance } from '../game/catalog';
+import type { CarBuild } from '../game/car-builds';
 import { advanceRaceDeadline, assertSameRaceTerms, challengeRace, claimRacePayout, expireRace, forcedRaceInput, gameTrack, inputKeyLiteral, joinRace, newRaceId, newRaceInputKey, openRace, parseRaceList, parseRaceRecord, publishCheckpoint, checkpointOpenings, mergeRaceReveals, mergeRaceCommitments, publishInputCommitment, publishInputReveal, raceInvitation, raceRoster, recoveryInputs, settleRace, checkpointTranscriptRoot, startRace, stakeRaceItem, type RaceRecord } from '../chain/races';
 import { parseRaceProofBundle, raceProofSourceMatches, assertRaceProofSourceUnchanged, type RaceProofBundle } from '../chain/proof';
 import { collectCertifiedSettlement, assertSettlementWalletBinding, settlementExportOrigin, settlementExportRequest, SETTLEMENT_DESCRIPTOR_FILE, settlementVerificationCommand, settlementVerificationTrust, type SettlementVerificationTrust } from '../chain/finality';
@@ -31,6 +32,8 @@ interface LiveHost {
   notify: (message: string) => void;
   carId: () => number;
   appearance?: () => ClubAppearance;
+  /** The player's car as built (car-builds.ts), announced to the other racers and the public feed; presentation only. */
+  build?: () => CarBuild | undefined;
   input: () => number;
   begin: (controller: MultiplayerRaceController, names: string[], skins: number[], slot: number) => void;
   state: (authoritative: RaceState, predicted: RaceState) => void;
@@ -329,7 +332,7 @@ export class LiveRacingPanel {
     const ice = iceConfiguration(parseIceServers(this.#iceText), this.#relayOnly);
     this.#publicInputs.commitments = mergeRaceCommitments(this.#publicInputs.commitments, this.controller?.session.nativeInputCommitments ?? []);
     this.#publicInputs.reveals = mergeRaceReveals(this.#publicInputs.reveals, this.controller?.session.retainedRevealedInputs ?? []);
-    const controller = new MultiplayerRaceController({ appearance: this.#host.appearance?.(), iceServers: ice.iceServers, relayOnly: this.#relayOnly, scope: { networkId: r.network_id, raceId: r.race_id, profileId: r.profile_id, activeScope: activeScope(r.source_record), participants: raceRoster(r), track: r.rules.track, epoch }, slot, privateKey: key.privateKey, input: this.#host.input, names, skins, publicFeed: r.manifest.access.kind === 'public', ...(resumed ? { resume: { replay: resumed, activeSlots: r.participants.map((_, slot) => slot), expectedTranscriptRoot: checkpointTranscriptRoot(this.#scope(), resumed) } } : {}) });
+    const controller = new MultiplayerRaceController({ appearance: this.#host.appearance?.(), build: this.#host.build?.(), iceServers: ice.iceServers, relayOnly: this.#relayOnly, scope: { networkId: r.network_id, raceId: r.race_id, profileId: r.profile_id, activeScope: activeScope(r.source_record), participants: raceRoster(r), track: r.rules.track, epoch }, slot, privateKey: key.privateKey, input: this.#host.input, names, skins, publicFeed: r.manifest.access.kind === 'public', ...(resumed ? { resume: { replay: resumed, activeSlots: r.participants.map((_, slot) => slot), expectedTranscriptRoot: checkpointTranscriptRoot(this.#scope(), resumed) } } : {}) });
     this.controller = controller;
     controller.onState = this.#host.state;
     controller.onCheckpoint = checkpoint => { this.#snapshot = { replay: controller.exportNativeReplay(), checkpoint }; };
