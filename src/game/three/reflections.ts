@@ -26,6 +26,12 @@ export interface LocalCarReflections {
   update(scene: THREE.Scene, cars: readonly THREE.Object3D[], position: THREE.Vector3, time: number): LocalReflectionUpdate;
   /** Discard the old location after changing courses, without reallocating targets. */
   invalidate(): void;
+  /**
+   * Shader warm-up: runs `compile` once with every car's reflective materials on the scene environment and once
+   * bound to this probe, then restores them. Both bindings' programs then exist before a car crosses the
+   * influence radius, which otherwise compiled the paint and glass mid-race (300-400 ms stalls just after GO).
+   */
+  warm(scene: THREE.Scene, cars: readonly THREE.Object3D[], compile: () => void): void;
   dispose(): void;
 }
 
@@ -58,6 +64,8 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
   let disposed = false, face = -1, generations = 0, lastStart = -Infinity;
   let sourceScene: THREE.Scene | null = null;
   let sourceEnvironment: THREE.Texture | null = null;
+  /** The scene's LODs, gathered once per six-face capture rather than by walking the whole scene every face. */
+  let captureLods: THREE.LOD[] = [];
   const capturedPosition = new THREE.Vector3(Infinity, Infinity, Infinity);
   const publishedPosition = new THREE.Vector3(Infinity, Infinity, Infinity);
   const worldPosition = new THREE.Vector3();
@@ -107,35 +115,37 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
     }
   }
 
-  function withCaptureState(scene: THREE.Scene, cars: readonly THREE.Object3D[], operation: () => void): void {
+  function withCaptureState(scene: THREE.Scene, cars: readonly THREE.Object3D[], operation: () => void,
+    lodSources: readonly THREE.LOD[] = []): void {
     const target = renderer.getRenderTarget(), cubeFace = renderer.getActiveCubeFace(), mip = renderer.getActiveMipmapLevel();
     renderer.getViewport(viewport); renderer.getScissor(scissor); renderer.getClearColor(clearColor);
+    // The renderer's output colour space is left alone: a render target always receives linear light, and three.js
+    // keys every program on that setting, so changing it compiled each captured material a second time.
     const state = {
       scissorTest: renderer.getScissorTest(), clearAlpha: renderer.getClearAlpha(),
       autoClear: renderer.autoClear, color: renderer.autoClearColor, depth: renderer.autoClearDepth,
       stencil: renderer.autoClearStencil, xr: renderer.xr.enabled, toneMapping: renderer.toneMapping,
-      outputColorSpace: renderer.outputColorSpace, shadowAuto: renderer.shadowMap.autoUpdate,
+      shadowAuto: renderer.shadowMap.autoUpdate,
       shadowNeeds: renderer.shadowMap.needsUpdate, backgroundIntensity: scene.backgroundIntensity,
     };
     const visibility = cars.map(car => car.visible);
     const lods: [THREE.LOD, boolean, boolean[]][] = [];
     // Select one authored LOD even for trees outside the beauty camera's view.
     // Never call LOD.update(): its cached current level belongs to that camera.
-    scene.traverse(object => {
-      if (!(object instanceof THREE.LOD)) return;
+    for (const object of lodSources) {
+      if (object.parent === null) continue;
       lods.push([object, object.autoUpdate, object.levels.map(level => level.object.visible)]);
       object.autoUpdate = false;
       object.getWorldPosition(worldPosition);
       const chosen = object.getObjectForDistance(worldPosition.distanceTo(capturedPosition));
       for (const level of object.levels) level.object.visible = level.object === chosen;
-    });
+    }
     try {
       for (const car of cars) car.visible = false;
       renderer.xr.enabled = false;
       renderer.autoClear = renderer.autoClearColor = renderer.autoClearDepth = renderer.autoClearStencil = true;
       renderer.shadowMap.autoUpdate = renderer.shadowMap.needsUpdate = false;
       renderer.toneMapping = THREE.NoToneMapping;
-      renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
       renderer.setScissorTest(false);
       // Reflection radiance follows the source environment, independent of the
       // artistic dimming used only for the directly visible background.
@@ -154,7 +164,6 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
       renderer.autoClear = state.autoClear; renderer.autoClearColor = state.color;
       renderer.autoClearDepth = state.depth; renderer.autoClearStencil = state.stencil;
       renderer.xr.enabled = state.xr; renderer.toneMapping = state.toneMapping;
-      renderer.outputColorSpace = state.outputColorSpace;
       renderer.shadowMap.autoUpdate = state.shadowAuto; renderer.shadowMap.needsUpdate = state.shadowNeeds;
     }
   }
@@ -179,6 +188,8 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
         || time - lastStart >= interval || publishedPosition.distanceToSquared(position) >= updateDistanceSq)) {
         capturedPosition.copy(position); camera.position.copy(position); camera.updateMatrixWorld(true);
         lastStart = time; face = 0;
+        captureLods = [];
+        scene.traverse(object => { if (object instanceof THREE.LOD) captureLods.push(object); });
       }
       if (face === 6) {
         withCaptureState(scene, cars, () => { filtered = pmrem.fromCubemap(cube.texture, filtered); });
@@ -193,11 +204,28 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
         renderer.setRenderTarget(cube, renderedFace, 0);
         renderer.setViewport(0, 0, resolution, resolution);
         renderer.render(scene, camera.children[renderedFace] as THREE.PerspectiveCamera);
-      });
+      }, captureLods);
       face++;
       return result('capture', renderedFace);
     },
     invalidate,
+    warm(scene, cars, compile) {
+      if (disposed) { compile(); return; }
+      // Any radiance of the probe's size keys the bound programs; the first capture overwrites it.
+      if (!filtered) withCaptureState(scene, cars, () => { filtered = pmrem.fromCubemap(cube.texture); });
+      const probe = filtered!.texture;
+      const materials = [...new Set(cars.flatMap(car => carMaterials(car)))];
+      const current = materials.map(material => material.envMap);
+      try {
+        for (const material of materials)
+          material.envMap = bindings.get(material)?.map ?? (material.envMap === probe ? null : material.envMap);
+        compile();
+        for (const material of materials) material.envMap = probe;
+        compile();
+      } finally {
+        materials.forEach((material, i) => { material.envMap = current[i]!; });
+      }
+    },
     dispose() {
       if (disposed) return;
       invalidate(); disposed = true; cube.dispose(); filtered?.dispose(); pmrem.dispose();

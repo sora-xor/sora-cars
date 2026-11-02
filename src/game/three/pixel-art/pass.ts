@@ -421,8 +421,11 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
         if (lutDirty) { draw(lut.material, targets.lut); lutDirty = false; }
 
         renderer.setRenderTarget(targets.scene);
-        renderer.clear(true, true, false);
+        // three.js clears inside render(), after the shadow map: clearing first opened the multisampled scene pass,
+        // which the shadow pass then interrupted, storing and reloading every sample.
+        renderer.autoClear = true;
         renderer.render(scene, camera);
+        renderer.autoClear = false;
 
         updateCamera(camera);
         shared.artTime.value = time;

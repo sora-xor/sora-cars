@@ -56,6 +56,7 @@ import { periodCityForestVegetationGround, type PeriodLocals } from './period-ci
 import { SIGN_REGIONS } from './period-city/signs';
 import { crownLight, crownLightGlsl, crownTranslucencyGlsl } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
+import { compileFor, shadowCasterBatches } from './shader-warmup';
 import { buildColours, type CarBuild } from '../car-builds';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
@@ -449,6 +450,31 @@ function point(p: Pose, lateral: number, up = 0, forward = 0): THREE.Vector3 {
     p.y + up, p.z - Math.sin(p.heading) * lateral + Math.cos(p.heading) * forward);
 }
 
+/** One triangle with an oil slick's attributes, so the shader warm-up compiles the slicks' film program. */
+const OIL_FILM_SHAPE = new THREE.BufferGeometry();
+OIL_FILM_SHAPE.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 0, 1], 3));
+OIL_FILM_SHAPE.setAttribute('uv', new THREE.Float32BufferAttribute([0, 0, 1, 0, 0, 1], 2));
+OIL_FILM_SHAPE.setAttribute('oilEdge', new THREE.Float32BufferAttribute([1, 0, 0], 1));
+OIL_FILM_SHAPE.setIndex([0, 2, 1]); OIL_FILM_SHAPE.computeVertexNormals();
+
+/**
+ * Object3D.clone() drops custom shadow materials: carry them over mesh for mesh, so a knocked-down tree's shadow keeps
+ * its leaf cutouts and canopy gaps (and the programs the shader warm-up built for them).
+ */
+function withShadowMaterials<T extends THREE.Object3D>(source: THREE.Object3D, clone: T): T {
+  const meshes: THREE.Object3D[] = [];
+  source.traverse(object => { if ((object as THREE.Mesh).isMesh) meshes.push(object); });
+  let next = 0;
+  clone.traverse(object => {
+    if (!(object as THREE.Mesh).isMesh) return;
+    const from = meshes[next++];
+    if (!from) return;
+    object.customDepthMaterial = from.customDepthMaterial;
+    object.customDistanceMaterial = from.customDistanceMaterial;
+  });
+  return clone;
+}
+
 const sootCache = new Map<string, string>();
 /** A wreck's paint, scorched and dulled. */
 function sooty(color: string): string {
@@ -596,6 +622,8 @@ export class RaceWorld {
   private artGridHeight = 0;
   private artGridSupersample = 2;
   private readonly posts: THREE.InstancedMesh;
+  /** The wet film every oil slick shares, compiled with the shader warm-up rather than on the first slick's sight. */
+  private readonly oilFilm: THREE.MeshPhysicalMaterial;
   private readonly rails: THREE.InstancedMesh;
 
   constructor(private readonly output: HTMLCanvasElement) {
@@ -621,11 +649,22 @@ export class RaceWorld {
     const loader = new THREE.TextureLoader();
     this.flag = loader.load(asset('sora-flag.png')); this.flag.colorSpace = THREE.SRGBColorSpace;
     this.periodCity = new PeriodCity(asset('branding/sora-emblem-source.png'), asset('sprites/street-people.png'), asset('sprites/window-interiors.png'));
+    this.periodCity.chunkBuilt = chunk => this.warmChunk(chunk);
     this.scene.add(this.periodCity.group);
     this.scene.add(this.tailStreaks.mesh, this.lampFarLights.points);
     this.roadMaterial = new THREE.MeshStandardMaterial({ ...scannedSurface('asphalt_02'), normalScale: new THREE.Vector2(0.55, 0.55), color: ROAD_ALBEDO, roughness: 0.88, metalness: 0 });
     this.vehicleAmbient.decorate(this.roadMaterial);
     this.roadFinish = decorateRoadFinish(this.roadMaterial);
+    this.oilFilm = new THREE.MeshPhysicalMaterial({ ...scannedSurface('asphalt_02'), color: '#48404c',
+      normalScale: new THREE.Vector2(0.12, 0.12), roughness: 0.36, metalness: 0,
+      clearcoat: 0.7, clearcoatRoughness: 0.22, transparent: true, opacity: 0.83, depthWrite: false });
+    this.oilFilm.onBeforeCompile = shader => {
+      shader.vertexShader = shader.vertexShader.replace('void main() {', 'attribute float oilEdge; varying float oilCoverage; void main() { oilCoverage = oilEdge;');
+      shader.fragmentShader = shader.fragmentShader.replace('void main() {', 'varying float oilCoverage; void main() {')
+        .replace('#include <alphatest_fragment>', 'diffuseColor.a *= smoothstep(0.0, 0.14, oilCoverage);\n#include <alphatest_fragment>');
+    };
+    this.oilFilm.customProgramCacheKey = () => 'sora-oil-asphalt-film-v1';
+    this.vehicleAmbient.decorate(this.oilFilm);
     this.scene.background = new THREE.Color('#202449');
     output.dataset.lightingAsset = 'loading';
     new HDRLoader().load(asset('lighting/qwantani-dusk.hdr'), texture => {
@@ -638,6 +677,9 @@ export class RaceWorld {
       output.dataset.lightingAsset = 'detailed';
     }, undefined, error => { output.dataset.lightingAsset = 'failed'; console.error('Dusk lighting failed to load.', error); });
     this.scene.fog = this.fog;
+    // draw() updates the scene's ~12,000 matrices once per frame; the frame's renders (shadow map, reflection face,
+    // pixel-art pass) reuse them instead of each walking the scene again (about a fifth of the frame's CPU time).
+    this.scene.matrixWorldAutoUpdate = false;
     this.scene.add(this.fill, this.keyLight, this.keyLight.target, this.road);
     // The procedural cloud field is a visible, direction-anchored sky only.
     // Keep local car reflection probes on layer 0 so their HDR radiance still
@@ -823,6 +865,34 @@ export class RaceWorld {
   /** Fixed-state comparison between procedural visible sky and HDR backdrop. */
   setPaintedSkyEnabled(enabled: boolean): void {
     this.paintedSky.setEnabled(enabled);
+  }
+
+  /**
+   * Compile programs off the frame. Both finishes draw the scene into an HDR target (no tone map, linear output),
+   * so `compile` runs with one bound: screen-target programs never match.
+   */
+  private warmShaders(compile: (warming: Promise<unknown>[]) => void): void {
+    const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }), previous = this.renderer.getRenderTarget();
+    const warming: Promise<unknown>[] = [];
+    this.renderer.setRenderTarget(target);
+    try { compile(warming); } finally { this.renderer.setRenderTarget(previous); }
+    void Promise.all(warming).catch(error => console.warn('Shader warm-up failed.', error)).finally(() => target.dispose());
+  }
+
+  /**
+   * A period-city chunk streams in hundreds of metres ahead: compile its surfaces and their shadow programs now, so
+   * the first that only appear later on a route (the moat, its flora) do not stall the race when they come near.
+   */
+  private warmChunk(chunk: THREE.Group): void {
+    if (!this.shadersWarmed) return; // The course's own warm-up covers it.
+    prepareSpotlightEarlyOut(this.renderer, chunk);
+    const surfaces: THREE.Object3D[] = [];
+    chunk.traverse(object => { surfaces.push(object); });
+    this.warmShaders(warming => {
+      warming.push(compileFor(this.renderer, this.scene, this.camera, surfaces));
+      for (const batch of shadowCasterBatches(chunk))
+        warming.push(compileFor(this.renderer, this.scene, this.camera, batch(), { fog: false }));
+    });
   }
 
   renderArcade(state: RaceState, options: RenderOptions, time: number): HTMLCanvasElement {
@@ -1288,7 +1358,7 @@ export class RaceWorld {
       } else if (event.kind === 'prop') {
         const hazard = crashes?.props[event.other], source = hazard && this.hazards.get(hazard.id);
         if (!source) continue;
-        const piece = source.clone(); piece.visible = true;
+        const piece = withShadowMaterials(source, source.clone()); piece.visible = true;
         piece.position.copy(source.position); piece.quaternion.copy(source.quaternion); piece.scale.copy(source.scale);
         const velocity = forward.clone().multiplyScalar(event.vs).addScaledVector(right, event.vd).add(new THREE.Vector3(0, 2.5 + Math.abs(jitter(1)) * 3, 0));
         this.crash.debris(piece, velocity, new THREE.Vector3(jitter(2) * 6, jitter(3) * 3, jitter(4) * 6), time, 1, poseAt(course, hazard.p).y);
@@ -1561,9 +1631,13 @@ export class RaceWorld {
     // through dusk toward its bearing, fading into the night below daylight 0.3.
     this.paintedSky.setRacingGolden(mood.lowSun ? Math.max(THREE.MathUtils.smoothstep(daylight, 0.6, 0.85),
       THREE.MathUtils.smoothstep(daylight, 0.3, 0.5)) : 0);
-    if (this.carFleet?.sync(this.cars, cars.map(car => car?.build))) this.pixelArt.setMovers(this.cars.map(model => model.group));
     // A spring dawn paints its own sky.
     this.paintedSky.setRacingDawn(dawn);
+    if (this.carFleet?.sync(this.cars, cars.map(car => car?.build))) {
+      this.pixelArt.setMovers(this.cars.map(model => model.group));
+      // New bodies bring new paint: warm their reflection and shadow programs too.
+      this.shadersWarmed = false;
+    }
     this.cars.forEach((model, i) => {
       const car = cars[i]; model.group.visible = !!car && !(view === 'bumper' && i === slot) && !(car?.retired && i !== slot);
       if (!car) { this.vehicleAmbient.setCar(i, model.group.position, 0, 0); return; }
@@ -1634,17 +1708,7 @@ export class RaceWorld {
           geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
           geometry.setAttribute('oilEdge', new THREE.Float32BufferAttribute(edge, 1));
           geometry.setIndex(indices); geometry.computeVertexNormals();
-          const material = new THREE.MeshPhysicalMaterial({ ...scannedSurface('asphalt_02'), color: '#48404c',
-            normalScale: new THREE.Vector2(0.12, 0.12), roughness: 0.36, metalness: 0,
-            clearcoat: 0.7, clearcoatRoughness: 0.22, transparent: true, opacity: 0.83, depthWrite: false });
-          material.onBeforeCompile = shader => {
-            shader.vertexShader = shader.vertexShader.replace('void main() {', 'attribute float oilEdge; varying float oilCoverage; void main() { oilCoverage = oilEdge;');
-            shader.fragmentShader = shader.fragmentShader.replace('void main() {', 'varying float oilCoverage; void main() {')
-              .replace('#include <alphatest_fragment>', 'diffuseColor.a *= smoothstep(0.0, 0.14, oilCoverage);\n#include <alphatest_fragment>');
-          };
-          material.customProgramCacheKey = () => 'sora-oil-asphalt-film-v1';
-          this.vehicleAmbient.decorate(material);
-          mesh = new THREE.Mesh(geometry, material);
+          mesh = new THREE.Mesh(geometry, this.oilFilm);
           mesh.receiveShadow = true;
           // The slick's ellipse, for the pixel-art hazard drawing.
           mesh.userData.oilHalfWidth = halfWidth; mesh.userData.oilHalfLength = halfLength;
@@ -1680,19 +1744,24 @@ export class RaceWorld {
     // the main thread where the driver supports it, instead of on first sight.
     if (!this.shadersWarmed && ['sceneryAsset', 'carAsset', 'understoryAsset'].every(key => this.output.dataset[key] !== 'loading')) {
       this.shadersWarmed = true;
-      // Both finishes draw the scene into an HDR target (no tone map, linear
-      // output), so compile against one: screen-target programs never match.
-      const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }), previous = this.renderer.getRenderTarget();
       prepareSpotlightEarlyOut(this.renderer, this.scene);
-      this.renderer.setRenderTarget(target);
-      const warming = this.renderer.compileAsync(this.scene, this.camera);
-      this.renderer.setRenderTarget(previous);
-      void warming.catch(error => console.warn('Shader warm-up failed.', error)).finally(() => target.dispose());
+      this.warmShaders(warming => {
+        // Every material twice, the cars' paint and glass once on the scene environment and once on the local
+        // reflection probe: a car leaving the probe's radius compiled both mid-race (300-400 ms stalls after GO).
+        this.localCarReflections.warm(this.scene, this.cars.map(model => model.group),
+          () => warming.push(this.renderer.compileAsync(this.scene, this.camera)));
+        // The shadow pass's depth programs, one per kind of caster, and the oil slicks' film, which three.js would
+        // otherwise compile on their first draw (50-150 ms stalls as each comes into view).
+        for (const batch of shadowCasterBatches(this.scene))
+          warming.push(compileFor(this.renderer, this.scene, this.camera, batch(), { fog: false }));
+        const slick = new THREE.Mesh(OIL_FILM_SHAPE, this.oilFilm);
+        prepareSpotlightEarlyOut(this.renderer, slick);
+        warming.push(compileFor(this.renderer, this.scene, this.camera, [slick]));
+      });
     }
-    if (this.treeBatch) {
-      this.scene.updateMatrixWorld(true);
-      this.treeBatch.update(this.camera, this.keyLight);
-    }
+    // Everything is placed for this frame: the one matrix update every render below uses.
+    this.scene.updateMatrixWorld(true);
+    this.treeBatch?.update(this.camera, this.keyLight);
     const pixelFinish = getPixelFinish();
     const groupedVisuals = this.regionRoute && pixelFinish;
     if (groupedVisuals !== this.groupedVisuals) {

@@ -492,6 +492,17 @@ The chapter titles and HUD place name come from each route's style (`src/game/st
 - Geometry is built per 80 m chunk, one merged mesh per material, nearest chunk first, at most one chunk per frame (all at once on a course start or seek).
 - Hidden chunks are kept for reversing and laps, then disposed.
 - One `compileAsync` per course, against an HDR target and after `prepareSpotlightEarlyOut`, compiles every pooled material up front. Trees, understory and distant cars no longer compile on first sight mid-lap.
+- The warm-up also covers the programs that used to compile mid-race (2026-11-01; `shader-warmup.ts`, `reflections.ts` `warm`). In the first 20 s after the countdown, 11 programs compiled on Hakone and 12 on Tokyo, each freezing the frame for 80-560 ms; now none do, on Hakone, Harbor Run or Tokyo (`tmp/perf/programs.mjs` logs each new program and the draw that made it). The causes were:
+  - The cars' paint and glass are compiled on both the scene environment and the local reflection probe. A car leaving the probe's 24 m radius had switched to a program never built (a different cube-UV size).
+  - The shadow pass's depth programs, one per kind of caster, compile from stand-ins that wear the depth material `WebGLShadowMap` gives each surface, with fog off as the shadow pass draws. The tree batch's hidden sources count, for the hazard trees cloned from them later, and each period-city chunk compiles its surfaces and their shadows as it is built, hundreds of metres ahead.
+  - Oil slicks share one film material, compiled up front, instead of building their own on first sight.
+  - The reflection capture no longer switches the renderer's output colour space. A render target always receives linear light, but three.js keys every program on that setting, so each material the probe saw compiled twice.
+  - A knocked-down tree keeps its custom shadow materials (`Object3D.clone` drops them), so its falling shadow keeps the leaf cutouts and canopy gaps instead of compiling a plain one.
+  A new car body (a build change) warms again. A hitch of about 300 ms remains some 3 s after GO on every route; it is not a shader compile.
+- One matrix update per frame: the scene's ~12,000 matrices were recomposed by every render of it (a forced update before the tree batch, the reflection face and the pixel-art pass), about a fifth of the frame's CPU time.
+- The pixel-art pass lets three.js clear its multisampled scene target after drawing the shadow map; clearing first opened the scene pass and the shadow pass split it, storing and reloading every sample. The reflection probe gathers the scene's LODs once per six-face capture instead of walking the whole scene each face.
+- The race canvas is a GPU canvas. `willReadFrequently` had made it a CPU canvas, so every frame read the whole WebGL image back and the CPU waited for the GPU before drawing the HUD.
+- The mature trees switch LOD at 19, 51 and 90 m (were 32, 85 and 150 m), sized for the pixel-art scene target, and their leaves cut out at alpha 0.25 (was 0.4) for full crowns. Measured on Hakone at 1080p with the scene alternating frame by frame (load average 300-1000 from other work, so read the ratios): the trees were about 45% of the GPU frame, the new switch distances took 5.4 ms (about 14%) off it, and matched frozen frames keep the crowns' shape and density. 4× MSAA on the scene target costs about 9 ms of a 24 ms GPU frame. Without it, fine detail goes (a shop curtain's pattern, lamp heads), so it stays.
 
 Measured with `tmp/pixel-art/capture.mjs --modes street --sizes 1920x1080 --query picture=pixel --timing-steps 150` (M4 Max, both runs in one session):
 
@@ -550,7 +561,6 @@ On Midnight Circuit, measured the same way under heavy host load (1-minute load 
 - The street people are flat sprites. Up close, a turn of the camera switches a sprite between its front, back and side, with no angles between, and their pixels show larger than the screen's art pixels. Nobody crosses the road. Parked cars in carports and monthly car parks are modelled 1980s saloons; they remain static scenery.
 - The ad balloons hang over the roadside buildings, so the nearer roofs hide them until they are a few hundred metres ahead, where they are small. The airship keeps station with the leaders rather than flying a fixed course of its own.
 - The emblem on the generated fans' and crew's clothes and flags was drawn by the image model from the exact emblem as a reference. It reads correctly at sprite size, but it is not a paste of the source file.
-- The opponent cars' paint compiles about eight seconds into a race in both cities (a car-material key change). That is outside the city.
 - Local routes:
   - Tsuruga-jō's keep is rarely in view from the road. Beside the moat it stands 69–111° off the car's nose. On the Jōnan-dōri approach, where it is about 27° off, houses and walls hide it.
   - Irohazaka's kana boards are a plain provisional design. The 1986 boards are unconfirmed, and neither the 1995 nor the 2023 set may be shown.

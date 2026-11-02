@@ -171,7 +171,9 @@ async function loadTemplates(): Promise<DetailedScenery> {
         if (mesh.material.name === 'tree_small_02_leaves') {
           const leaves = mesh.material as THREE.MeshStandardMaterial;
           leaves.alphaMap = leafAlpha;
-          leaves.alphaTest = 0.4;
+          // Full crowns, as the race mockups and the rain-night target paint the roadside trees: at 0.4 the leaf
+          // edges fell away and the crowns read as thin, leggy saplings (Hakone's forest, Tokyo's street trees).
+          leaves.alphaTest = 0.25;
           leaves.transparent = false;
           leaves.depthWrite = true;
           // The autumn routes turn these crowns crimson, orange and gold (autumn-foliage.ts).
@@ -194,7 +196,11 @@ async function loadTemplates(): Promise<DetailedScenery> {
       template = normalizedTemplate(file.scene, `mature-crown-lod-${index}`, 8, 7);
       if (index === 0) nearTemplate = template;
     }
-    lod.addLevel(template, [0, 32, 85, 150][index]!, 0.12);
+    // Switch distances for the pixel-art scene target (about 1672 x 940): at 32 m the near crown's 424,000 leaf
+    // triangles drew some 20 per scene pixel, and each level still draws two or more per pixel where it now takes
+    // over. Matched frames of Hakone at night and Nikko at sunrise keep the crowns' shape and density, and the trees'
+    // GPU time falls by about two fifths (0, 32, 85, 150 m before).
+    lod.addLevel(template, [0, 19, 51, 90][index]!, 0.12);
   });
   tree.add(lod);
   const shutterSource = findPart(shutterFile.scene, 'rollershutter_door').clone(true);

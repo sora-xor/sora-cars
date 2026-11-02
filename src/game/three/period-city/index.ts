@@ -47,6 +47,8 @@ export class PeriodCity {
   private snow = 0;
   private signs: SignPools | null = null;
   private frame = 0;
+  /** Told of each chunk as it is built, so its shader programs can compile before it comes near. */
+  chunkBuilt: ((chunk: THREE.Group) => void) | null = null;
 
   /**
    * `emblemUrl`: the exact SORA emblem image for the city's billboards; `spritesUrl`: the street-people sprite atlas;
@@ -115,6 +117,7 @@ export class PeriodCity {
       if (!chunk) {
         if (!immediate && built >= budget) continue;
         chunk = this.build(key, layout); this.chunks.set(key, chunk); built++;
+        this.chunkBuilt?.(chunk.group);
       }
       chunk.used = this.frame; chunk.group.visible = true;
     }

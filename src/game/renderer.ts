@@ -48,7 +48,9 @@ export class RaceRenderer {
   #cameraTime: number | null = null;
   readonly #tintedBackdrops = new Map<number, HTMLCanvasElement>();
   constructor(canvas: HTMLCanvasElement) {
-    this.canvas = canvas; this.ctx = canvas.getContext('2d', { alpha: false, willReadFrequently: true })!;
+    // A GPU canvas: each frame's 3D image is copied in on the GPU. willReadFrequently made it a CPU canvas, which read
+    // the whole WebGL frame back every frame and made the CPU wait for the GPU before drawing the HUD.
+    this.canvas = canvas; this.ctx = canvas.getContext('2d', { alpha: false })!;
     this.backdrop.src = asset('alpine-dusk.png'); this.flag.src = asset('sora-flag.png');
     this.resize();
   }
