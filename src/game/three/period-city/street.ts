@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import type { CityMeshBuilder, Vec3 } from './geometry';
-import { hashInts, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
+import { hashInts, periodCityPlantingClear, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
 import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
 import { FLORA_KIND } from './flora';
 
@@ -257,8 +257,12 @@ const SHOULDER = 1.6;
  * the road's level. Near the road, more than `limit` metres of drop or rise belongs to another leg's cut or bank, and
  * nothing is planted; the wood's far rows, already kept short of other legs by their reach, climb the slope further.
  */
-function verge(b: CityMeshBuilder, layout: PeriodCityLayout, roadY: number, x: number, z: number, limit = 6): number | null {
-  const at = b.world(new THREE.Vector3(x, 0, z)), h = layout.groundHeightAt(at.x, at.z);
+function verge(b: CityMeshBuilder, layout: PeriodCityLayout, roadY: number, x: number, z: number, limit = 6,
+  groundHeightAt = layout.vegetationGroundHeightAt): number | null {
+  const at = b.world(new THREE.Vector3(x, 0, z)), h = groundHeightAt(at.x, at.z);
+  // A newly admitted hillside must not plant through a reserved landmark or a neighbouring building.
+  if (h !== null && groundHeightAt !== layout.groundHeightAt && layout.groundHeightAt(at.x, at.z) === null
+    && !periodCityPlantingClear(layout, at.x, at.z, 3)) return null;
   return h === null || !Number.isFinite(h) || Math.abs(h - roadY) > limit ? null : h - roadY;
 }
 /** One fallen leaf about a hand across, a broad diamond (one quad: the city's faces are stored unindexed, so a leaf
@@ -487,7 +491,9 @@ function leafLitter(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, 
         if ((k + salt + (side > 0 ? 2 : 0)) % every !== 0 || reach < near + 1) continue;
         if (valley && (near > 5 || random() < .5)) continue;
         const off = near + random() * (Math.min(far, reach - 1) - near), x = side * (w + off), z = random() * 3 - 1.5;
-        const y = verge(b, layout, roadY, x, z, near > 15 ? 30 : 6);
+        // The race already supplies its hillside forest. New slope sampling fills only the understory; adding these
+        // tree rows there too closes the open valley views. Keep every existing modelled tree on its original ground.
+        const y = verge(b, layout, roadY, x, z, near > 15 ? 30 : 6, layout.groundHeightAt);
         if (y === null || !clear(off - 1)) continue;
         const seed = Math.floor(random() * 10000);
         if (sugi && random() < (near > 15 ? .5 : .25)) b.plant(FLORA_KIND.cedar, x, y, z, random() * Math.PI * 2, .7 + random() * .45, ...CEDAR_TINT, seed);

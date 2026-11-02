@@ -5,7 +5,7 @@ import test from 'node:test';
 import { CLUB_ITEMS } from '../src/game/catalog';
 import { LIVERIES } from '../src/game/rules';
 import { CAR_COLOURS } from '../src/game/three/pixel-art/cars';
-import { FOLIAGE_GLINTS, LAMP_HEAD_CORE, LINEWORK_COLOURS } from '../src/game/three/pixel-art/linework';
+import { FOLIAGE_GLINTS, FOLIAGE_TONES, LAMP_HEAD_CORE, LINEWORK_COLOURS } from '../src/game/three/pixel-art/linework';
 import generated from '../src/game/three/pixel-art/palette.generated.json';
 import { hueDistance, oklabFromHex, oklch, PIXEL_PALETTE } from '../src/game/three/pixel-art/palette';
 import { OIL_COLOURS, SPARKLE_COLOURS } from '../src/game/three/pixel-art/surfaces';
@@ -64,7 +64,8 @@ test('provenance names every cutscene input with its current SHA-256', () => {
 test('the renderer\'s fixed colours are entries and its measured colours have a close entry', () => {
   // Drawn as palette entries by the car, oil and lamp-head stages.
   const exact = [...CAR_COLOURS.plateRamp, CAR_COLOURS.lampRed, LAMP_HEAD_CORE,
-    ...Object.values(OIL_COLOURS.night), ...Object.values(OIL_COLOURS.dawn)];
+    ...Object.values(CAR_COLOURS.lampTones).flat(), ...Object.values(OIL_COLOURS.night),
+    ...Object.values(OIL_COLOURS.dawn), ...Object.values(FOLIAGE_TONES).flat()];
   for (const hex of exact) assert.ok(PIXEL_PALETTE.hex.includes(hex), `${hex} is a palette entry`);
   // The oil gloss keeps two distinct tones per mood.
   for (const set of [OIL_COLOURS.night, OIL_COLOURS.dawn]) assert.notEqual(set.core, set.ring);

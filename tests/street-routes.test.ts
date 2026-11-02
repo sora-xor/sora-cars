@@ -10,7 +10,8 @@ import { STREET_ROUTE_STYLES, streetRouteStyle } from '../src/game/street/routes
 import { STREET_ROUTE_SONGS, composeStreetSong, streetSongSectionsMs } from '../src/game/street/route-songs';
 import * as THREE from 'three';
 import { streetScene } from '../src/game/three/period-city/street-scenes';
-import { createPeriodCityLayout, landmarkFootprint, periodCityGroundCut, periodCityOpenRuns, type PeriodFootprint } from '../src/game/three/period-city/layout';
+import { createPeriodCityLayout, landmarkFootprint, periodCityForestVegetationGround, periodCityGroundCut, periodCityOpenRuns,
+  type PeriodDistrict, type PeriodFootprint, type PeriodSide } from '../src/game/three/period-city/layout';
 import { PeriodPeople } from '../src/game/three/period-city/people';
 import { SPRITE_ROWS } from '../src/game/three/period-city/street-sprites';
 import { IROHA } from '../src/game/three/period-city/signs';
@@ -282,9 +283,52 @@ test('a city route paves a forest bank\u2019s verge up to the bank, and only the
     assert.equal(cut(...at(30)), true, `${id}: the bank or hillside beyond is cut`);
     // The lots stand exactly where they stood when the whole verge was cut: none takes the paved forest verge.
     const before = periodCityGroundCut(course, open, []), lots = (ground: (x: number, z: number) => boolean) =>
-      createPeriodCityLayout(course, { groundHeightAt: (x, z) => ground(x, z) ? null : 0, districtAt, open }).lots.map(lot => lot.id).join();
+      createPeriodCityLayout(course, { groundHeightAt: (x, z) => ground(x, z) ? null : 0, districtAt, open, street: scene.street }).lots.map(lot => lot.id).join();
     assert.equal(lots(cut), lots(before), `${id}: the lots stand where they did`);
   }
+});
+
+test('forest vegetation can use a hillside without filling park lawns, reserved landmarks or changing lots', () => {
+  const course = { length: 240, circuit: false,
+    poses: Array.from({ length: 49 }, (_, i) => ({ p: i * 5, x: 0, z: i * 5, y: 0, heading: 0, width: 5 })) };
+  const districtAt = (p: number, side: PeriodSide): PeriodDistrict => p < 80 ? 'town' : side < 0 ? 'park' : 'forest';
+  const groundHeightAt = (x: number, z: number) => z < 80 || Math.abs(x) < 6.7 ? 0 : null;
+  const slope = {
+    heightAt: (x: number) => x > 40 ? NaN : -.2,
+    clearOfOtherLegs: (_x: number, _z: number, p: number, margin: number) => {
+      assert.equal(margin, 3); return p < 200;
+    },
+  };
+  const vegetationGroundHeightAt = periodCityForestVegetationGround(course, districtAt, groundHeightAt, slope);
+  assert.equal(vegetationGroundHeightAt(12, 120), -.2, 'the forest hillside supplies its own height');
+  assert.equal(vegetationGroundHeightAt(-12, 120), null, 'the park on the opposite side stays open');
+  assert.equal(vegetationGroundHeightAt(12, 40), 0, 'existing town ground stays unchanged');
+  assert.equal(vegetationGroundHeightAt(0, 120), 0, 'road ground stays unchanged');
+  assert.equal(vegetationGroundHeightAt(45, 120), null, 'a missing hillside sample plants nothing');
+  assert.equal(vegetationGroundHeightAt(12, 220), null, 'the other-leg clearance guard is respected');
+  assert.equal(vegetationGroundHeightAt(70, 120), null, 'the finite forest strip has a bounded reach');
+  const options = { districtAt, groundHeightAt,
+    landmarks: [{ p: 140, side: 1 as const, kind: 'kasuga-torii' as const, clearance: 10, length: 12, depth: 14 }],
+    street: { footbridges: [], guides: [], litter: [[80, 240] as const], autumn: true } };
+  const before = createPeriodCityLayout(course, options), after = createPeriodCityLayout(course, { ...options, vegetationGroundHeightAt });
+  assert.ok(before.lots.length > 0, 'the comparison includes actual town lots');
+  assert.deepEqual(after.lots, before.lots, 'vegetation cannot admit or move any lot');
+  assert.equal(after.groundHeightAt(12, 120), null, 'structures still use the clipped urban ground');
+  const build = (layout: typeof after) => { const b = new CityMeshBuilder(0, 0); buildStreet(b, layout, 90, 240); return b; };
+  assert.equal(build(before).flora.length, 0, 'the clipped sampler previously omitted the woodland');
+  const b = build(after), kinds: number[] = [], footprint = landmarkFootprint(course, options.landmarks[0]!);
+  for (let i = 0; i < b.flora.length; i += FLORA_STRIDE) {
+    const [kind, x, y, z] = b.flora.slice(i, i + 4) as [number, number, number, number]; kinds.push(kind);
+    assert.ok(x > 6.7 && z < 200, 'plants stay in forest beyond the shoulder, clear of the other leg');
+    assert.equal(y, -.2, 'every plant stands on the hillside');
+    const dx = x - footprint.x, dz = z - footprint.z;
+    const u = Math.cos(footprint.yaw) * dx - Math.sin(footprint.yaw) * dz;
+    const v = Math.sin(footprint.yaw) * dx + Math.cos(footprint.yaw) * dz;
+    assert.ok(Math.abs(u) > footprint.halfX || Math.abs(v) > footprint.halfZ, 'the landmark footprint stays clear');
+  }
+  assert.ok(kinds.includes(FLORA_KIND.grass) && kinds.includes(FLORA_KIND.susuki), 'the understory now grows on its ground');
+  assert.ok(!kinds.includes(FLORA_KIND.maple) && !kinds.includes(FLORA_KIND.cedar),
+    'no extra tree rows close the valley views; the race already supplies its hillside forest');
 });
 
 test('the modelled plants batch into bark and foliage, each kind finite, within its triangle budget, tinted per plant', () => {

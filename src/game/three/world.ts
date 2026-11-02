@@ -7,7 +7,7 @@ import { CONTROL, LIVERIES, TRACKS, curvature, modulo } from '../rules';
 import { clubItem, clubLivery } from '../catalog';
 import { environmentAt } from '../environment';
 import { createCarModel, type CarModel } from './car';
-import { createBuilding, createApartment, createTree, createStreetLamp, createSign, setSignGlow, setWindowLights } from './scenery';
+import { createBuilding, createApartment, createTree, createStreetLamp, createSign, setFloweringCrown, setSignGlow, setWindowLights } from './scenery';
 import { createCinematicPass, RACE_TONE_MAPPING, RACE_TONE_MAPPING_EXPOSURE } from './cinematic';
 import { createPixelArtPass } from './pixel-art/pass';
 import { MAX_GROUND_EMITTERS, MAX_HAZARDS, type GroundEmitter, type GroundHazard } from './pixel-art/surfaces';
@@ -30,6 +30,7 @@ import { createSlopeTerrain, createTerrain, terrainHeightAt, type SlopeTerrain }
 import { createUrbanGround } from './urban-ground';
 import { createUrbanPavingMaterial } from './urban-paving';
 import { TreeBatch } from './tree-batch';
+import { CANOPY_GAP_SHARE, setCanopyGapLight, setCanopyGapShare } from './canopy-gaps';
 import { VehicleAmbientOcclusion } from './vehicle-ambient';
 import { loadShopProps } from './shop-props';
 import { createDuskEnvironment } from './dusk-environment';
@@ -51,9 +52,9 @@ import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCAD
   type CityFixture, type PeriodDistrict } from './period-city';
 import { streetScene, type StreetScene } from './period-city/street-scenes';
 import { setPeriodCityGolden } from './period-city/materials';
-import type { PeriodLocals } from './period-city/layout';
+import { periodCityForestVegetationGround, type PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
-import { crownLight, crownLightGlsl } from './autumn-foliage';
+import { crownLight, crownLightGlsl, crownTranslucencyGlsl } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
 import { buildColours, type CarBuild } from '../car-builds';
 
@@ -106,12 +107,27 @@ const ROAD_ALBEDO_SUNRISE = new THREE.Color('#b6b2ba');
  * faces it (a warm albedo turned the road gold where the camera looks away from the sun, and its repaint paints it cool
  * grey-violet). */
 const ROAD_ALBEDO_GOLDEN = new THREE.Color('#c6c2c6');
-/** Extra hemisphere fill, key light and shadow opening in a late-day route's golden hours. */
+/** Extra hemisphere fill, key light and shadow opening in a late-day route's golden hours. A route whose own hills hide
+ * the sun (its sunHeight) takes no extra key: November 1, Irohazaka's far-land grid has the ridges toward the sun rising
+ * above it the whole climb, and its true-light repaints keep the road cool grey and the maples crimson in their shade
+ * (region scores against them: maples 0.342 to 0.177, bends 0.297 to 0.285; a quarter of the extra key 0.206 and 0.278). */
 const GOLDEN_FILL = 0.3, GOLDEN_KEY = 2, GOLDEN_SHADOW_OPEN = 0.45;
+/** A spring dawn's extra hemisphere fill (Nikko's Sakura Pass, Tokyo's last chapter). November 1: the true-light dawn
+ * mockups keep the road, pavements and fronts lighter than ours stood (road OKLab L 0.22-0.29 against 0.23-0.43); region
+ * scores Tokyo laps 0.8, 0.7, 0.6 and Nikko 0.306, 0.305, 0.244, 0.235 to 0.262, 0.269, 0.243, 0.200. The golden hours'
+ * raised key with half their extra key scored better (0.252, 0.270, 0.225, 0.175), but its crisp branch shadows across
+ * the near road blinked in motion (Nikko's near road 2-4% to 9-11% of its pixels; at 20 degrees or with open shadows
+ * still 6-10%), where this fill adds about one point. */
+const DAWN_FILL = 0.7;
 /** The shadow opening with the low sun behind the camera (refine round 4: Nara's true-sun repaints paint the road and
  * verges sunlit, the long tree shadows across them light; at 0.45 the shadowed ground kept 40% of the key and the road
- * read near black). With the sun ahead the backlit ground stays as dark as the Irohazaka repaints keep it. */
-const GOLDEN_SHADOW_OPEN_BEHIND = 0.85;
+ * read near black). With the sun ahead the backlit ground stays as dark as the Irohazaka repaints keep it, and so does a
+ * route whose own hills stand higher toward the sun (its sunHeight): Irohazaka's valley lies in their shade, and its
+ * bends' repaint keeps the road cool and dark with the sun behind.
+ * October 31: 0.55 (was 0.85). The crowns now let sun flecks through (canopy-gaps.ts), so the road under Nara Park's
+ * maples is dappled rather than one solid shade; at 0.85 the shade kept 85% of the key and the flecks barely showed.
+ * Nara Park's asphalt (lap 0.6) went from L 0.22-0.30 (p10-p90) to 0.22-0.34; the open streets barely change. */
+const GOLDEN_SHADOW_OPEN_BEHIND = 0.55;
 /** A late-day route's lit rooms and shops in its golden hours, and how much brighter they glow (refine round 4: Nara
  * Sanjō's true-sun repaint lights the tea shop and the rooms above it against the low sun, where ours stood dark). */
 const GOLDEN_WINDOW_SHARE = 0.9, GOLDEN_WINDOW_GAIN = 0.8;
@@ -119,6 +135,11 @@ const GOLDEN_WINDOW_SHARE = 0.9, GOLDEN_WINDOW_GAIN = 0.8;
  * degrees the roadside trees' long shadows covered the whole road, which stayed dark under the repaints' sunlit asphalt
  * striped with tree shadows (Irohazaka's near road at 30 degrees: L median 0.45-0.50 against the repaint's 0.46). */
 const GOLDEN_KEY_ELEVATION = 0.52;
+/** How much of the sun the crowns answer (gold tips, light through the leaves: autumn-foliage.ts crownLight.z) on a
+ * route whose own hills hide the sun (its sunHeight). Irohazaka's valley lies in the ridges' shade, and its true-light
+ * mockups keep the maples crimson there; answering the stand-in key in full, its backlit maples frame read bright orange
+ * (region score 0.348 against the October 31 mockup; 0.5 gave 0.304, 0.2 0.290 but its bends 0.256 against 0.246). */
+const VALLEY_CROWN_SUN = 0.35;
 /** Street lamps fade toward sunrise (the city switching off), keeping weak streaks. */
 const SUNRISE_LAMP_GAIN = 0.45;
 /** Their pools on the road fade further (refine round 2): at 45% they still
@@ -153,20 +174,23 @@ const DAY_DIRECT_CAP = 50;
  * The autumn maples' crowns take the painted crown light the street-routes session's flora and authored trees use
  * (autumn-foliage.ts crownLightGlsl): the crown keeps its own crimson through light and shade, its sunlit leaves warm
  * toward gold and its highlights stay under the tone curve's shoulder, where plain lighting paled the lit sides to peach.
- * `amount` 0 for the cherries, which keep their own light.
+ * `amount` 0 for the cherries, which keep their own light. `leaves` (1 for maples, 0 for the cherries) passes the key
+ * light through the leaves at any hour: at dusk, without the crown light, the rounded crowns' undersides sank to maroon
+ * (Kyoto's torii avenue, crown L median 0.39 to 0.36 against its repaint's 0.54).
  */
-function mapleCrownLight(material: THREE.MeshStandardMaterial, amount: { value: number }): void {
+function mapleCrownLight(material: THREE.MeshStandardMaterial, amount: { value: number }, leaves: { value: number }): void {
   const previous = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   const baseKey = previousKey === THREE.Material.prototype.customProgramCacheKey ? () => previous.toString() : () => previousKey.call(material);
   material.onBeforeCompile = (shader, renderer) => {
     previous.call(material, shader, renderer);
-    shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraMapleLight = amount;
+    shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraMapleLight = amount; shader.uniforms.soraMapleLeaves = leaves;
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform vec2 soraCrownLight; uniform float soraMapleLight;\nvoid main() {')
-      .replace('#include <opaque_fragment>', `if (soraMapleLight > 0.) ${crownLightGlsl('soraMapleLight')}
+      .replace('void main() {', 'uniform vec3 soraCrownLight; uniform float soraMapleLight; uniform float soraMapleLeaves;\nvoid main() {')
+      .replace('#include <opaque_fragment>', `${crownTranslucencyGlsl('soraMapleLeaves * soraCrownLight.z', 1)}
+  if (soraMapleLight > 0.) ${crownLightGlsl('soraMapleLight', false)}
   #include <opaque_fragment>`);
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v1`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v5`;
 }
 
 /**
@@ -254,12 +278,16 @@ const WEATHER_RATE = 1.5;
 /** Key light offset from its target: world-fixed azimuth, ~20 deg dusk
  * elevation. Its length keeps the shadow camera's near/far range. Before
  * Tokyo's final chapter the key swings through the east and down to ~8 deg,
- * then rises ~3 deg with the painted sun; the sunrise azimuth sits ahead-right
- * of the final chapter's route so the sun can enter the chase view. */
+ * then rises ~3 deg with the painted sun. Azimuths are in the world's XZ plane (X west, Z north): bearing B (degrees
+ * from north) is (-sin B, cos B).
+ * October 31: the sunrise stands at its true bearing, 88 (due east), where an early-April sun stands 8-11 degrees up
+ * over Tokyo (it rises at 83); Tokyo races in cherry-blossom spring. It stood at 7, in the north, so the sun would enter
+ * the chase view on the final chapter's north-west run, where the real sunrise lies behind and to the right. */
 const KEY_DISTANCE = Math.hypot(52, 24, 38);
 const KEY_AZIMUTH = Math.atan2(-38, -52);
 const KEY_ELEVATION = Math.asin(24 / KEY_DISTANCE);
-const SUNRISE_AZIMUTH = Math.atan2(0.99, -0.12);
+const SUNRISE_BEARING = 88 * Math.PI / 180;
+const SUNRISE_AZIMUTH = Math.atan2(Math.cos(SUNRISE_BEARING), -Math.sin(SUNRISE_BEARING));
 const SUNRISE_ELEVATION = 0.14;
 /** The painted sun of a late-day street route (rad): on the horizon at the vanishing point, as every cutscene-style
  * repaint of those routes sets it (at SUNRISE_ELEVATION it stood 9-11 degrees up, behind the roadside crowns). The key
@@ -304,7 +332,7 @@ interface RaceMood extends RacingSkyMood {
   readonly lampCone: { readonly angle: number; readonly penumbra: number; readonly distance: number };
   /** A late-day street route's painted sun sets on the horizon (LOW_SUN_ELEVATION) as the key swings to it. */
   readonly lowSun?: boolean;
-  /** Its painted sun's height (rad) where the horizon ahead stands higher (Nara's eastern hills); LOW_SUN_ELEVATION otherwise. */
+  /** Its painted sun's height (rad) where the horizon ahead stands higher (Irohazaka's mountains); LOW_SUN_ELEVATION otherwise. */
   readonly lowSunElevation?: number;
   /** A street route's share of upper and ground-floor windows lit at dusk (its repaints light nearly every one); absent: WINDOW_LIGHTS. */
   readonly windows?: number;
@@ -379,7 +407,7 @@ function streetLight(track: CompiledStreetTrack, tick: number): { readonly mood:
     mood = { daylight: null, night: scene.mood.night, stars: scene.mood.stars,
       sunTurn: scene.mood.sun === undefined ? SUNRISE_TURN : sunTurn((scene.mood.sun + 90) * Math.PI / 180), lowSun: scene.mood.sun !== undefined,
       lowSunElevation: scene.mood.sunHeight === undefined ? undefined : scene.mood.sunHeight * Math.PI / 180,
-      windows: scene.mood.windows,
+      windows: scene.mood.windows, ridges: scene.mood.ridges, ridgeHeight: scene.mood.ridgeHeight,
       damp: scene.mood.damp,
       lamp: new THREE.Color(scene.mood.lamp), lampIntensity: 620, lampCone: LAMP_POOL };
     sceneMoods.set(scene, mood);
@@ -541,6 +569,8 @@ export class RaceWorld {
   private readonly barkDirectCap = { value: DAY_DIRECT_CAP };
   /** While the crowns are autumn maples, by day: how much of the painted crown light they take (mapleCrownLight). */
   private readonly mapleLight = { value: 0 };
+  /** 1 while the crowns are autumn maples: their leaves pass the key light at any hour (mapleCrownLight). */
+  private readonly mapleLeaves = { value: 0 };
   /** Street lamps: the pool (20 a side) and their spacing (m). */
   private readonly lampPool = 40;
   private readonly lampSpacing = 22;
@@ -665,7 +695,7 @@ export class RaceWorld {
         tone.name = `Sakura blossom ${i + 1}`; tone.userData.directCap = directCap;
         capDirectDiffuse(tone, directCap, 'sora-blossom-cap-v2');
       }
-      mapleCrownLight(tone, this.mapleLight);
+      mapleCrownLight(tone, this.mapleLight, this.mapleLeaves);
     });
     this.sakura.forEach((tree, i) => tree.traverse(object => {
       if (object instanceof THREE.Mesh && !Array.isArray(object.material) && object.material.vertexColors)
@@ -867,6 +897,9 @@ export class RaceWorld {
     this.blossomTones.forEach((tone, i) => {
       tone.color.set(momiji ? MAPLE_TONES[i]!.color : '#ffe1ea'); tone.emissive.set(momiji ? MAPLE_TONES[i]!.emissive : '#f2a9c4');
     });
+    // Palmate maple leaves on a rounded crown (scenery.ts), where the cherry's blossom sprays read as orange ovals.
+    for (const tree of this.sakura) setFloweringCrown(tree, momiji);
+    this.mapleLeaves.value = momiji ? 1 : 0;
     const oldMaterials = new Set<THREE.Material>();
     this.road.traverse(o => {
       if (o instanceof THREE.Mesh) {
@@ -888,8 +921,10 @@ export class RaceWorld {
       const positions: number[] = [], uvs: number[] = [];
       // The asphalt scan covers 3 × 3 metres. Stretching it across 6 × 10
       // metres turns its aggregate and small cracks into oversized road damage.
-      const across = material === this.roadMaterial ? 3 : 6;
-      const along = material === this.roadMaterial ? 3 : 10;
+      // The 3 m asphalt scan is drawn at twice its authored scale: aggregate
+      // clusters must survive the art grid instead of resolving into flat grey.
+      const across = 6;
+      const along = material === this.roadMaterial ? 6 : 10;
       for (let i = 0; i < course.poses.length - 1; i++) {
         const a = course.poses[i]!, b = course.poses[i + 1]!;
         if (dashed && Math.floor(a.p / 5) % 2 !== 0) continue;
@@ -923,12 +958,18 @@ export class RaceWorld {
       // a climb that switches back on itself (Wakakusa-yama) shares one hillside.
       const wooded = (p: number) => districtAt(p, -1) === 'forest' || districtAt(p, 1) === 'forest';
       if (open.some(run => run.district === 'forest') && scene?.terrain === 'slope') {
-        // Autumn routes lay leaf drifts over the hillside (terrain.ts), as their repaints carpet every verge.
-        this.slope = createSlopeTerrain(course.poses, [], wooded, scene?.trees?.kind === 'momiji' ? 1 : 0); this.road.add(this.slope.group);
+        // Autumn routes lay leaf drifts over the hillside (terrain.ts), as their repaints carpet every verge; a park beside
+        // the road (Wakakusa-yama's summit lawns) grows straw-coloured grass instead.
+        this.slope = createSlopeTerrain(course.poses, [], wooded, scene?.trees?.kind === 'momiji' ? 1 : 0, (p, side) => districtAt(p, side) === 'park');
+        this.road.add(this.slope.group);
       } else if (open.some(run => run.district === 'forest')) this.road.add(createTerrain(course.poses, 2, (p, side) => districtAt(p, side < 0 ? -1 : 1) !== 'forest'));
       this.cityGround = createGroundHeightSampler(urbanGround);
+      // The city ground is clipped out of Nara's forest hills. Only vegetation samples those slopes; lots and
+      // roadside structures keep the urban sampler, and the park's grazed lawns remain open.
+      const vegetationGroundHeightAt = this.slope
+        ? periodCityForestVegetationGround(course, districtAt, this.cityGround, this.slope) : undefined;
       const track = course.key as CompiledStreetTrack;
-      if (!this.classicCity) this.periodCity.setCourse(course, { groundHeightAt: this.cityGround, districtAt, localsAt: localsFor(course), open, crossings,
+      if (!this.classicCity) this.periodCity.setCourse(course, { groundHeightAt: this.cityGround, vegetationGroundHeightAt, districtAt, localsAt: localsFor(course), open, crossings,
         landmarks: scene?.landmarks ?? [], street: scene?.street, distant: scene?.distant ?? [], snow: scene?.snow ?? 0,
         signs: scene?.signs ? SIGN_REGIONS[scene.signs] : null,
         origin: scene?.tokyoSkyline ? { lon: track.originE7[0] / 1e7, lat: track.originE7[1] / 1e7 } : undefined });
@@ -1402,6 +1443,8 @@ export class RaceWorld {
     // grey-gold with a glare sheen, warm bounce on the verges and in the shade). With the lamps off by afternoon light,
     // the lavender fill alone lit the road violet.
     const golden = mood.lowSun ? THREE.MathUtils.smoothstep(daylight, 0.7, 0.95) : 0;
+    // A spring dawn (Nikko's Sakura Pass, Tokyo's last chapter); a late-day route's low sun is an afternoon one.
+    const dawn = mood.lowSun ? 0 : sunrise;
     // Damp asphalt mirrors the lamps (most at the harbour) and dries toward
     // sunrise; rain saturates it. The low sun's specular gets a soft ceiling.
     // A late-day route dries in its golden hours too (refine round 4: its repaints keep the afternoon road dry under
@@ -1467,7 +1510,7 @@ export class RaceWorld {
     this.foliageDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, FOLIAGE_DIRECT_CAP, night);
     this.barkDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BARK_DIRECT_CAP, night);
     this.scene.environmentIntensity = 0.09 + daylight * 0.16 + 0.05 * night;
-    this.fill.intensity = 0.08 + daylight * 0.12 + 0.12 * night + GOLDEN_FILL * golden;
+    this.fill.intensity = 0.08 + daylight * 0.12 + 0.12 * night + GOLDEN_FILL * golden + DAWN_FILL * dawn;
     this.fill.color.copy(MOOD.fillSky).lerp(MOOD.fillGolden, golden);
     this.fill.groundColor.copy(MOOD.fillGround).lerp(MOOD.fillGoldenGround, golden);
     const air = daylight * 0.55;
@@ -1478,7 +1521,8 @@ export class RaceWorld {
     // warm dusk key becomes a low amber sunrise. Rain keeps the key warm.
     // The golden hours' low sun is the brightest light of the day, and its long tree shadows stay warm and open (the
     // late-day routes' repaints paint the road sunlit through the crowns).
-    this.keyLight.intensity = 0.6 + 0.9 * dusk + 0.3 * morning + GOLDEN_KEY * golden;
+    // Not where the route's own hills hide the sun (its sunHeight): there the low sun lights only the far slopes.
+    this.keyLight.intensity = 0.6 + 0.9 * dusk + 0.3 * morning + GOLDEN_KEY * golden * (mood.lowSunElevation === undefined ? 1 : 0);
     setPeriodCityGolden(golden);
     this.keyLight.color.lerpColors(MOOD.keyMoon, MOOD.keyDusk, dusk).lerp(MOOD.keySunrise, morning)
       .lerp(MOOD.keyWet, this.weather * dusk * (1 - sunrise));
@@ -1493,10 +1537,17 @@ export class RaceWorld {
     const elevation = THREE.MathUtils.lerp(THREE.MathUtils.lerp(KEY_ELEVATION, SUNRISE_ELEVATION, swing) + 0.05 * sunrise,
       GOLDEN_KEY_ELEVATION, golden);
     this.keyDirection.set(Math.cos(azimuth) * Math.cos(elevation), Math.sin(elevation), Math.sin(azimuth) * Math.cos(elevation));
+    setCanopyGapLight(this.keyDirection);
+    // A route whose own hills stand higher toward the sun (its sunHeight) keeps solid crowns: its valley lies in their
+    // shade, which the race-local shadow map cannot cast, and sun flecks lit Irohazaka's bends (region score 0.351 to
+    // 0.371), whose repaint keeps the road in shade.
+    setCanopyGapShare(mood.lowSunElevation === undefined ? CANOPY_GAP_SHARE : 0);
+    crownLight.value.z = mood.lowSunElevation === undefined ? 1 : VALLEY_CROWN_SUN;
     // The golden shadows open with the sun behind the camera (GOLDEN_SHADOW_OPEN_BEHIND).
     const sunAhead = (this.keyDirection.x * Math.sin(at.heading) + this.keyDirection.z * Math.cos(at.heading))
       / Math.max(Math.hypot(this.keyDirection.x, this.keyDirection.z), 1e-6);
-    this.keyLight.shadow.intensity = 1 - THREE.MathUtils.lerp(GOLDEN_SHADOW_OPEN, GOLDEN_SHADOW_OPEN_BEHIND,
+    const behindOpen = mood.lowSunElevation === undefined ? GOLDEN_SHADOW_OPEN_BEHIND : GOLDEN_SHADOW_OPEN;
+    this.keyLight.shadow.intensity = 1 - THREE.MathUtils.lerp(GOLDEN_SHADOW_OPEN, behindOpen,
       THREE.MathUtils.smoothstep(-sunAhead, 0.2, 0.8)) * golden;
     this.keyLight.target.position.copy(point(at, 0, 0, 16));
     this.keyLight.position.copy(this.keyLight.target.position).addScaledVector(this.keyDirection, KEY_DISTANCE);
@@ -1511,6 +1562,8 @@ export class RaceWorld {
     this.paintedSky.setRacingGolden(mood.lowSun ? Math.max(THREE.MathUtils.smoothstep(daylight, 0.6, 0.85),
       THREE.MathUtils.smoothstep(daylight, 0.3, 0.5)) : 0);
     if (this.carFleet?.sync(this.cars, cars.map(car => car?.build))) this.pixelArt.setMovers(this.cars.map(model => model.group));
+    // A spring dawn paints its own sky.
+    this.paintedSky.setRacingDawn(dawn);
     this.cars.forEach((model, i) => {
       const car = cars[i]; model.group.visible = !!car && !(view === 'bumper' && i === slot) && !(car?.retired && i !== slot);
       if (!car) { this.vehicleAmbient.setCar(i, model.group.position, 0, 0); return; }
@@ -1651,6 +1704,7 @@ export class RaceWorld {
     // the pixel-art renderer draws the frame.
     this.pixelArtActive = pixelFinish && !this.regionRoute && this.renderingMode !== 'cinematic';
     this.roadFinish.setSpotSpecularLimit(this.pixelArtActive ? PIXEL_ROAD_SPOT_SPECULAR : 0);
+    this.roadFinish.setRelief(this.pixelArtActive ? this.pixelArt.roadReliefStrength : 1);
     if (this.pixelArtActive) {
       // Wet-ground reflections follow the road finish's wetness; a camera cut
       // (view change) or a course change or seek restarts the temporal history.

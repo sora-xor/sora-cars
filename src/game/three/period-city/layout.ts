@@ -94,8 +94,10 @@ export interface PeriodCityLayout {
   /** The route's own locals at a progress, if any. */
   readonly localsAt: (p: number) => PeriodLocals | null;
   readonly street: PeriodStreetPlan;
-  /** The ground's height at a point (the options' sampler), so verge planting stands on a falling or rising hillside. */
+  /** The ground's height used for lots and roadside structures. */
   readonly groundHeightAt: (x: number, z: number) => number | null;
+  /** Vegetation can stand on a wooded hillside without admitting buildings onto that ground. */
+  readonly vegetationGroundHeightAt: (x: number, z: number) => number | null;
   readonly chunkLength: number;
   readonly chunks: ReadonlyMap<number, readonly PeriodLot[]>;
   readonly stats: { readonly attempts: number; readonly placed: number; readonly road: number; readonly occupied: number; readonly grade: number };
@@ -111,6 +113,8 @@ export interface PeriodCityOptions {
   readonly street?: PeriodStreetPlan;
   /** The clipped urban ground; a missing hit rejects the lot. */
   readonly groundHeightAt: (x: number, z: number) => number | null;
+  /** Optional ground for vegetation only; defaults to the lot sampler. */
+  readonly vegetationGroundHeightAt?: (x: number, z: number) => number | null;
   readonly chunkLength?: number;
 }
 
@@ -420,6 +424,25 @@ export function periodCityRouteFrame(course: PeriodCityCourse, reach: number): (
   };
 }
 
+/** Fill only forest vegetation's missing ground from a hillside. Parks, water, lots and the other road legs keep
+ * their existing ground; the nearest road frame determines the district on the point's own side. */
+export function periodCityForestVegetationGround(course: PeriodCityCourse,
+  districtAt: (p: number, side: PeriodSide) => PeriodDistrict,
+  groundHeightAt: (x: number, z: number) => number | null,
+  slope: { heightAt(x: number, z: number): number; clearOfOtherLegs(x: number, z: number, p: number, margin: number): boolean },
+): (x: number, z: number) => number | null {
+  const frame = periodCityRouteFrame(course, 58);
+  return (x, z) => {
+    const ground = groundHeightAt(x, z);
+    if (ground !== null) return ground;
+    const at = frame(x, z);
+    if (!at || at.beyond < FOREST_VERGE || at.beyond > 58 || districtAt(at.p, at.side) !== 'forest'
+      || !slope.clearOfOtherLegs(x, z, at.p, 3)) return null;
+    const height = slope.heightAt(x, z);
+    return Number.isFinite(height) ? height : null;
+  };
+}
+
 /** Where the park and moat replace the paved ground (a cut for createUrbanGround). */
 /**
  * Where a forest bank (terrain.ts `createTerrain`, its first clearance) begins beyond the road edge. On the Arcade
@@ -515,9 +538,10 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
     return false;
   };
   open.push(...options.open ?? periodCityOpenRuns(course, districtAt));
-  // A forest's verge is paved up to its bank (periodCityGroundCut) for the planting to stand on, never for lots.
+  // A forest bank's verge is paved up to the bank (periodCityGroundCut) for the planting to stand on, never for lots.
+  // Other routes keep their own ground there as before (a hillside's lots stand on its slope).
   const forestRuns = open.filter(run => run.district === 'forest');
-  forestVerge = forestRuns.length ? periodCityGroundCut(course, forestRuns, [], false) : () => false;
+  forestVerge = options.street?.forestBanks && forestRuns.length ? periodCityGroundCut(course, forestRuns, [], false) : () => false;
   const crossings = options.crossings ?? [], landmarks = options.landmarks ?? [];
   for (const crossing of crossings) { const f = crossingFootprint(course, crossing); occupied.add(f, boxOf(f)); }
   for (const landmark of landmarks) { const f = landmarkFootprint(course, landmark); occupied.add(f, boxOf(f)); }
@@ -553,7 +577,8 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
     list.push(lot); chunks.set(key, list);
   }
   const layout: PeriodCityLayout = { course, lots, open, crossings, landmarks, districtAt, localsAt: options.localsAt ?? (() => null),
-    street: options.street ?? { footbridges: [], guides: [] }, groundHeightAt: options.groundHeightAt, chunkLength, chunks, stats };
+    street: options.street ?? { footbridges: [], guides: [] }, groundHeightAt: options.groundHeightAt,
+    vegetationGroundHeightAt: options.vegetationGroundHeightAt ?? options.groundHeightAt, chunkLength, chunks, stats };
   indices.set(layout, occupied); roadIndices.set(layout, roads);
   return layout;
 }

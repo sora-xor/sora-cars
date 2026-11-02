@@ -1,10 +1,13 @@
 import * as THREE from 'three';
+import { ROAD_RELIEF_GLSL } from './road-relief';
 
 export interface RoadFinish {
   /** Weather saturation, from scattered residual dampness (0) to wet pavement (1). */
   setWetness(value: number): void;
   /** Allows comparing the original scanned asphalt with the physical finish. */
   setEnabled(enabled: boolean): void;
+  /** Metre-scaled road relief, added to the scanned normal; 0 disables it, 1 is the authored strength. */
+  setRelief(strength: number): void;
   /**
    * Soft ceiling (linear radiance, before exposure) on the directional key
    * light's specular on the road; 0 or less removes it. Lamp and shop
@@ -51,6 +54,9 @@ const fragmentParameters = /* glsl */ `
   varying vec3 soraRoadFinishWorldPosition;
   uniform float soraRoadWetness;
   uniform float soraRoadFinishEnabled;
+  uniform float soraRoadReliefStrength;
+
+  ${ROAD_RELIEF_GLSL}
 
   float soraRoadFinishHash(vec2 p) {
     vec3 h = fract(vec3(p.xyx) * 0.1031);
@@ -130,7 +136,7 @@ const keySpecularLimit = /* glsl */ `
 export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFinish {
   const existing = decorated.get(material); if (existing) return existing;
   const wetness = { value: 0 }, enabled = { value: 1 }, keySpecular = { value: 0 }, spotSpecular = { value: 0 }, environmentDim = { value: 0 };
-  const poolDim = { value: 0 }, ambientDim = { value: 0 };
+  const poolDim = { value: 0 }, ambientDim = { value: 0 }, relief = { value: 1 };
   const previousCompile = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   // Three's default key reads this.onBeforeCompile. Capture that original hook
   // while continuing to evaluate authored dynamic cache keys at call time.
@@ -142,11 +148,14 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
     if (!shader.vertexShader.includes('#include <project_vertex>')
       || !shader.fragmentShader.includes('#include <roughnessmap_fragment>')
       || !shader.fragmentShader.includes('#include <metalnessmap_fragment>')
+      || !shader.fragmentShader.includes('#include <normal_fragment_maps>')
+      || !shader.fragmentShader.includes('#include <opaque_fragment>')
       || !shader.fragmentShader.includes('#include <lights_physical_pars_fragment>')) {
       throw new Error('Unsupported road material shader layout');
     }
     shader.uniforms.soraRoadWetness = wetness;
     shader.uniforms.soraRoadFinishEnabled = enabled;
+    shader.uniforms.soraRoadReliefStrength = relief;
     shader.uniforms.soraRoadKeySpecular = keySpecular;
     shader.uniforms.soraRoadSpotSpecular = spotSpecular;
     shader.uniforms.soraRoadEnvironmentDim = environmentDim; shader.uniforms.soraRoadPoolDim = poolDim;
@@ -164,6 +173,21 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
       soraRoadFinishWorldPosition = (modelMatrix * soraRoadFinishPosition).xyz;
     `);
     shader.fragmentShader = fragmentParameters + shader.fragmentShader;
+    shader.fragmentShader = shader.fragmentShader.replace('#include <normal_fragment_maps>', /* glsl */ `
+      #include <normal_fragment_maps>
+      // Keep the scanned tangent-space normal, then add the same physical relief
+      // that the pixel pass uses to bend road reflections. Larger footprints
+      // smoothly lose unresolved aggregate instead of inventing screen noise.
+      vec3 soraRoadShadingNormal = inverseTransformDirection(normal, viewMatrix);
+      float soraRoadFootprint = max(length(dFdx(soraRoadFinishWorldPosition)), length(dFdy(soraRoadFinishWorldPosition)));
+      soraRoadShadingNormal = soraRoadReliefNormal(soraRoadFinishWorldPosition, soraRoadShadingNormal,
+        soraRoadFootprint, soraRoadReliefStrength * soraRoadFinishEnabled);
+      normal = normalize(mat3(viewMatrix) * soraRoadShadingNormal);
+    `);
+    // Opaque scene-target metadata: asphalt .875, water .5, other surfaces 1.
+    // This never turns blending on and remains present in relief-off comparisons.
+    shader.fragmentShader = shader.fragmentShader.replace('#include <opaque_fragment>',
+      '#include <opaque_fragment>\ngl_FragColor.a = .875;');
     shader.fragmentShader = shader.fragmentShader.replace('#include <roughnessmap_fragment>', /* glsl */ `
       #include <roughnessmap_fragment>
       // Fixed world coordinates keep each patch attached to the graded road
@@ -208,12 +232,13 @@ export function decorateRoadFinish(material: THREE.MeshStandardMaterial): RoadFi
       + '\nreflectedLight.directDiffuse *= 1.0 - soraRoadPoolDim * soraRoadFinishEnabled;'
       + '\nreflectedLight.indirectDiffuse *= 1.0 - soraRoadAmbientDim * soraRoadFinishEnabled;');
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v5`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-road-finish-v6`;
   material.metalness = 0;
   material.needsUpdate = true;
   const controller: RoadFinish = {
     setWetness(value) { wetness.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
     setEnabled(value) { enabled.value = value ? 1 : 0; },
+    setRelief(value) { relief.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 4) : 0; },
     setKeySpecularLimit(value) { keySpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
     setSpotSpecularLimit(value) { spotSpecular.value = Number.isFinite(value) ? Math.max(0, value) : 0; },
     setEnvironmentDim(value) { environmentDim.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },

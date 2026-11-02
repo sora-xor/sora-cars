@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { autumnFoliage } from './autumn-foliage';
+import { withCanopyGaps } from './canopy-gaps';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
@@ -69,6 +70,8 @@ function configureMeshes(template: THREE.Group, depthMaterials: Map<THREE.Materi
             alphaTest: material.alphaTest,
             side: material.side,
           });
+          // The crowns' shadows share the sun-fleck gaps of every other canopy (canopy-gaps.ts).
+          if (/leaves/i.test(material.name)) withCanopyGaps(depth);
           depthMaterials.set(material, depth);
         }
         let distance = distanceMaterials.get(material);

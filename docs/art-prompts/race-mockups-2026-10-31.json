@@ -1,0 +1,234 @@
+{
+ "mode": "built-in image_gen (Codex CLI 0.166.0, gpt-6-astra, model_reasoning_effort ultra, opaque)",
+ "use": "Comparison targets only (never shipped). One cutscene-style repaint per graphics-parity scene, from the current race frame, so every scene has a target with the scene's true light: the route's real sun bearing for its season (late-autumn afternoon 240-245 degrees, the dusk routes' sun just set at 245, Tokyo's spring sunrise at 83) placed relative to the camera's recorded heading; the Arcade tracks' sun where the race paints it. Requested by the user on 2026-10-31 ('ask codex astra model ultra reasoning to make mockups for you to compare with for each scene').",
+ "status": "Made on 2026-10-31; all thirteen returned 1672x941 (Irohazaka's maples 1671x941). The earlier versions are kept. Findings while preparing them: Tokyo's race sunrise stands at bearing 7 (north) where the real spring sun rises at 83, and Kyoto's dusk key light comes from bearing 126, opposite the true afterglow at 245. Later the same day Tokyo's race sunrise moved to its true bearing (88) and three Tokyo mockups were made from the new frames (tokyo-sunrise-l080-v3, -l070-v1, -l060-v1).",
+ "prompts": [
+  {
+   "id": "nara-sanjo-l050-v3",
+   "file": "art/reference/mockups/nara-sanjo-l050-v3.png",
+   "scene": "nara-1986:0.05:0.05",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene nara-1986:0.05:0.05 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 91 degrees",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the street heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: warm gold light on every surface that faces it, long shadows cast away from it, the sky away from the sun rose and violet with sunlit pink and gold clouds, the sky toward it bright gold",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon on Sanjo-dori in 1986 Nara: shop fronts with their goods and signs, utility poles and wires, people on the pavements, a dry road. Light: the street heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: warm gold light on every surface that faces it, long shadows cast away from it, the sky away from the sun rose and violet with sunlit pink and gold clouds, the sky toward it bright gold. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 121
+  },
+  {
+   "id": "nara-sarusawa-l185-v3",
+   "file": "art/reference/mockups/nara-sarusawa-l185-v3.png",
+   "scene": "nara-1986:0.185:0.185",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene nara-1986:0.185:0.185 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 88 degrees",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: the maples lit blazing red and orange on their sunlit sides and deep crimson in shade, warm gold light on the wall and pavement, long shadows cast away from the sun, the sky away from the sun rose and violet with sunlit pink clouds",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon in 1986 Nara by Sarusawa-ike and Kofuku-ji's five-storey pagoda: red and orange maples, stone lanterns, the temple wall, the pond, a dry road. Light: the road heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: the maples lit blazing red and orange on their sunlit sides and deep crimson in shade, warm gold light on the wall and pavement, long shadows cast away from the sun, the sky away from the sun rose and violet with sunlit pink clouds. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 96
+  },
+  {
+   "id": "nara-park-l600-v2",
+   "file": "art/reference/mockups/nara-park-l600-v2.png",
+   "scene": "nara-1986:0.6:0.6",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene nara-1986:0.6:0.6 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 355 degrees",
+   "references": [
+    "public/assets/story/angles/nara-detail-v1.png",
+    "public/assets/story/angles/nara-right-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading north; the low golden sun stands in the west-southwest (bearing 240), behind and to the left of the camera, about 12 degrees up and partly screened by the trees: the crowns red with gold where the sun catches them and crimson in shade, sun flecks dappling the road and grass through the canopy, long tree shadows cast away from the sun, the sky away from the sun rose and violet with sunlit clouds",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon in Nara Park in 1986: maples and old trees, a pond, sika deer, grass, a dry road strewn with fallen maple leaves. Light: the road heading north; the low golden sun stands in the west-southwest (bearing 240), behind and to the left of the camera, about 12 degrees up and partly screened by the trees: the crowns red with gold where the sun catches them and crimson in shade, sun flecks dappling the road and grass through the canopy, long tree shadows cast away from the sun, the sky away from the sun rose and violet with sunlit clouds. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 111
+  },
+  {
+   "id": "nara-wakakusa-l950-v3",
+   "file": "art/reference/mockups/nara-wakakusa-l950-v3.png",
+   "scene": "nara-1986:0.95:0.95",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene nara-1986:0.95:0.95 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 96 degrees",
+   "references": [
+    "public/assets/story/angles/nara-wide-v1.png",
+    "public/assets/story/angles/nara-detail-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: the maples lit blazing red, orange and gold on their sunlit sides and crimson in shade, long shadows cast away from the sun, the sky away from the sun rose and violet with sunlit pink clouds",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn late afternoon high on the Wakakusa-yama driveway in 1986 Nara: the hillside's maples and old trees, golden grass, the Nara basin and the Ikoma ridge below in a warm haze, a dry road strewn with fallen leaves. Light: the road heading east; the low golden sun stands in the west-southwest (bearing 240), behind and to the right of the camera, about 12 degrees up: the maples lit blazing red, orange and gold on their sunlit sides and crimson in shade, long shadows cast away from the sun, the sky away from the sun rose and violet with sunlit pink clouds. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 103
+  },
+  {
+   "id": "irohazaka-bends-l300-v2",
+   "file": "art/reference/mockups/irohazaka-bends-l300-v2.png",
+   "scene": "irohazaka-1986:0.3:0.3",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene irohazaka-1986:0.3:0.3 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 58 degrees",
+   "references": [
+    "public/assets/story/angles/iroha-left-v1.png",
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading east-northeast; the sun is in the west-southwest (bearing 245), directly behind the camera, about 9 degrees up and hidden behind the valley's ridges: the valley floor, the road and the lower maples in cool blue-violet shade with no direct sun, only the high ridges and treetops catching warm gold light, the sky bright gold toward the sun and rose and violet away from it",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn afternoon on the hairpins of the 1986 Second Irohazaka in Nikko: red, orange and gold maples, dark cedars, blue-violet mountain ridges, guard rails and stone walls, a dry grey road strewn with fallen maple leaves. Light: the road heading east-northeast; the sun is in the west-southwest (bearing 245), directly behind the camera, about 9 degrees up and hidden behind the valley's ridges: the valley floor, the road and the lower maples in cool blue-violet shade with no direct sun, only the high ridges and treetops catching warm gold light, the sky bright gold toward the sun and rose and violet away from it. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 92
+  },
+  {
+   "id": "irohazaka-maples-l450-v2",
+   "file": "art/reference/mockups/irohazaka-maples-l450-v2.png",
+   "scene": "irohazaka-1986:0.45:0.45",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene irohazaka-1986:0.45:0.45 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 210 degrees",
+   "references": [
+    "public/assets/story/angles/iroha-wide-v1.png",
+    "public/assets/story/angles/iroha-left-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading south-southwest; the sun is in the west-southwest (bearing 245), ahead and to the right of the camera, about 9 degrees up and hidden behind the valley's ridges: the road and the lower maples in cool shade with no direct sun, their crowns rich red and crimson, only the treetops high on the slopes catching warm gold light, the sky bright gold toward the sun and rose and violet away from it",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn afternoon among the walls of maple on the 1986 Second Irohazaka in Nikko: red, orange and gold maples, dark cedars, blue-violet mountain ridges, guard rails and stone walls, a dry grey road with yellow centre lines and fallen red leaves. Light: the road heading south-southwest; the sun is in the west-southwest (bearing 245), ahead and to the right of the camera, about 9 degrees up and hidden behind the valley's ridges: the road and the lower maples in cool shade with no direct sun, their crowns rich red and crimson, only the treetops high on the slopes catching warm gold light, the sky bright gold toward the sun and rose and violet away from it. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 107
+  },
+  {
+   "id": "kyoto-heian-torii-l453-v2",
+   "file": "art/reference/mockups/kyoto-heian-torii-l453-v2.png",
+   "scene": "kyoto-1986:0.453:0.453",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene kyoto-1986:0.453:0.453 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 340 degrees",
+   "references": [
+    "public/assets/story/angles/gion-right-v1.png",
+    "public/assets/story/angles/gion-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading north-northwest; the sun has just set in the west-southwest (bearing 245), to the left of the camera: an afterglow of orange and rose low in that direction, the rest of the sky deep violet with the last pink on the clouds, the maples lit red and orange by the street lamps beneath them and dark crimson away from the lamps",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a late-autumn dusk on the approach to Heian Jingu in 1986 Kyoto: the great vermilion torii ahead, red maples on both sides, a canal, glowing street lamps, a wet road mirroring the lamps, the maples and the torii. Light: the road heading north-northwest; the sun has just set in the west-southwest (bearing 245), to the left of the camera: an afterglow of orange and rose low in that direction, the rest of the sky deep violet with the last pink on the clouds, the maples lit red and orange by the street lamps beneath them and dark crimson away from the lamps. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 149
+  },
+  {
+   "id": "aizu-castle-moat-l450-v2",
+   "file": "art/reference/mockups/aizu-castle-moat-l450-v2.png",
+   "scene": "aizu-wakamatsu-1986:0.45:0.45",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene aizu-wakamatsu-1986:0.45:0.45 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 10 degrees",
+   "references": [
+    "public/assets/story/angles/aizu-right-v1.png",
+    "public/assets/story/angles/aizu-wide-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading north; the sun has just set behind the mountains in the west-southwest (bearing 245), behind and to the left of the camera: an orange afterglow over the mountains in that direction, the rest of the sky violet and rose with lit clouds",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: an autumn evening beside the stone moat walls of Tsuruga Castle in 1986 Aizu-Wakamatsu: pines and autumn trees, warm lit windows, street lamps just lit, a damp road with gold reflections. Light: the road heading north; the sun has just set behind the mountains in the west-southwest (bearing 245), behind and to the left of the camera: an orange afterglow over the mountains in that direction, the rest of the sky violet and rose with lit clouds. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 99
+  },
+  {
+   "id": "kanda-night-l095-v2",
+   "file": "art/reference/mockups/kanda-night-l095-v2.png",
+   "scene": "tokyo:0:0.95",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene tokyo:0:0.95 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 334 degrees",
+   "references": [
+    "public/assets/story/radio-rain-v1.png",
+    "art/reference/rain-night-target.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "night, no sun: the street lamps, shop fronts and windows are the light",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a rainy spring night in 1986 Tokyo near Kanda: a navy sky with stars and pink-lit clouds, a wet mirror road with long warm gold reflections, warm lit windows and shop fronts with their rooms visible, glowing street lamps and vertical shop signs, people under umbrellas, red tail-light reflections. Light: night, no sun: the street lamps, shop fronts and windows are the light. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 124
+  },
+  {
+   "id": "tokyo-sunrise-l080-v2",
+   "file": "art/reference/mockups/tokyo-sunrise-l080-v2.png",
+   "scene": "tokyo:1:0.8",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene tokyo:1:0.8 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 320 degrees",
+   "references": [
+    "public/assets/story/community-dawn-v1.png",
+    "public/assets/story/sunrise-crew-branded-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading northwest; the sun is just rising in the east (bearing 83), behind and to the right of the camera: warm peach and pink sky with lit clouds toward the sun and violet away from it, long low sunlight on every surface that faces it and long shadows cast away from it",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a spring sunrise in 1986 Tokyo: a stone river wall and trees, office buildings with vertical shop signs, a SORA airship, a dry road. Light: the road heading northwest; the sun is just rising in the east (bearing 83), behind and to the right of the camera: warm peach and pink sky with lit clouds toward the sun and violet away from it, long low sunlight on every surface that faces it and long shadows cast away from it. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 156
+  },
+  {
+   "id": "hakone-night-v2",
+   "file": "art/reference/mockups/hakone-night-v2.png",
+   "scene": "arcade0",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene arcade0 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 0 degrees",
+   "references": [
+    "public/assets/story/radio-rain-v1.png",
+    "art/reference/rain-night-target.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "night, no sun: the lamps, lanterns and windows are the light",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a rainy 1986 Hakone onsen-town night: a deep indigo-violet sky full of stars, searchlight beams and a SORA airship, warm lit inn and shop windows with their rooms visible, glowing paper lanterns, utility poles and wires, a wet mirror road with long warm gold and red reflections. Light: night, no sun: the lamps, lanterns and windows are the light. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 108
+  },
+  {
+   "id": "yokohama-night-v2",
+   "file": "art/reference/mockups/yokohama-night-v2.png",
+   "scene": "arcade1",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene arcade1 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 0 degrees",
+   "references": [
+    "public/assets/story/angles/harbor-wide-v3.png",
+    "public/assets/story/radio-rain-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "night, no sun: the street lamps, the city and the harbour lights are the light",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a 1986 Yokohama harbour night: a navy sky with stars, a searchlight and a SORA airship, the harbour water and the lit city skyline, cranes, container stacks and warehouses, a wet road with long gold and red reflections. Light: night, no sun: the street lamps, the city and the harbour lights are the light. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 106
+  },
+  {
+   "id": "nikko-sunrise-v2",
+   "file": "art/reference/mockups/nikko-sunrise-v2.png",
+   "scene": "arcade2",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene arcade2 (stationary world layer, 1280x720), captured 2026-10-31 after the canopy-gap and maple-crown passes; camera heading 0 degrees",
+   "references": [
+    "public/assets/story/community-dawn-v1.png",
+    "public/assets/story/sunrise-crew-branded-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the low sun ahead and to the right of the camera, just above the horizon: warm peach and pink sky with lit clouds toward it, long low golden light on every surface that faces it, long shadows cast away from it",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the cars in the same places, the same road markings. Mood: a spring sunrise in 1986 Nikko: blooming cherry trees, traditional wooden two-storey buildings, utility poles and wires against the bright sky, a dry road. Light: the low sun ahead and to the right of the camera, just above the horizon: warm peach and pink sky with lit clouds toward it, long low golden light on every surface that faces it, long shadows cast away from it. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 157
+  },
+  {
+   "id": "tokyo-sunrise-l080-v3",
+   "file": "art/reference/mockups/tokyo-sunrise-l080-v3.png",
+   "scene": "tokyo:1:0.8",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene tokyo:1:0.8 (1280x720), captured 2026-10-31 after Tokyo's sunrise moved to its true bearing (88) with coral-lit clouds away from it; camera heading 320 degrees",
+   "references": [
+    "public/assets/story/community-dawn-v1.png",
+    "public/assets/story/sunrise-crew-branded-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading northwest; the sun is rising in the east (bearing 88), about 11 degrees up, behind and to the right of the camera, out of view: the sky ahead in the west pale rose and lavender with a pink band low over the horizon, the clouds lit coral and gold on the faces the sun reaches, warm low sunlight on every surface that faces it (the right-hand building fronts, the cars' right sides) and long shadows cast ahead and to the left",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a spring sunrise in 1986 Tokyo: a stone river wall and green street trees on the left (keep them as they are, not cherries), office buildings with vertical shop signs and shops on the right, a SORA airship, people on the pavements, a dry road. Light: the road heading northwest; the sun is rising in the east (bearing 88), about 11 degrees up, behind and to the right of the camera, out of view: the sky ahead in the west pale rose and lavender with a pink band low over the horizon, the clouds lit coral and gold on the faces the sun reaches, warm low sunlight on every surface that faces it (the right-hand building fronts, the cars' right sides) and long shadows cast ahead and to the left. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 163,
+   "note": "Made from the true-sun frame: tokyo-sunrise-l080-v2 was painted from a frame with the old northern sunrise and kept its warm glow ahead although its prompt put the sun behind. A first attempt at these three asked for cherry trees in blossom and a dry road, and Codex replaced the river wall's green trees with cherries and dried the still-wet road at lap 0.6; those were discarded and the prompts reworded."
+  },
+  {
+   "id": "tokyo-sunrise-l070-v1",
+   "file": "art/reference/mockups/tokyo-sunrise-l070-v1.png",
+   "scene": "tokyo:1:0.7",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene tokyo:1:0.7 (1280x720), captured 2026-10-31 after Tokyo's sunrise moved to its true bearing (88) with coral-lit clouds away from it; camera heading 19 degrees",
+   "references": [
+    "public/assets/story/community-dawn-v1.png",
+    "public/assets/story/sunrise-crew-branded-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading north-northeast; the sun is rising in the east (bearing 88), about 11 degrees up, to the right of the camera and just out of view: the sky toward the right bright peach and gold, ahead and to the left rose and violet with coral-lit clouds, warm low sunlight on every surface that faces east and long shadows cast to the left across the road",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a spring sunrise in 1986 Tokyo: a stone river wall and green street trees on the left (keep them as they are, not cherries), office buildings with vertical shop signs and shops on the right, a SORA airship, people on the pavements, a dry road. Light: the road heading north-northeast; the sun is rising in the east (bearing 88), about 11 degrees up, to the right of the camera and just out of view: the sky toward the right bright peach and gold, ahead and to the left rose and violet with coral-lit clouds, warm low sunlight on every surface that faces east and long shadows cast to the left across the road. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 144,
+   "note": "Made from the true-sun frame: tokyo-sunrise-l080-v2 was painted from a frame with the old northern sunrise and kept its warm glow ahead although its prompt put the sun behind. A first attempt at these three asked for cherry trees in blossom and a dry road, and Codex replaced the river wall's green trees with cherries and dried the still-wet road at lap 0.6; those were discarded and the prompts reworded."
+  },
+  {
+   "id": "tokyo-sunrise-l060-v1",
+   "file": "art/reference/mockups/tokyo-sunrise-l060-v1.png",
+   "scene": "tokyo:0.8:0.6",
+   "source": "race frame, scripts/test-graphics-parity.mjs scene tokyo:0.8:0.6 (1280x720), captured 2026-10-31 after Tokyo's sunrise moved to its true bearing (88) with coral-lit clouds away from it; camera heading 115 degrees",
+   "references": [
+    "public/assets/story/community-dawn-v1.png",
+    "public/assets/story/sunrise-crew-branded-v1.png",
+    "public/assets/branding/sora-emblem-source.png"
+   ],
+   "light": "the road heading east-southeast; the sun has just risen in the east (bearing 88), about 8 degrees up, ahead and to the left of the camera: its pale disc and a bright gold-peach glow low ahead-left, the clouds near it rimmed gold, the sky away from it violet and pink, warm low light on every surface that faces it and long shadows cast back toward the camera and to the right; the street lamps still faintly lit",
+   "prompt": "Use your built-in image_gen tool, not code, to draw exactly one image at 1672x941. The first attached image is a frame from our racing game. Repaint it as a finished hand-drawn pixel-art illustration in the exact style of the second and third attached images (our cutscene art): crisp visible art pixels, rich detail, legible Japanese lettering, clear faces, rooms visible inside lit windows. Keep the first image's camera, composition and layout exactly: the same road, buildings, signs, trees and their positions, the two cars in the same places, the same road markings. Mood: a spring sunrise in 1986 Tokyo: a stone river wall and green street trees on the left (keep them as they are, not cherries), office buildings with vertical shop signs and shops on the right, a SORA airship, people on the pavements, the road still wet from the night. Light: the road heading east-southeast; the sun has just risen in the east (bearing 88), about 8 degrees up, ahead and to the left of the camera: its pale disc and a bright gold-peach glow low ahead-left, the clouds near it rimmed gold, the sky away from it violet and pink, warm low light on every surface that faces it and long shadows cast back toward the camera and to the right; the street lamps still faintly lit. Every SORA logo must be the exact emblem in the fourth attached image, centred on its sign or car, never a kanji or an approximation. 1986 Japan only (no Tokyo Skytree, no modern cars or phones). Do not create, edit or delete any files yourself. Reply with only the absolute path of the PNG that image_gen produced.",
+   "seconds": 96,
+   "note": "Made from the true-sun frame: tokyo-sunrise-l080-v2 was painted from a frame with the old northern sunrise and kept its warm glow ahead although its prompt put the sun behind. A first attempt at these three asked for cherry trees in blossom and a dry road, and Codex replaced the river wall's green trees with cherries and dried the still-wet road at lap 0.6; those were discarded and the prompts reworded."
+  }
+ ]
+}

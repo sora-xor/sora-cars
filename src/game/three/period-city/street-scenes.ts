@@ -26,11 +26,17 @@ export interface StreetSceneMood {
   /** Compass bearing (degrees) toward the low sun of a late-day route, its true late-afternoon bearing. By afternoon
    * light (daylight 0.9 and up) the key light and the painted sun stand there, easing back to the dusk key below 0.6
    * (world.ts): the climbs that head into it drive toward a golden sky, and the streets that head away from it are lit
-   * gold from behind under a rose and violet sky. Absent: Tokyo's sunrise bearing. */
+   * gold from behind under a rose and violet sky. A dusk route (Kyoto, Aizu) gives the bearing where its sun has just
+   * set: its key light and afterglow stand there through the evening (October 31: they came from the dusk key's bearing
+   * 126, opposite the true afterglow at 245). Absent: Tokyo's sunrise bearing. */
   readonly sun?: number;
   /** Degrees above the horizon for the painted low sun, for a route whose own hills stand higher toward the sun than
    * world.ts's low sun on the horizon. Absent: the low sun on the horizon. */
   readonly sunHeight?: number;
+  /** Display colour of the sky's painted far ridges by day (painted-sky.ts RacingSkyMood.ridges). Absent: the sky's own. */
+  readonly ridges?: string;
+  /** Height of the sky's painted far ridges (RacingSkyMood.ridgeHeight). Absent: the night keyframe's. */
+  readonly ridgeHeight?: number;
   /** Share of upper and ground-floor windows lit at dusk (0–1), for a town whose cutscenes light nearly every room by
    * evening, as the repaints of Gion's machiya and Aizu's merchant streets do. world.ts lifts the dusk window lights
    * toward it, easing back to the night's own share. Absent: the period city's dusk share. */
@@ -126,7 +132,10 @@ const IROHAZAKA: StreetScene = {
   mood: { night: 'mountain', stars: .7, damp: .75, lamp: '#ffb468', daylight: [1, .97, .94, .9, .78, .52], sun: 245,
     // A mid-afternoon sun, about 9 degrees up: hidden behind the valley's ridges low on the climb, as it is in life, and
     // over them higher up, where the repaints set it.
-    sunHeight: 9 },
+    // November 1: the far land's elevation grid has the ridges toward it (bearing 245) rise 14-28 degrees from the road
+    // the whole way up, still 10 at Akechidaira, so the climb lies in their shade; the true-light repaints paint its far
+    // ridges hazed blue-violet (#5f4a88 their measure), where the sky's gold toward the sun stood them tan.
+    sunHeight: 9, ridges: '#5f4a88' },
 };
 
 /** Aizu-Wakamatsu: the station's merchant streets, Tsuruga-jō across its moats,
@@ -182,7 +191,8 @@ const AIZU: StreetScene = {
   signs: 'aizu',
   // A wet evening (damp .75): the renderer's dusk-road dim reaches near full, so the road stays dark between its streaks,
   // as the repaints paint Aizu's streets (measured: the station street .238 -> .198).
-  mood: { night: 'mountain', stars: .4, damp: .75, lamp: '#ffb065', daylight: [.6, .55, .5, .46, .42, .38], windows: .9 },
+  // The sun has just set behind the mountains in the west-southwest (bearing 245), as on Kyoto's evening.
+  mood: { night: 'mountain', stars: .4, damp: .75, lamp: '#ffb065', daylight: [.6, .55, .5, .46, .42, .38], windows: .9, sun: 245 },
 };
 
 /** Kyoto: Shiokōji, Karasuma and Shijō past Gion to Yasaka, Sanjō to Keage,
@@ -232,7 +242,8 @@ const KYOTO: StreetScene = {
   signs: 'kyoto',
   // Maiko walk between the ochaya of Gion, and a few cross Shijō Ōhashi or turn up Higashiōji.
   locals: [{ kind: 'maiko', sectors: [5], density: .35 }, { kind: 'maiko', sectors: [4], density: .12 }, { kind: 'maiko', sectors: [3, 6], density: .05 }],
-  mood: { night: 'city', stars: .3, damp: .55, lamp: '#ffb065', daylight: [.55, .5, .45, .4, .32, .22], windows: .9 },
+  // The late-autumn sun has just set in the west-southwest: the evening's afterglow and key light stand there.
+  mood: { night: 'city', stars: .3, damp: .55, lamp: '#ffb065', daylight: [.55, .5, .45, .4, .32, .22], windows: .9, sun: 245 },
 };
 
 /** Nara: Sanjō-dōri from the JNR station past Sarusawa-ike and Kōfuku-ji's
@@ -308,7 +319,10 @@ const NARA: StreetScene = {
   // Deer roam from Sanjō-dōri by Kōfuku-ji through the park to Tōdai-ji, a few in the hill forest, and graze the summit lawns.
   locals: [{ kind: 'deer', sectors: [1], density: .05 }, { kind: 'deer', sectors: [2, 3, 4, 5, 6], density: .15 }, { kind: 'deer', sectors: [7], density: .08 },
     { kind: 'deer', sectors: [8, 9, 10], density: .03 }, { kind: 'deer', sectors: [11], density: .12 }],
-  mood: { night: 'mountain', stars: .5, damp: .12, lamp: '#ffb468', daylight: [.96, .93, .9, .9, .93, .97], sun: 240 },
+  mood: { night: 'mountain', stars: .5, damp: .12, lamp: '#ffb468', daylight: [.96, .93, .9, .9, .93, .97], sun: 240,
+    // November 1: a basin rimmed by low hills (the Ikoma range stands some 2 degrees high from the park), where the
+    // mountain night's ridges (2.6, Hakone's pass) stood a tall tan mountain behind Nara Park's maples.
+    ridgeHeight: 1.6 },
 };
 
 const SCENES: Readonly<Record<string, StreetScene>> = { 'tokyo-1986': TOKYO, 'irohazaka-1986': IROHAZAKA, 'aizu-wakamatsu-1986': AIZU, 'kyoto-1986': KYOTO, 'nara-1986': NARA };

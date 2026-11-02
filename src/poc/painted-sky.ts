@@ -35,6 +35,16 @@ const RACE_DUSK_TOWARD = displayStops('#e2604a', '#d6574b', '#c84b54', '#a84468'
 const RACE_SUNRISE_AWAY = displayStops('#ec9a7c', '#e58c7e', '#d88084', '#c7758b', '#b26c93', '#9a639b', '#8059a2', '#6a52a6', '#574aa0');
 /** ... and sunrise-wide (#e38374 .. #fdb164) toward the sun. */
 const RACE_SUNRISE_TOWARD = displayStops('#fdb865', '#fdb164', '#fcaa65', '#fb9c65', '#f3906b', '#ec8b72', '#e68676', '#df8078', '#d67a7c');
+/** A spring dawn toward the sun (Nikko's Sakura Pass, Tokyo's last chapter; setRacingDawn): gold low, then coral and
+ * rose, and magenta-pink from about 18 degrees, as community-dawn and the true-light Nikko mockup paint it. The sunrise
+ * stops stay salmon to the top of the view (Nikko's sky measured OKLab hue 8-52 against the mockup's 329-60); the
+ * late-day routes' golden hours keep them. */
+const RACE_DAWN_TOWARD = displayStops('#fec070', '#fdb866', '#fdb064', '#fca866', '#fc9c68', '#fa8d6c', '#f57d74', '#e6717f', '#cc6a96');
+/** A late-day route's golden afternoon away from the sun: rose to magenta-violet, warmer and lighter than the sunrise's
+ * blue-violet. November 1: every true-light repaint of Nara and Irohazaka paints its upper sky redder than ours (mean
+ * RGB on Wakakusa 162, 91, 104 against our 142, 82, 118); mixed in by the golden hours of the afternoon palette, so the
+ * dusk routes' afterglow keeps its own. */
+const RACE_GOLDEN_AWAY = displayStops('#ee9c7a', '#e88e7c', '#dd8282', '#cf7790', '#bd6e9a', '#a866a2', '#9260a6', '#7e58a6', '#6e52a2');
 const RACE_STOPS = RACE_STOP_ELEVATIONS.length;
 const glslFloat = (value: number) => value.toFixed(4);
 
@@ -66,7 +76,15 @@ export interface RacingSkyMood {
   readonly night?: RaceNightSky;
   /** Star density at night, 0 (none) .. 1 (about one star per 600 art cells). */
   readonly stars?: number;
+  /** Display colour (#rrggbb) of the painted far ridges by day, for a mountain route whose repaints haze them (Irohazaka:
+   * blue-violet), the nearer ridges a third darker. Absent: the sky's own colour low down, darkened, which stands tan
+   * toward a low sun and suits ridges the sun lights. */
+  readonly ridges?: string;
+  /** Height of the painted far ridges against Tokyo's low ridge (1). Absent: the night keyframe's, a mountain night's 2.6
+   * (Hakone's pass) or the harbour's 1.1. */
+  readonly ridgeHeight?: number;
 }
+const ridgeHeightOf = (night: RaceNightSky) => night === 'mountain' ? 2.6 : night === 'harbor' ? 1.1 : 1;
 
 /** Visible, direction-anchored paint; keep the HDR environment for illumination. */
 export function createPaintedSky() {
@@ -104,6 +122,12 @@ export function createPaintedSky() {
   const raceCity = { value: new THREE.Vector2(0, 0) };
   const raceSkyline = { value: new THREE.Vector3(1, 1, 1) };
   const raceGolden = { value: 0 };
+  const raceDawn = { value: 0 };
+  const raceDawnToward = { value: RACE_DAWN_TOWARD.map(stop => stop.clone()) };
+  const raceGoldenAway = { value: RACE_GOLDEN_AWAY.map(stop => stop.clone()) };
+  // A route's own far ridges by day (RacingSkyMood.ridges): xyz display colour, w its weight.
+  const raceRidge = { value: new THREE.Vector4(0, 0, 0, 0) };
+  let ridgeColour = '';
   let evaluatedDaylight = NaN, evaluatedNight = '', evaluatedStars = NaN;
   // Tokyo's daylight changes every frame: allocation-free.
   const evaluateRacePalette = (daylight: number, night: RaceNightSky, stars: number) => {
@@ -133,10 +157,10 @@ export function createPaintedSky() {
     raceCity.value.set(1, night === 'city' ? (1 - .7 * dusk) * (1 - sunrise) : night === 'harbor' ? (1 - dusk) * (1 - sunrise) : 0);
     // Refine round 4 (the cutscene-style repaints of each course): Hakone's pass ends in tall mountain ridges and no far
     // city; Yokohama's horizon is a dense lit city of towers across the water; Tokyo keeps its low ridge and far city.
-    raceSkyline.value.set(night === 'mountain' ? 2.6 : night === 'harbor' ? 1.1 : 1, night === 'mountain' ? 0 : 1, night === 'harbor' ? 1.7 : 1);
+    raceSkyline.value.set(ridgeHeightOf(night), night === 'mountain' ? 0 : 1, night === 'harbor' ? 1.7 : 1);
   };
   const stopMix = RACE_STOP_ELEVATIONS.map((elevation, i) =>
-    `        raceStop[${i}] = mix(skyRaceAway[${i}], skyRaceToward[${i}], sunward * (1. - skyRaceGolden * .4 * ${glslFloat(THREE.MathUtils.smoothstep(elevation, .1, .3))}));`).join('\n');
+    `        raceStop[${i}] = mix(mix(skyRaceAway[${i}], skyRaceGoldenAway[${i}], skyRaceGolden * skyRaceCloud.z), mix(skyRaceToward[${i}], skyRaceDawnToward[${i}], skyRaceDawn), sunward * (1. - skyRaceGolden * .4 * ${glslFloat(THREE.MathUtils.smoothstep(elevation, .1, .3))}));`).join('\n');
   const gradient = RACE_STOP_ELEVATIONS.slice(1).map((elevation, i) =>
     `  c = mix(c, raceStop[${i + 1}], smoothstep(${glslFloat(RACE_STOP_ELEVATIONS[i]!)}, ${glslFloat(elevation)}, e));`).join('\n');
   const strata = RACE_STRATA.map(({ layer, shape, seed, coverage, tone, day }) =>
@@ -164,6 +188,7 @@ export function createPaintedSky() {
       skyRaceHarbor: raceHarbor,
       skyRaceCityGlow: raceCityGlow, skyRaceDay: raceDay,
       skyRaceCity: raceCity, skyRaceSkyline: raceSkyline, skyRaceGolden: raceGolden,
+      skyRaceDawn: raceDawn, skyRaceDawnToward: raceDawnToward, skyRaceRidge: raceRidge, skyRaceGoldenAway: raceGoldenAway,
     },
     vertexShader: /* glsl */`
       void main() {
@@ -190,9 +215,15 @@ export function createPaintedSky() {
       uniform vec2 skyRaceCity;
       uniform vec3 skyRaceSkyline; // x ridge height (1 Tokyo's), y 1 draws the far city, z its towers' density and height
       uniform float skyRaceGolden; // 0 as authored; 1 in a late-day route's golden hours (RaceWorld): deeper and more saturated
+      uniform float skyRaceDawn; // 0 as authored; 1 at a spring dawn (setRacingDawn): its own stops toward the sun, mauve ridges, backlit puffs
+      uniform vec3 skyRaceDawnToward[${RACE_STOPS}];
+      uniform vec3 skyRaceGoldenAway[${RACE_STOPS}]; // a late-day route's afternoon away from the sun (RACE_GOLDEN_AWAY)
+      uniform vec4 skyRaceRidge; // a route's own far ridges by day (RacingSkyMood.ridges): display colour, weight
       const float PI = 3.14159265359;
 
       const vec3 SUN_DISC = vec3(.996, .949, .773), SUN_HALO = vec3(.988, .722, .467), SUN_HALO_OUTER = vec3(.961, .592, .420);
+      // A dawn's mountain ridges: mauve, the nearer darker (the true-light Nikko mockup's measure #8e5979 far, #594455-#654c6a near).
+      const vec3 RIDGE_DAWN = vec3(.557, .353, .486), RIDGE_DAWN_NEAR = vec3(.36, .267, .384);
       // Peak ~.95: a bright amber edge that inverts to modest radiance (no
       // wide clean-mode bloom around every cloud).
       const vec3 RIM_AMBER = vec3(.95, .68, .40);
@@ -431,8 +462,9 @@ ${gradient}
         // A late-day route's golden hours light the whole underside toward the sun, not only its lowest cell (refine
         // round 4: the repaints' clouds there are broad orange-gold undersides).
         paint = mix(paint, amber, max(edge, under * .75 * skyRaceGolden) * clusters * sunward * skyRaceCloud.y);
-        // Away from the sun the low light catches the undersides' faces, coral (the popcorn lobes' front light, below).
-        paint = mix(paint, vec3(1., .58, .42) * .95, under * .6 * skyRaceGolden * (1. - sunward) * (1. - sunward) * clusters * skyRaceCloud.y);
+        // Away from the sun the low light catches the undersides' faces, coral (the popcorn lobes' front light, below), in
+        // the golden hours and at sunrise (skyRaceCloud.z).
+        paint = mix(paint, vec3(1., .58, .42) * .95, under * .6 * max(skyRaceGolden, skyRaceCloud.z) * (1. - sunward) * (1. - sunward) * clusters * skyRaceCloud.y);
         return mix(sky, paint, cloud * min(1., skyRaceCloud.x * 1.5));
       }
 
@@ -485,7 +517,8 @@ ${gradient}
         float field = popcornField(angular, lobeHash);
         if (field <= 0.) return sky;
         float lowerHash;
-        bool edge = popcornField(angular - vec2(0., cellAngle), lowerHash) <= 0.;
+        // At a dawn the puffs toward the sun are backlit, lit up to two cells deep along their undersides.
+        bool edge = popcornField(angular - vec2(0., cellAngle * (1. + skyRaceDawn * sunward)), lowerHash) <= 0.;
         float e = angular.y;
         // Half the clusters lit (warmer, lighter), half in shade (a step
         // darker from higher in the gradient): one palette step off the band.
@@ -497,13 +530,19 @@ ${gradient}
         // ones from above it (violet), as the cutscene-style repaints contrast them; a band apart they read as haze.
         vec3 litBody = mix(mix(sky, raceGradient(e - .09) * 1.07, .82), mix(sky, raceGradient(e - .14) * 1.04, .85), skyRaceCloud.z);
         vec3 shadeBody = mix(mix(sky, raceGradient(e + .08) * .92, .75), mix(sky, raceGradient(e + .13) * .86, .8), skyRaceCloud.z);
+        // October 31 (Nikko): at a dawn the puffs toward the sun are violet bodies darker than the sky with coral and gold
+        // undersides, as community-dawn and the true-light mockup paint them; with nearly half lit whole they made a
+        // camouflage of gold and lavender lobes. Away from the sun they keep their coral faces (below).
+        shadeBody = mix(shadeBody, mix(sky, raceGradient(e + .2) * .8, .85), skyRaceDawn * sunward);
         // Golden hours: the lit lobes toward the sun turn amber (refine round 4, the late-day routes' repaints).
         litBody = mix(litBody, RIM_AMBER * 1.04, skyRaceGolden * sunward * sunward * .8);
         // Away from the low sun its light falls on the clouds' faces: coral and orange lobes ahead with the sun behind the
-        // camera (refine round 4: Nara's true-sun repaints), where they kept the away gradient's lavender.
-        litBody = mix(litBody, vec3(1., .58, .42), skyRaceGolden * (1. - sunward) * (1. - sunward) * .6);
+        // camera (refine round 4: Nara's true-sun repaints), where they kept the away gradient's lavender. October 31: at
+        // sunrise too, now that Tokyo's sun stands at its true bearing, east, behind the final chapter's north-west run
+        // (that frame's region score 0.337 to 0.298 against its true-light mockup; Nikko's, the sun ahead, 0.281 to 0.282).
+        litBody = mix(litBody, vec3(1., .58, .42), max(skyRaceGolden, skyRaceCloud.z) * (1. - sunward) * (1. - sunward) * .6);
         // Fewer lobes lit at sunrise (refine round 4: the dawn cutscenes' puffs are mostly violet, pink-edged).
-        vec3 body = lobeHash < mix(.5, .42, skyRaceCloud.z) ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
+        vec3 body = lobeHash < mix(mix(.5, .42, skyRaceCloud.z), .3, skyRaceDawn * sunward) ? sunriseCap(litBody, SUNRISE_BODY_L) : shadeBody;
         // The underside cell is lit: pink, turning amber only toward the sun
         // (cream only near the sunrise disc).
         vec3 lit = mix(raceGradient(e - .12) * 1.06, mix(RIM_AMBER, RIM_CREAM, nearSun), sunward * sunward * sunward * skyRaceCloud.y);
@@ -788,8 +827,14 @@ ${gradient}
         // repaint sets its dark ridges against a lighter violet glow; at the sky's own navy they were hardly there).
         float tall = smoothstep(1.4, 2.2, skyRaceSkyline.x) * (1. - skyRaceDay);
         sky = mix(sky, sky * 1.7 + vec3(.035, .022, .06), tall * .7 * (1. - smoothstep(.01, .16, elevation)));
-        if (elevation < ridge) sky = mix(sky, mix(raceGradient(.05) * mix(.62, .5, tall), sky, .25 * (1. - tall)), skyRaceCity.x);
-        if (elevation < near) sky = mix(sky, raceGradient(.04) * mix(.42, .3, tall), skyRaceCity.x);
+        // At a dawn the ridges stand cool mauve against the glow (October 31: the true-light Nikko mockup and both dawn
+        // cutscenes); in the sky's own gold toward the sun they read as tan hills.
+        // A route may give its own ridges by day (November 1, Irohazaka: its true-light repaints haze them blue-violet in
+        // the valley's shade, where the sky's gold toward the sun stood them tan).
+        vec3 farRidge = mix(mix(raceGradient(.05) * mix(.62, .5, tall), sky, .25 * (1. - tall)), mix(skyRaceRidge.rgb, sky, .1), skyRaceRidge.w);
+        vec3 nearRidge = mix(raceGradient(.04) * mix(.42, .3, tall), skyRaceRidge.rgb * .7, skyRaceRidge.w);
+        if (elevation < ridge) sky = mix(sky, mix(farRidge, mix(RIDGE_DAWN, sky, .12), skyRaceDawn), skyRaceCity.x);
+        if (elevation < near) sky = mix(sky, mix(nearRidge, RIDGE_DAWN_NEAR, skyRaceDawn), skyRaceCity.x);
         if (skyRaceSkyline.y < .5) return sky;
         // The far city: blocks of differing heights, every so often a tower.
         const float TOWERS = 70., columns = 1600.;
@@ -843,7 +888,8 @@ ${strata}
         // Sunrise: a flat cream disc and a warm, horizontally stretched halo
         // at the key light's direction.
         float haloDistance = length(vec2(sunAngle, (elevation - asin(clamp(skyRacingSun.y, -1., 1.))) * 1.8));
-        float glow = clamp(exp(-haloDistance / .16) * .75 + exp(-sunAngle / .035) * .5, 0., 1.);
+        // A dawn's glow spreads wider (October 31: the true-light Nikko mockup's gold reaches some 25 degrees from the sun).
+        float glow = clamp(exp(-haloDistance / .16) * .75 + exp(-sunAngle / .035) * .5 + exp(-haloDistance / .4) * .3 * skyRaceDawn, 0., 1.);
         // Refine round 2 (sunrise-wide): the halo is orange-peach (#f5976b
         // outside, #fcb877 near the disc) rather than yellow, and broken into
         // horizontal 1-cell strata: whole-row dashes of a few cells, a third of
@@ -962,6 +1008,14 @@ ${strata}
       evaluateRacePalette(THREE.MathUtils.clamp(daylight, 0, 1), mood?.night ?? 'city', mood?.stars ?? .5);
       racingSun.value.copy(sun).normalize();
       racingSunrise.value = THREE.MathUtils.clamp(sunrise, 0, 1);
+      // A route's own ridges hold by day and give way to the night's below dusk.
+      if (mood?.ridges && mood.ridges !== ridgeColour) {
+        raceRidge.value.set(...[1, 3, 5].map(i => parseInt(mood.ridges!.slice(i, i + 2), 16) / 255) as [number, number, number], 0);
+      }
+      ridgeColour = mood?.ridges ?? '';
+      raceRidge.value.w = ridgeColour ? THREE.MathUtils.smoothstep(THREE.MathUtils.clamp(daylight, 0, 1), 0, .45) : 0;
+      // A route's own ridge height, set on every call: the palette above is cached by daylight and night.
+      raceSkyline.value.x = mood?.ridgeHeight ?? ridgeHeightOf(mood?.night ?? 'city');
     },
     /**
      * A late-day street route's golden afternoon, 0 (as authored) .. 1. Refine round 4: every cutscene-style repaint of
@@ -969,6 +1023,11 @@ ${strata}
      * saturated than the authored stops, while its dusk matches them.
      */
     setRacingGolden(value: number) { raceGolden.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
+    /**
+     * A spring dawn, 0 (as authored) .. 1: Nikko's sunrise and Tokyo's last chapter, not a late-day route's low sun
+     * (RaceWorld). October 31 (Nikko): RACE_DAWN_TOWARD toward the sun, mauve ridges, a wider glow and backlit puffs.
+     */
+    setRacingDawn(value: number) { raceDawn.value = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0; },
     dispose() { mesh.geometry.dispose(); material.dispose(); },
   };
 }

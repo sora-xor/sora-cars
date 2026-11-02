@@ -51,8 +51,14 @@ const wallDirectCut = { value: .7 };
  * The share of direct light walls lose in a late-day route's golden hours (refine round 4): under the low key the pale
  * tile of Nara Sanjō's zakkyo blew out to flat peach (OKLab L median 0.70, 41% of it above 0.7), where its true-sun
  * repaint keeps a warm beige tile grid (0.63, 8%).
+ * October 31: half (was a fifth), and the landmarks' floodlit plaster too. The day grade's upper stretch (pixel-art
+ * pass.ts contrastLight) lifted that facade back to 0.72, three quarters of it above 0.7, where its two true-sun mockups
+ * keep it at 0.64 lit or 0.51 in shade; at half it measures 0.64. The temple wall by Sarusawa-ike (floodlit) went from
+ * 0.83 to 0.73 (mockups 0.68-0.70). Half the light is about what the key gives without its golden-hours boost (world.ts
+ * GOLDEN_KEY), which is there for the road and verges under the raised stand-in key; so only upright faces lose it, and
+ * flat tops (copings, parapets, sills) take the sun as the road does.
  */
-const WALL_GOLDEN_CUT = .2;
+const WALL_GOLDEN_CUT = .5;
 const wallGoldenCut = { value: 0 };
 /** How far a late-day route's golden hours have come (0-1; world.ts, every frame). */
 export function setPeriodCityGolden(golden: number): void { wallGoldenCut.value = WALL_GOLDEN_CUT * THREE.MathUtils.clamp(golden, 0, 1); }
@@ -172,11 +178,13 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
         }`))
       // At night the dusk sky map's warm band stops lighting the walls (refine round 4): unlit facades fall to dark
       // tile, as in the concept, and only the lamps', shops' and windows' own light stays warm on them.
-      // The street lamps light the facades less too: their pools belong to the pavement and road.
+      // The street lamps light the facades less too: their pools belong to the pavement and road. In the golden hours the
+      // low key lights the upright faces less (WALL_GOLDEN_CUT); flat tops take the sun as the road does.
       .replace('#include <lights_fragment_end>', `#include <lights_fragment_end>
         reflectedLight.indirectDiffuse *= 1. - clamp(cityNight, 0., 1.) * .8;
         reflectedLight.indirectDiffuse += diffuseColor.rgb * cityWallAmbient * clamp(cityNight, 0., 1.);
-        reflectedLight.directDiffuse *= 1. - clamp(cityNight, 0., 1.) * cityWallDirectCut - cityWallGoldenCut;
+        float goldenCut = cityWallGoldenCut * smoothstep(.35, .65, 1. - abs(normalize(vCityWorldNormal).y));
+        reflectedLight.directDiffuse *= 1. - clamp(cityNight, 0., 1.) * cityWallDirectCut - goldenCut;
         // The street lamps' spill on the facades beside them (the user's rain-night concept: the tile around a lamp
         // glows warm while the wall above and between the lamps stays dark). The pools' cones point down and miss
         // the walls a few metres back, so the nearest heads wash the faces turned toward them, over about 9 m,
@@ -194,7 +202,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
           reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * min(wash, 1.) * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v15`;
+  material.customProgramCacheKey = () => `${name}-v16`;
   return material;
 }
 
@@ -503,16 +511,17 @@ function awningMaterial(texture: THREE.Texture): THREE.MeshStandardMaterial {
 /**
  * Floodlit landmark facades: the scanned plaster pigmented per vertex, plus a
  * warm wash on upright faces, brightest at their foot where the floodlights
- * stand and fading up the facade (UV v is metres above the base / 3).
+ * stand and fading up the facade (UV v is metres above the base / 3). In a late-day route's golden hours the low key
+ * lights them less, as it does the walls (WALL_GOLDEN_CUT).
  */
 function floodlitMaterial(): THREE.MeshStandardMaterial {
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('beige_wall_001'),
     normalScale: new THREE.Vector2(.8, .8), roughness: .94, metalness: 0 });
   material.name = 'period-city-floodlit';
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityFlood = flood;
+    shader.uniforms.cityFlood = flood; shader.uniforms.cityWallGoldenCut = wallGoldenCut;
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform float cityFlood;\nvoid main() {')
+      .replace('void main() {', 'uniform float cityFlood; uniform float cityWallGoldenCut;\nvoid main() {')
       .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('diffuseColor *= sampledDiffuseColor;', /* glsl */ `
         sampledDiffuseColor.rgb /= vec3(0.339758, 0.262138, 0.188094);
         diffuseColor.rgb *= clamp(mix(vec3(1.0), sampledDiffuseColor.rgb, 0.4), 0.0, 1.6);
@@ -542,10 +551,17 @@ function floodlitMaterial(): THREE.MeshStandardMaterial {
         float wash = mix(.55, 0., smoothstep(0., 14., vMapUv.y * 3.));
         totalEmissiveRadiance += diffuseColor.rgb * cityFlood * upright * wash * vec3(1., .8, .58);
       }`)
-      // As on the walls: after dark the dusk sky map's warm band stops lighting the stone.
-      .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.indirectDiffuse *= 1. - clamp(cityFlood * 2., 0., 1.) * .8;');
+      // As on the walls: after dark the dusk sky map's warm band stops lighting the stone, and in the golden hours the
+      // low key lights its upright faces less.
+      .replace('#include <lights_fragment_end>', /* glsl */ `#include <lights_fragment_end>
+      reflectedLight.indirectDiffuse *= 1. - clamp(cityFlood * 2., 0., 1.) * .8;
+      {
+        vec3 up = normalize((viewMatrix * vec4(0., 1., 0., 0.)).xyz);
+        float goldenCut = cityWallGoldenCut * smoothstep(.35, .65, 1. - abs(dot(normalize(vNormal), up)));
+        reflectedLight.directDiffuse *= 1. - goldenCut;
+      }`);
   };
-  material.customProgramCacheKey = () => 'period-city-floodlit-v4';
+  material.customProgramCacheKey = () => 'period-city-floodlit-v5';
   return material;
 }
 

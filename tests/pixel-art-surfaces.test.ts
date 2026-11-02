@@ -1,15 +1,97 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as THREE from 'three';
+import { decorateRoadFinish } from '../src/game/three/road-finish';
+import { ROAD_RELIEF_GLSL } from '../src/game/three/road-relief';
+import { pixelArtGrid } from '../src/game/three/pixel-art/grid';
 import { nearestPaletteIndex } from '../src/game/three/pixel-art/linework';
 import { hueDistance, oklch, PIXEL_PALETTE } from '../src/game/three/pixel-art/palette';
 import {
   createCameraTravel, createMovers, createSurfaces, MAX_MOVERS, SPARKLE_COLOURS, SURFACE_DEFAULTS, surfaceOptionsFromQuery,
   type GroundEmitter,
 } from '../src/game/three/pixel-art/surfaces';
-import { createSharedUniforms } from '../src/game/three/pixel-art/stages';
+import { createSharedUniforms, type PixelArtFrame } from '../src/game/three/pixel-art/stages';
 
 const lchOf = (index: number) => oklch(Array.from(PIXEL_PALETTE.oklab.subarray(index * 4, index * 4 + 3)));
+
+/** Run the public stage lifecycle and inspect the submitted programs without a GPU. */
+function captureSurfacePrograms() {
+  const shared = createSharedUniforms();
+  const surfaces = createSurfaces(shared, PIXEL_PALETTE,
+    { exposure: { value: 1 }, lutWeights: { value: null } as never, band: { paletteFull: { value: 1 } } });
+  const imageTarget = new THREE.WebGLRenderTarget(1, 1);
+  const materials = new Map<string, THREE.RawShaderMaterial>();
+  const frame: PixelArtFrame = {
+    renderer: {} as THREE.WebGLRenderer, scene: new THREE.Scene(), camera: new THREE.PerspectiveCamera(),
+    grid: pixelArtGrid(960, 540), time: 0, uniforms: shared, targets: {} as PixelArtFrame['targets'],
+    draw(material) { materials.set(material.name, material); },
+    beginImageWrite: () => imageTarget, endImageWrite() {},
+  };
+  const render = () => {
+    surfaces.stages.surface.beginFrame?.(frame);
+    surfaces.stages.surface.render(frame);
+    surfaces.stages.reflect.render(frame);
+    surfaces.stages.sparkle.render(frame);
+  };
+  return { surfaces, materials, render, dispose() {
+    for (const stage of Object.values(surfaces.stages)) stage.dispose();
+    imageTarget.dispose();
+  } };
+}
+
+test('road relief updates the live trace, composite and sparkle programs together with finite bounds', t => {
+  const capture = captureSurfacePrograms(); t.after(capture.dispose);
+  capture.surfaces.configure(SURFACE_DEFAULTS);
+  capture.render();
+  const names = ['SORA pixel-art wet trace', 'SORA pixel-art wet composite', 'SORA pixel-art wet sparkles'];
+  const programs = names.map(name => {
+    const program = capture.materials.get(name); assert.ok(program, `${name} draws`); return program;
+  });
+  const uniform = programs[0]!.uniforms.roadRelief!;
+  assert.equal(uniform.value, 1);
+  assert.equal(programs[1]!.uniforms.roadSpeedSmooth!.value, .35, 'asphalt retains a partial motion filter');
+  for (const program of programs) assert.equal(program.uniforms.roadRelief, uniform, `${program.name} shares the live control`);
+  const versions = programs.map(program => program.version);
+  for (const [input, expected] of [[0, 0], [.75, .75], [2, 2], [-1, 0], [9, 4], [NaN, 0], [Infinity, 0], [-Infinity, 0]]) {
+    capture.surfaces.configure({ ...SURFACE_DEFAULTS, roadRelief: input! });
+    capture.render();
+    programs.forEach((program, i) => {
+      assert.equal(capture.materials.get(names[i]!), program, 'configuration does not replace a compiled program');
+      assert.equal(program.uniforms.roadRelief!.value, expected, `${program.name}: ${input}`);
+      assert.equal(program.version, versions[i], 'configuration does not request recompilation');
+    });
+  }
+});
+
+test('reflection programs select the source asphalt tag, exclude water and reuse its filtered height field', t => {
+  const capture = captureSurfacePrograms(); t.after(capture.dispose);
+  capture.surfaces.configure(SURFACE_DEFAULTS); capture.render();
+  const asphalt = new THREE.MeshStandardMaterial(); t.after(() => asphalt.dispose());
+  const finish = decorateRoadFinish(asphalt);
+  // The tag must remain available when source relief is disabled for an A/B capture.
+  finish.setEnabled(false); finish.setRelief(0);
+  const source = { vertexShader: THREE.ShaderLib.standard.vertexShader,
+    fragmentShader: THREE.ShaderLib.standard.fragmentShader, uniforms: {} } as Parameters<THREE.Material['onBeforeCompile']>[0];
+  asphalt.onBeforeCompile(source, {} as THREE.WebGLRenderer);
+  const tag = source.fragmentShader.match(/gl_FragColor\.a\s*=\s*([\d.]+)\s*;/);
+  assert.ok(tag, 'the opaque source supplies an asphalt material tag');
+  const sourceAlpha = Number(tag[1]);
+  assert.ok(source.fragmentShader.includes(ROAD_RELIEF_GLSL));
+  for (const name of ['SORA pixel-art wet trace', 'SORA pixel-art wet composite', 'SORA pixel-art wet sparkles']) {
+    const shader = capture.materials.get(name)!.fragmentShader;
+    assert.ok(shader.includes(ROAD_RELIEF_GLSL), `${name} uses the same physical height field as the source`);
+    const mask = shader.match(/road\s*\+=\s*step\(([\d.]+), a\)\s*\*\s*step\(a, ([\d.]+)\)/);
+    assert.ok(mask, `${name} reads an interval from source alpha rather than treating all ground as asphalt`);
+    const lower = Number(mask[1]), upper = Number(mask[2]);
+    const accepts = (alpha: number) => alpha >= lower && alpha <= upper;
+    assert.ok(accepts(sourceAlpha), `${name} accepts the actual source tag`);
+    assert.ok(!accepts(.5), `${name} excludes water`);
+    assert.ok(!accepts(1), `${name} excludes untagged opaque paving, cars and foliage`);
+    assert.ok(!accepts(0), `${name} excludes clear scene samples`);
+    assert.match(shader, /return road \/ float\(count\)/, 'the mask measures supersampled coverage');
+    assert.match(shader, /share < \.5/, 'a minority of road samples does not bend a neighbouring surface');
+  }
+});
 
 test('?pixelSurfaces selects the surface stages for A/B captures', () => {
   assert.deepEqual(surfaceOptionsFromQuery(''), {});
@@ -53,6 +135,7 @@ test('surface defaults follow the measured wet-ground and dash rules', () => {
   assert.ok(d.wetFresnelFloor >= 0 && d.wetFresnelFloor <= 0.6);
   // The ground keeps its smoothing at speed; upright surfaces (shop interiors, lettering, walkers) stay crisp.
   assert.ok(d.groundSpeedSmooth > 0 && d.wallSpeedSmooth >= 0 && d.wallSpeedSmooth < d.groundSpeedSmooth);
+  assert.ok(d.roadSpeedSmooth > 0 && d.roadSpeedSmooth < 1, 'road detail keeps some smoothing at speed');
   assert.ok(d.temporalMargin > 0 && d.temporalMargin < 0.05 && d.temporalDepthTolerance < 0.1);
   assert.ok(d.fieldMotionStretch >= 1);
 });

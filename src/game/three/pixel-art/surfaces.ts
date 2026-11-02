@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ROAD_RELIEF_GLSL } from '../road-relief';
 import { PIXEL_ART_BAND_OFFSET } from './glsl';
 import type { PixelArtGrid } from './grid';
 import { nearestPaletteIndex } from './linework';
@@ -35,6 +36,10 @@ import {
  * the sparkle stage adds warm key glints on sunlit ground.
  */
 export interface SurfaceOptions {
+  /** World-anchored asphalt relief shared with the road material; 0 disables it for comparisons. */
+  roadRelief: number;
+  /** Fraction of ground motion smoothing retained on tagged asphalt, preserving readable aggregate. */
+  roadSpeedSmooth: number;
   /** 1 runs the stage, 0 skips it (A/B: the core placeholder band field, dry ground, no hysteresis). */
   surfaceField: number;
   wetGround: number;
@@ -446,6 +451,7 @@ export interface SurfaceOptions {
 }
 
 export const SURFACE_DEFAULTS: SurfaceOptions = {
+  roadRelief: 1, roadSpeedSmooth: .35,
   surfaceField: 1, wetGround: 1, temporal: 1,
   fieldDashCells: 6, fieldRowCells: 1, fieldGroundGain: 3, fieldMotionStretch: 2, fieldWallSpeed: 0.4, fieldWallGain: 1.6,
   skyFieldScale: 0.8, skyDashCells: 8, skyRowCells: 1, skyClusterScale: 4, skyClusterWeight: 0.55,
@@ -596,6 +602,22 @@ float artWaterShare(ivec2 cell) {
     water += step(texelFetch(sceneColor, origin + ivec2(i % s, i / s), 0).a, .75);
   }
   return water / float(n);
+}
+`;
+
+/** The opaque asphalt writes .875 alpha; water writes .5 and other surfaces normally write 1.
+ * Keep the depth-derived normals for silhouettes and wet-ground classification. Only shading and reflection rays
+ * take relief, filtered over the projected art cell so distant aggregate does not turn into sparkling noise. */
+const ROAD_NORMAL_GLSL = /* glsl */ `
+${ROAD_RELIEF_GLSL}
+uniform float roadRelief;
+vec3 artRoadNormal(ivec2 cell, float depth, vec3 geometric) {
+  if (roadRelief <= 0. || geometric.y < .55) return geometric;
+  float share = artRoadShare(cell);
+  if (share < .5) return geometric;
+  vec3 ray = artWorldRay(vec2(cell) + .5);
+  float footprint = artCellWorldSize(depth) / max(abs(dot(ray, geometric)), .08);
+  return soraRoadReliefNormal(artWorldPosition(vec2(cell) + .5, depth), geometric, footprint, roadRelief * share);
 }
 `;
 
@@ -1365,6 +1387,7 @@ void main() {
 
 const TRACE_FRAGMENT = /* glsl */ `
 ${WATER_GLSL}
+${ROAD_NORMAL_GLSL}
 uniform vec4 traceParams;  // x: max ray length (m); y: sky reflection factor; z: screen-edge fade (cells); w: sky luminance (exposure-scaled) that stretches
 uniform float surfaceExposure;
 layout(location = 0) out vec4 outTrace;
@@ -1397,7 +1420,7 @@ void main() {
   if (texelFetch(surfaceFields, cell, 0).y <= 0.) return;
   vec4 data = texelFetch(resolvedData, cell, 0);
   mat3 toView = transpose(mat3(artCameraWorld));
-  vec3 normal = toView * texelFetch(normals, cell, 0).xyz;
+  vec3 normal = toView * artRoadNormal(cell, data.x, texelFetch(normals, cell, 0).xyz);
   vec3 origin = artViewPosition(vec2(cell) + .5, data.x);
   vec3 dir = reflect(normalize(origin), normal);
   origin += normal * (.03 + .002 * data.x);
@@ -1457,6 +1480,8 @@ void main() {
 
 const COMPOSITE_FRAGMENT = /* glsl */ `
 ${WATER_GLSL}
+${ROAD_NORMAL_GLSL}
+uniform float roadSpeedSmooth;
 uniform sampler2D wetTrace;
 uniform vec4 columnParams;  // x: cells down (toward the camera), y: cells up, z: reflection strength, w: dash gap
 uniform float wetFresnelFloor; // the least share of the mirror wet ground keeps where the view looks steeply down
@@ -1598,6 +1623,8 @@ vec3 lampColumns(ivec2 cell, vec3 world, out vec2 column) {
   column = vec2(0.);
   vec3 eye = artCameraWorld[3].xyz - world;
   float eyeElevation = atan(eye.y, length(eye.xz));
+  vec3 geometric = texelFetch(normals, cell, 0).xyz;
+  vec3 relief = artRoadNormal(cell, texelFetch(resolvedData, cell, 0).x, geometric);
   for (int i = 0; i < MAX_EMITTERS; i++) {
     if (i >= emitterCount) break;
     vec4 s = emitterScreen[i];
@@ -1608,7 +1635,13 @@ vec3 lampColumns(ivec2 cell, vec3 world, out vec2 column) {
     vec3 light = emitterWorld[i].xyz - world;
     // Only ground between the camera and the light mirrors it.
     if (dot(light.xz, eye.xz) > 0.) continue;
-    float miss = atan(light.y, length(light.xz)) - eyeElevation;
+    // The mirror direction turns by twice the facet tilt. Only the additional asphalt relief changes the old
+    // lobe: geometric slope, water and paving retain their established response. The same fixed height field
+    // bends the traced signs and the actual road lighting, so lamp streaks now respond to the road's bumps too.
+    vec2 toward = light.xz / max(length(light.xz), 1e-5);
+    float tilt = atan(dot(relief.xz, toward), max(relief.y, .01))
+      - atan(dot(geometric.xz, toward), max(geometric.y, .01));
+    float miss = atan(light.y, length(light.xz)) - eyeElevation + 2. * tilt;
     float lobe = exp(-pow(miss / (miss < 0. ? lampColumnParams.x : lampColumnParams.y), 2.));
     if (lobe < .03) continue;
     ivec3 row = ivec3(int(floor(s.y)) - cell.y, int(emitterWorld[i].w * 65535.), 7001);
@@ -1782,6 +1815,9 @@ void composite() {
   // light removes it; pools, shadows, windows, silhouettes and paint are edges
   // or smooth and stay, and the stable dashes redraw the ground's texture.
   float moving = groundCaps.w * smoothstep(.03, .3, motion * speedParams.y) * (ground.z > .5 ? 1. : wallSpeedSmooth);
+  // Asphalt's enlarged scan has resolvable aggregate. Retain a light filter at
+  // speed, while grass, paving and other ground keep their existing smoothing.
+  if (ground.z > .5 && roadSpeedSmooth < 1. && artRoadShare(cell) >= .5) moving *= roadSpeedSmooth;
   // Canopy (refine round 2) is smoothed at rest too, over canopy cells only,
   // and more broadly: per-leaf light breaks a canopy into boiling lace; its
   // clumps' band offsets redraw it as massed tones.
@@ -1903,7 +1939,7 @@ void composite() {
     if (luminance > strongest) { strongest = luminance; column = value; bestDy = dy; stretched = emitter > .5; }
   }
   vec3 ray = artWorldRay(vec2(cell) + .5);
-  float cosine = abs(dot(ray, texelFetch(normals, cell, 0).xyz));
+  float cosine = abs(dot(ray, artRoadNormal(cell, depth, texelFetch(normals, cell, 0).xyz)));
   // Refine round 4: a floor under the Fresnel term, so the near road, seen steeply, still mirrors the street's
   // light as the user's rain-night concept paints it (a pure Fresnel term left it eight times darker than 20 m on).
   float fresnel = max(.02 + .98 * pow(1. - cosine, 5.), wetFresnelFloor);
@@ -2238,6 +2274,7 @@ void main() {
 }`;
 
 const SPARKLE_FRAGMENT = /* glsl */ `
+${ROAD_NORMAL_GLSL}
 uniform ivec4 sparkleEntries; // amber, gold, lavender, pale
 uniform vec3 sparkleParams;   // x: density in light; y: rain-splash density; z: rain (0-1)
 uniform float surfaceExposure;
@@ -2372,7 +2409,7 @@ void main() {
   float key = 0.;
   if (keyGlint.x > 0. && ground > 0. && keyLight.y > .5) {
     vec3 halfway = normalize(keyLightDirection - artWorldRay(vec2(cell) + .5));
-    float lobe = pow(max(dot(texelFetch(normals, cell, 0).xyz, halfway), 0.), keyGlint.y);
+    float lobe = pow(max(dot(artRoadNormal(cell, texelFetch(resolvedData, cell, 0).x, texelFetch(normals, cell, 0).xyz), halfway), 0.), keyGlint.y);
     // Sunlit ground (asphalt under a low sun is darker than a lamp pool).
     float sunlit = smoothstep(.04, .2, artLuminance(light) * surfaceExposure);
     // Level ground only (the road, not the grass banks).
@@ -2524,10 +2561,13 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     hazardSize: { value: Array.from({ length: MAX_HAZARDS }, () => new THREE.Vector4()) },
     scrollRows, scrollParams,
   };
-  const traceUniforms = { traceParams: { value: new THREE.Vector4() }, surfaceExposure: deps.exposure };
+  const roadRelief = { value: SURFACE_DEFAULTS.roadRelief };
+  const traceUniforms = { traceParams: { value: new THREE.Vector4() }, surfaceExposure: deps.exposure, roadRelief };
   const spreadUniforms = { wetTraceRaw: { value: traceTarget.texture }, spreadParams: { value: new THREE.Vector2(4, .08) },
     groundAcross: surfaceUniforms.groundAcross };
   const compositeUniforms = {
+    roadRelief,
+    roadSpeedSmooth: { value: SURFACE_DEFAULTS.roadSpeedSmooth },
     wetTrace: { value: traceTarget.texture }, columnParams: { value: new THREE.Vector4() },
     sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, columnDay: { value: 1 }, reflectionKnee: { value: new THREE.Vector2(0, 1) }, columnFade: { value: 1 }, wetFresnelFloor: { value: 0 },
     rippleParams: { value: new THREE.Vector4(1, 4.5, 4, .42) }, ripplePebbles: { value: .05 }, rippleFar: { value: new THREE.Vector3(2.5, 11, 12) },
@@ -2558,6 +2598,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     temporalCar: { value: 0.05 }, scrollRows, scrollShift: { value: 1 },
   };
   const sparkleUniforms = {
+    roadRelief,
     sparkleEntries: { value: new THREE.Vector4(entry(SPARKLE_COLOURS.amber), entry(SPARKLE_COLOURS.gold),
       entry(SPARKLE_COLOURS.lavender), entry(SPARKLE_COLOURS.white)) },
     sparkleParams: { value: new THREE.Vector3() }, surfaceExposure: deps.exposure,
@@ -2761,6 +2802,8 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
   return {
     stages: { surface, reflect, temporal, sparkle },
     configure(o) {
+      roadRelief.value = Number.isFinite(o.roadRelief) ? THREE.MathUtils.clamp(o.roadRelief, 0, 4) : 0;
+      compositeUniforms.roadSpeedSmooth.value = Number.isFinite(o.roadSpeedSmooth) ? THREE.MathUtils.clamp(o.roadSpeedSmooth, 0, 1) : 1;
       surface.enabled = o.surfaceField > 0;
       wetOn = o.wetGround > 0;
       flecksOn = o.litFlecks > 0;

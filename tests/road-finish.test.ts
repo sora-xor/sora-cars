@@ -30,6 +30,14 @@ test('road finish composes the existing shader and retains all scanned map input
   assert.deepEqual([material.map, material.normalMap, material.aoMap, material.roughnessMap, material.metalnessMap], [map, normalMap, arm, arm, arm]);
   assert.deepEqual(material.color, color); assert.deepEqual(material.normalScale.toArray(), [.55, .55]);
   assert.equal(material.roughness, .88); assert.equal(material.metalness, 0);
+  assert.equal(material.transparent, false, 'the asphalt metadata never enables blending');
+  assert.equal(material.opacity, 1);
+  const scan = program.fragmentShader.indexOf('#include <normal_fragment_maps>');
+  const perturb = program.fragmentShader.indexOf('vec3 soraRoadShadingNormal = inverseTransformDirection(normal, viewMatrix);');
+  const light = program.fragmentShader.indexOf('#include <lights_physical_fragment>');
+  assert.ok(scan < perturb && perturb < light, 'relief adds to the scan before the physical lighting consumes its normal');
+  assert.ok(program.fragmentShader.indexOf('gl_FragColor.a = .875;') > program.fragmentShader.indexOf('#include <opaque_fragment>'),
+    'opaque asphalt carries a distinct reflection mask after the standard opaque output');
   assert.deepEqual(THREE.ShaderChunk, originalChunks);
 });
 
@@ -40,11 +48,16 @@ test('weather and A/B toggles update existing uniforms without reallocating maps
   material.onBeforeCompile(first, renderer); material.onBeforeCompile(second, renderer);
   assert.equal(first.uniforms.soraRoadWetness, second.uniforms.soraRoadWetness);
   assert.equal(first.uniforms.soraRoadFinishEnabled, second.uniforms.soraRoadFinishEnabled);
+  assert.equal(first.uniforms.soraRoadReliefStrength, second.uniforms.soraRoadReliefStrength);
+  assert.equal(first.uniforms.soraRoadReliefStrength!.value, 1);
   for (const [input, expected] of [[-.5, 0], [.35, .35], [2, 1], [NaN, 0]]) {
     finish.setWetness(input!); assert.equal(first.uniforms.soraRoadWetness!.value, expected);
   }
   finish.setEnabled(false); assert.equal(first.uniforms.soraRoadFinishEnabled!.value, 0);
   finish.setEnabled(true); assert.equal(second.uniforms.soraRoadFinishEnabled!.value, 1);
+  for (const [input, expected] of [[-1, 0], [0, 0], [.75, .75], [4, 4], [10, 4], [NaN, 0], [Infinity, 0]]) {
+    finish.setRelief(input!); assert.equal(first.uniforms.soraRoadReliefStrength!.value, expected);
+  }
   assert.equal(material.version, version);
 });
 
@@ -55,11 +68,11 @@ test('distinct original hooks retain distinct default keys and authored custom k
   const first = a.customProgramCacheKey(), second = b.customProgramCacheKey();
   let variant = 'dry-source'; c.customProgramCacheKey = function () { assert.equal(this, c); return variant; };
   [a, b, c].forEach(decorateRoadFinish);
-  assert.equal(a.customProgramCacheKey(), `${first}:sora-road-finish-v5`);
-  assert.equal(b.customProgramCacheKey(), `${second}:sora-road-finish-v5`);
+  assert.equal(a.customProgramCacheKey(), `${first}:sora-road-finish-v6`);
+  assert.equal(b.customProgramCacheKey(), `${second}:sora-road-finish-v6`);
   assert.notEqual(a.customProgramCacheKey(), b.customProgramCacheKey());
-  assert.equal(c.customProgramCacheKey(), 'dry-source:sora-road-finish-v5');
-  variant = 'patched-source'; assert.equal(c.customProgramCacheKey(), 'patched-source:sora-road-finish-v5');
+  assert.equal(c.customProgramCacheKey(), 'dry-source:sora-road-finish-v6');
+  variant = 'patched-source'; assert.equal(c.customProgramCacheKey(), 'patched-source:sora-road-finish-v6');
 });
 
 test('an incompatible custom shader fails before a partial road-finish injection', () => {
@@ -68,6 +81,12 @@ test('an incompatible custom shader fails before a partial road-finish injection
   const before = structuredClone(program);
   assert.throws(() => material.onBeforeCompile(program, renderer), /Unsupported road material shader layout/);
   assert.deepEqual(program, before);
+  for (const include of ['normal_fragment_maps', 'opaque_fragment']) {
+    const missing = shader(); missing.fragmentShader = missing.fragmentShader.replace(`#include <${include}>`, '');
+    const snapshot = structuredClone(missing);
+    assert.throws(() => material.onBeforeCompile(missing, renderer), /Unsupported road material shader layout/);
+    assert.deepEqual(missing, snapshot, `missing ${include} cannot leave a half-applied relief or tag`);
+  }
 });
 
 test('the key light specular ceiling wraps only the directional light and leaves spot highlights intact', () => {
@@ -119,6 +138,9 @@ test('kerbs and the gutter strip share the road ceilings without its damp patche
   assert.ok(source.indexOf('#define RE_Direct soraRoadDirect') > source.indexOf('#include <lights_physical_pars_fragment>'));
   assert.ok(!source.includes('soraRoadPatch'), 'no damp patches on the kerb');
   assert.equal(kerbProgram.uniforms.soraRoadWetness, undefined);
+  assert.equal(kerbProgram.uniforms.soraRoadReliefStrength, undefined);
+  assert.ok(!source.includes('soraRoadReliefNormal'), 'kerbs keep their own scanned surface normals');
+  assert.ok(!source.includes('gl_FragColor.a = .875'), 'sharing road light caps does not tag kerbs as asphalt');
   assert.equal(kerb.roughness, .92);
   // The road itself is never wrapped twice.
   const roadCompile = road.onBeforeCompile; shareSpecularLimits(road, finish);

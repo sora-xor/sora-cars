@@ -86,6 +86,66 @@ test('the race sky can shade only uncovered pixels; the garage proof keeps its d
   sky.dispose();
 });
 
+test('a spring dawn runs from gold at the horizon to magenta-pink overhead toward the sun, where the sunrise stays salmon', () => {
+  const sky = createPaintedSky(), u = uniformsOf(sky);
+  assert.equal(u.skyRaceDawn!.value, 0, 'off as authored');
+  sky.setRacingSky(1, sun, 1);
+  const dawn = (u.skyRaceDawnToward!.value as THREE.Vector3[]).map(stop => lch(stop));
+  const sunrise = (u.skyRaceToward!.value as THREE.Vector3[]).map(stop => lch(stop));
+  assert.equal(dawn.length, 9);
+  assert.ok(dawn[0]![2] > 60 && dawn[0]![2] < 90 && dawn[0]![0] > .8, `dawn horizon ${dawn[0]}`);
+  assert.ok(dawn[8]![2] > 330 || dawn[8]![2] < 10, `dawn zenith hue ${dawn[8]![2]}`);
+  assert.ok(sunrise[8]![2] > 10 && sunrise[8]![2] < 40, `sunrise zenith hue ${sunrise[8]![2]}`);
+  for (const [L, C] of dawn) assert.ok(C >= .12, `dawn chroma ${C.toFixed(3)} at L ${L.toFixed(2)}`);
+  dawn.slice(1).forEach(([L], i) => assert.ok(L < dawn[i]![0], `dawn lightness falls at stop ${i + 1}`));
+  for (const [input, expected] of [[.4, .4], [2, 1], [-1, 0], [NaN, 0]] as const) {
+    sky.setRacingDawn(input); assert.equal(u.skyRaceDawn!.value, expected);
+  }
+  sky.dispose();
+});
+
+test("a late-day afternoon's sky away from the sun is lighter and more magenta than the sunrise's", () => {
+  const sky = createPaintedSky(), u = uniformsOf(sky);
+  sky.setRacingSky(1, sun, 0);
+  const golden = (u.skyRaceGoldenAway!.value as THREE.Vector3[]).map(stop => lch(stop));
+  const sunrise = (u.skyRaceAway!.value as THREE.Vector3[]).map(stop => lch(stop));
+  assert.equal(golden.length, 9);
+  for (let i = 5; i < 9; i++) {
+    assert.ok(golden[i]![0] > sunrise[i]![0], `stop ${i} lighter`);
+    assert.ok(golden[i]![2] > sunrise[i]![2], `stop ${i} hue ${golden[i]![2].toFixed(0)} toward magenta of ${sunrise[i]![2].toFixed(0)}`);
+  }
+  assert.ok(golden[8]![2] > 295 && golden[8]![2] < 310, `zenith hue ${golden[8]![2]}`);
+  for (const [L, C] of golden) assert.ok(C >= .1, `chroma ${C.toFixed(3)} at L ${L.toFixed(2)}`);
+  golden.slice(1).forEach(([L], i) => assert.ok(L < golden[i]![0], `lightness falls at stop ${i + 1}`));
+  sky.dispose();
+});
+
+test("a route's own far ridges hold by day and give way to the night's", () => {
+  const sky = createPaintedSky(), ridge = uniformsOf(sky).skyRaceRidge!.value as THREE.Vector4;
+  sky.setRacingSky(1, sun, 0, { night: 'mountain', ridges: '#5f4a88' });
+  assert.deepEqual(ridge.toArray().map(v => Math.round(v * 255)), [0x5f, 0x4a, 0x88, 255]);
+  sky.setRacingSky(.2, sun, 0, { night: 'mountain', ridges: '#5f4a88' });
+  assert.ok(ridge.w > 0 && ridge.w < 1, `dusk weight ${ridge.w}`);
+  sky.setRacingSky(0, sun, 0, { night: 'mountain', ridges: '#5f4a88' });
+  assert.equal(ridge.w, 0);
+  sky.setRacingSky(1, sun, 0, { night: 'mountain' });
+  assert.equal(ridge.w, 0, 'a route without its own ridges keeps the sky colour');
+  sky.dispose();
+});
+
+test("a route's ridge height holds over the night keyframe's, and leaving the route restores it", () => {
+  const sky = createPaintedSky(), skyline = uniformsOf(sky).skyRaceSkyline!.value as THREE.Vector3;
+  sky.setRacingSky(.95, sun, 0, { night: 'mountain' });
+  assert.equal(skyline.x, 2.6);
+  sky.setRacingSky(.95, sun, 0, { night: 'mountain', ridgeHeight: 1.6 });
+  assert.equal(skyline.x, 1.6, 'set although the palette is cached at this daylight');
+  sky.setRacingSky(.95, sun, 0, { night: 'mountain' });
+  assert.equal(skyline.x, 2.6);
+  sky.setRacingSky(0, sun, 0, { night: 'harbor' });
+  assert.equal(skyline.x, 1.1);
+  sky.dispose();
+});
+
 test('re-evaluating the race palette reuses its uniform vectors', () => {
   const sky = createPaintedSky(), u = uniformsOf(sky);
   const away = u.skyRaceAway!.value as THREE.Vector3[], first = [...away];

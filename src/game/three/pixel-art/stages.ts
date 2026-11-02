@@ -392,6 +392,7 @@ uniform float gradeCarContrast; // the share of the contrast stretch car paint t
 uniform float gradeSkyExposure; // the painted sky's exposure against the world's (the day exposure leaves the sky as authored)
 uniform float gradeSkyChroma;   // the painted sky's chroma gain (the day chroma lift is for the world: the skies already matched)
 uniform vec3 gradeFoliage;  // night canopy: x lightness and y chroma taken off its darker leaves, z green leaves' turn toward olive (0 off)
+uniform float gradeRoadColour; // preserve physical warm light on dry daytime asphalt; 0 at night or on wet roads
 vec3 toneMap(vec3 c) {
   if (toneMapper == 1) return NeutralToneMapping(c);
   if (toneMapper == 2) return ACESFilmicToneMapping(c);
@@ -418,6 +419,7 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   float skyShare = texelFetch(resolvedData, cell, 0).w;
   radiance *= mix(1., gradeSkyExposure, skyShare);
   vec3 lab = artLinearToOklab(clamp(toneMap(radiance), 0., 1.));
+  float warmRoadLight = smoothstep(.001, .008, lab.z);
   lab.yz *= mix(chromaGain, gradeSkyChroma, skyShare);
   // Night contrast (refine round 4, the user's rain-night concept): lightness
   // stretched about a low pivot, strongly below it so walls and asphalt sink
@@ -472,6 +474,11 @@ vec3 artGrade(ivec2 cell, vec3 radiance) {
   // cutscenes keep a pale car warm cream under the street's light.
   float shadow = shadowDrive.y * (1. - smoothstep(shadowRange.x, shadowRange.y, lab.x)) * (1. - gradeFoliage.z * canopy)
     * (artCarKind(cell) == 1 ? .35 : 1.);
+  // Dark albedo is not proof of blue illumination: warm sunlit asphalt was
+  // below the shadow range and turned purple. Preserve its source warmth,
+  // while genuinely cool shade, paint, water and night keep their grade.
+  if (gradeRoadColour > 0. && warmRoadLight > 0. && texelFetch(normals, cell, 0).y > .55)
+    shadow *= 1. - gradeRoadColour * warmRoadLight * step(.5, artRoadShare(cell));
   float highlight = highlightDrive.y * smoothstep(highlightRange.x, highlightRange.y, lab.x);
   // The protection follows the chroma before the compression, so saturated
   // darks (a red vending machine, a teal car in shade) keep their hue.
@@ -540,6 +547,7 @@ export function createGradeStage(shared: PixelArtSharedUniforms) {
     gradeFloor: { value: 0 },
     gradeFoliage: { value: new THREE.Vector3(0, 0, 0) },
     gradeCarContrast: { value: .5 }, gradeSkyExposure: { value: 1 }, gradeSkyChroma: { value: 1 },
+    gradeRoadColour: { value: 0 },
   };
   const material = stageMaterial('SORA pixel-art grade', shared, /* glsl */ `
 ${PIXEL_ART_GRADE}

@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { canopyDepthMaterial } from './canopy-gaps';
 import { scannedSurface } from './surfaces';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
@@ -805,7 +806,7 @@ export function createApartment(seed: number): THREE.Group {
 }
 
 const buildingTemplates = new Map<number, THREE.Group>();
-const treeTemplates = new Map<boolean, THREE.Group>();
+const treeTemplates = new Map<string, THREE.Group>();
 let lampTemplate: THREE.Group | undefined;
 let signTemplate: THREE.Group | undefined;
 const flagMaterials = new WeakMap<THREE.Texture, THREE.MeshStandardMaterial>();
@@ -907,14 +908,55 @@ function leafGeometry(): THREE.BufferGeometry {
   return geometry;
 }
 
-function buildTree(sakura: boolean): THREE.Group {
+/**
+ * A Japanese maple's palmate leaf for the autumn routes, as the repaints draw their crowns' edges: five pointed lobes
+ * fanned from the stalk, the middle one longest, cut deep between them. Built like the oval leaf (leafGeometry): an
+ * outline from the stalk round to its other side, a raised centre and a darker reverse.
+ */
+function mapleLeafGeometry(): THREE.BufferGeometry {
+  const centre = 0.42, outline = [0, centre - 0.1];
+  [0.36, 0.5, 0.58, 0.5, 0.36].forEach((length, lobe) => {
+    const angle = (lobe - 2) * 0.85;
+    if (lobe) outline.push(Math.sin(angle - 0.425) * 0.14, centre + Math.cos(angle - 0.425) * 0.14);
+    outline.push(Math.sin(angle) * length, centre + Math.cos(angle) * length);
+  });
+  const points = outline.length / 2, position: number[] = [], uv: number[] = [];
+  for (let i = 0; i < points; i++) {
+    position.push(outline[2 * i]!, outline[2 * i + 1]!, 0);
+    uv.push(0.5 + outline[2 * i]! / 0.8, outline[2 * i + 1]!);
+  }
+  position.push(0, centre, 0.045, 0, centre, -0.02);
+  uv.push(0.5, centre, 0.5, centre);
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(position, 3));
+  geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  const indices: number[] = [];
+  for (let i = 0; i < points; i++) indices.push(i, (i + 1) % points, points, i, points + 1, (i + 1) % points);
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+type TreeKind = 'broadleaf' | 'sakura' | 'momiji';
+/** A crown spray's vertex colours, shade to light. The maples' ramp is neutral, so their tones (world.ts MAPLE_TONES)
+ * stay crimson where the cherries' pink tinted them toward magenta. A crimson leaf is lit almost wholly through its red,
+ * so the ramp keeps a little more red than the pink did: matched on luminance instead (#6c6060-#b4aaa6), it took 28%
+ * of the red and the crowns darkened (Wakakusa's crown L median 0.56 to 0.50 against its repaint's 0.54-0.60). */
+const TREE_SPRAYS: Record<TreeKind, readonly [string, string]> = {
+  broadleaf: ['#244548', '#6a8054'], sakura: ['#795873', '#d1a3ae'], momiji: ['#887878', '#dfd2cd'],
+};
+
+function buildTree(kind: TreeKind): THREE.Group {
   const m = materials();
   const batch = new Batch();
-  const rng = random(sakura ? 7329 : 91273);
-  const baseLeaf = leafGeometry();
+  const sakura = kind === 'sakura', maple = kind === 'momiji';
+  // A maple crown grows from the cherry's limbs: setFloweringCrown swaps only the crown.
+  const rng = random(kind === 'broadleaf' ? 91273 : 7329);
+  const baseLeaf = maple ? mapleLeafGeometry() : leafGeometry();
+  const leafVertices = baseLeaf.getAttribute('position').count;
   const leaves: THREE.BufferGeometry[] = [];
-  const shadedColor = new THREE.Color(sakura ? '#795873' : '#244548');
-  const litColor = new THREE.Color(sakura ? '#d1a3ae' : '#6a8054');
+  const shadedColor = new THREE.Color(TREE_SPRAYS[kind][0]);
+  const litColor = new THREE.Color(TREE_SPRAYS[kind][1]);
   const trunk = [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0.13, 1.9, -0.08), new THREE.Vector3(-0.08, 3.45, 0.05), new THREE.Vector3(0.13, 5.28, 0)];
   for (let i = 0; i < trunk.length - 1; i++) batch.branch(m.bark, trunk[i], trunk[i + 1], 0.24 - i * 0.052, 0.2 - i * 0.06, 9);
   for (let i = 0; i < 7; i++) {
@@ -947,16 +989,20 @@ function buildTree(sakura: boolean): THREE.Group {
         const direction = offset.clone().add(new THREE.Vector3(Math.cos(angle) * 0.25, 0.1 + rng() * 0.35, Math.sin(angle) * 0.25)).normalize();
         const quaternion = new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0, 1, 0), direction);
         quaternion.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), rng() * Math.PI * 2));
-        geometry.applyMatrix4(new THREE.Matrix4().compose(position, quaternion, new THREE.Vector3(scale, scale * (sakura ? 0.7 : 1.1), scale)));
+        geometry.applyMatrix4(new THREE.Matrix4().compose(position, quaternion, new THREE.Vector3(scale, scale * (sakura ? 0.7 : maple ? 1 : 1.1), scale)));
         const color = sprayColor.clone().multiplyScalar((innerLeaf ? 0.69 : 0.96) + rng() * 0.12 + Math.max(0, offset.y) * 0.3);
         const colorData: number[] = [];
-        const normal = new THREE.Vector3(position.x * 0.18, 0.85 + (position.y - 5.3) * 0.1, position.z * 0.18).normalize();
+        // A maple's crown is rounded (an ellipsoid about its middle, 2.6 m across and 2.3 m up), so its sunlit side and
+        // its underside part, where the near-upright crown normal lit every leaf alike and the crowns read flat orange.
+        const normal = maple ? new THREE.Vector3(position.x / 6.76, (position.y - 5.1) / 5.29, position.z / 6.76).normalize()
+          : new THREE.Vector3(position.x * 0.18, 0.85 + (position.y - 5.3) * 0.1, position.z * 0.18).normalize();
+        const crownShare = maple ? 0.65 : 0.58;
         const normals = geometry.getAttribute('normal');
-        for (let vertex = 0; vertex < 10; vertex++) {
-          const shading = vertex === 9 ? 0.9 : vertex === 8 ? 1.025 : 1;
+        for (let vertex = 0; vertex < leafVertices; vertex++) {
+          const shading = vertex === leafVertices - 1 ? 0.9 : vertex === leafVertices - 2 ? 1.025 : 1;
           colorData.push(color.r * shading, color.g * shading, color.b * shading);
           // Bent foliage normals shade each closed leaf as part of its larger crown.
-          const surfaceNormal = new THREE.Vector3().fromBufferAttribute(normals, vertex).multiplyScalar(0.42).addScaledVector(normal, 0.58).normalize();
+          const surfaceNormal = new THREE.Vector3().fromBufferAttribute(normals, vertex).multiplyScalar(1 - crownShare).addScaledVector(normal, crownShare).normalize();
           normals.setXYZ(vertex, surfaceNormal.x, surfaceNormal.y, surfaceNormal.z);
         }
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colorData, 3));
@@ -967,26 +1013,40 @@ function buildTree(sakura: boolean): THREE.Group {
   baseLeaf.dispose();
   const foliage = mergeGeometries(leaves, false)!;
   for (const geometry of leaves) geometry.dispose();
-  const group = batch.finish(sakura ? 'painted-sakura' : 'painted-broadleaf');
+  const group = batch.finish(`painted-${kind}`);
   const mesh = new THREE.Mesh(foliage, m.foliage);
   mesh.castShadow = true;
   // Tiny self-shadow fragments make a moving canopy flicker; its painted underside is
-  // already expressed in the vertex colors, while it still casts a full world shadow.
+  // already expressed in the vertex colors, while it still casts a world shadow (with sun flecks, canopy-gaps.ts).
   mesh.receiveShadow = false;
+  mesh.userData.canopy = true;
   group.add(mesh);
   return group;
 }
 
+function treeTemplate(kind: TreeKind): THREE.Group {
+  let template = treeTemplates.get(kind);
+  if (!template) { template = buildTree(kind); treeTemplates.set(kind, template); }
+  return template;
+}
+
 /** Closed leaves and branching wood are real geometry from every viewing angle. */
 export function createTree(seed: number, sakura: boolean): THREE.Group {
-  let template = treeTemplates.get(sakura);
-  if (!template) { template = buildTree(sakura); treeTemplates.set(sakura, template); }
-  const group = template.clone();
+  const group = treeTemplate(sakura ? 'sakura' : 'broadleaf').clone();
+  // Object3D.clone omits custom shadow materials.
+  group.traverse(object => { if (object.userData.canopy) object.customDepthMaterial = canopyDepthMaterial(); });
   const rng = random(seed);
   const size = 0.92 + rng() * 0.16;
   group.rotation.y = rng() * Math.PI * 2;
   group.scale.set(size * 0.72, 0.95 + rng() * 0.1, size * 0.72);
   return group;
+}
+
+/** Turns a flowering tree (createTree(seed, true)) between cherry blossom and an autumn maple's leaves. */
+export function setFloweringCrown(tree: THREE.Group, maple: boolean): void {
+  let crown: THREE.BufferGeometry | undefined;
+  treeTemplate(maple ? 'momiji' : 'sakura').traverse(object => { if (object.userData.canopy) crown = (object as THREE.Mesh).geometry; });
+  if (crown) tree.traverse(object => { if (object.userData.canopy) (object as THREE.Mesh).geometry = crown!; });
 }
 
 export function createStreetLamp(): THREE.Group {

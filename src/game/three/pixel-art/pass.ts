@@ -104,6 +104,8 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
   /** OKLab L the deepest darks are lifted toward: by day `floor`, at night `nightFloor` (0 off). */
   floor: number;
   nightFloor: number;
+  /** Preserve physical warm illumination on dry daytime asphalt instead of applying the violet shadow drive. */
+  dayRoadColourKeep: number;
   /**
    * At night, how far green and teal leaves turn toward olive and how much of the shadow drive's violet they are
    * spared (0 off, 1 all the way): the concept's street trees are dark olive with gold where the lamps catch them,
@@ -142,6 +144,8 @@ export interface PixelArtPass {
   render(scene: THREE.Scene, camera: THREE.Camera, width: number, height: number, time: number): void;
   configure(options: Partial<PixelArtOptions>): void;
   options(): PixelArtOptions;
+  /** Live shared asphalt-relief strength, without allocating a settings snapshot each frame. */
+  readonly roadReliefStrength: number;
   setDebugView(view: PixelArtDebugView): void;
   debugView(): PixelArtDebugView;
   /** Insert an art-resolution stage after a named stage (resolve, normals, grade, quantize, ...). */
@@ -194,8 +198,11 @@ const DEFAULTS: PixelArtOptions = {
   lightChromaCompression: 0.15, lightChromaLow: 0.1, lightChromaHigh: 0.18, lightChromaStart: 0.66,
   shadowHue: 295, plumHue: 335, plumStrength: 0, plumStart: 0.13, plumFull: 0.26, groundFloor: 0.22, groundLift: 0, shadowStrength: 0.9, shadowChroma: 0.025, shadowStart: 0.22, shadowEnd: 0.5,
   highlightHue: 78, highlightStrength: 0.8, highlightChroma: 0.04, highlightStart: 0.6, highlightFull: 0.9,
-  chroma: 1.2, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0,
-  nightContrastLight: 0.12, contrastPivot: 0.38, nightLightChromaCompression: 0.1, floor: 0, nightFloor: 0.18, nightFoliageOlive: 0.7, nightCarContrast: 1, paletteLock: 0,
+  // October 31: separate lit surfaces from shade without lifting the entire frame. A .14 night floor restores
+  // Kanda's shadow values; the .2 daytime upper stretch opens Nara's highlights while leaving its dark road alone.
+  chroma: 1.2, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0.2,
+  nightContrastLight: 0.12, contrastPivot: 0.38, nightLightChromaCompression: 0.1, floor: 0, nightFloor: 0.14, nightFoliageOlive: 0.7, nightCarContrast: 1, paletteLock: 0,
+  dayRoadColourKeep: 1,
   depthTolerance: 0.06,
   // Refine round 4 (the user's rain-night target, "it looks shabby"): no band offset (the full-colour image needs no
   // dither between palette entries), and a crisper upscale.
@@ -286,6 +293,11 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   };
 
   let night = 0;
+  let roadWetness = 1;
+  const updateRoadColour = () => {
+    const keep = Number.isFinite(settings.dayRoadColourKeep) ? THREE.MathUtils.clamp(settings.dayRoadColourKeep, 0, 1) : 0;
+    grade.uniforms.gradeRoadColour.value = keep * (1 - night) * (1 - THREE.MathUtils.smoothstep(roadWetness, .2, .5));
+  };
   function applySettings() {
     const radians = Math.PI / 180, lerp = THREE.MathUtils.lerp;
     grade.uniforms.darkChroma.value.set(lerp(settings.darkChromaCompression, settings.nightDarkChromaCompression, night), settings.darkChromaLow,
@@ -307,6 +319,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     grade.uniforms.gradeFoliage.value.set(.3 * night, .5 * night, THREE.MathUtils.clamp(settings.nightFoliageOlive, 0, 1) * night);
     grade.uniforms.gradeCarContrast.value = lerp(.5, THREE.MathUtils.clamp(settings.nightCarContrast, 0, 1), night);
     grade.uniforms.carChromaKeep.value = THREE.MathUtils.clamp(settings.carChromaKeep, 0, 1);
+    updateRoadColour();
     resolve.depthTolerance.value = settings.depthTolerance;
     quantize.uniforms.bandStrength.value = settings.bandStrength;
     quantize.uniforms.paletteFull.value = settings.paletteLock > 0 ? 0 : 1;
@@ -457,6 +470,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
       applySettings();
     },
     options: () => ({ ...settings }),
+    get roadReliefStrength() { return settings.roadRelief; },
     setDebugView(view) {
       const index = PIXEL_ART_DEBUG_VIEWS.indexOf(view);
       if (index < 0 || disposed) return;
@@ -473,13 +487,18 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
     },
     stageNames: () => stages.map(stage => stage.name),
     grid: () => grid,
-    setWetness: (wetness, rain) => surfaces.setWetness(wetness, rain),
+    setWetness: (wetness, rain) => {
+      surfaces.setWetness(wetness, rain);
+      roadWetness = Number.isFinite(wetness) ? THREE.MathUtils.clamp(wetness, 0, 1) : 1;
+      updateRoadColour();
+    },
     setNight: value => {
       const next = Number.isFinite(value) ? THREE.MathUtils.clamp(value, 0, 1) : 0;
       surfaces.setNight(next);
       // The grade's uniforms only (the surfaces' lamp flecks above): nothing else in applySettings depends on the night.
       if (Math.abs(next - night) < 1e-3) return;
       night = next;
+      updateRoadColour();
       const radians = Math.PI / 180, lerp = THREE.MathUtils.lerp;
       grade.uniforms.darkChroma.value.x = lerp(settings.darkChromaCompression, settings.nightDarkChromaCompression, night);
       grade.uniforms.shadowDrive.value.x = lerp(settings.shadowHue, settings.nightShadowHue, night) * radians;

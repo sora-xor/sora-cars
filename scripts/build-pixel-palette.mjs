@@ -16,8 +16,9 @@
  *     observed colour of its cluster. K starts at 98 and shrinks until steps
  *     3b-4 leave minGapFill slots for step 5 (--core <k> fixes it).
  * 3b. Anchors. The colours the renderer draws as fixed palette entries (the
- *     plate greys, the oil gloss sets, the lamp-head core and the taillight
- *     red, read from cars.ts, surfaces.ts and linework.ts) are kept verbatim.
+ *     plate greys, the oil gloss sets, the lamp-head core, the foliage clump
+ *     ramps and the car lamp tones, read from cars.ts, surfaces.ts and
+ *     linework.ts) are kept verbatim.
  *     Its measured glint, lamp and sparkle colours and the style spec's named
  *     cutscene colours (ink, night sky, dusk violet, plum, neon, car red,
  *     vermilion, amber, cream, sage) each need an entry within 0.015. A
@@ -214,14 +215,16 @@ const SPEC_ANCHORS = {
 };
 // Colours the renderer draws, read from its source: [file, pattern whose
 // first group holds the hex list, what it is, exact]. Exact ones are fixed
-// palette entries (plate greys, oil gloss, lamp-head core, taillight red); the
+// palette entries (plate greys, oil gloss, lamp-head core, foliage clump ramps, car lamp tones); the
 // others are measured cutscene colours it snaps to the nearest entry (glints,
 // lamp rims and cores, sparkles), held like the spec colours.
 const RENDERER_ENTRY_SOURCES = [
   ['src/game/three/pixel-art/cars.ts', /plateRamp:\s*\[([^\]]*)\]/, 'CAR_COLOURS.plateRamp', true],
   ['src/game/three/pixel-art/cars.ts', /lampRed:\s*('#[0-9a-fA-F]{6}')/, 'CAR_COLOURS.lampRed', true],
+  ['src/game/three/pixel-art/cars.ts', /lampTones:\s*\{([\s\S]*?)\}/, 'CAR_COLOURS.lampTones', true],
   ['src/game/three/pixel-art/surfaces.ts', /export const OIL_COLOURS = \{([\s\S]*?)\} as const;/, 'OIL_COLOURS', true],
   ['src/game/three/pixel-art/linework.ts', /export const LAMP_HEAD_CORE = ('#[0-9a-fA-F]{6}')/, 'LAMP_HEAD_CORE', true],
+  ['src/game/three/pixel-art/linework.ts', /export const FOLIAGE_TONES = \{([\s\S]*?)\} as const;/, 'FOLIAGE_TONES', true],
   ['src/game/three/pixel-art/cars.ts', /export const CAR_COLOURS = \{([\s\S]*?)\} as const;/, 'CAR_COLOURS', false],
   ['src/game/three/pixel-art/linework.ts', /export const LINEWORK_COLOURS = \{([\s\S]*?)\} as const;/, 'LINEWORK_COLOURS', false],
   ['src/game/three/pixel-art/linework.ts', /export const FOLIAGE_GLINTS = \{([\s\S]*?)\} as const;/, 'FOLIAGE_GLINTS', false],
@@ -550,7 +553,8 @@ function buildLiveryRamps(palette, liveries) {
   const liveryRamps = [];
   for (const livery of liveries) {
     const indices = [];
-    for (const [L, C, h] of liveryTargets(livery)) {
+    const targets = liveryTargets(livery);
+    for (const [step, [L, C, h]] of targets.entries()) {
       const target = fromLch(L, clampChroma(L, C, h), h);
       const [tl, tc, th] = lch(target);
       // A cutscene colour of the same hue, value and comparable chroma already
@@ -567,7 +571,12 @@ function buildLiveryRamps(palette, liveries) {
         const dark = tl < PARAMS.liveryReuseDarkBelowL;
         const hueTolerance = dark ? PARAMS.liveryReuseDarkHueDeg : PARAMS.liveryReuseHueDeg;
         const lightnessTolerance = dark ? PARAMS.liveryReuseDarkLightness : PARAMS.liveryReuseLightness;
-        const qualifies = Math.abs(pl - tl) <= lightnessTolerance && (dark ? pl < PARAMS.liveryReuseDarkBelowL : true) && (neutral
+        // A nearby hue on the cool side can erase the highlight's deliberate
+        // turn toward amber. Keep its warmth when reusing the top step; one
+        // degree allows for the colour's rounding to sRGB bytes.
+        const warmHighlight = step < targets.length - 1
+          || hueDistance(ph, PARAMS.liveryHighlightHue) <= hueDistance(th, PARAMS.liveryHighlightHue) + 1;
+        const qualifies = warmHighlight && Math.abs(pl - tl) <= lightnessTolerance && (dark ? pl < PARAMS.liveryReuseDarkBelowL : true) && (neutral
           ? Math.abs(tc - pc) <= 0.03 && (pc < 0.02 || tc < 0.02 || hueDistance(th, ph) <= 2 * hueTolerance)
           : hueDistance(th, ph) <= hueTolerance && pc >= tc * PARAMS.liveryReuseMinChromaRatio && pc <= tc * 1.8 + 0.02);
         const d = dist(p.lab, target);

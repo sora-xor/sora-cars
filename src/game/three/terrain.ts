@@ -80,17 +80,29 @@ function groundScan(source: 'aerial_grass_rock' | 'sparse_grass') {
 const AUTUMN_LITTER = /* glsl */ `
   {
     vec2 q = vSoraWorld.xz;
+    // An open lawn on the hillside (terrainLawn: Wakakusa-yama's summit) is late-autumn grass gone to straw, the far
+    // land's golden tan (period-city/far-land.ts), its edge ragged. Near the car it grows tufts about 20 cm across, tawny
+    // between the blades and gold where they catch the light, with fresh leaves blown onto it from the trees, as the
+    // summit's repaint paints its grass. Both fade where a scene pixel spans more ground than they do: there they only
+    // shimmered as the car moved (the lawn's cells blinked in 28% of frames, as against 15% under the litter; faded, 15%).
+    float lawn = smoothstep(.25, .75, vTerrainLawn + (soraNoise(q / 3.1 + 5.) - .5) * .5);
+    float tufts = lawn * (1. - smoothstep(.05, .12, max(fwidth(q.x), fwidth(q.y))));
+    float blades = soraNoise(q / .19 + 3.) * .65 + soraNoise(q / .11 - 11.) * .35;
+    vec3 straw = mix(vec3(.323, .231, .08), mix(vec3(.1, .05, .02), vec3(.46, .3, .08), smoothstep(.38, .62, blades)), tufts);
+    diffuseColor.rgb = mix(diffuseColor.rgb, straw * clamp(dot(diffuseColor.rgb, vec3(.2126, .7152, .0722)) / .085, .7, 1.3), lawn);
     float drift = soraNoise(q / 1.1) * .7 + soraNoise(q / .37 + 9.) * .3;
-    float cover = smoothstep(.36, .5, drift) * soraAutumn, pick = soraNoise(q / 2.3 - 41.);
+    float cover = mix(smoothstep(.36, .5, drift), smoothstep(.72, .8, soraNoise(q / .23 + 31.)) * tufts, lawn) * soraAutumn;
+    float pick = soraNoise(q / 2.3 - 41.);
     vec3 leaf = pick < .32 ? vec3(.30, .035, .02) : pick < .58 ? vec3(.38, .10, .02) : pick < .8 ? vec3(.30, .16, .03) : vec3(.17, .06, .025);
     // Most fallen leaves have browned on the forest floor; fresh colour is the lesser share, so the slopes under the wood
     // read as dark russet ground under their golden grass (the grass tufts, period-city/flora.ts) rather than a bright
-    // orange plane (Umagaeshi's bank: lightness .43 against the repaint's .34).
-    leaf = mix(leaf, vec3(.09, .046, .024), .6);
+    // orange plane (Umagaeshi's bank: lightness .43 against the repaint's .34). Those on a lawn have just fallen.
+    leaf = mix(leaf, vec3(.09, .046, .024), .6 * (1. - lawn));
     diffuseColor.rgb = mix(diffuseColor.rgb, leaf * (.38 + .7 * soraNoise(q / .13 + 17.)), cover);
   }`;
 
 const AUTUMN_HEADER = /* glsl */ `varying vec3 vSoraWorld;
+varying float vTerrainLawn;
 uniform float soraAutumn;
 float soraHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float soraNoise(vec2 p) {
@@ -99,7 +111,8 @@ float soraNoise(vec2 p) {
 }
 `;
 
-/** `autumn` (0-1) lays late-autumn leaf litter over the moss (slope terrain of the autumn routes only). */
+/** `autumn` (0-1) lays late-autumn leaf litter over the moss, and dries its open lawns to straw (slope terrain of the
+ * autumn routes only). */
 function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
   const moss = groundScan('aerial_grass_rock'), grass = groundScan('sparse_grass');
   const material = new THREE.MeshStandardMaterial({ ...moss, color: '#ffffff',
@@ -109,7 +122,7 @@ function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
   // surface texture is sampled once and shared by the roughness and AO paths.
   material.userData.terrainTextures = [moss.map, moss.normalMap, moss.roughnessMap,
     grass.map, grass.normalMap, grass.roughnessMap];
-  material.customProgramCacheKey = () => autumn > 0 ? 'sora-forest-ground-blend-v1-autumn' : 'sora-forest-ground-blend-v1';
+  material.customProgramCacheKey = () => autumn > 0 ? 'sora-forest-ground-blend-v2-autumn' : 'sora-forest-ground-blend-v1';
   material.onBeforeCompile = shader => {
     shader.uniforms.soraGrassColor = { value: grass.map };
     shader.uniforms.soraGrassNormal = { value: grass.normalMap };
@@ -119,8 +132,8 @@ function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
       .replace('#include <common>', '#include <common>\nattribute vec2 terrainBlend;\nvarying vec2 vTerrainBlend;')
       .replace('#include <uv_vertex>', '#include <uv_vertex>\nvTerrainBlend = terrainBlend;');
     if (autumn > 0) shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nvarying vec3 vSoraWorld;')
-      .replace('#include <project_vertex>', '#include <project_vertex>\nvSoraWorld = (modelMatrix * vec4(transformed, 1.)).xyz;');
+      .replace('#include <common>', '#include <common>\nvarying vec3 vSoraWorld;\nattribute float terrainLawn;\nvarying float vTerrainLawn;')
+      .replace('#include <project_vertex>', '#include <project_vertex>\nvSoraWorld = (modelMatrix * vec4(transformed, 1.)).xyz;\nvTerrainLawn = terrainLawn;');
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>
 varying vec2 vTerrainBlend;
@@ -252,7 +265,14 @@ export function createTerrain(poses: readonly TerrainPose[], style: number, skip
 }
 
 /** A road station on a switchback hillside. */
-interface SlopeStation { readonly x: number; readonly y: number; readonly z: number; readonly width: number; readonly p: number; readonly index: number }
+interface SlopeStation {
+  readonly x: number; readonly y: number; readonly z: number; readonly width: number; readonly p: number; readonly heading: number; readonly index: number;
+}
+/** The side of the road a point lies on as seen from a road pose (-1 left, 1 right), as the period city decides it
+ * (period-city/layout.ts periodCityRouteFrame). */
+export function roadSide(x: number, z: number, at: { readonly x: number; readonly z: number; readonly heading: number }): -1 | 1 {
+  return (x - at.x) * Math.cos(at.heading) - (z - at.z) * Math.sin(at.heading) < 0 ? -1 : 1;
+}
 export interface SlopeTerrain {
   readonly group: THREE.Group;
   /** Absolute ground height at a world point (NaN beyond the hillside's reach). */
@@ -267,15 +287,17 @@ export interface SlopeTerrain {
  * roof over the legs above and below; here the ground everywhere is
  * interpolated from all nearby road stations, so each leg sits just above its
  * own cut and the slope runs on between them. `dips` sink the ground into the
- * gorges under bridges. Presentation only.
+ * gorges under bridges. `lawn(p, side)` marks the open lawns beside the road
+ * (Wakakusa-yama's summit), which an autumn hillside grows as straw-coloured
+ * grass rather than leaf litter; the nearest road station decides. Presentation only.
  */
 export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly { x: number; z: number; radius: number; depth: number }[] = [],
-  keep: (p: number) => boolean = () => true, autumn = 0): SlopeTerrain {
+  keep: (p: number) => boolean = () => true, autumn = 0, lawn?: (p: number, side: -1 | 1) => boolean): SlopeTerrain {
   const group = new THREE.Group(); group.name = 'SORA switchback hillside';
   const cellSize = 25, reach = 130, step = 6, stations: SlopeStation[] = [], grid = new Map<string, SlopeStation[]>();
   let last = -Infinity;
   for (const pose of poses) if (pose.p - last >= 5) {
-    last = pose.p; const station = { x: pose.x, y: pose.y, z: pose.z, width: pose.width, p: pose.p, index: stations.length };
+    last = pose.p; const station = { x: pose.x, y: pose.y, z: pose.z, width: pose.width, p: pose.p, heading: pose.heading, index: stations.length };
     stations.push(station);
     const key = `${Math.floor(pose.x / cellSize)},${Math.floor(pose.z / cellSize)}`;
     (grid.get(key) ?? grid.set(key, []).get(key)!).push(station);
@@ -302,14 +324,15 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
     }
     return best;
   };
-  const heightAt = (x: number, z: number): number => {
+  /** The ground at a point: its height (NaN beyond the hillside's reach) and the road station nearest it. */
+  const ground = (x: number, z: number): { height: number; station: SlopeStation | null } => {
     let sum = 0, weight = 0, nearest = Infinity, nearestP = 0, closest: SlopeStation | null = null;
     near(x, z, reach + 20, (station, distance) => {
       const w = 1 / (distance * distance + 16) ** 1.5; sum += w * station.y; weight += w;
       if (distance < nearest) { nearest = distance; nearestP = station.p; closest = station; }
     });
     // `keep` limits the hillside to the stretches it dresses (a city route's wooded climb).
-    if (!weight || !closest || nearest > reach || !keep(nearestP)) return NaN;
+    if (!weight || !closest || nearest > reach || !keep(nearestP)) return { height: NaN, station: null };
     const road = roadNear(x, z, closest, nearest), nearestY = road.y, edge = road.width;
     nearest = road.distance;
     // Within a leg's own width the ground sits just under its asphalt; beyond,
@@ -321,8 +344,9 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
       const distance = Math.hypot(x - dip.x, z - dip.z);
       if (distance < dip.radius) height -= dip.depth * (1 - THREE.MathUtils.smoothstep(distance, dip.radius * .55, dip.radius));
     }
-    return height + GROUND_OFFSET;
+    return { height: height + GROUND_OFFSET, station: closest };
   };
+  const heightAt = (x: number, z: number): number => ground(x, z).height;
   const clearOfOtherLegs = (x: number, z: number, p: number, margin: number) => {
     let clear = true;
     near(x, z, 20 + margin, (station, distance) => { if (Math.abs(station.p - p) > 30 && distance < station.width + margin) clear = false; });
@@ -337,10 +361,12 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
   const x0 = minX - reach, z0 = minZ - reach;
   for (let ti = 0; ti < columns; ti += tile) for (let tj = 0; tj < rows; tj += tile) {
     const width = Math.min(tile, columns - ti) + 1, depth = Math.min(tile, rows - tj) + 1;
-    const heights = new Float32Array(width * depth);
+    const heights = new Float32Array(width * depth), lawns = new Float32Array(width * depth);
     let any = false;
     for (let i = 0; i < width; i++) for (let j = 0; j < depth; j++) {
-      const h = heightAt(x0 + (ti + i) * step, z0 + (tj + j) * step); heights[i * depth + j] = h; any ||= Number.isFinite(h);
+      const x = x0 + (ti + i) * step, z = z0 + (tj + j) * step, { height, station } = ground(x, z);
+      heights[i * depth + j] = height; any ||= Number.isFinite(height);
+      if (lawn && station && lawn(station.p, roadSide(x, z, station))) lawns[i * depth + j] = 1;
     }
     if (!any) continue;
     const positions: number[] = [], normals: number[] = [], uvs: number[] = [], colors: number[] = [], blends: number[] = [], indices: number[] = [];
@@ -366,6 +392,7 @@ export function createSlopeTerrain(poses: readonly TerrainPose[], dips: readonly
     geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
     geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
     geometry.setAttribute('terrainBlend', new THREE.Float32BufferAttribute(blends, 2));
+    geometry.setAttribute('terrainLawn', new THREE.Float32BufferAttribute(lawns, 1));
     geometry.setIndex(indices); geometry.computeBoundingBox(); geometry.computeBoundingSphere();
     const mesh = new THREE.Mesh(geometry, material); mesh.name = `Switchback hillside ${ti},${tj}`; mesh.receiveShadow = true;
     group.add(mesh);

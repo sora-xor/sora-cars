@@ -901,11 +901,11 @@ which A/Bs live options on one view after a real 30-frame drive.
   - **Windows show their rooms from 40 scene pixels across** (was 70), as the repaints' office windows show desks, plants and people. The scores did not move.
   - **Walls lose 70% of direct light after dark** (`wallDirectCut`, was 45%). A street lamp a few metres from a pale wall lit it as a broad beige panel (the moat frame's flats); the mean went from 0.232 to 0.229, and 90% gave 0.232 back. The lamps' wash on the facades was not the cause: halving it changed that wall by one level in 255.
   - **Street trees after dark.** Their trunks and branches take at most 0.08 of direct diffuse (`BARK_DIRECT_CAP`, as the leaves do), and leaves and bark at most as much of the lamps' specular. The lamps' leaf glints are off (`foliageLampGlint` 0, was 0.15). Beside the office frame's lamp the kerb tree stood as a bright orange trunk under a crown dotted with gold, where the repaint keeps a dark mass with a few lit leaves. That frame went from 0.266 to 0.244. The trunk is still warmer than the repaint's.
-- **Golden-hour shadows open with the sun behind the camera** (`GOLDEN_SHADOW_OPEN_BEHIND` 0.85; 0.45 with it ahead, blended on the key's bearing against the car's heading). Nara's true-sun repaints paint the road and verges sunlit, the long tree shadows across them light. At 0.45 the shadowed ground kept 40% of the key and the road read near black. Nara Park went from 0.436 to 0.414 and Wakakusa from 0.343 to 0.296; with the sun ahead (Umagaeshi) nothing changes, and the six golden frames' mean went from 0.363 to 0.359. Irohazaka's bends got worse (0.341 to 0.380): the sun is behind there too, but its repaint keeps the road in the valley's shade, which the race-local shadow map cannot cast. Opening every golden shadow instead cost Umagaeshi 0.335 to 0.395. The road's golden albedo is unchanged: four albedos tied (a lighter grey helped Nara and cost the bends).
+- **Golden-hour shadows open with the sun behind the camera** (`GOLDEN_SHADOW_OPEN_BEHIND` 0.85, 0.55 since the crowns let sun flecks through: see *Sun flecks through the crowns* below; 0.45 with it ahead, blended on the key's bearing against the car's heading). Nara's true-sun repaints paint the road and verges sunlit, the long tree shadows across them light. At 0.45 the shadowed ground kept 40% of the key and the road read near black. Nara Park went from 0.436 to 0.414 and Wakakusa from 0.343 to 0.296; with the sun ahead (Umagaeshi) nothing changes, and the six golden frames' mean went from 0.363 to 0.359. Irohazaka's bends have the sun behind too, but its repaint keeps the road in the valley's shade, which the race-local shadow map cannot cast: opened, that frame went from 0.341 to 0.380. So a route whose own hills stand higher toward the sun (its `sunHeight`, Irohazaka's mountains) keeps its golden shadows with the sun behind as well; the bends came back to 0.329 and nothing else moved. Opening every golden shadow instead cost Umagaeshi 0.335 to 0.395. The road's golden albedo is unchanged: four albedos tied (a lighter grey helped Nara and cost the bends).
 - **Golden-hour clouds away from the sun are front-lit**: their lit lobes and undersides turn coral and orange, more so the farther from the sun they stand, where they kept the away gradient's lavender. Nara's true-sun repaints, with the low sun behind the camera, paint the clouds ahead lit warm. Over seven golden frames the mean went from 0.368 to 0.357, every frame the same or better (Wakakusa 0.296 to 0.270, Akechidaira's dusk 0.421 to 0.409). Keeping the golden hours' extra 15% saturation only toward the sun was worse (0.371).
 - **Lit rooms and shops in the golden hours**: a late-day route lights 90% of its windows and shop fronts as its golden hours come on, 80% brighter (`GOLDEN_WINDOW_SHARE`, `GOLDEN_WINDOW_GAIN`). Nara Sanjō's true-sun repaint lights the tea shop and the rooms above it against the low sun, where ours stood dark; the frame went from 0.212 to 0.189, and the golden frames without buildings are unchanged.
 - *Tried and left out*: the sunrise's disc and halo drawn for the golden afternoon sun, as two of Irohazaka's repaints paint the low sun ahead. In every golden frame our sun stands outside the view or behind the crowns, so nothing changed (the repaints place it for the picture).
-- **Walls lose 20% of direct light in the golden hours** (`setPeriodCityGolden`). Under the low key the pale tile of Nara Sanjō's zakkyo blew out to flat peach (OKLab L median 0.70, 41% of it above 0.7), where its repaint keeps a warm beige tile grid (0.63, 8%). That side of the frame went from 0.50 to 0.16 and the frame from 0.262 to 0.229; a 35% cut overshot (0.241).
+- **Walls lose 20% of direct light in the golden hours** (`setPeriodCityGolden`; upright faces 50% since the dynamic-range pass's day stretch: see *Sanjō's façade in the golden hours* below). Under the low key the pale tile of Nara Sanjō's zakkyo blew out to flat peach (OKLab L median 0.70, 41% of it above 0.7), where its repaint keeps a warm beige tile grid (0.63, 8%). That side of the frame went from 0.50 to 0.16 and the frame from 0.262 to 0.229; a 35% cut overshot (0.241).
 - **Tried on the wet road and left out** (twenty-sixth pass).
   - *Broader streaks for near sources* (more of a near reflection's width kept): every frame worse, the mean 0.237 to 0.272.
   - *Streaks every 8 cells* (`wetWaveStreak`, was 4), with or without a wider sideways spread (`wetSpread` 4). The texture comes nearer the repaints' (texture gap 0.305 to 0.280: our streaks are 3-5 cells across where the repaints' are 6-13), but the region score is slightly worse (0.231 to 0.235), and frame by frame it is a toss-up: Aizu's moat is better on both, Horikawa worse on both. The Hakone and Yokohama night repaints draw many thin streaks, so they stay every 4 cells.
@@ -921,7 +921,7 @@ which A/Bs live options on one view after a real 30-frame drive.
 - The wet road's streaks are thinner than the street routes' repaints' (3-5 cells across against 6-13) and its stones smaller (2-3 cells at the bottom of the frame against 7-9), but the Hakone, Yokohama and Kanda repaints draw thin streaks, and broader ones tie on the scores. The streaks also cover less of the road than the repaints'. Lit share of the road (x 0.2-0.8, y 0.62-1), ours against the repaint: Kanda night 0.115 / 0.182, Kyoto Shijo dusk 0.104 / 0.139, Kyoto torii 0.093 / 0.172. The street routes' dusk repaints paint broad gold sheets under every lamp; Tokyo's dusk repaint paints a navy road (ours 0.28 against 0.23 median).
 - Golden-afternoon clouds are lit more dimly than in the street routes' repaints (sky-band lit share 0.08 against 0.2).
 - Hakone's and Yokohama's night roads are over-lit (near road lit share 0.06-0.09 above their repaints, warm share 0.07-0.13 above: solid gold columns where the repaints keep a dark pebbled road with tail-lamp streaks and a few speckled gold ones), while Kanda's is under-lit, under the same settings. Both arcade nights are damp (wetness 0.6), not raining, so a rain-only change cannot separate them.
-- No new repaints until the Codex usage limit resets (November 5, 2026); Nara's three repaints were prompted with the sun on the wrong side and count for composition only.
+- Nara's original v1 repaints placed the sun on the wrong side and remain composition references only. The corrected Sanjō, Sarusawa and Wakakusa v2 repaints and Nara Park v1 are available in `art/reference/mockups/` and are the current lighting references (October 30, 2026).
 - Lit shop fronts now streak the road, but their interiors are still plainer than the target's rooms. (They read as rooms under striped awnings; see [the period city](period-city.md).)
 - Lamp-lit crowns read as an even olive; the target's are near-black masses with gold-lit clusters.
 - The far street now carries rows of lamps and lanterns, and its taller flanks lit windows, but the target's distance is a dense city before mountains; ours often ends in a bend or the Yasukuni torii. (Turning fog off for the city's self-lit materials barely changed the distance: it lacked light sources, not clarity.)
@@ -999,5 +999,385 @@ In every mood the frames read as pixel art in the cutscene palette family: squar
 **Other.**
 - **Performance** was measured on a desktop GPU (M4 Max, shared with other work) only. Real phone performance is unmeasured.
 - **Arcade landscape layout.** At 844 × 390 the Arcade canvas backing is 844 × 640 (`#app` min-height in `style.css`, not the renderer).
-- **Palette provenance test.** `tests/pixel-art-palette.test.ts` fails on provenance until the palette is regenerated (open decision 2).
+- **Palette provenance.** Repaired on October 31, 2026: the generated palette records all 101 current cutscene inputs and keeps foliage and lamp tones exact. Earlier failed-test results in this document are historical.
 - Stage-specific limits are listed in the stage sections above.
+
+
+## Graphics takeover — October 31, 2026
+
+Codex recovered the local Claude sessions **In-game racing graphics parity** (`1254b338-df44-4862-82a9-dc9244934533`) and **1986 Japan driving graphics** (`58bf466e-cf62-4302-8700-043a3b10cd3c`). Continue both as one graphics task: detailed 1986 Japanese environments rendered as crisp, full-colour pixel art matching the approved cutscenes. Preserve source artwork, accurate geography and sun directions, the exact centred SORA emblem, and the sprite exception for street people. The existing terrain-verge and Irohazaka shadow corrections were retained.
+
+The optional locked palette was rebuilt from the 101 current cutscene inputs, with foliage and car-lamp colours required as exact anchors. The generator now preserves a livery highlight's warm hue shift when reusing nearby palette colours. The full-colour default remains in place; locked mode, parts previews and palette-derived drawn details use the rebuilt palette.
+
+`node scripts/test-graphics-parity.mjs --url http://127.0.0.1:5180 --out output/browser/graphics-parity` provides maintained capture checks. It keeps one cloned native race state and timestamp per scene, checks repeated captures, and saves pixels, source state and errors. This establishes comparison repeatability, **not** cutscene parity. Keep visual inspection and moving gameplay checks: stationary captures cannot establish motion quality.
+
+Current reference corrections: use Nara Sanjō/Sarusawa/Wakakusa **v2**, plus Nara Park **v1**. The older Nara images placed the sun on the wrong side. Historical city and renderer scores use different region definitions and must not be compared numerically with each other. New evidence is kept under `output/graphics-takeover-20261031/`. A brighter crown-light ceiling (.4/.7 rather than .3/.5) made little visual difference in Nara Park and was not retained.
+
+Remaining work includes wet-road reflection coverage across the night/dusk routes, sunlit road and sky values, distant scenery and tree/ground detail, and motion stability. The existing hand-painted references still show a meaningful quality gap; passing unit tests or a lower colour-region score does not establish a visual match.
+
+Takeover verification: 109 focused tests and 33 desktop/mobile street-practice checks pass; production build succeeds. The maintained harness passes exact repeated and identical-options captures on Tokyo, Hakone, Yokohama and Nikko. It conditions every capture with the same public render seek and warmup because the ad airship eases by render call and glow seeds retain history outside the pixel pass reset. These checks do not certify arbitrary stopped-frame or moving-frame invariance. Final evidence: `output/graphics-takeover-20261031/report.json`.
+
+
+## Dynamic-range pass — October 31, 2026
+
+The user's next priority was road bump mapping and the cutscenes' stronger dynamic range. Same-run grade comparisons on Kanda night, Nara's afternoon forest and Tokyo dawn found different problems at night and by day: the night floor raised shaded facades and dark asphalt too much, while the day grade left its upper midtones compressed. Raising overall exposure would brighten night lights that already match or exceed the references.
+
+The night floor is now **0.14** (was 0.18), and the daytime upper contrast stretch **0.20** (was 0), around the existing L 0.38 pivot. Day shadow contrast stays off, so the already-dark afternoon road is not pulled down. Global exposure, sky grading and full-colour output are unchanged. Day car paint takes half of the upper stretch. The highlight taper retains the existing protection near white.
+
+Evidence: `output/road-range-20261031/dynamic/` contains four same-page exploratory variants per scene; `output/road-range-20261031/final-grade/` validates the exact retained defaults against the old defaults with road relief disabled in both, isolating the grade. Kanda's whole-frame OKLab L p10/median/p90 went **.193/.298/.794 → .157/.263/.794** at the .14 floor (reference **.147/.265/.783**), with no added black pixels or white clipping. Nara's .20 upper stretch raised p90 **.610 → .637** and p99 **.837 → .880** (reference **.688/.882**). Tokyo dawn's p90 rose **.666 → .692** with .20, and p99 **.828 → .890**; it remains visibly detailed in the sign and wall highlights. The dawn frame uses a different progress from its available repaint, so its reference statistics are a mood check rather than a matched composition.
+
+Rejected: a .12 night floor made Kanda too dark (.137/.244 p10/median) and added pure-black pixels; a .30 daytime upper stretch pushed Nara's p99 to .902 and produced more saturated-channel clipping. The .08/.10 lower contrast experiments also darkened the afternoon road, so the retained change only opens the upper range. Exact final-grade validation confirms the Kanda and Nara upper-range statistics above. Nara’s p10 remains .239, road median .302→.303, and black-pixel share .11% is unchanged: the final zero lower contrast preserves shadow tones. Its saturated-channel share rises 1.06%→2.38% (reference 1.69%); white-pixel share stays zero. The dawn numbers are still from the exploratory .20-upper/.08-lower variant; the retained zero lower contrast preserves its original shadow tones. Zero-white clipping is not zero per-channel clipping: saturated signs, paint and warm lights still reach an individual RGB channel's ceiling. This is a tonal-range improvement, not HDR display output or a claim of cutscene parity.
+
+
+## Asphalt relief and preserved daylight — October 31, 2026
+
+The scanned normal map already shaded the road material, but the pixel pass reconstructed a geometric normal from depth for reflections. Asphalt now adds one shared, stationary height field to both the physical shading normal and the pixel pass's reflection normal. Its three filtered bands represent 10 cm/6 mm aggregate, 65 cm/18 mm wear and 1.6 m/20 mm shallow undulation. Each fades as its features become smaller than the projected pixel footprint. The separate geometric normal still handles silhouettes, ground/foliage classification and wet eligibility. No mesh displacement or driving physics changed.
+
+The opaque road material tags its scene-target alpha as .875 (water is .5); majority coverage selects asphalt in the post pass without a new render target. Relief affects the screen-space reflection ray, Fresnel, key-light glints and the analytic street-lamp reflection's vertical lobe. Water, paving and road markings keep their original material response. `roadRelief` defaults to 1, with 0 available for isolated comparisons. Strength 2 added distortion without useful additional depth. This shares the added height field, not the exact scanned tangent-space normal, with the post pass.
+
+For dry roads, source detail also needed to survive the pixel grid. The authored 3 m scan now uses a deliberate **6 m art scale** on the road ribbon, and `roadSpeedSmooth: .35` retains only part of the ground filter on asphalt. Other ground keeps its existing smoothing. At 720p and 1080p the larger scan makes aggregate and cracks legible; stronger scan normals added little, so normalScale remains .55. Six-frame motion strips at 25 m/s favoured partial smoothing over no filtering. This is sampled motion review, not a guarantee for every camera or speed.
+
+Source/resolve inspection found warm Nara asphalt (median OKLab b +.012) becoming purple in the grade (−.018). Dark albedo had incorrectly subjected physically warm illumination to the violet shadow drive. The grade now preserves positive-b source warmth on majority asphalt coverage during dry daylight; cool shade, non-road materials and wet/night grading keep their existing treatment. The protection eases out over wetness .2–.5 and with night level. `dayRoadColourKeep: 0` isolates the old behaviour. The world already folds rainfall into its road-wetness input.
+
+Evidence: `output/road-range-20261031/accepted-parity/` contains final captures and exact repeated-frame checks on Tokyo, Nara and all three Arcade tracks. Turning daytime road-colour preservation off/on produces byte-identical frames on Tokyo night, Hakone and Yokohama. `comparison.png` shows the full pass before (left) and after (right), Tokyo above Nara; captured native state/options/time match across those source revisions. Production build and 81 focused tests pass. The adapted bundled web-game client also reaches live Nara driving after throttle/steer/brake input, with no console errors; screenshots and text state are in `gameplay-final/`.
+
+Remaining visual gap: the Nara reference has a wider range of warm sunlight patches across the asphalt. The earlier broad-region median .302 included objects and was not evidence that the asphalt itself matched. Asphalt-only reference p10/median/p90 is .264/.343/.463, compared with .243/.269/.302 before the larger-scan and local-colour correction. This pass improves material readability, reflection response and tonal separation; it does not establish complete cutscene parity.
+
+
+## Sun flecks through the crowns — October 31, 2026
+
+The remaining gap from the asphalt pass was Nara Park's road (lap 0.6): one even shade where the cutscenes paint dappled sun on the ground under trees (`nara-detail-v1`). Forcing full-strength shadows showed why. The whole road lay in the shade of the roadside maples and of the forest behind them; removing either one's shadows still left it shaded, removing both lit it. The procedural crowns are closed leaf meshes and the forest's leaf cards overlap densely, so their shadows were solid, and with the sun behind the camera the shade kept 85% of the key: the road read flat (asphalt-only p10/median/p90 .218/.259/.302).
+
+`canopy-gaps.ts` gives every crown's directional shadow pass one shared gap field, laid out in the plane across the key light's direction (two value-noise octaves, 1.1 m cells and 2.7 times finer). A gap discards a whole column of leaves along the sunbeam, through every crown it crosses, so sunlight reaches the ground as flecks stretched by the sun's elevation; the field is fixed in the world, so the flecks hold still while the shadow volume follows the race. It applies to the procedural maple, cherry and broadleaf crowns (`createTree`), the forest's leaf cards (`asset-scenery.ts`, `*leaves*` materials) and the period city's flora. Half of the field is open (`CANOPY_GAP_SHARE` 0.5; the threshold's fit to the open share was measured on 200,000 samples). The crowns' own colour pass is unchanged. With flecks to carry the light, the golden shade with the sun behind the camera keeps 55% of the key (`GOLDEN_SHADOW_OPEN_BEHIND`, was 85%): at 85% the flecks barely showed.
+
+Asphalt-only lightness (p10/median/p90, near road), before → after, against Nara's true-sun repaints:
+
+| Frame | Before | After | Repaint |
+|---|---|---|---|
+| Sanjō, lap 0.05 | .318/.354/.403 | .306/.343/.390 | .299/.374/.437 (v2) |
+| Sarusawa, lap 0.185 | .301/.338/.379 | .284/.335/.378 | .262/.322/.388 (v2) |
+| Nara Park, lap 0.6 | .218/.259/.302 | .217/.276/.337 | .222/.297/.406 (v1) |
+| Wakakusa, lap 0.95 | .298/.336/.382 | .266/.320/.371 | .265/.345/.464 (v2) |
+
+Region scores (`match-score.mjs`): Sanjō .300 → .300, Sarusawa .236 → .218, Nara Park .302 → .305, Wakakusa .226 → .220, Kyoto's torii avenue .399 → .396. Irohazaka's bends got worse (.351 → .371): its valley lies in the mountains' shade, which the race-local shadow map cannot cast, and the flecks lit the road its repaint keeps dark. A route with a `sunHeight` therefore keeps solid crowns, and its frames are unchanged. Tokyo's night and sunrise and the three Arcade tracks are visually unchanged: at most 408 of their 921,600 pixels each (0.04%) differ by more than 6 levels summed over RGB. Aizu's castle moat at dusk changes in 1.1% of its pixels. An eight-frame strip at 25 m/s through Nara Park shows no added flicker (mean frame-to-frame change on the near road 25.75 solid, 26.09 with flecks).
+
+Nara Park's v1 repaint, although prompted with the sun behind and to the left, paints the low sun ahead-left over the pond, so its road is backlit with glare. Judge its composition and colour, not its light direction.
+
+*Tried and left out:* a 1.5 times brighter golden key (the flecks reached the repaints' brightness, but the crowns washed out and the red car turned pink), and a 1.25-1.4 times lighter golden road albedo (closer on Sanjō, Wakakusa and Nara Park, but Sarusawa's road median went to .366-.382 against its repaint's .322).
+
+Remaining gap, frame by frame: the crowns. The repaints draw red maples lit gold on their sunlit side and deep crimson beneath; ours are an even orange.
+
+
+## Maple crowns — October 31, 2026
+
+The repaints' maples are red in the mass, crimson underneath and gold only where the sun catches their tops, and their edges read as star-shaped leaves. Ours were an even orange of oval flakes (crown hue median 41-43 degrees against the repaints' 31-34 at Wakakusa and Nara Park; OKLab, warm high-chroma pixels in the upper corners). Measured before the grade, the scene was already orange (Wakakusa 47 degrees; the grade took it to 43), so the cause was the crown shading, not the grade.
+
+- **A maple crown of its own** (`scenery.ts`). The roadside maples were the cherry template recoloured. On the autumn routes `setFloweringCrown` now swaps each flowering tree's crown for a maple's on the same trunk and limbs: five-lobed palmate leaves (12 vertices against the oval's 10), each leaf's normal 65% that of a rounded crown (an ellipsoid about its middle) and 35% its own, where the cherry's crown normal points nearly straight up, so the sunlit side and the underside part. The maples' vertex ramp is neutral (`#887878`-`#dfd2cd`): the cherries' pink tinted the tones toward magenta. A ramp matched to the pink on luminance took 28% of its red, which lights a crimson leaf almost alone, and the crowns darkened (Wakakusa crown L median 0.56 to 0.50; mean region score 0.325). The cherries keep their own crowns: Tokyo and the Arcade tracks are visually unchanged (at most 0.11% of their pixels move by more than 6 levels summed over RGB, Tokyo's city flora).
+- **Gold only where a leaf faces the sun** (`crownLightGlsl`, shared by the maples, the forest's autumn crowns and the city's flora). The direct share (`sunlit`) is high on any leaf the sun reaches, so warming by it turned most of every crown orange. The warming now follows how squarely the leaf faces the key light; a lit leaf turned from the sun stays crimson.
+- **Sun through the leaves** (`crownTranslucencyGlsl`). With rounded normals the side of a crown turned from the sun sank to maroon (Nara Park's nearest crown, seen from below). A red or orange crown now passes the key through its leaves on that side (the forest and flora 0.75 of it, the maples all of it, at any hour: at dusk the maples skip the painted crown light, and Kyoto's crowns had darkened).
+
+Crown hue median (left and right upper corners), before → after against the repaint: Nara Park 34.5/43.0 → 30.3/38.2 (33.4/34.4), Wakakusa 42.7/41.0 → 35.9/37.0 (31.7/33.6), Irohazaka's bends 40.8/38.4 → 31.1/35.3 (33.6/32.1), Kyoto's torii avenue 24.9/28.1 → 27.4/29.2 (28.4/29.5). Nara Park's crown lightness median went from 0.49 to 0.53 (0.55).
+
+Region scores (`match-score.mjs`): Nara Park .305 → .257, Irohazaka's bends .351 → .347, Sanjō .300 → .300, Sarusawa .218 → .220, Wakakusa .220 → .224, Aizu's moat .196 → .202, Irohazaka's maples .449 → .487 and Kyoto's torii avenue .396 → .435; the mean of the eight from .304 to .309. On the maples frame the true sun stands ahead and to the right (the camera heads south-southwest, the sun at bearing 245), so the camera sees the crowns' backlit sides: the repaint keeps them dark red against the glow, where the light through the leaves lifts ours (the right side's lightness median 0.05 above the repaint's before, 0.15 after). Kyoto's dusk crowns stay darker than its lamp-lit repaint's (L median 0.38-0.41 against 0.52-0.54), and the wet road mirrors them darker.
+
+- **A valley's crowns answer less of the sun** (`crownLight.z`, `VALLEY_CROWN_SUN` 0.35 on a route with a `sunHeight`). Scored against the true-light mockups below, Irohazaka's maples frame read bright orange (0.348): its valley lies in the ridges' shade, where the stand-in key lit the crowns' gold tips and the light through their leaves in full. At 0.35 that frame scores 0.292 (0.309 before this pass) and the bends 0.250 (0.259); 0.5 gave 0.304/0.246, 0.2 0.290/0.256. The orange still on the right of the maples frame is the orange tone of one crown, not light.
+
+Re-scored against the true-light mockups (next section), the pass helps: Nara Park .320 → .273, Sarusawa .233 → .219, Wakakusa .313 → .307, Irohazaka's bends .259 → .250 and maples .309 → .292; Kyoto .155 → .157 and Aizu .186 → .190 are within noise, and the other six frames are unchanged. Kyoto's crowns match its mockup (hue median 27.4/29.2 against 27.7/29.0 degrees, lightness median 0.38/0.41 against 0.38/0.42): the older repaint painted them brighter than a lamp-lit dusk gives.
+
+*Tried and left out:* gold on any leaf facing the sun more than 0.6, up to 60% of its red in green (large yellow patches where the repaints sprinkle orange-gold); the rounded normals at 75% without light through the leaves (the nearest crowns maroon); raising the crown light's ceiling (0.4/0.7 for 0.3/0.5) on its own (the crowns' p90 lightness rose by 0.01).
+
+Evidence: `output/maple-crowns-20261031/` (`comparison.png`, before left; `near-crown-zoom.png`, before, after and the repaint; `report.json`).
+
+
+## True-light mockups — October 31, 2026
+
+At the user's request, gpt-6-astra (Codex CLI, ultra reasoning, built-in image_gen) repainted every graphics-parity scene from its current race frame in the cutscene style, so each scene has a comparison target with its true light. Prompts, sources and references are in `docs/art-prompts/race-mockups-2026-10-31.json`; the images are `art/reference/mockups/*-v2.png` and `*-v3.png` beside the earlier versions, which are kept. All thirteen came back in 92-157 s each, at 1672x941.
+
+Each prompt places the route's real sun for its season relative to the camera's heading, recorded from the race after drawing the scene's own state: late-autumn afternoon at bearing 240 (Nara) and 245 (Irohazaka, hidden behind the ridges), dusk with the sun just set at 245 (Kyoto, Aizu), Tokyo's spring sunrise at 83, night with no sun (Kanda, Hakone, Yokohama), and on the Arcade's Nikko the sun where the race paints it. Headings: Nara Sanjō, Sarusawa and Wakakusa east (sun behind and to the right), Nara Park north (behind and to the left), Irohazaka's bends east-northeast (directly behind) and maples south-southwest (ahead and to the right), Kyoto's torii avenue north-northwest (sunset to the left), Aizu's moat north (behind and to the left), Tokyo's sunrise frame northwest (behind and to the right).
+
+Two lighting findings while preparing them: Tokyo's race sunrise stood at bearing 7 (north), where the real spring sun rises at 83, so the race put the sunrise glow ahead and to the right of that frame and the true sun is behind and to the right (fixed: see *Tokyo's true sunrise* below); and Kyoto's dusk key light came from bearing 126, opposite the true afterglow at 245 (fixed: see *Kyoto's and Aizu's afterglow* below).
+
+Region scores (`match-score.mjs`) of the current frames against these mockups, after the maple crowns: Sanjō .385, Sarusawa .219, Nara Park .273, Wakakusa .307, Irohazaka's bends .250 and maples .292, Kyoto's torii avenue .157, Aizu's moat .190, Kanda .185, Tokyo's sunrise .223, Hakone .183, Yokohama .130, Nikko .281; mean .237 (.243 before the maple crowns). The largest gaps: Sanjō's left side (the pale office building lit far brighter than the mockup's, lit share +0.48), Wakakusa's crowns on the right (the mockup's lit 0.66 against our 0.52 median), and Nikko's sky and horizon.
+
+Evidence: `output/true-light-mockups-20261031/` (frame and mockup side by side for each scene; `report.json`).
+
+
+## Tokyo's true sunrise — October 31, 2026
+
+Tokyo races in cherry-blossom spring (see [the cutscene art](cutscene-art.md)), when the sun rises at bearing 83 over Tokyo; at the 8-11 degrees the race's sunrise stands (`SUNRISE_ELEVATION` plus its rise), an early-April sun is due east. `SUNRISE_AZIMUTH` put it at bearing 7, in the north, so that the sun would enter the chase view on the final chapter's north-west run. It now stands at its true bearing, 88 (`SUNRISE_BEARING`); the key swings 38 degrees from the dusk key (bearing 126) instead of 119. Only Tokyo's dawn uses it: the Arcade nights and the dusk routes never swing to it, and Nikko has its own sun. On the final chapter's run north (laps 0.7-0.97, headings 347-19 degrees and 320 at lap 0.8) the sun now stands to the right, out of view; on the east-south-east run before it (dawn 0.8, lap 0.6) it rises ahead and to the left.
+
+With the sun behind the camera the sky ahead took the away gradient's violet. The clouds away from a low sun are front-lit coral at sunrise as in the golden hours (`painted-sky.ts`, `max(skyRaceGolden, skyRaceCloud.z)`), as the true-light mockups paint them. Nikko, the sun ahead, changes in 0.04% of its pixels.
+
+Region scores against true-light mockups painted from the new frames (`tokyo-sunrise-l080-v3`, `-l070-v1`, `-l060-v1`), old sunrise → true sunrise: lap 0.8 0.262 → 0.276, lap 0.7 0.363 → 0.287, lap 0.6 0.670 → 0.208; mean 0.432 → 0.257. Lap 0.8's mockup also lights the right-hand building fronts warm, though they face away from the eastern sun.
+
+Two lessons for mockups. A mockup keeps its source frame's sky: `tokyo-sunrise-l080-v2`, painted from a frame with the northern sunrise, kept its glow ahead although its prompt put the sun behind (against it the true sunrise scored 0.337, the old 0.223). Make mockups after a lighting change from the changed frames. And a mockup takes the prompt's wording over the frame: a first try at these three asked for cherry trees and a dry road, and Codex replaced the river wall's green trees with cherries and dried lap 0.6's wet road (discarded). Describe what the frame shows.
+
+Evidence: `output/tokyo-sunrise-20261031/` (old sunrise, true sunrise and mockup for each frame; `report.json`).
+
+
+## Kyoto's and Aizu's afterglow — October 31, 2026
+
+Kyoto and Aizu race through a late-autumn evening, but with no sun bearing their key light and the warm side of their sky stood at the generic dusk key, bearing 126 (east-south-east): about where Tokyo's pre-dawn glow lies, and opposite the evening's afterglow, which stands where the sun has just set, at 245. Both moods now take `sun: 245` (`street-scenes.ts`). Their daylight never reaches the golden hours (Kyoto 0.55 → 0.22, Aizu 0.6 → 0.38), so of a late-day route's light they take only what dusk uses: the key and the sky's warm side keep the sun's bearing, and the golden afterglow sky holds through dusk toward it, fading below daylight 0.3, as on Irohazaka's Akechidaira. Lamps, windows, wet roads, shadows and the crowns are unchanged.
+
+The six dusk frames checked (headings in degrees): on eastbound Shijō (99) the old key lit a warm glow ahead, where an evening looking east has none; now the sky ahead is violet with coral clouds catching the sun set behind. On Aizu's station street (218) the warm afterglow now stands ahead and to the right, and at the Heian torii (345) to the left, where the true-light mockup paints it. A control frame (Nara, lap 0.95) was identical in both capture runs.
+
+Not scored: a parallel session was rebuilding the driving model in the same working tree, and the harness's frames now place the cars and camera differently from the true-light mockups' source frames, so region scores against them measured composition rather than light (Kyoto's torii frame from 0.157 to 0.326 with the old light alone). Re-score once the driving work settles, from new mockups of the then-current frames.
+
+Evidence: `output/dusk-afterglow-20261031/` (before and after for each frame; `report.json`).
+
+
+## Sanjō's façade in the golden hours — October 31, 2026
+
+On Sanjō-dōri (lap 0.05) the pale tile façade that fills the left quarter of the frame measured OKLab L median 0.72, three quarters of it above 0.7. Its true-light mockup paints it in shade at 0.51; the earlier true-sun repaint, painted under the same light, keeps it lit at 0.64. Its lit windows (medians 0.79-0.87) were as bright as the mockup's (0.62-0.77), but against a wall nearly as pale they read washed out.
+
+Refine round 4 had already cut the walls' direct light by a fifth in the golden hours for this façade (`WALL_GOLDEN_CUT`, `period-city/materials.ts`), tuned before the dynamic-range pass. That pass's daytime upper stretch (`contrastLight` 0.2) lifts everything above L 0.38, and took the façade back over 0.7. Upright faces now lose half their direct light in the golden hours, the landmarks' floodlit plaster as well as the walls (the floodlit material lost none). Half the light is about what the key gives without its golden-hours boost (`GOLDEN_KEY`). That boost is there for the road and verges under the raised stand-in key, so flat tops (copings, parapets, sills) keep the full sun as the road does, where round 4's cut took a fifth of theirs too. Only Nara and Irohazaka reach the golden hours.
+
+A/B in one capture run, the old behaviour set by a shader hook (the hooked new code pixel-identical to the plain build):
+- Sanjō's façade: L median 0.72 → 0.64 (p10-p90 0.63-0.74 → 0.56-0.66), above 0.7 76% → 6%, hue 55 → 40 degrees. Region score against the true-light mockup 0.447 → 0.325, against the earlier repaint 0.366 → 0.263.
+- The temple wall along Sarusawa-ike (floodlit): L median 0.83 → 0.73, where the mockups paint 0.68-0.70. Against the true-light mockup 0.264 → 0.264 (its side of the frame better, the far wall now darker than the mockup paints it); against the earlier repaint 0.290 → 0.269.
+- Irohazaka: only the retaining walls' copings and faces change (the bends 2.2% of pixels, the maples 0.3%); both scores unchanged (0.297, 0.339).
+- Kyoto's torii avenue at dusk and Tokyo's sunrise are pixel-identical, as are Nara Park and Wakakusa (no walls in view).
+
+Rejected: dropping the upper stretch (`contrastLight` 0) brought the façade down too (0.66), but darkened Nara Park and Wakakusa against their mockups (0.285 → 0.330, 0.304 → 0.367). A 35% cut left a fifth of the façade above 0.7.
+
+Still open: the true-light mockup keeps the façade in shade, as the buildings across the street would cast it under the true 12-degree sun; under the stand-in key at 30 degrees (`GOLDEN_KEY_ELEVATION`) their shadows fall short of it. The mockups' tile joints are darker than ours, and their lit windows a deeper amber (OKLab chroma medians 0.11-0.15 against our 0.09-0.12). The capture frames place the cars differently from the mockups' source frames (the parallel driving-model work), so these scores compare the two versions within one run, not with earlier passes (Sanjō scored 0.385 on the earlier frames).
+
+Evidence: `output/sanjo-facade-20261031/` (before and after for each changed frame, side by side with the true-light mockup; `report.json`).
+
+
+## Wakakusa-yama's summit lawn — October 31, 2026
+
+Near the top of the Wakakusa-yama driveway (lap 0.95) the right side of the frame looks south-east over the summit's lawn, a park district beside the road. The route's hillside (`terrain.ts` `createSlopeTerrain`) covered it with the same dark russet leaf litter as the forest floor, tuned for Irohazaka's wooded bank. Wakakusa-yama is open grass, though: the far land already paints its lawns golden tan (`#9a8450`), the victory cutscenes seat the crew on its grass, and the mockup asked for "golden grass" (v2) paints a golden slope beyond the fence. Our right side was as light as v2's but held half its warm, sunlit share (OKLab L median 0.46; warm share 0.20 against 0.38).
+
+The hillside now takes a `lawn(p, side)` mask (world.ts: the road's district on that side is a park), decided per vertex by the nearest road station's side (`roadSide`, the period city's own rule; a test checks they agree). On the autumn hillside a lawn is late-autumn straw in the far land's tan, its edge ragged. Near the car it grows tufts about 20 cm across, tawny between the blades and gold where they catch the light, with a scatter of fresh leaves. Both fade where a scene pixel spans more ground than they do (`fwidth` of the world position), because there they only shimmer. On Nara the mask covers 2,264 of the hillside's 38,676 vertices; Irohazaka's hillside has none.
+
+A/B in one capture run, the old shading set by zeroing the mask (the restored mask pixel-identical to the plain build): Wakakusa's region score against the true-light mockup 0.304 → 0.240, against v2 0.263 → 0.226; its right side 0.56 → 0.23 (L median 0.46 → 0.53, warm share 0.20 → 0.40). Sanjō, Sarusawa, Nara Park and Irohazaka's bends are pixel-identical.
+
+Variants, with the lawn's flicker in motion (40 frames at about 100 km/h with no history reset: the share of the lawn's pixels whose lightness jumps by more than 0.04 against both neighbouring frames; the old litter on the same pixels 15%):
+
+| Lawn | True-light mockup | v2 | Flicker |
+|---|---|---|---|
+| flat straw | 0.245 | 0.229 | 19% |
+| soft tufts | 0.258 | 0.238 | 21% |
+| two-tone tufts | 0.255 | 0.229 | 28% |
+| coarser two-tone tufts | 0.256 | 0.228 | 28% |
+| tufts fading to a mid tone | 0.260 | 0.242 | 17% |
+| **tufts fading to the flat straw (kept)** | **0.240** | **0.226** | **15%** |
+| kept, plus metre-scale mottling | 0.243 | 0.229 | 18% |
+
+Still open: far from the car the lawn is a plain golden tan. The mockups paint grass as blade strokes, which ground seen edge-on cannot show without shimmering. The true-light mockup (v3) paints the Nara basin and a sunset glow on that side, as its prompt asked for the basin, where the frame looks south-east over the summit; v2 is the reference for the lawn.
+
+Evidence: `output/wakakusa-lawn-20261031/` (before and after, the right side against v2, the lawn variants; `report.json`).
+
+
+## Nikko's dawn sky — October 31, 2026
+
+**Composition first.** The harness's Arcade frames now start elsewhere. Since the rigid-body driving model, the player stands 39.5 m along Nikko's lap after the scripted start instead of 94.6 m, so the current frame no longer matched its mockup's (0.534 against the morning's 0.281). The comparison below replays the morning's saved race state (`output/road-range-20261031/final-parity/arcade2/state.json`), which scores 0.282 as before. Arcade captures are repeatable within a run: three identical variants gave identical frames.
+
+**What differed** from the true-light mockup (`nikko-sunrise-v2`) and both dawn cutscenes (community-dawn, sunrise-crew):
+- **Sky toward the sun.** The sunrise stops stay salmon to the top of the view. The top band measured OKLab hue 8-52 at chroma 0.10-0.115; the mockup runs from magenta-violet through rose and coral to gold (hue 329-60, chroma 0.11-0.15).
+- **Clouds.** Nearly half the popcorn lobes were lit whole and the rest lavender, a camouflage of gold and lavender lobes. The mockup paints violet puffs, darker than the sky, with coral and gold undersides.
+- **Ridges.** The sky's far mountains were the gold toward the sun darkened by 38%: tan hills (`#ac7149`, hue 54-63) blending into the sky. The mockup's are mauve to plum (`#8e5979` far, `#594455`-`#654c6a` near) against the glow.
+- **Glow.** The mockup's gold reaches some 25 degrees from the sun; ours faded within 10.
+
+**The change** (`painted-sky.ts` `setRacingDawn`). The world sets it to the sunrise weight on routes without a late-day sun, which means Nikko and Tokyo's last chapter. The late-day routes keep their afternoon sky; their sunrise weight stands at 0.2-0.8 in the golden hours, so it cannot gate this. At a dawn:
+- the stops toward the sun are `RACE_DAWN_TOWARD`: gold at the horizon (L 0.85, hue 72), coral at 12 degrees, rose at 15 and magenta-pink from 18 (L 0.65, hue 353), at chroma 0.12-0.15;
+- the ridges are mauve, the nearer darker;
+- the halo spreads wider (a further 0.3 falling off over 0.4 rad);
+- the puffs toward the sun are backlit. Their bodies come from higher in the gradient and darker (× 0.8), 30% are lit whole (was 42%), and their undersides are lit two cells deep. All of this is weighted by how directly the view faces the sun, so puffs away from it keep their coral faces. Unweighted, it worsened Tokyo's lap 0.8, where the sun is behind the camera (0.306 → 0.320-0.334).
+
+**Variants** (Nikko's region score against v2 and the older v1, all from one replayed state):
+
+| Variant | v2 | v1 |
+|---|---|---|
+| as before | 0.282 | 0.210 |
+| mauve ridges only | 0.256 | 0.209 |
+| violet upper sky (the stops toward the sun mixed 40-70% toward the away side's violet) | 0.329-0.357 | 0.281-0.309 |
+| magenta stops with the gold only below 7 degrees | 0.305-0.321 | 0.258-0.274 |
+| dawn stops, ridges and wider glow | 0.230 | 0.219 |
+| **plus backlit puffs (kept)** | **0.235** | **0.222** |
+
+The violet upper sky is the one round 4 rejected; mixed toward the away side it turns greyish lavender and loses the mockup's coral and gold. The backlit puffs cost 0.005 in the region score, which does not see cloud structure, and are kept because they paint the mockup's and community-dawn's clouds where whole-lit lobes paint camouflage.
+
+**Results** (A/B in one capture run per page load; before = `setRacingDawn` pinned to 0):
+- Nikko against v2: 0.282 → 0.235 (sky 0.42 → 0.29, horizon 0.36 → 0.21). The top band's mean colour is now RGB (203, 111, 133) against the mockup's (204, 112, 137); before, it was (205, 120, 114). Against v1, painted from an older frame with an orange sky: 0.210 → 0.222.
+- Tokyo's sunrise frames: lap 0.8 0.306 → 0.306, lap 0.7 0.309 → 0.305, dawn 0.8 lap 0.6 0.246 → 0.244.
+- Every other scene is pixel-identical: Nara × 4, Irohazaka × 2, Kyoto, Aizu, Kanda, Hakone and Yokohama.
+- Flicker of the changed sky in motion (Nikko, 40 frames at about 100 km/h, on the pixels that differ): 3.16% → 3.07%.
+
+**Still open:**
+- Nikko's sun stands 11 degrees up and 30 degrees right of the start straight, behind the right-hand building, while the mockup and the cutscenes set it on the horizon at the end of the street. It is in view over most of the lap.
+- The mockup's lower sky is brighter still: its sky region is 37% above L 0.7, ours 26%.
+
+Evidence: `output/nikko-dawn-20261031/` (before, after and mockup for the start frame and the lap; `report.json`).
+
+
+## Irohazaka's valley shade — November 1, 2026
+
+**What differed** from the true-light mockups (`irohazaka-maples-l450-v2`, `irohazaka-bends-l300-v2`). Their prompts give the true sun: bearing 245, about 9 degrees up, hidden behind the valley's ridges. They keep the road cool grey-violet and the lower maples crimson in the ridges' shade, with only high treetops catching gold.
+- **Light.** The renderer lit the whole climb with the golden hours' extra key (`GOLDEN_KEY`, +2 over the day's 1.8). The maples' crowns stood orange (OKLab hue 39-58) against the mockup's crimson (24-30), and the near road was warm brown against cool violet-grey.
+- **Ridges.** The sky's painted far ridges stood tan (`#ab5938`-`#b1602e`, L 0.55-0.57): the sky's gold toward the sun, darkened. The mockups paint them hazed blue-violet (`#604986`, `#4f4486`, `#3c3a6b`; L 0.36-0.49, hue 284-325).
+
+**The terrain agrees with the mockups.** Marching the far land's elevation grid (DEM10B) from 3 m above each road sample toward bearing 245, the ridges rise 14-28 degrees above the road over the whole climb, and still 10.2 at Akechidaira. The 9-degree sun never clears them (`output/irohazaka-shade-20261101/terrain-horizon-toward-sun.json`).
+
+**The change.**
+- **No extra key in the shade** (world.ts). A route whose own hills hide the sun (its `sunHeight`) takes no golden extra key. Irohazaka's afternoon key is 1.8 instead of 3.8; the fill, shadows, crowns and walls are unchanged.
+- **A route's own ridges** (`ridges` in a route's mood, through `RacingSkyMood.ridges`). The sky paints the far ridges by day in the route's colour, the nearer a third darker, and gives way to the night's below dusk. Irohazaka's is `#5f4a88`.
+
+**Variants** (region scores against v2; maples / bends):
+
+| Variant | Maples | Bends |
+|---|---|---|
+| as before | 0.339 | 0.297 |
+| no extra key | 0.180 | 0.292 |
+| a quarter of the extra key | 0.206 | 0.278 |
+| key cut below the day's (× 0.4 of the old) | 0.176 | 0.311 |
+| key × 0.25 | 0.214 | 0.352 |
+| key × 0.25 with a cool lavender fill | 0.261 | 0.372 |
+| key × 0.1 with a cool lavender fill | 0.358 | 0.450 |
+| blue-violet ridges only | 0.323 | 0.272 |
+| **no extra key and blue-violet ridges (kept)** | **0.177** | **0.285** |
+
+Rejected:
+- **Blue-violet ridges for every afternoon route.** Nara Park went 0.284 → 0.302 and Wakakusa 0.240 → 0.259: Nara's mockups paint its hills lit by the sun behind the camera, which the sky's own warm colour suits.
+- **Taking the key below the day's or cooling the fill.** Both darken the bends' road and verges below the mockup's.
+
+In these hook runs a variant inherited a little of the one before it (the restored maples frame scored 0.343 against 0.339). The final run alternates before, after, before, after, and both pairs are identical.
+
+**Results** (A/B in one capture run; before = a hook restoring the extra key and the sky's own ridges):
+- Against the true-light mockups: maples 0.342 → 0.177, bends 0.297 → 0.285.
+- Against the older repaints, painted under the old sunlit light: maples 0.481 → 0.492, bends 0.391 → 0.330.
+- The other 13 frames are pixel-identical: Nara × 4, Kyoto, Aizu, Kanda, Tokyo's sunrise × 3 and the three Arcade tracks.
+- Flicker on the maples climb in motion (40 frames at about 100 km/h, on the pixels that changed): 25.4% → 23.3%.
+
+**Composition:** the street frames still match the mockups' source frames, except that the red rival now sits nearer the camera (the rigid-body driving model). Their road regions include more of it, so compare scores within one run.
+
+**Still open:**
+- On the bends, the river under the gorge reflects a pale pink sky, brighter than the mockup's (left side: lit +0.08).
+- The mockups' high treetops catch gold light, which the race's crowns, already at 35% of the sun on this route, do not single out.
+
+Evidence: `output/irohazaka-shade-20261101/` (before, after and mockup for both frames, the maples frame's horizon, the terrain table; `report.json`).
+
+
+## Sanjō and the afternoon sky — November 1, 2026
+
+**The façade's shade does not hold up.** The true-light mockup (`nara-sanjo-l050-v3`) paints Sanjō's pale office façade in shade (OKLab L 0.50), as if the buildings across the street shaded it from the true 12-degree sun.
+- **Geometry:** the façade faces south, 60 degrees off a sun at bearing 240. The shops across the street stand about 30 m away and 7-8 m tall, and a 12-degree sun casts their shadows toward bearing 60, so reaching the façade needs a building at least 12.8 m tall.
+- **Test:** with the key at the true 12 degrees the façade took no shade; its L rose from 0.63-0.66 to 0.65-0.68.
+- **The other mockup:** the earlier repaint under the same light (`v2`) paints the façade lit at L 0.62-0.66, as ours stands. The shade is v3's own.
+
+**The stand-in key stays at 30 degrees.** Lowering it toward the true sun worsened every Nara frame: the mean of Sanjō, Sarusawa, Nara Park and Wakakusa went from 0.278 to 0.292 at 20 degrees, 0.300 at 16 and 0.313 at 12. The long shadows darken the road and verges below the mockups', and Nara Park goes from 0.284 to 0.337.
+
+**What every late-afternoon mockup shares.** Against all seven late-afternoon frames' mockups, our upper sky was bluer and had about half their bright cloud edges (top 22% of the frame):
+
+| Frame | Mean RGB, ours | Mean RGB, mockup | Bright share (L above 0.7), ours / mockup |
+|---|---|---|---|
+| Sanjō | 129, 88, 139 | 142, 91, 128 (v3); 140, 95, 140 (v2) | 0.070 / 0.131-0.152 |
+| Nara Park | 135, 65, 104 | 146, 72, 92 | 0.037 / 0.074 |
+| Wakakusa | 142, 82, 118 | 162, 91, 104 | 0.091 / 0.156 |
+| Irohazaka's bends | 111, 62, 104 | 133, 64, 96 | 0.025 / 0.057 |
+
+**The change** (`painted-sky.ts` `RACE_GOLDEN_AWAY`). A late-day route's afternoon sky away from the sun takes its own stops: rose to magenta-violet, lighter and warmer than the sunrise's blue-violet (zenith hue 298 against 287, the upper stops 3 points lighter). They mix in by the golden hours times the afternoon palette weight, so the dusk routes (Kyoto, Aizu) keep their afterglow.
+
+**Results** (A/B in one capture run, before, after, before, after; both pairs identical):
+
+| Frame | Before | After |
+|---|---|---|
+| Sanjō, against v3 | 0.324 | 0.316 |
+| Sanjō, against v2 | 0.262 | 0.260 |
+| Sarusawa | 0.263 | 0.252 |
+| Nara Park | 0.284 | 0.265 |
+| Wakakusa, against v3 | 0.240 | 0.217 |
+| Wakakusa, against v2 | 0.226 | 0.226 |
+| Irohazaka's bends | 0.285 | 0.281 |
+| Irohazaka's maples | 0.177 | 0.181 |
+
+Sanjō's upper sky now averages RGB (143, 93, 139), Wakakusa's (155, 86, 118). Kyoto, Aizu, Kanda, Tokyo's three sunrise frames and the three Arcade tracks are pixel-identical.
+
+Rejected:
+- **Undoing the tone map's highlight desaturation in the sky's inverse.** The cream puffs low in Sanjō's sky (L 0.90, chroma 0.067, where the mockups paint saturated gold at 0.82-0.84 and 0.11-0.12) are authored coral that Neutral's desaturation whitens. Inverting it exactly moved the other frames by ±0.005 and took Tokyo's wet dawn from 0.244 to 0.408: near-white sky paint, such as the sun's halo, needs negative channels and turns red in the road's mirror.
+- **Brighter front-lit puffs in the golden hours** (coral front light 0.6 → 0.9, 55% of the puffs lit). Aizu's dusk went 0.253 → 0.415 and Sarusawa 0.263 → 0.278.
+
+**Still open:** v3's shaded façade, which the scene's geometry does not support; the cream low puffs, which come from the tone map; the brighter cloud edges every mockup paints.
+
+Evidence: `output/sanjo-sky-20261101/` (Sanjō at 30 and 12 degrees beside both mockups; before, after and mockup for the late-afternoon frames; `report.json`).
+
+
+## Tokyo's dawn light — November 1, 2026
+
+**What differed.** Against their true-light mockups (`tokyo-sunrise-l080-v3`, `-l070-v1`, `-l060-v1`), Tokyo's sunrise frames stood darker almost everywhere: OKLab L −0.04 to −0.08 in every region, the road most. Ours sat at L 0.22-0.29; the mockups add warm sunlit patches at 0.35-0.43 between long shadows. Lap 0.7's sky also had about half the mockup's bright peach clouds (L 0.78, 20% of the sky, against ours at L 0.69, 11%). Nikko's road stood just as dark against its own dawn mockup. A dawn keeps the true low sun as its key (8-11 degrees), and a road under it takes only about a fifth of the key's light.
+
+**The change** (world.ts `DAWN_FILL`). A spring dawn (Nikko's Sakura Pass, Tokyo's last chapter; the same dawn weight as the sky's `setRacingDawn`) adds 0.7 to the hemisphere fill. The key, its height and the shadows are unchanged.
+
+**Results** (A/B in one capture run, before, after, before, after; both pairs identical):
+
+| Frame | Before | After |
+|---|---|---|
+| Tokyo lap 0.8 | 0.306 | 0.262 |
+| Tokyo lap 0.7 | 0.305 | 0.269 |
+| Tokyo dawn 0.8, lap 0.6 | 0.244 | 0.243 |
+| Nikko | 0.235 | 0.200 |
+| Nikko against the older orange-sky mockup | 0.222 | 0.233 |
+
+The other 11 frames are pixel-identical. Flicker on Nikko in motion (40 frames at about 100 km/h, on the pixels that changed) goes from 8.4% to 8.9%; the near road gains about a point.
+
+**Rejected: the golden hours' key at dawn.** I tried lighting a dawn as the late-day routes are lit: the key raised to 30 degrees (`GOLDEN_KEY_ELEVATION`, with the painted sun kept at its true height), an extra key and the golden fill.
+- **Stills:** it scored better (Tokyo 0.252, 0.270, 0.225, Nikko 0.175 with half the golden extra key; the full extra key gave Nikko 0.167 but Tokyo's lap 0.7 0.285).
+- **Motion:** the raised key casts crisp branch shadows across the near road, which blinked. Nikko's near road went from 2-4% to 9-11% of its pixels, and the overall flicker from 8.1% to 10.6%.
+- **Finding the cause:** with the key's shadows switched off, raising it added no flicker; brightness alone added little.
+- **Variants:** the golden hours' open shadows (Nikko back to 0.220, flicker 9.6%) and a key at 20 or 25 degrees (near road 6-11%) did not cure it.
+
+Fill-only variants:
+
+| Fill | Mean score | Flicker |
+|---|---|---|
+| +0.5 | 0.249 | 8.6% |
+| **+0.7 (kept)** | **0.243** | **8.9%** |
+| +1.0 | 0.240 | 9.2% |
+
+**Still open:**
+- The mockups' warm sunlit patches on the road between long shadows: a low key cannot light them, and a raised one shimmers.
+- Lap 0.7's bright peach clouds.
+
+Evidence: `output/tokyo-dawn-20261101/` (before, after and mockup for the four dawn frames; the rejected raised key beside the kept fill; `report.json`).
+
+
+## Nara Park's ridges — November 1, 2026
+
+**What differed.** Nara Park (lap 0.6) heads north with the low sun behind and to the left. Against its true-light mockup (`nara-park-l600-v2`), its left side scored worst of the frame: 0.57, darker (L −0.06) and with far fewer sunlit and warm pixels (−0.16, −0.16). It showed a tall, smooth tan mountain, a pale lavender band and a flat olive plain. Raycasts and layer captures (the far land hidden; the sky's ridge removed) name them:
+- **The mountain** is the sky shader's painted ridge. Nara takes the mountain night keyframe, whose ridges stand 2.6 times Tokyo's (Hakone's pass), coloured by the sky's gold low toward the sun, darkened.
+- **The band and plain** are the far land: the basin's far edge fading into the haze.
+
+Both mockups read the band as a lake, with the sun's gold glitter on it, which a sun 120 degrees left of the view could not lay. They paint the mountains lower, violet with sunlit crests. From the park, the Ikoma range across the basin stands about 2 degrees high.
+
+**The change.** A route's mood can set `ridgeHeight`, the painted ridges' height against Tokyo's low ridge (`street-scenes.ts` → world.ts → `RacingSkyMood.ridgeHeight`). The sky sets it on every call, since its palette is cached by daylight and night. Nara's is 1.6.
+
+**Variants** (mean of Nara Park, Wakakusa against v3 and v2, Sanjō and Sarusawa):
+
+| Variant | Mean |
+|---|---|
+| 2.6 (as before) | 0.255 |
+| 1 (Tokyo's low ridge) | 0.247 |
+| **1.6 (kept)** | **0.246** |
+| 1, violet | 0.253 |
+| 1.6, violet | 0.255 |
+
+Height 1 suits Wakakusa best but flattens the park's mountains away. Violet ridges do not suit Nara, whose mockups paint its hills sunlit; Irohazaka's valley keeps its own. Removing the ridge cleared the park's left side (0.57 → 0.36) but bared the sky where the mockup paints mountains across the middle (horizon 0.27 → 0.44).
+
+**Results** (A/B in one capture run, before, after, before, after; both pairs identical):
+
+| Frame | Before | After |
+|---|---|---|
+| Nara Park | 0.265 | 0.244 |
+| Nara Park, against v1 | 0.252 | 0.242 |
+| Wakakusa, against v3 | 0.217 | 0.208 |
+| Wakakusa, against v2 | 0.226 | 0.217 |
+| Sarusawa | 0.251 | 0.241 |
+| Sanjō, against v3 | 0.316 | 0.321 |
+| Sanjō, against v2 | 0.260 | 0.261 |
+
+The park's left side goes from 0.57 to 0.43. The other 11 frames are pixel-identical. The ridges are sky paint fixed to the view direction, so motion is unchanged.
+
+**Still open:** the band at the basin's far edge still reads as water. The far land's haze over its last kilometres could stand as the Ikoma range's silhouette instead.
+
+Evidence: `output/nara-park-ridges-20261101/` (the park's left side in layers; the three heights beside the mockup; before, after and mockup for the park, Wakakusa and Sarusawa; `report.json`).

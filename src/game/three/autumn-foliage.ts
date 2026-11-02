@@ -17,28 +17,50 @@ const autumn = { value: 0 };
  * A painted crown's light, shared by these trees and the flora plants (period-city/flora.ts): x the brightest channel
  * where a sunlit crown's highlights begin to compress, y the ceiling they approach. The race tone curve (PBR Neutral at
  * the day exposure) fades anything brighter toward white, which paled sunlit orange leaves to peach; held under its
- * shoulder they stay the repaints' saturated orange and gold.
+ * shoulder they stay the repaints' saturated orange and gold. z: how much of the sun the crowns answer (their gold tips
+ * and the light through their leaves): 1, or less where the route's hills hide the sun (world.ts VALLEY_CROWN_SUN).
  */
-export const crownLight = { value: new THREE.Vector2(.3, .5) };
+export const crownLight = { value: new THREE.Vector3(.3, .5, 1) };
 
 /**
  * GLSL for just before `#include <opaque_fragment>` of a lit standard material: the crown keeps its own hue through light
  * and shade, its sunlit leaves warm toward gold (crimson through vermilion to orange, the repaints' highlights) and its
  * highlights stay under the tone curve's shoulder. Plants holding more green than half their red (cedars, pines,
  * willows, the buff susuki) keep their hue. `amount` (a GLSL float) blends it in; the material declares soraCrownLight.
+ * October 31: gold only where a leaf faces the sun (the key, the first directional light). The direct share alone
+ * (`sunlit`) is high on any leaf the sun reaches, so it warmed most of every crown and the maples read orange (crown hue
+ * median 41-43 degrees against the repaints' 31-34); now a lit leaf turned from the sun stays crimson. A red or orange
+ * crown's shaded side takes the sun through its leaves (crownTranslucencyGlsl), so it glows red as the repaints paint
+ * it, not maroon; `translucent` false leaves that to the material.
  */
-export function crownLightGlsl(amount: string): string {
+export function crownLightGlsl(amount: string, translucent = true): string {
   return `{
     const vec3 luma = vec3(.2126, .7152, .0722);
+    float facing = 0.;
+#if NUM_DIR_LIGHTS > 0
+    facing = dot(normal, directionalLights[0].direction);
+#endif
+    ${translucent ? crownTranslucencyGlsl(`${amount} * soraCrownLight.z`) : ''}
     float sunlit = dot(reflectedLight.directDiffuse, luma) / max(dot(totalDiffuse, luma), 1e-5);
     vec3 hue = diffuseColor.rgb;
-    hue.g = mix(hue.g, max(hue.g, hue.r * .5), sunlit * sunlit * .8);
+    hue.g = mix(hue.g, max(hue.g, hue.r * .55), max(pow(sunlit, 3.) * .6, smoothstep(.7, 1., facing) * sunlit * .85 * soraCrownLight.z));
     vec3 painted = dot(outgoingLight, luma) * hue / max(dot(hue, luma), 1e-4);
     float peak = max(painted.r, max(painted.g, painted.b)), knee = soraCrownLight.x, top = soraCrownLight.y;
     if (peak > knee) painted *= (knee + (top - knee) * (1. - exp(-(peak - knee) / (top - knee)))) / peak;
     outgoingLight = mix(outgoingLight, painted, ${amount});
   }
   `;
+}
+
+/** GLSL (where crownLightGlsl goes): the key light through a red or orange crown's leaves, on its side turned away;
+ * `strength` the share of the key it passes. */
+export function crownTranslucencyGlsl(amount: string, strength = .75): string {
+  return `
+#if NUM_DIR_LIGHTS > 0
+    outgoingLight += diffuseColor.rgb * RECIPROCAL_PI * directionalLights[0].color * max(-dot(normal, directionalLights[0].direction), 0.)
+      * ${strength.toFixed(2)} * step(diffuseColor.g, diffuseColor.r * .5) * (${amount});
+#endif
+`;
 }
 
 /** Turn the authored trees' leaves (0 summer green .. 1 full late-autumn colour). */
@@ -64,7 +86,7 @@ export function autumnFoliage(material: THREE.MeshStandardMaterial): void {
   vSoraTree = modelMatrix[3].xz;
 #endif`);
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nvarying vec2 vSoraTree;\nuniform float soraAutumnLeaves;\nuniform vec2 soraCrownLight;')
+      .replace('#include <common>', '#include <common>\nvarying vec2 vSoraTree;\nuniform float soraAutumnLeaves;\nuniform vec3 soraCrownLight;')
       .replace('#include <map_fragment>', `#include <map_fragment>
   if (soraAutumnLeaves > 0.) {
     // One tone per tree (its position to the nearest 3 m, so a crown's leaves agree): crimson, vermilion, orange, gold,
@@ -78,6 +100,6 @@ export function autumnFoliage(material: THREE.MeshStandardMaterial): void {
       .replace('#include <opaque_fragment>', `if (soraAutumnLeaves > 0.) ${crownLightGlsl('soraAutumnLeaves')}
   #include <opaque_fragment>`);
   };
-  material.customProgramCacheKey = () => `${previousKey()}|sora-autumn-leaves-v3`;
+  material.customProgramCacheKey = () => `${previousKey()}|sora-autumn-leaves-v5`;
   material.needsUpdate = true;
 }

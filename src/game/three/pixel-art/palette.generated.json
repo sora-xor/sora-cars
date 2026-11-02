@@ -6,8 +6,8 @@
  "method": [
   "Cell-interior samples (3x3 max channel diff <= 22, stride 2) of every input",
   "6-bit/channel histogram; bins with >= 3 samples",
-  "weighted OKLab k-means (weight sqrt(count) * (1 + chroma / 0.1), a/b x1.15, k-means++ seed 12345), K=74, centroids snapped to the nearest observed colour",
-  "anchors: the renderer's fixed entries verbatim (CAR_COLOURS.plateRamp, CAR_COLOURS.lampRed, OIL_COLOURS, LAMP_HEAD_CORE); its measured colours (CAR_COLOURS, LINEWORK_COLOURS, FOLIAGE_GLINTS, SPARKLE_COLOURS, C >= 0.03) and the style spec's named cutscene colours within 0.015; a missing one replaces the nearest core entry within 0.03, else it is added",
+  "weighted OKLab k-means (weight sqrt(count) * (1 + chroma / 0.1), a/b x1.15, k-means++ seed 12345), K=59, centroids snapped to the nearest observed colour",
+  "anchors: the renderer's fixed entries verbatim (CAR_COLOURS.plateRamp, CAR_COLOURS.lampRed, CAR_COLOURS.lampTones, OIL_COLOURS, LAMP_HEAD_CORE, FOLIAGE_TONES); its measured colours (CAR_COLOURS, LINEWORK_COLOURS, FOLIAGE_GLINTS, SPARKLE_COLOURS, C >= 0.03) and the style spec's named cutscene colours within 0.015; a missing one replaces the nearest core entry within 0.03, else it is added",
   "hue-shifted livery ramps for every race livery and club skin (two dark same-hue steps below L 0.36, dark end leaning toward indigo/violet, light end toward amber/cream; teal follows the cutscene teal car: sage-teal mid band, amber highlight), reusing close entries",
   "greedy max-distance gap fill to 128 from cutscene material ramps, lamp/sun glow rings, accent regions and the 8-band sky strata of 7 cutscene skies"
  ],
@@ -18,7 +18,7 @@
   "minBinCount": 3,
   "weight": "sqrt(count) * (1 + chroma / 0.1)",
   "abWeight": 1.15,
-  "coreClusters": 74,
+  "coreClusters": 59,
   "kmeansSeed": 12345,
   "kmeansIterations": 40,
   "paletteSize": 128,
@@ -72,28 +72,52 @@
   "coreClustersRequested": 98
  },
  "statistics": {
-  "inputs": 79,
-  "sampled": 31003550,
-  "cellInteriors": 21548035,
-  "occupiedBins": 58277,
-  "points": 46904,
-  "coreEntries": 57,
+  "inputs": 101,
+  "sampled": 39637450,
+  "cellInteriors": 27381666,
+  "occupiedBins": 67994,
+  "points": 55954,
+  "coreEntries": 39,
   "anchors": {
-   "present": 18,
-   "moved": 17,
-   "added": 17
+   "present": 13,
+   "moved": 20,
+   "added": 36
   },
-  "liveryEntries": 29,
+  "liveryEntries": 25,
   "gapFilled": 8
  },
  "quantizationErrorOKLab": {
-  "mean": 0.0213,
-  "median": 0.0205,
-  "p90": 0.0329,
-  "p99": 0.0479,
+  "mean": 0.0228,
+  "median": 0.0218,
+  "p90": 0.0356,
+  "p99": 0.0517,
   "note": "nearest palette entry, plain OKLab distance, every pixel at stride 9 over all inputs"
  },
  "inputs": [
+  {
+   "file": "public/assets/story/angles/aizu-detail-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "c75616b16a8e50002a5c17e0e19f6e193d968214a601efbabdf179ac0841b887"
+  },
+  {
+   "file": "public/assets/story/angles/aizu-left-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "326d753d3aba1e12e3da493134e7191d223920db2192af97c23d42c18361a6af"
+  },
+  {
+   "file": "public/assets/story/angles/aizu-right-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "e96880bb23cc7a737aaf44ebb3cc69a82a06c78b1fc6b79b689f7c4ba468d2db"
+  },
+  {
+   "file": "public/assets/story/angles/aizu-wide-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "a683021a645652c6529b2e79e0dd513b704be1a7ab6d3e9de0bcf0cd223bfadc"
+  },
   {
    "file": "public/assets/story/angles/boardroom-detail-v2.png",
    "width": 1672,
@@ -167,6 +191,12 @@
    "sha256": "2ab1a244338d5f8437ff2657711d9fcacc9bec12aad7370c2304e030d82f0667"
   },
   {
+   "file": "public/assets/story/angles/garage-detail-v2-centered-oct23-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "890e0dc0475eb846ea8a479d002fc20eb5625f08ca77ff65c9f3ea2f293ec0bf"
+  },
+  {
    "file": "public/assets/story/angles/garage-detail-v2-centered-v1.png",
    "width": 1672,
    "height": 941,
@@ -177,6 +207,12 @@
    "width": 1672,
    "height": 941,
    "sha256": "ef4c95b5bca0a4979cf3e514e8e4ad312c20a2159d1cd834cc7e1d94e81616c7"
+  },
+  {
+   "file": "public/assets/story/angles/garage-left-v2-centered-oct23-v1.png",
+   "width": 1671,
+   "height": 941,
+   "sha256": "2ebcf179204c9f17aab551df248ef95365987bf3c274e4e5ecd5586392e2c840"
   },
   {
    "file": "public/assets/story/angles/garage-left-v2.png",
@@ -195,6 +231,30 @@
    "width": 1672,
    "height": 941,
    "sha256": "149ac0082e8d62a501bc17a71ea3f3dd53aa6818e08006e9b15acc123a7d651d"
+  },
+  {
+   "file": "public/assets/story/angles/gion-detail-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "abad25a57888f69a0e63ddee69cb083955adfd5b4443fed78055710b83e7b966"
+  },
+  {
+   "file": "public/assets/story/angles/gion-left-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "17de9e2540d038aabfd83b481dac6b1092a1e8362141f09f21b063b3d248f4e1"
+  },
+  {
+   "file": "public/assets/story/angles/gion-right-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "59c3348e132d2214973d9d4e01d13c31a80d5c6a1092646a7113fe96ea12ecbc"
+  },
+  {
+   "file": "public/assets/story/angles/gion-wide-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "fc32f3ea1a3877ee0fa3a9a9eed30bf9c9caccccc7ed252db49dbbf3d875d5e7"
   },
   {
    "file": "public/assets/story/angles/harbor-detail-v2.png",
@@ -245,6 +305,54 @@
    "sha256": "150d781322ff39167ca4e44354be256c1889deb8d71ed725f05a5078258cce20"
   },
   {
+   "file": "public/assets/story/angles/iroha-detail-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "5679eafc5ad40adb2a21bcc6ebeb05f16aa7ef43a4f315562df6b460eb50326c"
+  },
+  {
+   "file": "public/assets/story/angles/iroha-left-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "74824d4bdb70bcc0813b20ac5da432fd60fcf7528173a5748d3765fa86238716"
+  },
+  {
+   "file": "public/assets/story/angles/iroha-right-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "04edbfd2ac4e5fdaaec293b37e492e49599147707b3872c8710fed3609511a11"
+  },
+  {
+   "file": "public/assets/story/angles/iroha-wide-v1.png",
+   "width": 1671,
+   "height": 941,
+   "sha256": "ace4ceb8738578661c5eb3576799e174faf7f309568dbbf7bb8da334fe329627"
+  },
+  {
+   "file": "public/assets/story/angles/kudan-detail-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "cfce1151a3803cb330e954d716030366636cb38ba7a28dbc30ec10cbf944133f"
+  },
+  {
+   "file": "public/assets/story/angles/kudan-left-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "4053d9643487de85861633ccd6cb2ce8953c71c8ffa9233f1bd9e53d81e144ff"
+  },
+  {
+   "file": "public/assets/story/angles/kudan-right-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "5b36772090a1e7833ffb7eedc5553be01eb0fa1f5dc80bd32df0a7cecb1ae4be"
+  },
+  {
+   "file": "public/assets/story/angles/kudan-wide-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "12c58b085cce7f1ac93e0e24f04a4524d9484635ed9afb08de8d460a03e9bbd0"
+  },
+  {
    "file": "public/assets/story/angles/ledger-detail-v2.png",
    "width": 1672,
    "height": 941,
@@ -267,6 +375,30 @@
    "width": 1672,
    "height": 941,
    "sha256": "f8276b3a5b4929c69f717a331464f643d88ffed5a20176b5d91887627c06f533"
+  },
+  {
+   "file": "public/assets/story/angles/nara-detail-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "735673212a6875a122641b691f8b7bd1398e2a7d3c949943947ad1486b95fbab"
+  },
+  {
+   "file": "public/assets/story/angles/nara-left-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6c8a41735b6dbf67d629f7fb30c0b8010a3b9d280a8dae5e81911ed30ccff9c2"
+  },
+  {
+   "file": "public/assets/story/angles/nara-right-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "6ec485dc09c63e41fd9006392e3bc7381a87d913a8495c5b96d4e98aea8e138c"
+  },
+  {
+   "file": "public/assets/story/angles/nara-wide-v1.png",
+   "width": 1672,
+   "height": 941,
+   "sha256": "a08c2a5684292076b0e51ca582cba1f2df565309ae5d9acea6ffdfece3ae8424"
   },
   {
    "file": "public/assets/story/angles/office-detail-v2.png",
@@ -591,7 +723,7 @@
     "#bd9a85",
     "#d1ae91"
    ],
-   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+   "sha256": "b8185ece2567f528eb8dfc140f0a1547396d5a5837a8463f92223a63b4c01797"
   },
   {
    "file": "src/game/three/pixel-art/cars.ts",
@@ -600,7 +732,24 @@
    "colours": [
     "#d13d32"
    ],
-   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+   "sha256": "b8185ece2567f528eb8dfc140f0a1547396d5a5837a8463f92223a63b4c01797"
+  },
+  {
+   "file": "src/game/three/pixel-art/cars.ts",
+   "what": "CAR_COLOURS.lampTones",
+   "exact": true,
+   "colours": [
+    "#95211e",
+    "#d13d32",
+    "#e24a3a",
+    "#b65d2e",
+    "#fab15a",
+    "#fdd176",
+    "#bd9a85",
+    "#e7d3bb",
+    "#fbf5d2"
+   ],
+   "sha256": "b8185ece2567f528eb8dfc140f0a1547396d5a5837a8463f92223a63b4c01797"
   },
   {
    "file": "src/game/three/pixel-art/surfaces.ts",
@@ -618,7 +767,7 @@
     "#fab15a",
     "#fee192"
    ],
-   "sha256": "5786501cf7cf59e7a92bee316411394a02d4f2d3c7b30dd89cc96968b59d406e"
+   "sha256": "980e4a720264dd7747106f826fd9d08be773c022600081e0c9be40da6efabab6"
   },
   {
    "file": "src/game/three/pixel-art/linework.ts",
@@ -627,7 +776,30 @@
    "colours": [
     "#fbf5d2"
    ],
-   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+   "sha256": "775c15a2499b1bd4b544f9e621bb4c45a89fa1ae7b909ddf5a811e98c5b4cf2a"
+  },
+  {
+   "file": "src/game/three/pixel-art/linework.ts",
+   "what": "FOLIAGE_TONES",
+   "exact": true,
+   "colours": [
+    "#03040a",
+    "#0a0d1d",
+    "#161625",
+    "#222239",
+    "#2d3252",
+    "#03040a",
+    "#0a0d1d",
+    "#161625",
+    "#22362d",
+    "#36514a",
+    "#161112",
+    "#1a1300",
+    "#3f3900",
+    "#666808",
+    "#8b8b35"
+   ],
+   "sha256": "775c15a2499b1bd4b544f9e621bb4c45a89fa1ae7b909ddf5a811e98c5b4cf2a"
   },
   {
    "file": "src/game/three/pixel-art/cars.ts",
@@ -651,9 +823,18 @@
     "#fdd176",
     "#bd9a85",
     "#e7d3bb",
-    "#fbf5d2"
+    "#fbf5d2",
+    "#a9141b",
+    "#ec2427",
+    "#ff7a6c",
+    "#d0702c",
+    "#ffb85a",
+    "#ffe08a",
+    "#c9a68c",
+    "#efdcc2",
+    "#fff6dc"
    ],
-   "sha256": "048e79daf3c10b1c04263b539de7b7993fd845355ee50d035daba7e4d04a6dab"
+   "sha256": "b8185ece2567f528eb8dfc140f0a1547396d5a5837a8463f92223a63b4c01797"
   },
   {
    "file": "src/game/three/pixel-art/linework.ts",
@@ -668,7 +849,7 @@
     "#fab55a",
     "#f4e9d9"
    ],
-   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+   "sha256": "775c15a2499b1bd4b544f9e621bb4c45a89fa1ae7b909ddf5a811e98c5b4cf2a"
   },
   {
    "file": "src/game/three/pixel-art/linework.ts",
@@ -678,7 +859,7 @@
     "#fab55a",
     "#fdd176"
    ],
-   "sha256": "9d6813e081fcae795e5c1d0df60f98c454e333992344171acc6c79d7afb18465"
+   "sha256": "775c15a2499b1bd4b544f9e621bb4c45a89fa1ae7b909ddf5a811e98c5b4cf2a"
   },
   {
    "file": "src/game/three/pixel-art/surfaces.ts",
@@ -690,7 +871,7 @@
     "#9e8ad9",
     "#f4e9d9"
    ],
-   "sha256": "5786501cf7cf59e7a92bee316411394a02d4f2d3c7b30dd89cc96968b59d406e"
+   "sha256": "980e4a720264dd7747106f826fd9d08be773c022600081e0c9be40da6efabab6"
   }
  ],
  "colors": [
@@ -728,7 +909,7 @@
    "C": 0.0181,
    "h": 272.7,
    "family": "ink",
-   "origin": "kmeans"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
@@ -786,19 +967,19 @@
   },
   {
    "rgb": [
-    37,
+    34,
     29,
-    34
+    37
    ],
-   "hex": "#251d22",
+   "hex": "#221d25",
    "oklab": [
-    0.24222,
-    0.01444,
-    -0.00514
+    0.23993,
+    0.01136,
+    -0.01225
    ],
-   "L": 0.2422,
-   "C": 0.0153,
-   "h": 340.4,
+   "L": 0.2399,
+   "C": 0.0167,
+   "h": 312.8,
    "family": "neutral-grey",
    "origin": "kmeans"
   },
@@ -819,6 +1000,24 @@
    "h": 326.2,
    "family": "neutral-grey",
    "origin": "renderer:OIL_COLOURS"
+  },
+  {
+   "rgb": [
+    66,
+    64,
+    65
+   ],
+   "hex": "#424041",
+   "oklab": [
+    0.37381,
+    0.00308,
+    -0.0008
+   ],
+   "L": 0.3738,
+   "C": 0.0032,
+   "h": 345.4,
+   "family": "neutral-grey",
+   "origin": "ramp:blue_harbor_door"
   },
   {
    "rgb": [
@@ -930,93 +1129,111 @@
   },
   {
    "rgb": [
-    45,
     37,
+    38,
+    113
+   ],
+   "hex": "#252671",
+   "oklab": [
+    0.32002,
+    0.01321,
+    -0.12538
+   ],
+   "L": 0.32,
+   "C": 0.1261,
+   "h": 276,
+   "family": "indigo-navy",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    45,
+    50,
+    82
+   ],
+   "hex": "#2d3252",
+   "oklab": [
+    0.32822,
+    0.00599,
+    -0.05673
+   ],
+   "L": 0.3282,
+   "C": 0.057,
+   "h": 276,
+   "family": "indigo-navy",
+   "origin": "renderer:FOLIAGE_TONES"
+  },
+  {
+   "rgb": [
+    69,
+    46,
     118
    ],
-   "hex": "#2d2576",
+   "hex": "#452e76",
    "oklab": [
-    0.32932,
-    0.0246,
-    -0.13039
+    0.36836,
+    0.04926,
+    -0.10748
    ],
-   "L": 0.3293,
-   "C": 0.1327,
-   "h": 280.7,
+   "L": 0.3684,
+   "C": 0.1182,
+   "h": 294.6,
    "family": "indigo-navy",
    "origin": "kmeans"
   },
   {
    "rgb": [
     54,
-    57,
-    93
-   ],
-   "hex": "#36395d",
-   "oklab": [
-    0.35909,
-    0.00987,
-    -0.0614
-   ],
-   "L": 0.3591,
-   "C": 0.0622,
-   "h": 279.1,
-   "family": "indigo-navy",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    57,
     46,
-    145
+    149
    ],
-   "hex": "#392e91",
+   "hex": "#362e95",
    "oklab": [
-    0.37974,
-    0.02974,
-    -0.15292
+    0.38107,
+    0.02506,
+    -0.15971
    ],
-   "L": 0.3797,
-   "C": 0.1558,
-   "h": 281,
+   "L": 0.3811,
+   "C": 0.1617,
+   "h": 278.9,
+   "family": "indigo-navy",
+   "origin": "spec:dusk violet"
+  },
+  {
+   "rgb": [
+    65,
+    69,
+    117
+   ],
+   "hex": "#414575",
+   "oklab": [
+    0.40994,
+    0.012,
+    -0.07915
+   ],
+   "L": 0.4099,
+   "C": 0.0801,
+   "h": 278.6,
    "family": "indigo-navy",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    70,
     73,
-    122
+    58,
+    166
    ],
-   "hex": "#46497a",
+   "hex": "#493aa6",
    "oklab": [
-    0.42586,
-    0.01363,
-    -0.07965
+    0.43144,
+    0.03811,
+    -0.16152
    ],
-   "L": 0.4259,
-   "C": 0.0808,
-   "h": 279.7,
+   "L": 0.4314,
+   "C": 0.166,
+   "h": 283.3,
    "family": "indigo-navy",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    78,
-    61,
-    169
-   ],
-   "hex": "#4e3da9",
-   "oklab": [
-    0.44318,
-    0.04167,
-    -0.16008
-   ],
-   "L": 0.4432,
-   "C": 0.1654,
-   "h": 284.6,
-   "family": "indigo-navy",
-   "origin": "kmeans"
+   "origin": "spec:dusk violet"
   },
   {
    "rgb": [
@@ -1038,19 +1255,19 @@
   },
   {
    "rgb": [
-    101,
-    94,
-    137
+    66,
+    89,
+    193
    ],
-   "hex": "#655e89",
+   "hex": "#4259c1",
    "oklab": [
-    0.50596,
-    0.02457,
-    -0.06322
+    0.50482,
+    0.00036,
+    -0.16447
    ],
-   "L": 0.506,
-   "C": 0.0678,
-   "h": 291.2,
+   "L": 0.5048,
+   "C": 0.1645,
+   "h": 270.1,
    "family": "indigo-navy",
    "origin": "kmeans"
   },
@@ -1071,6 +1288,24 @@
    "h": 278,
    "family": "indigo-navy",
    "origin": "livery:jun-transistor"
+  },
+  {
+   "rgb": [
+    158,
+    138,
+    217
+   ],
+   "hex": "#9e8ad9",
+   "oklab": [
+    0.68238,
+    0.04852,
+    -0.1051
+   ],
+   "L": 0.6824,
+   "C": 0.1158,
+   "h": 294.8,
+   "family": "indigo-navy",
+   "origin": "renderer:SPARKLE_COLOURS"
   },
   {
    "rgb": [
@@ -1128,21 +1363,21 @@
   },
   {
    "rgb": [
-    62,
-    37,
-    81
+    49,
+    41,
+    65
    ],
-   "hex": "#3e2551",
+   "hex": "#312941",
    "oklab": [
-    0.31759,
-    0.05043,
-    -0.06289
+    0.30083,
+    0.02126,
+    -0.03824
    ],
-   "L": 0.3176,
-   "C": 0.0806,
-   "h": 308.7,
+   "L": 0.3008,
+   "C": 0.0438,
+   "h": 299.1,
    "family": "violet-plum",
-   "origin": "kmeans"
+   "origin": "livery:Shiro"
   },
   {
    "rgb": [
@@ -1182,42 +1417,6 @@
   },
   {
    "rgb": [
-    78,
-    45,
-    118
-   ],
-   "hex": "#4e2d76",
-   "oklab": [
-    0.37685,
-    0.06364,
-    -0.10309
-   ],
-   "L": 0.3769,
-   "C": 0.1212,
-   "h": 301.7,
-   "family": "violet-plum",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    81,
-    65,
-    89
-   ],
-   "hex": "#514159",
-   "oklab": [
-    0.40155,
-    0.03101,
-    -0.0318
-   ],
-   "L": 0.4015,
-   "C": 0.0444,
-   "h": 314.3,
-   "family": "violet-plum",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
     102,
     49,
     118
@@ -1236,39 +1435,57 @@
   },
   {
    "rgb": [
-    117,
-    78,
-    121
+    105,
+    69,
+    158
    ],
-   "hex": "#754e79",
+   "hex": "#69459e",
    "oklab": [
-    0.48311,
-    0.06587,
-    -0.04875
+    0.47455,
+    0.06946,
+    -0.12163
    ],
-   "L": 0.4831,
-   "C": 0.082,
-   "h": 323.5,
+   "L": 0.4746,
+   "C": 0.1401,
+   "h": 299.7,
    "family": "violet-plum",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    110,
-    73,
-    165
+    101,
+    85,
+    121
    ],
-   "hex": "#6e49a5",
+   "hex": "#655579",
    "oklab": [
-    0.49113,
-    0.07111,
-    -0.12484
+    0.4795,
+    0.03393,
+    -0.04926
    ],
-   "L": 0.4911,
-   "C": 0.1437,
-   "h": 299.7,
+   "L": 0.4795,
+   "C": 0.0598,
+   "h": 304.6,
    "family": "violet-plum",
    "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    119,
+    77,
+    136
+   ],
+   "hex": "#774d88",
+   "oklab": [
+    0.49096,
+    0.07367,
+    -0.07188
+   ],
+   "L": 0.491,
+   "C": 0.1029,
+   "h": 315.7,
+   "family": "violet-plum",
+   "origin": "ramp:white_umbrella_night"
   },
   {
    "rgb": [
@@ -1290,37 +1507,37 @@
   },
   {
    "rgb": [
-    141,
+    146,
     85,
-    169
+    166
    ],
-   "hex": "#8d55a9",
+   "hex": "#9255a6",
    "oklab": [
-    0.54751,
-    0.09505,
-    -0.10045
+    0.55175,
+    0.10091,
+    -0.093
    ],
-   "L": 0.5475,
-   "C": 0.1383,
-   "h": 313.4,
+   "L": 0.5517,
+   "C": 0.1372,
+   "h": 317.3,
    "family": "violet-plum",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    137,
-    109,
-    142
+    125,
+    105,
+    153
    ],
-   "hex": "#896d8e",
+   "hex": "#7d6999",
    "oklab": [
-    0.57351,
-    0.04651,
-    -0.03737
+    0.55841,
+    0.04163,
+    -0.06381
    ],
-   "L": 0.5735,
-   "C": 0.0597,
-   "h": 321.2,
+   "L": 0.5584,
+   "C": 0.0762,
+   "h": 303.1,
    "family": "violet-plum",
    "origin": "kmeans"
   },
@@ -1344,57 +1561,39 @@
   },
   {
    "rgb": [
-    181,
-    94,
-    161
+    161,
+    126,
+    186
    ],
-   "hex": "#b55ea1",
+   "hex": "#a17eba",
    "oklab": [
-    0.60661,
-    0.12822,
-    -0.05571
+    0.64846,
+    0.06196,
+    -0.0725
    ],
-   "L": 0.6066,
-   "C": 0.1398,
-   "h": 336.5,
+   "L": 0.6485,
+   "C": 0.0954,
+   "h": 310.5,
    "family": "violet-plum",
    "origin": "kmeans"
   },
   {
    "rgb": [
     175,
-    121,
-    174
+    155,
+    196
    ],
-   "hex": "#af79ae",
+   "hex": "#af9bc4",
    "oklab": [
-    0.64884,
-    0.08296,
-    -0.05334
+    0.72078,
+    0.03756,
+    -0.0499
    ],
-   "L": 0.6488,
-   "C": 0.0986,
-   "h": 327.3,
+   "L": 0.7208,
+   "C": 0.0625,
+   "h": 307,
    "family": "violet-plum",
-   "origin": "accent:rain streak lavender"
-  },
-  {
-   "rgb": [
-    158,
-    133,
-    213
-   ],
-   "hex": "#9e85d5",
-   "oklab": [
-    0.67115,
-    0.05464,
-    -0.10495
-   ],
-   "L": 0.6711,
-   "C": 0.1183,
-   "h": 297.5,
-   "family": "violet-plum",
-   "origin": "kmeans"
+   "origin": "livery:ren-radio-night"
   },
   {
    "rgb": [
@@ -1434,37 +1633,19 @@
   },
   {
    "rgb": [
-    39,
-    6,
-    16
-   ],
-   "hex": "#270610",
-   "oklab": [
-    0.18899,
-    0.05672,
-    0.00516
-   ],
-   "L": 0.189,
-   "C": 0.057,
-   "h": 5.2,
-   "family": "rose-crimson",
-   "origin": "livery:Akai"
-  },
-  {
-   "rgb": [
-    62,
+    50,
     13,
     18
    ],
-   "hex": "#3e0d12",
+   "hex": "#320d12",
    "oklab": [
-    0.24783,
-    0.07173,
-    0.02469
+    0.22362,
+    0.05784,
+    0.01584
    ],
-   "L": 0.2478,
-   "C": 0.0759,
-   "h": 19,
+   "L": 0.2236,
+   "C": 0.06,
+   "h": 15.3,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
@@ -1488,55 +1669,55 @@
   },
   {
    "rgb": [
-    113,
-    50,
-    73
-   ],
-   "hex": "#713249",
-   "oklab": [
-    0.4094,
-    0.09277,
-    -0.00162
-   ],
-   "L": 0.4094,
-   "C": 0.0928,
-   "h": 359,
-   "family": "rose-crimson",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
     106,
-    85,
-    93
+    46,
+    65
    ],
-   "hex": "#6a555d",
+   "hex": "#6a2e41",
    "oklab": [
-    0.47341,
-    0.02996,
-    -0.00343
+    0.38939,
+    0.0882,
+    0.00322
    ],
-   "L": 0.4734,
-   "C": 0.0302,
-   "h": 353.5,
+   "L": 0.3894,
+   "C": 0.0883,
+   "h": 2.1,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    145,
-    62,
-    106
+    93,
+    70,
+    77
    ],
-   "hex": "#913e6a",
+   "hex": "#5d464d",
    "oklab": [
-    0.48801,
-    0.12129,
-    -0.02215
+    0.42111,
+    0.03317,
+    -0.00083
    ],
-   "L": 0.488,
-   "C": 0.1233,
-   "h": 349.6,
+   "L": 0.4211,
+   "C": 0.0332,
+   "h": 358.6,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    137,
+    69,
+    109
+   ],
+   "hex": "#89456d",
+   "oklab": [
+    0.48813,
+    0.10196,
+    -0.02651
+   ],
+   "L": 0.4881,
+   "C": 0.1053,
+   "h": 345.4,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
@@ -1562,89 +1743,89 @@
    "rgb": [
     165,
     78,
-    109
+    105
    ],
-   "hex": "#a54e6d",
+   "hex": "#a54e69",
    "oklab": [
-    0.54149,
-    0.11938,
-    -0.00134
+    0.54022,
+    0.11791,
+    0.00457
    ],
-   "L": 0.5415,
-   "C": 0.1194,
-   "h": 359.4,
+   "L": 0.5402,
+   "C": 0.118,
+   "h": 2.2,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    189,
-    82,
-    89
+    175,
+    112,
+    134
    ],
-   "hex": "#bd5259",
+   "hex": "#af7086",
    "oklab": [
-    0.57703,
-    0.13095,
-    0.04383
+    0.61843,
+    0.08429,
+    -0.00392
    ],
-   "L": 0.577,
-   "C": 0.1381,
-   "h": 18.5,
+   "L": 0.6184,
+   "C": 0.0844,
+   "h": 357.3,
+   "family": "rose-crimson",
+   "origin": "ramp:white_umbrella_night"
+  },
+  {
+   "rgb": [
+    195,
+    97,
+    149
+   ],
+   "hex": "#c36195",
+   "oklab": [
+    0.6247,
+    0.13599,
+    -0.02691
+   ],
+   "L": 0.6247,
+   "C": 0.1386,
+   "h": 348.8,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    190,
-    113,
-    122
+    222,
+    97,
+    142
    ],
-   "hex": "#be717a",
+   "hex": "#de618e",
    "oklab": [
-    0.63497,
-    0.09537,
-    0.02148
+    0.65958,
+    0.16201,
+    -0.00009
    ],
-   "L": 0.635,
-   "C": 0.0978,
-   "h": 12.7,
+   "L": 0.6596,
+   "C": 0.162,
+   "h": 360,
    "family": "rose-crimson",
-   "origin": "kmeans"
+   "origin": "spec:rose/neon"
   },
   {
    "rgb": [
     225,
-    98,
-    141
+    118,
+    126
    ],
-   "hex": "#e1628d",
+   "hex": "#e1767e",
    "oklab": [
-    0.66484,
-    0.16323,
-    0.00383
+    0.6892,
+    0.12748,
+    0.03771
    ],
-   "L": 0.6648,
-   "C": 0.1633,
-   "h": 1.3,
-   "family": "rose-crimson",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    194,
-    129,
-    158
-   ],
-   "hex": "#c2819e",
-   "oklab": [
-    0.67815,
-    0.08725,
-    -0.01325
-   ],
-   "L": 0.6781,
-   "C": 0.0883,
-   "h": 351.4,
+   "L": 0.6892,
+   "C": 0.1329,
+   "h": 16.5,
    "family": "rose-crimson",
    "origin": "kmeans"
   },
@@ -1665,6 +1846,42 @@
    "h": 14.8,
    "family": "rose-crimson",
    "origin": "spec:rose/neon"
+  },
+  {
+   "rgb": [
+    189,
+    142,
+    161
+   ],
+   "hex": "#bd8ea1",
+   "oklab": [
+    0.69722,
+    0.06164,
+    -0.00783
+   ],
+   "L": 0.6972,
+   "C": 0.0621,
+   "h": 352.8,
+   "family": "rose-crimson",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    218,
+    154,
+    164
+   ],
+   "hex": "#da9aa4",
+   "oklab": [
+    0.75078,
+    0.07672,
+    0.01184
+   ],
+   "L": 0.7508,
+   "C": 0.0776,
+   "h": 8.8,
+   "family": "rose-crimson",
+   "origin": "livery:mei-sakura-film"
   },
   {
    "rgb": [
@@ -1704,55 +1921,55 @@
   },
   {
    "rgb": [
-    57,
+    61,
     34,
-    29
+    33
    ],
-   "hex": "#39221d",
+   "hex": "#3d2221",
    "oklab": [
-    0.27992,
-    0.03104,
-    0.02005
+    0.28704,
+    0.03872,
+    0.01587
    ],
-   "L": 0.2799,
-   "C": 0.037,
-   "h": 32.9,
+   "L": 0.287,
+   "C": 0.0418,
+   "h": 22.3,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    90,
+    82,
     17,
     21
    ],
-   "hex": "#5a1115",
+   "hex": "#521115",
    "oklab": [
-    0.31011,
-    0.09619,
-    0.0411
+    0.29394,
+    0.08835,
+    0.03595
    ],
-   "L": 0.3101,
-   "C": 0.1046,
-   "h": 23.1,
+   "L": 0.2939,
+   "C": 0.0954,
+   "h": 22.1,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    73,
-    42,
-    30
+    86,
+    49,
+    34
    ],
-   "hex": "#492a1e",
+   "hex": "#563122",
    "oklab": [
-    0.32122,
-    0.0379,
-    0.03389
+    0.35575,
+    0.04381,
+    0.04028
    ],
-   "L": 0.3212,
-   "C": 0.0508,
-   "h": 41.8,
+   "L": 0.3557,
+   "C": 0.0595,
+   "h": 42.6,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
@@ -1776,24 +1993,6 @@
   },
   {
    "rgb": [
-    97,
-    49,
-    34
-   ],
-   "hex": "#613122",
-   "oklab": [
-    0.37237,
-    0.05821,
-    0.04562
-   ],
-   "L": 0.3724,
-   "C": 0.074,
-   "h": 38.1,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
     130,
     25,
     26
@@ -1812,37 +2011,19 @@
   },
   {
    "rgb": [
-    94,
-    66,
-    57
-   ],
-   "hex": "#5e4239",
-   "oklab": [
-    0.40762,
-    0.03284,
-    0.02619
-   ],
-   "L": 0.4076,
-   "C": 0.042,
-   "h": 38.6,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    118,
+    113,
     57,
     34
    ],
-   "hex": "#763922",
+   "hex": "#713922",
    "oklab": [
-    0.41934,
-    0.07012,
-    0.06044
+    0.41163,
+    0.06394,
+    0.05819
    ],
-   "L": 0.4193,
-   "C": 0.0926,
-   "h": 40.8,
+   "L": 0.4116,
+   "C": 0.0865,
+   "h": 42.3,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
@@ -1862,113 +2043,95 @@
    "C": 0.1525,
    "h": 27.2,
    "family": "red-vermilion",
-   "origin": "renderer:CAR_COLOURS"
-  },
-  {
-   "rgb": [
-    138,
-    65,
-    38
-   ],
-   "hex": "#8a4126",
-   "oklab": [
-    0.46439,
-    0.08194,
-    0.06952
-   ],
-   "L": 0.4644,
-   "C": 0.1075,
-   "h": 40.3,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    121,
-    78,
-    61
-   ],
-   "hex": "#794e3d",
-   "oklab": [
-    0.46787,
-    0.04757,
-    0.04333
-   ],
-   "L": 0.4679,
-   "C": 0.0643,
-   "h": 42.3,
-   "family": "red-vermilion",
-   "origin": "kmeans"
+   "origin": "renderer:CAR_COLOURS.lampTones"
   },
   {
    "rgb": [
     169,
-    41,
+    20,
+    27
+   ],
+   "hex": "#a9141b",
+   "oklab": [
+    0.47033,
+    0.16171,
+    0.0798
+   ],
+   "L": 0.4703,
+   "C": 0.1803,
+   "h": 26.3,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    117,
+    82,
+    73
+   ],
+   "hex": "#755249",
+   "oklab": [
+    0.47377,
+    0.0406,
+    0.02838
+   ],
+   "L": 0.4738,
+   "C": 0.0495,
+   "h": 35,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    142,
+    69,
     38
    ],
-   "hex": "#a92926",
+   "hex": "#8e4526",
    "oklab": [
-    0.4864,
-    0.14726,
-    0.07467
+    0.47714,
+    0.07996,
+    0.07332
    ],
-   "L": 0.4864,
-   "C": 0.1651,
-   "h": 26.9,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    150,
-    81,
-    46
-   ],
-   "hex": "#96512e",
-   "oklab": [
-    0.51051,
-    0.07209,
-    0.0753
-   ],
-   "L": 0.5105,
-   "C": 0.1042,
-   "h": 46.2,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    134,
-    97,
-    89
-   ],
-   "hex": "#866159",
-   "oklab": [
-    0.52866,
-    0.04235,
-    0.02698
-   ],
-   "L": 0.5287,
-   "C": 0.0502,
-   "h": 32.5,
+   "L": 0.4771,
+   "C": 0.1085,
+   "h": 42.5,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
     170,
+    41,
+    33
+   ],
+   "hex": "#aa2921",
+   "oklab": [
+    0.48765,
+    0.14653,
+    0.07968
+   ],
+   "L": 0.4876,
+   "C": 0.1668,
+   "h": 28.5,
+   "family": "red-vermilion",
+   "origin": "spec:car red"
+  },
+  {
+   "rgb": [
+    173,
     81,
     42
    ],
-   "hex": "#aa512a",
+   "hex": "#ad512a",
    "oklab": [
-    0.53925,
-    0.09417,
-    0.08703
+    0.54375,
+    0.09757,
+    0.08822
    ],
-   "L": 0.5393,
-   "C": 0.1282,
-   "h": 42.7,
+   "L": 0.5438,
+   "C": 0.1315,
+   "h": 42.1,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
@@ -2024,7 +2187,7 @@
    "C": 0.1301,
    "h": 46.3,
    "family": "red-vermilion",
-   "origin": "renderer:CAR_COLOURS"
+   "origin": "renderer:CAR_COLOURS.lampTones"
   },
   {
    "rgb": [
@@ -2046,6 +2209,60 @@
   },
   {
    "rgb": [
+    198,
+    89,
+    90
+   ],
+   "hex": "#c6595a",
+   "oklab": [
+    0.6005,
+    0.12997,
+    0.0516
+   ],
+   "L": 0.6005,
+   "C": 0.1398,
+   "h": 21.7,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    169,
+    114,
+    85
+   ],
+   "hex": "#a97255",
+   "oklab": [
+    0.60244,
+    0.05397,
+    0.061
+   ],
+   "L": 0.6024,
+   "C": 0.0814,
+   "h": 48.5,
+   "family": "red-vermilion",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    236,
+    36,
+    39
+   ],
+   "hex": "#ec2427",
+   "oklab": [
+    0.60514,
+    0.20463,
+    0.10507
+   ],
+   "L": 0.6051,
+   "C": 0.23,
+   "h": 27.2,
+   "family": "red-vermilion",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
     226,
     74,
     58
@@ -2060,25 +2277,7 @@
    "C": 0.1911,
    "h": 29.5,
    "family": "red-vermilion",
-   "origin": "renderer:CAR_COLOURS"
-  },
-  {
-   "rgb": [
-    217,
-    94,
-    74
-   ],
-   "hex": "#d95e4a",
-   "oklab": [
-    0.63281,
-    0.13586,
-    0.08244
-   ],
-   "L": 0.6328,
-   "C": 0.1589,
-   "h": 31.2,
-   "family": "red-vermilion",
-   "origin": "kmeans"
+   "origin": "renderer:CAR_COLOURS.lampTones"
   },
   {
    "rgb": [
@@ -2100,111 +2299,75 @@
   },
   {
    "rgb": [
-    206,
-    109,
-    50
+    237,
+    98,
+    57
    ],
-   "hex": "#ce6d32",
+   "hex": "#ed6239",
    "oklab": [
-    0.63665,
-    0.09307,
-    0.10707
+    0.66613,
+    0.14474,
+    0.10858
    ],
-   "L": 0.6366,
-   "C": 0.1419,
-   "h": 49,
+   "L": 0.6661,
+   "C": 0.1809,
+   "h": 36.9,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    177,
+    185,
     138,
-    121
+    113
    ],
-   "hex": "#b18a79",
+   "hex": "#b98a71",
    "oklab": [
-    0.66585,
-    0.03829,
-    0.03791
+    0.67256,
+    0.04437,
+    0.05134
    ],
-   "L": 0.6659,
-   "C": 0.0539,
-   "h": 44.7,
+   "L": 0.6726,
+   "C": 0.0679,
+   "h": 49.2,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    242,
-    113,
-    54
-   ],
-   "hex": "#f27136",
-   "oklab": [
-    0.69382,
-    0.12753,
-    0.11866
-   ],
-   "L": 0.6938,
-   "C": 0.1742,
-   "h": 42.9,
-   "family": "red-vermilion",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    225,
+    238,
     130,
-    129
+    65
    ],
-   "hex": "#e18281",
+   "hex": "#ee8241",
    "oklab": [
-    0.70884,
-    0.1096,
-    0.04225
+    0.71519,
+    0.10059,
+    0.11645
    ],
-   "L": 0.7088,
-   "C": 0.1175,
-   "h": 21.1,
+   "L": 0.7152,
+   "C": 0.1539,
+   "h": 49.2,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    251,
-    121,
-    124
+    255,
+    122,
+    108
    ],
-   "hex": "#fb797c",
+   "hex": "#ff7a6c",
    "oklab": [
-    0.72817,
-    0.14916,
-    0.0555
+    0.732,
+    0.14565,
+    0.07712
    ],
-   "L": 0.7282,
-   "C": 0.1591,
-   "h": 20.4,
+   "L": 0.732,
+   "C": 0.1648,
+   "h": 27.9,
    "family": "red-vermilion",
-   "origin": "accent:kissaten red neon"
-  },
-  {
-   "rgb": [
-    215,
-    152,
-    149
-   ],
-   "hex": "#d79895",
-   "oklab": [
-    0.73992,
-    0.07074,
-    0.02877
-   ],
-   "L": 0.7399,
-   "C": 0.0764,
-   "h": 22.1,
-   "family": "red-vermilion",
-   "origin": "accent:amber window"
+   "origin": "renderer:CAR_COLOURS"
   },
   {
    "rgb": [
@@ -2226,19 +2389,19 @@
   },
   {
    "rgb": [
-    242,
-    149,
-    122
+    237,
+    146,
+    125
    ],
-   "hex": "#f2957a",
+   "hex": "#ed927d",
    "oklab": [
-    0.75972,
-    0.09523,
-    0.07169
+    0.74923,
+    0.09565,
+    0.06397
    ],
-   "L": 0.7597,
-   "C": 0.1192,
-   "h": 37,
+   "L": 0.7492,
+   "C": 0.1151,
+   "h": 33.8,
    "family": "red-vermilion",
    "origin": "kmeans"
   },
@@ -2298,75 +2461,39 @@
   },
   {
    "rgb": [
-    158,
-    105,
-    74
+    150,
+    93,
+    54
    ],
-   "hex": "#9e694a",
+   "hex": "#965d36",
    "oklab": [
-    0.56984,
-    0.05151,
-    0.06318
+    0.53355,
+    0.05444,
+    0.07432
    ],
-   "L": 0.5698,
-   "C": 0.0815,
-   "h": 50.8,
+   "L": 0.5335,
+   "C": 0.0921,
+   "h": 53.8,
    "family": "orange-amber",
    "origin": "kmeans"
   },
   {
    "rgb": [
-    181,
-    122,
-    85
+    208,
+    112,
+    44
    ],
-   "hex": "#b57a55",
+   "hex": "#d0702c",
    "oklab": [
-    0.63193,
-    0.05482,
-    0.0715
+    0.64378,
+    0.08902,
+    0.11337
    ],
-   "L": 0.6319,
-   "C": 0.0901,
-   "h": 52.5,
+   "L": 0.6438,
+   "C": 0.1441,
+   "h": 51.9,
    "family": "orange-amber",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    209,
-    133,
-    74
-   ],
-   "hex": "#d1854a",
-   "oklab": [
-    0.68433,
-    0.0656,
-    0.1002
-   ],
-   "L": 0.6843,
-   "C": 0.1198,
-   "h": 56.8,
-   "family": "orange-amber",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    201,
-    146,
-    110
-   ],
-   "hex": "#c9926e",
-   "oklab": [
-    0.70477,
-    0.04871,
-    0.06738
-   ],
-   "L": 0.7048,
-   "C": 0.0831,
-   "h": 54.1,
-   "family": "orange-amber",
-   "origin": "kmeans"
+   "origin": "renderer:CAR_COLOURS"
   },
   {
    "rgb": [
@@ -2388,37 +2515,55 @@
   },
   {
    "rgb": [
-    241,
-    133,
-    58
+    210,
+    149,
+    102
    ],
-   "hex": "#f1853a",
+   "hex": "#d29566",
    "oklab": [
-    0.72333,
-    0.09735,
-    0.12405
+    0.71898,
+    0.05112,
+    0.08202
    ],
-   "L": 0.7233,
-   "C": 0.1577,
-   "h": 51.9,
+   "L": 0.719,
+   "C": 0.0966,
+   "h": 58.1,
    "family": "orange-amber",
-   "origin": "spec:amber"
+   "origin": "kmeans"
   },
   {
    "rgb": [
-    221,
-    158,
-    105
+    201,
+    166,
+    140
    ],
-   "hex": "#dd9e69",
+   "hex": "#c9a68c",
    "oklab": [
-    0.7485,
-    0.05048,
-    0.08883
+    0.74981,
+    0.02871,
+    0.04666
    ],
-   "L": 0.7485,
-   "C": 0.1022,
-   "h": 60.4,
+   "L": 0.7498,
+   "C": 0.0548,
+   "h": 58.4,
+   "family": "orange-amber",
+   "origin": "renderer:CAR_COLOURS"
+  },
+  {
+   "rgb": [
+    246,
+    154,
+    70
+   ],
+   "hex": "#f69a46",
+   "oklab": [
+    0.76586,
+    0.07371,
+    0.12693
+   ],
+   "L": 0.7659,
+   "C": 0.1468,
+   "h": 59.9,
    "family": "orange-amber",
    "origin": "kmeans"
   },
@@ -2442,6 +2587,24 @@
   },
   {
    "rgb": [
+    241,
+    174,
+    117
+   ],
+   "hex": "#f1ae75",
+   "oklab": [
+    0.80183,
+    0.05245,
+    0.09376
+   ],
+   "L": 0.8018,
+   "C": 0.1074,
+   "h": 60.8,
+   "family": "orange-amber",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
     250,
     177,
     90
@@ -2456,25 +2619,25 @@
    "C": 0.1336,
    "h": 68.7,
    "family": "orange-amber",
-   "origin": "renderer:OIL_COLOURS"
+   "origin": "renderer:CAR_COLOURS.lampTones"
   },
   {
    "rgb": [
-    233,
-    186,
-    149
+    255,
+    184,
+    90
    ],
-   "hex": "#e9ba95",
+   "hex": "#ffb85a",
    "oklab": [
-    0.82188,
-    0.03706,
-    0.06349
+    0.83178,
+    0.04343,
+    0.12985
    ],
-   "L": 0.8219,
-   "C": 0.0735,
-   "h": 59.7,
+   "L": 0.8318,
+   "C": 0.1369,
+   "h": 71.5,
    "family": "orange-amber",
-   "origin": "kmeans"
+   "origin": "renderer:CAR_COLOURS"
   },
   {
    "rgb": [
@@ -2510,7 +2673,7 @@
    "C": 0.0391,
    "h": 72.3,
    "family": "orange-amber",
-   "origin": "renderer:CAR_COLOURS"
+   "origin": "renderer:CAR_COLOURS.lampTones"
   },
   {
    "rgb": [
@@ -2528,7 +2691,7 @@
    "C": 0.0389,
    "h": 92.2,
    "family": "gold-cream",
-   "origin": "livery:yui-solar-grid"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
@@ -2604,6 +2767,42 @@
   },
   {
    "rgb": [
+    250,
+    197,
+    106
+   ],
+   "hex": "#fac56a",
+   "oklab": [
+    0.85279,
+    0.02302,
+    0.12229
+   ],
+   "L": 0.8528,
+   "C": 0.1244,
+   "h": 79.3,
+   "family": "gold-cream",
+   "origin": "kmeans"
+  },
+  {
+   "rgb": [
+    245,
+    209,
+    160
+   ],
+   "hex": "#f5d1a0",
+   "oklab": [
+    0.87966,
+    0.01939,
+    0.0728
+   ],
+   "L": 0.8797,
+   "C": 0.0753,
+   "h": 75.1,
+   "family": "gold-cream",
+   "origin": "livery:Midori"
+  },
+  {
+   "rgb": [
     253,
     209,
     118
@@ -2617,6 +2816,24 @@
    "L": 0.8803,
    "C": 0.1203,
    "h": 84.1,
+   "family": "gold-cream",
+   "origin": "renderer:CAR_COLOURS.lampTones"
+  },
+  {
+   "rgb": [
+    239,
+    220,
+    194
+   ],
+   "hex": "#efdcc2",
+   "oklab": [
+    0.90315,
+    0.00993,
+    0.03919
+   ],
+   "L": 0.9031,
+   "C": 0.0404,
+   "h": 75.8,
    "family": "gold-cream",
    "origin": "renderer:CAR_COLOURS"
   },
@@ -2640,21 +2857,21 @@
   },
   {
    "rgb": [
-    253,
-    237,
-    177
+    254,
+    233,
+    174
    ],
-   "hex": "#fdedb1",
+   "hex": "#fee9ae",
    "oklab": [
-    0.94474,
-    -0.00676,
-    0.07808
+    0.93713,
+    -0.00105,
+    0.07858
    ],
-   "L": 0.9447,
-   "C": 0.0784,
-   "h": 94.9,
+   "L": 0.9371,
+   "C": 0.0786,
+   "h": 90.8,
    "family": "gold-cream",
-   "origin": "kmeans"
+   "origin": "renderer:LINEWORK_COLOURS"
   },
   {
    "rgb": [
@@ -2672,7 +2889,25 @@
    "C": 0.046,
    "h": 99.2,
    "family": "gold-cream",
-   "origin": "renderer:LAMP_HEAD_CORE"
+   "origin": "renderer:CAR_COLOURS.lampTones"
+  },
+  {
+   "rgb": [
+    255,
+    246,
+    220
+   ],
+   "hex": "#fff6dc",
+   "oklab": [
+    0.97339,
+    -0.00069,
+    0.03531
+   ],
+   "L": 0.9734,
+   "C": 0.0353,
+   "h": 91.1,
+   "family": "gold-cream",
+   "origin": "renderer:CAR_COLOURS"
   },
   {
    "rgb": [
@@ -2690,7 +2925,7 @@
    "C": 0.0715,
    "h": 102.9,
    "family": "olive-lime",
-   "origin": "livery:yui-solar-grid"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
@@ -2708,7 +2943,7 @@
    "C": 0.1068,
    "h": 111.1,
    "family": "olive-lime",
-   "origin": "livery:yui-solar-grid"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
@@ -2726,7 +2961,7 @@
    "C": 0.1082,
    "h": 109.2,
    "family": "olive-lime",
-   "origin": "livery:yui-solar-grid"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
@@ -2798,43 +3033,25 @@
    "C": 0.0305,
    "h": 164.7,
    "family": "sage-green",
-   "origin": "kmeans"
-  },
-  {
-   "rgb": [
-    70,
-    94,
-    82
-   ],
-   "hex": "#465e52",
-   "oklab": [
-    0.45854,
-    -0.0334,
-    0.01024
-   ],
-   "L": 0.4585,
-   "C": 0.0349,
-   "h": 163,
-   "family": "sage-green",
-   "origin": "kmeans"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
     93,
-    114,
-    93
+    118,
+    97
    ],
-   "hex": "#5d725d",
+   "hex": "#5d7661",
    "oklab": [
-    0.52869,
-    -0.03349,
-    0.02348
+    0.5396,
+    -0.03763,
+    0.02222
    ],
-   "L": 0.5287,
-   "C": 0.0409,
-   "h": 145,
+   "L": 0.5396,
+   "C": 0.0437,
+   "h": 149.4,
    "family": "sage-green",
-   "origin": "kmeans"
+   "origin": "spec:sage"
   },
   {
    "rgb": [
@@ -2856,39 +3073,39 @@
   },
   {
    "rgb": [
-    49,
-    73,
-    70
+    54,
+    81,
+    74
    ],
-   "hex": "#314946",
+   "hex": "#36514a",
    "oklab": [
-    0.3847,
-    -0.02984,
-    -0.0033
+    0.41091,
+    -0.03469,
+    0.0021
    ],
-   "L": 0.3847,
-   "C": 0.03,
-   "h": 186.3,
+   "L": 0.4109,
+   "C": 0.0348,
+   "h": 176.5,
    "family": "teal-cyan",
-   "origin": "kmeans"
+   "origin": "renderer:FOLIAGE_TONES"
   },
   {
    "rgb": [
-    70,
-    108,
-    101
+    57,
+    94,
+    93
    ],
-   "hex": "#466c65",
+   "hex": "#395e5d",
    "oklab": [
-    0.50053,
-    -0.04466,
-    -0.00123
+    0.45388,
+    -0.04124,
+    -0.00996
    ],
-   "L": 0.5005,
-   "C": 0.0447,
-   "h": 181.6,
+   "L": 0.4539,
+   "C": 0.0424,
+   "h": 193.6,
    "family": "teal-cyan",
-   "origin": "livery:Midori"
+   "origin": "kmeans"
   },
   {
    "rgb": [
@@ -2925,42 +3142,6 @@
    "h": 172.2,
    "family": "teal-cyan",
    "origin": "livery:Midori"
-  },
-  {
-   "rgb": [
-    31,
-    47,
-    96
-   ],
-   "hex": "#1f2f60",
-   "oklab": [
-    0.32043,
-    -0.00378,
-    -0.08926
-   ],
-   "L": 0.3204,
-   "C": 0.0893,
-   "h": 267.6,
-   "family": "steel-blue",
-   "origin": "livery:Aoi"
-  },
-  {
-   "rgb": [
-    44,
-    86,
-    157
-   ],
-   "hex": "#2c569d",
-   "oklab": [
-    0.46152,
-    -0.02117,
-    -0.12293
-   ],
-   "L": 0.4615,
-   "C": 0.1247,
-   "h": 260.2,
-   "family": "steel-blue",
-   "origin": "livery:Aoi"
   },
   {
    "rgb": [
@@ -3016,48 +3197,50 @@
    "indices": [
     4,
     5,
-    6
+    6,
+    7
    ]
   },
   {
    "name": "indigo-navy/muted",
    "kind": "family",
    "indices": [
-    7,
     8,
     9,
-    11,
-    14,
-    16,
-    19
+    10,
+    12,
+    13,
+    15,
+    18,
+    24
    ]
   },
   {
    "name": "indigo-navy/vivid",
    "kind": "family",
    "indices": [
-    10,
-    12,
-    13,
-    15,
+    11,
+    14,
+    16,
     17,
-    18,
+    19,
     20,
-    21
+    21,
+    22,
+    23
    ]
   },
   {
    "name": "violet-plum/muted",
    "kind": "family",
    "indices": [
-    22,
-    23,
-    24,
     25,
     26,
+    27,
     28,
-    30,
-    34,
+    29,
+    32,
+    36,
     39
    ]
   },
@@ -3065,29 +3248,28 @@
    "name": "violet-plum/vivid",
    "kind": "family",
    "indices": [
-    27,
-    29,
+    30,
     31,
-    32,
     33,
+    34,
     35,
-    36,
     37,
     38,
-    40
+    40,
+    41
    ]
   },
   {
    "name": "rose-crimson/muted",
    "kind": "family",
    "indices": [
-    41,
     42,
     43,
     45,
     47,
-    52,
-    54
+    54,
+    55,
+    56
    ]
   },
   {
@@ -3100,6 +3282,7 @@
     49,
     50,
     51,
+    52,
     53
    ]
   },
@@ -3107,125 +3290,129 @@
    "name": "red-vermilion/muted",
    "kind": "family",
    "indices": [
-    55,
-    56,
     57,
     58,
+    59,
     60,
-    62,
+    61,
     63,
-    65,
     66,
-    68,
-    69,
+    67,
+    71,
     72,
-    77,
-    79,
-    83
+    75,
+    78,
+    80,
+    84
    ]
   },
   {
    "name": "red-vermilion/vivid",
    "kind": "family",
    "indices": [
-    59,
-    61,
+    62,
     64,
-    67,
+    65,
+    68,
+    69,
     70,
-    71,
     73,
     74,
-    75,
     76,
-    78,
-    80,
+    77,
+    79,
     81,
     82,
-    84,
-    85
+    83
    ]
   },
   {
    "name": "orange-amber/muted",
    "kind": "family",
    "indices": [
+    85,
     86,
-    87,
-    89,
-    93,
-    96,
+    90,
+    92,
+    94,
     98,
-    100
+    99
    ]
   },
   {
    "name": "orange-amber/vivid",
    "kind": "family",
    "indices": [
+    87,
     88,
-    90,
+    89,
     91,
-    92,
-    94,
+    93,
     95,
-    97,
-    99
+    96,
+    97
    ]
   },
   {
-   "name": "gold-cream",
+   "name": "gold-cream/muted",
    "kind": "family",
    "indices": [
+    100,
     101,
+    106,
+    108,
+    111,
+    112
+   ]
+  },
+  {
+   "name": "gold-cream/vivid",
+   "kind": "family",
+   "indices": [
     102,
     103,
     104,
     105,
-    106,
     107,
-    108,
-    109
+    109,
+    110
    ]
   },
   {
    "name": "olive-lime",
    "kind": "family",
    "indices": [
-    110,
-    111,
-    112,
     113,
     114,
-    115
+    115,
+    116,
+    117,
+    118
    ]
   },
   {
    "name": "sage-green",
    "kind": "family",
    "indices": [
-    116,
-    117,
-    118,
-    119
+    119,
+    120,
+    121
    ]
   },
   {
    "name": "teal-cyan",
    "kind": "family",
    "indices": [
-    120,
-    121,
     122,
-    123
+    123,
+    124,
+    125
    ]
   },
   {
    "name": "steel-blue",
    "kind": "family",
    "indices": [
-    124,
-    125,
     126,
     127
    ]
@@ -3234,12 +3421,12 @@
    "name": "livery/Shiro",
    "kind": "livery",
    "indices": [
-    24,
-    28,
-    69,
-    79,
-    96,
-    100
+    27,
+    29,
+    71,
+    80,
+    94,
+    108
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3251,12 +3438,12 @@
    "name": "livery/Akai",
    "kind": "livery",
    "indices": [
-    41,
-    57,
+    42,
+    59,
     64,
-    49,
-    80,
-    98
+    74,
+    81,
+    95
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3269,11 +3456,11 @@
    "kind": "livery",
    "indices": [
     3,
-    116,
-    121,
-    122,
+    119,
     123,
-    99
+    124,
+    125,
+    106
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3285,12 +3472,12 @@
    "name": "livery/Murasaki",
    "kind": "livery",
    "indices": [
-    8,
-    12,
+    9,
+    13,
     31,
-    35,
-    38,
-    40
+    37,
+    23,
+    41
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3302,12 +3489,12 @@
    "name": "livery/Kiiro",
    "kind": "livery",
    "indices": [
-    86,
+    85,
+    101,
     102,
     103,
     104,
-    105,
-    99
+    106
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3319,12 +3506,12 @@
    "name": "livery/Aoi",
    "kind": "livery",
    "indices": [
-    9,
-    124,
-    125,
+    10,
+    15,
+    21,
     126,
     127,
-    21
+    24
    ],
    "livery": {
     "source": "LIVERIES",
@@ -3336,12 +3523,12 @@
    "name": "livery/aki-first-light",
    "kind": "livery",
    "indices": [
-    55,
+    57,
+    86,
     87,
-    88,
+    103,
     104,
-    105,
-    100
+    106
    ],
    "livery": {
     "source": "CLUB_ITEMS",
@@ -3353,12 +3540,12 @@
    "name": "livery/ren-radio-night",
    "kind": "livery",
    "indices": [
-    8,
-    11,
+    9,
     12,
-    16,
-    35,
-    38
+    13,
+    31,
+    36,
+    39
    ],
    "livery": {
     "source": "CLUB_ITEMS",
@@ -3370,12 +3557,12 @@
    "name": "livery/mei-sakura-film",
    "kind": "livery",
    "indices": [
-    22,
+    25,
     43,
     46,
     50,
-    81,
-    54
+    55,
+    56
    ],
    "livery": {
     "source": "CLUB_ITEMS",
@@ -3388,11 +3575,11 @@
    "kind": "livery",
    "indices": [
     3,
-    116,
-    121,
-    122,
+    119,
     123,
-    99
+    124,
+    125,
+    106
    ],
    "livery": {
     "source": "CLUB_ITEMS",
@@ -3404,12 +3591,12 @@
    "name": "livery/yui-solar-grid",
    "kind": "livery",
    "indices": [
-    101,
-    110,
-    111,
-    112,
+    100,
+    113,
     114,
-    107
+    115,
+    117,
+    109
    ],
    "livery": {
     "source": "CLUB_ITEMS",
@@ -3421,12 +3608,12 @@
    "name": "livery/jun-transistor",
    "kind": "livery",
    "indices": [
-    8,
-    12,
-    16,
-    20,
-    38,
-    39
+    9,
+    13,
+    19,
+    22,
+    23,
+    40
    ],
    "livery": {
     "source": "CLUB_ITEMS",

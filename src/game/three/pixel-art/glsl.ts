@@ -64,6 +64,19 @@ int artCarKind(ivec2 cell) { return artCarsReady > .5 ? int(texelFetch(cars, art
 /** Car feature under a cell, from the car's own lamp and plate boxes: 0 none, 1 taillight frame, 2 rear plate. */
 int artCarFeature(ivec2 cell) { return artCarsReady > .5 ? int(texelFetch(cars, artClamp(cell), 0).b * 255. + .5) : 0; }
 
+/** Opaque asphalt writes alpha .875; pure water (.5) and other opaque materials (1) are excluded. */
+float artRoadShare(ivec2 cell) {
+  ivec2 origin = cell * artSupersample;
+  int s = artSupersample, count = s * s;
+  float road = 0.;
+  for (int i = 0; i < 9; i++) {
+    if (i >= count) break;
+    float a = texelFetch(sceneColor, origin + ivec2(i % s, i / s), 0).a;
+    road += step(.84, a) * step(a, .91);
+  }
+  return road / float(count);
+}
+
 /** Positive view distance along the camera axis from a [0, 1] depth sample. */
 float artLinearDepth(float depth) {
   float perspective = artCameraNear * artCameraFar / max(artCameraFar - depth * (artCameraFar - artCameraNear), 1e-5);

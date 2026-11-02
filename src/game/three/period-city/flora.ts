@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { crownLight, crownLightGlsl } from '../autumn-foliage';
+import { withCanopyGaps } from '../canopy-gaps';
 import { seeded } from './layout';
 
 /**
@@ -469,13 +470,13 @@ function floraMaterials() {
   foliage.onBeforeCompile = shader => {
     shader.uniforms.soraCrownLight = crownLight;
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform vec2 soraCrownLight;')
+      .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;')
       .replace('#include <normal_fragment_begin>', THREE.ShaderChunk.normal_fragment_begin.replace('normal *= faceDirection;', ''))
       .replace('#include <opaque_fragment>', `${crownLightGlsl('1.')}
 #include <opaque_fragment>`);
   };
-  foliage.customProgramCacheKey = () => 'period-flora-leaves-v2';
-  const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: .5 });
+  foliage.customProgramCacheKey = () => 'period-flora-leaves-v4';
+  const depth = withCanopyGaps(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: .5 }));
   return materials = { wood, foliage, depth };
 }
 
