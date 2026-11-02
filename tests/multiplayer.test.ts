@@ -142,6 +142,28 @@ test('a spectator verifies the same native state without receiving any gameplay 
   } finally { spectator.close(); controllers.forEach(c => c.stop()); }
 });
 
+test('a spectator follows racers whose feed packets reach the relay rounds apart', async () => {
+  // Each racer publishes to the relay on its own socket, so one racer's packets can arrive several rounds before
+  // another's. The spectator once kept only the next round's and dropped the rest, then stalled for good.
+  const { RaceSpectator } = await import('../src/network/spectator');
+  const { keys, scope, transports, flush } = setup(2);
+  const spectator = new RaceSpectator(scope), statuses: string[] = [];
+  spectator.onStatus = message => statuses.push(message);
+  const feeds: PeerMessage[] = [];
+  for (const transport of transports) { const send = transport.broadcast.bind(transport); transport.broadcast = packet => { feeds.push(packet); send(packet); }; }
+  const controllers = keys.map((key, slot) => new MultiplayerRaceController({ scope, slot, privateKey: key, input: () => 1, transport: transports[slot] }));
+  try {
+    controllers.forEach(c => c.start()); flush();
+    for (let tick = 0; tick < 48; tick++) { controllers.forEach(c => c.tick(1)); flush(); }
+    // Every packet of racer 0, eight rounds of them, before any of racer 1's.
+    for (const slot of [0, 1]) for (const packet of feeds.filter(p => p.slot === slot)) spectator.receive(packet);
+    assert.equal(spectator.state.tick, 48);
+    assert.deepEqual(spectator.state, controllers[0]!.state);
+    assert.deepEqual(spectator.exportNativeReplay(), controllers[0]!.exportNativeReplay());
+    assert.deepEqual(statuses.filter(status => /Rejected|cannot/.test(status)), []);
+  } finally { spectator.close(); controllers.forEach(c => c.stop()); }
+});
+
 test('a spectator rejects a unanimously signed false terminal claim against its own simulation', async () => {
   const { RaceSpectator } = await import('../src/network/spectator');
   const { keys, scope, transports, flush } = setup(2);

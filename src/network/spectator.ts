@@ -2,7 +2,7 @@ import { ed25519 } from '@noble/curves/ed25519';
 import { checkpointSigningFrame } from '../chain/certificates';
 import type { RaceReplayV1 } from '@iroha/iroha-js/race';
 import type { SignedGameCheckpointV1 } from '@iroha/iroha-js/game';
-import { RacePeerSession, unhex } from './session';
+import { BATCH_TICKS, RacePeerSession, unhex } from './session';
 import type { RaceScope, PeerMessage, ProtocolEvent } from './session';
 import { simulateNativeReplay } from './controller';
 import { stateRoot, checkpointTranscriptRoot } from '../chain/races';
@@ -12,6 +12,9 @@ import type { RaceState } from '../game/engine';
 import { emptyAppearance, type ClubAppearance } from '../game/catalog';
 import type { CarBuild } from '../game/car-builds';
 import { verifyAppearance, verifyBuild } from './appearance';
+
+/** Rounds of feed packets a spectator holds past the next one; each round carries four messages per racer. */
+const HOLD_ROUNDS = 64;
 
 /** Read-only feed verification; no wallet or participant input key is required. */
 export class RaceSpectator {
@@ -31,6 +34,10 @@ export class RaceSpectator {
   /** Each racer's announced car (car-builds.ts); null until their packet arrives. */
   #builds: (CarBuild | null)[];
   #buildSignatures = new Map<number, string>();
+  /** Packets for rounds past the next one. The relay forwards each racer's packets in order, but one racer's can reach
+   * it rounds before another's (their sockets are separate), and the session keeps only the next round's. They wait
+   * here, unverified and bounded, until the certified frontier reaches them; dropping one stalled the feed for good. */
+  #ahead: unknown[] = [];
   constructor(scope: RaceScope, resume?: { replay: RaceReplayV1; checkpoint: SignedGameCheckpointV1; activeSlots: readonly number[] }) {
     this.#scope = structuredClone(scope);
     this.#appearances = scope.participants.map(() => emptyAppearance());
@@ -79,7 +86,28 @@ export class RaceSpectator {
       this.#buildSignatures.set(p.slot, p.signature); this.#builds[p.slot] = p.build; return;
     }
     if (this.#failed) throw new Error('Disputed spectator feed requires an authenticated native recovery frontier.');
+    if (this.#beyondNext(packet)) {
+      if (this.#ahead.length >= this.#scope.participants.length * 4 * HOLD_ROUNDS) throw new Error('Feed packet is too far ahead of the certified frontier.');
+      this.#ahead.push(packet); return;
+    }
     this.#session.receive(packet);
+    this.#release();
+  }
+  #beyondNext(packet: unknown): boolean {
+    const round = packet && typeof packet === 'object' ? (packet as { round?: unknown }).round : undefined;
+    return typeof round === 'number' && Number.isInteger(round) && round > this.#session.certifiedTick / BATCH_TICKS + 1;
+  }
+  /** Deliver held packets the frontier now reaches, in arrival order, for as long as it keeps moving. */
+  #release(): void {
+    for (let moved = true; moved && this.#ahead.length && !this.#failed;) {
+      moved = false;
+      const held = this.#ahead; this.#ahead = [];
+      for (const packet of held) {
+        if (this.#failed || this.#beyondNext(packet)) { this.#ahead.push(packet); continue; }
+        moved = true;
+        try { this.#session.receive(packet); } catch (error) { this.onStatus(`Rejected feed packet: ${error instanceof Error ? error.message : String(error)}`); }
+      }
+    }
   }
   /** The optional relay is a transport. Its packets cannot move the verified spectator state by themselves. */
   connect(url: string): Promise<void> {
