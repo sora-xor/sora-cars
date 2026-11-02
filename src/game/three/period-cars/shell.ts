@@ -8,7 +8,7 @@ import { Buckets, box, cap, circle, curve, grid, lerp, roundedRect, sweep, type 
  * kit parts are each car's own (model.ts, kit.ts).
  */
 export type PieceMaterial = 'paint' | 'lower' | 'under' | 'trim' | 'chrome' | 'glass' | 'head' | 'tail' | 'tailFrame' | 'amber'
-  | 'reverse' | 'plate' | 'interior' | 'seat' | 'tyre' | 'rim' | 'disc' | 'caliper' | 'aero';
+  | 'reverse' | 'plate' | 'interior' | 'seat' | 'tyre' | 'rim' | 'disc' | 'caliper' | 'aero' | 'ski' | 'neon';
 export const NO_PART = -1;
 /** CAR_PARTS bits (damage.ts). +X is the driver's left. */
 export const PART = { frontPlate: 0, frontBumper: 1, headLeft: 2, headRight: 3, hood: 4, rearPlate: 5, rearBumper: 6, trunk: 7,

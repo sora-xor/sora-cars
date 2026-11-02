@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  BODIES, BODY_IDS, BUILD_KEYS, EXHAUSTS, FENDERS, FRONT_AERO, LAMPS, LOWER_TONES, MIRRORS, OPTION_NAMES, PAINTS, SPOILERS, STANCES, STRIPES,
-  STRIPE_COLOURS, WHEEL_COLOURS, WHEEL_STYLES, buildColours, isFactoryHachiroku, liveryPaint, paintInfo, practiceCars, readCarBuild, resolvedBuild,
-  rivalCar, stockBuild, storedCarBuild, storyCar, validateCarBuild, type CarBuild,
+  AERO_COLOURS, BODIES, BODY_IDS, BONNETS, BUILD_ADDITIONS, BUILD_KEYS, BUILD_KEYS_V1, EXHAUSTS, FENDERS, FRONT_AERO, HEADLIGHTS, LAMPS, LOWER_TONES,
+  MIRRORS, NEONS, OPTION_NAMES, PAINTS, ROOFS, SPOILERS, STANCES, STRIPES, STRIPE_COLOURS, TAILS, TINTS, WHEEL_COLOURS, WHEEL_STYLES, buildColours,
+  isFactoryHachiroku, liveryPaint, paintInfo, practiceCars, readCarBuild, resolvedBuild, rivalCar, stockBuild, storedCarBuild, storyCar, upgradeCarBuild,
+  validateCarBuild, validateReplayBuilds, type CarBuild,
 } from '../src/game/car-builds';
 import { LIVERIES } from '../src/game/rules';
 import { CREW, RIVALS, storyGrid, storyStreetGrid, CHAPTERS } from '../src/game/story';
@@ -22,13 +23,18 @@ test('the factory car in each standard colour is exactly the hachiroku every rac
   assert.ok(!isFactoryHachiroku({ ...stockBuild(), body: 'raimei' }));
   assert.ok(!isFactoryHachiroku({ ...stockBuild(), paint: 'gunmetal' }), 'a period paint is a build');
   assert.ok(!isFactoryHachiroku({ ...stockBuild(), wheels: 'mesh' }));
+  for (const change of [{ tint: 'dark' }, { headlights: 'yellow' }, { neon: 'pink' }, { roof: 'skis' }, { number: 7 }, { banner: true }] as const) {
+    assert.ok(!isFactoryHachiroku({ ...stockBuild(), ...change }), JSON.stringify(change));
+  }
+  assert.ok(isFactoryHachiroku({ ...stockBuild(), aeroColour: 'body' }), 'the factory car has no aero to colour');
 });
 
 test('a build is exactly its keys, each a known choice', () => {
-  const choices: Record<string, readonly (string | boolean)[]> = {
+  const choices: Record<string, readonly (string | boolean | number)[]> = {
     body: BODY_IDS, paint: PAINTS.map(p => p.id), lower: LOWER_TONES, stripe: STRIPES, stripeColour: STRIPE_COLOURS, wheels: WHEEL_STYLES,
     wheelColour: WHEEL_COLOURS, front: FRONT_AERO, skirts: [false, true], spoiler: SPOILERS, fenders: FENDERS, stance: STANCES, lamps: LAMPS,
-    louvers: [false, true], exhaust: EXHAUSTS, mirrors: MIRRORS,
+    louvers: [false, true], exhaust: EXHAUSTS, mirrors: MIRRORS, tint: TINTS, headlights: HEADLIGHTS, tails: TAILS, neon: NEONS, bonnet: BONNETS,
+    roof: ROOFS, number: [0, 1, 27, 99], aeroColour: AERO_COLOURS, banner: [false, true],
   };
   assert.deepEqual(Object.keys(choices).sort(), [...BUILD_KEYS].sort());
   for (const [key, values] of Object.entries(choices)) for (const value of values) {
@@ -37,13 +43,15 @@ test('a build is exactly its keys, each a known choice', () => {
   assert.throws(() => validateCarBuild({ ...stockBuild(), wheels: 'chrome-spinners' }), /wheels/);
   assert.throws(() => validateCarBuild({ ...stockBuild(), paint: '#ff0000' }), /paint/);
   assert.throws(() => validateCarBuild({ ...stockBuild(), skirts: 'yes' }));
+  for (const number of [100, -1, 7.5, '7', null]) assert.throws(() => validateCarBuild({ ...stockBuild(), number }), /number/, String(number));
+  assert.throws(() => validateCarBuild({ ...stockBuild(), banner: 'true' }));
   assert.throws(() => validateCarBuild({ ...stockBuild(), turbo: 2 }), 'no extra keys: a build never carries performance');
   const { louvers: _louvers, ...missing } = stockBuild();
   assert.throws(() => validateCarBuild(missing));
   assert.throws(() => validateCarBuild([]));
   // Every option the garage shows has its Japanese and English names.
   for (const [key, values] of Object.entries(choices)) {
-    if (key === 'body' || key === 'paint') continue;
+    if (key === 'body' || key === 'paint' || key === 'number') continue;
     for (const value of values) {
       const name = (OPTION_NAMES as unknown as Record<string, Record<string, { ja: string; en: string }>>)[key]![String(value)];
       assert.ok(name?.ja && name.en, `${key} ${value} is named`);
@@ -57,6 +65,22 @@ test('a saved build round-trips; an unreadable save is the factory car in the sa
   assert.deepEqual(readCarBuild({ version: 1, build: { ...build, body: 'delorean' } }, 4), stockBuild(4));
   assert.deepEqual(readCarBuild(null, 2), stockBuild(2));
   assert.deepEqual(readCarBuild({ version: 2, build }, 1), stockBuild(1));
+});
+
+test('a first-format build reads with the factory part for every option it predates', () => {
+  // As saved, replayed and announced before lights, glass, bonnets, roofs and numbers (16 keys).
+  const full = validateCarBuild({ ...stockBuild(3), body: 'hokuto', wheels: 'mesh', spoiler: 'wing', neon: 'cyan', number: 12 });
+  const first = Object.fromEntries(BUILD_KEYS_V1.map(key => [key, full[key]]));
+  assert.equal(Object.keys(first).length, 16);
+  const upgraded = upgradeCarBuild(first);
+  assert.deepEqual(upgraded, { ...first, ...BUILD_ADDITIONS });
+  assert.deepEqual(Object.keys(upgraded), [...BUILD_KEYS], 'in the stored key order');
+  assert.deepEqual(readCarBuild({ version: 1, build: first }), upgraded);
+  assert.deepEqual(validateReplayBuilds([first, null, full], 3), [upgraded, null, full]);
+  assert.deepEqual(upgradeCarBuild(full), full);
+  assert.throws(() => validateCarBuild(first), 'the current format is exact');
+  assert.throws(() => upgradeCarBuild({ ...first, tint: 'dark' }), 'a mix of the two formats is neither');
+  assert.throws(() => upgradeCarBuild({ ...first, wheels: 'spinners' }), /wheels/);
 });
 
 test('the cars are named for SORA’s sky, and none after a wartime aircraft', () => {
@@ -120,4 +144,18 @@ test('a local replay keeps every car’s build as raced; earlier replays still l
   assert.deepEqual(validateDriveReplay({ ...replay, builds }).builds, builds);
   assert.throws(() => validateDriveReplay({ ...replay, builds: builds.slice(0, 1) }), /roster/);
   assert.throws(() => validateDriveReplay({ ...replay, builds: [builds[0], { ...builds[1], body: 'kei-van' }] }), /body/);
+});
+
+test('replays saved with first-format builds load and keep the factory part for every newer option', () => {
+  const full = validateCarBuild({ ...stockBuild(2), body: 'hokuto', wheels: 'dish', spoiler: 'wing' }), first = Object.fromEntries(BUILD_KEYS_V1.map(key => [key, full[key]]));
+  const drive = { version: 1, rules: DRIVE_RULES, trackId: 0, names: ['A', 'YOU'], skins: [0, 2], tunes: [STOCK_TUNE, STOCK_TUNE],
+    inputs: Array.from({ length: 30 }, () => [1, 1]), savedAt: '2026-11-01T00:00:00.000Z', source: 'practice' as const };
+  assert.deepEqual(validateDriveReplay({ ...drive, builds: [first, null] }).builds, [full, null]);
+  // Nothing else in the replay moves: its inputs and tunes are what re-simulate the race.
+  const upgraded = validateDriveReplay({ ...drive, builds: [first, first] });
+  assert.deepEqual(upgraded.inputs, drive.inputs); assert.deepEqual(upgraded.tunes, drive.tunes);
+  assert.deepEqual(upgraded.builds![1], full);
+  // A save from the first format reads the same way, and a new save round-trips in the current one.
+  assert.deepEqual(readCarBuild({ version: 1, build: first }), full);
+  assert.deepEqual(readCarBuild(JSON.parse(JSON.stringify(storedCarBuild(full)))), full);
 });

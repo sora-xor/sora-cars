@@ -31,8 +31,8 @@
 .builder-blurb { font-size: 14px; line-height: 1.7; margin-top: 10px; }
 .builder-blurb span { display: block; font-size: 12px; color: #c9bccf; margin-top: 4px; }
 .builder-plate .fine-print { color: #b9a9c3; font-size: 11px; line-height: 1.6; }
-.builder-tabs { display: grid; grid-template-columns: repeat(6, 1fr); border-bottom: 1px solid #b8abab; }
-.builder-tabs button { padding: 10px 4px 9px; font-size: 13px; font-weight: 750; color: #6b5d69; border-bottom: 3px solid transparent; }
+.builder-tabs { display: grid; grid-template-columns: repeat(7, 1fr); border-bottom: 1px solid #b8abab; }
+.builder-tabs button { padding: 10px 2px 9px; font-size: 13px; font-weight: 750; color: #6b5d69; border-bottom: 3px solid transparent; }
 .builder-tabs button.active { color: var(--ink); border-bottom-color: var(--red); }
 .builder-panel { padding: 14px 0 6px; min-height: 280px; }
 .build-group { margin-bottom: 14px; }
@@ -44,6 +44,11 @@
 .build-chip.with-swatch i { position: absolute; left: 9px; top: 50%; width: 14px; height: 14px; transform: translateY(-50%); background: var(--swatch); border: 1px solid #29202c33; }
 .build-chip[aria-pressed="true"] { background: #fff9eb; border-color: var(--ink); box-shadow: inset 0 -3px #db2439; }
 .build-chip:hover, .build-body:hover, .build-paint:hover { transform: translateY(-1px); }
+.build-number { display: flex; flex-wrap: wrap; align-items: stretch; gap: 7px; }
+.build-number > .build-chip:not([aria-pressed]) { min-width: 40px; align-items: center; justify-content: center; font-size: 16px; }
+.build-number input { width: 74px; padding: 4px 8px; background: #fffdf7; border: 1px solid #b8abab; color: var(--ink); font-family: inherit;
+  font-size: 22px; font-weight: 800; line-height: 1; text-align: center; font-variant-numeric: tabular-nums; }
+.build-number input:focus { outline: 2px solid var(--red); outline-offset: 1px; }
 .build-bodies { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .build-body { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 12px; background: #fbf7ef; border: 1px solid #b8abab; color: var(--ink); text-align: left; cursor: pointer; }
 .build-body b { font-size: 16px; }
@@ -65,7 +70,7 @@
   [data-view="garage"] .garage-copy { top: calc(108px + 26vh); bottom: 62px; right: 6%; max-width: none; overflow-y: auto; padding-bottom: 14px; }
   [data-view="garage"] .garage-copy h1 { font-size: 34px; }
   [data-view="garage"] .garage-caption { display: none; }
-  .builder-tabs { grid-template-columns: repeat(3, 1fr); }
+  .builder-tabs { grid-template-columns: repeat(4, 1fr); }
   .build-bodies { grid-template-columns: 1fr; }
   .builder-actions .primary { margin-left: 0; }
 }

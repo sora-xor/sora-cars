@@ -1,21 +1,24 @@
 import {
-  BODIES, EXHAUSTS, FENDERS, FRONT_AERO, LAMPS, LOWER_TONES, MIRRORS, OPTION_NAMES, PAINTS, SPOILERS, STANCES, STRIPES, STRIPE_COLOURS, STRIPE_HEX,
-  WHEEL_COLOURS, WHEEL_HEX, WHEEL_STYLES, LOWER_COLOURS, bodyInfo, paintInfo, rivalCar, stockBuild, validateCarBuild, type CarBuild,
+  AERO_COLOURS, BODIES, BONNETS, EXHAUSTS, FENDERS, FRONT_AERO, HEADLIGHTS, LAMPS, LOWER_TONES, MAX_RACE_NUMBER, MIRRORS, NEONS, NEON_HEX, OPTION_NAMES, PAINTS,
+  ROOFS, SPOILERS, STANCES, STRIPES, STRIPE_COLOURS, STRIPE_HEX, TAILS, TINTS, TINT_HEX, WHEEL_COLOURS, WHEEL_HEX, WHEEL_STYLES, LOWER_COLOURS, bodyInfo,
+  paintInfo, rivalCar, stockBuild, validateCarBuild, type CarBuild,
 } from '../game/car-builds';
 import { CarViewer } from './car-viewer';
 
 /**
- * カスタム工房 / BUILD YOUR CAR (#/custom): pick a 1986 body and dress it, its paint, stripes, wheels, aero, stance and
- * extras, on a turntable drawn like the race. Builds are looks only; the tech tree sells performance, and live races show
+ * カスタム工房 / BUILD YOUR CAR (#/custom): pick a 1986 body and dress it, its paint, stripes, number, wheels, aero,
+ * lights, stance and extras, on a turntable drawn like the race. Builds are looks only; the tech tree sells performance, and live races show
  * builds to every racer and spectator while racing equal cars.
  */
 const esc = (v: unknown) => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const both = (name: { ja: string; en: string }) => `${esc(name.ja)}<small lang="en">${esc(name.en)}</small>`;
-type Tab = 'body' | 'paint' | 'wheels' | 'aero' | 'stance' | 'extras';
+type Tab = 'body' | 'paint' | 'wheels' | 'aero' | 'lights' | 'stance' | 'extras';
 const TABS: readonly { id: Tab; name: { ja: string; en: string } }[] = [
   { id: 'body', name: { ja: '車種', en: 'BODY' } }, { id: 'paint', name: { ja: '塗装', en: 'PAINT' } }, { id: 'wheels', name: { ja: 'ホイール', en: 'WHEELS' } },
-  { id: 'aero', name: { ja: 'エアロ', en: 'AERO' } }, { id: 'stance', name: { ja: '足回り', en: 'STANCE' } }, { id: 'extras', name: { ja: '小物', en: 'EXTRAS' } },
+  { id: 'aero', name: { ja: 'エアロ', en: 'AERO' } }, { id: 'lights', name: { ja: '灯火', en: 'LIGHTS' } }, { id: 'stance', name: { ja: '足回り', en: 'STANCE' } },
+  { id: 'extras', name: { ja: '小物', en: 'EXTRAS' } },
 ];
+const LAMP_HEX = { headlights: { white: '#f6eee0', yellow: '#f3d36e' }, tails: { stock: '#c0202c', smoked: '#4c1418' } } as const;
 export interface CarBuilderHost {
   readonly screen: HTMLElement;
   active(): boolean;
@@ -33,6 +36,23 @@ export class CarBuilder {
       const target = (event.target as HTMLElement).closest<HTMLElement>('[data-build]');
       if (target && !target.hasAttribute('disabled')) this.action(target.dataset.build!);
     });
+    // A racing number typed in: 0 or empty for none.
+    document.querySelector('#app')!.addEventListener('change', event => {
+      const input = (event.target as HTMLElement).closest<HTMLInputElement>('input[data-build-number]');
+      if (input) this.#typedNumber(input);
+    });
+  }
+
+  /**
+   * A typed number takes effect without redrawing the panel: this fires as the field loses focus to whatever was just
+   * pressed, and replacing the panel then would swallow that press (or, mid-redraw, throw).
+   */
+  #typedNumber(input: HTMLInputElement): void {
+    const number = Math.max(0, Math.min(MAX_RACE_NUMBER, Math.trunc(Number(input.value) || 0))), next = validateCarBuild({ ...this.host.build(), number });
+    input.value = number ? String(number) : '';
+    input.closest('.build-number')?.querySelector('[data-build="set:number:0"]')?.setAttribute('aria-pressed', String(number === 0));
+    this.host.commit(next);
+    this.#viewer.show(next);
   }
 
   /** The garage page's turntable: draw the player's car in whatever `root` shows. */
@@ -71,7 +91,12 @@ export class CarBuilder {
       return group({ ja: 'ボディカラー', en: 'BODY COLOUR' }, `<div class="build-paints">${PAINTS.map(paint => `<button class="build-paint" data-build="set:paint:${paint.id}" aria-pressed="${build.paint === paint.id}" style="--swatch:${paint.color}" title="${esc(paint.name.ja)} / ${esc(paint.name.en)}"><i></i><span>${both(paint.name)}${paint.finish !== 'solid' ? `<em>${paint.finish === 'pearl' ? 'PEARL' : 'METALLIC'}</em>` : ''}</span></button>`).join('')}</div>`)
         + group({ ja: 'ツートン', en: 'TWO-TONE' }, chips('lower', LOWER_TONES, value => value === 'stock' || value === 'body' ? '' : LOWER_COLOURS[value as keyof typeof LOWER_COLOURS]))
         + group({ ja: 'ストライプ', en: 'STRIPES' }, chips('stripe', STRIPES))
-        + (build.stripe === 'none' ? '' : group({ ja: 'ストライプの色', en: 'STRIPE COLOUR' }, chips('stripeColour', STRIPE_COLOURS, value => STRIPE_HEX[value as keyof typeof STRIPE_HEX])));
+        + (build.stripe === 'none' ? '' : group({ ja: 'ストライプの色', en: 'STRIPE COLOUR' }, chips('stripeColour', STRIPE_COLOURS, value => STRIPE_HEX[value as keyof typeof STRIPE_HEX])))
+        + group({ ja: 'ゼッケン', en: 'RACE NUMBER' }, `<div class="build-number">`
+          + `<button class="build-chip" data-build="number:-1" aria-label="Previous number">−</button>`
+          + `<input type="number" inputmode="numeric" min="0" max="${MAX_RACE_NUMBER}" value="${build.number || ''}" placeholder="—" data-build-number aria-label="Race number, 1 to ${MAX_RACE_NUMBER}">`
+          + `<button class="build-chip" data-build="number:1" aria-label="Next number">+</button>`
+          + `<button class="build-chip" data-build="set:number:0" aria-pressed="${build.number === 0}">${both({ ja: 'なし', en: 'NONE' })}</button></div>`);
     }
     if (this.#tab === 'wheels') {
       return group({ ja: 'ホイール', en: 'WHEELS' }, chips('wheels', WHEEL_STYLES))
@@ -79,10 +104,20 @@ export class CarBuilder {
     }
     if (this.#tab === 'aero') {
       return group({ ja: 'フロント', en: 'FRONT' }, chips('front', FRONT_AERO)) + group({ ja: 'リアスポイラー', en: 'REAR SPOILER' }, chips('spoiler', SPOILERS))
-        + group({ ja: 'サイド', en: 'SIDES' }, chips('skirts', ['false', 'true'])) + group({ ja: 'フェンダー', en: 'FENDERS' }, chips('fenders', FENDERS));
+        + group({ ja: 'サイド', en: 'SIDES' }, chips('skirts', ['false', 'true'])) + group({ ja: 'フェンダー', en: 'FENDERS' }, chips('fenders', FENDERS))
+        + group({ ja: 'ボンネット', en: 'BONNET' }, chips('bonnet', BONNETS))
+        + group({ ja: 'エアロの色', en: 'AERO COLOUR' }, chips('aeroColour', AERO_COLOURS, value => value === 'body' ? paintInfo(build.paint).color : '#22252b'));
+    }
+    if (this.#tab === 'lights') {
+      return group({ ja: 'ヘッドライト', en: 'HEADLAMPS' }, chips('headlights', HEADLIGHTS, value => LAMP_HEX.headlights[value as keyof typeof LAMP_HEX.headlights]))
+        + group({ ja: 'テールランプ', en: 'TAIL LAMPS' }, chips('tails', TAILS, value => LAMP_HEX.tails[value as keyof typeof LAMP_HEX.tails]))
+        + group({ ja: '補助灯', en: 'EXTRA LAMPS' }, chips('lamps', LAMPS))
+        + group({ ja: 'アンダーネオン', en: 'UNDERGLOW' }, chips('neon', NEONS, value => value === 'none' ? '' : NEON_HEX[value as keyof typeof NEON_HEX]));
     }
     if (this.#tab === 'stance') return group({ ja: '車高とキャンバー', en: 'RIDE HEIGHT & CAMBER' }, chips('stance', STANCES));
-    return group({ ja: 'ライト', en: 'LAMPS' }, chips('lamps', LAMPS)) + group({ ja: 'リアウインドウ', en: 'REAR WINDOW' }, chips('louvers', ['false', 'true']))
+    return group({ ja: 'ウインドウフィルム', en: 'WINDOW FILM' }, chips('tint', TINTS, value => TINT_HEX[value as keyof typeof TINT_HEX]))
+      + group({ ja: 'フロントガラス', en: 'WINDSCREEN' }, chips('banner', ['false', 'true']))
+      + group({ ja: 'リアウインドウ', en: 'REAR WINDOW' }, chips('louvers', ['false', 'true'])) + group({ ja: 'ルーフ', en: 'ROOF' }, chips('roof', ROOFS))
       + group({ ja: 'マフラー', en: 'EXHAUST' }, chips('exhaust', EXHAUSTS)) + group({ ja: 'ミラー', en: 'MIRRORS' }, chips('mirrors', MIRRORS));
   }
 
@@ -92,7 +127,11 @@ export class CarBuilder {
     const build = this.host.build();
     let next: CarBuild | null = null;
     if (kind === 'set' && key && value !== undefined) {
-      try { next = validateCarBuild({ ...build, [key]: value === 'true' ? true : value === 'false' ? false : value }); } catch { return; }
+      const parsed = key === 'number' ? Number(value) : value === 'true' ? true : value === 'false' ? false : value;
+      try { next = validateCarBuild({ ...build, [key]: parsed }); } catch { return; }
+    } else if (kind === 'number' && key) {
+      // Step through 1 to 99 and round again past none.
+      next = validateCarBuild({ ...build, number: ((build.number + Number(key)) % (MAX_RACE_NUMBER + 1) + MAX_RACE_NUMBER + 1) % (MAX_RACE_NUMBER + 1) });
     } else if (kind === 'random') next = rivalCar(Math.floor(Math.random() * 2 ** 31), 0.75);
     else if (kind === 'factory') next = stockBuild(paintInfo(build.paint).livery ?? 0, build.body);
     if (!next) return;

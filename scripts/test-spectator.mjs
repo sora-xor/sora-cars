@@ -18,8 +18,10 @@ const relayUrl = `ws://127.0.0.1:${relay.address().port}`;
 const keys = [41, 42].map(n => Array.from(new Uint8Array(32).fill(n)));
 // Each driver announces a period car (car-builds.ts); observers must draw the same two cars.
 const builds = [
-  { body: 'hokuto', paint: 'midnight', lower: 'gold', stripe: 'pin', stripeColour: 'gold', wheels: 'mesh', wheelColour: 'gold', front: 'lip', skirts: true, spoiler: 'wing', fenders: 'stock', stance: 'low', lamps: 'none', louvers: false, exhaust: 'sport', mirrors: 'stock' },
-  { body: 'raimei', paint: 'kiiro', lower: 'black', stripe: 'none', stripeColour: 'white', wheels: 'steel', wheelColour: 'white', front: 'stock', skirts: false, spoiler: 'stock', fenders: 'flares', stance: 'rally', lamps: 'rally', louvers: false, exhaust: 'stock', mirrors: 'fender' },
+  { body: 'hokuto', paint: 'midnight', lower: 'gold', stripe: 'pin', stripeColour: 'gold', wheels: 'mesh', wheelColour: 'gold', front: 'lip', skirts: true, spoiler: 'wing', fenders: 'stock', stance: 'low', lamps: 'none', louvers: false, exhaust: 'sport', mirrors: 'stock',
+    tint: 'dark', headlights: 'yellow', tails: 'smoked', neon: 'cyan', bonnet: 'scoop', roof: 'none', number: 86, aeroColour: 'body', banner: true },
+  { body: 'raimei', paint: 'kiiro', lower: 'black', stripe: 'none', stripeColour: 'white', wheels: 'steel', wheelColour: 'white', front: 'stock', skirts: false, spoiler: 'stock', fenders: 'flares', stance: 'rally', lamps: 'rally', louvers: false, exhaust: 'stock', mirrors: 'fender',
+    tint: 'stock', headlights: 'white', tails: 'stock', neon: 'none', bonnet: 'vents', roof: 'skis', number: 0, aeroColour: 'black', banner: false },
 ];
 const hash = n => raceHashLiteralV1(new Uint8Array(32).fill(n));
 const commitment = n => formatGameCommitmentLiteralV1(new Uint8Array(48).fill(n));

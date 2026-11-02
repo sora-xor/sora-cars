@@ -10,7 +10,7 @@ import { MultiplayerRaceController, type PeerTransport } from '../src/network/co
 import { RacePeerSession, hex, type PeerMessage, type RaceScope } from '../src/network/session';
 import { RaceSpectator } from '../src/network/spectator';
 import type { MeshEvent } from '../src/network/mesh';
-import { rivalCar, stockBuild, validateCarBuild } from '../src/game/car-builds';
+import { BUILD_ADDITIONS, BUILD_KEYS_V1, rivalCar, stockBuild, validateCarBuild } from '../src/game/car-builds';
 import { replayState, validateReplay } from '../src/game/engine';
 
 const keys = [1, 2].map(n => new Uint8Array(32).fill(n));
@@ -21,7 +21,7 @@ const scope: RaceScope = {
   participants: keys.map((key, slot) => ({ slot, account: `test-account-${slot}`, inputKeyHex: hex(ed25519.getPublicKey(key)) })),
 };
 const sessionScope = new RacePeerSession(scope, -1, null).scope;
-const tokyoGt = validateCarBuild({ ...stockBuild(0, 'hokuto'), paint: 'midnight', wheels: 'mesh', spoiler: 'wing', stance: 'low' });
+const tokyoGt = validateCarBuild({ ...stockBuild(0, 'hokuto'), paint: 'midnight', wheels: 'mesh', spoiler: 'wing', stance: 'low', neon: 'cyan', number: 86, banner: true });
 const raimei = rivalCar(11, 1, 'raimei');
 
 test('a car build announcement binds the exact build, session scope and input key', () => {
@@ -30,12 +30,34 @@ test('a car build announcement binds the exact build, session scope and input ke
   for (const forged of [
     { ...packet, scope: 'another-session' }, { ...packet, slot: 1 }, { ...packet, build: { ...tokyoGt, paint: 'akai' } },
     { ...packet, build: { ...tokyoGt, topSpeed: 400 } }, { ...packet, build: { ...tokyoGt, body: 'f1-car' } }, { ...packet, nftOwnership: true },
-    { ...packet, version: 2 }, { ...packet, signature: packet.signature.toUpperCase() }, signBuild(sessionScope, 0, tokyoGt, keys[1]!),
+    { ...packet, build: { ...tokyoGt, neon: 'pink' } }, { ...packet, build: { ...tokyoGt, number: 87 } }, { ...packet, version: 1 }, { ...packet, version: 3 },
+    { ...packet, signature: packet.signature.toUpperCase() }, signBuild(sessionScope, 0, tokyoGt, keys[1]!),
   ]) assert.throws(() => verifyBuild(forged, sessionScope, scope.participants));
   // The appearance packet is untouched: neither kind passes for the other.
   const appearance = signAppearance(sessionScope, 0, { skin: null, upgrade: null }, keys[0]!);
   assert.throws(() => verifyBuild(appearance, sessionScope, scope.participants));
   assert.throws(() => verifyAppearance(packet, sessionScope, scope.participants));
+});
+
+test('a first-release racer’s build (version 1) still reads, with the factory part for every newer option', () => {
+  const first = Object.fromEntries(BUILD_KEYS_V1.map(key => [key, tokyoGt[key]]));
+  const payload = new TextEncoder().encode(JSON.stringify(['sora-cars/build/v1', 1, sessionScope, 0, ...BUILD_KEYS_V1.map(key => first[key])]));
+  const packet = { kind: 'build', version: 1, scope: sessionScope, slot: 0, build: first, signature: hex(ed25519.sign(payload, keys[0]!)) };
+  assert.deepEqual(verifyBuild(packet, sessionScope, scope.participants).build, { ...first, ...BUILD_ADDITIONS });
+  // A version 1 packet carries exactly the first format: a newer option cannot ride along unsigned.
+  for (const forged of [{ ...packet, build: { ...first, neon: 'pink' } }, { ...packet, build: tokyoGt }, { ...packet, version: 2 }]) {
+    assert.throws(() => verifyBuild(forged, sessionScope, scope.participants));
+  }
+});
+
+test('a spectator reads a first-release racer beside a current one, and the racer’s build still binds the session', () => {
+  const observer = new RaceSpectator(scope), first = Object.fromEntries(BUILD_KEYS_V1.map(key => [key, tokyoGt[key]]));
+  const payload = new TextEncoder().encode(JSON.stringify(['sora-cars/build/v1', 1, sessionScope, 0, ...BUILD_KEYS_V1.map(key => first[key])]));
+  const packet = { kind: 'build', version: 1, scope: sessionScope, slot: 0, build: first, signature: hex(ed25519.sign(payload, keys[0]!)) };
+  observer.receive(packet); observer.receive(signBuild(sessionScope, 1, raimei, keys[1]!));
+  assert.deepEqual(observer.builds, [{ ...first, ...BUILD_ADDITIONS }, raimei]);
+  assert.throws(() => observer.receive(signBuild(sessionScope, 0, tokyoGt, keys[0]!)), /changed/, 'a racer cannot swap formats to change their car');
+  observer.close();
 });
 
 test('spectators draw each racer’s announced car and refuse a change mid-session', () => {
@@ -84,4 +106,7 @@ test('a RaceV1 replay keeps builds beside its inputs, null where a racer had non
   assert.equal(validateReplay(original).builds, undefined);
   assert.throws(() => validateReplay({ ...original, builds: [tokyoGt] }), /roster/);
   assert.throws(() => validateReplay({ ...original, builds: [tokyoGt, { ...raimei, wheels: 'gold-spinners' }] }), /wheels/);
+  const first = Object.fromEntries(BUILD_KEYS_V1.map(key => [key, tokyoGt[key]]));
+  assert.deepEqual(validateReplay({ ...original, builds: [first, null] }).builds, [{ ...first, ...BUILD_ADDITIONS }, null], 'a first-format build in a replay');
+  assert.deepEqual(replayState(validateReplay({ ...original, builds: [first, null] })), replayState(validateReplay(original)));
 });

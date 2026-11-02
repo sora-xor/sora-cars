@@ -36,8 +36,10 @@ their names; they are the colours live races use.
 
 ## Customization
 
-`src/game/car-builds.ts` defines a build: 16 keys, each a known choice, validated
-exactly. Unknown keys are refused, so a build can never carry performance.
+`src/game/car-builds.ts` defines a build: 25 keys, each a known choice, validated
+exactly. Unknown keys are refused, so a build can never carry performance. The
+first format had 16 keys (`BUILD_KEYS_V1`); a save, replay or packet in it reads
+with the factory part for every option added since (`upgradeCarBuild`).
 
 - **Paint:** the six standard colours (choosing one also sets the live-race
   colour) and 13 period colours, solid, metallic or pearl.
@@ -52,8 +54,23 @@ exactly. Unknown keys are refused, so a build can never carry performance.
 - **Aero:** lip or bosozoku deppa, ducktail, GT wing or roof spoiler, side
   skirts, bolt-on over-fenders with rivets (which also widen the track).
 - **Stance:** slammed, demon camber (鬼キャン) or rally (lifted, with mud flaps).
-- **Extras:** fog lamps or a rally light bar, rear-window louvres, a big-bore
-  exhaust or takeyari (竹槍) pipes, fender mirrors.
+- **Aero colour:** black plastic, or painted with the body, stripes and all.
+- **Bonnet:** a turbo scoop or louvred vents on the rear half, either side of the
+  emblem and clear of pop-up lamp pods, or a black bonnet painted on the bonnet's
+  top only, under the stripes.
+- **Lights:** yellow bulbs (lenses, rally lamps and the player's beams on the
+  road), smoked tail lamps that still brighten under braking, fog lamps or a
+  rally light bar, and underglow in five colours: neon tubes under the sills and
+  a pool of light on the road, faint by day and full after dark.
+- **Race number:** none, or 1 to 99, a black number on a white roundel on each side,
+  between the door and the rear wheel. The midship's intakes are there, so its
+  number sits on the door behind the flag, and goes with the door.
+- **Glass:** light or dark smoke, or a gold mirror film, and the SORA club banner
+  (ハチマキ) across the top of the windscreen.
+- **Roof:** a gutter-mounted rack, or a ski carrier with a pair of skis on each side
+  (the late-80s ski boom). Both stay open over the roof's emblem.
+- **Extras:** rear-window louvres, a big-bore exhaust or takeyari (竹槍) pipes,
+  fender mirrors.
 
 ## Who drives what
 
@@ -70,18 +87,22 @@ exactly. Unknown keys are refused, so a build can never carry performance.
   to the other racers and the public spectator feed. The session's input key
   signs it, bound to the session scope and the racer's slot. A build cannot
   change during a session, and forged, altered, cross-session or unknown builds
-  are rejected. A racer who announces none, or whose client predates builds, is
-  drawn as the factory AE86; an older client rejects the new packet without
-  touching the race and keeps drawing everyone as before. Builds never reach
-  RaceV1's physics, the proof transcript or settlement.
+  are rejected. Version 2 packets sign all 25 keys; a first-release racer's
+  version 1 packet still reads, and a newer option cannot ride along unsigned. A
+  racer who announces none, or whose client predates builds, is drawn as the factory
+  AE86; an older client rejects the new packet without touching the race and keeps
+  drawing everyone as before. Builds never reach RaceV1's physics, the proof
+  transcript or settlement.
 
 An equipped NFT livery ([SORA Custom Works](collectibles.md)) repaints a build,
 as it repaints the factory car; the build keeps its body, wheels and parts.
 
-The player's build is saved as `sora-cars:car-build:v1`. Local Arcade replays
-(`SoraDriveV1`, `SoraGarageV1`) and exported multiplayer RaceV1 replays record
-each car's build (null for a live racer who announced none) and replay it. Earlier
-replays have none and replay as before. The street replay format is fixed by the
+The player's build is saved as `sora-cars:car-build:v1`, and a save from the first
+format keeps its car. Local Arcade replays (`SoraDriveV1`, `SoraGarageV1`) and
+exported multiplayer RaceV1 replays record each car's build (null for a live racer
+who announced none) and replay it; first-format builds in them read with the
+factory part for every newer option, and earlier replays have none and replay as
+before. The street replay format is fixed by the
 native proof tooling, so street replays carry no builds: they show the player's
 current build and the drivers' own cars.
 
@@ -94,7 +115,8 @@ mouldings and seals are swept profiles, and the lamps, grille, plates and
 interior are added after. Geometry is grouped by material and by breakable panel
 in the damage model's bit order (`CAR_PARTS`), so bonnets, boots, doors, lamps,
 bumpers, plates and mirrors break away like the AE86's. Kit parts bolted to a
-panel fly off with it.
+panel fly off with it, on the AE86 too, and a flag or emblem goes with the door or
+bonnet it sits on. Roof racks, skis, underglow and the roof's emblem stay on the car.
 
 Materials take the AE86's names (`Primary`, `Windows`, `LicensePlate`,
 `TailightFrame`, `LampCovers`), so the pixel-art car stages find plates, tail
@@ -127,8 +149,15 @@ anchors (`hachiroku.ts`) were measured there with `carLab.measureHachiroku()`.
   the same over real WebRTC and the relay: two drivers and two observers draw
   both racers' builds.
 - `tests/period-cars.test.ts`: each body's size and contacts, the pixel-art
-  material names, the SORA decals, breakaway panels, every kit part on every
-  body (the AE86 included), wheels, stance and stripes.
+  material names, the SORA decals and their clearance from bonnet and roof parts,
+  breakaway panels and what goes with them, every kit part on every body (the AE86
+  included), lamps, wheels, stance and stripes.
+- `scripts/test-car-builds.mjs` (`npm run test:car-builds`): all six bodies in real
+  WebGL through `car-lab.html`, the licensed AE86 included: decals, damage, thrown
+  panels and shared geometry, the garage's new options and a first-format save.
+  It leaves screenshots of every body in four views. A static build must include
+  `car-lab.html`, built on its own: built with `index.html`, the lab can pull in the
+  game's start-up code.
 
 ## Known limits
 

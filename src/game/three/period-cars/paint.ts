@@ -3,9 +3,9 @@ import type { CarBuild, Finish } from '../../car-builds';
 import { STRIPES } from '../../car-builds';
 
 /**
- * Paint finishes and painted stripes. Stripes are drawn in the paint's own shader from the car-space position and
- * normal, so the same pinstripe, twin stripes, 80s graphic or Group A livery follows every body, the licensed
- * hachiroku included, without decal geometry.
+ * Paint finishes, painted stripes and the black bonnet. Both are drawn in the paint's own shader from the car-space
+ * position and normal, so the same pinstripe, twin stripes, 80s graphic, Group A livery or matte black bonnet follows
+ * every body, the licensed hachiroku included, without decal geometry.
  */
 export interface StripeFrame {
   /** The shoulder line as a straight line in (z, y): rear point, front point. */
@@ -13,6 +13,8 @@ export interface StripeFrame {
   readonly sill: number; readonly lowerLine: number;
   /** The painted length: front and rear ends. */
   readonly front: number; readonly rear: number;
+  /** The bonnet's top: from and to (z), its half width and its lowest point (y), for a black bonnet. */
+  readonly bonnet: readonly [number, number, number, number];
 }
 
 export function applyFinish(material: THREE.MeshStandardMaterial, finish: Finish): void {
@@ -36,19 +38,22 @@ export function applyFinish(material: THREE.MeshStandardMaterial, finish: Finish
 export interface StripeUniforms {
   soraStripe: { value: number }; soraStripeColor: { value: THREE.Color };
   soraStripeBelt: { value: THREE.Vector4 }; soraStripeBody: { value: THREE.Vector4 };
+  soraBonnet: { value: THREE.Vector4 }; soraBonnetOn: { value: number };
 }
-export function stripeUniforms(build: CarBuild, colour: string, frame: StripeFrame): StripeUniforms {
+/** `bonnet` false leaves a material's bonnet in the paint (the hachiroku's pop-up lamp lids). */
+export function stripeUniforms(build: CarBuild, colour: string, frame: StripeFrame, bonnet = true): StripeUniforms {
   return {
     soraStripe: { value: STRIPES.indexOf(build.stripe) }, soraStripeColor: { value: new THREE.Color(colour) },
     soraStripeBelt: { value: new THREE.Vector4(...frame.belt) },
     soraStripeBody: { value: new THREE.Vector4(frame.sill, frame.lowerLine, frame.front, frame.rear) },
+    soraBonnet: { value: new THREE.Vector4(...frame.bonnet) }, soraBonnetOn: { value: bonnet && build.bonnet === 'black' ? 1 : 0 },
   };
 }
 
-/** Shader edits that paint a build's stripes over the body colour; `key` joins the program cache key. */
+/** Shader edits that paint a build's bonnet and stripes over the body colour; `key` joins the program cache key. */
 export function stripeShader(uniforms: StripeUniforms): { compile: (shader: THREE.WebGLProgramParametersWithUniforms) => void; key: string } {
   return {
-    key: 'sora-stripes-v1',
+    key: 'sora-paint-v2',
     compile: shader => {
       Object.assign(shader.uniforms, uniforms);
       shader.vertexShader = shader.vertexShader
@@ -62,7 +67,15 @@ export function stripeShader(uniforms: StripeUniforms): { compile: (shader: THRE
           uniform vec3 soraStripeColor;
           uniform vec4 soraStripeBelt;
           uniform vec4 soraStripeBody;
+          uniform vec4 soraBonnet;
+          uniform float soraBonnetOn;
           float soraBand(float v, float a, float b) { return step(a, v) * step(v, b); }
+          // The black bonnet: the top of the bonnet, facing up.
+          float soraBonnetMask() {
+            vec3 p = vSoraCar;
+            return soraBonnetOn * soraBand(p.z, soraBonnet.x, soraBonnet.y) * step(abs(p.x), soraBonnet.z) * step(soraBonnet.w, p.y)
+              * step(.5, normalize(vSoraCarNormal).y);
+          }
           // 0 none, 1 stripe colour, 2 the white keyline of a Group A livery.
           float soraStripeMask(vec3 p, vec3 n, out float keyline) {
             keyline = 0.;
@@ -89,11 +102,22 @@ export function stripeShader(uniforms: StripeUniforms): { compile: (shader: THRE
           void main() {`)
         .replace('#include <color_fragment>', /* glsl */ `#include <color_fragment>
           {
+            // Matte black under the stripes, which run on over it.
+            diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.032, .034, .038), soraBonnetMask());
             float soraKeyline;
             float soraMask = soraStripeMask(vSoraCar, normalize(vSoraCarNormal), soraKeyline);
             diffuseColor.rgb = mix(diffuseColor.rgb, soraStripeColor, soraMask);
             diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.86, .84, .8), soraKeyline * (1. - soraMask));
-          }`);
+          }`)
+        .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\nroughnessFactor = mix(roughnessFactor, .62, soraBonnetMask());')
+        .replace('#include <metalnessmap_fragment>', '#include <metalnessmap_fragment>\nmetalnessFactor = mix(metalnessFactor, 0., soraBonnetMask());')
+        .replace('#include <lights_physical_fragment>', /* glsl */ `#include <lights_physical_fragment>
+          #ifdef USE_CLEARCOAT
+            material.clearcoat *= 1. - .92 * soraBonnetMask();
+          #endif
+          #ifdef USE_IRIDESCENCE
+            material.iridescence *= 1. - soraBonnetMask();
+          #endif`);
     },
   };
 }

@@ -6,7 +6,7 @@ import type { CarModel } from '../game/three/car';
 import { createDetailedDriver } from '../game/three/driver';
 import { createDuskEnvironment } from '../game/three/dusk-environment';
 import { getPixelFinish } from '../game/three/graphics';
-import { plateTexture } from '../game/three/period-cars/fleet';
+import { plateTexture, raceNumberTexture } from '../game/three/period-cars/fleet';
 import { createPeriodCar, type CarDecals } from '../game/three/period-cars/model';
 import { soraEmblemTexture, soraStripTexture } from '../game/three/sora-emblem';
 import { CSS_PER_ART_PIXEL } from './part-viewer';
@@ -99,7 +99,7 @@ export class CarViewer {
     const generation = ++this.#generation;
     this.#setLoading(true);
     const make = async (): Promise<CarModel> => {
-      if (build.body === 'hachiroku') return loadDetailedCar(build, gpu.decals.flag, gpu.decals.emblem, gpu.decals.strip);
+      if (build.body === 'hachiroku') return loadDetailedCar(build, gpu.decals);
       const driver = await createDetailedDriver().catch(() => null);
       return createPeriodCar(build.body, build, gpu.decals, { dissolve: addDissolve, night: carNight }, driver?.group);
     };
@@ -142,7 +142,7 @@ export class CarViewer {
       const flag = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}assets/sora-flag.png`); flag.colorSpace = THREE.SRGBColorSpace;
       const emblemUrl = `${import.meta.env.BASE_URL}assets/branding/sora-emblem-source.png`;
       this.#gpu = { renderer, scene, camera: new THREE.PerspectiveCamera(24, 1, 0.1, 60), stage, resolve, resolveScene, resolveCamera: new THREE.Camera(), target: null,
-        decals: { flag, emblem: soraEmblemTexture(emblemUrl, 512, .3), strip: soraStripTexture(emblemUrl), plate: plateTexture() } };
+        decals: { flag, emblem: soraEmblemTexture(emblemUrl, 512, .3), strip: soraStripTexture(emblemUrl), plate: plateTexture(), number: raceNumberTexture } };
     } catch {
       this.#failed = true;
     }

@@ -7,6 +7,8 @@ import type { BodyFrame } from './shell';
  * the paint's half width at the door line, the top surface along the centre and the hatch glass.
  */
 export const HACHIROKU_WHEEL_WIDTH = 0.185;
+/** The bonnet panel's top, as the damage model cuts it (asset-car.ts panelAt): z from and to, half width, lowest y. */
+export const HACHIROKU_BONNET = [0.62, 1.95, 0.6, 0.6] as const;
 const half = curve([[-2.0, 0.745], [-1.9, 0.76], [-1.6, 0.795], [-1.2, 0.81], [1.0, 0.81], [1.5, 0.8], [1.8, 0.75], [2.0, 0.7]]);
 const belt = curve([[-2.0, 0.88], [-1.0, 0.87], [0.75, 0.84], [1.5, 0.76], [2.0, 0.66]]);
 const deck = curve([[-2.04, 0.9], [-1.75, 0.93], [0.8, 0.86], [0.9, 0.885], [1.5, 0.79], [1.9, 0.69], [2.05, 0.6]]);

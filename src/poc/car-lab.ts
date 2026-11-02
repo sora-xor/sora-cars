@@ -5,6 +5,7 @@ import { storyGrid } from '../game/story';
 import { addDissolve, carNight, loadDetailedCar, setDetailedCarNight } from '../game/three/asset-car';
 import type { CarModel } from '../game/three/car';
 import { createDuskEnvironment } from '../game/three/dusk-environment';
+import { plateTexture, raceNumberTexture } from '../game/three/period-cars/fleet';
 import { createPeriodCar } from '../game/three/period-cars/model';
 import { soraEmblemTexture, soraStripTexture } from '../game/three/sora-emblem';
 
@@ -31,7 +32,7 @@ new HDRLoader().load(asset('lighting/qwantani-dusk.hdr'), texture => {
 });
 const flag = new THREE.TextureLoader().load(asset('sora-flag.png')); flag.colorSpace = THREE.SRGBColorSpace;
 const emblemUrl = asset('branding/sora-emblem-source.png');
-const decals = { flag, emblem: soraEmblemTexture(emblemUrl, 512, .3), strip: soraStripTexture(emblemUrl) };
+const decals = { flag, emblem: soraEmblemTexture(emblemUrl, 512, .3), strip: soraStripTexture(emblemUrl), plate: plateTexture(), number: raceNumberTexture };
 const hooks = { dissolve: addDissolve, night: carNight };
 setDetailedCarNight(0.6);
 
@@ -39,7 +40,7 @@ const params = new URLSearchParams(location.search);
 let cars: { model: CarModel; build: CarBuild }[] = [];
 let view = params.get('view') ?? 'three', spin = params.has('spin'), angle = 0;
 async function make(build: CarBuild): Promise<CarModel> {
-  if (build.body === 'hachiroku') return loadDetailedCar(build, decals.flag, decals.emblem, decals.strip);
+  if (build.body === 'hachiroku') return loadDetailedCar(build, decals);
   return createPeriodCar(build.body, build, decals, hooks);
 }
 async function show(builds: CarBuild[]): Promise<void> {
@@ -90,7 +91,7 @@ void show(fromParams());
 
 /** Measures the detailed hachiroku: its paint's outline along the length, for hachiroku.ts. */
 async function measureHachiroku(): Promise<unknown> {
-  const model = await loadDetailedCar(stockBuild(0), decals.flag, decals.emblem, decals.strip);
+  const model = await loadDetailedCar(stockBuild(0), decals);
   model.group.updateMatrixWorld(true);
   const paint: THREE.Mesh[] = [], glass: THREE.Mesh[] = [], all: THREE.Mesh[] = [];
   model.group.traverse(object => {
@@ -118,6 +119,8 @@ async function measureHachiroku(): Promise<unknown> {
 declare global { interface Window { carLab: unknown } }
 window.carLab = {
   show: (builds: CarBuild[]) => show(builds.map(validateCarBuild)),
+  models: () => cars.map(({ model }) => model),
+  night: (level: number) => setDetailedCarNight(level),
   view: (name: string) => { view = name; },
   spin: (on: boolean) => { spin = on; },
   measureHachiroku,

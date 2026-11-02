@@ -45,6 +45,7 @@
     "test:street-race-hazards": "tsx scripts/test-street-race-hazards.ts",
     "assets:street": "tsx scripts/package-street-assets.ts",
     "test:street-practice": "node scripts/test-street-practice.mjs",
+    "test:car-builds": "node scripts/test-car-builds.mjs",
     "test:external-music": "node scripts/test-external-music.mjs",
     "assets:soundtrack": "node scripts/export-soundtrack.mjs",
     "assets:music-catalog": "tsx scripts/export-music-catalog.ts",

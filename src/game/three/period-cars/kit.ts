@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import type { CarBuild, WheelStyle } from '../../car-builds';
 import { resolvedBuild } from '../../car-builds';
-import { Buckets, box, circle, lerp, roundedRect, sweep, type V2, type V3 } from './shapes';
+import { Buckets, box, cap, circle, grid, lerp, roundedRect, sweep, type V2, type V3 } from './shapes';
 import { NO_PART, PART, parsePieceKey, pieceKey, tube, type BodyFrame, type PieceMaterial } from './shell';
 
 /**
  * A build's bolt-on parts, fitted from a body's frame so each part suits every body: wheels, front and rear aero,
- * over-fenders, lamps, louvres, exhausts and mirrors. Geometry is cached per body and part; a build only picks them.
+ * over-fenders, lamps, louvres, exhausts, mirrors, bonnet scoops and vents, roof racks and underglow. Geometry is cached
+ * per body and part; a build only picks them. Bonnet and roof parts keep clear of SORA's emblems centred there.
  */
 export interface KitPiece { readonly material: PieceMaterial; readonly part: number; readonly geometry: THREE.BufferGeometry }
 export interface WheelGeometry { readonly spin: readonly KitPiece[]; readonly fixed: readonly KitPiece[] }
@@ -45,6 +46,10 @@ export function kitPieces(body: string, frame: BodyFrame, build: CarBuild, own: 
   if (!own.exhaust) add(`exhaust-${b.exhaust}`, k => exhaust(k, frame, b.exhaust));
   if (!own.mirrors) add(`mirrors-${b.mirrors}`, k => mirrors(k, frame, b.mirrors));
   if (b.stance === 'rally') add('mudflaps', k => mudflaps(k, frame));
+  if (b.bonnet === 'scoop') add('scoop', k => scoop(k, frame));
+  if (b.bonnet === 'vents') add('vents', k => bonnetVents(k, frame));
+  if (b.roof !== 'none') add(`roof-${b.roof}`, k => roofRack(k, frame, b.roof === 'skis'));
+  if (b.neon !== 'none') add('neon', k => neonTubes(k, frame));
   return out;
 }
 
@@ -231,6 +236,103 @@ function mudflaps(k: Buckets, frame: BodyFrame): void {
   for (const wz of [w.front, w.rear]) for (const side of [-1, 1]) {
     const z = wz - w.arch - 0.02, x = side * (w.track + 0.02);
     box(k, pieceKey('trim'), [x - 0.13, 0.07, z - 0.012], [x + 0.13, w.radius + 0.12, z]);
+  }
+}
+
+/**
+ * Where bonnet parts go: the bonnet's rear half, behind and beside the emblem centred on it (model.ts bodyDecals), clear
+ * of pop-up lamp pods, at |x| from 0.27 to 0.53 m.
+ */
+function bonnetSpot(frame: BodyFrame): { from: number; to: number; inner: number; outer: number } {
+  const from = frame.hood[0] + 0.08;
+  return { from, to: Math.min(frame.hood[1] - 0.1, from + 0.42), inner: 0.27, outer: 0.53 };
+}
+
+/** A turbo scoop on the driver's side of the bonnet (-X), its mouth facing forward, sinking into the bonnet behind. */
+function scoop(k: Buckets, frame: BodyFrame): void {
+  const { from, to, inner, outer } = bonnetSpot(frame), part = PART.hood, xs = [-outer, -outer + 0.025, -inner - 0.025, -inner];
+  const rows: V3[][] = [];
+  // Rows from the mouth back, columns across in +X: (column) x (row) points out of the shell.
+  for (let s = 0; s <= 8; s++) {
+    const z = lerp(to, from, s / 8), rise = 0.008 + 0.067 * (1 - s / 8) ** 1.4;
+    const top = (frame.top(z, outer - 0.025) + frame.top(z, inner + 0.025)) / 2 + rise;
+    rows.push(xs.map((x, i): V3 => [x, i === 0 || i === 3 ? frame.top(z, Math.abs(x)) - 0.006 : top, z]));
+  }
+  grid(k, rows, () => pieceKey('paint', part));
+  cap(k, pieceKey('trim', part), rows[0]!, [0, 0, 1]);
+  cap(k, pieceKey('paint', part), rows[rows.length - 1]!, [0, 0, -1]);
+}
+
+/** Louvred vents either side of the bonnet's emblem: a dark well under painted slats. */
+function bonnetVents(k: Buckets, frame: BodyFrame): void {
+  const { from, to, inner, outer } = bonnetSpot(frame), part = PART.hood, z0 = from + 0.03, z1 = Math.min(to, from + 0.36);
+  const on = (x: number, z: number, lift: number): V3 => [x, frame.top(z, Math.abs(x)) + lift, z];
+  for (const side of [-1, 1]) {
+    const xs = side > 0 ? [inner, outer] : [-outer, -inner], well: V3[][] = [];
+    for (let s = 0; s <= 4; s++) { const z = lerp(z1, z0, s / 4); well.push([0, 1, 2, 3].map(i => on(lerp(xs[0]!, xs[1]!, i / 3), z, 0.002))); }
+    grid(k, well, () => pieceKey('trim', part));
+    const slats = 6;
+    for (let i = 0; i < slats; i++) {
+      const z = lerp(z1 - 0.03, z0 + 0.03, i / (slats - 1)), a = xs[0]! + 0.012, b = xs[1]! - 0.012;
+      // Each slat lifts at its leading edge, so the louvres read against the dark well.
+      solid(k, pieceKey('paint', part), [on(a, z + 0.014, 0.001), on(b, z + 0.014, 0.001), on(b, z + 0.014, 0.017), on(a, z + 0.014, 0.017)],
+        [on(a, z - 0.012, 0.001), on(b, z - 0.012, 0.001), on(b, z - 0.012, 0.007), on(a, z - 0.012, 0.007)]);
+    }
+  }
+}
+
+/**
+ * A gutter-mounted roof rack: bars across the roof's ends with rails between them, open over the roof's emblem. The ski
+ * carrier clamps a pair of skis on each side instead, outboard of the emblem, the period's late-80s ski-boom load.
+ */
+function roofRack(k: Buckets, frame: BodyFrame, skis: boolean): void {
+  // The bars stand at the roof's very ends: a short coupe's roof emblem spans 90% of its roof (model.ts bodyDecals).
+  const ends = [frame.roofFront - 0.012, frame.roofRear + 0.012], bars: { z: number; y: number; half: number }[] = [];
+  for (const z of ends) {
+    const cab = frame.cabin(z);
+    if (!cab) continue;
+    // Clear of the roof's crown (up to 5 cm at the centre).
+    const y = cab.top + 0.075, half = cab.topHalf - 0.03;
+    bars.push({ z, y, half });
+    box(k, pieceKey('trim'), [-half, y, z - 0.012], [half, y + 0.022, z + 0.012]);
+    for (const side of [-1, 1]) box(k, pieceKey('trim'), [side * half - 0.022, cab.top - 0.01, z - 0.024], [side * half + 0.022, y + 0.03, z + 0.024]);
+  }
+  if (bars.length < 2) return;
+  const [front, rear] = bars as [typeof bars[0], typeof bars[0]];
+  for (const side of [-1, 1]) {
+    if (!skis) {
+      const x = side * (Math.min(front.half, rear.half) - 0.04);
+      sweep(k, pieceKey('trim'), roundedRect(0.02, 0.02, 0.006, 1), tube([[x, front.y + 0.024, front.z], [x, rear.y + 0.024, rear.z]]));
+      continue;
+    }
+    // A pair of skis base to base: 1.7 m, tips turned up at the front, bindings and clamps on top.
+    const x = side * (Math.min(front.half, rear.half) - 0.045), y = Math.max(front.y, rear.y) + 0.03, centre = (front.z + rear.z) / 2, length = 1.7;
+    const path: { at: V3; side: V3; up: V3 }[] = [];
+    for (let s = 0; s <= 10; s++) {
+      const z = centre - length / 2 + (length - 0.16) * s / 10;
+      path.push({ at: [x, y, z], side: [1, 0, 0], up: [0, 1, 0] });
+    }
+    for (let s = 1; s <= 4; s++) {
+      const a = s / 4 * 0.75, r = 0.16 / 0.75;
+      path.push({ at: [x, y + r * (1 - Math.cos(a)), centre + length / 2 - 0.16 + r * Math.sin(a)], side: [1, 0, 0], up: [0, Math.cos(a), -Math.sin(a)] });
+    }
+    sweep(k, pieceKey('ski'), roundedRect(0.075, 0.024, 0.008, 1), path);
+    box(k, pieceKey('chrome'), [x - 0.03, y + 0.012, centre - 0.12], [x + 0.03, y + 0.04, centre + 0.08]);
+    for (const bar of bars) {
+      box(k, pieceKey('trim'), [x - 0.05, bar.y + 0.02, bar.z - 0.022], [x + 0.05, y + 0.026, bar.z + 0.022]);
+    }
+  }
+}
+
+/** Neon tubes under the sills and both ends; their pool of light on the road is the car's own (model.ts neonGlow). */
+function neonTubes(k: Buckets, frame: BodyFrame): void {
+  const w = frame.wheels, y = frame.sill - 0.02, from = w.rear + w.arch + 0.05, to = w.front - w.arch - 0.05;
+  for (const side of [-1, 1]) {
+    const x = side * (frame.half((from + to) / 2) - 0.12);
+    sweep(k, pieceKey('neon'), circle(0.012, 6), tube([[x, y, from], [x, y, to]]));
+  }
+  for (const [z, end] of [[frame.front - 0.3, frame.bumpers.front[0]], [frame.rear + 0.3, frame.bumpers.rear[0]]] as const) {
+    sweep(k, pieceKey('neon'), circle(0.012, 6), tube([[-0.5, Math.min(y, end - 0.02), z], [0.5, Math.min(y, end - 0.02), z]]));
   }
 }
 

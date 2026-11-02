@@ -66,7 +66,7 @@ export class CarFleet {
     if (done) { this.finished.delete(job); return done; }
     if (!this.loading.has(job)) {
       this.loading.add(job);
-      void loadDetailedCar(build, this.decals.flag, this.decals.emblem, this.decals.strip, slot)
+      void loadDetailedCar(build, this.decals, slot)
         .then(model => { this.finished.set(job, model); }, error => console.error('A built hachiroku failed to load.', error))
         .finally(() => this.loading.delete(job));
     }
@@ -96,5 +96,24 @@ export function plateTexture(): THREE.CanvasTexture | undefined {
   ctx.font = '700 128px monospace'; ctx.fillText('19-86', 280, 170);
   ctx.font = '700 54px sans-serif'; ctx.fillText('そ', 70, 172);
   const texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = 4;
+  return texture;
+}
+
+const numberTextures = new Map<number, THREE.CanvasTexture>();
+/** A racing number (1 to 99): black on a white roundel, as the period's club racers wore them. Shared per number. */
+export function raceNumberTexture(value: number): THREE.Texture {
+  let texture = numberTextures.get(value);
+  if (texture) return texture;
+  const canvas = document.createElement('canvas'); canvas.width = canvas.height = 256;
+  const ctx = canvas.getContext('2d')!, text = String(value);
+  ctx.fillStyle = '#f6f3ea'; ctx.beginPath(); ctx.arc(128, 128, 122, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#17171b'; ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(128, 128, 111, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#17171b'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.font = '900 150px "Helvetica Neue", Helvetica, Arial, sans-serif';
+  // Centred on the glyphs themselves, two digits narrowed to fit the ring.
+  const metrics = ctx.measureText(text);
+  ctx.fillText(text, 128, 128 + (metrics.actualBoundingBoxAscent - metrics.actualBoundingBoxDescent) / 2, 176);
+  texture = new THREE.CanvasTexture(canvas); texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = 4; texture.name = `Racing number ${text}`;
+  numberTextures.set(value, texture);
   return texture;
 }

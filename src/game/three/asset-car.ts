@@ -6,9 +6,9 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { CarModel } from './car';
 import { createDetailedDriver } from './driver';
 import { buildColours, isFactoryHachiroku, resolvedBuild, type CarBuild } from '../car-builds';
-import { HACHIROKU_FRAME, HACHIROKU_WHEEL_WIDTH } from './period-cars/hachiroku';
+import { HACHIROKU_BONNET, HACHIROKU_FRAME, HACHIROKU_WHEEL_WIDTH } from './period-cars/hachiroku';
 import { flareTrack, kitPieces, wheelGeometry } from './period-cars/kit';
-import { carMaterials, STANCE, stripeFrame } from './period-cars/model';
+import { carMaterials, headLamp, neonGlow, neonGlowOpacity, NUMBER_SIZE, STANCE, stripeFrame, tailGlow, tintGlass, type CarDecals } from './period-cars/model';
 import { applyFinish, stripeShader, stripeUniforms } from './period-cars/paint';
 
 /** Martin Trafas's detailed period AE86, independently adapted for the race.
@@ -24,7 +24,11 @@ interface Surface { geometry: THREE.BufferGeometry; material: THREE.MeshStandard
 interface Wheel { center: THREE.Vector3; radius: number; front: boolean }
 interface Template {
   surfaces: Surface[]; wheels: Wheel[]; decals: THREE.BufferGeometry; emblems: THREE.BufferGeometry | null;
+  /** The panels the flags and emblems sit on, by their runs in those geometries: a decal goes when its panel does. */
+  decalRuns: DecalRun[]; emblemRuns: DecalRun[];
   strip: THREE.BufferGeometry | null; aero: THREE.BufferGeometry; flame: THREE.BufferGeometry;
+  /** A build's racing-number roundels (both rear quarters) and windscreen banner. */
+  numbers: THREE.BufferGeometry | null; banner: THREE.BufferGeometry | null;
   /** Breakable panels, in CAR_PARTS bit order (src/game/drive/damage.ts). */
   breakage: Breakage;
 }
@@ -37,6 +41,16 @@ interface Breakage {
 }
 const NO_PART = 255;
 const PART_COUNT = 12;
+/** One patch of a merged decal: its vertices, and the panel it sits on (NO_PART on the shell). */
+interface DecalRun { start: number; count: number; part: number }
+/** Merge decal patches, keeping each one's run so a car can stop drawing a patch with no extra draw call. */
+function mergeDecals(patches: readonly { geometry: THREE.BufferGeometry; part: number }[]): { geometry: THREE.BufferGeometry | null; runs: DecalRun[] } {
+  const geometry = patches.length ? mergeGeometries(patches.map(patch => patch.geometry), false) : null, runs: DecalRun[] = [];
+  let start = 0;
+  for (const { geometry: patch, part } of patches) { const count = patch.getAttribute('position').count; runs.push({ start, count, part }); start += count; }
+  for (const { geometry: patch } of patches) patch.dispose();
+  return { geometry, runs };
+}
 
 /** Which breakable panel a triangle belongs to, from its centroid in the normalized car
  * (metres; +Z forward, ground at y = 0). `left` is the sign of x on the driver's left. */
@@ -254,36 +268,44 @@ async function prepareTemplate(): Promise<Template> {
   const body = surfaces.find(surface => surface.wheel < 0 && surface.material.name === 'Primary' && !surface.headlight)!;
   const bodyMesh = new THREE.Mesh(body.geometry, body.material);
   bodyMesh.updateMatrixWorld(true);
-  const flagPatches = [-1, 1].map(side => new DecalGeometry(bodyMesh,
-    new THREE.Vector3(side * 0.79, 0.76, 0.14), new THREE.Euler(0, side * Math.PI / 2, 0), new THREE.Vector3(0.34, 0.21, 0.2)));
-  const decals = mergeGeometries(flagPatches, false);
+  // Each flag sits on its door, and goes with it.
+  const left = Math.sign(wheels[0]!.center.x) || 1;
+  const { geometry: decals, runs: decalRuns } = mergeDecals([-1, 1].map(side => ({ part: side === left ? 10 : 11, geometry: new DecalGeometry(bodyMesh,
+    new THREE.Vector3(side * 0.79, 0.76, 0.14), new THREE.Euler(0, side * Math.PI / 2, 0), new THREE.Vector3(0.34, 0.21, 0.2)) })));
   if (!decals || decals.getAttribute('position').count === 0) throw new Error('Detailed coupe flag projection missed its body.');
-  for (const patch of flagPatches) patch.dispose();
   // SORA's emblem centred on the roof and the bonnet, upright from the chase camera. The roof's is large (refine round 4):
   // seen at the chase camera's grazing angle a 0.62 m roundel foreshortened to a few rows and its emblem to a smudge,
   // where the cutscenes draw a bold red disc across the roof.
   const upright = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(
     new THREE.Vector3(-1, 0, 0), new THREE.Vector3(0, 0, 1), new THREE.Vector3(0, 1, 0)));
-  const emblemPatches = ([[new THREE.Vector3(0, 1.27, -0.4), 0.84], [new THREE.Vector3(0, 0.84, 1.3), 0.5]] as const)
-    .map(([at, size]) => new DecalGeometry(bodyMesh, at, upright, new THREE.Vector3(size, size, 0.3)))
-    .filter(patch => patch.getAttribute('position').count > 0);
-  const emblems = emblemPatches.length ? mergeGeometries(emblemPatches, false) : null;
-  for (const patch of emblemPatches) patch.dispose();
+  const { geometry: emblems, runs: emblemRuns } = mergeDecals(([[new THREE.Vector3(0, 1.27, -0.4), 0.84, NO_PART], [new THREE.Vector3(0, 0.84, 1.3), 0.5, 4]] as const)
+    .map(([at, size, part]) => ({ part, geometry: new DecalGeometry(bodyMesh, at, upright, new THREE.Vector3(size, size, 0.3)) }))
+    .filter(patch => patch.geometry.getAttribute('position').count > 0));
   // The club strip across the top of the rear window, read upright from the chase camera.
   const glass = surfaces.find(surface => surface.wheel < 0 && surface.material.name === 'Windows');
-  let strip: THREE.BufferGeometry | null = null;
+  let strip: THREE.BufferGeometry | null = null, banner: THREE.BufferGeometry | null = null;
   if (glass) {
     const slope = new THREE.Vector3(0, .354, .935), across = new THREE.Vector3(-1, 0, 0);
     const facing = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(across, slope, across.clone().cross(slope)));
     const patch = new DecalGeometry(new THREE.Mesh(glass.geometry), new THREE.Vector3(0, 1.147, -1.14), facing, new THREE.Vector3(1, .16, .2));
     if (patch.getAttribute('position').count) strip = patch; else patch.dispose();
+    // A build's banner (ハチマキ) across the top of the windscreen, read from ahead (hachiroku.ts: the screen rises 0.325 m over 0.58 m).
+    const screen = new THREE.Vector3(0, .325, -.58).normalize(), ahead = new THREE.Vector3(1, 0, 0);
+    const front = new THREE.Euler().setFromRotationMatrix(new THREE.Matrix4().makeBasis(ahead, screen, ahead.clone().cross(screen)));
+    const top = new DecalGeometry(new THREE.Mesh(glass.geometry), new THREE.Vector3(0, 1.17, .3), front, new THREE.Vector3(1, .12, .2));
+    if (top.getAttribute('position').count) banner = top; else top.dispose();
   }
+  // Racing numbers on the rear quarters, between the door and the rear wheel.
+  const numberPatches = [-1, 1].map(side => new DecalGeometry(bodyMesh, new THREE.Vector3(side * 0.81, 0.7, -0.648), new THREE.Euler(0, side * Math.PI / 2, 0),
+    new THREE.Vector3(NUMBER_SIZE, NUMBER_SIZE, 0.2))).filter(patch => patch.getAttribute('position').count > 0);
+  const numbers = numberPatches.length ? mergeGeometries(numberPatches, false) : null;
+  for (const patch of numberPatches) patch.dispose();
   const lip = new THREE.BoxGeometry(1.5, 0.025, 0.13); lip.translate(0, 0.19, 2.0);
   const aero = lip;
   const flame = new THREE.ConeGeometry(0.064, 0.38, 12, 1, true);
   flame.rotateX(-Math.PI / 2); flame.translate(0, 0, -0.19);
-  const breakage = prepareBreakage(surfaces, Math.sign(wheels[0]!.center.x) || 1);
-  return { surfaces, wheels, decals, emblems, strip, aero, flame, breakage };
+  const breakage = prepareBreakage(surfaces, left);
+  return { surfaces, wheels, decals, decalRuns, emblems, emblemRuns, strip, aero, flame, breakage, numbers, banner };
 }
 
 /**
@@ -319,8 +341,8 @@ export function addDissolve(material: THREE.Material, opacity: { value: number }
   material.customProgramCacheKey = () => extra ? `sora-detailed-coupe-dissolve-v3|${extra.key}` : 'sora-detailed-coupe-dissolve-v3';
 }
 
-/** Every detailed car's paint and emblem materials, for the night's street light (setDetailedCarNight). */
-const nightPaint = new Set<THREE.MeshStandardMaterial>(), nightEmblems = new Set<THREE.MeshStandardMaterial>();
+/** Every detailed car's paint, emblem and underglow materials, for the night's street light (setDetailedCarNight). */
+const nightPaint = new Set<THREE.MeshStandardMaterial>(), nightEmblems = new Set<THREE.MeshStandardMaterial>(), nightGlows = new Set<THREE.Material>();
 /**
  * After dark (refine round 4) the cars take more of the street's light from their local reflection probe, and SORA's
  * emblems light a little from within: the cutscenes keep a white car warm cream and its roof emblem a bold red disc
@@ -332,20 +354,25 @@ export function setDetailedCarNight(night: number): void {
   nightLevel = k;
   for (const material of nightPaint) material.envMapIntensity = 1 + 1.2 * k;
   for (const material of nightEmblems) material.emissiveIntensity = .35 * k;
+  for (const material of nightGlows) material.opacity = neonGlowOpacity(k);
 }
-/** Every car's paint and emblems take the night's street light; the release forgets a car that is replaced. */
-export function carNight(paint: THREE.MeshStandardMaterial[], emblems: THREE.MeshStandardMaterial[]): () => void {
+/** Every car's paint, emblems and underglow take the night's street light; the release forgets a car that is replaced. */
+export function carNight(paint: THREE.MeshStandardMaterial[], emblems: THREE.MeshStandardMaterial[], glows: THREE.Material[] = []): () => void {
   for (const material of paint) { nightPaint.add(material); material.envMapIntensity = 1 + 1.2 * nightLevel; }
   for (const material of emblems) { nightEmblems.add(material); material.emissiveIntensity = .35 * nightLevel; }
-  return () => { for (const material of paint) nightPaint.delete(material); for (const material of emblems) nightEmblems.delete(material); };
+  for (const material of glows) { nightGlows.add(material); material.opacity = neonGlowOpacity(nightLevel); }
+  return () => {
+    for (const material of paint) nightPaint.delete(material);
+    for (const material of emblems) nightEmblems.delete(material);
+    for (const material of glows) nightGlows.delete(material);
+  };
 }
 
-function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Texture | undefined, strip: THREE.Texture | undefined,
-  index: number, driver: THREE.Group, build?: CarBuild): CarModel {
+function instantiate(template: Template, { flag, emblem, strip, number }: CarDecals, index: number, driver: THREE.Group, build?: CarBuild): CarModel {
   const group = new THREE.Group(); group.name = `SORA detailed period coupe ${index + 1}`;
   group.userData.asset = 'Toyota AE86 Sprinter Trueno Zenki';
   group.userData.attribution = 'Martin Trafas, CC BY 4.0';
-  // A build other than the factory car (car-builds.ts): its paint, stripes, wheels, kit and stance.
+  // A build other than the factory car (car-builds.ts): its paint, stripes, wheels, kit, lights and stance.
   const custom = build && !isFactoryHachiroku(build) ? build : null, colours = custom ? buildColours(custom) : null;
   const stance = STANCE[custom?.stance ?? 'stock'], flares = custom ? flareTrack(custom) : 0;
   // Neutral tire contact locations for world-space trails and smoke.
@@ -384,7 +411,12 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
   const breakable: { mesh: THREE.Mesh; surface: Surface; material: THREE.Material; ranges: NonNullable<Breakage['ranges'][number]>;
     grouped?: THREE.BufferGeometry; beforeShadow: THREE.Mesh['onBeforeShadow']; afterShadow: THREE.Mesh['onAfterShadow'] }[] = [];
   const surfaceMaterials: THREE.Material[] = [];
-  const stripes = custom && custom.stripe !== 'none' ? stripeShader(stripeUniforms(custom, colours!.stripe, stripeFrame(HACHIROKU_FRAME))) : undefined;
+  // Stripes and a black bonnet in the paint; the pop-up lamps' lids keep the body colour.
+  const paintFrame = stripeFrame(HACHIROKU_FRAME, HACHIROKU_BONNET);
+  const stripes = custom && (custom.stripe !== 'none' || custom.bonnet === 'black') ? stripeShader(stripeUniforms(custom, colours!.stripe, paintFrame)) : undefined;
+  const lidStripes = custom && custom.stripe !== 'none' ? stripeShader(stripeUniforms(custom, colours!.stripe, paintFrame, false)) : undefined;
+  const tails = tailGlow(custom ?? undefined);
+  let bodyPaint: THREE.MeshStandardMaterial | undefined;
   const customWheels = custom && custom.wheels !== 'stock';
   for (const [surfaceIndex, surface] of template.surfaces.entries()) {
     const materialKey = `${surface.material.uuid}:${surface.headlight}`;
@@ -394,6 +426,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       material.envMapIntensity = 1;
       if (material.name === 'Primary') {
         paint.push(material); nightPaint.add(material);
+        if (!surface.headlight) bodyPaint ??= material;
         // Solid enamel color under a glossy dielectric coat. A metalness of
         // one turns pale period paint into a chrome mirror in the dusk HDR.
         material.metalness = 0;
@@ -418,9 +451,12 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         material.transmission = 0; material.opacity = 0.88; material.metalness = 0;
         material.roughness = 0.13; material.clearcoat = 0.7; material.clearcoatRoughness = 0.13;
         material.emissiveMap = material.map;
-        material.emissive.set(surface.headlight ? '#ffedd4' : '#ffffff');
+        material.emissive.set(surface.headlight ? headLamp(custom ?? undefined).emissive : '#ffffff');
         material.emissiveIntensity = surface.headlight ? 1.8 : 0.1;
         material.depthWrite = false;
+        // A build's yellow bulbs tint the lenses; smoked tail lamps darken theirs.
+        if (surface.headlight && custom?.headlights === 'yellow') material.color.multiply(new THREE.Color('#ffe08a'));
+        if (!surface.headlight && custom?.tails === 'smoked') material.color.multiplyScalar(0.42);
         if (!surface.headlight) brakes.push(material);
       }
       // Small automotive windows use ordinary transparent glazing. This avoids
@@ -431,8 +467,9 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
         material.color.set('#33444f'); material.roughness = 0.075; material.metalness = 0;
         material.envMapIntensity = 1;
         material.depthWrite = false; material.side = THREE.FrontSide;
+        if (custom) tintGlass(material, custom.tint);
       }
-      addDissolve(material, opacity, material.name === 'Primary' ? stripes : undefined);
+      addDissolve(material, opacity, material.name === 'Primary' ? surface.headlight ? lidStripes : stripes : undefined);
     }
     const mesh = new THREE.Mesh(surface.geometry, material);
     mesh.name = `Detailed coupe ${material.name}`;
@@ -460,6 +497,8 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
     roughness: 0.44, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
   addDissolve(flagMaterial, opacity);
   const flags = new THREE.Mesh(template.decals, flagMaterial); flags.name = 'Exact SORA flag body decals'; body.add(flags);
+  // A flag or emblem goes with its panel: a car's own view of the shared decal draws the patches still on the car.
+  const decalViews: { mesh: THREE.Mesh; shared: THREE.BufferGeometry; runs: readonly DecalRun[]; own?: THREE.BufferGeometry }[] = [{ mesh: flags, shared: template.decals, runs: template.decalRuns }];
   let emblemMaterial: THREE.MeshStandardMaterial | null = null;
   if (template.emblems && emblem) {
     emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
@@ -468,6 +507,7 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
     nightEmblems.add(emblemMaterial);
     addDissolve(emblemMaterial, opacity);
     const emblems = new THREE.Mesh(template.emblems, emblemMaterial); emblems.name = 'Exact SORA emblem roof and bonnet decals'; body.add(emblems);
+    decalViews.push({ mesh: emblems, shared: template.emblems, runs: template.emblemRuns });
   }
   let stripMaterial: THREE.MeshStandardMaterial | null = null;
   if (template.strip && strip) {
@@ -475,7 +515,18 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
     addDissolve(stripMaterial, opacity);
     const banner = new THREE.Mesh(template.strip, stripMaterial); banner.name = 'SORA club strip on the rear window'; body.add(banner);
+    if (template.banner && custom?.banner) { const top = new THREE.Mesh(template.banner, stripMaterial); top.name = 'SORA club banner on the windscreen'; body.add(top); }
   }
+  let numberMaterial: THREE.MeshStandardMaterial | null = null;
+  if (template.numbers && custom?.number && number) {
+    numberMaterial = new THREE.MeshStandardMaterial({ map: number(custom.number), transparent: true, alphaTest: 0.03, roughness: 0.42, metalness: 0.02,
+      polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+    addDissolve(numberMaterial, opacity);
+    const numbers = new THREE.Mesh(template.numbers, numberMaterial); numbers.name = `Racing number ${custom.number}`; body.add(numbers);
+  }
+  // Underglow lights the road round the car.
+  const glow = colours?.neon ? neonGlow(HACHIROKU_FRAME, colours.neon) : null;
+  if (glow) { addDissolve(glow.material, opacity); nightGlows.add(glow.material); glow.material.opacity = neonGlowOpacity(nightLevel); group.add(glow); }
   const aeroMaterial = new THREE.MeshStandardMaterial({ color: '#20252b', metalness: 0.45, roughness: 0.32 });
   addDissolve(aeroMaterial, opacity);
   const aero = new THREE.Mesh(template.aero, aeroMaterial); aero.name = 'Club aero chin lip'; aero.visible = false; body.add(aero);
@@ -488,12 +539,15 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
   body.add(exhaust);
   // The build's bolt-on parts and wheels, in its own materials; its paint is the body's.
   const kitMaterials = custom ? carMaterials(custom) : null, kitParted: THREE.Mesh[] = [];
+  const thrown = new Map<number, THREE.BufferGeometry[]>();
   let ownHidden = 0;
   if (custom && kitMaterials) {
     for (const material of Object.values(kitMaterials)) addDissolve(material, opacity);
     const resolved = resolvedBuild(custom);
     for (const piece of kitPieces('hachiroku', HACHIROKU_FRAME, custom, { mirrors: resolved.mirrors === 'door', exhaust: resolved.exhaust === 'stock' })) {
-      const mesh = new THREE.Mesh(piece.geometry, piece.material === 'paint' ? paint[0]! : kitMaterials[piece.material]);
+      // Painted parts (and body-coloured aero) are painted with the body.
+      const painted = piece.material === 'paint' || piece.material === 'aero' && custom.aeroColour === 'body';
+      const mesh = new THREE.Mesh(piece.geometry, painted ? bodyPaint ?? paint[0]! : kitMaterials[piece.material]);
       mesh.name = `Kit ${piece.material}`; mesh.castShadow = !['glass', 'head', 'tail', 'amber'].includes(piece.material); mesh.receiveShadow = true;
       mesh.userData.part = piece.part; if (piece.part >= 0) kitParted.push(mesh);
       if (mesh.castShadow) shadowMeshes.push(mesh);
@@ -519,6 +573,17 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       if (detached === lastDetached) return;
       lastDetached = detached;
       for (const mesh of kitParted) mesh.visible = !(Math.floor(detached / 2 ** mesh.userData.part) % 2 === 1);
+      for (const view of decalViews) {
+        const kept = view.runs.filter(run => run.part === NO_PART || Math.floor(detached / 2 ** run.part) % 2 === 0);
+        view.mesh.visible = kept.length > 0;
+        if (kept.length === view.runs.length) view.mesh.geometry = view.shared;
+        else if (kept.length) {
+          // At most two patches, so what is left is one unbroken run.
+          view.own ??= groupedGeometry(view.shared);
+          view.own.setDrawRange(kept[0]!.start, kept.at(-1)!.start + kept.at(-1)!.count - kept[0]!.start);
+          view.mesh.geometry = view.own;
+        }
+      }
       const hidden = detached | ownHidden;
       for (const body of breakable) {
         const { mesh } = body;
@@ -546,10 +611,16 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       const part = template.breakage.parts[bit];
       if (!part?.pieces.length) return null;
       const piece = new THREE.Group(); piece.name = `Broken-off panel ${bit}`;
-      for (const { surface, geometry } of part.pieces) {
+      // Fender mirrors stand in for the source's door mirrors, which never break off.
+      if (Math.floor(ownHidden / 2 ** bit) % 2 === 0) for (const { surface, geometry } of part.pieces) {
         const mesh = new THREE.Mesh(geometry, surfaceMaterials[surface]!); mesh.castShadow = true; mesh.receiveShadow = true;
         piece.add(mesh);
       }
+      // The build's parts bolted to it (a scoop on the bonnet, a lip on the bumper): centred copies, made once per car and released with it.
+      const bolted = kitParted.filter(mesh => mesh.userData.part === bit);
+      let copies = thrown.get(bit);
+      if (!copies) thrown.set(bit, copies = bolted.map(mesh => mesh.geometry.clone().translate(-part.centre.x, -part.centre.y, -part.centre.z)));
+      bolted.forEach((mesh, i) => { const copy = new THREE.Mesh(copies![i]!, mesh.material); copy.castShadow = mesh.castShadow; copy.receiveShadow = true; piece.add(copy); });
       piece.position.copy(part.centre); piece.position.y += stance.drop;
       return { object: piece, size: part.size };
     },
@@ -586,15 +657,18 @@ function instantiate(template: Template, flag: THREE.Texture, emblem: THREE.Text
       }
       // Tail and parking lamps stay lit on the move, brighter under braking, so wet roads mirror them in red streaks
       // and they glow red-orange in the pixel art as in the user's concept (dim, they read as dark red blocks).
-      for (const material of brakes) material.emissiveIntensity = braking ? 3.2 : 1.8;
+      for (const material of brakes) material.emissiveIntensity = tails[braking ? 1 : 0];
       exhaust.visible = boosting; exhaust.scale.z = boosting ? 0.9 + Math.sin(now * 37) * 0.14 : 1;
     },
     dispose() {
       for (const material of paint) nightPaint.delete(material);
       if (emblemMaterial) nightEmblems.delete(emblemMaterial);
+      if (glow) { nightGlows.delete(glow.material); glow.geometry.dispose(); }
       for (const material of [...materials.values(), ...driverMaterials.values(), ...Object.values(kitMaterials ?? {}), flagMaterial, emblemMaterial,
-        stripMaterial, aeroMaterial, flameMaterial]) material?.dispose();
+        stripMaterial, numberMaterial, aeroMaterial, flameMaterial, glow?.material]) material?.dispose();
       for (const body of breakable) body.grouped?.dispose();
+      for (const view of decalViews) view.own?.dispose();
+      for (const copies of thrown.values()) for (const geometry of copies) geometry.dispose();
     },
   };
   car.setAppearance(colours?.paint ?? '#e8e5d9');
@@ -611,12 +685,12 @@ export async function loadDetailedCarFleet(flag: THREE.Texture, emblem?: THREE.T
   const [template, drivers] = await Promise.all([
     templatePromise, Promise.all(Array.from({ length: 8 }, () => createDetailedDriver())),
   ]);
-  return drivers.map((driver, index) => instantiate(template, flag, emblem, strip, index, driver.group));
+  return drivers.map((driver, index) => instantiate(template, { flag, emblem, strip }, index, driver.group));
 }
 
 /** One detailed hachiroku to a build (car-builds.ts), with its own seated driver. */
-export async function loadDetailedCar(build: CarBuild, flag: THREE.Texture, emblem?: THREE.Texture, strip?: THREE.Texture, index = 0): Promise<CarModel> {
+export async function loadDetailedCar(build: CarBuild, decals: CarDecals, index = 0): Promise<CarModel> {
   templatePromise ??= prepareTemplate().catch(error => { templatePromise = undefined; throw error; });
   const [template, driver] = await Promise.all([templatePromise, createDetailedDriver()]);
-  return instantiate(template, flag, emblem, strip, index, driver.group, build);
+  return instantiate(template, decals, index, driver.group, build);
 }

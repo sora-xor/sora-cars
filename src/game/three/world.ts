@@ -54,7 +54,7 @@ import { setPeriodCityGolden } from './period-city/materials';
 import type { PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
 import { crownLight, crownLightGlsl } from './autumn-foliage';
-import { CarFleet, plateTexture } from './period-cars/fleet';
+import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
 import { buildColours, type CarBuild } from '../car-builds';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
@@ -770,7 +770,7 @@ export class RaceWorld {
     // A wide white ring round the roof and bonnet emblems, so the exact emblem's red disc reads on a red car's roof
     // seen at the chase camera's low angle (refine round 4; the garage's part viewer keeps the thin ring).
     const carEmblem = soraEmblemTexture(emblemUrl, 512, .3), carStrip = soraStripTexture(emblemUrl);
-    const carFleet = this.carFleet = new CarFleet(this.scene, { flag: this.flag, emblem: carEmblem, strip: carStrip, plate: plateTexture() });
+    const carFleet = this.carFleet = new CarFleet(this.scene, { flag: this.flag, emblem: carEmblem, strip: carStrip, plate: plateTexture(), number: raceNumberTexture });
     void loadDetailedCarFleet(this.flag, carEmblem, carStrip).then(fleet => {
       const geometry = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>();
       for (const model of this.cars) {
@@ -1380,7 +1380,10 @@ export class RaceWorld {
       light.intensity = slot.fixtureId === null ? 0 : this.shopAreaLightLuminance * slot.gain;
     });
     const carPose = { ...at, heading: at.heading + player.yaw };
+    // A build's yellow bulbs (car-builds.ts) light the road yellow.
+    const beam = player.build?.headlights === 'yellow' ? 0xffd27a : 0xffedc3;
     this.headlights.forEach((light, i) => {
+      light.color.setHex(beam);
       const origin = point(at, player.lateral).add(point({ ...carPose, x: 0, y: 0, z: 0 }, i ? 0.66 : -0.66, 0.68, 2.0));
       light.position.copy(origin); light.target.position.copy(origin).add(new THREE.Vector3(Math.sin(carPose.heading) * 18, -0.65, Math.cos(carPose.heading) * 18));
     });
