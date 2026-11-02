@@ -9,14 +9,22 @@ const source = await readFile(new URL('../src/ui/street-practice.ts', import.met
 const compiled = await transform(source, { loader: 'ts', format: 'cjs', target: 'es2022' });
 const deferred = () => { let resolve, reject; const promise = new Promise((yes, no) => { resolve = yes; reject = no; }); return { promise, resolve, reject }; };
 const flush = async () => { for (let i = 0; i < 8; i++) await Promise.resolve(); };
-function fixture() {
-  const requests = [], verifications = [], draws = [], songs = [], events = [];
+// `drive` picks the session street practice opens: the driving model (the
+// default) or `?physics=native`'s street draft. Both present the same street state.
+function fixture({ drive = true } = {}) {
+  const requests = [], verifications = [], draws = [], songs = [], events = [], sessions = [], controls = [];
   let visual = { status: 'loading', message: 'Preparing the detailed street…' }, drawError, reloads = 0;
   const native = () => ({ tick: 0, cars: [{ status: 0, propHitMask: 0, bodyYawMicroturn: 0, velocityYawMicroturn: 0, speedMmPerTick: 0 }], rain: 0, done: false });
   class Session {
     state = native(); values = [];
+    constructor() { sessions.push(this); }
     step(input) { this.values.push(input); this.state = { ...this.state, tick: this.state.tick + 1 }; return this.state; }
   }
+  class DriveSession extends Session {
+    race = { tick: 0, done: false, events: [], props: [], cars: [{ wreckTick: -1 }] };
+    constructor(track, objects, roster, skins) { super(); this.track = track; this.skins = skins; }
+  }
+  class AI { control(race, slot) { controls.push(slot); return 0; } }
   class Playback { state = native(); values = []; length = 120; tick = 0; }
   class Audio {
     paused = true; currentTime = 0; duration = 255; readyState = 0; seeking = false; ended = false;
@@ -28,19 +36,30 @@ function fixture() {
   const screen = { innerHTML: '', querySelector: () => null };
   const canvas = { width: 100, height: 100, getContext: () => ({ fillRect() {}, fillStyle: '' }) };
   const loaded = { bundle: { track: { id: 'tokyo-1986' }, objects: [] }, descriptor: { musicDurationSeconds: 255 } };
+  const text = value => ({ ja: value, en: value });
   const require = id => {
     if (id.endsWith('.css')) return {};
     if (id.endsWith('/assets')) return {
+      STREET_ROUTES: [{ id: 'tokyo-1986', musicDurationSeconds: 255 }],
       loadStreetRoute: () => { const item = deferred(); requests.push(item); return item.promise; },
       loadStreetRouteMusic: () => Promise.resolve('local-song.mp3'),
     };
+    if (id.endsWith('/routes')) return { streetRouteStyle: () => ({ place: text('Tokyo'), title: text('Tokyo'), path: text('Route'), facts: text('Facts'), song: 'Song', provisional: text('Provisional') }) };
+    if (id.endsWith('/song-endings')) return { STREET_SONG_ENDINGS: {} };
     if (id.endsWith('/session')) return { StreetRaceSession: Session };
+    if (id.endsWith('/drive/street')) return { DriveStreetSession: DriveSession };
+    if (id.endsWith('/drive/ai')) return { DRIVER_SKILLS: { club: {}, pro: {}, ace: {} }, DriveAI: AI };
+    if (id.endsWith('/drive/mode')) return { drivePhysics: () => drive };
+    if (id.endsWith('/car-builds')) return { rivalCar: () => null, storyCar: () => null };
     if (id.endsWith('/renderer')) return { StreetRaceRenderer: class {
       resize() {}
       draw(track, state, options, time) { draws.push({ track, state, options, time }); if (drawError) throw drawError; }
     } };
     if (id.endsWith('/presentation')) return { streetPresentation: () => ({ index: 0 }) };
-    if (id.endsWith('/soundtrack-clock')) return { planStreetSoundtrack: () => ({ seekTo: null, shouldPlay: false }) };
+    if (id.endsWith('/soundtrack-clock')) return {
+      planStreetSoundtrack: () => ({ seekTo: null, shouldPlay: false, expectedSeconds: 0 }),
+      streetSongPosition: () => ({ seconds: 0, start: 0, pass: 0 }),
+    };
     if (id.endsWith('/test-driver')) return { streetDriver: () => 1 };
     if (id.endsWith('/replay')) return {
       decodeStreetReplay: JSON.parse, encodeStreetReplay: JSON.stringify, exportStreetReplay() {},
@@ -55,17 +74,19 @@ function fixture() {
   new Function('require', 'module', 'exports', 'Audio', 'document', 'matchMedia', 'window', compiled.code)(
     require, module, module.exports, Audio, { querySelector: () => null }, () => ({ matches: false }), { location: { reload: () => reloads++ } });
   const street = new module.exports.StreetPractice({ canvas, screen, audio, onChange() {}, onSaved() {}, notify() {}, onExit: () => street.close() });
-  return { street, screen, loaded, requests, verifications, draws, songs, events,
+  return { street, screen, loaded, requests, verifications, draws, songs, events, sessions, controls,
     setVisual: value => { visual = value; }, setDrawError: value => { drawError = value; }, reloads: () => reloads };
 }
 
-{
-  const f = fixture(); let settled = false;
+for (const drive of [true, false]) {
+  const f = fixture({ drive }); let settled = false;
   const opened = f.street.open('tokyo-1986', 2).then(() => { settled = true; });
   f.requests[0].resolve(f.loaded); await flush();
+  assert.equal(f.sessions.length, 1); assert.equal('race' in f.sessions[0], drive, drive ? 'the driving model races the street' : '?physics=native keeps the street draft');
   assert.equal(f.street.state.phase, 'loading'); assert.equal(settled, false);
   f.street.action('street-start'); f.street.update(10, 63);
   assert.equal(f.street.state.fullStreetState.tick, 0); assert.equal(f.street.activeInput, false);
+  assert.deepEqual(f.controls, [], 'no rival drives before the start');
   f.street.draw(0); await flush();
   assert.equal(f.street.state.phase, 'loading'); assert.equal(settled, false);
   assert.match(f.screen.innerHTML, /Preparing the detailed street/);
@@ -128,4 +149,4 @@ function fixture() {
   f.setDrawError(new Error('WebGL could not draw')); f.street.draw(0); await opened;
   assert.equal(f.street.state.phase, 'error'); assert.equal(f.street.state.error, 'WebGL could not draw'); f.street.close();
 }
-console.log('Street preparation: route/replay + rendered readiness, native tick-zero/input/audio hold, cancellation/replacement, visual failure/reload guards and verification errors pass.');
+console.log('Street preparation: route/replay + rendered readiness, tick-zero/input/audio hold on the driving model and the native draft, cancellation/replacement, visual failure/reload guards and verification errors pass.');
