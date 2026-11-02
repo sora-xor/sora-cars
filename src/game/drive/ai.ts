@@ -2,7 +2,7 @@ import { CONTROL } from '../rules';
 import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
 import { clamp, cos, sin } from './dmath';
 import { damageEffects } from './damage';
-import { DRIFT_BEND, DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
+import { DRIFT_BEND, DRIVE_HZ, DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
 import type { VehicleSpec } from './vehicle';
 
 /** Practice and story AI. It reads the race and returns the same six control
@@ -88,7 +88,11 @@ function cornerSpeed(spec: VehicleSpec, mu: number, kappa: number): number {
   return denominator <= 1e-6 ? 200 : Math.sqrt(grip / denominator);
 }
 
-interface Memory { stuckTicks: number; reverseTicks: number; reverseSteer: number }
+interface Memory { stuckTicks: number; reverseTicks: number; reverseSteer: number; offset: number }
+/** How fast (m/s) a driver moves off the racing line for traffic, and back. The
+ * wheel winds on slowly at speed, so a sudden swerve would overshoot into a rail;
+ * at 5 m/s a quicker car stayed boxed in behind the pack. */
+const MOVE_OVER = 8;
 
 export class DriveAI {
   readonly #memory = new Map<number, Memory>();
@@ -101,7 +105,7 @@ export class DriveAI {
     const car = race.cars[slot]!;
     if (car.status !== DriveStatus.Racing || race.done) return 0;
     const course = race.course, spec = race.specs[slot]!, skill = this.#skills[slot] ?? DRIVER_SKILLS.club;
-    const line = racingLine(course), memory = this.#memory.get(slot) ?? { stuckTicks: 0, reverseTicks: 0, reverseSteer: 0 };
+    const line = racingLine(course), memory = this.#memory.get(slot) ?? { stuckTicks: 0, reverseTicks: 0, reverseSteer: 0, offset: 0 };
     this.#memory.set(slot, memory);
     // Set back on the road by the marshals: drive on.
     if (race.events.some(event => event.kind === 'recover' && event.slot === slot)) { memory.stuckTicks = 0; memory.reverseTicks = 0; }
@@ -140,7 +144,8 @@ export class DriveAI {
     let sharpest = 0;
     for (let ahead = 0; ahead <= 15; ahead += line.step) sharpest = Math.max(sharpest, line.curvature[lineIndex(line, course, car.s + ahead)]!);
     const lookahead = clamp(Math.min(5 + speed * 0.36, 0.75 / Math.max(sharpest, 1e-3)), 6, 30);
-    let lateral = lineOffset(line, course, car.s + lookahead) + skill.lane;
+    const racing = lineOffset(line, course, car.s + lookahead);
+    let lateral = racing + skill.lane;
     const width = Math.max(0.3, sampleCourse(course, car.s + lookahead).halfWidth - 1.15);
     let blocked: DriveCar | null = null, blockedGap = Infinity;
     for (const other of race.cars) {
@@ -160,6 +165,9 @@ export class DriveAI {
       // No way past: hold back and match its speed, braking hard if it has stopped or spun.
       else target = Math.min(target, Math.max(0, blocked.u) * 0.95 + Math.sqrt(2 * 9 * Math.max(0, blockedGap - 7)));
     }
+    // Move over, and back onto the line, at a pace the steering can follow.
+    memory.offset = clamp(lateral - racing, memory.offset - MOVE_OVER / DRIVE_HZ, memory.offset + MOVE_OVER / DRIVE_HZ);
+    lateral = racing + memory.offset;
     // Never squeeze a car alongside: keep two metres from it on its side.
     for (const other of race.cars) {
       if (other === car || !race.solid(other) || Math.abs(courseGap(course, car.s, other.s)) > 4.8) continue;

@@ -131,6 +131,9 @@ export class HumanDriver {
 
 /** AI lanes, as main.ts spreads a field across the road. */
 const LANES = [0, 0.5, -0.5, 1, -0.3, -1, 0.3, 0.8];
+/** An AI test driver's seed moves its lane, as a player's seed varies theirs: seed 0 keeps the grid's lane, then
+ * 0.3 m steps to either side (-0.3, +0.3, -0.6, +0.6, ...). One AI race is chaotic, so a ladder rung races several. */
+export const laneShift = (seed: number): number => seed <= 0 ? 0 : 0.3 * Math.ceil(seed / 2) * (seed % 2 ? -1 : 1);
 function driver(profile: DriverProfile, slot: number, seed: number, ai: DriveAI): (race: DriveRace) => number {
   if (profile === 'rookie' || profile === 'regular') { const human = new HumanDriver(HUMAN_STYLES[profile], slot, seed); return race => human.control(race); }
   return race => ai.control(race, slot);
@@ -176,7 +179,8 @@ export function soloRace(trackId: number, profile: DriverProfile, tune: CarTune,
 export function packRace(trackId: number, slot: number, profile: DriverProfile, tune: CarTune, seed = 0, rivals: readonly (Rival | null)[] = fieldRivals('club', 8, slot), full = false): GarageRun {
   const tunes = rivals.map((rival, index) => index === slot ? tune : rival?.tune ?? STOCK_TUNE);
   const race = arcadeDriveRace(trackId, tunes);
-  const ai = new DriveAI(rivals.map((rival, index) => ({ ...DRIVER_SKILLS[index === slot && profile !== 'rookie' && profile !== 'regular' ? profile : rival?.skill ?? 'club'], lane: LANES[index]! })));
+  const ai = new DriveAI(rivals.map((rival, index) => ({ ...DRIVER_SKILLS[index === slot && profile !== 'rookie' && profile !== 'regular' ? profile : rival?.skill ?? 'club'],
+    lane: LANES[index]! + (index === slot ? laneShift(seed) : 0) })));
   const drive = driver(profile, slot, seed, ai);
   let impacts = 0;
   while (!race.done && (full || race.cars[slot]!.status === DriveStatus.Racing)) {
@@ -241,9 +245,7 @@ export function storyCampaign(profile: DriverProfile, seed: number, policy: Spen
     if (chapter.trackId === undefined) continue;
     let races = 0, cleared = false;
     while (!cleared && races < limit) {
-      for (let part = shoppingChoice(save, chapter.trackId, policy); part; part = shoppingChoice(save, chapter.trackId, policy)) {
-        save = partState(save, part.id) === 'stored' ? fitPart(save, part.id) : buyPart(save, part.id);
-      }
+      save = shop(save, chapter.trackId, policy);
       const run = packRace(chapter.trackId, 6, profile, garageTune(save), seed * 1000 + chapter.id * 20 + races, storyRivals(chapter.id, 8, 6), true);
       cleared = storyObjectiveMet(index, run.place, run.places[7]);
       if (!races) leads.push(Math.min(run.field[5]!, run.field[7]!) - run.ticks);
@@ -259,6 +261,13 @@ function shoppingChoice(save: GarageSave, trackId: number, policy: SpendPolicy):
   if (policy === 'picks') { const pick = nextPick(save, trackId); return pick && ['available', 'stored'].includes(partState(save, pick.id)) ? pick : null; }
   const open = TECH_NODES.filter(node => partState(save, node.id) === 'available').sort((a, b) => policy === 'cheapest' ? a.cost - b.cost : b.cost - a.cost);
   return open[0] ?? null;
+}
+/** One pre-race garage visit with a spending habit: buy (or fit) until the habit finds nothing more. */
+export function shop(save: GarageSave, trackId: number, policy: SpendPolicy): GarageSave {
+  for (let part = shoppingChoice(save, trackId, policy); part; part = shoppingChoice(save, trackId, policy)) {
+    save = partState(save, part.id) === 'stored' ? fitPart(save, part.id) : buyPart(save, part.id);
+  }
+  return save;
 }
 /** Finishing place in a practice field from the usual player slot. */
 export const fieldPlace = (field: FieldId, trackId: number, profile: DriverProfile, tune: CarTune, seed = 0): number =>

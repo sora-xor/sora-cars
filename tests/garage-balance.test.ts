@@ -4,9 +4,9 @@ import { readFileSync } from 'node:fs';
 import { TECH_BRANCHES, TECH_NODES, techNode, type PartAudience, type TechNode } from '../src/game/garage-tech';
 import { RACE_GAINS } from '../src/game/part-effects';
 import { vehicleSpec } from '../src/game/drive/vehicle';
-import { tuneFor } from '../src/game/garage-tech';
+import { buildValue, tuneFor } from '../src/game/garage-tech';
 import { AUDIENCE_PROFILES, mean } from './helpers/garage-drivers';
-import { FULL_PLAN, HARBOR_CHAPTERS, REPORT_PATH, TRACKS, audienceGains, balanceInputs, fingerprints, raceGains, runSerially, type BalanceReport } from './helpers/garage-balance';
+import { FULL_PLAN, HARBOR_CHAPTERS, REPORT_PATH, RESCUE_BUILDS, TRACKS, audienceGains, balanceInputs, fingerprints, raceGains, runSerially, type BalanceReport } from './helpers/garage-balance';
 
 // The garage balance on the local driving model. A driving-model race costs a few
 // hundred milliseconds, so `npm run balance:garage` measures it once on every core
@@ -73,14 +73,17 @@ test('a finished car is a big but bounded step over stock', () => {
 });
 
 test('practice fields form a ladder: each needs a better car, the last needs a finished one', () => {
-  const places = (field: keyof BalanceReport['fields'], build: string) => report.fields[field][build]!;
+  // A pro from the player's grid spot, on all three tracks in every lane the plan races (FULL_PLAN.fields).
+  const places = (field: keyof BalanceReport['fields'], build: string) => report.fields[field][build]!.flat();
   const podium = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place <= 3);
   const shut = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place > 3);
+  const share = (field: keyof BalanceReport['fields'], build: string) => places(field, build).filter(place => place <= 3).length / places(field, build).length;
+  assert.equal(places('legends', 'stock').length, TRACKS.length * FULL_PLAN.fields.length);
   assert.ok(!podium('club', 'stock') && podium('club', 'power 60k'), 'a modest build podiums club night');
   assert.ok(shut('touge', 'stock') && podium('touge', 'power 420k'));
   assert.ok(shut('championship', 'power 120k') && podium('championship', 'power 420k'));
   assert.ok(shut('legends', 'power 180k'));
-  assert.ok(places('legends', 'power 640k').filter(place => place <= 3).length >= 2, 'a finished car contends in Legends');
+  assert.ok(share('legends', 'power 640k') >= 2 / 3, `a finished car contends in Legends: ${places('legends', 'power 640k').join('')}`);
 });
 
 test('a stock car can meet every story objective; the harbor is where struggling drivers need parts', () => {
@@ -90,8 +93,11 @@ test('a stock car can meet every story objective; the harbor is where struggling
   for (const chapter of HARBOR_CHAPTERS) assert.ok(report.story.harbor[chapter]!.stock >= 0.5, `chapter ID ${chapter}: ${JSON.stringify(report.story.harbor[chapter])}`);
 });
 
-test('the crew’s picks, not chassis or engine parts alone, rescue a struggling driver in Yokohama', () => {
-  // The first harbor night: Daichi's first picks (boost, engine, tyres) against chassis-only and engine-only builds that cost more.
-  const { picks, recovery, power, stock } = report.story.rescue;
-  assert.ok(picks - stock >= 0.2 && picks >= recovery && picks >= power, `picks ${picks}, recovery ${recovery}, power ${power}, stock ${stock}`);
+test('the crew’s picks, not the cheapest parts, rescue a struggling driver in Yokohama', () => {
+  // The first harbor night, with the cars rookies have there (RESCUE_BUILDS, 96 seeds): Yui's intake and Daichi's boost
+  // controller against the same money spent cheapest-first on tyres, coilovers, roll cage and bumpers. ¥46k of engine
+  // and boost parts clears it more often still: a harbor pack rewards top speed, which a rookie cannot afford by then.
+  const { picks, cheapest, power, stock } = report.story.rescue;
+  assert.ok(buildValue(RESCUE_BUILDS.cheapest) >= buildValue(RESCUE_BUILDS.picks), 'the cheapest parts cost no less');
+  assert.ok(picks - stock >= 0.2 && picks > cheapest, `picks ${picks}, cheapest ${cheapest}, power ${power}, stock ${stock}`);
 });

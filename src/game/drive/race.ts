@@ -47,6 +47,8 @@ export const LAUNCH_SPEED = 160 / 3.6;
  * (380 m radius, curve 2 in RaceV1) earns the spec's full charge per tick. */
 export const DRIFT_BEND = 0.001;
 const TIGHT_CORNER = 1 / 380;
+/** Seconds ahead the steering looks for the road's bend (roadWheel). */
+const ROAD_WHEEL_AHEAD = [0.25, 0.5] as const;
 
 /** Path curvature (1/m) at full steering lock. Slow, it is the wheels' lock;
  * at speed, the tyres' dry cornering limit with a little to spare, so a held key
@@ -58,14 +60,33 @@ export function steeringCurvature(spec: VehicleSpec, forward: number, speed: num
 }
 
 /** The steering position after one substep towards `target` (−1, 0 or 1).
- * It winds on in a fifth of a second at town speeds and in half a second at
- * 250 km/h, so a tap at speed stays a small correction, and it always unwinds
+ * Keys are all or nothing, so how fast the wheel winds on is the keyboard's
+ * sensitivity: a third of a second at town speeds, about 0.6 s at 100 km/h and
+ * 1.1 s at 250 km/h. A tap is then a small correction and only a held key
+ * corners at the limit; at 120 km/h a 0.3 s press turns the car about 4°, where
+ * winding on in a fifth of a second turned it 12° and keyboard drivers slid from
+ * rail to rail. Turning into a bend, the wheel still winds on quickly as far as
+ * the road itself turns (`bend`, its position that follows the road; see
+ * `roadWheel`), or it would arrive after a fast bend does and run the car into
+ * the rail. Beyond that, and everywhere else, it stays slow. It always unwinds
  * in a sixth of a second when the key is released. */
-export function steerSubstep(steer: number, target: number, forward: number): number {
+export function steerSubstep(steer: number, target: number, forward: number, bend = 0): number {
   const delta = target - steer;
   const unwinding = delta !== 0 && Math.sign(delta) !== Math.sign(steer) && steer !== 0;
-  const rate = unwinding ? 6 : 5 / (1 + Math.max(0, forward - 15) / 40);
+  if (!unwinding && target * bend > 0 && Math.abs(steer) < Math.abs(bend)) {
+    const next = steer + target * 5 / (1 + Math.max(0, forward - 15) / 40) * DT;
+    return Math.abs(next) < Math.abs(bend) ? next : bend;
+  }
+  const rate = unwinding ? 6 : 3 / (1 + Math.max(0, forward - 10) / 25);
   return steer + clamp(delta, -rate * DT, rate * DT);
+}
+/** The wheel position that follows the road where a held key is turning: its
+ * sharpest curve that way from here to half a second ahead. */
+export function roadWheel(course: DriveCourse, spec: VehicleSpec, car: DriveCar, target: number, speed: number): number {
+  if (target === 0 || car.u < 5) return 0;
+  let kappa = sampleCourse(course, car.s).kappa * target;
+  for (const ahead of ROAD_WHEEL_AHEAD) kappa = Math.max(kappa, sampleCourse(course, car.s + car.u * ahead).kappa * target);
+  return kappa <= 0 ? 0 : target * Math.min(1, kappa / steeringCurvature(spec, car.u, speed));
 }
 /** The steering position after a whole tick with `target` held. */
 export function steerTick(steer: number, target: number, forward: number): number {
@@ -308,8 +329,8 @@ export class DriveRace {
     const brake = racing ? car.braking && !car.reverse : true;
     const drift = car.drifting;
     const target = racing ? Number((control & CONTROL.right) !== 0) - Number((control & CONTROL.left) !== 0) : 0;
-    car.steer = steerSubstep(car.steer, target, car.u);
     const speed = Math.sqrt(car.u * car.u + car.v * car.v);
+    car.steer = steerSubstep(car.steer, target, car.u, roadWheel(this.course, spec, car, target, speed));
     const a = spec.cgToFront, b = spec.cgToRear, length = a + b;
     // Normal loads: weight with downforce, moved front-to-back by acceleration.
     const aero = 1 + spec.downforce * speed * speed / 5184;

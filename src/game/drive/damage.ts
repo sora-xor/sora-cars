@@ -2,9 +2,10 @@ import { clamp } from './dmath';
 
 /** Body damage accumulates in four zones. Every hard contact adds points from
  * the car's change of velocity (its delta-v), the measure crash engineers use:
- * nudges below 3 m/s (about 11 km/h) leave no mark, a 30 m/s impact
- * (108 km/h) wrecks the car outright. Damage costs power, grip and drag, panels
- * break away at fixed thresholds, and at DAMAGE_LIMIT the car is wrecked.
+ * nudges below 6 m/s (22 km/h) leave no mark, because keyboard players brush the
+ * rails all the time; a 30 m/s impact (108 km/h) wrecks the car outright. Damage
+ * costs power, grip and drag, panels break away at fixed thresholds, and at
+ * DAMAGE_LIMIT the car is wrecked.
  */
 export const DAMAGE_LIMIT = 100;
 export const ZONES = ['front', 'rear', 'left', 'right'] as const;
@@ -41,8 +42,8 @@ export function emptyDamage(): CarDamage { return { front: 0, rear: 0, left: 0, 
 
 /** Damage points for a change of velocity (m/s). */
 export function impactPoints(deltaV: number, toughness: number): number {
-  const x = deltaV - 3;
-  return x <= 0 ? 0 : toughness * (0.9 * x + 0.12 * x * x);
+  const x = deltaV - 6;
+  return x <= 0 ? 0 : toughness * (0.5 * x + 0.16 * x * x);
 }
 
 /** Share an impact between zones by where on the body it landed:

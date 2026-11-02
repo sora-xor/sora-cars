@@ -42,17 +42,17 @@ export const COURSE_TIPS: readonly CourseTip[] = [
   {
     crew: 'yui', branches: ['turbo', 'engine'],
     line: { ja: '箱根のコーナーは流れるようにつながってる。計算だと、最高速とブーストがそのままタイムになる。', en: 'Hakone’s corners run into each other. By my numbers, top speed and boost turn straight into time.' },
-    plan: ['engine-intake', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'turbo-big', 'body-cage', 'engine-cams', 'chassis-coilovers', 'turbo-antilag', 'chassis-rally', 'engine-torque', 'engine-fulltune', 'chassis-lsd', 'body-bumpers', 'body-armor', 'body-windtunnel'],
+    plan: ['engine-intake', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'turbo-big', 'chassis-coilovers', 'engine-cams', 'chassis-rally', 'turbo-antilag', 'body-cage', 'engine-torque', 'body-bumpers', 'body-armor', 'body-windtunnel', 'engine-fulltune', 'chassis-lsd'],
   },
   {
     crew: 'daichi', branches: ['turbo', 'chassis'],
-    line: { ja: '港は横風と雨だ。まずはブーストとエンジンで速さを稼いで、タイヤと足回りを固めれば、コースから外れない。僕も毎晩、それで帰ってきてる。', en: 'The harbor means crosswinds and rain. Get your speed from the boost and the engine, then firm up the tyres and suspension and you’ll stay on the road. It’s how I make it home every night.' },
-    plan: ['turbo-controller', 'engine-intake', 'chassis-tyres', 'turbo-intercooler', 'body-cage', 'turbo-big', 'chassis-coilovers', 'chassis-rally', 'engine-cams', 'turbo-antilag', 'body-bumpers', 'body-armor', 'engine-torque', 'engine-fulltune', 'body-windtunnel', 'chassis-lsd'],
+    line: { ja: '港は横風と雨だ。まずはブーストで速さを稼いで、タイヤで路面をつかもう。エンジンと足回りはその次。そうすればコースから外れない。僕も毎晩、それで帰ってきてる。', en: 'The harbor means crosswinds and rain. Get your speed from the boost, grip the road with sport tyres, then add the engine and firm up the suspension, and you’ll stay on the road. It’s how I make it home every night.' },
+    plan: ['turbo-controller', 'chassis-tyres', 'engine-intake', 'turbo-intercooler', 'body-cage', 'turbo-big', 'chassis-coilovers', 'chassis-rally', 'engine-cams', 'turbo-antilag', 'engine-torque', 'engine-fulltune', 'chassis-lsd', 'body-bumpers', 'body-armor', 'body-windtunnel'],
   },
   {
-    crew: 'jun', branches: ['turbo'],
-    line: { ja: 'ヘアピンで落とした速度は、ブーストで取り返そう。親父さんのノートにも、そう書いてある。', en: 'Whatever the hairpins take, win it back with boost. Your dad’s notebook says the same.' },
-    plan: ['turbo-controller', 'engine-intake', 'body-cage', 'turbo-intercooler', 'chassis-tyres', 'turbo-twin', 'chassis-coilovers', 'chassis-rally', 'engine-cams', 'engine-highrev', 'body-bumpers', 'body-light', 'engine-fulltune', 'turbo-antilag', 'body-windtunnel', 'chassis-lsd'],
+    crew: 'jun', branches: ['engine', 'turbo'],
+    line: { ja: 'ヘアピンで落とした速度は、エンジンとブーストで取り返そう。親父さんのノートにも、そう書いてある。', en: 'Whatever the hairpins take, win it back with the engine and the boost. Your dad’s notebook says the same.' },
+    plan: ['engine-intake', 'body-cage', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'chassis-coilovers', 'turbo-twin', 'engine-cams', 'chassis-rally', 'engine-highrev', 'engine-fulltune', 'body-bumpers', 'body-armor', 'turbo-antilag', 'body-windtunnel', 'chassis-lsd'],
   },
 ];
 export const courseTip = (trackId: number): CourseTip => {

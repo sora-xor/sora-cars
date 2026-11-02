@@ -5,7 +5,7 @@ import { CONTROL } from '../src/game/rules';
 import { STOCK_TUNE } from '../src/game/tuned-engine';
 import { atan2, cos, sin } from '../src/game/drive/dmath';
 import type { DriveCourse } from '../src/game/drive/course';
-import { DriveRace, DriveStatus, RECOVERY_TICKS, collideBoxes, type DriveProp } from '../src/game/drive/race';
+import { DriveRace, DriveStatus, RECOVERY_TICKS, collideBoxes, roadWheel, steerSubstep, steerTick, type DriveCar, type DriveProp } from '../src/game/drive/race';
 import { DAMAGE_LIMIT, impactPoints } from '../src/game/drive/damage';
 import { vehicleSpec } from '../src/game/drive/vehicle';
 import { DRIVER_SKILLS, DriveAI } from '../src/game/drive/ai';
@@ -74,6 +74,8 @@ test('a glancing rail hit deflects the car and keeps most of its speed', () => {
 
 test('a head-on rail impact wrecks the car and breaks panels; nudges leave no mark', () => {
   assert.equal(impactPoints(2.5, 1), 0);
+  assert.equal(impactPoints(6, 1), 0, 'brushing a rail costs nothing: keyboard players do it all the time');
+  assert.ok(impactPoints(10, 1) < 10 && impactPoints(20, 1) > 30, 'a knock is a scratch, a crash is serious');
   assert.ok(impactPoints(30, 1) > DAMAGE_LIMIT);
   const r = race([{ s: 30, d: 0 }, { s: -500, d: 0 }], [], 4);
   launch(r, 0, 36, Math.PI / 2);
@@ -120,6 +122,53 @@ test('full lock reaches the tyres\' grip at speed; a held drift settles into a s
   let whip = 0;
   for (let t = 0; t < 30; t++) { drift.step([CONTROL.throttle, 0]); whip = Math.max(whip, slip()); }
   assert.ok(Math.abs(slip()) < 0.05 && whip < 0.1, `released, it straightens without whipping back (${(whip * 57.3).toFixed(1)}°)`);
+});
+
+test('a keyboard tap is a small correction and a held key still turns hard', () => {
+  // Heading change (°) after holding right for `ticks` at a steady speed, once the car has settled.
+  const turn = (kmh: number, ticks: number) => {
+    const r = race([{ s: 0, d: 0 }, { s: -500, d: 0 }], [], 3000), car = r.cars[0]!;
+    launch(r, 0, kmh / 3.6);
+    for (let t = 0; t < 60; t++) r.step([(car.u < kmh / 3.6 ? CONTROL.throttle : 0) | (t < ticks ? CONTROL.right : 0), 0]);
+    return car.psi * 180 / Math.PI;
+  };
+  const tap = turn(120, 3), press = turn(120, 9), fast = turn(250, 9), held = turn(50, 30);
+  assert.ok(tap > 0.1 && tap < 1, `a 0.1 s tap at 120 km/h turns the car ${tap.toFixed(1)}°`);
+  assert.ok(press > 2 && press < 6, `a 0.3 s press at 120 km/h turns it ${press.toFixed(1)}°, not across the road`);
+  assert.ok(fast < 2.5, `and at 250 km/h ${fast.toFixed(1)}°`);
+  assert.ok(held > 70, `a second held at 50 km/h still turns ${held.toFixed(0)}°, a hairpin's worth`);
+  // Letting go centres the wheel at once, at any speed.
+  for (const kmh of [50, 120, 250]) {
+    let back = 1, release = 0;
+    while (back > 0) { back = steerTick(back, 0, kmh / 3.6); release++; }
+    assert.ok(release <= 6, `unwinds at ${kmh} km/h in ${release} ticks`);
+  }
+});
+
+test('turning into a bend the wheel winds on quickly as far as the road turns, and only there', () => {
+  const at = (bend: number, target = 1, kmh = 170, ticks = 6) => { let wheel = 0; for (let t = 0; t < ticks * 2; t++) wheel = steerSubstep(wheel, target, kmh / 3.6, bend); return wheel; };
+  const plain = at(0);
+  assert.ok(at(1) > plain * 1.8, `into a bend: ${at(1).toFixed(2)} against ${plain.toFixed(2)} on a straight`);
+  // Quickly as far as the road's own line, then at the plain rate.
+  let reach = 0;
+  while (reach < 0.1) reach = steerSubstep(reach, 1, 170 / 3.6, 0.1);
+  assert.equal(reach, 0.1, 'it lands on the road’s line');
+  assert.equal(steerSubstep(0.1, 1, 170 / 3.6, 0.1), steerSubstep(0.1, 1, 170 / 3.6, 0), 'past it, the plain rate');
+  assert.ok(Math.abs(at(-0.5) - plain) < 1e-12, 'against the bend it stays slow');
+  // Past the road's own line it is slow again, and the key still reaches full lock.
+  let wheel = 0;
+  for (let t = 0; t < 400 && wheel < 1; t++) wheel = steerSubstep(wheel, 1, 170 / 3.6, 0.3);
+  assert.equal(wheel, 1);
+  // Beside a bend, roadWheel reads the road ahead on the key's side only.
+  const count = 2001, heading = new Float64Array(count).map((_, i) => i < 600 ? 0 : (i - 600) * 5 / 300);
+  const course = { id: 't', topology: 'sprint', wraps: false, lapLength: 10000, laps: 1, finish: 10000, maxTicks: 30000, stations: Float64Array.from({ length: count }, (_, i) => i * 5),
+    heading, halfWidth: new Float64Array(count).fill(8000), elevation: new Float64Array(count), winding: 0, railOffset: 0 } as unknown as DriveCourse;
+  const spec = vehicleSpec(STOCK_TUNE), car = (s: number, u: number) => ({ s, u }) as DriveCar;
+  assert.equal(roadWheel(course, spec, car(1000, 40), 1, 40), 0, 'a straight well before the bend');
+  const ahead = roadWheel(course, spec, car(2990, 40), 1, 40);
+  assert.ok(ahead > 0.05 && ahead < 1, `half a second before the bend: ${ahead.toFixed(2)}`);
+  assert.equal(roadWheel(course, spec, car(2990, 40), -1, 40), 0, 'away from the bend');
+  assert.equal(roadWheel(course, spec, car(2990, 3), 1, 3), 0, 'not at a crawl');
 });
 
 test('marshals set a car that gains no ground back on the road, pointing ahead', () => {

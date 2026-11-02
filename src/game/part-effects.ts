@@ -131,8 +131,8 @@ export function effectLines(before: CarTune, after: CarTune): EffectLine[] {
  * measures them; tests/garage-balance.test.ts holds these values to its report.
  */
 export const RACE_GAINS: Readonly<Record<string, readonly [number, number, number]>> = {
-  'engine-intake': [0.7, 0.8, 0.6], 'engine-cams': [0.6, 0.8, 0.6], 'engine-highrev': [0.9, 1.2, 1.0], 'engine-torque': [0.9, 1.4, 0.8], 'engine-fulltune': [0.5, 0.7, 0.6],
-  'turbo-controller': [0.9, 1.4, 0.9], 'turbo-intercooler': [1.2, 1.1, 0.9], 'turbo-big': [2.0, 1.9, 1.7], 'turbo-twin': [1.9, 2.0, 1.8], 'turbo-antilag': [2.5, 2.5, 2.0],
-  'chassis-tyres': [0.3, 0.3, 0.3], 'chassis-coilovers': [0.1, 0.3, 0.2], 'chassis-touge': [0.9, 1.6, 1.0], 'chassis-rally': [0.4, 0.5, 0.2], 'chassis-lsd': [0.7, 1.6, 1.6],
-  'body-cage': [0.1, 0.2, 0.2], 'body-bumpers': [0.1, 0.2, 0.1], 'body-light': [0.4, 0.5, 0.3], 'body-armor': [0.1, 0.2, 0.1], 'body-windtunnel': [0.8, 0.8, 0.7],
+  'engine-intake': [0.6, 0.8, 0.6], 'engine-cams': [0.7, 0.8, 0.6], 'engine-highrev': [0.9, 1.3, 0.8], 'engine-torque': [0.9, 1.3, 0.7], 'engine-fulltune': [0.6, 0.6, 0.5],
+  'turbo-controller': [0.8, 1.2, 0.5], 'turbo-intercooler': [1.2, 1.1, 1.2], 'turbo-big': [1.7, 1.8, 1.5], 'turbo-twin': [1.9, 2.1, 1.8], 'turbo-antilag': [2.5, 2.7, 2.4],
+  'chassis-tyres': [0.2, 0.3, 0.3], 'chassis-coilovers': [0.1, 0.3, 0.1], 'chassis-touge': [0.8, 1.1, 1.2], 'chassis-rally': [0.4, 0.7, 0.2], 'chassis-lsd': [0.6, 1.4, 1.9],
+  'body-cage': [0.1, 0.1, 0.1], 'body-bumpers': [0.1, 0.3, 0.1], 'body-light': [0.4, 0.5, 0.5], 'body-armor': [0.1, 0.2, 0.1], 'body-windtunnel': [0.8, 0.9, 0.7],
 };

@@ -261,7 +261,7 @@ function setView(next: View, shopChapter: number | null = null): void {
 /** Practice opponents for the next garage race; only unlocked fields cycle. */
 function fieldPicker(): string {
   const field = practiceField(selectedField()), open = PRACTICE_FIELDS.filter(f => garageSave.fields.includes(f.id));
-  const label = garageSave.stock ? '全車ノーマル<small lang="en">EQUAL CARS · RaceV1</small>' : `${field.name.ja}<small lang="en">${field.name.en} · PRIZE ×${(field.prize / 100).toFixed(1)}</small>`;
+  const label = garageSave.stock ? '全車ノーマル<small lang="en">EQUAL CARS</small>' : `${field.name.ja}<small lang="en">${field.name.en} · PRIZE ×${(field.prize / 100).toFixed(1)}</small>`;
   const arrows = !garageSave.stock && open.length > 1;
   return `<div class="field-picker">${arrows ? '<button data-action="field-prev" aria-label="Previous practice field">←</button>' : '<span></span>'}<div>${label}</div>${arrows ? '<button data-action="field-next" aria-label="Next practice field">→</button>' : '<span></span>'}</div>`;
 }
@@ -353,7 +353,7 @@ function startPractice(imported?: LocalReplay): void {
   raceNames = imported ? [...imported.names] : storyRun !== null ? storyGrid(storyRun) : [...names];
   playerSlot = imported ? Math.max(0, imported.names.indexOf('YOU')) : 6;
   currentRace = createRace(trackId, raceNames.length); skins = imported ? [...imported.skins] : currentRace.cars.map(c => c.slot === playerSlot ? carId : (c.slot + 1) % 6);
-  // Garage races tune the player and the rivals; an all-stock grid stays the exact RaceV1 circuit.
+  // Garage races tune the player and the rivals; an all-stock grid gives everyone the driving model's stock car (`?physics=native`: the exact RaceV1 circuit).
   raceField = imported || storyRun !== null ? null : selectedField();
   // The grid's cars: a replay's own, the story's drivers' cars, or a practice field of varied period cars.
   raceBuilds = stockCars ? null : imported ? 'builds' in imported && imported.builds ? imported.builds.map(build => build && { ...build }) : null

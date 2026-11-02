@@ -42,18 +42,31 @@ stock tune gives exactly the stock car.
   front-biased brakes with ABS that leaves the tyres able to steer. Holding
   the brake at a standstill selects reverse, so a spun car can back out.
 - **Steering.** The held key asks for a path curvature: at speed, the tyres'
-  cornering limit, so full lock corners as hard as the car can. The wheel
-  winds on in a fifth of a second at town speeds but in half a second at
-  250 km/h, and always unwinds in a sixth of a second, so a tap at speed is a
-  gentle correction: at 250 km/h a 0.1 s tap turns the car about half a
-  degree and a third of a second about 5°. The front wheels point where the
-  front axle travels on that path, which is the body's sideslip plus the
-  turn, and then a little further: the slip angle the front tyres need to
-  carry their share of the corner on the current surface. Without that slip
-  angle, full lock reached only a quarter of the car's grip at 250 km/h and
-  every fast bend ran wide. Following the sideslip countersteers a slide
-  automatically. The yaw-rate part of the front tyre's slip stays untouched,
-  which keeps its natural damping.
+  cornering limit, so full lock corners as hard as the car can. Keys are all
+  or nothing, so how fast the wheel winds on is the keyboard's sensitivity: a
+  third of a second to full lock at town speeds, about 0.6 s at 100 km/h and
+  1.1 s at 250 km/h. It always unwinds in a sixth of a second. A tap is a
+  small correction and only a held key corners at the limit: on a straight at
+  120 km/h a 0.1 s tap turns the car half a degree, 0.3 s about 4.5° and 0.5 s
+  13°; at 250 km/h 0.2°, 1.7° and 5°; a second held at 50 km/h still turns it
+  almost 90°. When the wheel wound on in a fifth of a second, a 0.3 s press at
+  120 km/h turned the car 12° at nearly 4 g. Turning into a bend, the wheel
+  still winds on that quickly as far as the road itself turns over the next
+  half second (`roadWheel`), then slowly again; turning against the bend, it
+  stays slow. With the slow wheel alone it reached a fast bend after the bend
+  did: the garage's keyboard reference drivers ran wide into the rails at
+  Tokyo's 160–200 km/h bends (twice the damage) and lost a second a race on
+  the Harbor Run. Naive simulated keyboard players (0.2–0.27 s reactions,
+  presses of at least 0.1 s, four styles, 24 races each) hit the rails 390–700
+  times where they hit them 640–800 times with the quick wheel, slide for
+  280–380 s where they slid for 790–1,020 s, and no longer retire (5–9 times
+  each). The front wheels point where the front axle travels on that path,
+  which is the body's sideslip plus the turn, and then a little further: the
+  slip angle the front tyres need to carry their share of the corner on the
+  current surface. Without that slip angle, full lock reached only a quarter of
+  the car's grip at 250 km/h and every fast bend ran wide. Following the
+  sideslip countersteers a slide automatically. The yaw-rate part of the front
+  tyre's slip stays untouched, which keeps its natural damping.
 - **Drift.** Holding drift lets the rear tyres go over a quarter of a second
   (to 60% of their grip, less with the garage's drift parts). The car then
   settles into a slide of 30–40° at full lock, scaled by how far the
@@ -94,11 +107,21 @@ trees stand behind the rails.
 ## Damage
 
 Damage comes from each impact's delta-v, the measure crash investigators use:
-nothing below 3 m/s (about 11 km/h), then `0.9 x + 0.12 x²` points for the
-excess `x`, times the car's toughness. Points are shared between the front,
-rear, left and right zones by where the contact landed. A crushed nose costs
-engine power, side damage costs grip, rear damage costs traction, torn
-bodywork adds drag, and uneven side damage pulls the steering.
+nothing below 6 m/s (22 km/h), then `0.5 x + 0.16 x²` points for the excess
+`x`, times the car's toughness. A 10 m/s knock costs about 5 points, a 20 m/s
+crash 38 and a 30 m/s one more than the car can take. Points are shared between
+the front, rear, left and right zones by where the contact landed. A crushed
+nose costs engine power, side damage costs grip, rear damage costs traction,
+torn bodywork adds drag, and uneven side damage pulls the steering.
+
+Brushing a wall is free because keyboard players brush them all the time. The
+garage's keyboard reference drivers, braking for the street routes' bends but
+misreading them by 7–15%, touch a wall 40–300 times a race. With the earlier
+3 m/s threshold and `0.9 x + 0.12 x²` those touches wrecked the regular driver
+in 7 street races of 10 and the rookie in 9. Now, over 15 races each (three on
+every route), the regular driver finishes them all with about a fifth of the
+limit used and two panels gone, and the rookie finishes 14 with about half used
+and six panels gone (`scripts/drive-check.ts` with `PLAYER`).
 
 Twelve panels break away at fixed zone thresholds (`CAR_PARTS` in
 `damage.ts`): number plates, bumpers, pop-up headlights, bonnet, boot lid,
@@ -147,22 +170,34 @@ against their recorded outcome; seeking restores one-second snapshots.
 
 `npm run check:drive [-- route…]` races eight AI drivers on every
 course. It prints finishing times, contacts, wrecks, marshal recoveries and
-stalls. In the last run every car finished every course with no wreck,
+stalls. `PLAYER=rookie` or `PLAYER=regular` (with `SEED=n`) puts one of the
+garage's keyboard reference drivers in slot 3 instead and prints its place,
+damage, lost panels and wall touches; on the street routes it brakes for the
+bends it sees, overrating their speed by 15% or 7%. In the last run every car finished every course with no wreck,
 recovery or stall. A lone AI car stays within about 0.5 m of its racing line
 on average and finishes an Arcade race with almost no rail contact. Arcade races
-take 74–103 s, close to the earlier engine's 76–103 s with its club drivers;
-the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (256–274 s
+take 74–104 s, close to the earlier engine's 76–103 s with its club drivers;
+the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (257–274 s
 against its 255 s song) and Aizu (148–161 s, 161 s song) finish close to the
-end of their songs; Kyoto (222–240 s, 209 s song) and Nara (192–206 s, 179 s
-song) run 10–15% long. Irohazaka (239–255 s against its
+end of their songs; Kyoto (225–239 s, 209 s song) and Nara (192–206 s, 179 s
+song) run 7–15% long. Irohazaka (240–256 s against its
 187 s song) is slower than the earlier draft model, whose 3 g acceleration and
 9 g braking made its twenty hairpins nearly free. Even near-perfect AI drivers
-need about 236 s there. The street songs do not loop, so the end of a long
-race is silent. The driving model gives street races 12,000 ticks (400 s) so
-slower drivers can still finish.
+need about 236 s there. While the player races, a street song that ends plays
+again from the top; once their race is over (the line, a wreck or the time
+limit), it finishes its four-bar phrase and plays its own final eight bars once,
+over the rest of the field and the results (`streetSongPosition` in
+`src/game/street/soundtrack-clock.ts`). The tick, the race end and the time on
+the results screen fix the song's position, so replay seeks land on the same
+note. The driving model gives street races 12,000 ticks (400 s) so slower
+drivers can still finish.
 
 The AI follows a minimum-curvature racing line at a grip-limited speed with
-pure pursuit steering and the same control bits a player presses. The Arcade
+pure pursuit steering and the same control bits a player presses. It moves
+off the line for traffic, and back, at 8 m/s: away from a bend the wheel winds
+on slowly at speed, and a sudden swerve overshot into the rails (instant moves
+doubled the AI's rail contact at Harbor Run), while at 5 m/s a quicker car
+stayed boxed in behind the pack. The Arcade
 circuits' bends are 253–760 m in radius, so there no bend limits that speed, no
 driver brakes and the engine holds the rev limiter; the drivers differ in how
 they use the boost. A burst's extra speed coasts down slowly, so long bursts

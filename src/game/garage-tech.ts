@@ -57,7 +57,7 @@ export const TECH_NODES: readonly TechNode[] = [
 
   { id: 'chassis-tyres', branch: 'chassis', tier: 1, cost: 6000, requires: [], bestFor: 'everyone', effects: { cornerLoad: -2, oilSteer: 4, traction: 6 },
     name: { ja: 'スポーツタイヤ', en: 'SPORT TYRES' }, note: { ja: 'コーナーと油膜で踏ん張り、出だしも良い。', en: 'Bite in corners and on oil; better launches.' } },
-  { id: 'chassis-coilovers', branch: 'chassis', tier: 2, cost: 9000, requires: ['chassis-tyres'], bestFor: 'recovery', effects: { cornerLoad: -2, windLoad: -4, steer: 2, driftSteer: 4, accel: 1 },
+  { id: 'chassis-coilovers', branch: 'chassis', tier: 2, cost: 8000, requires: ['chassis-tyres'], bestFor: 'recovery', effects: { cornerLoad: -2, windLoad: -4, steer: 2, driftSteer: 4, accel: 1 },
     name: { ja: '車高調', en: 'COILOVERS' }, note: { ja: '横風とコーナーで流されにくい。', en: 'Less push from corners and crosswinds.' } },
   { id: 'chassis-touge', branch: 'chassis', tier: 3, fork: 'chassis-spec', cost: 48000, requires: ['chassis-coilovers'], bestFor: 'drift', effects: { driftCharge: 12, driftSteer: 4, steer: 2 },
     name: { ja: '峠セッティング', en: 'TOUGE SETUP' }, note: { ja: 'コーナーでドリフトを保つとターボが溜まる。', en: 'Hold a drift through corners to refill the turbo.' } },
@@ -201,7 +201,7 @@ export const PRACTICE_FIELDS: readonly PracticeField[] = [
   { id: 'club', name: { ja: 'クラブ走行会', en: 'CLUB NIGHT' }, note: { ja: '仲間はノーマル車。まずはここから。', en: 'Your crew in stock cars. Start here.' }, prize: 100, budget: 0, skills: ['club'], styles: ['power'] },
   { id: 'touge', name: { ja: '峠バトル', en: 'TOUGE BATTLE' }, note: { ja: '手を入れた車が混じる。', en: 'Some rivals have started tuning.' }, prize: 160, budget: 60000, skills: ['club', 'pro'], styles: ['power', 'tough', 'boost'] },
   { id: 'championship', name: { ja: '選手権', en: 'CHAMPIONSHIP' }, note: { ja: '本気のチューンと本気の走り。', en: 'Serious builds, serious drivers.' }, prize: 240, budget: 180000, skills: ['pro'], styles: ['boost', 'power', 'tough'] },
-  { id: 'legends', name: { ja: '伝説の夜', en: 'LEGENDS' }, note: { ja: '完成した車と、峠の伝説たち。', en: 'Finished machines and touge legends.' }, prize: 340, budget: 420000, skills: ['pro', 'ace'], styles: ['power', 'boost', 'tough'] },
+  { id: 'legends', name: { ja: '伝説の夜', en: 'LEGENDS' }, note: { ja: '完成した車と、峠の伝説たち。', en: 'Finished machines and touge legends.' }, prize: 340, budget: 400000, skills: ['pro', 'ace'], styles: ['power', 'boost', 'tough'] },
 ];
 export const practiceField = (id: FieldId): PracticeField => PRACTICE_FIELDS.find(field => field.id === id) ?? PRACTICE_FIELDS[0]!;
 /** Rivals for every slot except the player's, strongest builds spread through the grid. */
@@ -223,7 +223,7 @@ export function fieldRivals(id: FieldId, players: number, playerSlot: number): (
  * chapters run equal cars and pay no prize money, so story `chapter` values here and in
  * `raceAward`/`applyAward` are chapter ids.
  */
-export const STORY_REI = [0, 0, 10, 20, 35, 60, 100, 120, 150, 170, 190, 210] as const;
+export const STORY_REI = [0, 0, 10, 20, 35, 60, 100, 120, 120, 160, 160, 180] as const;
 export const STORY_TORU = [0, 0, 0, 10, 20, 30, 40, 50, 60, 70, 60, 100] as const;
 /** Story rivals tune up as the plot escalates; the crew drive stock cars. */
 export function storyRivals(chapter: number, players: number, playerSlot: number, reiSlot = 5, toruSlot = 7): (Rival | null)[] {

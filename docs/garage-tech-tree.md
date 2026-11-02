@@ -83,13 +83,16 @@ course on the driving model, re-measured after every purchase
 
 | Course | Crew | Opening of the plan |
 | --- | --- | --- |
-| Hakone | Yui | Intake → boost controller → intercooler → tyres → big turbine → roll cage → cams |
-| Yokohama | Daichi | Boost controller → intake → tyres → intercooler → roll cage → big turbine → coilovers → rally |
-| Nikko | Jun | Boost controller → intake → roll cage → intercooler → tyres → twin turbo → coilovers |
+| Hakone | Yui | Intake → boost controller → intercooler → tyres → big turbine → coilovers → cams |
+| Yokohama | Daichi | Boost controller → tyres → intake → intercooler → roll cage → big turbine → coilovers → rally |
+| Nikko | Jun | Intake → roll cage → boost controller → intercooler → tyres → coilovers → twin turbo |
 
-Even in Yokohama's rain and crosswinds, boost and engine parts win more time per
-yen than the chassis, so Daichi now says to get the speed first and then firm up
-the tyres and suspension.
+Re-measured on the November 2026 handling (a gentler keyboard wheel that still
+turns in quickly where the road bends, and no damage below a 6 m/s knock): in
+Yokohama's rain and crosswinds the sport tyres now win more time per yen than
+the intake, so Daichi says boost first, then tyres, then the engine. On Nikko's
+hairpins the intake now opens the plan, and Jun's line names the engine and the
+boost.
 
 The pick skips a fork the player settled on the other option. Buying a fork
 option fits it, so a player who bought both may race the wrong one. When the
@@ -105,7 +108,7 @@ Every capstone needs a part from another branch.
 | --- | --- | --- | --- | --- |
 | エンジン ENGINE (Aki) | Intake & exhaust ¥10k | Cams & ported head ¥24k | High-rev six ¥52k / Torque six ¥52k | Full-tune six ¥64k (+ Intercooler) |
 | ターボ TURBO (Jun) | Boost controller ¥12k | Intercooler ¥24k | Big turbine ¥56k / Twin turbo ¥56k | Anti-lag ¥120k (+ Cams) |
-| 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥9k | Touge setup ¥48k / Rally setup ¥18k | Mechanical LSD ¥80k (+ Boost controller) |
+| 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥8k | Touge setup ¥48k / Rally setup ¥18k | Mechanical LSD ¥80k (+ Boost controller) |
 | ボディ BODY (Yui) | Roll cage ¥4k | Reinforced bumpers ¥7k | Lightweight ¥30k / Steel armor ¥9k | Wind-tunnel body ¥78k (+ Coilovers) |
 
 One full path costs ¥573k–624k; every part costs ¥759k. Effects are in
@@ -197,7 +200,7 @@ a part in flashes it, rings the deck, throws sparks and stamps 装着！ / FITTE
 | Club night | Stock | Club |
 | Touge battle | ¥24k–96k | Club and pro |
 | Championship | ¥72k–288k | Pro |
-| Legends | ¥168k–672k | Pro and ace |
+| Legends | ¥160k–640k | Pro and ace |
 
 Rival builds spread from 40% to 160% of the field's budget through the grid, so
 mid-pack finishes are common and a podium needs a build near the field's median.
@@ -214,8 +217,11 @@ the Arcade circuits are flat out (below):
 Story rivals use `STORY_REI` / `STORY_TORU`: Rei from chapter ID 2 (boost build,
 pro driver) and Toru from ID 3 (power build, club driver). Since every chapter
 opens with the pre-race garage, the budgets assume a player who upgrades. Rei
-reaches ¥210k by the finale and contests the lead through Act 3. Toru's showdown
-(ID 10) build is ¥60k with the pro driver, which needs parts.
+contests the lead through Act 3 with ¥120k, ¥160k, ¥160k and ¥180k (IDs 8–11):
+on the November 2026 handling her ¥150k–210k cars beat a regular following the
+crew's picks by 0.7 s on average, where the design wants that regular narrowly
+ahead. Toru's showdown (ID 10) build is ¥60k with the pro driver, which needs
+parts.
 
 ## How it was balanced
 
@@ -239,7 +245,8 @@ seeds, one run per AI driver), or, for the pack-racing wind-tunnel body, from
 every grid slot of a club night. Gains are interquartile means of paired runs,
 so one spin or wreck does not swamp the rest. A driving-model race costs a few
 hundred milliseconds, so the measurement runs on every core and writes a report
-that the tests check (about two minutes on 15 workers, 13,000 races):
+that the tests check (about 15,000 races, 8–16 minutes on 13–15 workers
+depending on what else the machine is running):
 
 ```sh
 npm run balance:garage            # writes tests/fixtures/garage-balance.json
@@ -265,35 +272,49 @@ re-measured.
   price, is the better buy for recovery and takes at most 70% of the damage per
   hit. Big and Twin turbines each win on some track or for some driver.
 - A finished car is 8–16% faster than stock (12–15% measured).
-- The fields form a ladder for a pro starting 7th. A stock car cannot podium
-  club night every time, but ¥60k does. Touge and Championship shut out a stock
-  car and ¥120k respectively and are podiumed with ¥420k; Legends shuts out
-  ¥180k and a finished car contends in it.
+- The fields form a ladder for a pro starting 7th, raced in eight lanes on each
+  track (24 races per build). One AI race is chaotic: a finished car placed
+  4th, 4th and 7th from that grid spot and podiumed 15 times in 18 from the
+  slots around it. A stock car cannot podium club night every time, but ¥60k
+  always does. Touge and Championship never podium a stock car and ¥120k
+  respectively and always podium ¥420k; Legends never podiums ¥180k, and a
+  finished car podiums at least two times in three (21 of 24). Legends' rivals
+  are built from ¥400k: at ¥420k one of them carried the wind-tunnel body and,
+  with passes slower on the gentler keyboard wheel, a finished car podiumed only
+  11 times in 24 (20 on the earlier handling).
 - With equal cars a regular clears every story chapter at least half the time
-  (Hakone and Nikko every time, Yokohama two times in three). Against the tuned
-  rivals a stock regular still wins through the harbor chapters IDs 4 and 7 more
-  often than not.
-- On the first harbor night, a rookie with Daichi's first picks (¥28k) clears it
-  four times as often as in a stock car, and more often than with ¥33k of chassis
-  parts or ¥46k of engine parts.
+  (Hakone and Nikko 11 times in 12 or more, Yokohama half the time). Against the
+  tuned rivals a stock regular still wins through the harbor chapters IDs 4 and 7
+  more often than not.
+- On the first harbor night (96 seeds) a rookie with the crew's picks as rookies
+  have them there, Yui's intake and Daichi's boost controller (¥22k), clears it
+  47% of the time: four times as often as in a stock car (13%), and twice as
+  often as with the same money spent cheapest-first on tyres, coilovers, a roll
+  cage and bumpers (¥25k, 21%). ¥46k of engine and boost parts clears it 65% of
+  the time: a harbor pack race rewards top speed, and a rookie cannot afford
+  those parts by then. This check used to compare Daichi's three picks (¥28k)
+  with ¥46k of engine and ¥32k of chassis parts on 12 seeds; the picks only came
+  out ahead by chance (at 36 seeds the engine parts won on the earlier handling
+  too, 39% to 33%).
 
 `tests/story-pit-balance.test.ts` plays the story's Arcade chapters the way
 story mode runs them: pre-race garage, race, prize money, retry until cleared.
-It plays eight seeded runs per driver, with four garage habits: the crew's picks,
-cheapest part first, priciest part first, and never buying. A chapter still
-uncleared after 15 tries counts as a wall. It holds:
+It plays sixteen seeded runs per driver, with four garage habits: the crew's
+picks, cheapest part first, priciest part first, and never buying. With eight,
+the Act 3 lead moved by a second between runs. A chapter still uncleared after
+15 tries counts as a wall. It holds:
 
 - Each course plan's first three picks are within 90% of the best time per yen
   on offer at that step, re-measured.
 - On the crew's picks, rookies and regulars never stall. The Yokohama chapters
   average at most four races; every other chapter, at most two.
-- Never buying stalls rookies in the Yokohama chapters (at least four stalls in
-  eight runs) and takes more than one and a half times the races of following
-  the picks.
+- Never buying stalls rookies in the Yokohama chapters (in at least half the
+  runs) and takes more than one and a half times the races of following the
+  picks.
 - Casual buying (cheapest or priciest first) never stalls anyone.
 - In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
-  first try by under two seconds on average; casual builds and rookies lose that
-  first race to her.
+  first try by under two seconds on average (0.6 s); casual builds (−0.6 s and
+  −0.7 s) and rookies (−1.9 s) lose that first race to her.
 
 | Garage habit (8 runs each) | Races to finish the story | Act 3 lead over the faster rival |
 | --- | --- | --- |

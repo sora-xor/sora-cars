@@ -1,13 +1,13 @@
 import { createHash } from 'node:crypto';
 import {
-  CLEAN_BONUS, PRACTICE_FIELDS, PURSE, STARTING_FUNDS, STORY_REI, STORY_TORU, TECH_NODES, fieldRivals, rivalBuild, storyClearBonus, techNode, tuneFor,
-  type FieldId, type PartAudience, type RivalStyle,
+  CLEAN_BONUS, PRACTICE_FIELDS, PURSE, STARTING_FUNDS, STORY_REI, STORY_TORU, TECH_NODES, applyAward, fieldRivals, fittedParts, newGarage, raceAward, rivalBuild,
+  storyClearBonus, techNode, tuneFor, type FieldId, type PartAudience, type RivalStyle,
 } from '../../src/game/garage-tech';
-import { CHAPTERS } from '../../src/game/story';
+import { CHAPTERS, chapterPosition } from '../../src/game/story';
 import { COURSE_TIPS } from '../../src/game/story-pit';
 import { DRIVER_SKILLS } from '../../src/game/drive/ai';
 import {
-  AUDIENCE_PROFILES, HUMAN_STYLES, PROFILES, interquartileMean, mean, packRace, partContext, purchasable, soloRace, storyCampaign, storyRace,
+  AUDIENCE_PROFILES, HUMAN_STYLES, PROFILES, interquartileMean, mean, packRace, partContext, purchasable, shop, soloRace, storyCampaign, storyRace,
   type Campaign, type DriverProfile, type GarageRun, type SpendPolicy,
 } from './garage-drivers';
 
@@ -43,8 +43,13 @@ export interface BalancePlan {
   readonly road: Readonly<Record<DriverProfile, readonly number[]>>;
   /** Grid slots and seeds per profile for pack races, against a club night. */
   readonly pack: { readonly slots: readonly number[]; readonly seeds: Readonly<Record<DriverProfile, readonly number[]>> };
-  /** Seeds for story clear rates, and for whole-story campaigns. */
+  /** Seeds for the practice-field ladder: each moves the pro test car's lane (laneShift). A single AI race from the
+   * player's grid spot is chaotic: one finished car placed 4/4/7 there and podiumed 15 times in 18 from the next slots. */
+  readonly fields: readonly number[];
+  /** Seeds for story clear rates, the first harbor night's rescue builds, and whole-story campaigns. 12 seeds put a
+   * clear rate within about ±0.14; the Act 3 leads moved by a second between 8-campaign runs. */
   readonly story: readonly number[];
+  readonly rescue: readonly number[];
   readonly campaigns: readonly number[];
 }
 const seeds = (count: number) => Array.from({ length: count }, (_, i) => i + 1);
@@ -52,14 +57,14 @@ export const FULL_PLAN: BalancePlan = {
   name: 'full',
   road: { rookie: seeds(40), regular: seeds(12), club: [0], pro: [0], ace: [0] },
   pack: { slots: [0, 1, 2, 3, 4, 5, 6, 7], seeds: { rookie: [1, 2], regular: [1, 2], club: [0], pro: [0], ace: [0] } },
-  story: seeds(12), campaigns: seeds(8),
+  fields: [0, ...seeds(7)], story: seeds(12), rescue: seeds(96), campaigns: seeds(16),
 };
 /** For iterating on effects only: too few rookie seeds to set the cards. */
 export const QUICK_PLAN: BalancePlan = {
   name: 'quick',
   road: { rookie: seeds(8), regular: seeds(4), club: [0], pro: [0], ace: [0] },
   pack: { slots: [1, 3, 5, 6], seeds: { rookie: [1], regular: [1], club: [0], pro: [0], ace: [0] } },
-  story: seeds(4), campaigns: seeds(2),
+  fields: [0], story: seeds(4), rescue: seeds(8), campaigns: seeds(2),
 };
 /** Parts whose tag is about other cars are measured in a pack; everything else on a clear road. */
 export const PACK_AUDIENCES: ReadonlySet<PartAudience> = new Set<PartAudience>(['traffic']);
@@ -77,10 +82,20 @@ export function planBuild(trackId: number, budget: number): string[] {
   for (const id of COURSE_TIPS[trackId]!.plan) { if (techNode(id)!.cost > budget) break; budget -= techNode(id)!.cost; parts.push(id); }
   return parts;
 }
-/** Harbor builds that follow Daichi's picks; the first night compares them with chassis or engine parts alone. */
+/** Harbor builds that follow Daichi's picks. */
 export const harborBuild = (chapter: number): string[] => planBuild(1, 12000 + 7000 * chapter);
-export const RESCUE_BUILDS: Readonly<Record<'picks' | 'recovery' | 'power' | 'stock', readonly string[]>> = {
-  picks: planBuild(1, 45000), recovery: ['chassis-tyres', 'chassis-coilovers', 'chassis-rally'], power: ['engine-intake', 'engine-cams', 'turbo-controller'], stock: [],
+/** What a rookie with a garage habit has on the first harbor night (ID 1), as storyCampaign plays it: the Hakone
+ * garage with the starting funds, a Hakone podium's story purse and first-clear bonus, then the Yokohama garage. */
+export function firstHarborBuild(policy: SpendPolicy): string[] {
+  let save = shop(newGarage(), CHAPTERS[chapterPosition(0)]!.trackId!, policy);
+  save = applyAward(save, raceAward(save, { place: 2, cars: 8, field: null, chapter: 0, objective: true, clean: false }), 0);
+  return fittedParts(shop(save, CHAPTERS[chapterPosition(1)]!.trackId!, policy));
+}
+/** The first harbor night: the crew's picks (Yui's intake, then Daichi's boost controller) and the same money spent
+ * cheapest-first (tyres, coilovers, roll cage, bumpers), as rookies have them there, then ¥46k of engine and boost
+ * parts, more than a rookie can have by then, and a stock car. */
+export const RESCUE_BUILDS: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', readonly string[]>> = {
+  picks: firstHarborBuild('picks'), cheapest: firstHarborBuild('cheapest'), power: ['engine-intake', 'engine-cams', 'turbo-controller'], stock: [],
 };
 export const POLICIES: readonly SpendPolicy[] = ['picks', 'cheapest', 'priciest', 'stock'];
 
@@ -101,15 +116,15 @@ export interface BalanceReport {
   readonly finished: Readonly<Record<'regular' | 'pro' | 'ace', readonly number[]>>;
   /** Stock and finished race time (ticks) for each profile and track, on a clear road. */
   readonly pace: Readonly<Record<DriverProfile, { readonly stock: readonly number[]; readonly finished: readonly number[] }>>;
-  /** A pro's place from the player's slot, by field, build label and track. */
-  readonly fields: Readonly<Record<FieldId, Readonly<Record<string, readonly number[]>>>>;
+  /** A pro's place from the player's slot, by field, build label and track, one per field seed (its lane). */
+  readonly fields: Readonly<Record<FieldId, Readonly<Record<string, readonly (readonly number[])[]>>>>;
   readonly story: {
     /** Arcade chapter id → objective met by a stock pro. */
     readonly stock: Readonly<Record<string, boolean>>;
     /** Share of regular drivers clearing each windy harbor chapter with a stock car and a modest build. */
     readonly harbor: Readonly<Record<string, { readonly stock: number; readonly build: number; readonly budget: number }>>;
-    /** Share of rookies clearing the first harbor chapter with each build. */
-    readonly rescue: Readonly<Record<'picks' | 'recovery' | 'power' | 'stock', number>>;
+    /** Share of rookies clearing the first harbor chapter with each build (RESCUE_BUILDS). */
+    readonly rescue: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', number>>;
     /** Share of regular drivers meeting each objective in equal cars, by chapter id. */
     readonly equal: Readonly<Record<string, number>>;
   };
@@ -205,19 +220,23 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
     coursePlans.push(steps); bestPlans.push(best);
   }
   log('practice fields…');
-  const fieldJobs: Job[] = PRACTICE_FIELDS.flatMap(field => Object.values(FIELD_BUILDS).flatMap(parts => TRACKS.map(trackId => ({ kind: 'pack', trackId, slot: 6, profile: 'pro', parts, seed: 0, field: field.id }) as Job)));
+  const labels = Object.keys(FIELD_BUILDS);
+  const fieldJobs: Job[] = PRACTICE_FIELDS.flatMap(field => labels.flatMap(label => TRACKS.flatMap(trackId => plan.fields.map(seed =>
+    ({ kind: 'pack', trackId, slot: 6, profile: 'pro', parts: FIELD_BUILDS[label]!, seed, field: field.id }) as Job))));
   const fieldRuns = (await run(fieldJobs)) as GarageRun[];
-  const fields = Object.fromEntries(PRACTICE_FIELDS.map((field, f) => [field.id, Object.fromEntries(Object.keys(FIELD_BUILDS).map((label, b) =>
-    [label, TRACKS.map(t => fieldRuns[(f * Object.keys(FIELD_BUILDS).length + b) * TRACKS.length + t]!.place)]))])) as unknown as BalanceReport['fields'];
+  const fieldPlace = (f: number, b: number, t: number, s: number) => fieldRuns[((f * labels.length + b) * TRACKS.length + t) * plan.fields.length + s]!.place;
+  const fields = Object.fromEntries(PRACTICE_FIELDS.map((field, f) => [field.id, Object.fromEntries(labels.map((label, b) =>
+    [label, TRACKS.map(t => plan.fields.map((_, s) => fieldPlace(f, b, t, s)))]))])) as unknown as BalanceReport['fields'];
   log('story chapters…');
   const arcade = CHAPTERS.filter(chapter => chapter.trackId !== undefined).map(chapter => chapter.id);
   const storyRuns = async (jobs: Job[]) => ((await run(jobs)) as { cleared: boolean }[]).map(result => result.cleared);
   const stockStory = await storyRuns(arcade.map(chapter => ({ kind: 'story', chapter, profile: 'pro', parts: [], seed: 0, equal: false })));
-  const rate = async (chapter: number, profile: DriverProfile, parts: readonly string[], equal = false) =>
-    mean((await storyRuns(plan.story.map(seed => ({ kind: 'story', chapter, profile, parts, seed, equal })))).map(Number));
+  const rate = async (chapter: number, profile: DriverProfile, parts: readonly string[], equal = false, seeds = plan.story) =>
+    mean((await storyRuns(seeds.map(seed => ({ kind: 'story', chapter, profile, parts, seed, equal })))).map(Number));
   const harbor: Record<string, { stock: number; build: number; budget: number }> = {};
   for (const chapter of HARBOR_CHAPTERS) harbor[chapter] = { stock: await rate(chapter, 'regular', []), build: await rate(chapter, 'regular', harborBuild(chapter)), budget: 12000 + 7000 * chapter };
-  const rescue = { picks: await rate(1, 'rookie', RESCUE_BUILDS.picks), recovery: await rate(1, 'rookie', RESCUE_BUILDS.recovery), power: await rate(1, 'rookie', RESCUE_BUILDS.power), stock: await rate(1, 'rookie', RESCUE_BUILDS.stock) };
+  const rescueRate = (parts: readonly string[]) => rate(1, 'rookie', parts, false, plan.rescue);
+  const rescue = { picks: await rescueRate(RESCUE_BUILDS.picks), cheapest: await rescueRate(RESCUE_BUILDS.cheapest), power: await rescueRate(RESCUE_BUILDS.power), stock: await rescueRate(RESCUE_BUILDS.stock) };
   const equal: Record<string, number> = {};
   for (const chapter of arcade) equal[chapter] = await rate(chapter, 'regular', [], true);
   log('story campaigns…');

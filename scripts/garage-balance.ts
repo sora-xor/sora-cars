@@ -7,12 +7,12 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { availableParallelism } from 'node:os';
 import { Worker, isMainThread, parentPort } from 'node:worker_threads';
-import { PRACTICE_FIELDS, STORY_REI, STORY_TORU, TECH_NODES } from '../src/game/garage-tech';
+import { PRACTICE_FIELDS, STORY_REI, STORY_TORU, TECH_NODES, buildValue } from '../src/game/garage-tech';
 import { TRACKS } from '../src/game/rules';
 import { CHAPTERS } from '../src/game/story';
 import { AUDIENCE_PROFILES, PROFILES, STORY_TRIES, mean } from '../tests/helpers/garage-drivers';
 import {
-  FIELD_BUILDS, FULL_PLAN, POLICIES, QUICK_PLAN, REPORT_PATH, audienceGains, measureBalance, raceGains, runJob,
+  FIELD_BUILDS, FULL_PLAN, POLICIES, QUICK_PLAN, REPORT_PATH, RESCUE_BUILDS, audienceGains, measureBalance, raceGains, runJob,
   type BalanceReport, type Job, type JobResult, type JobRunner,
 } from '../tests/helpers/garage-balance';
 
@@ -66,11 +66,14 @@ function print(report: BalanceReport): void {
   console.log(`\nRACE_GAINS (seconds a race, Hakone / Yokohama / Nikko):\n${JSON.stringify(raceGains(report))}`);
   console.log(`\nA finished car saves ${(['regular', 'pro', 'ace'] as const).map(p => `${p} ${report.finished[p].map(v => `${(v * 100).toFixed(1)}%`).join('/')}`).join(', ')}.`);
   console.log(`Clear-road race times, stock → finished (s): ${PROFILES.map(p => `${p} ${report.pace[p].stock.map((t, i) => `${(t / 30).toFixed(1)}→${(report.pace[p].finished[i]! / 30).toFixed(1)}`).join(' ')}`).join(' | ')}`);
-  console.log('\nPractice fields: a pro\'s place on the three tracks from the 7th grid spot.');
-  for (const field of PRACTICE_FIELDS) console.log(`${field.id.padEnd(13)} ×${(field.prize / 100).toFixed(1)}  ${Object.keys(FIELD_BUILDS).map(label => `${label} ${report.fields[field.id][label]!.join('')}`).join('  ')}`);
+  console.log('\nPractice fields: a pro\'s podiums from the 7th grid spot, every lane on the three tracks (places per track).');
+  for (const field of PRACTICE_FIELDS) console.log(`${field.id.padEnd(13)} ×${(field.prize / 100).toFixed(1)}  ${Object.keys(FIELD_BUILDS).map(label => {
+    const places = report.fields[field.id][label]!;
+    return `${label} ${places.flat().filter(place => place <= 3).length}/${places.flat().length} [${places.map(track => track.join('')).join(' ')}]`;
+  }).join('  ')}`);
   console.log(`\nStock pro meets the objective: ${Object.entries(report.story.stock).map(([id, ok]) => `ID ${id} ${ok ? 'yes' : 'no'}`).join(', ')}.`);
   console.log(`Harbor chapters, regular clear rate stock → modest build: ${Object.entries(report.story.harbor).map(([id, h]) => `ID ${id} ${h.stock.toFixed(2)} → ${h.build.toFixed(2)} (¥${h.budget / 1000}k)`).join(', ')}.`);
-  console.log(`First harbor night, rookie clear rate: ${Object.entries(report.story.rescue).map(([build, r]) => `${build} ${r.toFixed(2)}`).join(', ')}.`);
+  console.log(`First harbor night, rookie clear rate: ${Object.entries(report.story.rescue).map(([build, r]) => `${build} ${r.toFixed(2)} (¥${buildValue(RESCUE_BUILDS[build as keyof typeof RESCUE_BUILDS]) / 1000}k)`).join(', ')}.`);
   console.log(`Equal cars, regular clear rate by chapter id: ${Object.entries(report.story.equal).map(([id, r]) => `${id}:${Math.round(r * 100)}%`).join(' ')}.`);
   const arcade = CHAPTERS.filter(c => c.trackId !== undefined);
   console.log(`\nStory campaigns, as story mode plays them. Mean races per Arcade chapter (✗ = a driver still stuck after ${STORY_TRIES}). Rei/Toru budgets by chapter id: ${arcade.map(c => `${STORY_REI[c.id]}/${STORY_TORU[c.id]}`).join(' ')} (¥k).`);
