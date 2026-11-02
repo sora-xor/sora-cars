@@ -11,7 +11,18 @@ const sourcePaths = ['src/ui/street-practice.ts', 'src/game/street/presentation.
 const hash = data => createHash('sha256').update(data).digest('hex');
 const sources = Object.fromEntries(await Promise.all(sourcePaths.map(async path => [path, hash(await readFile(path))])));
 const replayPath = 'output/browser/street-practice/completed-replay.json';
-const replay = await readFile(replayPath, 'utf8');
+const replay = await readFile(replayPath, 'utf8'), record = JSON.parse(replay);
+// Tokyo's song plays from the top again while the recorded player races. Once
+// their race is over (the retained run finishes or times out) it finishes its
+// four-bar phrase, then its last eight bars play once.
+const SONG = 254.952, BEAT = 60 / 107.49, CODA = 0.084 + 421 * BEAT, PHRASE = 16 * BEAT;
+const raceEnd = record.outcome[`c${record.playerSlot}.status`] === 1
+  ? record.outcome[`c${record.playerSlot}.finishMicroticks`] / 1e6 / 30 : record.outcome.tick / 30;
+function songAt(time) {
+  if (time < raceEnd) return time % SONG;
+  const at = raceEnd % SONG, boundary = CODA - Math.floor((CODA - at) / PHRASE) * PHRASE, since = time - raceEnd;
+  return at >= CODA || boundary >= CODA || since < boundary - at ? at + since : CODA + since - (boundary - at);
+}
 const report = { kind: 'tokyo-jo-ha-kyu-presentation', base, sources, replaySha256: hash(replay),
   checks: [], captures: [], errors: [], actualMediaPlayback: true, historicalOnsetsQualified: false,
   humanPlaythrough: false, physicsChanged: false, proofQualified: false };
@@ -148,10 +159,14 @@ try {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.locator('#street-seek').evaluate(slider => { slider.value = '7800'; slider.dispatchEvent(new Event('change', { bubbles: true })); });
   await page.keyboard.press('Escape'); await advance(page);
-  check(!(await state(page)).street.musicPlaying && (await state(page)).street.phase === 'driving', 'song completion does not finish or loop an unfinished race');
+  check((await state(page)).street.phase === 'driving', 'song completion does not finish an unfinished race');
+  if (songAt(260) < SONG - .06) await mediaAt(songAt(260));
+  else check(!(await state(page)).street.musicPlaying, 'the song stays silent after its own ending');
   await page.locator('#street-seek').evaluate(slider => { slider.value = slider.max; slider.dispatchEvent(new Event('change', { bubbles: true })); });
   await advance(page);
-  check((await state(page)).street.phase === 'results' && !(await state(page)).street.musicPlaying && !(await state(page)).drivingSound.active, 'results stop both the supplied song and engine');
+  check((await state(page)).street.phase === 'results' && !(await state(page)).drivingSound.active, 'results stop the engine');
+  if (songAt(record.outcome.tick / 30) < SONG - .06) await mediaAt(songAt(record.outcome.tick / 30));
+  else check(!(await state(page)).street.musicPlaying, 'results stay silent once the song\'s own ending has played');
   await page.locator('[data-action="street-exit"]').click();
   check(await page.evaluate(() => window.__scoreSongs.every(audio => audio.paused && !audio.hasAttribute('src'))), 'leaving releases every recorded music element');
   check(report.errors.length === 0, 'browser has no JavaScript or console errors');

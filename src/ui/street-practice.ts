@@ -5,7 +5,8 @@ import { streetRouteStyle } from '../game/street/routes';
 import { StreetRaceSession, type StreetRaceState } from '../game/street/session';
 import { StreetRaceRenderer } from '../game/street/renderer';
 import { streetPresentation } from '../game/street/presentation';
-import { planStreetSoundtrack } from '../game/street/soundtrack-clock';
+import { planStreetSoundtrack, streetSongPosition } from '../game/street/soundtrack-clock';
+import { STREET_SONG_ENDINGS } from '../game/street/song-endings';
 import { streetDriver } from '../game/street/test-driver';
 import { decodeStreetReplay, encodeStreetReplay, exportStreetReplay, verifyStreetReplay, StreetReplayPlayback, type StreetReplay } from '../game/street/replay';
 import { readSceneReadiness } from './scene-preparation';
@@ -67,6 +68,8 @@ export class StreetPractice {
   #sceneMessage = ''; #visualError = false; #resolveOpen?: () => void;
   #resyncMusic = true;
   #musicWanted = false; #musicRequest = 0;
+  /** The music clock: ticks a wreck's fast-forward skipped, seconds on the results screen, the song's pass and target. */
+  #musicSkip = 0; #musicAfter = 0; #musicPass = 0; #musicTarget = 0;
   #presentationTopInset = 0;
   #story?: StreetStory;
   constructor(options: Options) { this.#options = options; this.#renderer = new StreetRaceRenderer(options.canvas); }
@@ -77,7 +80,7 @@ export class StreetPractice {
       fullStreetState: this.#native, nativeValues: this.#playback?.values ?? this.#session?.values ?? null,
       countdown: Math.max(0, this.#countdown), controls: this.#input, progress: this.#progress,
       musicPlaying: !!this.#song && !this.#song.paused, error: this.#error || null,
-      soundtrackSeconds: this.#song?.currentTime ?? null,
+      soundtrackSeconds: this.#song?.currentTime ?? null, soundtrackTarget: this.#song ? this.#musicTarget : null,
       presentation: this.#loaded && this.#native ? streetPresentation(this.#loaded.bundle.track, this.#native.tick) : null,
       verification: this.#playback ? 'local-reexecution' : null, proofQualified: false,
       replayLength: this.#playback?.length ?? null };
@@ -136,6 +139,7 @@ export class StreetPractice {
     this.#loaded = undefined; this.#session = undefined; this.#playback = undefined; this.#record = undefined; this.#ai = undefined;
     this.#previous = undefined; this.#impact = undefined; this.#playing = false; this.#musicBlocked = false; this.#camera = 'chase'; this.#events = [];
     this.#resyncMusic = true; this.#story = undefined;
+    this.#musicSkip = 0; this.#musicAfter = 0; this.#musicPass = 0; this.#musicTarget = 0;
   }
   resize(): void { this.#renderer.resize(); this.#measurePresentationInset(); }
   #measurePresentationInset(): void {
@@ -178,7 +182,7 @@ export class StreetPractice {
   seek(tick: number): void {
     if (!this.#playback || !Number.isInteger(tick) || tick < 0 || tick > this.#playback.length) return;
     this.#playback.seek(tick); this.#previous = undefined; this.#impact = undefined;
-    this.#resyncMusic = true;
+    this.#resyncMusic = true; this.#musicAfter = 0;
     this.#resume = 'driving'; this.#setPhase(tick === this.#playback.length ? 'results' : 'paused');
   }
   update(dt: number, input: number): void {
@@ -193,7 +197,10 @@ export class StreetPractice {
       // Three seconds after the player's wreck the rest of the field races on to the flag.
       const drive = this.#session instanceof DriveStreetSession && !this.#playback ? this.#session : null, wreck = drive?.race.cars[0];
       if (this.#phase === 'driving' && drive && wreck && wreck.wreckTick >= 0 && drive.race.tick - wreck.wreckTick >= 90) {
+        const from = drive.race.tick;
         for (let n = 0; n < 450 && !drive.race.done; n++) { const state = drive.state; drive.step(state.cars.map((_, slot) => slot === 0 ? 0 : this.#bot(state, slot))); }
+        // The music keeps presentation time through the fast-forward, so the coda plays out.
+        this.#musicSkip += drive.race.tick - from - dt * 30;
         this.#previous = undefined; this.#accumulator = 0;
         if (drive.race.done) this.#finish();
       } else if (this.#phase === 'driving') {
@@ -215,6 +222,7 @@ export class StreetPractice {
         const slider = this.#options.screen.querySelector<HTMLInputElement>('#street-seek'); if (slider) slider.value = String(this.#native!.tick);
         const counter = this.#options.screen.querySelector('#street-time'); if (counter) counter.textContent = seconds(this.#native!.tick);
       }
+      if (this.#phase === 'results') this.#musicAfter += dt;
       this.#syncAudio();
     } catch (error) { this.#error = String(error); this.#setPhase('error'); }
   }
@@ -241,6 +249,14 @@ export class StreetPractice {
       }
     }
   }
+  /** Seconds from the start line to the end of the player's race (the line, a wreck or the time limit), once it has ended. */
+  #raceEndSeconds(state: StreetRaceState): number | null {
+    const slot = this.#record?.playerSlot ?? 0, car = state.cars[slot];
+    if (car?.status === 1) return (car.finishTick - 1 + (car.finishDenominator > 0 ? car.finishNumerator / car.finishDenominator : 1)) / 30;
+    const race = this.#playback?.race ?? (this.#session instanceof DriveStreetSession ? this.#session.race : null);
+    const wreck = car?.status === 2 ? race?.cars[slot]?.wreckTick ?? -1 : -1;
+    return wreck >= 0 ? wreck / 30 : state.done ? state.tick / 30 : null;
+  }
   #pauseMusic(): void {
     this.#musicWanted = false;
     if (this.#playing) { ++this.#musicRequest; this.#playing = false; }
@@ -262,11 +278,17 @@ export class StreetPractice {
       this.#musicBlocked = false; this.#lastMusic = audio.musicEnabled;
       if (audio.musicEnabled) this.#resyncMusic = true;
     }
-    const plan = planStreetSoundtrack({ tick: state?.tick ?? 0,
-      durationSeconds: this.#loaded!.descriptor.musicDurationSeconds,
+    const clock = { tick: (state?.tick ?? 0) - this.#musicSkip, durationSeconds: this.#loaded!.descriptor.musicDurationSeconds,
+      raceEndSeconds: state ? this.#raceEndSeconds(state) : null, afterSeconds: this.#musicAfter, ending: STREET_SONG_ENDINGS[this.#routeId] };
+    // The song's restart and its coda rewind an ended file even after a stalled frame.
+    const pass = streetSongPosition(clock).pass;
+    if (pass !== this.#musicPass) { this.#musicPass = pass; this.#resyncMusic = true; }
+    // The coda plays on over the results screen.
+    const plan = planStreetSoundtrack({ ...clock,
       currentTime: this.#song.currentTime, mediaDuration: this.#song.duration,
       readyState: this.#song.readyState, seeking: this.#song.seeking, ended: this.#song.ended,
-      paused: this.#song.paused, active, enabled: audio.musicEnabled, resyncEnded: this.#resyncMusic });
+      paused: this.#song.paused, active: active || this.#open && this.#phase === 'results', enabled: audio.musicEnabled, resyncEnded: this.#resyncMusic });
+    this.#musicTarget = plan.expectedSeconds;
     if (plan.seekTo !== null) {
       try { this.#song.currentTime = plan.seekTo; this.#resyncMusic = false; }
       // Metadata or seekability may change between planning and assignment.
