@@ -5,11 +5,12 @@ import { CHAPTERS, CREW, chapterPosition, storyObjective } from '../src/game/sto
 import { COURSE_TIPS, courseConditions, nextPick, pitBriefing } from '../src/game/story-pit';
 import { purchasable } from './helpers/garage-drivers';
 
-/** A garage that bought `owned` in order: the latest option of each fork is fitted. */
-const owning = (owned: readonly string[], money = 0): GarageSave => ({
-  ...newGarage(), money, owned: [...new Set(owned)],
-  setup: Object.fromEntries(owned.flatMap(id => techNode(id)!.fork ? [[techNode(id)!.fork!, id]] : [])),
-});
+/** A garage that bought `owned` in order: as `buyPart` leaves it, the first option bought of each fork is fitted. */
+const owning = (owned: readonly string[], money = 0): GarageSave => {
+  const setup: Record<string, string> = {};
+  for (const id of owned) { const fork = techNode(id)!.fork; if (fork && !setup[fork]) setup[fork] = id; }
+  return { ...newGarage(), money, owned: [...new Set(owned)], setup };
+};
 
 test('the briefing reads each course from the native environment', () => {
   assert.deepEqual(courseConditions(0), { rain: 25, wind: 'light', trees: 5, signs: 4, oil: 3 });
@@ -46,8 +47,8 @@ test('the crew pick walks the course plan, around choices the player made', () =
     assert.notEqual(pick.id, 'engine-torque');
   }
   assert.equal(nextPick(owning(harbor), 1), null, 'a finished plan has no pick');
-  // Both setup options owned, the drift one fitted: the harbor pick swaps the rally setup back in.
-  const both = owning([...harbor.slice(0, harbor.indexOf('chassis-rally')), 'chassis-rally', 'chassis-touge']);
+  // Both setup options owned, the drift one bought first and still fitted: the harbor pick swaps the rally setup in.
+  const both = owning([...harbor.slice(0, harbor.indexOf('chassis-rally')), 'chassis-touge', 'chassis-rally']);
   assert.equal(partState(both, 'chassis-rally'), 'stored');
   assert.equal(nextPick(both, 1)!.id, 'chassis-rally');
   // Buying the pick hands over the next one.

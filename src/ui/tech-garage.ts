@@ -67,11 +67,20 @@ interface TechHost {
 /** A spinning 3D part; `hero` is the detail panel's turntable. */
 const partArt = (id: string, kind: 'icon' | 'hero', label = '') =>
   `<canvas class="part-art" data-part-art="${kind}" data-part="${id}"${label ? ` role="img" aria-label="${esc(label)}"` : ' aria-hidden="true"'}></canvas>`;
+/** The buy button for a part on offer. A fork option bought while the other option is fitted goes into storage
+ * (`buyPart`), so the button says so. */
+function buyButton(save: GarageSave, node: TechNode): string {
+  const label = node.fork && save.setup[node.fork]
+    ? { ja: `購入して保管 ${yen(node.cost)}`, en: `BUY & STORE ${yen(node.cost)}` }
+    : { ja: `購入して装着 ${yen(node.cost)}`, en: `BUY & FIT ${yen(node.cost)}` };
+  return `<button class="primary" data-tech="buy:${node.id}">${both(label)}</button>`;
+}
 
 export class TechGarage {
   #host: TechHost;
   #selected = TECH_NODES[0]!.id;
-  /** The part just bought or swapped in, stamped once on the next render. */
+  /** The part just fitted, bought into the car or swapped in, stamped once on the next render. A part bought into
+   * storage gets no stamp. */
   #fitted: string | null = null;
   readonly #art: PartViewer;
   constructor(host: TechHost) {
@@ -95,9 +104,11 @@ export class TechGarage {
     const save = this.#host.save();
     if ((kind === 'select' || kind === 'show') && id && techNode(id)) this.#selected = id;
     else if (kind === 'buy' && id) {
-      this.#host.commit(buyPart(save, id));
-      this.#selected = this.#fitted = id;
-      this.#host.notify(`${techNode(id)!.name.ja}を装着しました。 / ${techNode(id)!.name.en} fitted.`);
+      const next = buyPart(save, id), name = techNode(id)!.name, fitted = partState(next, id) === 'fitted';
+      this.#host.commit(next);
+      this.#selected = id;
+      if (fitted) this.#fitted = id;
+      this.#host.notify(fitted ? `${name.ja}を装着しました。 / ${name.en} fitted.` : `${name.ja}を保管しました。 / ${name.en} stored.`);
     } else if (kind === 'fit' && id) { this.#host.commit(fitPart(save, id)); this.#selected = this.#fitted = id; }
     else if (kind === 'stock') this.#host.commit({ ...save, stock: !save.stock });
     else if (kind === 'field' && id && save.fields.includes(id as FieldId)) this.#host.setField(id as FieldId);
@@ -138,7 +149,7 @@ export class TechGarage {
   }
   #detail(save: GarageSave, node: TechNode, state: PartState, pit: PitBriefing | null): string {
     const missing = missingParts(save, node.id), crew = CREW.find(member => member.id === TECH_BRANCHES.find(b => b.id === node.branch)!.crew)!;
-    const action = state === 'available' ? `<button class="primary" data-tech="buy:${node.id}">${both({ ja: `購入して装着 ${yen(node.cost)}`, en: `BUY & FIT ${yen(node.cost)}` })}</button>`
+    const action = state === 'available' ? buyButton(save, node)
       : state === 'short' ? `<button class="primary" disabled>${both({ ja: `あと${yen(node.cost - save.money)}`, en: `NEED ${yen(node.cost - save.money)} MORE` })}</button>`
       : state === 'stored' ? `<button class="primary" data-tech="fit:${node.id}">${both({ ja: 'こちらに付け替える', en: 'SWAP THIS IN' })}</button>`
       : state === 'fitted' ? `<p class="tech-fitted">${both({ ja: node.fork ? '装着中 · もう一方を買えば付け替えられる' : '装着中', en: node.fork ? 'FITTED · OWN THE OTHER OPTION TO SWAP' : 'FITTED' })}</p>`
@@ -176,7 +187,7 @@ export class TechGarage {
     const state = partState(save, pick.id), buy = state === 'stored'
       ? `<button class="primary" data-tech="fit:${pick.id}">${both({ ja: '付け替える（無料）', en: 'SWAP IT BACK IN · FREE' })}</button>`
       : state === 'available'
-        ? `<button class="primary" data-tech="buy:${pick.id}">${both({ ja: `購入して装着 ${yen(pick.cost)}`, en: `BUY & FIT ${yen(pick.cost)}` })}</button>`
+        ? buyButton(save, pick)
         : `<button class="primary" disabled>${both({ ja: `あと${yen(pick.cost - save.money)}`, en: `NEED ${yen(pick.cost - save.money)} MORE` })}</button>`;
     const gain = (RACE_GAINS[pick.id]?.[track] ?? 0).toFixed(1);
     return `<div class="pit-pick"><p>${partArt(pick.id, 'icon')}<span class="tech-pick">${both({ ja: 'おすすめ', en: 'PICK' })}</span><b>${esc(pick.name.ja)}</b><small lang="en">${esc(pick.name.en)}</small></p>${effectChips(pick.id)}<p class="pit-pick-gain">${both({ ja: `今夜のコースで1レース約${gain}秒速く`, en: `ABOUT ${gain} S FASTER A RACE TONIGHT` })}</p><div>${buy}<button class="text-button" data-tech="show:${pick.id}">${both({ ja: '詳しく', en: 'DETAILS' })}</button></div></div>`;

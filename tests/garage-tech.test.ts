@@ -154,7 +154,7 @@ test('no build reaches an engine bound, so no purchase is silently wasted', () =
   }
 });
 
-test('buying spends prize money, forks swap freely and the equal-cars switch restores stock', () => {
+test('buying spends prize money, a fork’s second option goes into storage and swaps in free, and the equal-cars switch restores stock', () => {
   let save = newGarage();
   assert.equal(save.money, STARTING_FUNDS);
   assert.equal(partState(save, 'engine-intake'), 'available');
@@ -170,12 +170,23 @@ test('buying spends prize money, forks swap freely and the equal-cars switch res
   assert.equal(garageTune(save).topSpeed, 2424);
 
   save = buyPart(buyPart({ ...save, money: 500000 }, 'engine-cams'), 'engine-highrev');
+  assert.equal(partState(save, 'engine-highrev'), 'fitted', 'a fork’s first option is fitted');
+  const highrev = garageTune(save);
+  assert.equal(highrev.topSpeed, 2400 + 24 + 24 + 48);
+  // The rule: an option bought while the other option of its fork is fitted goes into storage.
   save = buyPart(save, 'engine-torque');
-  assert.equal(partState(save, 'engine-torque'), 'fitted', 'the newest option is fitted');
-  assert.equal(partState(save, 'engine-highrev'), 'stored');
+  assert.equal(save.money, 500000 - 24000 - 52000 - 52000);
+  assert.equal(partState(save, 'engine-torque'), 'stored', 'the second option goes into storage');
+  assert.equal(partState(save, 'engine-highrev'), 'fitted', 'the fitted option stays until the player swaps');
+  assert.deepEqual(fittedParts(save), ['engine-intake', 'engine-cams', 'engine-highrev']);
+  assert.deepEqual(garageTune(save), highrev, 'buying into storage leaves the car as it was');
+  // fitPart swaps either way, free.
+  save = fitPart(save, 'engine-torque');
+  assert.equal(partState(save, 'engine-torque'), 'fitted'); assert.equal(partState(save, 'engine-highrev'), 'stored');
   assert.deepEqual(fittedParts(save), ['engine-intake', 'engine-cams', 'engine-torque']);
   save = fitPart(save, 'engine-highrev');
-  assert.equal(garageTune(save).topSpeed, 2400 + 24 + 24 + 48);
+  assert.equal(save.money, 500000 - 24000 - 52000 - 52000, 'swaps are free');
+  assert.deepEqual(garageTune(save), highrev);
   assert.throws(() => fitPart(save, 'engine-cams'), /setup options/);
   assert.deepEqual(garageTune({ ...save, stock: true }), STOCK_TUNE);
   assert.equal(buildValue(fittedParts(save)), 10000 + 24000 + 52000);

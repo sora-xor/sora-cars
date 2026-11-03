@@ -144,14 +144,18 @@ night (+9 points) but cost the third harbor night 11, so Jun's plan needs its
 own pass through the story races.
 
 The pick skips a fork the player settled on the other option. Buying a fork
-option fits it, so a player who bought both may race the wrong one. When the
-plan's option is the stored one, the pick is to swap it back in, free.
+option fits it only if the car has neither option fitted; one bought while the
+other is fitted goes into storage, and the fitted one stays until the player
+swaps, free. When the plan's option is the stored one, the pick is to swap it
+in.
 
 ## The tree
 
 Four branches, each with two linear tiers, a tier III **setup fork** and a tier
 IV capstone. You may own both fork options and swap them for free between races.
-Every capstone needs a part from another branch.
+The first option bought is fitted. While it is, the other option's button reads
+購入して保管 / BUY & STORE instead of 購入して装着 / BUY & FIT, and buying it puts
+it into storage. Every capstone needs a part from another branch.
 
 | Branch (crew) | I | II | III (fork) | IV |
 | --- | --- | --- | --- | --- |
@@ -212,6 +216,7 @@ Selecting a part shows:
 Every part spins in 3D: an icon on its card, a turntable in the detail panel
 (drag it to spin), and the crew's pick in the pre-race garage. Buying or swapping
 a part in flashes it, rings the deck, throws sparks and stamps 装着！ / FITTED!.
+A fork option bought into storage gets none of that; it shows 保管中 / IN STORAGE.
 
 - `src/game/three/part-models.ts` builds the 20 models from primitives, so nothing
   extra downloads. Each carries the exact SORA emblem once, centred on its main
@@ -294,7 +299,7 @@ seeds, one run per AI driver), or, for the pack-racing wind-tunnel body, from
 every grid slot of a club night. Gains are interquartile means of paired runs,
 so one spin or wreck does not swamp the rest. A driving-model race costs a few
 hundred milliseconds, so the measurement runs on every core and writes a report
-that the tests check (about 15,000 races, 8–16 minutes on 13–15 workers
+that the tests check (about 23,000 races; 34–68 minutes on 15 workers,
 depending on what else the machine is running):
 
 ```sh
@@ -336,23 +341,23 @@ re-measured.
   (0.45 against 0.40) and 7% on the plan's seeds.
 - A finished car is 8–16% faster than stock (12.5–14.6% measured).
 - The fields form a ladder for a pro starting 7th, raced in 32 lanes on each
-  track, 0.15 m apart and within 2.4 m of its line (96 races per build; it
-  was eight lanes 0.3 m apart, 24 races). Lanes further out run beside the
-  rail: at 0.3 m steps a ¥120k car podiumed Championship only from 3.9–4.5 m
-  off its line. One AI race is chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
-  podiumed 15 times in 18 from the slots around it. A car boxed in from the
-  start can sit behind the pack all race and never boost: ¥60k placed 4th
-  that way in one club-night race of 24, while it podiums 95 times in 96. So a
-  rung that always podiums, or never does, may lose at most two of its 96
-  races the other way. That is sharper than every one of 24 races, both ways.
-  A true 95% podium rate fails it 86% of the time (71% for 24 of 24), and a
-  true 99% rate passes it 93% of the time (79%). A stock car cannot podium club
-  night every time, but ¥60k always does. Touge and Championship never podium a stock car and ¥120k
-  respectively and always podium ¥420k; Legends never podiums ¥180k, and a
-  finished car podiums at least two times in three (83 of 96). Legends' rivals
-  are built from ¥400k: at ¥420k one of them carried the wind-tunnel body and,
-  with passes slower on the gentler keyboard wheel, a finished car podiumed only
-  11 times in 24 (20 on the earlier handling).
+  track, 0.15 m apart and within 2.4 m of its line (96 races per build; it was
+  eight lanes 0.3 m apart, 24 races). Lanes further out run beside the rail: at
+  0.3 m steps a ¥120k car podiumed Championship only from 3.9–4.5 m off its
+  line. One AI race is chaotic. A finished car placed 4th, 4th and 7th from that
+  grid spot and podiumed 15 times in 18 from the slots around it. A car boxed in
+  from the start can sit behind the pack all race and never boost: ¥60k placed
+  4th that way in one club-night race of 24, while it podiums 95 times in 96. So
+  a rung that always podiums, or never does, may lose at most two of its 96
+  races the other way. That is sharper than every one of 24 races, both ways. A
+  true 95% podium rate fails it 86% of the time (71% for 24 of 24), and a true
+  99% rate passes it 93% of the time (79%). A stock car cannot podium club night
+  every time, but ¥60k always does. Touge and Championship never podium a stock
+  car and ¥120k respectively and always podium ¥420k; Legends never podiums
+  ¥180k, and a finished car podiums at least two times in three (83 of 96).
+  Legends' rivals are built from ¥400k: at ¥420k one of them carried the
+  wind-tunnel body and, with passes slower on the gentler keyboard wheel, a
+  finished car podiumed only 11 times in 24 (20 on the earlier handling).
 - With equal cars a regular clears every story chapter at least half the time
   (Hakone and Nikko 11 times in 12 or more, Yokohama 8 in 12). Against the
   tuned rivals a stock regular still wins through the harbor chapters IDs 4 and 7
@@ -393,19 +398,21 @@ after 15 tries counts as a wall. It holds:
   of the time (56% for none in 16), and one that walls off 1% passes it 86% of
   the time (85%). The crew's picks must never stall.
 - In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
-  first try by under two seconds on average (0.8 s); casual builds (−0.8 s and
-  −0.5 s) and rookies (−2.7 s) lose that first race to her.
+  first try by under two seconds on average (0.8 s); casual builds (−1.1 s and
+  −0.8 s) and rookies (−2.7 s) lose that first race to her.
 
 | Garage habit (64 runs each) | Races to finish the story | Act 3 lead over the faster rival |
 | --- | --- | --- |
 | Crew's picks: rookie / regular | 14.5 / 12.1 | −2.7 s / 0.8 s |
-| Cheapest first: rookie / regular | 20.6, 3 stalls (IDs 1, 10, 10) / 12.1 | −4.1 s / −0.8 s |
-| Priciest first: rookie / regular | 15.7, 1 stall (ID 10) / 12.1 | −3.4 s / −0.5 s |
+| Cheapest first: rookie / regular | 19.0, 1 stall (ID 1) / 12.5 | −3.5 s / −1.1 s |
+| Priciest first: rookie / regular | 15.0 / 12.2 | −2.7 s / −0.8 s |
 | Never buys: rookie / regular | 43.5, stalls in Yokohama / 23.0, stalls at the showdown | −6.9 s / −4.5 s |
 
-On the November 2026 report, cheapest-first rookies stall three times in 64,
-more than the one the casual-shopping check allows; the walls come from the
-steering and engine changes of `84c6866` and reproduce on that commit alone.
+Cheapest-first rookies still stall once in 64, on the first harbor night (ID 1).
+They clear only 22% of tries there (63 in 285), because the roll cage and tyres
+they buy first run a rookie starting 7th into the car ahead (see the findings
+below). The check passes with that one wall but sits near its limit; the
+start-line nudge is left for a follow-up.
 
 ### Findings that shaped the tree
 
@@ -436,6 +443,24 @@ steering and engine changes of `84c6866` and reproduce on that commit alone.
   an otherwise stock launch run a rookie into it at the start. Those parts pay on
   a clear road and cost podiums in story races, which is why the course plans
   are now held to story races rather than clear-road time per yen.
+- **Buying a fork option used to fit it, which walled casual shoppers.** They
+  buy the cheap recovery options first (steel armour ¥8k, rally setup ¥18k) and
+  the dearer clean and drift options later (lightweight ¥30k, touge ¥48k). All
+  64 cheapest-first rookie campaigns reached the showdown racing the lightweight
+  body and touge setup they bought last, with armour and rally in storage.
+  Racing each campaign's showdown car 8 times, they cleared 22.7% of tries, and
+  35.7% with armour and rally fitted instead (+13.1 ± 2.6 points, paired by
+  campaign). Toru's car was not the lever: with it at ¥55k, ¥50k or ¥40k instead
+  of ¥60k, cheapest-first rookies walled 1, 1 and 2 times in 64 (3 at ¥60k) and
+  cleared 24.7%, 26.4% and 20.6% of showdown tries (23.4%), no trend at a
+  standard error of about 2.7 points. Since November 2026 an option bought while
+  the other is fitted goes into storage. Cheapest-first rookies now clear 38.6%
+  of showdown tries and stall once in 64 (was three); priciest-first rookies
+  clear 59.3% (was 43.2%) and never stall (was once). Casual regulars keep the
+  recovery options they bought first, so they clear the showdown less often
+  (70.3% and 85.3% of tries, from 91.4% and 95.5%), but they never stall, and
+  Rei still beats them in Act 3. The crew's plans never buy both options of a
+  fork, so the rest of the report did not move.
 - Stacked parts used to make wind resistance negative, leaving the road free and
   contact losses tiny. Effects were trimmed so no build reaches an engine bound;
   a test checks all 16 fork combinations.

@@ -150,12 +150,15 @@ export function partState(save: GarageSave, id: string): PartState {
   if (!requirementsMet(save.owned, node)) return 'locked';
   return save.money >= node.cost ? 'available' : 'short';
 }
+/** Pay for a part and fit it. A fork option is fitted only when the car has neither option of that fork fitted: one
+ * bought while the other option is fitted goes into storage, and the fitted one stays until the player swaps
+ * (`fitPart`, free). */
 export function buyPart(save: GarageSave, id: string): GarageSave {
   const node = nodes.get(id), state = node && partState(save, id);
   if (!node || state === 'fitted' || state === 'stored') throw new Error('この部品はもう持っています。 / You already own this part.');
   if (state === 'locked') throw new Error('先に必要な部品を組もう。 / Fit the required parts first.');
   if (state === 'short') throw new Error('賞金が足りません。 / Not enough prize money yet.');
-  return { ...save, money: save.money - node.cost, owned: TECH_NODES.filter(n => n.id === id || save.owned.includes(n.id)).map(n => n.id), setup: node.fork ? { ...save.setup, [node.fork]: id } : save.setup };
+  return { ...save, money: save.money - node.cost, owned: TECH_NODES.filter(n => n.id === id || save.owned.includes(n.id)).map(n => n.id), setup: node.fork && !save.setup[node.fork] ? { ...save.setup, [node.fork]: id } : save.setup };
 }
 /** Swap an owned fork option into the car. */
 export function fitPart(save: GarageSave, id: string): GarageSave {
