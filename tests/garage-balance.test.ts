@@ -93,11 +93,24 @@ test('a stock car can meet every story objective; the harbor is where struggling
   for (const chapter of HARBOR_CHAPTERS) assert.ok(report.story.harbor[chapter]!.stock >= 0.5, `chapter ID ${chapter}: ${JSON.stringify(report.story.harbor[chapter])}`);
 });
 
+/** One-sided 95% lower bound on the mean difference of seed-paired results (normal approximation). */
+function pairedLowerBound(a: readonly number[], b: readonly number[]): number {
+  const d = a.map((value, i) => value - b[i]!), m = mean(d);
+  const sd = Math.sqrt(d.reduce((sum, value) => sum + (value - m) * (value - m), 0) / (d.length - 1));
+  return m - 1.645 * sd / Math.sqrt(d.length);
+}
+
 test('the crew’s picks, not the cheapest parts, rescue a struggling driver in Yokohama', () => {
-  // The first harbor night, with the cars rookies have there (RESCUE_BUILDS, 96 seeds): Yui's intake and Daichi's boost
-  // controller against the same money spent cheapest-first on tyres, coilovers, roll cage and bumpers. ¥46k of engine
-  // and boost parts clears it more often still: a harbor pack rewards top speed, which a rookie cannot afford by then.
-  const { picks, cheapest, power, stock } = report.story.rescue;
+  // The first harbor night, with the cars rookies have there (RESCUE_BUILDS, one race per seed): Yui's intake and
+  // Daichi's boost controller against the same funds spent cheapest-first on tyres, coilovers, roll cage and bumpers.
+  // ¥46k of engine and boost parts clears it more often still: a harbor pack rewards top speed, which a rookie cannot
+  // afford by then.
+  const runs = report.story.rescue;
+  const [picks, cheapest, power, stock] = (['picks', 'cheapest', 'power', 'stock'] as const).map(build => mean(runs[build]));
+  for (const build of Object.values(runs)) assert.equal(build.length, FULL_PLAN.rescue.length);
   assert.ok(buildValue(RESCUE_BUILDS.cheapest) >= buildValue(RESCUE_BUILDS.picks), 'the cheapest parts cost no less');
-  assert.ok(picks - stock >= 0.2 && picks > cheapest, `picks ${picks}, cheapest ${cheapest}, power ${power}, stock ${stock}`);
+  assert.ok(picks - stock >= 0.2, `picks ${picks} against stock ${stock}`);
+  // At least ten points ahead of cheapest-first, and ahead seed for seed beyond chance.
+  const bound = pairedLowerBound(runs.picks, runs.cheapest);
+  assert.ok(picks - cheapest >= 0.1 && bound > 0, `picks ${picks}, cheapest ${cheapest} (paired lower bound ${bound.toFixed(3)}), power ${power}`);
 });

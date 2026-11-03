@@ -91,12 +91,14 @@ export function firstHarborBuild(policy: SpendPolicy): string[] {
   save = applyAward(save, raceAward(save, { place: 2, cars: 8, field: null, chapter: 0, objective: true, clean: false }), 0);
   return fittedParts(shop(save, CHAPTERS[chapterPosition(1)]!.trackId!, policy));
 }
-/** The first harbor night: the crew's picks (Yui's intake, then Daichi's boost controller) and the same money spent
+/** The first harbor night: the crew's picks (Yui's intake, then Daichi's boost controller) and the same funds spent
  * cheapest-first (tyres, coilovers, roll cage, bumpers), as rookies have them there, then ¥46k of engine and boost
  * parts, more than a rookie can have by then, and a stock car. */
 export const RESCUE_BUILDS: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', readonly string[]>> = {
   picks: firstHarborBuild('picks'), cheapest: firstHarborBuild('cheapest'), power: ['engine-intake', 'engine-cams', 'turbo-controller'], stock: [],
 };
+/** The rescue scenario the report measures and its input hash covers: the chapter, the driver and the resolved builds. */
+export const RESCUE = { chapter: 1, profile: 'rookie', builds: RESCUE_BUILDS } as const;
 export const POLICIES: readonly SpendPolicy[] = ['picks', 'cheapest', 'priciest', 'stock'];
 
 export interface PartReport {
@@ -123,8 +125,9 @@ export interface BalanceReport {
     readonly stock: Readonly<Record<string, boolean>>;
     /** Share of regular drivers clearing each windy harbor chapter with a stock car and a modest build. */
     readonly harbor: Readonly<Record<string, { readonly stock: number; readonly build: number; readonly budget: number }>>;
-    /** Share of rookies clearing the first harbor chapter with each build (RESCUE_BUILDS). */
-    readonly rescue: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', number>>;
+    /** Whether a rookie cleared the first harbor chapter with each build (RESCUE_BUILDS), one per rescue seed
+     * (1 cleared, 0 not), so builds compare seed by seed. */
+    readonly rescue: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', readonly number[]>>;
     /** Share of regular drivers meeting each objective in equal cars, by chapter id. */
     readonly equal: Readonly<Record<string, number>>;
   };
@@ -138,7 +141,7 @@ export interface BalanceReport {
 export function balanceInputs(plan: BalancePlan): string {
   const parts = TECH_NODES.map(({ id, tier, fork, cost, requires, requiresAny, bestFor, effects }) => ({ id, tier, fork, cost, requires, requiresAny, bestFor, effects }));
   const text = JSON.stringify({ plan, parts, fields: PRACTICE_FIELDS.map(({ id, prize, budget, skills, styles }) => ({ id, prize, budget, skills, styles })), STORY_REI, STORY_TORU, PURSE, CLEAN_BONUS, STARTING_FUNDS, clear: CHAPTERS.map(c => storyClearBonus(c.id)),
-    chapters: CHAPTERS.map(c => [c.id, c.trackId ?? null]), plans: COURSE_TIPS.map(tip => tip.plan), builds: FIELD_BUILDS, HUMAN_STYLES, DRIVER_SKILLS, AUDIENCE_PROFILES,
+    chapters: CHAPTERS.map(c => [c.id, c.trackId ?? null]), plans: COURSE_TIPS.map(tip => tip.plan), builds: FIELD_BUILDS, rescue: RESCUE, HUMAN_STYLES, DRIVER_SKILLS, AUDIENCE_PROFILES,
     rivals: PRACTICE_FIELDS.map(field => fieldRivals(field.id, 8, 6)) });
   return createHash('sha256').update(text).digest('hex').slice(0, 16);
 }
@@ -231,12 +234,13 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
   const arcade = CHAPTERS.filter(chapter => chapter.trackId !== undefined).map(chapter => chapter.id);
   const storyRuns = async (jobs: Job[]) => ((await run(jobs)) as { cleared: boolean }[]).map(result => result.cleared);
   const stockStory = await storyRuns(arcade.map(chapter => ({ kind: 'story', chapter, profile: 'pro', parts: [], seed: 0, equal: false })));
-  const rate = async (chapter: number, profile: DriverProfile, parts: readonly string[], equal = false, seeds = plan.story) =>
-    mean((await storyRuns(seeds.map(seed => ({ kind: 'story', chapter, profile, parts, seed, equal })))).map(Number));
+  const rate = async (chapter: number, profile: DriverProfile, parts: readonly string[], equal = false) =>
+    mean((await storyRuns(plan.story.map(seed => ({ kind: 'story', chapter, profile, parts, seed, equal })))).map(Number));
   const harbor: Record<string, { stock: number; build: number; budget: number }> = {};
   for (const chapter of HARBOR_CHAPTERS) harbor[chapter] = { stock: await rate(chapter, 'regular', []), build: await rate(chapter, 'regular', harborBuild(chapter)), budget: 12000 + 7000 * chapter };
-  const rescueRate = (parts: readonly string[]) => rate(1, 'rookie', parts, false, plan.rescue);
-  const rescue = { picks: await rescueRate(RESCUE_BUILDS.picks), cheapest: await rescueRate(RESCUE_BUILDS.cheapest), power: await rescueRate(RESCUE_BUILDS.power), stock: await rescueRate(RESCUE_BUILDS.stock) };
+  const rescueRuns = async (parts: readonly string[]) =>
+    (await storyRuns(plan.rescue.map(seed => ({ kind: 'story', chapter: RESCUE.chapter, profile: RESCUE.profile, parts, seed, equal: false })))).map(Number);
+  const rescue = { picks: await rescueRuns(RESCUE.builds.picks), cheapest: await rescueRuns(RESCUE.builds.cheapest), power: await rescueRuns(RESCUE.builds.power), stock: await rescueRuns(RESCUE.builds.stock) };
   const equal: Record<string, number> = {};
   for (const chapter of arcade) equal[chapter] = await rate(chapter, 'regular', [], true);
   log('story campaigns…');

@@ -289,13 +289,16 @@ re-measured.
 - On the first harbor night (96 seeds) a rookie with the crew's picks as rookies
   have them there, Yui's intake and Daichi's boost controller (¥22k), clears it
   47% of the time: four times as often as in a stock car (13%), and twice as
-  often as with the same money spent cheapest-first on tyres, coilovers, a roll
-  cage and bumpers (¥25k, 21%). ¥46k of engine and boost parts clears it 65% of
-  the time: a harbor pack race rewards top speed, and a rookie cannot afford
-  those parts by then. This check used to compare Daichi's three picks (¥28k)
-  with ¥46k of engine and ¥32k of chassis parts on 12 seeds; the picks only came
-  out ahead by chance (at 36 seeds the engine parts won on the earlier handling
-  too, 39% to 33%).
+  often as when the same funds (¥25.4k after a Hakone second place) go
+  cheapest-first on tyres, coilovers, a roll cage and bumpers (¥25k, 21%). The
+  report keeps every seed's result, and the test holds the picks at least 20
+  points above stock and 10 above cheapest-first, with the seed-by-seed gain
+  above zero at a one-sided 95% bound (0.15 measured). ¥46k of engine and boost
+  parts clears it 65% of the time: a harbor pack race rewards top speed, and a
+  rookie cannot afford those parts by then. This check used to compare Daichi's
+  three picks (¥28k) with ¥46k of engine and ¥32k of chassis parts on 12 seeds;
+  the picks only came out ahead by chance (at 36 seeds the engine parts won on
+  the earlier handling too, 39% to 33%).
 
 `tests/story-pit-balance.test.ts` plays the story's Arcade chapters the way
 story mode runs them: pre-race garage, race, prize money, retry until cleared.

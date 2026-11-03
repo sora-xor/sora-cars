@@ -73,7 +73,7 @@ function print(report: BalanceReport): void {
   }).join('  ')}`);
   console.log(`\nStock pro meets the objective: ${Object.entries(report.story.stock).map(([id, ok]) => `ID ${id} ${ok ? 'yes' : 'no'}`).join(', ')}.`);
   console.log(`Harbor chapters, regular clear rate stock → modest build: ${Object.entries(report.story.harbor).map(([id, h]) => `ID ${id} ${h.stock.toFixed(2)} → ${h.build.toFixed(2)} (¥${h.budget / 1000}k)`).join(', ')}.`);
-  console.log(`First harbor night, rookie clear rate: ${Object.entries(report.story.rescue).map(([build, r]) => `${build} ${r.toFixed(2)} (¥${buildValue(RESCUE_BUILDS[build as keyof typeof RESCUE_BUILDS]) / 1000}k)`).join(', ')}.`);
+  console.log(`First harbor night, rookie clear rate over ${report.story.rescue.picks.length} seeds: ${Object.entries(report.story.rescue).map(([build, runs]) => `${build} ${mean(runs).toFixed(2)} (¥${buildValue(RESCUE_BUILDS[build as keyof typeof RESCUE_BUILDS]) / 1000}k)`).join(', ')}.`);
   console.log(`Equal cars, regular clear rate by chapter id: ${Object.entries(report.story.equal).map(([id, r]) => `${id}:${Math.round(r * 100)}%`).join(' ')}.`);
   const arcade = CHAPTERS.filter(c => c.trackId !== undefined);
   console.log(`\nStory campaigns, as story mode plays them. Mean races per Arcade chapter (✗ = a driver still stuck after ${STORY_TRIES}). Rei/Toru budgets by chapter id: ${arcade.map(c => `${STORY_REI[c.id]}/${STORY_TORU[c.id]}`).join(' ')} (¥k).`);
