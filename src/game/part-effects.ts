@@ -8,7 +8,7 @@ import { STOCK_TUNE, type CarTune } from './tuned-engine';
 // of the car the driving model races, in km/h, seconds and percent, and the race
 // time each part was measured to save. Presentation only: races always use the exact tune.
 
-export const LOWER_IS_BETTER: ReadonlySet<keyof CarTune> = new Set<keyof CarTune>(['boostCost', 'wetDamping', 'cornerLoad', 'windLoad', 'offroadLoss', 'treeLoss', 'signLoss', 'contactLoss']);
+export const LOWER_IS_BETTER: ReadonlySet<keyof CarTune> = new Set<keyof CarTune>(['coast', 'boostCost', 'wetDamping', 'cornerLoad', 'windLoad', 'offroadLoss', 'treeLoss', 'signLoss', 'contactLoss']);
 /** The best value each tuning field reaches in any finished build. */
 const BEST = (() => {
   const forks = new Map<string, string[]>();
@@ -93,6 +93,7 @@ const READINGS: Readonly<Partial<Record<keyof CarTune, Reading>>> = {
   topSpeed: { label: { ja: '最高速', en: 'Top speed' }, hint: { ja: '直線で出る速さ', en: 'On the straights' }, show: t => `${kmh(t.topSpeed)} km/h` },
   accel: { label: { ja: 'エンジン出力', en: 'Engine power' }, hint: { ja: '速度の乗り（ノーマル＝100%）', en: 'Picking up speed (stock = 100%)' }, show: power },
   traction: { label: { ja: '低速での加速', en: 'Low-speed pull' }, hint: { ja: '160km/hまで：発進・立ち上がり・立て直し', en: 'Up to 160 km/h: launches, exits, recoveries' }, show: t => t.traction ? `+${share(spec(t).launch)}` : '—' },
+  coast: { label: { ja: 'エンジンブレーキ', en: 'Engine braking' }, hint: { ja: 'アクセルを戻したときの減速。低いほど速度を保つ', en: 'Off the throttle. Lower: keeps more speed when you lift' }, show: t => percent(t.coast, S.coast) },
   boostSpeed: { label: { ja: 'ブースト中の最高速', en: 'Boost top speed' }, hint: { ja: 'タービンが大きいほど強く押し出す', en: 'A bigger turbine also pushes harder' }, show: t => `${kmh(t.boostSpeed)} km/h` },
   boostCost: { label: { ja: 'ブーストの持続', en: 'Boost lasts' }, hint: { ja: '満タンから押し続けて', en: 'A full tank, held down' }, show: t => seconds(1000 / t.boostCost / 30) },
   boostRecharge: { label: { ja: 'ブーストの回復', en: 'Boost refill' }, hint: { ja: '空から満タンまで', en: 'Empty to full' }, show: t => seconds(1000 / t.boostRecharge / 30) },

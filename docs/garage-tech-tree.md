@@ -40,6 +40,7 @@ replays are unaffected by the garage.
 | --- | --- |
 | `topSpeed`, `boostSpeed` | The rev limiter and the boost limiter (mm per tick × 0.03 = m/s). A bigger turbine also makes more boost power, as the cube of its top speed, because a burst rarely lasts long enough to reach the limiter. |
 | `accel` | Engine power: 55% fixed, 45% scaled by the field. |
+| `coast` | Engine braking with the throttle off, 120 N per point at the rear axle. Keyboard drivers lift whenever they head for the outside rail, the AI almost never, so the high-rev six (more) and the torque six (less) split them. |
 | `boostCost`, `boostRecharge`, `boostKick` | Energy per tick out of 1,000; anti-lag adds 180 N of push per point while boosting. |
 | `traction` | Extra rear-tyre traction below 160 km/h, for launches and recoveries. It stops paying once the engine, not the tyres, limits the launch, at about +10%. |
 | `cornerLoad`, `dryDamping` | Tyre grip, 2% per point. |
@@ -109,9 +110,9 @@ Every capstone needs a part from another branch.
 | エンジン ENGINE (Aki) | Intake & exhaust ¥10k | Cams & ported head ¥24k | High-rev six ¥52k / Torque six ¥52k | Full-tune six ¥64k (+ Intercooler) |
 | ターボ TURBO (Jun) | Boost controller ¥12k | Intercooler ¥24k | Big turbine ¥56k / Twin turbo ¥56k | Anti-lag ¥120k (+ Cams) |
 | 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥8k | Touge setup ¥48k / Rally setup ¥18k | Mechanical LSD ¥80k (+ Boost controller) |
-| ボディ BODY (Yui) | Roll cage ¥4k | Reinforced bumpers ¥7k | Lightweight ¥30k / Steel armor ¥9k | Wind-tunnel body ¥78k (+ Coilovers) |
+| ボディ BODY (Yui) | Roll cage ¥4k | Reinforced bumpers ¥7k | Lightweight ¥30k / Steel armor ¥8k | Wind-tunnel body ¥78k (+ Coilovers) |
 
-One full path costs ¥573k–624k; every part costs ¥759k. Effects are in
+One full path costs ¥571k–623k; every part costs ¥757k. Effects are in
 `TECH_NODES` (`src/game/garage-tech.ts`), and each part carries a `bestFor` tag
 that the page shows beside its measured seconds a race ("FOR DRIFTERS"). The
 balance tests hold each tag to its promise. Prices follow what each part is
@@ -271,12 +272,32 @@ re-measured.
   Lightweight beats Armour for clean drivers; Armour, at under a third of the
   price, is the better buy for recovery and takes at most 70% of the damage per
   hit. Big and Twin turbines each win on some track or for some driver.
+- The two engines used to give every driver about the same time: over 160 rookie
+  and 60 regular seeds, within a tick either way. They now split the drivers by
+  what only keyboard drivers do, lifting for the outside rail and scraping it.
+  The high-rev six brakes harder off the throttle (`coast` +4) and scrapes a
+  little harder (`offroadLoss` +5). The torque six rolls on (−6), scrapes less
+  (−5) and keeps +2 of top speed (was +6). Over those seeds the torque six now
+  saves rookies and regulars 2.5 ticks a race more than the high-rev six, which
+  saves pros and aces 3.1 more. The tune bounds leave the engines no more rail
+  room beside the rally setup, lightweight and armour.
+- Steel armour costs ¥8k (was ¥9k). At ¥9k it tied the lightweight body for
+  recovery drivers even over 160 rookie and 60 regular seeds (0.40 ticks a race
+  per ¥1k each). The plan's 40 and 12 seeds put it behind, at 3.0 ticks a race,
+  and past the tier's 3× spread. At ¥8k it leads by 12% over the larger sample
+  (0.45 against 0.40) and 7% on the plan's seeds.
 - A finished car is 8–16% faster than stock (12–15% measured).
-- The fields form a ladder for a pro starting 7th, raced in eight lanes on each
-  track (24 races per build). One AI race is chaotic: a finished car placed
-  4th, 4th and 7th from that grid spot and podiumed 15 times in 18 from the
-  slots around it. A stock car cannot podium club night every time, but ¥60k
-  always does. Touge and Championship never podium a stock car and ¥120k
+- The fields form a ladder for a pro starting 7th, raced in 32 lanes on each
+  track (96 races per build; it was eight lanes, 24 races). One AI race is
+  chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
+  podiumed 15 times in 18 from the slots around it. A car boxed in from the
+  start can sit behind the pack all race and never boost: ¥60k placed 4th
+  that way in one club-night race of 24, while it podiums 95 times in 96. So a
+  rung that always podiums, or never does, may lose at most two of its 96
+  races the other way. That is sharper than every one of 24 races, both ways.
+  A true 95% podium rate fails it 86% of the time (71% for 24 of 24), and a
+  true 99% rate passes it 93% of the time (79%). A stock car cannot podium club
+  night every time, but ¥60k always does. Touge and Championship never podium a stock car and ¥120k
   respectively and always podium ¥420k; Legends never podiums ¥180k, and a
   finished car podiums at least two times in three (21 of 24). Legends' rivals
   are built from ¥400k: at ¥420k one of them carried the wind-tunnel body and,
@@ -302,10 +323,11 @@ re-measured.
 
 `tests/story-pit-balance.test.ts` plays the story's Arcade chapters the way
 story mode runs them: pre-race garage, race, prize money, retry until cleared.
-It plays sixteen seeded runs per driver, with four garage habits: the crew's
+It plays 64 seeded runs per driver, with four garage habits: the crew's
 picks, cheapest part first, priciest part first, and never buying. With eight,
-the Act 3 lead moved by a second between runs. A chapter still uncleared after
-15 tries counts as a wall. It holds:
+the Act 3 lead moved by a second between runs. With sixteen, a stall that 64
+campaigns put at 1 in 64 landed inside the sample. A chapter still uncleared
+after 15 tries counts as a wall. It holds:
 
 - Each course plan's first three picks are within 90% of the best time per yen
   on offer at that step, re-measured.
@@ -314,7 +336,10 @@ the Act 3 lead moved by a second between runs. A chapter still uncleared after
 - Never buying stalls rookies in the Yokohama chapters (in at least half the
   runs) and takes more than one and a half times the races of following the
   picks.
-- Casual buying (cheapest or priciest first) never stalls anyone.
+- Casual buying (cheapest or priciest first) stalls at most one campaign in
+  64 per habit and driver. A habit that walls off 5% of players fails that 84%
+  of the time (56% for none in 16), and one that walls off 1% passes it 86% of
+  the time (85%). The crew's picks must never stall.
 - In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
   first try by under two seconds on average (0.6 s); casual builds (−0.6 s and
   −0.7 s) and rookies (−1.9 s) lose that first race to her.

@@ -44,10 +44,12 @@ export interface BalancePlan {
   /** Grid slots and seeds per profile for pack races, against a club night. */
   readonly pack: { readonly slots: readonly number[]; readonly seeds: Readonly<Record<DriverProfile, readonly number[]>> };
   /** Seeds for the practice-field ladder: each moves the pro test car's lane (laneShift). A single AI race from the
-   * player's grid spot is chaotic: one finished car placed 4/4/7 there and podiumed 15 times in 18 from the next slots. */
+   * player's grid spot is chaotic: one finished car placed 4/4/7 there and podiumed 15 times in 18 from the next slots,
+   * and a car boxed in from the start can sit behind the pack all race without ever boosting. */
   readonly fields: readonly number[];
   /** Seeds for story clear rates, the first harbor night's rescue builds, and whole-story campaigns. 12 seeds put a
-   * clear rate within about ±0.14; the Act 3 leads moved by a second between 8-campaign runs. */
+   * clear rate within about ±0.14; the Act 3 leads moved by a second between 8-campaign runs, and a stall that 64
+   * campaigns put at 1 in 64 fell inside 16 of them. */
   readonly story: readonly number[];
   readonly rescue: readonly number[];
   readonly campaigns: readonly number[];
@@ -57,7 +59,7 @@ export const FULL_PLAN: BalancePlan = {
   name: 'full',
   road: { rookie: seeds(40), regular: seeds(12), club: [0], pro: [0], ace: [0] },
   pack: { slots: [0, 1, 2, 3, 4, 5, 6, 7], seeds: { rookie: [1, 2], regular: [1, 2], club: [0], pro: [0], ace: [0] } },
-  fields: [0, ...seeds(7)], story: seeds(12), rescue: seeds(96), campaigns: seeds(16),
+  fields: [0, ...seeds(31)], story: seeds(12), rescue: seeds(96), campaigns: seeds(64),
 };
 /** For iterating on effects only: too few rookie seeds to set the cards. */
 export const QUICK_PLAN: BalancePlan = {

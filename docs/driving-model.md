@@ -120,8 +120,9 @@ misreading them by 7–15%, touch a wall 40–300 times a race. With the earlier
 3 m/s threshold and `0.9 x + 0.12 x²` those touches wrecked the regular driver
 in 7 street races of 10 and the rookie in 9. Now, over 15 races each (three on
 every route), the regular driver finishes them all with about a fifth of the
-limit used and two panels gone, and the rookie finishes 14 with about half used
-and six panels gone (`scripts/drive-check.ts` with `PLAYER`).
+limit used and two panels gone, and the rookie finishes all 15 (95 of 100 over
+twenty seeds) with about half used and six panels gone (`scripts/drive-check.ts`
+with `PLAYER`).
 
 Twelve panels break away at fixed zone thresholds (`CAR_PARTS` in
 `damage.ts`): number plates, bumpers, pop-up headlights, bonnet, boot lid,
@@ -176,11 +177,11 @@ damage, lost panels and wall touches; on the street routes it brakes for the
 bends it sees, overrating their speed by 15% or 7%. In the last run every car finished every course with no wreck,
 recovery or stall. A lone AI car stays within about 0.5 m of its racing line
 on average and finishes an Arcade race with almost no rail contact. Arcade races
-take 74–104 s, close to the earlier engine's 76–103 s with its club drivers;
-the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (257–274 s
-against its 255 s song) and Aizu (148–161 s, 161 s song) finish close to the
-end of their songs; Kyoto (225–239 s, 209 s song) and Nara (192–206 s, 179 s
-song) run 7–15% long. Irohazaka (240–256 s against its
+take 74–103 s, close to the earlier engine's 76–103 s with its club drivers;
+the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (255–273 s
+against its 255 s song) and Aizu (148–160 s, 161 s song) finish close to the
+end of their songs; Kyoto (225–240 s, 209 s song) and Nara (191–205 s, 179 s
+song) run 7–15% long. Irohazaka (238–255 s against its
 187 s song) is slower than the earlier draft model, whose 3 g acceleration and
 9 g braking made its twenty hairpins nearly free. Even near-perfect AI drivers
 need about 236 s there. While the player races, a street song that ends plays
@@ -193,7 +194,14 @@ note. The driving model gives street races 12,000 ticks (400 s) so slower
 drivers can still finish.
 
 The AI follows a minimum-curvature racing line at a grip-limited speed with
-pure pursuit steering and the same control bits a player presses. It moves
+pure pursuit steering and the same control bits a player presses. Each tick it
+presses the key whose wheel position after the tick lands nearest the steering
+pure pursuit asks for, predicting the wheel as the race moves it: quickly into
+a bend (`roadWheel`). When it predicted the slow rate there, it picked the
+wrong key one tick in twenty-two, touched the inside rail of bends 11% more
+often, and a pro or ace starting seventh in the practice fields finished 0.4
+places lower. The keyboard reference drivers predict the wheel the same way,
+though their deadband means it rarely changes a key for them. The AI moves
 off the line for traffic, and back, at 8 m/s: away from a bend the wheel winds
 on slowly at speed, and a sudden swerve overshot into the rails (instant moves
 doubled the AI's rail contact at Harbor Run), while at 5 m/s a quicker car

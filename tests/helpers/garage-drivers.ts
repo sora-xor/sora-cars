@@ -9,7 +9,7 @@ import { STOCK_TUNE, type CarTune } from '../../src/game/tuned-engine';
 import { DRIVER_SKILLS, DriveAI } from '../../src/game/drive/ai';
 import { courseGap, sampleCourse } from '../../src/game/drive/course';
 import { atan2, clamp, sin } from '../../src/game/drive/dmath';
-import { DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from '../../src/game/drive/race';
+import { DriveStatus, roadWheel, steerTick, steeringCurvature, type DriveCar, type DriveRace } from '../../src/game/drive/race';
 import { arcadeDriveRace } from '../../src/game/drive/setup';
 
 /** Garage balance reference drivers on the local driving model. Rookie and
@@ -104,13 +104,16 @@ export class HumanDriver {
     target = clamp(target, -width, width);
     const angle = atan2(target + 0.5 * this.#anticipation * bend * L * L - seen.d, L) - seen.psi;
     const desired = clamp(2 * sin(angle) / L / steeringCurvature(spec, Math.max(seen.u, 0.1), speed), -1, 1);
-    // Keys, every few ticks: the one that keeps the wheel nearest the angle wanted.
+    // Keys, every few ticks: the one that keeps the wheel nearest the angle wanted, as the
+    // wheel really moves (quickly into a bend, roadWheel).
     if (race.tick >= this.#next && Math.abs(desired - car.steer) > this.#deadband) {
       this.#next = race.tick + style.cadence;
       let best = Infinity;
+      const moving = Math.sqrt(car.u * car.u + car.v * car.v);
       for (const [bit, aim] of [[0, 0], [CONTROL.left, -1], [CONTROL.right, 1]] as const) {
+        const assist = roadWheel(course, spec, car, aim, moving);
         let wheel = car.steer, error = 0;
-        for (let t = 0; t < style.cadence; t++) { wheel = steerTick(wheel, aim, car.u); error += Math.abs(wheel - desired); }
+        for (let t = 0; t < style.cadence; t++) { wheel = steerTick(wheel, aim, car.u, assist); error += Math.abs(wheel - desired); }
         if (error < best - 1e-9) { best = error; this.#steer = bit; }
       }
     }

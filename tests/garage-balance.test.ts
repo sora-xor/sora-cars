@@ -73,10 +73,14 @@ test('a finished car is a big but bounded step over stock', () => {
 });
 
 test('practice fields form a ladder: each needs a better car, the last needs a finished one', () => {
-  // A pro from the player's grid spot, on all three tracks in every lane the plan races (FULL_PLAN.fields).
+  // A pro from the player's grid spot, on all three tracks in every lane the plan races (FULL_PLAN.fields, 96 races a
+  // build). One AI pack race is chaotic, so a rung that always podiums (or never does) may lose at most two of its 96
+  // races the other way. That is sharper than every one of 24 races both ways: a true 95% podium rate fails it 86% of
+  // the time (71% for 24 of 24) and a true 99% rate passes it 93% of the time (79%).
   const places = (field: keyof BalanceReport['fields'], build: string) => report.fields[field][build]!.flat();
-  const podium = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place <= 3);
-  const shut = (field: keyof BalanceReport['fields'], build: string) => places(field, build).every(place => place > 3);
+  const against = (field: keyof BalanceReport['fields'], build: string, podiums: boolean) => places(field, build).filter(place => (place <= 3) !== podiums).length;
+  const podium = (field: keyof BalanceReport['fields'], build: string) => against(field, build, true) <= 2;
+  const shut = (field: keyof BalanceReport['fields'], build: string) => against(field, build, false) <= 2;
   const share = (field: keyof BalanceReport['fields'], build: string) => places(field, build).filter(place => place <= 3).length / places(field, build).length;
   assert.equal(places('legends', 'stock').length, TRACKS.length * FULL_PLAN.fields.length);
   assert.ok(!podium('club', 'stock') && podium('club', 'power 60k'), 'a modest build podiums club night');

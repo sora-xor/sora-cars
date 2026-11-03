@@ -88,9 +88,11 @@ export function roadWheel(course: DriveCourse, spec: VehicleSpec, car: DriveCar,
   for (const ahead of ROAD_WHEEL_AHEAD) kappa = Math.max(kappa, sampleCourse(course, car.s + car.u * ahead).kappa * target);
   return kappa <= 0 ? 0 : target * Math.min(1, kappa / steeringCurvature(spec, car.u, speed));
 }
-/** The steering position after a whole tick with `target` held. */
-export function steerTick(steer: number, target: number, forward: number): number {
-  for (let sub = 0; sub < SUBSTEPS; sub++) steer = steerSubstep(steer, target, forward);
+/** The steering position after a whole tick with `target` held. Pass roadWheel's
+ * position for that key as `bend` to predict the wheel as the race moves it:
+ * quickly into a bend, as far as the road turns. */
+export function steerTick(steer: number, target: number, forward: number, bend = 0): number {
+  for (let sub = 0; sub < SUBSTEPS; sub++) steer = steerSubstep(steer, target, forward, bend);
   return steer;
 }
 

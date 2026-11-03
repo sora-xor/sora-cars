@@ -2,7 +2,7 @@ import { CONTROL } from '../rules';
 import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
 import { clamp, cos, sin } from './dmath';
 import { damageEffects } from './damage';
-import { DRIFT_BEND, DRIVE_HZ, DriveStatus, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
+import { DRIFT_BEND, DRIVE_HZ, DriveStatus, roadWheel, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
 import type { VehicleSpec } from './vehicle';
 
 /** Practice and story AI. It reads the race and returns the same six control
@@ -184,8 +184,12 @@ export class DriveAI {
     const bx = tx * c + ty * s, by = -tx * s + ty * c;
     const pursuit = 2 * by / Math.max(1, bx * bx + by * by);
     const desired = clamp((pursuit - effects.pull / (spec.cgToFront + spec.cgToRear)) / steeringCurvature(spec, car.u, speed), -1, 1);
-    // Pick the input whose steering position after this tick lands nearest.
-    const options = [[CONTROL.left, steerTick(car.steer, -1, car.u)], [0, steerTick(car.steer, 0, car.u)], [CONTROL.right, steerTick(car.steer, 1, car.u)]] as const;
+    // Pick the input whose steering position after this tick lands nearest, predicted as the race moves
+    // the wheel: quickly into a bend (roadWheel). Without that, turning into a bend the guess fell short,
+    // the driver picked the wrong key about one tick in twenty-two and lost places in traffic.
+    const moving = Math.sqrt(car.u * car.u + car.v * car.v);
+    const wheelAfter = (aim: number) => steerTick(car.steer, aim, car.u, roadWheel(course, spec, car, aim, moving));
+    const options = [[CONTROL.left, wheelAfter(-1)], [0, wheelAfter(0)], [CONTROL.right, wheelAfter(1)]] as const;
     let steering = 0, best = Infinity;
     for (const [bit, next] of options) { const error = Math.abs(next - desired); if (error < best - 1e-9) { best = error; steering = bit; } }
     this.targets.set(slot, target);
