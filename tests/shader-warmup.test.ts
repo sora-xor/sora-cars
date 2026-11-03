@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { compileFor, shadowCasterBatches } from '../src/game/three/shader-warmup';
+import { compileFor, materialTextures, shadowCasterBatches } from '../src/game/three/shader-warmup';
 
 function fixture() {
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
@@ -78,4 +78,35 @@ test('compileFor compiles only the given objects, against the scene\'s lights, a
   assert.equal(compiled[0]!.fog, null, 'the shadow pass draws without fog');
   assert.equal(compiled[1]!.fog, fog);
   assert.equal(scene.fog, fog);
+});
+
+test('the warm-up uploads every texture a material samples, hidden objects and shader uniforms included', () => {
+  const { scene, box, leaves, paint, leafMap, leafAlpha } = fixture();
+  const normal = new THREE.Texture(), palette = new THREE.Texture();
+  const bark = new THREE.MeshStandardMaterial({ map: leafMap, normalMap: normal });
+  const hidden = new THREE.Mesh(box, leaves); hidden.visible = false; // pooled understory, drawn later in the lap
+  const shader = new THREE.ShaderMaterial({ uniforms: { palette: { value: palette }, strength: { value: 1 } } });
+  scene.add(new THREE.Mesh(box, [paint, bark]), new THREE.Group().add(hidden), new THREE.Mesh(box, shader));
+  assert.deepEqual(new Set(materialTextures(scene)), new Set([leafMap, normal, leafAlpha, palette]));
+  assert.equal(materialTextures(scene).length, 4, 'each texture once');
+});
+
+test('before GO the warm-up uploads only what visible objects near the start sample', () => {
+  const { scene, box, leaves, paint, leafMap, leafAlpha } = fixture();
+  const far = new THREE.Texture(), shut = new THREE.Texture(), lane = new THREE.Texture();
+  const shop = new THREE.Mesh(box, new THREE.MeshStandardMaterial({ map: far })); shop.position.set(900, 0, 0);
+  const pooled = new THREE.Mesh(box, new THREE.MeshStandardMaterial({ map: shut })); pooled.visible = false;
+  // A route-long instanced understory: its instances reach the start even though its origin is far away.
+  const cover = new THREE.InstancedMesh(box, leaves, 2); cover.position.set(0, 0, 2000);
+  cover.setMatrixAt(0, new THREE.Matrix4().makeTranslation(0, 0, -2000)); cover.setMatrixAt(1, new THREE.Matrix4().makeTranslation(0, 0, 500));
+  const road = new THREE.Mesh(box, [paint, new THREE.MeshStandardMaterial({ map: lane })]); road.position.set(0, 0, 50);
+  // An understory pool, empty and hidden until its patches arrive near the car.
+  const grass = new THREE.Texture(), pool = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ alphaMap: grass }), 8);
+  pool.count = 0; pool.visible = false; pool.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  // Static instancing far down the route (a shop's props) waits for its first sight.
+  const props = new THREE.InstancedMesh(box, new THREE.MeshStandardMaterial({ map: far }), 1); props.position.set(0, 0, 3000);
+  scene.add(shop, pooled, cover, road, pool, props);
+  scene.updateMatrixWorld(true);
+  const near = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 400);
+  assert.deepEqual(new Set(materialTextures(scene, near)), new Set([leafMap, leafAlpha, lane, grass]));
 });

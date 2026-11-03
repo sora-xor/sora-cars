@@ -4,9 +4,9 @@ import { readSceneReadiness } from '../src/ui/scene-preparation';
 
 const complete = {
   renderer: 'webgl-3d', carAsset: 'detailed', sceneryAsset: 'detailed',
-  lightingAsset: 'detailed', understoryAsset: 'detailed', groundAsset: 'detailed',
+  lightingAsset: 'detailed', understoryAsset: 'detailed', groundAsset: 'detailed', shaderAsset: 'detailed',
 };
-const assets = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset'] as const;
+const assets = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset', 'shaderAsset'] as const;
 const canvas = (dataset: Record<string, string | undefined>) => ({ dataset }) as unknown as HTMLCanvasElement;
 
 test('preparation needs a 3D renderer and every asset group, including the current ground', () => {

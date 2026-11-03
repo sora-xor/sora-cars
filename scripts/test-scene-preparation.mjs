@@ -10,7 +10,7 @@ const out = process.env.SCENE_PREPARATION_OUT ?? 'output/browser/scene-preparati
 const args = process.env.RENDERER_BROWSER_ARGS ? JSON.parse(process.env.RENDERER_BROWSER_ARGS)
   : process.platform === 'darwin' ? ['--use-angle=metal'] : [];
 assert.ok(Array.isArray(args) && args.every(value => typeof value === 'string'));
-const assetKeys = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset'];
+const assetKeys = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset', 'shaderAsset'];
 const carPath = '/assets/models/sora-ae86/ae86.glb';
 const groundPath = '/assets/materials/forest_ground_04/color.jpg';
 const nativePaths = ['src/game/engine.ts', 'src/game/rules.ts', 'src/game/generated/race-v1-kernels.json',
@@ -195,7 +195,7 @@ async function capture(page, label) {
 async function waitReady(page, mode) {
   await page.waitForFunction(mode => {
     const data = document.querySelector('#race-canvas')?.dataset, cover = document.querySelector('.scene-preparation-cover');
-    return data?.renderer === 'webgl-3d' && ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset'].every(key => data[key] === 'detailed')
+    return data?.renderer === 'webgl-3d' && ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset', 'shaderAsset'].every(key => data[key] === 'detailed')
       && cover?.hidden && (mode !== 'street' || JSON.parse(window.render_game_to_text()).street?.phase === 'ready');
   }, mode, { polling: 100, timeout: 90000 });
 }

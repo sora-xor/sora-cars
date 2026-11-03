@@ -3,7 +3,8 @@ export interface SceneReadiness {
   message: string;
 }
 
-const requiredAssets = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset'] as const;
+/** The course's assets, and `shaderAsset`: its programs compiled and first used, so none stalls the race after GO. */
+const requiredAssets = ['carAsset', 'sceneryAsset', 'lightingAsset', 'understoryAsset', 'groundAsset', 'shaderAsset'] as const;
 
 /** Read after drawing the requested course: ground readiness belongs to that frame. */
 export function readSceneReadiness(canvas: HTMLCanvasElement): SceneReadiness {

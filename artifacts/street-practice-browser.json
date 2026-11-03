@@ -1,6 +1,6 @@
 {
   "kind": "native-tokyo-main-game-browser",
-  "base": "http://127.0.0.1:5852",
+  "base": "http://127.0.0.1:5855",
   "sources": {
     "src/main.ts": "80854ac7d64bfe9a3b27f89e663299c555569da8e854c2b5567ad6b637bf73be",
     "src/game/audio.ts": "c82cd719e061d249322049127c417be2416b3a719c4c4727bb33aeff8eb2e400",
@@ -68,7 +68,7 @@
   "humanPlaythrough": false,
   "proofQualified": false,
   "published": false,
-  "canonicalBotCompletionMs": 6574,
+  "canonicalBotCompletionMs": 6157,
   "outcome": {
     "tick": 8184,
     "cars": [
@@ -340,9 +340,9 @@
   },
   "replay": {
     "bytes": 155365,
-    "sha256": "e28f2a6bfdefde7ab8b87ea1035f0038477173adefc0723cec1630ff11ea2312",
+    "sha256": "b7a4168c33c7d81d585ce7edd3fd78f53a1b08e313aa922a69aed9dafeeb4448",
     "ticks": 8184,
     "computationHash": "6079d25e741387badbf199361b05d8b5ee3d181139a31a43bf7b3dfd3054ee7d"
   },
-  "verificationMs": 1772
+  "verificationMs": 2226
 }

@@ -81,6 +81,40 @@ export function shadowCasterBatches(scene: THREE.Object3D): (() => THREE.Object3
 }
 
 /**
+ * Every texture the materials under `root` sample, once each, shader uniforms included: three.js uploads a texture the
+ * first time a material using it is drawn, inside that frame (eight 2048² understory maps took 330 ms of one frame on
+ * Tokyo, 3 November), so the warm-up uploads the ones the race's first seconds draw. With `near`, only visible objects
+ * whose bounds reach into it count: a whole route's scenery is about 130 textures and 1.7 GiB, too much to send to
+ * the GPU before GO. Without it, hidden and pooled objects count too.
+ */
+export function materialTextures(root: THREE.Object3D, near?: THREE.Sphere): THREE.Texture[] {
+  const textures = new Set<THREE.Texture>(), bounds = new THREE.Sphere();
+  const add = (value: unknown) => { if ((value as THREE.Texture | null)?.isTexture) textures.add(value as THREE.Texture); };
+  const reaches = (object: THREE.Object3D) => {
+    const mesh = object as THREE.Mesh & { computeBoundingSphere?: () => void; boundingSphere?: THREE.Sphere | null };
+    // Pools refilled around the camera as it moves (dynamic instance matrices: the understory's ferns and grasses
+    // sit empty and hidden until their patches arrive, 2-3 s after GO) count wherever they are now.
+    if ((object as THREE.InstancedMesh).isInstancedMesh && (object as THREE.InstancedMesh).instanceMatrix.usage === THREE.DynamicDrawUsage) return true;
+    for (let at: THREE.Object3D | null = object; at; at = at.parent) if (!at.visible) return false;
+    // Instanced and batched meshes bound all their instances; a plain mesh, its geometry.
+    if (mesh.computeBoundingSphere && !mesh.boundingSphere) mesh.computeBoundingSphere();
+    if (!mesh.boundingSphere && mesh.geometry && !mesh.geometry.boundingSphere) mesh.geometry.computeBoundingSphere();
+    const sphere = mesh.boundingSphere ?? mesh.geometry?.boundingSphere;
+    return !sphere || near!.intersectsSphere(bounds.copy(sphere).applyMatrix4(object.matrixWorld));
+  };
+  root.traverse(object => {
+    const material = (object as THREE.Mesh).material;
+    if (!material || near && !reaches(object)) return;
+    for (const surface of Array.isArray(material) ? material : [material]) {
+      Object.values(surface).forEach(add);
+      const uniforms = (surface as THREE.ShaderMaterial).uniforms;
+      if (uniforms) for (const uniform of Object.values(uniforms)) add(uniform?.value);
+    }
+  });
+  return [...textures];
+}
+
+/**
  * Compile `objects`' programs against `scene`'s lights without drawing them: three.js otherwise builds a program on
  * its first draw, inside the frame, which stalls the race. With `fog: false` they compile as the shadow pass draws,
  * without the scene's fog. Stand-in materials are never disposed, so their programs stay cached for the materials

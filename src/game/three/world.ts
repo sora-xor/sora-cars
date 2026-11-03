@@ -56,7 +56,7 @@ import { periodCityForestVegetationGround, type PeriodLocals } from './period-ci
 import { SIGN_REGIONS } from './period-city/signs';
 import { crownLight, crownLightGlsl, crownTranslucencyGlsl } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
-import { compileFor, shadowCasterBatches } from './shader-warmup';
+import { compileFor, materialTextures, shadowCasterBatches } from './shader-warmup';
 import { buildColours, type CarBuild } from '../car-builds';
 
 // Three's +Z-forward models have +X on the driver's LEFT. Native racing
@@ -450,6 +450,9 @@ function point(p: Pose, lateral: number, up = 0, forward = 0): THREE.Vector3 {
     p.y + up, p.z - Math.sin(p.heading) * lateral + Math.cos(p.heading) * forward);
 }
 
+/** How far from the starting camera (m) the course warm-up uploads textures: what the race's first seconds draw. */
+const FIRST_SECONDS_RADIUS = 400;
+
 /** One triangle with an oil slick's attributes, so the shader warm-up compiles the slicks' film program. */
 const OIL_FILM_SHAPE = new THREE.BufferGeometry();
 OIL_FILM_SHAPE.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 1, 0, 0, 0, 0, 1], 3));
@@ -578,6 +581,8 @@ export class RaceWorld {
   private periodDistrictAt: ((p: number, side: -1 | 1) => PeriodDistrict) | null = null;
   /** Whether every pooled material (trees, understory, cars) has been compiled for this course. */
   private shadersWarmed = false;
+  /** Counts course warm-ups, so one that finishes after a newer one began cannot report the newer one done. */
+  private warmGeneration = 0;
   private sceneryCell = NaN;
   private lastTime = 0;
   private lastProgress = NaN;
@@ -871,12 +876,36 @@ export class RaceWorld {
    * Compile programs off the frame. Both finishes draw the scene into an HDR target (no tone map, linear output),
    * so `compile` runs with one bound: screen-target programs never match.
    */
-  private warmShaders(compile: (warming: Promise<unknown>[]) => void): void {
+  private warmShaders(compile: (warming: Promise<unknown>[]) => void, textures: () => readonly THREE.Texture[] = () => []): Promise<void> {
     const target = new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType }), previous = this.renderer.getRenderTarget();
     const warming: Promise<unknown>[] = [];
     this.renderer.setRenderTarget(target);
     try { compile(warming); } finally { this.renderer.setRenderTarget(previous); }
-    void Promise.all(warming).catch(error => console.warn('Shader warm-up failed.', error)).finally(() => target.dispose());
+    return Promise.all(warming).then(() => this.readyForDrawing(textures()))
+      .catch(error => console.warn('Shader warm-up failed.', error)).finally(() => target.dispose());
+  }
+
+  /**
+   * Give every compiled program its first use, and upload `textures`, a few at a time between frames. three.js reads
+   * a program's info logs and its uniform and attribute locations on first use, and the browser finishes linking it on
+   * that first query, even after the parallel compile reports it complete; it uploads a texture the first time a
+   * material using it is drawn. On 3 November the 100-700 ms frames 3-9 s after GO were all of these, for programs and
+   * textures the scene already had: car paint, tree, sign and understory shadows, and the understory's 2048² maps.
+   * A course's warm-up does this before the scene preparation ends (`shaderAsset`). Used programs and uploaded
+   * textures cost nothing again.
+   */
+  private readyForDrawing(textures: readonly THREE.Texture[]): Promise<void> {
+    const tasks: (() => void)[] = [...(this.renderer.info.programs ?? []).map(program => () => { program.getUniforms(); }),
+      ...textures.map(texture => () => this.renderer.initTexture(texture))];
+    return new Promise(resolve => {
+      const step = () => {
+        const until = performance.now() + 6;
+        while (tasks.length && performance.now() < until) tasks.pop()!();
+        if (tasks.length) next(); else resolve();
+      };
+      const next = () => { if (typeof requestIdleCallback === 'function') requestIdleCallback(step, { timeout: 50 }); else setTimeout(step, 0); };
+      next();
+    });
   }
 
   /**
@@ -888,7 +917,8 @@ export class RaceWorld {
     prepareSpotlightEarlyOut(this.renderer, chunk);
     const surfaces: THREE.Object3D[] = [];
     chunk.traverse(object => { surfaces.push(object); });
-    this.warmShaders(warming => {
+    // Its textures still upload on first sight: an upload mid-race stalls the frame it lands in, idle or not.
+    void this.warmShaders(warming => {
       warming.push(compileFor(this.renderer, this.scene, this.camera, surfaces));
       for (const batch of shadowCasterBatches(chunk))
         warming.push(compileFor(this.renderer, this.scene, this.camera, batch(), { fog: false }));
@@ -950,7 +980,7 @@ export class RaceWorld {
     this.streetscape = streetscapes.get(course) ?? createStreetscape(course);
     streetscapes.set(course, this.streetscape);
     this.cityLayout = undefined; this.cityGround = undefined; this.cityPlotLayout = undefined; this.cityGardenLayout = undefined;
-    this.periodCity.clear(); this.periodDistrictAt = null; this.shadersWarmed = false;
+    this.periodCity.clear(); this.periodDistrictAt = null; this.shadersWarmed = false; this.output.dataset.shaderAsset = 'loading';
     this.cityBatch?.setPlacements({ buildings: [], apartments: [] });
     this.cityPlotBatch.setPlots(null, { buildings: [], apartments: [] });
     this.cityGardenBatch.setGardens(null, { buildings: [], apartments: [] });
@@ -1636,7 +1666,7 @@ export class RaceWorld {
     if (this.carFleet?.sync(this.cars, cars.map(car => car?.build))) {
       this.pixelArt.setMovers(this.cars.map(model => model.group));
       // New bodies bring new paint: warm their reflection and shadow programs too.
-      this.shadersWarmed = false;
+      this.shadersWarmed = false; this.output.dataset.shaderAsset = 'loading';
     }
     this.cars.forEach((model, i) => {
       const car = cars[i]; model.group.visible = !!car && !(view === 'bumper' && i === slot) && !(car?.retired && i !== slot);
@@ -1742,10 +1772,14 @@ export class RaceWorld {
     // Pooled scenery first appears far into a lap (the period city's palace
     // trees, understory, distant cars): compile every material up front, off
     // the main thread where the driver supports it, instead of on first sight.
+    // The scene preparation waits for it (`shaderAsset`): finishing in the countdown or the first seconds of the race,
+    // the programs' first uses stalled frames there instead.
     if (!this.shadersWarmed && ['sceneryAsset', 'carAsset', 'understoryAsset'].every(key => this.output.dataset[key] !== 'loading')) {
       this.shadersWarmed = true;
+      const generation = ++this.warmGeneration;
+      this.output.dataset.shaderAsset = 'loading';
       prepareSpotlightEarlyOut(this.renderer, this.scene);
-      this.warmShaders(warming => {
+      void this.warmShaders(warming => {
         // Every material twice, the cars' paint and glass once on the scene environment and once on the local
         // reflection probe: a car leaving the probe's radius compiled both mid-race (300-400 ms stalls after GO).
         this.localCarReflections.warm(this.scene, this.cars.map(model => model.group),
@@ -1757,7 +1791,8 @@ export class RaceWorld {
         const slick = new THREE.Mesh(OIL_FILM_SHAPE, this.oilFilm);
         prepareSpotlightEarlyOut(this.renderer, slick);
         warming.push(compileFor(this.renderer, this.scene, this.camera, [slick]));
-      });
+      }, () => materialTextures(this.scene, new THREE.Sphere(this.camera.position.clone(), FIRST_SECONDS_RADIUS)))
+        .then(() => { if (generation === this.warmGeneration) this.output.dataset.shaderAsset = 'detailed'; });
     }
     // Everything is placed for this frame: the one matrix update every render below uses.
     this.scene.updateMatrixWorld(true);
