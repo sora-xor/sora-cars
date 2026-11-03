@@ -136,9 +136,9 @@ export class HumanDriver {
 const LANES = [0, 0.5, -0.5, 1, -0.3, -1, 0.3, 0.8];
 /** An AI test driver's seed moves its lane, as a player's seed varies theirs: seed 0 keeps the grid's lane, then
  * 0.15 m steps to either side (-0.15, +0.15, -0.3, +0.3, ...). One AI race is chaotic, so a ladder rung races several.
- * The ladder's 32 lanes stay within ±2.4 m, about the ±2 m lanes the keyboard reference drivers use. The original 8
- * lanes at 0.3 m stayed within ±1.2 m; 32 lanes at 0.3 m reached ±4.8 m, near the road edge all race, which no player
- * drives. */
+ * The ladder's 32 lanes stay within 2.4 m of the line, about as far as the reference drivers' lanes spread. With
+ * 0.3 m steps the outer lanes ran 3.9–4.8 m off the line beside the rail, and a ¥120k car podiumed Championship
+ * only from there. */
 export const laneShift = (seed: number): number => seed <= 0 ? 0 : 0.15 * Math.ceil(seed / 2) * (seed % 2 ? -1 : 1);
 function driver(profile: DriverProfile, slot: number, seed: number, ai: DriveAI): (race: DriveRace) => number {
   if (profile === 'rookie' || profile === 'regular') { const human = new HumanDriver(HUMAN_STYLES[profile], slot, seed); return race => human.control(race); }
