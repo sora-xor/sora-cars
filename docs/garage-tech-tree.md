@@ -288,10 +288,10 @@ re-measured.
   (0.45 against 0.40) and 7% on the plan's seeds.
 - A finished car is 8–16% faster than stock (12–15% measured).
 - The fields form a ladder for a pro starting 7th, raced in 32 lanes on each
-  track. They are 0.075 m apart, covering the same 1.2 m either side of its
-  line as the original eight lanes 0.3 m apart (96 races per build, was 24).
-  Lanes further out run beside the rail: at 0.3 m steps a ¥120k car
-  podiumed Championship only from 3.9–4.5 m off its line. One AI race is chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
+  track, 0.15 m apart and within 2.4 m of its line (96 races per build; it
+  was eight lanes 0.3 m apart, 24 races). Lanes further out run beside the
+  rail: at 0.3 m steps a ¥120k car podiumed Championship only from 3.9–4.5 m
+  off its line. One AI race is chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
   podiumed 15 times in 18 from the slots around it. A car boxed in from the
   start can sit behind the pack all race and never boost: ¥60k placed 4th
   that way in one club-night race of 24, while it podiums 95 times in 96. So a
