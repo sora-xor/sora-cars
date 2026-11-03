@@ -32,8 +32,9 @@ export interface CourseTip {
   readonly line: Bilingual;
   /** Branches the line recommends. */
   readonly branches: readonly BranchId[];
-  /** Purchase order that saves rookie and regular drivers the most time per yen on
-   * this course, re-measured after every part (`tests/story-pit-balance.test.ts`).
+  /** Purchase order. On Hakone's and Yokohama's first nights, what it buys must
+   * meet the objective as often as anything else the money could do, for a rookie
+   * on the crew's picks (PLAN_VISITS, `tests/story-pit-balance.test.ts`).
    */
   readonly plan: readonly string[];
 }
@@ -45,9 +46,9 @@ export const COURSE_TIPS: readonly CourseTip[] = [
     plan: ['engine-intake', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'turbo-big', 'chassis-coilovers', 'engine-cams', 'chassis-rally', 'turbo-antilag', 'body-cage', 'engine-torque', 'body-bumpers', 'body-armor', 'body-windtunnel', 'engine-fulltune', 'chassis-lsd'],
   },
   {
-    crew: 'daichi', branches: ['turbo', 'chassis'],
-    line: { ja: '港は横風と雨だ。まずはブーストで速さを稼いで、タイヤで路面をつかもう。エンジンと足回りはその次。そうすればコースから外れない。僕も毎晩、それで帰ってきてる。', en: 'The harbor means crosswinds and rain. Get your speed from the boost, grip the road with sport tyres, then add the engine and firm up the suspension, and you’ll stay on the road. It’s how I make it home every night.' },
-    plan: ['turbo-controller', 'chassis-tyres', 'engine-intake', 'turbo-intercooler', 'body-cage', 'turbo-big', 'chassis-coilovers', 'chassis-rally', 'engine-cams', 'turbo-antilag', 'engine-torque', 'engine-fulltune', 'chassis-lsd', 'body-bumpers', 'body-armor', 'body-windtunnel'],
+    crew: 'daichi', branches: ['engine', 'turbo'],
+    line: { ja: '港はまず吸排気、それからブーストだ。焦らなくていい。前が空いてから踏もう。', en: 'For the harbor, intake first, then boost. No need to rush. Get on the throttle once there’s room ahead.' },
+    plan: ['engine-intake', 'turbo-controller', 'engine-cams', 'turbo-intercooler', 'engine-torque', 'turbo-big', 'chassis-tyres', 'chassis-coilovers', 'chassis-rally', 'body-cage', 'body-bumpers', 'body-armor', 'turbo-antilag', 'engine-fulltune', 'chassis-lsd', 'body-windtunnel'],
   },
   {
     crew: 'jun', branches: ['engine', 'turbo'],

@@ -77,23 +77,71 @@ pre-race garage, instead of linking away to the tech tree page.
 
 ### Course plans
 
-Each course has a fixed purchase order, `COURSE_TIPS[track].plan`. Each step is
-the part that saves rookie and regular drivers the most time per yen on that
-course on the driving model, re-measured after every purchase
-(`npm run balance:garage` prints the order):
+Each course has a fixed purchase order, `COURSE_TIPS[track].plan`, and the pick
+is the first step the car still lacks. The plans are held to story races
+(`tests/story-pit-balance.test.ts`). On Hakone's and Yokohama's first nights
+(IDs 0 and 1), a rookie on the crew's picks arrives with the car and money story
+mode gives them after clearing every earlier chapter on the first try, in 2nd
+place or with clean wins (`PLAN_VISITS`). Whatever the plan buys there must meet
+the objective within five points as often as any other use of the money:
+buying nothing, buying any one part on offer, or stopping the plan early. Every
+option is raced over the same 256 seeds.
+`npm run balance:garage` prints every option's rate, and, for comparison, the
+best clear-road time per yen from a stock car.
 
 | Course | Crew | Opening of the plan |
 | --- | --- | --- |
 | Hakone | Yui | Intake → boost controller → intercooler → tyres → big turbine → coilovers → cams |
-| Yokohama | Daichi | Boost controller → tyres → intake → intercooler → roll cage → big turbine → coilovers → rally |
+| Yokohama | Daichi | Intake → boost controller → cams → intercooler → torque six → big turbine → tyres → coilovers → rally |
 | Nikko | Jun | Intake → roll cage → boost controller → intercooler → tyres → coilovers → twin turbo |
 
-Re-measured on the November 2026 handling (a gentler keyboard wheel that still
-turns in quickly where the road bends, and no damage below a 6 m/s knock): in
-Yokohama's rain and crosswinds the sport tyres now win more time per yen than
-the intake, so Daichi says boost first, then tyres, then the engine. On Nikko's
-hairpins the intake now opens the plan, and Jun's line names the engine and the
-boost.
+On the current report Yui's intake podiums 98% of the time on Hakone's first
+night (nothing 93%, controller 96%, tyres 76%, cage 77%), and Daichi's
+controller 52% on Yokohama's (nothing 40%, tyres 28%, cage 30%).
+
+Until November 2026 each step was the part that saved rookies and regulars the
+most time per yen on a clear road from a stock car. That rule put sport tyres
+second in Yokohama, where story races show they cost a rookie podiums. Probes
+raced 512 paired seeds on the first harbor night, rookies with Yui's intake, on
+the driving model before `84c6866`.
+Daichi's boost controller lifts a first-try podium from 44% to 55%, and adding
+the tyres takes it back to 46%. On their own the tyres (34%) and the roll cage
+(36%) do worse than buying nothing.
+
+The cause is the start. The player starts 7th, 1.6 m behind the crew car in
+5th, and the tyres' extra launch traction runs a rookie into that car in the
+first second. That costs 1.0 s of contact by 1 s instead of 0.5 s, 137 km/h at
+2 s instead of 162, and about 20 m by 10 s, which the race never gives back.
+Taken apart, launch traction alone costs 10 points. The tyres' grip and oil
+grip change nothing measurable, and rail time is the same with them. Regulars,
+who steer clear at the start, lose nothing to the tyres. On a clear road the
+tyres save 0.4 s, which is why time per yen liked them.
+
+A harbor pack rewards top speed instead. Intake, controller and cams podium 73%
+of the time, against 65% with the intercooler in place of the cams. The rest of
+Daichi's plan follows the later harbor nights:
+
+- The second night (ID 4) is where the cams usually get bought: 66% against
+  54% for saving, which the old plan did.
+- On the third (ID 7) the torque six is within two points of the best buy.
+- On the showdown (ID 10) the engine fork is the biggest gain in the story: 80%
+  against 55% for saving toward anti-lag, again the old plan. With `84c6866`'s
+  engines the torque six still leads (79%, against 72% for the high-rev six and
+  62% for saving, 256 seeds).
+
+Over 256 paired rookie campaigns the new plan cuts the four harbor nights from
+6.9 to 5.8 races and the whole story from 15.7 to 14.4, with no chapter worse.
+Regulars are unchanged. The chassis has its place later: once the car has tyres
+and a cage, the rally setup is the best buy on the third harbor night and keeps
+the car off the rails. Daichi now says intake first, then boost, and to wait
+for room ahead before pushing.
+
+Jun's Nikko plan is not held to its first night yet. There a rookie does better
+stopping at the roll cage and intercooler (87%) than with the tyres Jun adds
+(82%). After clean wins the cage alone (87%) beats his cage, tyres and coilovers
+(72%). Moving his tyres and coilovers after the cams and twin turbo fixed that
+night (+9 points) but cost the third harbor night 11, so Jun's plan needs its
+own pass through the story races.
 
 The pick skips a fork the player settled on the other option. Buying a fork
 option fits it, so a player who bought both may race the wrong one. When the
@@ -286,10 +334,13 @@ re-measured.
   per ¥1k each). The plan's 40 and 12 seeds put it behind, at 3.0 ticks a race,
   and past the tier's 3× spread. At ¥8k it leads by 12% over the larger sample
   (0.45 against 0.40) and 7% on the plan's seeds.
-- A finished car is 8–16% faster than stock (12–15% measured).
+- A finished car is 8–16% faster than stock (12.5–14.6% measured).
 - The fields form a ladder for a pro starting 7th, raced in 32 lanes on each
-  track (96 races per build; it was eight lanes, 24 races). One AI race is
-  chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
+  track (96 races per build; it was eight lanes, 24 races). The lanes are
+  0.15 m apart, so they stay within ±2.4 m of the grid lane, about the ±2 m
+  lanes the keyboard drivers use. At 0.3 m apart, 32 lanes reached ±4.8 m,
+  near the road edge all race, and from the outermost Harbor Run lanes the
+  ¥120k championship car podiumed 4 times in 96. One AI race is chaotic. A finished car placed 4th, 4th and 7th from that grid spot and
   podiumed 15 times in 18 from the slots around it. A car boxed in from the
   start can sit behind the pack all race and never boost: ¥60k placed 4th
   that way in one club-night race of 24, while it podiums 95 times in 96. So a
@@ -299,23 +350,24 @@ re-measured.
   true 99% rate passes it 93% of the time (79%). A stock car cannot podium club
   night every time, but ¥60k always does. Touge and Championship never podium a stock car and ¥120k
   respectively and always podium ¥420k; Legends never podiums ¥180k, and a
-  finished car podiums at least two times in three (21 of 24). Legends' rivals
+  finished car podiums at least two times in three (83 of 96). Legends' rivals
   are built from ¥400k: at ¥420k one of them carried the wind-tunnel body and,
   with passes slower on the gentler keyboard wheel, a finished car podiumed only
   11 times in 24 (20 on the earlier handling).
 - With equal cars a regular clears every story chapter at least half the time
-  (Hakone and Nikko 11 times in 12 or more, Yokohama half the time). Against the
+  (Hakone and Nikko 11 times in 12 or more, Yokohama 8 in 12). Against the
   tuned rivals a stock regular still wins through the harbor chapters IDs 4 and 7
   more often than not.
 - On the first harbor night (96 seeds) a rookie with the crew's picks as rookies
   have them there, Yui's intake and Daichi's boost controller (¥22k), clears it
-  47% of the time: four times as often as in a stock car (13%), and twice as
+  50% of the time: three times as often as in a stock car (16%), and over twice as
   often as when the same funds (¥25.4k after a Hakone second place) go
-  cheapest-first on tyres, coilovers, a roll cage and bumpers (¥25k, 21%). The
+  cheapest-first on tyres, coilovers, a roll cage and bumpers (¥25k, 19%). The
   report keeps every seed's result, and the test holds the picks at least 20
   points above stock and 10 above cheapest-first, with the seed-by-seed gain
-  above zero at a one-sided 95% bound (0.15 measured). ¥46k of engine and boost
-  parts clears it 65% of the time: a harbor pack race rewards top speed, and a
+  above zero at a one-sided 95% bound (0.21 measured: the picks win 36 seeds
+  that cheapest-first loses, the reverse 6). ¥46k of engine and boost
+  parts clears it 56% of the time: a harbor pack race rewards top speed, and a
   rookie cannot afford those parts by then. This check used to compare Daichi's
   three picks (¥28k) with ¥46k of engine and ¥32k of chassis parts on 12 seeds;
   the picks only came out ahead by chance (at 36 seeds the engine parts won on
@@ -329,8 +381,9 @@ the Act 3 lead moved by a second between runs. With sixteen, a stall that 64
 campaigns put at 1 in 64 landed inside the sample. A chapter still uncleared
 after 15 tries counts as a wall. It holds:
 
-- Each course plan's first three picks are within 90% of the best time per yen
-  on offer at that step, re-measured.
+- On Hakone's and Yokohama's first nights (`PLAN_VISITS`), what the crew's plan
+  buys meets the objective within five points as often as buying nothing, any
+  one part on offer, or stopping the plan early (256 paired seeds, rookies).
 - On the crew's picks, rookies and regulars never stall. The Yokohama chapters
   average at most four races; every other chapter, at most two.
 - Never buying stalls rookies in the Yokohama chapters (in at least half the
@@ -341,15 +394,19 @@ after 15 tries counts as a wall. It holds:
   of the time (56% for none in 16), and one that walls off 1% passes it 86% of
   the time (85%). The crew's picks must never stall.
 - In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
-  first try by under two seconds on average (0.6 s); casual builds (−0.6 s and
-  −0.7 s) and rookies (−1.9 s) lose that first race to her.
+  first try by under two seconds on average (0.8 s); casual builds (−0.8 s and
+  −0.5 s) and rookies (−2.7 s) lose that first race to her.
 
-| Garage habit (8 runs each) | Races to finish the story | Act 3 lead over the faster rival |
+| Garage habit (64 runs each) | Races to finish the story | Act 3 lead over the faster rival |
 | --- | --- | --- |
-| Crew's picks: rookie / regular | 17.6 / 12.0 | −6.3 s / 0.1 s |
-| Cheapest first: rookie / regular | 23.1 / 12.3 | −5.4 s / −0.9 s |
-| Priciest first: rookie / regular | 16.5 / 12.0 | −4.5 s / −1.0 s |
-| Never buys: rookie / regular | 66.3, stalls in Yokohama / 23.9, stalls at the showdown | −7.7 s / −5.2 s |
+| Crew's picks: rookie / regular | 14.5 / 12.1 | −2.7 s / 0.8 s |
+| Cheapest first: rookie / regular | 20.6, 3 stalls (IDs 1, 10, 10) / 12.1 | −4.1 s / −0.8 s |
+| Priciest first: rookie / regular | 15.7, 1 stall (ID 10) / 12.1 | −3.4 s / −0.5 s |
+| Never buys: rookie / regular | 43.5, stalls in Yokohama / 23.0, stalls at the showdown | −6.9 s / −4.5 s |
+
+On the November 2026 report, cheapest-first rookies stall three times in 64,
+more than the one the casual-shopping check allows; the walls come from the
+steering and engine changes of `84c6866` and reproduce on that commit alone.
 
 ### Findings that shaped the tree
 
@@ -375,8 +432,11 @@ after 15 tries counts as a wall. It holds:
   Club drivers no longer boost, so a rookie with the crew's first picks can win
   the first chapter. Toru's showdown car came down from ¥90k to ¥60k, where
   rookies on the crew's picks stopped stalling.
-- Even in Yokohama, boost and engine parts win more time per yen than chassis
-  parts, so all three crew plans open with them.
+- **Launch traction loses a story race from the player's grid spot.** The
+  player starts 7th, 1.6 m behind the car in front, so tyres or a roll cage on
+  an otherwise stock launch run a rookie into it at the start. Those parts pay on
+  a clear road and cost podiums in story races, which is why the course plans
+  are now held to story races rather than clear-road time per yen.
 - Stacked parts used to make wind resistance negative, leaving the road free and
   contact losses tiny. Effects were trimmed so no build reaches an engine bound;
   a test checks all 16 fork combinations.

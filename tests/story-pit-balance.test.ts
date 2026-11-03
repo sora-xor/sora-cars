@@ -1,10 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { CHAPTERS } from '../src/game/story';
-import { COURSE_TIPS } from '../src/game/story-pit';
+import { CHAPTERS, chapterPosition } from '../src/game/story';
 import { STORY_TRIES, mean, type Campaign } from './helpers/garage-drivers';
-import { FULL_PLAN, REPORT_PATH, balanceInputs, type BalanceReport } from './helpers/garage-balance';
+import { FULL_PLAN, PLAN_VISITS, REPORT_PATH, balanceInputs, visitGarage, visitOptions, type BalanceReport } from './helpers/garage-balance';
 
 // Whole-story campaigns with the reference drivers, played as main.ts runs story
 // mode: each chapter's cutscenes, the pre-race garage, the race, prize money and
@@ -23,13 +22,22 @@ test('the campaigns were measured on the current tree and drivers', () => {
   assert.equal(report.campaigns['rookie:picks']!.length, FULL_PLAN.campaigns.length);
 });
 
-test('each course plan opens with the best value for that course', () => {
-  // Re-measured: each of the first three picks, the ones early chapters can afford,
-  // saves rookies and regulars at least 90% as much time per yen as any part on offer.
-  report.coursePlans.forEach((steps, track) => steps.forEach((step, i) => {
-    assert.equal(step.pick, COURSE_TIPS[track]!.plan[i], `track ${track} step ${i + 1} was measured for the current plan`);
-    assert.ok(step.perYen >= step.best * 0.9, `track ${track}: ${step.pick} ${step.perYen.toFixed(2)} vs ${step.bestPart} ${step.best.toFixed(2)} ticks per ¥1k`);
-  }));
+test('Yui’s and Daichi’s plans buy what wins their first story nights', () => {
+  // A rookie on the crew's picks at Hakone's and Yokohama's first nights (PLAN_VISITS), with the car and money story
+  // mode gives them after 2nd places or clean wins: what the plan buys meets the objective within five points as often
+  // as buying nothing, any one part on offer, or stopping the plan early, over the same seeds. Clear-road time per yen
+  // from a stock car once put sport tyres second for Yokohama, where they cost a rookie podiums (docs/garage-tech-tree.md).
+  const same = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every(id => b.includes(id));
+  assert.deepEqual(report.storyPlans.map(visit => [visit.chapter, visit.finish]), PLAN_VISITS.map(visit => [visit.chapter, visit.finish]));
+  for (const visit of report.storyPlans) {
+    const expected = visitOptions(visitGarage(visit.chapter, visit.finish), CHAPTERS[chapterPosition(visit.chapter)]!.trackId!);
+    assert.deepEqual([visit.plan, visit.options.map(option => option.parts)], [expected.plan, expected.options], `chapter ID ${visit.chapter} raced the current plans`);
+    const planned = mean(visit.options.find(option => same(option.parts, visit.plan))!.cleared);
+    for (const option of visit.options) {
+      assert.ok(mean(option.cleared) <= planned + 0.05, `chapter ID ${visit.chapter} after a ${visit.finish}: ${option.parts.join('+') || 'nothing'} `
+        + `${(mean(option.cleared) * 100).toFixed(0)}% against the plan's ${visit.plan.join('+') || 'nothing'} ${(planned * 100).toFixed(0)}%`);
+    }
+  }
 });
 
 test('following the crew’s picks carries rookies and regulars through the whole story', () => {

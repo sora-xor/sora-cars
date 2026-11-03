@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
 import {
-  CLEAN_BONUS, PRACTICE_FIELDS, PURSE, STARTING_FUNDS, STORY_REI, STORY_TORU, TECH_NODES, applyAward, fieldRivals, fittedParts, newGarage, raceAward, rivalBuild,
-  storyClearBonus, techNode, tuneFor, type FieldId, type PartAudience, type RivalStyle,
+  CLEAN_BONUS, PRACTICE_FIELDS, PURSE, STARTING_FUNDS, STORY_REI, STORY_TORU, TECH_NODES, applyAward, buyPart, fieldRivals, fittedParts, newGarage, partState, raceAward,
+  rivalBuild, storyClearBonus, techNode, tuneFor, type FieldId, type GarageSave, type PartAudience, type RivalStyle,
 } from '../../src/game/garage-tech';
 import { CHAPTERS, chapterPosition } from '../../src/game/story';
-import { COURSE_TIPS } from '../../src/game/story-pit';
+import { COURSE_TIPS, nextPick } from '../../src/game/story-pit';
 import { DRIVER_SKILLS } from '../../src/game/drive/ai';
 import {
   AUDIENCE_PROFILES, HUMAN_STYLES, PROFILES, interquartileMean, mean, packRace, partContext, purchasable, shop, soloRace, storyCampaign, storyRace,
@@ -53,20 +53,23 @@ export interface BalancePlan {
   readonly story: readonly number[];
   readonly rescue: readonly number[];
   readonly campaigns: readonly number[];
+  /** Seeds for the course-plan visits (PLAN_VISITS): one first-try race per option and seed. With 256 seeds a 10-point
+   * gap between two options is about three standard errors of the seed-by-seed difference. */
+  readonly visits: readonly number[];
 }
 const seeds = (count: number) => Array.from({ length: count }, (_, i) => i + 1);
 export const FULL_PLAN: BalancePlan = {
   name: 'full',
   road: { rookie: seeds(40), regular: seeds(12), club: [0], pro: [0], ace: [0] },
   pack: { slots: [0, 1, 2, 3, 4, 5, 6, 7], seeds: { rookie: [1, 2], regular: [1, 2], club: [0], pro: [0], ace: [0] } },
-  fields: [0, ...seeds(31)], story: seeds(12), rescue: seeds(96), campaigns: seeds(64),
+  fields: [0, ...seeds(31)], story: seeds(12), rescue: seeds(96), campaigns: seeds(64), visits: seeds(256),
 };
 /** For iterating on effects only: too few rookie seeds to set the cards. */
 export const QUICK_PLAN: BalancePlan = {
   name: 'quick',
   road: { rookie: seeds(8), regular: seeds(4), club: [0], pro: [0], ace: [0] },
   pack: { slots: [1, 3, 5, 6], seeds: { rookie: [1], regular: [1], club: [0], pro: [0], ace: [0] } },
-  fields: [0], story: seeds(4), rescue: seeds(8), campaigns: seeds(2),
+  fields: [0], story: seeds(4), rescue: seeds(8), campaigns: seeds(2), visits: seeds(8),
 };
 /** Parts whose tag is about other cars are measured in a pack; everything else on a clear road. */
 export const PACK_AUDIENCES: ReadonlySet<PartAudience> = new Set<PartAudience>(['traffic']);
@@ -103,13 +106,48 @@ export const RESCUE_BUILDS: Readonly<Record<'picks' | 'cheapest' | 'power' | 'st
 export const RESCUE = { chapter: 1, profile: 'rookie', builds: RESCUE_BUILDS } as const;
 export const POLICIES: readonly SpendPolicy[] = ['picks', 'cheapest', 'priciest', 'stock'];
 
+/** How the reference rookie finished every chapter before a course-plan visit: 2nd without the clean bonus, or a clean win. */
+export type VisitFinish = 'second' | 'clean win';
+/** The pre-race garage visits the crew's course plans are held to: Hakone's and Yokohama's first nights (IDs 0 and 1),
+ * as a rookie on the crew's picks arrives after clearing every earlier chapter on the first try, in 2nd place or with
+ * clean wins. Hakone's first night always starts from a new garage. Nikko's (ID 3) is not held yet: Jun's plan buys
+ * tyres or coilovers there that cost a rookie podiums, and moving them would cost the harbor (docs/garage-tech-tree.md). */
+export const PLAN_VISITS: readonly { readonly chapter: number; readonly finish: VisitFinish }[] = [
+  { chapter: 0, finish: 'second' }, { chapter: 1, finish: 'second' }, { chapter: 1, finish: 'clean win' },
+];
+/** The garage a rookie on the crew's picks walks into at a chapter's first visit, as storyCampaign plays it. */
+export function visitGarage(chapter: number, finish: VisitFinish): GarageSave {
+  let save = newGarage();
+  for (const story of CHAPTERS) {
+    if (story.trackId === undefined) continue;
+    if (story.id === chapter) return save;
+    save = shop(save, story.trackId, 'picks');
+    save = applyAward(save, raceAward(save, { place: finish === 'second' ? 2 : 1, cars: 8, field: null, chapter: story.id, objective: true, clean: finish === 'clean win' }), story.id);
+  }
+  throw new RangeError('Unknown Arcade chapter');
+}
+/** What the course plan buys at a visit, in order, and what the money could do instead: buy nothing, buy any one part
+ * on offer, or stop the plan's purchases early. */
+export function visitOptions(save: GarageSave, trackId: number): { plan: string[]; options: string[][] } {
+  const plan: string[] = [];
+  for (let s = save, pick = nextPick(s, trackId); pick && partState(s, pick.id) === 'available'; pick = nextPick(s, trackId)) { s = buyPart(s, pick.id); plan.push(pick.id); }
+  const options = [[], ...TECH_NODES.filter(node => partState(save, node.id) === 'available').map(node => [node.id]), ...plan.map((_, i) => plan.slice(0, i + 1))];
+  return { plan, options: options.filter((option, i) => options.findIndex(other => key(other) === key(option)) === i) };
+}
+
 export interface PartReport {
   readonly context: readonly string[];
   readonly scenario: 'road' | 'pack';
   /** Ticks saved per race, by profile and track: the interquartile mean over paired runs. */
   readonly gains: Readonly<Record<DriverProfile, readonly number[]>>;
 }
-export interface CoursePlanStep { readonly pick: string; readonly perYen: number; readonly best: number; readonly bestPart: string }
+/** One course-plan visit: the car and money the rookie brings, what the plan buys, and every option's first-try results. */
+export interface PlanVisit {
+  readonly chapter: number; readonly finish: VisitFinish;
+  readonly money: number; readonly car: readonly string[]; readonly plan: readonly string[];
+  /** Whether the rookie met the chapter's objective with each option, one per visit seed (1 met, 0 not). */
+  readonly options: readonly { readonly parts: readonly string[]; readonly cleared: readonly number[] }[];
+}
 export interface BalanceReport {
   readonly version: 1;
   readonly plan: string;
@@ -134,8 +172,10 @@ export interface BalanceReport {
     readonly equal: Readonly<Record<string, number>>;
   };
   readonly campaigns: Readonly<Record<string, readonly Campaign[]>>;
-  readonly coursePlans: readonly (readonly CoursePlanStep[])[];
-  /** Greedy best-per-yen purchase order for rookies and regulars on each course. */
+  /** Course plans against the alternatives at each course's first night (PLAN_VISITS). */
+  readonly storyPlans: readonly PlanVisit[];
+  /** Greedy best-per-yen purchase order for rookies and regulars on each course, on a clear road from a stock car:
+   * printed for comparison, not a rule. */
   readonly bestPlans: readonly (readonly string[])[];
 }
 
@@ -143,7 +183,7 @@ export interface BalanceReport {
 export function balanceInputs(plan: BalancePlan): string {
   const parts = TECH_NODES.map(({ id, tier, fork, cost, requires, requiresAny, bestFor, effects }) => ({ id, tier, fork, cost, requires, requiresAny, bestFor, effects }));
   const text = JSON.stringify({ plan, parts, fields: PRACTICE_FIELDS.map(({ id, prize, budget, skills, styles }) => ({ id, prize, budget, skills, styles })), STORY_REI, STORY_TORU, PURSE, CLEAN_BONUS, STARTING_FUNDS, clear: CHAPTERS.map(c => storyClearBonus(c.id)),
-    chapters: CHAPTERS.map(c => [c.id, c.trackId ?? null]), plans: COURSE_TIPS.map(tip => tip.plan), builds: FIELD_BUILDS, rescue: RESCUE, HUMAN_STYLES, DRIVER_SKILLS, AUDIENCE_PROFILES,
+    chapters: CHAPTERS.map(c => [c.id, c.trackId ?? null]), plans: COURSE_TIPS.map(tip => tip.plan), builds: FIELD_BUILDS, rescue: RESCUE, visits: PLAN_VISITS, HUMAN_STYLES, DRIVER_SKILLS, AUDIENCE_PROFILES,
     rivals: PRACTICE_FIELDS.map(field => fieldRivals(field.id, 8, 6)) });
   return createHash('sha256').update(text).digest('hex').slice(0, 16);
 }
@@ -204,8 +244,8 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
   }
   const pace = Object.fromEntries(PROFILES.map(profile => [profile, { stock: TRACKS.map(t => interquartileMean(road.get([], profile, t))), finished: TRACKS.map(t => interquartileMean(road.get(FINISHED_BUILD, profile, t))) }]));
   const saved = (profile: DriverProfile) => TRACKS.map(t => road.gain([], FINISHED_BUILD, profile, t) / interquartileMean(road.get([], profile, t)));
-  // Course plans: the best value per yen for rookies and regulars, re-measured after every purchase.
-  log('course plans…');
+  // The best value per yen for rookies and regulars on a clear road, re-measured after every purchase.
+  log('time per yen…');
   const learners = ['rookie', 'regular'] as const;
   const perYen = (base: readonly string[], id: string, track: number) => mean(learners.map(profile => road.gain(base, [...base, id], profile, track))) / techNode(id)!.cost * 1000;
   const ranked = async (base: readonly string[], track: number) => {
@@ -213,16 +253,11 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
     await road.need([base, ...options.map(node => [...base, node.id])], learners, [track]);
     return options.map(node => ({ id: node.id, value: perYen(base, node.id, track) })).sort((a, b) => b.value - a.value);
   };
-  const coursePlans: CoursePlanStep[][] = [], bestPlans: string[][] = [];
+  const bestPlans: string[][] = [];
   for (const track of TRACKS) {
-    const steps: CoursePlanStep[] = [], best: string[] = [];
-    for (let step = 0, owned: string[] = []; step < 3; step++) {
-      const pick = COURSE_TIPS[track]!.plan[step]!, top = (await ranked(owned, track))[0]!;
-      steps.push({ pick, perYen: perYen(owned, pick, track), best: top.value, bestPart: top.id });
-      owned = [...owned, pick];
-    }
+    const best: string[] = [];
     for (let owned: string[] = []; purchasable(owned).length;) { const next = (await ranked(owned, track))[0]!.id; best.push(next); owned = [...owned, next]; }
-    coursePlans.push(steps); bestPlans.push(best);
+    bestPlans.push(best);
   }
   log('practice fields…');
   const labels = Object.keys(FIELD_BUILDS);
@@ -245,6 +280,16 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
   const rescue = { picks: await rescueRuns(RESCUE.builds.picks), cheapest: await rescueRuns(RESCUE.builds.cheapest), power: await rescueRuns(RESCUE.builds.power), stock: await rescueRuns(RESCUE.builds.stock) };
   const equal: Record<string, number> = {};
   for (const chapter of arcade) equal[chapter] = await rate(chapter, 'regular', [], true);
+  log('course plans in story races…');
+  const visits = PLAN_VISITS.map(visit => {
+    const save = visitGarage(visit.chapter, visit.finish);
+    return { ...visit, save, car: fittedParts(save), ...visitOptions(save, CHAPTERS[chapterPosition(visit.chapter)]!.trackId!) };
+  });
+  const visitRuns = await storyRuns(visits.flatMap(visit => visit.options.flatMap(parts => plan.visits.map(seed =>
+    ({ kind: 'story', chapter: visit.chapter, profile: 'rookie', parts: [...visit.car, ...parts], seed, equal: false }) as Job))));
+  let next = 0;
+  const storyPlans: PlanVisit[] = visits.map(({ chapter, finish, save, car, plan: bought, options }) => ({ chapter, finish, money: save.money, car, plan: bought,
+    options: options.map(parts => ({ parts, cleared: plan.visits.map(() => Number(visitRuns[next++]!)) })) }));
   log('story campaigns…');
   const campaignJobs: Job[] = POLICIES.flatMap(policy => (['rookie', 'regular'] as const).flatMap(profile => plan.campaigns.map(seed => ({ kind: 'campaign', profile, seed, policy }) as Job)));
   const campaignRuns = (await run(campaignJobs)) as Campaign[];
@@ -254,7 +299,7 @@ export async function measureBalance(plan: BalancePlan, run: JobRunner, log: (li
     version: 1, plan: plan.name, inputs: balanceInputs(plan), fingerprints: await fingerprints(run), parts,
     finished: { regular: saved('regular'), pro: saved('pro'), ace: saved('ace') }, pace: pace as unknown as BalanceReport['pace'], fields,
     story: { stock: Object.fromEntries(arcade.map((chapter, i) => [chapter, stockStory[i]!])), harbor, rescue, equal },
-    campaigns, coursePlans, bestPlans,
+    campaigns, storyPlans, bestPlans,
   };
 }
 

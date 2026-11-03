@@ -84,8 +84,12 @@ function print(report: BalanceReport): void {
     const act3 = arcade.flatMap((c, i) => c.act === 3 ? [i] : []);
     console.log(`${`${policy} ${profile}`.padEnd(18)} ${cells.join('')}  ${pad(mean(runs.map(run => run.tries.reduce((a, b) => a + b, 0))).toFixed(1), 5)}  ${pad((mean(runs.flatMap(run => act3.map(i => run.leads[i]!))) / 30).toFixed(1), 5)} s`);
   }
-  console.log('\nCourse plans: each opening pick against the best time per yen on offer (ticks per ¥1k).');
-  report.coursePlans.forEach((steps, track) => console.log(`${TRACKS[track]!.name.padEnd(16)} ${steps.map(s => `${s.pick} ${s.perYen.toFixed(2)} (best ${s.bestPart} ${s.best.toFixed(2)})`).join('  →  ')}`));
-  console.log('\nBest time per yen for rookies and regulars, re-measured after each part:');
+  console.log(`\nCourse plans in story races: a rookie on the crew's picks at each course's first night, first-try objective rate over ${report.storyPlans[0]?.options[0]?.cleared.length ?? 0} seeds for each option (* = what the plan buys).`);
+  const same = (a: readonly string[], b: readonly string[]) => a.length === b.length && a.every(id => b.includes(id));
+  for (const visit of report.storyPlans) {
+    console.log(`ID ${visit.chapter} after a ${visit.finish}, ¥${(visit.money / 1000).toFixed(1)}k, car [${visit.car.join(' ') || 'stock'}]: ${visit.options.map(option =>
+      `${same(option.parts, visit.plan) ? '*' : ''}${option.parts.join('+') || 'nothing'} ${Math.round(mean(option.cleared) * 100)}%`).join('  ')}`);
+  }
+  console.log('\nBest time per yen for rookies and regulars on a clear road from a stock car, re-measured after each part (for comparison):');
   report.bestPlans.forEach((plan, track) => console.log(`${TRACKS[track]!.name.padEnd(16)} ${plan.join(' → ')}`));
 }
