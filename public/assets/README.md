@@ -24,6 +24,13 @@
   retrieved 2026-09-05; SIL OFL license in `fonts/noto-sans-jp-OFL.txt`.
   SHA-256: `c2f3b4d463500a2ddcd3849cded1fceeb9fd6d1c32e6cbecd568453ba50fc68f`.
   Bundled locally so Japanese dialogue does not require a runtime font service.
+- `fonts/noto-sans-jp.woff`: the same font repackaged as WOFF 1.0 by
+  `node scripts/encode-woff.mjs fonts/noto-sans-jp.ttf fonts/noto-sans-jp.woff`.
+  Each of its 23 tables is zlib-compressed and decodes to the TTF's exact bytes,
+  which the script checks before writing; names and glyphs are unchanged. The
+  game's stylesheet loads this 5,849,152-byte file because SoraFS gateways refuse
+  whole files above 8 MiB. SHA-256:
+  `6aaefa926fa3884307f1d476af7f4fe97559964afcce87570de1e741bb8420e2`.
 
 - `story/angles/*-v2.png` and `story/beats/*-v2.png`: new original cutscene
   compositions created with built-in image generation. Every authored location

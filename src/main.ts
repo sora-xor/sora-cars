@@ -1,3 +1,5 @@
+// First, so every loader below reads SoraFS files larger than one 8 MiB gateway response.
+import './site-fetch';
 import { MUSIC_LIBRARY } from './game/music-score';
 import { resolveCutsceneCue } from './game/music-cues';
 import { resolveStoryShot } from './game/story-scenes';

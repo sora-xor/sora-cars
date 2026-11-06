@@ -5,6 +5,73 @@ hash routing preserves the CID prefix. Fonts, images, MIDI files and the generat
 simulator are local release files. Signaling and proof workers are optional
 transports configured separately by players.
 
+## November 6, 2026: gateway response limit and publishing on Taira
+
+**The November 4 frozen release could not have loaded through a SoraFS gateway.**
+The site gateway returns at most 8 MiB (8,388,608 bytes) per response
+(`MAX_SITE_RESPONSE_BYTES` in Iroha's `crates/iroha_torii/src/sorafs/api.rs`):
+- An unranged GET for a larger file gets 413 with `Accept-Ranges: bytes`.
+- The file is then served only as single byte ranges of up to 8 MiB.
+- An open range such as `bytes=0-` is refused too.
+
+43 of the release's 1,038 files exceed that limit: 30 WAV masters, 2 full MP3s,
+the car, driver, tree and architecture models, the HDR sky, the Japanese font and
+the JavaScript source map. three.js loaders, the architecture and street loaders,
+the soundtrack downloads and the CSS font all send plain GETs.
+
+A garage-only check of both builds under gateway rules confirms this (scripts and
+results under `output/reviews/production-gaps-20261106/app-gateway/`, in
+`gateway-ab.mjs` and `garage-ab-*.json`):
+- **November 4 build:** the car, driver, sky and font requests were each refused
+  once and never retried. The garage reported that it could not build the car,
+  and the Japanese font ended in `error`.
+- **Fixed build:** the same requests were refused once, then read completely in
+  2, 2 and 4 ranges, and the font loaded.
+
+The gateway also has a fixed media-type table. Models, glTF, HDR, audio and MIDI
+files are served as `application/octet-stream` attachments with `nosniff`.
+
+The site now handles both:
+- `src/site-fetch.ts` is the first module the game loads. When a same-origin GET
+  meets that refusal, it requests consecutive ranges of at most 8 MiB, halving
+  the size if a gateway refuses even that. It checks every `Content-Range` and
+  returns the file as one ordinary 200 response. Each range is fetched only when
+  the reader asks for it, so an aborted read stops at the next range. Every other
+  response is untouched.
+- The stylesheet loads `fonts/noto-sans-jp.woff`, a 5,849,152-byte lossless WOFF
+  1.0 copy of the TTF (`scripts/encode-woff.mjs`; see `public/assets/README.md`).
+  The TTF stays for the cover and lab tools.
+- `tests/site-fetch.test.ts` checks the range behaviour against a model of the
+  gateway.
+- `scripts/test-static.mjs` now serves like the gateway: its media types,
+  `nosniff`, attachments, 413 and single ranges up to 8 MiB. It requires every
+  refused file to be read completely through ranges, the Japanese face to load,
+  and a soundtrack preview to play.
+
+**Publishing on Taira is permissionless by design but has nowhere to land.**
+`RegisterPinManifest` needs no permission: any account pays the public pin fee,
+and the chain selects three providers itself. Taira has no eligible provider,
+because:
+- its validators run with storage disabled;
+- providers can be admitted only by the original signed genesis or by a
+  Parliament manager, and Taira's genesis did neither;
+- binding an alias such as `soracars` also needs `CanBindSorafsAlias` and an
+  `AliasBindingV1` proof;
+- a gateway serves only with a promoted compliance catalog.
+
+The user ruled out resetting Taira, because BPNG accounts and data must be kept,
+and declined a separately operated storage network. SoraFS should work like IPFS,
+with anyone able to publish without permissions. The remaining work is therefore
+a chain-preserving SoraFS bootstrap in Iroha, followed by activation on Taira.
+The site will then publish under the `soracars` alias. Its origin also has to be
+added to Taira's edge CORS list (`PUBLIC_TORII_CORS_ORIGINS` in Iroha's
+`scripts/render_taira_edge_nginx_conf.py`).
+
+The pin's retention deadline is recorded only in the 355-byte manifest. The CAR
+and its root CID do not depend on it, so the deadline can be chosen at
+publication time. The default pin policy has no maximum retention. The fee grows
+with the retention period.
+
 On **November 5, 2026 at 02:09 JST (November 4 at 17:09 UTC)**, the current
 frozen release completed local package qualification. Its 710 app tests,
 production build, static-browser checks with the original deadlines, and final
