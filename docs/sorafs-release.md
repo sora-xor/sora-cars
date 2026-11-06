@@ -5,7 +5,75 @@ hash routing preserves the CID prefix. Fonts, images, MIDI files and the generat
 simulator are local release files. Signaling and proof workers are optional
 transports configured separately by players.
 
-Latest public-read check: on **September 22, 2026 at 08:53:36 UTC**, `/status`,
+On **November 5, 2026 at 02:09 JST (November 4 at 17:09 UTC)**, the current
+frozen release completed local package qualification. Its 710 app tests,
+production build, static-browser checks with the original deadlines, and final
+source/SDK consistency checks passed. Native verification then checked the
+**1,038-file, 3,080,005,900-byte payload**, its **3,083,241,616-byte CAR**, the
+355-byte manifest and all **24,212 chunks**. The [app qualification](../output/reviews/execution-stark-20261104-takeover/app-retry8-browser-completion/release/qualification.json),
+[package status](../output/reviews/execution-stark-20261104-takeover/packaging/frozen-app-package-retry8-20261104T164117Z/status.json)
+and [native verification](../output/reviews/execution-stark-20261104-takeover/packaging/frozen-app-package-retry8-20261104T164117Z/native-verification.json)
+retain the exact tool, source and artifact identities. The directory root CID
+bytes are `01711f20e6769e9fd0f11234a3492eade8adf7da2964c1158abca592ec3801d5fdbe9b9f`.
+
+Native `storage prepare` subsequently produced the separate provider payload and
+file map at **02:35 JST (17:35 UTC)**. Independent verification matched all 1,038
+payload segments to the qualified file hashes and confirmed that the frozen
+inventory, manifest and native binary were unchanged. The [provider-input result](../output/reviews/execution-stark-20261104-takeover/packaging/provider-ingestion-20261104T1725Z/result.json)
+records these local artifacts; no provider received them.
+
+This qualified package remains **local and unpublished**. It requests three
+replicas with retention epoch `1796402601`; provider storage and retrieval have
+not been verified. The payload alone exceeds the observed 2.5 GiB storage limit
+per configured validator. Publication needs at least 3 GiB of declared capacity
+per replica, plus sufficient actual disk space for CAR/staging overhead and
+existing allocations. Native composed cryptographic qualification remains false,
+and stakes remain disabled.
+
+The initial **November 4, 2026** deployment investigation reached the approved OVH host
+and authenticated native account queries against `https://taira.sora.org`.
+The four validators report storage disabled, and their loopback capacity routes
+and the public `/v1/sorafs/capacity/state` return HTTP **404**. Provider discovery
+is empty. A staged copy of one validator configuration with storage enabled
+fails the deployed binary's configuration check because the proof-outcome,
+repair, reserve and orderbook signer bindings are absent. These read-only
+observations preceded the transactions below and did not change active validator
+configuration or chain state.
+
+The initial native effective-permission census covered all **2,074 publicly visible
+accounts** and one additional account visible to the signed operator. None had
+`CanManageParliament`, a SoraFS permission, or `CanManageRoles`. The permission
+endpoint advertises `effective-v1` semantics, so these results include role
+grants. Both account inventories reached their terminal cursors, and all 2,075
+permission reads completed, including successful retries of ten initial timeouts.
+This finding covers the observed accessible accounts, not inaccessible external
+dataspace roots. Provider admission, governed worker
+and compliance bindings, capacity and successful three-provider retrieval remain
+required. A configuration flag or a locally generated CAR cannot establish them.
+The exact signed-query outputs, safe configuration projection and evidence hashes
+are retained in
+`output/reviews/execution-stark-20261104-takeover/taira-public-read/`.
+
+Later on November 4, the publisher registration was `Applied` at block **10116**.
+A subsequent ordinary transaction containing four permission grants was
+`Rejected` at block **10117** on its first `CanManageParliament` grant; the other
+three grants were not individually executed. The operator's **14 effective
+permission entries were unchanged**, and the rejected transaction charged
+**0.0232 test XOR**. Active validator configuration and disabled storage remained
+unchanged; no app payload was published. The retained [registration status](../output/reviews/execution-stark-20261104-takeover/taira-public-read/publisher-registration-20261104T0622Z/transaction-status.json),
+[grant rejection readback](../output/reviews/execution-stark-20261104-takeover/taira-public-read/ordinary-authority-grant-readback-20261104T073201Z/confirmed-denial.json)
+and [permission comparison](../output/reviews/execution-stark-20261104-takeover/taira-public-read/ordinary-authority-grant-readback-20261104T073201Z/permission-comparison.json)
+record these subsequent events separately from the earlier read-only census.
+
+On **November 5, 2026 at 00:35 JST (November 4 at 15:35 UTC)**, a fresh
+read-only check returned block **10131** with an empty transaction queue, while
+the public capacity route still returned 404. The operator still had 14 effective
+permission entries and none of the four required management permissions; the
+registered publisher had none. These [release prerequisites](../output/reviews/execution-stark-20261104-takeover/taira-public-read/release-prerequisites-20261104T153502Z/authority-check.json)
+remain unresolved. An unchanged block height on an idle chain does not by itself
+demonstrate a finality failure.
+
+Historical public-read check: on **September 22, 2026 at 08:53:36 UTC**, `/status`,
 `/v1/sumeragi/status` and `/v1/sorafs/capacity/state` each returned HTTP **502**.
 The [retained read report](../output/qualification/taira-public-read-2026-09-22/report.json)
 includes timestamps and response hashes. This is a public ingress observation;
@@ -20,7 +88,9 @@ Prepare and inspect the production directory:
 ```sh
 npm run build
 node scripts/test-static.mjs
-SORA_CARS_IROHA_BIN=/absolute/path/to/reviewed/iroha node scripts/pack-sorafs.mjs
+SORA_CARS_IROHA_BIN=/absolute/path/to/reviewed/iroha \
+SORA_CARS_SORAFS_RETENTION_EPOCH=<reviewed-future-Unix-seconds> \
+node scripts/pack-sorafs.mjs
 ```
 
 Select exactly one native binary. `SORA_CARS_IROHA_BIN` uses the current
@@ -36,8 +106,15 @@ with `SORA_CARS_IROHA_BIN` unset. The standalone route keeps the current native
 `car pack --input=...`, `manifest build`, and `storage prepare` interfaces,
 including the chunk plan, directory payload and file map.
 
-Both routes request three replicas and record the exact native command, binary
-SHA-256 and local static-file inventory under `output/sorafs`. They invoke only
+Both routes require an explicit future `SORA_CARS_SORAFS_RETENTION_EPOCH`, an
+absolute Unix timestamp in seconds, and pass `--pin-retention-epoch` and three
+replicas explicitly. The wrapper rejects missing, expired or unsafe integer
+deadlines before spawning, requires the native manifest policy to match exactly,
+and checks the deadline again before retaining the final package. A retention
+epoch is not a duration; historical manifests containing `86400` are expired and
+must never be registered. Both routes record the requested retention, three
+replicas, exact native command, binary SHA-256 and local static-file inventory
+under `output/sorafs`. They invoke only
 local packing commands with no inherited wallet configuration or stdin. The
 wrapper rejects changed build files, symlinks and existing output; set
 `SORA_CARS_SORAFS_OUTPUT` to a new directory to retain another package. Results
@@ -48,7 +125,8 @@ Packaging does not publish the site.
 
 Native-command time budgets scale with the authenticated input inventory: ten
 minutes per started GiB, with a ten-minute minimum and a one-hour maximum. The
-complete 2,563,048,355-byte soundtrack payload receives thirty minutes. The
+historical 2,563,048,355-byte soundtrack payload and the current
+3,080,005,900-byte payload each receive thirty minutes. The
 receipt records the payload size and selected budget. Output-size, unchanged-input,
 binary-hash and native commitment checks remain in force. This addresses the
 October 28 full-payload attempt that reached CAR emission but exceeded the old

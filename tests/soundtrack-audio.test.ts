@@ -7,6 +7,8 @@ import test from 'node:test';
 import { makeScore, MUSIC_LIBRARY } from '../src/game/music-score.ts';
 import suppliedRecordings from '../src/game/music-supplied-recordings.json';
 import { composeStreetSong, STREET_ROUTE_SONGS } from '../src/game/street/route-songs.ts';
+import qualification from './fixtures/soundtrack-export-2026-10-28/qualification.json';
+import { compileAudioSource, traceSoundtrack } from './helpers/soundtrack-renderer-trace.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(path.join(root, 'public/assets/music/audio/manifest.json'), 'utf8'));
@@ -138,8 +140,51 @@ test('supplied-recording conversion pins its separate source definition and expo
   }
 });
 
-test('audio manifest pins the score, synthesizer and reproducible export sources', () => {
-  for (const source of ['src/game/audio.ts', 'src/game/music-synth.ts', 'src/game/music-composer.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs']) {
-    assert.equal(createHash('sha256').update(readFileSync(path.join(root, source))).digest('hex'), manifest.sourceHashes[source], `${source} changed: rebuild soundtrack before shipping it`);
+const exportSources = ['src/game/audio.ts', 'src/game/music-synth.ts', 'src/game/music-composer.ts', 'src/game/music-score.ts', 'src/game/music-themes.ts', 'src/game/music-cues.ts', 'scripts/export-soundtrack.mjs'];
+const sourceText = (source: string) => readFileSync(path.join(root, source), 'utf8');
+const sha256 = (source: string) => createHash('sha256').update(source).digest('hex');
+
+function verifyQualifiedSources(read = sourceText): void {
+  assert.deepEqual(Object.keys(manifest.sourceHashes).sort(), [...exportSources].sort(), 'the original export source inventory stays closed');
+  assert.equal(qualification.schema, 'sora-cars-soundtrack-source-qualification-v1');
+  assert.equal(qualification.historicalAudio.sha256, manifest.sourceHashes['src/game/audio.ts']);
+  assert.equal(sha256(read(qualification.historicalAudio.file)), manifest.sourceHashes['src/game/audio.ts'], 'historical renderer fixture is the exact exported source');
+  assert.equal(qualification.historicalCues.sha256, manifest.sourceHashes['src/game/music-cues.ts']);
+  assert.deepEqual(Object.keys(qualification.reviewedCurrentSources).sort(), ['src/game/audio.ts', 'src/game/music-cues.ts', 'src/game/story-place-themes.ts']);
+  for (const [source, expected] of Object.entries(qualification.reviewedCurrentSources)) {
+    assert.equal(sha256(read(source)), expected, `${source} changed: independently review renderer compatibility before changing this qualification`);
+  }
+  for (const source of exportSources.filter(source => !Object.hasOwn(qualification.reviewedCurrentSources, source))) {
+    assert.equal(sha256(read(source)), manifest.sourceHashes[source], `${source} changed: qualify and export the changed soundtrack before shipping it`);
+  }
+}
+
+test('historic export provenance and exact qualified current renderer sources are independently pinned', () => {
+  verifyQualifiedSources();
+});
+
+test('source qualification rejects renderer, synthesis, cue, import dependency and historical fixture drift', () => {
+  for (const source of [...exportSources, 'src/game/story-place-themes.ts', qualification.historicalAudio.file]) {
+    assert.throws(() => verifyQualifiedSources(file => sourceText(file) + (file === source ? '\n// unreviewed change\n' : '')),
+      { name: 'AssertionError' }, source);
+  }
+});
+
+test('current renderer preserves every complete released score and its synthesizer schedule', () => {
+  verifyQualifiedSources();
+  const historical = compileAudioSource(sourceText(qualification.historicalAudio.file));
+  const current = compileAudioSource(sourceText('src/game/audio.ts'));
+  MUSIC_LIBRARY.forEach((song, index) => {
+    assert.deepEqual(traceSoundtrack(current, index), traceSoundtrack(historical, index), `${song.file}: complete Web Audio schedule matches the manifest-pinned renderer`);
+  });
+});
+
+test('renderer comparison detects actual mix, timing and voice-duration changes', () => {
+  const source = sourceText('src/game/audio.ts'), baseline = traceSoundtrack(compileAudioSource(source), 0);
+  for (const [before, after] of [['headroom.gain.value = .3;', 'headroom.gain.value = .31;'],
+    ['lead: .08', 'lead: .09'], ['note.duration * beat,', 'note.duration * beat * 1.01,']]) {
+    assert.ok(source.includes(before!));
+    const changed = traceSoundtrack(compileAudioSource(source.replace(before!, after!)), 0);
+    assert.notEqual(changed.sha256, baseline.sha256, `detect ${before}`);
   }
 });

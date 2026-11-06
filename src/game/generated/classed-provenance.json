@@ -9,61 +9,61 @@
   "compiledIntoNativeRegistry": false,
   "generator": {
     "scriptSha256": "878bbddb80c867b527e2e55b7a6344661b49c18f4d77ab23120453e529914a57",
-    "lifecycleSha256": "53abb0aac5008f57a78f85d7aab4ad3c29ae422de5f54659d91a4b8788477a9f",
+    "lifecycleSha256": "503cf686ce1d023593c20b0958f190ee4b838606a39c039be93864efc32cb076",
     "sourceVerifierSha256": "54ebc7321b4e964ee5f1f1a7d202e794a7cac5ca2caebe92f0551821771daf4e",
     "boundedIoSha256": "520092e89fdcc9a4ba872c10238dea9ebc21289b897094cc4b9edaaa13f42531",
     "nativeLauncherSha256": "7a27cad34c4085dc89edf92749d7e140cb2741ec116646b6c704ac8acef6e9dc"
   },
-  "nativeCliSha256": "f681726784e4f533ae684c9bb071febeb6af336481935c9d78fe8d381241d188",
+  "nativeCliSha256": "a8c4970200eaa3dcf7cc0a055fb2d35a8cddb782f489f9e29bfd996cb3670413",
   "nativeRoot": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
   "capturedBinary": {
-    "path": "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
-    "bytes": 127423808,
-    "sha256": "f681726784e4f533ae684c9bb071febeb6af336481935c9d78fe8d381241d188",
+    "path": "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-9W9yMk/iroha",
+    "bytes": 130263760,
+    "sha256": "a8c4970200eaa3dcf7cc0a055fb2d35a8cddb782f489f9e29bfd996cb3670413",
     "launcher": {
       "source": "/Users/takemiyamakoto/dev/iroha-sora-cars-native/javascript/iroha_js/verify-pinned-native.mjs",
-      "retained": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/native-launcher.mjs",
+      "retained": "/Users/takemiyamakoto/dev/sora-cars/output/reviews/execution-stark-20261104-takeover/app-retry2-20261104T045242Z/app-touring-export-20261104T060620Z/native-launcher.mjs",
       "bytes": 6187,
       "sha256": "7a27cad34c4085dc89edf92749d7e140cb2741ec116646b6c704ac8acef6e9dc"
     }
   },
-  "exportEvidenceDir": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final",
+  "exportEvidenceDir": "/Users/takemiyamakoto/dev/sora-cars/output/reviews/execution-stark-20261104-takeover/app-retry2-20261104T045242Z/app-touring-export-20261104T060620Z",
   "commands": [
     {
       "argv": [
-        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
+        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-9W9yMk/iroha",
         "--machine",
         "app",
         "execution",
         "export-touring-kernels",
         "--output-file",
-        "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/classed-race-v1-kernels.json"
+        "/Users/takemiyamakoto/dev/sora-cars/output/reviews/execution-stark-20261104-takeover/app-retry2-20261104T045242Z/app-touring-export-20261104T060620Z/classed-race-v1-kernels.json"
       ],
       "cwd": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
-      "pid": 13410,
+      "pid": 55672,
       "exitCode": 0,
       "signal": null,
       "timedOut": false
     },
     {
       "argv": [
-        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-EeebQV/iroha",
+        "/private/var/folders/7l/w31n0ppj4zg874c4szhllss00000gn/T/iroha-verified-artifact-9W9yMk/iroha",
         "--machine",
         "app",
         "execution",
         "export-touring-parity",
         "--output-file",
-        "/Users/takemiyamakoto/dev/sora-cars/output/qualification/codex-proof-takeover-20261025/memory/touring-export-final/native-classed-race-v1.json"
+        "/Users/takemiyamakoto/dev/sora-cars/output/reviews/execution-stark-20261104-takeover/app-retry2-20261104T045242Z/app-touring-export-20261104T060620Z/native-classed-race-v1.json"
       ],
       "cwd": "/Users/takemiyamakoto/dev/iroha-sora-cars-native",
-      "pid": 13412,
+      "pid": 55673,
       "exitCode": 0,
       "signal": null,
       "timedOut": false
     }
   ],
   "rulesHash": "f510a7897ed4469cc896297336188630710b4dd6a4110e91e01b84a6d8d69fab",
-  "profileId": "c5326256b3d4fa93059fe1ae7ad3c3b783538e654be3b48b330a5a913cee2ca7",
+  "profileId": "2a167306a7b6a73803e0ef747a130f9121ec1a6ef377277a76c10aaa8f57909d",
   "sources": {
     "environment.rs": "484e90c7a818edc08a52dd381ac1cb129eb94e20fc80952aff82a88e931ddbd2",
     "environment_air.rs": "12cd1876844cdf738fe39438c835ffb724a8a32ab85080492be0dadffa41ee3c",
@@ -76,7 +76,7 @@
     "crates/fastpq_isi/src/assets/poseidon_goldilocks_width3_v1.bin": "7b30fe50faeddb74a7433bc65a43b7c6b46484b36eab5a65869e08894166dfde",
     "crates/fastpq_isi/src/params.rs": "a760177d05cd9efab983772837cfe1bfe7a541b24cbd7334ebe633a5f0b585b1",
     "crates/fastpq_isi/src/poseidon.rs": "1cf89ff798f7b029462b278429aa44e36eb4cf61ef7032e8fb2813bed4dabb84",
-    "crates/fastpq_isi/src/poseidon_digest384.rs": "c5a17d1b2315b31ab6056a4f2f0637188525d88a1178a39c3dd0bc6b9f764a6a",
+    "crates/fastpq_isi/src/poseidon_digest384.rs": "a68097db8ce8eecb5cac420297144fd20984274d62bd67e9b57801ea780058e7",
     "crates/iroha_core/src/execution_proofs/checked_integer_air.rs": "b579ccc43663fc8a0377b2937395ff4e1148f39eb9b45b07274d95899b78a6a1",
     "crates/iroha_core/src/execution_proofs/classed_race_v1/admission.rs": "f46f486766c5f01e462588e37ab430511926405596fa80907c1cbf1fb10b591e",
     "crates/iroha_core/src/execution_proofs/classed_race_v1/environment.rs": "484e90c7a818edc08a52dd381ac1cb129eb94e20fc80952aff82a88e931ddbd2",
@@ -100,7 +100,7 @@
     "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_deep_air.rs": "50aeb650ca5860f6ed8fc5981e2813155a9ee2b2cc4f95d2ea0f2343e6b32248",
     "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_execution_fixed.rs": "572deae5b8eae7167e610d63613f52afffcc313a9b2babf3f0894fb03b98c75e",
     "crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs": "f39239c7a85496af6bd42bee1d6d0815d48bcc17aa70546b589c5dd4a819734b",
-    "crates/iroha_core/src/privacy_engines/transparent_stark.rs": "c51b2752fda6b4638a0a85a63b5661ceab8a798bbfb41b0cb9a04c0a55da36b5",
+    "crates/iroha_core/src/privacy_engines/transparent_stark.rs": "e4bc85b30f3a9cf9a56a5f45c44b19c37bae9865795125fad8f558e7b2ef471c",
     "crates/iroha_crypto/src/lib.rs": "0abaf3365686e40ccbc871e1061ba3f1b3af48978176bcaf61036a0ed39b69c0",
     "crates/iroha_crypto/src/sha3_384.rs": "68df417212fb126d312440b81ba171351468123f3747f80376d3bcc772818f23",
     "crates/iroha_crypto/src/signature/ed25519.rs": "400351f3a0337b1b40a560b33b3aaf4b8b77080ca93e4b1a2d449b41fa81a7dc",

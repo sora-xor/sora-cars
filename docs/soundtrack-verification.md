@@ -2,6 +2,42 @@
 
 The active goal includes a real release. Local tests do not establish issuance, live payment, delivery or publication.
 
+## November 4 source compatibility qualification
+
+The 25 synthesized recordings retain their exact October 28 export records and
+all 75 file hashes. Their serialized `{sourceHashes, tracks}` remains SHA-256
+`bfd0660749b2a0d47f4da526cbbf192e9412b94556f2f3b14fe4280b94109ef2`.
+No audio asset or historical source hash was regenerated for this qualification.
+
+The current renderer also handles cutscene silence, several transition modes,
+outgoing songs, street themes and audition scores. Its full-file hash therefore
+differs from the export's source. The exact export-era `audio.ts` was recovered
+from retained Claude file history; its SHA-256 matches the immutable manifest's
+`01886ae338b0055cd1f45eaf0209ea8d9ddc4c389e0e7a81b3b14fcd072d008b`.
+The preceding Git commit alone does not reproduce those then-uncommitted bytes.
+The fixture and its provenance are retained in
+`tests/fixtures/soundtrack-export-2026-10-28/`.
+
+`tests/soundtrack-audio.test.ts` separately pins the exact reviewed current
+renderer, cue sheets and new story-theme dependency. It still requires every
+score, instrument, composer and exporter byte to match the export's hashes.
+Cue sheets enter the renderer only through TypeScript types. The new runtime
+story-theme module has no export-path calls or import-time side effects beyond
+its declarations and private empty cache; its own imports are already pinned.
+
+The test executes both historical and current renderer sources through all 25
+complete scores with the actual synthesizer, recording graph creation,
+connections, parameter writes, instrument scheduling, generated drum/reverb
+buffers and note times. It follows the exporter's 44.1 kHz, volume and eight-second
+scheduling windows. Only redundant same-value writes at time zero immediately
+after holding that parameter are normalized: `glide` adds these when retiring
+the unvoiced initial layer. Later automation remains exact. Drift checks also
+demonstrate detection of mix, timing, duration and dependency changes.
+
+This is source and scheduling compatibility evidence. It does not claim a new
+PCM render, cross-browser DSP bit identity, or publication. Every existing
+download and preview is still independently hashed against its original record.
+
 ## Current October 28 corrections
 
 The collection has 26 recordings by **SORA Cars**. The Tokyo title is exactly

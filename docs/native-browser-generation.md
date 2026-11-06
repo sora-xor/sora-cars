@@ -14,9 +14,11 @@ SORA_CARS_NATIVE_EXPORT_DIR=/absolute/sora-cars/output/qualification/native-stoc
 node scripts/generate-native.mjs
 ```
 
-This stages the exact outputs of `iroha --machine app execution export-kernels --output-file …` and `export-parity --output-file …`. It retains command arguments, process exit information, stdout/stderr logs, artifact hashes, source snapshots and a final report. The CLI is hashed before, between and after the commands; the closed 21-file profile inventory must remain unchanged and match the compiled export. Only paths from that local inventory are read. No Cargo command runs, and no native checkout is written by this workflow.
+This stages the exact outputs of `iroha --machine app execution export-kernels --output-file …` and `export-parity --output-file …`. It retains command arguments, process exit information, stdout/stderr logs, artifact hashes, source snapshots and a final report. The CLI is hashed before, between and after the commands. The closed verifier inventory and five-file browser arithmetic inventory must each match the selected checkout; browser source bytes are checked independently, including files outside the verifier inventory. The union of both closed inventories is captured before and after export and must remain unchanged. Only paths from these local inventories are read. No Cargo command runs, and no native checkout is written by this workflow.
 
 Before installation, validation requires fixed prefix 9, all 21 uniquely ordered track/player grids, complete control/layout counts, 5,400 inputs for each eight-player reference, valid bounded controls, initial and terminal snapshots, full terminal standings, and matching compiled source/rules identities. Each JSON export has a finite byte limit. Exact browser arithmetic/reference parity remains a separate test gate after installation.
+
+Stock's verifier inventory includes the generic execution-STARK engine and the native adapter's complete history, certificate and record-binding sources. It conservatively retains earlier source pins; those pins do not select an alternate proof backend. The engine's security target does not qualify the composed record-binding, certificate, admission and settlement protocol.
 
 For a coordinated source freeze, add `--install` using another fresh evidence directory. This repeats both native exports and validation, then installs only these three files:
 
@@ -53,7 +55,7 @@ Omit `--install` to stage only. The dedicated commands must emit the actual `Cla
 - [native-classed-race-v1.json](../tests/fixtures/native-classed-race-v1.json)
 - [classed-provenance.json](../src/game/generated/classed-provenance.json)
 
-Touring retains a closed 26-file verifier inventory and a closed six-file arithmetic source map. Every arithmetic digest must equal its corresponding full-profile digest and every profile digest must match the selected checkout. Its `profile_id`, `rules_hash` and reference source digest must agree across the two outputs. Stock's source inventory, artifacts, profile and parameters cannot substitute for Touring's.
+Touring retains its own closed verifier inventory and a closed six-file arithmetic source map. Every arithmetic digest must equal its corresponding full-profile digest and every profile digest must match the selected checkout. Its `profile_id`, `rules_hash` and reference source digest must agree across the two outputs. Stock's source inventory, artifacts, profile and parameters cannot substitute for Touring's.
 
 Touring validation requires the complete 21-grid arithmetic catalog, bounded backward-only circuit references, seven state columns per car, fixed prefix 9, six-tick batches, 3 laps, all 64 controls, environment descriptors and initial-state parity. The reference corpus must retain the two-player 1,200-tick and three-to-seven-player 600-tick technical wins, each track's full 5,400-tick eight-player run, exact ordered DNF boundaries, every per-tick diagnostic checksum, required snapshots and terminal standings. Snapshot bytes are checked against their diagnostic hashes. These export-only SHA-256 checksums are **not ledger state commitments**.
 

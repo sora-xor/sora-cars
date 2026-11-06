@@ -1,0 +1,24 @@
+{
+  "schema": "sora-cars-soundtrack-source-qualification-v1",
+  "historicalAudio": {
+    "file": "tests/fixtures/soundtrack-export-2026-10-28/audio.ts.txt",
+    "sha256": "01886ae338b0055cd1f45eaf0209ea8d9ddc4c389e0e7a81b3b14fcd072d008b",
+    "recoveredFrom": "Claude file-history/e8f9eeb2-4f0d-425b-a3d5-ac799c81611a/75430b36cd661794@v1; exact bytes match the October 28 export manifest, including its then-uncommitted synthesizer integration"
+  },
+  "historicalCues": {
+    "sha256": "45aa5652dd1aa5cb2fe37b05600889dddb6f8a8dc6a8a161e020a78ecafdacd7",
+    "gitSource": "624478f226c3d67469c06c81794a77280b829d8a:src/game/music-cues.ts"
+  },
+  "reviewedCurrentSources": {
+    "src/game/audio.ts": "c82cd719e061d249322049127c417be2416b3a719c4c4727bb33aeff8eb2e400",
+    "src/game/music-cues.ts": "53ec77cd42598faa0e8c468105b0d6dcdcb1d8e98e99fa3b924c037ada646dbc",
+    "src/game/story-place-themes.ts": "06fcb8c4e65e929b8c9d4046a56b250be2e5a71b3e6457fc6a95001303bd1684"
+  },
+  "reviewedChanges": [
+    "The current audio source adds cutscene silence, transition modes, continuing outgoing transports, diagnostics and setScore. Its default fade remains out=.72/in=.78/lead=.08. The single-score export invokes none of the new cutscene/diagnostic/audition entry points.",
+    "The old scheduling loop is extracted into #play. Every note, instrument call, graph operation and generated buffer is compared with the manifest-pinned historical source for all 25 complete scores using the exporter's 44.1 kHz, volume and eight-second scheduling windows.",
+    "Only redundant time-zero same-value AudioParam writes after cancelAndHoldAtTime are normalized. These were added by glide when retiring the unvoiced initial layer. This comparison is an API scheduling qualification, not a claim of newly rendered PCM or browser DSP bit identity.",
+    "music-cues.ts is imported only as types by the renderer. Its historical hash stays in the immutable manifest; revised transitions, dialogue and street cue sheets are separately pinned here.",
+    "The added runtime story-place-themes import contains declarations and an empty private Map at module evaluation; its functions are not called by the export path. Its imports are the already pinned music-composer and music-score. This new module is separately pinned to prevent unreviewed side effects."
+  ]
+}

@@ -13,6 +13,19 @@ export function selectNativePacker(env) {
   if (!isAbsolute(binary)) throw new Error('The reviewed native packer path must be absolute.');
   return { binary, mode: toolkit ? 'iroha-toolkit' : 'standalone' };
 }
+function validateRetentionEpoch(retentionEpoch) {
+  if (!Number.isSafeInteger(retentionEpoch) || retentionEpoch <= Math.floor(Date.now() / 1000)) {
+    throw new Error('SoraFS retention must be an explicit future Unix timestamp in seconds represented as a safe integer.');
+  }
+  return retentionEpoch;
+}
+export function selectNativeRetentionEpoch(env) {
+  const value = env.SORA_CARS_SORAFS_RETENTION_EPOCH;
+  if (typeof value !== 'string' || !/^[1-9][0-9]*$/.test(value)) {
+    throw new Error('Set SORA_CARS_SORAFS_RETENTION_EPOCH to an explicit future Unix timestamp in seconds.');
+  }
+  return validateRetentionEpoch(Number(value));
+}
 async function digestFile(path, algorithm = 'sha256') {
   const hash = algorithm === 'blake3' ? blake3.create() : createHash('sha256');
   for await (const bytes of createReadStream(path)) hash.update(bytes);
@@ -56,7 +69,7 @@ async function run(binary, args, cwd, timeoutMs) {
     });
   });
 }
-async function validateToolkitReport(out) {
+async function validateToolkitReport(out, retentionEpoch) {
   const reportPath = join(out, 'sora-cars.pack.json');
   if ((await stat(reportPath)).size > 8 * 1024 * 1024) throw new Error('Native pack report exceeds its bound.');
   const report = JSON.parse(await readFile(reportPath, 'utf8'));
@@ -73,6 +86,7 @@ async function validateToolkitReport(out) {
       || report.manifest_digest_hex !== manifestDigest || manifest.digest_hex !== manifestDigest
       || report.manifest_size !== bytes.length || manifest.manifest_len !== bytes.length || !bytes.length
       || manifest.manifest_hex !== bytes.toString('hex') || manifest.pin_policy?.min_replicas !== 3
+      || manifest.pin_policy.retention_epoch !== retentionEpoch
       || !Array.isArray(manifest.alias_claims) || manifest.alias_claims.length !== 0
       || !Array.isArray(report.chunk_digests) || report.chunk_count !== report.chunk_digests.length
       || report.chunk_count < 1 || report.por_chunk_count !== report.chunk_count
@@ -80,11 +94,27 @@ async function validateToolkitReport(out) {
       || !/^[0-9a-f]{64}$/.test(report.por_root_hex) || manifest.por_root_hex !== report.por_root_hex) {
     throw new Error('Native Toolkit report does not match the CAR, Norito manifest, CID-only policy and chunk commitments.');
   }
-  return { native_root_cid_hex: report.car_root_hex, car_archive_blake3: carDigest, manifest_blake3: manifestDigest, requested_replicas: 3 };
+  return { native_root_cid_hex: report.car_root_hex, car_archive_blake3: carDigest, manifest_blake3: manifestDigest, requested_replicas: 3, retention_epoch: retentionEpoch };
+}
+async function validateStandaloneManifestPolicy(out, retentionEpoch) {
+  const readJson = async name => {
+    const path = join(out, name);
+    if ((await stat(path)).size > 8 * 1024 * 1024) throw new Error('Native manifest report exceeds its bound.');
+    return JSON.parse(await readFile(path, 'utf8'));
+  };
+  const manifest = await readJson('sora-cars.manifest.json');
+  const summary = await readJson('native-1.stdout.log');
+  const policyMatches = policy => policy?.min_replicas === 3 && policy.retention_epoch === retentionEpoch;
+  if (!policyMatches(manifest.pin_policy) || !policyMatches(summary.pin_policy)
+      || !Array.isArray(manifest.alias_claims) || manifest.alias_claims.length !== 0
+      || summary.manifest_digest_hex !== await digestFile(join(out, 'sora-cars.manifest.to'), 'blake3')) {
+    throw new Error('Native standalone manifest does not match the requested retention, three replicas, CID-only policy and manifest digest.');
+  }
 }
 
-export async function packSoraFs({ binary, mode, root = resolve('dist'), out = resolve('output/sorafs') }) {
+export async function packSoraFs({ binary, mode, retentionEpoch, root = resolve('dist'), out = resolve('output/sorafs') }) {
   if (!isAbsolute(binary) || !['iroha-toolkit', 'standalone'].includes(mode)) throw new Error('Select an absolute reviewed native packer and explicit supported mode.');
+  validateRetentionEpoch(retentionEpoch);
   root = resolve(root); out = resolve(out);
   const outputRelativeToInput = relative(root, out);
   if (outputRelativeToInput === '' || (!isAbsolute(outputRelativeToInput) && outputRelativeToInput !== '..' && !outputRelativeToInput.startsWith(`..${sep}`))) throw new Error('Package output must be outside the static input directory.');
@@ -98,10 +128,10 @@ export async function packSoraFs({ binary, mode, root = resolve('dist'), out = r
   const staging = await mkdtemp(join(dirname(out), `.${basename(out)}-`));
   const path = name => join(staging, name);
   const commands = mode === 'iroha-toolkit' ? [
-    ['--machine', 'app', 'sorafs', 'toolkit', 'pack', root, '--car-out', path('sora-cars.car'), '--manifest-out', path('sora-cars.manifest.to'), '--json-out', path('sora-cars.pack.json')],
+    ['--machine', 'app', 'sorafs', 'toolkit', 'pack', root, '--car-out', path('sora-cars.car'), '--manifest-out', path('sora-cars.manifest.to'), '--json-out', path('sora-cars.pack.json'), '--pin-min-replicas', '3', '--pin-retention-epoch', String(retentionEpoch)],
   ] : [
     ['car', 'pack', `--input=${root}`, `--car-out=${path('sora-cars.car')}`, `--plan-out=${path('sora-cars.plan.json')}`, `--summary-out=${path('sora-cars.car.json')}`],
-    ['manifest', 'build', `--summary=${path('sora-cars.car.json')}`, `--manifest-out=${path('sora-cars.manifest.to')}`, `--manifest-json-out=${path('sora-cars.manifest.json')}`, '--pin-min-replicas=3', '--metadata=app=sora-cars', '--metadata=publication=CidOnly'],
+    ['manifest', 'build', `--summary=${path('sora-cars.car.json')}`, `--manifest-out=${path('sora-cars.manifest.to')}`, `--manifest-json-out=${path('sora-cars.manifest.json')}`, '--pin-min-replicas=3', `--pin-retention-epoch=${retentionEpoch}`, '--metadata=app=sora-cars', '--metadata=publication=CidOnly'],
     ['storage', 'prepare', `--manifest=${path('sora-cars.manifest.to')}`, `--payload=${root}`, `--payload-out=${path('sora-cars.payload.bin')}`, `--files-out=${path('sora-cars.files.json')}`, `--summary-out=${path('sora-cars.storage.json')}`],
   ];
   try {
@@ -111,15 +141,19 @@ export async function packSoraFs({ binary, mode, root = resolve('dist'), out = r
       await writeFile(path(`native-${index}.stderr.log`), result.stderr);
     }
     let native = null;
-    if (mode === 'iroha-toolkit') native = await validateToolkitReport(staging);
-    else for (const name of ['sora-cars.car', 'sora-cars.plan.json', 'sora-cars.manifest.to', 'sora-cars.payload.bin', 'sora-cars.files.json', 'sora-cars.storage.json']) {
-      if ((await stat(path(name))).size === 0) throw new Error(`Native packer emitted empty ${name}.`);
+    if (mode === 'iroha-toolkit') native = await validateToolkitReport(staging, retentionEpoch);
+    else {
+      for (const name of ['sora-cars.car', 'sora-cars.plan.json', 'sora-cars.manifest.to', 'sora-cars.payload.bin', 'sora-cars.files.json', 'sora-cars.storage.json']) {
+        if ((await stat(path(name))).size === 0) throw new Error(`Native packer emitted empty ${name}.`);
+      }
+      await validateStandaloneManifestPolicy(staging, retentionEpoch);
     }
     if (JSON.stringify(await inventory(root)) !== JSON.stringify(files)) throw new Error('Static build changed during native packing. Rebuild and repack before publication.');
     if (await digestFile(binary) !== binarySha256) throw new Error('Native packer binary changed during packaging.');
     await writeFile(path('files.json'), JSON.stringify({ version: 1, kind: 'sora-cars-static-inventory', published: false, files }, null, 2));
-    const receipt = { version: 1, kind: 'sora-cars-local-native-pack', mode, binary, binary_sha256: binarySha256, source_commit_authenticated: false, source_payload_bytes: sourcePayloadBytes, native_timeout_ms: nativeTimeoutMs, commands, native, published: false, provider_availability_verified: false, provider_payload_prepared: mode === 'standalone' };
+    const receipt = { version: 1, kind: 'sora-cars-local-native-pack', mode, binary, binary_sha256: binarySha256, source_commit_authenticated: false, source_payload_bytes: sourcePayloadBytes, native_timeout_ms: nativeTimeoutMs, requested_replicas: 3, retention_epoch: retentionEpoch, commands, native, published: false, provider_availability_verified: false, provider_payload_prepared: mode === 'standalone' };
     await writeFile(path('local-pack.json'), JSON.stringify(receipt, null, 2));
+    validateRetentionEpoch(retentionEpoch);
     await rename(staging, out);
     return receipt;
   } catch (error) { await rm(staging, { recursive: true, force: true }); throw error; }
@@ -127,6 +161,6 @@ export async function packSoraFs({ binary, mode, root = resolve('dist'), out = r
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const out = resolve(process.env.SORA_CARS_SORAFS_OUTPUT || 'output/sorafs');
-  const result = await packSoraFs({ ...selectNativePacker(process.env), out });
+  const result = await packSoraFs({ ...selectNativePacker(process.env), retentionEpoch: selectNativeRetentionEpoch(process.env), out });
   console.log(`Native ${result.mode} CAR and Norito manifest prepared in ${out}. No upload, publication or provider availability is claimed.${result.provider_payload_prepared ? ' Separate provider payload included.' : ' Provider ingestion payload remains a separate native step.'}`);
 }

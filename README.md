@@ -182,7 +182,7 @@ coefficient and inspect or download the exact teaching values. Animation pauses
 and respects reduced-motion preferences; keyboard arrows navigate the steps.
 
 The F17/SHA-256 examples are educational, not native proofs. The page explains
-Goldilocks/Fp4, Poseidon2, DEEP linking, range constraints and the unqualified
+Goldilocks/Fp4, BLAKE2b-384 Stock proof commitments, DEEP linking, range constraints and the unqualified
 security target separately. Its download is explicitly a teaching bundle and
 cannot be used to settle a race. See [workshop mathematics](docs/proof-workshop.md)
 and [independent settlement verification](docs/finalized-settlement.md).
@@ -594,12 +594,21 @@ Regenerate the browser arithmetic and all 21 reference transcripts with a freshl
 built native CLI:
 
 ```sh
-SORA_CARS_IROHA_CLI=/absolute/path/to/iroha npm run generate:native
+SORA_CARS_IROHA_ROOT=/absolute/path/to/iroha-sora-cars-native \
+SORA_CARS_IROHA_CLI=/absolute/path/to/iroha \
+SORA_CARS_IROHA_CLI_SHA256=<independently-recorded-sha256> \
+SORA_CARS_NATIVE_EXPORT_DIR=/absolute/new/evidence-directory \
+npm run generate:native -- --install
 npm test
 ```
 
 The generator rejects a CLI whose embedded source identities differ from the
 sibling checkout. Parity checks include exact terminal standings and winners.
+Stock's adapter now uses the generic bounded-integer execution-STARK engine
+while preserving supplied checkpoints, accepted/finalized history and source-record
+binding. Its composed security qualification remains false. See
+[native browser generation](docs/native-browser-generation.md) for the separate
+Stock and Touring export procedures and their source checks.
 At 180 seconds, eligible distance leaders win if nobody finished; exact ties
 split the prize. Consensus forfeits rank below eligible racers.
 

@@ -1,6 +1,6 @@
 import { isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { NATIVE_PROFILE_SOURCES, verifyNativeSources } from './lib/native-sources.mjs';
+import { NATIVE_SOURCE_PATHS, verifyNativeSources } from './lib/native-sources.mjs';
 import { generateNativeArtifacts } from './lib/native-artifact-generation.mjs';
 
 const APP_ROOT = fileURLToPath(new URL('../', import.meta.url));
@@ -62,7 +62,7 @@ export async function generateNative(options) {
       'native-race-v1.json': 'tests/fixtures/native-race-v1.json',
       'provenance.json': 'src/game/generated/provenance.json',
     },
-    sourcePaths: NATIVE_PROFILE_SOURCES, verifySources: verifyNativeSources,
+    sourcePaths: NATIVE_SOURCE_PATHS, verifySources: verifyNativeSources,
     validateExports: validateNativeExports,
     kernelCommand: 'export-kernels', parityCommand: 'export-parity',
     kernelFile: 'race-v1-kernels.json', parityFile: 'native-race-v1.json', provenanceFile: 'provenance.json',

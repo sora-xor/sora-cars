@@ -13,7 +13,6 @@ export const NATIVE_PROFILE_SOURCES = Object.freeze([
   "crates/iroha_core/src/execution_proofs/integer_air.rs",
   "crates/iroha_core/src/execution_proofs/integer_air/weighted.rs",
   "crates/iroha_core/src/execution_proofs/race_air.rs",
-  "crates/iroha_core/src/execution_proofs/staged_race_air.rs",
   "crates/iroha_core/src/execution_proofs/proof.rs",
   "crates/iroha_core/src/execution_proofs/record_binding.rs",
   "crates/iroha_core/src/execution_proofs/guarded/accepted_history.rs",
@@ -34,7 +33,29 @@ export const NATIVE_PROFILE_SOURCES = Object.freeze([
   "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark.rs",
   "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_deep_air.rs",
   "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_execution_fixed.rs",
+  "crates/iroha_execution_stark/src/lib.rs",
+  "crates/iroha_execution_stark/src/air.rs",
+  "crates/iroha_execution_stark/src/circuit.rs",
+  "crates/iroha_execution_stark/src/field.rs",
+  "crates/iroha_execution_stark/src/fri.rs",
+  "crates/iroha_execution_stark/src/hash.rs",
+  "crates/iroha_execution_stark/src/merkle.rs",
+  "crates/iroha_execution_stark/src/ntt.rs",
+  "crates/iroha_execution_stark/src/params.rs",
+  "crates/iroha_execution_stark/src/proof.rs",
+  "crates/iroha_execution_stark/src/prover.rs",
+  "crates/iroha_execution_stark/src/trace.rs",
+  "crates/iroha_execution_stark/src/transcript.rs",
+  "crates/iroha_execution_stark/src/verifier.rs",
+  "crates/iroha_execution_stark/src/games/mod.rs",
+  "crates/iroha_execution_stark/src/games/race_v1.rs",
 ]);
+// Browser arithmetic and the verifier may use different implementations. Both closed
+// inventories must be captured and checked, including arithmetic outside the proof profile.
+export const NATIVE_SOURCE_PATHS = Object.freeze([...new Set([
+  ...NATIVE_PROFILE_SOURCES,
+  ...NATIVE_KERNEL_SOURCES.map(name => proofRoot + name),
+])]);
 
 function exactInventory(value, names, label) {
   if (!value || typeof value !== 'object' || Array.isArray(value)
@@ -49,16 +70,19 @@ export async function verifyNativeSources(kernels, readSource) {
   exactInventory(kernels.sources, NATIVE_KERNEL_SOURCES, 'browser');
   exactInventory(kernels.profile_sources, NATIVE_PROFILE_SOURCES, 'profile');
   // Names come from the closed local inventory, never paths supplied by the executable.
-  for (const name of NATIVE_PROFILE_SOURCES) {
+  const hashes = new Map();
+  for (const name of NATIVE_SOURCE_PATHS) {
     const bytes = await readSource(name);
-    const actual = createHash('sha256').update(bytes).digest('hex');
-    if (actual !== kernels.profile_sources[name]) {
+    hashes.set(name, createHash('sha256').update(bytes).digest('hex'));
+  }
+  for (const name of NATIVE_PROFILE_SOURCES) {
+    if (hashes.get(name) !== kernels.profile_sources[name]) {
       throw new Error(`The native CLI is stale for ${name}; rebuild it before generation.`);
     }
   }
   for (const name of NATIVE_KERNEL_SOURCES) {
-    if (kernels.sources[name] !== kernels.profile_sources[proofRoot + name]) {
-      throw new Error(`Native browser and verifier source identities disagree for ${name}.`);
+    if (hashes.get(proofRoot + name) !== kernels.sources[name]) {
+      throw new Error(`The native CLI is stale for browser arithmetic ${name}; rebuild it before generation.`);
     }
   }
 }

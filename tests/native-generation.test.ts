@@ -7,7 +7,7 @@ import { dirname, join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 import { generateNative, nativeGenerationOptions, validateNativeExports } from '../scripts/generate-native.mjs';
 import { nativeSourceRoot } from '../scripts/lib/native-source-root.mjs';
-import { NATIVE_KERNEL_SOURCES, NATIVE_PROFILE_SOURCES } from '../scripts/lib/native-sources.mjs';
+import { NATIVE_KERNEL_SOURCES, NATIVE_PROFILE_SOURCES, NATIVE_SOURCE_PATHS } from '../scripts/lib/native-sources.mjs';
 import originalKernels from '../src/game/generated/race-v1-kernels.json';
 import originalParity from './fixtures/native-race-v1.json';
 
@@ -19,12 +19,14 @@ async function fixture(t: { after: (fn: () => Promise<void>) => void }, behavior
   const appRoot = join(root, 'app'), nativeRoot = join(root, 'native'), binary = join(nativeRoot, 'target/debug/iroha');
   await mkdir(join(appRoot, 'output'), { recursive: true });
   const kernels = structuredClone(originalKernels), parity = structuredClone(originalParity);
-  for (const name of NATIVE_PROFILE_SOURCES) {
+  const hashes: Record<string, string> = {};
+  for (const name of NATIVE_SOURCE_PATHS) {
     const path = join(nativeRoot, name), text = `test-only source: ${name}`;
     await mkdir(dirname(path), { recursive: true }); await writeFile(path, text);
-    (kernels.profile_sources as Record<string, string>)[name] = digest(text);
+    hashes[name] = digest(text);
   }
-  for (const name of NATIVE_KERNEL_SOURCES) (kernels.sources as Record<string, string>)[name] = (kernels.profile_sources as Record<string, string>)[`crates/iroha_core/src/execution_proofs/${name}`]!;
+  kernels.profile_sources = Object.fromEntries(NATIVE_PROFILE_SOURCES.map(name => [name, hashes[name]!])) as typeof kernels.profile_sources;
+  for (const name of NATIVE_KERNEL_SOURCES) (kernels.sources as Record<string, string>)[name] = hashes[`crates/iroha_core/src/execution_proofs/${name}`]!;
   parity.kernelSha256 = kernels.sources['race.rs'];
   await writeFile(join(nativeRoot, 'kernels.json'), JSON.stringify(kernels));
   await writeFile(join(nativeRoot, 'parity.json'), JSON.stringify(parity));
@@ -67,6 +69,10 @@ test('native export stages immutable evidence without installing and refuses att
   const reportBytes = await readFile(join(options.evidenceDir, 'report.json'));
   const report = JSON.parse(reportBytes.toString());
   assert.equal(report.commands.length, 2); assert.equal(report.cryptographicQualification, false);
+  const before = JSON.parse(await readFile(join(options.evidenceDir, 'sources-before.json'), 'utf8'));
+  const after = JSON.parse(await readFile(join(options.evidenceDir, 'sources-after.json'), 'utf8'));
+  assert.deepEqual(Object.keys(before), [...NATIVE_SOURCE_PATHS]);
+  assert.deepEqual(after, before);
   for (const command of report.commands) { assert.ok(command.pid > 0); assert.equal(command.exitCode, 0); assert.equal(command.signal, null); }
   await assert.rejects(generateNative(options), /EEXIST/);
   assert.deepEqual(await readFile(join(options.evidenceDir, 'report.json')), reportBytes);
@@ -111,6 +117,13 @@ test('native export rejects source drift during export without replacing existin
   const { options } = await fixture(t, `fs.appendFileSync('crates/iroha_data_model/src/game.rs', '\\nchanged');`);
   await assert.rejects(generateNative({ ...options, install: true }), /sources changed/);
   await assertUnchanged(options.appRoot);
+});
+
+test('native export rejects browser arithmetic drift during export without replacing existing artifacts', async t => {
+  const { options } = await fixture(t, `fs.appendFileSync('crates/iroha_core/src/execution_proofs/environment_air.rs', '\\nchanged');`);
+  await assert.rejects(generateNative({ ...options, install: true }), /sources changed/);
+  await assertUnchanged(options.appRoot);
+  assert.equal(JSON.parse(await readFile(join(options.evidenceDir, 'report.json'), 'utf8')).commands.length, 1);
 });
 
 test('native export preserves invalid native output and rejects installation after the second command', async t => {

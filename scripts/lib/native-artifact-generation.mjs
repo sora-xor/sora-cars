@@ -185,7 +185,7 @@ export async function generateNativeArtifacts(options, profile) {
     if (Object.keys(artifacts).length !== 3 || Object.keys(artifacts).some(name => !Object.hasOwn(limits, name))) throw new Error('Invalid closed native artifact inventory.');
     const sourceNames = new Set(sourcePaths);
     const readSource = async name => {
-      if (!sourceNames.has(name)) throw new Error(`Native source is outside the closed profile inventory: ${name}`);
+      if (!sourceNames.has(name)) throw new Error(`Native source is outside the closed source inventory: ${name}`);
       const path = await realpath(join(nativeRoot, name));
       if (!inside(nativeRoot, path)) throw new Error(`Native source escapes selected checkout: ${name}`);
       return readBoundedNativeFile(path, SOURCE_LIMIT);
@@ -216,7 +216,7 @@ export async function generateNativeArtifacts(options, profile) {
       for (const executable of [binary, capturedPath]) {
         if (await fileDigest(executable, BINARY_LIMIT) !== options.expectedCliSha256) throw new Error('Native CLI digest differs from the independently pinned executable.');
       }
-      if (JSON.stringify(await sourceSnapshot(sourcePaths, readSource)) !== JSON.stringify(before)) throw new Error('Native profile sources changed during export; retain this attempt and retry after source freeze.');
+      if (JSON.stringify(await sourceSnapshot(sourcePaths, readSource)) !== JSON.stringify(before)) throw new Error('Native sources changed during export; retain this attempt and retry after source freeze.');
       for (const [key, path] of Object.entries(generatorFiles)) {
         if (await fileDigest(path, SOURCE_LIMIT) !== generator[key]) throw new Error('Native generator changed during export.');
       }

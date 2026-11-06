@@ -9,17 +9,21 @@ export interface LocalPackReceipt {
   source_commit_authenticated: false;
   source_payload_bytes: number;
   native_timeout_ms: number;
+  requested_replicas: 3;
+  retention_epoch: number;
   commands: string[][];
   native: null | {
     native_root_cid_hex: string;
     car_archive_blake3: string;
     manifest_blake3: string;
     requested_replicas: 3;
+    retention_epoch: number;
   };
   published: false;
   provider_availability_verified: false;
   provider_payload_prepared: boolean;
 }
 export function selectNativePacker(env: Record<string, string | undefined>): NativePackerSelection;
+export function selectNativeRetentionEpoch(env: Record<string, string | undefined>): number;
 export function nativePackTimeoutMs(payloadBytes: number): number;
-export function packSoraFs(options: NativePackerSelection & { root?: string; out?: string }): Promise<LocalPackReceipt>;
+export function packSoraFs(options: NativePackerSelection & { retentionEpoch: number; root?: string; out?: string }): Promise<LocalPackReceipt>;
