@@ -251,6 +251,8 @@ const WOODED: ReadonlySet<PeriodDistrict> = new Set(['forest', 'park', 'rural'])
 const CURBED_VERGE = 3.3;
 /** The road's shoulder strip runs this far past the asphalt at the road's own level (world.ts); the hillside beyond. */
 const SHOULDER = 1.6;
+/** The kerb's walkway top above the road (infrastructure.ts), and the fallen leaves on it per metre and side. */
+const WALKWAY_TOP = .18, WALKWAY_LEAVES = 7;
 /**
  * The ground under a route-frame point, as a height in the frame (0 at the road), or null where there is none. On the
  * climbs the hillside falls or rises away from the shoulder, so verge planting stands on it rather than floating at
@@ -454,6 +456,11 @@ function leafLitter(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, 
       for (let n = 0; n < 10; n++) leaf(b, random, side * (w - .2 - random() * random() * 1.6 + random() * .5), .02, random() - .5, gold);
       const drift = seeded(hashInts(k, side, 1986, 47));
       for (let n = 0; n < extra; n++) leaf(b, drift, side * (w - .15 - drift() * drift() * 1.3 + drift() * .4), .021, drift() - .5, gold);
+      // On the kerb's walkway (finish pass, November 11): it stands 18 cm above the road from 0.31 to 1.6 m beyond the
+      // edge (infrastructure.ts), so leaves strewn there at the road's level lay hidden inside it and no pavement carried
+      // a leaf, where every autumn repaint strews them. Their own stream, so the rest lies where it did.
+      const walk = seeded(hashInts(k, side, 2026, 61));
+      for (let n = 0; n < WALKWAY_LEAVES; n++) leaf(b, walk, side * (w + .38 + walk() * 1.15), WALKWAY_TOP + .012, walk() - .5, gold);
       if (!open) continue;
       // Beyond a retaining wall the verge planting starts at its top, on the hillside above.
       const clear = (off: number) => off > wall;

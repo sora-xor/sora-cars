@@ -3,6 +3,7 @@ import { scannedSurface } from '../surfaces';
 import { awningAtlas } from './awnings';
 import { neonAtlasTexture, signAtlas, VNEON_BOTTOM_V, VNEON_TOP_V } from './signs';
 import type { CityMaterialKey } from './geometry';
+import { sharePavingUniforms } from '../paving-joints';
 
 /**
  * Lighting shared by every city material, set once per frame from the race
@@ -61,7 +62,28 @@ const wallDirectCut = { value: .7 };
 const WALL_GOLDEN_CUT = .5;
 const wallGoldenCut = { value: 0 };
 /** How far a late-day route's golden hours have come (0-1; world.ts, every frame). */
-export function setPeriodCityGolden(golden: number): void { wallGoldenCut.value = WALL_GOLDEN_CUT * THREE.MathUtils.clamp(golden, 0, 1); }
+export function setPeriodCityGolden(golden: number): void {
+  wallGoldenCut.value = WALL_GOLDEN_CUT * THREE.MathUtils.clamp(golden, 0, 1);
+  lanterns.value = lanternGolden.value * THREE.MathUtils.clamp(golden, 0, 1);
+  leafShade.value = leafShadeGolden.value * THREE.MathUtils.clamp(golden, 0, 1);
+}
+/** Leaf shade over a temple's sunlit earthen wall in the golden hours (`tsuiji`): the share of the low key the shade of
+ * the crowns takes where it falls (finish pass, November 11, 2026). Every Sarusawa repaint dapples the wall so; its own
+ * trees stand behind it in the temple grounds, where they cannot shade its sunlit face. 0 for A/B captures. */
+export const leafShadeGolden = { value: .9 };
+const leafShade = { value: 0 };
+/** The share of the walls' golden-hours cut (WALL_GOLDEN_CUT) a temple's earthen wall takes (finish pass, November 12):
+ * dappled by the leaf shade, its sunlit plaster may stand brighter than the town's walls. Sarusawa's true-light repaint
+ * paints it golden ochre at OKLab L .68-.72 with violet-brown leaf shadows, where it measured .58-.68 before the shade
+ * and .51-.58 with it under the full cut. 1 for A/B captures. */
+export const tsuijiGoldenCut = { value: 0 };
+/** How much less of the wall the crowns' shade covers (raises its threshold on the crown field; 0 about half). */
+export const leafShadeCover = { value: .14 };
+/** Stone lanterns' fireboxes (lamp mode 3) in the golden hours, against the night's lamps (1): the finish pass, as the
+ * late-afternoon repaints of Nara's temple walls light them while the street lamps stay off. At .3 the paper glows
+ * amber against the sunlit stone; at .8 it washed out to cream. 0 for A/B captures. */
+export const lanternGolden = { value: .3 };
+const lanterns = { value: 0 };
 /** The nearest street-lamp heads (world xyz; w 1 where a lamp stands) whose spill washes the facades around them. */
 export const cityLampHeads = { value: Array.from({ length: 6 }, () => new THREE.Vector4()) };
 /** The facades' lamp wash at full night (linear light at a lamp's foot). */
@@ -385,18 +407,18 @@ function lampMaterial(): THREE.MeshStandardMaterial {
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, color: '#3a3430', emissive: '#ffffff', roughness: .5 });
   material.name = 'period-city-lamps';
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityLamps = lamps; shader.uniforms.cityTime = time;
+    shader.uniforms.cityLamps = lamps; shader.uniforms.cityTime = time; shader.uniforms.cityLanterns = lanterns;
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'varying vec2 vLampAnimation;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLampAnimation = uv;');
     // Chasing bulbs (pachinko halls, marquees): each bulb's phase runs on the clock.
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform float cityLamps; uniform float cityTime; varying vec2 vLampAnimation;\nvoid main() {')
-      .replace('vec3 totalEmissiveRadiance = emissive;', `vec3 totalEmissiveRadiance = emissive * vColor.rgb * cityLamps
-        * (vLampAnimation.y > 1.5 ? .06 + .94 * step(.62, fract(cityTime * .75 - vLampAnimation.x))
+      .replace('void main() {', 'uniform float cityLamps; uniform float cityTime; uniform float cityLanterns; varying vec2 vLampAnimation;\nvoid main() {')
+      .replace('vec3 totalEmissiveRadiance = emissive;', `vec3 totalEmissiveRadiance = emissive * vColor.rgb * (vLampAnimation.y > 2.5 ? max(cityLamps, cityLanterns) : cityLamps)
+        * (vLampAnimation.y > 2.5 ? 1. : vLampAnimation.y > 1.5 ? .06 + .94 * step(.62, fract(cityTime * .75 - vLampAnimation.x))
           : vLampAnimation.y > .5 ? .18 + .82 * step(.55, fract(cityTime * 1.4 - vLampAnimation.x)) : 1.);`);
   };
-  material.customProgramCacheKey = () => 'period-city-lamps-v3';
+  material.customProgramCacheKey = () => 'period-city-lamps-v4';
   return material;
 }
 
@@ -513,13 +535,56 @@ function awningMaterial(texture: THREE.Texture): THREE.MeshStandardMaterial {
  * warm wash on upright faces, brightest at their foot where the floodlights
  * stand and fading up the facade (UV v is metres above the base / 3). In a late-day route's golden hours the low key
  * lights them less, as it does the walls (WALL_GOLDEN_CUT).
+ * `leafy` (a temple's earthen wall, `tsuiji`): in the golden hours the crowns' shade dapples the low key on it
+ * (leafShadeGolden), in clusters about 3.4 m across of leaves about 0.3-0.8 m with sunlit gaps, anchored in the world.
  */
-function floodlitMaterial(): THREE.MeshStandardMaterial {
+function floodlitMaterial(leafy = false): THREE.MeshStandardMaterial {
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, ...scannedSurface('beige_wall_001'),
     normalScale: new THREE.Vector2(.8, .8), roughness: .94, metalness: 0 });
-  material.name = 'period-city-floodlit';
+  material.name = leafy ? 'period-city-tsuiji' : 'period-city-floodlit';
   material.onBeforeCompile = shader => {
     shader.uniforms.cityFlood = flood; shader.uniforms.cityWallGoldenCut = wallGoldenCut;
+    if (leafy) {
+      shader.uniforms.cityLeafShade = leafShade; shader.uniforms.cityTsuijiCut = tsuijiGoldenCut; shader.uniforms.cityLeafCover = leafShadeCover;
+      sharePavingUniforms(shader);
+      shader.vertexShader = shader.vertexShader
+        .replace('void main() {', 'varying vec3 vTsuijiWorld; varying vec3 vTsuijiNormal;\nvoid main() {')
+        .replace('#include <project_vertex>', /* glsl */ `#include <project_vertex>
+  vTsuijiWorld = (modelMatrix * vec4(transformed, 1.)).xyz;
+  vTsuijiNormal = normalize(mat3(modelMatrix) * objectNormal);`);
+      shader.fragmentShader = shader.fragmentShader
+        .replace('void main() {', /* glsl */ `uniform float cityLeafShade; uniform float cityTsuijiCut; uniform float cityLeafCover;
+varying vec3 vTsuijiWorld; varying vec3 vTsuijiNormal;
+uniform vec2 soraPavingTravel; // the camera's travel per simulation tick (m), shared with the paving joints
+float tsuijiHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+float tsuijiNoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
+  return mix(mix(tsuijiHash(i), tsuijiHash(i + vec2(1., 0.)), u.x), mix(tsuijiHash(i + vec2(0., 1.)), tsuijiHash(i + vec2(1., 1.)), u.x), u.y);
+}
+void main() {`)
+        .replace('#include <lights_fragment_end>', /* glsl */ `#include <lights_fragment_end>
+      if (cityLeafShade > 0.) {
+        // On the wall's own plane (along it, up it), stretched along it about three times so that, foreshortened as the
+        // wall runs away beside the road, crowns' clusters and leaves read round (isotropic, they stood up as figures).
+        vec3 n = normalize(vTsuijiNormal);
+        vec2 t = normalize(vec2(n.z, -n.x) + vec2(1e-5, 0.)), q = vec2(dot(vTsuijiWorld.xz, t), vTsuijiWorld.y);
+        float crown = tsuijiNoise(q / vec2(4.2, 1.5) + 7.) * .7 + tsuijiNoise(q / vec2(1.8, .7) - 3.) * .3;
+        // Each leaf octave fades to its mean as it shrinks toward an art cell, so the far wall stays calm, and as the camera's
+        // travel per tick nears its length along the wall (as the paving joints do): at race speed the near wall passes
+        // a leaf a tick and it strobed (wall flicker 4.69% to 5.17%). Where the leaves fade, the crowns' clusters take
+        // their full shade instead, so at speed the wall stays dappled in soft patches a metre or more across.
+        vec2 step = fwidth(q);
+        float travel = length(soraPavingTravel);
+        float leaf = (1. - smoothstep(.25, .6, max(step.x / .5, step.y / .19))) * (1. - smoothstep(.3, .6, travel / .5));
+        float vein = (1. - smoothstep(.25, .6, max(step.x / .22, step.y / .09))) * (1. - smoothstep(.3, .6, travel / .22));
+        float leaves = mix(.5, tsuijiNoise(q / vec2(.5, .19)), leaf) * .6 + mix(.5, tsuijiNoise(q / vec2(.22, .09) + 13.), vein) * .4;
+        float dappled = mix(.95, smoothstep(.42, .54, leaves), max(leaf, vein));
+        float shade = cityLeafShade * smoothstep(.33 + cityLeafCover, .52 + cityLeafCover, crown) * dappled * smoothstep(.5, .9, 1. - abs(n.y));
+        reflectedLight.directDiffuse *= 1. - shade;
+        // In the shade the sky's cool light shows (the repaint's shadows on the wall are violet-brown).
+        reflectedLight.indirectDiffuse *= mix(vec3(1.), vec3(.9, .9, 1.12), shade);
+      }`);
+    }
     shader.fragmentShader = shader.fragmentShader
       .replace('void main() {', 'uniform float cityFlood; uniform float cityWallGoldenCut;\nvoid main() {')
       .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('diffuseColor *= sampledDiffuseColor;', /* glsl */ `
@@ -558,10 +623,10 @@ function floodlitMaterial(): THREE.MeshStandardMaterial {
       {
         vec3 up = normalize((viewMatrix * vec4(0., 1., 0., 0.)).xyz);
         float goldenCut = cityWallGoldenCut * smoothstep(.35, .65, 1. - abs(dot(normalize(vNormal), up)));
-        reflectedLight.directDiffuse *= 1. - goldenCut;
+        reflectedLight.directDiffuse *= 1. - goldenCut${leafy ? ' * cityTsuijiCut' : ''};
       }`);
   };
-  material.customProgramCacheKey = () => 'period-city-floodlit-v5';
+  material.customProgramCacheKey = () => leafy ? 'period-city-tsuiji-v2' : 'period-city-floodlit-v5';
   return material;
 }
 
@@ -630,6 +695,7 @@ export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): R
   neonMaterial = neonSignMaterial(neon);
   sharpPrints(neonMaterial, 'period-city-neon-v3');
   shared = { wall, stone, roof, metal, glass: glassMaterial(interiorsUrl ? interiorsTexture(interiorsUrl) : null), sign: signMaterial, lamp: lampMaterial(), water, ground,
-    floodlit: floodlitMaterial(), neon: neonMaterial, flag: bannerMaterial(neon), awning: awningMaterial(awningAtlas()) };
+    floodlit: floodlitMaterial(), neon: neonMaterial, flag: bannerMaterial(neon), awning: awningMaterial(awningAtlas()),
+    tsuiji: floodlitMaterial(true) };
   return shared;
 }

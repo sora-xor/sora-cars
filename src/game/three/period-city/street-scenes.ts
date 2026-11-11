@@ -103,6 +103,8 @@ const IROHAZAKA_LAND: FarLandPlan = {
   light: 245, haze: { away: '#7a6c9c', toward: '#7a6c9c', metres: 3000 },
   // The mountainsides the road climbs between, crown by crown in autumn colour and at afternoon brightness.
   autumn: .6, canopy: true, dayGain: 2.5,
+  // The ranges across the Daiya valley as blue-violet masses (its true-light repaints), not the pale lavender of the haze.
+  ridges: { away: '#3f3a72', toward: '#4c3866', metres: 1200 },
 };
 const IROHAZAKA: StreetScene = {
   style: 2, terrain: 'slope',
@@ -192,7 +194,10 @@ const AIZU: StreetScene = {
   // A wet evening (damp .75): the renderer's dusk-road dim reaches near full, so the road stays dark between its streaks,
   // as the repaints paint Aizu's streets (measured: the station street .238 -> .198).
   // The sun has just set behind the mountains in the west-southwest (bearing 245), as on Kyoto's evening.
-  mood: { night: 'mountain', stars: .4, damp: .75, lamp: '#ffb065', daylight: [.6, .55, .5, .46, .42, .38], windows: .9, sun: 245 },
+  mood: { night: 'mountain', stars: .4, damp: .75, lamp: '#ffb065', daylight: [.6, .55, .5, .46, .42, .38], windows: .9, sun: 245,
+    // The ranges round the basin as navy-violet masses against the afterglow (the moat's true-light repaint, body #36265b),
+    // where the sky's own low gradient painted them maroon.
+    ridges: '#3a2c5e' },
 };
 
 /** Kyoto: Shiokōji, Karasuma and Shijō past Gion to Yasaka, Sanjō to Keage,
@@ -280,6 +285,9 @@ const NARA_LAND: FarLandPlan = {
   ],
   grass: [{ lat: 34.6905, lon: 135.8512, rx: 640, rz: 360 }],   // Wakakusa-yama's lawns, from its foot to the summit
   autumn: .4, light: 240, haze: { away: '#8478a6', toward: '#d99a7c', metres: 9000 },
+  // The Kasuga hills over Sanjō-dōri and Sarusawa-ike, and the Ikoma ridge beyond the basin, as violet masses darker
+  // than the sky (the true-light repaints: Sarusawa's mountain #714879 under a sky of #d1727e).
+  ridges: { away: '#4a3468', toward: '#5a3450', metres: 1800 },
 };
 const NARA: StreetScene = {
   style: 3, terrain: 'slope',
@@ -322,7 +330,9 @@ const NARA: StreetScene = {
   mood: { night: 'mountain', stars: .5, damp: .12, lamp: '#ffb468', daylight: [.96, .93, .9, .9, .93, .97], sun: 240,
     // November 1: a basin rimmed by low hills (the Ikoma range stands some 2 degrees high from the park), where the
     // mountain night's ridges (2.6, Hakone's pass) stood a tall tan mountain behind Nara Park's maples.
-    ridgeHeight: 1.6 },
+    // Mauve-violet, as the far land's own ridges and the true-light repaint's hills beyond the pond; the sky's low
+    // gradient painted them tan (finish pass, November 11).
+    ridgeHeight: 1.6, ridges: '#5e4470' },
 };
 
 const SCENES: Readonly<Record<string, StreetScene>> = { 'tokyo-1986': TOKYO, 'irohazaka-1986': IROHAZAKA, 'aizu-wakamatsu-1986': AIZU, 'kyoto-1986': KYOTO, 'nara-1986': NARA };

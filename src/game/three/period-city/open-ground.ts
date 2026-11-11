@@ -312,7 +312,8 @@ function stoneLantern(b: CityMeshBuilder, scale = 1): void {
   prism(b, 'wall', 6, .2 * s, 1.1 * s, .44 * s, 1.24 * s);
   prism(b, 'wall', 6, .44 * s, 1.24 * s, .4 * s, 1.34 * s);
   // The firebox: posts at the corners and the lit paper behind its open windows.
-  b.colour.set('#ffbe73'); prism(b, 'lamp', 6, .22 * s, 1.36 * s, .22 * s, 1.72 * s, Math.PI / 6);
+  // Lit by day too (mode 3): the golden-hour repaints draw every stone lantern's paper glowing.
+  b.animation = [0, 3]; b.colour.set('#ffbe73'); prism(b, 'lamp', 6, .22 * s, 1.36 * s, .22 * s, 1.72 * s, Math.PI / 6); b.animation = [0, 0];
   b.colour.copy(granite).multiplyScalar(.95);
   for (let i = 0; i < 6; i++) {
     const a = i / 6 * Math.PI * 2, x = Math.cos(a) * .27 * s, z = Math.sin(a) * .27 * s;
@@ -338,10 +339,11 @@ function temple(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
     const s0 = list[i]!, s1 = list[i + 1]!;
     b.colour.set('#8f8a7e');
     strip(b, 'stone', s0, s1, () => wall - .2, -.1, () => wall - .2, .45, toRoad);
+    // The plastered earthen wall (築地塀) and its five white lines (筋塀), dappled by the crowns' shade in the golden hours.
     b.colour.set('#d8c79a');
-    strip(b, 'floodlit', s0, s1, () => wall, .45, () => wall, 3.4, toRoad);
+    strip(b, 'tsuiji', s0, s1, () => wall, .45, () => wall, 3.4, toRoad);
     b.colour.set('#f1ece0');
-    for (const y of [1.1, 1.55, 2, 2.45, 2.9]) strip(b, 'floodlit', s0, s1, () => wall - .02, y, () => wall - .02, y + .1, toRoad);
+    for (const y of [1.1, 1.55, 2, 2.45, 2.9]) strip(b, 'tsuiji', s0, s1, () => wall - .02, y, () => wall - .02, y + .1, toRoad);
     // The coping: a small tiled roof (築地塀の瓦屋根) over the wall's thickness, eaves out both sides, a ridge of round tiles.
     const ridge = wall + .45, front = wall - .55, back = wall + 1.45;
     b.colour.set('#2e3136');

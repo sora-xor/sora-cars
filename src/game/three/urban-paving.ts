@@ -1,5 +1,9 @@
 import * as THREE from 'three';
+import { PAVING_JOINTS_GLSL, sharePavingUniforms } from './paving-joints';
 import { scannedSurface } from './surfaces';
+
+/** The frontage's paving flags (m): the period's 45 cm concrete flags. */
+const SLAB = 0.45;
 
 function pavingScan() {
   const scan = scannedSurface('concrete_pavement_03');
@@ -22,18 +26,21 @@ export function createUrbanPavingMaterial(): THREE.MeshStandardMaterial {
   material.userData.urbanPavingTextures = [soil.map, soil.normalMap, soil.roughnessMap,
     paving.map, paving.normalMap, paving.surface];
   material.userData.urbanPaving = { fullDistance: 15, soilDistance: 22, pavingRepeat: 2.1, soilRepeat: 3.15 };
-  material.customProgramCacheKey = () => 'sora-urban-frontage-paving-v1';
+  material.customProgramCacheKey = () => 'sora-urban-frontage-paving-v2';
   material.onBeforeCompile = shader => {
+    sharePavingUniforms(shader);
     shader.uniforms.soraUrbanPavingColor = { value: paving.map };
     shader.uniforms.soraUrbanPavingNormal = { value: paving.normalMap };
     shader.uniforms.soraUrbanPavingSurface = { value: paving.surface };
     shader.uniforms.soraUrbanSoilTint = { value: new THREE.Color('#a9a2a6') };
     shader.vertexShader = shader.vertexShader
-      .replace('#include <common>', '#include <common>\nattribute float roadDistance;\nvarying float soraUrbanRoadDistance;')
-      .replace('#include <uv_vertex>', '#include <uv_vertex>\nsoraUrbanRoadDistance = roadDistance;');
+      .replace('#include <common>', '#include <common>\nattribute float roadDistance;\nvarying float soraUrbanRoadDistance;\nvarying vec2 soraUrbanWorld;')
+      .replace('#include <uv_vertex>', '#include <uv_vertex>\nsoraUrbanRoadDistance = roadDistance;\nsoraUrbanWorld = (modelMatrix * vec4(position, 1.0)).xz;');
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>
 varying float soraUrbanRoadDistance;
+varying vec2 soraUrbanWorld;
+${PAVING_JOINTS_GLSL}
 uniform sampler2D soraUrbanPavingColor;
 uniform sampler2D soraUrbanPavingNormal;
 uniform sampler2D soraUrbanPavingSurface;
@@ -46,7 +53,15 @@ vec2 soraUrbanPavingUv = vMapUv * 1.5;
 vec4 soraUrbanSurface = mix(texture2D(roughnessMap, vRoughnessMapUv),
   texture2D(soraUrbanPavingSurface, soraUrbanPavingUv), soraUrbanPavingWeight);
 ${THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )',
-  'mix(texture2D(map, vMapUv) * vec4(soraUrbanSoilTint, 1.0), texture2D(soraUrbanPavingColor, soraUrbanPavingUv), soraUrbanPavingWeight)')}`)
+  'mix(texture2D(map, vMapUv) * vec4(soraUrbanSoilTint, 1.0), texture2D(soraUrbanPavingColor, soraUrbanPavingUv), soraUrbanPavingWeight)')}
+// Paving slabs (finish pass, November 11): the concrete frontage as ${SLAB.toFixed(2)} m flags with dark joints and a tone
+// of their own each, as the repaints draw every pavement; the scan alone resolved to one flat tone at the art grid.
+vec2 soraSlab = soraUrbanWorld / ${SLAB.toFixed(3)}, soraSlabStep = fwidth(soraSlab);
+// A joint line strobes by the travel across it: the lines at whole x by the travel's x, and so on.
+vec2 soraSlabTravel = vec2(soraTravelKeep(soraPavingTravel.x / ${SLAB.toFixed(3)}), soraTravelKeep(soraPavingTravel.y / ${SLAB.toFixed(3)}));
+float soraSlabDetail = soraSlabKeep(soraSlabStep.x) * soraSlabKeep(soraSlabStep.y) * min(soraSlabTravel.x, soraSlabTravel.y);
+float soraSlabJoint = max(soraJoint(soraSlab.x, soraSlabStep.x, .04) * soraSlabTravel.x, soraJoint(soraSlab.y, soraSlabStep.y, .04) * soraSlabTravel.y);
+diffuseColor.rgb *= mix(1., (1. + .07 * (soraPavingHash(floor(soraSlab)) * 2. - 1.) * soraSlabDetail) * (1. - .4 * soraSlabJoint), soraUrbanPavingWeight * soraPavingStrength);`)
       .replace('#include <roughnessmap_fragment>', THREE.ShaderChunk.roughnessmap_fragment
         .replace('texture2D( roughnessMap, vRoughnessMapUv )', 'soraUrbanSurface'))
       .replace('#include <normal_fragment_maps>', THREE.ShaderChunk.normal_fragment_maps

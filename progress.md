@@ -6302,3 +6302,64 @@ User asked: "for the garage parts, it needs to be clearer what the effects are".
 - User decisions: Taira must keep BPNG accounts and data, so no reset. No separately operated storage network. SoraFS should work like IPFS, with anyone able to publish without permissions. The site goes on public SoraFS under the `soracars` alias.
 - Pin registration is already permissionless, but Taira has no eligible providers and no authority that can admit any, bind aliases or promote gateway compliance. A chain-preserving SoraFS bootstrap in Iroha has been proposed as a separate task.
 - The execution-STARK candidate's remaining diff was rebased onto `optimizations` `d0dc39f830` in `/Users/takemiyamakoto/dev/iroha-candidate-rebase-20261106`, merging the two SoraFS CLI conflicts. Its focused re-gate runs under `output/reviews/production-gaps-20261106/iroha-rebase/`. Nothing is pushed.
+
+## 2026-11-11 — Graphics finish pass (wet road, golden-hour shadows, dawn light, emblems)
+
+- User: decided against Unreal ("finish the graphics without unreal then"; the proof system must keep working) and asked that A/B comparisons be meaningful to a human. Judged by eye on before / after / target sheets at 1672 x 941: `output/finish-20261111/review/01-tokyo-night.png` to `06-still-open.png`.
+- Found the parity harness capturing stale frames since the asynchronous shader preparation (a draw returns early while programs compile); `tmp/pixel-art/shots.mjs` waits for a real frame. Details and tools in docs/pixel-art-renderer.md (Finish pass).
+- Wet road (`pixel-art/surfaces.ts`): lit stones step from deep red through gold to cream by their light (`wetStoneRamp`), streaks soften at their edges and vary in width, the mirror no longer sits at one flat gold, more glitter on the dark asphalt. New unit test in tests/pixel-art-surfaces.test.ts.
+- Golden hours (`world.ts`): shadows closed (0.55 open to 0.12) and the low sun's extra key 2 to 2.8, so cars, rails, lanterns and trees cast long shadows at Nara. Dawn: `DAWN_FILL` 0.7 to 1.25 plus `DAWN_ENVIRONMENT` 0.15; Tokyo's dawn road L 0.27 to 0.31 (mockup 0.35).
+- Roof emblems matte (`sora-emblem.ts`, `asset-car.ts`, `period-cars/model.ts`): the red disc no longer washes to peach under a bright sky.
+- Road flicker at 25 m/s: Tokyo night 2.9% to 3.6%, Hakone unchanged, Nara Park 5.7% to 6.2%, Sarusawa 2.4% to 3.2%.
+- 135 of 136 graphics and city tests pass; the failing Arcade landmark test and the `tsc` errors are in period-city layout files another session is editing. Fourteen scenes drawn from the real page without errors. Nothing committed.
+- Still open: wall and pavement detail (leaf shadows, tile joints), dry asphalt texture, Wakakusa's lawn, tree crown detail, Tokyo dusk's road, Tokyo night's streak count and colour variety. Cutscene parity is not claimed; the user has not judged these sheets yet.
+
+## 2026-11-11 — Graphics finish pass, second round (kerbs, pavements, dry asphalt, streaks)
+
+- User, on the first round's sheets: "Yes, continue". Sheets `output/finish-20261111/review/07-night-and-dusk.png`, `08-day-and-dawn.png`, `09-kerb-paving-asphalt-closeups.png`; each before/after pair comes from one capture run.
+- New `src/game/three/paving-joints.ts`: granite kerb stones and running-bond walkway slabs on the roadside kerb (`infrastructure.ts`, `roadEdge` attribute), 0.45 m flags on the concrete frontage (`urban-paving.ts`). Joints are an art cell wide near the camera and fade with distance; joints across the travel fade at race speed (`world.ts` feeds the travel per tick), so nothing strobes. New `tests/paving-joints.test.ts`.
+- Dry asphalt is grainy (`groundDryMottle` 2.2 against the wet road, `groundSpeckle` 0.4). Wet streaks are separate with dark road between and more orange (`wetStoneStreakDuty` 0.47, `wetWaveStreakFloor` 0.06, ramp 6 / 0.9).
+- Flicker at 25 m/s: pavement unchanged with the paving on; dry road unchanged; wet lower half Tokyo night 2.9% to 3.3%, Kyoto 4.2% to 4.0%, Yokohama 0.16% to 0.18%.
+- Still open: fewer streaks than the mockups at Kyoto and Tokyo dusk, the temple wall, leaves on town pavements, unlit lanterns by day, parked cars, tree crowns, Wakakusa's lawn. Details in docs/pixel-art-renderer.md. Nothing committed; the user has not judged these sheets.
+
+## 2026-11-11 — Graphics finish pass, third round (lamp streaks, clouds, lanterns, walkway leaves)
+
+- User: "Keep going first", then "get to work". Sheets `output/finish-20261111/review/10-skies.png`, `11-lamps-and-lanterns.png` (each pair from one capture run), `12-walkway-leaves.png` (two runs; leaves are chunk geometry).
+- Wet-road lamp streaks reach the far street: reflection slots go to the 20 nearest lamps ahead of the camera plus up to 8 lit shop fronts (`MAX_GROUND_EMITTERS` 16 to 28, `lampColumnFar` 140 to 220 m). The wet composite stays within WebGL 2's 224 guaranteed fragment uniform vectors (191, tested). Flicker unchanged.
+- Clouds (`src/poc/painted-sky.ts`, `skyRaceStyle`): popcorn lit and shaded per cluster, warm gold-to-salmon bodies in the low sun, shaded lobes darker than the sky, and fewer dark strata in the low sun. Daytime and dawn skies read as warm clusters over clear violet instead of pale confetti; night unchanged; sky flicker unchanged.
+- Stone lanterns glow amber in the golden hours (lamp mode 3, `lanternGolden` 0.3); street lamps stay off. Fallen leaves lie on the kerb walkway along the autumn litter ranges.
+- 143 graphics and city tests pass (new `tests/finish-pass-lights.test.ts`); `tsc` clean. Nothing committed.
+- Still open: leaf shadows on Sarusawa's temple wall, horizon mountains at Sanjō, Sarusawa and Aizu, tree crowns, parked cars, Wakakusa's basin view.
+
+## 2026-11-11 — Graphics finish pass, fourth round (far ridges)
+
+- User: "go". Sheet `output/finish-20261111/review/13-far-ridges.png` (before/after pairs from one capture run each).
+- The far land drew the real Kasuga hills but faded them into a haze that rendered lighter than the sky. Wooded hills now take a violet ridge colour by day (`FarLandPlan.ridges`), paler and warmer where they face the low sun and mottled with forest. Nara and Irohazaka have it; Aizu does not.
+- Visible at Sarusawa's road end and in Irohazaka's range across the valley. Flicker unchanged at Sarusawa (3.30%); Irohazaka's mountain region 4.03% to 4.37%.
+- Tried and reverted: slope terrain falling to the real ground at Wakakusa's summit (its slopes read as a lake), a darker haze, a basin patchwork.
+- Still open: temple-wall leaf shadows (needs its own wall material), Aizu's maroon Bandai silhouette, Nara Park's painted ridge, the low horizon glow, tree crowns, parked cars. Nothing committed.
+
+## 2026-11-11 — Graphics finish pass, fifth round (temple wall shade, painted ranges)
+
+- User: "Keep going first". Sheet `output/finish-20261111/review/14-temple-wall-and-ranges.png` (before/after pairs from one capture run each).
+- Sarusawa's temple wall takes leaf shade in the golden hours, on its own material (`tsuiji`; `floodlit` stays for the 77 landmark parts). Stretched along the wall so it reads round when foreshortened. Leaves fade at race speed, leaving soft crown patches. Wall flicker 4.69% to 3.34%.
+- The painted sky's ranges: Aizu navy-violet (was maroon), Nara Park's hill mauve (was tan), via the moods' `ridges`. Painted relief was tried and dropped (blurry streaks).
+- 120 graphics, city and street-route tests pass; `tsc` clean. Nothing committed.
+- Still open: the low horizon glow, crisp spurs in the painted ranges, tree crowns, parked cars.
+
+## 2026-11-12 — Graphics finish pass, sixth round (horizon glow)
+
+- User: "Keep going first". Sheet `output/finish-20261111/review/15-horizon-glow.png` (before/after pairs from one capture run each).
+- In the golden hours the sky's lowest band glows gold toward the sun and orange away from it, red-orange at dusk, behind the painted ridges and far city (`skyRaceGlow`). Changes 3-5% of the frame at Sarusawa, Nara Park, Aizu and Kyoto; sky flicker unchanged.
+- Larger maple leaves (1.2x, 1.4x) were tried and reverted: no visible difference.
+- 121 graphics, city and street-route tests pass; `tsc` clean. Nothing committed.
+- Still open: the crowns' leaf drawing, crisp painted ridges, parked cars.
+
+## 2026-11-12 — Graphics finish pass, seventh round (survey, sunlit temple wall, dusk clouds)
+
+- User: "keep going and improve more". Sheet `output/finish-20261111/review/16-sunlit-wall-and-dusk-skies.png` (before/after pairs from one capture run each).
+- Surveyed all 13 true-light scenes (`output/finish-20261112/survey/`). Tokyo and the Arcade roads now pass different streets than their repaints (real-road layouts); noted there: a flat yellow wall at Hakone's night street, washed-out white walls at Nikko's sunrise.
+- Sarusawa's temple wall reads sunlit: it keeps its full golden-hour sun and the leaf shade covers less (wall band L 0.46 to 0.58; repaint 0.58).
+- Aizu's and Kyoto's dusk clouds no longer take the afternoon's warm bodies: dark violet masses with rose undersides as in their repaints (brightest tenth L 0.71/0.63 to 0.64/0.53; repaints 0.50/0.47).
+- Tried and dropped: halo tuning (the cutscenes' look), crown glints, crown highlight ceiling, painted-ridge faces.
+- Fixed a sky shader break from this round's own edit, and added a test against it. 122 tests pass; `tsc` clean. Nothing committed.

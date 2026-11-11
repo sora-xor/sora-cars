@@ -207,6 +207,16 @@ export interface SurfaceOptions {
   /** How far an unlit stone's own mirror (the sky, walls) turns navy, keeping its light (0-1). */
   wetStoneCool: number;
   /**
+   * Finish pass (2026-11-11): a lit stone's tone follows its light, stone by stone, as the rain-night concept and the
+   * repaints paint a streak: cream at its core, gold through its body, orange and deep red at its edges and where it
+   * fades, each stone its own step up or down. 1 on (0: every lit stone the same flat gold, which read as a barcode
+   * beside them). wetStoneRampFull is the exposure-scaled light of a core stone; wetStoneRampSpread how far stones vary
+   * from their neighbours (0 even, 1 from a quarter to full). Tail lamps and neon keep their own colour.
+   */
+  wetStoneRamp: number;
+  wetStoneRampFull: number;
+  wetStoneRampSpread: number;
+  /**
    * Refine round 4 drizzle: on a wet road (wetness 0.7 and up, when the walkers open umbrellas) this share of wet
    * cells takes a pale speck, re-rolled about every other frame: drops landing in a still, light drizzle in motion.
    * Nearest the camera, where the road slides too fast for glitter, it is the asphalt's speckle.
@@ -295,7 +305,7 @@ export interface SurfaceOptions {
   groundSpeckle: number;
   /** Ground mottle: brightness swing of the dashes on all ground (x luminance, +-), the 3-4 tone asphalt mottle. */
   groundMottle: number;
-  /** Share of the mottle kept on a dry road (sunrise-wide's asphalt is calmer than the wet harbour ground). */
+  /** The dry road's mottle against the wet road's (0-4; under 1 calmer, over 1 grainier: dry asphalt in daylight). */
   groundDryMottle: number;
   /** Lit flecks: density at full lamp light, lit light kept between flecks, brightest fleck (x the lit light). */
   fleckDensity: number;
@@ -458,36 +468,46 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   // Refine round 4: a stronger mirror on wet ground, longer lamp columns (the user's rain-night target).
   // Refine round 4: measured against cutscene-style repaints of race frames, the road's warm reflected light covered
   // about two thirds of theirs (16.7% of the road against 25.4% at Tokyo night); stronger, denser dashes close it.
-  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 3.2, wetSkyReflection: 0.5, wetSkyColumn: 1.2, wetMaxDistance: 160,
+  // Finish pass (2026-11-11): the mirror's gain 3.2 -> 2.6 with the knee lifted (below): at 3.2 under a 0.6 knee every
+  // reflection sat at one flat gold, and the streak mask cut that sheet into a barcode.
+  wetNormal: 0.85, wetDampBase: 0.35, wetReflection: 2.6, wetSkyReflection: 0.5, wetSkyColumn: 1.2, wetMaxDistance: 160,
   // Refine round 4: lit facades, shop fronts and signs stretch into columns too, as every light does in the concept,
   // and the streaks of the far street reach the near road, which keeps a share of the mirror where it is seen steeply.
   // Stones (refine round 4): a light's streak runs to the bottom of the frame (200 cells), half the mirror kept where
   // the road is seen steeply, the trace spread narrower so streaks stay thin.
-  wetColumnDown: 200, wetColumnUp: 4, wetColumnStart: 0.15, wetColumnFull: 0.4, wetColumnDay: 3, wetReflectionKnee: 0.6, wetReflectionChroma: 1.3, wetColumnFade: 2.5, wetFresnelFloor: 0.5, wetSpread: 2, wetSpreadFalloff: 0.08,
+  wetColumnDown: 200, wetColumnUp: 4, wetColumnStart: 0.15, wetColumnFull: 0.4, wetColumnDay: 3, wetReflectionKnee: 2.5, wetReflectionChroma: 1.15, wetColumnFade: 3.5, wetFresnelFloor: 0.5, wetSpread: 2, wetSpreadFalloff: 0.08,
   wetRipple: 0, wetRippleCells: 4.5, wetRippleRows: 4, wetRippleHoles: 0.42, wetRipplePebbles: 0.05, wetDrizzle: 0, wetReflectionWarmth: 0.9,
   wetRippleCellsFar: 2.5, wetRippleRowsFar: 11, wetRippleFarStart: 12,
   wetWaves: 1, wetWaveRidge: 0.74, wetWaveRowsNear: 3.5, wetWaveRowsFar: 1.8, wetWaveHorizon: 0.55, wetWaveThreshold: 0.33,
   // Stones (refine round 4): the road between the streaks stays navy (a trough of 0.03 of the gold, a fainter sheen),
   // a streak's stones are lit through its core, and the streaks stand about 9 cells apart.
-  wetWaveTrough: 0.03, wetWaveSheen: 0.03, wetWaveStroke: 12, wetWaveJitter: 1.5,
-  wetWaveDashFull: 0.25, wetWaveDashBase: 0.15, wetWaveStreak: 4, wetWaveStreakFloor: 0.05,
-  wetStones: 1, wetStoneRowsNear: 2.2, wetStoneRowsFar: 1, wetStoneAspectNear: 1.4, wetStoneAspectFar: 2.2,
-  wetStoneGap: 0.12, wetStoneGround: 0.75, wetStoneRim: 0.25, wetStoneStreakDuty: 0.35, wetStoneMirror: 0.85, wetStoneCrisp: 1, wetStoneSideGap: 0.5, wetStreakVariety: 0, wetStoneJitter: 1, wetStoneCool: 0,
+  // Finish pass (2026-11-11): streaks stand 5 cells apart with a second, slower octave, cover under half of a broad
+  // reflection with dark road between (a shop front's glare otherwise lay as one gold field); stones are bigger (2.6
+  // rows near, 1.3 far) and picked against their light (crisp 0.35), so a streak dissolves at its edges instead of
+  // ending in a ruled line.
+  wetWaveTrough: 0.03, wetWaveSheen: 0.025, wetWaveStroke: 12, wetWaveJitter: 1.5,
+  wetWaveDashFull: 0.14, wetWaveDashBase: 0.15, wetWaveStreak: 5, wetWaveStreakFloor: 0.06,
+  wetStones: 1, wetStoneRowsNear: 2.6, wetStoneRowsFar: 1.3, wetStoneAspectNear: 1.4, wetStoneAspectFar: 2.2,
+  wetStoneGap: 0.12, wetStoneGround: 0.75, wetStoneRim: 0.25, wetStoneStreakDuty: 0.47, wetStoneMirror: 0.45, wetStoneCrisp: 0.35, wetStoneSideGap: 0.5, wetStreakVariety: 0.5, wetStoneJitter: 1, wetStoneCool: 0.35, wetStoneRamp: 1, wetStoneRampFull: 6, wetStoneRampSpread: 0.9,
   // Refine round 4: the wet road mirrors in a rippled mosaic, as a cutscene-style repaint of a race frame draws it
   // (art/reference/mockups): short broken dashes with dark gaps, some whole rows dropped. Unbroken, glossy columns
   // (the fifth pass) read as solid synthetic bars beside it, the SORA billboard's reflection a cream block.
   wetDashCells: 4, wetDashDuty: 0.65, wetDashGap: 0.2, wetSheen: 0.6,
   wetColumnDashCells: 3, wetColumnDashDuty: 0.55, wetColumnRowKeep: 0.78,
   // Refine round 4: a few full-colour glitter specks on calm wet ground (the ripple dashes carry the texture).
-  sparkleLit: 0.05, sparkleRain: 0.04, wetGlitter: 0.025, wetGlitterLift: 0.17, wetGlitterTrail: 0, sparkleKey: 0.12, sparkleKeyLobe: 12,
+  // Finish pass (2026-11-11): three times as many and brighter, as every repaint speckles the dark asphalt between streaks.
+  sparkleLit: 0.05, sparkleRain: 0.04, wetGlitter: 0.08, wetGlitterLift: 0.3, wetGlitterTrail: 0, sparkleKey: 0.12, sparkleKeyLobe: 12,
   temporalMargin: 0.025, temporalDepthTolerance: 0.04, temporalSpeedMargin: 0.04, temporalCarMargin: 0.05, groundSpeedSmooth: 1, wallSpeedSmooth: 0, wallMotionFilter: 0, wallMotionStart: 2, wallMotionEdge: 0,
   groundDashes: 1, litFlecks: 1, lampColumns: 1, wetDryFade: 1, keyGlints: 1,
   // Refine round 4: a calmer road, its grain cool and fine rather than warm speckle (the rain-night target).
-  groundDashCells: 2.5, groundDashSpread: 0.35, groundSpeckle: 0.2, groundMottle: 0.15, groundDryMottle: 0.35,
+  // Finish pass (2026-11-11): a dry road is grainy (its mottle 2.2 x the wet road's, more one-cell speckle), as every
+  // day and dawn repaint draws asphalt; at a third of the wet mottle it resolved to one smooth tone.
+  groundDashCells: 2.5, groundDashSpread: 0.35, groundSpeckle: 0.4, groundMottle: 0.15, groundDryMottle: 2.2,
   fleckDensity: 0.22, fleckWetCut: 0.7, fleckLitStart: 0.02, fleckLitFull: 0.25, fleckGap: 0.15, fleckBoost: 4, fleckKeep: 0.65, fleckSparse: 0.3, fleckFloor: 0.05, fleckSpeckle: 0.5,
   fleckTint: 0.65, fleckSpeedKeep: 1, groundAmbientScale: 1,
   markingStart: 1.6, markingFull: 2.3,
-  lampColumnGain: 1.8, lampLobeDamp: 0.11, lampLobeWet: 0.2, lampColumnWidth: 2.5, lampColumnFar: 140,
+  // Finish pass: columns reach 220 m (was 140), now that every emitter slot goes to a lamp ahead of the camera (world.ts).
+  lampColumnGain: 2.4, lampLobeDamp: 0.18, lampLobeWet: 0.2, lampColumnWidth: 2.5, lampColumnFar: 220,
   lampColumnCore: 1.6, lampColumnEdge: 0.6, lampColumnFringe: 0.25, columnBreak: 0,
   groundSpeedStart: 0.15, groundSpeedFull: 0.5, groundSpeedMottle: 0.7, groundRowOctave: 0.5,
   groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 6, wetMirrorFloor: 0.06,
@@ -501,8 +521,9 @@ export const GROUND_SCROLL_WRAP = 60000;
 
 /** Lights whose pools the lit-ground flecks follow (street-lamp pools, shop lights, headlights). */
 export const MAX_POOL_LIGHTS = 16;
-/** Emitters (lamp heads, bright windows) that cast analytic reflection columns on wet ground. */
-export const MAX_GROUND_EMITTERS = 16;
+/** Emitters (lamp heads, bright windows) that cast analytic reflection columns on wet ground. 28 since the finish pass
+ * (16 before): twenty street lamps ahead, ten a side at 22 m, reach the columns' 220 m, and eight lit shop fronts. */
+export const MAX_GROUND_EMITTERS = 28;
 
 /** A light seen in wet ground: world position of the emitter, the ground under it, its radiance and width. */
 export interface GroundEmitter {
@@ -1505,6 +1526,7 @@ uniform float stoneSideGap;     // the share of a lit stone's tone its side (ver
 uniform float streakVariety;    // weight of the streaks' slower second octave (0: one frequency)
 uniform float stoneJitter;      // how far stones' tones vary one from the next (0: even, 1: full)
 uniform float stoneCool;        // how far an unlit stone's own mirror turns navy (0-1)
+uniform vec3 stoneRamp;         // finish pass: x 1 on; y a core stone's light (exposure-scaled); z stone-to-stone spread
 uniform vec3 sheenParams;   // x: brightness swing; y, z: exposure-scaled luminance where the swing starts / is full
 uniform vec2 columnSource;  // exposure-scaled reflected luminance where a reflection starts / fully stretches into a column
 uniform float columnDay;    // this frame's multiplier on columnSource (wetColumnDay by day .. 1 at night)
@@ -2114,6 +2136,24 @@ void composite() {
         : max(waveParams.z, own);
       // A gap is darker than its stone: unlit stones keep the trough share, and a gap at 12% of a bright shop
       // front's mirror outlined every dark stone in gold, a woven curtain over the near road.
+      if (litStone && stoneRamp.x > .5) {
+        // The tone ramp (finish pass): the stone's level is its light against a core stone's, stepped up or down stone
+        // by stone; warm reflections (lamp gold, lit rooms, pale signs turned gold) take the painters' ramp at that
+        // level, deep red through orange and gold to cream, and the level scales the stone's light too. Reds, greens,
+        // blues and magentas (tail lamps, neon) keep their hue and only vary in light.
+        float vary = mix(1., mix(1. - .75 * stoneRamp.z, 1. + .3 * stoneRamp.z, artHash01(ivec3(stoneId, 8881))), grain);
+        // Compressed: a lamp's streak and a shop front's glare differ tenfold in light and should both read as gold
+        // with cream cores; the stone-to-stone step and the streak's thinning edges carry the variation.
+        float level = min(sqrt(light / stoneRamp.y), 1.15) * vary;
+        vec3 lab = artLinearToOklab(max(reflection, vec3(1e-6)));
+        float hue = degrees(atan(lab.z, lab.y));
+        float warm = smoothstep(38., 56., hue) * (1. - smoothstep(104., 122., hue));
+        vec3 ramp = level < .3 ? mix(vec3(1., .1, .02), vec3(1., .3, .03), level / .3)
+          : level < .7 ? mix(vec3(1., .3, .03), vec3(1., .55, .09), (level - .3) / .4)
+          : mix(vec3(1., .55, .09), vec3(1., .8, .36), clamp((level - .7) / .6, 0., 1.));
+        reflection = mix(reflection, ramp * (artLuminance(reflection) / artLuminance(ramp)), warm);
+        tone *= vary;
+      }
       reflection *= stoneEdgeKind == 2 || stoneEdgeKind == 3 && !litStone ? min(stoneTones.x, tone * .5)
         : stoneEdgeKind == 3 ? tone * stoneSideGap : tone;
       // An unlit stone's own mirror turns navy (refine round 4): the dusk sky's violet and pink mirrored stone by stone
@@ -2572,7 +2612,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, columnDay: { value: 1 }, reflectionKnee: { value: new THREE.Vector2(0, 1) }, columnFade: { value: 1 }, wetFresnelFloor: { value: 0 },
     rippleParams: { value: new THREE.Vector4(1, 4.5, 4, .42) }, ripplePebbles: { value: .05 }, rippleFar: { value: new THREE.Vector3(2.5, 11, 12) },
     waveParams: { value: new THREE.Vector4(1, .33, .1, .045) }, waveShape: { value: new THREE.Vector4(3.5, 1.8, .55, 12) }, waveJitter: { value: 1.5 },
-    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) }, stoneMirror: { value: .6 }, mirrorFloor: { value: .06 }, stoneCrisp: { value: 1 }, stoneSideGap: { value: .8 }, streakVariety: { value: .4 }, stoneJitter: { value: 1 }, stoneCool: { value: 0 },
+    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) }, stoneMirror: { value: .6 }, mirrorFloor: { value: .06 }, stoneCrisp: { value: 1 }, stoneSideGap: { value: .8 }, streakVariety: { value: .4 }, stoneJitter: { value: 1 }, stoneCool: { value: 0 }, stoneRamp: { value: new THREE.Vector3(0, 1.2, .65) },
     waveRidge: { value: .74 }, waveDash: { value: new THREE.Vector4(.6, .15, 5, .2) }, reflectionWarmth: { value: .9 }, surfaceExposure: deps.exposure,
     fleckParams: { value: new THREE.Vector4() },
     fleckShape: { value: new THREE.Vector3() }, groundAmbientTint: { value: new THREE.Vector3(1, 1, 1) }, groundAmbientLevel: { value: .3 },
@@ -2736,7 +2776,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.fleckParams.value.x = fleckDensity * (1 - fleckWetCut * THREE.MathUtils.smoothstep(Math.max(wetness, rain), 0.6, 0.9));
       const lobe = THREE.MathUtils.lerp(lobeDamp, lobeWet, soak);
       const damp = Math.max(THREE.MathUtils.smoothstep(wetness, 0.2, 0.6), rain);
-      compositeUniforms.groundMottle.value = mottle * THREE.MathUtils.lerp(dryMottle, 1, damp);
+      compositeUniforms.groundMottle.value = Math.min(0.9, mottle * THREE.MathUtils.lerp(dryMottle, 1, damp));
       compositeUniforms.lampColumnParams.value.set(lobe, 0.5 * lobe, weight, columnFar);
       ground.projectEmitters(frame.camera, shared.artSize.value, shared.artCellWorldScale.value, lampGain, columnWidth, weight > 0);
       frame.draw(traceMaterial, traceTarget);
@@ -2854,6 +2894,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.streakVariety.value = THREE.MathUtils.clamp(o.wetStreakVariety, 0, 1);
       compositeUniforms.stoneJitter.value = THREE.MathUtils.clamp(o.wetStoneJitter, 0, 1);
       compositeUniforms.stoneCool.value = THREE.MathUtils.clamp(o.wetStoneCool, 0, 1);
+      compositeUniforms.stoneRamp.value.set(o.wetStoneRamp > 0 ? 1 : 0, Math.max(1e-3, o.wetStoneRampFull), THREE.MathUtils.clamp(o.wetStoneRampSpread, 0, 1));
       compositeUniforms.waveRidge.value = THREE.MathUtils.clamp(o.wetWaveRidge, 0, 1);
       compositeUniforms.waveDash.value.set(Math.max(1e-3, o.wetWaveDashFull), THREE.MathUtils.clamp(o.wetWaveDashBase, 0, 1),
         Math.max(1, o.wetWaveStreak), THREE.MathUtils.clamp(o.wetWaveStreakFloor, 0, 1));
@@ -2876,7 +2917,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       columnFar = Math.max(1, o.lampColumnFar);
       surfaceUniforms.groundSpeckle.value = o.groundDashes > 0 ? THREE.MathUtils.clamp(o.groundSpeckle, 0, 1) : 0;
       mottle = o.groundDashes > 0 ? THREE.MathUtils.clamp(o.groundMottle, 0, 0.9) : 0;
-      dryMottle = THREE.MathUtils.clamp(o.groundDryMottle, 0, 1);
+      dryMottle = THREE.MathUtils.clamp(o.groundDryMottle, 0, 4);
       compositeUniforms.fleckLit.value.set(Math.max(0, o.fleckLitStart), Math.max(o.fleckLitStart + 1e-3, o.fleckLitFull));
       compositeUniforms.fleckSplit.value.set(THREE.MathUtils.clamp(o.fleckKeep, 0, 2), THREE.MathUtils.clamp(o.fleckSparse, 0, 1),
         Math.max(0, o.fleckFloor), compositeUniforms.fleckSplit.value.w);

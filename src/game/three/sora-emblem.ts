@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 
+/** A car's emblem decals: matte vinyl mirroring little of the sky, so a bright dawn sky cannot wash the red disc out. */
+export const EMBLEM_ROUGHNESS = 0.9, EMBLEM_SKY = 0.3;
+
 /** The emblem's circle inside branding/sora-emblem-source.png (an opaque white square around it). */
 export const EMBLEM_CIRCLE = { x: 263, y: 188, size: 1071 } as const;
 

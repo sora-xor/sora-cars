@@ -1,13 +1,15 @@
 import * as THREE from 'three';
 import type { SignPools } from './signs';
 
-/** Shared city materials; every chunk merges each into one mesh. */
-export type CityMaterialKey = 'wall' | 'stone' | 'roof' | 'metal' | 'glass' | 'sign' | 'lamp' | 'water' | 'ground' | 'floodlit' | 'neon' | 'flag' | 'awning';
+/** Shared city materials; every chunk merges each into one mesh. `tsuiji`: a temple's plastered earthen wall (築地塀), the
+ * floodlit plaster with leaf shade over it in a late-day route's golden hours (materials.ts). */
+export type CityMaterialKey = 'wall' | 'stone' | 'roof' | 'metal' | 'glass' | 'sign' | 'lamp' | 'water' | 'ground' | 'floodlit' | 'neon' | 'flag' | 'awning'
+  | 'tsuiji';
 /** World-scale texture size per material; glass and print use their own UVs. */
-const SURFACE_METRES: Partial<Record<CityMaterialKey, number>> = { wall: 3, stone: 2, roof: 2, metal: 1.5, water: 6, ground: 4, floodlit: 3 };
+const SURFACE_METRES: Partial<Record<CityMaterialKey, number>> = { wall: 3, stone: 2, roof: 2, metal: 1.5, water: 6, ground: 4, floodlit: 3, tsuiji: 3 };
 export type Vec3 = readonly [number, number, number];
 /** Upward faces of these materials gather lying snow when a course snows. */
-const SNOWY: ReadonlySet<CityMaterialKey> = new Set(['wall', 'stone', 'roof', 'metal', 'ground', 'floodlit']);
+const SNOWY: ReadonlySet<CityMaterialKey> = new Set(['wall', 'stone', 'roof', 'metal', 'ground', 'floodlit', 'tsuiji']);
 const SNOW = new THREE.Color('#e6eaf4');
 /**
  * Lit-window classes (materials.ts): residential, office, shop, never lit, dim ground-floor lobbies, and the
@@ -51,7 +53,8 @@ export class CityMeshBuilder {
   snow = 0;
   /** The street's own shop-sign pools; null keeps the whole original atlas. */
   signs: SignPools | null = null;
-  /** Lamp animation written into a lamp face's UVs: phase (0-1) and mode (0 steady, 1 chasing bulbs, 2 a slow aviation blink). */
+  /** Lamp animation written into a lamp face's UVs: phase (0-1) and mode (0 steady, 1 chasing bulbs, 2 a slow aviation blink,
+   * 3 lit by day too: a stone lantern's firebox, glowing in a late-day route's golden hours as its repaints draw it). */
   animation: [number, number] = [0, 0];
   triangles = 0;
   /** Far lights (far-lights.ts): BEACON_STRIDE floats per light, in the chunk's frame. */

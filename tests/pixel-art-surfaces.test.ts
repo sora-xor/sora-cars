@@ -182,6 +182,53 @@ test('refine round 4 stones: the wet road mirrors in a mosaic of small stones', 
   assert.ok(d.wetMirrorFloor > 0 && d.wetMirrorFloor < 0.2 && d.wetStoneCrisp >= 0 && d.wetStoneCrisp <= 1);
 });
 
+test('every surface program fits WebGL 2\u2019s guaranteed 224 fragment uniform vectors', t => {
+  // Conservative: a vector per float or vec, N per matN, arrays times their length; samplers are free. The finish pass
+  // raised the wet composite's emitters from 16 to 28 (155 to 191 vectors).
+  const capture = captureSurfacePrograms(); t.after(capture.dispose);
+  capture.surfaces.configure(SURFACE_DEFAULTS); capture.render();
+  const size: Record<string, number> = { float: 1, int: 1, bool: 1, uint: 1, vec2: 1, vec3: 1, vec4: 1, ivec2: 1, ivec3: 1, ivec4: 1, mat2: 2, mat3: 3, mat4: 4 };
+  assert.ok(capture.materials.size >= 3);
+  for (const [name, material] of capture.materials) {
+    const source = material.fragmentShader.replace(/\/\/.*$/gm, '');
+    const consts = new Map([...source.matchAll(/const\s+int\s+(\w+)\s*=\s*(\d+)\s*;/g)].map(m => [m[1]!, Number(m[2])]));
+    let vectors = 0;
+    for (const m of source.matchAll(/uniform\s+(?:(?:lowp|mediump|highp)\s+)?(\w+)\s+([^;]+);/g)) {
+      if (!(m[1]! in size)) continue;
+      for (const declarator of m[2]!.split(',')) {
+        const array = /\[\s*(\w+)\s*\]/.exec(declarator);
+        const count = array ? Number(array[1]) || consts.get(array[1]!) : 1;
+        assert.ok(count, `${name}: array size of ${declarator.trim()}`);
+        vectors += size[m[1]!]! * count!;
+      }
+    }
+    assert.ok(vectors <= 224, `${name}: ${vectors} fragment uniform vectors`);
+  }
+});
+
+test('finish pass: a streak is stones stepped from deep red through gold to cream, not one flat gold', t => {
+  const d = SURFACE_DEFAULTS;
+  // On by default; a core stone's light is above the lamps' own streaks, so they stay gold with a few cream stones.
+  assert.ok(d.wetStoneRamp === 1 && d.wetStoneRampFull >= 1 && d.wetStoneRampFull <= 8);
+  // Stones step widely from one to the next, and are picked against their light rather than all together: a streak
+  // dissolves into its edges. All together (crisp 1) under the old 0.6 knee, the road was a ruled barcode.
+  assert.ok(d.wetStoneRampSpread >= 0.4 && d.wetStoneRampSpread <= 1 && d.wetStoneCrisp < 0.6);
+  // The knee no longer flattens ordinary reflections (it only holds back glare), and the gain is lower with it.
+  assert.ok(d.wetReflectionKnee >= 1.5 && d.wetReflection <= 3);
+  // Streaks vary in width and spacing, with dark road between them: under half of a broad reflection's width.
+  assert.ok(d.wetStreakVariety > 0 && d.wetWaveStreakFloor > 0 && d.wetWaveStreakFloor <= 0.15 && d.wetStoneStreakDuty < 0.55);
+  // The composite carries the ramp as a live uniform: off for comparisons, without a recompile.
+  const capture = captureSurfacePrograms(); t.after(capture.dispose);
+  capture.surfaces.configure(d); capture.render();
+  const composite = capture.materials.get('SORA pixel-art wet composite')!;
+  assert.ok(composite.fragmentShader.includes('uniform vec3 stoneRamp;'));
+  assert.deepEqual(composite.uniforms.stoneRamp!.value.toArray(), [1, d.wetStoneRampFull, d.wetStoneRampSpread]);
+  const version = composite.version;
+  capture.surfaces.configure({ ...d, wetStoneRamp: 0 }); capture.render();
+  assert.equal(composite.uniforms.stoneRamp!.value.x, 0);
+  assert.equal(composite.version, version);
+});
+
 test('shop fronts cast wet-ground columns but are no lamp heads', () => {
   const surfaces = createSurfaces(createSharedUniforms(), PIXEL_PALETTE,
     { exposure: { value: 1 }, lutWeights: { value: null } as never, band: { paletteFull: { value: 1 } } });

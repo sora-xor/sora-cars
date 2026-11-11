@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { EMBLEM_ROUGHNESS, EMBLEM_SKY } from './sora-emblem';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { DecalGeometry } from 'three/addons/geometries/DecalGeometry.js';
@@ -501,8 +502,10 @@ function instantiate(template: Template, { flag, emblem, strip, number }: CarDec
   const decalViews: { mesh: THREE.Mesh; shared: THREE.BufferGeometry; runs: readonly DecalRun[]; own?: THREE.BufferGeometry }[] = [{ mesh: flags, shared: template.decals, runs: template.decalRuns }];
   let emblemMaterial: THREE.MeshStandardMaterial | null = null;
   if (template.emblems && emblem) {
+    // Matte (November 11): at roughness 0.4 the roof's emblem mirrored the sky, and a bright dawn or dusk sky washed
+    // the red disc to pale peach with the white mark lost on it (Nikko's sunrise). A vinyl decal, not lacquer.
     emblemMaterial = new THREE.MeshStandardMaterial({ map: emblem, transparent: true, alphaTest: 0.5,
-      roughness: 0.4, metalness: 0.02, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+      roughness: EMBLEM_ROUGHNESS, metalness: 0.02, envMapIntensity: EMBLEM_SKY, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
       emissive: 0xffffff, emissiveMap: emblem, emissiveIntensity: 0 });
     nightEmblems.add(emblemMaterial);
     addDissolve(emblemMaterial, opacity);

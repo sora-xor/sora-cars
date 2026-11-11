@@ -29,7 +29,8 @@ test('ground defaults follow the measured dash, fleck and column rules', () => {
   // Dashes 1 cell tall and 2-6 cells long: the lattice spreads lengths from half to twice the mean.
   assert.ok(d.groundDashCells >= 2 && d.groundDashCells <= 3.5);
   assert.ok(d.groundSpeckle > 0 && d.groundSpeckle < 1 && d.groundMottle > 0 && d.groundMottle < 1);
-  assert.ok(d.groundDryMottle > 0 && d.groundDryMottle <= 1);
+  // Finish pass: a dry road in daylight is grainier than the wet night road, short of a checkerboard.
+  assert.ok(d.groundDryMottle > 1 && d.groundDryMottle <= 4 && d.groundMottle * d.groundDryMottle < 0.5);
   // Flecks (refine round 2): lamp light on the ground is sparse amber flecks
   // over the violet-grey ground, never a wash: the density stays under half
   // even in full lamp light, the gaps between flecks keep little of the lamp
@@ -58,7 +59,9 @@ test('ground defaults follow the measured dash, fleck and column rules', () => {
   // Key glints nearly vanish on a dry road (sunrise-wide's calm asphalt).
   assert.ok(d.sparkleKeyDry * d.sparkleKey < 0.03);
   // The uniform arrays stay small enough for WebGL 2's fragment uniform budget.
-  assert.ok(MAX_POOL_LIGHTS <= 16 && MAX_GROUND_EMITTERS <= 16);
+  // Twenty lamps ahead and eight shop fronts (84 of WebGL 2's 224 guaranteed fragment uniform vectors); the column
+  // reach covers ten lamps a side at the lamps' 22 m spacing.
+  assert.ok(MAX_POOL_LIGHTS <= 16 && MAX_GROUND_EMITTERS <= 28 && MAX_GROUND_EMITTERS >= 24 && d.lampColumnFar >= 10 * 22);
 });
 
 test('lamp columns hang under the light, from the ground under it down through its mirror image', () => {

@@ -7,6 +7,7 @@ import { HACHIROKU_FRAME } from './hachiroku';
 import { flareTrack, kitPieces, wheelGeometry, type KitPiece } from './kit';
 import { applyFinish, stripeShader, stripeUniforms, type StripeFrame } from './paint';
 import { NO_PART, PART_COUNT, bodyTemplate, type BodyFrame, type PieceMaterial } from './shell';
+import { EMBLEM_ROUGHNESS, EMBLEM_SKY } from '../sora-emblem';
 
 /**
  * A period car built to order: a procedural body (shell.ts) with the build's paint, stripes, wheels, kit, lights and
@@ -155,8 +156,10 @@ export function createPeriodCar(body: ProceduralBody, build: CarBuild, decals: C
   // The supplied flag on both doors, SORA's emblem centred on the roof and the bonnet, the club strip on the backlight
   // (and the windscreen's banner), and the build's racing numbers.
   const decalMaterial = (map: THREE.Texture, emissive = false) => {
-    const material = new THREE.MeshStandardMaterial({ map, transparent: true, alphaTest: emissive ? 0.5 : 0.03, roughness: 0.42, metalness: 0.02,
-      polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, ...(emissive ? { emissive: 0xffffff, emissiveMap: map, emissiveIntensity: 0 } : {}) });
+    // The emblem (emissive) is matte, so a bright sky cannot wash its red disc out (asset-car.ts).
+    const material = new THREE.MeshStandardMaterial({ map, transparent: true, alphaTest: emissive ? 0.5 : 0.03, roughness: emissive ? EMBLEM_ROUGHNESS : 0.42, metalness: 0.02,
+      polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2,
+      ...(emissive ? { emissive: 0xffffff, emissiveMap: map, emissiveIntensity: 0, envMapIntensity: EMBLEM_SKY } : {}) });
     hooks.dissolve(material, opacity); return material;
   };
   const flagMaterial = decalMaterial(decals.flag), emblemMaterial = decals.emblem ? decalMaterial(decals.emblem, true) : null;

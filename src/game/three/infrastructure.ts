@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { decorateKerb } from './paving-joints';
 import { scannedSurface } from './surfaces';
 
 type RoadPose = { x: number; y: number; z: number; heading: number; width: number; p: number };
@@ -14,6 +15,8 @@ export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean,
   boundaryWalls: boolean | ((p: number, side: number) => boolean) = true): THREE.Group {
   const group = new THREE.Group(); group.name = 'Route sidewalks, retaining stone and utility service';
   const concrete = new THREE.MeshStandardMaterial({ ...scannedSurface('grey_plaster_03'), color: '#aaa9a3', roughness: 0.92, normalScale: new THREE.Vector2(0.3, 0.3) });
+  // Kerb stones and walkway slabs with joints (paving-joints.ts); the poles and copings of this material keep plain concrete.
+  decorateKerb(concrete);
   const stone = new THREE.MeshStandardMaterial({ ...scannedSurface('japanese_stone_wall'), color: '#b1ada2', roughness: 0.97, normalScale: new THREE.Vector2(0.7, 0.7) });
   const metal = new THREE.MeshStandardMaterial({ color: '#4d4d45', roughness: 0.68, metalness: 0.42 });
   const ceramic = new THREE.MeshStandardMaterial({ color: '#908e85', roughness: 0.4, metalness: 0.03 });
@@ -32,7 +35,7 @@ export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean,
   // shoulder lies outside the native road edge and never changes its width.
   const section = (material: THREE.Material, profile: number[][], side: number, name: string,
     include: (p: RoadPose) => boolean = () => true) => {
-    const vertices: number[] = [], uvs: number[] = [];
+    const vertices: number[] = [], uvs: number[] = [], edges: number[] = [];
     for (let i = 0; i < poses.length - 1; i++) {
       const a = poses[i]!, b = poses[i + 1]!; if (!include(a)) continue;
       for (let j = 0; j < profile.length - 1; j++) {
@@ -40,12 +43,15 @@ export function createRoadsideInfrastructure(poses: RoadPose[], urban: boolean,
         const corners = [position(a, side * (a.width + edge[0]!), edge[1]!), position(b, side * (b.width + edge[0]!), edge[1]!),
           position(b, side * (b.width + next[0]!), next[1]!), position(a, side * (a.width + next[0]!), next[1]!)];
         const uv = [[a.p / 2.4, edge[1]! / 2.4], [b.p / 2.4, edge[1]! / 2.4], [b.p / 2.4, (next[1]! + next[0]! - edge[0]!) / 2.4], [a.p / 2.4, (next[1]! + next[0]! - edge[0]!) / 2.4]];
-        for (const k of side > 0 ? [0, 1, 2, 0, 2, 3] : [0, 2, 1, 0, 3, 2]) { vertices.push(...corners[k]!.toArray()); uvs.push(...uv[k]!); }
+        // Metres beyond the road edge, for the kerb's stones and slabs (paving-joints.ts).
+        const beyond = [edge[0]!, edge[0]!, next[0]!, next[0]!];
+        for (const k of side > 0 ? [0, 1, 2, 0, 2, 3] : [0, 2, 1, 0, 3, 2]) { vertices.push(...corners[k]!.toArray()); uvs.push(...uv[k]!); edges.push(beyond[k]!); }
       }
     }
     if (!vertices.length) return;
     const geometry = new THREE.BufferGeometry(); geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
     geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2)); geometry.computeVertexNormals();
+    geometry.setAttribute('roadEdge', new THREE.Float32BufferAttribute(edges, 1));
     const mesh = new THREE.Mesh(geometry, material); mesh.name = name; mesh.castShadow = mesh.receiveShadow = true; group.add(mesh);
   };
   for (const side of [-1, 1]) {

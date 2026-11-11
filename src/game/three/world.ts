@@ -56,6 +56,7 @@ import { periodCityForestVegetationGround, type PeriodLocals } from './period-ci
 import { SIGN_REGIONS } from './period-city/signs';
 import { crownLight, crownLightGlsl, crownTranslucencyGlsl } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
+import { pavingUniforms } from './paving-joints';
 import { compileFor, materialTextures, shadowCasterBatches } from './shader-warmup';
 import { buildColours, type CarBuild } from '../car-builds';
 
@@ -112,14 +113,20 @@ const ROAD_ALBEDO_GOLDEN = new THREE.Color('#c6c2c6');
  * the sun (its sunHeight) takes no extra key: November 1, Irohazaka's far-land grid has the ridges toward the sun rising
  * above it the whole climb, and its true-light repaints keep the road cool grey and the maples crimson in their shade
  * (region scores against them: maples 0.342 to 0.177, bends 0.297 to 0.285; a quarter of the extra key 0.206 and 0.278). */
-const GOLDEN_FILL = 0.3, GOLDEN_KEY = 2, GOLDEN_SHADOW_OPEN = 0.45;
+// Finish pass (November 11): the extra key 2 -> 2.8. With the shadows closed (GOLDEN_SHADOW_OPEN_BEHIND) the low sun
+// reads as the cutscenes paint it: long shadows from the cars, rails, lanterns and trees across a sunlit road. 3.6
+// looked the same but for more glare on pale walls and Wakakusa's lawn.
+const GOLDEN_FILL = 0.3, GOLDEN_KEY = 2.8, GOLDEN_SHADOW_OPEN = 0.45;
 /** A spring dawn's extra hemisphere fill (Nikko's Sakura Pass, Tokyo's last chapter). November 1: the true-light dawn
  * mockups keep the road, pavements and fronts lighter than ours stood (road OKLab L 0.22-0.29 against 0.23-0.43); region
  * scores Tokyo laps 0.8, 0.7, 0.6 and Nikko 0.306, 0.305, 0.244, 0.235 to 0.262, 0.269, 0.243, 0.200. The golden hours'
  * raised key with half their extra key scored better (0.252, 0.270, 0.225, 0.175), but its crisp branch shadows across
  * the near road blinked in motion (Nikko's near road 2-4% to 9-11% of its pixels; at 20 degrees or with open shadows
  * still 6-10%), where this fill adds about one point. */
-const DAWN_FILL = 0.7;
+// Finish pass (November 11): 0.7 -> 1.25, with the environment lifted too (DAWN_ENVIRONMENT). Tokyo's dawn street lies
+// in its buildings' shade and read as dusk: road OKLab L 0.27 against its mockup's 0.35, the whole frame 0.36 against
+// 0.43; now 0.31 and 0.40, and Nikko's road 0.33 to 0.37 (its mockup 0.36). More fill adds no shadow edges.
+const DAWN_FILL = 1.25, DAWN_ENVIRONMENT = 0.15;
 /** The shadow opening with the low sun behind the camera (refine round 4: Nara's true-sun repaints paint the road and
  * verges sunlit, the long tree shadows across them light; at 0.45 the shadowed ground kept 40% of the key and the road
  * read near black). With the sun ahead the backlit ground stays as dark as the Irohazaka repaints keep it, and so does a
@@ -127,8 +134,11 @@ const DAWN_FILL = 0.7;
  * bends' repaint keeps the road cool and dark with the sun behind.
  * October 31: 0.55 (was 0.85). The crowns now let sun flecks through (canopy-gaps.ts), so the road under Nara Park's
  * maples is dappled rather than one solid shade; at 0.85 the shade kept 85% of the key and the flecks barely showed.
- * Nara Park's asphalt (lap 0.6) went from L 0.22-0.30 (p10-p90) to 0.22-0.34; the open streets barely change. */
-const GOLDEN_SHADOW_OPEN_BEHIND = 0.55;
+ * Nara Park's asphalt (lap 0.6) went from L 0.22-0.30 (p10-p90) to 0.22-0.34; the open streets barely change.
+ * Finish pass (November 11): 0.12 (was 0.55). Half open, no shadow read at all: the lantern, the walkers, the rails and
+ * the cars stood on evenly lit ground, where every golden-hour repaint and cutscene lays long shadows across the road
+ * and pavement. Road flicker at 25 m/s: Nara Park 5.7% to 6.2% of its pixels, Sarusawa 2.4% to 3.2%. */
+const GOLDEN_SHADOW_OPEN_BEHIND = 0.12;
 /** A late-day route's lit rooms and shops in its golden hours, and how much brighter they glow (refine round 4: Nara
  * Sanjō's true-sun repaint lights the tea shop and the rooms above it against the low sun, where ours stood dark). */
 const GOLDEN_WINDOW_SHARE = 0.9, GOLDEN_WINDOW_GAIN = 0.8;
@@ -255,6 +265,10 @@ const PERIOD_SIGN_GAIN = 2.4;
  * against a street-lamp lens, the shop front's width (m) and the widest column (art cells).
  */
 const SHOP_COLUMNS = 4, SHOP_COLUMN_COLOUR = new THREE.Color(1, .66, .36), SHOP_COLUMN_GAIN = .5, SHOP_COLUMN_WIDTH = 2.8, SHOP_COLUMN_CELLS = 16;
+/** Lamps farther than this behind the camera's plane (m) take no reflection slot: the road they mirror in is out of view.
+ * The nearest LAMP_COLUMNS lamps ahead take one each: ten a side at the lamps' 22 m, the columns' 220 m reach; the lit
+ * shop fronts take the rest (up to SHOP_COLUMNS_MAX). */
+const LAMP_BEHIND = 12, LAMP_COLUMNS = 20;
 /** Shops nearer the camera than this along its view (m) stand beside it, their pavement out of view. */
 const SHOP_COLUMN_AHEAD = 9;
 /**
@@ -619,6 +633,11 @@ export class RaceWorld {
   /** The nearest lamp heads, whose spill washes the period city's facades (period-city/materials.ts). */
   private readonly washHeads = Array.from({ length: 6 }, () => new THREE.Vector3());
   private readonly cameraAhead = new THREE.Vector3();
+  /** Inspection (A/B captures): false restores the nearest-first lamp reflections, lamps behind the camera included;
+   * the limit caps the lamps' emitter slots (12 before the finish pass). */
+  lampsAheadOnly = true;
+  lampSlotLimit = Infinity;
+  shopSlotLimit = Infinity;
   private readonly scratchVector = new THREE.Vector3();
   /** The road's wetness last frame (umbrellas open on wet nights). */
   private lastRoadWetness = 0;
@@ -1407,6 +1426,8 @@ export class RaceWorld {
     const reset = !Number.isFinite(this.lastProgress) || player.p < this.lastProgress - 5 || Math.abs(player.p - this.lastProgress) > 100;
     const dt = reset ? 1 : clamp(time - this.lastTime, 0, 0.1); this.lastTime = time; this.lastProgress = player.p;
     const speed = this.reduced.matches ? 0 : clamp(player.speed / 78, 0, 1);
+    // Paving joints that cross the travel fade at speed, where they would strobe (paving-joints.ts).
+    pavingUniforms.soraPavingTravel.value.set(Math.sin(at.heading), Math.cos(at.heading)).multiplyScalar(player.speed / 30);
     this.speedEnvelope += (speed - this.speedEnvelope) * (1 - Math.exp(-dt * 7));
     this.boostEnvelope += ((player.boosting && !this.reduced.matches ? 1 : 0) - this.boostEnvelope) * (1 - Math.exp(-dt * 10));
     this.placeScenery(course, player.p);
@@ -1609,7 +1630,7 @@ export class RaceWorld {
     this.blossomDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BLOSSOM_DIRECT_CAP, night);
     this.foliageDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, FOLIAGE_DIRECT_CAP, night);
     this.barkDirectCap.value = THREE.MathUtils.lerp(DAY_DIRECT_CAP, BARK_DIRECT_CAP, night);
-    this.scene.environmentIntensity = 0.09 + daylight * 0.16 + 0.05 * night;
+    this.scene.environmentIntensity = 0.09 + daylight * 0.16 + 0.05 * night + DAWN_ENVIRONMENT * dawn;
     this.fill.intensity = 0.08 + daylight * 0.12 + 0.12 * night + GOLDEN_FILL * golden + DAWN_FILL * dawn;
     this.fill.color.copy(MOOD.fillSky).lerp(MOOD.fillGolden, golden);
     this.fill.groundColor.copy(MOOD.fillGround).lerp(MOOD.fillGoldenGround, golden);
@@ -1819,9 +1840,16 @@ export class RaceWorld {
       // Lamp heads for the analytic wet-ground columns (nearest first), and
       // the ambient light the lamp pools are measured against.
       let emitters = 0;
-      const lampSlots = this.groundEmitters.length - (this.periodCity.active ? SHOP_COLUMNS : 0);
+      const lampSlots = Math.min(this.lampSlotLimit, LAMP_COLUMNS, this.groundEmitters.length - (this.periodCity.active ? SHOP_COLUMNS : 0));
+      const shopSlots = Math.min(this.shopSlotLimit, SHOP_COLUMNS_MAX);
+      this.camera.getWorldDirection(this.cameraAhead);
       for (const lamp of closestLamps) {
         if (emitters >= lampSlots) break;
+        // Only lamps ahead of the camera mirror in the road it sees (finish pass, November 11): nearest to the car first,
+        // three of every eight slots went to lamps behind the camera, and the streaks stopped 90 m down the street where
+        // every night repaint runs them to the vanishing point. Those just behind it stay: their heads still light the
+        // crowns at the frame's edges.
+        if (this.lampsAheadOnly && this.scratchVector.subVectors(lamp.position, this.camera.position).dot(this.cameraAhead) < -LAMP_BEHIND) continue;
         const emitter = this.groundEmitters[emitters++]!;
         lamp.localToWorld(emitter.position.copy(LAMP_LENS.position));
         emitter.groundY = lamp.position.y;
@@ -1835,7 +1863,7 @@ export class RaceWorld {
       // The shops ahead of the camera, where their pavement is in view (the nearest to the car stand beside it).
       const shopGlow = this.periodCity.active ? windowLights('ground', dusk, morning) / WINDOW_LIGHTS.night.ground : 0;
       this.camera.getWorldDirection(this.cameraAhead);
-      for (let i = 0, shops = 0; shopGlow > 0.05 && i < closestShops.length && shops < SHOP_COLUMNS_MAX; i++) {
+      for (let i = 0, shops = 0; shopGlow > 0.05 && i < closestShops.length && shops < shopSlots; i++) {
         const shop = closestShops[i]!;
         if (emitters >= this.groundEmitters.length) break;
         if (this.scratchVector.subVectors(shop.position, this.camera.position).dot(this.cameraAhead) < SHOP_COLUMN_AHEAD) continue;

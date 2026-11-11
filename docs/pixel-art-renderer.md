@@ -1381,3 +1381,191 @@ The park's left side goes from 0.57 to 0.43. The other 11 frames are pixel-ident
 **Still open:** the band at the basin's far edge still reads as water. The far land's haze over its last kilometres could stand as the Ikoma range's silhouette instead.
 
 Evidence: `output/nara-park-ridges-20261101/` (the park's left side in layers; the three heights beside the mockup; before, after and mockup for the park, Wakakusa and Sarusawa; `report.json`).
+
+## Finish pass — November 11, 2026
+
+The user: "finish the graphics without unreal", and "make sure your a/b comparisons are actually meaningful to a human". This pass was judged by eye on labelled before / after / target sheets at the mockups' own size (1672 x 941, art grid 835 x 470), not by region scores. Sheets: `output/finish-20261111/review/01` to `06`.
+
+**Capture tooling.** Since the asynchronous shader preparation of November 10-11, a draw returns early while a course's programs compile. `scripts/test-graphics-parity.mjs` seeks and captures in one synchronous callback, so its street frames kept the pre-seek view (its November 11 baseline shows Nara Wakakusa as Sanjō-dōri). `tmp/pixel-art/shots.mjs` draws, yields and repeats until the canvas reports every asset `detailed`, stops the live frame loop meanwhile, and can roll the field at 25 m/s and keep a strip of frames (`--drive`, `--keep`). `tmp/pixel-art/sheet.mjs` lays labelled images and crops out for review; `tmp/pixel-art/flicker.mjs` counts A-B-A reversals over a strip.
+
+**Wet road.** What the eye saw against the rain-night concept and every night mockup: our reflections were one flat saturated gold cut into evenly spaced hard-edged vertical bars (a barcode), with fine lit dots between, where the paintings break each light's streak into stones that step from deep red through orange and gold to cream, soften at the streak's edges, and speckle the dark asphalt between. Causes: the mirror's gain 3.2 under a 0.6 knee put every reflection at the same level; stones were lit all together (`wetStoneCrisp` 1); streaks stood at one frequency.
+- `surfaces.ts`: a lit stone's tone ramp (`wetStoneRamp` 1, `wetStoneRampFull` 4, `wetStoneRampSpread` 0.7). A stone's level is the square root of its light against a core stone's, stepped up or down stone by stone; warm reflections (OKLab hue 38-122 degrees) take the ramp deep red, orange, gold, cream at that level, and the level scales the stone's light. Tail lamps and neon keep their hue.
+- Defaults: `wetReflection` 3.2 to 2.6, `wetReflectionKnee` 0.6 to 2.5, `wetReflectionChroma` 1.3 to 1.15, `wetColumnFade` 2.5 to 3.5, `wetStoneCrisp` 1 to 0.35, `wetStoneStreakDuty` 0.35 to 0.62, `wetWaveStreak` 4 to 5, `wetWaveStreakFloor` 0.05 to 0.12, `wetStreakVariety` 0 to 0.5, `wetStoneRowsNear/Far` 2.2/1 to 3/1.3, `wetStoneMirror` 0.85 to 0.32, `wetStoneCool` 0 to 0.35, `wetWaveDashFull` 0.25 to 0.14, `lampColumnGain` 1.8 to 2.4, `lampLobeDamp` 0.11 to 0.18, `wetGlitter` 0.025 to 0.08, `wetGlitterLift` 0.17 to 0.3.
+- Seen on Tokyo night, Hakone, Yokohama, Kyoto and Aizu dusk: broad warm streaks of varied stones in place of the bars. Still short of the targets: theirs are thinner and more numerous, with more red and orange among the gold, and Tokyo's lit shop front lays a wide gold field on the right of the road.
+- At 25 m/s the road's A-B-A flicker: Tokyo night 2.9% to 3.6% of road pixels, Hakone 0.12% to 0.13%, Yokohama 0.15% to 0.22%.
+
+**Golden hours (Nara).** Half-open shadows (`GOLDEN_SHADOW_OPEN_BEHIND` 0.55) left the cars, walkers, lanterns and rails on evenly lit ground; every golden-hour mockup lays long shadows across road and pavement. `world.ts`: `GOLDEN_SHADOW_OPEN_BEHIND` 0.12, `GOLDEN_KEY` 2 to 2.8 (3.6 looked the same with more glare). Road flicker at 25 m/s: Nara Park 5.7% to 6.2%, Sarusawa 2.4% to 3.2%. Irohazaka (its `sunHeight`) is unchanged.
+
+**Dawn (Tokyo's last chapter, Nikko).** Tokyo's dawn street read as dusk: road OKLab L 0.27 against its mockup's 0.35, the whole frame 0.36 against 0.43. `DAWN_FILL` 0.7 to 1.25 and `DAWN_ENVIRONMENT` 0.15 (new): Tokyo road 0.31, frame 0.40; Nikko's road 0.33 to 0.38 (mockup 0.36).
+
+**Roof emblems.** At Nikko's sunrise the roof emblem's red disc mirrored the bright sky and washed to pale peach with the white mark lost. The emblem decals are matte now (`sora-emblem.ts` `EMBLEM_ROUGHNESS` 0.9, `EMBLEM_SKY` 0.3; `asset-car.ts`, `period-cars/model.ts`). A change to the pixel-art crimson ramp did nothing and was removed.
+
+**Still open** (sheet 06 and the others): flat walls and pavements without leaf shadows or tile joints (Sarusawa's wall), smooth dry asphalt where the mockups draw cracked aggregate, Wakakusa's lawn a plain bright slab, low-polygon tree crowns against the mockups' leaf masses, Tokyo dusk's road warmer and busier than its mockup, and Tokyo night's streak count and colour variety. The harness's rival car sits closer than in the mockups since the driving model changed; that is placement, not rendering.
+
+Validation: 136 graphics and city tests, 135 pass; `Arcade chunks build finite geometry, landmarks included` fails in `period-city` layout files another session was editing during this pass (`tsc` reported its unfinished `viaducts` plan at the same time). Fourteen scenes captured from the real page with no console or page errors. Nothing committed.
+
+## Finish pass, second round — November 11, 2026 (kerbs, pavements, asphalt, streaks)
+
+The user, shown the first round's sheets: "Yes, continue" (with walls, pavements and asphalt). Sheets `output/finish-20261111/review/07` to `09`; every before/after pair is two variants of one capture run (`tmp/pixel-art/finish-ab.json`), because other sessions were changing the Arcade and Kanda scenery between runs.
+
+**Kerb stones and paving** (`src/game/three/paving-joints.ts`, new). The roadside kerb and walkway (`infrastructure.ts`, 'Beveled curb and sidewalk') was one flat bright band and the concrete frontage beyond it (`urban-paving.ts`) one flat tone, where every repaint draws kerb stones and paving slabs.
+- The kerb mesh carries `roadEdge` (metres beyond the road edge). `decorateKerb` draws 0.9 m granite kerb stones to 0.47 m, then three rows of 0.6 x 0.377 m slabs in a running bond, a shade darker, each stone and slab with a tone of its own and dark joints. Poles and copings of the same material lack the attribute and stay plain.
+- The frontage takes 0.45 m flags on world axes (the scan's weight to 15-22 m from the road).
+- A joint is at least two scene pixels wide (an art cell), and fades where a slab spans under about three cells.
+- Joints that cross the travel fade as the camera's travel per tick passes 0.3-0.6 slab lengths (`soraPavingTravel`, set in `world.ts` from the player's speed and the road's heading): at race speed they would strobe; the joints along the travel hold still and stay. Standing or cornering slowly the whole pattern shows.
+- `pavingUniforms.soraPavingStrength` 0 restores the plain scans for A/B.
+- At 25 m/s the pavement side's A-B-A flicker is the same with and without (Sarusawa 3.3% and 3.4%, Tokyo's dawn 1.45% and 1.46%).
+
+**Dry asphalt.** `groundDryMottle` is now the dry road's mottle against the wet road's (0-4, was a 0-1 share): 2.2, with `groundSpeckle` 0.2 to 0.4. The dry road reads as grainy asphalt at rest and at speed; road flicker at 25 m/s is unchanged (Tokyo's dawn 0.46% to 0.44%, Sarusawa 1.9% to 1.8%, Tokyo night 3.1% both).
+
+**Streaks.** Tokyo night's lit shop front still lay as one gold field. `wetStoneStreakDuty` 0.62 to 0.47, `wetWaveStreakFloor` 0.12 to 0.06, `wetStoneRampFull` 4 to 6, `wetStoneRampSpread` 0.7 to 0.9, `wetStoneRowsNear` 3 to 2.6, `wetStoneMirror` 0.32 to 0.45: separate streaks with dark road between, more orange among the gold. Against the old look at 25 m/s the lower half's flicker: Tokyo night 2.9% to 3.3%, Kyoto 4.2% to 4.0%, Sarusawa 3.3% to 3.1%, Yokohama 0.16% to 0.18%.
+
+**Still open.** Kyoto's and Tokyo dusk's roads carry fewer streaks than their mockups (the mockups light more street lamps); the temple wall's thin bright courses stair-step and it takes little leaf shadow; no leaves lie on town pavements; the stone lanterns are unlit by day; parked cars and tree crowns are coarse; Wakakusa's lawn is a plain slab. Kanda, Yokohama and Nikko changed under this pass (another session's scenery work), so their frames no longer line up with their mockups' composition.
+
+Tests: `tests/paving-joints.test.ts` (new), `tests/pixel-art-ground.test.ts`, `tests/pixel-art-surfaces.test.ts`.
+
+## Finish pass, third round — November 11, 2026 (lamp streaks, clouds, lanterns, walkway leaves)
+
+The user: "Keep going first", then "get to work". Sheets `output/finish-20261111/review/10-skies.png`, `11-lamps-and-lanterns.png`, `12-walkway-leaves.png`. Sheets 10 and 11 pair this round's changes off and on within one capture run (`tmp/pixel-art/round3-ab.json`); 12 compares two runs, because the leaves are chunk geometry.
+
+**Lamp streaks down the street** (`world.ts`). Nearest to the car first, three of every eight reflection slots went to lamps behind the camera, so the wet road's lamp streaks stopped about 90 m out where every night and dusk repaint runs them to the vanishing point. Now only lamps ahead of the camera, or less than 12 m behind its plane (`LAMP_BEHIND`), take a slot. The 20 nearest (`LAMP_COLUMNS`: ten a side at the lamps' 22 m) and up to eight lit shop fronts share `MAX_GROUND_EMITTERS` 28 (was 16). `lampColumnFar` is 220 m (was 140). Seen at Aizu and Kyoto: streaks reach the far street. Lower-frame flicker at 25 m/s is unchanged: Aizu 2.69% and 2.70%, Kyoto 4.37% and 4.42%, Tokyo night 3.46% and 3.48%, Hakone 0.13% and 0.12%.
+- The wet composite now uses at most 191 of WebGL 2's guaranteed 224 fragment uniform vectors (155 at 16 emitters), counted conservatively; `tests/pixel-art-surfaces.test.ts` keeps every surface program within 224.
+- `world.lampsAheadOnly`, `lampSlotLimit` and `shopSlotLimit` restore the old selection for A/B.
+
+**Clouds** (`src/poc/painted-sky.ts`, uniform `skyRaceStyle`, handle `paintedSky.raceStyle`). Zoomed against the repaints, our popcorn alternated pale-peach and lavender lobe by lobe, a mottle of small bricks under broad dark violet banks; the repaints paint whole clusters salmon-orange over clear violet.
+- x: popcorn lobes are lit or shaded by a slow cluster field (16 columns by 5 rows of the lattice), a few lobes of each cluster the other way.
+- y: in the low sun (golden hours, sunrise, dawn) lit bodies turn gold-orange low and salmon-pink higher.
+- z: shaded lobes a step darker than the sky (deep violet).
+- w: the strata thin in the low sun, the dark banks most (coverage less 0.3; lit strata 0.12).
+- Ragged lobe edges were tried and dropped: no visible difference.
+- Sky flicker at 25 m/s: Sarusawa 2.94% to 2.89%, Tokyo sunrise 2.48% to 2.46%, Nikko 0.02% both. Night skies draw no popcorn and are unchanged.
+
+**Stone lanterns** (`period-city/open-ground.ts`, `materials.ts`, `geometry.ts`). Lamp mode 3, lit by day too, takes the brighter of the night's lamps and `lanternGolden` (0.3) times the golden hours, steady. Only the stone lanterns' fireboxes use it, so the street lamps stay off in the afternoon (their globes read as white clouds over the golden sky). At 0.8 the paper washed out to cream; 0.2-0.35 glows amber as in the repaint.
+
+**Leaves on the kerb's walkway** (`period-city/street.ts`). The walkway stands 0.18 m above the road from 0.31 to 1.6 m beyond the edge, so leaves strewn at the road's level lay hidden in it. Seven a metre a side now lie on it, from their own stream, along the autumn litter ranges. They show at Wakakusa's guard rail; Sarusawa lies outside Nara's litter range (from 1310 m), so its pavement stays bare.
+
+**Still open.** Leaf shadows on Sarusawa's temple wall: with the stand-in golden key at about 30 degrees no tree can shade it, the trees by the pond cast short of the road's far side, and the wall's own pavement has no trees (planting clearance); the true 12-degree sun would reach it. Also distant mountains on the horizon at Sanjō, Sarusawa and Aizu, the glow low over the horizon, tree crowns, parked cars, and Wakakusa's view over the basin.
+
+Tests: `tests/finish-pass-lights.test.ts` (new), the uniform budget test in `tests/pixel-art-surfaces.test.ts`, `tests/pixel-art-ground.test.ts`.
+
+## Finish pass, fourth round — November 11, 2026 (far ridges)
+
+The user: "go". Sheet `output/finish-20261111/review/13-far-ridges.png`; each before/after pair comes from one capture run (`tmp/pixel-art/ridge-final.json` switches the stage off with `land.ridges = null`).
+
+**What the horizon was.** Every Nara, Aizu and Irohazaka repaint closes its view with blue-violet ridges darker than the sky. Ours showed a pale band. The far land (`period-city/far-land.ts`) does draw the real Kasuga hills, about 6 degrees high and 3 km east of Sarusawa: a debug render coloured by distance and drawn over everything put them where the elevation grid says. But it faded them into a haze that renders lighter than the sky. Sarusawa's pure haze measured #ce8692 against its sky's #b06857, so the ridge read as part of the sky. The repaint's mountain body is #714879 under a sky of #d1727e.
+
+**Ridge colour by day** (`FarLandPlan.ridges`, uniforms `farRidgeAway`, `farRidgeToward`, `farRidge`).
+- What it covers: wooded hills (`landWood`) take a violet ridge colour from 0.6 to 2.2 times the plan's metres, under the haze beyond.
+- Light: slopes facing the low sun (`landShade`, the vertex shading factor) are paler and warmer; shaded ones are deeper and cooler.
+- Texture: a world-anchored mottle 30-250 m across, so the 250 m grid facets no longer read as smooth gradients.
+- When: on from daylight 0.15 to 0.45, deepening toward night; the night keeps the land's own tint and haze.
+- Calibration: `#4b3f78` renders #744682 at Sarusawa, almost the repaint's #714879.
+- Values: Nara `#4a3468`/`#5a3450` over 1800 m; Irohazaka `#3f3a72`/`#4c3866` over 1200 m (2200 m barely reached its ranges across the Daiya valley). Aizu has none.
+- Visible at Sarusawa (the end of the road) and Irohazaka's maples (the range left of the road). At Sanjō the ridge is only a sliver between the buildings.
+- Flicker at 25 m/s: Sarusawa's horizon 3.30% both; Irohazaka's mountain region 4.03% to 4.37%.
+
+**Tried and dropped.**
+- A darker haze (`#6a5c94`/`#b8806e`) turned the far basin floor into a flat periwinkle plane.
+- Letting Nara's slope terrain fall to the real ground (the far land's grid) where it lies below the road: at Wakakusa's summit the wooded slopes below then showed as a lake, first blue-violet, then navy, then teal with a day gain and the crown canopy. The level lawn reads better.
+- A patchwork texture for the basin floor: invisible without that terrain change.
+- Hence the stage skips land looked down on from above (more than about 3 degrees below the camera) and fields and towns.
+- The repaint's city view on Wakakusa's right is not real: at lap 0.95 the camera looks east-southeast, with the basin behind it.
+
+**Still open.**
+- Leaf shadows on Sarusawa's temple wall. The wall uses the `floodlit` material, which 77 landmark parts share, so a leaf dapple needs its own material first.
+- Aizu's mountains: Bandai-san's silhouette renders maroon where the repaint paints navy-violet ranges.
+- Nara Park's hill beyond the lake is the painted sky's ridge (`ridgeHeight` 1.6), not far land.
+- The warm glow low over the horizon, tree crowns, parked cars.
+
+Tests: `tests/finish-pass-lights.test.ts` (far ridges); `tests/street-routes.test.ts` passes.
+
+## Finish pass, fifth round — November 11, 2026 (temple wall shade, painted ranges)
+
+The user: "Keep going first". Sheet `output/finish-20261111/review/14-temple-wall-and-ranges.png`; each before/after pair comes from one capture run (`tmp/pixel-art/leaf-ab.json` sets `leafShadeGolden` to 0; `ridgesky-final.json` wraps `setRacingSky` to drop the mood's ridge colour).
+
+**Leaf shade on Sarusawa's temple wall** (`period-city/materials.ts`, new material key `tsuiji` in `geometry.ts`, `open-ground.ts` temple()).
+- Why it had none: the wall's trees stand behind it in Kōfuku-ji's grounds, so no real shadow can reach its sunlit face. Every repaint dapples it anyway.
+- Why a new key: the wall used `floodlit`, which 77 landmark parts share. It now has `tsuiji` (築地塀), the same plaster plus leaf shade in a late-day route's golden hours, `leafShadeGolden` 0.9 of the low key.
+- Pattern: drawn on the wall's own plane and stretched about three times along it. Isotropic, the foreshortened blobs stood up as dark figures. Crowns' clusters are about 4 m by 1.5 m; leaves are about 0.5 by 0.19 m and 0.22 by 0.09 m.
+- Light: the shade shows the sky's cooler light (violet-brown, as in the repaint).
+- In motion: the leaves fade as they shrink toward an art cell, and as the camera's travel per tick nears their length along the wall (the paving joints' `soraPavingTravel`). At race speed the near wall passed a leaf a tick and strobed; the crowns' clusters then take nearly full shade, so the wall stays dappled in soft patches. Standing, the full leaf dapple shows.
+- Wall flicker at 25 m/s: 4.69% before; 5.17% with leaves at any speed (dropped); 3.34% now.
+
+**Painted ranges** (`street-scenes.ts` moods: Aizu `ridges` `#3a2c5e`, Nara `#5e4470`).
+- At Aizu's moat the mountain at the end of the street is not the far land nor the Bandai-san cone (hiding either changed nothing). It is the painted sky's ridge (night `mountain`). Its colour came from the sky's low gradient at 62%, which read maroon; it is now navy-violet against the afterglow (the repaint's body is #36265b). The `RacingSkyMood.ridges` weight is 0.85-1 over Aizu's daylight 0.38-0.6.
+- Nara Park's hill beyond the pond was the same painted ridge in tan; it is now mauve, as the far land's ridges.
+- Relief in the painted ridges (gullies and lit crests from value noise) was tried and dropped: blurry vertical streaks like rain, where the repaints draw crisp spurs.
+
+**Still open.**
+- The warm glow low over the horizon.
+- Crisp spurs and lit faces in the painted ranges.
+- Tree crowns and parked cars.
+
+Tests: `tests/finish-pass-lights.test.ts` (leaf shade, ridge colours); `tests/street-routes.test.ts`, the pixel-art and period-city suites pass (120).
+
+## Finish pass, sixth round — November 12, 2026 (horizon glow)
+
+The user: "Keep going first". Sheet `output/finish-20261111/review/15-horizon-glow.png`; each before/after pair comes from one capture run (`tmp/pixel-art/glow-final.json` sets `paintedSky.raceGlow` to 0).
+
+**The glow low over the horizon** (`src/poc/painted-sky.ts`, uniform `skyRaceGlow`, handle `paintedSky.raceGlow`).
+- What was missing: the true-light repaints wash the low sky, clouds and all, with the low sun's light. Ours stayed lavender-pink under its low clouds. Measured:
+
+  | Place | Repaint | Ours |
+  |---|---|---|
+  | Nara Park, toward the sun | #f29944 | #d16540 |
+  | Sarusawa | #e0845c | #c2737e |
+  | Aizu (afterglow) | #9f3b3c | #b87085 |
+
+- Now: in a late-day route's golden hours, the sky within about 11 degrees of the horizon takes gold toward the sun and orange away from it (deep red-orange at dusk), at 0.55-0.9 of the colour, full to about 3 degrees.
+- Order: drawn after the clouds but before the painted ridges and far city, so they stand in front of it; the golden hours' darkening low toward the sun spares it.
+- First try: a band fading from the true horizon changed 0.02% of Sarusawa's pixels. A debug render painting it green showed why: the far land and ridges hide the sky up to about 5 degrees, so only its faint top showed.
+- Pixels changed: Sarusawa 3.1%, Nara Park 3.3%, Aizu 4.8%, Kyoto 3.1%. Sky flicker at 25 m/s at Aizu: 3.31% to 3.33%.
+- Tokyo's sunrise and the nights are unchanged (no golden hours).
+
+**Tried and dropped: larger maple leaves** (`scenery.ts`, the roadside momiji crowns).
+- Leaves 1.2 and 1.4 times larger, compared in separate runs (geometry), could not be told apart from the old crowns at Wakakusa or Irohazaka. Crown flicker: 5.59%, 5.46%, 5.37%.
+- Nara Park's near crowns are the flora maples (`period-city/flora.ts`) and did not change.
+- The gap to the repaints is the leaf drawing itself: distinct palmate leaves, crisply lit gold and orange, where ours blur into clusters.
+
+**Still open.**
+- Leaf drawing in the crowns.
+- Crisp spurs in the painted ranges.
+- Parked cars.
+
+Tests: `tests/finish-pass-lights.test.ts` (horizon glow); 121 graphics, city and street-route tests pass.
+
+## Finish pass, seventh round — November 12, 2026 (survey, sunlit temple wall, dusk clouds)
+
+The user: "keep going and improve more". Sheet `output/finish-20261111/review/16-sunlit-wall-and-dusk-skies.png`; each before/after pair comes from one capture run (`tmp/pixel-art/tsuiji-final.json`, `afternoon-ab.json`).
+
+**Survey.** All 13 true-light scenes captured as they stand (`output/finish-20261112/survey/`, sheets and `match-score.mjs`; mean region gap 0.340).
+- Tokyo and the Arcade roads now pass different streets than their October 31 repaints show (the real-road layouts), so their scores mostly measure layout, not rendering.
+- Seen there, for the sessions that own those streets: a large flat yellow wall at Hakone's night street (right side), and white walls washed out under Nikko's sunrise.
+
+**Sarusawa's temple wall in the sun** (`period-city/materials.ts`, `tsuijiGoldenCut` 0 and `leafShadeCover` 0.14).
+- The repaint paints it golden ochre with violet-brown leaf shadows. The band from the wall's foot to its roof measured L 0.46 against the repaint's 0.58: the walls' golden-hours cut halved its sun, and the round-5 shade covered about half of it.
+- The wall now keeps its full sun, and the shade's threshold on the crown field rises 0.14, so it covers about a third: L 0.58 at race speed, 0.61 standing.
+- The cut alone, removed, lifted it only 0.03-0.07.
+- Wall flicker at 25 m/s: 3.34% to 3.97%, still under the 4.69% before any shade.
+- The cut and the shade apply only in golden hours; Aizu's temple stretch is unchanged.
+
+**Dusk clouds** (`src/poc/painted-sky.ts`, uniform `skyRaceAfternoon`, `RacingSkyMood.lowSun`).
+- The round-3 warm cloud bodies and thinner dark banks followed the sky's golden-hours weight, which includes a late-day route's afterglow. Aizu's and Kyoto's dusk clouds therefore stood as bright salmon blobs where the repaints paint dark violet masses with rose undersides.
+- They now follow the sunlit afternoon only (daylight 0.6-0.85 on a late-day route). Brightest tenth of the upper sky:
+
+  | Place | Before | Now | Repaint |
+  |---|---|---|---|
+  | Aizu | 0.71 | 0.64 | 0.50 |
+  | Kyoto | 0.63 | 0.53 | 0.47 |
+
+- At Aizu the share above L 0.7 fell from 12% to 1%. Sarusawa and Irohazaka (afternoon) are unchanged. Sky flicker at Aizu: 2.41% to 2.39%.
+
+**Tried and dropped.**
+- Halo settings at Aizu's dusk lamps. The lamp heads are cream by the cutscene measurements and their halos run a short ramp to grey-mauve; that is the cutscenes' look, left alone.
+- More gold glints on crown edges (`foliageGlint` 0.6): under 0.1% of pixels.
+- A higher highlight ceiling for the crowns (`crownLight` 0.4/0.72): under 1.1%.
+- Lit and shaded faces on the painted ranges: hard vertical seams, then a soft vertical band like a shaft of light; the repaints' shading follows ridges and gullies.
+
+**Fixed.** Removing the faces left `const float PI` behind a line comment, so the sky failed to compile and every race drew a flat dark sky, as once before in this pass. A new test fails on any statement after a comment in the sky shader.
+
+Tests: `tests/finish-pass-lights.test.ts` (wall, dusk clouds, comment guard); 122 graphics, city and street-route tests pass.
