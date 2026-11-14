@@ -1,8 +1,7 @@
-import { environmentAt } from './environment';
+import { arcadeEnvironmentAt, environmentAt } from './environment';
 import { buildValue, fittedParts, partState, storyRivals, techNode, type BranchId, type GarageSave, type RivalStyle, type TechNode } from './garage-tech';
 import { RULES, TRACKS } from './rules';
 import { CHAPTERS, RIVALS, storyGrid, storyObjective, type Bilingual, type StoryChapter } from './story';
-import { STOCK_TUNE } from './tuned-engine';
 
 // The pre-race garage that follows a story chapter's opening cutscenes: tonight's
 // course, the objective, how far the rivals have tuned, and the crew's next pick.
@@ -15,13 +14,16 @@ export interface CourseConditions {
   /** Roadside objects on one lap. */
   readonly trees: number; readonly signs: number; readonly oil: number;
 }
-/** Read from the native environment over a stock car's race distance. */
+/** How long a stock car's race lasts on each Arcade course's real road (seconds): eight stock cars take 2:44–2:56 at
+ * Hakone, 2:24–2:38 in Yokohama and 1:23–1:30 at Nikkō (`npm run check:drive`). */
+const STOCK_RACE_SECONDS: readonly number[] = [170, 150, 87];
+/** Read from the native environment over a stock car's race. */
 export function courseConditions(trackId: number): CourseConditions {
   const track = TRACKS[trackId];
   if (!track) throw new RangeError('Unknown course');
-  const ticks = Math.ceil(track.length * RULES.laps / STOCK_TUNE.topSpeed);
+  const ticks = STOCK_RACE_SECONDS[trackId]! * 30;
   let rainy = 0, wind = 0;
-  for (let tick = 0; tick < ticks; tick++) { const env = environmentAt(trackId, tick); rainy += env.rain; wind = Math.max(wind, Math.abs(env.wind)); }
+  for (let tick = 0; tick < ticks; tick++) { const env = arcadeEnvironmentAt(trackId, tick); rainy += env.rain; wind = Math.max(wind, Math.abs(env.wind)); }
   const objects = environmentAt(trackId, 0).objects, perLap = (kind: string) => objects.filter(object => object.kind === kind).length / RULES.laps;
   return { rain: Math.round(rainy * 20 / ticks) * 5, wind: wind > 16 ? 'strong' : wind > 8 ? 'gusty' : 'light', trees: perLap('tree'), signs: perLap('sign'), oil: perLap('oil') };
 }
@@ -41,19 +43,19 @@ export interface CourseTip {
 /** By track id. */
 export const COURSE_TIPS: readonly CourseTip[] = [
   {
-    crew: 'yui', branches: ['turbo', 'engine'],
-    line: { ja: '箱根のコーナーは流れるようにつながってる。計算だと、最高速とブーストがそのままタイムになる。', en: 'Hakone’s corners run into each other. By my numbers, top speed and boost turn straight into time.' },
-    plan: ['engine-intake', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'turbo-big', 'chassis-coilovers', 'engine-cams', 'chassis-rally', 'turbo-antilag', 'body-cage', 'engine-torque', 'body-bumpers', 'body-armor', 'body-windtunnel', 'engine-fulltune', 'chassis-lsd'],
+    crew: 'yui', branches: ['chassis', 'body'],
+    line: { ja: '箱根はカーブとヘアピンの連続。計算だと、タイヤのグリップと立ち上がりがそのままタイムになる。', en: 'Hakone is bend after bend, and a hairpin. By my numbers, tyre grip and pull out of the corners turn straight into time.' },
+    plan: ['chassis-tyres', 'body-cage', 'chassis-coilovers', 'body-bumpers', 'body-armor', 'chassis-rally', 'engine-intake', 'turbo-controller', 'engine-cams', 'engine-torque', 'turbo-intercooler', 'turbo-twin', 'chassis-lsd', 'engine-fulltune', 'turbo-antilag', 'body-windtunnel'],
   },
   {
-    crew: 'daichi', branches: ['engine', 'turbo'],
-    line: { ja: '港はまず吸排気、それからブーストだ。焦らなくていい。前が空いてから踏もう。', en: 'For the harbor, intake first, then boost. No need to rush. Get on the throttle once there’s room ahead.' },
-    plan: ['engine-intake', 'turbo-controller', 'engine-cams', 'turbo-intercooler', 'engine-torque', 'turbo-big', 'chassis-tyres', 'chassis-coilovers', 'chassis-rally', 'body-cage', 'body-bumpers', 'body-armor', 'turbo-antilag', 'engine-fulltune', 'chassis-lsd', 'body-windtunnel'],
+    crew: 'daichi', branches: ['body', 'chassis'],
+    line: { ja: '港は直線と直角コーナー、それに雨だ。まずはケージとタイヤで足元を固めよう。焦らなくていい。前が空いてから踏もう。', en: 'The harbor is straights, square corners and rain. Firm the car up first: cage, then tyres. No need to rush. Get on the throttle once there’s room ahead.' },
+    plan: ['body-cage', 'chassis-tyres', 'engine-intake', 'turbo-controller', 'chassis-coilovers', 'body-bumpers', 'body-armor', 'chassis-rally', 'engine-cams', 'engine-torque', 'turbo-intercooler', 'turbo-twin', 'engine-fulltune', 'chassis-lsd', 'turbo-antilag', 'body-windtunnel'],
   },
   {
-    crew: 'jun', branches: ['engine', 'turbo'],
-    line: { ja: 'ヘアピンで落とした速度は、エンジンとブーストで取り返そう。親父さんのノートにも、そう書いてある。', en: 'Whatever the hairpins take, win it back with the engine and the boost. Your dad’s notebook says the same.' },
-    plan: ['engine-intake', 'body-cage', 'turbo-controller', 'turbo-intercooler', 'chassis-tyres', 'chassis-coilovers', 'turbo-twin', 'engine-cams', 'chassis-rally', 'engine-highrev', 'engine-fulltune', 'body-bumpers', 'body-armor', 'turbo-antilag', 'body-windtunnel', 'chassis-lsd'],
+    crew: 'jun', branches: ['turbo', 'engine'],
+    line: { ja: '日光は長い直線から上り坂。稼ぎどころは直線だから、ブーストとエンジンだ。親父さんのノートにも、そう書いてある。', en: 'Nikko is a long straight, then the climb. The straight is where the time is, so it’s boost and engine. Your dad’s notebook says the same.' },
+    plan: ['turbo-controller', 'engine-intake', 'body-cage', 'chassis-tyres', 'turbo-intercooler', 'engine-cams', 'chassis-coilovers', 'body-bumpers', 'body-armor', 'chassis-rally', 'engine-torque', 'turbo-twin', 'engine-fulltune', 'turbo-antilag', 'chassis-lsd', 'body-windtunnel'],
   },
 ];
 export const courseTip = (trackId: number): CourseTip => {

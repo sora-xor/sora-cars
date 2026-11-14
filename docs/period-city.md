@@ -104,8 +104,8 @@ Tokyo:
 | Hanzomon (palace gate) | across a moat causeway |
 | National Theatre (1966): the battened storehouse | Hayabusacho |
 | National Diet Building (1936): granite wings, portico, stepped-pyramid tower, a forecourt with lawns | the Diet front |
-| Ministry of Justice (1895): red brick, slate, dormers | Kasumigaseki |
-| Metropolitan Police headquarters (1980): slab and antenna mast | Sakuradamon |
+| Ministry of Justice (1895): red brick under the plain tiled roofs of its post-war repair | facing the moat east of Sakuradamon |
+| Metropolitan Police headquarters (1980): slab and antenna mast | the Sakuradamon corner |
 | Sakuradamon: Korai-mon and white gatehouse | across a moat causeway |
 | Nijubashi: the double-arched granite bridge to the main gate, six lit iron lanterns, the Fushimi turret | across the moat beyond Sakuradamon |
 | Dai-ichi Seimei Building (1938): granite colonnade | the Hibiya moat |
@@ -114,20 +114,34 @@ Tokyo:
 
 On the skyline, Mt. Fuji now stands about 95 km away in its true direction, and Nikolai Cathedral's green dome (1891, dome rebuilt 1929) stands at Surugadai.
 
-Arcade:
+Arcade (each at its real place along the course's road; see [Arcade courses](#arcade-courses)):
 
-- Yokohama:
-  - the "three towers": Jack (1917, red brick and clock), Queen (1934, Customs, green dome) and King (1928, Prefectural Office), ahead of the Marine Tower and the liner;
-  - the Hotel New Grand (1927), with its arched ground floor and cornice;
-  - Chinatown's Zenrinmon gate: red pillars and green-tiled roofs.
-- Nikko:
-  - the 1912 JR Nikko Station (white clapboard, green trim, clock gable);
-  - a five-storey pagoda among the cedars, and Nantai-san on the horizon.
-- Hakone: the Fujiya Hotel (1891), a Western hotel under Japanese roofs, with its 1936 Flower Palace wing; Mt. Fuji over the pass.
+- Hakone (Route 1): Hakone-Yumoto Station as it stood from 1974 to 2009, a long single-storey building in blue and white, at the start; Tōnosawa's tall wooden ryokan on the road, Fukuzumirō (1887) and Kansuirō (1919-24) on the river side and Ichinoyu across from them, storey on storey of lit shoji behind railed verandas; the Fujiya Hotel (1891), a Western hotel under Japanese roofs with its 1936 Flower Palace wing, on the left at Miyanoshita.
+- Yokohama (from Sakuragichō over Bankoku-bashi, then the waterfront south-east with the sea on the left):
+  - JNR Sakuragichō's 1927 station (gabled hall, clock in the gable, replaced in 1989) beside the grid, the Negishi Line's viaduct behind it;
+  - on Honchō-dōri the Dai-Ichi Bank's Yokohama branch (1929) with its semicircle of Tuscan columns, and the Yokohama Specie Bank (1904), the prefectural museum since 1967, its green dome over Bashamichi; a footbridge over Honchō 4-chōme's junction;
+  - the Silk Conditioning House (1926-1990), brick piers and cream bays lining Bankoku-bashi-dōri; the Kisha-michi freight line's level crossing into Shinkō's yard;
+  - Shinkō Pier's No. 2 red-brick warehouse (1911), a bonded warehouse until 1989;
+  - Customs, "Queen" (1934, green dome), back across the block on the right of the road down from Shinkō-bashi, and the Prefectural Office, "King" (1928), on Kaigan-dōri;
+  - the Silk Center (1959) at the Ōsanbashi entrance, and Ōsanbashi itself running 440 m out to sea with its 1964 terminal;
+  - the Hotel New Grand (1927) and the Marine Tower (1961, seven red and white bands) on Yamashita Park-dōri; across the park's lawns, at its sea wall, Hikawa Maru in her 1986 marine-blue hull under NYK's black funnel with a white band and two red stripes (black again from December 1988);
+  - the Bund Hotel (1929-1999) past Yamashita-bashi, the blue neon of its Shell Room on the roof;
+  - the Yokohama Port Symbol Tower (completed 18 July 1986) on Honmoku's D pier.
+  - "Jack" (200 m inland of the route, its domes not restored until 1989) and Chinatown's present gate (1989) are no longer placed.
+- Nikkō (Routes 119 and 120): the 1912 JNR Nikkō Station (white clapboard, green trim, clock gable) and Tōbu Nikkō Station's 1979 mountain-lodge building, both on the right; Nikkō City Hall, the castle-like former Daimyō Hotel, above its 8 m stone wall on the left; Shinkyō beside Nikkō-bashi; the Tarō-sugi, a 43 m cedar some 550 years old, leaning over Route 120 just beyond the bridge (the road was never widened past it); the Tamozawa Imperial Villa's stone wall, plastered tile-capped wall and gate, its copper roofs green among the trees.
+
+Tokyo (added 2026-11-11 from [the 1986 check](../world/research/routes/tokyo-1986.md); every landmark's place now comes from projecting its real position, from OpenStreetMap, onto the route, which itself strays 40-220 m from the real streets; in route order): Hotel Grand Palace (1972) behind Kudanshita; the Kudanzaka stone lighthouse (高燈籠, 1871) opposite the shrine; the British Embassy's brick wall and chancery (1929) at Ichibanchō; the Supreme Court (1974) after the National Theatre; the Diet front garden's clock tower (1960); the Kokusai Building and Imperial Theatre (1966), Meiji Seimei Kan (1934) and the Yūsen Building (1978) on Hibiya-dōri; the Palace Hotel (1961) facing the Wadakura moat; Mitsui & Co. (1976) at Ōtemachi. The Budokan stands 200 m into Kitanomaru Park and Hotel Grand Palace 200 m behind the Kudanshita crossing, as they do. Yasukuni's first torii stands where it does on the shrine front, at its real size (25 m, a 34 m kasagi) and in the unpainted weathering steel of its 1974 rebuilding. Police headquarters now stands at the Sakuradamon corner with the Ministry of Justice beyond it, facing the moat, as they do.
+
+Four stretches differ from their sector's district (`TOKYO_1986_OVERRIDES`, found by sampling OpenStreetMap's moats, parks and buildings every 20 m along the loop): the National Theatre's and the Supreme Court's open forecourts at Hayabusachō; the Diet's front garden across the road from the Diet; Sakurada-dōri between Kasumigaseki's ministries, where a moat was drawn before though the real moat begins only at the Sakuradamon crossing; and Hibiya Park facing the moat from Iwaida-bashi to the Hibiya crossing, where office fronts stood before.
+
+Corrected to 1986:
+- the Ministry of Justice carries the plain tiled roofs of its 1948–50 repair (the slate roofs and dormers are the 1991–94 restoration);
+- the Diet, the palace gatehouse, Nijūbashi and the turret stand unlit (the Diet's floodlighting began on 28 November 1990, the Outer Garden's in 2016–18);
+- Tokyo Tower is painted in the scheme the 1986 repaint brought in, seven equal bands from the main deck up (eleven before; the month of the repaint is unconfirmed), and its main deck is international orange, as it was until the late 1990s; outline bulbs only, the floodlighting came on 1 January 1989.
 
 The Palace Side Building is shortened (about 104 m against its real 200 m) to fit the route's bend at Takebashi. Positions follow the route's authored gates, not a survey.
 
-**Floodlighting.** The `floodlit` material washes upright faces warm, brightest at their foot and fading up the facade, on with the night lights and off toward sunrise (`PERIOD_FLOODLIGHTS`). It covers the Diet, the Budokan, Kudan Kaikan, Dai-ichi, the Justice ministry, the palace gatehouse and turret, the Yokohama towers, the Marine Tower, the pagoda and the Shinkyo. These landmarks read at night as the cutscenes' lit buildings do.
+**Floodlighting.** The `floodlit` material washes upright faces warm, brightest at their foot and fading up the facade, on with the night lights and off toward sunrise (`PERIOD_FLOODLIGHTS`). It covers the Budokan, Kudan Kaikan, Dai-ichi, the Justice ministry, the Yokohama towers, the Marine Tower, the pagoda and the Shinkyo. These landmarks read at night as the cutscenes' lit buildings do.
 
 ## Weather, seasons and street life
 
@@ -256,14 +270,43 @@ Measured against the user's target image (`art/reference/rain-night-target.png`;
 
 ## Arcade courses
 
-Each Arcade course is three laps unrolled, so `ARCADE_1986_DISTRICTS` repeats
-blocks of district (300-360 m) that never line up with a lap.
+Since 2026-11-11 each Arcade course is set on one real road of 1986, at true scale. The course is three laps drawn
+end to end, and that whole length follows the road: its bends and hairpins, its heights at every metre, the places
+along it in order, each landmark on its own side, the land rising or falling beside it, and the far mountains at
+their real summits. Local races run and draw the real plan; RaceV1 (live races, not yet launched) keeps its own bends,
+drawn on the same heights and places. Sources and method are in [the research notes](../world/research/arcade/README.md).
+The earlier level courses of repeating district blocks are gone.
 
-- **Midnight Circuit (Hakone, night):** onsen towns between the pass's forests. Ryokan have lit shoji, verandas, tiled pent roofs, noren, red lanterns and 旅館, 民宿 or ♨ signs. Concrete 1970s hot-spring hotels carry rooftop neon (ホテル 湯の花) and stacked ホテル signs. There are yosegi and manjū souvenir shops and farm hamlets.
-- **Harbor Run (Yokohama, night):** the left side is mostly quay: bollards, a dressed-stone edge and dark water out to the painted harbour shore and cranes. The right side has red-brick, corrugated and concrete warehouses carrying operators' names (三栄海運, 北辰物産, SORA 海運), container yards under floodlight masts, crates and drums on the aprons, and a Kannai block. `ARCADE_1986_LANDMARKS` adds the Marine Tower (1961), red and white with its lit deck and beacon, and a moored liner, みなと丸 after the harbour cutscene, dressed overall in strings of bulbs. The Bay Bridge (1989) is deliberately absent.
-- **Sakura Pass (Nikko, sunrise):** the old street of machiya, shop-houses and ryokan (湯波 and 羊羹 shops), 1980s houses with glazed blue or brown tile roofs and block walls, cedar and broadleaf forest. Near the start, the vermilion Shinkyo (神橋) arches over a rocky gorge beside the road bridge.
+| Course | Road | Places in order |
+|---|---|---|
+| Midnight Circuit (night) | National Route 1, 95 → 415 m | Hakone-Yumoto station and its shop street; Asahi-bashi; Kanrei-dōmon; Chitose-bashi; Tōnosawa's ryokan; the Tozan Railway's bridge at Deyama; the climb above the Haya-kawa; Ōhiradai; Miyanoshita and the Fujiya Hotel |
+| Harbor Run (night) | Sakuragichō to Yokohama's waterfront, quay level | Sakuragichō station; Honchō-dōri over Benten-bashi; Bankoku-bashi; Shinkō Pier's sheds and red-brick warehouses; Shinkō-bashi; the Customs back across the block; Kaigan-dōri with the Prefectural Office; Yamashita Park-dōri with the freight viaduct, Hotel New Grand, Marine Tower and the liner; Yamashita-bashi under the expressway; Shin-Yamashita's timber basin below the Yamate bluff; Kominato; Honmoku Pier to the Symbol Tower |
+| Sakura Pass (sunrise) | Routes 119 and 120, 532 → 707 m | the JNR and Tōbu stations; the main street's machiya and shop-houses; City Hall on its stone wall; Shinkyō and Nikkō-bashi; Route 120 under the Sannai hill; Nishi-sandō; Tamozawa and the botanical garden; Arasawa; the rise before Kiyotaki |
 
-Towns stand on the flat strip before the banks rise (18 m), and back rows follow the terrain. Forest districts keep the race's own tree pools and their stone retaining walls. In harbour districts the hills are skipped (`createTerrain(..., skip)`) and the flat ribbon stops at the quay edge. The Nikko gorge cuts both ribbon and banks.
+Code:
+
+- **Heights** (`src/game/arcade-geography.ts`, built by `scripts/build-arcade-geography.ts`): the world's road and the local driving model read the same profile. Live races keep RaceV1's level arithmetic.
+- **Stretches** (`layout.ts` `ARCADE_1986_STRETCHES`): each names its place, the district either side and the bank factor either side. `arcadeDistrictAt`, `arcadePlaceAt` and `arcadeBankAt` read them.
+- **Hill and valley** (`terrain.ts` `setTerrainRelief`): a real road is cut into its hillside. The bank beyond the 18 m strip is scaled by the stretch's factor: above 1 a steeper hill (Sengen-yama's flank above Route 1, the Yamate bluff over Shin-Yamashita), negative a slope falling away (the Haya-kawa gorge, the Daiya). Factors ease over 160 m where stretches meet.
+- **Ground on the real plan** (`arcade-ground.ts`): strips laid out from the road fold over a 15 m hairpin, and one stretch's banks would bury the next a hillside away, so the ground is one 6 m grid round the whole road with every stretch's asphalt cut out exactly (as the city routes' `createUrbanGround`). Each road station says how the land stands beside it (the strip, then its banks or valley) and the ground blends what the stations round a point say, nearer ones counting far more: one stretch alone keeps its own banks, and the Ōhiradai hairpin's legs share one hillside. Its trees stand clear of the other stretches. On RaceV1's bends (live races) the ribbon and strips remain.
+- **Road structures** (`road-structures.ts`, from the street plan's `arches` and `galleries`):
+  - Kanrei-dōmon (1931), the six-bay concrete rock shed Route 1 ran through until 2014, the cliff on the left and the bays open to the river;
+  - Asahi-bashi and Chitose-bashi (early 1930s), concrete tied arches with a rib beside each kerb;
+  - the Tozan Railway's girder over the road at Deyama, its 1917 truss running out over the gorge;
+  - Shin-Asahi-bashi (1967), the steel box girder beside Asahi-bashi that carried the downhill lane;
+  - the Yamashita Rinkō freight viaduct (1965; freight ended 1 November 1986) along the road-side edge of Yamashita Park.
+  Lots and planting keep clear of them, and each follows the road's own line and grade across chunk seams.
+- **Yamashita Park's sea wall** (the street plan's `seaPark`): the lawns end 62 m from the road at a granite coping and rail, the harbour beyond, and Hikawa Maru lies alongside.
+- **The harbour's far shore** (`painted-sky.ts` `skyRaceHarborCity`): across the water in 1986 lay piers, refineries and a low city, the 102 m Tenri Building of 1972 its tallest, not the wall of towers the earlier skyline painted. A tenth of the tower sites stand, at 0.42 of their earlier height, and the low city's band is lower too.
+- **Crossings**: the Haya-kawa under both arches (gorges); the canal at Shinkō-bashi (a river) and the Hori-kawa under the Kariba Line's 1984 viaduct at Yamashita-bashi (the expressway crossing); the Daiya beside Shinkyō and the Arasawa (a gorge).
+- **Far mountains** (`skyline.ts` `ARCADE_DISTANT`), at their real summits in the course's frame (`arcadeFramePoint`): Sengen-yama, Myōjōgatake, Myōjingatake and Kamiyama round Route 1 as rounded massifs (`massif`), and no Mt. Fuji, which cannot be seen from that stretch; Nantai-san's cone ahead to the left of Nikkō's street, Nyohō-san and Akanagi-san to the right, Nakimushi-yama across the Daiya. A far mountain stands clear of the course, on the real plan and on RaceV1's bends, by more than its own foot: Route 1 climbs to within 900 m of Sengen-yama's top, so it is narrow and stands on its 350 m terrace. The slopes the road is cut into are the banks.
+- **Far landmarks** (`open-ground.ts` `periodFarLandmarks`): the Marine Tower and the Symbol Tower show as far silhouettes before their own stretch is built.
+- **Cherries** on Sakura Pass stand only in the street plan's `blossom` ranges (by the Daiya, round Tamozawa, on the hillsides): Nikkō's main street has no cherry avenue.
+- **Signs**: 宮ノ下 / 芦ノ湖 on Route 1, 山下公園 / 横浜駅 on Kaigan-dōri and 本牧ふ頭 ← / 磯子 ↑ before the left turn at Kominato, 日光 / 中禅寺湖 before Shinkyō and 中禅寺湖 / 明智平 on Route 120. Yokohama's footbridge is France-bashi (1984) at Yamashita-bashi.
+
+Kept from before: ryokan with lit shoji, 1970s hot-spring hotels, yosegi and manjū shops in the onsen stretches; quays with bollards and dark water, warehouses, container yards and gantry cranes in the harbour; machiya, shop-houses and ryokan on Nikkō's street. Towns stand on the level strip before the banks, and back rows follow the terrain. The Bay Bridge (1989) stays absent: in August 1986 it had no towers yet.
+
+Known limits: Midnight Circuit keeps its snow and Sakura Pass its spring though the story is set in August; today's Shinkō Pier roads stand in for the pier's 1986 roads between sheds and sidings; the course's road is 12 m wide where the real ones are 6–7 m.
 
 ## Local routes
 
@@ -285,6 +328,11 @@ Only `world.ts` reads the scenes; the native road table and the physics never do
 - **Pond:** a stone edge, open water below the road, willows leaning over it and a grassy far bank (Sarusawa-ike and Daibutsu-ike in Nara, the castle park in Aizu).
 
 The urban ground is cut under ponds and under forest runs, as it is under moats and parks.
+
+**Railways the 1986 streets still shared** (`road-structures.ts`, from the street plans' `arches` and `galleries`):
+
+- Kyoto: the Keihan main line crossed Shijō-dōri at grade at the east end of Shijō Ōhashi until it went underground on 24 May 1987, Shijō station's staggered platforms either side of the road; the crossing has its striped posts, crossbucks and twin red lamps, arms raised, rails flush in a planked crossing and overhead wires. The Keishin line's trams ran down the middle of Sanjō-dōri from the Higashiōji corner to Keage until October 1997: double track flush in the asphalt under trolley wires and span wires.
+- Nara: Sanjō-dōri crossed the JNR Kansai Main Line and Sakurai Line at grade beside the 1934 station (until 2008).
 
 **Crossings** now come in three kinds:
 
@@ -330,7 +378,7 @@ The slope terrain's own straight edge still shows near Nara's summit, now agains
 
 | Building | Route place |
 |---|---|
-| Kyoto Tower (1964), 131 m: a white shaft on the tower building, with its ringed drum and red-tipped mast | Shiokōji, opposite Kyoto Station |
+| Kyoto Tower (1964), 131 m: a white shaft on the tower building, with its ringed drum, the drum's flared underside vermilion, and a red-tipped mast | Shiokōji, opposite Kyoto Station |
 | Kyoto Station's third building (1952): a long, low concrete block with a tall central block, across its forecourt. It was JNR's until April 1987 | Shiokōji, at the start |
 | Higashi Honganji's great gate, drawn with the Nandaimon builder: unpainted timber under two tiled roofs | Karasuma-dōri |
 | Higashi Honganji's Goei-dō (1895), 76 m across and 38 m high, and its Amida-dō: column verandas under skirt roofs and vast tiled roofs | Behind the gate, their roofs over the temple wall |
@@ -538,6 +586,12 @@ On Midnight Circuit, measured the same way under heavy host load (1-minute load 
   - Umbrellas open on a wet night and fold away when the road dries.
   - Shops in Kanda hang awnings printed with their trade, all steep enough never to read as wet road.
   - 20 tests in all.
+- `npx tsx --test tests/arcade-geography.test.ts` checks the Arcade courses' real roads:
+  - each course carries its road's heights (Hakone 95 → 415 m, Nikkō 532 → 707 m, Yokohama at quay level), with no step and no grade beyond a mountain road's;
+  - the driving model's grade is the world's, and the hill runs on across laps while the bends repeat;
+  - places stand in real order, each landmark on its own side and none in water or forest; the rock shed lies between the two bridges; no cherry range touches Nikkō's main street;
+  - the banks ease from hill to valley without a step, and other courses keep their plain banks;
+  - the generated profiles cover each course from the traced roads in `world/research/arcade`.
 - `npx tsx --test tests/street-routes.test.ts` checks the local routes:
   - each route has its own wording and a chapter for each soundtrack cue;
   - each route has a scene covering every one of its sectors;
@@ -566,7 +620,7 @@ On Midnight Circuit, measured the same way under heavy host load (1-minute load 
   - Tsuruga-jō's keep is rarely in view from the road. Beside the moat it stands 69–111° off the car's nose. On the Jōnan-dōri approach, where it is about 27° off, houses and walls hide it.
   - Irohazaka's kana boards are a plain provisional design. The 1986 boards are unconfirmed, and neither the 1995 nor the 2023 set may be shown.
   - Kyoto's Keage junction is modelled as a 24 m arc 18 m wide, more generous than the real Y-junction, so that the practice AI can take it.
-  - Kyoto Tower's drum is drawn white. The research describes a red deck and top, and the tower's 1986 night lighting is unconfirmed.
+  - Kyoto Tower's red is drawn on the drum's flared underside and the mast; the research describes a red deck and top without saying how much of the deck was red, and the tower's 1986 night lighting is unconfirmed.
   - Two Kyoto gates are stand-ins drawn with other builders: Higashi Honganji's gate uses the Nandaimon builder, and Nijō-jō's gate uses the Sakuradamon builder.
   - Public car access in 1986 is unconfirmed for Aizu's Keizan forest road and for Nara's Tōdai-ji lane. The Wakakusa driveway's 1986 operation (one-way or two-way climb, hours, toll booth) is also unconfirmed.
   - The locals keep to the pavements and verges. Nara's deer never step into the road, though in life they stop the traffic. Nobody sells or feeds them shika senbei, and the Irohazaka monkeys never raid a car.

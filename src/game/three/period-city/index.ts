@@ -18,9 +18,9 @@ import { floraMeshes } from './flora';
 export { setPeriodCityLampHeads, setPeriodCityLighting } from './materials';
 export { MovingFarLights } from './far-lights';
 export { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, MOAT, TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS,
-  TOKYO_1986_STREET, arcadeDistrictAt,
+  TOKYO_1986_STREET, arcadeBankAt, arcadeDistrictAt, arcadePlaceAt,
   moatWidth, periodCityGroundCut, periodCityOpenRuns, periodCityRouteFrame, type PeriodDistrict, type PeriodOpenRun, type PeriodSide } from './layout';
-export { QUAY } from './open-ground';
+export { QUAY, periodFarLandmarks } from './open-ground';
 export { ARCADE_DISTANT } from './skyline';
 export type { CityFixture } from './buildings';
 

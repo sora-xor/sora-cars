@@ -4,11 +4,11 @@ import { readFileSync } from 'node:fs';
 import { CONTROL } from '../src/game/rules';
 import { STOCK_TUNE } from '../src/game/tuned-engine';
 import { atan2, cos, sin } from '../src/game/drive/dmath';
-import type { DriveCourse } from '../src/game/drive/course';
+import { sampleCourse, type DriveCourse } from '../src/game/drive/course';
 import { DriveRace, DriveStatus, RECOVERY_TICKS, collideBoxes, roadWheel, steerSubstep, steerTick, type DriveCar, type DriveProp } from '../src/game/drive/race';
-import { DAMAGE_LIMIT, impactPoints } from '../src/game/drive/damage';
+import { DAMAGE_LIMIT, RAIL_DAMAGE_FROM, impactPoints } from '../src/game/drive/damage';
 import { vehicleSpec } from '../src/game/drive/vehicle';
-import { DRIVER_SKILLS, DriveAI } from '../src/game/drive/ai';
+import { DRIVER_SKILLS, DriveAI, cornerSpeed, reachSpeed } from '../src/game/drive/ai';
 import { arcadeDriveRace } from '../src/game/drive/setup';
 import { driveReplayRace, validateDriveReplay } from '../src/game/drive/arcade';
 import { DRIVE_RULES } from '../src/game/drive/race';
@@ -74,9 +74,12 @@ test('a glancing rail hit deflects the car and keeps most of its speed', () => {
 
 test('a head-on rail impact wrecks the car and breaks panels; nudges leave no mark', () => {
   assert.equal(impactPoints(2.5, 1), 0);
-  assert.equal(impactPoints(6, 1), 0, 'brushing a rail costs nothing: keyboard players do it all the time');
+  assert.equal(impactPoints(6, 1), 0, 'a nudge costs nothing');
+  // A guardrail steers a glancing car: brushing it costs nothing up to 8 m/s, where a car-to-car knock already counts.
+  assert.equal(impactPoints(8, 1, RAIL_DAMAGE_FROM), 0, 'brushing a rail costs nothing: keyboard players do it all the time');
+  assert.ok(impactPoints(8, 1) > 0);
   assert.ok(impactPoints(10, 1) < 10 && impactPoints(20, 1) > 30, 'a knock is a scratch, a crash is serious');
-  assert.ok(impactPoints(30, 1) > DAMAGE_LIMIT);
+  assert.ok(impactPoints(30, 1) > DAMAGE_LIMIT && impactPoints(32, 1, RAIL_DAMAGE_FROM) > DAMAGE_LIMIT);
   const r = race([{ s: 30, d: 0 }, { s: -500, d: 0 }], [], 4);
   launch(r, 0, 36, Math.PI / 2);
   for (let t = 0; t < 30; t++) r.step([0, 0]);
@@ -137,25 +140,26 @@ test('a keyboard tap is a small correction and a held key still turns hard', () 
   assert.ok(press > 2 && press < 6, `a 0.3 s press at 120 km/h turns it ${press.toFixed(1)}°, not across the road`);
   assert.ok(fast < 2.5, `and at 250 km/h ${fast.toFixed(1)}°`);
   assert.ok(held > 70, `a second held at 50 km/h still turns ${held.toFixed(0)}°, a hairpin's worth`);
-  // Letting go centres the wheel at once, at any speed.
+  // Letting go centres the wheel at once, at any speed: from full lock in a twentieth of a second.
   for (const kmh of [50, 120, 250]) {
     let back = 1, release = 0;
     while (back > 0) { back = steerTick(back, 0, kmh / 3.6); release++; }
-    assert.ok(release <= 6, `unwinds at ${kmh} km/h in ${release} ticks`);
+    assert.ok(release <= 2, `unwinds at ${kmh} km/h in ${release} ticks`);
   }
 });
 
-test('turning into a bend the wheel winds on quickly as far as the road turns, and only there', () => {
+test('turning into a bend the wheel winds on quickly to half again as far as the road turns, and only there', () => {
   const at = (bend: number, target = 1, kmh = 170, ticks = 6) => { let wheel = 0; for (let t = 0; t < ticks * 2; t++) wheel = steerSubstep(wheel, target, kmh / 3.6, bend); return wheel; };
   const plain = at(0);
   assert.ok(at(1) > plain * 1.8, `into a bend: ${at(1).toFixed(2)} against ${plain.toFixed(2)} on a straight`);
-  // Quickly as far as the road's own line, then at the plain rate.
+  // Quickly to half again as far as the road's own line and a tenth more, so a late turn-in can catch the bend,
+  // then at the plain rate.
   let reach = 0;
-  while (reach < 0.1) reach = steerSubstep(reach, 1, 170 / 3.6, 0.1);
-  assert.equal(reach, 0.1, 'it lands on the road’s line');
-  assert.equal(steerSubstep(0.1, 1, 170 / 3.6, 0.1), steerSubstep(0.1, 1, 170 / 3.6, 0), 'past it, the plain rate');
+  while (reach < 0.25) reach = steerSubstep(reach, 1, 170 / 3.6, 0.1);
+  assert.equal(reach, 0.25, 'it lands half again past the road’s line');
+  assert.equal(steerSubstep(0.25, 1, 170 / 3.6, 0.1), steerSubstep(0.25, 1, 170 / 3.6, 0), 'past it, the plain rate');
   assert.ok(Math.abs(at(-0.5) - plain) < 1e-12, 'against the bend it stays slow');
-  // Past the road's own line it is slow again, and the key still reaches full lock.
+  // Past that it is slow again, and the key still reaches full lock.
   let wheel = 0;
   for (let t = 0; t < 400 && wheel < 1; t++) wheel = steerSubstep(wheel, 1, 170 / 3.6, 0.3);
   assert.equal(wheel, 1);
@@ -202,12 +206,13 @@ test('box contact reports the deepest corner along the separating normal', () =>
   assert.equal(collideBoxes(box(0, 0, 0), box(4.1, 0, 0)), null);
 });
 
-test('arcade drive replays validate by re-execution', () => {
+test('arcade drive replays validate by re-execution on the real road', () => {
   const tunes = Array(4).fill(STOCK_TUNE), live = arcadeDriveRace(2, tunes), ai = new DriveAI(Array(4).fill(DRIVER_SKILLS.club)), inputs: number[][] = [];
   for (let t = 0; t < 300; t++) { const row = live.cars.map(car => ai.control(live, car.slot)); inputs.push(row); live.step(row); }
   const replay = validateDriveReplay({ version: 1, rules: DRIVE_RULES, trackId: 2, names: ['a', 'b', 'c', 'YOU'], skins: [0, 1, 2, 3], tunes, inputs,
     savedAt: '2026-10-31T00:00:00.000Z', source: 'practice' });
   assert.deepEqual(driveReplayRace(replay).snapshot(), live.snapshot());
+  assert.equal(live.course.topology, 'sprint');
 });
 
 test('street drive replays export, verify and seek', async () => {
@@ -231,4 +236,52 @@ test('street drive replays export, verify and seek', async () => {
   assert.deepEqual(playback.state, fresh.state);
   const tampered = { ...replay, outcome: { ...replay.outcome, 'c0.rank': replay.outcome['c0.rank'] === 1 ? 2 : 1 } };
   await assert.rejects(verifyStreetReplay(tampered, loaded), /differs/);
+});
+
+/** A flat, dry test road: straight for `lead` metres, then one bend to the right of `radius` metres. */
+function bend(radius: number, halfWidth: number, lead = 200): DriveCourse {
+  const count = 1200, stations = Float64Array.from({ length: count }, (_, i) => i * 5 - 100);
+  const heading = Float64Array.from(stations, s => s > lead ? (s - lead) / radius : 0);
+  return { id: 'test-bend', topology: 'sprint', wraps: false, lapLength: 5000, laps: 1, finish: 5000, maxTicks: 9000, stations, heading,
+    halfWidth: new Float64Array(count).fill(halfWidth), elevation: new Float64Array(count), winding: heading[count - 1]!, railOffset: 0.52 };
+}
+
+test('the brake or the throttle in the middle of a bend leaves the car on its line', () => {
+  // An ace settles into each bend near the limit and steers on; then one pedal is held for 1.2 s.
+  for (const radius of [40, 80]) for (const pedal of [CONTROL.brake, CONTROL.throttle]) {
+    const course = bend(radius, 14), spec = vehicleSpec(STOCK_TUNE);
+    const r = new DriveRace({ course, specs: [spec, spec], grid: [{ s: 0, d: 0 }, { s: -90, d: sampleCourse(course, 0).halfWidth - 2 }], props: [], weather: () => ({ rain: false, wind: 0 }) });
+    const car = r.cars[0]!, ai = new DriveAI([{ ...DRIVER_SKILLS.ace, lane: 0 }, DRIVER_SKILLS.club]);
+    let since = -1, entry = 0, slip = 0, nose = 0;
+    for (let tick = 0; tick < 900 && (since < 0 || tick - since < 36); tick++) {
+      let bits = ai.control(r, 0);
+      if (since < 0 && car.s > 200 + radius * 3 && Math.abs(car.v) < 2.5) { since = tick; entry = car.u; }
+      if (since >= 0) {
+        bits = (bits & (CONTROL.left | CONTROL.right)) | pedal;
+        slip = Math.max(slip, Math.abs(Math.atan2(car.v, car.u))); nose = Math.max(nose, Math.abs(car.psi));
+      }
+      r.step([bits, 0]);
+    }
+    const name = `${pedal === CONTROL.brake ? 'braking' : 'power'} in a ${radius} m bend at ${(entry * 3.6).toFixed(0)} km/h`;
+    assert.ok(since >= 0 && entry * entry / radius > 12, `${name}: the car was cornering hard`);
+    // With fixed pedal shares the brake spun the car through 90° here and power slid its tail wide.
+    assert.ok(slip < 0.25, `${name}: the tail stays behind the nose (${(slip * 57.3).toFixed(1)}° of sideslip)`);
+    if (pedal === CONTROL.brake) {
+      assert.ok(nose < 0.25, `${name}: the car keeps pointing up the road (${(nose * 57.3).toFixed(0)}° off)`);
+      assert.ok(car.u < entry - 6, `${name}: and it slows (${(entry * 3.6).toFixed(0)} to ${(car.u * 3.6).toFixed(0)} km/h)`);
+    }
+  }
+});
+
+test('an AI driver slows for a bend before it, and earlier for one that follows another', () => {
+  const spec = vehicleSpec(STOCK_TUNE), skill = DRIVER_SKILLS.pro;
+  const plan = (curvature: (ahead: number) => number, speed = 60) => reachSpeed(spec, spec.grip, skill.corner, skill.brake, speed, 5, curvature);
+  assert.equal(plan(() => 0), spec.boostTopSpeed, 'a straight road allows everything');
+  const hairpin = 1 / 20, near = plan(ahead => ahead > 30 ? hairpin : 0), far = plan(ahead => ahead > 120 ? hairpin : 0);
+  assert.ok(near < far && far < spec.boostTopSpeed, `nearer bends allow less speed (${near.toFixed(1)} < ${far.toFixed(1)} m/s)`);
+  // The same hairpin at the end of a long sweeper: cornering leaves less grip for braking, so the driver slows sooner.
+  const sweeper = plan(ahead => ahead > 120 ? hairpin : 1 / 150);
+  assert.ok(sweeper < far - 1, `a sweeper before the hairpin allows ${sweeper.toFixed(1)} m/s against ${far.toFixed(1)} on a straight`);
+  const corner = cornerSpeed(spec, spec.grip * skill.corner, hairpin);
+  assert.ok(Math.abs(plan(() => hairpin, 15) - corner) < 0.01, `in the bend, its own cornering speed (${corner.toFixed(1)} m/s)`);
 });

@@ -68,6 +68,10 @@ const GUIDE_WORDS: readonly (readonly (readonly [string, string, string])[])[] =
   [['京都駅', 'Kyoto Sta.', '↑'], ['西本願寺', 'Nishi Hongwanji', '→']],
   [['東大寺', 'Todai-ji', '↑'], ['春日大社', 'Kasuga Taisha', '→']],
   [['奈良公園', 'Nara Park', '↑'], ['奈良駅', 'Nara Sta.', '←']],
+  // The Arcade roads: Route 1 up from Hakone-Yumoto, and Yokohama's waterfront toward Honmoku.
+  [['宮ノ下', 'Miyanoshita', '↑'], ['芦ノ湖', 'Lake Ashi', '↑']],
+  // At Kominato the pier road turns off to the left; Route 82 runs on to Isogo.
+  [['本牧ふ頭', 'Honmoku Pier', '←'], ['磯子', 'Isogo', '↑']],
 ];
 /** Kyoto, Nara and Aizu shop words (invented shop names; regional goods). */
 const LOCAL_VERTICAL_WORDS = ['京菓子', '漬物', '湯葉', '扇子', '西陣織', '豆腐', '茶舗', '甘味', '酒蔵', '赤べこ', '会津塗', '鹿せんべい', '奈良漬', '墨', '筆', '仏具'];

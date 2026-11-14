@@ -3,6 +3,7 @@ import type { CityMeshBuilder, Vec3 } from './geometry';
 import { hashInts, periodCityPlantingClear, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
 import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
 import { FLORA_KIND } from './flora';
+import { buildRoadStructures } from './road-structures';
 
 /**
  * The street itself, as 1980s Japan furnished it: zebra crossings under
@@ -44,7 +45,8 @@ function openStraight(layout: PeriodCityLayout, p: number): boolean {
   const before = poseAt(layout.course, p - 25).heading, after = poseAt(layout.course, p + 25).heading;
   if (Math.abs(Math.atan2(Math.sin(after - before), Math.cos(after - before))) > .12) return false;
   return layout.landmarks.every(l => apart(layout, l.p, p) > l.length / 2 + 6)
-    && layout.crossings.every(c => apart(layout, c.p, p) > 45) && layout.street.footbridges.every(f => apart(layout, f, p) > 40);
+    && layout.crossings.every(c => apart(layout, c.p, p) > 45) && layout.street.footbridges.every(f => apart(layout, f, p) > 40)
+    && (layout.street.arches ?? []).every(a => a.kind === 'heian-torii' || apart(layout, a.p, p) > 30);
 }
 /** A station's crossing draw, uniform in [0, 1). */
 const draw = (k: number) => seeded(hashInts(k, 41))();
@@ -571,9 +573,11 @@ export function buildStreet(b: CityMeshBuilder, layout: PeriodCityLayout, from: 
   for (const g of layout.street.guides) if (g.p >= from && g.p < to && inCourse(layout, g.p)) {
     const w = routeFrame(b, layout, g.p); guide(b, w, g.sign);
   }
-  for (const a of layout.street.arches ?? []) if (a.p >= from && a.p < to && inCourse(layout, a.p)) {
+  for (const a of layout.street.arches ?? []) if (a.kind === 'heian-torii' && a.p >= from && a.p < to && inCourse(layout, a.p)) {
     const w = routeFrame(b, layout, a.p); heianTorii(b, w);
   }
+  // Rock sheds, tied-arch bridges, railway girders and viaducts follow the road's own line (road-structures.ts).
+  buildRoadStructures(b, layout, from, to);
   for (const m of layout.street.markers ?? []) if (m.p >= from && m.p < to && inCourse(layout, m.p)) {
     const w = routeFrame(b, layout, m.p); curveBoard(b, m.side * (w + .9), IROHA.indexOf(m.text));
   }

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { FarLand, type FarLandPlan } from './far-land';
 import { CityMeshBuilder } from './geometry';
+import { ARCADE_ROADS, arcadeFramePoint } from '../../arcade-geography';
 import { hashInts, seeded } from './layout';
 
 /**
@@ -45,9 +46,18 @@ function tower(w: number, d: number, h: number, paint: string, crown: 'flat' | '
 }
 
 /** Tokyo Tower (1958): an orange-and-white tapering lattice with two decks. */
+/** The tower's taper (height, half-width) and its paint: from the main deck up, alternate international orange and
+ * white in seven equal bands, the scheme the 1986 repaint brought in when the aviation law changed (it had been
+ * eleven); the repaint also made the orange redder. The month of the 1986 repaint is unconfirmed. */
+const TOWER_TAPER: readonly (readonly [number, number])[] = [[0, 44], [40, 32], [90, 21], [120, 15], [150, 12.5], [185, 9], [223, 6.5], [250, 4.4], [262, 2.2], [333, .8]];
+const towerHalfWidth = (y: number) => {
+  const i = Math.max(0, TOWER_TAPER.findIndex(([top]) => top >= y) - 1), [y0, h0] = TOWER_TAPER[i]!, [y1, h1] = TOWER_TAPER[i + 1] ?? TOWER_TAPER[i]!;
+  return h0 + (h1 - h0) * (y1 > y0 ? (y - y0) / (y1 - y0) : 0);
+};
+const TOWER_BANDS = [0, 40, 90, 120, ...Array.from({ length: 8 }, (_, i) => 150 + (333 - 150) * i / 7)];
 function tokyoTower(b: Builder): void {
-  const rings: readonly (readonly [number, number])[] = [[0, 44], [40, 32], [90, 21], [120, 15], [150, 12.5], [185, 9], [223, 6.5], [250, 4.4], [262, 2.2], [333, .8]];
-  const orange = new THREE.Color('#d2532b'), white = new THREE.Color('#e9e4da'), bulbs = new THREE.Color(1, .74, .42).multiplyScalar(3);
+  const rings = TOWER_BANDS.map(y => [y, towerHalfWidth(y)] as const);
+  const orange = new THREE.Color('#d6482a'), white = new THREE.Color('#e9e4da'), bulbs = new THREE.Color(1, .74, .42).multiplyScalar(3);
   for (let i = 0; i < rings.length - 1; i++) {
     const [y0, h0] = rings[i]!, [y1, h1] = rings[i + 1]!, band = i % 2 ? white : orange;
     for (let face = 0; face < 4; face++) {
@@ -59,7 +69,7 @@ function tokyoTower(b: Builder): void {
       b.colour.copy(band).multiplyScalar(face % 2 ? .78 : 1);
       b.face('wall', [turn(-h0, y0, h0), turn(h0, y0, h0), turn(h1, y1, h1), turn(-h1, y1, h1)], normal);
       // The edge bulbs outline the silhouette at night.
-      if (y1 <= 262) {
+      if (y0 < 262) {
         b.colour.copy(bulbs);
         const out = (p: [number, number, number]): [number, number, number] => [p[0] + normal[0] * .6, p[1], p[2] + normal[2] * .6];
         // Wide enough (6 m) to hold an art cell from three or four kilometres.
@@ -68,8 +78,9 @@ function tokyoTower(b: Builder): void {
       }
     }
   }
-  b.colour.set('#cfcac0'); b.box('wall', -18, 18, 120, 148, -18, 18);
-  b.box('wall', -7.5, 7.5, 223, 250, -7.5, 7.5);
+  // The main deck's walls were international orange until the late 1990s (white since 1996-98).
+  b.colour.copy(orange).multiplyScalar(.9); b.box('wall', -18, 18, 120, 148, -18, 18);
+  b.colour.set('#cfcac0'); b.box('wall', -7.5, 7.5, 223, 250, -7.5, 7.5);
   b.colour.setRGB(2.6, 1.7, .9);
   for (const [y0, y1, h] of [[127, 141, 18.4], [233, 243, 7.9]] as const) {
     b.front('lamp', -h, h, y0, y1, -h, -1); b.front('lamp', -h, h, y0, y1, h, 1);
@@ -126,6 +137,33 @@ export function mountain(height: number, radius: number, snowLine: number, body:
     }
   };
 }
+/** A far mountain that is no volcano: a broad massif of rounded domes, a main summit with lower shoulders either
+ * side so its crest runs uneven, as Hakone's Sengen-yama and Myōjōgatake or Nikkō's Akanagi-san stand; `snowLine`
+ * above 1 leaves it bare. */
+export function massif(height: number, radius: number, snowLine: number, body: string, snow: string) {
+  return (b: Builder, random: Random) => {
+    const rings = 10, segments = 32, rock = new THREE.Color(body), cap = new THREE.Color(snow), phase = random() * 10, turn = random() * Math.PI;
+    const dome = (cx: number, cz: number, rise: number, foot: number, seed: number) => {
+      const lobe = (a: number) => 1 + .16 * Math.sin(a * 2 + seed) + .09 * Math.sin(a * 5 + seed * 1.7);
+      const point = (t: number, a: number): [number, number, number] => {
+        const r = foot * lobe(a) * (1 - t) ** .6;
+        return [cx + Math.cos(a) * r, t * rise, cz + Math.sin(a) * r];
+      };
+      for (let i = 0; i < rings; i++) for (let k = 0; k < segments; k++) {
+        const t0 = i / rings, t1 = (i + 1) / rings, a0 = k / segments * Math.PI * 2, a1 = (k + 1) / segments * Math.PI * 2, m = (a0 + a1) / 2;
+        // Snow lies above the same height on every dome, ragged at its edge.
+        const edge = (snowLine + .05 * Math.sin(m * 6 + seed) + .03 * Math.sin(m * 13 + seed * 2)) * height / rise;
+        b.colour.copy((t0 + t1) / 2 > edge ? cap : rock).multiplyScalar(.82 + .18 * Math.cos(m - 1));
+        const corners = i === rings - 1 ? [point(t0, a0), point(t0, a1), point(1, m)] : [point(t0, a0), point(t0, a1), point(t1, a1), point(t1, a0)];
+        b.face('wall', corners, [Math.cos(m), .5, Math.sin(m)]);
+      }
+    };
+    dome(0, 0, height, radius * .78, phase);
+    const reach = radius * .46;
+    dome(Math.cos(turn) * reach, Math.sin(turn) * reach, height * .74, radius * .6, phase + 3);
+    dome(-Math.cos(turn) * reach * 1.1, -Math.sin(turn) * reach * 1.1, height * .58, radius * .55, phase + 7);
+  };
+}
 /** Something far off at fixed render coordinates (Arcade courses have no real origin). */
 export interface PeriodDistant {
   readonly x: number; readonly z: number; readonly build: (b: Builder, random: Random) => void;
@@ -136,11 +174,34 @@ export interface PeriodDistant {
   /** The ground itself out to the horizon (far-land.ts), drawn instead of a far object. */
   readonly land?: FarLandPlan;
 }
-/** Mt. Fuji over the Hakone pass; Nantai-san behind Nikko. */
+/** A far mountain at its real summit round an Arcade road: latitude, longitude and height above the sea, placed in the
+ * course's frame (arcade-geography.ts `arcadeFramePoint`: ahead along the start line's heading, and to its left), its
+ * silhouette standing on land `base` metres above the sea (by default just above the start line). */
+const summit = (track: number, lat: number, lon: number, height: number, radius: number, snowLine: number, body: string,
+  { cone = false, base }: { cone?: boolean; base?: number } = {}): PeriodDistant => {
+  const at = arcadeFramePoint(track, lat, lon), start = ARCADE_ROADS[track]!.startElevation, foot = base ?? start + 10;
+  return { x: at.left, z: at.ahead, y: foot - start, build: (cone ? mountain : massif)(height - foot, radius, snowLine, body, '#d9dbea') };
+};
+/**
+ * The mountains round the Arcade roads at their real summits (OpenStreetMap). A far mountain is a silhouette the camera
+ * must stay outside, so each stands clear of the course, on its real road and on RaceV1's bends, by more than its own
+ * foot: the slopes the road is itself cut into (Yusaka-yama and Tōnomine in Hakone's lower gorge, Sengen-yama's flank
+ * above it) are the banks beside the road, and only their upper masses stand here. Route 1 climbs Sengen-yama's flank
+ * to Miyanoshita within 900 m of its top, so it is narrow and stands on the 350 m terrace round it; Myōjōgatake's foot
+ * is the far side of the Haya-kawa from Miyanoshita.
+ * Hakone (Route 1 leaves Yumoto heading 228° and winds west): Sengen-yama (802 m) and Kamiyama (1,438 m) to the west,
+ * Myōjōgatake (924 m) and Myōjingatake (1,169 m) across the Haya-kawa to the north-west. Mt. Fuji cannot be seen from
+ * this stretch of the road, so it is not drawn.
+ * Nikkō (the main street runs 295°): Nantai-san (2,484 m) ahead to the left, Nyohō-san (2,483 m) ahead to the right and
+ * Akanagi-san (2,011 m) to its right, with Nakimushi-yama (1,104 m) on the left across the Daiya.
+ */
 export const ARCADE_DISTANT: readonly (readonly PeriodDistant[])[] = [
-  [{ x: 9000, z: 30000, build: mountain(3000, 14000, .58, '#4a5684', '#eceaf2') }],
+  [summit(0, 35.2334873, 139.0595048, 802, 650, .6, '#343f64', { base: 350 }), summit(0, 35.2561211, 139.0674855, 924, 1050, .55, '#37426a', { base: 300 }),
+    summit(0, 35.2794977, 139.0525134, 1169, 2400, .5, '#3a466e'), summit(0, 35.2334784, 139.0209682, 1438, 1900, .45, '#3d4a74')],
   [],
-  [{ x: -9000, z: 21000, build: mountain(1900, 7500, .8, '#3e5a62', '#e8e6ee') }],
+  // Nantai-san is the one true cone; Nyohō-san and Akanagi-san are broken old volcanoes.
+  [summit(2, 36.7651459, 139.4908754, 2484, 5200, .62, '#3e5a62', { cone: true }), summit(2, 36.8114429, 139.5364791, 2483, 3500, .64, '#42606a'),
+    summit(2, 36.8091988, 139.5691913, 2011, 2600, .8, '#3c565e'), summit(2, 36.7304176, 139.5963423, 1104, 1600, 1.01, '#34504c')],
 ];
 
 function shinjuku(lat: number, lon: number, w: number, d: number, h: number, paint: string, crown: 'flat' | 'step' | 'mast'): Landmark {

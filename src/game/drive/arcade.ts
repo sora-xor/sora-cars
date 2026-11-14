@@ -8,7 +8,7 @@ import { validateTune, type CarTune } from '../tuned-engine';
 import { atan2, cos, sin } from './dmath';
 import { RECOVERY_NOTICE } from './hud';
 import { DRIVE_RULES, DriveStatus, RECOVERY_TICKS, type DriveRace } from './race';
-import { arcadeDriveRace } from './setup';
+import { arcadeCourse, arcadeDriveRace } from './setup';
 
 /** A local Arcade race on the driving model: every car's tune and every tick's
  * controls. Replays re-execute the model; they are never RaceV1 transcripts.
@@ -21,8 +21,6 @@ export interface DriveReplayV1 {
   builds?: (CarBuild | null)[];
 }
 export const isDriveReplay = (replay: { rules: string }): replay is DriveReplayV1 => replay.rules === DRIVE_RULES;
-/** The model's own limit; RaceV1 keeps 5,400 ticks. */
-const MAX_TICKS = 5400;
 
 export function validateDriveReplay(value: unknown): DriveReplayV1 {
   if (!value || typeof value !== 'object') throw new TypeError('Invalid replay');
@@ -30,7 +28,7 @@ export function validateDriveReplay(value: unknown): DriveReplayV1 {
   if (r.version !== 1 || r.rules !== DRIVE_RULES || !TRACKS[r.trackId] || cars < 2 || cars > 8
     || r.names.some(name => typeof name !== 'string' || name.length > 64) || !Array.isArray(r.skins) || r.skins.length !== cars
     || r.skins.some(n => !Number.isInteger(n) || n < 0 || n > 5) || !Array.isArray(r.tunes) || r.tunes.length !== cars
-    || !Array.isArray(r.inputs) || r.inputs.length > MAX_TICKS
+    || !Array.isArray(r.inputs) || r.inputs.length > arcadeCourse(r.trackId).maxTicks
     || r.inputs.some(row => !Array.isArray(row) || row.length !== cars || row.some(v => !Number.isInteger(v) || v < 0 || v > 63))
     || r.source !== 'practice' || typeof r.savedAt !== 'string' || !Number.isFinite(Date.parse(r.savedAt))) throw new TypeError('Invalid or unsupported driving replay');
   const tunes = r.tunes.map(validateTune);

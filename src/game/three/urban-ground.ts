@@ -2,9 +2,9 @@ import * as THREE from 'three';
 import { scannedSurface } from './surfaces';
 
 export interface UrbanGroundPose { x: number; y: number; z: number; heading: number; width: number; p: number }
-type Point = { x: number; z: number };
+export type Point = { x: number; z: number };
 type Line = { a: number; b: number; c: number };
-type Cut = { lines: Line[]; minX: number; maxX: number; minZ: number; maxZ: number };
+export type Cut = { lines: Line[]; minX: number; maxX: number; minZ: number; maxZ: number };
 type Segment = { a: UrbanGroundPose; b: UrbanGroundPose; dx: number; dz: number; length2: number };
 
 const GRID = 8;
@@ -15,7 +15,7 @@ const EXTENT = 110;
 const ROAD_MARGIN = 0.08;
 const HEIGHT_OFFSET = -0.08;
 const cross = (a: Point, b: Point, c: Point) => (b.x - a.x) * (c.z - a.z) - (b.z - a.z) * (c.x - a.x);
-const area2 = (p: readonly Point[]) => p.slice(1, -1).reduce((sum, a, i) => sum + cross(p[0]!, a, p[i + 2]!), 0);
+export const area2 = (p: readonly Point[]) => p.slice(1, -1).reduce((sum, a, i) => sum + cross(p[0]!, a, p[i + 2]!), 0);
 const distance = (line: Line, p: Point) => line.a * p.x + line.b * p.z + line.c;
 
 function split(polygon: readonly Point[], line: Line): [Point[], Point[]] {
@@ -37,7 +37,7 @@ function split(polygon: readonly Point[], line: Line): [Point[], Point[]] {
  * successive cuts therefore compute the union of all excluded road footprints,
  * including overlapping corners, hairpins, and crossings at different heights.
  */
-function subtract(polygon: Point[], cut: Cut): Point[][] {
+export function subtract(polygon: Point[], cut: Cut): Point[][] {
   if (cut.lines.some(line => polygon.every(p => distance(line, p) <= 0))) return [polygon];
   const fragments: Point[][] = [];
   let remaining = polygon;
@@ -50,7 +50,7 @@ function subtract(polygon: Point[], cut: Cut): Point[][] {
   return fragments;
 }
 
-function roadCut(points: Point[]): Cut | null {
+export function roadCut(points: Point[]): Cut | null {
   if (Math.abs(area2(points)) < 1e-8) return null;
   // Minkowski sum with an 8 cm square. A convex hull gives a bounded buffer
   // even for nearly degenerate road triangles; offset-line miters could stretch
@@ -74,7 +74,7 @@ function roadCut(points: Point[]): Cut | null {
     minZ: Math.min(...cloud.map(p => p.z)), maxZ: Math.max(...cloud.map(p => p.z)) };
 }
 
-class SpatialIndex<T> {
+export class SpatialIndex<T> {
   private readonly cells = new Map<string, T[]>();
   constructor(private readonly size: number) {}
   add(value: T, minX: number, maxX: number, minZ: number, maxZ: number): void {

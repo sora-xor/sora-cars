@@ -117,6 +117,10 @@ export function createPaintedSky() {
   // to a violet skyline with 1-cell amber light dots and a few red crane
   // warning lights at the horizon (harbor-wide), 0 elsewhere.
   const raceHarbor = { value: 0 };
+  // The far shore's towers: the share of tower sites built, and their height against the earlier skyline's. Across
+  // Yokohama's harbour in 1986 lay piers, refineries and a low city with a handful of tall buildings (the 102 m Tenri
+  // Building of 1972 the tallest), not the wall of towers the earlier skyline drew.
+  const raceHarborCity = { value: new THREE.Vector2(.1, .42) };
   // Tokyo's night (refine round 4): the cloud deck's undersides catch the city's pink and magenta from below, 0 elsewhere.
   const raceCityGlow = { value: 0 };
   const raceDay = { value: 1 };
@@ -168,7 +172,7 @@ export function createPaintedSky() {
     raceCity.value.set(1, night === 'city' ? (1 - .7 * dusk) * (1 - sunrise) : night === 'harbor' ? (1 - dusk) * (1 - sunrise) : 0);
     // Refine round 4 (the cutscene-style repaints of each course): Hakone's pass ends in tall mountain ridges and no far
     // city; Yokohama's horizon is a dense lit city of towers across the water; Tokyo keeps its low ridge and far city.
-    raceSkyline.value.set(ridgeHeightOf(night), night === 'mountain' ? 0 : 1, night === 'harbor' ? 1.7 : 1);
+    raceSkyline.value.set(ridgeHeightOf(night), night === 'mountain' ? 0 : 1, night === 'harbor' ? .55 : 1);
   };
   const stopMix = RACE_STOP_ELEVATIONS.map((elevation, i) =>
     `        raceStop[${i}] = mix(mix(skyRaceAway[${i}], skyRaceGoldenAway[${i}], skyRaceGolden * skyRaceCloud.z), mix(skyRaceToward[${i}], skyRaceDawnToward[${i}], skyRaceDawn), sunward * (1. - skyRaceGolden * .4 * ${glslFloat(THREE.MathUtils.smoothstep(elevation, .1, .3))}));`).join('\n');
@@ -196,7 +200,7 @@ export function createPaintedSky() {
       skyRaceToward: raceToward,
       skyRaceCloud: raceCloud,
       skyRaceStars: raceStars,
-      skyRaceHarbor: raceHarbor,
+      skyRaceHarbor: raceHarbor, skyRaceHarborCity: raceHarborCity,
       skyRaceCityGlow: raceCityGlow, skyRaceDay: raceDay,
       skyRaceCity: raceCity, skyRaceSkyline: raceSkyline, skyRaceGolden: raceGolden,
       skyRaceDawn: raceDawn, skyRaceDawnToward: raceDawnToward, skyRaceRidge: raceRidge, skyRaceGoldenAway: raceGoldenAway,
@@ -222,6 +226,7 @@ export function createPaintedSky() {
       uniform vec4 skyRaceCloud;
       uniform vec4 skyRaceStars;
       uniform float skyRaceHarbor;
+      uniform vec2 skyRaceHarborCity; // x share of the far shore's tower sites built, y their height scale
       uniform float skyRaceCityGlow;
       uniform float skyRaceDay; // 0 at night, 1 from dusk to sunrise: the high mackerel strata
       uniform vec2 skyRaceCity;
@@ -785,8 +790,8 @@ ${gradient}
         float block = floor(azimuth * 420.);
         float tall = step(.3, hash(vec2(block, 3.1)));
         float top = HARBOR_WATER + .002 + (.012 + .04 * hash(vec2(block, 7.3)) * step(.55, hash(vec2(block, 9.1)))) * tall;
-        towerId = floor(azimuth * HARBOR_TOWERS); towerTop = HARBOR_WATER + radians(4.) + radians(6.) * hash(vec2(towerId, 5.5));
-        tower = hash(vec2(towerId, 12.7)) > .3 && abs(fract(azimuth * HARBOR_TOWERS) - .5) < .26 + .16 * hash(vec2(towerId, 2.2));
+        towerId = floor(azimuth * HARBOR_TOWERS); towerTop = HARBOR_WATER + (radians(4.) + radians(6.) * hash(vec2(towerId, 5.5))) * skyRaceHarborCity.y;
+        tower = hash(vec2(towerId, 12.7)) > 1. - skyRaceHarborCity.x && abs(fract(azimuth * HARBOR_TOWERS) - .5) < .26 + .16 * hash(vec2(towerId, 2.2));
         return tower ? max(top, towerTop) : top;
       }
       bool harborLit(float column, float row, bool tower) {

@@ -15,10 +15,10 @@ test('every part card names what it improves, what it adds and what it costs', (
     const order = summary.map(chip => chip.level > 0 ? 0 : chip.level === 0 ? 1 : 2);
     assert.deepEqual(order, [...order].sort(), `${node.id} chip order`);
   }
-  assert.deepEqual(chips('engine-intake'), ['speed+1', 'accel+1']);
-  assert.deepEqual(chips('engine-highrev'), ['speed+3', 'accel-1'], 'the fork names its slower recovery');
-  assert.deepEqual(chips('body-light'), ['speed+1', 'accel+1', 'tough-2'], 'lightweight shows the toughness it gives up');
-  assert.deepEqual(chips('chassis-touge'), ['grip+1', 'drift']);
+  assert.deepEqual(chips('engine-intake'), ['speed+2', 'accel+1']);
+  assert.deepEqual(chips('engine-highrev'), ['speed+3', 'accel-1', 'tough-1'], 'the fork names its slower recovery');
+  assert.deepEqual(chips('body-light'), ['accel+1', 'tough-2'], 'lightweight shows the toughness it gives up');
+  assert.deepEqual(chips('chassis-touge'), ['grip+3', 'drift'], 'the touge setup grips in the dry and the rain');
   assert.deepEqual(chips('body-windtunnel'), ['speed+1', 'draft']);
   assert.deepEqual(chips('turbo-antilag'), ['boost+3', 'antilag']);
   assert.equal(chipLevel(0.03), 0, 'tiny side effects stay off the card');
@@ -29,8 +29,8 @@ test('the detail panel reads every effect as the driving model races it, gains b
   for (const node of TECH_NODES) for (const field of Object.keys(node.effects)) assert.ok(READING_FIELDS.includes(field as keyof CarTune), `${node.id} ${field} has a reading`);
   const line = (lines: ReturnType<typeof effectLines>, field: keyof CarTune) => lines.find(entry => entry.field === field)!;
   const intake = effectLines(STOCK_TUNE, tuneFor(['engine-intake']));
-  assert.deepEqual(intake.map(entry => [entry.field, entry.before, entry.after, entry.better]), [['topSpeed', '259 km/h', '262 km/h', true], ['accel', '100%', '102%', true]]);
-  assert.deepEqual([line(effectLines(STOCK_TUNE, tuneFor(['turbo-controller'])), 'boostCost').before, line(effectLines(STOCK_TUNE, tuneFor(['turbo-controller'])), 'boostCost').after], ['1.3 s', '1.6 s']);
+  assert.deepEqual(intake.map(entry => [entry.field, entry.before, entry.after, entry.better]), [['topSpeed', '259 km/h', '264 km/h', true], ['accel', '100%', '103%', true]]);
+  assert.deepEqual([line(effectLines(STOCK_TUNE, tuneFor(['turbo-controller'])), 'boostCost').before, line(effectLines(STOCK_TUNE, tuneFor(['turbo-controller'])), 'boostCost').after], ['1.3 s', '1.7 s']);
   const cage = line(effectLines(STOCK_TUNE, tuneFor(['body-cage'])), 'treeLoss');
   assert.deepEqual([cage.label.en, cage.before, cage.after, cage.better], ['Damage per hit', '100%', '73%', true]);
   // The three impact losses become one toughness, so the cage lists it once, beside its launch traction.
@@ -59,6 +59,8 @@ test('every part has a measured race gain for each course', () => {
   assert.deepEqual(Object.keys(RACE_GAINS).sort(), TECH_NODES.map(node => node.id).sort());
   for (const [id, gains] of Object.entries(RACE_GAINS)) {
     assert.equal(gains.length, 3, id);
-    assert.ok(gains.every(seconds => Number.isFinite(seconds) && seconds >= 0 && seconds < 5), `${id} ${gains}`);
+    // A part saves at most a few percent of a race: on the real roads races run 1:23 to 2:57, and the rally setup saves
+    // rookies and regulars, who scrape the rails, 5.5 s at Hakone.
+    assert.ok(gains.every(seconds => Number.isFinite(seconds) && seconds >= 0 && seconds < 8), `${id} ${gains}`);
   }
 });

@@ -1,10 +1,11 @@
 import { CONTROL, LIVERIES, TRACKS, curvature, modulo, type Livery } from './rules';
 import { type RaceState } from './engine';
 import type { DriveEvent } from './drive/race';
+import { sampleCourse, type DriveCourse } from './drive/course';
 import { raceResultPlaces } from './presentation';
 import { clubItem, clubLivery, type ClubAppearance } from './catalog';
 import type { CarBuild } from './car-builds';
-import { environmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
+import { arcadeEnvironmentAt, type TrackEnvironment, type EnvironmentContact } from './environment';
 import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery';
 import { getRaceWorld } from './three/world';
 import { WRONG_WAY, drawDamageGauge, drawRecoveryBanner, drawWreckBanner } from './drive/hud';
@@ -25,6 +26,9 @@ export interface RenderOptions {
   /** Driving model only: RaceV1 ids of roadside objects knocked down, and crash events since the last frame. */
   broken?: readonly number[];
   events?: readonly DriveEvent[];
+  /** The driving model's course when the race runs on it (a local race on the real road, or its replay): the world
+   * draws that road and the HUD reads its bends. Absent: RaceV1's bends (live races, spectating, RaceV1 replays). */
+  course?: DriveCourse;
 }
 interface RoadPoint { x: number; y: number; half: number; z: number; scale: number; progress: number; }
 const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
@@ -73,7 +77,7 @@ export class RaceRenderer {
     this.#time = time;
     const world = getRaceWorld(this.canvas);
     if (world) {
-      const environment = options.environment ?? environmentAt(state.trackId, state.tick);
+      const environment = options.environment ?? arcadeEnvironmentAt(state.trackId, state.tick);
       const player = state.cars[options.playerSlot]!;
       this.#wind = environment.wind;
       this.ctx.drawImage(world.renderArcade(state, options, time), 0, 0, this.width, this.height);
@@ -82,7 +86,8 @@ export class RaceRenderer {
       else if (state.trackId !== 1) drawAtmosphere(this.ctx, this.canvas, this.width, this.height, state.trackId === 0 ? 'snow' : 'blossom',
         this.#reducedMotion.matches ? 0 : time, environment.wind);
       if (options.hud && player.speed > 150 && options.camera !== 'aerial') {
-        this.#cornerCue(TRACKS[state.trackId]!, player.progress, this.width < 400);
+        if (options.course) this.#roadCue(options.course, player.progress / 1000, player.speed * 0.03, this.width < 400);
+        else this.#cornerCue(TRACKS[state.trackId]!, player.progress, this.width < 400);
       }
       if (options.hud) this.#hud(state, options);
       this.#countdown(options);
@@ -127,7 +132,7 @@ export class RaceRenderer {
     const playerScale = projectScale(cameraOffset);
     const carGround = h * (mobile ? 0.78 : 0.865);
     const projectionHeight = options.camera === 'bumper' ? (h - horizon) * 1.08 : (carGround - horizon) / playerScale;
-    const environment = options.environment ?? environmentAt(state.trackId, state.tick), raining = environment.rain > 0;
+    const environment = options.environment ?? arcadeEnvironmentAt(state.trackId, state.tick), raining = environment.rain > 0;
     this.#wind = environment.wind;
     if (this.#lastTrack !== state.trackId || state.tick < this.#lastTick) { this.#impacts.clear(); this.#lastEventTick = -1; }
     this.#lastTrack = state.trackId; this.#lastTick = state.tick;
@@ -328,7 +333,7 @@ export class RaceRenderer {
         if (this.flag.complete && this.flag.naturalWidth) ctx.drawImage(this.flag, a.x + side * (half + 65) + 5, a.y - 42, 18, 11);
       }
     }
-    const env = options.environment ?? environmentAt(state.trackId, state.tick);
+    const env = options.environment ?? arcadeEnvironmentAt(state.trackId, state.tick);
     for (const object of env.objects) {
       const z = object.progress - player.progress; if (z < -95000 || z > 350000) continue;
       const point = center(object.progress), x = point.x + object.x / 6000 * half;
@@ -722,6 +727,27 @@ export class RaceRenderer {
     ctx.fillText(turn > 0 ? '›› 右カーブ' : '左カーブ ‹‹', x, y);
     ctx.font = `${compact ? 7 : 10}px SoraJP, monospace`;
     ctx.fillText(Math.abs(turn) >= 3 ? '減速 → ドリフト / BRAKE → DRIFT' : '進入ラインを整える / SET YOUR LINE', x, y + 15);
+  }
+  /** The corner cue on a real road, where nearly every bend is tighter than RaceV1's tightest (253 m): it warns of the
+   * bends the car is too fast for, as a driver judges them (about 0.95 g of grip, 7 m/s² of braking and 0.6 s to react),
+   * and names the hairpins. */
+  #roadCue(course: DriveCourse, s: number, speed: number, compact: boolean): void {
+    const reach = Math.max(60, speed * speed / 14 + speed * 0.6);
+    let brake: number | null = null, line: number | null = null;
+    for (let ahead = 0; ahead <= reach; ahead += 5) {
+      const kappa = sampleCourse(course, s + ahead).kappa, radius = 1 / Math.max(Math.abs(kappa), 1e-6);
+      const corner = Math.sqrt(0.95 * 9.81 * radius), allowed = Math.sqrt(corner * corner + 14 * Math.max(0, ahead - speed * 0.6));
+      if (speed > allowed * 1.04 && (brake === null || Math.abs(kappa) > Math.abs(brake))) brake = kappa;
+      if (ahead <= 95 && radius < 120 && (line === null || Math.abs(kappa) > Math.abs(line))) line = kappa;
+    }
+    const turn = brake ?? line;
+    if (turn === null) return;
+    const ctx = this.ctx, x = this.width / 2, y = compact ? 151 : 97, kind = 1 / Math.abs(turn) < 25 ? 'ヘアピン' : 'カーブ';
+    ctx.fillStyle = brake !== null ? '#ffac8b' : '#ffe4a1'; ctx.textAlign = 'center';
+    ctx.font = `bold ${compact ? 17 : 24}px SoraJP, monospace`;
+    ctx.fillText(turn > 0 ? `›› 右${kind}` : `左${kind} ‹‹`, x, y);
+    ctx.font = `${compact ? 7 : 10}px SoraJP, monospace`;
+    ctx.fillText(brake !== null ? '減速 → ドリフト / BRAKE → DRIFT' : '進入ラインを整える / SET YOUR LINE', x, y + 15);
   }
   #hud(state: RaceState, options: RenderOptions): void {
     const ctx = this.ctx, w = this.width, h = this.height, car = state.cars[options.playerSlot]!, rank = raceResultPlaces(state).get(car.slot)!;

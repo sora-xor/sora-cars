@@ -29,9 +29,11 @@ const STATE_LABEL: Readonly<Record<PartState, Bilingual>> = {
   fitted: { ja: '装着中', en: 'FITTED' }, stored: { ja: '保管中', en: 'IN STORAGE' }, available: { ja: '購入できる', en: 'AVAILABLE' },
   short: { ja: '賞金が足りない', en: 'SAVE UP' }, locked: { ja: '未解放', en: 'LOCKED' },
 };
-/** By track id: the city each course runs through, and its character beside `Track.difficulty`. */
+/** By track id: the city each course runs through, and its character on its real road (local races take the real
+ * roads' bends; `Track.difficulty` describes RaceV1's, which live races keep). */
 const COURSE_CITY: readonly Bilingual[] = [{ ja: '箱根', en: 'HAKONE' }, { ja: '横浜', en: 'YOKOHAMA' }, { ja: '日光', en: 'NIKKO' }];
-const COURSE_CHARACTER = ['流れるコーナー', '速くてテクニカル', 'きついヘアピン'];
+const COURSE_CHARACTER: readonly Bilingual[] = [{ ja: '途切れないカーブとヘアピン', en: 'ENDLESS BENDS & A HAIRPIN' },
+  { ja: '直線と直角コーナー', en: 'STRAIGHTS & SQUARE CORNERS' }, { ja: '長い直線、そして山道', en: 'A LONG STRAIGHT, THEN THE CLIMB' }];
 const WIND: Readonly<Record<WindLevel, Bilingual>> = { light: { ja: '横風 弱', en: 'LIGHT CROSSWIND' }, gusty: { ja: '横風 中', en: 'GUSTY CROSSWIND' }, strong: { ja: '横風 強', en: 'STRONG CROSSWIND' } };
 const STYLE: Readonly<Record<string, Bilingual>> = { power: { ja: 'パワー仕様', en: 'POWER BUILD' }, boost: { ja: 'ブースト仕様', en: 'BOOST BUILD' }, tough: { ja: '頑丈仕様', en: 'TOUGH BUILD' } };
 
@@ -176,7 +178,7 @@ export class TechGarage {
     const { chapter, conditions: c, tip, pick } = pit, track = TRACKS[pit.trackId]!, crew = CREW.find(member => member.id === tip.crew)!, name = crewName(tip.crew);
     return `<div class="section-heading"><div><p class="eyebrow">CH. ${String(CHAPTERS.indexOf(chapter) + 1).padStart(2, '0')} · 出走前の整備 / PRE-RACE GARAGE</p><h1>${esc(chapter.title.ja)}<small class="english-subtitle" lang="en">${esc(chapter.title.en)}</small></h1></div><div class="tech-heading-tools"><p class="tech-wallet"><span>${both({ ja: '賞金', en: 'PRIZE MONEY' })}</span><b>${yen(save.money)}</b></p><button class="primary pit-go" data-action="pit-go">出走する <small lang="en">START THE RACE ↗</small></button></div></div>
       <section class="pit-brief" aria-label="今夜のレース / Tonight’s race"><dl>
-        <div><dt>${both({ ja: 'コース', en: 'COURSE' })}</dt><dd>${esc(track.japanese)} · ${esc(COURSE_CHARACTER[track.id] ?? '')}<small lang="en">${esc(track.name)} · ${esc(track.difficulty)}</small></dd></div>
+        <div><dt>${both({ ja: 'コース', en: 'COURSE' })}</dt><dd>${esc(track.japanese)} · ${esc(COURSE_CHARACTER[track.id]?.ja ?? '')}<small lang="en">${esc(track.name)} · ${esc(COURSE_CHARACTER[track.id]?.en ?? track.difficulty)}</small></dd></div>
         <div><dt>${both({ ja: '天候', en: 'WEATHER' })}</dt><dd>雨 ${c.rain}% · ${esc(WIND[c.wind].ja)}<small lang="en">RAIN ${c.rain}% OF THE RACE · ${esc(WIND[c.wind].en)}</small></dd></div>
         <div><dt>${both({ ja: 'コース脇', en: 'ROADSIDE' })}</dt><dd>木${c.trees} · 看板${c.signs} · 油膜${c.oil}<small lang="en">${c.trees} TREES · ${c.signs} SIGNS · ${c.oil} OIL SLICKS A LAP</small></dd></div>
         <div><dt>${both({ ja: '目標', en: 'OBJECTIVE' })}</dt><dd>${both(pit.objective)}</dd></div>

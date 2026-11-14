@@ -2,9 +2,10 @@ import { clamp } from './dmath';
 
 /** Body damage accumulates in four zones. Every hard contact adds points from
  * the car's change of velocity (its delta-v), the measure crash engineers use:
- * nudges below 6 m/s (22 km/h) leave no mark, because keyboard players brush the
- * rails all the time; a 30 m/s impact (108 km/h) wrecks the car outright. Damage
- * costs power, grip and drag, panels break away at fixed thresholds, and at
+ * nudges below 6 m/s (22 km/h) leave no mark, and a guardrail's below 8 m/s
+ * (29 km/h), because keyboard players brush the rails all the time; a 30 m/s
+ * impact (108 km/h) wrecks the car outright, 32 m/s into a rail. Damage costs
+ * power, grip and drag, panels break away at fixed thresholds, and at
  * DAMAGE_LIMIT the car is wrecked.
  */
 export const DAMAGE_LIMIT = 100;
@@ -40,9 +41,15 @@ const FAR_SIDE = 8;
 
 export function emptyDamage(): CarDamage { return { front: 0, rear: 0, left: 0, right: 0, total: 0 }; }
 
-/** Damage points for a change of velocity (m/s). */
-export function impactPoints(deltaV: number, toughness: number): number {
-  const x = deltaV - 6;
+/** Below this change of velocity (m/s) a guardrail leaves no mark. A rail bends and steers a car glancing along it,
+ * and on the Arcade courses' real roads (2026-11-12), which bend almost without a break, a keyboard rookie brushes the
+ * rail at 6-10 m/s some thirty times a race: at the 6 m/s of every other contact, half the reference rookies wrecked a
+ * tuned car on Hakone's Route 1 in the story's Act 2 and the rest finished with 96-98 damage; from 8 m/s all four
+ * finished with 46-69. */
+export const RAIL_DAMAGE_FROM = 8;
+/** Damage points for a change of velocity (m/s): from 6 m/s for cars and props, from `from` for the rails. */
+export function impactPoints(deltaV: number, toughness: number, from = 6): number {
+  const x = deltaV - from;
   return x <= 0 ? 0 : toughness * (0.5 * x + 0.16 * x * x);
 }
 

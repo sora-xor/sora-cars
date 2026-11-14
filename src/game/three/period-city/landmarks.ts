@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WINDOW_KIND } from './geometry';
+import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WALL_PATTERN, WINDOW_KIND } from './geometry';
 import { printSlice, signIndex, signPrint } from './signs';
 
 /**
@@ -14,7 +14,12 @@ export type PeriodLandmarkKind = 'diet' | 'budokan' | 'kudan-kaikan' | 'national
   | 'pagoda-toji' | 'pagoda-yasaka' | 'pagoda-kofukuji' | 'tsuruga-keep' | 'sazaedo' | 'kyoto-tower' | 'yasaka-gate'
   | 'nandaimon' | 'daibutsuden' | 'nara-station'
   | 'honganji-goeido' | 'honganji-amidado' | 'nishi-goeido' | 'minamiza' | 'keage-power' | 'kyoto-museum' | 'kyoto-station-1952'
-  | 'otenmon' | 'kasuga-torii' | 'pagoda-yakushiji' | 'pagoda-yakushiji-west' | 'dreamland-castle' | 'ikoma-towers';
+  | 'otenmon' | 'kasuga-torii' | 'pagoda-yakushiji' | 'pagoda-yakushiji-west' | 'dreamland-castle' | 'ikoma-towers'
+  | 'yumoto-station' | 'red-brick' | 'symbol-tower' | 'tobu-nikko-station' | 'nikko-city-hall'
+  | 'grand-palace' | 'kudan-lighthouse' | 'british-embassy' | 'supreme-court' | 'clock-tower' | 'kokusai' | 'meiji-seimei' | 'mitsui-bussan'
+  | 'yusen' | 'taro-sugi' | 'palace-hotel'
+  | 'fukuzumiro' | 'kansuiro' | 'ichinoyu' | 'silk-center' | 'osanbashi' | 'bund-hotel' | 'tamozawa-gate'
+  | 'sakuragicho-station' | 'specie-bank' | 'silk-conditioning' | 'daiichi-yokohama';
 
 /** A quad wound to face `hint`, with its true normal. */
 function quad(b: CityMeshBuilder, key: CityMaterialKey, points: readonly [Vec3, Vec3, Vec3, Vec3], hint: Vec3): void {
@@ -87,7 +92,8 @@ function sidePanes(b: CityMeshBuilder, random: Random, x: number, facing: -1 | 1
   }
 }
 
-/** The National Diet Building (1936): granite wings, a portico and the stepped-pyramid tower. */
+/** The National Diet Building (1936): granite wings, a portico and the stepped-pyramid tower. Its nightly
+ * floodlighting only began on 28 November 1990, so in 1986 it stands dark but for its windows and its tower light. */
 function diet(b: CityMeshBuilder, random: Random): void {
   const granite = '#cfc8b8', shadow = '#bdb6a6';
   // The forecourt: a low wall with gate posts, lawns either side of the approach.
@@ -95,22 +101,22 @@ function diet(b: CityMeshBuilder, random: Random): void {
   for (const x of [-9, 8]) block(b, 'stone', '#9a958a', x - .1, x + 1.1, -.3, 2.8, -.1, .7);
   b.colour.set('#4f6a3e'); b.flat('ground', -105, -5, 1, 48, -.04); b.flat('ground', 5, 105, 1, 48, -.04);
   b.colour.set('#b8b2a4'); b.flat('stone', -5, 5, .6, 50, -.03);
-  block(b, 'floodlit', granite, -32, 32, -.5, 21, 52, 92);
+  block(b, 'stone', granite, -32, 32, -.5, 21, 52, 92);
   panes(b, random, -30, 30, 3, 20, 52, 12, 4, 1.6, 2.4);
   for (const s of [-1, 1]) {
-    block(b, 'floodlit', granite, s < 0 ? -103 : 32, s < 0 ? -32 : 103, -.5, 17, 54, 82);
+    block(b, 'stone', granite, s < 0 ? -103 : 32, s < 0 ? -32 : 103, -.5, 17, 54, 82);
     panes(b, random, s < 0 ? -100 : 35, s < 0 ? -35 : 100, 3, 16, 54, 14, 4, 1.5, 2.2);
-    block(b, 'floodlit', shadow, s < 0 ? -104 : 88, s < 0 ? -88 : 104, -.5, 20, 49, 85);
+    block(b, 'stone', shadow, s < 0 ? -104 : 88, s < 0 ? -88 : 104, -.5, 20, 49, 85);
     panes(b, random, s < 0 ? -102 : 90, s < 0 ? -90 : 102, 3, 19, 49, 3, 5, 1.6, 2.2);
   }
   // The portico of six columns under its entablature.
-  for (let i = 0; i < 6; i++) { const x = -12 + i * 4.8; block(b, 'floodlit', shadow, x - .9, x + .9, 0, 14, 46.2, 47.8); }
-  block(b, 'floodlit', granite, -14, 14, 14, 16.5, 45, 52);
+  for (let i = 0; i < 6; i++) { const x = -12 + i * 4.8; block(b, 'stone', shadow, x - .9, x + .9, 0, 14, 46.2, 47.8); }
+  block(b, 'stone', granite, -14, 14, 14, 16.5, 45, 52);
   // The tower: a colonnaded shaft and the stepped pyramid (65 m).
-  block(b, 'floodlit', granite, -11, 11, 21, 38, 61, 83);
+  block(b, 'stone', granite, -11, 11, 21, 38, 61, 83);
   for (let i = 0; i < 4; i++) { const x = -8.25 + i * 5.5; b.window = [random(), WINDOW_KIND.dark]; b.colour.set('#2a2c34'); b.front('glass', x - 1.3, x + 1.3, 23, 36, 60.95); }
-  for (let i = 0; i < 7; i++) { const hw = 11 - i * 1.25, y = 38 + i * 3.2; block(b, 'floodlit', i % 2 ? granite : shadow, -hw, hw, y, y + 3.2, 72 - hw, 72 + hw); }
-  block(b, 'floodlit', granite, -2.4, 2.4, 60.4, 65.4, 69.6, 74.4);
+  for (let i = 0; i < 7; i++) { const hw = 11 - i * 1.25, y = 38 + i * 3.2; block(b, 'stone', i % 2 ? granite : shadow, -hw, hw, y, y + 3.2, 72 - hw, 72 + hw); }
+  block(b, 'stone', granite, -2.4, 2.4, 60.4, 65.4, 69.6, 74.4);
   b.colour.setRGB(3.5, .3, .2); b.box('lamp', -.4, .4, 65.4, 66.2, 71.6, 72.4);
 }
 
@@ -178,22 +184,19 @@ function police(b: CityMeshBuilder, random: Random): void {
   b.colour.setRGB(3.5, .3, .2); for (const y of [90, 108]) b.box('lamp', -.8, .8, y, y + 1, 17.2, 18.8);
 }
 
-/** The Ministry of Justice (1895): Meiji red brick, stone bands, a slate roof with dormers. */
+/** The Ministry of Justice (1895) as it stood in 1986: Meiji red brick and stone bands under the plain tiled roofs of its post-war repair. */
 function justice(b: CityMeshBuilder, random: Random): void {
-  const brick = '#8a4638', stone = '#d8cdb5', slate = '#3e4448';
+  const brick = '#8a4638', stone = '#d8cdb5', tile = '#5c5a58';
   block(b, 'floodlit', brick, -48, 48, -.5, 15, 6, 36);
   for (const y of [1.2, 5.4, 10.2]) block(b, 'stone', stone, -48.2, 48.2, y - .25, y, 5.8, 36.2);
   panes(b, random, -46, 46, 1.8, 14.4, 6, 24, 3, 1.2, 2.5);
-  block(b, 'floodlit', brick, -11, 11, -.5, 19, 3, 34);
+  block(b, 'floodlit', brick, -11, 11, -.5, 17.5, 3, 34);
   for (const y of [5.4, 10.2, 15]) block(b, 'stone', stone, -11.2, 11.2, y - .3, y, 2.8, 34.2);
-  panes(b, random, -10, 10, 1.8, 18, 3, 5, 4, 1.3, 2.5);
-  hipRoof(b, slate, -49, 49, 5, 37, 15, 21);
-  hipRoof(b, slate, -12, 12, 2, 35, 19, 28);
-  for (let x = -44; x <= 44; x += 8) {
-    if (Math.abs(x) < 14) continue;
-    block(b, 'wall', slate, x - 1, x + 1, 16, 18.2, 6.6, 8.2);
-    b.window = [random(), WINDOW_KIND.office]; b.colour.set('#2a2c34'); b.front('glass', x - .55, x + .55, 16.3, 17.8, 6.55);
-  }
+  panes(b, random, -10, 10, 1.8, 16.6, 3, 5, 4, 1.3, 2.5);
+  // The roof burned in 1945. The 1948–50 repair gave it plain, low tiled roofs; the steep slate roofs, dormers and
+  // spires seen today are the 1991–94 restoration.
+  hipRoof(b, tile, -49, 49, 5, 37, 15, 17.6);
+  hipRoof(b, tile, -12, 12, 2, 35, 17.5, 20.4);
 }
 
 /** The Dai-ichi Seimei Building (1938): a granite colonnade facing the Hibiya moat. */
@@ -345,7 +348,8 @@ function zenrinmon(b: CityMeshBuilder): void {
   b.colour.set(gold); b.cylinder('metal', 0, 9.8, z, .25, .8, 8);
 }
 
-/** JR Nikko Station (1912): white Western-style clapboard, green trim, a central gable and its clock. */
+/** Nikkō Station (1912), the Japanese National Railways' until JR began in April 1987: white Western-style clapboard,
+ * green trim, a central gable and its clock. */
 function nikkoStation(b: CityMeshBuilder, random: Random): void {
   const white = '#ece8de', trim = '#4a6a5a', roof = '#4a5550';
   block(b, 'floodlit', white, -18, 18, -.3, 7.5, 6, 18);
@@ -465,7 +469,9 @@ function kyotoTower(b: CityMeshBuilder, random: Random): void {
   block(b, 'floodlit', grey, -30, 30, -.3, 31, 0, 40);
   panes(b, random, -29, 29, 2, 30, 0, 20, 9, 1.4, 2);
   revolve(b, 'floodlit', white, [[5.6, 31], [4.6, 70], [3.8, 98]], 16, 0, z);
-  revolve(b, 'floodlit', white, [[3.8, 98], [8.6, 100], [8.6, 108], [5, 110]], 16, 0, z);
+  // The observation pod: its flared underside and sill band are vermilion, the candle's "flame" holder.
+  revolve(b, 'floodlit', '#d2452d', [[3.8, 98], [8.6, 100], [8.6, 101.4]], 16, 0, z);
+  revolve(b, 'floodlit', white, [[8.6, 101.4], [8.6, 108], [5, 110]], 16, 0, z);
   b.window = [random() * .3, WINDOW_KIND.lobby]; b.colour.set('#3a4050');
   for (let k = 0; k < 16; k++) { const a = k / 16 * Math.PI * 2; b.face('glass', [[Math.cos(a) * 8.65, 102, z + Math.sin(a) * 8.65], [Math.cos(a + Math.PI / 8) * 8.65, 102, z + Math.sin(a + Math.PI / 8) * 8.65], [Math.cos(a + Math.PI / 8) * 8.65, 106, z + Math.sin(a + Math.PI / 8) * 8.65], [Math.cos(a) * 8.65, 106, z + Math.sin(a) * 8.65]], [Math.cos(a + Math.PI / 16), 0, Math.sin(a + Math.PI / 16)]); }
   revolve(b, 'floodlit', white, [[5, 110], [2.4, 122], [.8, 126]], 12, 0, z);
@@ -691,6 +697,482 @@ function ikomaTowers(b: CityMeshBuilder): void {
   }
 }
 
+/** Hakone-Yumoto Station as it stood from 1974 to 2009: a long single-storey concrete building in blue and white,
+ * its concourse glazed to the road, the Tozan Railway's platform roof behind and above it. */
+function yumotoStation(b: CityMeshBuilder, random: Random): void {
+  const white = '#e9e6dc', blue = '#3f6f9e';
+  block(b, 'floodlit', white, -26, 26, -.3, 5.2, 2, 14);
+  block(b, 'wall', blue, -26.3, 26.3, 4.1, 5.5, 1.7, 14.3);
+  // The glazed concourse and ticket hall, lit through the night.
+  for (let i = 0; i < 9; i++) {
+    const x = -22 + i * 5.5;
+    b.window = [.55 + random() * .45, WINDOW_KIND.hall]; b.colour.set('#4a4a44'); b.front('glass', x - 2.3, x + 2.3, .5, 3.7, 1.97);
+  }
+  // A flat canopy over the pavement on thin posts, lit from beneath.
+  block(b, 'metal', '#c9c6bd', -24, 24, 3.9, 4.15, -1.4, 2, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', -23.4, 23.4, -1.2, 1.8, 3.89, -1);
+  b.colour.set('#8d8a84'); for (let x = -22; x <= 22; x += 11) b.box('metal', x - .09, x + .09, -.3, 3.9, -1.2, -1.02, 'b');
+  // The platforms stand a storey up the hillside, under their own long roof.
+  block(b, 'wall', '#b9b5aa', -30, 30, 5.2, 8.6, 9, 18);
+  b.colour.set('#56605e'); b.gableRoof('roof', -31, 31, 8, 19, 8.6, 1.6);
+  for (let x = -27; x <= 27; x += 6) { b.window = [.4 + random() * .5, WINDOW_KIND.hall]; b.colour.set('#4a4a44'); b.front('glass', x - 2.2, x + 2.2, 6.1, 8.1, 8.97); }
+}
+
+/** Shinkō Pier's No. 2 red-brick warehouse (1911), a bonded warehouse until 1989: 149 m of soot-dark brick, three
+ * storeys of iron-shuttered doors along a loading veranda, stair towers, a slate roof with lightning rods. */
+function redBrick(b: CityMeshBuilder, random: Random): void {
+  const brick = '#7a4034', stone = '#b9ad98', slate = '#3a3e42', iron = '#2e3a36';
+  b.pattern = WALL_PATTERN.brick;
+  block(b, 'wall', brick, -74, 74, -.3, 15.5, 0, 22.6);
+  // Stair and hoist towers break the long front.
+  for (const x of [-49.5, 0, 49.5]) block(b, 'wall', brick, x - 4.2, x + 4.2, -.3, 18.4, -1.6, 4);
+  b.pattern = WALL_PATTERN.plain;
+  for (const y of [.9, 5.6, 10.6, 15.5]) block(b, 'stone', stone, -74.2, 74.2, y - .28, y, -.2, 22.8);
+  // Iron doors on each floor, a few standing open onto lit floors.
+  for (let floor = 0; floor < 3; floor++) for (let x = -70; x <= 70; x += 5) {
+    if ([-49.5, 0, 49.5].some(tower => Math.abs(x - tower) < 5.5)) continue;
+    const y0 = 1.2 + floor * 4.9;
+    if (random() < .12) { b.window = [.6 + random() * .4, WINDOW_KIND.hall]; b.colour.set('#4a4038'); b.front('glass', x - 1, x + 1, y0, y0 + 2.9, -.04); }
+    else { b.colour.set(iron); b.front('metal', x - 1, x + 1, y0, y0 + 2.9, -.04); }
+  }
+  // The loading veranda's iron roof along the first floor.
+  block(b, 'metal', '#4a4e50', -74, 74, 5.2, 5.4, -3, 0, 'k');
+  b.colour.set('#3a3e42'); for (let x = -72; x <= 72; x += 8) b.box('metal', x - .08, x + .08, -.3, 5.2, -2.9, -2.74, 'b');
+  b.colour.set(slate); b.gableRoof('roof', -74.5, 74.5, -.4, 23, 15.5, 5.2);
+  b.colour.set(brick); b.gableEnds('wall', -74, 74, 0, 22.6, 15.5, 5.2);
+  b.colour.set('#3a3a3e'); for (let x = -66; x <= 66; x += 22) b.box('metal', x - .06, x + .06, 20.7, 23.6, 11.2, 11.32, 'b');
+  // Bulkhead lamps over the tower doors.
+  b.colour.setRGB(2.2, 1.5, .8); for (const x of [-49.5, 0, 49.5]) b.box('lamp', x - .25, x + .25, 4.3, 4.7, -1.75, -1.6);
+}
+
+/** The Yokohama Port Symbol Tower on Honmoku's D pier, completed 18 July 1986: a white signal station 48 m high,
+ * whose lit boards show ships the letter for the fairway's state. */
+function symbolTower(b: CityMeshBuilder): void {
+  const white = '#ecebe6', x = 0, z = 14;
+  b.colour.set('#a39e92'); b.cylinder('stone', x, -.3, z, 13, .9, 20);
+  revolve(b, 'floodlit', white, [[4.4, .6], [3.4, 8], [2.9, 34]], 16, x, z);
+  // The observation deck and the signal room above it.
+  revolve(b, 'floodlit', white, [[2.9, 34], [6.2, 36.2], [6.2, 39.4], [3.6, 40.2]], 16, x, z);
+  b.colour.setRGB(1.7, 1.5, 1.2); b.cylinder('lamp', x, 37, z, 6.26, 1.5, 16, false);
+  revolve(b, 'floodlit', white, [[3.6, 40.2], [3.6, 45.4], [1.2, 46.6]], 8, x, z, Math.PI / 8);
+  // The signal boards, one to each quarter: white letters in lamps.
+  b.colour.setRGB(2.6, 2.3, 1.7);
+  b.front('lamp', x - 1.5, x + 1.5, 41.4, 44.6, z - 3.5); b.front('lamp', x - 1.5, x + 1.5, 41.4, 44.6, z + 3.5, 1);
+  b.side('lamp', x - 3.5, z - 1.5, z + 1.5, 41.4, 44.6, -1); b.side('lamp', x + 3.5, z - 1.5, z + 1.5, 41.4, 44.6, 1);
+  b.colour.set('#3a3a3e'); b.cylinder('metal', x, 46.6, z, .12, 3.6, 6);
+  b.colour.setRGB(3, .5, .4); b.cylinder('lamp', x, 50.2, z, .3, .5, 8);
+}
+
+/** Tōbu Nikkō Station's 1979 building: a mountain lodge under one great triangular roof, its gable glazed to the forecourt. */
+function tobuNikkoStation(b: CityMeshBuilder, random: Random): void {
+  const plaster = '#e8e2d2', timber = '#5e3d2a', roof = '#7a3e30';
+  block(b, 'floodlit', plaster, -20, 20, -.3, 4.4, 6, 20);
+  panes(b, random, -19, 19, .8, 3.8, 6, 10, 1, 2.6, 2.6, WINDOW_KIND.hall, '#4a4038');
+  // The gable front: timber boards and a tall lit window under the ridge.
+  b.colour.set(timber); b.face('wall', [[-13, 4.4, 5.6], [13, 4.4, 5.6], [0, 15, 5.6]], [0, 0, -1]);
+  b.window = [.7 + random() * .3, WINDOW_KIND.hall]; b.colour.set('#4a4038');
+  b.face('glass', [[-5, 4.9, 5.55], [5, 4.9, 5.55], [0, 9.4, 5.55]], [0, 0, -1]);
+  // The roof's two great slopes run down nearly to the ground either side of the gable.
+  b.colour.set(roof);
+  b.face('roof', [[-15, 3, 5], [0, 15.4, 5], [0, 15.4, 21], [-15, 3, 21]], [-.75, .66, 0]);
+  b.face('roof', [[15, 3, 5], [0, 15.4, 5], [0, 15.4, 21], [15, 3, 21]], [.75, .66, 0]);
+  b.colour.set(timber); b.face('wall', [[-13, 4.4, 20.4], [13, 4.4, 20.4], [0, 15, 20.4]], [0, 0, 1]);
+  block(b, 'metal', '#3a4a44', -9, 9, 3.5, 3.8, 1, 6, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', -8.4, 8.4, 1.2, 5.8, 3.49, -1);
+}
+
+/** Nikkō City Hall, the former Daimyō Hotel (finished about 1919; the city's hall 1954–2006): a castle-like wooden
+ * hall with white walls and great gables, above an 8 m stone wall on the south side of the street. */
+function nikkoCityHall(b: CityMeshBuilder, random: Random): void {
+  const stone = '#8a857a', white = '#ece8de', timber = '#4a3a30', roof = '#4a4e52';
+  block(b, 'stone', stone, -34, 34, -.3, 8, 0, 6);
+  block(b, 'ground', '#56653f', -34, 34, 7.9, 8, 6, 44, 'k');
+  block(b, 'floodlit', white, -22, 22, 8, 15.5, 14, 30);
+  b.colour.set(timber); for (let x = -22; x <= 22; x += 4.4) b.box('wall', x - .14, x + .14, 8, 15.5, 13.9, 14, 'bk');
+  b.box('wall', -22, 22, 11.6, 11.95, 13.88, 14, 'bk');
+  panes(b, random, -21, 21, 8.8, 15, 14, 10, 2, 1.5, 2, WINDOW_KIND.home, '#4a3a2a');
+  hipRoof(b, roof, -24, 24, 12.4, 31.6, 15.5, 20.5);
+  // The great gabled front (千鳥破風) over the entrance, and the smaller end gables.
+  block(b, 'floodlit', white, -7, 7, 8, 17.5, 11, 16);
+  b.colour.set(roof); b.face('roof', [[-8.6, 16.8, 10], [0, 23, 10], [0, 23, 22], [-8.6, 16.8, 22]], [-.6, .8, 0]);
+  b.face('roof', [[8.6, 16.8, 10], [0, 23, 10], [0, 23, 22], [8.6, 16.8, 22]], [.6, .8, 0]);
+  b.colour.set(white); b.face('floodlit', [[-7, 17.5, 10.9], [7, 17.5, 10.9], [0, 22.4, 10.9]], [0, 0, -1]);
+  for (const x of [-17, 17]) {
+    b.colour.set(roof); b.face('roof', [[x - 4.4, 19, 12.2], [x, 22, 12.2], [x, 22, 20], [x - 4.4, 19, 20]], [-.6, .8, 0]);
+    b.face('roof', [[x + 4.4, 19, 12.2], [x, 22, 12.2], [x, 22, 20], [x + 4.4, 19, 20]], [.6, .8, 0]);
+    b.colour.set(white); b.face('floodlit', [[x - 3.6, 19.4, 12.1], [x + 3.6, 19.4, 12.1], [x, 21.6, 12.1]], [0, 0, -1]);
+  }
+  b.colour.set('#ffd9a0'); b.box('lamp', -.3, .3, 11.4, 11.9, 10.4, 10.9);
+}
+
+/** Hotel Grand Palace (February 1972), north of the Kudanshita crossing: a pale 24-floor slab over a low podium. */
+function grandPalace(b: CityMeshBuilder, random: Random): void {
+  const tile = '#d9d2c2';
+  block(b, 'wall', '#bdb5a4', -24, 24, -.5, 9, 0, 34);
+  panes(b, random, -22, 22, 1, 8, 0, 9, 2, 3, 2.6, WINDOW_KIND.lobby);
+  block(b, 'wall', tile, -19, 19, 9, 84, 8, 26);
+  panes(b, random, -18, 18, 10, 83, 8, 14, 23, 1.5, 1.9, WINDOW_KIND.home);
+  sidePanes(b, random, -19, -1, 9, 25, 10, 83, 5, 23, 1.5, 1.9);
+  sidePanes(b, random, 19, 1, 9, 25, 10, 83, 5, 23, 1.5, 1.9);
+  block(b, 'wall', '#c8c0ae', -12, 12, 84, 88, 11, 23);
+  b.colour.setRGB(3.5, .3, .2); for (const x of [-18, 18]) b.box('lamp', x - .4, x + .4, 84, 84.8, 8.5, 9.3);
+}
+
+/** The Kudanzaka stone lighthouse (高燈籠, 1871; moved in 1930 to the palace side of Yasukuni-dōri, opposite the
+ * shrine): a battered stone base, a Western lantern room and a weathervane, 16.8 m in all. */
+function kudanLighthouse(b: CityMeshBuilder): void {
+  const z = 4;
+  revolve(b, 'stone', '#8a857a', [[3.6, -.3], [3.3, 1.2], [2.3, 9.4], [2.7, 9.9]], 4, 0, z, Math.PI / 4);
+  revolve(b, 'wall', '#3c3a38', [[2.2, 9.9], [2.2, 10.3]], 8, 0, z);
+  b.colour.setRGB(2.4, 1.9, 1.2); b.cylinder('lamp', 0, 10.3, z, 1.25, 2.1, 8, false);
+  revolve(b, 'metal', '#4c6a5c', [[2.1, 12.4], [1.5, 13.3], [.5, 14.3], [.1, 14.9]], 8, 0, z);
+  b.colour.set('#3a3a3e'); b.cylinder('metal', 0, 14.9, z, .06, 1.7, 6);
+  b.box('metal', -.7, .7, 16.1, 16.2, z - .03, z + .03, ''); b.box('metal', -.03, .03, 16.1, 16.2, z - .7, z + .7, '');
+}
+
+/** The British Embassy at Ichibanchō (main building 1929): a long brick wall with stone copings and iron gates, a
+ * row of cherries behind it, and the cream Georgian chancery under its hipped roofs across the forecourt. */
+function britishEmbassy(b: CityMeshBuilder, random: Random): void {
+  const brick = '#7c4a3c', stone = '#cfc6b2', cream = '#ded5c0', slate = '#4a4e52';
+  b.pattern = WALL_PATTERN.brick;
+  for (const [x0, x1] of [[-90, -6], [6, 90]] as const) block(b, 'wall', brick, x0, x1, -.3, 2.6, 0, .6);
+  b.pattern = WALL_PATTERN.plain;
+  for (const [x0, x1] of [[-90, -6], [6, 90]] as const) block(b, 'stone', stone, x0 - .1, x1 + .1, 2.6, 2.9, -.1, .7);
+  for (const x of [-6.6, 6]) { block(b, 'stone', stone, x, x + .9, -.3, 4.1, -.2, .8); b.colour.setRGB(2.2, 1.8, 1.2); b.box('lamp', x + .15, x + .75, 4.1, 4.7, .05, .65); }
+  b.colour.set('#2a2c2e'); for (let x = -5.2; x <= 5.2; x += .65) b.box('metal', x - .05, x + .05, .1, 3.2, .25, .35, 'b');
+  b.colour.set('#4f6a3e'); b.flat('ground', -88, 88, .8, 54, -.04);
+  block(b, 'wall', cream, -34, 34, -.3, 11, 30, 50);
+  panes(b, random, -32, 32, 1.2, 10.2, 30, 13, 2, 1.5, 2.6, WINDOW_KIND.home, '#3a3a40');
+  hipRoof(b, slate, -35.5, 35.5, 28.6, 51.4, 11, 15.5);
+  block(b, 'wall', cream, -8, 8, -.3, 12.6, 26, 32);
+  for (const x of [-5.4, -1.8, 1.8, 5.4]) block(b, 'stone', stone, x - .5, x + .5, -.3, 9.4, 24.6, 25.6);
+  block(b, 'stone', stone, -7, 7, 9.4, 10.6, 24.4, 26.2);
+  for (const x of [-27, 27]) for (const z of [40]) block(b, 'wall', '#8a6e60', x - .9, x + .9, 14, 18.4, z - .9, z + .9);
+}
+
+/** The Supreme Court (1974) at Hayabusachō: windowless masses of pale granite stepping up behind one another, with
+ * deep slots of glass between them. */
+function supremeCourt(b: CityMeshBuilder, random: Random): void {
+  const granite = '#cdc7b9', deep = '#bab4a6';
+  block(b, 'stone', deep, -52, 52, -.3, 2.4, 0, 6);
+  for (const [x0, x1, top, z0, z1] of [[-50, -22, 17, 8, 44], [-18, 4, 24, 12, 46], [8, 30, 30, 18, 48], [34, 50, 20, 10, 42]] as const) {
+    block(b, 'stone', granite, x0, x1, -.3, top, z0, z1);
+    b.window = [random() * .5, WINDOW_KIND.office]; b.colour.set('#2e3440'); b.front('glass', x0 + 2, x0 + 3.4, 3, top - 2.5, z0 - .03);
+  }
+  // The slots between the masses, glazed their whole height.
+  for (const [x0, x1, top, z] of [[-22, -18, 15, 14], [4, 8, 22, 20], [30, 34, 18, 16]] as const) {
+    block(b, 'wall', '#2a2e36', x0, x1, -.3, top, z, z + 20);
+    b.window = [.3 + random() * .5, WINDOW_KIND.office]; b.colour.set('#3a4250'); b.front('glass', x0 + .3, x1 - .3, 1, top - .6, z - .03);
+  }
+}
+
+/** The Diet front garden's clock tower (July 1960): three slender concrete fins about one axis, 31.5 m high, for the
+ * three powers of the constitution, a clock high on each. */
+function clockTower(b: CityMeshBuilder): void {
+  const concrete = '#d6d2c8', z = 8;
+  b.colour.set('#8e8a80'); b.cylinder('stone', 0, -.3, z, 7, .5, 18);
+  for (let i = 0; i < 3; i++) {
+    const a = i / 3 * Math.PI * 2 + Math.PI / 2, c = Math.cos(a), s = Math.sin(a), nx = -s, nz = c;
+    const p = (r: number, y: number, t: number): Vec3 => [c * r + nx * t, y, z + s * r + nz * t];
+    b.colour.set(concrete);
+    quad(b, 'wall', [p(.3, .2, .34), p(4.2, .2, .34), p(1.5, 31.5, .34), p(.3, 31.5, .34)], [nx, 0, nz]);
+    quad(b, 'wall', [p(.3, .2, -.34), p(4.2, .2, -.34), p(1.5, 31.5, -.34), p(.3, 31.5, -.34)], [-nx, 0, -nz]);
+    quad(b, 'wall', [p(4.2, .2, -.34), p(4.2, .2, .34), p(1.5, 31.5, .34), p(1.5, 31.5, -.34)], [c, .1, s]);
+    b.colour.setRGB(2.3, 2.1, 1.7);
+    quad(b, 'lamp', [p(.7, 24.6, .37), p(2, 24.6, .37), p(2, 25.9, .37), p(.7, 25.9, .37)], [nx, 0, nz]);
+  }
+}
+
+/** The Kokusai Building and Imperial Theatre (September 1966) on Hibiya-dōri: nine floors at the 31 m line, red-brown
+ * tile banded with black and silver, the theatre's canopy at the corner. */
+function kokusai(b: CityMeshBuilder, random: Random): void {
+  const tile = '#7a4a3a';
+  block(b, 'wall', tile, -42, 42, -.5, 31, 0, 40);
+  for (let floor = 1; floor < 9; floor++) {
+    const y = floor * 3.4;
+    b.colour.set('#b9bcc0'); b.box('metal', -42.1, 42.1, y - .12, y + .12, -.12, 0, 'bk');
+    panes(b, random, -40, 40, y + .5, y + 2.7, 0, 28, 1, 2.3, 2);
+  }
+  block(b, 'wall', '#2a2c30', -42, 42, -.5, 3.4, -.1, 0, 'bk');
+  b.window = [.5 + random() * .5, WINDOW_KIND.hall]; b.colour.set('#4a4038'); b.front('glass', 20, 40, .3, 3.1, -.14);
+  block(b, 'metal', '#3a3a3e', 18, 42, 3.5, 3.9, -3.2, 0, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', 19, 41, -3, -.2, 3.49, -1);
+  block(b, 'wall', '#6c4033', -30, 30, 31, 35, 8, 32);
+}
+
+/** Meiji Seimei Kan (1934) at Babasaki-mon: eight floors of pale granite, five of them behind a giant Corinthian colonnade. */
+function meijiSeimei(b: CityMeshBuilder, random: Random): void {
+  const granite = '#c9c1b0', column = '#d6cfbf';
+  block(b, 'floodlit', granite, -35, 35, -.5, 31, 2.4, 40);
+  block(b, 'stone', granite, -35.4, 35.4, -.5, 6.2, 0, 2.4, 'k');
+  for (let i = 0; i < 5; i++) { const x = -28 + i * 14; b.window = [random() * .4, WINDOW_KIND.lobby]; b.colour.set('#3a3a40'); b.front('glass', x - 2.2, x + 2.2, .6, 5.2, -.03); }
+  panes(b, random, -33, 33, 7.4, 23.6, 2.4, 11, 5, 1.7, 2.4);
+  for (let i = 0; i <= 11; i++) { const x = -33 + i * 6; b.colour.set(column); b.cylinder('floodlit', x, 6.2, 1.2, .95, 17.6, 12); block(b, 'stone', column, x - 1.2, x + 1.2, 23.8, 24.6, .1, 2.3, 'k'); }
+  block(b, 'floodlit', column, -35.4, 35.4, 24.6, 27, 0, 2.4, 'k');
+  panes(b, random, -33, 33, 27.5, 30.4, 2.4, 16, 1, 1.5, 2);
+  block(b, 'stone', granite, -35.6, 35.6, 31, 31.9, -.2, 40.2);
+}
+
+/** Mitsui & Co.'s head office (October 1976) at Ōtemachi: a dark 24-floor tower, a hundred metres high and square. */
+function mitsuiBussan(b: CityMeshBuilder, random: Random): void {
+  const dark = '#4a4640';
+  block(b, 'wall', '#6a655c', -34, 34, -.5, 7, 0, 46);
+  panes(b, random, -32, 32, 1, 6.2, 0, 12, 1, 3.6, 4.6, WINDOW_KIND.lobby);
+  block(b, 'wall', dark, -27, 27, 7, 100, 4, 44);
+  for (let x = -26.6; x <= 26.7; x += 3.8) { b.colour.set('#39362f'); b.box('wall', x - .3, x + .3, 7, 100, 3.5, 4, 'bk'); }
+  panes(b, random, -26.4, 26.4, 8, 99, 4, 14, 23, 2.3, 2.6);
+  sidePanes(b, random, -27, -1, 5, 43, 8, 99, 10, 23, 2.3, 2.6);
+  sidePanes(b, random, 27, 1, 5, 43, 8, 99, 10, 23, 2.3, 2.6);
+  block(b, 'wall', '#39362f', -22, 22, 100, 104, 9, 39);
+  b.colour.setRGB(3.5, .3, .2); for (const x of [-26, 26]) b.box('lamp', x - .5, x + .5, 100, 101, 4.5, 5.5);
+}
+
+/** The Yūsen Building (February 1978) on Hibiya-dōri: fifteen floors and 70 m of pale stone piers, one of the two
+ * buildings that stood above Marunouchi's 31 m line in 1986. */
+function yusen(b: CityMeshBuilder, random: Random): void {
+  const stone = '#cbc4b4', pier = '#d8d2c3';
+  block(b, 'wall', stone, -22, 22, -.5, 70, 2, 40);
+  b.colour.set(pier); for (let x = -22; x <= 22.1; x += 4.4) b.box('wall', x - .55, x + .55, -.5, 70, 1.2, 2, 'bk');
+  panes(b, random, -19.8, 19.8, 5.2, 69, 2, 10, 15, 2.4, 2.7);
+  for (let i = 0; i < 5; i++) { const x = -17.6 + i * 8.8; b.window = [random() * .5, WINDOW_KIND.lobby]; b.colour.set('#3a3a40'); b.front('glass', x - 3, x + 3, .4, 4.4, 1.97); }
+  sidePanes(b, random, -22, -1, 3, 39, 5.2, 69, 9, 15, 2.4, 2.7);
+  sidePanes(b, random, 22, 1, 3, 39, 5.2, 69, 9, 15, 2.4, 2.7);
+  block(b, 'wall', '#bdb6a6', -16, 16, 70, 74, 8, 34);
+  b.colour.setRGB(3.5, .3, .2); for (const x of [-21, 21]) b.box('lamp', x - .4, x + .4, 70, 70.8, 2.5, 3.3);
+}
+
+/** The Tarō-sugi at Shinkyō: a cedar some 550 years old and 43 m tall, leaning out over Route 120, which was never
+ * widened past it (a 1973 court ruling barred its felling). */
+function taroSugi(b: CityMeshBuilder): void {
+  const z = 3, bark = '#4a3528', needle = '#1c3528';
+  revolve(b, 'wall', bark, [[1.5, -.3], [1.15, 4], [.95, 20], [.5, 38]], 10, 0, z);
+  // Tiers of drooping boughs, bare for the first third of the trunk.
+  for (let i = 0; i < 9; i++) {
+    const y = 14 + i * 3.1, reach = 6.2 - i * .52;
+    revolve(b, 'wall', i % 2 ? needle : '#213d2e', [[reach, y], [reach * .55, y + 2.2], [.8, y + 4.6]], 9, (i % 3 - 1) * .35, z + (i % 2 ? .3 : -.3), i * .7);
+  }
+  revolve(b, 'wall', needle, [[1.6, 40], [.1, 43.4]], 8, 0, z);
+  // The sacred rope round its foot.
+  b.colour.set('#d8ceb4'); b.cylinder('wall', 0, 1.5, z, 1.42, .22, 10, false);
+}
+
+/** The Palace Hotel (October 1961) between the Wadakura moat and Ōtemon: ten floors at the 31 m line, clad in brown
+ * Shigaraki tile, its long front of balconied bands facing the palace across Uchibori-dōri; rebuilt in 2012. */
+function palaceHotel(b: CityMeshBuilder, random: Random): void {
+  const tile = '#7e5f49', band = '#cfc5b3';
+  block(b, 'wall', tile, -50, 50, -.5, 31, 2, 40);
+  for (let floor = 1; floor < 10; floor++) {
+    const y = 3.4 + (floor - 1) * 3.05;
+    b.colour.set(band); b.box('wall', -50, 50, y - .2, y + .1, .6, 2, 'bk');
+    panes(b, random, -48, 48, y + .35, y + 2.5, 2, 24, 1, 3.2, 1.9, WINDOW_KIND.home, '#3a3430');
+  }
+  // The lobby floor behind its glass, the porte-cochère and a penthouse on the roof.
+  b.window = [.6 + random() * .4, WINDOW_KIND.lobby]; b.colour.set('#4a4038'); b.front('glass', -30, 30, .3, 3, 1.97);
+  block(b, 'metal', '#3a3a3e', -12, 12, 3.2, 3.6, -5, 2, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', -11.4, 11.4, -4.8, 1.8, 3.19, -1);
+  block(b, 'wall', '#6e5240', -14, 14, 31, 35, 12, 30);
+  b.colour.setRGB(3.5, .3, .2); for (const x of [-49, 49]) b.box('lamp', x - .4, x + .4, 31, 31.8, 2.5, 3.3);
+}
+
+/**
+ * A tall wooden ryokan of the Haya-kawa gorge, as Tōnosawa's stand on the road: storey on storey of dark timber,
+ * every floor a railed veranda (縁側) behind shoji lit from within, under shallow eaves of tile or sheet metal, a
+ * karahafu porch at the street door. Fukuzumirō (1887, three storeys), Kansuirō (1919 and 1924, four) and Ichinoyu's
+ * main building (Meiji, with 1917 and 1922 additions, four).
+ */
+function woodenRyokan(b: CityMeshBuilder, random: Random, storeys: number, width: number, roof: string, porch: boolean): void {
+  const timber = '#3e2a20', rail = '#5a3c2a', paper = '#f0e2c4', h = 3.1, x = width / 2;
+  block(b, 'stone', '#7f7a70', -x - .3, x + .3, -.4, .5, 0, 16);
+  for (let floor = 0; floor < storeys; floor++) {
+    const y = .5 + floor * h, inset = floor === 0 ? 0 : .6;
+    block(b, 'wall', timber, -x + inset, x - inset, y, y + h, inset + .8, 15.4 - inset);
+    // Shoji behind the veranda, lit warm, between posts every 1.8 m.
+    for (let px = -x + inset + 1; px < x - inset - .8; px += 1.8) {
+      b.window = [.55 + random() * .45, WINDOW_KIND.home]; b.colour.set(paper);
+      b.front('glass', px + .08, px + 1.72, y + .5, y + h - .45, inset + .77);
+      b.colour.set(timber); b.box('wall', px - .07, px + .07, y, y + h, inset + .1, inset + .2, 'b');
+    }
+    if (floor > 0) {
+      // The veranda's floor and its rail.
+      block(b, 'wall', rail, -x + inset, x - inset, y - .05, y + .12, inset - .2, inset + .8, 'k');
+      b.colour.set(rail); b.box('wall', -x + inset, x - inset, y + .85, y + .97, inset - .2, inset - .1, '');
+      for (let px = -x + inset; px <= x - inset; px += .45) b.box('wall', px - .025, px + .025, y + .12, y + .85, inset - .17, inset - .13, 'b');
+    }
+    // A shallow eave over every storey.
+    b.colour.set(roof); b.face('roof', [[-x - .6, y + h - .05, inset - 1], [x + .6, y + h - .05, inset - 1], [x + .6, y + h + .5, inset + 1], [-x - .6, y + h + .5, inset + 1]], [0, .9, -.4]);
+  }
+  const top = .5 + storeys * h;
+  hipRoof(b, roof, -x - .9, x + .9, -.4, 17, top, top + 2.6);
+  if (porch) {
+    for (const px of [-1.8, 1.8]) block(b, 'wall', timber, px - .15, px + .15, .5, 3.4, -1.6, -1.3);
+    hipRoof(b, roof, -2.6, 2.6, -2.2, .9, 3.4, 4.6);
+    b.colour.setRGB(2.2, 1.5, .8); b.box('lamp', -.25, .25, 2.7, 3.2, -1.5, -1.1);
+  }
+}
+
+/** The Silk Center (1959) at the Ōsanbashi entrance, on the site of the old British trading house Jardine Matheson's
+ * "No. 1": a long eight-storey block of pale tile and ribbon windows, shops and the silk museum at its foot. */
+function silkCenter(b: CityMeshBuilder, random: Random): void {
+  const tile = '#d4cdbd';
+  block(b, 'wall', tile, -35, 35, -.5, 27, 2, 48);
+  for (let floor = 1; floor < 8; floor++) {
+    const y = 3.6 + (floor - 1) * 3.25;
+    b.colour.set('#bdb5a4'); b.box('wall', -35, 35, y - .25, y + .1, 1.6, 2, 'bk');
+    panes(b, random, -34, 34, y + .4, y + 2.6, 2, 26, 1, 2.3, 2);
+  }
+  b.window = [.5 + random() * .5, WINDOW_KIND.shop]; b.colour.set('#4a4038'); b.front('glass', -33, 33, .4, 3.2, 1.97);
+  block(b, 'metal', '#3a3a3e', -35, 35, 3.2, 3.5, -1, 2, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', -34, 34, -.8, 1.8, 3.19, -1);
+  block(b, 'wall', '#c4bcab', -12, 12, 27, 30.5, 14, 34);
+}
+
+/** Ōsanbashi (大さん橋): the pier running 450 m out into the harbour, with the two-storey international passenger
+ * terminal of October 1964 along it (rebuilt 1989-2002), lamp posts down its length and a liner's berth beside it. */
+function osanbashi(b: CityMeshBuilder, random: Random): void {
+  const deck = '#8e8a82', length = 440, half = 16;
+  block(b, 'stone', deck, -half, half, -3.4, -.05, 0, length, '');
+  b.colour.set('#6e6a63'); for (let z = 20; z < length; z += 24) b.box('wall', -half + 1, half - 1, -6, -3.4, z - .8, z + .8, 'b');
+  // The terminal: a long, low two-storey hall with a band of lit windows on each floor.
+  block(b, 'wall', '#cfcac0', -10, 10, -.05, 9.5, 60, 360);
+  for (const side of [-1, 1] as const) for (const y of [1.2, 5.4]) for (let z = 66; z < 356; z += 6) {
+    b.window = [random(), WINDOW_KIND.lobby]; b.colour.set('#3a4050');
+    b.side('glass', side * 10.03, z, z + 4.6, y, y + 2.6, side);
+  }
+  b.colour.set('#9a958c'); b.flat('roof', -10.4, 10.4, 59.6, 360.4, 9.52);
+  b.window = [.6, WINDOW_KIND.lobby]; b.colour.set('#3a4050'); b.front('glass', -8, 8, 1, 8, 59.97);
+  // Lamp posts and a rail along both edges.
+  for (const side of [-1, 1]) {
+    b.colour.set('#2e3032'); b.box('metal', side * (half - .3) - .04, side * (half - .3) + .04, .9, 1, 2, length, 'b');
+    for (let z = 12; z < length; z += 36) {
+      b.box('metal', side * (half - 1.2) - .08, side * (half - 1.2) + .08, 0, 6.4, z - .08, z + .08, 'b');
+      b.colour.setRGB(2.6, 1.8, 1); b.box('lamp', side * (half - 1.2) - .3, side * (half - 1.2) + .3, 6.4, 6.9, z - .3, z + .3);
+      b.beacon(side * (half - 1.2), 6.7, z, 2.6, 1.8, 1, 1.1); b.colour.set('#2e3032');
+    }
+  }
+}
+
+/** The Bund Hotel (1929-1999) on the Hori-kawa past Yamashita-bashi: a five-storey hotel of pale stucco with a
+ * seven-storey annex of 1959, and on the roof the blue neon of its Shell Room, a dance hall of the 1950s-70s. */
+function bundHotel(b: CityMeshBuilder, random: Random): void {
+  const stucco = '#d8cfbc';
+  block(b, 'wall', stucco, -20, 6, -.5, 17, 0, 22);
+  panes(b, random, -18.6, 4.6, 3.6, 16, 0, 9, 4, 1.5, 2.2, WINDOW_KIND.home);
+  b.window = [.5 + random() * .5, WINDOW_KIND.lobby]; b.colour.set('#4a4038'); b.front('glass', -14, -2, .3, 3, -.03);
+  block(b, 'stone', '#c2b8a3', -20.3, 6.3, 17, 17.8, -.3, 22.3);
+  // The 1959 annex, taller and plainer.
+  block(b, 'wall', '#cfcac0', 6, 22, -.5, 22, 2, 22);
+  panes(b, random, 7, 21, 3.4, 21, 2, 5, 6, 1.6, 2.1, WINDOW_KIND.home);
+  // The Shell Room's blue neon along the roof, a frame of tubes above the cornice.
+  b.colour.setRGB(.5, 1.4, 3.6);
+  b.box('lamp', -18, 4, 18.3, 18.55, -.15, .1); b.box('lamp', -18, 4, 20.6, 20.85, -.15, .1);
+  for (const x of [-18, 4]) b.box('lamp', x - .12, x + .12, 18.3, 20.85, -.15, .1);
+  b.colour.set('#1c2030'); b.box('wall', -17.6, 3.6, 18.55, 20.6, .1, .3, 'b');
+  b.colour.setRGB(.6, 1.6, 4); for (let x = -16; x < 2; x += 1.6) b.box('lamp', x, x + .9, 19.2, 19.9, -.05, .1);
+  b.beacon(-7, 19.6, 0, .5, 1.4, 3.6, 3);
+}
+
+/** The Tamozawa Imperial Villa's frontage on Route 120 (in 1986 a museum and inn, much in need of repair): a long
+ * dressed-stone wall with a white-plastered, tile-capped wall on it, the roofed gate, and the villa's copper roofs,
+ * green with age, among the trees behind. */
+function tamozawaGate(b: CityMeshBuilder, random: Random): void {
+  const stone = '#8a857a', plaster = '#e6e0d2', tile = '#3e4246', copper = '#5f8a74';
+  for (const [x0, x1] of [[-60, -4], [4, 60]] as const) {
+    block(b, 'stone', stone, x0, x1, -.3, 1.2, 0, 1.2);
+    block(b, 'wall', plaster, x0, x1, 1.2, 2.6, .2, 1);
+    b.colour.set(tile); b.gableRoof('roof', x0, x1, .1, 1.1, 2.6, .4, .25);
+  }
+  // The gate (薬医門): two posts, a beam and a tiled roof over the opening.
+  for (const x of [-3.2, 3.2]) block(b, 'wall', '#4a3428', x - .3, x + .3, -.3, 3.6, .1, .7);
+  b.colour.set('#3a2a22'); b.box('wall', -3.8, 3.8, 3.2, 3.7, 0, .8, '');
+  b.colour.set(tile); b.gableRoof('roof', -4.6, 4.6, -1, 2, 3.7, 1.4, .5);
+  b.colour.set('#2a2224'); b.front('wall', -2.8, 2.8, -.3, 3.1, .45);
+  // The villa: long wings under copper roofs, a few rooms lit.
+  for (const [x0, x1, z0, z1, h] of [[-40, -6, 24, 40, 5.2], [-4, 30, 18, 34, 6], [20, 46, 36, 52, 5.2]] as const) {
+    block(b, 'wall', '#cbbf9f', x0, x1, -.3, h, z0, z1);
+    panes(b, random, x0 + 1, x1 - 1, .8, h - 1, z0, Math.max(2, Math.round((x1 - x0) / 3)), 1, 1.8, 2, WINDOW_KIND.home, '#3a3026');
+    hipRoof(b, copper, x0 - 1.4, x1 + 1.4, z0 - 1.4, z1 + 1.4, h, h + 3.4);
+  }
+}
+
+/** JNR Sakuragichō station's second building (1927; work on its successor began in July 1986 and it went in March
+ * 1989), facing its plaza and Benten-bashi: a tall gabled hall in beige render with a round clock in the gable over
+ * three tall many-paned windows, a flat concrete canopy, a low wing to one side, and the Negishi Line's viaduct with
+ * its catenary portals behind. */
+function sakuragichoStation(b: CityMeshBuilder, random: Random): void {
+  const render = '#d6c8a8', roof = '#57534d', concrete = '#8e8a80';
+  block(b, 'floodlit', render, -10, 10, -.3, 10.5, 2, 18);
+  // The gable faces the plaza: the ridge runs back from the front.
+  b.colour.set(render); b.face('floodlit', [[-10, 10.5, 2], [10, 10.5, 2], [0, 15, 2]], [0, 0, -1]);
+  b.colour.set(roof);
+  quad(b, 'roof', [[-10.7, 10.2, 1.4], [0, 15.3, 1.4], [0, 15.3, 18.6], [-10.7, 10.2, 18.6]], [-1, 2, 0]);
+  quad(b, 'roof', [[10.7, 10.2, 1.4], [0, 15.3, 1.4], [0, 15.3, 18.6], [10.7, 10.2, 18.6]], [1, 2, 0]);
+  // The clock in the gable, lit at night, over three tall windows of many panes.
+  b.colour.setRGB(2.1, 2, 1.7); b.front('lamp', -1.1, 1.1, 11.3, 13.5, 1.96);
+  for (const x of [-5.2, 0, 5.2]) { b.window = [.5 + random() * .4, WINDOW_KIND.hall]; b.colour.set('#4a4a44'); b.front('glass', x - 1.7, x + 1.7, 4.8, 9.8, 1.97); }
+  // The canopy over the entrance, lit from beneath, and the lit concourse under it.
+  block(b, 'wall', '#bdb4a2', -11, 11, 3.7, 4.2, -2.8, 2, 'k');
+  b.colour.set('#ffe2b6'); b.flat('lamp', -10.4, 10.4, -2.6, 1.8, 3.69, -1);
+  b.window = [.7 + random() * .3, WINDOW_KIND.hall]; b.colour.set('#4a4038'); b.front('glass', -8.4, 8.4, .3, 3.5, 1.97);
+  // The low wing.
+  block(b, 'floodlit', render, -26, -10, -.3, 5.6, 4, 18);
+  panes(b, random, -25, -11, 1.2, 5, 4, 5, 1, 1.5, 2.2, WINDOW_KIND.hall, '#4a4a44');
+  b.colour.set(roof); b.gableRoof('roof', -26.3, -9.8, 3.6, 18.4, 5.6, 1.6);
+  // The Negishi Line's viaduct behind, its portals carrying the catenary.
+  block(b, 'stone', concrete, -32, 32, 6.4, 7.4, 22, 34);
+  for (let x = -28; x <= 28; x += 14) block(b, 'stone', concrete, x - .7, x + .7, -.3, 6.4, 26, 30);
+  b.colour.set('#3a3a3e');
+  for (let x = -24; x <= 24; x += 16) {
+    b.box('metal', x - .1, x + .1, 7.4, 12.6, 22.8, 23, 'b'); b.box('metal', x - .1, x + .1, 7.4, 12.6, 33, 33.2, 'b');
+    b.box('metal', x - .1, x + .1, 12.4, 12.6, 22.8, 33.2, 'b');
+  }
+}
+
+/** The Yokohama Specie Bank's head office (1904), from 1967 the Kanagawa Prefectural Museum with the dome lost in 1923
+ * restored: three storeys of grey rusticated stone, and a green bronze dome on an octagonal drum at its corner. */
+function specieBank(b: CityMeshBuilder, random: Random): void {
+  const stone = '#a29c8e', light = '#c4beb0', bronze = '#5e8f7d';
+  block(b, 'floodlit', stone, -24, 16, -.4, 17, 0, 30);
+  for (const y of [4.8, 10.6, 16.4]) block(b, 'stone', light, -24.2, 16.2, y - .4, y, -.2, 30.2);
+  panes(b, random, -22, 14, 5.4, 15.8, 0, 9, 2, 1.3, 3, WINDOW_KIND.lobby, '#3a3a40');
+  block(b, 'stone', light, -24.5, 16.5, 17, 18.6, -.5, 30.5);
+  // The corner drum and its dome, over the street corner.
+  revolve(b, 'floodlit', stone, [[6, -.4], [6, 22.5]], 8, 21, 6, Math.PI / 8);
+  revolve(b, 'stone', light, [[6.4, 22.5], [6.4, 23.4], [5.6, 23.4]], 8, 21, 6, Math.PI / 8);
+  revolve(b, 'metal', bronze, [[5.6, 23.4], [5.4, 26], [4.4, 29.2], [2.6, 31.6], [.8, 32.8], [.2, 33.4]], 16, 21, 6);
+  b.colour.set(bronze); b.cylinder('metal', 21, 33.4, 6, .5, 1.6, 8);
+  for (let k = 0; k < 4; k++) { const a = Math.PI / 8 + k * Math.PI / 2, x = 21 + Math.cos(a) * 6.05, z = 6 + Math.sin(a) * 6.05;
+    b.window = [random() * .6, WINDOW_KIND.lobby]; b.colour.set('#3a3a40'); b.front('glass', x - .9, x + .9, 8, 14, z - .05); }
+}
+
+/** The Silk Conditioning House (横浜生糸検査所, 1926; demolished 1990), "Kiiken": four storeys lining the road for
+ * 120 m, cream window bays between dark brick-faced piers, and a taller crested pavilion at its middle. */
+function silkConditioning(b: CityMeshBuilder, random: Random): void {
+  const cream = '#d7cdb2', brick = '#5c3a2c';
+  block(b, 'floodlit', cream, -60, 60, -.4, 18, 0, 28);
+  panes(b, random, -59, 59, 1.4, 17, 0, 20, 4, 2.2, 2.5);
+  b.pattern = WALL_PATTERN.brick;
+  for (let x = -60; x <= 60; x += 6) block(b, 'wall', brick, x - .8, x + .8, -.4, 18.6, -.5, .3);
+  block(b, 'wall', brick, -60.3, 60.3, 18, 19.4, -.6, 28.3);
+  // The central pavilion rises a storey higher under its crest.
+  block(b, 'floodlit', cream, -9, 9, 19.4, 24.6, -.5, 12);
+  panes(b, random, -8, 8, 20.2, 24, -.5, 5, 1, 2, 2.6);
+  block(b, 'wall', brick, -9.6, 9.6, 24.6, 26.2, -1, 12.4);
+  block(b, 'wall', brick, -3.2, 3.2, 26.2, 28.4, -1, 1.4);
+  b.pattern = WALL_PATTERN.plain;
+}
+
+/** The Dai-Ichi Bank's Yokohama branch (1929), the Bank of Yokohama's annex from 1980: three storeys of pale stone,
+ * rounded at its east end by a semicircle of Tuscan columns. */
+function daiichiYokohama(b: CityMeshBuilder, random: Random): void {
+  const stone = '#cfc7b4', column = '#ddd5c2';
+  block(b, 'floodlit', stone, -22, 8, -.4, 13.5, 0, 22);
+  panes(b, random, -21, 7, 1.4, 12.6, 0, 8, 3, 1.4, 2.6, WINDOW_KIND.lobby, '#3a3a40');
+  block(b, 'stone', stone, -22.3, 8.3, 13.5, 14.6, -.3, 22.3);
+  revolve(b, 'floodlit', stone, [[7.5, -.4], [7.5, 13.5]], 16, 8, 11);
+  revolve(b, 'stone', stone, [[8.9, 13.5], [8.9, 14.6], [0, 14.6]], 16, 8, 11);
+  for (let k = 0; k < 9; k++) { const a = -Math.PI / 2 + k * Math.PI / 8; b.colour.set(column); b.cylinder('floodlit', 8 + Math.cos(a) * 8.3, -.4, 11 + Math.sin(a) * 8.3, .45, 13.9, 10); }
+}
+
 const BUILDERS: Readonly<Record<PeriodLandmarkKind, (b: CityMeshBuilder, random: Random) => void>> = {
   diet, budokan, 'kudan-kaikan': kudanKaikan, 'national-theatre': nationalTheatre, justice, police,
   daiichi, kaijo, 'palace-side': palaceSide, jack, queen, king, pagoda, fujiya, 'new-grand': newGrand,
@@ -703,6 +1185,15 @@ const BUILDERS: Readonly<Record<PeriodLandmarkKind, (b: CityMeshBuilder, random:
   'kyoto-station-1952': kyotoStation1952, otenmon, 'kasuga-torii': kasugaTorii,
   'pagoda-yakushiji': b => timberPagoda(b, 34), 'pagoda-yakushiji-west': b => timberPagoda(b, 34, '#b8402e'),
   'dreamland-castle': dreamlandCastle, 'ikoma-towers': ikomaTowers,
+  'yumoto-station': yumotoStation, 'red-brick': redBrick, 'symbol-tower': symbolTower,
+  'tobu-nikko-station': tobuNikkoStation, 'nikko-city-hall': nikkoCityHall,
+  'grand-palace': grandPalace, 'kudan-lighthouse': kudanLighthouse, 'british-embassy': britishEmbassy, 'supreme-court': supremeCourt,
+  'clock-tower': clockTower, kokusai, 'meiji-seimei': meijiSeimei, 'mitsui-bussan': mitsuiBussan, yusen, 'taro-sugi': taroSugi,
+  'palace-hotel': palaceHotel,
+  fukuzumiro: (b, random) => woodenRyokan(b, random, 3, 22, '#4a4e52', true), kansuiro: (b, random) => woodenRyokan(b, random, 4, 26, '#3e4448', true),
+  ichinoyu: (b, random) => woodenRyokan(b, random, 4, 20, '#5a4a40', false), 'silk-center': silkCenter, osanbashi, 'bund-hotel': bundHotel,
+  'tamozawa-gate': tamozawaGate, 'sakuragicho-station': sakuragichoStation, 'specie-bank': specieBank,
+  'silk-conditioning': silkConditioning, 'daiichi-yokohama': daiichiYokohama,
 };
 export function isBuildingLandmark(kind: string): kind is PeriodLandmarkKind { return kind in BUILDERS; }
 /** Build a landmark in the current frame (the reserved footprint's front-centre, facing the road). */

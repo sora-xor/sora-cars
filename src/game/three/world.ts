@@ -4,8 +4,9 @@ import type { RenderOptions } from '../renderer';
 import type { CompiledStreetTrack } from '../street/track';
 import type { StreetRenderState, StreetRenderOptions } from '../street/renderer';
 import { CONTROL, LIVERIES, TRACKS, curvature, modulo } from '../rules';
+import { arcadeRoadHeight } from '../arcade-geography';
 import { clubItem, clubLivery } from '../catalog';
-import { environmentAt } from '../environment';
+import { arcadeEnvironmentAt } from '../environment';
 import { createCarModel, type CarModel } from './car';
 import { createBuilding, createApartment, createTree, createStreetLamp, createSign, setFloweringCrown, setSignGlow, setWindowLights } from './scenery';
 import { createCinematicPass, RACE_TONE_MAPPING, RACE_TONE_MAPPING_EXPOSURE } from './cinematic';
@@ -25,9 +26,11 @@ import { streetPresentation } from '../street/presentation';
 import { createDrivingEffects } from './driving-effects';
 import { createCrashEffects } from './crash-effects';
 import type { DriveEvent } from '../drive/race';
+import { courseDrawing, type DriveCourse } from '../drive/course';
 import { createUnderstory, type UnderstoryField, type UnderstoryPatch } from './undergrowth';
-import { createSlopeTerrain, createTerrain, terrainHeightAt, type SlopeTerrain } from './terrain';
+import { createSlopeTerrain, createTerrain, setTerrainRelief, terrainGroundMaterial, terrainHeightAt, type SlopeTerrain } from './terrain';
 import { createUrbanGround } from './urban-ground';
+import { createArcadeGround, createArcadeGroundField } from './arcade-ground';
 import { createUrbanPavingMaterial } from './urban-paving';
 import { TreeBatch } from './tree-batch';
 import { CANOPY_GAP_SHARE, setCanopyGapLight, setCanopyGapShare } from './canopy-gaps';
@@ -47,7 +50,7 @@ import { attachShopfront, setShopfrontGlow, shopfrontReady } from './shopfronts'
 import { createLocalCarReflections } from './reflections';
 import { createPaintedSky, type RacingSkyMood } from '../../poc/painted-sky';
 import { pixelArtGrid } from './pixel-art/grid';
-import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCADE_DISTANT, MOAT, MovingFarLights, PeriodCity, QUAY, arcadeDistrictAt, moatWidth, periodCityGroundCut,
+import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCADE_DISTANT, MOAT, MovingFarLights, PeriodCity, QUAY, arcadeBankAt, arcadeDistrictAt, moatWidth, periodCityGroundCut, periodFarLandmarks,
   periodCityOpenRuns, periodCityRouteFrame, setPeriodCityLampHeads, setPeriodCityLighting,
   type CityFixture, type PeriodDistrict } from './period-city';
 import { streetScene, type StreetScene } from './period-city/street-scenes';
@@ -65,7 +68,10 @@ import { buildColours, type CarBuild } from '../car-builds';
 // north = +Z, and native lateral/yaw are negated. Rotations retain positive
 // scale so car liveries, signs, normals and shadows remain correctly oriented.
 interface Pose { x: number; y: number; z: number; heading: number; width: number; p: number }
-interface Course { key: unknown; length: number; circuit: boolean; poses: Pose[]; style: number }
+interface Course { key: unknown; length: number; circuit: boolean; poses: Pose[]; style: number;
+  /** An Arcade course drawn on its real road's plan (the driving model's course): its bends fold back on themselves
+   * at hairpins, so its ground is built as a grid around the road rather than as strips beside it. */
+  real?: boolean }
 interface VisualCar { retired?: boolean; p: number; lateral: number; yaw: number; slip: number; speed: number; color: string; accent?: string; aero?: boolean; boosting: boolean; braking: boolean; steer: number;
   /** Driving model only: damage points (100 wrecks), detached-part mask and a wreck still on the road. */
   damage?: number; detached?: number; wreck?: boolean;
@@ -392,10 +398,14 @@ function sectorsFor(course: Course): (p: number) => number {
 }
 /** The period city's district on each side of a street course, by route sector. */
 function districtsFor(course: Course): (p: number, side: -1 | 1) => PeriodDistrict {
-  const table = sceneFor(course)?.districts;
+  const scene = sceneFor(course), table = scene?.districts;
   if (!table) return () => 'kanda';
-  const sector = sectorsFor(course);
+  const sector = sectorsFor(course), overrides = scene.overrides ?? [];
   return (p, side) => {
+    // A stretch whose open ground differs from its sector's (Hibiya Park, the Diet's front garden).
+    const lap = course.circuit ? modulo(p, course.length) : p;
+    const override = overrides.find(item => item.side === side && lap >= item.from && lap < item.to);
+    if (override) return override.district;
     const row = table[sector(p)] ?? table[0]!;
     return side < 0 ? row.right : row.left;
   };
@@ -431,18 +441,28 @@ function streetLight(track: CompiledStreetTrack, tick: number): { readonly mood:
   return { mood, daylight: from + (to - from) * chapter.progress };
 }
 
-/** Presentation geometry only. RaceV1's frozen progress and collision arithmetic is unchanged. */
+/** Presentation geometry only. RaceV1's frozen progress and collision arithmetic is unchanged.
+ * The bends are RaceV1's; the heights are the real road's each course is set on (arcade-geography.ts). */
 function arcadeCourse(id: number): Course {
   const cached = arcCourses.get(id); if (cached) return cached;
   const track = TRACKS[id]!, poses: Pose[] = [];
   let x = 0, z = -100, heading = 0;
   for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
-    poses.push({ x, y: 0, z, heading, width: 6, p });
+    poses.push({ x, y: arcadeRoadHeight(id, p), z, heading, width: 6, p });
     heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
     x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
   }
   const course = { key: id, length: track.length / 1000 * 3, circuit: false, poses, style: id };
   arcCourses.set(id, course); return course;
+}
+const drivenCourses = new WeakMap<DriveCourse, Course>();
+/** An Arcade course as the driving model runs it (drive/course.ts `courseDrawing`): on its real road for local races, or
+ * on RaceV1's bends for a replay recorded before them. A car at (s, d) is drawn where the race has it. */
+function drivenCourse(id: number, drive: DriveCourse): Course {
+  const cached = drivenCourses.get(drive); if (cached) return cached;
+  const course: Course = { key: id, length: drive.finish, circuit: false, poses: courseDrawing(drive).map(pose => ({ ...pose })), style: id,
+    real: drive.topology === 'sprint' };
+  drivenCourses.set(drive, course); return course;
 }
 function streetCourse(track: CompiledStreetTrack): Course {
   const cached = streetCourses.get(track); if (cached) return cached;
@@ -945,7 +965,8 @@ export class RaceWorld {
   }
 
   renderArcade(state: RaceState, options: RenderOptions, time: number): HTMLCanvasElement {
-    const course = arcadeCourse(state.trackId);
+    // The course the race runs on: the driving model's (local races, on the real road), or RaceV1's bends.
+    const course = options.course ? drivenCourse(state.trackId, options.course) : arcadeCourse(state.trackId);
     const controls = options.controls ?? 0;
     const cars = state.cars.map((car, i): VisualCar => {
       const appearance = options.appearances?.[i];
@@ -962,7 +983,7 @@ export class RaceWorld {
         boosting: i === options.playerSlot && !!(controls & CONTROL.boost) && car.energy >= 25 && car.speed > 0,
         braking: i === options.playerSlot && !!(controls & CONTROL.brake), steer: i === options.playerSlot ? ((controls & CONTROL.left ? 1 : 0) - (controls & CONTROL.right ? 1 : 0)) * 0.25 : 0 };
     });
-    const env = options.environment ?? environmentAt(state.trackId, Math.round(state.tick));
+    const env = options.environment ?? arcadeEnvironmentAt(state.trackId, Math.round(state.tick));
     const hazards = env.objects.map(o => ({ id: `arc-${o.id}`, kind: o.kind, p: o.progress / 1000, lateral: -o.x / 1000,
       halfWidth: o.halfWidth / 1000, halfLength: o.halfLength / 1000, broken: options.broken?.includes(o.id) ?? false }));
     this.draw(course, cars, options.playerSlot, options.camera ?? 'chase', hazards, env.rain > 0, time, null,
@@ -1005,6 +1026,7 @@ export class RaceWorld {
     this.cityGardenBatch.setGardens(null, { buildings: [], apartments: [] });
     for (const group of [...this.buildings, ...this.apartments, ...this.trees, ...this.sakura]) delete group.userData.raceSceneryStation;
     this.sakuraRange = null; this.slope = null;
+    setTerrainRelief(null);
     const scene = sceneFor(course), flowering = scene?.trees;
     if (flowering?.sectors.length) {
       const sector = (course.key as CompiledStreetTrack).samples.filter(s => flowering.sectors.includes(s.sector)).map(s => s.progressMm / 1000);
@@ -1106,12 +1128,20 @@ export class RaceWorld {
       this.periodDistrictAt = districtAt;
       const quay = (p: number, side: -1 | 1) => open.some(run => run.district === 'quay' && run.side === side && p >= run.start - 4 && p <= run.end + 4);
       const gorge = (p: number) => crossings.some(c => Math.abs(p - c.p) < (c.half ?? 12) + 3.5);
-      const flat = (p: number, side: number) => gorge(p) || ['harbour', 'quay'].includes(districtAt(p, side < 0 ? -1 : 1));
+      // Yamashita Park ends at its sea wall, with the harbour beyond (the street plan's `seaPark`).
+      const sea = scene ? undefined : ARCADE_1986_STREET[course.style]?.seaPark;
+      const seaward = (p: number, side: -1 | 1) => !!sea && sea.side === side && p >= sea.from - 4 && p <= sea.to + 4;
+      const flat = (p: number, side: number) => gorge(p) || seaward(p, side < 0 ? -1 : 1) || ['harbour', 'quay'].includes(districtAt(p, side < 0 ? -1 : 1));
+      // A real road is cut into its hillside: the land rises on one side and falls to the valley on the other.
+      const banks = scene ? null : (p: number, side: -1 | 1) => arcadeBankAt(course.style, p, side);
+      setTerrainRelief(banks);
+      const valley = (p: number, side: -1 | 1) => !!banks && banks(p, side) < 0;
       const frame = periodCityRouteFrame(course, 120);
       let groundHeightAt = (x: number, z: number) => {
         const at = frame(x, z);
-        if (!at || gorge(at.p) || quay(at.p, at.side) && at.beyond > QUAY.edge - .5) return null;
-        return at.beyond < 18 || flat(at.p, at.side) ? -0.08 : terrainHeightAt(at.beyond, at.p, at.side);
+        if (!at || gorge(at.p) || quay(at.p, at.side) && at.beyond > QUAY.edge - .5 || seaward(at.p, at.side) && at.beyond > sea!.edge - .5) return null;
+        // The strip and the banks are measured from the road beside them, which climbs with its real hill.
+        return poseAt(course, at.p).y + (at.beyond < 18 || flat(at.p, at.side) ? -0.08 : terrainHeightAt(at.beyond, at.p, at.side));
       };
       if (scene?.terrain === 'slope') {
         // Stacked hairpins share one hillside; the flat strip and banks would roof over the other legs.
@@ -1120,15 +1150,30 @@ export class RaceWorld {
         }), undefined, scene?.trees?.kind === 'momiji' ? 1 : 0);
         this.road.add(slope.group);
         groundHeightAt = (x, z) => { const at = frame(x, z), h = slope.heightAt(x, z); return !at || gorge(at.p) || !Number.isFinite(h) ? null : h; };
+      } else if (course.real) {
+        // The real road turns back on itself at its hairpins and passes its own stretches a hillside apart: one ground
+        // round all of it, each station's strip and banks blended with its neighbours' (arcade-ground.ts). Each station
+        // says where its ground ends (a gorge's bridge, a quay, the sea wall) and whether it stays level.
+        const field = createArcadeGroundField(course.poses, (p, side) => ({ flat: flat(p, side),
+          edge: gorge(p) ? 0 : quay(p, side) ? QUAY.edge - .5 : seaward(p, side) ? sea!.edge - .5 : Infinity }));
+        this.road.add(createArcadeGround(course.poses, field, { strip: ground, bank: terrainGroundMaterial() }));
+        const heightAt = (x: number, z: number) => field.heightAt(x, z) ?? NaN;
+        // The forests' trees stand on it, clear of the other stretches of road, as on a switchback route's hillside.
+        this.slope = { group: new THREE.Group(), heightAt, clearOfOtherLegs: field.clearOfOtherLegs };
+        groundHeightAt = (x, z) => field.heightAt(x, z);
       } else {
-        ribbon(p => gorge(p.p) ? -(p.width + 1.7) : quay(p.p, -1) ? -(p.width + QUAY.edge) : -110,
-          p => gorge(p.p) ? p.width + 1.7 : quay(p.p, 1) ? p.width + QUAY.edge : 110, -0.08, ground);
+        // The level strip stops where a valley side begins to fall away (the banks take over at 18 m).
+        ribbon(p => gorge(p.p) ? -(p.width + 1.7) : quay(p.p, -1) ? -(p.width + QUAY.edge) : seaward(p.p, -1) ? -(p.width + sea!.edge)
+          : valley(p.p, -1) ? -(p.width + 18.2) : -110,
+          p => gorge(p.p) ? p.width + 1.7 : quay(p.p, 1) ? p.width + QUAY.edge : seaward(p.p, 1) ? p.width + sea!.edge
+            : valley(p.p, 1) ? p.width + 18.2 : 110, -0.08, ground);
         this.road.add(createTerrain(course.poses, course.style, flat));
       }
       this.periodCity.setCourse(course, { groundHeightAt, districtAt, localsAt: scene ? localsFor(course) : undefined, open, crossings,
         landmarks: scene ? scene.landmarks : ARCADE_1986_LANDMARKS[course.style] ?? [],
         street: scene ? scene.street : ARCADE_1986_STREET[course.style],
-        distant: scene ? scene.distant : ARCADE_DISTANT[course.style] ?? [], snow: scene ? scene.snow : course.style === 0 ? .9 : 0,
+        distant: scene ? scene.distant : [...ARCADE_DISTANT[course.style] ?? [], ...periodFarLandmarks(course, ARCADE_1986_LANDMARKS[course.style] ?? [])],
+        snow: scene ? scene.snow : course.style === 0 ? .9 : 0,
         signs: scene?.signs ? SIGN_REGIONS[scene.signs] : null });
     }
     ribbon(p => -p.width - 1.65, p => p.width + 1.65, -0.015, shoulder);
@@ -1237,7 +1282,10 @@ export class RaceWorld {
     const wooded = (p: number, side: number) => !periodCity || !['harbour', 'quay'].includes(this.periodDistrictAt?.(p, side as -1 | 1) ?? 'forest');
     // Cherries line Nikko's Sakura Pass and Chidorigafuchi's moat (left) curb.
     const flowering = sceneFor(course)?.trees;
-    const blossoming = (p: number, side: number) => periodCity && (!sceneFor(course) && course.style === 2 ? wooded(p, side)
+    // On the real Nikkō road they stand only where its street plan says (none along the main street).
+    const groves = sceneFor(course) ? undefined : ARCADE_1986_STREET[course.style]?.blossom;
+    const blossoming = (p: number, side: number) => periodCity && (!sceneFor(course) && course.style === 2
+      ? wooded(p, side) && (!groves || groves.some(([from, to]) => p >= from && p < to))
       : !!flowering && (side > 0 || flowering.bothSides) && !!this.sakuraRange && p >= this.sakuraRange[0] && p <= this.sakuraRange[1]
         && (!flowering.bothSides || wooded(p, side)));
     // Autumn maples (refine round 4): every repaint of the momiji routes lines both sides with a continuous wall of

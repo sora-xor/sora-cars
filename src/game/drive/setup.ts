@@ -1,4 +1,4 @@
-import { environmentAt } from '../environment';
+import { arcadeEnvironmentAt, environmentAt } from '../environment';
 import type { StreetObject } from '../street/objects';
 import type { CompiledStreetTrack } from '../street/track';
 import { STOCK_TUNE, type CarTune } from '../tuned-engine';
@@ -10,8 +10,10 @@ import { vehicleSpec } from './vehicle';
 const ROW = 5.5;
 
 function grid(course: DriveCourse, count: number, column: number): { s: number; d: number }[] {
-  // A sprint has no road behind its start, so its grid sits just past the line.
-  const front = course.topology === 'sprint' ? (Math.ceil(count / 2) - 1) * ROW + 0.5 : -0.001;
+  // A street sprint has no road behind its start, so its grid sits just past the line; an Arcade road's lead-in
+  // leaves room for the grid behind it, as on a circuit.
+  const behind = course.topology === 'circuit' || course.stations[0]! <= -Math.ceil(count / 2) * ROW;
+  const front = behind ? -0.001 : (Math.ceil(count / 2) - 1) * ROW + 0.5;
   const half = Math.min(column, Math.max(0.85, sampleCourse(course, Math.max(0, front)).halfWidth - 1.05));
   return Array.from({ length: count }, (_, slot) => ({ s: front - Math.floor(slot / 2) * ROW, d: slot % 2 ? half : -half }));
 }
@@ -23,14 +25,14 @@ export function arcadeCourse(trackId: number): DriveCourse {
   return course;
 }
 
-/** An Arcade circuit: RaceV1's public weather and roadside catalog. Trees stand behind the rails. */
+/** An Arcade race on its real road: RaceV1's public weather and roadside catalog. Trees stand behind the rails. */
 export function arcadeDriveRace(trackId: number, tunes: readonly CarTune[]): DriveRace {
   const course = arcadeCourse(trackId);
   const props: DriveProp[] = environmentAt(trackId, 0).objects.filter(object => object.kind !== 'tree').map(object => object.kind === 'oil'
     ? { kind: 'oil', s: object.progress / 1000, d: object.x / 1000, halfLength: object.halfLength / 1000, halfWidth: object.halfWidth / 1000 }
     : { kind: 'sign', s: object.progress / 1000, d: object.x / 1000, halfLength: 0.25, halfWidth: 1.0 });
   return new DriveRace({ course, specs: tunes.map(vehicleSpec), grid: grid(course, tunes.length, 1.8), props,
-    weather: tick => { const env = environmentAt(trackId, Math.min(tick, course.maxTicks)); return { rain: env.rain > 0, wind: env.wind * 25 }; } });
+    weather: tick => { const env = arcadeEnvironmentAt(trackId, Math.min(tick, course.maxTicks)); return { rain: env.rain > 0, wind: env.wind * 25 }; } });
 }
 
 const streetCourses = new WeakMap<CompiledStreetTrack, DriveCourse>();

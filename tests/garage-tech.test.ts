@@ -155,27 +155,28 @@ test('no build reaches an engine bound, so no purchase is silently wasted', () =
 });
 
 test('buying spends prize money, a fork’s second option goes into storage and swaps in free, and the equal-cars switch restores stock', () => {
+  const cost = (id: string) => techNode(id)!.cost, top = (id: string) => techNode(id)!.effects.topSpeed!;
   let save = newGarage();
   assert.equal(save.money, STARTING_FUNDS);
   assert.equal(partState(save, 'engine-intake'), 'available');
   assert.equal(partState(save, 'engine-cams'), 'locked');
   assert.deepEqual(missingParts(save, 'engine-fulltune').map(node => node.id), ['turbo-intercooler', 'engine-highrev']);
   save = buyPart(save, 'engine-intake');
-  assert.equal(save.money, STARTING_FUNDS - 10000);
+  assert.equal(save.money, STARTING_FUNDS - cost('engine-intake'));
   assert.equal(partState(save, 'engine-intake'), 'fitted');
   assert.equal(partState(save, 'engine-cams'), 'short');
   assert.throws(() => buyPart(save, 'engine-intake'), /already own/);
   assert.throws(() => buyPart(save, 'engine-cams'), /Not enough/);
   assert.throws(() => buyPart(save, 'turbo-intercooler'), /required/);
-  assert.equal(garageTune(save).topSpeed, 2424);
+  assert.equal(garageTune(save).topSpeed, 2400 + top('engine-intake'));
 
   save = buyPart(buyPart({ ...save, money: 500000 }, 'engine-cams'), 'engine-highrev');
   assert.equal(partState(save, 'engine-highrev'), 'fitted', 'a fork’s first option is fitted');
   const highrev = garageTune(save);
-  assert.equal(highrev.topSpeed, 2400 + 24 + 24 + 48);
+  assert.equal(highrev.topSpeed, 2400 + top('engine-intake') + top('engine-cams') + top('engine-highrev'));
   // The rule: an option bought while the other option of its fork is fitted goes into storage.
   save = buyPart(save, 'engine-torque');
-  assert.equal(save.money, 500000 - 24000 - 52000 - 52000);
+  assert.equal(save.money, 500000 - cost('engine-cams') - cost('engine-highrev') - cost('engine-torque'));
   assert.equal(partState(save, 'engine-torque'), 'stored', 'the second option goes into storage');
   assert.equal(partState(save, 'engine-highrev'), 'fitted', 'the fitted option stays until the player swaps');
   assert.deepEqual(fittedParts(save), ['engine-intake', 'engine-cams', 'engine-highrev']);
@@ -185,11 +186,11 @@ test('buying spends prize money, a fork’s second option goes into storage and 
   assert.equal(partState(save, 'engine-torque'), 'fitted'); assert.equal(partState(save, 'engine-highrev'), 'stored');
   assert.deepEqual(fittedParts(save), ['engine-intake', 'engine-cams', 'engine-torque']);
   save = fitPart(save, 'engine-highrev');
-  assert.equal(save.money, 500000 - 24000 - 52000 - 52000, 'swaps are free');
+  assert.equal(save.money, 500000 - cost('engine-cams') - cost('engine-highrev') - cost('engine-torque'), 'swaps are free');
   assert.deepEqual(garageTune(save), highrev);
   assert.throws(() => fitPart(save, 'engine-cams'), /setup options/);
   assert.deepEqual(garageTune({ ...save, stock: true }), STOCK_TUNE);
-  assert.equal(buildValue(fittedParts(save)), 10000 + 24000 + 52000);
+  assert.equal(buildValue(fittedParts(save)), cost('engine-intake') + cost('engine-cams') + cost('engine-highrev'));
 });
 
 test('saved garages keep only parts this build recognises with their requirements intact', () => {
@@ -237,7 +238,10 @@ test('opponent builds respect prerequisites and budgets, spread through the fiel
     assert.equal(rivals[6], null); assert.equal(rivals.filter(Boolean).length, 7);
     if (field.budget) assert.ok(rivals[7]!.value > rivals[0]!.value, `${field.id} spreads its builds`);
   }
-  assert.ok(fieldRivals('club', 8, 6).every(rival => !rival || isStockTune(rival.tune) && rival.skill === 'club'), 'club night is the original practice grid');
+  // Club night is stock cars, mostly the crew: two quicker regulars keep a stock car off a guaranteed podium on the real roads.
+  const club = fieldRivals('club', 8, 6);
+  assert.ok(club.every(rival => !rival || isStockTune(rival.tune)), 'club night races stock cars');
+  assert.deepEqual(club.map(rival => rival?.skill ?? null), ['club', 'club', 'pro', 'club', 'club', 'pro', null, 'club']);
   assert.ok(storyRivals(0, 8, 6).every(rival => !rival || isStockTune(rival.tune)));
   const showdown = storyRivals(10, 8, 6);
   assert.ok(showdown.every((rival, slot) => !rival || [5, 7].includes(slot) || isStockTune(rival.tune)), 'the crew drive stock cars');

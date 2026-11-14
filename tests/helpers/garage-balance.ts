@@ -47,7 +47,7 @@ export interface BalancePlan {
    * player's grid spot is chaotic: one finished car placed 4/4/7 there and podiumed 15 times in 18 from the next slots,
    * and a car boxed in from the start can sit behind the pack all race without ever boosting. */
   readonly fields: readonly number[];
-  /** Seeds for story clear rates, the first harbor night's rescue builds, and whole-story campaigns. 12 seeds put a
+  /** Seeds for story clear rates, the opening night's rescue builds, and whole-story campaigns. 12 seeds put a
    * clear rate within about ±0.14; the Act 3 leads moved by a second between 8-campaign runs, and a stall that 64
    * campaigns put at 1 in 64 fell inside 16 of them. */
   readonly story: readonly number[];
@@ -89,21 +89,18 @@ export function planBuild(trackId: number, budget: number): string[] {
 }
 /** Harbor builds that follow Daichi's picks. */
 export const harborBuild = (chapter: number): string[] => planBuild(1, 12000 + 7000 * chapter);
-/** What a rookie with a garage habit has on the first harbor night (ID 1), as storyCampaign plays it: the Hakone
- * garage with the starting funds, a Hakone podium's story purse and first-clear bonus, then the Yokohama garage. */
-export function firstHarborBuild(policy: SpendPolicy): string[] {
-  let save = shop(newGarage(), CHAPTERS[chapterPosition(0)]!.trackId!, policy);
-  save = applyAward(save, raceAward(save, { place: 2, cars: 8, field: null, chapter: 0, objective: true, clean: false }), 0);
-  return fittedParts(shop(save, CHAPTERS[chapterPosition(1)]!.trackId!, policy));
+/** What a rookie with a garage habit buys at the story's first pre-race garage: Hakone's opening night (ID 0), with
+ * the starting funds. */
+export function openingNightBuild(policy: SpendPolicy): string[] {
+  return fittedParts(shop(newGarage(), CHAPTERS[chapterPosition(0)]!.trackId!, policy));
 }
-/** The first harbor night: the crew's picks (Yui's intake, then Daichi's boost controller) and the same funds spent
- * cheapest-first (tyres, coilovers, roll cage, bumpers), as rookies have them there, then ¥46k of engine and boost
- * parts, more than a rookie can have by then, and a stock car. */
+/** The opening night on Hakone: Yui's pick (sport tyres) and the same starting funds spent cheapest-first (roll cage
+ * and intake), then ¥29k of engine and boost parts, more than a rookie has there, and a stock car. */
 export const RESCUE_BUILDS: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', readonly string[]>> = {
-  picks: firstHarborBuild('picks'), cheapest: firstHarborBuild('cheapest'), power: ['engine-intake', 'engine-cams', 'turbo-controller'], stock: [],
+  picks: openingNightBuild('picks'), cheapest: openingNightBuild('cheapest'), power: ['engine-intake', 'engine-cams', 'turbo-controller'], stock: [],
 };
 /** The rescue scenario the report measures and its input hash covers: the chapter, the driver and the resolved builds. */
-export const RESCUE = { chapter: 1, profile: 'rookie', builds: RESCUE_BUILDS } as const;
+export const RESCUE = { chapter: 0, profile: 'rookie', builds: RESCUE_BUILDS } as const;
 export const POLICIES: readonly SpendPolicy[] = ['picks', 'cheapest', 'priciest', 'stock'];
 
 /** How the reference rookie finished every chapter before a course-plan visit: 2nd without the clean bonus, or a clean win. */
@@ -165,7 +162,7 @@ export interface BalanceReport {
     readonly stock: Readonly<Record<string, boolean>>;
     /** Share of regular drivers clearing each windy harbor chapter with a stock car and a modest build. */
     readonly harbor: Readonly<Record<string, { readonly stock: number; readonly build: number; readonly budget: number }>>;
-    /** Whether a rookie cleared the first harbor chapter with each build (RESCUE_BUILDS), one per rescue seed
+    /** Whether a rookie cleared the opening night (Hakone, ID 0) with each build (RESCUE_BUILDS), one per rescue seed
      * (1 cleared, 0 not), so builds compare seed by seed. */
     readonly rescue: Readonly<Record<'picks' | 'cheapest' | 'power' | 'stock', readonly number[]>>;
     /** Share of regular drivers meeting each objective in equal cars, by chapter id. */
@@ -308,6 +305,11 @@ export const audienceGains = (report: BalanceReport, id: string): number[] => {
   const part = report.parts[id]!, node = techNode(id)!;
   return TRACKS.map(track => mean(AUDIENCE_PROFILES[node.bestFor].map(profile => part.gains[profile][track]!)));
 };
-/** RACE_GAINS as the garage shows them: seconds, to a tenth. */
+/** RACE_GAINS as the garage shows them: seconds, to a tenth. The cards promise seconds saved, so a loss of a tenth or
+ * less, within the measurement's noise, reads as no gain (the anti-lag measured −0.075 s at Hakone in November 2026:
+ * −0.13 s to +0.03 s by driver). A bigger loss stays negative and fails tests/part-effects.test.ts. */
 export const raceGains = (report: BalanceReport): Record<string, number[]> =>
-  Object.fromEntries(TECH_NODES.map(node => [node.id, audienceGains(report, node.id).map(ticks => Math.round(ticks / 3) / 10)]));
+  Object.fromEntries(TECH_NODES.map(node => [node.id, audienceGains(report, node.id).map(ticks => {
+    const seconds = Math.round(ticks / 3) / 10;
+    return seconds < 0 && seconds >= -0.1 ? 0 : seconds;
+  })]));

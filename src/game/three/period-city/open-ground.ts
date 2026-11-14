@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { WINDOW_KIND, type CityMeshBuilder, type CityMaterialKey, type Vec3 } from './geometry';
 import { MOAT, RIVER, hashInts, moatWidth, periodCityReach, poseAt, seeded, landmarkFootprint,
-  type PeriodCityLayout, type PeriodCrossing, type PeriodLandmark, type PeriodOpenRun } from './layout';
-import { SORA_BOARDS, signIndex, signPrint } from './signs';
+  type PeriodCityCourse, type PeriodCityLayout, type PeriodCrossing, type PeriodLandmark, type PeriodOpenRun } from './layout';
+import type { PeriodDistant } from './skyline';
+import { SORA_BOARDS, signPrint } from './signs';
 import { buildLandmark, isBuildingLandmark } from './landmarks';
 import { FLORA_KIND } from './flora';
 
@@ -175,7 +176,8 @@ function gate(b: CityMeshBuilder, great: boolean, wall: number): void {
   b.box('stone', -18, -4, -.1, MOAT.top, g, g + 9); b.box('stone', 4, 18, -.1, MOAT.top, g, g + 9);
   b.box('stone', -4, 4, 5.4, MOAT.top, g, g + 9, 'b');
   b.colour.set('#2c2a2c'); b.box('wall', -18, 18, MOAT.top, MOAT.top + 1.3, g, g + 9, 'b');
-  b.colour.set('#ece6d8'); b.box('floodlit', -18, 18, MOAT.top + 1.3, MOAT.top + 4.8, g + .1, g + 8.9, 'b');
+  // The palace's gates and turrets were not floodlit in 1986 (the Outer Garden's lighting dates from 2016-18).
+  b.colour.set('#ece6d8'); b.box('wall', -18, 18, MOAT.top + 1.3, MOAT.top + 4.8, g + .1, g + 8.9, 'b');
   b.colour.set('#202024'); for (const x of [-12, -6, 6, 12]) b.front('wall', x - .6, x + .6, MOAT.top + 2.2, MOAT.top + 3.4, g + .08);
   b.colour.set(tile); b.gableRoof('roof', -18.5, 18.5, g, g + 9, MOAT.top + 4.8, 2.6, 1.3);
   b.colour.set('#ece6d8'); b.gableEnds('wall', -18.5, 18.5, g, g + 9, MOAT.top + 4.8, 2.6);
@@ -198,7 +200,7 @@ function nijubashi(b: CityMeshBuilder, wall: number): void {
   for (let z = start; z < wall - .01; z += .5) {
     const z1 = Math.min(wall, z + .5), low = under((z + z1) / 2);
     b.colour.set(granite);
-    b.side('floodlit', -half, z, z1, low, deck, -1); b.side('floodlit', half, z, z1, low, deck, 1);
+    b.side('stone', -half, z, z1, low, deck, -1); b.side('stone', half, z, z1, low, deck, 1);
     if (low > MOAT.level) { b.colour.set('#8a857a'); b.face('stone', [[-half, under(z), z], [half, under(z), z], [half, under(z1), z1], [-half, under(z1), z1]], [0, -1, 0]); }
   }
   b.colour.set(granite);
@@ -215,7 +217,7 @@ function nijubashi(b: CityMeshBuilder, wall: number): void {
 /** Fushimi-yagura-like: plaster walls over black boards, tiled roofs with deep eaves. */
 function turret(b: CityMeshBuilder): void {
   b.colour.set('#2c2a2c'); b.box('wall', -7, 7, 0, 1.6, 0, 9, 'b');
-  b.colour.set('#ece6d8'); b.box('floodlit', -7, 7, 1.6, 6, 0, 9, 'b');
+  b.colour.set('#ece6d8'); b.box('wall', -7, 7, 1.6, 6, 0, 9, 'b');
   b.colour.set('#202024');
   for (const x of [-4.6, -1.6, 1.6, 4.6]) b.front('wall', x - .6, x + .6, 3.2, 4.4, -.02);
   b.colour.set('#3e4248'); b.gableRoof('roof', -7, 7, 0, 9, 6.4, 2.2, 1.4);
@@ -226,9 +228,22 @@ function turret(b: CityMeshBuilder): void {
 }
 
 function park(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
-  const list = sections(layout, run, from, to, 66);
+  const sea = layout.street.seaPark, seaward = (s: Section) => !!sea && sea.side === run.side && s.p >= sea.from && s.p <= sea.to;
+  const list = sections(layout, run, from, to, sea && sea.side === run.side ? 300 : 66);
   for (let i = 0; i < list.length - 1; i++) {
-    const s0 = list[i]!, s1 = list[i + 1]!, end = (s: Section) => Math.max(MOAT.curb + 1, Math.min(64, s.reach - 3));
+    const s0 = list[i]!, s1 = list[i + 1]!, wall = sea?.edge ?? 64;
+    const end = (s: Section) => Math.max(MOAT.curb + 1, Math.min(seaward(s) ? wall - .6 : 64, s.reach - 3));
+    if (seaward(s0) && seaward(s1)) {
+      // The sea wall: a granite coping and rail at the lawn's edge, its face down to the harbour, and the water beyond.
+      const far = (s: Section) => Math.max(wall + 6, Math.min(300, s.reach - 4));
+      b.colour.set('#a39e92');
+      strip(b, 'stone', s0, s1, () => wall - .6, .25, () => wall, .25, () => UP);
+      strip(b, 'stone', s0, s1, () => wall, .25, () => wall, QUAY.level - .4, away);
+      b.colour.set('#3a3a3e');
+      strip(b, 'metal', s0, s1, () => wall - .35, 1.15, () => wall - .3, 1.15, () => UP);
+      b.colour.set('#ffffff');
+      strip(b, 'water', s0, s1, () => wall, QUAY.level, far, QUAY.level, () => UP);
+    }
     b.colour.set('#56653f'); strip(b, 'ground', s0, s1, () => SIDEWALK, -.05, end, -.05, () => UP);
     b.colour.set('#9a958a');
     strip(b, 'stone', s0, s1, () => MOAT.curb, -.1, () => MOAT.curb, .4, toRoad);
@@ -265,8 +280,9 @@ function shrine(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun
       b.frame(0, 0, 0, 0);
     }
   }
-  // The great steel torii (大鳥居) facing the street, near the start of the precinct.
-  const gate = run.start + Math.min(60, (run.end - run.start) * .2);
+  // The great steel torii (大鳥居) facing the street: where the street plan puts it, or near the start of the precinct.
+  const gate = layout.street.torii !== undefined && layout.street.torii >= run.start && layout.street.torii <= run.end
+    ? layout.street.torii : run.start + Math.min(60, (run.end - run.start) * .2);
   if (gate >= from && gate < to) {
     const s = sections(layout, run, gate, gate, 40)[0]!, base = at(s, 15, 0);
     b.frame(base[0], base[1], base[2], Math.atan2(s.cx, s.cz));
@@ -473,14 +489,19 @@ function rod(b: CityMeshBuilder, x0: number, x1: number, y: number, radius: numb
 }
 /** Yasukuni's great steel torii (大鳥居), Shinmei style (神明鳥居): straight
  * upright pillars, a straight tie beam (貫) and a straight round lintel (笠木). */
+/**
+ * Yasukuni's first torii (第一鳥居), rebuilt in 1974 in unpainted weathering steel: a Shinmei-style torii 25 m high
+ * whose straight kasagi is 34 m long, on pillars 2.5 m across, weathered to a dark rust-brown.
+ */
 function torii(b: CityMeshBuilder): void {
-  b.colour.set('#5f5c57');
-  for (const x of [-9.6, 9.6]) {
-    b.cylinder('metal', x, 0, 0, 1.25, 21.4, 16, false);
-    b.colour.set('#47443f'); b.cylinder('metal', x, 0, 0, 1.55, 1.4, 16); b.colour.set('#5f5c57');
+  const steel = '#5a4a3f', base = '#433a33';
+  for (const x of [-11.2, 11.2]) {
+    b.colour.set(steel); b.cylinder('metal', x, 0, 0, 1.25, 24.2, 16, false);
+    b.colour.set(base); b.cylinder('metal', x, 0, 0, 1.55, 1.4, 16);
   }
-  b.box('metal', -11.6, 11.6, 15.5, 16.9, -.6, .6);
-  rod(b, -14.4, 14.4, 22.3, 1.05);
+  b.colour.set(steel);
+  b.box('metal', -13.6, 13.6, 18.2, 19.8, -.65, .65);
+  rod(b, -17, 17, 24.9, 1.1);
 }
 
 const shade = (c: THREE.Color, k: number) => c.clone().multiplyScalar(k);
@@ -523,17 +544,21 @@ function marineTower(b: CityMeshBuilder): void {
   b.colour.set('#8a8680'); b.box('stone', -12, 12, 0, 4, -12, 12);
 }
 
-/** A moored liner dressed overall: dark hull, white decks, a funnel and strings of lights. */
+/** Hikawa Maru moored at Yamashita Park, dressed overall: her hull marine blue in 1986 (black again from December
+ * 1988) under white decks, NYK's black funnel with its white band and two red stripes, and strings of lights. */
 function liner(b: CityMeshBuilder): void {
-  const length = 150, beam = 20, hull = new THREE.Color('#1f2633');
+  const length = 150, beam = 20, hull = new THREE.Color('#2c6d98');
   b.colour.copy(hull); b.box('metal', -length / 2, length / 2, QUAY.level - 1, 9, 0, beam);
   b.face('metal', [[length / 2, QUAY.level - 1, 0], [length / 2 + 14, 9, beam / 2], [length / 2, 9, beam]], [1, 0, 0]);
   b.face('metal', [[length / 2, 9, 0], [length / 2 + 14, 9, beam / 2], [length / 2, 9, beam]], [0, 1, 0]);
   b.colour.set('#ece8de'); b.box('wall', -length * .32, length * .3, 9, 13, 2, beam - 2); b.box('wall', -length * .2, length * .18, 13, 16, 4, beam - 4);
   b.colour.set('#c8362b'); b.cylinder('metal', -length * .02, 16, beam / 2, 3.2, 9, 12);
   b.colour.set('#1c1c20'); b.cylinder('metal', -length * .02, 25, beam / 2, 3.25, 1.2, 12);
-  b.print = signPrint('board', signIndex('board', 'みなと丸')); b.colour.set('#ffffff');
-  b.front('sign', length * .3, length * .3 + 16, 2.6, 6.6, -.05);
+  // A white sheer strake under the rail, and the NYK funnel's two red bands on white.
+  b.colour.set('#e8e6de'); b.box('wall', -length / 2, length / 2, 7.6, 9, -.06, beam + .06, 'b');
+  b.colour.set('#1c1c20'); b.cylinder('metal', -length * .02, 16, beam / 2, 3.26, 9, 12, false);
+  b.colour.set('#ece8de'); b.cylinder('metal', -length * .02, 19.4, beam / 2, 3.28, 3.2, 12, false);
+  b.colour.set('#c8362b'); for (const y of [20, 21.4]) b.cylinder('metal', -length * .02, y, beam / 2, 3.31, .7, 12, false);
   // Lit portholes and promenade windows.
   b.colour.setRGB(2.2, 1.4, .7);
   for (let x = -length * .44; x < length * .44; x += 3.2) b.front('lamp', x - .5, x + .5, 5.4, 6.2, -.04);
@@ -547,6 +572,24 @@ function liner(b: CityMeshBuilder): void {
     const px = xa + (xc - xa) * t, py = ya + (yc - ya) * t - Math.sin(t * Math.PI) * (ya === yc ? 2.5 : .8);
     b.box('lamp', px - .35, px + .35, py - .35, py + .35, beam / 2 - .35, beam / 2 + .35);
   }
+}
+
+/**
+ * Towers seen long before their own stretch of city is built (the Marine Tower was the tallest thing in 1986
+ * Yokohama, and the Symbol Tower's lit boards are a harbour signal): the same model as a far silhouette, which
+ * gives way to the real one within `hideWithin` metres.
+ */
+export function periodFarLandmarks(course: PeriodCityCourse, landmarks: readonly PeriodLandmark[]): PeriodDistant[] {
+  return landmarks.flatMap((l): PeriodDistant[] => {
+    if (l.kind !== 'marine-tower' && l.kind !== 'symbol-tower') return [];
+    const pose = poseAt(course, l.p), inset = l.kind === 'symbol-tower' ? 14 : l.depth / 2;
+    const lateral = l.side * (pose.width + l.clearance + inset);
+    return [{ x: pose.x + Math.cos(pose.heading) * lateral, z: pose.z - Math.sin(pose.heading) * lateral, y: pose.y, hideWithin: 260,
+      build: (b, random) => {
+        if (l.kind === 'marine-tower') marineTower(b);
+        else { b.frame(0, 0, -14, 0); buildLandmark(b, 'symbol-tower', random); b.frame(0, 0, 0, 0); }
+      } }];
+  });
 }
 
 /** A landmark in its reserved footprint, its face toward the road. */

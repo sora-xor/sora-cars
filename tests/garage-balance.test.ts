@@ -104,11 +104,10 @@ function pairedLowerBound(a: readonly number[], b: readonly number[]): number {
   return m - 1.645 * sd / Math.sqrt(d.length);
 }
 
-test('the crew’s picks, not the cheapest parts, rescue a struggling driver in Yokohama', () => {
-  // The first harbor night, with the cars rookies have there (RESCUE_BUILDS, one race per seed): Yui's intake and
-  // Daichi's boost controller against the same funds spent cheapest-first on tyres, coilovers, roll cage and bumpers.
-  // ¥46k of engine and boost parts clears it more often still: a harbor pack rewards top speed, which a rookie cannot
-  // afford by then.
+test('the crew’s picks, not the cheapest parts, rescue a struggling driver on Hakone', () => {
+  // The story's opening night on Hakone, with the cars rookies have there (RESCUE_BUILDS, one race per seed): Yui's
+  // sport tyres against the same ¥12k spent cheapest-first on the roll cage and the intake. ¥29k of engine and boost
+  // parts, more than a rookie has, does no better than the cage and intake: Hakone's bends reward grip, not power.
   const runs = report.story.rescue;
   const [picks, cheapest, power, stock] = (['picks', 'cheapest', 'power', 'stock'] as const).map(build => mean(runs[build]));
   for (const build of Object.values(runs)) assert.equal(build.length, FULL_PLAN.rescue.length);

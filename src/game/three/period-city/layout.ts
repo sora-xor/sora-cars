@@ -62,8 +62,26 @@ export interface PeriodLandmark {
 /** Route furniture placed by hand: footbridges (歩道橋) and blue guide signs (`guide` atlas index), by progress. */
 export interface PeriodStreetPlan {
   readonly footbridges: readonly number[]; readonly guides: readonly { readonly p: number; readonly sign: number }[];
-  /** Great structures that straddle the road, such as Heian Jingū's torii over Jingū-michi. */
-  readonly arches?: readonly { readonly p: number; readonly kind: 'heian-torii' }[];
+  /** Great structures that straddle the road: Heian Jingū's torii over Jingū-michi, a concrete tied-arch bridge of
+   * `span` metres (Hakone's Asahi-bashi and Chitose-bashi), or a railway's girder crossing overhead (Deyama). */
+  readonly arches?: readonly { readonly p: number; readonly kind: 'heian-torii' | 'tied-arch' | 'rail-girder' | 'level-crossing'; readonly span?: number;
+    /** A level crossing's tracks, their gauge in metres, how far the line runs beyond the kerb to the right and left,
+     * and whether a station's staggered platforms stand either side of the road (Keihan's Shijo). */
+    readonly tracks?: number; readonly gauge?: number; readonly reach?: readonly [number, number]; readonly station?: boolean;
+    /** A second bridge beside a tied arch on this side: Shin-Asahi-bashi's steel box girder (1967), the downhill lane. */
+    readonly beside?: PeriodSide }[];
+  /** Progress of a shrine front's great torii (absent: near the start of its precinct). Yasukuni's first torii. */
+  readonly torii?: number;
+  /** A park on `side` that ends at a sea wall `edge` metres beyond the road edge, with the harbour beyond it
+   * (Yamashita Park, Hikawa Maru moored at its wall). */
+  readonly seaPark?: { readonly from: number; readonly to: number; readonly side: PeriodSide; readonly edge: number };
+  /** Progress ranges where flowering cherries stand along an Arcade road (absent: wherever it is wooded). Nikkō's
+   * main street has no cherry avenue; they stand by the Daiya, round the Tamozawa villa and wild on the hillsides. */
+  readonly blossom?: readonly (readonly [number, number])[];
+  /** Structures that run along the road (road-structures.ts): a rock shed over it, open to `side` (Kanrei-dōmon); a
+   * railway viaduct beside it on `side`, `clearance` metres beyond the road edge (the Yamashita Rinkō line); or a
+   * street tramway's double track down the middle of it under its trolley wires (the Keishin line on Sanjō-dōri). */
+  readonly galleries?: readonly { readonly from: number; readonly to: number; readonly kind: 'rock-shed' | 'viaduct' | 'tram-track'; readonly side: PeriodSide; readonly clearance?: number }[];
   /** Small roadside boards, such as Irohazaka's numbered kana at each curve. */
   readonly markers?: readonly { readonly p: number; readonly side: PeriodSide; readonly text: string }[];
   /** Progress ranges (metres, start and end) carpeted with fallen maple leaves, their open verges thick with autumn
@@ -139,70 +157,221 @@ export const TOKYO_1986_CROSSINGS: readonly PeriodCrossing[] = [{ p: 4, span: 30
 /** The river channel and the expressway deck, metres from the crossing's centre line and above the road. */
 export const RIVER = { half: 11, level: -4.6, deck: 11.5, deckHalf: 8.5 } as const;
 /**
- * The Arcade courses: repeating blocks of district per side, `block` metres
- * long (each course is three laps unrolled, so laps differ). Midnight Circuit
- * climbs the Hakone pass through onsen towns; Harbor Run follows Yokohama's
- * warehouse quays; Sakura Pass runs from Nikko's old street into the forest.
+ * The Arcade courses in the real world of 1986. Each is three laps drawn end to end, and that whole length follows
+ * one real road at true scale (src/game/arcade-geography.ts carries its heights). The stretches below name the
+ * places along it in order, each up to `to` metres along the course, with the district on either side of a driver.
+ * Sources, real distances and what is unconfirmed are in world/research/arcade/README.md.
+ *
+ * - Midnight Circuit: National Route 1 from Hakone-Yumoto station up the Haya-kawa gorge through Tōnosawa and
+ *   Ōhiradai to Miyanoshita and the Fujiya Hotel, 95 m to 415 m.
+ * - Harbor Run: from Sakuragichō station along Honchō-dōri and over Bankoku-bashi onto Shinkō Pier, past its
+ *   red-brick warehouses and back over Shinkō-bashi to Kaigan-dōri and Yamashita Park, under the 1984 expressway at
+ *   Yamashita-bashi, below the Yamate bluff, sharp left at Kominato and out along Honmoku Pier to the Symbol Tower
+ *   (July 1986). Past Bankoku-bashi the sea is on the left.
+ * - Sakura Pass: from the JNR Nikkō station up the main street to Shinkyō, then Route 120 along the Daiya past
+ *   Tamozawa to the rise before Kiyotaki, 532 m to 707 m.
  */
-export const ARCADE_1986_DISTRICTS: readonly { readonly block: number; readonly right: readonly PeriodDistrict[]; readonly left: readonly PeriodDistrict[] }[] = [
-  { block: 320, right: ['onsen', 'onsen', 'forest', 'rural', 'forest', 'onsen', 'forest', 'forest'],
-    left: ['onsen', 'forest', 'forest', 'rural', 'onsen', 'onsen', 'forest', 'rural'] },
-  { block: 360, right: ['harbour', 'harbour', 'harbour', 'kanda', 'harbour', 'harbour'],
-    left: ['quay', 'harbour', 'quay', 'quay', 'harbour', 'quay'] },
-  { block: 300, right: ['nikko', 'nikko', 'forest', 'rural', 'forest', 'forest', 'nikko', 'forest'],
-    left: ['nikko', 'forest', 'forest', 'rural', 'forest', 'nikko', 'rural', 'forest'] },
-];
+export interface ArcadeStretch {
+  readonly to: number; readonly place: string; readonly right: PeriodDistrict; readonly left: PeriodDistrict;
+  /** How the land stands beside the road, right then left, as a factor on the bank beyond the 18 m strip
+   * (terrain.ts): 1 the plain 22 m bank, more a steeper hillside, negative a slope falling to a valley or river. */
+  readonly banks: readonly [number, number];
+}
+const stretch = (to: number, place: string, banks: readonly [number, number], right: PeriodDistrict, left: PeriodDistrict = right): ArcadeStretch =>
+  ({ to, place, right, left, banks });
+export const ARCADE_1986_STRETCHES: readonly (readonly ArcadeStretch[])[] = [[
+  // The station stands under its hill on the right, the Haya-kawa runs below on the left.
+  stretch(470, '箱根湯本 駅前商店街', [1.3, -.4], 'onsen'),
+  // Over Asahi-bashi to the south bank: Yusaka-yama's cliff on the left, the river on the right, and back over Chitose-bashi.
+  stretch(990, '旭橋・函嶺洞門・千歳橋', [-.7, 1.9], 'forest'),
+  stretch(1350, '塔ノ沢温泉 福住楼・環翠楼・一の湯', [1.4, -.4], 'onsen'),
+  // The climb: Sengen-yama's flank on the left, the gorge falling away on the right toward Myōjōgatake.
+  stretch(4080, '出山・常盤橋 早川渓谷', [-1, 1.8], 'forest'),
+  stretch(4280, '大平台 ヘアピン', [-.6, 1.4], 'rural', 'forest'),
+  stretch(4620, '大平台温泉', [-.5, 1.2], 'onsen'),
+  stretch(5700, '大平台 → 宮ノ下', [-1, 1.8], 'forest'),
+  stretch(6000, '宮ノ下 東', [-.7, 1.4], 'onsen', 'rural'),
+  stretch(Infinity, '宮ノ下温泉 奈良屋・富士屋ホテル', [-.7, 1.4], 'onsen'),
+], [
+  // From Sakuragichō station along Honchō-dōri, the old bank street, over Benten-bashi and up to Bankoku-bashi.
+  stretch(110, '桜木町駅前', [0, 0], 'kanda', 'office'),
+  stretch(650, '本町通り 弁天橋・馬車道', [0, 0], 'office'),
+  stretch(940, '万国橋通り', [0, 0], 'harbour', 'office'),
+  stretch(1560, '新港埠頭 上屋と赤レンガ倉庫', [0, 0], 'harbour'),
+  stretch(1640, '新港橋', [0, 0], 'harbour'),
+  // South to Kaigan-dōri: the Customs stands back across the block on the right, Zō-no-hana's quay on the left.
+  stretch(1890, '海岸通り 象の鼻・横浜税関', [0, 0], 'office', 'quay'),
+  stretch(2050, '神奈川県庁', [0, 0], 'office', 'quay'),
+  stretch(2190, '大さん橋入口 シルクセンター', [0, 0], 'office', 'quay'),
+  stretch(3030, '山下公園通り', [0, 0], 'office', 'park'),
+  stretch(3140, '山下埠頭入口・山下橋', [0, 0], 'harbour'),
+  // The Yamate bluff stands some 40 m over Shin-Yamashita, Harbor View Park on its edge; the timber basin on the left.
+  stretch(3290, '新山下 バンドホテル', [1.2, 0], 'town', 'quay'),
+  stretch(3760, '新山下 山手の崖下', [1.9, 0], 'town', 'quay'),
+  stretch(4160, '新山下 貯木場', [1.4, 0], 'town', 'quay'),
+  stretch(4500, '小港', [.8, 0], 'town', 'harbour'),
+  // A sharp left at Kominato onto the pier road, past the cleared ground of the old US Navy housing.
+  stretch(4760, '小港 本牧ふ頭入口', [.5, 0], 'town', 'harbour'),
+  stretch(5300, '本牧 接収解除地', [.3, 0], 'park', 'harbour'),
+  stretch(5800, '本牧ふ頭入口', [0, 0], 'harbour'),
+  stretch(6100, '本牧ふ頭 A突堤', [0, 0], 'harbour', 'quay'),
+  stretch(6450, '本牧ふ頭 B・C突堤', [0, 0], 'harbour'),
+  stretch(6950, '本牧ふ頭 D突堤 コンテナヤード', [0, 0], 'harbour'),
+  stretch(7350, '本牧ふ頭 D突堤 岸壁', [0, 0], 'harbour', 'quay'),
+  stretch(Infinity, '横浜港シンボルタワー', [0, 0], 'harbour'),
+], [
+  // The main street lies on the valley floor; City Hall's stone wall and the Kanaya's bluff stand on the left.
+  stretch(120, '国鉄日光駅前', [.3, .3], 'nikko'),
+  stretch(1740, '日光街道 松原町・石屋町・御幸町・鉢石', [.4, .7], 'nikko'),
+  stretch(1920, '神橋・日光橋', [1.2, 1], 'forest'),
+  // Route 120 under the Sannai hill, the Daiya below on the left.
+  stretch(2440, '山内 大谷川沿い', [1.5, -.6], 'forest'),
+  stretch(2640, '西参道', [1, -.3], 'nikko'),
+  stretch(2950, '安川町・本町', [.8, -.3], 'nikko', 'town'),
+  stretch(3480, '田母沢御用邸・日光植物園', [.8, -.4], 'town', 'park'),
+  stretch(4060, '花石町・久次良町', [.9, -.4], 'town', 'rural'),
+  stretch(4500, '久次良町 西', [1.3, -.8], 'rural', 'forest'),
+  stretch(5420, '荒沢・白崖', [1.6, -1], 'forest'),
+  stretch(Infinity, '清滝', [.8, .4], 'town'),
+]];
 /**
- * Tokyo's 1986 landmarks at their places on the loop (route progress from the
- * authored gates): Kudan Kaikan, the Budokan, Hanzomon, the National Theatre,
- * the Diet, the Ministry of Justice and Police headquarters at Sakuradamon
- * with the gate across the moat, the Dai-ichi Seimei and Tokyo Kaijo
- * buildings along Hibiya, and the Palace Side Building at Takebashi.
+ * Tokyo's 1986 landmarks at their places on the loop (route progress; side 1 is the palace side, -1 the outer
+ * side), placed by projecting each building's real position onto the route (world/research/routes/tokyo-1986.md).
+ * The route's own line strays 40-220 m from the real streets in places, so positions hold to a few tens of metres.
+ * In route order: Hotel Grand Palace 200 m behind Kudanshita, Kudan Kaikan, the Budokan deep in Kitanomaru Park, the
+ * stone lighthouse opposite the shrine, the British Embassy, Hanzomon, the National Theatre and the Supreme Court
+ * behind their forecourts, the Diet and its front garden's clock tower, Police headquarters on the left and the
+ * Ministry of Justice on the right of Sakurada-dori, the gate and Nijubashi across the water, then Hibiya-dori's
+ * frontage (Dai-ichi Seimei, the Kokusai Building and Imperial Theatre, Meiji Seimei Kan, the Yusen Building, Tokyo
+ * Kaijo past Wadakura), the Palace Hotel and Mitsui & Co. facing the moats, and the Palace Side Building at Takebashi.
  */
 export const TOKYO_1986_LANDMARKS: readonly PeriodLandmark[] = [
+  { p: 257, side: -1, kind: 'grand-palace', clearance: 190, length: 48, depth: 34 },
   { p: 232, side: 1, kind: 'kudan-kaikan', clearance: 6, length: 70, depth: 28 },
-  { p: 520, side: 1, kind: 'budokan', clearance: 22, length: 100, depth: 122 },
+  // The Budokan stands about 200 m into Kitanomaru Park; from Kudanzaka its roof shows over the trees.
+  { p: 376, side: 1, kind: 'budokan', clearance: 120, length: 100, depth: 122 },
+  { p: 409, side: 1, kind: 'kudan-lighthouse', clearance: 10, length: 9, depth: 9 },
+  { p: 1520, side: -1, kind: 'british-embassy', clearance: 3, length: 182, depth: 56 },
   { p: 1812, side: 1, kind: 'hanzo-gate', clearance: 4, length: 14, depth: 60 },
-  { p: 1960, side: -1, kind: 'national-theatre', clearance: 12, length: 120, depth: 50 },
+  { p: 2045, side: -1, kind: 'national-theatre', clearance: 40, length: 110, depth: 50 },
+  { p: 2160, side: -1, kind: 'supreme-court', clearance: 40, length: 100, depth: 50 },
+  { p: 2592, side: 1, kind: 'clock-tower', clearance: 60, length: 14, depth: 16 },
   { p: 2724, side: -1, kind: 'diet', clearance: 4, length: 220, depth: 150 },
-  { p: 3560, side: -1, kind: 'justice', clearance: 14, length: 96, depth: 36 },
-  { p: 3690, side: -1, kind: 'police', clearance: 10, length: 50, depth: 40 },
+  { p: 3602, side: 1, kind: 'police', clearance: 8, length: 50, depth: 40 },
+  { p: 3633, side: -1, kind: 'justice', clearance: 40, length: 96, depth: 36 },
   { p: 3772, side: 1, kind: 'sakurada-gate', clearance: 4, length: 20, depth: 70 },
   { p: 4060, side: 1, kind: 'nijubashi', clearance: 4, length: 70, depth: 70 },
-  { p: 4460, side: -1, kind: 'daiichi', clearance: 7, length: 74, depth: 40 },
-  { p: 4900, side: -1, kind: 'kaijo', clearance: 8, length: 50, depth: 40 },
+  { p: 4445, side: -1, kind: 'daiichi', clearance: 7, length: 74, depth: 40 },
+  { p: 4530, side: -1, kind: 'kokusai', clearance: 7, length: 84, depth: 40 },
+  { p: 4790, side: -1, kind: 'meiji-seimei', clearance: 7, length: 71, depth: 40 },
+  { p: 5070, side: -1, kind: 'yusen', clearance: 7, length: 46, depth: 40 },
+  { p: 5240, side: -1, kind: 'kaijo', clearance: 8, length: 50, depth: 40 },
+  { p: 5410, side: -1, kind: 'palace-hotel', clearance: 8, length: 100, depth: 40 },
+  { p: 5620, side: -1, kind: 'mitsui-bussan', clearance: 12, length: 68, depth: 46 },
   { p: 6170, side: -1, kind: 'palace-side', clearance: 8, length: 104, depth: 30 },
 ];
-/** Tokyo's footbridges and the guide signs before Kudanshita, Hanzomon, Kasumigaseki and Otemachi. */
-export const TOKYO_1986_STREET: PeriodStreetPlan = { footbridges: [118, 2530, 5650, 6730],
-  guides: [{ p: 60, sign: 0 }, { p: 1690, sign: 1 }, { p: 3090, sign: 2 }, { p: 5090, sign: 3 }, { p: 6560, sign: 7 }] };
-export const ARCADE_1986_STREET: readonly PeriodStreetPlan[] = [
-  { footbridges: [], guides: [{ p: 180, sign: 4 }] },
-  { footbridges: [1560], guides: [{ p: 260, sign: 5 }] },
-  { footbridges: [], guides: [{ p: 90, sign: 6 }] },
+/**
+ * Where Tokyo's ground differs from its sector's district (OpenStreetMap's moats, parks and buildings sampled every
+ * 20 m along the loop): the National Theatre's forecourt and the Supreme Court's grounds open on the outer side of
+ * Hayabusacho; the Diet's front garden lies across the road from the Diet; Sakurada-dori runs between Kasumigaseki's
+ * ministries, with no moat beside it until the Sakuradamon crossing; and Hibiya Park faces the moat from
+ * Iwaida-bashi to the Hibiya crossing.
+ */
+export const TOKYO_1986_OVERRIDES: readonly { readonly from: number; readonly to: number; readonly side: PeriodSide; readonly district: PeriodDistrict }[] = [
+  { from: 1990, to: 2215, side: -1, district: 'park' },
+  { from: 2440, to: 2960, side: 1, district: 'park' },
+  { from: 3199, to: 3745, side: 1, district: 'government' },
+  { from: 3990, to: 4335, side: -1, district: 'park' },
 ];
-/** Nikko's Shinkyo beside the road bridge near the start of Sakura Pass. */
-export const ARCADE_1986_CROSSINGS: readonly (readonly PeriodCrossing[])[] = [[], [], [{ p: 150, span: 150, kind: 'shinkyo' }]];
-/** Yokohama: the Marine Tower (1961) inland and a moored liner at the quay. */
+/** Tokyo's district on one side at a lap position, its sector's unless an override covers it. */
+export function tokyoDistrictAt(sector: number, p: number, side: PeriodSide): PeriodDistrict {
+  const override = TOKYO_1986_OVERRIDES.find(item => item.side === side && p >= item.from && p < item.to);
+  if (override) return override.district;
+  const row = TOKYO_1986_DISTRICTS[sector] ?? TOKYO_1986_DISTRICTS[0]!;
+  return side < 0 ? row.right : row.left;
+}
+/** Tokyo's footbridges and the guide signs before Kudanshita, Hanzomon, Kasumigaseki and Otemachi. */
+export const TOKYO_1986_STREET: PeriodStreetPlan = { footbridges: [118, 2530, 5650, 6730], torii: 491,
+  guides: [{ p: 60, sign: 0 }, { p: 1690, sign: 1 }, { p: 3090, sign: 2 }, { p: 5090, sign: 3 }, { p: 6560, sign: 7 }] };
+/** Guide signs and footbridges along the Arcade roads. Yokohama's footbridge is France-bashi (1984) at Yamashita-bashi;
+ * its freight viaduct is the Yamashita Rinkō line (1965, closed November 1986) along the park's road-side edge. */
+export const ARCADE_1986_STREET: readonly PeriodStreetPlan[] = [
+  { footbridges: [], guides: [{ p: 150, sign: 18 }, { p: 3560, sign: 18 }],
+    arches: [{ p: 490, kind: 'tied-arch', span: 40, beside: -1 }, { p: 970, kind: 'tied-arch', span: 26 }, { p: 1960, kind: 'rail-girder' }],
+    galleries: [{ from: 645, to: 745, kind: 'rock-shed', side: -1 }] },
+  // A footbridge over Honchō 4-chōme's junction (1980s), and France-bashi (1984) at Yamashita-bashi. Past Bankoku-bashi
+  // the Kisha-michi freight line crosses the road into Shinkō's yard (freight ran until 1 November 1986).
+  { footbridges: [630, 3050], guides: [{ p: 2050, sign: 5 }, { p: 4560, sign: 19 }],
+    arches: [{ p: 1050, kind: 'level-crossing', tracks: 2, gauge: 1.067, reach: [60, 60] }],
+    galleries: [{ from: 2200, to: 3020, kind: 'viaduct', side: 1, clearance: 6.2 }],
+    seaPark: { from: 2190, to: 3030, side: 1, edge: 62 } },
+  { footbridges: [], guides: [{ p: 1620, sign: 6 }, { p: 2700, sign: 8 }], blossom: [[1900, 2460], [2940, 3490], [4040, 6000]] },
+];
+/** Rivers under the Arcade roads: the Haya-kawa at Asahi-bashi and Chitose-bashi; the canal at Shinkō-bashi and the
+ * Hori-kawa under the Kariba Line's viaduct (1984) at Yamashita-bashi; the Daiya beside Shinkyō, and the Arasawa. */
+export const ARCADE_1986_CROSSINGS: readonly (readonly PeriodCrossing[])[] = [
+  [{ p: 490, span: 90, kind: 'gorge', half: 20 }, { p: 970, span: 90, kind: 'gorge', half: 13 }],
+  [{ p: 270, span: 150, kind: 'river', half: 30 }, { p: 965, span: 150, kind: 'river', half: 15 }, { p: 1595, span: 150, kind: 'river', half: 25 },
+    { p: 3100, span: 150, half: 30 }],
+  [{ p: 1830, span: 150, kind: 'shinkyo' }, { p: 4567, span: 80, kind: 'gorge', half: 20 }],
+];
+/** The Arcade roads' landmarks at their real places (metres along the course; side 1 is the driver's left). */
 export const ARCADE_1986_LANDMARKS: readonly (readonly PeriodLandmark[])[] = [[
-  { p: 150, side: -1, kind: 'fujiya', clearance: 6, length: 64, depth: 24 },
+  { p: 34, side: -1, kind: 'yumoto-station', clearance: 6, length: 64, depth: 20 },
+  // Tōnosawa: Fukuzumirō on the river side, then Kansuirō at the bend and Ichinoyu across the road from it.
+  { p: 1004, side: 1, kind: 'fukuzumiro', clearance: 2, length: 24, depth: 18 },
+  // Kansuirō stands on the inside of a 38 m bend: set back so its corners clear the asphalt as the road turns past it.
+  { p: 1092, side: 1, kind: 'kansuiro', clearance: 4, length: 24, depth: 18 },
+  { p: 1100, side: -1, kind: 'ichinoyu', clearance: 2, length: 22, depth: 18 },
+  { p: 6280, side: 1, kind: 'fujiya', clearance: 6, length: 64, depth: 24 },
 ], [
-  // Kannai's "three towers" (Jack, Queen, King) lead to Yamashita Park.
-  { p: 380, side: -1, kind: 'jack', clearance: 8, length: 34, depth: 30 },
-  { p: 520, side: -1, kind: 'queen', clearance: 10, length: 56, depth: 40 },
-  { p: 660, side: -1, kind: 'king', clearance: 10, length: 64, depth: 40 },
-  { p: 820, side: -1, kind: 'marine-tower', clearance: 30, length: 24, depth: 24 },
-  { p: 1180, side: 1, kind: 'liner', clearance: 14, length: 150, depth: 24 },
-  { p: 960, side: -1, kind: 'new-grand', clearance: 8, length: 62, depth: 24 },
-  { p: 1130, side: -1, kind: 'zenrinmon', clearance: 4, length: 18, depth: 6 },
+  // JNR Sakuragichō's 1927 station beside the grid, its plaza facing Benten-bashi; the Dai-Ichi Bank's colonnade and the
+  // Specie Bank's dome (the prefectural museum since 1967) along Honchō-dōri; the Silk Conditioning House up the left
+  // of Bankoku-bashi-dōri.
+  { p: 13, side: 1, kind: 'sakuragicho-station', clearance: 25, length: 64, depth: 36 },
+  { p: 524, side: 1, kind: 'daiichi-yokohama', clearance: 6, length: 40, depth: 22 },
+  { p: 620, side: -1, kind: 'specie-bank', clearance: 40, length: 54, depth: 32 },
+  { p: 745, side: 1, kind: 'silk-conditioning', clearance: 4, length: 120, depth: 28 },
+  // Warehouse No. 2 stands back across the pier's sidings and sheds from the road down Shinkō's east side.
+  { p: 1445, side: 1, kind: 'red-brick', clearance: 60, length: 150, depth: 24 },
+  // The Customs' tower over the block to the right, then the Prefectural Office on Kaigan-dōri.
+  { p: 1875, side: -1, kind: 'queen', clearance: 105, length: 56, depth: 40 },
+  { p: 1930, side: -1, kind: 'king', clearance: 25, length: 64, depth: 40 },
+  { p: 2080, side: -1, kind: 'silk-center', clearance: 8, length: 70, depth: 48 },
+  { p: 2134, side: 1, kind: 'osanbashi', clearance: 4.6, length: 32, depth: 440 },
+  // Hikawa Maru lies alongside Yamashita Park's sea wall, beyond its lawns.
+  { p: 2689, side: 1, kind: 'liner', clearance: 65, length: 150, depth: 24 },
+  { p: 2705, side: -1, kind: 'new-grand', clearance: 8, length: 62, depth: 24 },
+  { p: 2843, side: -1, kind: 'marine-tower', clearance: 30, length: 24, depth: 24 },
+  { p: 3175, side: -1, kind: 'bund-hotel', clearance: 6, length: 44, depth: 24 },
+  { p: 7439, side: 1, kind: 'symbol-tower', clearance: 40, length: 28, depth: 28 },
 ], [
-  { p: 60, side: 1, kind: 'nikko-station', clearance: 8, length: 40, depth: 22 },
-  { p: 420, side: 1, kind: 'pagoda', clearance: 24, length: 16, depth: 16 },
+  // Both stations stand on the right of Route 119, the JNR station across its forecourt.
+  { p: 40, side: -1, kind: 'nikko-station', clearance: 8, length: 40, depth: 22 },
+  { p: 275, side: -1, kind: 'tobu-nikko-station', clearance: 6, length: 42, depth: 22 },
+  { p: 805, side: 1, kind: 'nikko-city-hall', clearance: 5, length: 70, depth: 46 },
+  // The old cedar leans over Route 120 just beyond the bridge.
+  { p: 1900, side: -1, kind: 'taro-sugi', clearance: 1.9, length: 7, depth: 7 },
+  { p: 3050, side: 1, kind: 'tamozawa-gate', clearance: 3, length: 120, depth: 54 },
 ]];
 /** The Arcade district on one side at a progress. */
 export function arcadeDistrictAt(style: number, p: number, side: PeriodSide): PeriodDistrict {
-  const table = ARCADE_1986_DISTRICTS[style] ?? ARCADE_1986_DISTRICTS[0]!, list = side < 0 ? table.right : table.left;
-  return list[mod(Math.floor((p + 100) / table.block), list.length)]!;
+  const stretches = ARCADE_1986_STRETCHES[style] ?? ARCADE_1986_STRETCHES[0]!, at = stretches.find(item => p < item.to) ?? stretches.at(-1)!;
+  return side < 0 ? at.right : at.left;
+}
+/** The bank factor beside an Arcade road (terrain.ts `setTerrainRelief`), eased over 160 m where two stretches meet. */
+export function arcadeBankAt(style: number, p: number, side: PeriodSide): number {
+  const stretches = ARCADE_1986_STRETCHES[style]; if (!stretches) return 1;
+  const i = Math.max(0, stretches.findIndex(item => p < item.to)), column = side < 0 ? 0 : 1, value = (k: number) => stretches[k]!.banks[column];
+  const ease = (from: number, to: number, edge: number) => { const t = clamp((p - (edge - 80)) / 160, 0, 1); return from + (to - from) * t * t * (3 - 2 * t); };
+  if (i + 1 < stretches.length && p > stretches[i]!.to - 80) return ease(value(i), value(i + 1), stretches[i]!.to);
+  if (i > 0 && p < stretches[i - 1]!.to + 80) return ease(value(i - 1), value(i), stretches[i - 1]!.to);
+  return value(i);
+}
+/** The real place an Arcade course is passing, for notes and the HUD. */
+export function arcadePlaceAt(style: number, p: number): string {
+  const stretches = ARCADE_1986_STRETCHES[style] ?? [];
+  return (stretches.find(item => p < item.to) ?? stretches.at(-1))?.place ?? '';
 }
 const OPEN: ReadonlySet<PeriodDistrict> = new Set(['moat', 'park', 'shrine', 'temple', 'pond', 'forest', 'quay']);
 
@@ -545,6 +714,28 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
   const crossings = options.crossings ?? [], landmarks = options.landmarks ?? [];
   for (const crossing of crossings) { const f = crossingFootprint(course, crossing); occupied.add(f, boxOf(f)); }
   for (const landmark of landmarks) { const f = landmarkFootprint(course, landmark); occupied.add(f, boxOf(f)); }
+  // A rock shed roofs the road and its verges, a viaduct's columns stand in a strip beside it, and a railway girder
+  // brings its abutments and its truss: lots and planting keep clear of them all (road-structures.ts).
+  const reserve = (p: number, lateral: number, halfAlong: number, halfAcross: number) => {
+    const at = poseAt(course, p);
+    const f = { x: at.x + Math.cos(at.heading) * lateral, z: at.z - Math.sin(at.heading) * lateral, yaw: at.heading + Math.PI / 2, halfX: halfAlong, halfZ: halfAcross };
+    occupied.add(f, boxOf(f));
+  };
+  for (const gallery of options.street?.galleries ?? []) for (let p = gallery.from; p < gallery.to; p += 10) {
+    const width = poseAt(course, p + 5).width;
+    if (gallery.kind === 'rock-shed') reserve(p + 5, 0, 5.2, width + 21);
+    else if (gallery.kind === 'viaduct') reserve(p + 5, gallery.side * (width + (gallery.clearance ?? 6)), 5.2, 2.7);
+  }
+  for (const arch of options.street?.arches ?? []) {
+    const width = poseAt(course, arch.p).width;
+    if (arch.kind === 'rail-girder') reserve(arch.p, -24, 4.5, width + 50);
+    if (arch.kind === 'tied-arch' && arch.beside) reserve(arch.p, arch.beside * (width + 8.5), (arch.span ?? 40) / 2 + 3, 5);
+    // A railway's corridor runs clear between the buildings either side of its crossing.
+    if (arch.kind === 'level-crossing') {
+      const [right, left] = arch.reach ?? [30, 30];
+      reserve(arch.p, (left - right) / 2, (arch.tracks ?? 2) * 1.9 + 2.6, width + (left + right) / 2);
+    }
+  }
   for (const side of [-1, 1] as const) {
     for (let row = 1; row <= 4; row++) {
       let p = start + (side > 0 ? 3.1 : 0) + row * 1.7;

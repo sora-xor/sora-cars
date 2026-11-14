@@ -14,8 +14,9 @@ const owning = (owned: readonly string[], money = 0): GarageSave => {
 
 test('the briefing reads each course from the native environment', () => {
   assert.deepEqual(courseConditions(0), { rain: 25, wind: 'light', trees: 5, signs: 4, oil: 3 });
-  assert.deepEqual(courseConditions(1), { rain: 50, wind: 'strong', trees: 4, signs: 4, oil: 4 });
-  assert.deepEqual(courseConditions(2), { rain: 20, wind: 'gusty', trees: 6, signs: 3, oil: 3 });
+  // Over a stock car's race on the real road: 2:50 at Hakone, 2:30 in Yokohama, 1:27 at Nikkō.
+  assert.deepEqual(courseConditions(1), { rain: 55, wind: 'strong', trees: 4, signs: 4, oil: 4 });
+  assert.deepEqual(courseConditions(2), { rain: 25, wind: 'gusty', trees: 6, signs: 3, oil: 3 });
   assert.throws(() => courseConditions(3), RangeError);
 });
 

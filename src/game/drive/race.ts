@@ -1,6 +1,6 @@
 import { CONTROL } from '../rules';
 import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
-import { DAMAGE_LIMIT, addDamage, breakParts, damageEffects, emptyDamage, impactPoints, type CarDamage } from './damage';
+import { DAMAGE_LIMIT, RAIL_DAMAGE_FROM, addDamage, breakParts, damageEffects, emptyDamage, impactPoints, type CarDamage } from './damage';
 import { atan, atan2, clamp, cos, sin, wrapAngle } from './dmath';
 import type { VehicleSpec } from './vehicle';
 
@@ -25,6 +25,9 @@ const DT = 1 / (DRIVE_HZ * SUBSTEPS);
 const G = 9.81;
 /** Tyre curve: peak near 9° of slip, about 80% of the peak when sliding. */
 const TYRE_B = 11, TYRE_C = 1.4;
+/** What traction control and ABS always leave the pedals, as a share of an axle's grip, however hard the car is
+ * cornering, and the braking (m/s²) cornering brake control always allows: a car past the limit must still slow down. */
+const TRACTION_FLOOR = 0.15, BRAKE_FLOOR = 0.25, STABLE_BRAKING = 3;
 /** Wall and car contact: some bounce, plenty of scrape. */
 const WALL_RESTITUTION = 0.22, WALL_FRICTION = 0.26;
 const CAR_RESTITUTION = 0.28, CAR_FRICTION = 0.38;
@@ -65,19 +68,29 @@ export function steeringCurvature(spec: VehicleSpec, forward: number, speed: num
  * 1.1 s at 250 km/h. A tap is then a small correction and only a held key
  * corners at the limit; at 120 km/h a 0.3 s press turns the car about 4°, where
  * winding on in a fifth of a second turned it 12° and keyboard drivers slid from
- * rail to rail. Turning into a bend, the wheel still winds on quickly as far as
- * the road itself turns (`bend`, its position that follows the road; see
- * `roadWheel`), or it would arrive after a fast bend does and run the car into
- * the rail. Beyond that, and everywhere else, it stays slow. It always unwinds
- * in a sixth of a second when the key is released. */
+ * rail to rail. Turning into a bend, the wheel winds on quickly to half again as
+ * far as the road itself turns, and a tenth further (`bend`, its position that
+ * follows the road; see `roadWheel`): a driver who turns in late can still catch
+ * the bend. Beyond that, and everywhere else, it stays slow.
+ *
+ * Released, the wheel is straight again in a twentieth of a second (UNWIND), so
+ * the car stops turning when the key comes up. Keyboard drivers who steer by
+ * what they see, a fifth of a second late, mostly hit the rails by turning in
+ * late and then still turning when the car came off the outside rail, which sent
+ * it across the road to the other one. With the wheel straightening in a sixth
+ * of a second they touched Hakone's rails 11.5 times a kilometre and crossed to
+ * the other rail 5.4 times; now 8.8 and 2.1, with a third of the damage
+ * (docs/driving-model.md). Unwinding more slowly made them weave. */
+const UNWIND = 20;
 export function steerSubstep(steer: number, target: number, forward: number, bend = 0): number {
   const delta = target - steer;
   const unwinding = delta !== 0 && Math.sign(delta) !== Math.sign(steer) && steer !== 0;
-  if (!unwinding && target * bend > 0 && Math.abs(steer) < Math.abs(bend)) {
-    const next = steer + target * 5 / (1 + Math.max(0, forward - 15) / 40) * DT;
-    return Math.abs(next) < Math.abs(bend) ? next : bend;
+  const reach = bend === 0 ? 0 : Math.min(1, 1.5 * Math.abs(bend) + 0.1);
+  if (!unwinding && target * bend > 0 && Math.abs(steer) < reach) {
+    const next = steer + target * 8 / (1 + Math.max(0, forward - 15) / 40) * DT;
+    return Math.abs(next) < reach ? next : target * reach;
   }
-  const rate = unwinding ? 6 : 3 / (1 + Math.max(0, forward - 10) / 25);
+  const rate = unwinding ? UNWIND : 3 / (1 + Math.max(0, forward - 10) / 25);
   return steer + clamp(delta, -rate * DT, rate * DT);
 }
 /** The wheel position that follows the road where a held key is turning: its
@@ -368,24 +381,45 @@ export class DriveRace {
     // Holding drift lets the rear go; releasing it lets the tyres bite again.
     car.slide = clamp(car.slide + (drift && Math.abs(car.u) > 6 ? SLIDE_RATE : -SLIDE_RATE) * DT, 0, 1);
     const muRear = surface * (oilRear ? spec.oilGrip : 1) * effects.rearGrip * 1.06 * (1 - car.slide * (1 - spec.driftGrip));
-    // Longitudinal forces.
+    // Longitudinal forces. Launch traction (garage parts) stretches the rear
+    // tyres' grip for pulling the car forward below LAUNCH_SPEED, a friction
+    // ellipse: traction control keeps the same share of the longer reach, so the
+    // extra pull leaves the tyres' cornering grip as it was.
+    const pull = throttle && car.u < LAUNCH_SPEED ? 1 + spec.launch : 1;
+    // Driver aids. The cornering the car is doing takes grip from each axle in proportion to the weight it
+    // carries; traction control and ABS give the pedals only the rest of each tyre's friction circle, so power or
+    // the brake in the middle of a bend speeds or slows the car along its line instead of sliding it off. (With
+    // fixed shares, 92% of the rear tyres for power and 85% of the fronts for braking whatever the car was doing,
+    // full throttle left the rear 39% of its cornering grip and the brake spun the car: see docs/driving-model.md.)
+    const cornering = spec.mass * Math.abs(car.u * car.r);
+    const gripFront = muFront * front, gripRear = muRear * rear;
+    const spareFront = Math.sqrt(Math.max(0, gripFront * gripFront - (cornering * b / length) * (cornering * b / length)));
+    const spareRear = Math.sqrt(Math.max(0, gripRear * gripRear - (cornering * a / length) * (cornering * a / length)));
     let driveForce = 0, brakeFront = 0, brakeRear = 0;
     if (throttle) {
       const limit = wake ? ((car.boosting ? spec.boostTopSpeed : spec.topSpeed) + spec.draftSpeed) * 1.02 : car.boosting ? spec.boostTopSpeed : spec.topSpeed;
       const power = (spec.power + (car.boosting ? spec.boostPower : 0)) * effects.power;
       driveForce = power / Math.max(Math.abs(car.u), 6) + (car.boosting ? spec.boostKick : 0);
       driveForce *= clamp((limit - car.u) / (0.025 * limit), 0, 1);
-      // Traction control trims wheelspin unless the driver asks for a slide.
-      const traction = muRear * rear * (drift ? 1 : 0.92) * (1 + (car.u < LAUNCH_SPEED ? spec.launch : 0));
+      // Traction control trims wheelspin, and leaves the rear tyres their cornering, unless the driver asks for a slide.
+      const traction = (drift ? gripRear : 0.92 * Math.max(TRACTION_FLOOR * gripRear, spareRear)) * pull;
       driveForce = Math.min(driveForce, traction);
     } else if (car.reverse && racing) {
       driveForce = car.u > -REVERSE_SPEED ? -Math.min(6000, muRear * rear * 0.8) : 0;
     }
     if (brake) {
       const force = racing ? spec.brakeForce : wrecked ? 0.35 * spec.brakeForce : 0.25 * spec.brakeForce;
-      // Front-biased, with ABS holding each axle below lock so the tyres can still steer.
-      brakeFront = Math.min(0.68 * force, 0.85 * muFront * front);
-      brakeRear = Math.min(0.32 * force, 0.7 * muRear * rear);
+      // Front-biased, with ABS holding each axle below lock, and off the grip its cornering uses, so the tyres can still steer.
+      brakeFront = Math.min(0.68 * force, 0.85 * Math.max(BRAKE_FLOOR * gripFront, spareFront));
+      brakeRear = Math.min(0.32 * force, 0.7 * Math.max(BRAKE_FLOOR * gripRear, spareRear));
+      // Cornering brake control. Braking takes load off the rear axle, which is holding the car's tail in the bend:
+      // brake only as hard as leaves it the load that cornering needs, or the tail comes round. A car already
+      // sideways brakes with everything.
+      if (Math.abs(car.v) < 0.5 * Math.abs(car.u)) {
+        const stable = spec.mass * Math.max(STABLE_BRAKING, a / spec.cgHeight * (G * aero - Math.abs(car.u * car.r) / (0.85 * muRear)));
+        const total = brakeFront + brakeRear;
+        if (total > stable) { brakeFront *= stable / total; brakeRear *= stable / total; }
+      }
     }
     if (drift && !throttle && Math.abs(car.u) > 3) brakeRear = Math.max(brakeRear, 0.35 * muRear * rear);
     if (!throttle && !car.reverse && Math.abs(car.u) > 1) brakeRear += spec.coast;
@@ -402,8 +436,10 @@ export class DriveRace {
     const rearLateralVelocity = car.v - b * car.r;
     let rearLong = driveForce;
     if (brakeRear > 0) rearLong -= Math.sign(car.u) * Math.min(brakeRear, Math.abs(car.u) * spec.mass * 0.5 / DT);
-    rearLong = clamp(rearLong, -muRear * rear, muRear * rear);
-    const rearCapacity = Math.sqrt(Math.max(0, (muRear * rear) ** 2 - rearLong * rearLong));
+    const reach = muRear * rear * pull, used = rearLong / reach;
+    rearLong = clamp(rearLong, -reach, reach);
+    const rearCapacity = pull === 1 ? Math.sqrt(Math.max(0, (muRear * rear) ** 2 - rearLong * rearLong))
+      : muRear * rear * Math.sqrt(Math.max(0, 1 - used * used));
     const slipRear = atan2(rearLateralVelocity, Math.max(Math.abs(car.u), 2));
     let rearLat = -rearCapacity * sin(TYRE_C * atan(TYRE_B * slipRear));
     rearLat = clamp(rearLat, -Math.abs(rearLateralVelocity) * spec.mass * (rear / weight) / DT, Math.abs(rearLateralVelocity) * spec.mass * (rear / weight) / DT);
@@ -469,9 +505,9 @@ export class DriveRace {
     return false;
   }
 
-  #impact(car: DriveCar, deltaV: number, bodyX: number, bodyY: number, s: number, d: number): void {
+  #impact(car: DriveCar, deltaV: number, bodyX: number, bodyY: number, s: number, d: number, from?: number): void {
     const spec = this.specs[car.slot]!;
-    const points = impactPoints(deltaV, spec.toughness);
+    const points = impactPoints(deltaV, spec.toughness, from);
     if (points <= 0 || car.status === DriveStatus.Finished) return;
     addDamage(car.damage, points, clamp(bodyX / spec.halfLength, -1, 1), clamp(bodyY / spec.halfWidth, -1, 1));
     this.#breakage(car, bodyY, s, d);
@@ -547,7 +583,7 @@ export class DriveRace {
       addDamage(car.damage, spec.toughness * 0.0003 * Math.abs(vt) * pressure, clamp(bodyX / spec.halfLength, -1, 1), clamp(bodyY / spec.halfWidth, -1, 1));
       this.#breakage(car, bodyY, contactS, contactD);
     }
-    this.#impact(car, deltaV, bodyX, bodyY, contactS, contactD);
+    this.#impact(car, deltaV, bodyX, bodyY, contactS, contactD, RAIL_DAMAGE_FROM);
   }
 
   /** Both cars as rigid bodies in `a`'s road frame (x along the road, y right). */

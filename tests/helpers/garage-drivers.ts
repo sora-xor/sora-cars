@@ -16,8 +16,11 @@ import { arcadeDriveRace } from '../../src/game/drive/setup';
  * regular are keyboard players: they steer from what the car did a moment ago,
  * aim a little ahead, read bends imperfectly, tap keys rather than hold a
  * steady angle, lift or brake when they run wide and keep their own boost
- * habits. Seeds vary their lane, judgement and lapses. Club, pro and ace are
- * the shipped DriveAI opponents.
+ * habits. They brake for the bends they see, overrating how fast a bend can
+ * be taken, as a player who does not know the road would; since the Arcade
+ * courses took their real roads' bends (2026-11-11) every lap has corners a
+ * car must brake for. Seeds vary their lane, judgement and lapses. Club, pro
+ * and ace are the shipped DriveAI opponents.
  */
 export type DriverProfile = 'rookie' | 'regular' | 'club' | 'pro' | 'ace';
 export const PROFILES: readonly DriverProfile[] = ['rookie', 'regular', 'club', 'pro', 'ace'];
@@ -44,10 +47,19 @@ export interface HumanStyle {
   readonly boost: 'full' | 'straights';
   /** Seconds of look-ahead in which heading for the outside rail of a bend makes the driver lift, then brake. */
   readonly panic: number;
+  /** How the driver reads the bends ahead: the speed it believes a bend allows (`optimism` × the tyres' limit), the
+   * share of full braking it uses, and the seconds it takes to react. scripts/drive-check.ts first tuned these on the
+   * street routes, where a rookie overrated every bend by 15% and a regular by 7%. On the Arcade roads the HUD's corner
+   * cue warns of each bend the car is too fast for (renderer.ts `#roadCue`), so a rookie reads them to within 5% and a
+   * regular to within 3%: overrating Hakone's bends by 15% wrecked every rookie within 3.2–4.9 km, sliding into the rail
+   * at bend after bend of 60–80 m, and at 7% a regular in Act 3's tuned car wrecked on every try. */
+  readonly reading: { readonly optimism: number; readonly brake: number; readonly reaction: number };
 }
 export const HUMAN_STYLES: Readonly<Record<'rookie' | 'regular', HumanStyle>> = {
-  rookie: { delay: 6, preview: 1, anticipation: 0.8, deadband: 0.22, cadence: 3, lapse: 0.08, boost: 'full', panic: 0.5 },
-  regular: { delay: 5, preview: 0.9, anticipation: 0.85, deadband: 0.12, cadence: 2, lapse: 0.05, boost: 'straights', panic: 0.35 },
+  rookie: { delay: 6, preview: 1, anticipation: 0.8, deadband: 0.22, cadence: 3, lapse: 0.08, boost: 'full', panic: 0.5,
+    reading: { optimism: 1.05, brake: 0.8, reaction: 0.45 } },
+  regular: { delay: 5, preview: 0.9, anticipation: 0.85, deadband: 0.12, cadence: 2, lapse: 0.05, boost: 'straights', panic: 0.35,
+    reading: { optimism: 1.03, brake: 0.88, reaction: 0.35 } },
 };
 
 const hash = (a: number, b: number, c: number) => {
@@ -128,7 +140,24 @@ export class HumanDriver {
       && courseGap(course, car.s, other.s) > 0 && courseGap(course, car.s, other.s) < 35);
     if (input & CONTROL.throttle && clear && (car.boosting ? car.energy >= spec.boostCost * 2
       : Math.abs(bend) < 0.0015 && car.energy >= (style.boost === 'full' ? 1000 - spec.boostRecharge * 2 : 800))) input |= CONTROL.boost;
-    return input;
+    return this.#pedals(race, input);
+  }
+
+  /** Brake for the bends ahead as the driver reads them: off the throttle near the speed it believes the sharpest bend
+   * within its braking reach allows, on the brake above it. */
+  #pedals(race: DriveRace, input: number): number {
+    const car = race.cars[this.slot]!, spec = race.specs[this.slot]!, reading = this.style.reading;
+    const speed = Math.max(car.u, 0), grip = spec.grip * 9.81;
+    const corner = (kappa: number) => { const k = Math.abs(kappa) - grip * spec.downforce / 5184; return k <= 1e-6 ? 200 : Math.sqrt(grip / k); };
+    const decel = (v: number) => (0.78 * grip * (1 + spec.downforce * v * v / 5184) + spec.drag * v * v / spec.mass) * reading.brake;
+    const reach = speed * speed / (2 * decel(speed * 0.7)) + speed * reading.reaction + 10;
+    let target = Infinity;
+    for (let ahead = 0; ahead <= reach; ahead += 3) {
+      const bend = corner(sampleCourse(race.course, car.s + ahead).kappa) * reading.optimism;
+      target = Math.min(target, Math.sqrt(bend * bend + 2 * decel(bend) * Math.max(0, ahead - speed * reading.reaction)));
+    }
+    if (speed > target * 1.02) return (input & ~(CONTROL.throttle | CONTROL.boost)) | CONTROL.brake;
+    return speed > target * 0.98 ? input & ~(CONTROL.throttle | CONTROL.boost) : input;
   }
 }
 
@@ -222,10 +251,12 @@ export function interquartileMean(values: readonly number[]): number {
   return mean(sorted.length > 3 ? sorted.slice(cut, sorted.length - cut) : sorted);
 }
 
+/** The equal-cars story grid: the crew and both rivals in stock cars, all driving as club drivers. */
+const EQUAL_GRID: readonly (Rival | null)[] = Array.from({ length: 8 }, (_, slot) => slot === 6 ? null : { skill: 'club' as const, tune: STOCK_TUNE, value: 0 });
 /** Whether an Arcade story chapter's objective is met from the player's slot, with tuned or equal rivals. `chapter` is its id. */
 export function storyRace(chapter: number, profile: DriverProfile, tune: CarTune, seed = 0, equalCars = false): { run: GarageRun; cleared: boolean } {
   const index = chapterPosition(chapter);
-  const rivals = equalCars ? fieldRivals('club', 8, 6) : storyRivals(chapter, 8, 6);
+  const rivals = equalCars ? EQUAL_GRID : storyRivals(chapter, 8, 6);
   const run = packRace(CHAPTERS[index]!.trackId!, 6, profile, tune, seed, rivals, true);
   return { run, cleared: storyObjectiveMet(index, run.place, run.places[7]) };
 }

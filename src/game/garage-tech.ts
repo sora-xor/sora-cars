@@ -33,49 +33,49 @@ export const TECH_BRANCHES: readonly TechBranch[] = [
   { id: 'body', name: { ja: 'ボディ', en: 'BODY' }, crew: 'yui', role: { ja: '接触や衝突に負けない。集団の中で速い。', en: 'Shrugs off contact and impacts. Quick in traffic.' } },
 ];
 export const TECH_NODES: readonly TechNode[] = [
-  { id: 'engine-intake', branch: 'engine', tier: 1, cost: 10000, requires: [], bestFor: 'everyone', effects: { topSpeed: 24, accel: 2 },
+  { id: 'engine-intake', branch: 'engine', tier: 1, cost: 7000, requires: [], bestFor: 'everyone', effects: { topSpeed: 48, accel: 3 },
     name: { ja: '吸排気チューン', en: 'INTAKE & EXHAUST' }, note: { ja: '最高速と加速が少し伸びる。', en: 'A little more top speed and pull.' } },
-  { id: 'engine-cams', branch: 'engine', tier: 2, cost: 24000, requires: ['engine-intake'], bestFor: 'everyone', effects: { topSpeed: 24, accel: 2 },
+  { id: 'engine-cams', branch: 'engine', tier: 2, cost: 15000, requires: ['engine-intake'], bestFor: 'everyone', effects: { topSpeed: 60, accel: 4 },
     name: { ja: 'ハイカム＆ポート研磨', en: 'CAMS & PORTED HEAD' }, note: { ja: '回転の上まで力が続く。', en: 'Power that keeps building up the rev range.' } },
-  { id: 'engine-highrev', branch: 'engine', tier: 3, fork: 'engine-spec', cost: 52000, requires: ['engine-cams'], bestFor: 'clean', effects: { topSpeed: 48, accel: -2, coast: 4, offroadLoss: 5 },
+  { id: 'engine-highrev', branch: 'engine', tier: 3, fork: 'engine-spec', cost: 18000, requires: ['engine-cams'], bestFor: 'clean', effects: { topSpeed: 96, accel: -2, coast: -3, offroadLoss: 10 },
     name: { ja: '高回転仕様', en: 'HIGH-REV SIX' }, note: { ja: '直線でよく伸びる。立て直しは少し鈍い。', en: 'Pulls hard on straights; slower to recover.' } },
-  { id: 'engine-torque', branch: 'engine', tier: 3, fork: 'engine-spec', cost: 52000, requires: ['engine-cams'], bestFor: 'recovery', effects: { topSpeed: 2, accel: 16, traction: 20, coast: -6, offroadLoss: -5 },
+  { id: 'engine-torque', branch: 'engine', tier: 3, fork: 'engine-spec', cost: 56000, requires: ['engine-cams'], bestFor: 'recovery', effects: { topSpeed: 6, accel: 12, traction: 10, offroadLoss: -5 },
     name: { ja: '低速トルク仕様', en: 'TORQUE SIX' }, note: { ja: '出だしと立て直しが速い。', en: 'Quick launches and recoveries.' } },
-  { id: 'engine-fulltune', branch: 'engine', tier: 4, cost: 64000, requires: ['turbo-intercooler'], requiresAny: ['engine-highrev', 'engine-torque'], bestFor: 'everyone', effects: { topSpeed: 24, accel: 3 },
-    name: { ja: 'フルチューン直6', en: 'FULL-TUNE SIX' }, note: { ja: '組み上げた直6の完成形。', en: 'The finished, blueprinted straight six.' } },
+  { id: 'engine-fulltune', branch: 'engine', tier: 4, cost: 66000, requires: ['turbo-intercooler'], requiresAny: ['engine-highrev', 'engine-torque'], bestFor: 'everyone', effects: { accel: 4, coast: -3, traction: 6 },
+    name: { ja: 'フルチューン直6', en: 'FULL-TUNE SIX' }, note: { ja: '組み上げた直6の完成形。どこからでも力強く、アクセルを戻しても速度が落ちにくい。', en: 'The finished, blueprinted straight six: pulls from anywhere and keeps its speed when you lift.' } },
 
-  { id: 'turbo-controller', branch: 'turbo', tier: 1, cost: 12000, requires: [], bestFor: 'boost', effects: { boostCost: -4 },
-    name: { ja: 'ブーストコントローラー', en: 'BOOST CONTROLLER' }, note: { ja: '1回のブーストが長く続く。', en: 'Each burst lasts longer.' } },
-  { id: 'turbo-intercooler', branch: 'turbo', tier: 2, cost: 24000, requires: ['turbo-controller'], bestFor: 'boost', effects: { boostRecharge: 1, boostSpeed: 60 },
+  { id: 'turbo-controller', branch: 'turbo', tier: 1, cost: 7000, requires: [], bestFor: 'boost', effects: { boostCost: -5, boostRecharge: 1 },
+    name: { ja: 'ブーストコントローラー', en: 'BOOST CONTROLLER' }, note: { ja: '1回のブーストが長く続き、回復も早い。', en: 'Each burst lasts longer and refills sooner.' } },
+  { id: 'turbo-intercooler', branch: 'turbo', tier: 2, cost: 9000, requires: ['turbo-controller'], bestFor: 'boost', effects: { boostRecharge: 1, boostSpeed: 60 },
     name: { ja: 'インタークーラー', en: 'INTERCOOLER' }, note: { ja: 'ブーストの回復が早く、少し強い。', en: 'Faster refill and a little more boost speed.' } },
-  { id: 'turbo-big', branch: 'turbo', tier: 3, fork: 'turbo-spec', cost: 56000, requires: ['turbo-intercooler'], bestFor: 'boost', effects: { boostSpeed: 420 },
+  { id: 'turbo-big', branch: 'turbo', tier: 3, fork: 'turbo-spec', cost: 25000, requires: ['turbo-intercooler'], bestFor: 'boost', effects: { boostSpeed: 420 },
     name: { ja: '大型タービン', en: 'BIG TURBINE' }, note: { ja: 'ブースト中の最高速が大きく伸びる。', en: 'Much higher speed while boosting.' } },
-  { id: 'turbo-twin', branch: 'turbo', tier: 3, fork: 'turbo-spec', cost: 56000, requires: ['turbo-intercooler'], bestFor: 'boost', effects: { boostCost: -3, boostRecharge: 1 },
+  { id: 'turbo-twin', branch: 'turbo', tier: 3, fork: 'turbo-spec', cost: 25000, requires: ['turbo-intercooler'], bestFor: 'boost', effects: { boostCost: -3, boostRecharge: 1 },
     name: { ja: 'ツインターボ', en: 'TWIN TURBO' }, note: { ja: '長く、何度もブーストできる。', en: 'Boost longer and more often.' } },
-  { id: 'turbo-antilag', branch: 'turbo', tier: 4, cost: 120000, requires: ['engine-cams'], requiresAny: ['turbo-big', 'turbo-twin'], bestFor: 'boost', effects: { boostKick: 20, boostCost: -2 },
+  { id: 'turbo-antilag', branch: 'turbo', tier: 4, cost: 70000, requires: ['engine-cams'], requiresAny: ['turbo-big', 'turbo-twin'], bestFor: 'boost', effects: { boostKick: 20, boostCost: -2 },
     name: { ja: 'アンチラグ', en: 'ANTI-LAG' }, note: { ja: 'ブーストが一瞬で立ち上がる。', en: 'Boost reaches full speed almost at once.' } },
 
-  { id: 'chassis-tyres', branch: 'chassis', tier: 1, cost: 6000, requires: [], bestFor: 'everyone', effects: { cornerLoad: -2, oilSteer: 4, traction: 6 },
+  { id: 'chassis-tyres', branch: 'chassis', tier: 1, cost: 12000, requires: [], bestFor: 'everyone', effects: { cornerLoad: -2, oilSteer: 4, traction: 6 },
     name: { ja: 'スポーツタイヤ', en: 'SPORT TYRES' }, note: { ja: 'コーナーと油膜で踏ん張り、出だしも良い。', en: 'Bite in corners and on oil; better launches.' } },
-  { id: 'chassis-coilovers', branch: 'chassis', tier: 2, cost: 8000, requires: ['chassis-tyres'], bestFor: 'recovery', effects: { cornerLoad: -2, windLoad: -4, steer: 2, driftSteer: 4, accel: 1 },
+  { id: 'chassis-coilovers', branch: 'chassis', tier: 2, cost: 22000, requires: ['chassis-tyres'], bestFor: 'recovery', effects: { cornerLoad: -2, windLoad: -4, steer: 2, driftSteer: 4, accel: 1 },
     name: { ja: '車高調', en: 'COILOVERS' }, note: { ja: '横風とコーナーで流されにくい。', en: 'Less push from corners and crosswinds.' } },
-  { id: 'chassis-touge', branch: 'chassis', tier: 3, fork: 'chassis-spec', cost: 48000, requires: ['chassis-coilovers'], bestFor: 'drift', effects: { driftCharge: 12, driftSteer: 4, steer: 2 },
-    name: { ja: '峠セッティング', en: 'TOUGE SETUP' }, note: { ja: 'コーナーでドリフトを保つとターボが溜まる。', en: 'Hold a drift through corners to refill the turbo.' } },
-  { id: 'chassis-rally', branch: 'chassis', tier: 3, fork: 'chassis-spec', cost: 18000, requires: ['chassis-coilovers'], bestFor: 'recovery', effects: { offroadLoss: -20, rainSteer: 4, wetDamping: -1, windLoad: -4, cornerLoad: -2, traction: 8 },
-    name: { ja: 'ラリーセッティング', en: 'RALLY SETUP' }, note: { ja: 'ガードレール・雨・横風でも失速しにくい。', en: 'Keeps speed along the rails, in rain and in wind.' } },
-  { id: 'chassis-lsd', branch: 'chassis', tier: 4, cost: 80000, requires: ['turbo-controller'], requiresAny: ['chassis-touge', 'chassis-rally'], bestFor: 'drift', effects: { driftCharge: 8, accel: 4 },
+  { id: 'chassis-touge', branch: 'chassis', tier: 3, fork: 'chassis-spec', cost: 32000, requires: ['chassis-coilovers'], bestFor: 'drift', effects: { cornerLoad: -1, rainSteer: 4, driftCharge: 12, driftSteer: 4, steer: 2 },
+    name: { ja: '峠セッティング', en: 'TOUGE SETUP' }, note: { ja: '乾いた路面でも雨でも食いつく。コーナーでドリフトを保つとターボが溜まる。', en: 'Bites in the dry and in the rain. Hold a drift through corners to refill the turbo.' } },
+  { id: 'chassis-rally', branch: 'chassis', tier: 3, fork: 'chassis-spec', cost: 56000, requires: ['chassis-coilovers'], bestFor: 'recovery', effects: { offroadLoss: -20, wetDamping: -1, windLoad: -4, cornerLoad: -2, traction: 8 },
+    name: { ja: 'ラリーセッティング', en: 'RALLY SETUP' }, note: { ja: 'ガードレールに当たっても失速しにくく、そこから力強く立ち直る。', en: 'Keeps speed along the rails and pulls hard out of trouble.' } },
+  { id: 'chassis-lsd', branch: 'chassis', tier: 4, cost: 95000, requires: ['turbo-controller'], requiresAny: ['chassis-touge', 'chassis-rally'], bestFor: 'drift', effects: { driftCharge: 8, accel: 4, traction: 16 },
     name: { ja: '機械式LSD', en: 'MECHANICAL LSD' }, note: { ja: '立ち上がりが鋭く、ドリフトでターボが溜まる。', en: 'Sharper exits; drifting refills the turbo.' } },
 
-  { id: 'body-cage', branch: 'body', tier: 1, cost: 4000, requires: [], bestFor: 'everyone', effects: { contactLoss: -25, treeLoss: -200, signLoss: -80, traction: 6 },
+  { id: 'body-cage', branch: 'body', tier: 1, cost: 5000, requires: [], bestFor: 'everyone', effects: { contactLoss: -25, treeLoss: -200, signLoss: -80, traction: 6 },
     name: { ja: 'ロールケージ', en: 'ROLL CAGE' }, note: { ja: '接触や衝突のダメージが減り、硬いボディで出だしも鋭い。', en: 'Less damage from contact and impacts; a stiffer shell launches harder.' } },
-  { id: 'body-bumpers', branch: 'body', tier: 2, cost: 7000, requires: ['body-cage'], bestFor: 'everyone', effects: { contactLoss: -25, signLoss: -40, traction: 14 },
+  { id: 'body-bumpers', branch: 'body', tier: 2, cost: 8000, requires: ['body-cage'], bestFor: 'everyone', effects: { contactLoss: -25, signLoss: -40, traction: 4 },
     name: { ja: '強化バンパー', en: 'REINFORCED BUMPERS' }, note: { ja: '押し合いに強く、立て直しが早い。', en: 'Stronger in a shove; quicker to recover.' } },
-  { id: 'body-light', branch: 'body', tier: 3, fork: 'body-spec', cost: 30000, requires: ['body-bumpers'], bestFor: 'clean', effects: { accel: 4, topSpeed: 12, treeLoss: 150, signLoss: 60, offroadLoss: 15 },
-    name: { ja: '軽量化', en: 'LIGHTWEIGHT' }, note: { ja: '加速が鋭い。ガードレールや衝突に弱い。', en: 'Sharp acceleration; punished on the rails and in impacts.' } },
-  { id: 'body-armor', branch: 'body', tier: 3, fork: 'body-spec', cost: 8000, requires: ['body-bumpers'], bestFor: 'recovery', effects: { contactLoss: -30, offroadLoss: -25, treeLoss: -150, signLoss: -80, traction: 6, windLoad: -4 },
-    name: { ja: '鉄板補強', en: 'STEEL ARMOR' }, note: { ja: 'ガードレールで失速せず、横風や衝突にも負けない。安く仕上がる。', en: 'Slides along the rails, shrugs off crosswinds and impacts. Cheap to fit.' } },
-  { id: 'body-windtunnel', branch: 'body', tier: 4, cost: 78000, requires: ['chassis-coilovers'], requiresAny: ['body-light', 'body-armor'], bestFor: 'traffic', effects: { draft: 160, topSpeed: 24 },
-    name: { ja: '風洞仕上げ', en: 'WIND-TUNNEL BODY' }, note: { ja: '空気抵抗が減り、前の車の真後ろで加速する。', en: 'Less drag; slipstream right behind another car.' } },
+  { id: 'body-light', branch: 'body', tier: 3, fork: 'body-spec', cost: 28000, requires: ['body-bumpers'], bestFor: 'clean', effects: { accel: 4, cornerLoad: -1, treeLoss: 150, signLoss: 60, offroadLoss: 10 },
+    name: { ja: '軽量化', en: 'LIGHTWEIGHT' }, note: { ja: '加速もコーナーも鋭い。ガードレールや衝突に弱い。', en: 'Sharper acceleration and cornering; punished on the rails and in impacts.' } },
+  { id: 'body-armor', branch: 'body', tier: 3, fork: 'body-spec', cost: 25000, requires: ['body-bumpers'], bestFor: 'recovery', effects: { contactLoss: -30, offroadLoss: -25, treeLoss: -150, signLoss: -80, traction: 4, windLoad: -4 },
+    name: { ja: '鉄板補強', en: 'STEEL ARMOR' }, note: { ja: 'ガードレールで失速せず、横風や衝突にも負けない。', en: 'Slides along the rails, shrugs off crosswinds and impacts.' } },
+  { id: 'body-windtunnel', branch: 'body', tier: 4, cost: 75000, requires: ['chassis-coilovers'], requiresAny: ['body-light', 'body-armor'], bestFor: 'traffic', effects: { draft: 160, topSpeed: 12, cornerLoad: -1 },
+    name: { ja: '風洞仕上げ', en: 'WIND-TUNNEL BODY' }, note: { ja: '空気抵抗が減り、ダウンフォースで踏ん張る。前の車の真後ろで加速する。', en: 'Less drag, more downforce; slipstream right behind another car.' } },
 ];
 const nodes = new Map(TECH_NODES.map(node => [node.id, node]));
 export const techNode = (id: string): TechNode | undefined => nodes.get(id);
@@ -175,8 +175,8 @@ export function garageTune(save: GarageSave): CarTune { return save.stock ? STOC
 /** Purchase orders for opponent builds. Only one option of each fork appears in a list. */
 export type RivalStyle = 'power' | 'boost' | 'tough';
 const STYLE_ORDER: Readonly<Record<RivalStyle, readonly string[]>> = {
-  power: ['engine-intake', 'body-cage', 'engine-cams', 'chassis-tyres', 'engine-highrev', 'body-bumpers', 'turbo-controller', 'turbo-intercooler', 'body-light', 'engine-fulltune', 'chassis-coilovers', 'body-windtunnel', 'turbo-big', 'turbo-antilag', 'chassis-rally', 'chassis-lsd'],
-  boost: ['turbo-controller', 'engine-intake', 'turbo-intercooler', 'body-cage', 'turbo-twin', 'engine-cams', 'chassis-tyres', 'turbo-antilag', 'engine-highrev', 'body-bumpers', 'engine-fulltune', 'body-light', 'chassis-coilovers', 'body-windtunnel', 'chassis-rally', 'chassis-lsd'],
+  power: ['engine-intake', 'body-cage', 'engine-cams', 'chassis-tyres', 'engine-highrev', 'body-bumpers', 'turbo-controller', 'turbo-intercooler', 'chassis-coilovers', 'body-light', 'chassis-rally', 'engine-fulltune', 'turbo-big', 'body-windtunnel', 'turbo-antilag', 'chassis-lsd'],
+  boost: ['turbo-controller', 'engine-intake', 'turbo-intercooler', 'body-cage', 'turbo-twin', 'engine-cams', 'chassis-tyres', 'body-bumpers', 'chassis-coilovers', 'engine-highrev', 'body-light', 'turbo-antilag', 'chassis-rally', 'engine-fulltune', 'body-windtunnel', 'chassis-lsd'],
   tough: ['body-cage', 'engine-intake', 'body-bumpers', 'chassis-tyres', 'engine-cams', 'body-armor', 'chassis-coilovers', 'engine-torque', 'turbo-controller', 'turbo-intercooler', 'chassis-rally', 'engine-fulltune', 'body-windtunnel', 'turbo-twin', 'turbo-antilag', 'chassis-lsd'],
 };
 /** Buy down the style's list within budget, skipping parts not yet unlockable. */
@@ -201,10 +201,10 @@ export interface PracticeField {
   readonly skills: readonly DriverSkill[]; readonly styles: readonly RivalStyle[];
 }
 export const PRACTICE_FIELDS: readonly PracticeField[] = [
-  { id: 'club', name: { ja: 'クラブ走行会', en: 'CLUB NIGHT' }, note: { ja: '仲間はノーマル車。まずはここから。', en: 'Your crew in stock cars. Start here.' }, prize: 100, budget: 0, skills: ['club'], styles: ['power'] },
+  { id: 'club', name: { ja: 'クラブ走行会', en: 'CLUB NIGHT' }, note: { ja: '仲間と常連、みんなノーマル車。まずはここから。', en: 'Your crew and the club regulars, all in stock cars. Start here.' }, prize: 100, budget: 0, skills: ['club', 'club', 'pro'], styles: ['power'] },
   { id: 'touge', name: { ja: '峠バトル', en: 'TOUGE BATTLE' }, note: { ja: '手を入れた車が混じる。', en: 'Some rivals have started tuning.' }, prize: 160, budget: 60000, skills: ['club', 'pro'], styles: ['power', 'tough', 'boost'] },
-  { id: 'championship', name: { ja: '選手権', en: 'CHAMPIONSHIP' }, note: { ja: '本気のチューンと本気の走り。', en: 'Serious builds, serious drivers.' }, prize: 240, budget: 180000, skills: ['pro'], styles: ['boost', 'power', 'tough'] },
-  { id: 'legends', name: { ja: '伝説の夜', en: 'LEGENDS' }, note: { ja: '完成した車と、峠の伝説たち。', en: 'Finished machines and touge legends.' }, prize: 340, budget: 400000, skills: ['pro', 'ace'], styles: ['power', 'boost', 'tough'] },
+  { id: 'championship', name: { ja: '選手権', en: 'CHAMPIONSHIP' }, note: { ja: '本気のチューンと本気の走り。', en: 'Serious builds, serious drivers.' }, prize: 240, budget: 170000, skills: ['pro'], styles: ['boost', 'power', 'tough'] },
+  { id: 'legends', name: { ja: '伝説の夜', en: 'LEGENDS' }, note: { ja: '完成した車と、峠の伝説たち。', en: 'Finished machines and touge legends.' }, prize: 340, budget: 205000, skills: ['pro', 'ace'], styles: ['power', 'boost', 'tough'] },
 ];
 export const practiceField = (id: FieldId): PracticeField => PRACTICE_FIELDS.find(field => field.id === id) ?? PRACTICE_FIELDS[0]!;
 /** Rivals for every slot except the player's, strongest builds spread through the grid. */
@@ -226,7 +226,7 @@ export function fieldRivals(id: FieldId, players: number, playerSlot: number): (
  * chapters run equal cars and pay no prize money, so story `chapter` values here and in
  * `raceAward`/`applyAward` are chapter ids.
  */
-export const STORY_REI = [0, 0, 10, 20, 35, 60, 100, 120, 120, 160, 160, 180] as const;
+export const STORY_REI = [0, 0, 10, 20, 35, 60, 100, 120, 140, 140, 220, 220] as const;
 export const STORY_TORU = [0, 0, 0, 10, 20, 30, 40, 50, 60, 70, 60, 100] as const;
 /** Story rivals tune up as the plot escalates; the crew drive stock cars. */
 export function storyRivals(chapter: number, players: number, playerSlot: number, reiSlot = 5, toruSlot = 7): (Rival | null)[] {

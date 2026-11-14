@@ -33,6 +33,16 @@ function noise(x: number, y: number): number {
  */
 export function terrainHeightAt(clearance: number, progress: number, side: number): number {
   if (!Number.isFinite(clearance) || !Number.isFinite(progress)) return GROUND_OFFSET;
+  return terrainBankAt(clearance, progress, side, terrainBankFactor(progress, side));
+}
+/** The part of `terrainHeightAt` that depends only on where along the road and which side: the longitudinal envelope
+ * times the course's relief. Ground that samples many points beside one road station computes it once. */
+export function terrainBankFactor(progress: number, side: number): number {
+  const signedSide = side < 0 ? -1 : 1;
+  return (0.72 + 0.28 * Math.sin(progress * 0.013 + signedSide * 2)) * (relief?.(progress, signedSide) ?? 1);
+}
+/** `terrainHeightAt` with its `terrainBankFactor` already found. */
+export function terrainBankAt(clearance: number, progress: number, side: number, factor: number): number {
   const distance = clamp(clearance, CLEARANCES[0], CLEARANCES.at(-1)!);
   let band = 0;
   while (band < CLEARANCES.length - 2 && distance > CLEARANCES[band + 1]!) band++;
@@ -43,14 +53,19 @@ export function terrainHeightAt(clearance: number, progress: number, side: numbe
     + (-2 * t3 + 3 * t2) * HEIGHTS[band + 1]!
     + (t3 - t2) * width * TANGENTS[band + 1]!;
   const signedSide = side < 0 ? -1 : 1;
-  const envelope = 0.72 + 0.28 * Math.sin(progress * 0.013 + signedSide * 2);
   // Low earth irregularity disappears with zero derivative at the preserved
   // control stations. It never creates ridges along the band boundaries.
   const blend = Math.sin(t * Math.PI) ** 2;
-  const relief = (noise(progress * 0.12 + signedSide * 41, distance * 0.24) - 0.5)
+  const roughness = (noise(progress * 0.12 + signedSide * 41, distance * 0.24) - 0.5)
     * Math.min(0.28, width * 0.025) * blend;
-  return profile * envelope + relief + GROUND_OFFSET;
+  return profile * factor + roughness + GROUND_OFFSET;
 }
+
+/** How the banks stand beside a road cut into a real hillside: a factor on the bank's height for each side at a
+ * progress. 1 is the plain bank, more a steeper hill, and a negative factor a slope falling away to a valley floor.
+ * It must vary smoothly along the road. The world sets it for the course it is drawing (null: both banks alike). */
+let relief: ((progress: number, side: -1 | 1) => number) | null = null;
+export function setTerrainRelief(shape: ((progress: number, side: -1 | 1) => number) | null): void { relief = shape; }
 
 type GroundMaps = { map: THREE.Texture; normalMap: THREE.Texture; roughnessMap: THREE.Texture; aoMap: THREE.Texture };
 const groundMaps = new Map<string, GroundMaps>();
@@ -113,6 +128,8 @@ float soraNoise(vec2 p) {
 
 /** `autumn` (0-1) lays late-autumn leaf litter over the moss, and dries its open lawns to straw (slope terrain of the
  * autumn routes only). */
+/** The banks' scanned moss and grass (vertex colours and `terrainBlend` attributes), for ground built elsewhere. */
+export const terrainGroundMaterial = (autumn = 0): THREE.MeshStandardMaterial => groundMaterial(autumn);
 function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
   const moss = groundScan('aerial_grass_rock'), grass = groundScan('sparse_grass');
   const material = new THREE.MeshStandardMaterial({ ...moss, color: '#ffffff',

@@ -1,5 +1,5 @@
 import { CONTROL } from '../rules';
-import { courseGap, courseHeading, sampleCourse, type DriveCourse } from './course';
+import { courseFirst, courseGap, courseHeading, courseLast, sampleCourse, type DriveCourse } from './course';
 import { clamp, cos, sin } from './dmath';
 import { damageEffects } from './damage';
 import { DRIFT_BEND, DRIVE_HZ, DriveStatus, roadWheel, steerTick, steeringCurvature, type DriveCar, type DriveRace } from './race';
@@ -24,20 +24,30 @@ export interface DriverSkill {
   /** Drifts through bends to charge the turbo when the car has drift charge. */
   readonly drift: boolean;
 }
+/** Skill levels, set by their race pace on a clear road: alone at Hakone a club driver takes 2:51, a pro 2:46 and
+ * an ace 2:44 in a stock car. Since the car's traction control and ABS leave the tyres their cornering grip
+ * (2026-11-13), a driver who brakes into a bend can no longer slide through it on the rear tyres, and the planner
+ * brakes for it sooner (`reachSpeed`): at the earlier 0.82/0.88/0.93 corner shares the drivers lost 3.8, 2.7 and
+ * 1.3 s there, while the keyboard reference drivers lost under 1.3 s and now shove past them through traffic (a
+ * stock rookie podiumed the story's opening night 98 times in 100). These shares restore each level's Hakone pace. */
 export const DRIVER_SKILLS = {
-  club: { corner: 0.82, brake: 0.72, lane: 0, boostAt: 1001, drift: false },
-  pro: { corner: 0.88, brake: 0.8, lane: 0, boostAt: 850, drift: false },
-  ace: { corner: 0.93, brake: 0.86, lane: 0, boostAt: 950, drift: true },
+  club: { corner: 0.87, brake: 0.72, lane: 0, boostAt: 1001, drift: false },
+  pro: { corner: 0.92, brake: 0.84, lane: 0, boostAt: 850, drift: false },
+  ace: { corner: 0.95, brake: 0.88, lane: 0, boostAt: 950, drift: true },
 } as const satisfies Record<string, DriverSkill>;
 
-interface RacingLine { readonly offset: Float64Array; readonly curvature: Float64Array; readonly step: number; readonly count: number; readonly periodic: boolean }
+export interface RacingLine {
+  readonly offset: Float64Array; readonly curvature: Float64Array; readonly step: number; readonly count: number; readonly periodic: boolean;
+  /** Where the line begins: 0 on a lap, before the start line on an Arcade road's lead-in. */
+  readonly first: number;
+}
 const lines = new WeakMap<DriveCourse, RacingLine>();
 
 /** Minimum-curvature line: relax the lateral offset towards d'' = −κ within the road, coarse to fine. */
 export function racingLine(course: DriveCourse): RacingLine {
   const cached = lines.get(course); if (cached) return cached;
   const count = course.stations.length - 1, periodic = course.topology === 'circuit';
-  const step = course.lapLength / count;
+  const first = periodic ? 0 : courseFirst(course), step = (periodic ? course.lapLength : courseLast(course) - first) / count;
   const kappa = new Float64Array(count), limit = new Float64Array(count), offset = new Float64Array(count);
   for (let i = 0; i < count; i++) {
     kappa[i] = (course.heading[i + 1]! - course.heading[i]!) / (course.stations[i + 1]! - course.stations[i]!);
@@ -65,27 +75,50 @@ export function racingLine(course: DriveCourse): RacingLine {
     }
     curvature[i] = Math.max(Math.abs(line), 0.8 * Math.abs(road)) / 3;
   }
-  const line = { offset, curvature, step, count, periodic };
+  const line = { offset, curvature, step, count, periodic, first };
   lines.set(course, line);
   return line;
 }
 
-function lineIndex(line: RacingLine, course: DriveCourse, s: number): number {
-  const position = course.topology === 'sprint' ? clamp(s, 0, course.lapLength) : s - course.lapLength * Math.floor(s / course.lapLength);
-  return Math.min(line.count - 1, Math.floor(position / line.step));
+/** Distance from the line's first station, within a lap or along a sprint's road. */
+function linePosition(line: RacingLine, course: DriveCourse, s: number): number {
+  return course.topology === 'sprint' ? clamp(s - line.first, 0, line.step * line.count) : s - course.lapLength * Math.floor(s / course.lapLength);
 }
-function lineOffset(line: RacingLine, course: DriveCourse, s: number): number {
-  const position = course.topology === 'sprint' ? clamp(s, 0, course.lapLength) : s - course.lapLength * Math.floor(s / course.lapLength);
-  const exact = position / line.step, i = Math.min(line.count - 1, Math.floor(exact)), t = exact - i;
+export function lineIndex(line: RacingLine, course: DriveCourse, s: number): number {
+  return Math.min(line.count - 1, Math.floor(linePosition(line, course, s) / line.step));
+}
+export function lineOffset(line: RacingLine, course: DriveCourse, s: number): number {
+  const exact = linePosition(line, course, s) / line.step, i = Math.min(line.count - 1, Math.floor(exact)), t = exact - i;
   const next = line.periodic ? (i + 1) % line.count : Math.min(i + 1, line.count - 1);
   return line.offset[i]! + (line.offset[next]! - line.offset[i]!) * t;
 }
 
 /** Fastest speed the driver allows through a path curvature, with downforce. */
-function cornerSpeed(spec: VehicleSpec, mu: number, kappa: number): number {
+export function cornerSpeed(spec: VehicleSpec, mu: number, kappa: number): number {
   const k = Math.abs(kappa), grip = mu * 9.81;
   const denominator = k - grip * spec.downforce / 5184;
   return denominator <= 1e-6 ? 200 : Math.sqrt(grip / denominator);
+}
+
+/** The fastest speed (m/s) from which the car can still slow for every bend within braking reach, on a path whose
+ * curvature (1/m) `ahead` metres up the road is `curvature(ahead)`. `grip` is the tyres' friction on this surface,
+ * `corner` the share of it the driver uses in a bend and `effort` the share of the braking they dare. Braking shares
+ * the tyres' grip with cornering and must leave the rear axle its load, as the car's ABS and cornering brake control
+ * do (race.ts), so the driver slows for a tightening bend before it, on what its first part leaves. */
+export function reachSpeed(spec: VehicleSpec, grip: number, corner: number, effort: number, speed: number, step: number, curvature: (ahead: number) => number): number {
+  const mu = grip * corner, air = (v: number) => 1 + spec.downforce * v * v / 5184, drag = (v: number) => spec.drag * v * v / spec.mass;
+  const reach = speed * speed / (2 * (0.78 * mu * 9.81 * air(speed * 0.7) + drag(speed * 0.7)) * effort) * 1.5 + speed * 0.3 + 10;
+  // The driver reacts a fifth of a second late: the speed that matters is the one allowed that far ahead.
+  const react = speed * 0.2;
+  let allowed = spec.boostTopSpeed, target = allowed;
+  for (let j = Math.ceil(reach / step); j >= 0; j--) {
+    const kappa = Math.abs(curvature(j * step)), lateral = allowed * allowed * kappa, budget = mu * 9.81 * air(allowed);
+    const stable = Math.max(3, spec.cgToFront / spec.cgHeight * (9.81 * air(allowed) - lateral / (0.85 * 1.06 * grip)));
+    const brake = (Math.min(0.78 * Math.sqrt(Math.max(0, budget * budget - lateral * lateral)), stable) + drag(allowed)) * effort;
+    allowed = Math.min(cornerSpeed(spec, mu, kappa), spec.boostTopSpeed, Math.sqrt(allowed * allowed + 2 * brake * step));
+    if (j * step <= react + step && allowed < target) target = allowed;
+  }
+  return target;
 }
 
 interface Memory { stuckTicks: number; reverseTicks: number; reverseSteer: number; offset: number }
@@ -128,15 +161,7 @@ export class DriveAI {
     const mu = spec.grip * effects.grip * (rain ? spec.rainGrip : 1) * skill.corner;
     // Target speed: the slowest corner within braking reach.
     const speed = Math.max(car.u, 0);
-    // ABS holds the axles a little below lock; drag helps at speed.
-    const decel = (v: number) => (0.78 * mu * 9.81 * (1 + spec.downforce * v * v / 5184) + spec.drag * v * v / spec.mass) * skill.brake;
-    const reach = speed * speed / (2 * decel(speed * 0.7)) + speed * 0.3 + 10;
-    let target = spec.boostTopSpeed;
-    for (let ahead = 0; ahead <= reach; ahead += line.step) {
-      const corner = cornerSpeed(spec, mu, line.curvature[lineIndex(line, course, car.s + ahead)]!);
-      const allowed = Math.sqrt(corner * corner + 2 * decel(corner) * Math.max(0, ahead - speed * 0.2));
-      if (allowed < target) target = allowed;
-    }
+    let target = reachSpeed(spec, mu / skill.corner, skill.corner, skill.brake, speed, line.step, ahead => line.curvature[lineIndex(line, course, car.s + ahead)]!);
     // Grinding along a rail at speed: lift until the tyres can pull the car off it.
     const railRoom = sampleCourse(course, car.s).halfWidth + course.railOffset - spec.halfWidth - Math.abs(car.d);
     const lift = car.wall && railRoom < 0.3 && speed > 20;
@@ -196,10 +221,14 @@ export class DriveAI {
     let input = steering;
     if (speed > target + 0.6) input |= CONTROL.brake;
     else if (speed < target - 0.2 && !lift) input |= CONTROL.throttle;
-    // With drift charge, drift through each bend while steering into it, banking boost for the straight.
+    // With drift charge, drift through each bend while steering into it, banking boost for the straight: only where
+    // the front tyres alone could hold the bend, because under power the sliding tail holds almost nothing (on real
+    // mountain roads, drifting the bends taken at the limit cost more time than the boost won back).
     const bend = sampleCourse(course, car.s).kappa;
+    const front = spec.cgToRear / (spec.cgToFront + spec.cgToRear);
     const charging = skill.drift && spec.driftCharge > 0 && !car.boosting && car.energy < 1000 - spec.boostRecharge && speed > 25
-      && Math.abs(bend) >= DRIFT_BEND && Math.sign(desired) === Math.sign(bend) && !blocked && (input & CONTROL.throttle) !== 0;
+      && Math.abs(bend) >= DRIFT_BEND && Math.sign(desired) === Math.sign(bend) && !blocked && (input & CONTROL.throttle) !== 0
+      && cornerSpeed(spec, mu * front, sharpest) > speed;
     // Boost on a clear straight, or past a car once nothing is in the way for a second, once enough energy is banked, and keep a burst going.
     const clearPath = passing && !race.cars.some(other => other !== car && race.solid(other) && Math.abs(other.d - car.d) < 2.4
       && courseGap(course, car.s, other.s) > -2 && courseGap(course, car.s, other.s) < Math.max(30, speed * 1.2));

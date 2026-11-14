@@ -5,7 +5,7 @@ import { publishedStreetBundle } from './helpers/published-street';
 import { createUrbanGround } from '../src/game/three/urban-ground';
 import { createGroundHeightSampler } from '../src/game/three/ground-sampler';
 import { createPeriodCityLayout, moatWidth, MOAT, periodCityGroundCut, periodCityOpenRuns, periodCityPlantingClear,
-  periodCityChunksNear, poseAt, TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, type PeriodDistrict, type PeriodFootprint,
+  periodCityChunksNear, poseAt, TOKYO_1986_CROSSINGS, tokyoDistrictAt, type PeriodDistrict, type PeriodFootprint,
   type PeriodSide } from '../src/game/three/period-city/layout';
 import { CityMeshBuilder } from '../src/game/three/period-city/geometry';
 import { buildLot, type CityFixture } from '../src/game/three/period-city/buildings';
@@ -23,7 +23,10 @@ import { SORA_NEON, SORA_NOBORI, VNEON_TOP_V, verticalCharacter } from '../src/g
 import { PeriodSky } from '../src/game/three/period-city/sky';
 import { awningFor, NOREN_COUNT, NOREN_HEIGHT, norenFor, norenPrint, norenWidth } from '../src/game/three/period-city/awnings';
 import { TRACKS, curvature } from '../src/game/rules';
-import { arcadeDistrictAt, ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, TOKYO_1986_LANDMARKS, TOKYO_1986_STREET, landmarkFootprint, seeded } from '../src/game/three/period-city/layout';
+import { arcadeDistrictAt, ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, TOKYO_1986_LANDMARKS, TOKYO_1986_STREET, landmarkFootprint,
+  periodCityRouteFrame, seeded } from '../src/game/three/period-city/layout';
+import { arcadeRoadHeight } from '../src/game/arcade-geography';
+import { arcadeDriveCourse, courseDrawing } from '../src/game/drive/course';
 
 const published = publishedStreetBundle();
 const samples = published.track.samples;
@@ -37,10 +40,7 @@ const sectorAt = (p: number) => {
   for (const s of samples) { if (s.progressMm! / 1000 > p) break; sector = s.sector!; }
   return sector;
 };
-const districtAt = (p: number, side: PeriodSide): PeriodDistrict => {
-  const row = TOKYO_1986_DISTRICTS[sectorAt(p)]!;
-  return side < 0 ? row.right : row.left;
-};
+const districtAt = (p: number, side: PeriodSide): PeriodDistrict => tokyoDistrictAt(sectorAt(p), ((p % course.length) + course.length) % course.length, side);
 const open = periodCityOpenRuns(course, districtAt);
 const cut = periodCityGroundCut(course, open, TOKYO_1986_CROSSINGS);
 const ground = createUrbanGround(poses, new THREE.MeshBasicMaterial(), cut);
@@ -233,18 +233,25 @@ test('far lights: the shopping street keeps its lamps, lanterns and box signs as
 });
 
 // Arcade: the same presentation geometry RaceWorld builds (three laps unrolled).
-function arcade(id: number) {
+/** An Arcade course as the world draws it: on its real road (local races), or on RaceV1's bends (live races). */
+function arcade(id: number, bends: 'real' | 'race' = 'real') {
   const track = TRACKS[id]!, poses: { p: number; x: number; y: number; z: number; heading: number; width: number }[] = [];
-  let x = 0, z = -100, heading = 0;
-  for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
-    poses.push({ x, y: 0, z, heading, width: 6, p });
-    heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
-    x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
+  if (bends === 'real') poses.push(...courseDrawing(arcadeDriveCourse(id)));
+  else {
+    let x = 0, z = -100, heading = 0;
+    for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
+      poses.push({ x, y: arcadeRoadHeight(id, p), z, heading, width: 6, p });
+      heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
+      x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
+    }
   }
   const arcadeCourse = { length: track.length / 1000 * 3, circuit: false, poses };
   const districtAt = (p: number, side: PeriodSide) => arcadeDistrictAt(id, p, side);
-  return { course: arcadeCourse, layout: createPeriodCityLayout(arcadeCourse, { districtAt, groundHeightAt: () => -.08,
-    crossings: ARCADE_1986_CROSSINGS[id], landmarks: ARCADE_1986_LANDMARKS[id] }) };
+  const frame = periodCityRouteFrame(arcadeCourse, 120);
+  // As the world lays it: the level strip and the banks beside the road, at the road's own height.
+  const groundHeightAt = (px: number, pz: number) => { const at = frame(px, pz); return at ? poseAt(arcadeCourse, at.p).y - .08 : null; };
+  return { course: arcadeCourse, layout: createPeriodCityLayout(arcadeCourse, { districtAt, groundHeightAt,
+    crossings: ARCADE_1986_CROSSINGS[id], landmarks: ARCADE_1986_LANDMARKS[id], street: ARCADE_1986_STREET[id] }) };
 }
 
 test('Arcade towns: onsen Hakone, harbour Yokohama and old Nikko, clear of the road and of each other', () => {
@@ -263,11 +270,27 @@ test('Arcade towns: onsen Hakone, harbour Yokohama and old Nikko, clear of the r
       const t = THREE.MathUtils.clamp(corner.clone().sub(new THREE.Vector2(a.x, a.z)).dot(d) / d.lengthSq(), 0, 1);
       assert.ok(corner.distanceTo(new THREE.Vector2(a.x + d.x * t, a.z + d.y * t)) >= 6 + 1.67, `track ${id}: ${lot.id} reaches the road`);
     }
-    // Forests and quays stay open; landmarks keep their ground.
+    // Forests and quays stay open; landmarks keep their ground, clear of every stretch of the real road (Hakone's turns
+    // back on itself at Ōhiradai); a pier runs out from the road's own edge.
     for (const lot of l.lots) assert.ok(!['forest', 'quay'].includes(lot.district));
     for (const landmark of l.landmarks) {
       const f = landmarkFootprint(c, landmark);
       assert.ok(l.lots.every(lot => separated(lot.footprint, f)), `track ${id}: a lot stands on the ${landmark.kind}`);
+      if (landmark.kind === 'osanbashi') continue;
+      for (const corner of corners(f)) for (let i = 1; i < c.poses.length; i++) {
+        const a = c.poses[i - 1]!, b = c.poses[i]!, d = new THREE.Vector2(b.x - a.x, b.z - a.z);
+        const t = THREE.MathUtils.clamp(corner.clone().sub(new THREE.Vector2(a.x, a.z)).dot(d) / d.lengthSq(), 0, 1);
+        assert.ok(corner.distanceTo(new THREE.Vector2(a.x + d.x * t, a.z + d.y * t)) >= 6, `track ${id}: the ${landmark.kind} reaches the road near ${a.p.toFixed(0)} m`);
+      }
+    }
+  }
+  // Live races draw RaceV1's bends on the same places: their towns stand clear of that road too.
+  for (const id of [0, 1, 2]) {
+    const { course: c, layout: l } = arcade(id, 'race');
+    for (const lot of l.lots) for (const corner of corners(lot.footprint)) for (let i = 1; i < c.poses.length; i++) {
+      const a = c.poses[i - 1]!, b = c.poses[i]!, d = new THREE.Vector2(b.x - a.x, b.z - a.z);
+      const t = THREE.MathUtils.clamp(corner.clone().sub(new THREE.Vector2(a.x, a.z)).dot(d) / d.lengthSq(), 0, 1);
+      assert.ok(corner.distanceTo(new THREE.Vector2(a.x + d.x * t, a.z + d.y * t)) >= 6 + 1.67, `RaceV1 track ${id}: ${lot.id} reaches the road`);
     }
   }
   const harbour = arcade(1).layout;
@@ -276,14 +299,15 @@ test('Arcade towns: onsen Hakone, harbour Yokohama and old Nikko, clear of the r
 });
 
 test('Arcade chunks build finite geometry, landmarks included', () => {
-  for (const id of [1, 2]) {
+  for (const id of [0, 1, 2]) {
     const { layout: l } = arcade(id);
-    for (const p of [...l.landmarks.map(x => x.p), ...l.crossings.map(x => x.p)]) {
+    // A landmark fills its chunk; a gorge under a forest road is a few faces of water and rock.
+    for (const [p, least] of [...l.landmarks.map(x => [x.p, 200] as const), ...l.crossings.map(x => [x.p, 4] as const)]) {
       const key = Math.floor(p / l.chunkLength), lots = l.chunks.get(key) ?? [];
       const builder = new CityMeshBuilder(lots[0]?.x ?? 0, lots[0]?.z ?? 0);
       for (const lot of lots) buildLot(builder, lot, []);
       buildOpenGround(builder, l, key * l.chunkLength, (key + 1) * l.chunkLength);
-      assert.ok(builder.triangles > 500, `track ${id} chunk ${key} drew its landmark`);
+      assert.ok(builder.triangles > least, `track ${id} chunk ${key} drew its landmark`);
       for (const geometry of builder.finish().values()) {
         const position = geometry.getAttribute('position');
         for (let i = 0; i < position.count; i++) assert.ok(Number.isFinite(position.getX(i) + position.getY(i) + position.getZ(i)));
@@ -308,7 +332,8 @@ test('1986 landmarks keep clear of the route and of every lot', () => {
   for (const l of tokyo.landmarks) {
     const key = Math.floor(l.p / tokyo.chunkLength), builder = new CityMeshBuilder(0, 0);
     buildOpenGround(builder, tokyo, key * tokyo.chunkLength, (key + 1) * tokyo.chunkLength);
-    assert.ok(builder.triangles > 200, `the ${l.kind} drew`);
+    // The clock tower and the stone lighthouse are slender monuments of a few dozen faces.
+    assert.ok(builder.triangles > 30, `the ${l.kind} drew`);
     for (const geometry of builder.finish().values()) geometry.dispose();
   }
 });

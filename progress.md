@@ -6314,6 +6314,16 @@ User asked: "for the garage parts, it needs to be clearer what the effects are".
 - 135 of 136 graphics and city tests pass; the failing Arcade landmark test and the `tsc` errors are in period-city layout files another session is editing. Fourteen scenes drawn from the real page without errors. Nothing committed.
 - Still open: wall and pavement detail (leaf shadows, tile joints), dry asphalt texture, Wakakusa's lawn, tree crown detail, Tokyo dusk's road, Tokyo night's streak count and colour variety. Cutscene parity is not claimed; the user has not judged these sheets yet.
 
+## 2026-11-11 — Race maps set on their real 1986 roads
+
+- User: "make the race maps more realistic about the areas they are geographically placed in for 1986. look at old maps and photographs online … also keep in mind slopes and hills".
+- Checked every route against the GSI elevation model: the four local routes match within a metre on average, Tokyo within 2.6 m (7 m at worst), and the three Arcade courses were level with no real order. Research (GSI 1984–86, 1974–78 and 1988–90 aerials, maps, OpenStreetMap, published histories) is in `world/research/arcade/` and `world/research/routes/tokyo-1986.md`.
+- Arcade courses now follow one real road each at true scale (`src/game/arcade-geography.ts`): Route 1 from Hakone-Yumoto to Miyanoshita (95 → 415 m), Yokohama's waterfront from Shinkō Pier to Honmoku's Symbol Tower, and Routes 119/120 from the JNR Nikkō station to Kiyotaki (532 → 707 m). The local driving model and the world read the same heights; RaceV1's bends and live arithmetic are unchanged. Eight AI cars finish within 0.5 s of their level-road times.
+- Places in real order with each landmark on its own side (`ARCADE_1986_STRETCHES`), hill on one side and valley on the other (`setTerrainRelief`), far mountains at real bearings (no Mt. Fuji on Route 1), and new structures: Kanrei-dōmon, the tied-arch bridges, the Tozan Railway's girder at Deyama, the Yamashita Rinkō viaduct. New landmarks: Hakone-Yumoto station (1974), the red-brick warehouse, the Symbol Tower (July 1986), Tōbu Nikkō station, Nikkō City Hall. Cherries on Sakura Pass only where plausible.
+- Tokyo: road table untouched (ledger member). Corrected to 1986: Justice Ministry roof, unlit Diet, Police and Justice in their real order, Hibiya Park and the Diet front garden on their true sides, eight missing buildings added.
+- `?arcade=abstract` restores the level courses. Before and after sheets: `output/real-roads-20261111/`. New tests: `tests/arcade-geography.test.ts` (6); period-city, drive, street-routes and slope-lawn suites pass.
+- Not changed, for the user to decide: Tokyo's road heights (needs the native table regenerated), the harbour's far tower skyline (cutscene art, not 1986), snow on Midnight Circuit and spring on Sakura Pass in a story set in August.
+
 ## 2026-11-11 — Graphics finish pass, second round (kerbs, pavements, dry asphalt, streaks)
 
 - User, on the first round's sheets: "Yes, continue". Sheets `output/finish-20261111/review/07-night-and-dusk.png`, `08-day-and-dawn.png`, `09-kerb-paving-asphalt-closeups.png`; each before/after pair comes from one capture run.
@@ -6331,6 +6341,16 @@ User asked: "for the garage parts, it needs to be clearer what the effects are".
 - 143 graphics and city tests pass (new `tests/finish-pass-lights.test.ts`); `tsc` clean. Nothing committed.
 - Still open: leaf shadows on Sarusawa's temple wall, horizon mountains at Sanjō, Sarusawa and Aizu, tree crowns, parked cars, Wakakusa's basin view.
 
+## 2026-11-11 (later) — Second accuracy pass for 1986
+
+- User: "keep going and make it more accurate fr 1986".
+- Garage balance re-measured on the hills (18,096 races): parts' measured gains moved by at most 0.4 s a race (`RACE_GAINS`); every garage-balance and story-pit test passes.
+- Tokyo: every landmark re-placed by projecting its real OpenStreetMap position onto the route; open ground sampled every 20 m (Hayabusachō forecourts, Diet front garden, ministries instead of moat along Sakurada-dōri, Hibiya Park). Yasukuni's first torii at its real place and size in weathering steel; Budokan and Hotel Grand Palace set back where they stand; Palace Hotel and Yūsen Building added; palace gates and Nijūbashi unlit; Tokyo Tower in the 1986 seven-band scheme with an orange main deck.
+- Railways of 1986 streets: Keihan's level crossing and Shijō platforms on Shijō-dōri (underground May 1987), the Keishin trams' track on Sanjō-dōri (to 1997), the JNR crossing at Nara station (to 2008).
+- Yokohama: far shore lowered from a tower wall to the 1986 waterfront; Hikawa Maru in her 1986 marine blue with NYK's funnel; Yamashita Park's sea wall; Silk Center, Ōsanbashi with its 1964 terminal, the Bund Hotel's blue neon.
+- Hakone: Tōnosawa's wooden ryokan (Fukuzumirō, Kansuirō, Ichinoyu) and Shin-Asahi-bashi. Nikkō: the Tarō-sugi and the Tamozawa villa's wall and gate. Kyoto Tower's red drum underside.
+- Still for the user to decide: Tokyo's road table (ledger member; heights within 2.6 m, line 40–220 m off), real hairpins on the Arcade roads (RaceV1's bends), and the Arcade seasons in an August story.
+
 ## 2026-11-11 — Graphics finish pass, fourth round (far ridges)
 
 - User: "go". Sheet `output/finish-20261111/review/13-far-ridges.png` (before/after pairs from one capture run each).
@@ -6338,6 +6358,16 @@ User asked: "for the garage parts, it needs to be clearer what the effects are".
 - Visible at Sarusawa's road end and in Irohazaka's range across the valley. Flicker unchanged at Sarusawa (3.30%); Irohazaka's mountain region 4.03% to 4.37%.
 - Tried and reverted: slope terrain falling to the real ground at Wakakusa's summit (its slopes read as a lake), a darker haze, a basin patchwork.
 - Still open: temple-wall leaf shadows (needs its own wall material), Aizu's maroon Bandai silhouette, Nara Park's painted ridge, the low horizon glow, tree crowns, parked cars. Nothing committed.
+
+## 2026-11-11 — Arcade courses on their real roads' bends
+
+- User: "go" (to "Should the Arcade courses also take their real roads' bends and hairpins?").
+- Local practice and story races now run each Arcade course on its real road's plan, not only its heights: Route 1's 4,416° of bends with the Ōhiradai hairpin (legs 28 m apart), Yokohama's corners and the sharp left at Kominato, Nikkō's turn at Shinkyō. `scripts/build-arcade-geography.ts` smooths each traced road (σ 7.5 m), eases it to no tighter than a 15 m radius and writes a heading every 5 m to `src/game/generated/arcade-roads.json`; the driving model runs it as one stretch of road with a 100 m lead-in (`drive/course.ts`), and the world draws exactly that course (`courseDrawing`).
+- Live and staked races keep RaceV1's bends, drawn on the same heights and places. Nothing has launched, so the level courses (`?arcade=abstract`) and replays saved on the old bends were removed rather than kept compatible (the user: "there are no live races… no need for backwards compatibility").
+- Yokohama re-traced: the first trace ran down two side streets and back and along a residential lane. The new one keeps to main roads (the tracer now weights road classes, follows one-way carriageways and can leave out post-1986 roads) and starts at Sakuragichō station. Its places moved onto the new route, and new 1986 buildings from research: JNR Sakuragichō's 1927 station, the Dai-Ichi Bank's colonnade, the Specie Bank's dome (prefectural museum), the Silk Conditioning House, the Honchō 4-chōme footbridge and the Kisha-michi freight crossing into Shinkō.
+- Ground on the real plan is one grid round the whole road with the asphalt cut out and edges clipped at water and gorges (`three/arcade-ground.ts`), so hairpins cannot fold it. Far mountains stand at their real summits (`arcadeFramePoint`), clear of both plans. The HUD's corner cue reads the real bends; the garage's course lines describe the real roads.
+- Play: races now take 2:44–2:56 (Hakone), 2:24–2:38 (Yokohama), 1:23–1:30 (Nikkō) for eight stock cars, up to five minutes allowed; every AI car finishes. The keyboard reference drivers now brake for the bends they see (rookie 5% optimistic, regular 3%); at the street routes' 15% the rookie wrecked on Hakone every time, and at 7% a regular's Act 3 car did. Sample story campaigns on the crew's picks: a regular clears every chapter first time (but now beats Rei by 4–5 s in Act 3, where the design keeps it under 2 s); a rookie clears Yokohama and Nikkō but wrecks its tuned car at Hakone, needing up to 14 tries at chapter 6 and stalling at chapter 9 on one seed. The story needs a balance pass for the real roads (crew picks for Hakone, rivals, rail damage) and then the full re-measure (`npm run balance:garage`); until then the stored report is the hills-only one and `garage-balance.test.ts` fails its fingerprint check.
+- Before/after sheets: `output/real-bends-20261111/`. Nothing committed.
 
 ## 2026-11-11 — Graphics finish pass, fifth round (temple wall shade, painted ranges)
 
@@ -6363,3 +6393,22 @@ User asked: "for the garage parts, it needs to be clearer what the effects are".
 - Aizu's and Kyoto's dusk clouds no longer take the afternoon's warm bodies: dark violet masses with rose undersides as in their repaints (brightest tenth L 0.71/0.63 to 0.64/0.53; repaints 0.50/0.47).
 - Tried and dropped: halo tuning (the cutscenes' look), crown glints, crown highlight ceiling, painted-ridge faces.
 - Fixed a sky shader break from this round's own edit, and added a test against it. 122 tests pass; `tsc` clean. Nothing committed.
+
+## 2026-11-12 — Garage and story rebalanced for the real roads
+
+- User: "Yes, rebalance" (after the Arcade courses took their real bends), then "there are no live races. this didn't launch yet so there is no need for backwards compatibility".
+- Why it was needed: below about 170 km/h the stock car is held by its rear tyres, not its engine. On Hakone 4% more grip saved ~3 s a race and 4% more top speed nothing; Nikkō runs flat out 60% of the race. The old tree priced tyres at ¥6k (13× the intake's value per yen), its engine and boost parts barely moved a Hakone time, and a rookie on the crew's picks (intake first) needed nine tries at the first Hakone night.
+- Driving model, tuned cars only (stock cars bit-identical): launch traction is a friction ellipse, so extra pull no longer takes the rear tyres' cornering grip (past ~8% AI cars slid out of Hakone's bends and lost time); aces drift-charge only where their front tyres alone hold the bend (drifting every bend cost ~1 s at Hakone).
+- Tree (`garage-tech.ts`): every part re-measured on the real roads and priced by value per tier, grip dearer and boost cheaper (tyres ¥12k, coilovers ¥22k, rally ¥50k, armour ¥21k; controller ¥8k, intercooler ¥9k, turbines ¥25–27k, anti-lag ¥70k; full table in `docs/garage-tech-tree.md`). Forks re-cut so each splits its drivers on these roads: torque six = low-speed pull, high-rev six = top speed with a harder rail scrape; touge = tarmac and rain grip plus drift charge, rally = rails and pull. Capstones carry real gains (full-tune pull, LSD traction, wind-tunnel downforce). Bilingual part notes updated.
+- Crew plans and tips (`story-pit.ts`): Yui's Hakone plan starts with sport tyres ("tyre grip and pull out of the corners"), Daichi's Yokohama plan with cage and tyres, Jun's Nikkō plan with boost and engine ("the straight is where the time is"); all take the torque, rally and armour options.
+- Fields and story: Championship and Legends rivals built from ¥160k (on these roads a ¥300k car has every part that pays); two of club night's seven regulars drive as pros; Rei's Act 3 budgets ¥160/160/220/220k. The rescue check moved from the first harbor night (a stock rookie now clears it every time) to Hakone's opening night. The equal-cars story check got its own all-stock crew grid.
+- Results (full report, 25k races, 26 min): every garage-balance and story-pit test passes. Tiers within 1.7–2.7× across branches; a finished car 9.4–9.9% faster on Hakone, 12.4–13.5% in Yokohama, 13.5–14.7% at Nikkō; Hakone's opening night 79% with Yui's tyres against 26% stock and 38% cheapest-first; rookies on the picks finish the story in 12.3 races, stock rookies stall on Hakone and at the showdown; in Act 3 a regular on the picks beats Rei by 0.6 s, casual shoppers lose by 0.9–1.4 s, a rookie by 3.2 s. `RACE_GAINS` updated.
+- Not done: live RaceV1 races still run their 12-segment bends (Iroha's native rules and STARK proofs); moving them to the real roads is a separate cross-repo task. Nothing committed.
+
+## 2026-11-13 — Pedals in a bend, steering and the garage re-measured
+
+- User: "Tune steering", after rejecting a co-driver that braked and steered for the player ("the player drives directly"). Nothing between the keys and the car.
+- Pedals keep cornering grip (`drive/race.ts`): traction control and ABS give the pedals only what is left of each axle's friction circle (never under 15% / 25% of its grip), and cornering brake control caps braking so the rear keeps the load the bend needs. A lone ace AI at Hakone slid for 1 s of a race instead of 41 s and touched the rails 21 times instead of 63. AI skills raised to restore each level's pace (`DRIVER_SKILLS` club 0.87, pro 0.92, ace 0.95): eight stock cars take 2:44–2:56 at Hakone.
+- Steering (`steerSubstep`): a released key straightens the wheel in a twentieth of a second (was a sixth), and turning into a bend the wheel winds on to half again as far as the road turns plus a tenth. Simulated new players on Hakone: rail contacts 11.5 to 8.8 a kilometre, crossings to the other rail 5.4 to 2.1, hard hits 6.4 to 2.3.
+- Re-measured garage (`tests/fixtures/garage-balance.json`, `RACE_GAINS`) and re-priced: boost controller ¥7k, high-rev six ¥18k, big turbine ¥25k, steel armour ¥25k, rally ¥56k; Championship rivals from ¥170k, Legends from ¥205k; Rei's first two Act 3 cars ¥140k. Hakone's opening night: a stock rookie podiums 20%, 85% with Yui's tyres; in Act 3 a regular on the crew's picks beats Rei by 0.3 s. Details in docs/driving-model.md and docs/garage-tech-tree.md.
+- 2026-11-15 integration check on the combined tree (real roads, this handling, graphics rounds): the balance fingerprints still match, so the report was not regenerated; 66 balance, part-card, garage, story, drive, real-road and street-route tests pass.

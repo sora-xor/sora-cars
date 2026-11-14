@@ -39,21 +39,29 @@ stock tune gives exactly the stock car.
 - **Engine and brakes.** A power-limited rear drive with traction control
   (off while drifting), a rev limiter at the tune's top speed, a boost that
   adds power and raises the limiter, engine braking off the throttle, and
-  front-biased brakes with ABS that leaves the tyres able to steer. Holding
+  front-biased brakes with ABS. Traction control and ABS give the pedals only
+  the grip that cornering is not using (see "Pedals in a bend" below). The
+  garage's launch traction stretches the rear tyres' grip for pulling the car
+  forward below 160 km/h, as a friction ellipse: traction control keeps the
+  same share of the longer reach, so the extra pull leaves cornering grip as it
+  was. (When it raised traction control's limit instead, past about 8% the rear
+  tyres had no grip left for cornering under power, and AI cars slid out of
+  Hakone's bends: more traction made them slower.) Holding
   the brake at a standstill selects reverse, so a spun car can back out.
 - **Steering.** The held key asks for a path curvature: at speed, the tyres'
   cornering limit, so full lock corners as hard as the car can. Keys are all
   or nothing, so how fast the wheel winds on is the keyboard's sensitivity: a
   third of a second to full lock at town speeds, about 0.6 s at 100 km/h and
-  1.1 s at 250 km/h. It always unwinds in a sixth of a second. A tap is a
-  small correction and only a held key corners at the limit: on a straight at
-  120 km/h a 0.1 s tap turns the car half a degree, 0.3 s about 4.5° and 0.5 s
-  13°; at 250 km/h 0.2°, 1.7° and 5°; a second held at 50 km/h still turns it
-  almost 90°. When the wheel wound on in a fifth of a second, a 0.3 s press at
-  120 km/h turned the car 12° at nearly 4 g. Turning into a bend, the wheel
-  still winds on that quickly as far as the road itself turns over the next
-  half second (`roadWheel`), then slowly again; turning against the bend, it
-  stays slow. With the slow wheel alone it reached a fast bend after the bend
+  1.1 s at 250 km/h. Released, it is straight again in a twentieth of a second,
+  so the car stops turning when the key comes up. A tap is a small correction
+  and only a held key corners at the limit: on a straight at 120 km/h a 0.1 s
+  tap turns the car half a degree, 0.3 s about 4.5° and 0.5 s 13°; at 250 km/h
+  0.3°, 2.2° and 5.6°; a second held at 50 km/h turns it about 90°. When the
+  wheel wound on in a fifth of a second, a 0.3 s press at 120 km/h turned the
+  car 12° at nearly 4 g. Turning into a bend, the wheel winds on quickly to half
+  again as far as the road itself turns over the next half second, and a tenth
+  further (`roadWheel`), then slowly again; turning against the bend, it stays
+  slow. With the slow wheel alone it reached a fast bend after the bend
   did: the garage's keyboard reference drivers ran wide into the rails at
   Tokyo's 160–200 km/h bends (twice the damage) and lost a second a race on
   the Harbor Run. Naive simulated keyboard players (0.2–0.27 s reactions,
@@ -81,9 +89,111 @@ stock tune gives exactly the stock car.
   In a drift, and while the car gathers itself after one, it instead holds
   the slide the steering asks for and damps its swing.
 
+**Pedals in a bend.** The cornering the car is doing (its speed times its yaw
+rate) takes grip from each axle in proportion to the weight it carries.
+Traction control gives the engine 92% of what is left of the rear tyres'
+friction circle, and ABS gives the brakes 85% of what is left of the fronts'
+and 70% of the rears', never less than 15% (power) or 25% (brakes) of an
+axle's grip, so a car past the limit can still slow down. Cornering brake
+control then caps the total: braking moves load off the rear axle, which is
+holding the tail in the bend, so the brakes work only as hard as leaves the
+rear tyres the load that cornering needs (at least 3 m/s²; a car already
+sideways brakes with everything). In a straight line nothing changes.
+
+Until 2026-11-13 the shares were fixed: 92% of the rear tyres for power and
+85% of the fronts for braking, whatever the car was doing. Full throttle then
+left the rear tyres 39% of their cornering grip, and the brake in a bend spun
+the car. With an ace AI steering a 40 m bend at 90 km/h, 1.2 s of brake swung
+the car 92° sideways; it now slows to 43 km/h within 0.2 m of its line and 7°
+of sideslip. A lone ace AI slid (more than 4 m/s sideways) for 41 s of a
+164 s race at Hakone, touched the rails 63 times and ran 2.9 m off its line
+on average; it now slides for 1 s, touches them 21 times and stays within
+1 m, and a club driver's 14 s of sliding and 22 touches became 0.1 s and 4.
+The AI drivers paid for it in pace: they could no longer brake late into a bend
+and slide through it, and their planner now brakes for it sooner (below). At
+their earlier skill levels a lone club driver lost 3.8 s at Hakone (170.7 to
+174.5 s), a pro 2.7 s and an ace 1.3 s, and up to 1.1 s on the faster courses,
+while the keyboard reference drivers lost at most 1.3 s and, in a car that no
+longer spun when bumped, shoved past them through traffic: a stock rookie
+podiumed the story's opening night 98 times in 100, where it had 26 times. The
+skill levels were raised to restore each level's Hakone pace (`DRIVER_SKILLS`:
+club 0.87, pro 0.92 and ace 0.95 of the tyres' cornering limit, from 0.82,
+0.88 and 0.93), which leaves a stock rookie 29% of opening-night podiums.
+
 Integration runs four 120 Hz substeps per 30 Hz tick in road (Frenet)
 coordinates: progress, lateral offset and heading relative to the road, using
 the same stations the 3D world draws, so cars appear exactly where they are.
+
+**Hills.** Gravity acts along the road's grade. The street routes take it from
+their compiled heights; the Arcade courses from the real roads they are set on
+(`src/game/arcade-geography.ts`; Midnight Circuit climbs 320 m up Route 1 at up
+to 9%, Sakura Pass 175 m). Live races keep RaceV1, which has no heights.
+
+**Real bends.** Since 2026-11-11 a local Arcade race runs on its real road's
+plan: one stretch of road (`topology: 'sprint'`) from 100 m before the start
+line to the end of the run-off, with a heading every 5 m (Hakone turns 4,416°,
+down to a 15 m radius at the Ōhiradai hairpin). Its three laps are distances
+along it, its grid stands behind the line on the lead-in, and it may run five
+minutes (`ARCADE_REAL_MAX_TICKS`): eight stock cars take 2:44–2:56 at Hakone,
+2:26–2:36 in Yokohama and 1:23–1:29 at Nikkō, against 1:14–1:43 on RaceV1's
+bends. RaceV1's weather schedule carries on past its 5,400 ticks
+(`arcadeEnvironmentAt`). The 3D world draws the course the race runs on
+(`courseDrawing`): each 5 m interval of the model is an arc of constant
+curvature, split for drawing wherever it turns more than 2°. RaceV1, whose
+bends Iroha's native rules and proofs mirror, keeps its own until those move
+to the real roads too. Nothing has launched, so earlier Arcade replays were
+not kept compatible: every local Arcade race and replay runs the real road.
+
+## The player drives
+
+The keys reach the car as they are: nothing steers, brakes or picks a line for
+the player. On 2026-11-13 a co-driver briefly sat between the keys and the car,
+braking for the bends, holding the car on a lane and turning the steering keys
+into moves across the road; the user rejected it ("it should be the user
+driving") and it was removed the same day. What makes the car manageable is the
+car itself: the pedals above leave the tyres their cornering grip, and the
+steering winds on gently at speed and quickly into a bend as far as the road
+turns.
+
+Why it is still hard work: keys are all or nothing, and a held key turns the
+car until the driver steers it back by the same amount. On 2026-11-12 the user
+said the handling was "too hard… the car just feels out of control and crashing
+everywhere". In eight-car races at Hakone the garage's reference keyboard
+drivers, who brake for every bend to within 5%, then touched the rails 170–190
+times a race (28–43 times above 6 m/s); a driver who misjudged bends by 30%
+wrecked two races in three. With the new pedals they touch them 160–190 times,
+about 40% fewer of them above 6 m/s, with a third less damage, and the driver
+who misjudged bends by 30% finished all three races; held for half a second at
+100 km/h a key still swings the nose 19°.
+
+Where they hit the rails: in a bend, having turned in late. At the moment of
+contact the key had been held toward the bend for 0.4–0.5 s and the wheel was at
+0.85 of full lock, nearly twice what the bend needed, with the car still
+pointing 10° toward the outside; only 4–15 contacts a race came from arriving
+too fast for the bend. Then, coming off the outside rail with the wheel still
+turned, the car crossed the road to the other rail. A glancing rail contact
+itself leaves the car running parallel to the rail. So on 2026-11-13 the wheel
+was made to straighten in a twentieth of a second instead of a sixth when the
+key comes up, and to wind on quickly into a bend to half again as far as the
+road turns, plus a tenth, instead of exactly as far. Keyboard drivers who steer
+by what they see, without knowing how the wheel winds on (bang-bang keys, a
+0.2 s or 0.27 s reaction; four races each on the old steering and six on the
+new, on Hakone and Yokohama, counted per kilometre):
+
+| Driver | Rail contacts | Crossings to the other rail | Hard hits | Damage |
+| --- | --- | --- | --- | --- |
+| New player, Hakone | 11.5 → 8.8 | 5.4 → 2.1 | 6.4 → 2.3 | 5.7 → 1.9 |
+| Slow new player, Hakone | 19.9 → 10.8 | 12.0 → 3.8 | 15.2 → 5.5 | 36.4 → 9.4 |
+| New player, Yokohama | 7.4 → 3.5 | 4.0 → 0.9 | 3.2 → 1.0 | 3.5 → 0.6 |
+| Slow new player, Yokohama | 15.7 → 5.9 | 11.9 → 2.6 | 11.2 → 2.3 | 18.4 → 2.8 |
+
+The slow new player wrecked in every race before and now finishes all six at
+Yokohama and four of six at Hakone; the new player finishes 8–14 s sooner. The reference
+rookie and regular, who already steer knowing how the wheel winds on, barely
+change. A single press turns the car slightly less than before, because the
+wheel no longer keeps turning it while it straightens. Unwinding more slowly
+than a sixth of a second made all of them weave; the faster the wheel came
+straight, the better every driver did. The AI drivers lose about 0.5 s a race.
 
 ## Contact
 
@@ -109,7 +219,10 @@ trees stand behind the rails.
 Damage comes from each impact's delta-v, the measure crash investigators use:
 nothing below 6 m/s (22 km/h), then `0.5 x + 0.16 x²` points for the excess
 `x`, times the car's toughness. A 10 m/s knock costs about 5 points, a 20 m/s
-crash 38 and a 30 m/s one more than the car can take. Points are shared between
+crash 38 and a 30 m/s one more than the car can take. A guardrail counts only
+from 8 m/s (29 km/h, `RAIL_DAMAGE_FROM`): it steers a glancing car, and on the
+Arcade courses' real roads a keyboard rookie brushes it some thirty times a
+race, which at 6 m/s wrecked half the reference rookies' tuned cars at Hakone. Points are shared between
 the front, rear, left and right zones by where the contact landed. A crushed
 nose costs engine power, side damage costs grip, rear damage costs traction,
 torn bodywork adds drag, and uneven side damage pulls the steering.
@@ -154,8 +267,9 @@ at load time, so a car with missing panels draws the remaining runs of the
 same shared index as geometry groups, with no per-car GPU buffers. The HUD
 shows a top-down damage diagram and a bar to the wreck limit. A hit above
 9 m/s of delta-v (or a planter) plays the heavy crash sound, lighter knocks the
-metallic one; `audio.ts` itself is unchanged, because the released soundtrack
-pins its bytes.
+metallic one. Both are existing voices: the released soundtrack pins the bytes
+of `audio.ts`, so a change there needs the re-qualification recorded in
+`soundtrack-verification.md`.
 
 ## Replays and determinism
 
@@ -163,7 +277,7 @@ Fixed steps, fixed order and only exact IEEE operations: `dmath.ts` provides
 polynomial sine, cosine and arctangent instead of the engine-dependent
 `Math` functions, so a replay re-executes bit-identically on any browser.
 Arcade replays carry `rules: 'SoraDriveV1'` with every car's tune and every
-tick's controls. Street replays are version 2
+tick's controls; they always run the real road. Street replays are version 2
 (`sora-cars.local-street-drive.v2`) and are verified by full re-execution
 against their recorded outcome; seeking restores one-second snapshots.
 
@@ -173,15 +287,17 @@ against their recorded outcome; seeking restores one-second snapshots.
 course. It prints finishing times, contacts, wrecks, marshal recoveries and
 stalls. `PLAYER=rookie` or `PLAYER=regular` (with `SEED=n`) puts one of the
 garage's keyboard reference drivers in slot 3 instead and prints its place,
-damage, lost panels and wall touches; on the street routes it brakes for the
-bends it sees, overrating their speed by 15% or 7%. In the last run every car finished every course with no wreck,
+damage, lost panels and wall touches. It brakes for the bends it sees,
+overrating their speed by 5% (rookie) or 3% (regular), reading them by the
+HUD's corner cue; at the street routes' first tuning (15% and 7%) every
+rookie wrecked on Hakone's real road within 5 km, and a regular in Act 3's
+tuned car on every try. In the last run every car finished every course with no wreck,
 recovery or stall. A lone AI car stays within about 0.5 m of its racing line
-on average and finishes an Arcade race with almost no rail contact. Arcade races
-take 74–103 s, close to the earlier engine's 76–103 s with its club drivers;
-the club drivers, who never boost, are the slowest by 2–3 s. Tokyo (255–273 s
-against its 255 s song) and Aizu (148–160 s, 161 s song) finish close to the
-end of their songs; Kyoto (225–240 s, 209 s song) and Nara (191–205 s, 179 s
-song) run 7–15% long. Irohazaka (238–255 s against its
+on average and finishes an Arcade race with almost no rail contact. On the Arcade
+courses' real roads the club drivers, who never boost, are the slowest by 1–4 s. Tokyo (255–271 s
+against its 255 s song) and Aizu (148–159 s, 161 s song) finish close to the
+end of their songs; Kyoto (222–238 s, 209 s song) and Nara (190–204 s, 179 s
+song) run 6–14% long. Irohazaka (239–255 s against its
 187 s song) is slower than the earlier draft model, whose 3 g acceleration and
 9 g braking made its twenty hairpins nearly free. Even near-perfect AI drivers
 need about 236 s there. While the player races, a street song that ends plays
@@ -194,7 +310,12 @@ note. The driving model gives street races 12,000 ticks (400 s) so slower
 drivers can still finish.
 
 The AI follows a minimum-curvature racing line at a grip-limited speed with
-pure pursuit steering and the same control bits a player presses. Each tick it
+pure pursuit steering and the same control bits a player presses. Its speed
+is the fastest from which it can still slow for every bend within braking
+reach (`reachSpeed` in `ai.ts`): braking shares
+the tyres' grip with cornering and leaves the rear axle its load, as the
+car's own ABS does, so a driver slows for a tightening bend before it rather
+than at full force in the middle of it. Each tick it
 presses the key whose wheel position after the tick lands nearest the steering
 pure pursuit asks for, predicting the wheel as the race moves it: quickly into
 a bend (`roadWheel`). When it predicted the slow rate there, it picked the
@@ -205,14 +326,20 @@ though their deadband means it rarely changes a key for them. The AI moves
 off the line for traffic, and back, at 8 m/s: away from a bend the wheel winds
 on slowly at speed, and a sudden swerve overshot into the rails (instant moves
 doubled the AI's rail contact at Harbor Run), while at 5 m/s a quicker car
-stayed boxed in behind the pack. The Arcade
-circuits' bends are 253–760 m in radius, so there no bend limits that speed, no
-driver brakes and the engine holds the rev limiter; the drivers differ in how
-they use the boost. A burst's extra speed coasts down slowly, so long bursts
-gain far more than short ones: club drivers never fire it, pro drivers wait for
-85% of a tank and ace drivers for 95%. A driver boosts past a car once its own
-path is clear, and an ace whose build has drift charge drifts through every
-bend. The AI has not been calibrated against measured human lap times. The
+stayed boxed in behind the pack. On the Arcade
+courses' real roads the bends set the pace. Below about 170 km/h the stock car
+is held by its rear tyres, not its engine, so on Hakone, where a pro spends
+nine tenths of the race under 200 km/h, grip decides the time and power or
+boost barely move it; at Nikkō the car spends 60% of the race at its rev
+limiter, and Yokohama is in between. A burst's extra speed coasts down slowly,
+so long bursts gain far more than short ones: club drivers never fire it, pro
+drivers wait for 85% of a tank and ace drivers for 95%. A driver boosts past a
+car once its own path is clear. An ace whose build has drift charge drifts
+through a bend only where its front tyres alone could hold it: under power the
+sliding tail holds almost nothing, and drifting the bends taken at the limit
+lost more time than the boost won back (an ace with the drift parts was 1 s
+slower at Hakone). The AI has not been calibrated against measured human lap
+times. The
 garage balance, and the race time each part card shows (`RACE_GAINS`), are
 measured on this model with the AI and with keyboard reference drivers that
 steer late, lift and brake when they run wide and keep their own boost habits;

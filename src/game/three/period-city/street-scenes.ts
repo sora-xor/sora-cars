@@ -3,7 +3,7 @@
  * crossings, far silhouettes, planting and light. Presentation only; the
  * native road table and physics never read any of it.
  */
-import { TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS, TOKYO_1986_STREET,
+import { TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS, TOKYO_1986_OVERRIDES, TOKYO_1986_STREET,
   type PeriodCrossing, type PeriodDistrict, type PeriodLandmark, type PeriodLocals, type PeriodSide, type PeriodStreetPlan } from './layout';
 import { farLand, type FarLandPlan } from './far-land';
 import { AIZU_WAKAMATSU_1986_LAND } from './generated/aizu-wakamatsu-1986-land';
@@ -50,6 +50,8 @@ export interface StreetScene {
   readonly terrain?: 'slope';
   /** Districts right and left of the road, indexed by the route's `sector`. */
   readonly districts: readonly { readonly right: PeriodDistrict; readonly left: PeriodDistrict }[];
+  /** Stretches (metres along the lap) whose district on one side differs from the sector's. */
+  readonly overrides?: readonly { readonly from: number; readonly to: number; readonly side: PeriodSide; readonly district: PeriodDistrict }[];
   readonly crossings: readonly PeriodCrossing[];
   readonly landmarks: readonly PeriodLandmark[];
   readonly street?: PeriodStreetPlan;
@@ -69,7 +71,7 @@ export interface StreetScene {
 }
 
 const TOKYO: StreetScene = {
-  style: 3, districts: TOKYO_1986_DISTRICTS, crossings: TOKYO_1986_CROSSINGS, landmarks: TOKYO_1986_LANDMARKS,
+  style: 3, districts: TOKYO_1986_DISTRICTS, overrides: TOKYO_1986_OVERRIDES, crossings: TOKYO_1986_CROSSINGS, landmarks: TOKYO_1986_LANDMARKS,
   street: TOKYO_1986_STREET, distant: [], tokyoSkyline: true, snow: 0, trees: { kind: 'sakura', sectors: [2], bothSides: false },
   mood: { night: 'city', stars: .5, damp: .6, lamp: '#ffb065', daylight: 'dawn-arc' },
 };
@@ -234,7 +236,12 @@ const KYOTO: StreetScene = {
   ],
   street: { footbridges: [], guides: [{ p: 1880, sign: guideIndex('四条通') }, { p: 2840, sign: guideIndex('祇園') },
     { p: 4800, sign: guideIndex('蹴上') }, { p: 8000, sign: guideIndex('京都御所') }, { p: 11900, sign: guideIndex('京都駅') }],
-    arches: [{ p: 6038, kind: 'heian-torii' }],
+    // 1986: the Keihan main line still crossed Shijō-dōri at grade at the east end of the bridge (underground from 24
+    // May 1987), and the Keishin line's trams ran down the middle of Sanjō-dōri from the Higashiōji corner to Keage
+    // (until October 1997). Shijo station's staggered platforms stood either side of the road; on the right the line
+    // runs across Minami-za's forecourt, which stands for Kawabata-dori.
+    arches: [{ p: 6038, kind: 'heian-torii' }, { p: 3052, kind: 'level-crossing', tracks: 2, gauge: 1.435, reach: [50, 34], station: true }],
+    galleries: [{ from: 4160, to: 5100, kind: 'tram-track', side: 1 }],
     // Fallen maple leaves under the maples (`trees`: sectors 8-10, Keage to Okazaki and the great torii).
     litter: [[4844, 6528]], autumn: true, forestBanks: true },
   distant: [sky(KYOTO_ORIGIN, 34.9806, 135.7476, 25, (b, random) => buildLandmark(b, 'pagoda-toji', random)),
@@ -305,7 +312,9 @@ const NARA: StreetScene = {
     { p: 2433, side: -1, kind: 'daibutsuden', clearance: 270, length: 62, depth: 56 },
   ],
   // Fallen maple leaves under the maples (`trees`: sectors 1-11, Sarusawa-ike to the summit).
+  // 1986: Sanjō-dōri crossed the JNR Kansai Main Line and Sakurai Line at grade beside the station (until 2008).
   street: { footbridges: [], guides: [{ p: 520, sign: guideIndex('奈良公園') }, { p: 1560, sign: guideIndex('東大寺') }], litter: [[1310, 6225]],
+    arches: [{ p: 44, kind: 'level-crossing', tracks: 3, gauge: 1.067, reach: [30, 30] }],
     afternoonLeaves: { gold: .2, drifts: 12 },
     // The driveway's climb through the Kasuga hill forest, cedars among its old broadleaves.
     cedars: [[2785, 5580]], autumn: true },

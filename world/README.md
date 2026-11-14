@@ -4,11 +4,20 @@ This directory prepares the requested 1986 world expansion outside the maintaine
 
 [The 49-location index](catalog-1986.md) covers 47 prefectures, Pyongyang and Moscow. Its source catalogs distinguish sourced geographic/history facts, proposed vehicle corridors, later landmarks to exclude, and remaining evidence. Each actual road must still be authored, checked against dated maps/photos, given its own artwork/music and tested in the new driving relation. Both circuits and sprints now have explicit topology; sprint routes retain their real endpoints.
 
+## Arcade courses
+
+The three Arcade courses (Midnight Circuit, Harbor Run, Sakura Pass) are each set on one real road of 1986 at true
+scale: its bends and hairpins, heights, places and landmarks. Local races run and draw the real plan; live races,
+not yet launched, keep RaceV1's bends on the same heights and places. See
+[`research/arcade/`](research/arcade/README.md).
+
 ## Tokyo authoring
 
 `authoring/tokyo-1986.json` follows Manaita Bridge, Yasukuni-dori, Chidorigafuchi, Hanzomon, Diet frontage, Kasumigaseki and a moat-side return. The geographic coordinates, widths, elevations and joins are provisional authoring values, not an exact1986 survey. It is playable only as street practice; no live execution profile consumes it.
 
 The current draft is7.013328km per lap, two laps,13gates and1,404integer samples. Matching the supplied254.952-second song would require198.06km/h average speed. This is a pacing target, not a demonstrated drive time. The300-second maximum is distinct from the existing180-second proof profiles. The song's provisional section cues still require listening and driving calibration.
+
+Checked on 2026-11-11 against the GSI elevation model, the authored heights are within 2.6 m on average and 7 m at worst (Kasumigaseki and the Diet front stand a few metres high). They were left as they are: this table is the ledger member, and re-tracing it changes the native compiler family. What the route draws was corrected against 1986 instead; see [`research/routes/tokyo-1986.md`](research/routes/tokyo-1986.md).
 
 `audio/yasukuni-1986.m4a` contains the complete supplied recording, transcoded to AAC192k without changing duration. Original WAV SHA-256: `1dec9e5363f891601a1758daaccd0197621cbb6f15c94b1607b4e9c500916055`. Transcoded asset SHA-256: `85401fb75fd6f1f409119dd0ea47642cb9ea173bbb2f06d7a14506febcaf84a6`. Assets are local; there is no streaming/CDN dependency. The original user file is untouched.
 

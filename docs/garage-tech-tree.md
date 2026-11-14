@@ -42,8 +42,8 @@ replays are unaffected by the garage.
 | `accel` | Engine power: 55% fixed, 45% scaled by the field. |
 | `coast` | Engine braking with the throttle off, 120 N per point at the rear axle. Keyboard drivers lift whenever they head for the outside rail, the AI almost never, so the high-rev six (more) and the torque six (less) split them. |
 | `boostCost`, `boostRecharge`, `boostKick` | Energy per tick out of 1,000; anti-lag adds 180 N of push per point while boosting. |
-| `traction` | Extra rear-tyre traction below 160 km/h, for launches and recoveries. It stops paying once the engine, not the tyres, limits the launch, at about +10%. |
-| `cornerLoad`, `dryDamping` | Tyre grip, 2% per point. |
+| `traction` | Low-speed pull: below 160 km/h the rear tyres' grip for pulling the car forward stretches by the field's share (traction / 120), a friction ellipse that leaves their cornering grip as it was. Below about 170 km/h the stock car is held by its rear tyres, not its engine, so on the real roads this is the acceleration that counts out of every corner. |
+| `cornerLoad`, `dryDamping` | Tyre grip, 2% per point: cornering, braking and the launch alike. |
 | `rainSteer`, `wetDamping`, `oilSteer` | Grip in rain and on oil, as shares of the dry road's. |
 | `windLoad` | Crosswind push. |
 | `steer`, `driftSteer` | Steering lock, and how far the rear lets go in a drift. |
@@ -60,9 +60,9 @@ through the garage again. It is the tech tree with tonight's race on top
 (`src/game/story-pit.ts`, view `pit`, not a URL of its own):
 
 - **Course, weather, roadside and objective.** Weather and roadside objects are
-  read from the native environment over a stock car's race distance. Hakone has
-  rain for 25% of the race and a light crosswind, Yokohama 50% and a strong one,
-  Nikko 20% and a gusty one.
+  read from the native environment over a stock car's race on the real road.
+  Hakone has rain for 25% of the race and a light crosswind, Yokohama 55% and a
+  strong one, Nikko 25% and a gusty one.
 - **A crew tip and pick.** Yui briefs Hakone, Daichi Yokohama and Jun Nikko (the
   player drives Aki's car). The pick is the next step of that course's plan,
   bought, or swapped back in, with one click from the briefing. The detail panel
@@ -91,57 +91,31 @@ best clear-road time per yen from a stock car.
 
 | Course | Crew | Opening of the plan |
 | --- | --- | --- |
-| Hakone | Yui | Intake → boost controller → intercooler → tyres → big turbine → coilovers → cams |
-| Yokohama | Daichi | Intake → boost controller → cams → intercooler → torque six → big turbine → tyres → coilovers → rally |
-| Nikko | Jun | Intake → roll cage → boost controller → intercooler → tyres → coilovers → twin turbo |
+| Hakone | Yui | Sport tyres → roll cage → coilovers → bumpers → steel armour → rally setup |
+| Yokohama | Daichi | Roll cage → tyres → intake → boost controller → coilovers → bumpers → armour → rally |
+| Nikko | Jun | Boost controller → intake → roll cage → tyres → intercooler → cams → coilovers |
 
-On the current report Yui's intake podiums 98% of the time on Hakone's first
-night (nothing 93%, controller 96%, tyres 76%, cage 77%), and Daichi's
-controller 52% on Yokohama's (nothing 40%, tyres 28%, cage 30%).
+On the current report Yui's sport tyres podium 91% of the time on Hakone's first
+night (nothing 18%, roll cage 33%, intake 15%, boost controller 16%), and
+Daichi's roll cage and intake 98% on Yokohama's (nothing 96%).
 
-Until November 2026 each step was the part that saved rookies and regulars the
-most time per yen on a clear road from a stock car. That rule put sport tyres
-second in Yokohama, where story races show they cost a rookie podiums. Probes
-raced 512 paired seeds on the first harbor night, rookies with Yui's intake, on
-the driving model before `84c6866`.
-Daichi's boost controller lifts a first-try podium from 44% to 55%, and adding
-the tyres takes it back to 46%. On their own the tyres (34%) and the roll cage
-(36%) do worse than buying nothing.
+Since the Arcade courses moved onto their real roads (November 2026) the plans
+follow what each road rewards. Hakone's bends are taken at the tyres' limit, and
+below about 170 km/h the stock car is held by its rear tyres, not its engine, so
+grip and low-speed pull are the time there. On Nikkō's long straight the car
+runs flat out for 60% of the race, so boost and top speed are. All three plans
+buy the cheap grip and body parts early, save for the rally setup, and take the
+recovery option of every fork (torque six, rally setup, steel armour): the
+story's drivers are rookies and regulars, who scrape the rails and lose speed,
+and those options save them the most. Casual shoppers end up with the other
+options, because they buy them first: cheapest-first fits the high-rev six and
+the touge setup, priciest-first those and the lightweight body. That
+is what separates a regular on the crew's picks, who beats Rei in Act 3, from a
+casual one, who does not: by Act 3 every habit owns the parts that pay.
 
-The cause is the start. The player starts 7th, 1.6 m behind the crew car in
-5th, and the tyres' extra launch traction runs a rookie into that car in the
-first second. That costs 1.0 s of contact by 1 s instead of 0.5 s, 137 km/h at
-2 s instead of 162, and about 20 m by 10 s, which the race never gives back.
-Taken apart, launch traction alone costs 10 points. The tyres' grip and oil
-grip change nothing measurable, and rail time is the same with them. Regulars,
-who steer clear at the start, lose nothing to the tyres. On a clear road the
-tyres save 0.4 s, which is why time per yen liked them.
-
-A harbor pack rewards top speed instead. Intake, controller and cams podium 73%
-of the time, against 65% with the intercooler in place of the cams. The rest of
-Daichi's plan follows the later harbor nights:
-
-- The second night (ID 4) is where the cams usually get bought: 66% against
-  54% for saving, which the old plan did.
-- On the third (ID 7) the torque six is within two points of the best buy.
-- On the showdown (ID 10) the engine fork is the biggest gain in the story: 80%
-  against 55% for saving toward anti-lag, again the old plan. With `84c6866`'s
-  engines the torque six still leads (79%, against 72% for the high-rev six and
-  62% for saving, 256 seeds).
-
-Over 256 paired rookie campaigns the new plan cuts the four harbor nights from
-6.9 to 5.8 races and the whole story from 15.7 to 14.4, with no chapter worse.
-Regulars are unchanged. The chassis has its place later: once the car has tyres
-and a cage, the rally setup is the best buy on the third harbor night and keeps
-the car off the rails. Daichi now says intake first, then boost, and to wait
-for room ahead before pushing.
-
-Jun's Nikko plan is not held to its first night yet. There a rookie does better
-stopping at the roll cage and intercooler (87%) than with the tyres Jun adds
-(82%). After clean wins the cage alone (87%) beats his cage, tyres and coilovers
-(72%). Moving his tyres and coilovers after the cams and twin turbo fixed that
-night (+9 points) but cost the third harbor night 11, so Jun's plan needs its
-own pass through the story races.
+On the earlier level circuits the plans bought intake and boost first, because
+a harbor pack rewarded top speed and the tyres' launch traction ran a rookie
+into the car ahead at the start (see this file's history).
 
 The pick skips a fork the player settled on the other option. Buying a fork
 option fits it only if the car has neither option fitted; one bought while the
@@ -159,17 +133,18 @@ it into storage. Every capstone needs a part from another branch.
 
 | Branch (crew) | I | II | III (fork) | IV |
 | --- | --- | --- | --- | --- |
-| エンジン ENGINE (Aki) | Intake & exhaust ¥10k | Cams & ported head ¥24k | High-rev six ¥52k / Torque six ¥52k | Full-tune six ¥64k (+ Intercooler) |
-| ターボ TURBO (Jun) | Boost controller ¥12k | Intercooler ¥24k | Big turbine ¥56k / Twin turbo ¥56k | Anti-lag ¥120k (+ Cams) |
-| 足回り CHASSIS (Daichi) | Sport tyres ¥6k | Coilovers ¥8k | Touge setup ¥48k / Rally setup ¥18k | Mechanical LSD ¥80k (+ Boost controller) |
-| ボディ BODY (Yui) | Roll cage ¥4k | Reinforced bumpers ¥7k | Lightweight ¥30k / Steel armor ¥8k | Wind-tunnel body ¥78k (+ Coilovers) |
+| エンジン ENGINE (Aki) | Intake & exhaust ¥7k | Cams & ported head ¥15k | High-rev six ¥18k / Torque six ¥56k | Full-tune six ¥66k (+ Intercooler) |
+| ターボ TURBO (Jun) | Boost controller ¥7k | Intercooler ¥9k | Big turbine ¥25k / Twin turbo ¥25k | Anti-lag ¥70k (+ Cams) |
+| 足回り CHASSIS (Daichi) | Sport tyres ¥12k | Coilovers ¥22k | Touge setup ¥32k / Rally setup ¥56k | Mechanical LSD ¥95k (+ Boost controller) |
+| ボディ BODY (Yui) | Roll cage ¥5k | Reinforced bumpers ¥8k | Lightweight ¥28k / Steel armor ¥25k | Wind-tunnel body ¥75k (+ Coilovers) |
 
-One full path costs ¥571k–623k; every part costs ¥757k. Effects are in
+One full path costs ¥491k–556k; every part costs ¥656k. Effects are in
 `TECH_NODES` (`src/game/garage-tech.ts`), and each part carries a `bestFor` tag
 that the page shows beside its measured seconds a race ("FOR DRIFTERS"). The
 balance tests hold each tag to its promise. Prices follow what each part is
-worth on the driving model: turbo parts cost the most, and the durability parts,
-which mostly protect the car, the least.
+worth on the real roads, tier by tier: grip costs the most, because it pays on
+every bend, and boost the least, because it only pays where the car runs flat
+out.
 
 Four garage-only mechanics are zero at stock, so RaceV1 never sees them:
 
@@ -181,8 +156,9 @@ Four garage-only mechanics are zero at stock, so RaceV1 never sees them:
   5–26 m behind and within 1.6 m.
 - **Anti-lag**: extra push while boosting, so short bursts reach boost speed
   sooner.
-- **Traction** (Torque six, tyres, cage, bumpers, rally, armour): extra rear-tyre
-  traction below 160 km/h for launches and recoveries.
+- **Traction** (Torque six, full-tune six, tyres, rally, LSD, cage, bumpers,
+  armour): low-speed pull below 160 km/h, out of every corner, without costing
+  cornering grip.
 
 The race HUD shows ドリフト充電 / DRIFT CHARGE and スリップストリーム /
 SLIPSTREAM chips while those mechanics are working.
@@ -238,7 +214,7 @@ A fork option bought into storage gets none of that; it shows 保管中 / IN STO
 
 ## Economy
 
-- New garages start with ¥12,000, enough for a first part.
+- New garages start with ¥12,000, enough for the sport tyres Yui picks for Hakone.
 - Purse by place: ¥6,000 / 4,500 / 3,500 / 2,800 / 2,200 / 1,700 / 1,300 / 1,000,
   plus ¥1,000 for a **clean run** (no tree or sign impacts, at most one second off
   the road). Practice fields multiply both: Club ×1.0, Touge ×1.6, Championship
@@ -251,31 +227,36 @@ A fork option bought into storage gets none of that; it shows 保管中 / IN STO
 
 | Field | Rival builds | Drivers |
 | --- | --- | --- |
-| Club night | Stock | Club |
+| Club night | Stock | Club, two of the seven pro |
 | Touge battle | ¥24k–96k | Club and pro |
-| Championship | ¥72k–288k | Pro |
-| Legends | ¥160k–640k | Pro and ace |
+| Championship | ¥68k–272k | Pro |
+| Legends | ¥82k–328k | Pro and ace |
 
 Rival builds spread from 40% to 160% of the field's budget through the grid, so
 mid-pack finishes are common and a podium needs a build near the field's median.
 Builds follow three purchase orders (power, boost, tough) through the same tree
-and prerequisites as yours. On the driving model the rivals are `DriveAI`
-drivers (`src/game/drive/ai.ts`), and boost use is what separates them, because
-the Arcade circuits are flat out (below):
+and prerequisites as yours; each buys its own branch first and the tyres and
+suspension before the capstones. On the driving model the rivals are `DriveAI`
+drivers (`src/game/drive/ai.ts`). On the real roads how close to the tyres'
+limit they corner separates them first (club drivers 87% of it, pros 92%, aces
+95%), and how they use the boost on the fast stretches second:
 
-- **Club** drivers, your crew and the club-night regulars, never fire the boost.
+- **Club** drivers, your crew and most club-night regulars, never fire the boost.
 - **Pro** drivers wait for 85% of a tank and hold the burst; **ace** drivers wait
   for 95%. Both boost past a car once their path is clear.
-- **Ace** drivers drift through every bend when their build has drift charge.
+- **Ace** drivers with drift charge drift through a bend only where their front
+  tyres alone could hold it.
 
 Story rivals use `STORY_REI` / `STORY_TORU`: Rei from chapter ID 2 (boost build,
 pro driver) and Toru from ID 3 (power build, club driver). Since every chapter
 opens with the pre-race garage, the budgets assume a player who upgrades. Rei
-contests the lead through Act 3 with ¥120k, ¥160k, ¥160k and ¥180k (IDs 8–11):
-on the November 2026 handling her ¥150k–210k cars beat a regular following the
-crew's picks by 0.7 s on average, where the design wants that regular narrowly
-ahead. Toru's showdown (ID 10) build is ¥60k with the pro driver, which needs
-parts.
+contests the lead through Act 3 with ¥140k, ¥140k, ¥220k and ¥220k (IDs 8–11;
+her cars are worth ¥128k–212k). A regular on the crew's picks beats the faster
+of Rei and Toru on the first try by 0.3 s on average; regulars who buy the
+cheapest or the priciest part first lose by 1.6 s and 1.3 s, and a rookie on the
+picks by 2.5 s. Her ¥220k car has the rally setup, which wins Hakone by itself:
+at ¥220k there (ID 9) she beat the picks by 7 s. Toru's showdown (ID 10) build is
+¥60k with the pro driver, which needs parts.
 
 ## How it was balanced
 
@@ -292,14 +273,15 @@ drivers in `tests/helpers/garage-drivers.ts`:
   road, so a run with and without a part meets them at the same places.
 - **Club**, **pro** and **ace** are the opponent AIs.
 
-On a clear road a rookie is 2–3.5% slower than a pro, a regular 1–2.5% and a
-club driver 4.5–5%; in a pack the humans lose more. Each part is measured along its
+On the real roads a rookie is 3–7% slower than a pro on a clear road, a
+regular up to 5% (within 1% of a pro in Yokohama and at Nikkō) and a club
+driver 3–4%. Each part is measured along its
 unlock path on all three tracks: on a clear road (40 rookie seeds, 12 regular
 seeds, one run per AI driver), or, for the pack-racing wind-tunnel body, from
 every grid slot of a club night. Gains are interquartile means of paired runs,
 so one spin or wreck does not swamp the rest. A driving-model race costs a few
 hundred milliseconds, so the measurement runs on every core and writes a report
-that the tests check (about 23,000 races; 34–68 minutes on 15 workers,
+that the tests check (about 25,000 races; 25–70 minutes on 15–20 workers,
 depending on what else the machine is running):
 
 ```sh
@@ -316,30 +298,27 @@ re-measured.
 `tests/garage-balance.test.ts` enforces the resulting limits:
 
 - Every part saves at least a tenth of a second (3 ticks) a race for the drivers
-  its tag names. `RACE_GAINS`, the seconds the cards show, match the report.
+  its tag names. `RACE_GAINS`, the seconds the cards show, match the report; a
+  course where a part measures a loss of a tenth or less reads 0.0 (the
+  anti-lag at Hakone, −0.075 s), and `tests/part-effects.test.ts` fails any
+  bigger loss.
 - Each tier is a worse deal than the one before, so the capstone is the costliest
   gain in every branch. Value per yen differs by at most 3× within a tier.
 - Every fork is a real choice: each option saves its own tag's drivers more time
-  per yen than the other. High-rev beats Torque for clean drivers and loses for
-  rookies and regulars. Touge beats Rally for drifters and loses for recovery.
-  Lightweight beats Armour for clean drivers; Armour, at under a third of the
-  price, is the better buy for recovery and takes at most 70% of the damage per
-  hit. Big and Twin turbines each win on some track or for some driver.
-- The two engines used to give every driver about the same time: over 160 rookie
-  and 60 regular seeds, within a tick either way. They now split the drivers by
-  what only keyboard drivers do, lifting for the outside rail and scraping it.
-  The high-rev six brakes harder off the throttle (`coast` +4) and scrapes a
-  little harder (`offroadLoss` +5). The torque six rolls on (−6), scrapes less
-  (−5) and keeps +2 of top speed (was +6). Over those seeds the torque six now
-  saves rookies and regulars 2.5 ticks a race more than the high-rev six, which
-  saves pros and aces 3.1 more. The tune bounds leave the engines no more rail
-  room beside the rally setup, lightweight and armour.
-- Steel armour costs ¥8k (was ¥9k). At ¥9k it tied the lightweight body for
-  recovery drivers even over 160 rookie and 60 regular seeds (0.40 ticks a race
-  per ¥1k each). The plan's 40 and 12 seeds put it behind, at 3.0 ticks a race,
-  and past the tier's 3× spread. At ¥8k it leads by 12% over the larger sample
-  (0.45 against 0.40) and 7% on the plan's seeds.
-- A finished car is 8–16% faster than stock (12.5–14.6% measured).
+  per yen than the other. The high-rev six is top speed (+96, about 7 km/h)
+  with less engine braking and a harder rail scrape; the torque six is
+  low-speed pull. The high-rev six saves pros and aces 18 ticks a race for
+  ¥18k against the torque six's 49 for ¥56k; rookies and regulars, who scrape
+  the rails, get 56 ticks from the torque six and 6 from the high-rev. The
+  touge setup is tarmac and rain grip with drift charge, the rally setup rail
+  friction, traction and grip: touge saves an ace 1.73 ticks per ¥1k against
+  rally's 1.44, and rally saves recovery drivers 1.87 against touge's 1.42.
+  Lightweight (accel and a point of grip) beats Armour for clean drivers (1.34
+  ticks per ¥1k against 0.44); Armour, cheaper, is the better buy for recovery
+  (1.58 against 0.92) and takes at most 70% of the damage per hit. Big and Twin turbines each win on some track or for some
+  driver.
+- A finished car is 8–16% faster than stock (9.4–11.3% on Hakone, 13.8–14.0% in
+  Yokohama, 14.7–15.1% at Nikkō).
 - The fields form a ladder for a pro starting 7th, raced in 32 lanes on each
   track, 0.15 m apart and within 2.4 m of its line (96 races per build; it was
   eight lanes 0.3 m apart, 24 races). Lanes further out run beside the rail: at
@@ -352,30 +331,33 @@ re-measured.
   races the other way. That is sharper than every one of 24 races, both ways. A
   true 95% podium rate fails it 86% of the time (71% for 24 of 24), and a true
   99% rate passes it 93% of the time (79%). A stock car cannot podium club night
-  every time, but ¥60k always does. Touge and Championship never podium a stock
-  car and ¥120k respectively and always podium ¥420k; Legends never podiums
-  ¥180k, and a finished car podiums at least two times in three (83 of 96).
-  Legends' rivals are built from ¥400k: at ¥420k one of them carried the
-  wind-tunnel body and, with passes slower on the gentler keyboard wheel, a
-  finished car podiumed only 11 times in 24 (20 on the earlier handling).
+  every time (74 of 96), but ¥60k always does. Touge and Championship never
+  podium a stock car and ¥120k respectively and always podium ¥420k; Legends
+  never podiums ¥180k, and a finished car podiums at least two times in three
+  (85 of 96). On the real roads a ¥300k car has every part that pays, so
+  Championship's rivals are built from ¥170k (¥68k–272k) and Legends' from
+  ¥205k (¥82k–328k). Built from ¥160k with the quicker steering (13 November
+  2026), Championship let a ¥120k car podium 3 times in 96 and Legends a ¥180k
+  car 11 times, and Legends from ¥190k 3 times; in October, built from ¥180k,
+  Championship's beat a ¥420k car 6 times in 96, and built from ¥400k, Legends'
+  never let a finished car podium. Two of
+  club night's seven regulars drive as pros: with seven crew drivers a stock
+  pro podiumed it 94 times in 96.
 - With equal cars a regular clears every story chapter at least half the time
-  (Hakone and Nikko 11 times in 12 or more, Yokohama 8 in 12). Against the
+  (Hakone 11 times in 12, Yokohama and Nikkō every time). Against the
   tuned rivals a stock regular still wins through the harbor chapters IDs 4 and 7
   more often than not.
-- On the first harbor night (96 seeds) a rookie with the crew's picks as rookies
-  have them there, Yui's intake and Daichi's boost controller (¥22k), clears it
-  50% of the time: three times as often as in a stock car (16%), and over twice as
-  often as when the same funds (¥25.4k after a Hakone second place) go
-  cheapest-first on tyres, coilovers, a roll cage and bumpers (¥25k, 19%). The
+- On the story's opening night on Hakone (96 seeds), a rookie with Yui's sport
+  tyres (¥12k, the whole starting purse) podiums 85% of the time: four times as
+  often as in a stock car (20%), and more than three times as often as when the
+  same ¥12k goes cheapest-first on the roll cage and the intake (25%). The
   report keeps every seed's result, and the test holds the picks at least 20
   points above stock and 10 above cheapest-first, with the seed-by-seed gain
-  above zero at a one-sided 95% bound (0.21 measured: the picks win 36 seeds
-  that cheapest-first loses, the reverse 6). ¥46k of engine and boost
-  parts clears it 56% of the time: a harbor pack race rewards top speed, and a
-  rookie cannot afford those parts by then. This check used to compare Daichi's
-  three picks (¥28k) with ¥46k of engine and ¥32k of chassis parts on 12 seeds;
-  the picks only came out ahead by chance (at 36 seeds the engine parts won on
-  the earlier handling too, 39% to 33%).
+  above zero at a one-sided 95% bound (0.52 measured: the picks win 59 seeds
+  that cheapest-first loses, the reverse 1). ¥29k of engine and boost parts does
+  worse than the cage and intake (14%): Hakone's bends reward grip, not power. Until the real roads
+  this check ran on the first harbor night, which a stock rookie now clears
+  every time.
 
 `tests/story-pit-balance.test.ts` plays the story's Arcade chapters the way
 story mode runs them: pre-race garage, race, prize money, retry until cleared.
@@ -391,30 +373,110 @@ after 15 tries counts as a wall. It holds:
 - On the crew's picks, rookies and regulars never stall. The Yokohama chapters
   average at most four races; every other chapter, at most two.
 - Never buying stalls rookies in the Yokohama chapters (in at least half the
-  runs) and takes more than one and a half times the races of following the
-  picks.
+  runs; every run, at the showdown) and takes more than one and a half times the
+  races of following the picks.
 - Casual buying (cheapest or priciest first) stalls at most one campaign in
   64 per habit and driver. A habit that walls off 5% of players fails that 84%
   of the time (56% for none in 16), and one that walls off 1% passes it 86% of
   the time (85%). The crew's picks must never stall.
 - In Act 3, a regular on the crew's picks beats the faster of Rei and Toru on the
-  first try by under two seconds on average (0.8 s); casual builds (−1.1 s and
-  −0.8 s) and rookies (−2.7 s) lose that first race to her.
+  first try by under two seconds on average (0.3 s); casual builds (−1.6 s and
+  −1.3 s) and rookies (−2.5 s) lose that first race to her.
 
 | Garage habit (64 runs each) | Races to finish the story | Act 3 lead over the faster rival |
 | --- | --- | --- |
-| Crew's picks: rookie / regular | 14.5 / 12.1 | −2.7 s / 0.8 s |
-| Cheapest first: rookie / regular | 19.0, 1 stall (ID 1) / 12.5 | −3.5 s / −1.1 s |
-| Priciest first: rookie / regular | 15.0 / 12.2 | −2.7 s / −0.8 s |
-| Never buys: rookie / regular | 43.5, stalls in Yokohama / 23.0, stalls at the showdown | −6.9 s / −4.5 s |
+| Crew's picks: rookie / regular | 12.3 / 12.0 | −2.5 s / 0.3 s |
+| Cheapest first: rookie / regular | 15.1 / 12.0 | −5.3 s / −1.6 s |
+| Priciest first: rookie / regular | 12.9 / 12.0 | −5.2 s / −1.3 s |
+| Never buys: rookie / regular | 70.5, stalls on Hakone and at the showdown / 28.0, stalls at the showdown | −15.3 s / −9.5 s |
 
-Cheapest-first rookies still stall once in 64, on the first harbor night (ID 1).
-They clear only 22% of tries there (63 in 285), because the roll cage and tyres
-they buy first run a rookie starting 7th into the car ahead (see the findings
-below). The check passes with that one wall but sits near its limit; the
-start-line nudge is left for a follow-up.
+No casual habit stalls. On the real roads the pre-race garage is a big lever:
+a rookie who follows the crew clears every chapter at the first or second try,
+one who never buys stalls on Hakone's later nights and at the showdown.
 
 ### Findings that shaped the tree
+
+With the stable pedals (13 November 2026, [driving-model.md](driving-model.md)):
+
+- **The pedals cost the AI drivers more than the keyboard players.** Traction
+  control and ABS now leave the tyres their cornering grip, so a driver who
+  brakes into a bend can no longer slide through it on the rear tyres, and the
+  AI's planner brakes for it sooner. At their earlier skill levels a lone club
+  driver lost 3.8 s at Hakone, a pro 2.7 s and an ace 1.3 s, while the reference
+  rookie lost 1.3 s and the regular 0.5 s; and in a car that no longer spun when
+  bumped, a rookie shoved past club drivers through traffic. A stock rookie
+  podiumed the opening night 98 times in 100 (26 before), a regular on the picks
+  led Rei by 2.7 s in Act 3, and casual regulars beat her. The skill levels were
+  raised to restore each level's Hakone pace (club 0.82 → 0.87 of the tyres'
+  limit, pro 0.88 → 0.92, ace 0.93 → 0.95), which brought the opening night
+  (34%) and Act 3 (0.7 s) back to where they were designed.
+- **The quicker steering moved it again.** On 13 November the wheel was made to
+  straighten in a twentieth of a second when the key comes up
+  ([driving-model.md](driving-model.md)). New players who steer by what they see
+  hit the rails far less and gained up to 8 s a race, but the reference rookie
+  and regular lost 1.5 and 2.0 s at Hakone: they choose a key by predicting the
+  wheel a tenth of a second ahead, and a wheel that drops straight when the key
+  comes up no longer holds the in-between angles they steered with. The AI
+  drivers lost 0.5 s. A stock rookie now podiums the opening night 20% of the
+  time (85% on Yui's tyres), and a regular on the picks trailed Rei by 0.05 s in
+  Act 3, so her first two Act 3 cars went from ¥160k to ¥140k (no lightweight
+  body); he now leads by 0.3 s. Championship and Legends rivals went from ¥160k
+  to ¥170k and ¥205k, where probe races put the ladder back before the
+  re-measurement.
+- **Five prices moved with what the parts are now worth.** The sport tyres pay
+  a little more and the boost controller a little less, so tier I spread to
+  2.99×; the controller went from ¥8k to ¥7k. With faster AI drivers the torque
+  six's pull out of Hakone's bends saved pros more per yen than the high-rev
+  six's top speed, so the high-rev six went from ¥28k to ¥22k after the pedals
+  and to ¥18k after the steering (0.98 ticks per ¥1k against the torque six's
+  0.87). Steel armour had become a better deal than the bumpers before it
+  (¥21k → ¥25k), and the rally setup and then the cheaper high-rev six spread
+  tier III past 3× (rally ¥50k → ¥56k, big turbine ¥27k → ¥25k; now 2.76×).
+- **The cards' range.** The rally setup saves rookies and regulars 5.5 s at
+  Hakone, past the cards' old 5 s ceiling, set when races lasted 74–103 s; on
+  the real roads it is 8 s.
+
+On the real roads (November 2026, after the courses took their real bends):
+
+- **The car is held by its tyres below about 170 km/h.** 720 kW against the
+  rear tyres' grip: until about 170 km/h traction, not power, limits
+  acceleration. On Hakone, where a pro spends nine tenths of the race under
+  200 km/h, 4% more grip saves about 3 s a race and 4% more top speed nothing;
+  at Nikkō, flat out for 60% of the race, the same top speed saves 1.6 s and
+  the grip 0.8 s. On the old tree the sport tyres (¥6k) were worth 13 times the
+  intake per yen, its engine and boost parts barely moved a Hakone time, and a
+  rookie on the crew's picks (intake first) needed nine tries at the first
+  Hakone night.
+- **Launch traction cost cornering grip.** It raised traction control's limit,
+  so beyond about 8% the rear tyres had nothing left for cornering under power:
+  AI cars slid out of Hakone's bends and lost 0.6–1.5 s a race with 8% more
+  traction. It is now a friction ellipse ([driving-model.md](driving-model.md));
+  8% more saves about 1 s a race for every driver.
+- **Drifting the limit bends lost time.** An ace with drift charge drifted every
+  bend tighter than a kilometre and lost about 1 s at Hakone, because under power
+  the sliding tail holds almost nothing. Aces now drift only where their front
+  tyres alone could hold the bend, and the drift parts carry real grip: the
+  touge setup tarmac and rain grip, the LSD traction.
+- **Prices follow what the parts are worth there.** Each part was re-measured
+  on the real roads and priced so every tier stays within 3× across branches and
+  no better a deal than the tier before. Grip and the recovery options got dearer
+  (tyres ¥6k → ¥12k, rally ¥18k → ¥50k, armour ¥8k → ¥21k), boost cheaper
+  (controller ¥12k → ¥8k, big turbine ¥56k → ¥27k).
+- **Capstones had to matter.** With the value in the cheap parts, a ¥300k car
+  came within 0.3% of a finished one on Hakone and 2% elsewhere, and no Legends
+  field fit between ¥180k and a finished car (with rivals from ¥400k a finished
+  car never podiumed). The capstones now
+  carry real gains: the full-tune six's pull and lighter engine braking, the
+  LSD's traction and the wind-tunnel body's downforce.
+- **The finished car's Nikkō gain is boost.** Trimming top speed barely moved
+  it; easing the intercooler's refill and the anti-lag's kick took an ace's from
+  15.8% to 14.7%.
+- **By Act 3 every shopping habit owns the parts that pay.** What separates the
+  crew's picks from casual shopping is the fork options (above). With the
+  story's purses unchanged, a regular on the picks and a casual one are 1–2 s a
+  race apart in Act 3, and Rei's budgets sit between them.
+
+On the level circuits (October–November 2026):
 
 - **The Arcade circuits are flat out.** Their bends are 253–760 m in radius, and
   the car's grip and downforce take them at boost speed, so no driver brakes for
@@ -431,8 +493,9 @@ start-line nudge is left for a follow-up.
   cage, bumpers and armour therefore also add launch traction, rail friction or
   crosswind resistance, and cost a few thousand yen.
 - **Traction saturates.** Below 160 km/h the stock car is limited by its rear
-  tyres, but from about +10% of traction the engine is, so stacking traction
-  parts stops paying.
+  tyres, but from about +10% of traction stacking traction parts stopped
+  paying. (On the real roads this turned out to be the rear tyres running out of
+  cornering grip, not the engine; see above.)
 - **The story's crew had become unbeatable.** With equal cars on flat-out
   circuits nobody passes, and the club AI held its line and boost perfectly.
   Club drivers no longer boost, so a rookie with the crew's first picks can win
