@@ -1,6 +1,7 @@
 import { prepareGameTranscriptV1, NetworkId, formatGameCommitmentLiteralV1, parseGameCommitmentLiteralV1, formatGameNonceLiteralV1, parseGameNonceLiteralV1, gameCertificateCommitmentV1, encodeGameCertificateFrameV1 } from '@iroha/iroha-js/game-certificates';
 import type { GameCertificateContextV1, GameActiveScopeV1 as CertificateScope } from '@iroha/iroha-js/game-certificates';
 import { raceControlsFromPayloadV1 } from '@iroha/iroha-js/race';
+import { RULES } from '../game/rules.ts';
 import { encodeGameValueV1, decodeGameValueV1 } from '@iroha/iroha-js/game';
 import type { GameActiveScopeV1, GameCheckpointV1, GameCommitmentSetV1, GameInputCommitmentV1, GameInputRevealV1, GameManifestV1, GameAdmissionBodyV1, GameOutcomeV1, GameTranscriptV1, GameSessionRecordV1 } from '@iroha/iroha-js/game';
 
@@ -70,6 +71,6 @@ export function prepareRaceTranscript(context: GameContext, transcript: GameTran
     else if (payload.length) throw new Error('Removed slot retains accepted controls.');
   });
   return prepareGameTranscriptV1(certificateContext(context.networkId, context.raceId), certificateScope(context.activeScope),
-    { batch_ticks: 6, max_ticks: 5400, slots: originalSlots, max_input_bytes: 12 }, throughTick,
+    { batch_ticks: 6, max_ticks: RULES.maxTicks, slots: originalSlots, max_input_bytes: 12 }, throughTick,
     { batches: t.batches.map(b => ({ start_tick: b.start_tick, inputs: b.inputs.map(input => Uint8Array.from(input)) })), dnf_events: t.dnf_events.map(d => ({ tick: d.tick, slots: Uint8Array.from(d.slots) })) });
 }

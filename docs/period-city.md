@@ -285,7 +285,7 @@ The earlier level courses of repeating district blocks are gone.
 
 Code:
 
-- **Heights** (`src/game/arcade-geography.ts`, built by `scripts/build-arcade-geography.ts`): the world's road and the local driving model read the same profile. Live races keep RaceV1's level arithmetic.
+- **Heights** (`src/game/arcade-geography.ts`, built by `scripts/build-arcade-geography.ts`): the world's road and the local driving model read the same profile. Live RaceV1 races run the same road's bends; their arithmetic stays level.
 - **Stretches** (`layout.ts` `ARCADE_1986_STRETCHES`): each names its place, the district either side and the bank factor either side. `arcadeDistrictAt`, `arcadePlaceAt` and `arcadeBankAt` read them.
 - **Hill and valley** (`terrain.ts` `setTerrainRelief`): a real road is cut into its hillside. The bank beyond the 18 m strip is scaled by the stretch's factor: above 1 a steeper hill (Sengen-yama's flank above Route 1, the Yamate bluff over Shin-Yamashita), negative a slope falling away (the Haya-kawa gorge, the Daiya). Factors ease over 160 m where stretches meet.
 - **Ground on the real plan** (`arcade-ground.ts`): strips laid out from the road fold over a 15 m hairpin, and one stretch's banks would bury the next a hillside away, so the ground is one 6 m grid round the whole road with every stretch's asphalt cut out exactly (as the city routes' `createUrbanGround`). Each road station says how the land stands beside it (the strip, then its banks or valley) and the ground blends what the stations round a point say, nearer ones counting far more: one stretch alone keeps its own banks, and the Ōhiradai hairpin's legs share one hillside. Its trees stand clear of the other stretches. On RaceV1's bends (live races) the ribbon and strips remain.

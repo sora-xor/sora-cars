@@ -7,8 +7,8 @@ This directory prepares the requested 1986 world expansion outside the maintaine
 ## Arcade courses
 
 The three Arcade courses (Midnight Circuit, Harbor Run, Sakura Pass) are each set on one real road of 1986 at true
-scale: its bends and hairpins, heights, places and landmarks. Local races run and draw the real plan; live races,
-not yet launched, keep RaceV1's bends on the same heights and places. See
+scale: its bends and hairpins, heights, places and landmarks. Local races and live RaceV1 races (not yet launched) run
+and draw the real plan (`docs/live-races-real-roads.md`). See
 [`research/arcade/`](research/arcade/README.md).
 
 ## Tokyo authoring

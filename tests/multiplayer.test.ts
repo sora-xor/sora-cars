@@ -206,31 +206,35 @@ test('a spectator rejects a unanimously signed false terminal claim against its 
   } finally { spectator.close(); drivers.forEach(driver => driver.close()); }
 });
 
-test('drivers and spectators receive a real mid-batch tree impact after checkpoint certification', async () => {
+test('drivers and spectators receive a real mid-batch sign impact after checkpoint certification', async () => {
+  // On the real roads only signs are hit; trees stand beyond the rails as scenery.
   const { RaceSpectator } = await import('../src/network/spectator');
   const { keys, scope, transports, flush } = setup(2), observer = new RaceSpectator(scope);
   const packets: PeerMessage[] = [], observed: number[] = [], delivered: number[][] = [[], []];
   for (const transport of transports) { const send = transport.broadcast.bind(transport); transport.broadcast = packet => { packets.push(packet); send(packet); }; }
   const controllers = keys.map((key, slot) => new MultiplayerRaceController({ scope, slot, privateKey: key, input: () => 1, transport: transports[slot] }));
-  observer.onState = state => observed.push(...environmentContacts(state).filter(e => e.kind === 'tree').map(e => e.tick));
-  const reference = createRace(0, 2), tree = environmentAt(0, 0).objects[0]!, expected: number[] = [];
+  observer.onState = state => observed.push(...environmentContacts(state).filter(e => e.kind === 'sign').map(e => e.tick));
+  const reference = createRace(0, 2), sign = environmentAt(0, 0).objects.find(object => object.kind === 'sign')!, expected: number[] = [];
   const drain = () => { flush(); for (const packet of packets.splice(0)) observer.receive(packet); };
   try {
     controllers.forEach((controller, slot) => {
       controller.onDispute = evidence => assert.fail(evidence.reason);
-      controller.onState = state => delivered[slot]!.push(...environmentContacts(state).filter(e => e.kind === 'tree').map(e => e.tick));
+      controller.onState = state => delivered[slot]!.push(...environmentContacts(state).filter(e => e.kind === 'sign').map(e => e.tick));
       controller.start();
     }); drain();
-    for (let tick = 0; tick < 90; tick++) {
-      const car = reference.cars[0]!, target = car.progress < tree.progress - 60000 ? -1800 : -6500;
+    // Slot 1 starts on the sign's side of the road (+1.8 m) and drives at it, slowly enough (1,200 mm/tick) to hold its
+    // line through the real road's bends; slot 0 holds the throttle.
+    for (let tick = 0; tick < 240; tick++) {
+      const car = reference.cars[1]!, target = car.progress < sign.progress - 60000 ? Math.sign(sign.x) * 1800 : sign.x;
       const predictedX = car.x + car.vx * 4;
-      const input = 1 | 16 | (predictedX > target + 200 ? 4 : predictedX < target - 200 ? 8 : 0);
-      stepRace(reference, [input, 1]);
-      expected.push(...environmentContacts(reference).filter(e => e.kind === 'tree').map(e => e.tick));
-      controllers[0]!.tick(input); controllers[1]!.tick(1); drain();
+      const input = (car.speed < 1200 ? 1 : 0) | 16 | (predictedX > target + 200 ? 4 : predictedX < target - 200 ? 8 : 0);
+      stepRace(reference, [1, input]);
+      expected.push(...environmentContacts(reference).filter(e => e.kind === 'sign').map(e => e.tick));
+      controllers[0]!.tick(1); controllers[1]!.tick(input); drain();
     }
-    assert.deepEqual(expected, [64], 'collision precedes the batch final tick');
-    for (const events of [...delivered, observed]) assert.deepEqual([...new Set(events)], expected);
+    assert.equal(new Set(expected).size, 1, `one sign impact: ${expected}`);
+    assert.ok(expected[0]! % 6 !== 0 && expected[0]! < 228, `collision at tick ${expected[0]} precedes its batch's final tick and later batches`);
+    for (const events of [...delivered, observed]) assert.deepEqual([...new Set(events)], [...new Set(expected)]);
     assert.deepEqual(environmentContacts(controllers[0]!.state), [], 'later certified batches clear old effects');
     assert.deepEqual(nativeState(observer.state), nativeState(reference));
     assert.equal(controllers[0]!.checkpoint!.checkpoint.state_root, stateRoot(scope, reference));
@@ -256,17 +260,17 @@ test('a late spectator resumes from a fully signed replay snapshot and follows l
 });
 
 
-test('900 checkpoint snapshots use exactly one 5,400-frame walk and preserve pre-removal state', () => {
-  const ticks = Array.from({ length: 900 }, (_, i) => (i + 1) * 6);
+test('1,350 checkpoint snapshots use exactly one 8,100-frame walk and preserve pre-removal state', () => {
+  const ticks = Array.from({ length: 1350 }, (_, i) => (i + 1) * 6);
   let frameReads = 0;
-  const frames = new Proxy(Array.from({ length: 5400 }, (_, tick) => ({ tick, controls: [0, 0, 0] })), {
+  const frames = new Proxy(Array.from({ length: 8100 }, (_, tick) => ({ tick, controls: [0, 0, 0] })), {
     get(target, key, receiver) { if (typeof key === 'string' && /^(0|[1-9][0-9]*)$/.test(key)) frameReads++; return Reflect.get(target, key, receiver); },
   });
-  const replay = { track: { kind: 'neon_tokyo' as const, value: null }, player_count: 3, frames, dnf_events: [{ tick: 5400, slots: [1, 2] }] };
+  const replay = { track: { kind: 'neon_tokyo' as const, value: null }, player_count: 3, frames, dnf_events: [{ tick: 8100, slots: [1, 2] }] };
   const result = simulateNativeReplayWithCheckpoints(replay, ticks);
-  assert.equal(frameReads, 5400);
+  assert.equal(frameReads, 8100);
   assert.deepEqual(result.checkpointStates.map(state => state.tick), ticks);
   assert.ok(result.checkpointStates.every(state => state.cars.every(car => car.dnfTick === null)));
-  assert.deepEqual(result.state.cars.map(car => car.dnfTick), [null, 5400, 5400]);
+  assert.deepEqual(result.state.cars.map(car => car.dnfTick), [null, 8100, 8100]);
   assert.throws(() => simulateNativeReplayWithCheckpoints(replay, [6, 6]), /ordered, unique/);
 });

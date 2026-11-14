@@ -1,4 +1,5 @@
 import { RACE_RULES_HASH } from '../game/environment';
+import { RULES } from '../game/rules';
 import type { RaceReplayV1 } from '@iroha/iroha-js/race';
 import type { SignedGameCheckpointV1, GameCommitmentSetV1, GameInputCommitmentV1, GameInputRevealV1 } from '@iroha/iroha-js/game';
 import { createRace, copyRace, stepRace, stepRaceBatch, raceFinished, applyRaceDnf } from '../game/engine';
@@ -87,7 +88,8 @@ export function simulateNativeReplay(replay: RaceReplayV1): RaceState {
 }
 /** One deterministic walk; snapshots precede consensus removals at their boundary. */
 export function simulateNativeReplayWithCheckpoints(replay: RaceReplayV1, checkpointTicks: readonly number[]): { state: RaceState; checkpointStates: RaceState[] } {
-  if (checkpointTicks.length > 900 || checkpointTicks.some((tick, index) => !Number.isInteger(tick) || tick < 0 || tick > replay.frames.length || index > 0 && tick <= checkpointTicks[index - 1]!)) throw new Error('Retained checkpoints must be ordered, unique and within the physical replay.');
+  // One checkpoint per six-tick batch at most: 1,350 over RaceV1's 8,100 ticks.
+  if (checkpointTicks.length > RULES.maxTicks / 6 || checkpointTicks.some((tick, index) => !Number.isInteger(tick) || tick < 0 || tick > replay.frames.length || index > 0 && tick <= checkpointTicks[index - 1]!)) throw new Error('Retained checkpoints must be ordered, unique and within the physical replay.');
   const checkpointStates: RaceState[] = [];
   let checkpointIndex = 0;
   const state = createRace(gameTrack(replay.track), replay.player_count);

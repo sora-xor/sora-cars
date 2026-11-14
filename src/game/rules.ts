@@ -1,17 +1,18 @@
-/** RaceV1 constants mirrored by Iroha's native reference and proof relation. */
-export const RULES = Object.freeze({ id: 'RaceV1', hz: 30, maxTicks: 5400, maxCars: 8, laps: 3, roadHalf: 6000 });
+/** RaceV1 constants mirrored by Iroha's native reference and proof relation. Each track is its real road of 1986
+ * (race-roads.ts); a race may run four and a half minutes; `roadHalf` is the road's edge, the rails stand at 6.52 m. */
+export const RULES = Object.freeze({ id: 'RaceV1', hz: 30, maxTicks: 8100, maxCars: 8, laps: 3, roadHalf: 6000 });
 export const CONTROL = Object.freeze({ throttle: 1, brake: 2, left: 4, right: 8, drift: 16, boost: 32 });
 export interface Track {
   id: number; name: string; japanese: string; location: string; length: number;
-  curves: readonly number[]; sky: string; ground: string; verge: string; accent: string; difficulty: string;
+  sky: string; ground: string; verge: string; accent: string; difficulty: string;
 }
 export const TRACKS: readonly Track[] = [
   { id: 0, name: 'Midnight Circuit', japanese: '真夜中の峠', location: 'HAKONE · JAPAN', length: 2_000_000,
-    curves: [0, 1, 2, 1, 0, -1, -2, -1, 0, 2, -2, 0], sky: '#332169', ground: '#343248', verge: '#61526f', accent: '#c2a7f1', difficulty: 'FLOWING CORNERS' },
+    sky: '#332169', ground: '#343248', verge: '#61526f', accent: '#c2a7f1', difficulty: 'FLOWING CORNERS' },
   { id: 1, name: 'Harbor Run', japanese: '港の風', location: 'YOKOHAMA · JAPAN', length: 2_400_000,
-    curves: [0, -2, -2, 0, 1, 3, 1, 0, -1, -3, -1, 0], sky: '#3b708c', ground: '#586d70', verge: '#a2ada3', accent: '#80dbd1', difficulty: 'FAST & TECHNICAL' },
+    sky: '#3b708c', ground: '#586d70', verge: '#a2ada3', accent: '#80dbd1', difficulty: 'FAST & TECHNICAL' },
   { id: 2, name: 'Sakura Pass', japanese: '桜の道', location: 'NIKKO · JAPAN', length: 1_800_000,
-    curves: [0, 1, 1, 0, -2, -1, 0, 2, 3, 1, -2, 0], sky: '#bd667f', ground: '#655358', verge: '#ba9091', accent: '#f7b4c3', difficulty: 'TIGHT HAIRPINS' },
+    sky: '#bd667f', ground: '#655358', verge: '#ba9091', accent: '#f7b4c3', difficulty: 'TIGHT HAIRPINS' },
 ];
 export interface Livery { id: number; name: string; japanese: string; color: string; dark: string; light: string; }
 export const LIVERIES: readonly Livery[] = [
@@ -23,6 +24,3 @@ export const LIVERIES: readonly Livery[] = [
   { id: 5, name: 'Aoi', japanese: '青', color: '#578cde', dark: '#28447b', light: '#97c3ff' },
 ];
 export const modulo = (n: number, d: number): number => ((n % d) + d) % d;
-export function curvature(track: Track, progress: number): number {
-  return track.curves[Math.floor(modulo(progress, track.length) * 12 / track.length)]!;
-}

@@ -7,6 +7,7 @@ import type { ExecutionProofEnvelopeV1, GameOutcomeV1, GameSessionRecordV1 } fro
 import { decodeRaceFrameV1, encodeRaceValueV1, deriveRaceResultV1, buildRaceProverRequestV1 } from '@iroha/iroha-js/race';
 import type { RaceProverRequestV1, RaceReplayV1, RaceResultV1, RaceProofPayloadV1 } from '@iroha/iroha-js/race';
 import { raceFinished } from '../game/engine';
+import { RULES } from '../game/rules';
 import { hex } from '../network/session';
 import type { RaceState } from '../game/engine';
 import { simulateNativeReplayWithCheckpoints } from '../network/controller';
@@ -31,7 +32,7 @@ function validateReplay(record: RaceRecord, replay: RaceReplayV1, evidence: Game
   const root = prepared.acceptedRoot(), checkpoint = record.checkpoint?.checkpoint;
   if (manifestCommitment(record.network_id, record.race_id, record.manifest) !== record.manifest_commitment) throw new Error('Native manifest commitment mismatch.');
   const anchors = [...record.checkpoint_history, ...(checkpoint ? [checkpoint] : [])];
-  if (!checkpoint || anchors.length > 900 || record.checkpoint_history.some(anchor => anchor.tick === 0)) throw new Error('Proof requires the complete retained checkpoint history.');
+  if (!checkpoint || anchors.length > RULES.maxTicks / 6 || record.checkpoint_history.some(anchor => anchor.tick === 0)) throw new Error('Proof requires the complete retained checkpoint history.');
   const simulation = simulateNativeReplayWithCheckpoints(replay, anchors.map(anchor => anchor.tick));
   const result = nativeRaceResult(simulation.state), outcome = raceOutcome(settlementResult(result, record.next_tick, full.transcript));
   const checkpointStates = simulation.checkpointStates.map((state, index) => {

@@ -16,7 +16,7 @@ import './ui/tech-garage.css';
 import './ui/car-builder.css';
 import { MusicStore } from './ui/music-store';
 import { readSceneReadiness, sceneDownloadMarkup, ScenePreparationCover, updateSceneDownloadProgress } from './ui/scene-preparation';
-import { CONTROL as C, LIVERIES, TRACKS } from './game/rules';
+import { CONTROL as C, LIVERIES, RULES, TRACKS } from './game/rules';
 import { applyReplayDnf, botControl, copyRace, createRace, raceFinished, rankCars, stepRace, type RaceState } from './game/engine';
 import { GARAGE_RULES, isGarageReplay, localReplayState, validateLocalReplay, type LocalReplay } from './game/garage-replay';
 import { garageBotControl } from './game/garage-ai';
@@ -307,7 +307,7 @@ function renderScreen(): void {
   else if (view === 'results' && storyStreet && storyResult === storyStreet.chapter) screen.innerHTML = streetStoryResults(storyStreet);
   else if (view === 'results') {
     const ranking = rankCars(currentRace), places = raceResultPlaces(currentRace), player = currentRace.cars[playerSlot]!, placement = places.get(playerSlot)!;
-    const resultLabel = (car: typeof player) => car.finishTick !== null ? formatTime(car.finishTick) : car.dnf ? car.damage !== undefined ? '大破 / WRECKED' : 'FORFEIT' : currentRace.tick < 5400 && car.damage === undefined ? 'TECHNICAL WIN' : `${Math.max(0, car.progress / 1000).toFixed(1)} m`;
+    const resultLabel = (car: typeof player) => car.finishTick !== null ? formatTime(car.finishTick) : car.dnf ? car.damage !== undefined ? '大破 / WRECKED' : 'FORFEIT' : currentRace.tick < RULES.maxTicks && car.damage === undefined ? 'TECHNICAL WIN' : `${Math.max(0, car.progress / 1000).toFixed(1)} m`;
     // A story race reports its chapter objective rather than a practice placing.
     const story = storyResult !== null && !replay && !networkRace ? { chapter: storyResult, cleared: storyObjectiveMet(storyResult, placement, places.get(7)), objective: storyObjective(storyResult) } : null;
     screen.innerHTML = `<div class="results-panel"><p class="eyebrow">${story ? `CH. ${String(story.chapter + 1).padStart(2, '0')} · ${story.cleared ? '章クリア / CHAPTER CLEARED' : '目標未達 / OBJECTIVE MISSED'}` : `${replay ? 'REPLAY COMPLETE' : networkRace ? 'LIVE RACE COMPLETE' : 'PRACTICE COMPLETE'} / お疲れ様でした`}</p><div class="result-title"><span>${String(placement).padStart(2, '0')}<small>/${currentRace.cars.length}</small></span><div><h1>${(story ? story.cleared : placement === 1 && (player.finishTick !== null || !player.dnf)) ? 'いい走りだった。' : 'もう一度、走ろう。'}</h1><p>${TRACKS[currentRace.trackId]!.name} · ${resultLabel(player)}</p>${story ? `<p>目標：${escape(story.objective.ja)} / ${escape(story.objective.en)}</p>` : ''}</div></div>${lastAward && !replay && !networkRace ? prizeBox(lastAward, storyResult !== null) : ''}<div class="results-list">${ranking.map(c => `<div class="result-row ${c.slot === playerSlot ? 'you' : ''}"><span>${String(places.get(c.slot)).padStart(2, '0')}</span><i style="background:${drawnBuilds()?.[c.slot] ? paintInfo(drawnBuilds()![c.slot]!.paint).color : LIVERIES[skins[c.slot] ?? 0]!.color}"></i><strong>${escape(raceNames[c.slot])}</strong><span>${resultLabel(c)}</span></div>`).join('')}</div><div class="result-actions">${story ? storyResultActions(story.chapter, story.cleared) : `<button class="primary" data-action="${networkRace ? 'room' : 'rematch'}">${networkRace ? 'SESSION & SETTLEMENT' : 'RUN IT BACK'} <span>↗</span></button>`}${storyResult !== null ?`<button class="text-button" data-action="story-workshop-${Math.min(unlockedChapter, CHAPTERS.length - 1)}">工房で一息 <span lang="en">VISIT THE WORKSHOP →</span></button>` : ''}<button class="text-button" data-action="watch-last">WATCH REPLAY →</button><button class="text-button" data-action="home">ガレージへ <span lang="en">GARAGE</span></button><button class="text-button" data-action="story">物語へ <span lang="en">STORY →</span></button></div><p class="fine-print">${networkRace ? 'Certified simulation result · XOR settlement still requires an accepted native execution proof.' : replay?.source === 'multiplayer' ? 'Replay of a multiplayer session · This view does not authenticate ledger settlement.' : story ? '物語のレース・XORの預け入れや賞金はありません。 / Story race · No XOR was staked or awarded.' : 'Practice session · No XOR was staked or awarded.'}</p></div>`;
@@ -548,12 +548,12 @@ function updateDrivingSound(input: number): void {
     impact,
   });
 }
-/** The Arcade road the world draws: the driving model's real road for a local race or its replay, RaceV1's bends for
- * live races, spectating, RaceV1 replays and `?physics=native`. Between races the home screen shows the real road. */
-function drawnCourse(): DriveCourse | undefined {
+/** The Arcade road the world draws: always the real road. A local race or its replay runs the driving model on it;
+ * live races, spectating, RaceV1 replays and `?physics=native` run RaceV1, whose progress and lateral position are the
+ * same road's (race-roads.ts). Between races the home screen shows it too. */
+function drawnCourse(): DriveCourse {
   if (driveRace) return driveRace.course;
-  if (networkRace || spectator || replay || !drivePhysics()) return undefined;
-  return arcadeCourse(trackId);
+  return arcadeCourse(networkRace || spectator || replay ? currentRace.trackId : trackId);
 }
 function finishSession(): void {
   audio.stopDrive();

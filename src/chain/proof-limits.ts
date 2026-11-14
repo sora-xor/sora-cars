@@ -6,7 +6,7 @@ export const PROOF_REQUEST_JSON_LIMIT = 8 * 1024 * 1024;
 // Leave one MiB for the statement, application outcome and worker status framing.
 export const PROOF_BUNDLE_JSON_LIMIT = 4 * PROOF_ENVELOPE_LIMIT + 1024 * 1024;
 
-// Eight original slots across 900 rounds plus the replay and complete Stock
+// Eight original slots across 1,350 rounds plus the replay and complete Stock
 // record fit below this byte bound. Export and import use the identical limit.
 export const PUBLIC_REPLAY_JSON_LIMIT = 16 * 1024 * 1024;
 export function encodePublicReplayJson(value: unknown): string {

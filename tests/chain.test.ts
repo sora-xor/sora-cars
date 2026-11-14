@@ -16,6 +16,7 @@ import { assertSameRaceTerms, joinRace, raceInvitation, parseRaceRecord, nativeT
 import type { RaceRecord } from '../src/chain/races';
 import { buildRaceProverRequest, nativeRaceResult, parseRaceProofBundle, raceProofSourceMatches, assertRaceProofSourceUnchanged } from '../src/chain/proof';
 import { createRace } from '../src/game/engine';
+import { RULES } from '../src/game/rules';
 import { simulateNativeReplay } from '../src/network/controller';
 const fixture = currentGameFixtures();
 const byName = (name: string) => {
@@ -208,9 +209,9 @@ test('fresh native proof retains the complete source, accepted history and econo
 
 test('RaceV1 outcomes exclude forfeits from finish and distance awards', () => {
   const state = createRace(0, 4);
-  state.tick = 5400;
+  state.tick = RULES.maxTicks;
   [40_000, 80_000, 80_000, 120_000].forEach((progress, slot) => { state.cars[slot]!.progress = progress; });
-  state.cars[3]!.dnf = true; state.cars[3]!.dnfTick = 5394;
+  state.cars[3]!.dnf = true; state.cars[3]!.dnfTick = RULES.maxTicks - 6;
   assert.deepEqual(nativeRaceResult(state).winners, [1, 2], 'a forfeited leader cannot receive the timeout prize');
   state.cars[2]!.progress -= 1;
   assert.deepEqual(nativeRaceResult(state).winners, [1], 'one millimetre resolves a progress tie');

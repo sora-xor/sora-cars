@@ -4,7 +4,9 @@ import { botControl, copyRace, createRace, raceFinished, stepRace, validateRepla
 import { RACE_RULES_HASH } from '../src/game/environment';
 import { GARAGE_RULES, isGarageReplay, localReplayState, validateLocalReplay, type GarageReplayV1 } from '../src/game/garage-replay';
 import { environmentContacts } from '../src/game/environment-events';
-import { CONTROL as C, TRACKS } from '../src/game/rules';
+import { CONTROL as C } from '../src/game/rules';
+import { raceRoad } from '../src/game/race-roads';
+import { RACE_ROAD } from '../src/game/race-roads-table';
 import { vehicleSpec } from '../src/game/drive/vehicle';
 import { DRAFT_RANGE, STOCK_TUNE, TRACTION_SPEED, TUNE_BOUNDS, TUNE_FIELDS, inWake, isStockTune, stepTunedRace, validateTune, type CarTune } from '../src/game/tuned-engine';
 import {
@@ -60,7 +62,10 @@ test('the stock tune is exactly the driving model\u2019s stock car, so equal-car
 });
 
 test('drift charge pays only for drifting into a corner at speed, scaled by its curvature', () => {
-  const track = TRACKS[0]!, cell = track.curves.indexOf(2), progress = Math.ceil(cell * track.length / 12) + 1000;
+  // A bend of strength 2 on Hakone's real road (coefficient 2,000-2,999, pushing right, so the corner is to the left)
+  // and one of strength 1; progress 1 m into the station that holds it.
+  const road = raceRoad(0), at = (station: number) => station * RACE_ROAD.stationMm - RACE_ROAD.leadMm + 1000;
+  const strong = road.findIndex((k, station) => k >= 2000 && k < 3000 && station > 40), progress = at(strong);
   const energyAfter = (control: number, changes: Partial<CarTune>, speed = 2000) => {
     const state = createRace(0, 2);
     Object.assign(state.cars[0]!, { progress, x: 0, speed, energy: 500 });
@@ -68,15 +73,16 @@ test('drift charge pays only for drifting into a corner at speed, scaled by its 
     stepTunedRace(state, [control, 0], tuned(changes));
     return state.cars[0]!.energy;
   };
-  const into = C.throttle | C.drift | C.left; // curvature +2 pushes right, so the corner is to the left
+  const into = C.throttle | C.drift | C.left;
   assert.equal(energyAfter(into, {}), 504, 'stock cars only recharge');
   assert.equal(energyAfter(into, { driftCharge: 12 }), 504 + 12);
   assert.equal(energyAfter(C.throttle | C.drift | C.right, { driftCharge: 12 }), 504, 'steering out of the corner');
   assert.equal(energyAfter(C.throttle | C.left, { driftCharge: 12 }), 504, 'no drift held');
   assert.equal(energyAfter(into, { driftCharge: 12 }, 1000), 504, 'too slow to drift');
   assert.equal(energyAfter(into | C.boost, { driftCharge: 12 }), 475, 'boosting spends instead');
-  const gentle = track.curves.indexOf(1), state = createRace(0, 2);
-  Object.assign(state.cars[0]!, { progress: Math.ceil(gentle * track.length / 12) + 1000, speed: 2000, energy: 500 });
+  const gentle = road.findIndex((k, station) => k >= 1000 && k < 2000 && station > 40), state = createRace(0, 2);
+  assert.ok(strong > 0 && gentle > 0, 'Hakone has bends of both strengths');
+  Object.assign(state.cars[0]!, { progress: at(gentle), speed: 2000, energy: 500 });
   stepTunedRace(state, [into, 0], tuned({ driftCharge: 12 }));
   assert.equal(state.cars[0]!.energy, 504 + 6, 'half the charge at curvature 1');
 });

@@ -128,14 +128,14 @@ test('checkpoint publication requires matching nonce-bearing openings for the ol
   assert.throws(() => mergeRaceReveals(Array(7201).fill(reveals[0])), /Oversized/);
   assert.throws(() => mergeRaceReveals(reveals, forged), /Conflicting/);
   assert.throws(() => mergeRaceReveals([{ ...reveals[0]!, payload: Array(4096).fill(1) }]), /twelve bytes/);
-  const maximum = Array.from({ length: 7200 }, (_, index) => ({ ...reveals[index % 2]!, slot: index % 8, start_tick: Math.floor(index / 8) * 6 }));
+  const maximum = Array.from({ length: 10800 }, (_, index) => ({ ...reveals[index % 2]!, slot: index % 8, start_tick: Math.floor(index / 8) * 6 }));
   const archived = mergeRaceReveals(maximum);
-  assert.equal(archived.length, 7200);
+  assert.equal(archived.length, 10800);
   assert.deepEqual(mergeRaceReveals(archived, archived, archived), archived, 'three full archives deduplicate before the total bound');
   assert.deepEqual(checkpointOpenings(record, cp, null, archived, archived, archived), openings, 'checkpoint openings accept duplicate complete archives');
   const encoded = encodePublicReplayJson({ recovery: { commitments: [], reveals: archived } });
   assert.ok(new TextEncoder().encode(encoded).length < PUBLIC_REPLAY_JSON_LIMIT);
-  assert.equal(JSON.parse(encoded).recovery.reveals.length, 7200);
+  assert.equal(JSON.parse(encoded).recovery.reveals.length, 10800);
   assert.throws(() => encodePublicReplayJson('x'.repeat(PUBLIC_REPLAY_JSON_LIMIT)), /16 MiB/);
 });
 
@@ -151,23 +151,23 @@ test('public recovery commitments deduplicate eight slots, reject conflicts and 
   assert.deepEqual(mergeRaceCommitments(archive, imported), archive, 'actual export/import representation does not duplicate or replace eight retained slots');
   assert.throws(() => mergeRaceCommitments(archive, [{ ...archive[0]!, commitment: commitment(99) }]), /Conflicting/);
   assert.throws(() => mergeRaceCommitments(Array(7201).fill(archive[0])), /Oversized/);
-  const maximum = Array.from({ length: 7200 }, (_, index) => ({ ...values[index % 8]!, start_tick: Math.floor(index / 8) * 6 }));
+  const maximum = Array.from({ length: 10800 }, (_, index) => ({ ...values[index % 8]!, start_tick: Math.floor(index / 8) * 6 }));
   const retained = mergeRaceCommitments(maximum, maximum);
-  assert.equal(retained.length, 7200);
+  assert.equal(retained.length, 10800);
   const maximumReveals = mergeRaceReveals(retained.map(input => ({ session_id: input.session_id, scope: input.scope, epoch: input.epoch, start_tick: input.start_tick, slot: input.slot, payload: Array.from({ length: 12 }, (_, i) => i % 2 ? 0 : 63), nonce: 'nonce32:' + 'FF'.repeat(32) })));
   // Maximum-shaped JSON framing only. Repeated synthetic roots/identities here
   // are not an accepted history, native fixture, or valid ledger certificate.
-  const frames = Array.from({ length: 5400 }, (_, tick) => ({ tick, controls: Array(8).fill(63) }));
-  const batches = Array.from({ length: 900 }, (_, i) => ({ start_tick: i * 6, inputs: Array.from({ length: 8 }, () => Array.from({ length: 12 }, (_, byte) => byte % 2 ? 0 : 63)) }));
-  const checkpoint_history = Array.from({ length: 899 }, (_, i) => ({ ...record.checkpoint_history[0]!, tick: (i + 1) * 6 }));
+  const frames = Array.from({ length: 8100 }, (_, tick) => ({ tick, controls: Array(8).fill(63) }));
+  const batches = Array.from({ length: 1350 }, (_, i) => ({ start_tick: i * 6, inputs: Array.from({ length: 8 }, () => Array.from({ length: 12 }, (_, byte) => byte % 2 ? 0 : 63)) }));
+  const checkpoint_history = Array.from({ length: 1349 }, (_, i) => ({ ...record.checkpoint_history[0]!, tick: (i + 1) * 6 }));
   const certified_batches = batches.map(batch => ({ ...batch, epoch: '18446744073709551615', parent_transcript_root: commitment(7), frontier_id: commitment(9) }));
-  const source = { ...record.source_record, next_tick: 5400, checkpoint_history, certified_batches, forced_batches: [], participants: Array.from({ length: 8 }, (_, i) => record.source_record.participants[i % 2]) };
+  const source = { ...record.source_record, next_tick: 8100, checkpoint_history, certified_batches, forced_batches: [], participants: Array.from({ length: 8 }, (_, i) => record.source_record.participants[i % 2]) };
   const maximumBundle = { version: 1, kind: 'sora-cars-public-replay', authentication: 'endpoint-reported-unverified', record: { ...record, source_record: source, checkpoint_history, certified_batches }, replay: { track: nativeTrack(0), player_count: 8, frames, dnf_events: [] }, recovery: { commitments: retained, reveals: maximumReveals }, history_evidence: { transcript: { batches, dnf_events: [] }, current_commitments: retained.slice(-8), current_reveals: maximumReveals.slice(-8) } };
   const maximumJson = encodePublicReplayJson(maximumBundle);
-  assert.ok(new TextEncoder().encode(maximumJson).length < PUBLIC_REPLAY_JSON_LIMIT, 'both 7,200-entry archives plus full Stock replay/source framing fit the shared bound');
+  assert.ok(new TextEncoder().encode(maximumJson).length < PUBLIC_REPLAY_JSON_LIMIT, 'both 10,800-entry archives plus full Stock replay/source framing fit the shared bound');
   const maximumImport = JSON.parse(maximumJson).recovery;
-  assert.equal(mergeRaceCommitments(maximumImport.commitments).length, 7200);
-  assert.equal(mergeRaceReveals(maximumImport.reveals).length, 7200);
+  assert.equal(mergeRaceCommitments(maximumImport.commitments).length, 10800);
+  assert.equal(mergeRaceReveals(maximumImport.reveals).length, 10800);
   const current = structuredClone(record); current.phase.kind = 'forced_commit';
   const body = { session_id: record.race_id, scope: activeScope(record.source_record), epoch: record.epoch, start_tick: record.next_tick, slot: 0, commitment: commitment(61) };
   const signed = { ...body, signature: Buffer.from(ed25519.sign(inputSigningFrame(record.network_id, body), new Uint8Array(32).fill(1))).toString('hex').toUpperCase() };

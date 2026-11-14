@@ -10,7 +10,7 @@ import type { RaceTrackV1, RaceReplayV1 } from '@iroha/iroha-js/race';
 
 export const BATCH_TICKS = 6;
 export const MAX_RACERS = 8;
-export const MAX_RACE_TICKS = 5400;
+export const MAX_RACE_TICKS = 8100;
 const DOMAIN = 'sora-cars/peer/v1';
 const HEX32 = /^[0-9a-f]{64}$/;
 const HEX64 = /^[0-9a-f]{128}$/;

@@ -1,4 +1,6 @@
-import { CONTROL as C, RULES, TRACKS, curvature } from './rules';
+import { CONTROL as C, RULES, TRACKS } from './rules';
+import { HELD_WHEEL_PUSH, bendForce, bendSpeedLimit, raceRoad, raceStation } from './race-roads';
+import { RACE_ROAD } from './race-roads-table';
 import { executeRaceKernel } from './kernel';
 import { RACE_RULES_HASH } from './environment';
 import { copyEnvironmentContacts, environmentContacts, setEnvironmentContacts, type EnvironmentContact } from './environment-events';
@@ -77,9 +79,10 @@ export function rankCars(state: RaceState): CarState[] {
     return b.progress - a.progress || a.slot - b.slot;
   });
 }
+/** A plain RaceV1 driver on the real road: it holds a lane, steers against the bend's push and brakes in time for
+ * the bends ahead (100 mm/tick per tick), drifting when the wheel alone cannot hold the line. */
 export function botControl(state: RaceState, slot: number): number {
-  const car = state.cars[slot]!, track = TRACKS[state.trackId]!;
-  const curve = curvature(track, car.progress);
+  const car = state.cars[slot]!;
   let target = ((slot % 3) - 1) * 2900;
   for (const other of state.cars) {
     const dz = other.progress - car.progress;
@@ -89,13 +92,30 @@ export function botControl(state: RaceState, slot: number): number {
     if (Math.abs(dz) < 6000 && Math.abs(other.x - car.x) < 2400) target = car.x + (car.x < other.x || car.x === other.x && slot < other.slot ? -3000 : 3000);
   }
   target = clamp(target, -4800, 4800);
-  const expectedX = car.x + car.vx * 5 + curve * car.speed / 24;
-  let input = C.throttle;
+  const push = bendForce(state.trackId, car.progress, car.speed);
+  const expectedX = car.x + car.vx * 5 + push * 5;
+  const limit = speedForBendsAhead(state.trackId, car.progress, car.speed);
+  let input = car.speed > limit + 20 ? C.brake : car.speed + 40 > limit ? 0 : C.throttle;
   if (expectedX > target + 180) input |= C.left;
   if (expectedX < target - 180) input |= C.right;
-  if (Math.abs(curve) >= 2 && Math.abs(expectedX - target) > 1700) input |= C.drift;
-  if (Math.abs(curve) < 2 && car.energy > 500 && moduloPhase(state.tick, slot)) input |= C.boost;
+  if (Math.abs(push) > 90 && Math.abs(expectedX - target) > 1200) input |= C.drift;
+  if (Math.abs(push) < 30 && limit >= 2400 && car.energy > 500 && moduloPhase(state.tick, slot)) input |= C.boost;
   return input;
+}
+/** The fastest speed (mm/tick) from which the car can still brake to every bend's limit within its braking reach, for a
+ * car that can hold `push` mm/tick against a bend. */
+export function speedForBendsAhead(trackId: number, progress: number, speed: number, push = HELD_WHEEL_PUSH * 0.9): number {
+  const road = raceRoad(trackId), first = raceStation(trackId, progress);
+  if (first < 0) return Infinity;
+  const reach = speed * speed / 200 + 30_000;
+  let limit = Infinity;
+  for (let station = first; station < road.length; station++) {
+    const distance = Math.max(0, station * RACE_ROAD.stationMm - RACE_ROAD.leadMm - progress);
+    if (distance > reach) break;
+    const corner = bendSpeedLimit(road[station]!, push);
+    limit = Math.min(limit, Math.sqrt(corner * corner + 200 * distance));
+  }
+  return limit;
 }
 function moduloPhase(tick: number, slot: number): boolean { return (tick + slot * 79) % 370 < 65; }
 export function validateReplay(value: unknown): ReplayV1 {

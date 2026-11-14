@@ -1,5 +1,7 @@
 import generated from './generated/race-v1-kernels.json';
-import { RULES, TRACKS } from './rules';
+import { RULES } from './rules';
+import { RACE_RAIL_MM, bendCoefficient } from './race-roads';
+import { RACE_ROAD } from './race-roads-table';
 import { raceFinished, type RaceState } from './engine';
 import { setEnvironmentContacts, type EnvironmentContact } from './environment-events';
 
@@ -17,12 +19,12 @@ export interface CarTune {
   /** Steering available in rain (12/16) and on oil (8/16). */
   readonly rainSteer: number; readonly oilSteer: number;
   readonly lateralLimit: number; readonly wetLateralLimit: number;
-  /** Corner and crosswind push felt by the car (16/16). */
+  /** Bend and crosswind push felt by the car (16/16). */
   readonly cornerLoad: number; readonly windLoad: number;
   readonly offroadLoss: number; readonly treeLoss: number; readonly signLoss: number; readonly contactLoss: number;
   /** Garage-only mechanics. Zero at stock, so RaceV1 never sees them.
    * boostKick: extra acceleration while boosting. driftCharge: boost energy per
-   * tick of drifting into a curvature-2 corner. draft: speed cap raised in another car's wake.
+   * tick of drifting into a bend of strength 2 (coefficient 2,000, about a 60 m radius). draft: speed cap raised in another car's wake.
    * traction: extra acceleration below TRACTION_SPEED, for launches and recoveries.
    */
   readonly boostKick: number; readonly driftCharge: number; readonly draft: number; readonly traction: number;
@@ -74,10 +76,11 @@ const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n
 const wrap = (n: number, d: number) => ((n % d) + d) % d;
 const div = (a: number, b: number) => Math.trunc(a / b) || 0;
 
-/** Boost energy earned this tick by drifting into a corner of curvature `curve`. */
-function driftCharge(tune: CarTune, curve: number, control: number, speed: number, boosting: boolean): number {
-  const direction = Number((control & 8) !== 0) - Number((control & 4) !== 0);
-  return tune.driftCharge && !boosting && control & 16 && curve && direction === -Math.sign(curve) && speed >= DRIFT_CHARGE_SPEED ? div(tune.driftCharge * Math.abs(curve), 2) : 0;
+/** Boost energy earned this tick by drifting into a bend of coefficient `k`: its strength is |k| in thousands, at most 3
+ * (a 15–40 m hairpin), and the wheel must turn into the bend, against its push. */
+function driftCharge(tune: CarTune, k: number, control: number, speed: number, boosting: boolean): number {
+  const direction = Number((control & 8) !== 0) - Number((control & 4) !== 0), strength = Math.min(3, Math.floor(Math.abs(k) / 1000));
+  return tune.driftCharge && !boosting && control & 16 && strength && direction === -Math.sign(k) && speed >= DRIFT_CHARGE_SPEED ? div(tune.driftCharge * strength, 2) : 0;
 }
 /** True when another active car is far enough ahead, and close enough in line, to tow this one. */
 export function inWake(state: RaceState, slot: number): boolean {
@@ -91,7 +94,7 @@ export function stepTunedRace(state: RaceState, inputs: readonly number[], tunes
   if (inputs.length !== state.cars.length || inputs.some(v => !Number.isInteger(v) || v < 0 || v > 63)) throw new RangeError('Noncanonical garage controls');
   if (tunes.length !== state.cars.length) throw new RangeError('Every garage car needs a tune');
   if (raceFinished(state)) return;
-  const env = environments[state.trackId]!, track = TRACKS[state.trackId]!, length = env.length_mm, tick = state.tick;
+  const env = environments[state.trackId]!, length = env.length_mm, tick = state.tick;
   const rain = env.rain_pattern[Math.floor(tick / env.rain_ticks) % env.rain_pattern.length] !== 0;
   const wind = env.wind_pattern[Math.floor(tick / env.wind_ticks) % env.wind_pattern.length]! * env.wind_strength;
   const contacts: EnvironmentContact[] = [];
@@ -106,26 +109,26 @@ export function stepTunedRace(state: RaceState, inputs: readonly number[], tunes
     car.speed = clamp(car.speed + acceleration, 0, (boost ? tune.boostSpeed : tune.topSpeed) + (wake[slot] ? tune.draft : 0));
     const wrapped = wrap(car.progress, length), cell = Math.floor(wrapped * 12 / length), kind = env.kinds[cell]!;
     const oil = kind === 2 && Math.abs(wrapped - env.centers[cell]!) <= env.oil_half_length && Math.abs(car.x - env.laterals[cell]!) <= env.oil_half_width;
-    const direction = Number((control & 8) !== 0) - Number((control & 4) !== 0), curve = track.curves[cell]!;
-    car.energy = Math.min(car.energy + driftCharge(tune, curve, control, car.speed, boost), 1000);
+    const direction = Number((control & 8) !== 0) - Number((control & 4) !== 0), k = bendCoefficient(state.trackId, car.progress);
+    car.energy = Math.min(car.energy + driftCharge(tune, k, control, car.speed, boost), 1000);
     let steer = direction * (control & 16 ? tune.driftSteer : tune.steer);
     if (rain) steer = div(steer * tune.rainSteer, 16);
     if (oil) steer = div(steer * tune.oilSteer, 16);
     const limit = rain ? tune.wetLateralLimit : tune.lateralLimit;
     car.vx = clamp(div((car.vx + steer) * (rain || oil ? tune.wetDamping : tune.dryDamping), 16), -limit, limit);
-    const push = div(curve * car.speed * tune.cornerLoad, 1920) + div(wind * car.speed * tune.windLoad, 38400);
-    car.x = clamp(car.x + car.vx + push, -9000, 9000);
+    // The real road's bend pushes outward with the square of the speed; corner load 16/16 is RaceV1 exactly
+    // (dividing by 16 * 2^24 is exact, a power of two, so the stock push is native's integer).
+    const push = div(k * car.speed * car.speed * tune.cornerLoad, 16 * RACE_ROAD.forceDivisor) + div(wind * car.speed * tune.windLoad, 38400);
+    car.x = clamp(car.x + car.vx + push, -RACE_RAIL_MM, RACE_RAIL_MM);
     if (Math.abs(car.x) > RULES.roadHalf) car.speed = Math.max(car.speed - tune.offroadLoss, 0);
     const before = car.progress;
     car.progress += car.speed;
+    // Signs are hit; trees stand beyond the rails and oil is driven through.
     let impact = false;
-    if (kind !== 2 && wrapped < env.centers[cell]! && wrapped + car.speed >= env.centers[cell]!
-      && Math.abs(car.x - env.laterals[cell]!) < (kind === 0 ? env.tree_radius : env.sign_radius)) {
+    if (kind === 1 && wrapped < env.centers[cell]! && wrapped + car.speed >= env.centers[cell]!
+      && Math.abs(car.x - env.laterals[cell]!) < env.sign_radius) {
       impact = true;
-      if (kind === 0) {
-        car.x = clamp(env.laterals[cell]! + (car.x > env.laterals[cell]! ? env.tree_push : -env.tree_push), -9000, 9000);
-        car.speed = Math.max(car.speed - tune.treeLoss, 0);
-      } else car.speed = Math.max(car.speed - tune.signLoss, 0);
+      car.speed = Math.max(car.speed - tune.signLoss, 0);
     }
     if (oil || impact) contacts.push({ tick, slot, kind: kinds[kind]!, objectId: Math.floor(before / length) * 12 + cell });
   });
@@ -139,6 +142,8 @@ export function stepTunedRace(state: RaceState, inputs: readonly number[], tunes
     a.speed = Math.max(a.speed - tunes[i]!.contactLoss, 0);
     b.speed = Math.max(b.speed - tunes[j]!.contactLoss, 0);
   }
+  // A contact cannot push a car through the rail.
+  for (const car of state.cars) car.x = clamp(car.x, -RACE_RAIL_MM, RACE_RAIL_MM);
   state.tick++;
   const finish = length * RULES.laps;
   for (const car of state.cars) if (car.finishTick === null && car.dnfTick === null && car.progress >= finish) { car.progress = finish; car.finishTick = state.tick; }

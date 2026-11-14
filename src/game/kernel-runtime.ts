@@ -14,10 +14,16 @@ export interface NativeRaceKernelCatalog {
   environment: {
     length_mm: number; rain_pattern: number[]; wind_pattern: number[];
     rain_ticks: number; wind_ticks: number; wind_strength: number;
+    /** RaceV1's real road: the bend coefficient under each 5 m station from 100 m before the line. */
+    road?: number[]; road_station_mm?: number; road_lead_mm?: number; rail_mm?: number;
   }[];
 }
+/** How a relation's kernels are laid out. RaceV1 runs its real roads: each car's last fixed value is the bend
+ * coefficient under it, read here from the catalog's road table. Touring keeps the twelve-cell layout. */
+export interface NativeRaceLayout { readonly maxTicks: number; readonly realRoads: boolean }
+const TWELVE_CELLS: NativeRaceLayout = Object.freeze({ maxTicks: 5400, realRoads: false });
 
-function validateCatalog(catalog: NativeRaceKernelCatalog): void {
+function validateCatalog(catalog: NativeRaceKernelCatalog, layout: NativeRaceLayout): void {
   const fail = () => { throw new Error('Invalid bundled native racing circuit'); };
   if (catalog.version !== 1 || catalog.fixed_prefix !== 9 || catalog.kernels.length !== 21 || catalog.environment.length !== 3) fail();
   for (const env of catalog.environment) {
@@ -27,11 +33,16 @@ function validateCatalog(catalog: NativeRaceKernelCatalog): void {
       || !Number.isSafeInteger(env.wind_strength) || Math.abs(env.wind_strength) > 320
       || !env.rain_pattern.length || env.rain_pattern.some(v => v !== 0 && v !== 1)
       || !env.wind_pattern.length || env.wind_pattern.some(v => !Number.isSafeInteger(v) || Math.abs(v) > 8)) fail();
+    if (layout.realRoads && (!Array.isArray(env.road) || env.road_station_mm !== 5000 || env.road_lead_mm !== 100_000 || env.rail_mm !== 6520
+      || env.road.length !== (env.length_mm * 3 + env.road_lead_mm) / env.road_station_mm + 1
+      || env.road.some(v => !Number.isSafeInteger(v) || Math.abs(v) > 32_767))) fail();
+    if (!layout.realRoads && env.road !== undefined) fail();
   }
+  const perCar = layout.realRoads ? 5 : 4;
   for (const [index, kernel] of catalog.kernels.entries()) {
     const players = index % 7 + 2;
     if (kernel.track !== Math.floor(index / 7) || kernel.player_count !== players
-      || kernel.input_count !== players * 7 || kernel.fixed_count !== 9 + players * 4
+      || kernel.input_count !== players * 7 || kernel.fixed_count !== 9 + players * perCar
       || kernel.outputs.length !== players * 7 || kernel.events.length !== players * 3
       || kernel.control_table.length !== 64 || kernel.control_table.some(row => row.length !== 3 || row.some(v => !Number.isSafeInteger(v)))) fail();
     const ref = (pair: readonly number[], before: number) => {
@@ -55,8 +66,9 @@ function validateCatalog(catalog: NativeRaceKernelCatalog): void {
 /** Each compiled relation owns its scratch buffers, weather and control table.
  * Sharing the interpreter cannot substitute one class's parameters for another.
  */
-export function createNativeRaceExecutor(catalog: NativeRaceKernelCatalog): (state: RaceState, controls: readonly number[]) => void {
-  validateCatalog(catalog);
+export function createNativeRaceExecutor(catalog: NativeRaceKernelCatalog, layout: NativeRaceLayout = TWELVE_CELLS): (state: RaceState, controls: readonly number[]) => void {
+  validateCatalog(catalog, layout);
+  const perCar = layout.realRoads ? 5 : 4;
   const kernels = catalog.kernels;
   const scratch = kernels.map(kernel => ({
     inputs: new Float64Array(kernel.input_count), fixed: new Float64Array(kernel.fixed_count),
@@ -65,7 +77,7 @@ export function createNativeRaceExecutor(catalog: NativeRaceKernelCatalog): (sta
 
   return function executeNativeRaceKernel(state: RaceState, controls: readonly number[]): void {
     if (!Number.isInteger(state.trackId) || state.trackId < 0 || state.trackId > 2
-      || state.cars.length < 2 || state.cars.length > 8 || !Number.isInteger(state.tick) || state.tick < 0 || state.tick >= 5400
+      || state.cars.length < 2 || state.cars.length > 8 || !Number.isInteger(state.tick) || state.tick < 0 || state.tick >= layout.maxTicks
       || controls.length !== state.cars.length || controls.some(v => !Number.isInteger(v) || v < 0 || v > 63)) throw new RangeError('Invalid native race kernel input');
     const index = state.trackId * 7 + state.cars.length - 2;
     const kernel = kernels[index], work = scratch[index];
@@ -80,7 +92,14 @@ export function createNativeRaceExecutor(catalog: NativeRaceKernelCatalog): (sta
     for (let slot = 0; slot < state.cars.length; slot++) {
       const car = state.cars[slot]!;
       inputs.set([car.progress, car.x, car.speed, car.vx, car.energy, car.finishTick ?? 0, car.dnfTick === null ? 0 : car.dnfTick + 1], slot * 7);
-      fixed.set([...kernel.control_table[controls[slot]!]!, 0], catalog.fixed_prefix + slot * 4);
+      const row = [...kernel.control_table[controls[slot]!]!, 0];
+      if (layout.realRoads) {
+        // The bend under the car's 5 m station, as the native rules read it.
+        const road = environment.road!, station = Math.floor((car.progress + environment.road_lead_mm!) / environment.road_station_mm!);
+        if (!Number.isSafeInteger(car.progress) || station < 0 || station >= road.length) throw new RangeError('Invalid native race kernel input');
+        row.push(road[station]!);
+      }
+      fixed.set(row, catalog.fixed_prefix + slot * perCar);
     }
     const operand = (kind: number, value: number): number => kind === 0 ? value : kind === 1 ? fixed[value]! : kind === 2 ? values[value]! : inputs[value]!;
     for (let index = 0; index < kernel.nodes.length; index++) {

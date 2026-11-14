@@ -5,8 +5,7 @@ import type { RaceState } from '../engine';
 import type { RenderOptions } from '../renderer';
 import type { CompiledStreetTrack } from '../street/track';
 import type { StreetRenderState, StreetRenderOptions } from '../street/renderer';
-import { CONTROL, LIVERIES, TRACKS, curvature, modulo } from '../rules';
-import { arcadeRoadHeight } from '../arcade-geography';
+import { CONTROL, LIVERIES, modulo } from '../rules';
 import { clubItem, clubLivery } from '../catalog';
 import { arcadeEnvironmentAt } from '../environment';
 import { createCarModel, type CarModel } from './car';
@@ -29,6 +28,7 @@ import { createDrivingEffects } from './driving-effects';
 import { createCrashEffects } from './crash-effects';
 import type { DriveEvent } from '../drive/race';
 import { courseDrawing, type DriveCourse } from '../drive/course';
+import { arcadeCourse as arcadeDriveCourse } from '../drive/setup';
 import { createUnderstory, type UnderstoryField, type UnderstoryPatch } from './undergrowth';
 import { createSlopeTerrain, createTerrain, setTerrainRelief, terrainAutumnGolden, terrainGroundMaterial, terrainHeightAt, type SlopeTerrain } from './terrain';
 import { createUrbanGround } from './urban-ground';
@@ -438,7 +438,6 @@ const ARCADE_MOODS: readonly RaceMood[] = [
 const TOKYO_MOOD: RaceMood = { daylight: null, night: 'city', stars: 1.5, sunTurn: SUNRISE_TURN, damp: DAMP_ROAD_WETNESS,
   lamp: new THREE.Color('#ffb065'), lampIntensity: 620, lampCone: LAMP_POOL };
 const worlds = new WeakMap<HTMLCanvasElement, RaceWorld | null>();
-const arcCourses = new Map<number, Course>();
 const streetCourses = new WeakMap<CompiledStreetTrack, Course>();
 const streetscapes = new WeakMap<Course, StreetscapeLayout>();
 const cityLayouts = new WeakMap<Course, CityBlockLayout>();
@@ -500,23 +499,10 @@ function streetLight(track: CompiledStreetTrack, tick: number): { readonly mood:
   return { mood, daylight: from + (to - from) * chapter.progress };
 }
 
-/** Presentation geometry only. RaceV1's frozen progress and collision arithmetic is unchanged.
- * The bends are RaceV1's; the heights are the real road's each course is set on (arcade-geography.ts). */
-function arcadeCourse(id: number): Course {
-  const cached = arcCourses.get(id); if (cached) return cached;
-  const track = TRACKS[id]!, poses: Pose[] = [];
-  let x = 0, z = -100, heading = 0;
-  for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
-    poses.push({ x, y: arcadeRoadHeight(id, p), z, heading, width: 6, p });
-    heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
-    x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
-  }
-  const course = { key: id, length: track.length / 1000 * 3, circuit: false, poses, style: id };
-  arcCourses.set(id, course); return course;
-}
 const drivenCourses = new WeakMap<DriveCourse, Course>();
-/** An Arcade course as the driving model runs it (drive/course.ts `courseDrawing`): on its real road for local races, or
- * on RaceV1's bends for a replay recorded before them. A car at (s, d) is drawn where the race has it. */
+/** An Arcade course on its real road as the driving model runs it (drive/course.ts `courseDrawing`). RaceV1 races (live,
+ * spectated, replayed) run the same road: their progress is its s and their lateral position its d (race-roads.ts), so a
+ * car at (s, d) is drawn where either race has it. */
 function drivenCourse(id: number, drive: DriveCourse): Course {
   const cached = drivenCourses.get(drive); if (cached) return cached;
   const course: Course = { key: id, length: drive.finish, circuit: false, poses: courseDrawing(drive).map(pose => ({ ...pose })), style: id,
@@ -1051,8 +1037,8 @@ export class RaceWorld {
   }
 
   renderArcade(state: RaceState, options: RenderOptions, time: number): HTMLCanvasElement {
-    // The course the race runs on: the driving model's (local races, on the real road), or RaceV1's bends.
-    const course = options.course ? drivenCourse(state.trackId, options.course) : arcadeCourse(state.trackId);
+    // The course the race runs on: the driving model's (local races), or the same real road for RaceV1's.
+    const course = drivenCourse(state.trackId, options.course ?? arcadeDriveCourse(state.trackId));
     const controls = options.controls ?? 0;
     const cars = state.cars.map((car, i): VisualCar => {
       const appearance = options.appearances?.[i];

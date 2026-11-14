@@ -184,7 +184,7 @@ const summit = (track: number, lat: number, lon: number, height: number, radius:
 };
 /**
  * The mountains round the Arcade roads at their real summits (OpenStreetMap). A far mountain is a silhouette the camera
- * must stay outside, so each stands clear of the course, on its real road and on RaceV1's bends, by more than its own
+ * must stay outside, so each stands clear of the course on its real road by more than its own
  * foot: the slopes the road is itself cut into (Yusaka-yama and Tōnomine in Hakone's lower gorge, Sengen-yama's flank
  * above it) are the banks beside the road, and only their upper masses stand here. Route 1 climbs Sengen-yama's flank
  * to Miyanoshita within 900 m of its top, so it is narrow and stands on the 350 m terrace round it; Myōjōgatake's foot

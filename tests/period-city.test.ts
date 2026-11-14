@@ -22,10 +22,9 @@ import { neonFor, noboriFor } from '../src/game/three/period-city/nightlife';
 import { SORA_NEON, SORA_NOBORI, VNEON_TOP_V, verticalCharacter } from '../src/game/three/period-city/signs';
 import { PeriodSky } from '../src/game/three/period-city/sky';
 import { awningFor, NOREN_COUNT, NOREN_HEIGHT, norenFor, norenPrint, norenWidth } from '../src/game/three/period-city/awnings';
-import { TRACKS, curvature } from '../src/game/rules';
+import { TRACKS } from '../src/game/rules';
 import { arcadeDistrictAt, ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, TOKYO_1986_LANDMARKS, TOKYO_1986_STREET, landmarkFootprint,
   periodCityRouteFrame, seeded } from '../src/game/three/period-city/layout';
-import { arcadeRoadHeight } from '../src/game/arcade-geography';
 import { arcadeDriveCourse, courseDrawing } from '../src/game/drive/course';
 
 const published = publishedStreetBundle();
@@ -233,18 +232,10 @@ test('far lights: the shopping street keeps its lamps, lanterns and box signs as
 });
 
 // Arcade: the same presentation geometry RaceWorld builds (three laps unrolled).
-/** An Arcade course as the world draws it: on its real road (local races), or on RaceV1's bends (live races). */
-function arcade(id: number, bends: 'real' | 'race' = 'real') {
+/** An Arcade course as the world draws it for every race, local or RaceV1: on its real road. */
+function arcade(id: number) {
   const track = TRACKS[id]!, poses: { p: number; x: number; y: number; z: number; heading: number; width: number }[] = [];
-  if (bends === 'real') poses.push(...courseDrawing(arcadeDriveCourse(id)));
-  else {
-    let x = 0, z = -100, heading = 0;
-    for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
-      poses.push({ x, y: arcadeRoadHeight(id, p), z, heading, width: 6, p });
-      heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
-      x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
-    }
-  }
+  poses.push(...courseDrawing(arcadeDriveCourse(id)));
   const arcadeCourse = { length: track.length / 1000 * 3, circuit: false, poses };
   const districtAt = (p: number, side: PeriodSide) => arcadeDistrictAt(id, p, side);
   const frame = periodCityRouteFrame(arcadeCourse, 120);
@@ -282,15 +273,6 @@ test('Arcade towns: onsen Hakone, harbour Yokohama and old Nikko, clear of the r
         const t = THREE.MathUtils.clamp(corner.clone().sub(new THREE.Vector2(a.x, a.z)).dot(d) / d.lengthSq(), 0, 1);
         assert.ok(corner.distanceTo(new THREE.Vector2(a.x + d.x * t, a.z + d.y * t)) >= 6, `track ${id}: the ${landmark.kind} reaches the road near ${a.p.toFixed(0)} m`);
       }
-    }
-  }
-  // Live races draw RaceV1's bends on the same places: their towns stand clear of that road too.
-  for (const id of [0, 1, 2]) {
-    const { course: c, layout: l } = arcade(id, 'race');
-    for (const lot of l.lots) for (const corner of corners(lot.footprint)) for (let i = 1; i < c.poses.length; i++) {
-      const a = c.poses[i - 1]!, b = c.poses[i]!, d = new THREE.Vector2(b.x - a.x, b.z - a.z);
-      const t = THREE.MathUtils.clamp(corner.clone().sub(new THREE.Vector2(a.x, a.z)).dot(d) / d.lengthSq(), 0, 1);
-      assert.ok(corner.distanceTo(new THREE.Vector2(a.x + d.x * t, a.z + d.y * t)) >= 6 + 1.67, `RaceV1 track ${id}: ${lot.id} reaches the road`);
     }
   }
   const harbour = arcade(1).layout;

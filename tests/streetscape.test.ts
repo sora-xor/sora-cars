@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs';
 import { publishedStreetBundle } from './helpers/published-street';
 import { createStreetscape, selectStreetscape, streetscapePlantingClear,
   type StreetscapeCourse, type StreetscapeFootprint } from '../src/game/three/streetscape';
-import { TRACKS, curvature } from '../src/game/rules';
+import { TRACKS } from '../src/game/rules';
+import { arcadeDriveCourse, courseDrawing } from '../src/game/drive/course';
 
 const tau = Math.PI * 2;
 function tokyo(): StreetscapeCourse {
@@ -13,14 +14,10 @@ function tokyo(): StreetscapeCourse {
     poses: track.samples.map((sample) => ({ p: sample.progressMm! / 1000, x: -sample.eastMm! / 1000,
       z: sample.northMm! / 1000, heading: -sample.headingMicroturn! * tau / 1e6, width: sample.halfWidthMm! / 1000 })) };
 }
+/** An Arcade course on its real road, as the world draws it for every race. */
 function rural(style: number): StreetscapeCourse {
-  const track = TRACKS[style]!, poses = [];
-  let x = 0, z = -100, heading = 0;
-  for (let p = -100; p <= track.length / 1000 * 3 + 500; p += 5) {
-    poses.push({ p, x, z, heading, width: 6 });
-    heading -= curvature(track, Math.max(0, p * 1000)) * 5 / 760;
-    x += Math.sin(heading) * 5; z += Math.cos(heading) * 5;
-  }
+  const track = TRACKS[style]!;
+  const poses = courseDrawing(arcadeDriveCourse(style)).map(({ p, x, z, heading, width }) => ({ p, x, z, heading, width }));
   return { length: track.length / 1000 * 3, circuit: false, style, poses };
 }
 function straight(style = 3): StreetscapeCourse {

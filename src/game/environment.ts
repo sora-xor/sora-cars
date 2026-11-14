@@ -58,7 +58,7 @@ export function createNativeEnvironment(source: { environment: NativeEnvironment
 }
 export const environmentAt = createNativeEnvironment(native, RULES.laps, RULES.maxTicks);
 /** The weather and roadside of an Arcade race at any tick. A local race on a real road (drive/course.ts) may run past
- * RaceV1's 5,400 ticks; its schedule of rain and wind then carries on from the start. Within 5,400 ticks this is
- * `environmentAt`. */
+ * RaceV1's 8,100 ticks (RULES.maxTicks); its schedule of rain and wind then carries on from the start. Within them this
+ * is `environmentAt`. */
 export const arcadeEnvironmentAt = (trackId: number, tick: number): Readonly<TrackEnvironment> =>
   environmentAt(trackId, tick > RULES.maxTicks ? tick % (RULES.maxTicks + 1) : tick);

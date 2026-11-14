@@ -6,16 +6,17 @@ import type { GameReplayEvidenceV1 } from '@iroha/iroha-js/game-replay';
 import { raceControlsFromPayloadV1, raceGameTranscriptV1 } from '@iroha/iroha-js/race';
 import type { RaceReplayV1, RaceResultV1, RaceSettlementResultV1 } from '@iroha/iroha-js/race';
 import type { RaceRecord } from './races';
+import { RULES } from '../game/rules';
 
 /** Pure source/replay consistency. Accepted-history authentication and finality
  * remain native verifier responsibilities. Nothing here authorizes settlement. */
 export function validateDrivingProjection(record: RaceRecord, replay: RaceReplayV1, evidence: GameReplayEvidenceV1): GameReplayEvidenceV1 {
   const value = decodeGameValueV1('GameReplayEvidenceV1', encodeGameValueV1('GameReplayEvidenceV1', evidence)) as GameReplayEvidenceV1;
   const full = value.transcript, terminal = replay.frames.length, slots = record.participants.length;
-  if (terminal > record.next_tick || record.next_tick > 5400 || full.batches.length !== Math.ceil(record.next_tick / 6)) throw new Error('Complete accepted history does not reach the source frontier.');
+  if (terminal > record.next_tick || record.next_tick > RULES.maxTicks || full.batches.length !== Math.ceil(record.next_tick / 6)) throw new Error('Complete accepted history does not reach the source frontier.');
   const removals = new Map<number, number>(); let prior = -1;
   for (const event of full.dnf_events) {
-    if (event.tick >= 5400 || event.tick > record.next_tick || event.tick % 6 || event.tick <= prior || !event.slots.length) throw new Error('Invalid accepted removal chronology.');
+    if (event.tick >= RULES.maxTicks || event.tick > record.next_tick || event.tick % 6 || event.tick <= prior || !event.slots.length) throw new Error('Invalid accepted removal chronology.');
     prior = event.tick; let previousSlot = -1;
     for (const slot of event.slots) {
       if (slot >= slots || slot <= previousSlot || removals.has(slot)) throw new Error('Invalid accepted removal slot.');
@@ -58,7 +59,7 @@ export function validateDrivingProjection(record: RaceRecord, replay: RaceReplay
 /** Economic projection corresponding to native game_binding::racing_settlement.
  * Late consensus removals do not mutate the proven physical terminal state. */
 export function settlementResult(result: RaceResultV1, throughTick: number, full: GameTranscriptV1): RaceSettlementResultV1 {
-  if (throughTick < result.ticks || throughTick > 5400) throw new Error('Invalid economic frontier.');
+  if (throughTick < result.ticks || throughTick > RULES.maxTicks) throw new Error('Invalid economic frontier.');
   const removed = new Map(full.dnf_events.flatMap(e => e.slots.map(slot => [slot, e.tick] as const)));
   const standings = result.standings.map(s => {
     const tick = removed.get(s.slot) ?? null;
@@ -69,7 +70,7 @@ export function settlementResult(result: RaceResultV1, throughTick: number, full
   let winners: number[] = [];
   if (first?.finish_tick !== null && first?.finish_tick !== undefined) winners = eligible.filter(s => s.finish_tick === first.finish_tick).map(s => s.slot);
   else if (eligible.length === 1) winners = [first!.slot];
-  else if (result.ticks === 5400 && first) winners = eligible.filter(s => BigInt(s.progress_mm) === BigInt(first.progress_mm)).map(s => s.slot);
+  else if (result.ticks === RULES.maxTicks && first) winners = eligible.filter(s => BigInt(s.progress_mm) === BigInt(first.progress_mm)).map(s => s.slot);
   else if (eligible.length) throw new Error('Multiple unfinished eligible racers cannot claim an early terminal result.');
   return { physical_terminal_tick: result.ticks, accepted_through_tick: throughTick, standings, winners: winners.sort((a, b) => a - b) };
 }

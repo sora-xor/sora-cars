@@ -7,6 +7,9 @@ import type { RaceTrackV1, RaceReplayV1, RaceStateV1, RaceSettlementResultV1 } f
 import { buildGameInstructionV1, buildJoinGameSessionV1, encodeGameValueV1, decodeGameValueV1, validateGameResourceRecordsV1, validateGameAdmissionBodyV1, validateGameSessionRecordV1 } from '@iroha/iroha-js/game';
 import type { ExecutionProofEnvelopeV1, GameActiveScopeV1, SignedGameCheckpointV1, GameCommitmentSetV1, GameInputCommitmentV1, GameInputRevealV1, GameAccessV1, GameManifestV1, GameOutcomeV1, GamePayoutClaimV1, GameItemStakeV1, GameResourceReservationRecordV1, GameAdmissionBodyV1, GameSessionRecordV1, GameCheckpointAnchorV1, GameCertifiedBatchV1, GameInputOpeningV1 } from '@iroha/iroha-js/game';
 import type { RaceState } from '../game/engine';
+import { RULES } from '../game/rules';
+/** Six-tick batches in a race that runs to the tick limit. */
+const BATCHES = RULES.maxTicks / 6;
 import { createInputKey, hex } from '../network/session';
 import type { RaceParticipant, InputKeyPair } from '../network/session';
 
@@ -36,7 +39,7 @@ export function inputKeyLiteral(key: InputKeyPair | string): string {
 }
 export function raceManifest(input: { trackId: number; maxRacers: number; applicationId: string; profileId: string; access?: GameAccessV1 }): GameManifestV1 {
   if (!Number.isInteger(input.maxRacers) || input.maxRacers < 2 || input.maxRacers > 8) throw new Error('SORA CARS supports 2–8 racers.');
-  const manifest: GameManifestV1 = { version: 1, application_id: input.applicationId, profile_id: input.profileId, application_parameters: Array.from(encodeRaceValueV1('RaceTrackV1', nativeTrack(input.trackId))), min_participants: 2, max_participants: input.maxRacers, batch_ticks: 6, max_ticks: 5400, max_input_bytes: 12, max_participant_data_bytes: 1, access: input.access ?? { kind: 'public', public_key: null }, payout_policy: { kind: 'equal_winners_or_refund', value: null } };
+  const manifest: GameManifestV1 = { version: 1, application_id: input.applicationId, profile_id: input.profileId, application_parameters: Array.from(encodeRaceValueV1('RaceTrackV1', nativeTrack(input.trackId))), min_participants: 2, max_participants: input.maxRacers, batch_ticks: 6, max_ticks: RULES.maxTicks, max_input_bytes: 12, max_participant_data_bytes: 1, access: input.access ?? { kind: 'public', public_key: null }, payout_policy: { kind: 'equal_winners_or_refund', value: null } };
   return decodeGameValueV1('GameManifestV1', encodeGameValueV1('GameManifestV1', manifest)) as GameManifestV1;
 }
 export function openRace(input: { raceId: string; trackId: number; maxRacers: number; applicationId: string; profileId: string; access?: GameAccessV1; assetDefinition: string; stake: string; joinDeadlineHeight: string | number | bigint }): object {
@@ -65,12 +68,12 @@ export function startRace(raceId: string): object { return buildGameInstructionV
 export function publishCheckpoint(checkpoint: SignedGameCheckpointV1, frontier: GameCommitmentSetV1 | null, oldFrontierOpenings: (GameInputOpeningV1 | null)[] | null): object {
   return buildGameInstructionV1('CommitGameCheckpointV1', { session_id: checkpoint.checkpoint.session_id, checkpoint, frontier, old_frontier_openings: oldFrontierOpenings });
 }
-/** Bound public recovery data across all 900 six-tick intervals; deduplicate exact
+/** Bound public recovery data across all 1,350 six-tick intervals; deduplicate exact
  * canonical values without treating imported openings as authenticated. */
 export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): GameInputRevealV1[] {
   const values = new Map<string, { encoded: string; reveal: GameInputRevealV1 }>();
   for (const group of groups) {
-    if (group.length > 7200) throw new Error('Oversized public reveal history.');
+    if (group.length > BATCHES * 8) throw new Error('Oversized public reveal history.');
     for (const reveal of group) {
       raceControlsFromPayloadV1(reveal.payload);
       const bytes = encodeGameValueV1('GameInputRevealV1', reveal), encoded = hex(bytes);
@@ -79,7 +82,7 @@ export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): G
       const old = values.get(key);
       if (old && old.encoded !== encoded) throw new Error('Conflicting public reveals for the same session slot and interval.');
       if (!old) values.set(key, { encoded, reveal: checked });
-      if (values.size > 7200) throw new Error('Oversized public reveal history.');
+      if (values.size > BATCHES * 8) throw new Error('Oversized public reveal history.');
     }
   }
   return [...values.values()].map(value => value.reveal);
@@ -89,7 +92,7 @@ export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): G
 export function mergeRaceCommitments(...groups: (readonly GameInputCommitmentV1[])[]): GameInputCommitmentV1[] {
   const values = new Map<string, { encoded: string; input: GameInputCommitmentV1 }>();
   for (const group of groups) {
-    if (group.length > 7200) throw new Error('Oversized public commitment history.');
+    if (group.length > BATCHES * 8) throw new Error('Oversized public commitment history.');
     for (const input of group) {
       const bytes = encodeGameValueV1('GameInputCommitmentV1', input), encoded = hex(bytes);
       const checked = decodeGameValueV1('GameInputCommitmentV1', bytes) as GameInputCommitmentV1;
@@ -97,7 +100,7 @@ export function mergeRaceCommitments(...groups: (readonly GameInputCommitmentV1[
       const old = values.get(key);
       if (old && old.encoded !== encoded) throw new Error('Conflicting public commitments for the same session slot and interval.');
       if (!old) values.set(key, { encoded, input: checked });
-      if (values.size > 7200) throw new Error('Oversized public commitment history.');
+      if (values.size > BATCHES * 8) throw new Error('Oversized public commitment history.');
     }
   }
   return [...values.values()].map(value => value.input);
@@ -190,7 +193,7 @@ function raceView(value: unknown): Record<string, unknown> {
   if (Object.hasOwn(raw, 'settled_at_height')) throw new Error('Obsolete native session field.');
   const manifest = decodeGameValueV1('GameManifestV1', encodeGameValueV1('GameManifestV1', raw.manifest)) as GameManifestV1;
   if (manifest.profile_id !== RACE_PROFILE_ID) throw new Error('この対戦の実行規則は現在のゲームと一致しません。 / Session profile differs from the compiled game.');
-  if (manifest.min_participants !== 2 || manifest.max_participants > 8 || manifest.batch_ticks !== 6 || manifest.max_ticks !== 5400 || manifest.max_input_bytes !== 12 || manifest.max_participant_data_bytes !== 1 || manifest.payout_policy.kind !== 'equal_winners_or_refund') throw new Error('This game manifest is not the SORA CARS input profile.');
+  if (manifest.min_participants !== 2 || manifest.max_participants > 8 || manifest.batch_ticks !== 6 || manifest.max_ticks !== RULES.maxTicks || manifest.max_input_bytes !== 12 || manifest.max_participant_data_bytes !== 1 || manifest.payout_policy.kind !== 'equal_winners_or_refund') throw new Error('This game manifest is not the SORA CARS input profile.');
   const track = decodeRaceValueV1('RaceTrackV1', Uint8Array.from(manifest.application_parameters));
   const participants = list(raw.participants, 8, value => { const p = object(value), data = list(p.application_data, 1, byte => bounded(byte, 5)); if (data.length !== 1) throw new Error('Missing SORA CARS participant data.'); return { account: p.account, input_key: p.input_key, car_id: data[0], dnf_at_tick: p.dnf_at_tick }; });
   const phase = object(raw.phase);
@@ -205,7 +208,7 @@ function raceView(value: unknown): Record<string, unknown> {
   return { ...raw, manifest, race_id: raw.session_id, rules: { version: 1, track, max_racers: manifest.max_participants }, phase: { kind: phase.kind === 'playing' ? 'racing' : phase.kind }, participants, result,
     checkpoint: raw.checkpoint === undefined || raw.checkpoint === null ? null : raw.checkpoint,
     pending_certificate: raw.pending_certificate === undefined || raw.pending_certificate === null ? null : raw.pending_certificate,
-    forced_batches: raw.forced_batches === undefined ? [] : list(raw.forced_batches, 900, value => { const b = object(value); return { epoch: b.epoch, start_tick: b.start_tick, controls: list(b.inputs, 8, row => row).map((row, slot) => { if (Array.isArray(row) && row.length === 0 && participants[slot]?.dnf_at_tick !== null && Number(participants[slot]?.dnf_at_tick) <= Number(b.start_tick)) return Array<number>(6).fill(0); return raceControlsFromPayloadV1(row as number[]); }), dnf_slots: b.dnf_slots, certified_frontier_id: b.certified_frontier_id }; }),
+    forced_batches: raw.forced_batches === undefined ? [] : list(raw.forced_batches, BATCHES, value => { const b = object(value); return { epoch: b.epoch, start_tick: b.start_tick, controls: list(b.inputs, 8, row => row).map((row, slot) => { if (Array.isArray(row) && row.length === 0 && participants[slot]?.dnf_at_tick !== null && Number(participants[slot]?.dnf_at_tick) <= Number(b.start_tick)) return Array<number>(6).fill(0); return raceControlsFromPayloadV1(row as number[]); }), dnf_slots: b.dnf_slots, certified_frontier_id: b.certified_frontier_id }; }),
     input_reveals: raw.input_reveals === undefined ? [] : list(raw.input_reveals, 8, row => row === null ? null : raceControlsFromPayloadV1(row as number[])),
   };
 }
@@ -213,7 +216,7 @@ export function parseRaceSummary(value: unknown, expectedNetworkId?: string): Ra
   const v = raceView(value), phase = object(v.phase);
   assertManifestBinding(v, v.manifest as GameManifestV1, expectedNetworkId);
   if (Object.keys(phase).length !== 1 || !['lobby', 'racing', 'selecting_checkpoint', 'forced_commit', 'forced_reveal', 'awaiting_proof', 'settled', 'cancelled'].includes(String(phase.kind))) throw new Error('Unknown native race phase.');
-  const participants = list(v.participants, 8, p => { const item = object(p), key = text(item.input_key); if (!/^ed0120[0-9A-F]{64}$/.test(key)) throw new Error('Race roster requires Ed25519 keys.'); return { account: text(item.account), input_key: key, car_id: bounded(item.car_id, 5), dnf_at_tick: item.dnf_at_tick === null ? null : bounded(item.dnf_at_tick, 5400) }; });
+  const participants = list(v.participants, 8, p => { const item = object(p), key = text(item.input_key); if (!/^ed0120[0-9A-F]{64}$/.test(key)) throw new Error('Race roster requires Ed25519 keys.'); return { account: text(item.account), input_key: key, car_id: bounded(item.car_id, 5), dnf_at_tick: item.dnf_at_tick === null ? null : bounded(item.dnf_at_tick, RULES.maxTicks) }; });
   if (new Set(participants.map(p => p.account)).size !== participants.length || new Set(participants.map(p => p.input_key)).size !== participants.length) throw new Error('Duplicate native race identities.');
   const terminalAtHeight = v.terminal_at_height === null ? null : decimal(v.terminal_at_height);
   if (terminalAtHeight === '0' || (['settled', 'cancelled'].includes(String(phase.kind))) !== (terminalAtHeight !== null)) throw new Error('Terminal height does not match the reported session phase.');
@@ -233,7 +236,7 @@ export function parseRaceRecord(value: unknown, expectedNetworkId?: string, expe
   assertManifestBinding(v, summary.manifest, expectedNetworkId, true);
   if (v.version !== 1 || expectedNetworkId && expectedNetworkId !== network || expectedRaceId && expectedRaceId !== summary.race_id) throw new Error('Native race identity mismatch.');
   const count = summary.participants.length;
-  const record: RaceRecord = { ...summary, source_record: source, version: 1, network_id: network, profile_id: nativeHash(v.profile_id), manifest_commitment: gameCommitment(text(v.manifest_commitment)), admission_commitment: v.admission_commitment === null ? null : gameCommitment(text(v.admission_commitment)), dispute_commitment: gameCommitment(text(v.dispute_commitment)), epoch: decimal(v.epoch), next_tick: bounded(v.next_tick, 5400), checkpoint: v.checkpoint === null ? null : nativeValue('SignedGameCheckpointV1', v.checkpoint), pending_certificate: v.pending_certificate === null ? null : nativeValue('GameCommitmentSetV1', v.pending_certificate), checkpoint_history: list(source.checkpoint_history, 899, value => nativeValue<GameCheckpointAnchorV1>('GameCheckpointAnchorV1', value)), certified_batches: list(source.certified_batches, 900, value => nativeValue<GameCertifiedBatchV1>('GameCertifiedBatchV1', value)), forced_batches: list(v.forced_batches, 900, value => { const b = object(value); const controls = list(b.controls, 8, row => list(row, 6, word => bounded(word, 63))); if (controls.length !== count || controls.some(row => row.length !== 6)) throw new Error('Forced controls do not match the roster.'); const dnf = list(b.dnf_slots, count, slot => bounded(slot, count - 1)); if (dnf.some((slot, i) => i > 0 && dnf[i - 1]! >= slot)) throw new Error('Noncanonical native DNF slots.'); return { epoch: decimal(b.epoch), start_tick: bounded(b.start_tick, 5394), controls, dnf_slots: dnf, certified_frontier_id: b.certified_frontier_id === null ? null : gameCommitment(text(b.certified_frontier_id)) }; }), input_commitments: list(v.input_commitments, 8, item => item === null ? null : gameCommitment(text(item))), input_reveals: list(v.input_reveals, 8, row => row === null ? null : list(row, 6, word => bounded(word, 63))) };
+  const record: RaceRecord = { ...summary, source_record: source, version: 1, network_id: network, profile_id: nativeHash(v.profile_id), manifest_commitment: gameCommitment(text(v.manifest_commitment)), admission_commitment: v.admission_commitment === null ? null : gameCommitment(text(v.admission_commitment)), dispute_commitment: gameCommitment(text(v.dispute_commitment)), epoch: decimal(v.epoch), next_tick: bounded(v.next_tick, RULES.maxTicks), checkpoint: v.checkpoint === null ? null : nativeValue('SignedGameCheckpointV1', v.checkpoint), pending_certificate: v.pending_certificate === null ? null : nativeValue('GameCommitmentSetV1', v.pending_certificate), checkpoint_history: list(source.checkpoint_history, BATCHES - 1, value => nativeValue<GameCheckpointAnchorV1>('GameCheckpointAnchorV1', value)), certified_batches: list(source.certified_batches, BATCHES, value => nativeValue<GameCertifiedBatchV1>('GameCertifiedBatchV1', value)), forced_batches: list(v.forced_batches, BATCHES, value => { const b = object(value); const controls = list(b.controls, 8, row => list(row, 6, word => bounded(word, 63))); if (controls.length !== count || controls.some(row => row.length !== 6)) throw new Error('Forced controls do not match the roster.'); const dnf = list(b.dnf_slots, count, slot => bounded(slot, count - 1)); if (dnf.some((slot, i) => i > 0 && dnf[i - 1]! >= slot)) throw new Error('Noncanonical native DNF slots.'); return { epoch: decimal(b.epoch), start_tick: bounded(b.start_tick, RULES.maxTicks - 6), controls, dnf_slots: dnf, certified_frontier_id: b.certified_frontier_id === null ? null : gameCommitment(text(b.certified_frontier_id)) }; }), input_commitments: list(v.input_commitments, 8, item => item === null ? null : gameCommitment(text(item))), input_reveals: list(v.input_reveals, 8, row => row === null ? null : list(row, 6, word => bounded(word, 63))) };
   // Native lobbies retain empty frontiers through Join and cancellation;
   // only Start allocates one commitment/reveal entry per participant.
   const frontierSlots = record.phase.kind === 'lobby' || record.phase.kind === 'cancelled' ? 0 : count;

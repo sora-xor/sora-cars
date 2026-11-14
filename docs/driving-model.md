@@ -127,7 +127,8 @@ the same stations the 3D world draws, so cars appear exactly where they are.
 **Hills.** Gravity acts along the road's grade. The street routes take it from
 their compiled heights; the Arcade courses from the real roads they are set on
 (`src/game/arcade-geography.ts`; Midnight Circuit climbs 320 m up Route 1 at up
-to 9%, Sakura Pass 175 m). Live races keep RaceV1, which has no heights.
+to 9%, Sakura Pass 175 m). Live races run RaceV1 on the same road's bends
+(`docs/live-races-real-roads.md`); its integer arithmetic has no heights.
 
 **Real bends.** Since 2026-11-11 a local Arcade race runs on its real road's
 plan: one stretch of road (`topology: 'sprint'`) from 100 m before the start
@@ -135,14 +136,17 @@ line to the end of the run-off, with a heading every 5 m (Hakone turns 4,416°,
 down to a 15 m radius at the Ōhiradai hairpin). Its three laps are distances
 along it, its grid stands behind the line on the lead-in, and it may run five
 minutes (`ARCADE_REAL_MAX_TICKS`): eight stock cars take 2:44–2:56 at Hakone,
-2:26–2:36 in Yokohama and 1:23–1:29 at Nikkō, against 1:14–1:43 on RaceV1's
-bends. RaceV1's weather schedule carries on past its 5,400 ticks
+2:26–2:36 in Yokohama and 1:23–1:29 at Nikkō, against 1:14–1:43 on the old
+twelve-cell bends. RaceV1's weather schedule carries on past its 8,100 ticks
 (`arcadeEnvironmentAt`). The 3D world draws the course the race runs on
 (`courseDrawing`): each 5 m interval of the model is an arc of constant
 curvature, split for drawing wherever it turns more than 2°. RaceV1, whose
-bends Iroha's native rules and proofs mirror, keeps its own until those move
-to the real roads too. Nothing has launched, so earlier Arcade replays were
-not kept compatible: every local Arcade race and replay runs the real road.
+rules Iroha's native reference and proofs mirror, now runs the same roads: a
+bend coefficient every 5 m of the unrolled road, pushing cars outward by the
+bend's centripetal effect, rails at ±6.52 m and an 8,100-tick limit
+(`docs/live-races-real-roads.md`). The world draws every Arcade race, local or
+RaceV1, on this one course. Nothing has launched, so earlier Arcade replays
+were not kept compatible: every Arcade race and replay runs the real road.
 
 ## The player drives
 

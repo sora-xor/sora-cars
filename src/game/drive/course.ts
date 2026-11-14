@@ -44,7 +44,7 @@ export interface CourseSample {
 const RAIL_OFFSET = 0.52;
 
 /** How long a local Arcade race may run: five minutes at 30 Hz. Eight stock cars take 2:44–2:56 over Hakone's bends
- * and 2:26–2:36 along Yokohama's streets (`npm run check:drive`); RaceV1 keeps its 5,400 ticks on its own bends. */
+ * and 2:26–2:36 along Yokohama's streets (`npm run check:drive`); a live RaceV1 race may run 8,100 ticks on the same road. */
 export const ARCADE_REAL_MAX_TICKS = 9000;
 
 /** An Arcade course for the driving model: one stretch of its real road from 100 m before the start line to the end of

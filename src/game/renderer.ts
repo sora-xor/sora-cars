@@ -1,7 +1,14 @@
-import { CONTROL, LIVERIES, TRACKS, curvature, modulo, type Livery } from './rules';
+import { CONTROL, LIVERIES, TRACKS, modulo, type Livery } from './rules';
 import { type RaceState } from './engine';
 import type { DriveEvent } from './drive/race';
 import { sampleCourse, type DriveCourse } from './drive/course';
+import { arcadeCourse } from './drive/setup';
+
+/** How hard the 2D road bends under a progress (mm), in the old twelve-cell units (about 760 × curvature in 1/m; positive
+ * turns right): the real road's curvature, eased so its hairpins stay on screen (a 250 m bend 2.5, a 15 m hairpin 4). */
+function bendUnits(course: DriveCourse, progress: number): number {
+  return 4 * Math.tanh(760 * sampleCourse(course, progress / 1000).kappa / 4);
+}
 import { raceResultPlaces } from './presentation';
 import { clubItem, clubLivery, type ClubAppearance } from './catalog';
 import type { CarBuild } from './car-builds';
@@ -27,8 +34,8 @@ export interface RenderOptions {
   /** Driving model only: RaceV1 ids of roadside objects knocked down, and crash events since the last frame. */
   broken?: readonly number[];
   events?: readonly DriveEvent[];
-  /** The driving model's course when the race runs on it (a local race on the real road, or its replay): the world
-   * draws that road and the HUD reads its bends. Absent: RaceV1's bends (live races, spectating, RaceV1 replays). */
+  /** The Arcade course the world draws and the HUD reads: the driving model's when the race runs on it (a local race
+   * or its replay). Absent, or for RaceV1 (live races, spectating, RaceV1 replays): the same real road (drive/setup.ts). */
   course?: DriveCourse;
 }
 interface RoadPoint { x: number; y: number; half: number; z: number; scale: number; progress: number; }
@@ -87,8 +94,7 @@ export class RaceRenderer {
       else if (state.trackId !== 1) drawAtmosphere(this.ctx, this.canvas, this.width, this.height, state.trackId === 0 ? 'snow' : 'blossom',
         this.#reducedMotion.matches ? 0 : time, environment.wind);
       if (options.hud && player.speed > 150 && options.camera !== 'aerial') {
-        if (options.course) this.#roadCue(options.course, player.progress / 1000, player.speed * 0.03, this.width < 400);
-        else this.#cornerCue(TRACKS[state.trackId]!, player.progress, this.width < 400);
+        this.#roadCue(options.course ?? arcadeCourse(state.trackId), player.progress / 1000, player.speed * 0.03, this.width < 400);
       }
       if (options.hud) this.#hud(state, options);
       this.#countdown(options);
@@ -97,6 +103,7 @@ export class RaceRenderer {
     }
     if (options.camera === 'aerial') { this.#drawAerial(state, options); return; }
     const ctx = this.ctx, w = this.width, h = this.height, track = TRACKS[state.trackId]!, player = state.cars[options.playerSlot]!;
+    const course = options.course ?? arcadeCourse(state.trackId);
     const kmh = Math.max(0, player.speed * 0.108);
     const velocity = Math.min(1, kmh / 280);
     const boosting = !!((options.controls ?? 0) & CONTROL.boost) && player.energy >= 25 && player.speed > 0;
@@ -157,7 +164,7 @@ export class RaceRenderer {
     for (let i = 0; i < 100; i++) {
       const z = Math.max(1, i * segmentLength - modulo(cameraProgress, segmentLength) + segmentLength);
       const scale = projectScale(z);
-      bendVelocity += curvature(track, cameraProgress + z) * 0.4; bend += bendVelocity;
+      bendVelocity += bendUnits(course, cameraProgress + z) * 0.4; bend += bendVelocity;
       const half = roadHalfPixels * scale;
       points.push({ x: w / 2 - cameraSway - player.x / 6000 * half * 0.73 + bend * scale * w / 1400,
         y: horizon + projectionHeight * scale, half, scale, z, progress: cameraProgress + z });
@@ -290,7 +297,7 @@ export class RaceRenderer {
     if (motion > 0.4) this.#speedLines(player.progress, Math.min(1, (motion - 0.4) * 1.65 + surge * 0.3), horizon);
     this.#weather(state, time, environment);
     if (drifting && options.hud) this.#driftFeedback(carX, carY, carWidth, player.vx);
-    if (options.hud && player.speed > 150) this.#cornerCue(track, player.progress, w < 400);
+    if (options.hud && player.speed > 150) this.#roadCue(course, player.progress / 1000, player.speed * 0.03, w < 400);
     // Quiet lens falloff frames the road without putting a screen texture over it.
     const vignette = ctx.createRadialGradient(w * 0.5, h * 0.43, h * 0.28, w * 0.5, h * 0.5, Math.max(w * 0.68, h * 0.72));
     vignette.addColorStop(0, '#10172300'); vignette.addColorStop(1, '#10172355');
@@ -308,6 +315,7 @@ export class RaceRenderer {
   }
   #drawAerial(state: RaceState, options: RenderOptions): void {
     const ctx = this.ctx, w = this.width, h = this.height, track = TRACKS[state.trackId]!, player = state.cars[options.playerSlot]!;
+    const course = options.course ?? arcadeCourse(state.trackId);
     const half = Math.min(94, w * 0.21), step = 5000;
     const points: { progress: number; x: number; y: number }[] = [];
     const origin = Math.floor((player.progress - 95000) / step) * step;
@@ -315,7 +323,7 @@ export class RaceRenderer {
     ctx.fillStyle = track.ground; ctx.fillRect(0, 0, w, h);
     for (let i = 0; i < 95; i++) {
       const progress = origin + i * step;
-      bend += curvature(track, progress) * 0.48;
+      bend += bendUnits(course, progress) * 0.48;
       points.push({ progress, x: w / 2 + bend, y: h * 0.77 - (progress - player.progress) / 380000 * h });
     }
     const center = (progress: number) => {
@@ -718,20 +726,6 @@ export class RaceRenderer {
     ctx.font = `${compact ? 7 : 9}px SoraJP, monospace`; ctx.fillStyle = '#fff4d8';
     ctx.fillText('旋回力 ↑ · 滑りを操る / CONTROL THE SLIDE', x, y - width * 0.7 + 14);
   }
-  #cornerCue(track: (typeof TRACKS)[number], progress: number, compact: boolean): void {
-    const current = curvature(track, progress), upcoming = curvature(track, progress + 95000);
-    const turn = Math.abs(upcoming) > Math.abs(current) ? upcoming : current;
-    if (Math.abs(turn) < 2) return;
-    const ctx = this.ctx, x = this.width / 2, y = compact ? 151 : 97;
-    ctx.fillStyle = Math.abs(turn) >= 3 ? '#ffac8b' : '#ffe4a1'; ctx.textAlign = 'center';
-    ctx.font = `bold ${compact ? 17 : 24}px SoraJP, monospace`;
-    ctx.fillText(turn > 0 ? '›› 右カーブ' : '左カーブ ‹‹', x, y);
-    ctx.font = `${compact ? 7 : 10}px SoraJP, monospace`;
-    ctx.fillText(Math.abs(turn) >= 3 ? '減速 → ドリフト / BRAKE → DRIFT' : '進入ラインを整える / SET YOUR LINE', x, y + 15);
-  }
-  /** The corner cue on a real road, where nearly every bend is tighter than RaceV1's tightest (253 m): it warns of the
-   * bends the car is too fast for, as a driver judges them (about 0.95 g of grip, 7 m/s² of braking and 0.6 s to react),
-   * and names the hairpins. */
   #roadCue(course: DriveCourse, s: number, speed: number, compact: boolean): void {
     const reach = Math.max(60, speed * speed / 14 + speed * 0.6);
     let brake: number | null = null, line: number | null = null;

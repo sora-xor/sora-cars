@@ -3,39 +3,44 @@ import assert from 'node:assert/strict';
 import { applyRaceDnf, copyRace, createRace, stepRace, stepRaceBatch, validateReplay } from '../src/game/engine';
 import { environmentAt, environmentContacts, RACE_RULES_HASH } from '../src/game/environment';
 import { nativeState } from '../src/chain/races';
+import { RACE_RAIL_MM, bendForce } from '../src/game/race-roads';
 
 // These are explicit transition scenarios. The native-origin 21-grid replay
 // corpus separately checks every observed checkpoint against the Rust reference.
-test('a swept tree collision loses speed once, pushes the car, and emits the actual circuit contact', () => {
-  const state = createRace(0, 2), tree = environmentAt(0, 0).objects.find(object => object.kind === 'tree')!;
-  Object.assign(state.cars[0]!, { progress: tree.progress - 500, x: tree.x, speed: 1000 });
-  stepRace(state, [1, 0]);
-  assert.equal(state.cars[0]!.speed, 350); assert.equal(state.cars[0]!.x, -9000);
-  assert.deepEqual(environmentContacts(state), [{ tick: 0, slot: 0, kind: 'tree', objectId: tree.id }]);
-  assert.equal(Object.hasOwn(nativeState(state), 'contacts'), false, 'feedback is excluded from ledger state');
-  stepRace(state, [1, 0]);
-  assert.equal(state.cars[0]!.speed, 300);
-  assert.deepEqual(environmentContacts(state), [], 'passing the center cannot charge another impact');
+test('trees stand beyond the rails: a car on the rail beside one passes untouched', () => {
+  for (const tree of environmentAt(0, 0).objects.filter(object => object.kind === 'tree')) {
+    const state = createRace(0, 2);
+    Object.assign(state.cars[0]!, { progress: tree.progress - 500, x: Math.sign(tree.x) * RACE_RAIL_MM, speed: 1000 });
+    stepRace(state, [1, 0]);
+    assert.ok(Math.abs(state.cars[0]!.x) <= RACE_RAIL_MM && Math.abs(tree.x) - RACE_RAIL_MM > 0);
+    assert.deepEqual(environmentContacts(state), [], `tree ${tree.id}`);
+  }
 });
 
-test('a roadside sign has a distinct native speed penalty and contact identity', () => {
+test('a roadside sign has a distinct native speed penalty and contact identity, charged once', () => {
   const state = createRace(0, 2), sign = environmentAt(0, 0).objects.find(object => object.kind === 'sign')!;
   Object.assign(state.cars[0]!, { progress: sign.progress - 500, x: sign.x, speed: 1000 });
   stepRace(state, [1, 0]);
-  assert.equal(state.cars[0]!.speed, 780);
+  // 1,000 + 40 throttle; the bend pushes the car before it reaches the sign; the verge (beyond 6 m) costs 90.
+  const x = Math.max(-RACE_RAIL_MM, Math.min(RACE_RAIL_MM, sign.x + bendForce(0, sign.progress - 500, 1040)));
+  assert.equal(state.cars[0]!.x, x);
+  assert.equal(state.cars[0]!.speed, 1040 - (Math.abs(x) > 6000 ? 90 : 0) - 260);
   assert.deepEqual(environmentContacts(state), [{ tick: 0, slot: 0, kind: 'sign', objectId: sign.id }]);
+  assert.equal(Object.hasOwn(nativeState(state), 'contacts'), false, 'feedback is excluded from ledger state');
+  stepRace(state, [1, 0]);
+  assert.deepEqual(environmentContacts(state), [], 'passing the center cannot charge another impact');
 });
 
 test('certified batch snapshots retain an early collision without changing native state or leaking mutable feedback', () => {
-  const batched = createRace(0, 2), tree = environmentAt(0, 0).objects.find(object => object.kind === 'tree')!;
-  Object.assign(batched.cars[0]!, { progress: tree.progress - 500, x: tree.x, speed: 1000 });
+  const batched = createRace(0, 2), sign = environmentAt(0, 0).objects.find(object => object.kind === 'sign')!;
+  Object.assign(batched.cars[0]!, { progress: sign.progress - 500, x: sign.x, speed: 1000 });
   const reference = copyRace(batched), frames = Array.from({ length: 6 }, () => [1, 0]);
   for (const row of frames) stepRace(reference, row);
   assert.deepEqual(environmentContacts(reference), [], 'final tick alone has no collision');
   stepRaceBatch(batched, frames);
   assert.deepEqual(nativeState(batched), nativeState(reference));
   const snapshot = copyRace(batched), retained = environmentContacts(snapshot);
-  assert.deepEqual(retained, [{ tick: 0, slot: 0, kind: 'tree', objectId: tree.id }]);
+  assert.deepEqual(retained, [{ tick: 0, slot: 0, kind: 'sign', objectId: sign.id }]);
   assert.deepEqual(JSON.parse(JSON.stringify(snapshot)), reference, 'contacts never enter serialized physics');
   assert.ok(Object.isFrozen(retained) && Object.isFrozen(retained[0]));
   snapshot.cars[0]!.speed = 123;
@@ -69,9 +74,9 @@ test('rain changes native handling on its exact published tick and inactive cars
   const dry = copyRace(wet); dry.tick = 599;
   stepRace(wet, [1 | 8, 0, 0]); stepRace(dry, [1 | 8, 0, 0]);
   assert.equal(wet.cars[0]!.vx, 12); assert.equal(dry.cars[0]!.vx, 15);
-  const tree = environmentAt(0, 600).objects[0]!;
+  const sign = environmentAt(0, 600).objects.find(object => object.kind === 'sign')!;
   const inactive = createRace(0, 3); inactive.tick = 600;
-  Object.assign(inactive.cars[0]!, { progress: tree.progress - 500, x: tree.x, speed: 1000 });
+  Object.assign(inactive.cars[0]!, { progress: sign.progress - 500, x: sign.x, speed: 1000 });
   applyRaceDnf(inactive, [0]); const before = { ...inactive.cars[0]! };
   stepRace(inactive, [63, 1, 1]);
   assert.deepEqual(inactive.cars[0], before); assert.deepEqual(environmentContacts(inactive), []);

@@ -63,8 +63,8 @@ courses and replays recorded on them were dropped rather than kept compatible.
 ### What the real bends changed in play
 
 - Races are longer: eight stock cars take 2:44–2:56 over Hakone's bends (1:22–1:26 on RaceV1's), 2:24–2:38 along
-  Yokohama's streets (1:38–1:43) and 1:23–1:30 at Nikkō (1:14–1:17). A local race may run five minutes; RaceV1 keeps
-  its three.
+  Yokohama's streets (1:38–1:43) and 1:23–1:30 at Nikkō (1:14–1:17). A local race may run five minutes; a live
+  RaceV1 race, on the same roads since the live migration, four and a half (8,100 ticks).
 - The AI follows its racing line through every hairpin: the whole field finishes each course with no wrecks.
 - The HUD's corner cue reads the real road: it warns of each bend the car is too fast for (about 0.95 g of grip,
   7 m/s² of braking, 0.6 s to react) and names the hairpins.

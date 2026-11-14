@@ -30,21 +30,27 @@ export function validateNativeExports(kernels, parity) {
   if (kernels?.version !== 1 || kernels.fixed_prefix !== 9 || !Array.isArray(kernels.kernels)
     || kernels.kernels.length !== 21 || !Array.isArray(kernels.environment) || kernels.environment.length !== 3
     || !Array.isArray(parity?.fixtures) || parity.fixtures.length !== 21) fail('expected fixed prefix 9 and the complete 21-grid catalog');
+  // Each track is its real road: a bend coefficient per 5 m station from 100 m before the line to the finish.
+  kernels.environment.forEach((env, track) => {
+    if (!Array.isArray(env?.road) || env.road_station_mm !== 5000 || env.road_lead_mm !== 100000 || env.rail_mm !== 6520
+      || env.road.length !== (env.length_mm * 3 + env.road_lead_mm) / env.road_station_mm + 1
+      || env.road.some(value => !Number.isSafeInteger(value) || Math.abs(value) > 32767)) fail(`missing or malformed real road for track ${track}`);
+  });
   if (!HASH.test(kernels.profile_id ?? '') || !HASH.test(kernels.rules_hash ?? '') || kernels.rules_hash !== parity.rulesHash) fail('compiled profile/rules identity mismatch');
   if (kernels.sources?.['race.rs'] !== parity.kernelSha256) fail('reference and kernel source identity mismatch');
   for (let index = 0; index < 21; index++) {
     const track = Math.floor(index / 7), players = index % 7 + 2;
     const kernel = kernels.kernels[index], fixture = parity.fixtures[index];
     if (kernel?.track !== track || kernel.player_count !== players || fixture?.trackId !== track || fixture.players !== players) fail(`duplicate, missing or reordered grid ${track}/${players}`);
-    if (kernel.input_count !== 7 * players || kernel.fixed_count !== 9 + 4 * players
+    if (kernel.input_count !== 7 * players || kernel.fixed_count !== 9 + 5 * players
       || !Array.isArray(kernel.outputs) || kernel.outputs.length !== 7 * players
       || !Array.isArray(kernel.events) || kernel.events.length !== 3 * players
       || !Array.isArray(kernel.nodes) || !kernel.nodes.length
       || !Array.isArray(kernel.control_table) || kernel.control_table.length !== 64
       || kernel.control_table.some(row => !Array.isArray(row) || row.length !== 3 || row.some(value => !Number.isSafeInteger(value)))) fail(`incomplete arithmetic layout for grid ${track}/${players}`);
-    if (!Array.isArray(fixture.inputs) || fixture.inputs.length < 1 || fixture.inputs.length > 5400
+    if (!Array.isArray(fixture.inputs) || fixture.inputs.length < 1 || fixture.inputs.length > 8100
       || fixture.inputs.some(row => !Array.isArray(row) || row.length !== players || row.some(control => !Number.isInteger(control) || control < 0 || control > 63))) fail(`invalid input corpus for grid ${track}/${players}`);
-    if (players === 8 && fixture.inputs.length !== 5400) fail(`missing full-duration eight-player reference for track ${track}`);
+    if (players === 8 && fixture.inputs.length !== 8100) fail(`missing full-duration eight-player reference for track ${track}`);
     if (!Array.isArray(fixture.checkpoints) || fixture.checkpoints.length < 2
       || fixture.checkpoints[0]?.tick !== 0 || fixture.checkpoints.at(-1)?.tick !== fixture.inputs.length
       || fixture.checkpoints.some((checkpoint, i) => !Number.isInteger(checkpoint.tick) || checkpoint.tick < 0 || checkpoint.tick > fixture.inputs.length

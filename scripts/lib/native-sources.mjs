@@ -49,6 +49,7 @@ export const NATIVE_PROFILE_SOURCES = Object.freeze([
   "crates/iroha_execution_stark/src/verifier.rs",
   "crates/iroha_execution_stark/src/games/mod.rs",
   "crates/iroha_execution_stark/src/games/race_v1.rs",
+  "crates/iroha_execution_stark/src/games/race_v1_roads.rs",
 ]);
 // Browser arithmetic and the verifier may use different implementations. Both closed
 // inventories must be captured and checked, including arithmetic outside the proof profile.

@@ -1,6 +1,11 @@
-import { botControl, type RaceState } from './engine';
-import { CONTROL as C, TRACKS, curvature } from './rules';
+import { botControl, speedForBendsAhead, type RaceState } from './engine';
+import { CONTROL as C } from './rules';
+import { HELD_WHEEL_PUSH, bendCoefficient } from './race-roads';
+import { RACE_ROAD } from './race-roads-table';
 import { DRIFT_CHARGE_SPEED, inWake, type CarTune } from './tuned-engine';
+
+/** A bend's strength on the old twelve-cell scale: |coefficient| in thousands, at most 3, signed like its push. */
+const strength = (k: number) => Math.sign(k) * Math.min(3, Math.floor(Math.abs(k) / 1000));
 
 /** Garage-race driving levels. Club is the unchanged practice AI. Pro and ace
  * read their own tune, prefer the oil-free centre lane, hold full boost bursts
@@ -11,8 +16,9 @@ const LANE = 2700, CLEAR_AHEAD = 9000, DRIFT_DEPTH = 1500;
 
 export function garageBotControl(state: RaceState, slot: number, tune: CarTune, skill: DriverSkill): number {
   if (skill === 'club') return botControl(state, slot);
-  const car = state.cars[slot]!, track = TRACKS[state.trackId]!, ace = skill === 'ace';
-  const curve = curvature(track, car.progress), upcoming = curvature(track, car.progress + car.speed * 25);
+  const car = state.cars[slot]!, ace = skill === 'ace';
+  const k = bendCoefficient(state.trackId, car.progress);
+  const curve = strength(k), upcoming = strength(bendCoefficient(state.trackId, car.progress + car.speed * 25));
   // A car that can slipstream lines up behind the next car and slingshots past once close.
   const passAt = tune.draft > 0 ? 6500 : 16000;
   let target = 0;
@@ -29,7 +35,9 @@ export function garageBotControl(state: RaceState, slot: number, tune: CarTune, 
     if (Math.abs(dz) < 5000 && Math.abs(other.x - car.x) < 2300) target = car.x + (car.x < other.x || car.x === other.x && slot < other.slot ? -2800 : 2800);
   }
   target = Math.max(-4000, Math.min(4000, target));
-  const expected = car.x + car.vx * 5 + Math.trunc(curve * car.speed * tune.cornerLoad / 1920) * 5;
+  const expected = car.x + car.vx * 5 + Math.trunc(k * car.speed * car.speed * tune.cornerLoad / (16 * RACE_ROAD.forceDivisor)) * 5;
+  // Brake in time for the bends ahead; a lighter corner load holds a faster line.
+  const limit = speedForBendsAhead(state.trackId, car.progress, car.speed, HELD_WHEEL_PUSH * 0.9 * 16 / tune.cornerLoad);
   // Above the unboosted cap means a burst is under way; keep it going rather than wasting the ramp.
   const boosting = car.speed > tune.topSpeed + (tune.draft > 0 && inWake(state, slot) ? tune.draft : 0);
   const clear = !state.cars.some(other => other.slot !== slot && other.finishTick === null && other.dnfTick === null
@@ -37,8 +45,8 @@ export function garageBotControl(state: RaceState, slot: number, tune: CarTune, 
   const start = ace ? (tune.driftCharge ? 600 : 900) : 700;
   // Never sit on a full tank: spend it unless the next corner is a hairpin.
   const full = car.energy > 1000 - 2 * tune.boostRecharge && Math.abs(curve) <= 2 && Math.abs(upcoming) <= 2;
-  let input = C.throttle;
-  if (boosting ? car.energy >= tune.boostCost && Math.abs(curve) <= 2 : full || car.energy >= start && Math.abs(curve) <= 1 && Math.abs(upcoming) <= 2 && clear) input |= C.boost;
+  let input = car.speed > limit + 20 ? C.brake : car.speed + tune.accel > limit ? 0 : C.throttle;
+  if (input === C.throttle && (boosting ? car.energy >= tune.boostCost && Math.abs(curve) <= 2 : full || car.energy >= start && Math.abs(curve) <= 1 && Math.abs(upcoming) <= 2 && clear)) input |= C.boost;
   // An ace with a drift-charging turbo drifts into each corner until it is well inside its line.
   const inward = -Math.sign(curve);
   if (ace && tune.driftCharge > 0 && curve !== 0 && !(input & C.boost) && car.energy < 1000
