@@ -1,11 +1,12 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from './asset-texture-loader';
 export type ScannedSurface = 'asphalt_02' | 'japanese_cedar_planks' | 'japanese_stone_wall' | 'grey_plaster_03' | 'beige_wall_001' | 'grey_roof_tiles_02' | 'forest_ground_04' | 'concrete_pavement_03';
 const sets = new Map<string, {map:THREE.Texture;normalMap:THREE.Texture;roughnessMap:THREE.Texture;metalnessMap:THREE.Texture;aoMap:THREE.Texture}>();
 const pending = new Map<string, Promise<void>>();
 /** Shared 2K scan maps. Color is sRGB; normals and packed AO/roughness/metalness remain linear data. */
 export function scannedSurface(id: ScannedSurface, repeat = 1) {
   const key = `${id}:${repeat}`, cached = sets.get(key); if (cached) return cached;
-  const loader = new THREE.TextureLoader();
+  const loader = new ManagedTextureLoader();
   const load = (file: string, color = false) => {
     let loaded!: () => void, failed!: (error: unknown) => void;
     const ready = new Promise<void>((resolve, reject) => { loaded = resolve; failed = reject; });

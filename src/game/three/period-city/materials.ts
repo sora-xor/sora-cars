@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from '../asset-texture-loader';
 import { scannedSurface } from '../surfaces';
 import { awningAtlas } from './awnings';
 import { neonAtlasTexture, signAtlas, VNEON_BOTTOM_V, VNEON_TOP_V } from './signs';
@@ -380,7 +381,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
 /** The rooms seen through lit windows (public/assets/sprites/window-interiors.png); `ready` turns 1 once it loads. */
 function interiorsTexture(url: string): { texture: THREE.Texture; ready: { value: number } } {
   const ready = { value: 0 };
-  const texture = new THREE.TextureLoader().load(url, () => { ready.value = 1; });
+  const texture = new ManagedTextureLoader().load(url, () => { ready.value = 1; });
   texture.colorSpace = THREE.SRGBColorSpace; texture.anisotropy = 4; texture.name = 'SORA period window interiors';
   return { texture, ready };
 }

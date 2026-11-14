@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as THREE from 'three';
-import { compileFor, materialTextures, shadowCasterBatches } from '../src/game/three/shader-warmup';
+import { compileFor, materialTextures, shadowCasterBatches, waitForShaderPrograms } from '../src/game/three/shader-warmup';
 
 function fixture() {
   const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(50, 1, 0.1, 500);
@@ -109,4 +109,17 @@ test('before GO the warm-up uploads only what visible objects near the start sam
   scene.updateMatrixWorld(true);
   const near = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 400);
   assert.deepEqual(new Set(materialTextures(scene, near)), new Set([leafMap, leafAlpha, lane, grass]));
+});
+
+test('shader preparation waits for every program variant, not only a material current program', async () => {
+  let earlierReady = false, finished = false, earlierChecks = 0, currentChecks = 0;
+  const earlierVariant = { isReady: () => { earlierChecks++; return earlierReady; } };
+  const currentVariant = { isReady: () => { currentChecks++; return true; } };
+  const preparation = waitForShaderPrograms([earlierVariant, currentVariant]).then(() => { finished = true; });
+  await new Promise(resolve => setTimeout(resolve, 15));
+  assert.equal(finished, false);
+  earlierReady = true;
+  await preparation;
+  assert.ok(earlierChecks >= 2);
+  assert.equal(currentChecks, 1, 'completed variants do not keep querying the driver');
 });

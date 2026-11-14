@@ -1,5 +1,17 @@
 import * as THREE from 'three';
 
+/** Three r186 exposes completion per program, including multiple variants of one material. */
+export interface ReadyShaderProgram { isReady(): boolean }
+
+/** Do not query link logs/uniforms until every compiled variant reports completion. */
+export async function waitForShaderPrograms(programs: readonly ReadyShaderProgram[]): Promise<void> {
+  const pending = new Set(programs);
+  while (pending.size) {
+    for (const program of pending) if (program.isReady()) pending.delete(program);
+    if (pending.size) await new Promise(resolve => setTimeout(resolve, 10));
+  }
+}
+
 /** WebGLShadowMap's side flip for PCF shadows (its `shadowSide`). */
 const SHADOW_SIDE: Record<THREE.Side, THREE.Side> = {
   [THREE.FrontSide]: THREE.BackSide, [THREE.BackSide]: THREE.FrontSide, [THREE.DoubleSide]: THREE.DoubleSide,

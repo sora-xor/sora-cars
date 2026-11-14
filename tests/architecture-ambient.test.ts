@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { transform } from 'esbuild';
 import * as THREE from 'three';
 import { decodeArchitectureGeometry } from '../src/game/three/architecture-ambient';
@@ -66,12 +67,13 @@ function fixture() {
   return { roots, geometries, material, skipped, texture, pack, record: templates[0]!.meshes[0]! };
 }
 
-async function withPack<T>(pack: Pack, run: (runtime: Runtime, requested: string[]) => Promise<T>, status = 200): Promise<T> {
+async function withPack<T>(pack: Pack, run: (runtime: Runtime, requested: string[]) => Promise<T>, status = 200, rawBinary = false): Promise<T> {
   const original = globalThis.fetch, requested: string[] = [];
   globalThis.fetch = async input => {
     const url = String(input); requested.push(url);
+    // The runtime reads the drive-optimized gzip copy of the original bytes.
     return url.endsWith('/manifest.json') ? new Response(JSON.stringify(pack.manifest), { status })
-      : new Response(pack.bytes.slice(0), { status });
+      : new Response(url.endsWith('.gz') && !rawBinary ? gzipSync(new Uint8Array(pack.bytes)) : pack.bytes.slice(0), { status });
   };
   try { return await run(await freshRuntime(), requested); } finally { globalThis.fetch = original; }
 }
@@ -115,6 +117,12 @@ test('production bake decodes every mesh with its recorded source bounds and sur
     geometry.dispose();
   }
   assert.ok(baked > 20 && occluded > 20, 'real enclosure measurements cover all six architecture templates');
+});
+
+test('the drive-optimized gzip copy decodes to the original digest-pinned bake', async () => {
+  const manifest = JSON.parse(await readFile(new URL('../public/assets/models/architecture-ambient/manifest.json', import.meta.url), 'utf8')) as Pack['manifest'];
+  const compressed = await readFile(new URL('../public/assets/drive-optimized/v1/models/architecture-ambient/geometry.bin.gz', import.meta.url));
+  assert.equal(digest(gunzipSync(compressed)), manifest.binarySha256);
 });
 
 test('decoder preserves source surface, affine UVs and immutable packed bytes', () => {
@@ -205,14 +213,14 @@ test('stale geometry or transformed mesh rejects the whole application before an
 });
 
 test('failed HTTP, incompatible schema and a tampered binary cannot replace live geometry', async () => {
-  for (const kind of ['http', 'schema', 'hash'] as const) {
+  for (const kind of ['http', 'schema', 'hash', 'not-gzip'] as const) {
     const f = fixture(), before = f.roots.map(snapshot);
     if (kind === 'schema') f.pack.manifest.schemaVersion++;
     if (kind === 'hash') new Uint8Array(f.pack.bytes)[0]! ^= 1;
     await withPack(f.pack, async ({ ArchitectureAmbient }) => {
       await assert.rejects(new ArchitectureAmbient().apply(f.roots), /could not load|Unsupported|does not match/);
       assert.deepEqual(f.roots.map(snapshot), before);
-    }, kind === 'http' ? 503 : 200);
+    }, kind === 'http' ? 503 : 200, kind === 'not-gzip');
   }
 });
 

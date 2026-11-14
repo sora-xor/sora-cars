@@ -1,10 +1,11 @@
 import { storyWorkshop } from '../game/story-workshop';
+import { assetUrl } from '../asset-url';
 
 const esc = (v: string) => v.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 export function storyWorkshopPanel(chapter: number, insideShop = false): string {
   const visit = storyWorkshop(chapter), number = String(chapter + 1).padStart(2, '0');
   return `<section class="story-workshop" style="--workshop-color:${visit.character.color}" aria-label="工房の寄り道 / Workshop pit stop">
-    <img class="workshop-scene" src="${import.meta.env.BASE_URL}assets/story/garage-dusk-branded.png" alt="SORA工房の夕暮れ / Dusk at SORA Workshop" loading="lazy">
+    <img class="workshop-scene" src="${assetUrl('assets/story/garage-dusk-branded.png')}" alt="SORA工房の夕暮れ / Dusk at SORA Workshop" loading="lazy">
     <div class="workshop-conversation"><p class="eyebrow">SORA CUSTOM WORKS · CH. ${number}</p><h2>工房の寄り道 <small lang="en">A PIT STOP WITH THE CREW</small></h2>
     <p class="workshop-speaker">${esc(visit.character.name.ja)} <span lang="en">${esc(visit.character.name.en)}</span></p>
     <blockquote><p>${esc(visit.line.ja)}</p><p lang="en">${esc(visit.line.en)}</p></blockquote>

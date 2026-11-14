@@ -59,6 +59,16 @@ test('other origins, other methods and explicit ranges keep the refusal', async 
   assert.equal(site.log.length, 3);
 });
 
+test('only explicit immutable archive origins and public asset paths may use cross-origin ranges', async () => {
+  const file = bytes(SITE_RANGE_BYTES + 7), archive = 'https://archive.sorafs.example';
+  const site = gateway({ '/assets/music/master.wav': file, '/v1/data': file });
+  const read = withSiteRanges(site.fetch, ORIGIN, [archive]);
+  const response = await read(`${archive}/assets/music/master.wav`);
+  assert.deepEqual(new Uint8Array(await response.arrayBuffer()), file);
+  assert.equal((await read(`${archive}/v1/data`)).status, 413);
+  assert.equal((await read('https://other.example/assets/music/master.wav')).status, 413);
+});
+
 test('a range served for different bytes fails the read instead of joining them', async () => {
   const file = bytes(SITE_RANGE_BYTES + 100);
   const shifted = gateway({ '/x.glb': file }, { tamper: (start, end, size) => `bytes ${start + 1}-${end}/${size}` });

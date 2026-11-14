@@ -1,4 +1,5 @@
 import type { RaceChainClient } from '../chain/client';
+import { assetUrl } from '../asset-url';
 import { musicInventory, type MusicNft, type MusicOffer } from '../chain/inventory';
 import { sameAccountIdentity } from '../chain/account-identity';
 import { MUSIC_ITEMS, MUSIC_LICENSE, MUSIC_SONGS, musicCoverPath, musicItem, musicSku, musicSleeve, musicSleeves, type MusicFile, type MusicItem, type MusicSleeve } from '../game/music-catalog';
@@ -6,7 +7,7 @@ import { MUSIC_ITEMS, MUSIC_LICENSE, MUSIC_SONGS, musicCoverPath, musicItem, mus
 const esc = (v: unknown) => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]!));
 const dual = (ja: string, en: string) => `<span lang="ja">${esc(ja)}</span><small lang="en">${esc(en)}</small>`;
 const time = (n: number) => `${Math.floor(n / 60)}:${String(Math.floor(n % 60)).padStart(2, '0')}`;
-const url = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+const url = assetUrl;
 const cover = (item: MusicItem) => url(item.artwork?.path ?? musicCoverPath(item.file, item.sleeve));
 const fileOf = (sku: string | null) => musicItem(sku)?.file ?? null;
 interface MusicHost {

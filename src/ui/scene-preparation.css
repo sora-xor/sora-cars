@@ -49,8 +49,75 @@
   font-size: 10px;
 }
 
+.scene-download {
+  width: 100%;
+  margin: 22px 0;
+  padding: 16px 0;
+  border-top: 1px solid #f4e8ec33;
+  border-bottom: 1px solid #f4e8ec33;
+  text-align: left;
+}
+
+.scene-download-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: #fff4ed;
+}
+
+.scene-download [data-download-percent], .scene-download-detail {
+  font-variant-numeric: tabular-nums;
+}
+
+.scene-download progress {
+  display: block;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  margin: 12px 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 2px;
+  background: #ffffff1c;
+  accent-color: #ff5a45;
+}
+
+.scene-download progress::-webkit-progress-bar { background: #ffffff1c; }
+.scene-download progress::-webkit-progress-value { background: #ff5a45; }
+.scene-download progress::-moz-progress-bar { background: #ff5a45; }
+.scene-download progress:not([value]) {
+  background: linear-gradient(90deg, transparent, #ff5a45, transparent) -100% 0 / 50% 100% no-repeat, #ffffff1c;
+  animation: scene-download-pending 1.8s linear infinite;
+}
+.scene-download progress:not([value])::-webkit-progress-bar { background: transparent; }
+.scene-download progress:not([value])::-moz-progress-bar { background: transparent; }
+.scene-download[data-phase="failed"] progress { animation: none; opacity: .45; }
+.scene-download-detail { font-size: 12px; line-height: 1.6; color: #f3e5df; }
+.scene-download small { display: block; margin-top: 5px; color: #cdbace; font-size: 10px; line-height: 1.6; }
+.scene-load-status { max-width: 390px; }
+.scene-load-status .scene-download { margin: 12px 0; padding: 10px 0; }
+.scene-load-status > .scene-load-message { font-size: 11px; line-height: 1.6; }
+.home-download {
+  position: absolute;
+  right: 8%;
+  bottom: 76px;
+  width: min(390px, calc(100% - 32px));
+  padding: 8px 20px;
+  z-index: 8;
+  background: #21192b;
+  border-top: 2px solid #ff5a45;
+  box-shadow: 0 12px 40px #100b1b80;
+}
+.home-download .scene-download { border: 0; }
+.home-download .scene-load-message:empty { display: none; }
+
+@keyframes scene-download-pending { to { background-position: 200% 0, 0 0; } }
+@media (prefers-reduced-motion: reduce) { .scene-download progress:not([value]) { animation: none; background-position: 50% 0, 0 0; } }
+
 @media (max-width: 600px) {
   .scene-preparation-cover {
     background-position: 46% center;
   }
+  .home-download { right: 16px; bottom: 66px; }
 }

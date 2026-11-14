@@ -19,6 +19,8 @@ export interface LocalReflectionUpdate {
 }
 
 export interface LocalCarReflections {
+  /** Compile capture-context programs without drawing a reflection face. */
+  prepare(scene: THREE.Scene, cars: readonly THREE.Object3D[]): Promise<void>;
   /** Call once per displayed frame, after moving scenery/cars and before the beauty pass.
    * Position is the centre of the followed car, at its glazing height (about 1.1 m).
    * Each call renders at most ONE cubemap face, or filters an already complete cube.
@@ -176,6 +178,14 @@ export function createLocalCarReflections(renderer: THREE.WebGLRenderer, options
   }
 
   return {
+    async prepare(scene, cars) {
+      const pending: Promise<unknown>[] = [];
+      withCaptureState(scene, cars, () => {
+        renderer.setRenderTarget(cube, 0, 0);
+        pending.push(renderer.compileAsync(scene, camera.children[0] as THREE.PerspectiveCamera));
+      });
+      await Promise.all(pending);
+    },
     update(scene, cars, position, time) {
       const result = (stage: LocalReflectionUpdate['stage'], renderedFace = -1): LocalReflectionUpdate =>
         ({ stage, face: renderedFace, ready: Number.isFinite(publishedPosition.x), generations });

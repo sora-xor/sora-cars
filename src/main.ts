@@ -1,5 +1,7 @@
 // First, so every loader below reads SoraFS files larger than one 8 MiB gateway response.
 import './site-fetch';
+import './game/three/driving-assets';
+import { assetDownloadProgress } from './asset-downloads';
 import { MUSIC_LIBRARY } from './game/music-score';
 import { resolveCutsceneCue } from './game/music-cues';
 import { resolveStoryShot } from './game/story-scenes';
@@ -13,7 +15,7 @@ import './ui/music-store.css';
 import './ui/tech-garage.css';
 import './ui/car-builder.css';
 import { MusicStore } from './ui/music-store';
-import { readSceneReadiness, ScenePreparationCover } from './ui/scene-preparation';
+import { readSceneReadiness, sceneDownloadMarkup, ScenePreparationCover, updateSceneDownloadProgress } from './ui/scene-preparation';
 import { CONTROL as C, LIVERIES, TRACKS } from './game/rules';
 import { applyReplayDnf, botControl, copyRace, createRace, raceFinished, rankCars, stepRace, type RaceState } from './game/engine';
 import { GARAGE_RULES, isGarageReplay, localReplayState, validateLocalReplay, type LocalReplay } from './game/garage-replay';
@@ -271,7 +273,8 @@ function fieldPicker(): string {
 function renderScreen(): void {
   const track = TRACKS[trackId]!;
   if (view === 'race' && localScenePreparing) {
-    screen.innerHTML = `<div class="pause-panel scene-preparation-panel"><p class="eyebrow">SORA MOTOR CLUB / 出発の準備</p><h1>${scenePreparationError ? '映像を読み込めませんでした。' : 'もうすぐ、走り出せる。'}<small lang="en">${scenePreparationError ? 'THE SCENE DIDN’T LOAD.' : 'PREPARING YOUR DRIVE.'}</small></h1><p>${scenePreparationError ? escape(scenePreparationError) : '車と街並みを読み込んでいます。<br><span lang="en">Loading cars and scenery. Your drive begins when everything is ready.</span>'}</p>${scenePreparationError ? '<button class="primary" data-action="scene-reload">再読み込み <small lang="en">RELOAD PAGE ↻</small></button>' : ''}<button class="text-button" data-action="home">戻る <small lang="en">BACK TO THE CLUB →</small></button></div>`;
+    screen.innerHTML = `<div class="pause-panel scene-preparation-panel"><p class="eyebrow">SORA MOTOR CLUB / 出発の準備</p><h1>${scenePreparationError ? '映像を読み込めませんでした。' : 'もうすぐ、走り出せる。'}<small lang="en">${scenePreparationError ? 'THE SCENE DIDN’T LOAD.' : 'PREPARING YOUR DRIVE.'}</small></h1><p>${scenePreparationError ? escape(scenePreparationError) : '車と街並みを読み込んでいます。<br><span lang="en">Loading cars and scenery. Your drive begins when everything is ready.</span>'}</p>${sceneDownloadMarkup()}${scenePreparationError ? '<button class="primary" data-action="scene-reload">再試行 <small lang="en">RELOAD & RETRY ↻</small></button>' : ''}<button class="text-button" data-action="home">戻る <small lang="en">BACK TO THE CLUB →</small></button></div>`;
+    updateSceneDownloadProgress(screen, readSceneReadiness(canvas));
     japaneseInterface(screen); return;
   }
   if (view === 'street') { street.render(); return; }
@@ -484,7 +487,9 @@ function update(dt: number): void {
 }
 function draw(): void {
   if (view === 'soundtrack') { sceneCover.update(null); return; }
-  if (view === 'race' && localScenePreparing && scenePreparationError) { sceneCover.update(readSceneReadiness(canvas)); return; }
+  if (view === 'race' && localScenePreparing && scenePreparationError) {
+    const state = readSceneReadiness(canvas); sceneCover.update(state); updateSceneDownloadProgress(screen, state); return;
+  }
   if (view === 'street') {
     street.draw(elapsed);
     const state = readSceneReadiness(canvas), phase = street.state.phase;
@@ -501,12 +506,19 @@ function draw(): void {
   // Asset preparation is presentation-only; an authoritative live race or
   // spectator feed must never be hidden or paused by this local loading gate.
   sceneCover.update(networkRace || spectator || state.status === 'ready' ? null : state);
-  const loadingHost = view === 'home' ? screen.querySelector('.hero-copy') : view === 'lobby' ? screen.querySelector('.workspace') : null;
+  const loadingHost = view === 'home' ? screen : view === 'lobby' ? screen.querySelector('.workspace') : null;
   let loadingNote = screen.querySelector<HTMLElement>('.scene-load-status');
   if (loadingHost && state.status !== 'ready' && !networkRace && !spectator) {
-    if (!loadingNote) { loadingNote = document.createElement('p'); loadingNote.className = 'fine-print scene-load-status'; loadingNote.setAttribute('role', 'status'); loadingHost.append(loadingNote); }
-    if (loadingNote.textContent !== state.message) loadingNote.textContent = state.message;
+    if (!loadingNote) {
+      loadingNote = document.createElement('div'); loadingNote.className = `scene-load-status${view === 'home' ? ' home-download' : ''}`;
+      loadingNote.innerHTML = `${sceneDownloadMarkup()}<p class="scene-load-message" role="status"></p><button class="text-button" data-action="scene-reload" hidden>再試行 / RELOAD & RETRY ↻</button>`;
+      loadingHost.append(loadingNote);
+    }
+    const message = loadingNote.querySelector('.scene-load-message')!, retry = loadingNote.querySelector<HTMLButtonElement>('button')!;
+    if (message.textContent !== (state.status === 'failed' ? state.message : '')) message.textContent = state.status === 'failed' ? state.message : '';
+    retry.hidden = state.status !== 'failed';
   } else loadingNote?.remove();
+  updateSceneDownloadProgress(screen, state);
   root.dataset.scenePreparation = localScenePreparing ? state.status : 'idle';
   if (localScenePreparing && state.status === 'ready') {
     localScenePreparing = false; scenePreparationError = ''; root.dataset.scenePreparation = 'ready';
@@ -692,7 +704,7 @@ async function action(name: string): Promise<void> {
   if (/^street-download-[0-4]$/.test(name)) { const item = getStreetHistory()[Number(name.at(-1))]; if (item) downloadStreetReplay(item); return; }
   if (name.startsWith('street-') && view === 'street') { street.action(name); return; }
 
-  if (name === 'scene-reload' && localScenePreparing && !networkRace && !spectator) {
+  if (name === 'scene-reload' && !networkRace && !spectator) {
     location.reload(); return;
   }
   if (name === 'home') {
@@ -846,6 +858,6 @@ declare global {
     soraCars: { startStreet: () => Promise<void>; finishStreetPractice: () => Promise<void>; state: () => RaceState; startPractice: () => void; setTrack: (id: number) => void; finishPractice: () => void; };
   }
 }
-window.render_game_to_text = () => JSON.stringify({ mode: view, graphics: { ...readSceneReadiness(canvas), preparing: localScenePreparing || view === 'street' && street.state.phase === 'loading' }, nativeProof: view === 'prove' ? nativeProof.state : null, proofWorkshop: view === 'proofs' ? proofWorkshop.state : null, garage: garage.state, garageTech: { ...tuning.state, raceTuned: raceTunes !== null, raceField, award: lastAward }, soundtrack: records.state, story: { unlockedChapter, activeChapter: storyRun, resultChapter: storyResult, cutscene: view === 'cutscene' ? cutscene.state : null }, paused, replay: !!replay, replayCamera: replay ? replayCameras[replayCamera] : null, spectating: !!spectator, track: TRACKS[trackId]!.name, tick: currentRace.tick, countdown: Math.max(0, countdown), coordinates: 'progress:mm along track; x:mm rightward from road center; speed:mm/tick;30Hz', names: raceNames, playerSlot, player: currentRace.cars[playerSlot], cars: currentRace.cars, position: raceResultPlaces(currentRace).get(playerSlot), controls, gamepadActive, music: audio.musicEnabled, musicState: audio.musicState, drivingSound: audio.driveState, environment: { rain: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).rain, wind: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).wind, contacts: environmentContacts(currentRace), nearby: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).objects.filter(object => Math.abs(object.progress - currentRace.cars[playerSlot]!.progress) < 100000) }, network: chain.state.phase, stakeEnabled: chain.canStake, previousView, street: view === 'street' ? street.state : null, ...(view === 'street' ? { tick: street.state.fullStreetState?.tick ?? 0, track: STREET_ROUTES.find(route => route.id === streetRoute)?.name ?? streetRoute, replay: street.state.replay, replayCamera: street.state.replay ? street.state.camera : null, playerSlot: street.state.playerSlot, names: street.state.names, coordinates: 'progressMm/lateralMm:mm; speedMmPerTick:mm/tick at30Hz; body/velocity yaw:microturn', position: street.state.fullStreetState?.cars[street.state.playerSlot]?.rank ?? null, player: street.state.fullStreetState?.cars[street.state.playerSlot] ?? null, cars: street.state.fullStreetState?.cars ?? [], paused: street.state.phase === 'paused', countdown: street.state.countdown, environment: null, stakeEnabled: false } : {}) });
+window.render_game_to_text = () => JSON.stringify({ mode: view, graphics: { ...readSceneReadiness(canvas), downloads: assetDownloadProgress(), preparing: localScenePreparing || view === 'street' && street.state.phase === 'loading' }, nativeProof: view === 'prove' ? nativeProof.state : null, proofWorkshop: view === 'proofs' ? proofWorkshop.state : null, garage: garage.state, garageTech: { ...tuning.state, raceTuned: raceTunes !== null, raceField, award: lastAward }, soundtrack: records.state, story: { unlockedChapter, activeChapter: storyRun, resultChapter: storyResult, cutscene: view === 'cutscene' ? cutscene.state : null }, paused, replay: !!replay, replayCamera: replay ? replayCameras[replayCamera] : null, spectating: !!spectator, track: TRACKS[trackId]!.name, tick: currentRace.tick, countdown: Math.max(0, countdown), coordinates: 'progress:mm along track; x:mm rightward from road center; speed:mm/tick;30Hz', names: raceNames, playerSlot, player: currentRace.cars[playerSlot], cars: currentRace.cars, position: raceResultPlaces(currentRace).get(playerSlot), controls, gamepadActive, music: audio.musicEnabled, musicState: audio.musicState, drivingSound: audio.driveState, environment: { rain: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).rain, wind: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).wind, contacts: environmentContacts(currentRace), nearby: arcadeEnvironmentAt(currentRace.trackId, currentRace.tick).objects.filter(object => Math.abs(object.progress - currentRace.cars[playerSlot]!.progress) < 100000) }, network: chain.state.phase, stakeEnabled: chain.canStake, previousView, street: view === 'street' ? street.state : null, ...(view === 'street' ? { tick: street.state.fullStreetState?.tick ?? 0, track: STREET_ROUTES.find(route => route.id === streetRoute)?.name ?? streetRoute, replay: street.state.replay, replayCamera: street.state.replay ? street.state.camera : null, playerSlot: street.state.playerSlot, names: street.state.names, coordinates: 'progressMm/lateralMm:mm; speedMmPerTick:mm/tick at30Hz; body/velocity yaw:microturn', position: street.state.fullStreetState?.cars[street.state.playerSlot]?.rank ?? null, player: street.state.fullStreetState?.cars[street.state.playerSlot] ?? null, cars: street.state.fullStreetState?.cars ?? [], paused: street.state.phase === 'paused', countdown: street.state.countdown, environment: null, stakeEnabled: false } : {}) });
 window.advanceTime = ms => { manualClock = true; const steps = Math.max(1, Math.ceil(ms / (1000 / 60))); for (let i = 0; i < steps; i++) update(ms / 1000 / steps); draw(); };
 window.soraCars = { startStreet: () => startStreet(), finishStreetPractice: () => street.finishPractice(), state: () => copyRace(currentRace), startPractice: () => startPractice(), setTrack: chooseTrack, finishPractice: () => { if (view !== 'race' || replay || networkRace || spectator) return; countdown = -1; while (!raceOver()) { const row = currentRace.cars.map(c => c.slot === playerSlot && !driveAI ? botControl(currentRace, c.slot) : aiControl(c.slot)); inputs.push(row); advanceRace(row); } finishSession(); } };

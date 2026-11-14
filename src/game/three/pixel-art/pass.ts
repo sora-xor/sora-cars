@@ -140,6 +140,8 @@ export interface PixelArtOptions extends LineworkOptions, SurfaceOptions, CarOpt
 }
 
 export interface PixelArtPass {
+  /** Compile the exact scene and fullscreen stages before their first GPU draw. */
+  prepare(scene: THREE.Scene, camera: THREE.Camera, width: number, height: number, time: number): Promise<void>;
   /** Same contract as CinematicPass.render: physical output pixels; caller owns the camera. */
   render(scene: THREE.Scene, camera: THREE.Camera, width: number, height: number, time: number): void;
   configure(options: Partial<PixelArtOptions>): void;
@@ -265,6 +267,8 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   const stages: PixelArtStage[] = [resolve.stage, createNormalStage(shared), cars.stages.mask, surface, reflect, grade.stage,
     cars.stages.paint, accumulate.stage, quantize.stage, temporal, lines!, cars.stages.lines, ...afterLines, sparkle];
   const quad = new FullScreenQuad();
+  const compileGeometry = new THREE.PlaneGeometry(2, 2), compileCamera = new THREE.Camera();
+  let compiling: Promise<unknown>[] | null = null;
 
   const settings: PixelArtOptions = { ...DEFAULTS };
   let lutDirty = true;
@@ -281,8 +285,12 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   const savedClearColor = new THREE.Color();
 
   const draw = (material: THREE.RawShaderMaterial, target: THREE.WebGLRenderTarget | null) => {
-    quad.material = material;
     renderer.setRenderTarget(target);
+    if (compiling) {
+      compiling.push(renderer.compileAsync(new THREE.Mesh(compileGeometry, material), compileCamera));
+      return;
+    }
+    quad.material = material;
     quad.render(renderer);
   };
   const frame: PixelArtFrame & { scene: THREE.Scene; camera: THREE.Camera; grid: PixelArtGrid; time: number } = {
@@ -377,6 +385,16 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
   }
 
   const pass: PixelArtPass = {
+    async prepare(scene, camera, width, height, time) {
+      const pending: Promise<unknown>[] = [], wasLutDirty = lutDirty, previousImage = imageIndex;
+      compiling = pending;
+      try { pass.render(scene, camera, width, height, time); }
+      finally {
+        compiling = null; lutDirty = wasLutDirty; imageIndex = previousImage; hasLast = false;
+        pass.resetHistory();
+      }
+      await Promise.all(pending);
+    },
     render(scene, camera, width, height, time) {
       if (disposed || !Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) return;
       if (!grid || grid.outputWidth !== Math.max(1, Math.round(width))
@@ -424,7 +442,8 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
         // three.js clears inside render(), after the shadow map: clearing first opened the multisampled scene pass,
         // which the shadow pass then interrupted, storing and reloading every sample.
         renderer.autoClear = true;
-        renderer.render(scene, camera);
+        if (compiling) compiling.push(renderer.compileAsync(scene, camera));
+        else renderer.render(scene, camera);
         renderer.autoClear = false;
 
         updateCamera(camera);
@@ -601,6 +620,7 @@ export function createPixelArtPass(renderer: THREE.WebGLRenderer): PixelArtPass 
       targets.scene.depthTexture?.dispose();
       for (const target of [targets.scene, targets.resolved, targets.normals, targets.graded, ...targets.images, targets.lut]) target.dispose();
       palette.colors.dispose(); palette.lab.dispose(); palette.ramps.dispose();
+      compileGeometry.dispose();
       quad.dispose();
     },
   };

@@ -1,0 +1,810 @@
+{
+  "schema": "sora-cars.driving-assets.v1",
+  "recipe": "scripts/optimize-driving-assets.py",
+  "originalsPreserved": true,
+  "geometryPreservedExceptAuthoredTreeLODSelection": true,
+  "files": [
+    {
+      "source": "lighting/qwantani-dusk.hdr",
+      "sourceBytes": 26034847,
+      "sourceSha256": "9ce1e510b75d60c838a8fdb5f71a0a5e7c199fa2eeb9c7deade24a39be792eb4",
+      "path": "drive-optimized/v1/lighting/qwantani-dusk.hdr",
+      "bytes": 1335281,
+      "sha256": "d55fe72a7ce3ff239135dcad86b46c56aa24564eab3c9242b90337c3a448a1bc"
+    },
+    {
+      "source": "materials/aerial_grass_rock/arm.jpg",
+      "sourceBytes": 945301,
+      "sourceSha256": "a7daabd9aa877f861ced2830b792709f31a399324db47df2bdac256c0414fc14",
+      "path": "drive-optimized/v1/materials/aerial_grass_rock/arm.jpg",
+      "bytes": 51104,
+      "sha256": "396b87e38d01ece7389a52ca5bdf3293dcf33866097b01593f62781127f9b7ac"
+    },
+    {
+      "source": "materials/aerial_grass_rock/color.jpg",
+      "sourceBytes": 2624635,
+      "sourceSha256": "1a2ddfa4652adbe00447b940c40019d46f4b88245bc1b341cdf622c2110b7bc5",
+      "path": "drive-optimized/v1/materials/aerial_grass_rock/color.jpg",
+      "bytes": 92679,
+      "sha256": "5214b291ec5f64bbf508f112f2b8517ecc0f15a930fc8a6b13036406738cd427"
+    },
+    {
+      "source": "materials/aerial_grass_rock/normal.jpg",
+      "sourceBytes": 3799025,
+      "sourceSha256": "c6aa14b042ce243f93a6ca807f46a085711c23ad316b104578e92df7770ee285",
+      "path": "drive-optimized/v1/materials/aerial_grass_rock/normal.jpg",
+      "bytes": 137559,
+      "sha256": "a4e51358c39fa2c69456b6e11b94b0a72927c1e442d2d8d857e6d19c74672054"
+    },
+    {
+      "source": "materials/asphalt_02/arm.jpg",
+      "sourceBytes": 1299186,
+      "sourceSha256": "ed70e88640e4ed51cf1c3e57cb20db26983599b20b867c2526439e3a2c849fea",
+      "path": "drive-optimized/v1/materials/asphalt_02/arm.jpg",
+      "bytes": 69463,
+      "sha256": "d29e024976ccf3295c187ddfc6a43672376577972868da5e2f9d98715d990361"
+    },
+    {
+      "source": "materials/asphalt_02/color.jpg",
+      "sourceBytes": 3075676,
+      "sourceSha256": "28f5ba8690553f192c0e5e1a5ff40f34765b4b93f4cc7059b1a3e9c795b6c28c",
+      "path": "drive-optimized/v1/materials/asphalt_02/color.jpg",
+      "bytes": 84839,
+      "sha256": "5f8161a046e037c8fe8bdda80149107a8704ba004cc76c91dad996d2962d45c1"
+    },
+    {
+      "source": "materials/asphalt_02/normal.jpg",
+      "sourceBytes": 4943950,
+      "sourceSha256": "ffe49db71a0fd34c1e259625df66a302a237597d6ef655307987ec4e45bc6f21",
+      "path": "drive-optimized/v1/materials/asphalt_02/normal.jpg",
+      "bytes": 121097,
+      "sha256": "a1c4221f1dcb976ba31e4d243aa857e0f990cb5c53fc53e8102580200767082e"
+    },
+    {
+      "source": "materials/beige_wall_001/arm.jpg",
+      "sourceBytes": 437640,
+      "sourceSha256": "a86cfe132a80195833f7d1e5e330960c9690860ab5b752eeb5623081e71c3431",
+      "path": "drive-optimized/v1/materials/beige_wall_001/arm.jpg",
+      "bytes": 4683,
+      "sha256": "2f7cdd206bd315654a361d3f8170bca4c8087d9d38e8ed23a66b295a0dc16707"
+    },
+    {
+      "source": "materials/beige_wall_001/color.jpg",
+      "sourceBytes": 235868,
+      "sourceSha256": "222d4d2e7d5c425c97e5a66790852388cec7706714d773f769fba6bfe08cea4e",
+      "path": "drive-optimized/v1/materials/beige_wall_001/color.jpg",
+      "bytes": 2475,
+      "sha256": "c586dfc2a4f8865def4ec14511989108d5a5bb057bc05875c2a0a62005edbe48"
+    },
+    {
+      "source": "materials/beige_wall_001/normal.jpg",
+      "sourceBytes": 815507,
+      "sourceSha256": "7f5cbecd6766f44034f3b78b4addb1559e12bdd5a77501bd418a736609e7cedc",
+      "path": "drive-optimized/v1/materials/beige_wall_001/normal.jpg",
+      "bytes": 6825,
+      "sha256": "24bb457dec64b05ff96f34c5e18ff63cf3733fa3756d19286fe0c19130393802"
+    },
+    {
+      "source": "materials/concrete_pavement_03/arm.jpg",
+      "sourceBytes": 3277668,
+      "sourceSha256": "c2f2554cb8d07b4b74993f4de2307b98be8e862695a711752a6e0ef57c1909e2",
+      "path": "drive-optimized/v1/materials/concrete_pavement_03/arm.jpg",
+      "bytes": 11128,
+      "sha256": "32200d6caed9d29ffd6927053a906f7f46e3c45cf4634a466759bbd275938281"
+    },
+    {
+      "source": "materials/concrete_pavement_03/color.jpg",
+      "sourceBytes": 3872063,
+      "sourceSha256": "6f0ed226b4104d7065f22567addc762944365a67e764df3d0faf2ea7baf15370",
+      "path": "drive-optimized/v1/materials/concrete_pavement_03/color.jpg",
+      "bytes": 28836,
+      "sha256": "817d4a08ed5cddf82f291b5322a02c8702070570cd6d285cee817f266f68cb8d"
+    },
+    {
+      "source": "materials/concrete_pavement_03/normal.jpg",
+      "sourceBytes": 4791871,
+      "sourceSha256": "5d090a97b798fa0392a80af63543e162247175a384cfa7b411d7b1dae9d4b2dd",
+      "path": "drive-optimized/v1/materials/concrete_pavement_03/normal.jpg",
+      "bytes": 23787,
+      "sha256": "55c8208f4ccd09fb949337a94dad8ad512b7cc5af7f6e583ec30ce1569e2a6d1"
+    },
+    {
+      "source": "materials/forest_ground_04/arm.jpg",
+      "sourceBytes": 3418726,
+      "sourceSha256": "a6086cb5611fabcc3dd4c9ac74bcf6cf8ed5d07e136ebe51255a5a3bea9e42c6",
+      "path": "drive-optimized/v1/materials/forest_ground_04/arm.jpg",
+      "bytes": 47020,
+      "sha256": "6ed52f50331dcc16f92a68ba8dbfcf1d4edaea807f84959c34edb9eee17e0941"
+    },
+    {
+      "source": "materials/forest_ground_04/color.jpg",
+      "sourceBytes": 4529321,
+      "sourceSha256": "24b8aaf4c8547305d80b0e029ec365219ab1b90748d4ca5651bdc9e75bfde5e6",
+      "path": "drive-optimized/v1/materials/forest_ground_04/color.jpg",
+      "bytes": 81372,
+      "sha256": "b782a1e37546e23f94c96e7b3cb92b0a5c2eb737a24e72cf6988aa08033be095"
+    },
+    {
+      "source": "materials/forest_ground_04/normal.jpg",
+      "sourceBytes": 5288849,
+      "sourceSha256": "b37ac799ed410976541e0011c246fca254e74eaa3f096ae7a7d74178db5a6d9b",
+      "path": "drive-optimized/v1/materials/forest_ground_04/normal.jpg",
+      "bytes": 105764,
+      "sha256": "518f1cd329a71c91614817de392a421f41b4a560d69dc67ec313db68a828876a"
+    },
+    {
+      "source": "materials/grey_plaster_03/arm.jpg",
+      "sourceBytes": 921597,
+      "sourceSha256": "c87e8b0ed9cb84eb5e7a70db41979cfaa8669323b7f74d68948c03a889e87d1f",
+      "path": "drive-optimized/v1/materials/grey_plaster_03/arm.jpg",
+      "bytes": 29299,
+      "sha256": "0c98481cb627ac2426afac45e4d9c09f5aab2a426e58d61246f4d860d850e125"
+    },
+    {
+      "source": "materials/grey_plaster_03/color.jpg",
+      "sourceBytes": 2284426,
+      "sourceSha256": "5d0fa0b107b1fe6513701d3e2606cce25da4f0f1c4290dc063cd2c8f88196039",
+      "path": "drive-optimized/v1/materials/grey_plaster_03/color.jpg",
+      "bytes": 43913,
+      "sha256": "1b223f606c07c35a6066cc77dcc0a5ea606da760ba8b5f899f954c4d45fca473"
+    },
+    {
+      "source": "materials/grey_plaster_03/normal.jpg",
+      "sourceBytes": 2572971,
+      "sourceSha256": "c02be4797ae113e83899981986eefc0b4e6baa64b41a723bd26e639547603ba7",
+      "path": "drive-optimized/v1/materials/grey_plaster_03/normal.jpg",
+      "bytes": 22216,
+      "sha256": "2a9bc8ed01fec7ea55df096dce45648d32f4abb66ca0e1a4c89463e937b9f565"
+    },
+    {
+      "source": "materials/grey_roof_tiles_02/arm.jpg",
+      "sourceBytes": 702157,
+      "sourceSha256": "cdafc65c4cee9ca999090f2a433ed28846cf3ca625bdc26435fe807b9c15b966",
+      "path": "drive-optimized/v1/materials/grey_roof_tiles_02/arm.jpg",
+      "bytes": 42982,
+      "sha256": "ce88b61d4c80624b7be3561612c588bdcdf3eb2e65f60dbb62aab5a4c3b9a335"
+    },
+    {
+      "source": "materials/grey_roof_tiles_02/color.jpg",
+      "sourceBytes": 1530646,
+      "sourceSha256": "6a95a3d95a8d8b96f02caf9639f5ceaa814d0faae96f351d1e594b4d4feeb6d7",
+      "path": "drive-optimized/v1/materials/grey_roof_tiles_02/color.jpg",
+      "bytes": 58572,
+      "sha256": "a41d29ed6d94744f05cdb9dc00479ef6c81555d247300dd48677acd65f1a0487"
+    },
+    {
+      "source": "materials/grey_roof_tiles_02/normal.jpg",
+      "sourceBytes": 2553079,
+      "sourceSha256": "95136d3c44c314838f3b62961986b64cdacfb54b6646302b1dab671eaefa5cca",
+      "path": "drive-optimized/v1/materials/grey_roof_tiles_02/normal.jpg",
+      "bytes": 76945,
+      "sha256": "aca6e3912100a5720ff7d8c3a0ad6001e74739f326f7d0e73233d6f68436da29"
+    },
+    {
+      "source": "materials/japanese_cedar_planks/arm.jpg",
+      "sourceBytes": 2782361,
+      "sourceSha256": "48b6a27493efc3b691ee4d3bbca74779f55480ca8a87626d5cf0f4ebd68119be",
+      "path": "drive-optimized/v1/materials/japanese_cedar_planks/arm.jpg",
+      "bytes": 20314,
+      "sha256": "1f2a5140f325fa17198315dc267ba461d87f4fc3104bed8a553929e95818603f"
+    },
+    {
+      "source": "materials/japanese_cedar_planks/color.jpg",
+      "sourceBytes": 2812544,
+      "sourceSha256": "92fd3742f4744e6262e8093c5dfb919a6bbabac48fe672734d4cba7bc5a4aea3",
+      "path": "drive-optimized/v1/materials/japanese_cedar_planks/color.jpg",
+      "bytes": 34782,
+      "sha256": "4120f0716b722477b698fe9c95e03b91cec6f179ae6cef55f6856512d527c9f9"
+    },
+    {
+      "source": "materials/japanese_cedar_planks/normal.jpg",
+      "sourceBytes": 3776186,
+      "sourceSha256": "8f9d6194b9345b9a89702a0a146edf70728a2dc2d23050b60260a1442a2df526",
+      "path": "drive-optimized/v1/materials/japanese_cedar_planks/normal.jpg",
+      "bytes": 9648,
+      "sha256": "15f7be0b43071ca36ad760a9c6d64cf3989db3405d03a21f11b06f512624460f"
+    },
+    {
+      "source": "materials/japanese_stone_wall/arm.jpg",
+      "sourceBytes": 3112816,
+      "sourceSha256": "4b39741e972e46393ec8e18687a25309e51461a83f2fc754fe896f02881046f5",
+      "path": "drive-optimized/v1/materials/japanese_stone_wall/arm.jpg",
+      "bytes": 31149,
+      "sha256": "6207aaac5fb09c607ef08ed7bfd4ab8a832a098210ba0083951ab1b49b7a45e1"
+    },
+    {
+      "source": "materials/japanese_stone_wall/color.jpg",
+      "sourceBytes": 4623186,
+      "sourceSha256": "a411d298f552c62f9cce4aab216f1cff06391955c5e0e187c6cfae446523a583",
+      "path": "drive-optimized/v1/materials/japanese_stone_wall/color.jpg",
+      "bytes": 77811,
+      "sha256": "faadc2196afa81daddcfd09e781a39b8ff4b503cb32f77fb5c512554b4c5a4f1"
+    },
+    {
+      "source": "materials/japanese_stone_wall/normal.jpg",
+      "sourceBytes": 4093483,
+      "sourceSha256": "9d3486706b09e1860864de236d082f5949dfb16979b5c789202a21b5a3b5e363",
+      "path": "drive-optimized/v1/materials/japanese_stone_wall/normal.jpg",
+      "bytes": 95960,
+      "sha256": "63944bbdddf228e79352a5b39bfa9e1bf8bd328d2d7c7e9733135c5111404983"
+    },
+    {
+      "source": "materials/painted-workshop/ae86-brush-control-v1.png",
+      "sourceBytes": 1562697,
+      "sourceSha256": "12a3936a06f889d9aaeda9979608d7431dbfc74f7e650fd24184b73cd4349897",
+      "path": "drive-optimized/v1/materials/painted-workshop/ae86-brush-control-v1.png",
+      "bytes": 323801,
+      "sha256": "4b87ff3607ccbf14c9f2a1dac715a46d124c9f5920f68c6600c97736efbe4da9"
+    },
+    {
+      "source": "materials/painted-workshop/ae86-enamel-v1.png",
+      "sourceBytes": 1704746,
+      "sourceSha256": "aacdf659a89c8176e9527ea81af6c8f69aef451888c1ebb02160ff38956863e3",
+      "path": "drive-optimized/v1/materials/painted-workshop/ae86-enamel-v1.png",
+      "bytes": 393038,
+      "sha256": "a4d16e06f9d7c18fa7bcbd4443049ad26f0c76d368948040af5f7dc944217aab"
+    },
+    {
+      "source": "materials/painted-workshop/concrete-v1.png",
+      "sourceBytes": 3343648,
+      "sourceSha256": "7f664de9eebabd2f41e9d461df9f7ac016bc42d54b620d23c59951bbf6cebd02",
+      "path": "drive-optimized/v1/materials/painted-workshop/concrete-v1.png",
+      "bytes": 541694,
+      "sha256": "cee6b0c6997b1aabc4d73c8c04b8aa9e0444155ad368de853ad4e84b3eccbae9"
+    },
+    {
+      "source": "materials/painted-workshop/pigment-marks-v1.png",
+      "sourceBytes": 2258520,
+      "sourceSha256": "f6fa485aa19ded2d598c4581b8cb17c447e6c6b323279c43133af3f55632e5e4",
+      "path": "drive-optimized/v1/materials/painted-workshop/pigment-marks-v1.png",
+      "bytes": 395693,
+      "sha256": "63b154172e02b78a6cfca0ee28c48ea182cb2e18bb273addc7a22fbdb3c82241"
+    },
+    {
+      "source": "materials/painted-workshop/reflection-matcap-v1.png",
+      "sourceBytes": 1758648,
+      "sourceSha256": "0e421124e0bb93ba41d07d46dd6562c59066a6494745b3aa439e9af78904d896",
+      "path": "drive-optimized/v1/materials/painted-workshop/reflection-matcap-v1.png",
+      "bytes": 339015,
+      "sha256": "64c954b18ffe7f186e507e31d8149d215772406349b56b05921457c8defde1b9"
+    },
+    {
+      "source": "materials/painted-workshop/steel-v1.png",
+      "sourceBytes": 3056872,
+      "sourceSha256": "43cd9d1c58002f8e1dca6311f831546192973e64ff47d772055d9da90a3567c0",
+      "path": "drive-optimized/v1/materials/painted-workshop/steel-v1.png",
+      "bytes": 503602,
+      "sha256": "665c7d9c076d2cc687ae1b1f1914e489f1e1732d0d681b207e0dcb67f9cc2b15"
+    },
+    {
+      "source": "materials/sparse_grass/arm.jpg",
+      "sourceBytes": 3835537,
+      "sourceSha256": "f498dcdbfd1c29b6c36232fc56e69d467be7d6d1d180d2a294138d9c725d6b66",
+      "path": "drive-optimized/v1/materials/sparse_grass/arm.jpg",
+      "bytes": 54241,
+      "sha256": "dd1a15225c944d43f86b0ffd57ee4ab0e160f9bfd9f8f2d71b3d99641a0e0184"
+    },
+    {
+      "source": "materials/sparse_grass/color.jpg",
+      "sourceBytes": 3733797,
+      "sourceSha256": "3b655de96161164bf2324e136b3409ad8417c9f94750bc008e9c93ee507c2fac",
+      "path": "drive-optimized/v1/materials/sparse_grass/color.jpg",
+      "bytes": 62904,
+      "sha256": "4901c90ad1fc95bd21ea2be95a7ba63818f400174f481900a8a294ef9b82c09d"
+    },
+    {
+      "source": "materials/sparse_grass/normal.jpg",
+      "sourceBytes": 5892473,
+      "sourceSha256": "5539a5913653a106a4e8a699a1d288f0b41907775b5fb36156ef5be2e937718b",
+      "path": "drive-optimized/v1/materials/sparse_grass/normal.jpg",
+      "bytes": 110149,
+      "sha256": "27f051a296e3fafbf80f530e5b5c221f3ef19a99b2fb2920fa93bec30c9c0945"
+    },
+    {
+      "source": "models/driver/driver.glb",
+      "sourceBytes": 8839740,
+      "sourceSha256": "aedf174a5e8160a3bedc9b9522bb8e243e7979df87369e5c2a4b0b413a64ce7d",
+      "path": "drive-optimized/v1/models/driver/driver.glb",
+      "bytes": 2087764,
+      "sha256": "e9f3dd29a65784e6395b63207f849dd6e5d4f88f0526592ce6445f831101eefb"
+    },
+    {
+      "source": "models/roadside/mature-tree/mature-tree-lod2.bin",
+      "sourceBytes": 4421068,
+      "sourceSha256": "14556f6a83a05d6374a8dd6e2c2ee7cc5c7a9b8ee27bf1cb9622b7fc855783bf",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/mature-tree-lod2.bin",
+      "bytes": 4421068,
+      "sha256": "14556f6a83a05d6374a8dd6e2c2ee7cc5c7a9b8ee27bf1cb9622b7fc855783bf"
+    },
+    {
+      "source": "models/roadside/mature-tree/mature-tree-lod2.gltf",
+      "sourceBytes": 5976,
+      "sourceSha256": "a53d3d84228c12b6b46477d0c1c82b775be99206432f2ba8f4b52f78aedca418",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/mature-tree-lod2.gltf",
+      "bytes": 5976,
+      "sha256": "a53d3d84228c12b6b46477d0c1c82b775be99206432f2ba8f4b52f78aedca418"
+    },
+    {
+      "source": "models/roadside/mature-tree/mature-tree-lod3.bin",
+      "sourceBytes": 643168,
+      "sourceSha256": "9801bca68c9f99fb6c7917c1c68b4b0602bc5d548988a9c31e58964ed2481d7c",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/mature-tree-lod3.bin",
+      "bytes": 643168,
+      "sha256": "9801bca68c9f99fb6c7917c1c68b4b0602bc5d548988a9c31e58964ed2481d7c"
+    },
+    {
+      "source": "models/roadside/mature-tree/mature-tree-lod3.gltf",
+      "sourceBytes": 5648,
+      "sourceSha256": "0b58782807ebc56e19178608f428b83cf24466acedf9f831115401c44aa1f832",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/mature-tree-lod3.gltf",
+      "bytes": 5648,
+      "sha256": "0b58782807ebc56e19178608f428b83cf24466acedf9f831115401c44aa1f832"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_arm_2k.jpg",
+      "sourceBytes": 2586815,
+      "sourceSha256": "e96b4e84e9786b982d01562e0d249f6e58db1b656dd511db7c034d6ed60b1c92",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_arm_2k.jpg",
+      "bytes": 35767,
+      "sha256": "f94aa6b42d3583c2b3f17ed6fa5110a1a270791d6420d10373aab2df0edc97ef"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_branch_arm_2k.jpg",
+      "sourceBytes": 1147503,
+      "sourceSha256": "82da928cc4e8a45c559f6abe8053227c7ae6cc14eb8d026a30c203aedd087042",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_branch_arm_2k.jpg",
+      "bytes": 19509,
+      "sha256": "812942910d5fa37bb6c6d6c0c2028a9699c245fb7fcabb639c9ca3723b6530c9"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_branch_diff_2k.jpg",
+      "sourceBytes": 1425692,
+      "sourceSha256": "9032de9e063ee7e3763a6b10d19d89302f5776e85a966b6dd1c3a5634b2a80e1",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_branch_diff_2k.jpg",
+      "bytes": 37529,
+      "sha256": "1fd8d3d231f66412b9de8803ccefb018c3c8dc9cdd38991c2aa7a12269dc5fed"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_branch_nor_gl_2k.jpg",
+      "sourceBytes": 1781975,
+      "sourceSha256": "368505992d867bb50eccc00d77940a7a3eaf32f42de9f536d105407b0d6df3fd",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_branch_nor_gl_2k.jpg",
+      "bytes": 56922,
+      "sha256": "492aa7118c0da940598ce720747594e9ef87823a603814ce03c02f22f406f4d4"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_diff_2k.jpg",
+      "sourceBytes": 3170612,
+      "sourceSha256": "4ab3210b6ec6bb1181145500bca71d1c1f81ead6baaa8600f5979c2cec50c6a4",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_diff_2k.jpg",
+      "bytes": 65236,
+      "sha256": "4be49fcd84f4b4869377e643d8a97ce7646e3efe7be5cb7b6fd14484a73d1a86"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_leaves_alpha_2k.png",
+      "sourceBytes": 636661,
+      "sourceSha256": "566484c7047ce67af5a4435c1e4da2b773578d73f83ae45dfad0fd442df7b9d5",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_leaves_alpha_2k.png",
+      "bytes": 321617,
+      "sha256": "46ff8213f7c38c5c4579f8e4675d3b28da93d2ffa294f8ab3f147bac528488e0"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_leaves_arm_2k.jpg",
+      "sourceBytes": 2191542,
+      "sourceSha256": "a126c0d92b60c44c0664e4d3651831970e259b0d5a1fb39ebb67081cbecaca96",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_leaves_arm_2k.jpg",
+      "bytes": 33143,
+      "sha256": "e1afa8346eaba01d17bd010d994e76a96fe44b521df41ad538f816b3bdcb9485"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_leaves_diff_2k.jpg",
+      "sourceBytes": 961870,
+      "sourceSha256": "6c984a46861562f2a20381c54106aa5e07ce0d3fce785907f8d263157e7561af",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_leaves_diff_2k.jpg",
+      "bytes": 38412,
+      "sha256": "ff1ea998ebe8d88b6f3d50be2b1ee65906f9966160ff7e2c173e452f1c290b6b"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_leaves_nor_gl_2k.jpg",
+      "sourceBytes": 2395771,
+      "sourceSha256": "40c956e345430562cdb4d0470c7d499aa160f1fa3dd7555d88be2dedf0d7ff2e",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_leaves_nor_gl_2k.jpg",
+      "bytes": 43909,
+      "sha256": "a963e9ac87781f0af2ec3ae5d427a87163c224215019ab5c6900e7dc6c27e4b6"
+    },
+    {
+      "source": "models/roadside/mature-tree/source/textures/tree_small_02_nor_gl_2k.jpg",
+      "sourceBytes": 4555311,
+      "sourceSha256": "cb7897fc0aea602964836116ecf631614ece2970f579647fe1070bccb428fe89",
+      "path": "drive-optimized/v1/models/roadside/mature-tree/source/textures/tree_small_02_nor_gl_2k.jpg",
+      "bytes": 104893,
+      "sha256": "5f7b818b295a7502fd0068c2164220dbd9cb0b6996f7d327a17a8fba6cf1a325"
+    },
+    {
+      "source": "models/roadside/pipes/modular_pipes.bin",
+      "sourceBytes": 1465048,
+      "sourceSha256": "7ebd9cd06e30f55ec78cc5cf2b89a45907ef919c36817e26f1d0544c6c7d54eb",
+      "path": "drive-optimized/v1/models/roadside/pipes/modular_pipes.bin",
+      "bytes": 1465048,
+      "sha256": "7ebd9cd06e30f55ec78cc5cf2b89a45907ef919c36817e26f1d0544c6c7d54eb"
+    },
+    {
+      "source": "models/roadside/pipes/modular_pipes_2k.gltf",
+      "sourceBytes": 107409,
+      "sourceSha256": "8209e7c2e8f07f77d5b417769af536c94a4562c972cfc8c7baaf788a5a54bf82",
+      "path": "drive-optimized/v1/models/roadside/pipes/modular_pipes_2k.gltf",
+      "bytes": 107409,
+      "sha256": "8209e7c2e8f07f77d5b417769af536c94a4562c972cfc8c7baaf788a5a54bf82"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_metal_arm_2k.jpg",
+      "sourceBytes": 2842131,
+      "sourceSha256": "86f932c63810afc4d1e38ceecfb1cf08d2b8ec327a7fe8361a42151ef4710b13",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_metal_arm_2k.jpg",
+      "bytes": 55510,
+      "sha256": "84cafa2e09d1cac132e566c8de6197aed7e519c35ce8018134999799b1a2b7cf"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_metal_diff_2k.jpg",
+      "sourceBytes": 2943820,
+      "sourceSha256": "0ce1f55e57b2b3fe4788803e6e0a85bab2edf5c5d99bdbfba8ddda162af21dc6",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_metal_diff_2k.jpg",
+      "bytes": 59463,
+      "sha256": "5060744436f54daadabe239d2e82234a7915d98df15e2442a0013bf1670ed9de"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_metal_nor_gl_2k.jpg",
+      "sourceBytes": 2863810,
+      "sourceSha256": "ba68b12fb886d99580adaee364db93db91a2de5a35046d26d2c07a7710b3ca73",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_metal_nor_gl_2k.jpg",
+      "bytes": 40430,
+      "sha256": "778ac2e997624f03319165c17be1201173babd8e6c35049519fe5ccd48481598"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_pvc_arm_2k.jpg",
+      "sourceBytes": 3132685,
+      "sourceSha256": "7c1091dd1d1fc88e4f499635f27dd8dcdf58684bb7d7b98efc8369d916520e9a",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_pvc_arm_2k.jpg",
+      "bytes": 46858,
+      "sha256": "3ad4be2a1c4f297892cbe9227e65cee02ecb0d830151d46927e62f27e8a58ded"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_pvc_diff_2k.jpg",
+      "sourceBytes": 2818594,
+      "sourceSha256": "9c271b97d7f840b2789423147e74df27c362c4e7c7da7b81c4d21bff2450a9d3",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_pvc_diff_2k.jpg",
+      "bytes": 46413,
+      "sha256": "f891e2321af7dba3ba013c17bfa07f614cc0ca8ba8f9a031b071faf9d151a2a3"
+    },
+    {
+      "source": "models/roadside/pipes/textures/modular_pipes_pvc_nor_gl_2k.jpg",
+      "sourceBytes": 2313228,
+      "sourceSha256": "9242f374bbd72b237c1705414b7da2ec2f54494771e9ba3d1df1153df14820be",
+      "path": "drive-optimized/v1/models/roadside/pipes/textures/modular_pipes_pvc_nor_gl_2k.jpg",
+      "bytes": 39189,
+      "sha256": "a81da0fae827b61c804719d661a0c6a64560c4292d73350c1931d71ae3bc4a61"
+    },
+    {
+      "source": "models/roadside/shutter/rollershutter_door.bin",
+      "sourceBytes": 46192,
+      "sourceSha256": "155cd44e199d4edd19769503c7ed22b0b4007869166d0193a7e2d5e3134dc38d",
+      "path": "drive-optimized/v1/models/roadside/shutter/rollershutter_door.bin",
+      "bytes": 46192,
+      "sha256": "155cd44e199d4edd19769503c7ed22b0b4007869166d0193a7e2d5e3134dc38d"
+    },
+    {
+      "source": "models/roadside/shutter/rollershutter_door_2k.gltf",
+      "sourceBytes": 5378,
+      "sourceSha256": "2e577ec6e0cd3535a49039f3ce5dd50e5358fe7475d77b64104a1addb886a673",
+      "path": "drive-optimized/v1/models/roadside/shutter/rollershutter_door_2k.gltf",
+      "bytes": 5378,
+      "sha256": "2e577ec6e0cd3535a49039f3ce5dd50e5358fe7475d77b64104a1addb886a673"
+    },
+    {
+      "source": "models/roadside/shutter/textures/rollershutter_door_arm_2k.jpg",
+      "sourceBytes": 2284955,
+      "sourceSha256": "10bdbc409d48981b3acb6616303c0479d10243cedb1890ef8dbe8e1d36afde18",
+      "path": "drive-optimized/v1/models/roadside/shutter/textures/rollershutter_door_arm_2k.jpg",
+      "bytes": 38241,
+      "sha256": "a1c507fe9b167673d06712a8fcb5fdc347c0d2af41484632033a087b8cc1ac02"
+    },
+    {
+      "source": "models/roadside/shutter/textures/rollershutter_door_diff_2k.jpg",
+      "sourceBytes": 2321049,
+      "sourceSha256": "1e7c6f6caf3d3cdcdcb3c7ae589ee536cf015c2fc6acfa34a2a08d3f9902dda4",
+      "path": "drive-optimized/v1/models/roadside/shutter/textures/rollershutter_door_diff_2k.jpg",
+      "bytes": 35459,
+      "sha256": "c6fc6766358e56f98188de78878d3df30e1eb7f628d62ead4e89e9c09c3b85b2"
+    },
+    {
+      "source": "models/roadside/shutter/textures/rollershutter_door_graffiti_diff_2k.jpg",
+      "sourceBytes": 2536479,
+      "sourceSha256": "1639d5c3a620d8557195168900c4e5bdbcea80a047e2f637b4ca072c139b59d3",
+      "path": "drive-optimized/v1/models/roadside/shutter/textures/rollershutter_door_graffiti_diff_2k.jpg",
+      "bytes": 53141,
+      "sha256": "b01cdd366cba7200c6b617d013745ee8961a3305ca97034c58133a68a9ac83b8"
+    },
+    {
+      "source": "models/roadside/shutter/textures/rollershutter_door_nor_gl_2k.jpg",
+      "sourceBytes": 1471465,
+      "sourceSha256": "77ad1ba5b657f0d76422dd820eb32301059f00c27087d172d451338d3b6791bc",
+      "path": "drive-optimized/v1/models/roadside/shutter/textures/rollershutter_door_nor_gl_2k.jpg",
+      "bytes": 27356,
+      "sha256": "93949d546e9cfb67880f8aa9835cceb5eebce0811339bbb2d6e0176a43051d9c"
+    },
+    {
+      "source": "models/shop-props/bench_vice_01/bench_vice_01.bin",
+      "sourceBytes": 131404,
+      "sourceSha256": "47b80c649a7791a7f3ea95d3dca929506a8c2e89506d3982a1a3380dcd3333ee",
+      "path": "drive-optimized/v1/models/shop-props/bench_vice_01/bench_vice_01.bin",
+      "bytes": 131404,
+      "sha256": "47b80c649a7791a7f3ea95d3dca929506a8c2e89506d3982a1a3380dcd3333ee"
+    },
+    {
+      "source": "models/shop-props/bench_vice_01/bench_vice_01_1k.gltf",
+      "sourceBytes": 13222,
+      "sourceSha256": "52e61b473f1a7840ddbdabf024cca8dd32e07f694bd247e3a74e8ef5d9a101e2",
+      "path": "drive-optimized/v1/models/shop-props/bench_vice_01/bench_vice_01_1k.gltf",
+      "bytes": 13222,
+      "sha256": "52e61b473f1a7840ddbdabf024cca8dd32e07f694bd247e3a74e8ef5d9a101e2"
+    },
+    {
+      "source": "models/shop-props/bench_vice_01/textures/bench_vice_01_arm_1k.jpg",
+      "sourceBytes": 704241,
+      "sourceSha256": "49d396c052622c12864e3cbfa7dc982e0bb4117bc37fccc15703a97af1b9f24c",
+      "path": "drive-optimized/v1/models/shop-props/bench_vice_01/textures/bench_vice_01_arm_1k.jpg",
+      "bytes": 50159,
+      "sha256": "286492055a6eceecb3141e2a87ef4ce5f4c25b41c74dd50df09b37c09cf5322e"
+    },
+    {
+      "source": "models/shop-props/bench_vice_01/textures/bench_vice_01_diff_1k.jpg",
+      "sourceBytes": 724482,
+      "sourceSha256": "e453c1bc7c283fb6a9c8da0638173809dfafb8310f5e81112705f5ecf88b5ab7",
+      "path": "drive-optimized/v1/models/shop-props/bench_vice_01/textures/bench_vice_01_diff_1k.jpg",
+      "bytes": 57286,
+      "sha256": "1c535949434262f3db0adefc14bf5a5ef3f70c229ed532b088b09b5a349ea36b"
+    },
+    {
+      "source": "models/shop-props/bench_vice_01/textures/bench_vice_01_nor_gl_1k.jpg",
+      "sourceBytes": 866287,
+      "sourceSha256": "691b3a3888e689785bdd792522769839cd662d841071e2ea11184b70c012a65e",
+      "path": "drive-optimized/v1/models/shop-props/bench_vice_01/textures/bench_vice_01_nor_gl_1k.jpg",
+      "bytes": 45690,
+      "sha256": "1ad3894dc1a9ecacc710fb866ff1b0680aba6f4dd46e94942566817677860154"
+    },
+    {
+      "source": "models/shop-props/combination_wrench/combination_wrench.bin",
+      "sourceBytes": 65676,
+      "sourceSha256": "799674a7f462991b17badd71e32d51fe92b3f8d88156ad38663c1da8d441e8c3",
+      "path": "drive-optimized/v1/models/shop-props/combination_wrench/combination_wrench.bin",
+      "bytes": 65676,
+      "sha256": "799674a7f462991b17badd71e32d51fe92b3f8d88156ad38663c1da8d441e8c3"
+    },
+    {
+      "source": "models/shop-props/combination_wrench/combination_wrench_1k.gltf",
+      "sourceBytes": 2828,
+      "sourceSha256": "9a04c36b03f25550495c32e36522b603b23b30ad4eb5f55c1bb20cfc41d64444",
+      "path": "drive-optimized/v1/models/shop-props/combination_wrench/combination_wrench_1k.gltf",
+      "bytes": 2828,
+      "sha256": "9a04c36b03f25550495c32e36522b603b23b30ad4eb5f55c1bb20cfc41d64444"
+    },
+    {
+      "source": "models/shop-props/combination_wrench/textures/combination_wrench_arm_1k.jpg",
+      "sourceBytes": 462181,
+      "sourceSha256": "ab406ce49461fa36e197ded4fa7950ab5947237f7f6c17ed289271b51e493403",
+      "path": "drive-optimized/v1/models/shop-props/combination_wrench/textures/combination_wrench_arm_1k.jpg",
+      "bytes": 37136,
+      "sha256": "50b403e4565226ed5051728b89d714d3f4f9f7d19b8c9cb230c768b29093d7e4"
+    },
+    {
+      "source": "models/shop-props/combination_wrench/textures/combination_wrench_diff_1k.jpg",
+      "sourceBytes": 463822,
+      "sourceSha256": "5cbfc5a8603d95cd310e299042d7e7a458e287dd6ca74a53228ff70c22d96071",
+      "path": "drive-optimized/v1/models/shop-props/combination_wrench/textures/combination_wrench_diff_1k.jpg",
+      "bytes": 28356,
+      "sha256": "8f87f73ffb70d3ef2738638020a1ee287c61f2c8e4dd66ea6a7b58909034ce94"
+    },
+    {
+      "source": "models/shop-props/combination_wrench/textures/combination_wrench_nor_gl_1k.jpg",
+      "sourceBytes": 462374,
+      "sourceSha256": "08bcbb3b7ff3690c55b5368341843b43b2e8f7a1276315f38e1d7ec37107d8dd",
+      "path": "drive-optimized/v1/models/shop-props/combination_wrench/textures/combination_wrench_nor_gl_1k.jpg",
+      "bytes": 26700,
+      "sha256": "a26111a484d43a5ed467507fe721c8da71037ea19392ec15ebd17b515f6f8f8d"
+    },
+    {
+      "source": "models/shop-props/old_tyre/old_tyre.bin",
+      "sourceBytes": 84160,
+      "sourceSha256": "659e7982c2de92ca1d13194c97bf112b6dec22d91daecc88e3912d37ce1b7252",
+      "path": "drive-optimized/v1/models/shop-props/old_tyre/old_tyre.bin",
+      "bytes": 84160,
+      "sha256": "659e7982c2de92ca1d13194c97bf112b6dec22d91daecc88e3912d37ce1b7252"
+    },
+    {
+      "source": "models/shop-props/old_tyre/old_tyre_1k.gltf",
+      "sourceBytes": 2734,
+      "sourceSha256": "ba7b417eb3dc747c356ac3cd1f125754755684eb664737a9f1fc9e490c0b766e",
+      "path": "drive-optimized/v1/models/shop-props/old_tyre/old_tyre_1k.gltf",
+      "bytes": 2734,
+      "sha256": "ba7b417eb3dc747c356ac3cd1f125754755684eb664737a9f1fc9e490c0b766e"
+    },
+    {
+      "source": "models/shop-props/old_tyre/textures/old_tyre_arm_1k.jpg",
+      "sourceBytes": 776823,
+      "sourceSha256": "3bcf192f5b99a7a574f9e21e75927043e6726c601a5da15e3210a31db05e12d4",
+      "path": "drive-optimized/v1/models/shop-props/old_tyre/textures/old_tyre_arm_1k.jpg",
+      "bytes": 51978,
+      "sha256": "f30ce5dc5fc808aa8bc83f2778585b90598409777d254938fcdc8e6f70671c1b"
+    },
+    {
+      "source": "models/shop-props/old_tyre/textures/old_tyre_diff_1k.jpg",
+      "sourceBytes": 650708,
+      "sourceSha256": "0e34ce658c0844c0c94022233226d495930d514c917a5fa15ffee4760567439e",
+      "path": "drive-optimized/v1/models/shop-props/old_tyre/textures/old_tyre_diff_1k.jpg",
+      "bytes": 42462,
+      "sha256": "c53541e75144dd9d8f6f1adbb8ce5740885a91c4c61d9d9dd5ce0eeb970e7db1"
+    },
+    {
+      "source": "models/shop-props/old_tyre/textures/old_tyre_nor_gl_1k.jpg",
+      "sourceBytes": 722778,
+      "sourceSha256": "34b716e140408985ddbab7d4bf1d8d430edf834cd2fd4639d82b14cb393fa73e",
+      "path": "drive-optimized/v1/models/shop-props/old_tyre/textures/old_tyre_nor_gl_1k.jpg",
+      "bytes": 40564,
+      "sha256": "eb71e346a95cc0b6089aaf670c11b2f0ea6518b6891a042d7b1d28c726076ec8"
+    },
+    {
+      "source": "models/shop-props/small_oil_can_01/small_oil_can_01.bin",
+      "sourceBytes": 468092,
+      "sourceSha256": "f517be075ab100969ea6d0fa877becdc2c5cf526d9bd95c4fcb84313edbd2a55",
+      "path": "drive-optimized/v1/models/shop-props/small_oil_can_01/small_oil_can_01.bin",
+      "bytes": 468092,
+      "sha256": "f517be075ab100969ea6d0fa877becdc2c5cf526d9bd95c4fcb84313edbd2a55"
+    },
+    {
+      "source": "models/shop-props/small_oil_can_01/small_oil_can_01_1k.gltf",
+      "sourceBytes": 2722,
+      "sourceSha256": "587aba1ab9138a33fc66b41f03c36f1d463bc7b8337ab54d379b7023634c7b18",
+      "path": "drive-optimized/v1/models/shop-props/small_oil_can_01/small_oil_can_01_1k.gltf",
+      "bytes": 2722,
+      "sha256": "587aba1ab9138a33fc66b41f03c36f1d463bc7b8337ab54d379b7023634c7b18"
+    },
+    {
+      "source": "models/shop-props/small_oil_can_01/textures/small_oil_can_01_arm_1k.jpg",
+      "sourceBytes": 209908,
+      "sourceSha256": "256bb8695c92f224c15ff29d0dcac297d189830f931b0e64e1a35ad036158d2a",
+      "path": "drive-optimized/v1/models/shop-props/small_oil_can_01/textures/small_oil_can_01_arm_1k.jpg",
+      "bytes": 61961,
+      "sha256": "b2afbb2760a38fb600e6f273dcc712e1619425599f6d1f003732198d50eae355"
+    },
+    {
+      "source": "models/shop-props/small_oil_can_01/textures/small_oil_can_01_diff_1k.jpg",
+      "sourceBytes": 140909,
+      "sourceSha256": "393441955d94540b724f8eb8b86723af7fdee68ae743b4a3e85805807f2eaf88",
+      "path": "drive-optimized/v1/models/shop-props/small_oil_can_01/textures/small_oil_can_01_diff_1k.jpg",
+      "bytes": 35451,
+      "sha256": "15780a20483bab88dde9e753a80a795bfe420e52442b774aaf4a3c33d7f835e2"
+    },
+    {
+      "source": "models/shop-props/small_oil_can_01/textures/small_oil_can_01_nor_gl_1k.jpg",
+      "sourceBytes": 113295,
+      "sourceSha256": "bbb3c0e4600fe307ad50ca429261ba7d1b81a477871571e7737e7b8f23fa234c",
+      "path": "drive-optimized/v1/models/shop-props/small_oil_can_01/textures/small_oil_can_01_nor_gl_1k.jpg",
+      "bytes": 15120,
+      "sha256": "32391f3f8bbb4807b401bfd353a51e4c20d6d09f1e3d6ba55afffe14f61d94d6"
+    },
+    {
+      "source": "models/sora-ae86/ae86.glb",
+      "sourceBytes": 11494848,
+      "sourceSha256": "cc67905d1d492bf0d2eb8fc632f9baa812449770801a7eea4f7a3b50d02057e0",
+      "path": "drive-optimized/v1/models/sora-ae86/ae86.glb",
+      "bytes": 5521404,
+      "sha256": "144d8a1978cf5eb9e0a4ee5701f6f082867ebeb55b09a941802c8832f5e8981b"
+    },
+    {
+      "source": "models/understory/fern_02/fern_02.bin",
+      "sourceBytes": 176176,
+      "sourceSha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c",
+      "path": "drive-optimized/v1/models/understory/fern_02/fern_02.bin",
+      "bytes": 176176,
+      "sha256": "fe1abb762bcbbc7ad9e86925c8080437a62add257d9280e9142fdc85c226e64c"
+    },
+    {
+      "source": "models/understory/fern_02/fern_02_2k.gltf",
+      "sourceBytes": 6899,
+      "sourceSha256": "50540d37531f93fd693d5340d5b3095c9d6d2834fa05c74bea797d54f290cb6a",
+      "path": "drive-optimized/v1/models/understory/fern_02/fern_02_2k.gltf",
+      "bytes": 6899,
+      "sha256": "50540d37531f93fd693d5340d5b3095c9d6d2834fa05c74bea797d54f290cb6a"
+    },
+    {
+      "source": "models/understory/fern_02/textures/fern_02_alpha_2k.png",
+      "sourceBytes": 230089,
+      "sourceSha256": "f51eb9b8f9f4b25a882f8fe12d1ef53ba69448bac7e71396ec1f05b684e9ea75",
+      "path": "drive-optimized/v1/models/understory/fern_02/textures/fern_02_alpha_2k.png",
+      "bytes": 202180,
+      "sha256": "d4c2c2f05c75c4547875863b2279eca52cec391975a78897c94edd4f8611928f"
+    },
+    {
+      "source": "models/understory/fern_02/textures/fern_02_arm_2k.jpg",
+      "sourceBytes": 850856,
+      "sourceSha256": "1eaf9bd29e2d83a77ca5d89bdddebcd9216b8b4ba244644580fe5b89bbe713f1",
+      "path": "drive-optimized/v1/models/understory/fern_02/textures/fern_02_arm_2k.jpg",
+      "bytes": 31074,
+      "sha256": "d3b806f3e0c13b4afa26e4a4dba2a80099149c26c796d7581d259075666a0c26"
+    },
+    {
+      "source": "models/understory/fern_02/textures/fern_02_diff_2k.jpg",
+      "sourceBytes": 993703,
+      "sourceSha256": "9ee18172170728050871772e2cd6d8d37b52f9138e61b49b04486623f9caf84b",
+      "path": "drive-optimized/v1/models/understory/fern_02/textures/fern_02_diff_2k.jpg",
+      "bytes": 19965,
+      "sha256": "9308a65b6e2e144b2872494ab12c71c04635e625c04e12e9ee5803d6e7f72122"
+    },
+    {
+      "source": "models/understory/fern_02/textures/fern_02_nor_gl_2k.jpg",
+      "sourceBytes": 1365615,
+      "sourceSha256": "dfe1ac4a428d21f7c134411500177d66b8dd800c8fec6f0040c50f44414a777b",
+      "path": "drive-optimized/v1/models/understory/fern_02/textures/fern_02_nor_gl_2k.jpg",
+      "bytes": 25347,
+      "sha256": "85e09f4c1a1e0c65a9706a9beaa0e915f1bd789b9eaa5e1ba7cd19f87894f8b4"
+    },
+    {
+      "source": "models/understory/grass_medium_01/grass_medium_01.bin",
+      "sourceBytes": 1006632,
+      "sourceSha256": "f4587cabdb96a2e96d8be644923dc954a248edfaaa717a0ff224cacb898bee1f",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/grass_medium_01.bin",
+      "bytes": 1006632,
+      "sha256": "f4587cabdb96a2e96d8be644923dc954a248edfaaa717a0ff224cacb898bee1f"
+    },
+    {
+      "source": "models/understory/grass_medium_01/grass_medium_01_2k.gltf",
+      "sourceBytes": 27110,
+      "sourceSha256": "aed63929a83fb694e6884e3a5c0fdb962ab8cf9153830247c8201a482ff02664",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/grass_medium_01_2k.gltf",
+      "bytes": 27110,
+      "sha256": "aed63929a83fb694e6884e3a5c0fdb962ab8cf9153830247c8201a482ff02664"
+    },
+    {
+      "source": "models/understory/grass_medium_01/textures/grass_medium_01_alpha_2k.png",
+      "sourceBytes": 1580653,
+      "sourceSha256": "4af2c3d5ebf167764ad3746f8c925dc4fbe28f0df023656599123cb593b793dd",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/textures/grass_medium_01_alpha_2k.png",
+      "bytes": 842202,
+      "sha256": "82e8a37e4614762f199518f0cca911ca31157786893193314d6c3e88f68b4f05"
+    },
+    {
+      "source": "models/understory/grass_medium_01/textures/grass_medium_01_arm_2k.jpg",
+      "sourceBytes": 2256355,
+      "sourceSha256": "7b593b1c470c1817b937bb3ca00da7e4b27ca00120e98b06b43bb3a7d5810aa1",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/textures/grass_medium_01_arm_2k.jpg",
+      "bytes": 60546,
+      "sha256": "835ae2e8217ccbc08e86ef48a41ffe2617ab51eb300ade72fd99f5ae355c0903"
+    },
+    {
+      "source": "models/understory/grass_medium_01/textures/grass_medium_01_diff_2k.jpg",
+      "sourceBytes": 1166527,
+      "sourceSha256": "f768aa68daf14f37a92dd96621628a5252b169f4d94b4d1cc830d62cd3ac9e68",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/textures/grass_medium_01_diff_2k.jpg",
+      "bytes": 44130,
+      "sha256": "a797a0c0517417fcca9fa977ff304ac179978f26819c4fb6bdc92403b828a98b"
+    },
+    {
+      "source": "models/understory/grass_medium_01/textures/grass_medium_01_nor_gl_2k.jpg",
+      "sourceBytes": 3530394,
+      "sourceSha256": "245349ce6d1910b3b7474da6013452a5be993f9058be78e17171a0866a6889e9",
+      "path": "drive-optimized/v1/models/understory/grass_medium_01/textures/grass_medium_01_nor_gl_2k.jpg",
+      "bytes": 88647,
+      "sha256": "84600fde22b38e301429d804ed270fed09d9b2438d9168feb9d3c5200aa8e95f"
+    },
+    {
+      "source": "models/architecture-ambient/geometry.bin",
+      "sourceBytes": 27031860,
+      "sourceSha256": "84dc6acfe22072491cd8cbe8de69bcd888811e06cc8648107cf889380fcc6990",
+      "path": "drive-optimized/v1/models/architecture-ambient/geometry.bin.gz",
+      "bytes": 5717821,
+      "sha256": "b2a9ca7b2f8473f4d07fc612a4a62306b14a4b16e115069e45ff99bb3f055ed4",
+      "encoding": "gzip",
+      "decodedSha256": "84dc6acfe22072491cd8cbe8de69bcd888811e06cc8648107cf889380fcc6990"
+    }
+  ]
+}

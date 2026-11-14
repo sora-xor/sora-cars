@@ -10,7 +10,7 @@ import { planStreetSoundtrack, streetSongPosition } from '../game/street/soundtr
 import { STREET_SONG_ENDINGS } from '../game/street/song-endings';
 import { streetDriver } from '../game/street/test-driver';
 import { decodeStreetReplay, encodeStreetReplay, exportStreetReplay, verifyStreetReplay, StreetReplayPlayback, type StreetReplay } from '../game/street/replay';
-import { readSceneReadiness } from './scene-preparation';
+import { readSceneReadiness, sceneDownloadMarkup, updateSceneDownloadProgress } from './scene-preparation';
 import { DriveStreetSession, type DriveStreetState } from '../game/drive/street';
 import type { DriveEvent } from '../game/drive/race';
 import { DRIVER_SKILLS, DriveAI } from '../game/drive/ai';
@@ -313,7 +313,10 @@ export class StreetPractice {
   draw(time: number): void {
     if (!this.#open || this.#phase === 'error') return;
     const state = this.#native;
-    if (!state || !this.#loaded) { const ctx = this.#options.canvas.getContext('2d')!; ctx.fillStyle = '#160f24'; ctx.fillRect(0, 0, this.#options.canvas.width, this.#options.canvas.height); return; }
+    if (!state || !this.#loaded) {
+      updateSceneDownloadProgress(this.#options.screen, { status: 'loading', message: '' });
+      const ctx = this.#options.canvas.getContext('2d')!; ctx.fillStyle = '#160f24'; ctx.fillRect(0, 0, this.#options.canvas.width, this.#options.canvas.height); return;
+    }
     const names = this.#record?.names ?? this.#names, skins = this.#record?.skins ?? names.map((_, slot) => slot === 0 ? this.#skin : slot % 6);
     const playerSlot = this.#record?.playerSlot ?? 0, player = this.#options.build?.();
     // Each driver's car: the player's build, the story's drivers' own, and period cars for the host clubs.
@@ -333,6 +336,7 @@ export class StreetPractice {
       rain: state.rain, objects: this.#loaded.bundle.objects, events: this.#events, raceMode: this.#playback ? '再生 / REPLAY' : this.#story ? '物語 / STORY' : '練習 / PRACTICE' }, time);
       this.#events = [];
       const scene = readSceneReadiness(this.#options.canvas);
+      updateSceneDownloadProgress(this.#options.screen, scene);
       if (scene.status === 'failed') {
         this.#visualError = true; this.#error = scene.message; this.#setPhase('error');
       } else if (this.#phase === 'loading') {
@@ -356,8 +360,8 @@ export class StreetPractice {
       `<button data-action="street-route-${route.id}" aria-pressed="${route.id === this.#routeId}">${esc(streetRouteStyle(route.id).place.ja)}<small lang="en">${esc(streetRouteStyle(route.id).place.en)}</small></button>`).join('')}</div>` : '';
     const exit = button('exit', '街を出る', 'EXIT');
     let html = '';
-    if (this.#phase === 'loading') html = `<div class="street-panel">${heading}<h1>${this.#record && !state ? '走りを確かめる。' : `${esc(place.ja)}へ。`}</h1><p lang="en">${state ? esc(this.#sceneMessage || 'Preparing the cars, streets and lighting…') : this.#record ? 'Recomputing every recorded input…' : 'Loading the course and soundtrack…'}</p>${this.#record && !state ? `<progress value="${this.#progress}" max="100"></progress><p>${this.#progress}% · 最大約1分 / Up to about a minute</p>` : ''}${exit}</div>`;
-    if (this.#phase === 'error') html = `<div class="street-panel">${heading}<h1>読込を停止しました。</h1><p lang="en">${this.#visualError ? 'The 3D scene could not finish loading.' : 'The course or replay could not be verified.'}</p><p class="street-error">${esc(this.#error)}</p>${this.#visualError ? button('reload', 'ページを再読込', 'RELOAD PAGE') : button('retry', '再試行', 'RETRY') + button('restart', '新しく走る', 'NEW RUN')}${routes}${exit}</div>`;
+    if (this.#phase === 'loading') html = `<div class="street-panel">${heading}<h1>${this.#record && !state ? '走りを確かめる。' : `${esc(place.ja)}へ。`}</h1><p lang="en">${state ? esc(this.#sceneMessage || 'Preparing the cars, streets and lighting…') : this.#record ? 'Recomputing every recorded input…' : 'Loading the course and soundtrack…'}</p>${this.#record && !state ? `<progress value="${this.#progress}" max="100" aria-label="走行記録の検証 / Replay verification"></progress><p>${this.#progress}% · 最大約1分 / Up to about a minute</p>` : sceneDownloadMarkup()}${exit}</div>`;
+    if (this.#phase === 'error') html = `<div class="street-panel">${heading}<h1>読込を停止しました。</h1><p lang="en">${this.#visualError ? 'The 3D scene could not finish loading.' : 'The course or replay could not be verified.'}</p><p class="street-error">${esc(this.#error)}</p>${this.#visualError ? sceneDownloadMarkup() + button('reload', '再試行', 'RELOAD & RETRY') : button('retry', '再試行', 'RETRY') + button('restart', '新しく走る', 'NEW RUN')}${routes}${exit}</div>`;
     if (this.#phase === 'ready') html = `<div class="street-panel">${heading}${routes}${story ? `<p class="street-story">${esc(story.label.ja)}　目標：${esc(story.objective.ja)}<small lang="en">${esc(story.label.en)} · GOAL: ${esc(story.objective.en)}</small></p>` : ''}<h1>${esc(style.title.ja)}</h1><p class="street-subtitle" lang="en">${esc(style.title.en)}</p><p>${esc(style.path.ja)}<br><span lang="en">${esc(style.path.en)}</span></p><p>${esc(style.facts.ja)}<br><span lang="en">${esc(style.facts.en)}</span></p><p class="street-song">♪ ${esc(style.song)} <small>${songLength} · ORIGINAL SOUNDTRACK</small></p><p>減速して旋回。SPACEで車体を滑らせ、出口で加速。<br><span lang="en">Brake before corners. Hold SPACE to slide; accelerate on exit.</span></p>${this.#playback ? '<p>再計算済み・ローカル記録 / Locally recomputed replay</p>' : ''}<div class="street-actions">${button('start', this.#playback ? '再生する' : '走り出そう', this.#playback ? 'PLAY REPLAY' : 'START YOUR ENGINE', true)}${exit}</div><p class="fine-print">${story ? '物語の街道レース・同じ車で走り、賞金とXORの授受なし / Story street race · Equal cars, no prize money or XOR' : '無料練習・XORの授受なし / Free practice · No XOR awarded'}<br>${esc(style.provisional.ja)} / ${esc(style.provisional.en)}</p></div>`;
     if (this.#phase === 'countdown') html = `<div class="street-count"><strong id="street-countdown">3</strong><span>${esc(place.ja)}、出発。 / ${esc(place.en)}, LET’S GO.</span></div>`;
     if (this.#phase === 'paused' && this.#playback) html = `<div class="street-playback-pause"><span>一時停止 / PAUSED</span>${button('pause', 'つづける', 'RESUME')}${exit}</div>`;
@@ -368,6 +372,7 @@ export class StreetPractice {
     }
     if (this.#playback && !['ready', 'loading', 'error'].includes(this.#phase)) html += `<div class="street-replay-bar"><span>再生 / REPLAY · <b id="street-time">${seconds(this.#playback.tick)}</b></span><input aria-label="Replay time" type="range" id="street-seek" min="0" max="${this.#playback.length}" value="${this.#playback.tick}"><div>${(['chase', 'bumper', 'aerial'] as const).map((camera, i) => `<button data-action="street-camera-${camera}" aria-pressed="${this.#camera === camera}">${['追走', '路面', '上空'][i]}<small>${camera.toUpperCase()}</small></button>`).join('')}</div></div>`;
     screen.innerHTML = html;
+    updateSceneDownloadProgress(screen, { status: this.#phase === 'error' ? 'failed' : 'loading', message: '' });
     this.#measurePresentationInset();
   }
   /** Explicit automation counterpart; all eight bots emit ordinary controls. */

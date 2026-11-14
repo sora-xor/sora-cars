@@ -66,7 +66,11 @@ function fixture({ drive = true } = {}) {
       verifyStreetReplay: (record, route, options) => { const item = deferred(); verifications.push({ ...item, record, route, options }); return item.promise; },
       StreetReplayPlayback: Playback,
     };
-    if (id.endsWith('/scene-preparation')) return { readSceneReadiness: value => { assert.equal(value, canvas); assert.ok(draws.length > 0, 'readiness must follow actual course drawing'); return visual; } };
+    if (id.endsWith('/scene-preparation')) return {
+      readSceneReadiness: value => { assert.equal(value, canvas); assert.ok(draws.length > 0, 'readiness must follow actual course drawing'); return visual; },
+      sceneDownloadMarkup: () => '<div data-scene-download></div>',
+      updateSceneDownloadProgress: target => { assert.equal(target, screen); },
+    };
     if (id.endsWith('/audio')) return {};
     throw new Error(`Unexpected production import: ${id}`);
   };

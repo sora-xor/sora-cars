@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from './asset-texture-loader';
 
 /** Source-baked visibility of the sky beneath the actual AE86 body and tires.
  * Applied to indirect road lighting, so direct lamps retain their real shadows.
@@ -11,7 +12,7 @@ export class VehicleAmbientOcclusion {
   private readonly decorated = new WeakSet<THREE.Material>();
 
   constructor() {
-    this.texture = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}assets/models/sora-ae86/ambient-visibility.png`);
+    this.texture = new ManagedTextureLoader().load(`${import.meta.env.BASE_URL}assets/models/sora-ae86/ambient-visibility.png`);
     this.texture.name = 'AE86 source-derived ambient visibility';
     this.texture.colorSpace = THREE.NoColorSpace;
     this.texture.anisotropy = 4;

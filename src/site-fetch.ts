@@ -3,6 +3,9 @@
 // same-origin GET that meets that refusal is re-requested range by range and returned as one
 // ordinary 200 response, so three.js loaders, hash-checked assets and downloads read the whole
 // file unchanged. Every other response passes through untouched.
+import { withAssetDownloads } from './asset-downloads';
+import { trustedAssetOrigins } from './asset-url';
+import { knownAssetBytes } from './asset-byte-sizes';
 export const SITE_RANGE_BYTES = 8 * 1024 * 1024;
 const SMALLEST_RANGE_BYTES = 256 * 1024;
 const CONTENT_RANGE = /^bytes (\d+)-(\d+)\/(\d+)$/;
@@ -12,13 +15,15 @@ interface SitePart { bytes: Uint8Array<ArrayBuffer>; total: number; type: string
 
 const method = (input: RequestInfo | URL, init?: RequestInit) => (init?.method ?? (input instanceof Request ? input.method : 'GET')).toUpperCase();
 
-export function withSiteRanges(base: Fetch, origin: string): Fetch {
+export function withSiteRanges(base: Fetch, origin: string, trustedAssetOrigins: readonly string[] = []): Fetch {
   return async (input, init) => {
     const response = await base(input, init);
     if (response.status !== 413 || response.headers.get('accept-ranges')?.toLowerCase() !== 'bytes' || method(input, init) !== 'GET') return response;
     // A GET has no body, so copying the request leaves the caller's untouched.
     const request = new Request(input, init);
-    if (new URL(request.url).origin !== origin || request.headers.has('range')) return response;
+    const url = new URL(request.url);
+    const trustedOrigin = url.origin === origin || url.pathname.startsWith('/assets/') && trustedAssetOrigins.includes(url.origin);
+    if (!trustedOrigin || request.headers.has('range')) return response;
     await response.body?.cancel();
     return rangedResponse(base, request);
   };
@@ -60,4 +65,4 @@ async function rangedResponse(base: Fetch, request: Request): Promise<Response> 
   return new Response(body, { status: 200, headers });
 }
 
-if (typeof window !== 'undefined' && typeof location !== 'undefined' && typeof globalThis.fetch === 'function') globalThis.fetch = withSiteRanges(globalThis.fetch.bind(globalThis), location.origin);
+if (typeof window !== 'undefined' && typeof location !== 'undefined' && typeof globalThis.fetch === 'function') globalThis.fetch = withAssetDownloads(withSiteRanges(globalThis.fetch.bind(globalThis), location.origin, trustedAssetOrigins), location.origin, { trustedAssetOrigins, knownBytes: knownAssetBytes });

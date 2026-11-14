@@ -1,4 +1,5 @@
 import { STORY_ANGLE_ART, type StoryFrame } from './story-scenes';
+import { assetUrl } from '../asset-url';
 
 const mod = (x: number, n: number) => ((x % n) + n) % n;
 
@@ -20,8 +21,8 @@ export class StoryCinema {
   #image(art: string): HTMLImageElement {
     let image = this.#images.get(art);
     if (!image) {
-      image = new Image(); image.decoding = 'async';
-      image.src = `${import.meta.env.BASE_URL}assets/story/${art}`;
+      image = new Image(); image.decoding = 'async'; image.crossOrigin = 'anonymous';
+      image.src = assetUrl(`assets/story/${art}`);
       this.#images.set(art, image);
     }
     return image;

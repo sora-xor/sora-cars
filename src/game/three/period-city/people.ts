@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from '../asset-texture-loader';
 import { hashInts, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodLocals, type PeriodSide } from './layout';
 import { cityNight } from './materials';
 import { streetCrossings } from './street';
@@ -179,7 +180,7 @@ export class PeriodPeople {
 
   /** `atlasUrl`: the street-people sprite atlas (public/assets/sprites/street-people.png). */
   constructor(atlasUrl?: string) {
-    const atlas = atlasUrl && typeof document !== 'undefined' ? new THREE.TextureLoader().load(atlasUrl) : new THREE.Texture();
+    const atlas = atlasUrl && typeof document !== 'undefined' ? new ManagedTextureLoader().load(atlasUrl) : new THREE.Texture();
     atlas.colorSpace = THREE.SRGBColorSpace; atlas.magFilter = THREE.NearestFilter; atlas.minFilter = THREE.LinearMipmapLinearFilter;
     atlas.name = 'SORA street people';
     const quad = new THREE.PlaneGeometry(1, 1); quad.translate(0, .5, 0);

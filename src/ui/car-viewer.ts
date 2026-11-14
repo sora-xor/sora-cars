@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from '../game/three/asset-texture-loader';
 import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 import type { CarBuild } from '../game/car-builds';
 import { addDissolve, carNight, loadDetailedCar, setDetailedCarNight } from '../game/three/asset-car';
@@ -139,7 +140,7 @@ export class CarViewer {
         uniforms: { sceneColor: { value: null }, artSize: { value: new THREE.Vector2(1, 1) }, supersample: { value: 3 }, pixel: { value: true }, exposure: { value: 1.05 } } });
       const resolve = new THREE.Mesh(geometry, material); resolve.frustumCulled = false;
       const resolveScene = new THREE.Scene(); resolveScene.add(resolve);
-      const flag = new THREE.TextureLoader().load(`${import.meta.env.BASE_URL}assets/sora-flag.png`); flag.colorSpace = THREE.SRGBColorSpace;
+      const flag = new ManagedTextureLoader().load(`${import.meta.env.BASE_URL}assets/sora-flag.png`); flag.colorSpace = THREE.SRGBColorSpace;
       const emblemUrl = `${import.meta.env.BASE_URL}assets/branding/sora-emblem-source.png`;
       this.#gpu = { renderer, scene, camera: new THREE.PerspectiveCamera(24, 1, 0.1, 60), stage, resolve, resolveScene, resolveCamera: new THREE.Camera(), target: null,
         decals: { flag, emblem: soraEmblemTexture(emblemUrl, 512, .3), strip: soraStripTexture(emblemUrl), plate: plateTexture(), number: raceNumberTexture } };

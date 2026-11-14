@@ -1,4 +1,5 @@
 import type { Character } from '../game/story';
+import { assetUrl } from '../asset-url';
 
 // Fixed face crops from the established 1672px-wide cutscene illustrations.
 // Keeping the crop independent of the current camera shot makes each speaker
@@ -18,13 +19,13 @@ const portraits: Readonly<Record<string, { art: string; crop: readonly [number, 
 export function speakerPortrait(character: Character): string {
   const { art, crop: [x, y, size] } = portraits[character.id]!;
   // The adjacent bilingual name identifies the speaker for assistive technology.
-  return `<div class="cutscene-portrait" data-speaker="${character.id}" aria-hidden="true"><img src="${import.meta.env.BASE_URL}assets/story/angles/${art}" alt="" draggable="false" style="width:${1672 / size * 100}%;left:${-x / size * 100}%;top:${-y / size * 100}%"></div>`;
+  return `<div class="cutscene-portrait" data-speaker="${character.id}" aria-hidden="true"><img src="${assetUrl(`assets/story/angles/${art}`)}" alt="" draggable="false" style="width:${1672 / size * 100}%;left:${-x / size * 100}%;top:${-y / size * 100}%"></div>`;
 }
 
 export function preloadSpeakerPortraits(speakers: readonly string[]): void {
   for (const art of new Set(speakers.map(id => portraits[id]!.art))) {
     const image = new Image();
     image.fetchPriority = 'low';
-    image.src = `${import.meta.env.BASE_URL}assets/story/angles/${art}`;
+    image.src = assetUrl(`assets/story/angles/${art}`);
   }
 }

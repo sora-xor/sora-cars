@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from './asset-texture-loader';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 export interface UnderstoryPatch {
@@ -39,7 +40,7 @@ function random(seed: number): () => number {
 }
 
 async function loadPlants(): Promise<Plant[]> {
-  const loader = new GLTFLoader(), textureLoader = new THREE.TextureLoader();
+  const loader = new GLTFLoader(), textureLoader = new ManagedTextureLoader();
   const ids = ['fern_02', 'grass_medium_01'];
   const sources = await Promise.all(ids.map(async id => {
     const [gltf, alpha] = await Promise.all([

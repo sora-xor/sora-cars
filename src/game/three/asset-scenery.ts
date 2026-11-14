@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from './asset-texture-loader';
 import { autumnFoliage } from './autumn-foliage';
 import { withCanopyGaps } from './canopy-gaps';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -141,9 +142,7 @@ function assemblePipes(source: THREE.Group): THREE.Group {
 
 async function loadTemplates(): Promise<DetailedScenery> {
   const loader = new GLTFLoader();
-  const [nearTree, middleTree, farTree, distantTree, shutterFile, pipesFile] = await Promise.all([
-    loader.loadAsync(`${assetRoot}mature-tree/mature-tree-lod0.gltf`),
-    loader.loadAsync(`${assetRoot}mature-tree/mature-tree-lod1.gltf`),
+  const [nearTree, distantTree, shutterFile, pipesFile] = await Promise.all([
     loader.loadAsync(`${assetRoot}mature-tree/mature-tree-lod2.gltf`),
     loader.loadAsync(`${assetRoot}mature-tree/mature-tree-lod3.gltf`),
     loader.loadAsync(`${assetRoot}shutter/rollershutter_door_2k.gltf`),
@@ -154,14 +153,16 @@ async function loadTemplates(): Promise<DetailedScenery> {
   tree.name = 'detailed-mature-broadleaf';
   const lod = new THREE.LOD();
   const treeMaterials = new Map<string, THREE.Material>();
-  const leafAlpha = await new THREE.TextureLoader().loadAsync(`${assetRoot}mature-tree/source/textures/tree_small_02_leaves_alpha_2k.png`);
+  const leafAlpha = await new ManagedTextureLoader().loadAsync(`${assetRoot}mature-tree/source/textures/tree_small_02_leaves_alpha_2k.png`);
   // glTF UVs use an unflipped image origin. The source glTF pairs BLEND with a
   // JPEG color map; use its separate original alpha map to restore leaf edges.
   leafAlpha.flipY = false;
   leafAlpha.colorSpace = THREE.NoColorSpace;
   leafAlpha.anisotropy = 8;
   let nearTemplate: THREE.Group | undefined;
-  [nearTree, middleTree, farTree, distantTree].forEach((file, index) => {
+  // Use the existing authored reduced meshes for the pixel-art viewport. The old
+  // two nearest levels alone fetched 36 MiB before a player could start driving.
+  [nearTree, nearTree, distantTree, distantTree].forEach((file, index) => {
     file.scene.traverse(object => {
       const mesh = object as THREE.Mesh;
       if (!mesh.isMesh || Array.isArray(mesh.material)) return;
@@ -196,10 +197,8 @@ async function loadTemplates(): Promise<DetailedScenery> {
       template = normalizedTemplate(file.scene, `mature-crown-lod-${index}`, 8, 7);
       if (index === 0) nearTemplate = template;
     }
-    // Switch distances for the pixel-art scene target (about 1672 x 940): at 32 m the near crown's 424,000 leaf
-    // triangles drew some 20 per scene pixel, and each level still draws two or more per pixel where it now takes
-    // over. Matched frames of Hakone at night and Nikko at sunrise keep the crowns' shape and density, and the trees'
-    // GPU time falls by about two fifths (0, 32, 85, 150 m before).
+    // Retain the established switch distances and per-level transforms while using
+    // the authored lower-detail meshes, which also reduce first-scene downloads.
     lod.addLevel(template, [0, 19, 51, 90][index]!, 0.12);
   });
   tree.add(lod);

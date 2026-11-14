@@ -1,9 +1,56 @@
 # SoraFS release qualification
 
 The website is a static content-addressed directory. Vite emits relative assets;
-hash routing preserves the CID prefix. Fonts, images, MIDI files and the generated
-simulator are local release files. Signaling and proof workers are optional
-transports configured separately by players.
+hash routing preserves the CID prefix. Driving assets, fonts, MIDI files and the
+generated simulator are local release files. A release built with
+`VITE_SORA_CARS_REUSE_ARCHIVE=1` references unchanged music and story assets in the
+retained original SoraFS publication. `scripts/prepare-archive-assets.mjs` verifies
+those files against the original frozen inventory before generating the exact
+path mapping. Signaling and proof workers are configured separately by players.
+
+## November 11, 2026: loading and graphics fix
+
+The original publication and the November 10 loading-feedback publication are
+live. The final graphics fix is **qualified locally and staged, but unpublished**:
+`output/releases/sorafs-scene-fix-20261111-v3/validation.json` records its
+125,906,819-byte payload, 275 files, native package verification and static Chrome
+checks. Its public gateway timing has not been measured. The earlier November 6
+and November 4 observations below are historical.
+
+The loading UI starts in the HTML before the application module loads. Asset
+downloads then show actual received bytes, file counts and a progress bar;
+graphics preparation remains indeterminate until a complete frame succeeds.
+Four concurrent asset transfers, body-level retries and inactivity timeouts keep
+slow but progressing connections alive. User cancellation does not mark the
+scene as failed. API and ledger requests do not enter this transport.
+
+The runtime release includes optimized driving assets and lossless WebP/font
+derivatives. Originals and licenses remain available. The full Japanese WOFF2
+font preserves the original glyph and Unicode coverage. Architecture geometry
+is stored as gzip bytes and verified after decoding; the Vite development and
+preview servers preserve that file's stored bytes without an accidental
+`Content-Encoding` decode. `scripts/prepare-runtime-release.ts` verifies the
+release inventory and excludes replaced originals and unused authoring assets.
+
+Actual public Chrome profiling found 54.2 seconds in blocking shader first-use
+queries. The fix prepares the scene, reflection, shadow and postprocess program
+variants asynchronously before querying uniforms or drawing the first frame.
+The frozen V2 candidate reached driving readiness in 5.774 seconds locally with
+real animation frames and native Chrome/Metal; this is not a public timing claim.
+The final V3 also fixes garage controls overlapping the footer at 1280 by 720.
+
+Publication currently requires additional native allocation: the three existing
+providers each reserve 3 GiB for the original archive and 1 GiB for the November
+10 publication, filling their 4 GiB declarations. Completed allocations cannot
+be retired before retention ends. No existing account or role at height 12592
+holds `CanIssueSorafsReplicationOrder`, which would permit expiry of the old
+pending order while retaining its approved pin. Existing publications and BPNG
+accounts must remain intact; staged files are not evidence of a registered pin.
+
+`scripts/test-public-release.mjs` checks the final HTTPS CID origin in native
+Chrome without request interception or a TLS bypass, with a 45-second cold
+startup ceiling, real progress, driving, story and soundtrack retrieval. That
+public check remains required after native publication.
 
 ## November 6, 2026: gateway response limit and publishing on Taira
 

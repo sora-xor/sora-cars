@@ -10,6 +10,7 @@ import { drawIllustratedTree, drawIllustratedShop } from './illustrated-scenery'
 import { getRaceWorld } from './three/world';
 import { WRONG_WAY, drawDamageGauge, drawRecoveryBanner, drawWreckBanner } from './drive/hud';
 import { PIXEL_OVERLAY_COLOURS, drawAtmosphere, fillArtCells, pixelOverlayGrid, rainColumn } from './three/pixel-art/overlay';
+import { assetUrl } from '../asset-url';
 
 export type ReplayCamera = 'chase' | 'bumper' | 'aerial';
 export interface RenderOptions {
@@ -31,7 +32,7 @@ export interface RenderOptions {
   course?: DriveCourse;
 }
 interface RoadPoint { x: number; y: number; half: number; z: number; scale: number; progress: number; }
-const asset = (name: string) => `${import.meta.env.BASE_URL}assets/${name}`;
+const asset = (name: string) => assetUrl(`assets/${name}`);
 export class RaceRenderer {
   readonly canvas: HTMLCanvasElement;
   readonly ctx: CanvasRenderingContext2D;

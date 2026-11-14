@@ -101,11 +101,16 @@ export class ArchitectureAmbient {
   async apply(roots: readonly THREE.Group[]): Promise<void> {
     pack ??= (async () => {
       const base = `${import.meta.env.BASE_URL}assets/models/architecture-ambient/`;
-      const [json, binary] = await Promise.all([fetch(`${base}manifest.json`), fetch(`${base}geometry.bin`)]);
+      const compressed = `${import.meta.env.BASE_URL}assets/drive-optimized/v1/models/architecture-ambient/geometry.bin.gz`;
+      const [json, binary] = await Promise.all([fetch(`${base}manifest.json`), fetch(compressed)]);
       if (!json.ok || !binary.ok) throw new Error('Architectural visibility could not load');
       const manifest = await json.json() as BakeManifest;
       if (manifest.schemaVersion !== 1) throw new Error('Unsupported architectural visibility bake');
-      const bytes = await binary.arrayBuffer();
+      if (!binary.body) throw new Error('Architectural visibility data is empty');
+      // Decode the original authored geometry losslessly, then verify the existing
+      // original-byte digest before applying any of it to the scene.
+      const bytes = await new Response(binary.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()
+        .catch(cause => { throw new Error('Architectural visibility data could not load', { cause }); });
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), byte => byte.toString(16).padStart(2, '0')).join('');
       if (digest !== manifest.binarySha256) throw new Error('Architectural visibility data does not match its manifest');
       return { manifest, bytes };

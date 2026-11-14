@@ -9,6 +9,8 @@ import { PixelClusterPass } from '../../poc/pixel-cluster-pass';
 import { cutsceneGrade } from './cutscene-grade';
 
 export interface CinematicPass {
+  /** Prepare the active scene and private compositor programs without drawing a frame. */
+  prepare(scene: THREE.Scene, camera: THREE.Camera, width: number, height: number, time: number): Promise<void>;
   /** Dimensions are physical output pixels. The caller owns camera projection. */
   render(scene: THREE.Scene, camera: THREE.Camera, width: number, height: number, time: number): void;
   setPixelation(enabled: boolean): void;
@@ -184,6 +186,26 @@ export function createCinematicPass(renderer: THREE.WebGLRenderer): CinematicPas
   let disposed = false;
 
   return {
+    async prepare(scene, camera, width, height, time) {
+      if (disposed) return;
+      const render = renderer.render;
+      const compiling: Promise<unknown>[] = [];
+      // Run the exact active pass setup: it owns target selection, camera
+      // defines, OutputPass tone mapping and the private fullscreen materials.
+      // Replace draws only inside this synchronous scope, so no first-use
+      // LINK_STATUS query can block the loading UI while programs compile.
+      renderer.render = (object, activeCamera) => {
+        compiling.push(renderer.compileAsync(object, activeCamera));
+      };
+      try {
+        this.render(scene, camera, width, height, time);
+      } finally {
+        renderer.render = render;
+      }
+      // Restore renderer state and its ordinary draw method before yielding.
+      // The owner still requires an actual rendered frame before readiness.
+      await Promise.all(compiling);
+    },
     render(scene, camera, width, height, _time) {
       if (disposed || !Number.isFinite(width) || !Number.isFinite(height)
         || width <= 0 || height <= 0) return;

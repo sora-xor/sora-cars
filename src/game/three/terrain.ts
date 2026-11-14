@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ManagedTextureLoader } from './asset-texture-loader';
 
 export interface TerrainPose { x: number; y: number; z: number; heading: number; width: number; p: number }
 
@@ -72,7 +73,7 @@ const groundMaps = new Map<string, GroundMaps>();
 function groundScan(source: 'aerial_grass_rock' | 'sparse_grass') {
   const cached = groundMaps.get(source);
   if (cached) return cached;
-  const loader = new THREE.TextureLoader();
+  const loader = new ManagedTextureLoader();
   const load = (name: string, color = false) => {
     const texture = loader.load(`${import.meta.env.BASE_URL}assets/materials/${source}/${name}.jpg`);
     texture.name = `Poly Haven ${source} ${name}`;
