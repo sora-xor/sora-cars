@@ -546,3 +546,89 @@ test('shops in Kanda hang striped awnings printed with their trade, steep enough
   }
   assert.ok(vertices > 0, 'no awnings in Kanda');
 });
+
+test('an advertised flank carries its windows round its board, not over it', () => {
+  // Finish pass, round fourteen: the flank that took a painted board carried no windows at all, and where a bend turned
+  // it to the camera it stood as a dark wall under its board (Kanda at night).
+  let boards = 0, panes = 0;
+  for (const lot of layout.lots) {
+    if (lot.row !== 1 || lot.storeys < 4) continue;
+    const b = new CityMeshBuilder(lot.x, lot.z);
+    buildLot(b, lot, []);
+    const meshes = b.finish(), sign = meshes.get('sign'), glass = meshes.get('glass');
+    const c = Math.cos(lot.yaw), s = Math.sin(lot.yaw);
+    // Quads (two triangles, six vertices) in the lot's own frame: x across the frontage, z into the lot.
+    const quads = (geometry: THREE.BufferGeometry | undefined) => {
+      const out: { x0: number; x1: number; y0: number; y1: number; z0: number; z1: number }[] = [];
+      if (!geometry) return out;
+      const at = geometry.getAttribute('position');
+      for (let i = 0; i + 5 < at.count; i += 6) {
+        const xs: number[] = [], ys: number[] = [], zs: number[] = [];
+        for (let k = i; k < i + 6; k++) { const px = at.getX(k), pz = at.getZ(k); xs.push(px * c - pz * s); zs.push(px * s + pz * c); ys.push(at.getY(k)); }
+        out.push({ x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys), z0: Math.min(...zs), z1: Math.max(...zs) });
+      }
+      for (const geometryOf of meshes.values()) geometryOf.dispose();
+      return out;
+    };
+    const signs = quads(sign), windows = quads(glass);
+    for (const board of signs) {
+      if (board.x1 - board.x0 > .01 || board.z1 - board.z0 < 3) continue;
+      boards++;
+      // The flank's panes stand 5 mm proud of the board's plane, on the same side.
+      const plane = (board.x0 + board.x1) / 2, flank = windows.filter(w => w.x1 - w.x0 < .01 && Math.abs((w.x0 + w.x1) / 2 - (plane + Math.sign(plane) * .005)) < .003);
+      panes += flank.length;
+      for (const w of flank) assert.ok(w.z1 <= board.z0 - .35 || w.z0 >= board.z1 + .35 || w.y1 <= board.y0 - .45 || w.y0 >= board.y1 + .45,
+        `lot ${lot.id}: a flank window clear of its board`);
+    }
+  }
+  assert.ok(boards >= 5, `${boards} advertised flanks`);
+  assert.ok(panes > boards * 4, `${panes} windows on ${boards} advertised flanks`);
+});
+
+test('a low block of rooms carries its windows floor by floor on both flanks, in place of the stray stair windows', () => {
+  // Finish pass, round sixteen: flankGrid's rows begin at 10 m, so two- and three-storey apartment blocks, tenant buildings
+  // and offices kept blank end walls (Sanjō's cream slab). Their flanks now take a grid aligned to their floors.
+  const town = createPeriodCityLayout(course, { groundHeightAt: () => 0, districtAt: () => 'town' });
+  let checked = 0, tall = 0;
+  for (const lot of town.lots) {
+    if (lot.row !== 1 || !['mansion', 'zakkyo', 'office'].includes(lot.typology)) continue;
+    const b = new CityMeshBuilder(lot.x, lot.z);
+    buildLot(b, lot, []);
+    const meshes = b.finish(), glass = meshes.get('glass'), walls = meshes.get('wall');
+    const c = Math.cos(lot.yaw), s = Math.sin(lot.yaw), local = (at: THREE.BufferAttribute | THREE.InterleavedBufferAttribute, i: number) => {
+      const px = at.getX(i), pz = at.getZ(i);
+      return { x: px * c - pz * s, y: at.getY(i) - lot.base - (lot.typology === 'parking' ? 0 : lot.rise + .1), z: px * s + pz * c };
+    };
+    // The block's height: the top of its flank wall, the quad that rises from the ground the whole depth of the lot (the
+    // parapet's faces stand above it on the same plane).
+    const wall = walls!.getAttribute('position');
+    let h = 0;
+    for (let i = 0; i + 5 < wall.count; i += 6) {
+      const v = [0, 1, 2, 3, 4, 5].map(k => local(wall, i + k)), ys = v.map(p => p.y), zs = v.map(p => p.z);
+      if (v.every(p => Math.abs(Math.abs(p.x) - lot.width / 2) < 1e-3) && Math.min(...ys) < .01 && Math.max(...zs) - Math.min(...zs) > lot.depth - .01)
+        h = Math.max(h, Math.max(...ys));
+    }
+    const at = glass!.getAttribute('position'), flank = { low: [] as number[][], stair: 0 };
+    for (let i = 0; i + 5 < at.count; i += 6) {
+      const v = [0, 1, 2, 3, 4, 5].map(k => local(at, i + k)), xs = v.map(p => p.x);
+      const off = Math.abs(xs[0]!) - lot.width / 2;
+      if (Math.max(...xs) - Math.min(...xs) > 1e-3) continue;
+      const ys = v.map(p => p.y), zs = v.map(p => p.z), wide = Math.max(...zs) - Math.min(...zs);
+      if (Math.abs(off - .035) < 1e-3 && Math.abs(wide - 1.3) < 1e-3) flank.low.push([Math.min(...ys), Math.max(...ys), Math.sign(xs[0]!)]);
+      if (Math.abs(off - .02) < 1e-3) flank.stair++;
+    }
+    for (const geometry of meshes.values()) geometry.dispose();
+    if (h >= 10) { assert.equal(flank.low.length, 0, `lot ${lot.id}: a tall block keeps flankGrid's rows`); tall++; continue; }
+    if (h < 7) continue;
+    checked++;
+    const floor = h / lot.storeys, columns = Math.floor((lot.depth - 1.6) / 3);
+    assert.equal(flank.stair, 0, `lot ${lot.id}: no stray stair windows`);
+    assert.equal(flank.low.length, 2 * (lot.storeys - 1) * columns, `lot ${lot.id}: every upper floor, every column, both flanks`);
+    for (const [y0, y1, side] of flank.low) {
+      const k = Math.floor(y0! / floor);
+      assert.ok(k >= 1 && y1! <= (k + 1) * floor - .45 + 1e-6 && y1! <= h - .45 + 1e-6, `lot ${lot.id}: a window within its floor (${y0!.toFixed(2)}-${y1!.toFixed(2)}, floor ${floor.toFixed(2)})`);
+      assert.ok(side === 1 || side === -1);
+    }
+  }
+  assert.ok(checked >= 20, `${checked} low blocks checked`);
+});

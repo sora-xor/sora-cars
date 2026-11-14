@@ -396,6 +396,16 @@ export interface SurfaceOptions {
    * Nijō-jō read as black slabs where their repaints paint a dark violet mirror apart from the stone walls.
    */
   wetMirrorFloor: number;
+  /**
+   * Finish pass, round seventeen: ripple glints on open water. Wind ripples tilt the water's mirror up past the far
+   * bank to the open sky, so water carries short bright dashes of the sky's colour over its mirror of the bank. Ours
+   * mirrored the bank alone: the palace moat at Tokyo's sunrise stood as a dark band under its stone wall, where the
+   * true-light repaint paints it glittering with the dawn sky. x: the share of water cells that catch the sky (0 off),
+   * in screen-row dashes of 2-5 cells like the wet road's ripples (so they hold still under a still sky); y: their light
+   * against the sky's.
+   */
+  waterGlint: number;
+  waterGlintLight: number;
   /** Key glints kept on a dry road (x sparkleKey at wetness 0.2 and below; full from 0.6). */
   sparkleKeyDry: number;
   /** 1: race hazards handed over with setHazards (oil) are drawn as flat outlined dark gloss with 1-cell highlight streaks. */
@@ -510,7 +520,7 @@ export const SURFACE_DEFAULTS: SurfaceOptions = {
   lampColumnGain: 2.4, lampLobeDamp: 0.18, lampLobeWet: 0.2, lampColumnWidth: 2.5, lampColumnFar: 220,
   lampColumnCore: 1.6, lampColumnEdge: 0.6, lampColumnFringe: 0.25, columnBreak: 0,
   groundSpeedStart: 0.15, groundSpeedFull: 0.5, groundSpeedMottle: 0.7, groundRowOctave: 0.5,
-  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 6, wetMirrorFloor: 0.06,
+  groundFarStart: 35, groundFarEnd: 80, groundFarCalm: 0.85, groundPaintCap: 1.5, wetPatchCap: 6, wetMirrorFloor: 0.06, waterGlint: 0.24, waterGlintLight: 0.75,
   sparkleKeyDry: 0.15, oilHazards: 1,
   foliageTurns: 0.6, foliageClumpCells: 5, foliageClumpOffset: 1.5, foliageHysteresis: 0.12, foliageSmooth: 0.8, foliageMemory: 0,
   groundScroll: 0, groundScrollSpread: 0.5, groundScrollHold: 1, groundScrollStep: 1, groundScrollTurn: 0, temporalScrollShift: 0, groundSlideLengthen: 0,
@@ -1521,6 +1531,7 @@ uniform vec3 stoneTones;        // x: a gap's share of the reflection; y: of the
 uniform vec2 stoneDuty;         // streak noise where a broad reflection's streak starts / is full (higher: narrower streaks)
 uniform float stoneMirror;      // the share of a cell's own mirror (no light column) an unlit stone keeps
 uniform float mirrorFloor;      // the least the damp-patch cap allows (exposure-scaled luminance)
+uniform vec2 waterGlint;        // round seventeen: x share of water cells catching the sky in ripple dashes (0 off), y their light against the sky's
 uniform float stoneCrisp;       // 1: a streak's stones are lit together, its edges sharp; 0: each stone picked against the density
 uniform float stoneSideGap;     // the share of a lit stone's tone its side (vertical) gaps keep
 uniform float streakVariety;    // weight of the streaks' slower second octave (0: one frequency)
@@ -2176,6 +2187,23 @@ void composite() {
   }
   // A stone's gaps darken the wet ground's own light too.
   if (stones && stoneEdgeKind >= 2 && marking < .5) colour *= mix(1., stoneTones.y, smoothstep(0., .3, fields.y));
+  // Ripple glints on open water (round seventeen, waterGlint): a share of the water's cells, in screen-row dashes, mirror
+  // the sky straight up their screen column past the far bank, as wind ripples tilt the mirror; brighter than the bank
+  // they otherwise mirror, never darker.
+  if (water && waterGlint.x > 0.) {
+    int row = cell.y;
+    float span = 2. + floor(artHash01(ivec3(row, 71, 9011)) * 4.);
+    float shift = artHash01(ivec3(row, 73, 9013)) * span;
+    if (artHash01(ivec3(int(floor((float(cell.x) + shift) / span)), row, 9019)) < waterGlint.x) {
+      vec3 open = vec3(0.);
+      for (int k = 1; k <= 60; k++) {
+        ivec2 up = ivec2(cell.x, cell.y + k * 3);
+        if (up.y >= int(artSize.y)) break;
+        if (texelFetch(resolvedData, up, 0).w >= .5) { open = texelFetch(resolvedColor, up, 0).rgb; break; }
+      }
+      reflection = max(reflection, open * waterGlint.y);
+    }
+  }
   // Lane paint is never painted over by reflections.
   reflection *= 1. - marking;
   vec3 total = colour * sheen + reflection;
@@ -2612,7 +2640,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
     sheenParams: { value: new THREE.Vector3() }, columnSource: { value: new THREE.Vector2(0.5, 1) }, columnDay: { value: 1 }, reflectionKnee: { value: new THREE.Vector2(0, 1) }, columnFade: { value: 1 }, wetFresnelFloor: { value: 0 },
     rippleParams: { value: new THREE.Vector4(1, 4.5, 4, .42) }, ripplePebbles: { value: .05 }, rippleFar: { value: new THREE.Vector3(2.5, 11, 12) },
     waveParams: { value: new THREE.Vector4(1, .33, .1, .045) }, waveShape: { value: new THREE.Vector4(3.5, 1.8, .55, 12) }, waveJitter: { value: 1.5 },
-    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) }, stoneMirror: { value: .6 }, mirrorFloor: { value: .06 }, stoneCrisp: { value: 1 }, stoneSideGap: { value: .8 }, streakVariety: { value: .4 }, stoneJitter: { value: 1 }, stoneCool: { value: 0 }, stoneRamp: { value: new THREE.Vector3(0, 1.2, .65) },
+    stoneShape: { value: new THREE.Vector4(1, 2.2, 1, 0) }, stoneAspect: { value: new THREE.Vector2(1.4, 2.2) }, stoneTones: { value: new THREE.Vector3(.12, .75, .25) }, stoneDuty: { value: new THREE.Vector2(.57, .64) }, stoneMirror: { value: .6 }, waterGlint: { value: new THREE.Vector2(.24, .75) }, mirrorFloor: { value: .06 }, stoneCrisp: { value: 1 }, stoneSideGap: { value: .8 }, streakVariety: { value: .4 }, stoneJitter: { value: 1 }, stoneCool: { value: 0 }, stoneRamp: { value: new THREE.Vector3(0, 1.2, .65) },
     waveRidge: { value: .74 }, waveDash: { value: new THREE.Vector4(.6, .15, 5, .2) }, reflectionWarmth: { value: .9 }, surfaceExposure: deps.exposure,
     fleckParams: { value: new THREE.Vector4() },
     fleckShape: { value: new THREE.Vector3() }, groundAmbientTint: { value: new THREE.Vector3(1, 1, 1) }, groundAmbientLevel: { value: .3 },
@@ -2889,6 +2917,7 @@ export function createSurfaces(shared: PixelArtSharedUniforms, palette: PixelPal
       compositeUniforms.stoneDuty.value.set(1 - duty - 0.035, 1 - duty + 0.035);
       compositeUniforms.stoneMirror.value = THREE.MathUtils.clamp(o.wetStoneMirror, 0, 1);
       compositeUniforms.mirrorFloor.value = Math.max(0, o.wetMirrorFloor);
+      compositeUniforms.waterGlint.value.set(Math.max(0, o.waterGlint), Math.max(0, o.waterGlintLight));
       compositeUniforms.stoneCrisp.value = THREE.MathUtils.clamp(o.wetStoneCrisp, 0, 1);
       compositeUniforms.stoneSideGap.value = THREE.MathUtils.clamp(o.wetStoneSideGap, 0, 1);
       compositeUniforms.streakVariety.value = THREE.MathUtils.clamp(o.wetStreakVariety, 0, 1);

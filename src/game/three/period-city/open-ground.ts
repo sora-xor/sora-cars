@@ -1,7 +1,8 @@
 import * as THREE from 'three';
 import { WINDOW_KIND, type CityMeshBuilder, type CityMaterialKey, type Vec3 } from './geometry';
-import { MOAT, RIVER, hashInts, moatWidth, periodCityReach, poseAt, seeded, landmarkFootprint,
-  type PeriodCityCourse, type PeriodCityLayout, type PeriodCrossing, type PeriodLandmark, type PeriodOpenRun } from './layout';
+import { CANAL_COPING, CANAL_DECK, MOAT, RIVER, canalDistance, hashInts, moatWidth, periodCityReach, periodCityRouteFrame, poseAt, seeded,
+  landmarkFootprint, type PeriodCanal, type PeriodCityCourse, type PeriodCityLayout, type PeriodCrossing, type PeriodLandmark,
+  type PeriodOpenRun } from './layout';
 import type { PeriodDistant } from './skyline';
 import { SORA_BOARDS, signPrint } from './signs';
 import { buildLandmark, isBuildingLandmark } from './landmarks';
@@ -27,12 +28,19 @@ export function quad(b: CityMeshBuilder, key: CityMaterialKey, a: Vec3, c: Vec3,
 }
 
 export interface Section { readonly p: number; readonly x: number; readonly y: number; readonly z: number; readonly cx: number; readonly cz: number; readonly width: number; readonly reach: number }
-export function sections(layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number, max: number): Section[] {
+export function sections(layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number, max: number,
+  extra: readonly number[] = []): Section[] {
   const list: Section[] = [];
-  for (let p = from; ; p = Math.min(to, p + STEP)) {
+  const add = (p: number) => {
     const at = poseAt(layout.course, p);
     list.push({ p, x: at.x, y: at.y, z: at.z, cx: Math.cos(at.heading) * run.side, cz: -Math.sin(at.heading) * run.side,
       width: at.width, reach: periodCityReach(layout, p, run.side, max) });
+  };
+  // Extra sections (where a canal passes under the road) between the regular ones, so the strips meet its walls.
+  const extras = extra.filter(p => p > from && p < to).sort((a, b) => a - b);
+  for (let p = from; ; p = Math.min(to, p + STEP)) {
+    while (extras.length && extras[0]! < p) add(extras.shift()!);
+    add(p);
     if (p >= to) break;
   }
   return list;
@@ -227,12 +235,40 @@ function turret(b: CityMeshBuilder): void {
   b.colour.set('#ece6d8'); b.gableEnds('wall', -4.8, 4.8, 1.6, 7.4, 10.2, 2.1);
 }
 
+/**
+ * Where a section's line crosses a canal's channel and coping (metres beyond the road edge, from and to), or null: the
+ * park's lawn and hedge stop at the coping and resume beyond it. Sampled every quarter metre out to `end`.
+ */
+function canalGap(canals: readonly PeriodCanal[], s: Section, end: number): readonly [number, number] | null {
+  if (!canals.length || canalDistance(canals, ...xz(at(s, end / 2, 0))) > end / 2 + 2) return null;
+  let first = -1, last = -1;
+  for (let e = 0; e <= end; e += .25) {
+    if (canalDistance(canals, ...xz(at(s, e, 0))) < CANAL_COPING) { if (first < 0) first = e; last = e; } else if (first >= 0) break;
+  }
+  return first < 0 ? null : [first, last + .25];
+}
+const xz = (v: Vec3): [number, number] => [v[0], v[2]];
+/** Progress where each canal passes under the road, for extra sections there. */
+function canalCrossings(layout: PeriodCityLayout): number[] {
+  return canalBridges(layout).map(bridge => [bridge.p - bridge.along / 2, bridge.p + bridge.along / 2]).flat();
+}
+
 function park(b: CityMeshBuilder, layout: PeriodCityLayout, run: PeriodOpenRun, from: number, to: number): void {
   const sea = layout.street.seaPark, seaward = (s: Section) => !!sea && sea.side === run.side && s.p >= sea.from && s.p <= sea.to;
-  const list = sections(layout, run, from, to, sea && sea.side === run.side ? 300 : 66);
+  const canals = layout.street.canals ?? [];
+  const list = sections(layout, run, from, to, sea && sea.side === run.side ? 300 : 66, canals.length ? canalCrossings(layout) : []);
   for (let i = 0; i < list.length - 1; i++) {
     const s0 = list[i]!, s1 = list[i + 1]!, wall = sea?.edge ?? 64;
     const end = (s: Section) => Math.max(MOAT.curb + 1, Math.min(seaward(s) ? wall - .6 : 64, s.reach - 3));
+    // A canal through the park (round fifteen): the lawn and hedge stop at its coping and the lawn resumes beyond it.
+    const g0 = canalGap(canals, s0, end(s0)), g1 = canalGap(canals, s1, end(s1));
+    if (g0 || g1) {
+      const near = Math.min(g0?.[0] ?? Infinity, g1?.[0] ?? Infinity), far = Math.max(g0?.[1] ?? -Infinity, g1?.[1] ?? -Infinity);
+      b.colour.set('#56653f');
+      if (near > SIDEWALK + .2) strip(b, 'ground', s0, s1, () => SIDEWALK, -.05, () => near, -.05, () => UP);
+      if (far < Math.min(end(s0), end(s1)) - .2) strip(b, 'ground', s0, s1, () => far, -.05, end, -.05, () => UP);
+      continue;
+    }
     if (seaward(s0) && seaward(s1)) {
       // The sea wall: a granite coping and rail at the lawn's edge, its face down to the harbour, and the water beyond.
       const far = (s: Section) => Math.max(wall + 6, Math.min(300, s.reach - 4));
@@ -767,8 +803,130 @@ function snowBanks(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, t
   }
 }
 
+/** Canal pieces about this long (m) along the channel, each drawn by the chunk of its nearest route progress. */
+const CANAL_PIECE = 2;
+interface CanalPiece {
+  readonly canal: PeriodCanal; readonly p: number; readonly y: number;
+  readonly a: readonly [number, number]; readonly b: readonly [number, number];
+  /** Under the road and its walkway (the bridge): water only. */
+  readonly under: boolean; readonly start: boolean; readonly end: boolean;
+}
+interface CanalBridge { readonly p: number; readonly along: number; readonly canal: PeriodCanal }
+const canalPieceCache = new WeakMap<PeriodCityLayout, CanalPiece[]>();
+const canalBridgeCache = new WeakMap<PeriodCityLayout, CanalBridge[]>();
+function canalPieces(layout: PeriodCityLayout): CanalPiece[] {
+  const cached = canalPieceCache.get(layout);
+  if (cached) return cached;
+  const list: CanalPiece[] = [], frame = periodCityRouteFrame(layout.course, 140);
+  for (const canal of layout.street.canals ?? []) {
+    const raw: { a: [number, number]; b: [number, number]; p: number | null; under: boolean }[] = [];
+    for (let i = 1; i < canal.points.length; i++) {
+      const [ax, az] = canal.points[i - 1]!, [bx, bz] = canal.points[i]!, n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / CANAL_PIECE));
+      const point = (t: number): [number, number] => [ax + (bx - ax) * t, az + (bz - az) * t];
+      const deck = (t: number) => { const f = frame(...point(t)); return !!f && f.beyond < CANAL_DECK; };
+      for (let k = 0; k < n; k++) {
+        // A piece crossing the bridge deck's edge splits there, so the walls stop where the bridge parapet's face drops
+        // to the water and nothing of the bank stands on the walkway.
+        const cuts = [k / n, (k + 1) / n];
+        if (deck(cuts[0]!) !== deck(cuts[1]!)) {
+          let lo = cuts[0]!, hi = cuts[1]!;
+          for (let j = 0; j < 14; j++) { const mid = (lo + hi) / 2; if (deck(mid) === deck(lo)) lo = mid; else hi = mid; }
+          cuts.splice(1, 0, (lo + hi) / 2);
+        }
+        for (let j = 1; j < cuts.length; j++) {
+          const a = point(cuts[j - 1]!), b = point(cuts[j]!), f = frame((a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+          raw.push({ a, b, p: f?.p ?? null, under: !!f && f.beyond < CANAL_DECK });
+        }
+      }
+    }
+    // Pieces beyond the route's reach go with the nearest piece that has a progress.
+    const fallback = raw.find(piece => piece.p !== null)?.p ?? 0;
+    let last = fallback;
+    raw.forEach((piece, i) => {
+      const p = piece.p ?? last; last = p;
+      list.push({ canal, p, y: poseAt(layout.course, p).y, a: piece.a, b: piece.b, under: piece.under, start: i === 0, end: i === raw.length - 1 });
+    });
+  }
+  canalPieceCache.set(layout, list);
+  return list;
+}
+/** Where each canal passes under the road: the progress and the stretch of road over its channel. */
+function canalBridges(layout: PeriodCityLayout): CanalBridge[] {
+  const cached = canalBridgeCache.get(layout);
+  if (cached) return cached;
+  const list: CanalBridge[] = [], poses = layout.course.poses;
+  for (const canal of layout.street.canals ?? []) for (let i = 1; i < canal.points.length; i++) {
+    const [ax, az] = canal.points[i - 1]!, [bx, bz] = canal.points[i]!, ux = bx - ax, uz = bz - az;
+    for (let k = 1; k < poses.length; k++) {
+      const p0 = poses[k - 1]!, p1 = poses[k]!, vx = p1.x - p0.x, vz = p1.z - p0.z, d = ux * vz - uz * vx;
+      if (Math.abs(d) < 1e-9) continue;
+      const t = ((p0.x - ax) * vz - (p0.z - az) * vx) / d, u = ((p0.x - ax) * uz - (p0.z - az) * ux) / d;
+      if (t < 0 || t > 1 || u < 0 || u > 1) continue;
+      const sine = Math.abs(d) / (Math.hypot(ux, uz) * Math.hypot(vx, vz));
+      list.push({ p: p0.p + (p1.p - p0.p) * u, along: (canal.width + 2 * CANAL_COPING) / Math.max(.35, sine), canal });
+    }
+  }
+  canalBridgeCache.set(layout, list);
+  return list;
+}
+/**
+ * The canals (PeriodCanal) whose pieces lie by this stretch of road: water between dressed-stone walls and a stone coping
+ * along each bank; under the road only the water. Where a canal passes under the road, the bridge's stone parapets along
+ * the walkway's outer edge, as Keiryū-bashi's before the great torii. A black railing along the copings drew as a dark
+ * smear where it ran close past the camera, and was dropped.
+ */
+function canals(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number): void {
+  const pieces = canalPieces(layout).filter(piece => piece.p >= from && piece.p < to);
+  b.frame(0, 0, 0, 0);
+  for (const piece of pieces) {
+    const { canal, a, y } = piece, end = piece.b, dx = end[0] - a[0], dz = end[1] - a[1], length = Math.hypot(dx, dz) || 1;
+    const nx = -dz / length, nz = dx / length, half = canal.width / 2, water = y - canal.depth;
+    const p = (along: 0 | 1, across: number, dy: number): Vec3 => {
+      const [x, z] = along ? end : a;
+      return [x + nx * across, dy, z + nz * across];
+    };
+    b.colour.set('#ffffff');
+    quad(b, 'water', p(0, -half, water), p(1, -half, water), p(1, half, water), p(0, half, water), UP);
+    if (piece.under) continue;
+    for (const s of [-1, 1]) {
+      const inward: Vec3 = [-s * nx, 0, -s * nz], outward: Vec3 = [s * nx, 0, s * nz];
+      // The wall, dressed stone from below the water to the bank.
+      b.colour.set('#8a867c');
+      quad(b, 'stone', p(0, s * half, water - .4), p(1, s * half, water - .4), p(1, s * half, y - .05), p(0, s * half, y - .05), inward);
+      // The coping along the bank, its face to the water and its top.
+      b.colour.set('#a39e92');
+      quad(b, 'stone', p(0, s * half, y - .05), p(1, s * half, y - .05), p(1, s * half, y + .14), p(0, s * half, y + .14), inward);
+      quad(b, 'stone', p(0, s * half, y + .14), p(1, s * half, y + .14), p(1, s * (half + CANAL_COPING), y + .14), p(0, s * (half + CANAL_COPING), y + .14), UP);
+      quad(b, 'stone', p(0, s * (half + CANAL_COPING), y - .3), p(1, s * (half + CANAL_COPING), y - .3), p(1, s * (half + CANAL_COPING), y + .14),
+        p(0, s * (half + CANAL_COPING), y + .14), outward);
+    }
+    // The channel's ends: a stone face across it.
+    for (const [cap, along] of [[piece.start, 0], [piece.end, 1]] as const) {
+      if (!cap) continue;
+      b.colour.set('#8a867c');
+      quad(b, 'stone', p(along, -half, water - .4), p(along, half, water - .4), p(along, half, y - .05), p(along, -half, y - .05),
+        along ? [dx / length, 0, dz / length] : [-dx / length, 0, -dz / length]);
+    }
+  }
+  // The bridge parapets: granite along the walkway's outer edge, the length of the channel and its copings.
+  for (const bridge of canalBridges(layout)) {
+    if (bridge.p < from || bridge.p >= to) continue;
+    const pose = poseAt(layout.course, bridge.p), w = pose.width, half = bridge.along / 2 + .6;
+    b.frame(pose.x, pose.y, pose.z, pose.heading);
+    for (const s of [-1, 1]) {
+      const x0 = s * (w + CANAL_DECK - .08), x1 = s * (w + CANAL_DECK + .3);
+      b.colour.set('#b8b2a6'); b.box('stone', Math.min(x0, x1), Math.max(x0, x1), -.05, .85, -half, half, 'b');
+      b.colour.set('#cfc8b8'); b.box('stone', Math.min(x0, x1) - .05, Math.max(x0, x1) + .05, .85, .97, -half - .05, half + .05, 'b');
+      // The parapet's face down to the water on the canal's side.
+      b.colour.set('#8a867c'); b.side('stone', s * (w + CANAL_DECK + .3), -half, half, -bridge.canal.depth - .4, -.05, s as -1 | 1);
+    }
+    b.frame(0, 0, 0, 0);
+  }
+}
+
 export function buildOpenGround(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, to: number, snow = 0): void {
   if (snow > 0) snowBanks(b, layout, from, to);
+  if (layout.street.canals?.length) canals(b, layout, from, to);
   for (const c of layout.crossings) if (c.p >= from && c.p < to) crossing(b, layout, c);
   for (const l of layout.landmarks) if (l.p >= from && l.p < to) landmark(b, layout, l);
   b.frame(0, 0, 0, 0);

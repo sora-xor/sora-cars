@@ -30,7 +30,7 @@ import { createCrashEffects } from './crash-effects';
 import type { DriveEvent } from '../drive/race';
 import { courseDrawing, type DriveCourse } from '../drive/course';
 import { createUnderstory, type UnderstoryField, type UnderstoryPatch } from './undergrowth';
-import { createSlopeTerrain, createTerrain, setTerrainRelief, terrainGroundMaterial, terrainHeightAt, type SlopeTerrain } from './terrain';
+import { createSlopeTerrain, createTerrain, setTerrainRelief, terrainAutumnGolden, terrainGroundMaterial, terrainHeightAt, type SlopeTerrain } from './terrain';
 import { createUrbanGround } from './urban-ground';
 import { createArcadeGround, createArcadeGroundField } from './arcade-ground';
 import { createUrbanPavingMaterial } from './urban-paving';
@@ -51,7 +51,7 @@ import { decorateRoadFinish, shareSpecularLimits, type RoadFinish } from './road
 import { attachShopfront, setShopfrontGlow, shopfrontReady } from './shopfronts';
 import { createLocalCarReflections } from './reflections';
 import { createPaintedSky, type RacingSkyMood } from '../../poc/painted-sky';
-import { pixelArtGrid } from './pixel-art/grid';
+import { ART_SHORT_SIDE, pixelArtGrid } from './pixel-art/grid';
 import { ARCADE_1986_CROSSINGS, ARCADE_1986_LANDMARKS, ARCADE_1986_STREET, ARCADE_DISTANT, MOAT, MovingFarLights, PeriodCity, QUAY, arcadeBankAt, arcadeDistrictAt, moatWidth, periodCityGroundCut, periodFarLandmarks,
   periodCityOpenRuns, periodCityRouteFrame, setPeriodCityLampHeads, setPeriodCityLighting,
   type CityFixture, type PeriodDistrict } from './period-city';
@@ -59,7 +59,7 @@ import { streetScene, type StreetScene } from './period-city/street-scenes';
 import { setPeriodCityGolden } from './period-city/materials';
 import { periodCityForestVegetationGround, type PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
-import { crownLight, crownLightGlsl, crownTranslucencyGlsl } from './autumn-foliage';
+import { crownLight, crownLightGlsl, crownTranslucencyGlsl, leafGrowthGlsl, roadsideLeafGrowth } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
 import { pavingUniforms } from './paving-joints';
 import { compileFor, materialTextures, shadowCasterBatches, waitForShaderPrograms, type ReadyShaderProgram } from './shader-warmup';
@@ -151,6 +151,11 @@ const GOLDEN_SHADOW_OPEN_BEHIND = 0.12;
 /** A late-day route's lit rooms and shops in its golden hours, and how much brighter they glow (refine round 4: Nara
  * Sanjō's true-sun repaint lights the tea shop and the rooms above it against the low sun, where ours stood dark). */
 const GOLDEN_WINDOW_SHARE = 0.9, GOLDEN_WINDOW_GAIN = 0.8;
+/** How far the period city's lamps (globes, lanterns, lamp boxes) burn in a late-day route's golden hours, against the
+ * night's (finish pass, round twelve). Off since refine round 4, when the shopping lamps' bare globes drew as white
+ * clouds over the golden sky; with their caps and amber limbs (round nine) they glow as the repaints paint them, warm
+ * lanterns down Sanjō-dōri where ours hung dark brown. At .7 they read pale cream. The road's light pools stay off. */
+const GOLDEN_LAMPS = 0.45;
 /** The key light's elevation (rad) in a late-day route's golden hours; the painted sun stays on the horizon. At 8-20
  * degrees the roadside trees' long shadows covered the whole road, which stayed dark under the repaints' sunlit asphalt
  * striped with tree shadows (Irohazaka's near road at 30 degrees: L median 0.45-0.50 against the repaint's 0.46). */
@@ -198,19 +203,70 @@ const DAY_DIRECT_CAP = 50;
  * light through the leaves at any hour: at dusk, without the crown light, the rounded crowns' undersides sank to maroon
  * (Kyoto's torii avenue, crown L median 0.39 to 0.36 against its repaint's 0.54).
  */
+/**
+ * Lamp windows through the roadside crowns (finish pass, round fourteen). The race's street lamps hang their heads at
+ * 6.6 m, half a metre beyond the road's edge, inside the band where the maples' crowns (4 m up and higher, reaching
+ * 1-2 m over the road) stand as one wall along the avenue; seen down the road every head beyond about 20 m was hidden,
+ * where the repaints line the avenue with lit lamps standing in front of the leaves (Kyoto's torii avenue). Each far
+ * lamp head opens a small window, a little larger than its glow, through the leaves that stand between the camera and
+ * it, from 30% of its distance in, as a painter draws the lamp over the foliage: a crown nearer the camera stays whole.
+ * Per window: NDC x and y, view depth, radius in NDC y. Set for the race camera only (not the reflection probes).
+ */
+const LAMP_WINDOWS = 24;
+const lampWindows = { value: Array.from({ length: LAMP_WINDOWS }, () => new THREE.Vector4()) };
+const lampWindowCount = { value: 0 };
+const lampWindowAspect = { value: 16 / 9 };
+/** A window's radius: about the head's glow (m), and never under this many art cells; lamps nearer than LAMP_WINDOW_NEAR
+ * show as they are. The lamp's light on the leaves round its window reaches LAMP_WINDOW_GLOW radii. */
+const LAMP_WINDOW_METRES = .3, LAMP_WINDOW_CELLS = 1.5, LAMP_WINDOW_NEAR = 18, LAMP_WINDOW_FULL = 26, LAMP_WINDOW_GLOW = 2;
+/** The lamp's light on those leaves (linear), scaled by the lamps' intensity each frame. At twice this and 2.6 radii the
+ * lamps stood as large glowing orbs; without it as stark cream dots in the leaves. */
+const lampWindowLight = { value: new THREE.Color() };
+/** How far (window radii) that light reaches. */
+const lampWindowReach = { value: LAMP_WINDOW_GLOW };
+const LAMP_WINDOW_LIGHT = new THREE.Color(.8, .52, .28);
 function mapleCrownLight(material: THREE.MeshStandardMaterial, amount: { value: number }, leaves: { value: number }): void {
   const previous = material.onBeforeCompile, previousKey = material.customProgramCacheKey;
   const baseKey = previousKey === THREE.Material.prototype.customProgramCacheKey ? () => previous.toString() : () => previousKey.call(material);
   material.onBeforeCompile = (shader, renderer) => {
     previous.call(material, shader, renderer);
     shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraMapleLight = amount; shader.uniforms.soraMapleLeaves = leaves;
+    // Maple leaves drawn larger with distance (round thirteen); the cherries' petals carry no growth.
+    shader.uniforms.soraLeafGrowth = roadsideLeafGrowth;
+    shader.uniforms.soraLampWindows = lampWindows; shader.uniforms.soraLampWindowCount = lampWindowCount;
+    shader.uniforms.soraLampAspect = lampWindowAspect; shader.uniforms.soraLampWindowLight = lampWindowLight;
+    shader.uniforms.soraLampWindowReach = lampWindowReach;
+    shader.vertexShader = shader.vertexShader
+      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvarying vec4 vSoraClip;\nvoid main() {')
+      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}`)
+      .replace('#include <project_vertex>', '#include <project_vertex>\nvSoraClip = gl_Position;');
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform vec3 soraCrownLight; uniform float soraMapleLight; uniform float soraMapleLeaves;\nvoid main() {')
+      .replace('void main() {', `uniform vec3 soraCrownLight; uniform float soraMapleLight; uniform float soraMapleLeaves;
+uniform vec4 soraLampWindows[${LAMP_WINDOWS}]; uniform int soraLampWindowCount; uniform float soraLampAspect; uniform vec3 soraLampWindowLight;
+uniform float soraLampWindowReach;
+varying vec4 vSoraClip;
+void main() {
+  // Lamp windows (LAMP_WINDOWS): the leaves between the camera and a far lamp head, from 30% of its distance in, open
+  // round it so it shows over the foliage.
+  // Round them the lamp's light falls warm on those leaves, fading out by LAMP_WINDOW_GLOW radii.
+  float soraLampGlow = 0.;
+  for (int i = 0; i < ${LAMP_WINDOWS}; i++) {
+    if (i >= soraLampWindowCount) break;
+    vec4 soraWindow = soraLampWindows[i];
+    if (vSoraClip.w > soraWindow.z - .5 || vSoraClip.w < soraWindow.z * .3) continue;
+    vec2 soraOff = vec2((vSoraClip.x / vSoraClip.w - soraWindow.x) * soraLampAspect, vSoraClip.y / vSoraClip.w - soraWindow.y);
+    float soraReach = length(soraOff) / soraWindow.w;
+    if (soraReach < 1.) discard;
+    soraLampGlow = max(soraLampGlow, 1. - smoothstep(1., soraLampWindowReach, soraReach));
+  }`)
+      .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+  // Lit by the lamp as its leaves turn amber toward the head: their own colour, and the lamp's beside it.
+  totalEmissiveRadiance += (diffuseColor.rgb * .55 + vec3(.32, .2, .07)) * soraLampWindowLight * soraLampGlow * soraLampGlow;`)
       .replace('#include <opaque_fragment>', `${crownTranslucencyGlsl('soraMapleLeaves * soraCrownLight.z', 1)}
   if (soraMapleLight > 0.) ${crownLightGlsl('soraMapleLight', false)}
   #include <opaque_fragment>`);
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v5`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v7`;
 }
 
 /**
@@ -654,14 +710,26 @@ export class RaceWorld {
   private readonly tailStreaks = new TailStreaks();
   /** The street lamps' heads as glowing points down the street (period-city/far-lights.ts). */
   private readonly lampFarLights = new MovingFarLights(40);
+  /** Lamp windows through the roadside crowns (LAMP_WINDOWS): false for A/B captures. */
+  lampWindowsOn = true;
+  /** The lamp's light on the leaves round each window (LAMP_WINDOW_LIGHT times this; 0 for A/B captures). */
+  lampWindowGlow = 1;
+  /** Its reach in window radii (LAMP_WINDOW_GLOW), for A/B captures. */
+  set lampWindowGlowReach(radii: number) { lampWindowReach.value = radii; }
+  /** This frame's lamp windows, and whether the lamps are lit (set where the lighting is). */
+  private windowLamps: readonly THREE.Group[] = [];
+  private lampIntensityNow = 0;
+  private lampIntensityFull = 1;
+  /** The period city's lamps in a late-day route's golden hours (GOLDEN_LAMPS; 0 for A/B captures). */
+  goldenLamps = GOLDEN_LAMPS;
   private readonly lampHead = new THREE.Vector3();
+  private readonly windowHead = new THREE.Vector3();
   /** The nearest lamp heads, whose spill washes the period city's facades (period-city/materials.ts). */
   private readonly washHeads = Array.from({ length: 6 }, () => new THREE.Vector3());
   private readonly cameraAhead = new THREE.Vector3();
   /** Inspection (A/B captures): false restores the nearest-first lamp reflections, lamps behind the camera included;
    * the limit caps the lamps' emitter slots (12 before the finish pass). */
-  lampsAheadOnly = true;
-  lampSlotLimit = Infinity;
+  lampsAheadOnly = true;  lampSlotLimit = Infinity;
   shopSlotLimit = Infinity;
   private readonly scratchVector = new THREE.Vector3();
   /** The road's wetness last frame (umbrellas open on wet nights). */
@@ -701,6 +769,10 @@ export class RaceWorld {
     this.periodCity.chunkBuilt = chunk => this.warmChunk(chunk);
     this.scene.add(this.periodCity.group);
     this.scene.add(this.tailStreaks.mesh, this.lampFarLights.points);
+    // Lamp windows only for the race camera, placed as it renders (where it stands this frame; placed earlier in the frame
+    // they trailed the lamps by the camera's travel and opened dark rings beside them at speed): the reflection probes
+    // render the same scene from their own cameras.
+    this.scene.onBeforeRender = (_renderer, _scene, camera) => { lampWindowCount.value = camera === this.camera ? this.placeLampWindows() : 0; };
     this.roadMaterial = new THREE.MeshStandardMaterial({ ...scannedSurface('asphalt_02'), normalScale: new THREE.Vector2(0.55, 0.55), color: ROAD_ALBEDO, roughness: 0.88, metalness: 0 });
     this.vehicleAmbient.decorate(this.roadMaterial);
     this.roadFinish = decorateRoadFinish(this.roadMaterial);
@@ -1107,7 +1179,8 @@ export class RaceWorld {
       const districtAt = districtsFor(course), open = this.classicCity ? [] : periodCityOpenRuns(course, districtAt);
       this.periodDistrictAt = this.classicCity ? null : districtAt;
       const crossings = !this.classicCity ? scene?.crossings ?? [] : [];
-      const urbanGround = createUrbanGround(course.poses, ground, periodCityGroundCut(course, open, crossings, scene?.street?.forestBanks));
+      const urbanGround = createUrbanGround(course.poses, ground, periodCityGroundCut(course, open, crossings, scene?.street?.forestBanks,
+        !this.classicCity ? scene?.street?.canals ?? [] : []));
       this.road.add(urbanGround);
       // Wooded hills on a city route (Iimoriyama, Keage) rise as forest banks;
       // a climb that switches back on itself (Wakakusa-yama) shares one hillside.
@@ -1436,6 +1509,32 @@ export class RaceWorld {
     this.posts.count = this.rails.count = index; this.posts.instanceMatrix.needsUpdate = this.rails.instanceMatrix.needsUpdate = true;
   }
 
+  /**
+   * The lamp windows (LAMP_WINDOWS) for this render of the race camera: lit lamps nearer than LAMP_WINDOW_NEAR or off
+   * screen take none; returns how many there are.
+   */
+  private placeLampWindows(): number {
+    let windows = 0;
+    if (this.lampWindowsOn && this.lampIntensityNow > 0) {
+      const camera = this.camera, tanHalf = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2), minimum = LAMP_WINDOW_CELLS * 2 / ART_SHORT_SIDE;
+      for (const lamp of this.windowLamps) {
+        if (windows >= LAMP_WINDOWS) break;
+        if (!lamp.visible) continue;
+        const head = lamp.localToWorld(this.windowHead.set(0, 6.58, -1.28));
+        const depth = -head.applyMatrix4(camera.matrixWorldInverse).z;
+        if (depth <= LAMP_WINDOW_NEAR) continue;
+        head.applyMatrix4(camera.projectionMatrix);
+        if (Math.abs(head.x) > 1.05 || Math.abs(head.y) > 1.05) continue;
+        // A lamp coming nearer than LAMP_WINDOW_FULL closes its window gradually, so no hole pops shut at LAMP_WINDOW_NEAR.
+        lampWindows.value[windows++]!.set(head.x, head.y, depth, Math.max(LAMP_WINDOW_METRES / (depth * tanHalf), minimum)
+          * THREE.MathUtils.smoothstep(depth, LAMP_WINDOW_NEAR, LAMP_WINDOW_FULL));
+      }
+    }
+    lampWindowAspect.value = this.camera.aspect;
+    lampWindowLight.value.copy(LAMP_WINDOW_LIGHT).multiplyScalar(this.lampWindowGlow * Math.min(1, this.lampIntensityNow / Math.max(1e-3, this.lampIntensityFull)));
+    return windows;
+  }
+
   /** Driving-model crashes: sparks at contacts, panels and props thrown down the road, smoke and fire from damaged cars. */
   private crashFrame(course: Course, cars: VisualCar[], crashes: { events: readonly DriveEvent[]; props: readonly Hazard[] } | null, time: number, near: THREE.Vector3): void {
     const reduced = this.reduced.matches, dt = Math.max(1e-3, time - (this.crashTime ?? time - 1 / 60));
@@ -1521,6 +1620,8 @@ export class RaceWorld {
       this.lampFarLights.set(farLamps++, lamp.localToWorld(this.lampHead.set(0, 6.58, -1.28)), LAMP_FAR_LIGHT, LAMP_FAR_LIGHT_SIZE);
     }
     this.lampFarLights.commit(farLamps);
+    // Lamp windows through the roadside crowns (LAMP_WINDOWS): placed when the race camera renders (placeLampWindows).
+    this.windowLamps = closestLamps;
     // The period city's shop fronts, or the classic frontage's bays and fixtures.
     const shopSources = this.periodCity.active
       ? this.periodCity.nearestFixtures(playerPosition, 12, this.cityFixtures).map((fixture, i) => ({
@@ -1656,6 +1757,7 @@ export class RaceWorld {
     // its cutscene-style repaints paint it; lit, the near shopping-lamp globes drew as white clouds over the golden sky.
     const lampsOn = mood.lowSun ? 1 - THREE.MathUtils.smoothstep(daylight, 0.62, 0.85) : 1;
     const lampIntensity = mood.lampIntensity * THREE.MathUtils.lerp(1, SUNRISE_LAMP_GAIN, sunrise) * lampsOn;
+    this.lampIntensityNow = lampIntensity; this.lampIntensityFull = mood.lampIntensity;
     const poolIntensity = mood.lampIntensity * THREE.MathUtils.lerp(1, SUNRISE_POOL_GAIN, sunrise) * lampsOn;
     this.lightPools.forEach((light, i) => {
       light.color.copy(mood.lamp); light.intensity = closestLamps[i] ? poolIntensity : 0;
@@ -1680,7 +1782,7 @@ export class RaceWorld {
     this.mapleLight.value = this.momiji ? THREE.MathUtils.smoothstep(daylight, 0.55, 0.8) : 0;
     for (const tone of this.blossomTones) tone.emissiveIntensity = crownGlow;
     setPeriodCityLighting(upperLit, groundLit, windowGain, windowLights('cool', dusk, morning),
-      windowLights('signs', dusk, morning) * PERIOD_SIGN_GAIN, THREE.MathUtils.lerp(1, PERIOD_SUNRISE_LAMPS, morning) * lampsOn,
+      windowLights('signs', dusk, morning) * PERIOD_SIGN_GAIN, THREE.MathUtils.lerp(1, PERIOD_SUNRISE_LAMPS, morning) * Math.max(lampsOn, this.goldenLamps * golden),
       windowLights('signs', dusk, morning) * PERIOD_FLOODLIGHTS);
     // The cutscenes separate cream/gold illuminated surfaces from charcoal
     // foreground shadows and violet exterior air. Avoid blue fill overwhelming
@@ -1710,6 +1812,8 @@ export class RaceWorld {
     // Not where the route's own hills hide the sun (its sunHeight): there the low sun lights only the far slopes.
     this.keyLight.intensity = 0.6 + 0.9 * dusk + 0.3 * morning + GOLDEN_KEY * golden * (mood.lowSunElevation === undefined ? 1 : 0);
     setPeriodCityGolden(golden);
+    // The banks' leaf carpet takes gold leaves in the golden hours only (lamp-lit, they speckled the night verges).
+    terrainAutumnGolden.value = golden;
     this.keyLight.color.lerpColors(MOOD.keyMoon, MOOD.keyDusk, dusk).lerp(MOOD.keySunrise, morning)
       .lerp(MOOD.keyWet, this.weather * dusk * (1 - sunrise));
     // The sun keeps its world direction through corners; only the shadow

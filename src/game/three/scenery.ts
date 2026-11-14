@@ -1006,6 +1006,9 @@ function buildTree(kind: TreeKind): THREE.Group {
           normals.setXYZ(vertex, surfaceNormal.x, surfaceNormal.y, surfaceNormal.z);
         }
         geometry.setAttribute('color', new THREE.Float32BufferAttribute(colorData, 3));
+        // Each leaf's stalk, about which a maple leaf grows with distance (autumn-foliage.ts leafGrowthGlsl; w 0 grows).
+        geometry.setAttribute('leafCentre', new THREE.Float32BufferAttribute(Array.from({ length: leafVertices },
+          () => [position.x, position.y, position.z, maple ? 0 : 1]).flat(), 4));
         leaves.push(geometry);
       }
     }

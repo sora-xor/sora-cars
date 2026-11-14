@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { MAPLE_LEAF_GLSL } from './maple-leaf-glsl';
 import { ManagedTextureLoader } from './asset-texture-loader';
 
 export interface TerrainPose { x: number; y: number; z: number; heading: number; width: number; p: number }
@@ -105,6 +106,12 @@ const AUTUMN_LITTER = /* glsl */ `
     float tufts = lawn * (1. - smoothstep(.05, .12, max(fwidth(q.x), fwidth(q.y))));
     float blades = soraNoise(q / .19 + 3.) * .65 + soraNoise(q / .11 - 11.) * .35;
     vec3 straw = mix(vec3(.323, .231, .08), mix(vec3(.1, .05, .02), vec3(.46, .3, .08), smoothstep(.38, .62, blades)), tufts);
+    // Finish pass, round ten: the lawn in broad patches, paler where the grass stands long and deeper where it is
+    // grazed short, with russet stretches where it has died back, each several metres across so they hold at any
+    // distance. One even straw tone read as a slab of sand (Wakakusa's summit).
+    float sweep = soraNoise(q / 9.3 + 3.) * .6 + soraNoise(q / 2.9 - 7.) * .4;
+    straw *= mix(1., mix(.7, 1.22, smoothstep(.3, .7, sweep)), soraAutumnFinish.y);
+    straw = mix(straw, vec3(.19, .075, .03), smoothstep(.6, .76, soraNoise(q / 4.7 + 19.)) * .5 * soraAutumnFinish.y);
     diffuseColor.rgb = mix(diffuseColor.rgb, straw * clamp(dot(diffuseColor.rgb, vec3(.2126, .7152, .0722)) / .085, .7, 1.3), lawn);
     float drift = soraNoise(q / 1.1) * .7 + soraNoise(q / .37 + 9.) * .3;
     float cover = mix(smoothstep(.36, .5, drift), smoothstep(.72, .8, soraNoise(q / .23 + 31.)) * tufts, lawn) * soraAutumn;
@@ -115,17 +122,81 @@ const AUTUMN_LITTER = /* glsl */ `
     // orange plane (Umagaeshi's bank: lightness .43 against the repaint's .34). Those on a lawn have just fallen.
     leaf = mix(leaf, vec3(.09, .046, .024), .6 * (1. - lawn));
     diffuseColor.rgb = mix(diffuseColor.rgb, leaf * (.38 + .7 * soraNoise(q / .13 + 17.)), cover);
+    // Finish pass, round ten: the newest leaves lie on top as maple leaves, each drawn whole (soraCarpetLeaf), in the
+    // road leaves' own colours, as the repaints carpet every verge; the browned litter under them read as a flat
+    // orange-brown plane. A repaint draws a bank's leaves about as large on the canvas wherever they lie, so the
+    // carpet is drawn at three sizes, true size by the car and two and four times that further off, each fading in
+    // as the one before it grows too small for its lobes, all anchored in the world. Past the largest they melt into
+    // their mean colour over the share of ground they cover. The footprint is the root of a scene pixel's area on
+    // the ground, so a bank seen at a low angle keeps its leaves.
+    if (soraAutumnFinish.x > 0.) {
+      float footprint = sqrt(abs(dFdx(q.x) * dFdy(q.y) - dFdx(q.y) * dFdy(q.x)));
+      float share = mix(.7, .45, lawn) * soraAutumn * soraAutumnFinish.x;
+      float octave = max(0., log2(max(footprint, 1e-4) / .01134)), level = min(floor(octave), 2.), t = octave - level;
+      float size = .42 * exp2(level);
+      float here = (level < .5 ? 1. : smoothstep(0., .55, t)) * (1. - smoothstep(1., 1.5, t));
+      float below = level < .5 ? 0. : 1. - smoothstep(0., .5, t);
+      for (int layer = 0; layer < 2; layer++) {
+        vec4 leafHere = soraCarpetLeaf(q, size, float(layer) + level * 3., footprint, share);
+        diffuseColor.rgb = mix(diffuseColor.rgb, leafHere.rgb, leafHere.a * here);
+        if (below > 0.) {
+          vec4 leafBelow = soraCarpetLeaf(q, size * .5, float(layer) + level * 3. - 3., footprint, share);
+          diffuseColor.rgb = mix(diffuseColor.rgb, leafBelow.rgb, leafBelow.a * below);
+        }
+      }
+      // Far off: the leaves' mean colour over the ground they cover (a leaf covers about a quarter of its square,
+      // the square four fifths of its cell; two layers).
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.42, .11, .02), share * .1 * (1. - clamp(here + below, 0., 1.)));
+    }
   }`;
 
 const AUTUMN_HEADER = /* glsl */ `varying vec3 vSoraWorld;
 varying float vTerrainLawn;
 uniform float soraAutumn;
+uniform vec2 soraAutumnFinish;
+uniform float soraAutumnGolden;
 float soraHash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float soraNoise(vec2 p) {
   vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);
   return mix(mix(soraHash(i), soraHash(i + vec2(1., 0.)), u.x), mix(soraHash(i + vec2(0., 1.)), soraHash(i + vec2(1., 1.)), u.x), u.y);
 }
+${MAPLE_LEAF_GLSL}
+// One leaf of the banks' carpet at q (metres), on a grid of cells size metres across of which share hold a leaf,
+// placed and turned by its cell: its colour, and in alpha how far the point is covered by it.
+vec4 soraCarpetLeaf(vec2 q, float size, float salt, float footprint, float share) {
+  vec2 at = (q + salt * vec2(7.31, 3.17)) / size, cell = floor(at);
+  float h = soraHash(cell + salt * 17.3 + 3.1);
+  if (fract(h * 3.77) >= share) return vec4(0.);
+  float radius = .4 + .1 * fract(h * 7.13), turn = fract(h * 91.7) * 6.2832;
+  vec2 centre = vec2(.5) + (vec2(fract(h * 13.7), fract(h * 31.1)) - .5) * (1. - 2. * radius);
+  vec2 local = (at - cell - centre) / radius;
+  local = vec2(cos(turn) * local.x - sin(turn) * local.y, sin(turn) * local.x + cos(turn) * local.y);
+  float span = footprint / (radius * size);
+  vec2 outline = mapleLeaf(local);
+  float rib = (1. - smoothstep(0., max(.04, span * .7), outline.y)) * (1. - smoothstep(.04, .1, span));
+  float tone = fract(h * 53.3), bright = .8 + .4 * fract(h * 23.9);
+  // Crimson, scarlet, vermilion, orange and browned, as on the road (period-city/street.ts LEAF_TONES), with more
+  // orange among them than the road's so a bank does not read as one red; in the golden hours a quarter gold (as the
+  // afternoon routes' road leaves; lamp-lit, gold leaves speckled the night verges).
+  vec3 colour = tone < .26 * soraAutumnGolden ? vec3(.694, .356, .033) : tone < .34 ? vec3(.366, .019, .011) : tone < .48 ? vec3(.456, .026, .012)
+    : tone < .62 ? vec3(.539, .05, .012) : tone < .9 ? vec3(.694, .138, .014) : vec3(.209, .036, .012);
+  float on = smoothstep(0., max(span * .6, .02), outline.x);
+  // Each leaf's own shadow, a dark rim round it while it is a few cells wide, lifts it off litter of its own colour,
+  // as a painter outlines a leaf.
+  float rim = smoothstep(-.2, -.06, outline.x) * (1. - on) * (1. - smoothstep(.07, .15, span));
+  return vec4(mix(vec3(.03, .014, .012), colour * bright * (1. + .45 * rib) * (local.x > 0. ? .84 : 1.06), on), max(on, rim * .65));
+}
 `;
+
+/** The autumn banks' finish (round ten), for A/B captures: x the carpet of maple leaves over the litter (0 off), y the
+ * lawn's broad patches (0 the one even straw tone). */
+export const terrainAutumnFinish = { value: new THREE.Vector2(1, 1) };
+/** How far a late-day route's golden hours have come (0-1; world.ts, every frame): the carpet's share of gold leaves. */
+export const terrainAutumnGolden = { value: 0 };
+/** How much of the sun's and the sky's mirror reflection the banks' grass, moss and soil keep (0-1; finish pass, round
+ * ten). Looking toward a low sun the rough ground still mirrored it at a grazing angle, and Nikkō's hillside at
+ * sunrise stood as a pale peach sheet behind the station where every repaint paints dark grass. 1 for A/B captures. */
+export const terrainGroundGlare = { value: 0 };
 
 /** `autumn` (0-1) lays late-autumn leaf litter over the moss, and dries its open lawns to straw (slope terrain of the
  * autumn routes only). */
@@ -140,8 +211,10 @@ function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
   // surface texture is sampled once and shared by the roughness and AO paths.
   material.userData.terrainTextures = [moss.map, moss.normalMap, moss.roughnessMap,
     grass.map, grass.normalMap, grass.roughnessMap];
-  material.customProgramCacheKey = () => autumn > 0 ? 'sora-forest-ground-blend-v2-autumn' : 'sora-forest-ground-blend-v1';
+  material.customProgramCacheKey = () => autumn > 0 ? 'sora-forest-ground-blend-v3-autumn' : 'sora-forest-ground-blend-v2';
   material.onBeforeCompile = shader => {
+    shader.uniforms.soraAutumnFinish = terrainAutumnFinish; shader.uniforms.soraGroundGlare = terrainGroundGlare;
+    shader.uniforms.soraAutumnGolden = terrainAutumnGolden;
     shader.uniforms.soraGrassColor = { value: grass.map };
     shader.uniforms.soraGrassNormal = { value: grass.normalMap };
     shader.uniforms.soraGrassSurface = { value: grass.roughnessMap };
@@ -155,6 +228,7 @@ function groundMaterial(autumn = 0): THREE.MeshStandardMaterial {
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', `#include <common>
 varying vec2 vTerrainBlend;
+uniform float soraGroundGlare;
 uniform sampler2D soraGrassColor;
 uniform sampler2D soraGrassNormal;
 uniform sampler2D soraGrassSurface;
@@ -187,7 +261,9 @@ ${THREE.ShaderChunk.map_fragment.replace('texture2D( map, vMapUv )',
         .replace('vec3 mapN = texture2D( normalMap, vNormalMapUv ).xyz * 2.0 - 1.0;',
           'vec3 mapN = normalize(mix(texture2D(normalMap, vNormalMapUv).xyz * 2.0 - 1.0, soraGrassNormalSample(soraGrassUvA, soraGrassUvB), vTerrainBlend.x));'))
       .replace('#include <aomap_fragment>', THREE.ShaderChunk.aomap_fragment
-        .replace('texture2D( aoMap, vAoMapUv ).r', 'soraTerrainSurface.r'));
+        .replace('texture2D( aoMap, vAoMapUv ).r', 'soraTerrainSurface.r'))
+      // Grass, moss and soil mirror nothing (terrainGroundGlare).
+      .replace('#include <lights_fragment_end>', '#include <lights_fragment_end>\nreflectedLight.directSpecular *= soraGroundGlare; reflectedLight.indirectSpecular *= soraGroundGlare;');
   };
   return material;
 }

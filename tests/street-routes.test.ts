@@ -217,11 +217,15 @@ test('the autumn wood, fallen leaves and shrubs lie only along a route\u2019s au
     districtAt: () => 'forest', street: { ...plain, ...street } });
   const build = (l: ReturnType<typeof layout>, from: number, to: number) => {
     const b = new CityMeshBuilder(0, 0); buildStreet(b, l, from, to);
-    const meshes = b.finish(), ground = meshes.get('ground'), position = ground?.getAttribute('position');
+    // Shrubs lie in the ground's mesh; the fallen leaves in their own (finish pass, round nine).
+    const meshes = b.finish(), ground = meshes.get('ground'), leaves = meshes.get('leaf');
+    const positions = [ground, leaves].flatMap(mesh => mesh ? [mesh.getAttribute('position')] : []);
+    const position = positions.length ? { count: positions.reduce((sum, a) => sum + a.count, 0),
+      getY: (i: number) => { for (const a of positions) { if (i < a.count) return a.getY(i); i -= a.count; } return 0; } } : undefined;
     const plants = Array.from({ length: b.flora.length / FLORA_STRIDE }, (_, i) => ({ kind: b.flora[i * FLORA_STRIDE]!, x: b.flora[i * FLORA_STRIDE + 1]!,
       y: b.flora[i * FLORA_STRIDE + 2]!, z: b.flora[i * FLORA_STRIDE + 3]! }));
     return { triangles: (position?.count ?? 0) / 3, low: position ? Math.min(...Array.from({ length: position.count }, (_, i) => position.getY(i))) : 0, plants,
-      stone: (meshes.get('stone')?.getAttribute('position').count ?? 0) / 3 };
+      stone: (meshes.get('stone')?.getAttribute('position').count ?? 0) / 3, leaves };
   };
   const autumn = { litter: [[start, start + 600]] }, littered = layout(autumn), bare = layout({});
   const before = build(littered, start - 160, start - 80);
@@ -229,9 +233,34 @@ test('the autumn wood, fallen leaves and shrubs lie only along a route\u2019s au
   assert.equal(before.plants.length, 0, 'and no wood');
   const inside = build(littered, start + 400, start + 480);
   assert.ok(inside.triangles - build(bare, start + 400, start + 480).triangles > 80 * 20 * 2, `${inside.triangles} triangles of leaves and shrubs in 80 m`);
+  // Each fallen leaf is one square lying flat, its corners the leaf's own frame for the material's maple outline.
+  const leafAt = inside.leaves!.getAttribute('position'), leafUv = inside.leaves!.getAttribute('uv');
+  assert.ok(leafAt.count / 6 > 80 * 40, `${leafAt.count / 6} leaves in 80 m`);
+  for (let i = 0; i < 600; i += 6) {
+    const corners = new Map<string, [number, number, number]>();
+    for (let v = i; v < i + 6; v++) corners.set(`${leafUv.getX(v)},${leafUv.getY(v)}`, [leafAt.getX(v), leafAt.getY(v), leafAt.getZ(v)]);
+    assert.deepEqual([...corners.keys()].sort(), ['0,0', '0,1', '1,0', '1,1'], 'the four corners of the leaf’s frame');
+    const a = corners.get('0,0')!, b = corners.get('1,0')!, c = corners.get('1,1')!, d = corners.get('0,1')!;
+    const side = Math.hypot(b[0] - a[0], b[2] - a[2]), up = Math.hypot(d[0] - a[0], d[2] - a[2]);
+    // Single-precision positions a few kilometres from this test's origin: a couple of millimetres' tolerance.
+    assert.ok(Math.abs(side - up) < 2e-3 && Math.abs((b[0] - a[0]) * (d[0] - a[0]) + (b[2] - a[2]) * (d[2] - a[2])) < 2e-3, 'a square');
+    assert.ok(Math.abs(c[0] - (b[0] + d[0] - a[0])) < 2e-3 && Math.abs(c[2] - (b[2] + d[2] - a[2])) < 2e-3
+      && [a, b, c, d].every(corner => corner[1] === a[1]), 'lying flat');
+    // A third of a metre across on average, as the repaints strew them: 0.25 to 0.47 m.
+    assert.ok(side > .24 && side < .48, `a leaf ${side.toFixed(2)} m across`);
+  }
   const maples = inside.plants.filter(p => p.kind === FLORA_KIND.maple).length, susuki = inside.plants.filter(p => p.kind === FLORA_KIND.susuki).length;
   assert.ok(maples > 40 && susuki > 15, `${maples} maples and ${susuki} susuki clumps in 80 m of autumn wood`);
   for (const p of inside.plants) assert.ok(Math.abs(p.y - (nearest(p.x, p.z).y - .2)) < .01, 'every tree and clump stands on the ground under it');
+  // The bank stands thick with grass and turned bushes (finish pass, round eleven): two swards of four tufts to a metre
+  // and side beside the five single tufts, and a bush to about every metre.
+  const count = (kind: number) => inside.plants.filter(p => p.kind === kind).length;
+  assert.ok(count(FLORA_KIND.sward) > 80 * 2 * 1.6 && count(FLORA_KIND.sward) <= 80 * 2 * 2, `${count(FLORA_KIND.sward)} swards in 80 m`);
+  assert.ok(count(FLORA_KIND.bush) > 80 && count(FLORA_KIND.bush) < 200, `${count(FLORA_KIND.bush)} bushes in 80 m`);
+  assert.ok(count(FLORA_KIND.grass) > 80 * 2 * 4, `${count(FLORA_KIND.grass)} single tufts, as before`);
+  // No more than half again as many plants as tufts, trees and susuki alone made: a batch draws by the instance.
+  assert.ok(count(FLORA_KIND.sward) + count(FLORA_KIND.bush) < (inside.plants.length - count(FLORA_KIND.sward) - count(FLORA_KIND.bush)) * .6,
+    `${count(FLORA_KIND.sward) + count(FLORA_KIND.bush)} new plants beside ${inside.plants.length - count(FLORA_KIND.sward) - count(FLORA_KIND.bush)}`);
   const whole = inside.triangles + inside.plants.length;
   const halves = [build(littered, start + 400, start + 440), build(littered, start + 440, start + 480)];
   assert.equal(halves.reduce((sum, h) => sum + h.triangles + h.plants.length, 0), whole, 'chunk seams change nothing');
@@ -333,7 +362,7 @@ test('forest vegetation can use a hillside without filling park lawns, reserved 
 
 test('the modelled plants batch into bark and foliage, each kind finite, within its triangle budget, tinted per plant', () => {
   const budgets = { [FLORA_KIND.maple]: 1400, [FLORA_KIND.cedar]: 900, [FLORA_KIND.susuki]: 40, [FLORA_KIND.willow]: 800, [FLORA_KIND.pine]: 900,
-    [FLORA_KIND.grass]: 8 } as const;
+    [FLORA_KIND.grass]: 8, [FLORA_KIND.bush]: 16, [FLORA_KIND.sward]: 26 } as const;
   for (const [kind, budget] of Object.entries(budgets)) {
     const data: number[] = [];
     for (let i = 0; i < 6; i++) data.push(Number(kind), i * 7, 0, 3, i, 1, .5, .2, .1, i * 13);
@@ -383,4 +412,77 @@ test('every route keeps its landmarks off its roads, every leg of them, and clea
       }
     }
   }
+});
+
+test('Kyoto draws the Biwa canal at Okazaki on its real course: water under Keiryu-bashi, walls to the deck, nothing built or planted in it', async () => {
+  const { buildOpenGround } = await import('../src/game/three/period-city/open-ground');
+  const { canalDistance, CANAL_COPING, CANAL_DECK, periodCityRouteFrame, periodCityPlantingClear } = await import('../src/game/three/period-city/layout');
+  const { track } = routes.find(route => route.id === 'kyoto-1986')!, scene = streetScene('kyoto-1986')!;
+  const canals = scene.street!.canals!;
+  assert.equal(canals.length, 1);
+  const canal = canals[0]!;
+  // The OpenStreetMap course (lat 35.01202-35.01203): due west, about 525 m, in the track compiler's projection.
+  const z = canal.points.map(([, pz]) => pz), x = canal.points.map(([px]) => px);
+  // The map's points lie within a hundred-thousandth of a degree of one latitude (1.1 m).
+  assert.ok(Math.max(...z) - Math.min(...z) < 1.5, 'due west along one latitude');
+  assert.ok(Math.max(...x) - Math.min(...x) > 450 && Math.max(...x) - Math.min(...x) < 520, `${(Math.max(...x) - Math.min(...x)).toFixed(0)} m of canal`);
+  assert.ok(canal.width === 16 && canal.depth === 1.2);
+  const poses = track.samples.map(s => ({ p: s.progressMm / 1000, x: -s.eastMm / 1000, z: s.northMm / 1000, y: s.elevationMm / 1000,
+    heading: -s.headingMicroturn * Math.PI * 2 / 1e6, width: s.halfWidthMm / 1000 }));
+  const sectorAt = (p: number) => { let sector = track.samples[0]!.sector; for (const s of track.samples) { if (s.progressMm / 1000 > p) break; sector = s.sector; } return sector; };
+  const course = { length: track.lengthMm / 1000, circuit: track.topology === 'circuit', poses };
+  const districtAt = (p: number, side: -1 | 1) => { const row = scene.districts[sectorAt(p)]!; return side < 0 ? row.right : row.left; };
+  // Jingu-michi crosses it once, at about 5.97 km, just before the great torii (6.04 km).
+  const crossing = poses.find((pose, i) => i > 0 && (poses[i - 1]!.z - z[0]!) * (pose.z - z[0]!) <= 0 && pose.p > 5000 && pose.p < 6500);
+  assert.ok(crossing && crossing.p > 5950 && crossing.p < 6000, `the road crosses the canal at ${crossing?.p.toFixed(0)} m`);
+  // The ground opens over the channel beside the road, never under the road and its walkway (the bridge deck).
+  const open = periodCityOpenRuns(course, districtAt), cut = periodCityGroundCut(course, open, scene.crossings, scene.street?.forestBanks, canals);
+  const frame = periodCityRouteFrame(course, 140);
+  let opened = 0;
+  for (let px = Math.min(...x) + 4; px < Math.max(...x) - 4; px += 3) {
+    const f = frame(px, z[0]!);
+    if (f && f.beyond < CANAL_DECK) assert.equal(cut(px, z[0]!), false, `the deck stays paved at ${px.toFixed(0)}`);
+    else if (cut(px, z[0]!)) opened++;
+  }
+  assert.ok(opened > 120, `${opened} channel samples open`);
+  // Lots keep off the channel and its copings; a tree's trunk may stand no nearer than its coping, its crown may lean over.
+  const layout = createPeriodCityLayout(course, { groundHeightAt: () => 0, districtAt, open, crossings: scene.crossings, landmarks: scene.landmarks,
+    street: scene.street });
+  for (const lot of layout.lots) {
+    const f = lot.footprint, c = Math.cos(f.yaw), s = Math.sin(f.yaw);
+    for (const [u, v] of [[-1, -1], [1, -1], [1, 1], [-1, 1], [0, 0]] as const) {
+      const px = f.x + c * u * f.halfX + s * v * f.halfZ, pz = f.z - s * u * f.halfX + c * v * f.halfZ;
+      assert.ok(canalDistance(canals, px, pz) > -1e-6, `lot ${lot.id} stands in the canal`);
+    }
+  }
+  const mid = [(x[0]! + x.at(-1)!) / 2, z[0]!] as const;
+  assert.equal(periodCityPlantingClear(layout, mid[0], mid[1], 3), false, 'no tree in the channel');
+  assert.equal(periodCityPlantingClear(layout, mid[0], mid[1] + canal.width / 2 + CANAL_COPING + 2, 4), true, 'a broad crown may lean over it from the bank');
+  // Drawn: water pieces under and beside the road, walls only beyond the deck; no plant, leaf or bush stands in it.
+  let water = 0, deckWalls = 0, plantsIn = 0;
+  for (let p = 5400; p < 6200; p += layout.chunkLength) {
+    const b = new CityMeshBuilder(0, 0);
+    buildOpenGround(b, layout, p, p + layout.chunkLength); buildStreet(b, layout, p, p + layout.chunkLength);
+    for (let i = 0; i < b.flora.length; i += FLORA_STRIDE)
+      if (canalDistance(canals, b.flora[i + 1]!, b.flora[i + 3]!) < CANAL_COPING) plantsIn++;
+    const meshes = b.finish(), w = meshes.get('water'), stone = meshes.get('stone');
+    if (w) for (let i = 0; i < w.getAttribute('position').count; i++) {
+      const at = w.getAttribute('position');
+      if (canalDistance(canals, at.getX(i), at.getZ(i)) < .01) water++;
+    }
+    if (stone) {
+      const at = stone.getAttribute('position');
+      for (let i = 0; i + 5 < at.count; i += 6) {
+        // A canal wall's face: all six vertices on a wall line, and its middle on or under the deck is a fault.
+        const cx = [0, 1, 2, 3, 4, 5].reduce((sum, k) => sum + at.getX(i + k), 0) / 6, cz = [0, 1, 2, 3, 4, 5].reduce((sum, k) => sum + at.getZ(i + k), 0) / 6;
+        const onWall = Math.abs(canalDistance(canals, cx, cz)) < .02 && at.getY(i) < 0;
+        const f = frame(cx, cz);
+        if (onWall && f && f.beyond < CANAL_DECK - .05) deckWalls++;
+      }
+    }
+    for (const geometry of meshes.values()) geometry.dispose();
+  }
+  assert.ok(water > 300, `${water} canal water vertices`);
+  assert.equal(deckWalls, 0, 'no canal wall under the bridge deck');
+  assert.equal(plantsIn, 0, 'nothing planted in the canal');
 });

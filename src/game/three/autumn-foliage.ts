@@ -23,6 +23,38 @@ const autumn = { value: 0 };
 export const crownLight = { value: new THREE.Vector3(.3, .5, 1) };
 
 /**
+ * Maple leaves drawn larger with distance (finish pass, round thirteen), as the repaints draw every maple: crisp stars
+ * about eight to twelve art cells across in any crown, near or far. At true size a crown's leaves fall under five art
+ * cells beyond about 25 m, so the cell resolve broke them into a red speckle with sky showing through in pinholes. A leaf
+ * grows about its own stalk by its distance over x metres (none nearer), at most y times; z 1 on, 0 off for A/B. The
+ * roadside maples (scenery.ts) and the flora maples' leaf cards (period-city/flora.ts) take their own values.
+ */
+export const roadsideLeafGrowth = { value: new THREE.Vector3(14, 2.6, 1) };
+export const floraLeafGrowth = { value: new THREE.Vector3(14, 1.8, 1) };
+
+/**
+ * GLSL after `#include <begin_vertex>` of a leaf material: grows each leaf about its stalk (the vec4 attribute
+ * `leafCentre`, in the object's space, w 0 for a maple leaf that may grow, 1 for any other) by its distance from the
+ * camera. A geometry without the attribute reads (0, 0, 0, 1) and never grows. `growth` names the material's vec3
+ * uniform (x metres, y most, z on). Shadows keep the leaves' true size (their depth materials lack this).
+ */
+export function leafGrowthGlsl(growth: string): string {
+  return `
+  if (${growth}.z > 0. && leafCentre.w < .5) {
+    vec4 soraLeafAt = vec4(leafCentre.xyz, 1.);
+#ifdef USE_BATCHING
+    soraLeafAt = batchingMatrix * soraLeafAt;
+#endif
+#ifdef USE_INSTANCING
+    soraLeafAt = instanceMatrix * soraLeafAt;
+#endif
+    soraLeafAt = modelMatrix * soraLeafAt;
+    float soraGrow = mix(1., clamp(length(soraLeafAt.xyz - cameraPosition) / ${growth}.x, 1., ${growth}.y), ${growth}.z);
+    transformed = leafCentre.xyz + (transformed - leafCentre.xyz) * soraGrow;
+  }`;
+}
+
+/**
  * GLSL for just before `#include <opaque_fragment>` of a lit standard material: the crown keeps its own hue through light
  * and shade, its sunlit leaves warm toward gold (crimson through vermilion to orange, the repaints' highlights) and its
  * highlights stay under the tone curve's shoulder. Plants holding more green than half their red (cedars, pines,

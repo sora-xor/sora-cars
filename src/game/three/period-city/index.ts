@@ -27,7 +27,7 @@ export type { CityFixture } from './buildings';
 interface Chunk { readonly group: THREE.Group; readonly fixtures: readonly CityFixture[]; readonly triangles: number; used: number }
 /** Chunks kept (hidden) after leaving the window, so a short reverse or a lap seam rebuilds nothing. */
 const RETAINED_CHUNKS = 14;
-const SHADOWLESS: ReadonlySet<CityMaterialKey> = new Set(['glass', 'lamp', 'sign', 'water', 'neon', 'flag']);
+const SHADOWLESS: ReadonlySet<CityMaterialKey> = new Set(['glass', 'lamp', 'sign', 'water', 'neon', 'flag', 'leaf']);
 
 /**
  * The 1986 city along a street course (docs/period-city.md). The layout is

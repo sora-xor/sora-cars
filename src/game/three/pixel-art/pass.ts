@@ -204,7 +204,11 @@ const DEFAULTS: PixelArtOptions = {
   // Kanda's shadow values; the .2 daytime upper stretch opens Nara's highlights while leaving its dark road alone.
   chroma: 1.2, nightDarkChromaCompression: 0.45, nightShadowHue: 272, nightChroma: 1.3, contrast: 0, nightContrast: 0.5, contrastLight: 0.2,
   nightContrastLight: 0.12, contrastPivot: 0.38, nightLightChromaCompression: 0.1, floor: 0, nightFloor: 0.14, nightFoliageOlive: 0.7, nightCarContrast: 1, paletteLock: 0,
-  dayRoadColourKeep: 1,
+  // Finish pass (November 12): 0 (was 1). The guard now acts only in a late-day route's golden hours (Tokyo's sunrise and
+  // Nikko measure the same with or without it), where it kept the asphalt orange-brown (OKLab hue 26-51) under the
+  // true-light repaints' slate and mauve (hue 306-354; Sarusawa's sunlit road 15). Off, every golden-hour road takes its
+  // repaint's hue: summed b gap to the repaints over five scenes 0.126 to 0.053.
+  dayRoadColourKeep: 0,
   depthTolerance: 0.06,
   // Refine round 4 (the user's rain-night target, "it looks shabby"): no band offset (the full-colour image needs no
   // dither between palette entries), and a crisper upscale.

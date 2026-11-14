@@ -1569,3 +1569,296 @@ The user: "keep going and improve more". Sheet `output/finish-20261111/review/16
 **Fixed.** Removing the faces left `const float PI` behind a line comment, so the sky failed to compile and every race drew a flat dark sky, as once before in this pass. A new test fails on any statement after a comment in the sky shader.
 
 Tests: `tests/finish-pass-lights.test.ts` (wall, dusk clouds, comment guard); 122 graphics, city and street-route tests pass.
+
+## Finish pass, eighth round — November 12, 2026 (golden-hour asphalt)
+
+The user: "keep going and make better" (after the finish pass was committed as e655094). Sheet `output/finish-20261111/review/17-golden-hour-asphalt.png`; each before/after pair comes from one capture run (`tmp/pixel-art/roadkeep-final.json` sets `dayRoadColourKeep` back to 1).
+
+**The road's colour in the golden hours** (`pixel-art/pass.ts`, `dayRoadColourKeep` 0, was 1).
+- Measured: the median of the road's low-chroma asphalt cells (`tmp/pixel-art/asphalt.mjs`). Every golden-hour road was darker and orange-brown (OKLab hue 26-51) where its true-light repaint paints slate and mauve (hue 306-354; Sarusawa's sunlit road 15).
+- Cause: the grade's road guard, which spares warm-lit dry asphalt from the shadow drive. It was added when sunlit asphalt at sunrise turned purple; Tokyo's sunrise and Nikko now measure the same with or without it, so it acted only in the golden hours.
+- Off, every golden-hour road takes its repaint's hue:
+
+  | Scene | Before (hue, b) | After | Repaint |
+  |---|---|---|---|
+  | Irohazaka bends | 34, +0.017 | 332, -0.015 | 349, -0.005 |
+  | Irohazaka maples | 38, +0.020 | 341, -0.011 | 306, -0.026 |
+  | Wakakusa | 26, +0.013 | 346, -0.007 | 354, -0.003 |
+  | Sarusawa (sunlit) | 51, +0.038 | 21, +0.017 | 15, +0.008 |
+
+- Summed b gap over five scenes: 0.126 to 0.053. Road flicker at 25 m/s at Irohazaka's bends: 3.27% to 3.28%.
+
+**Tried and dropped.**
+- A cooler golden-hours fill (sky violet instead of peach): b moved only 0.008 and the road darkened.
+- Extra sky fill in the valley shade (`lowSunElevation` routes): even at +1.4 the shaded road rose only 0.01 in L. The repaints' lighter shaded road (L 0.32-0.33 against our 0.26) needs another lever.
+
+Tests: `tests/finish-pass-lights.test.ts` (the road guard default); 123 graphics, city and street-route tests pass.
+
+## Finish pass, ninth round — November 12-13, 2026 (maple leaves, station halls, lanterns)
+
+The user: "continue and make it better". Sheet `output/finish-20261111/review/18-maple-leaves-station-hall-lanterns.png`. Hakone, Wakakusa and Irohazaka compare a capture run before the round with one after it (some of the change is chunk geometry); Kyoto and Yokohama pair the round's switches off and on within one run (`tmp/pixel-art/r9-ab.json`).
+
+**Fallen maple leaves** (`period-city/materials.ts` `fallenLeafMaterial`, new material key `leaf`; `street.ts` `leaf`).
+- What was wrong: every autumn repaint strews the road with maple leaves about a third of a metre across. Ours were plain diamonds on the ground's scan, which read as confetti (and at twice the length more so).
+- Now: each leaf is one square, still 6 vertices, whose corners carry the leaf's own coordinates. The shader cuts the outline: seven pointed lobes from a hub below the middle (the two lowest short), a notch where the stalk joins, and the stalk while it spans a scene pixel. Each lobe has a paler midrib, one half of the leaf is a shade darker, and the rim is darker than the blade.
+- Size: `LEAF_SPAN` 1.1 (0.25-0.47 m across). At 1.35 the largest lay a third of a car's width across.
+- Far leaves: lobes thinner than an art cell would only shimmer. From about ten art cells across down to six the leaf fills out to the old diamond, which alone remains beyond that, so the far road's scatter is as it was.
+- Colour: the leaf's own tone straight from its vertex colour (the leaves no longer use the ground's forest-floor scan, so they are no longer divided by its mean). Shrubs keep the ground material.
+- The leaves cast no shadows now (they lay 2 cm above the road).
+- `fallenLeafShape.value = 0` draws the diamonds for A/B.
+- Road flicker at 25 m/s, shapes off and on in one run: Wakakusa 4.95% and 4.92%, Irohazaka's maples 4.07% and 4.16%, Kyoto 4.14% and 4.20%.
+
+**Station halls** (`materials.ts` glass shader, `geometry.ts` `hallGlazing`).
+- What was wrong: a hall's glazing (`WINDOW_KIND.hall`: station concourses, pachinko parlours, a warehouse's open doors) was lit flat with no room behind it. Hakone-Yumoto's front, nine panes 4.6 m wide at the Midnight Circuit's start line, stood as flat amber slabs across the right of the story's first race frame (noted in round seven).
+- Now: the builder packs a hall rectangle's bays (about 1.15 m each) and height (half metres) into the fraction of its kind, under a half so every test of the kind still holds. The shader draws mullions between the bays, a transom over the doors of a tall front and a kick plate; inside, a dim floor under a lit wall with a darker dado, a fluorescent strip to each bay, posters and timetable boards, ticket barriers or counters, and people standing (head, shoulders, two legs; a second figure further in, in a few bays).
+- It fades to the old flat light where a bay spans under 4-10 scene pixels. A hall's triangle (Tōbu Nikkō's glazed gable) carries no size and stays flat.
+- `hallGlazingDetail.value = 0` restores the flat panes for A/B.
+
+**Lit canopies** (`geometry.ts` `CityMeshBuilder.soffit`). Eleven canopies (Hakone-Yumoto, Tōbu Nikkō, hotel and office entrances, pachinko fronts, the petrol stand) lit their underside as one flat sheet at the lamps' own light: a cream slab across the frame at Hakone. Each is now a warm ceiling at about a third of that light under a row of tubes (one every 2.4 m, two rows under a deep canopy) brighter than it.
+
+**Lanterns** (`geometry.ts` `ROUND_LAMP`, lamp shader `cityLampLimb`; `street.ts` `shoppingLamp`).
+- The shopping streets' twin globes stood as flat cream discs, 85 pixels wide beside the start line.
+- A steady lamp built as a cylinder is marked round (in its unused phase), and the shader deepens its light toward amber by the square of how squarely a face looks at the eye (`lampLimb` 0.85). A gentler ramp left all but the last sliver cream, as the lamps' light is far over the display's white.
+- The globes have 14 sides (were 10) and wear a dark cap and collar.
+- Kanda's street, seen from further off, is unchanged to the eye.
+
+**Seen and left.**
+- Nikkō's start: the grey corrugated flank on the left and the pale open ground on the right are as they were.
+- Sanjō's pale blank flank behind the house on the left (flanks are deliberately mostly blank).
+- A blown-out cream panel inside one of Yokohama's lit lobbies (the interiors atlas).
+
+**Still open.** Leaf drawing in the crowns, crisp spurs in the painted ranges, parked cars, Wakakusa's lawn, the shaded valley road's lightness (round eight).
+
+Tests: `tests/finish-pass-lights.test.ts` (hall sizes packed and unpacked, round lamps, canopy ceilings, the leaf's outline: five long lobes, 20-34% of its square), `tests/street-routes.test.ts` (each leaf a flat square 0.25-0.47 m across in its own mesh).
+
+## Finish pass, tenth round — November 13, 2026 (leaf carpet, lawn, Nikkō's start)
+
+The user: "Keep going" (to Wakakusa's lawn and Nikkō's start line). Sheet `output/finish-20261111/review/19-leaf-carpet-lawn-nikko-start.png`. The Nara and Irohazaka pairs switch the round's shader changes off and on within one capture run (`tmp/pixel-art/r10-ab.json`); Nikkō compares round nine's frame with this round's, because the tin signs and the flank's finish are chunk geometry.
+
+**A carpet of maple leaves on the autumn banks** (`terrain.ts` `AUTUMN_LITTER`, `soraCarpetLeaf`; outline shared from `maple-leaf-glsl.ts`).
+- What was wrong: the banks' litter is noise speckle, which a few metres from the car read as a flat orange-brown plane, where every autumn repaint carpets the verge with leaves.
+- Now: the newest leaves lie on top, each drawn whole with the road leaves' outline and colours, in two grids of cells placed and turned by their cell, each with a dark rim (its own shadow) so it lifts off litter of its own colour.
+- Size: true-size leaves (0.34-0.42 m) are too small to draw beyond about 15 m, and most bare bank is seen further off than that. A repaint draws a bank's leaves about as large on the canvas wherever they lie, so the carpet is drawn at three sizes (true size, twice and four times), each fading in as the one before grows too small for its lobes, all anchored in the world. Past the largest (9-13 cm of ground to a scene pixel) they melt into their mean colour.
+- The first try, true size only with the mean colour beyond, showed no leaves at all and turned every mid-distance bank red.
+- The measure of distance is the root of a scene pixel's area on the ground, so a bank seen at a low angle keeps its leaves.
+- Colours: more orange than the road's leaves, so a bank does not read as one red; a quarter gold in the golden hours only (`terrainAutumnGolden`, set by `world.ts`: lamp-lit, gold leaves speckled Aizu's night verges).
+- Lower-frame flicker at 25 m/s, off and on in one run: Wakakusa 5.23% and 5.21%, Irohazaka's maples 4.87% and 4.94%.
+- `terrainAutumnFinish.value.x = 0` removes the carpet for A/B.
+
+**Wakakusa's lawn** (`terrain.ts`, `terrainAutumnFinish.value.y`). One even straw tone read as a slab of sand. The lawn now lies in broad patches, paler where the grass stands long and deeper where it is grazed, with russet stretches, each several metres across so they hold at any distance. The band of flat dark shade across it (the wood's shadow) is as it was.
+
+**No mirror of the sun on grass** (`terrain.ts`, `terrainGroundGlare` 0). Looking toward a low sun, the banks' rough ground still mirrored it at a grazing angle. At Nikkō's sunrise the hillside behind the JNR station stood as a pale peach sheet (taken for open ground in round nine); a test with the reflection removed showed dark grass with a sunlit patch. Both ground programs now drop the sun's and the sky's mirror reflection. It also takes the glare off Wakakusa's lawn. 1 restores it for A/B.
+
+**Painted iron sheet** (`geometry.ts` `WALL_PATTERN.sheet`, wall shader, `sheetRust`).
+- Corrugated sheds and sheet-clad shophouses take a new finish: the seams' ribs plus a lap line every 1.8 m up the wall and rust drawn down the ribs in ragged blooms, most along the foot and under each lap, some walls far gone and some nearly clean (by a slow field over the town).
+- Its mark rides in the pattern's fraction (3.25, which the shader rounds to the seams), so the bamboo inuyarai keeps plain seams.
+- A copper-fronted shop's flanks and back are now sheet too, as such shops' sides were; the flank at Nikkō's start is one of these.
+- In shade and at dawn the grade turns the rust to dark streaks rather than orange-brown. First drawn as round blooms at 0.78 strength it read as camouflage; it is now streaks at 0.55.
+- Flicker on that flank at 25 m/s: 0.03% both.
+
+**Tin signs** (`buildings.ts` `tinSigns`). Low frontage buildings (3.4-10.5 m) carry one to three tall enamel strips at head height on the flank that faces oncoming drivers, and on a deep flank now and then a painted board, one in three of those SORA's. They come from the lot's own seed, so no building or its street life changed. About four in ten flanks stay bare, and a flank with a neighbour against it hides them.
+
+**Also.** The petrol stand's kiosk models its own mullions and shelves, so its glass keeps the flat light (`HALL_PLAIN`) instead of round nine's drawn frame.
+
+**Seen and left.**
+- The blank lilac flank of the machiya right of Nikkō's road (no sign fell on it).
+- The flat shade band across Wakakusa's lawn.
+- The banks are still far barer than the repaints', which crowd them with golden grass and shrubs.
+
+**Still open.** Denser grass and shrubs on the banks, leaf drawing in the crowns, crisp spurs in the painted ranges, parked cars, the shaded valley road's lightness.
+
+Tests: `tests/finish-pass-lights.test.ts` (the carpet's three sizes never drawn under six scene pixels and never leaving a gap near the car; the glare cut; sheet's mark; tin signs drawing from the lot's seed only; the plain kiosk).
+
+## Finish pass, eleventh round — November 13, 2026 (thicker banks)
+
+The user: "Keep going" (to denser grass and shrubs on the banks). Sheet `output/finish-20261111/review/20-thicker-banks.png`: round ten's frames against this round's (the planting is chunk geometry, so the pairs come from separate runs; nothing else changed between them).
+
+**What was wrong.** The repaints crowd every autumn verge with golden grass and turned bushes. Ours had five grass tufts to a metre and side, a susuki clump every other metre and a plate shrub about every second metre, with bare litter between them.
+
+**Swards** (`period-city/flora.ts` `FLORA_KIND.sward`, `buildSward`; `street.ts` `SWARDS` 2).
+- A sward is four grass tufts of different sizes within about 1.2 m, as one plant (24 triangles). Two to a metre and side stand beside the five single tufts, thickest near the road as the tufts are, from their own stream (the tufts, trees and susuki stand where they did).
+- Why one plant for four tufts: a batch culls and draws by the instance. The first version planted twelve single tufts to a metre; it looked the same and took 2.4 times the plant instances (34,873 against 14,671 at Irohazaka's maples). With swards it is 1.5 times (22,090; Nara Park 7,140 to 11,001).
+
+**Bushes** (`flora.ts` `FLORA_KIND.bush`, `buildBush`; `street.ts` `BUSH_BANDS`, `bushTint`).
+- A low bush about a metre across and 0.8 m tall: seven cards of the maples' own leaf clusters heaped into a mound, lit as one mass and tinted per plant (14 triangles). Crimson, vermilion, orange, gold, a few deep crimson or still green, with more orange and gold than the crowns so the scrub stands out under them.
+- About six metres in ten carry one within 3 m of the verge's edge, and three in ten another in the 6.5 m beyond. Beyond a parapet they stand clear of it, on the slope below.
+- The plate shrubs stay.
+
+**Checks.**
+- Lower-frame flicker at 25 m/s against round ten's run: Wakakusa 5.21% to 5.10%, Irohazaka's maples 4.94% both.
+- Frame cost: the capture harness could not time it reliably (its median draw is about 22 ms with or without any plants). By the best of twelve interleaved runs, hiding every plant saves 3-4 ms in both scenes, which have 22,090 and 11,001 instances, so the cost is not mainly the instance count. It has not been measured in the real game on a slow machine.
+- Aizu's lamp-lit verge at Iimoriyama was captured with and without the new plants: the grass under the lamp was already bright gold and is only a little fuller.
+
+**Still open.** The banks' leaf carpet and grass are still sparser than the repaints' beyond about 12 m from the road; leaf drawing in the crowns; crisp spurs in the painted ranges; parked cars; the shaded valley road's lightness.
+
+Tests: `tests/street-routes.test.ts` (swards and bushes per 80 m, each plant on the ground under it, no more than six new plants to ten old; the new kinds' triangle budgets).
+
+## Finish pass, twelfth round — November 13, 2026 (golden-hour lanterns and walls; four tries dropped)
+
+The user: "keep going". Sheet `output/finish-20261111/review/21-golden-lanterns-and-walls.png`; before and after come from one capture run (`tmp/pixel-art/r12-ab.json` sets `world.goldenLamps` to 0 and `WALL_GOLDEN_CUT.value` to .5).
+
+**Town lamps in the golden hours** (`world.ts` `GOLDEN_LAMPS` 0.45, `goldenLamps`).
+- Since refine round 4 a late-day route's lamps were off by afternoon light, because the shopping lamps' bare globes drew as white clouds over the golden sky. With their caps and amber limbs (round nine) that no longer happens.
+- Sanjō-dōri's pole lanterns hung as dark brown boxes, where the true-light repaint lights lanterns all down the street.
+- The period city's lamp material (globes, lanterns, lamp boxes) now burns at 0.45 of the night's in the golden hours: the lanterns glow warm cream with amber edges. At 0.7 they read pale cream.
+- The road's light pools still follow the lamps alone, so no pools lie on the sunlit road. The far lights were already lit by the golden hours' window share.
+- The repaint lights about half its lanterns (the nearest pair on the right is dark); all are lit here.
+
+**Sunlit walls in the golden hours** (`period-city/materials.ts` `WALL_GOLDEN_CUT` 0.65, was 0.5). Sanjō's tall blank flanks in the low sun measured L 0.72, flat cream blocks, where the repaint keeps its concrete at 0.52-0.64; they now measure 0.66. Shaded walls, flat tops and the temple wall (its own share, `tsuijiGoldenCut` 0) are unchanged.
+
+**Tried and dropped** (each judged on before / after / target images in one capture run).
+- *Far lights by the street lamps.* Nara Park's basin horizon carries a pink-white streak: the basin towns' far lights, lit by the golden hours' window share. Gating every far light (the basin's and the street's far beacons) by the lamps' on-state removed the streak but also the lit lamps down Sanjō-dōri and Sarusawa, which their repaints paint. The streak also sits where the Nara Park repaint paints sun glitter on its lake. Reverted.
+- *Forward scattering over the basin.* The haze toward the low sun gathering in fewer metres, to brighten Nara Park's flat basin plane. No visible change: the basin lies about 85° off the sun's bearing from there (we look north-west, the sun is west-south-west), where no forward glow or glitter would appear in reality either.
+- *Leaf-by-leaf variety in the maple crowns.* Per-leaf light and a share of leaves turned orange-gold, in both crown systems (the roadside maples' leaf geometry and the flora atlas, decoded in the foliage shader). At native resolution it could not be told from before, and the warm leaves first read olive-brown: the crown light keeps a crimson leaf's luminance while changing its hue, and orange at crimson's luminance is brown. The repaints' crowns differ by crisp leaf silhouettes and dark gaps, which is the cell resolve's handling of alpha-tested leaves, not leaf colour.
+- *Haze thinning with height, and Chūgūshi's lights* (Irohazaka's far land). Meant to darken Nantai-san over Akechidaira and light the plateau at dusk. Nothing changed in the frame: the large cone there is the painted sky's range; the real Nantai-san (3.9 km, 17° up) stands behind the near maples; and Chūgūshi lies 53° left of the camera's view.
+
+**Findings for later.**
+- The Akechidaira repaint's dark mountains are the painted sky's ranges in our frame; making them read as dark plum at dusk (ours L .45-.49 against .28-.33) would be a painted-sky change.
+- The roadside crowns' speckled edges against the sky are the biggest remaining gap in the autumn frames.
+
+Tests: `tests/finish-pass-lights.test.ts` (golden lamps and the wall cut).
+
+## Finish pass, thirteenth round — November 13, 2026 (maple leaves drawn larger with distance)
+
+The user: "Keep going" (to the maple crowns' speckled edges). Sheet `output/finish-20261111/review/22-maple-leaves-with-distance.png`; before and after come from one capture run (`tmp/pixel-art/r13-ab.json` sets both growth switches' z to 0).
+
+**What the speckle was.** The renderer's debug views (`window.__soraPixelArt.inspectViews` / `setDebugView`: `foliage`, `resolve`, `coverage`) showed the following:
+- The speckle is already in the cell resolve, before any grade or foliage stage.
+- The crowns are full of mixed cells where a leaf covered fewer than two of a cell's four samples, so the cell took the sky behind it.
+- The canopy flag (normal turn test) catches only a scattered minority of crown cells, so the foliage stages barely act.
+- Five settings of those stages were compared in one run (no smoothing, no hole fill or calm, ink on canopy, no clump offset, and combinations): no visible difference.
+
+The cause is leaf size on screen. The repaints draw a maple's leaves as crisp stars about eight to twelve art cells across in every crown, near or far. At true size ours fall under five cells beyond about 25 m, and their lobes under one.
+
+**Leaves grow about their stalks with distance** (`autumn-foliage.ts` `leafGrowthGlsl`, `roadsideLeafGrowth`, `floraLeafGrowth`).
+- A vec4 attribute `leafCentre` carries each leaf's stalk (w 0 for a maple leaf that may grow, 1 for anything else). A geometry without it reads (0, 0, 0, 1) and never grows.
+- The vertex shader scales the leaf about that point by its distance from the camera over 14 m (none nearer), up to 2.6 times for the roadside maples (`scenery.ts`, `world.ts` `mapleCrownLight`) and 1.8 for the flora maples' leaf cards (`period-city/flora.ts`). Cards hold a whole cluster, so they puff the crown out more as they grow.
+- Only maples grow: cherries' petals, cedars, pines, grass, susuki and the turned bushes keep their size.
+- Shadows keep the true size; the depth materials lack the growth.
+- Seen: mid-distance crowns read as fuller masses with leaf-shaped edges in place of red speckle with sky pinholes. This shows at Wakakusa, Nara Park, Kyoto's avenue, Irohazaka, Umagaeshi, Sarusawa and Aizu. The near crowns (under 14 m) are unchanged.
+- A stronger setting (from 10 m, up to 3.2 times, flora 2.4) turned mid crowns into solid blobs with spiky outlines and was not taken.
+- Upper-frame flicker at 25 m/s, off and on in one run: Wakakusa 5.51% to 5.30%, Nara Park 4.78% to 4.73%, Irohazaka 5.07% to 4.90%.
+- `roadsideLeafGrowth.value.z` / `floraLeafGrowth.value.z` 0 for A/B.
+
+**Tried and dropped: per-leaf shading.**
+- Each maple leaf lighter at its middle and darker at its lobes' tips (vertex colours, and a radial fill in the flora atlas), with a wider per-leaf tone spread, so overlapping leaves would part.
+- No visible difference in three scenes. The crown light's highlight ceiling (`crownLight`) holds lit leaves together, and round twelve's per-leaf colour failed the same way.
+
+**Still open.** The repaints' crowns still show more internal structure (leaf by leaf light and dark, branches through the crown) than ours. That needs the crown light's highlight handling revisited, not leaf geometry.
+
+Tests: `tests/finish-pass-lights.test.ts` (growth defaults, the gating and distance in the GLSL, the flora cards' centres and which plants grow, the roadside attribute and both materials, shadows untouched).
+
+## Finish pass, fourteenth round — November 13, 2026 (lamp rows through the maples, warm halos, flank windows)
+
+The user: "Keep going", then "Try again" (the turn had been cut off; the work went on from where it stood). Sheet `output/finish-20261111/review/23-lamp-rows-halos-flank-windows.png`. Kyoto's rows switch the round's lamp windows and warm halos off and on within one capture run (`tmp/pixel-art/r14-ab.json`); Kanda's flank compares the survey run with this round's (geometry).
+
+**Survey.** Ten frames against their repaints (`output/finish-20261113/survey/`). The largest gaps found:
+- Kyoto's torii avenue: the repaint lines it with lit lamps on both sides receding to the torii; ours showed none.
+- Kanda at night: a blank dark flank two thirds of the frame high on the right.
+- Grey smudges round lamps in red foliage.
+
+**Lamp rows through the maples** (`world.ts` `LAMP_WINDOWS`, `placeLampWindows`, `mapleCrownLight`).
+- Why they were hidden: the race lamps hang their heads at 6.6 m, half a metre beyond the road's edge. A render with the roadside crowns hidden showed both rows lit down the avenue.
+  - The maple crowns (lowest leaves at 4 m, measured in the page) reach 3.85 m from their trunks at that height. The trunks stand 2.9 m from the edge, so the crowns reach about a metre over the road, and 1.8 m with round thirteen's leaf growth.
+  - Seen down the avenue, every head beyond about 20 m sat inside that wall of leaves. Round thirteen's growth hid the last few that had peeked through.
+  - Pulling the far beacons toward the camera cannot fix this: the line of sight runs inside the crown band for up to two thirds of its length.
+- Now: each lit lamp head between 18 m and the 24th lamp opens a small round window in screen space through the roadside crowns' leaves. The window is about the head's glow wide (0.3 m, at least 1.5 art cells) and cuts only leaves in front of the head and farther than 30% of its distance, so a crown near the camera stays whole.
+- The leaves round each window take the lamp's light, fading out by two window radii, as the repaint lights the leaves round its lanterns.
+- Variants compared in one run: holes only (stark cream dots), the chosen soft glow, and twice that glow at 2.6 radii (large glowing orbs).
+- Windows grow in between 18 and 26 m, so none pops shut near the camera.
+- They are placed as the race camera renders (`scene.onBeforeRender`), for that camera only; the reflection probes render the same scene from their own cameras. The first version placed them earlier in the frame: in a motion strip at 25 m/s they trailed the lamps by the camera's travel and showed dark rings beside the heads.
+- Only lit lamps: none in a late-day route's afternoon.
+- Cherry crowns use the same materials; Tokyo's moat frame changed only where a lamp behind a cherry now shows, and in that lamp's reflection.
+- `world.lampWindowsOn` false for A/B; `lampWindowGlow`, `lampWindowGlowReach` for tuning.
+- Upper-frame flicker at 25 m/s, off and on in one run: Kyoto 5.52% to 5.53%, Iimoriyama 5.12% both.
+
+**Warm halos over warm ground** (`pixel-art/linework.ts` glow stage, `glowWarmKeep` 1).
+- A warm lamp's halo ramp falls to a chroma of .045, made for the dark violet skies and walls behind most lamps. Over crimson crowns its outer rings drew as grey-taupe crescents round every lamp, a smudge even without the windows (Kyoto's avenue).
+- Over warm, saturated ground (hue within 50-65° of amber, chroma above .05-.1) the halo now keeps the background's chroma and leans to its hue toward the rim. Violet and blue backgrounds keep the old ramp, so no magenta rims appear.
+- Shijō and Aizu's moat changed in under 0.05% of their pixels.
+
+**Windows round a flank's board** (`period-city/buildings.ts` `flankGrid`, `FlankBoard`).
+- A building whose flank carries a painted advertisement had no windows on that flank at all. Where Kanda's road turns it toward the camera it stood as a dark wall two thirds of the frame high under its board.
+- That flank now takes its window grid round the board, at least 0.4 m clear of it sideways and 0.5 m up and down, from a stream of the lot's own, so the street life drawn after it is unchanged.
+- In the Kanda frame this adds one lit row of two windows below the board; the repaint's flank is lit all over, so the gap there is smaller but still open.
+- Tried and dropped: placing boards high on the flank (cubed draw), so the exposed upper half kept windows. It moved the board almost out of the frame's top edge.
+
+**Still open.**
+- The Kyoto repaint's far shore across the canal (a lit city reflected in the water) is a dark plane in ours.
+- The repaint's lamps are period lantern posts in front of the trees. Ours are the modern lamps seen through windows in the leaves.
+- Kanda's flank is still mostly dark.
+
+Tests: `tests/finish-pass-lights.test.ts` (window constants, the discard and depth range, render-time placement for the race camera only, the warm-halo GLSL and its hue range), `tests/period-city.test.ts` (on every advertised flank of the Tokyo layout the windows stay clear of the board, and there are more than four per board).
+
+## Finish pass, fifteenth round — November 13, 2026 (the Biwa canal at Okazaki)
+
+The user: "Keep going" (to round fourteen's open items), then "Try again" twice (turns cut off; the work went on from where it stood). Sheet `output/finish-20261111/review/24-biwa-canal-okazaki.png`: round fourteen's frame against this round's (the canal is geometry, so separate runs), with a motion strip.
+
+**What the dark plane was.** The flat dark ground left of Kyoto's torii avenue (and beside Niōmon-dōri before it) was a park lawn (the route's `park` district on that side). Probing the frame found no water there at all. The real 1986 place, from the route's OpenStreetMap extract (`output/street-routes/research/kyoto-1986/data/rail_water.json`, ways 83328817 and 83327644):
+- The Biwa canal (琵琶湖疏水, 1890) leaves the Nanzen-ji basin and runs due west along latitude 35.01202-35.01203, about 20 m north of Niōmon-dōri.
+- Jingū-michi crosses it on Keiryū-bashi (慶流橋) at the turn, about 75 m before the great torii.
+- It runs on west about 200 m, then north.
+- The route's own research notes have the canal on the right along Niōmon-dōri (`world/research/routes/kyoto-1986.md`, stretch 9).
+- The true-light repaint paints water on that side: its wide lit river beside the avenue is licence, but the canal under the bridge is real.
+
+**Canals** (`period-city/layout.ts` `PeriodCanal`, `PeriodStreetPlan.canals`, `canalDistance`, `canalFootprints`; `open-ground.ts` `canals`, `canalPieces`, `canalBridges`; `street-scenes.ts` `KYOTO_CANAL`).
+- Course: Kyoto's canal follows the map's points converted to route metres with the track compiler's projection (`routeMetres`). It is drawn from the Nanzen-ji end to about 90 m west of Jingū-michi, as far as the race's ground reaches.
+- Size: 16 m wide (the map's width) with its water 1.2 m below the street (an estimate from photographs, not a survey). At 2.1 m the near bank hid the water from the car's camera entirely.
+- Drawing: the canal is drawn in pieces about 2 m long, each by the chunk of its nearest route progress. Each piece has water (the moat's water material, which the pixel pass mirrors), dressed-stone walls and a stone coping along each bank. Under the road and its walkway (the bridge deck, 1.7 m beyond the road edge) only the water is drawn. A piece crossing the deck's edge is split there by bisection, so no wall stands on the walkway.
+- Keiryū-bashi: granite parapets along the walkway's outer edge, the length of the channel and its copings, with their face down to the water.
+- A black railing along the copings was tried and dropped: where it ran close past the camera it drew as a dark smear.
+- Ground: the urban ground opens over the channel and 4 m beyond its copings, never under the deck (`periodCityGroundCut`'s new `canals`). The park lawn and hedge stop at each coping and resume beyond (`canalGap`), with extra lawn sections where the canal passes under the road.
+- Lots keep off the channel and copings. Trees keep their trunks off (`periodCityPlantingClear`: 1.5 m), so crowns may lean over the water from the banks.
+- The verge's autumn planting, bushes, swards, grass and fallen leaves keep off the canal and its coping (`street.ts` `verge`). A probe had found the autumn wood planted inside the channel.
+- A dark blotch on the bridge parapet near the camera is a planted maple's shadow (gone with the key light's shadows off) and was left.
+- Only Kyoto has a canal; Shijō and Horikawa are unchanged.
+- Flicker at 25 m/s: over the canal's patch, 4.04% (round fourteen's run, a lawn) to 4.78% (water mirroring the sky shimmers, as the moats do); whole frame 4.93% to 5.00%.
+
+**Still open.**
+- The repaint's lit far shore: ours shows the north bank's lawn, trees and the Okazaki museums beyond the canal, darker than the repaint's city lights. The real view across the canal there is the zoo and the park, not a lit city.
+- The water mirrors the dusk sky but no far lights, since few stand across it.
+
+Tests: `tests/street-routes.test.ts` (the Kyoto canal follows the map within 1.5 m of one latitude for about 480-520 m; Jingū-michi crosses it at 5.95-6.0 km; the ground opens over the channel but never under the deck; no lot corner stands in the channel; trees keep off but a crown may lean over; water is drawn, no wall stands under the deck, and nothing is planted in it).
+
+## Finish pass, sixteenth round — November 13-14, 2026 (windows on low blocks' end walls, lobbies lit)
+
+The user: "Keep going". Sheet `output/finish-20261111/review/25-low-flank-windows-lit-lobbies.png`. The lobby pairs come from one capture run each (`tmp/pixel-art/r16-ab.json` sets `lobbyShare` to 1); Sanjō compares the round-fourteen survey run with this round's (geometry).
+
+**Windows on a low block's end walls** (`period-city/buildings.ts` `lowFlankGrid`, `LOW_FLANK_GRID`).
+- What was wrong: the largest blank area left of Sanjō's frame was the end wall of a three-storey apartment block (lot 1:1:3445, 26.9 by 11.5 m) standing over the low house in front of it. Probed: its flank, pale cream in the low sun, carried a single stray window, where the repaint's building at that place lights two rows of rooms.
+- Cause: `flankGrid` draws flank windows only from 10 m up, so two- and three-storey blocks (most of a town's) kept blank end walls. shell()'s "few stair and toilet windows" (0-2 a flank) were all they had.
+- Now: apartment blocks, tenant buildings and offices under 10 m tall take windows on both flanks above the ground floor, floor by floor (each floor a lot's height over its storeys), 1.3 m wide every 3 m along the flank, all of them. Corner flats have windows on their end walls. Dropped at random (as tall frontage flanks are, 70%), a flank read as a gap-toothed wall.
+- The stray stair windows give way on those flanks; their draws are kept, so the building itself is unchanged.
+- The grid comes from a stream of the lot's own, so the street life drawn after it from `extra` is unchanged. Tall blocks keep `flankGrid`'s rows.
+- Kanda, Aizu's moat, Shijō, Sarusawa and Horikawa showed no visible change in their frames.
+
+**Lobbies lit with the ground floors** (`period-city/materials.ts` glass shader, `lobbyShare` 2).
+- What was wrong: a lobby pane lit only when its random seed fell under the ground floors' lit share (0.75 at sunrise, 0.65 at dusk, 0.9 at night), so a quarter to a third stood unlit: dark mirrors metres high between lit ones. On Tokyo's sunrise frame one of Mitsui Bussan's twelve 3.6 by 4.6 m lobby panes (seed 0.81) stood as a navy slab; every repaint lights its lobbies.
+- Now a lobby's share is twice the ground share (every lobby lit from a ground share of one half). Shops and halls keep their own rule (a shut shop at dawn is real).
+- Pixels changed: Tokyo sunrise 0.87%, Tokyo's office street at night 1.38% (a lobby and its reflection on the wet road), Tokyo dusk 0.09%, Yokohama 0.04%.
+
+**Still open.**
+- Sanjō's repaint puts a four-storey tiled building with a vertical sign (歯科 喫茶) at the frontage, where our layout has a low house in front of a set-back block.
+- Tokyo sunrise's moat: the repaint's water glitters with the dawn sky; ours is darker with a few streaks.
+- Tokyo sunrise's frontage: the repaint has a lit yakitori shop, vertical signs and crowds; ours has an office's lobbies.
+
+Tests: `tests/period-city.test.ts` (every two- or three-storey frontage block of the three kinds in a town layout carries both flanks' windows on every upper floor and column, each within its floor, with no stray stair windows; tall blocks keep flankGrid's rows), `tests/finish-pass-lights.test.ts` (the lobby share, its uniform, and the lobby flag defined before it).
+
+## Finish pass, seventeenth round — November 14, 2026 (ripple glints on open water)
+
+The user: "Keep going". Sheet `output/finish-20261111/review/26-water-ripple-glints.png`; every before/after pair comes from one capture run (`waterGlint` 0 against the default).
+
+**What the moat was.** On Tokyo's sunrise frame the palace moat read as a dark slate band under its stone wall, where the true-light repaint paints it glittering pink and violet with the dawn sky. The pixel pass's water mirror (the moat material's alpha .5 flag) is a true mirror: from the road it reflects the far wall, which fills most of the water.
+
+**Ripple glints** (`pixel-art/surfaces.ts` composite, `waterGlint` 0.24, `waterGlintLight` 0.75).
+- Wind ripples tilt a real mirror up past the far bank to the open sky, which is what the glitter is. A share of the water's cells now does that: each mirrors the sky found straight up its screen column past the bank (the first cell the cell resolve marks as sky) at 0.75 of its light.
+- Drawn in screen-row dashes 2-5 cells long, like the wet road's ripple dashes, so they hold still under a still sky.
+- Only ever brighter than the mirror (a lamp's column keeps its light).
+- Water cells only: the moats, the ponds, the canal, the harbour and rivers. Shared by every route, with the sky's own colour, so at night the glints are faint violet.
+- Pixels changed: Tokyo sunrise 0.40%, Tokyo's moat at night 0.21%, Yokohama's harbour street at 60% of the lap none (no water in view).
+- Flicker at 25 m/s over the water, off and on in one run: Tokyo's moat 2.78% to 2.81%, Sarusawa's pond 5.94% to 5.84%.
+- Densities 0.16 and 0.28 compared; 0.24 taken (0.16 read sparse beside the repaint's glitter).
+
+**Still open.** The repaint's glitter is warmer toward the low sun (orange among the pink); ours takes the sky straight above each cell, which at sunrise is violet-pink. A sun-path term (glints brighter and warmer toward the sun's bearing) would need the key light's direction in the composite.
+
+Tests: `tests/finish-pass-lights.test.ts` (defaults, water cells only, the upward sky search, never darker than the mirror, the uniform), `tests/pixel-art-surfaces.test.ts` (the composite stays within WebGL 2's guaranteed uniform vectors).

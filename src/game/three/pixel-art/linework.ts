@@ -184,6 +184,13 @@ export interface LineworkOptions {
   /** Cells over which a halo's colour ramp runs from the lamp colour to the background (with glowStable). */
   glowRampCells: number;
   /**
+   * Finish pass, round fourteen: over a warm, saturated background (red or orange autumn crowns, a vermilion torii, red
+   * signs) a warm lamp's halo keeps at least this share of the background's own chroma, so it reads as the lamp's light
+   * on the leaves. Its ramp falls to a chroma of .045 for the dark violet skies and walls it was made for, and over a
+   * crimson crown its outer rings drew as grey-taupe smudges round every lamp (Kyoto's avenue). 0 off.
+   */
+  glowWarmKeep: number;
+  /**
    * Refine round 3, far lamp rows: beyond lampHeadMid metres a street-lamp
    * head is a 2 x 1 cream core with a 1-cell ring, beyond lampHeadFar one
    * cell with a 1-cell tan ring (#ae8773), with lampHeadTierBand metres of
@@ -248,7 +255,7 @@ export const LINEWORK_DEFAULTS: LineworkOptions = {
   cleanupKeep: 0.2, cleanupSimilar: 0.08, inkCleanup: 1,
   // Refine round 3.
   inkRunCells: 2, glintConfirm: 1, glintRidgeCells: 3, glintRidgeKeep: 0.6,
-  glowStable: 1, glowKeySpecular: 14, glowKeyLift: 1, glowRampCells: 5,
+  glowStable: 1, glowKeySpecular: 14, glowKeyLift: 1, glowRampCells: 5, glowWarmKeep: 1,
   lampHeadMid: 40, lampHeadFar: 80, lampHeadTierBand: 4,
   foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 5, foliageLampGlint: 0, foliageToneFar: 45, foliageToneLift: 1,
   wireConnect: 1, wireCover: 0.2,
@@ -1008,6 +1015,7 @@ uniform ivec4 glowEntries;  // lamp core, lamp rim, small lamp core, analytic la
 uniform ivec3 glowRings;    // far lamp ring, mid lamp ring, mid lamp outer ring (refine round 3)
 uniform vec4 glowShape;     // x: speckle fraction; y, z: innermost ring L and C; w: ramp cells (0: rings by radius, round 2)
 uniform float glowExact;    // refine round 4: 1 full colour (a halo draws its ramp's own colours), 0 palette lock
+uniform float glowWarmKeep; // round fourteen: share of a warm, saturated background's chroma a warm halo keeps (0 off)
 layout(location = 0) out vec4 outImage;
 layout(location = 1) out vec4 outMarks;
 void main() {
@@ -1117,6 +1125,14 @@ void main() {
     float chroma = mix(glowShape.z, .045, smoothstep(.25, max(last, .3), t));
     halo = vec3(mix(glowShape.y, background.x, sqrt(t)), t >= last ? min(chroma, .05) : chroma,
       t >= last ? hueToward(warmHue, toHue, radians(50.)) : warmHue);
+    // Over warm, saturated ground (red and orange crowns, a vermilion torii, red signs) the halo keeps the background's
+    // chroma and leans to its hue toward the rim: the lamp's light on the leaves, not a grey smudge (round fourteen).
+    float warmGround = glowWarmKeep * (1. - smoothstep(radians(50.), radians(65.), abs(hueArc(background.z, HUE_AMBER))))
+      * smoothstep(.05, .1, background.y);
+    if (warmGround > 0.) {
+      halo.y = mix(halo.y, max(halo.y, background.y * mix(1., .85, t)), warmGround);
+      halo.z = mix(halo.z, hueToward(warmHue, background.z, radians(25.) * t), warmGround);
+    }
   } else {
     // Neon and cool lights: toward the background along the shorter hue arc.
     vec3 lab = entryLab(indexOf(current));
@@ -1736,7 +1752,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
     glowSeedPrevious: { value: glowSeeds[1].texture as THREE.Texture }, glowSeedValid: { value: 0 },
     glowEntries: { value: new THREE.Vector4(entry(c.lampCore), entry(c.lampRim), entry(c.lampSmall), entry(LAMP_HEAD_CORE)) },
     glowRings: { value: new THREE.Vector3(entry(LAMP_RING_COLOURS.farRing), entry(LAMP_RING_COLOURS.midRing), entry(LAMP_RING_COLOURS.midOuter)) },
-    glowStable: { value: new THREE.Vector4() }, glowKeyLift: { value: 1 },
+    glowStable: { value: new THREE.Vector4() }, glowKeyLift: { value: 1 }, glowWarmKeep: { value: 1 },
     keyLightDirection: lineUniforms.keyLightDirection, keyLight: lineUniforms.keyLight,
     glowShape: { value: new THREE.Vector4() },
     lampHeadCount: { value: 0 },
@@ -1954,6 +1970,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
       glowUniforms.glowStable.value.set(stable ? 1 : 0, o.glowKeySpecular > 0 ? Math.cos(o.glowKeySpecular * Math.PI / 180) : -2,
         o.foliageTones > 0 ? 1 : 0, Math.max(1, o.foliageToneCells));
       glowUniforms.glowKeyLift.value = Math.max(0, o.glowKeyLift);
+      glowUniforms.glowWarmKeep.value = THREE.MathUtils.clamp(o.glowWarmKeep, 0, 1);
       glintUniforms.glintConfirm.value.set(o.glintConfirm > 0 ? 1 : 0, THREE.MathUtils.clamp(Math.round(o.glintRidgeCells), 0, 4),
         THREE.MathUtils.clamp(o.glintRidgeKeep, 0.05, 1));
       headsOn = o.lampHeads > 0;

@@ -2,6 +2,16 @@ Original prompt: Build SORA CARS from FINAL_VERSION.mp4 as a complete Japanese a
 
 # SORA CARS implementation
 
+## 2026-11-10 — Public startup failure and loading UX
+
+Release qualification: frozen `output/releases/sorafs-scene-fix-20261110/dist`, 308,514,817 bytes / 289 files. Static browser passed actual byte progress, complete practice, story, music preview and full archived WAV hash/ranges; cold startup measured 53,577,855 bytes. Native pack/proof/provider segment checks passed, CID `bafyr6icusmk4k2dh3drw5rk33c5rzsr3v7rrzayynseefdilzhbithiw4u`, three replicas. Existing immutable music/story assets and old pin are retained. Live publication/public browser checks remain pending.
+
+- User reports Chrome fails with “The driving scene could not be loaded,” and rejects the >300 MB cold scene and missing progress bar.
+- Public byte ranges match shipped files; independent browser reproduction also captured interrupted parallel asset requests that permanently mark scene readiness failed. Repair in progress: bounded asset request concurrency/retries, actual download progress, smaller licensed scene derivatives preserving original artwork, and complete cold public driving validation before claiming success.
+- BPNG accounts/data and existing content-addressed publications must be retained. No validator reset or account mutation is authorized by these UI changes.
+- Local startup assets now route to 100 reproducible derivatives totaling 30,492,122 bytes, all under the gateway's 8 MiB response limit. Originals and their licenses remain intact. The pipeline preserves non-image GLB buffers and all car/model identities, uses authored tree LOD2/3, resizes the HDR to 1024×512, and losslessly compresses verified architectural geometry.
+- Asset checks pass: every optimized glTF dependency exists, car/driver geometry bytes match their originals, architecture decodes to the original SHA-256, HDRLoader decodes the new HDR, TypeScript compiles, and six bounded-download/retry/cancellation/inactivity tests pass. Chrome cold-download/visual/control validation and publication remain pending.
+
 ## Accepted scope
 
 - 2–8 simultaneous human racers with visible opponents, contact/overtaking, drifting, braking and boost; 30 Hz deterministic physics, independent rendering and a 180-second limit.
@@ -6435,3 +6445,92 @@ November 10 fresh permission census: at15:26:40UTC the complete on-host JSON sna
 - Steering (`steerSubstep`): a released key straightens the wheel in a twentieth of a second (was a sixth), and turning into a bend the wheel winds on to half again as far as the road turns plus a tenth. Simulated new players on Hakone: rail contacts 11.5 to 8.8 a kilometre, crossings to the other rail 5.4 to 2.1, hard hits 6.4 to 2.3.
 - Re-measured garage (`tests/fixtures/garage-balance.json`, `RACE_GAINS`) and re-priced: boost controller ¥7k, high-rev six ¥18k, big turbine ¥25k, steel armour ¥25k, rally ¥56k; Championship rivals from ¥170k, Legends from ¥205k; Rei's first two Act 3 cars ¥140k. Hakone's opening night: a stock rookie podiums 20%, 85% with Yui's tyres; in Act 3 a regular on the crew's picks beats Rei by 0.3 s. Details in docs/driving-model.md and docs/garage-tech-tree.md.
 - 2026-11-15 integration check on the combined tree (real roads, this handling, graphics rounds): the balance fingerprints still match, so the report was not regenerated; 66 balance, part-card, garage, story, drive, real-road and street-route tests pass.
+
+## 2026-11-12 — Graphics finish pass, eighth round (golden-hour asphalt)
+
+- User: "keep going and make better". The finish pass so far is committed (e655094); this round is not.
+- Golden-hour roads take their repaints' slate and mauve instead of orange-brown: the grade's warm-road guard (`dayRoadColourKeep`) is off. It only acted in the golden hours now; Tokyo's sunrise and Nikko are unchanged. Sheet `output/finish-20261111/review/17-golden-hour-asphalt.png`.
+- Tried and dropped: a cooler golden fill and extra valley fill (too small to see).
+- 123 graphics, city and street-route tests pass; `tsc` clean.
+
+## 2026-11-13 — Graphics finish pass, ninth round (maple leaves, station halls, lanterns)
+
+- User: "continue and make it better". Sheet `output/finish-20261111/review/18-maple-leaves-station-hall-lanterns.png` (Hakone, Wakakusa, Irohazaka: a run before the round against one after; Kyoto, Yokohama: switches off and on in one run).
+- Fallen leaves are maple leaves: each is one square (new city material `leaf`) out of which the shader cuts seven lobes and a stalk, with a midrib and a darker half; 0.25-0.47 m across. Beyond about six art cells across they stay the old diamonds. Road flicker at 25 m/s unchanged (Wakakusa 4.95% and 4.92%, Irohazaka 4.07% and 4.16%, Kyoto 4.14% and 4.20%).
+- Station halls: Hakone-Yumoto's front at the Midnight Circuit's start was nine flat amber slabs. A hall's glazing now carries its bays and height to the glass shader, which draws mullions, a transom, strip lights, boards, ticket barriers and standing people; flat again at a distance. Applies to every `WINDOW_KIND.hall` rectangle (stations, pachinko, warehouse doors).
+- Lit canopies (11) are a warm ceiling under tube lights instead of one cream sheet. The shopping streets' globes shade to amber toward their limb and wear a dark cap and collar.
+- Switches for A/B: `fallenLeafShape`, `hallGlazingDetail`, `lampLimb` (period-city/materials.ts).
+- Seen and left: Nikkō's start (grey flank, pale open ground), Sanjō's blank flank, a blown-out panel in one Yokohama lobby room.
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, tenth round (leaf carpet, lawn, Nikkō's start)
+
+- User: "Keep going" (to Wakakusa's lawn and Nikkō's start line). Sheet `output/finish-20261111/review/19-leaf-carpet-lawn-nikko-start.png` (Nara and Irohazaka: switches off and on in one run; Nikkō: round nine's frame against this round's).
+- Autumn banks carry a carpet of maple leaves over their litter (`terrain.ts`, outline shared in `maple-leaf-glsl.ts`), drawn at three sizes so they show at mid-distance as the repaints draw them, with dark rims; a quarter gold in the golden hours only. Flicker at 25 m/s unchanged (Wakakusa 5.23% and 5.21%, Irohazaka 4.87% and 4.94%).
+- Wakakusa's lawn lies in broad paler, deeper and russet patches instead of one straw tone.
+- The banks' ground no longer mirrors the low sun: Nikkō's hillside behind the JNR station is dark grass instead of a pale peach sheet.
+- Painted iron sheet (`WALL_PATTERN.sheet`): lap lines and rust streaks on sheds, sheet shophouses and the flanks of copper-fronted shops. Tin signs on low flanks facing oncoming drivers, from the lot's own seed.
+- Switches for A/B: `terrainAutumnFinish`, `terrainGroundGlare` (terrain.ts), `sheetRust` (period-city/materials.ts).
+- Tests: 193 of 197 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts` (gzip header errors against `architecture-ambient.ts`, which this pass did not touch), as in round nine.
+- Seen and left: the machiya's blank flank right of Nikkō's road, the flat shade band on Wakakusa's lawn; the banks are still barer than the repaints'.
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, eleventh round (thicker banks)
+
+- User: "Keep going" (to denser grass and shrubs on the banks). Sheet `output/finish-20261111/review/20-thicker-banks.png` (round ten's frames against this round's; separate runs, the planting is chunk geometry).
+- Wooded verges of the autumn routes stand thick with golden grass: two swards (four tufts as one plant, `FLORA_KIND.sward`) to a metre and side beside the five single tufts. A first version with twelve single tufts looked the same at 2.4 times the plant instances and was dropped; swards take 1.5 times (Irohazaka's maples 14,671 to 22,090).
+- Turned bushes (`FLORA_KIND.bush`: seven cards of the maples' leaf clusters, tinted per plant) crowd the bank behind the rail, about one to a metre and side.
+- Flicker at 25 m/s against round ten: Wakakusa 5.21% to 5.10%, Irohazaka 4.94% both. Frame cost could not be timed reliably in the capture harness and has not been measured in the real game.
+- Tests: 193 of 197 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts`, as in rounds nine and ten.
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, twelfth round (golden-hour lanterns and walls; four tries dropped)
+
+- User: "keep going". Sheet `output/finish-20261111/review/21-golden-lanterns-and-walls.png` (before/after from one capture run).
+- Kept: the town's lamps (globes, lanterns, lamp boxes) burn at 0.45 in a late-day route's golden hours (`world.ts` `GOLDEN_LAMPS`), so Sanjō-dōri's pole lanterns glow warm where they hung dark brown; road light pools stay off. Sunlit walls take more of the golden-hours cut (`WALL_GOLDEN_CUT` 0.5 to 0.65): Sanjō's cream flanks L 0.72 to 0.66 (repaint 0.52-0.64).
+- Dropped after before/after/target checks: gating the far lights by the street lamps (removed the lit lamps the Sanjō and Sarusawa repaints paint); forward scattering over Nara's basin (it lies 85° off the sun; no change); leaf-by-leaf colour in the maple crowns (invisible at native size, olive in shade); haze thinning and Chūgūshi's lights at Akechidaira (the cone there is the painted sky's; Chūgūshi is out of frame).
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, thirteenth round (maple leaves drawn larger with distance)
+
+- User: "Keep going" (to the maple crowns' speckled edges). Sheet `output/finish-20261111/review/22-maple-leaves-with-distance.png` (before/after from one capture run).
+- Found with the renderer's debug views: the speckle is already in the cell resolve (leaves under two of four samples drop to the sky) and the canopy stages barely act (their flag catches few crown cells; five settings made no visible difference).
+- Kept: maple leaves grow about their stalks with distance, none under 14 m, up to 2.6× (roadside maples) or 1.8× (flora leaf cards), so mid-distance crowns read as leafy masses with leaf-shaped edges instead of red speckle with sky pinholes (`autumn-foliage.ts` `leafGrowthGlsl`; `leafCentre` attribute in `scenery.ts` and `flora.ts`). Shadows keep true size. Upper-frame flicker at 25 m/s slightly lower (Wakakusa 5.51% to 5.30%, Nara Park 4.78% to 4.73%, Irohazaka 5.07% to 4.90%).
+- Dropped: a stronger growth (blobs), per-leaf shading (no visible difference).
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, fourteenth round (lamp rows through the maples, warm halos, flank windows)
+
+- User: "Keep going", then "Try again" (the turn had been cut off). Sheet `output/finish-20261111/review/23-lamp-rows-halos-flank-windows.png`.
+- Survey of ten frames against their repaints (`output/finish-20261113/survey/`). Largest gaps: Kyoto's torii avenue had no visible lamps (the repaint lines it with them), Kanda had a blank dark flank, lamps in red foliage had grey smudge halos.
+- Lamp rows: the race lamps' heads (6.6 m, just beyond the road's edge) sat inside the maples' crown band, which reaches 1-2 m over the road from 4 m up; round thirteen's leaf growth hid the last few. Each lit lamp head beyond 18 m now opens a small screen-space window through the roadside crowns' leaves (only leaves in front of it and farther than 30% of its distance), with the lamp's warm light on the leaves round it. Placed at render time for the race camera only; placed earlier they trailed the lamps at speed. Flicker at 25 m/s unchanged (Kyoto 5.52% to 5.53%).
+- Warm halos: over red and orange ground a warm lamp's halo keeps the background's chroma instead of falling to grey (`glowWarmKeep`).
+- Flank windows: a flank carrying a painted board now takes windows round the board instead of none.
+- Tests: 198 of 202 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts`, as before.
+- Nothing committed.
+
+## 2026-11-13 — Graphics finish pass, fifteenth round (the Biwa canal at Okazaki)
+
+- User: "Keep going", then "Try again" twice (the turns were cut off). Sheet `output/finish-20261111/review/24-biwa-canal-okazaki.png`.
+- The flat dark ground left of Kyoto's torii avenue was a park lawn. In 1986, as now, the Biwa canal (琵琶湖疏水) ran there: due west about 20 m north of Niōmon-dōri, under Keiryū-bashi at the turn onto Jingū-michi (OpenStreetMap ways 83328817 and 83327644 in the route's research extract).
+- New: canals along their real course (`PeriodCanal`, Kyoto's from the map's points): water 1.2 m below the street (estimate; at 2.1 m the near bank hid it), stone walls and copings, water only under the bridge deck, Keiryū-bashi's granite parapets. The ground opens over the channel, the park lawn stops at its copings, lots and trunks keep off, and the verge's autumn planting keeps out of it (it had been planted in the channel). A railing along the copings smeared near the camera and was dropped.
+- Seen: the left of the torii frame now shows the canal's water mirroring the dusk sky beyond the bridge wall, where the repaint paints water. Flicker over that patch at 25 m/s 4.04% to 4.78% (water shimmer, as the moats); whole frame 4.93% to 5.00%.
+- Tests: 199 of 203 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts`, as before.
+- Nothing committed.
+
+## 2026-11-14 — Graphics finish pass, sixteenth round (windows on low blocks' end walls, lobbies lit)
+
+- User: "Keep going". Sheet `output/finish-20261111/review/25-low-flank-windows-lit-lobbies.png`.
+- Low blocks: flank windows were drawn only from 10 m up, so two- and three-storey apartment blocks, tenant buildings and offices kept blank end walls (Sanjō's left: a cream slab with one window, where the repaint lights two rows of rooms). They now take a window on every upper floor and column of both flanks (`lowFlankGrid`), from the lot's own stream; the stray stair windows give way with their draws kept, so the buildings and street life are otherwise unchanged.
+- Lobbies: a lobby lit only when its random seed was under the ground floors' share, so a quarter to a third stood as dark mirrors (a 4.6 m navy slab on Mitsui Bussan's front at Tokyo's sunrise). They now light whenever the ground floors do (`lobbyShare` 2). Tokyo sunrise 0.87% of pixels changed, Tokyo's office street at night 1.38%.
+- Tests: 201 of 205 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts`, as before.
+- Nothing committed.
+
+## 2026-11-14 — Graphics finish pass, seventeenth round (ripple glints on open water)
+
+- User: "Keep going". Sheet `output/finish-20261111/review/26-water-ripple-glints.png` (before/after from one capture run each).
+- Tokyo's sunrise moat read as a dark band: the pixel pass's water is a true mirror, and from the road it reflects the far stone wall. The repaint paints it glittering with the dawn sky.
+- Ripple glints (`waterGlint` 0.24, `waterGlintLight` 0.75): a share of water cells, in screen-row dashes like the wet road's ripples, mirror the sky found straight up their screen column past the bank, never darker than the mirror. All water (moats, ponds, the canal, harbour, rivers); faint violet at night.
+- Tokyo sunrise 0.40% of pixels changed; flicker at 25 m/s unchanged (Tokyo's moat 2.78% to 2.81%, Sarusawa's pond 5.94% to 5.84%).
+- Tests: 202 of 206 graphics, city and street-route tests pass; the four failures are `tests/architecture-ambient.test.ts`, as before.
+- Nothing committed.

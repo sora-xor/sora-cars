@@ -330,7 +330,7 @@ function newGrand(b: CityMeshBuilder, random: Random): void {
   block(b, 'stone', '#c8b898', -31, 31, 20, 21, -.6, 22.6);
   block(b, 'wall', tile, -12, 12, 21, 24, 4, 18);
   block(b, 'metal', '#3a3a3c', -4, 4, 3.4, 3.7, -2.4, 0, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -3.6, 3.6, -2.2, -.2, 3.39, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-3.6, 3.6, -2.2, -.2, 3.39);
 }
 
 /** Chinatown's Zenrinmon (善隣門): red pillars, painted beams, three green-tiled roofs. */
@@ -360,7 +360,7 @@ function nikkoStation(b: CityMeshBuilder, random: Random): void {
   hipRoof(b, roof, -5.6, 5.6, 3.4, 18.6, 10, 13.5);
   b.colour.setRGB(2, 1.9, 1.6); b.front('lamp', -.7, .7, 8.2, 9.4, 3.97);
   block(b, 'metal', '#3a4a44', -6, 6, 3.4, 3.7, -1.2, 4, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -5.4, 5.4, -1, 3.8, 3.39, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-5.4, 5.4, -1, 3.8, 3.39);
   b.window = [random() * .3, WINDOW_KIND.lobby]; b.colour.set('#4a4038'); b.front('glass', -3, 3, .2, 3.2, 3.95);
 }
 
@@ -710,7 +710,7 @@ function yumotoStation(b: CityMeshBuilder, random: Random): void {
   }
   // A flat canopy over the pavement on thin posts, lit from beneath.
   block(b, 'metal', '#c9c6bd', -24, 24, 3.9, 4.15, -1.4, 2, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -23.4, 23.4, -1.2, 1.8, 3.89, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-23.4, 23.4, -1.2, 1.8, 3.89);
   b.colour.set('#8d8a84'); for (let x = -22; x <= 22; x += 11) b.box('metal', x - .09, x + .09, -.3, 3.9, -1.2, -1.02, 'b');
   // The platforms stand a storey up the hillside, under their own long roof.
   block(b, 'wall', '#b9b5aa', -30, 30, 5.2, 8.6, 9, 18);
@@ -778,7 +778,7 @@ function tobuNikkoStation(b: CityMeshBuilder, random: Random): void {
   b.face('roof', [[15, 3, 5], [0, 15.4, 5], [0, 15.4, 21], [15, 3, 21]], [.75, .66, 0]);
   b.colour.set(timber); b.face('wall', [[-13, 4.4, 20.4], [13, 4.4, 20.4], [0, 15, 20.4]], [0, 0, 1]);
   block(b, 'metal', '#3a4a44', -9, 9, 3.5, 3.8, 1, 6, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -8.4, 8.4, 1.2, 5.8, 3.49, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-8.4, 8.4, 1.2, 5.8, 3.49);
 }
 
 /** Nikkō City Hall, the former Daimyō Hotel (finished about 1919; the city's hall 1954–2006): a castle-like wooden
@@ -896,7 +896,7 @@ function kokusai(b: CityMeshBuilder, random: Random): void {
   block(b, 'wall', '#2a2c30', -42, 42, -.5, 3.4, -.1, 0, 'bk');
   b.window = [.5 + random() * .5, WINDOW_KIND.hall]; b.colour.set('#4a4038'); b.front('glass', 20, 40, .3, 3.1, -.14);
   block(b, 'metal', '#3a3a3e', 18, 42, 3.5, 3.9, -3.2, 0, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', 19, 41, -3, -.2, 3.49, -1);
+  b.colour.set('#ffe2b6'); b.soffit(19, 41, -3, -.2, 3.49);
   block(b, 'wall', '#6c4033', -30, 30, 31, 35, 8, 32);
 }
 
@@ -969,7 +969,7 @@ function palaceHotel(b: CityMeshBuilder, random: Random): void {
   // The lobby floor behind its glass, the porte-cochère and a penthouse on the roof.
   b.window = [.6 + random() * .4, WINDOW_KIND.lobby]; b.colour.set('#4a4038'); b.front('glass', -30, 30, .3, 3, 1.97);
   block(b, 'metal', '#3a3a3e', -12, 12, 3.2, 3.6, -5, 2, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -11.4, 11.4, -4.8, 1.8, 3.19, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-11.4, 11.4, -4.8, 1.8, 3.19);
   block(b, 'wall', '#6e5240', -14, 14, 31, 35, 12, 30);
   b.colour.setRGB(3.5, .3, .2); for (const x of [-49, 49]) b.box('lamp', x - .4, x + .4, 31, 31.8, 2.5, 3.3);
 }
@@ -1022,7 +1022,7 @@ function silkCenter(b: CityMeshBuilder, random: Random): void {
   }
   b.window = [.5 + random() * .5, WINDOW_KIND.shop]; b.colour.set('#4a4038'); b.front('glass', -33, 33, .4, 3.2, 1.97);
   block(b, 'metal', '#3a3a3e', -35, 35, 3.2, 3.5, -1, 2, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -34, 34, -.8, 1.8, 3.19, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-34, 34, -.8, 1.8, 3.19);
   block(b, 'wall', '#c4bcab', -12, 12, 27, 30.5, 14, 34);
 }
 
@@ -1111,7 +1111,7 @@ function sakuragichoStation(b: CityMeshBuilder, random: Random): void {
   for (const x of [-5.2, 0, 5.2]) { b.window = [.5 + random() * .4, WINDOW_KIND.hall]; b.colour.set('#4a4a44'); b.front('glass', x - 1.7, x + 1.7, 4.8, 9.8, 1.97); }
   // The canopy over the entrance, lit from beneath, and the lit concourse under it.
   block(b, 'wall', '#bdb4a2', -11, 11, 3.7, 4.2, -2.8, 2, 'k');
-  b.colour.set('#ffe2b6'); b.flat('lamp', -10.4, 10.4, -2.6, 1.8, 3.69, -1);
+  b.colour.set('#ffe2b6'); b.soffit(-10.4, 10.4, -2.6, 1.8, 3.69);
   b.window = [.7 + random() * .3, WINDOW_KIND.hall]; b.colour.set('#4a4038'); b.front('glass', -8.4, 8.4, .3, 3.5, 1.97);
   // The low wing.
   block(b, 'floodlit', render, -26, -10, -.3, 5.6, 4, 18);

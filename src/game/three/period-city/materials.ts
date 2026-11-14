@@ -3,8 +3,9 @@ import { ManagedTextureLoader } from '../asset-texture-loader';
 import { scannedSurface } from '../surfaces';
 import { awningAtlas } from './awnings';
 import { neonAtlasTexture, signAtlas, VNEON_BOTTOM_V, VNEON_TOP_V } from './signs';
-import type { CityMaterialKey } from './geometry';
+import { HALL_BAY, type CityMaterialKey } from './geometry';
 import { sharePavingUniforms } from '../paving-joints';
+import { MAPLE_LEAF_GLSL } from '../maple-leaf-glsl';
 
 /**
  * Lighting shared by every city material, set once per frame from the race
@@ -60,11 +61,14 @@ const wallDirectCut = { value: .7 };
  * GOLDEN_KEY), which is there for the road and verges under the raised stand-in key; so only upright faces lose it, and
  * flat tops (copings, parapets, sills) take the sun as the road does.
  */
-const WALL_GOLDEN_CUT = .5;
+/* November 13 (finish pass, round twelve): .65 (was .5). Sanjō's tall blank flanks in the low sun measured L .72, flat
+ * cream blocks where the true-light repaint keeps its concrete .52-.64; at .65 they measure .66. Shaded walls and flat
+ * tops are unchanged. .5 for A/B captures. */
+export const WALL_GOLDEN_CUT = { value: .65 };
 const wallGoldenCut = { value: 0 };
 /** How far a late-day route's golden hours have come (0-1; world.ts, every frame). */
 export function setPeriodCityGolden(golden: number): void {
-  wallGoldenCut.value = WALL_GOLDEN_CUT * THREE.MathUtils.clamp(golden, 0, 1);
+  wallGoldenCut.value = WALL_GOLDEN_CUT.value * THREE.MathUtils.clamp(golden, 0, 1);
   lanterns.value = lanternGolden.value * THREE.MathUtils.clamp(golden, 0, 1);
   leafShade.value = leafShadeGolden.value * THREE.MathUtils.clamp(golden, 0, 1);
 }
@@ -80,6 +84,18 @@ const leafShade = { value: 0 };
 export const tsuijiGoldenCut = { value: 0 };
 /** How much less of the wall the crowns' shade covers (raises its threshold on the crown field; 0 about half). */
 export const leafShadeCover = { value: .14 };
+/** A lobby's lit share against the ground floors' (glass shader; finish pass, round sixteen): 2 lights every lobby from a
+ * ground share of one half. 1 for A/B captures (by seed, as the shops). */
+export const lobbyShare = { value: 2 };
+/** Rust and lap lines on painted iron sheet (WALL_PATTERN.sheet; wall shader; finish pass, round ten). 0 for A/B captures. */
+export const sheetRust = { value: 1 };
+/** How far a hall's glazing shows its frame, strip lights and people (glass shader; finish pass, round nine). 0 for A/B
+ * captures: the flat amber panes. */
+export const hallGlazingDetail = { value: 1 };
+/** How far a round lamp's light deepens toward its limb (lamp shader; finish pass, round nine). 0 for A/B captures. */
+export const lampLimb = { value: .85 };
+/** Fallen leaves' outline (leaf shader; finish pass, round nine): 1 a maple leaf, 0 the plain diamond for A/B captures. */
+export const fallenLeafShape = { value: 1 };
 /** Stone lanterns' fireboxes (lamp mode 3) in the golden hours, against the night's lamps (1): the finish pass, as the
  * late-afternoon repaints of Nara's temple walls light them while the street lamps stay off. At .3 the paper glows
  * amber against the sunlit stone; at .8 it washed out to cream. 0 for A/B captures. */
@@ -109,7 +125,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
   material.name = name;
   material.userData.wallDirectCut = wallDirectCut; material.userData.lampWash = lampWash; material.userData.wallAmbient = wallAmbient; material.userData.wallSlate = wallSlate; material.userData.wallNightCut = wallNightCut;
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityNight = cityNight;
+    shader.uniforms.cityNight = cityNight; shader.uniforms.citySheetRust = sheetRust;
     shader.uniforms.cityWallDirectCut = wallDirectCut; shader.uniforms.cityWallGoldenCut = wallGoldenCut;
     shader.uniforms.cityLampHeads = cityLampHeads; shader.uniforms.cityLampWash = lampWash; shader.uniforms.cityGroundLights = cityGroundLights;
     shader.uniforms.cityWallAmbient = wallAmbient; shader.uniforms.cityWallSlate = wallSlate; shader.uniforms.cityWallNightCut = wallNightCut;
@@ -117,7 +133,10 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
       .replace('void main() {', 'attribute float cityPattern; varying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvCityPattern = cityPattern;\nvCityWorld = (modelMatrix * vec4(transformed, 1.)).xyz; vCityWorldNormal = normalize(mat3(modelMatrix) * objectNormal);');
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform float cityNight; uniform float cityWallDirectCut; uniform float cityWallGoldenCut; uniform vec4 cityLampHeads[6]; uniform float cityLampWash; uniform float cityGroundLights; uniform vec3 cityWallAmbient; uniform float cityWallSlate; uniform float cityWallNightCut;\nvarying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\nvoid main() {')
+      .replace('void main() {', 'uniform float cityNight; uniform float cityWallDirectCut; uniform float cityWallGoldenCut; uniform vec4 cityLampHeads[6]; uniform float cityLampWash; uniform float cityGroundLights; uniform vec3 cityWallAmbient; uniform float cityWallSlate; uniform float cityWallNightCut; uniform float citySheetRust;\nvarying float vCityPattern; varying vec3 vCityWorld; varying vec3 vCityWorldNormal;\n'
+        + 'float cityWallHash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }\n'
+        + 'float cityWallNoise(vec2 p) { vec2 i = floor(p), f = fract(p), u = f * f * (3. - 2. * f);'
+        + ' return mix(mix(cityWallHash(i), cityWallHash(i + vec2(1., 0.)), u.x), mix(cityWallHash(i + vec2(0., 1.)), cityWallHash(i + vec2(1., 1.)), u.x), u.y); }\nvoid main() {')
       .replace('#include <map_fragment>', THREE.ShaderChunk.map_fragment.replace('diffuseColor *= sampledDiffuseColor;', /* glsl */ `
         sampledDiffuseColor.rgb /= vec3(${mean.map(v => v.toFixed(6)).join(', ')});
         // The scan only roughens the pigment now: the finish's joints carry the texture, and a full-strength
@@ -164,6 +183,23 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
               // Stronger after dark, as the tile grid is, so the lamps and shops pick the ribs out of the dark sheet.
               float rib = (t < .28 ? .17 : t < .5 ? .02 : t < .78 ? -.16 : -.03) * mix(1., 1.9, dark);
               diffuseColor.rgb *= 1. + rib * (1. - smoothstep(period / 3.5, period / 2.4, cell));
+              // Painted iron sheet (WALL_PATTERN.sheet; finish pass, round ten): the sheets lap every 1.8 m up the wall,
+              // a dark line across it, and rust blooms in ragged patches a metre or so across, most along the foot and
+              // under each lap, some walls far gone and some nearly clean. A shed's bare flank was one flat grey sheet
+              // a fifth of the frame wide at Nikko's start.
+              if (vCityPattern - pattern > .12 && citySheetRust > 0.) {
+                const float lap = 1.82;
+                float band = fract(m.y / lap), fromLap = (1. - band) * lap;
+                float broad = 1. - smoothstep(.25, .6, cell);
+                // Run-off draws the blooms down the ribs: patches half a metre wide and two tall, frayed rib by rib.
+                float bloom = cityWallNoise(m / vec2(.55, 2.1)) * .6 + cityWallNoise(m / vec2(.16, 1.1) + 5.) * .4;
+                float gone = cityWallNoise(vCityWorld.xz / 19.);
+                float rust = smoothstep(.6, .72, bloom + .3 * (1. - smoothstep(.15, 2.4, m.y)) + .22 * (1. - smoothstep(0., .8, fromLap)) + (gone - .5) * .34);
+                // About as light as the paint it eats, so it reads as orange-brown rust and not as soot.
+                vec3 oxide = mix(vec3(.3, .115, .04), vec3(.5, .21, .06), cityWallNoise(m * vec2(5.3, 1.7)));
+                diffuseColor.rgb = mix(diffuseColor.rgb, oxide * (1. + rib * .6), rust * .55 * broad * citySheetRust);
+                diffuseColor.rgb *= 1. - .3 * citySheetRust * (1. - smoothstep(cell * .5, cell * 1.1, min(band, 1. - band) * lap)) * (1. - smoothstep(lap / 6., lap / 3.5, cell));
+              }
             } else if (pattern > 5.5) {
               // Lapped boards: each board's lower edge throws a shadow on the one below, the grain runs along it in
               // long streaks, and a knot here and there.
@@ -225,7 +261,7 @@ function pigmented(material: THREE.MeshStandardMaterial, mean: readonly [number,
           reflectedLight.directDiffuse += diffuseColor.rgb * vec3(1., .7, .42) * min(wash, 1.) * cityLampWash * cityGroundLights;
         }`);
   };
-  material.customProgramCacheKey = () => `${name}-v16`;
+  material.customProgramCacheKey = () => `${name}-v17`;
   return material;
 }
 
@@ -239,21 +275,25 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: .16, metalness: .35, envMapIntensity: 1.3 });
   material.name = 'period-city-window-glass';
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityWindows = windows; shader.uniforms.cityNight = cityNight;
+    shader.uniforms.cityWindows = windows; shader.uniforms.cityNight = cityNight; shader.uniforms.cityHallGlazing = hallGlazingDetail;
+    shader.uniforms.cityLobbyShare = lobbyShare;
     shader.uniforms.cityInteriors = { value: interiors?.texture ?? null };
     shader.uniforms.cityInteriorsReady = interiors?.ready ?? { value: 0 };
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'attribute vec2 cityWindow; varying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvCityWindow = cityWindow; vCityPane = uv;');
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform vec4 cityWindows; uniform float cityNight; uniform sampler2D cityInteriors; uniform float cityInteriorsReady;\nvarying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
+      .replace('void main() {', 'uniform vec4 cityWindows; uniform float cityNight; uniform float cityHallGlazing; uniform float cityLobbyShare; uniform sampler2D cityInteriors; uniform float cityInteriorsReady;\nvarying vec2 vCityWindow; varying vec2 vCityPane;\nvoid main() {')
       .replace('#include <emissivemap_fragment>', /* glsl */ `#include <emissivemap_fragment>
       {
         float seed = vCityWindow.x, kind = vCityWindow.y;
         float hall = step(4.5, kind), lobby = step(3.5, kind) * (1. - hall);
         // Lobbies light with the shops (refine round 4): every office repaint's ground floor is a lit glass hall, where at
         // 60% lit with a dim room Horikawa's office stood dark at street level.
-        float share = kind > 1.5 ? cityWindows.w : kind > .5 ? min(1., cityWindows.x * 1.2) : cityWindows.x;
+        // A lobby lights whenever the ground floors do (finish pass, round sixteen): by its seed alone, a quarter of them
+        // stood unlit at sunrise and a third at dusk, each a dark mirror metres high between lit ones (Mitsui Bussan's front
+        // on Tokyo's sunrise frame), where every repaint lights its lobbies.
+        float share = lobby > .5 ? min(1., cityWindows.w * cityLobbyShare) : kind > 1.5 ? cityWindows.w : kind > .5 ? min(1., cityWindows.x * 1.2) : cityWindows.x;
         if ((kind < 2.5 || kind > 3.5) && cityWindows.y > 0. && seed < share) {
           float level = fract(seed * 7.31 + .37), hue = fract(seed * 13.71 + .11);
           vec2 pane = vCityPane;
@@ -365,6 +405,48 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
             if (lobby > .5) inside *= vec3(1.1, .84, .58);
             glow = mix(glow, inside, room);
           }
+          // A hall's glazing (finish pass, round nine): a station concourse, a pachinko parlour or a warehouse floor behind
+          // a wall of glass stood as one flat amber slab several metres wide (Hakone-Yumoto's front at the Midnight
+          // Circuit's start), where every repaint draws a lit hall through its frame. The pane's bays and height ride in
+          // its kind (geometry.ts hallGlazing): mullions between the bays, a transom over the doors and a kick plate;
+          // inside, a dim floor under a lit wall, a strip light to each bay under the ceiling, people standing, and
+          // ticket barriers or counters. All of it fades to the flat light where a bay spans under a few scene pixels.
+          float hallSize = floor((kind - 5.) * 4096. + .5), hallBays = mod(hallSize, 64.), hallTall = floor(hallSize / 64.) * .5;
+          if (hall > .5 && hallBays > 0. && cityHallGlazing > 0.) {
+            float bx = pane.x * hallBays, my = pane.y * hallTall, bay = floor(bx), fx = fract(bx);
+            float detail = smoothstep(4., 10., 1. / max(fwidth(bx), 1e-4)) * cityHallGlazing;
+            float h1 = fract(sin(bay * 12.9898 + seed * 78.233) * 43758.5453), h2 = fract(h1 * 17.31 + .37), h3 = fract(h1 * 41.7 + .11);
+            vec3 inside = tone * .2 * mix(.42, .9, smoothstep(.15, 1.5, my));
+            // The dado: the wall's lower metre a shade darker, as tiled station walls are.
+            inside *= mix(.72, 1., smoothstep(.95, 1.02, my));
+            // Posters and timetable boards on the back wall of some bays.
+            float board = step(.5, h3) * step(abs(fx - .5), .3) * step(abs(my - 1.62), .34);
+            inside = mix(inside, tone * mix(.06, .3, step(.75, h3)), board * .8);
+            // A fluorescent strip under the ceiling, to each bay.
+            float tube = step(abs(fx - .5), .33) * step(abs(my - (hallTall - .42)), .075) * step(1.9, hallTall);
+            inside = mix(inside, vec3(1., .92, .74) * .62, tube);
+            // Ticket barriers and counters: low dark boxes whose tops catch the light.
+            float gate = step(.74, h1) * step(abs(fx - .5), .31) * step(my, .98);
+            inside = mix(inside, tone * mix(.035, .3, step(.88, my)), gate);
+            // People: one standing in about half the bays, a second, further in, in a few.
+            // Each a head, shoulders narrowing to the waist, and two legs, about 1.5-1.75 m tall.
+            float sx = (fx - (.26 + h2 * .48)) * ${HALL_BAY.toFixed(2)}, tall = 1.52 + h3 * .24;
+            float torso = step(.84, my) * step(my, tall - .26) * step(abs(sx), mix(.16, .235, smoothstep(.9, tall - .34, my)));
+            float legs = step(my, .84) * step(abs(abs(sx) - .09), .068);
+            float person = step(h1, .56) * max(max(torso, legs), max(step(length(vec2(sx, my - (tall - .115))), .115),
+              step(abs(sx), .05) * step(tall - .27, my) * step(my, tall - .2)));
+            float sx2 = (fx - (.74 - h3 * .5)) * ${HALL_BAY.toFixed(2)}, tall2 = 1.28 + h2 * .2;
+            float behind = step(.3, h2) * step(h2, .62) * max(step(length(vec2(sx2, my - (tall2 - .1))), .1),
+              step(abs(sx2), .17) * step(my, tall2 - .17));
+            inside *= 1. - .55 * behind * (1. - person);
+            inside *= 1. - .9 * person;
+            // The frame: mullions between the bays, a transom over the doors of a tall front, the kick plate below.
+            float mullion = step(min(fx, 1. - fx), max(.032, fwidth(bx) * .6));
+            float transom = step(2.9, hallTall) * step(abs(my - 2.3), max(.045, fwidth(my) * .6));
+            float frame = max(max(mullion, transom), step(my, .14));
+            inside *= 1. - .92 * frame;
+            glow = mix(glow, inside, detail);
+          }
           // Every window its cross mullion.
           if (lobby < .5 && kind < 1.5 && (abs(pane.x - .5) < .035 || abs(pane.y - .64) < .03)) glow *= .06;
           // A lit room shows through the glass: no mirror of the dusk sky over it, and its own light carries it.
@@ -374,7 +456,7 @@ function glassMaterial(interiors: { readonly texture: THREE.Texture; readonly re
         }
       }`);
   };
-  material.customProgramCacheKey = () => 'period-city-window-glass-v15';
+  material.customProgramCacheKey = () => 'period-city-window-glass-v17';
   return material;
 }
 
@@ -408,18 +490,27 @@ function lampMaterial(): THREE.MeshStandardMaterial {
   const material = new THREE.MeshStandardMaterial({ vertexColors: true, color: '#3a3430', emissive: '#ffffff', roughness: .5 });
   material.name = 'period-city-lamps';
   material.onBeforeCompile = shader => {
-    shader.uniforms.cityLamps = lamps; shader.uniforms.cityTime = time; shader.uniforms.cityLanterns = lanterns;
+    shader.uniforms.cityLamps = lamps; shader.uniforms.cityTime = time; shader.uniforms.cityLanterns = lanterns; shader.uniforms.cityLampLimb = lampLimb;
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'varying vec2 vLampAnimation;\nvoid main() {')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLampAnimation = uv;');
     // Chasing bulbs (pachinko halls, marquees): each bulb's phase runs on the clock.
     shader.fragmentShader = shader.fragmentShader
-      .replace('void main() {', 'uniform float cityLamps; uniform float cityTime; uniform float cityLanterns; varying vec2 vLampAnimation;\nvoid main() {')
+      .replace('void main() {', 'uniform float cityLamps; uniform float cityTime; uniform float cityLanterns; uniform float cityLampLimb; varying vec2 vLampAnimation;\nvoid main() {')
       .replace('vec3 totalEmissiveRadiance = emissive;', `vec3 totalEmissiveRadiance = emissive * vColor.rgb * (vLampAnimation.y > 2.5 ? max(cityLamps, cityLanterns) : cityLamps)
         * (vLampAnimation.y > 2.5 ? 1. : vLampAnimation.y > 1.5 ? .06 + .94 * step(.62, fract(cityTime * .75 - vLampAnimation.x))
-          : vLampAnimation.y > .5 ? .18 + .82 * step(.55, fract(cityTime * 1.4 - vLampAnimation.x)) : 1.);`);
+          : vLampAnimation.y > .5 ? .18 + .82 * step(.55, fract(cityTime * 1.4 - vLampAnimation.x)) : 1.);
+      // A round lamp (geometry.ts ROUND_LAMP: globes, lanterns, drums) is brightest where it faces the eye and deepens
+      // to amber toward its limb, so a near globe reads as a lit round body (finish pass, round nine: the shopping
+      // streets' globes stood as flat cream discs).
+      if (vLampAnimation.x > 1.5 && vLampAnimation.y < .5) {
+        float facing = abs(dot(normalize(vNormal), normalize(vViewPosition)));
+        // By the square of the facing: a lamp's faces a third of the way round already warm, as its light is far over
+        // the display's white and a gentler ramp left all but the last sliver cream.
+        totalEmissiveRadiance *= mix(vec3(1.), mix(vec3(.3, .14, .05), vec3(1.), facing * facing), cityLampLimb);
+      }`);
   };
-  material.customProgramCacheKey = () => 'period-city-lamps-v4';
+  material.customProgramCacheKey = () => 'period-city-lamps-v5';
   return material;
 }
 
@@ -631,6 +722,48 @@ void main() {`)
   return material;
 }
 
+/**
+ * Fallen maple leaves (street.ts `leaf`; finish pass, round nine). Each leaf is one square whose corners carry the
+ * leaf's own coordinates (-1..1, the middle lobe's tip toward +y), and the shader cuts a maple leaf out of it: seven
+ * pointed lobes from a point below the middle, the two lowest small, and a stalk. Every autumn repaint strews the road
+ * with maple leaves; ours were plain diamonds, which read as confetti. Lit as the ground is, in the leaf's own colour,
+ * with a paler midrib to each lobe and a darker half, as a painter folds a leaf. Where a leaf spans too few scene
+ * pixels for its lobes it fills out to the old diamond, so the far road's scatter is as it was.
+ */
+function fallenLeafMaterial(): THREE.MeshStandardMaterial {
+  const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 1, metalness: 0 });
+  material.name = 'period-city-fallen-leaves';
+  material.onBeforeCompile = shader => {
+    shader.uniforms.cityLeafShape = fallenLeafShape;
+    shader.vertexShader = shader.vertexShader
+      .replace('void main() {', 'varying vec2 vLeaf;\nvoid main() {')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvLeaf = uv * 2. - 1.;');
+    shader.fragmentShader = shader.fragmentShader
+      .replace('void main() {', `uniform float cityLeafShape; varying vec2 vLeaf;${MAPLE_LEAF_GLSL}void main() {`)
+      .replace('#include <color_fragment>', /* glsl */ `#include <color_fragment>
+      {
+        // The old diamond, a little smaller than the square: the far leaves, and all of them at cityLeafShape 0.
+        float diamond = 1. - abs(vLeaf.y) / .8 - abs(vLeaf.x) / .52;
+        vec2 leaf = mapleLeaf(vLeaf);
+        float span = max(fwidth(vLeaf.x), fwidth(vLeaf.y));
+        // The stalk, while it spans a scene pixel.
+        float stalk = step(abs(vLeaf.x), max(.03, span * .5)) * step(-.95, vLeaf.y) * step(vLeaf.y, -.2) * (1. - smoothstep(.05, .09, span));
+        float maple = max(leaf.x, stalk - .5);
+        // Lobes thinner than an art cell only shimmer: from about ten cells across down to six the leaf fills out.
+        float fill = smoothstep(.09, .16, span);
+        float inside = cityLeafShape > .5 ? max(maple - 1.5 * smoothstep(.16, .26, span), diamond - (1. - fill) * 1.2) : diamond;
+        if (inside < 0.) discard;
+        if (cityLeafShape > .5) {
+          float fine = 1. - smoothstep(.04, .09, span);
+          float rib = (1. - smoothstep(.0, max(.035, span * .7), leaf.y)) * fine;
+          diffuseColor.rgb *= (1. + .5 * rib) * mix(1., vLeaf.x > 0. ? .8 : 1.08, fine * (1. - rib)) * mix(1., .9 + .25 * smoothstep(.0, .12, inside), fine);
+        }
+      }`);
+  };
+  material.customProgramCacheKey = () => 'period-city-fallen-leaves-v2';
+  return material;
+}
+
 let shared: Record<CityMaterialKey, THREE.Material> | undefined;
 /** One set of materials for every chunk; `interiorsUrl` gives the lit windows their rooms. */
 export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): Record<CityMaterialKey, THREE.Material> {
@@ -697,6 +830,6 @@ export function periodCityMaterials(emblemUrl: string, interiorsUrl?: string): R
   sharpPrints(neonMaterial, 'period-city-neon-v3');
   shared = { wall, stone, roof, metal, glass: glassMaterial(interiorsUrl ? interiorsTexture(interiorsUrl) : null), sign: signMaterial, lamp: lampMaterial(), water, ground,
     floodlit: floodlitMaterial(), neon: neonMaterial, flag: bannerMaterial(neon), awning: awningMaterial(awningAtlas()),
-    tsuiji: floodlitMaterial(true) };
+    tsuiji: floodlitMaterial(true), leaf: fallenLeafMaterial() };
   return shared;
 }

@@ -2,9 +2,10 @@ import * as THREE from 'three';
 import type { SignPools } from './signs';
 
 /** Shared city materials; every chunk merges each into one mesh. `tsuiji`: a temple's plastered earthen wall (築地塀), the
- * floodlit plaster with leaf shade over it in a late-day route's golden hours (materials.ts). */
+ * floodlit plaster with leaf shade over it in a late-day route's golden hours (materials.ts). `leaf`: fallen maple
+ * leaves, each a square whose maple outline the material cuts (its corners carry the leaf's own coordinates). */
 export type CityMaterialKey = 'wall' | 'stone' | 'roof' | 'metal' | 'glass' | 'sign' | 'lamp' | 'water' | 'ground' | 'floodlit' | 'neon' | 'flag' | 'awning'
-  | 'tsuiji';
+  | 'tsuiji' | 'leaf';
 /** World-scale texture size per material; glass and print use their own UVs. */
 const SURFACE_METRES: Partial<Record<CityMaterialKey, number>> = { wall: 3, stone: 2, roof: 2, metal: 1.5, water: 6, ground: 4, floodlit: 3, tsuiji: 3 };
 export type Vec3 = readonly [number, number, number];
@@ -16,6 +17,22 @@ const SNOW = new THREE.Color('#e6eaf4');
  * blazing halls of pachinko parlours and stations (lit flat, with no room behind the glass).
  */
 export const WINDOW_KIND = { home: 0, office: 1, shop: 2, dark: 3, lobby: 4, hall: 5 } as const;
+/**
+ * A hall's glazing carries its own size to the glass shader in the fraction of its kind (under a half, so every test
+ * of the kind still holds): how many bays about 1.15 m wide its mullions divide it into (1-40) and its height in half
+ * metres (1-30), so the shader can draw the frame, the strip lights and the people inside at their true size. A pane
+ * with no size (0) is lit flat.
+ */
+export const HALL_BAY = 1.15;
+export function hallGlazing(width: number, height: number): number {
+  const bays = Math.min(40, Math.max(1, Math.round(width / HALL_BAY))), tall = Math.min(30, Math.max(1, Math.round(height * 2)));
+  return (bays + 64 * tall) / 4096;
+}
+/** A hall whose builder models its own frame and fittings (the petrol stand's kiosk): lit flat, with no size packed. */
+export const HALL_PLAIN = WINDOW_KIND.hall + 1 / 16384;
+/** A round lamp (a globe, a lantern, a drum): its light deepens toward its limb (materials.ts). Rides in a steady
+ * lamp's unused phase. */
+export const ROUND_LAMP = 2;
 
 class Stream {
   readonly positions: number[] = [];
@@ -28,9 +45,11 @@ class Stream {
 /**
  * Wall finishes the wall shader draws as joints (materials.ts): plain, tile
  * (二丁掛け), brick, vertical seams or boards, cladding panels, mosaic tile,
- * horizontal siding.
+ * horizontal siding, painted iron sheet.
  */
-export const WALL_PATTERN = { plain: 0, tile: 1, brick: 2, seams: 3, panels: 4, mosaic: 5, siding: 6 } as const;
+export const WALL_PATTERN = { plain: 0, tile: 1, brick: 2, seams: 3, panels: 4, mosaic: 5, siding: 6,
+  /** Painted corrugated iron: the seams' ribs, plus lap lines and rust (its fraction marks it; the shader rounds it to seams). */
+  sheet: 3.25 } as const;
 
 /**
  * Building-local primitives written straight into per-material vertex streams.
@@ -98,7 +117,11 @@ export class CityMeshBuilder {
     const nx = normal[0] * this.c + normal[2] * this.s, nz = -normal[0] * this.s + normal[2] * this.c;
     const ax = Math.abs(normal[0]), ay = Math.abs(normal[1]), az = Math.abs(normal[2]);
     const corner = [[0, 0], [1, 0], [1, 1], [0, 1]] as const;
-    let r = this.colour.r, g = this.colour.g, bl = this.colour.b;
+    let r = this.colour.r, g = this.colour.g, bl = this.colour.b, kind = this.window[1];
+    if (key === 'glass' && kind === WINDOW_KIND.hall && points.length === 4) {
+      const [p0, p1, p2] = points as [Vec3, Vec3, Vec3];
+      kind += hallGlazing(Math.hypot(p1[0] - p0[0], p1[1] - p0[1], p1[2] - p0[2]), Math.hypot(p2[0] - p1[0], p2[1] - p1[1], p2[2] - p1[2]));
+    }
     if (this.snow > 0 && normal[1] > .35 && SNOWY.has(key)) {
       const k = this.snow * Math.min(1, (normal[1] - .35) / .45);
       r += (SNOW.r - r) * k; g += (SNOW.g - g) * k; bl += (SNOW.b - bl) * k;
@@ -121,7 +144,7 @@ export class CityMeshBuilder {
         const k = corner[index] ?? corner[0]; stream.uvs.push(k[0], k[1]);
       }
       stream.colors.push(r, g, bl);
-      if (key === 'glass') stream.windows.push(this.window[0], this.window[1]);
+      if (key === 'glass') stream.windows.push(this.window[0], kind);
       if (key === 'wall') stream.patterns.push(this.pattern);
     }
     this.triangles += order.length / 3;
@@ -143,6 +166,25 @@ export class CityMeshBuilder {
     this.face(key, [[x0, y, z0], [x1, y, z0], [x1, y, z1], [x0, y, z1]], [0, facing, 0]);
   }
 
+  /**
+   * A canopy's lit underside at height y, in the current colour (its lamps'): a warm ceiling well under that light,
+   * and fluorescent tubes along the canopy's length in one row, or two under a deep canopy, brighter than it. One flat
+   * sheet at the lamps' own light stood as a cream slab across the frame (Hakone-Yumoto's canopy; finish pass, round nine).
+   */
+  soffit(x0: number, x1: number, z0: number, z1: number, y: number): void {
+    const { r, g, b } = this.colour, alongX = x1 - x0 >= z1 - z0;
+    this.colour.setRGB(r * .4, g * .3, b * .22); this.flat('lamp', x0, x1, z0, z1, y, -1);
+    this.colour.setRGB(r * 1.6, g * 1.55, b * 1.45);
+    const [a0, a1, c0, c1] = alongX ? [x0, x1, z0, z1] : [z0, z1, x0, x1], rows = c1 - c0 > 3.2 ? 2 : 1;
+    const count = Math.max(1, Math.round((a1 - a0) / 2.4));
+    for (let row = 0; row < rows; row++) for (let i = 0; i < count; i++) {
+      const a = a0 + (a1 - a0) * (i + .5) / count, c = c0 + (c1 - c0) * (row + .5) / rows, half = Math.min(.6, (a1 - a0) / count * .3);
+      if (alongX) this.flat('lamp', a - half, a + half, c - .08, c + .08, y - .02, -1);
+      else this.flat('lamp', c - .08, c + .08, a - half, a + half, y - .02, -1);
+    }
+    this.colour.setRGB(r, g, b);
+  }
+
   /** Axis-aligned box. `skip` omits faces: 'b'ottom, 't'op, 'f'ront (-Z), 'k' back (+Z), 'l' (-X), 'r' (+X). */
   box(key: CityMaterialKey, x0: number, x1: number, y0: number, y1: number, z0: number, z1: number, skip = 'b'): void {
     if (!skip.includes('f')) this.front(key, x0, x1, y0, y1, z0, -1);
@@ -155,12 +197,15 @@ export class CityMeshBuilder {
 
   /** Vertical cylinder (tanks, columns, poles); `top` closes it. */
   cylinder(key: CityMaterialKey, x: number, y0: number, z: number, radius: number, height: number, segments = 10, top = true): void {
+    const animation = this.animation;
+    if (key === 'lamp' && animation[1] === 0) this.animation = [ROUND_LAMP, 0];
     for (let i = 0; i < segments; i++) {
       const a = i / segments * Math.PI * 2, b = (i + 1) / segments * Math.PI * 2, m = (a + b) / 2;
       const ax = x + Math.cos(a) * radius, az = z + Math.sin(a) * radius, bx = x + Math.cos(b) * radius, bz = z + Math.sin(b) * radius;
       this.face(key, [[ax, y0, az], [bx, y0, bz], [bx, y0 + height, bz], [ax, y0 + height, az]], [Math.cos(m), 0, Math.sin(m)]);
       if (top) this.face(key, [[x, y0 + height, z], [bx, y0 + height, bz], [ax, y0 + height, az]], [0, 1, 0]);
     }
+    this.animation = animation;
   }
 
   /** A pitched roof over x0..x1 with its ridge along X, eaves at y, ridge `rise` higher. */

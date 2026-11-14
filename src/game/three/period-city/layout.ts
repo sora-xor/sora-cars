@@ -52,6 +52,41 @@ export interface PeriodCrossing {
   /** Half the channel's width along the road, in metres (the Nihonbashi River's 11 m by default). */
   readonly half?: number;
 }
+/**
+ * A canal beside and under the road along its real course, such as Kyoto's Biwa canal (琵琶湖疏水, 1890) at Okazaki,
+ * which runs beside Niōmon-dōri and under Keiryū-bashi before the great torii: a channel `width` metres wide between
+ * dressed-stone walls, its water `depth` metres below the road beside it, through `points` in the route's own metres
+ * (x west, z north, by the track compiler's projection).
+ */
+export interface PeriodCanal {
+  readonly points: readonly (readonly [number, number])[];
+  readonly width: number; readonly depth: number;
+}
+/** The road and its kerb walkway stand over a canal this far beyond the road edge (m): the bridge deck. */
+export const CANAL_DECK = 1.7;
+/** A canal's stone coping and railing beyond each wall (m). */
+export const CANAL_COPING = .5;
+/** How far (x, z) lies from the nearest canal's wall (m; negative inside its channel), or Infinity without canals. */
+export function canalDistance(canals: readonly PeriodCanal[], x: number, z: number): number {
+  let best = Infinity;
+  for (const canal of canals) for (let i = 1; i < canal.points.length; i++) {
+    const [ax, az] = canal.points[i - 1]!, [bx, bz] = canal.points[i]!, dx = bx - ax, dz = bz - az;
+    const t = clamp(((x - ax) * dx + (z - az) * dz) / (dx * dx + dz * dz || 1), 0, 1);
+    best = Math.min(best, Math.hypot(x - ax - dx * t, z - az - dz * t) - canal.width / 2);
+  }
+  return best;
+}
+/** A canal's channel and coping, segment by segment (local X along the segment), for lots and planting to keep off. */
+export function canalFootprints(canal: PeriodCanal): PeriodFootprint[] {
+  const out: PeriodFootprint[] = [];
+  for (let i = 1; i < canal.points.length; i++) {
+    const [ax, az] = canal.points[i - 1]!, [bx, bz] = canal.points[i]!, dx = bx - ax, dz = bz - az, length = Math.hypot(dx, dz);
+    if (length < 1e-6) continue;
+    out.push({ x: (ax + bx) / 2, z: (az + bz) / 2, yaw: Math.atan2(-dz / length, dx / length), halfX: length / 2 + .5,
+      halfZ: canal.width / 2 + CANAL_COPING + .1 });
+  }
+  return out;
+}
 /** A single landmark beside the road, its footprint reserved before lots are placed. */
 export interface PeriodLandmark {
   readonly p: number; readonly side: PeriodSide;
@@ -98,6 +133,8 @@ export interface PeriodStreetPlan {
   /** The route's forest districts rise as forest banks (terrain.ts `createTerrain`), not a shared hillside: their verge is
    * paved up to the bank (periodCityGroundCut) and holds only its understory, the race's own forest standing on the bank. */
   readonly forestBanks?: boolean;
+  /** Canals along their real courses (PeriodCanal): the ground opens over them, lots keep off and trees stand on their banks. */
+  readonly canals?: readonly PeriodCanal[];
 }
 /** Where a district asks for open ground (moat, park, shrine precinct) instead of lots. */
 export interface PeriodOpenRun { readonly district: PeriodDistrict; readonly side: PeriodSide; readonly start: number; readonly end: number }
@@ -499,6 +536,8 @@ class Grid<T> {
   query(box: Box): T[] { const values = new Set<T>(); this.visit(box, key => { for (const item of this.cells.get(key) ?? []) values.add(item); }); return [...values]; }
 }
 const indices = new WeakMap<PeriodCityLayout, Grid<PeriodFootprint>>();
+/** Each layout's canal channels (PeriodCanal): lots keep off them; trees keep only their trunks off them. */
+const canalIndices = new WeakMap<PeriodCityLayout, Grid<PeriodFootprint>>();
 const roadIndices = new WeakMap<PeriodCityLayout, Grid<Segment>>();
 
 function boxOf(f: PeriodFootprint, margin = 0): Box {
@@ -625,16 +664,25 @@ const FOREST_BANK_START = 18;
 /** Where the shoulder ends beyond the road edge, and a forest district's verge begins. */
 const FOREST_VERGE = 1.7;
 export function periodCityGroundCut(course: PeriodCityCourse, runs: readonly PeriodOpenRun[],
-  crossings: readonly PeriodCrossing[] = [], forestBanks = false): (x: number, z: number) => boolean {
+  crossings: readonly PeriodCrossing[] = [], forestBanks = false, canals: readonly PeriodCanal[] = []): (x: number, z: number) => boolean {
   const forestFrom = forestBanks ? FOREST_BANK_START : FOREST_VERGE;
   const cuts = runs.filter(run => run.district === 'moat' || run.district === 'park' || run.district === 'pond' || run.district === 'forest');
-  if (!cuts.length && !crossings.length) return () => false;
+  if (!cuts.length && !crossings.length && !canals.length) return () => false;
   const frame = periodCityRouteFrame(course, MOAT.water + 48 + MOAT.batter + MOAT.platform + 8);
+  // A canal opens the ground over its channel and coping, and half a ground cell (4 m) beyond, so no paved cell overhangs
+  // the water; its banks' own lawns and the road's walkway close round it. Never under the road and its walkway (the
+  // bridge deck).
+  const canalCut = (x: number, z: number) => {
+    if (!canals.length || canalDistance(canals, x, z) > CANAL_COPING + 4) return false;
+    const near = frame(x, z);
+    return !near || near.beyond > CANAL_DECK;
+  };
   // A sprint that finishes in a park or forest on a hill (Iimoriyama, Wakakusa-yama): paving past the finish
   // line would run on level with the road and read as a lake from the car. Leave that ground to the far land.
   const finish = course.poses.at(-1)!, openFinish = !course.circuit
     && cuts.some(run => run.end >= course.length - 1 && (run.district === 'forest' || run.district === 'park'));
   return (x, z) => {
+    if (canalCut(x, z)) return true;
     const best = frame(x, z);
     if (!best) return false;
     const { side, beyond } = best;
@@ -670,7 +718,8 @@ export function landmarkFootprint(course: PeriodCityCourse, landmark: PeriodLand
 export function createPeriodCityLayout(course: PeriodCityCourse, options: PeriodCityOptions): PeriodCityLayout {
   if (!(course.length > 0) || course.poses.length < 2) throw new Error('The period city needs a positive course length and at least two route poses.');
   const districtAt = options.districtAt ?? (() => 'kanda' as const), chunkLength = options.chunkLength ?? 80;
-  const roads = new Grid<Segment>(), occupied = new Grid<PeriodFootprint>();
+  const roads = new Grid<Segment>(), occupied = new Grid<PeriodFootprint>(), canals = new Grid<PeriodFootprint>();
+  for (const canal of options.street?.canals ?? []) for (const f of canalFootprints(canal)) canals.add(f, boxOf(f));
   for (let i = 1; i < course.poses.length; i++) {
     const a = course.poses[i - 1]!, b = course.poses[i]!, r = Math.max(a.width, b.width) + 2;
     roads.add({ a, b }, { minX: Math.min(a.x, b.x) - r, maxX: Math.max(a.x, b.x) + r, minZ: Math.min(a.z, b.z) - r, maxZ: Math.max(a.z, b.z) + r });
@@ -689,7 +738,8 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
       // The footprint centre is half a depth behind the facade.
       const footprint = { x: x + Math.sin(yaw) * depth / 2, z: z + Math.cos(yaw) * depth / 2, yaw, halfX: width / 2, halfZ: depth / 2 };
       if (hitsRoad(footprint, roads)) { stats.road++; continue; }
-      if (occupied.query(boxOf(footprint, .3)).some(other => overlaps(footprint, other, .3))) { stats.occupied++; continue; }
+      if (occupied.query(boxOf(footprint, .3)).some(other => overlaps(footprint, other, .3))
+        || canals.query(boxOf(footprint, .3)).some(other => overlaps(footprint, other, .3))) { stats.occupied++; continue; }
       let low = Infinity, high = -Infinity, missing = false;
       for (const [u, v] of [[-1, -1], [1, -1], [1, 1], [-1, 1], [0, 0], [0, -1]] as const) {
         const gx = footprint.x + Math.cos(yaw) * u * width / 2 * .96 + Math.sin(yaw) * v * depth / 2 * .96;
@@ -770,7 +820,7 @@ export function createPeriodCityLayout(course: PeriodCityCourse, options: Period
   const layout: PeriodCityLayout = { course, lots, open, crossings, landmarks, districtAt, localsAt: options.localsAt ?? (() => null),
     street: options.street ?? { footbridges: [], guides: [] }, groundHeightAt: options.groundHeightAt,
     vegetationGroundHeightAt: options.vegetationGroundHeightAt ?? options.groundHeightAt, chunkLength, chunks, stats };
-  indices.set(layout, occupied); roadIndices.set(layout, roads);
+  indices.set(layout, occupied); roadIndices.set(layout, roads); canalIndices.set(layout, canals);
   return layout;
 }
 
@@ -817,8 +867,13 @@ export function periodCityOpenAt(layout: PeriodCityLayout, p: number, side: Peri
 export function periodCityPlantingClear(layout: PeriodCityLayout, x: number, z: number, radius: number): boolean {
   const grid = indices.get(layout), reach = radius + .4;
   const nearby = grid?.query({ minX: x - reach, maxX: x + reach, minZ: z - reach, maxZ: z + reach }) ?? layout.lots.map(lot => lot.footprint);
-  return nearby.every(f => {
+  const clear = (f: PeriodFootprint, r: number) => {
     const point = local(x, z, f);
-    return Math.hypot(Math.max(0, Math.abs(point.x) - f.halfX), Math.max(0, Math.abs(point.z) - f.halfZ)) >= reach;
-  });
+    return Math.hypot(Math.max(0, Math.abs(point.x) - f.halfX), Math.max(0, Math.abs(point.z) - f.halfZ)) >= r;
+  };
+  if (!nearby.every(f => clear(f, reach))) return false;
+  // A canal keeps only a tree's trunk off its channel: on its banks the crowns lean over the water, as the cherries along
+  // the Biwa canal do.
+  const trunk = Math.min(radius, 1.1) + .4, canals = canalIndices.get(layout);
+  return !canals || canals.query({ minX: x - trunk, maxX: x + trunk, minZ: z - trunk, maxZ: z + trunk }).every(f => clear(f, trunk));
 }

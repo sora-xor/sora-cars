@@ -5,7 +5,7 @@
  */
 import { TOKYO_1986_CROSSINGS, TOKYO_1986_DISTRICTS, TOKYO_1986_LANDMARKS, TOKYO_1986_OVERRIDES, TOKYO_1986_STREET,
   type PeriodCrossing, type PeriodDistrict, type PeriodLandmark, type PeriodLocals, type PeriodSide, type PeriodStreetPlan } from './layout';
-import { farLand, type FarLandPlan } from './far-land';
+import { FAR_LAND_METRES_PER_DEGREE, farLand, type FarLandPlan } from './far-land';
 import { AIZU_WAKAMATSU_1986_LAND } from './generated/aizu-wakamatsu-1986-land';
 import { IROHAZAKA_1986_LAND } from './generated/irohazaka-1986-land';
 import { NARA_1986_LAND } from './generated/nara-1986-land';
@@ -202,9 +202,25 @@ const AIZU: StreetScene = {
     ridges: '#3a2c5e' },
 };
 
+/** A real place in a route's own metres (x west, z north), by the track compiler's projection, as the far land's. */
+function routeMetres(origin: { readonly lat: number; readonly lon: number }, lat: number, lon: number): readonly [number, number] {
+  const north = FAR_LAND_METRES_PER_DEGREE, east = north * Math.cos(origin.lat * Math.PI / 180);
+  return [-(lon - origin.lon) * east, (lat - origin.lat) * north];
+}
+
 /** Kyoto: Shiokōji, Karasuma and Shijō past Gion to Yasaka, Sanjō to Keage,
  * under Heian Jingū's great torii, and back by Marutamachi and Horikawa. */
 const KYOTO_ORIGIN = { lat: 34.9871862, lon: 135.758451 };
+/**
+ * The Biwa canal (琵琶湖疏水, 1890) at Okazaki, from OpenStreetMap: out of the Nanzen-ji basin it runs due west beside
+ * Niōmon-dōri, under Keiryū-bashi just before the great torii, and on west toward its turn north (drawn to about 90 m
+ * beyond Jingū-michi, as far as the race's ground reaches). Stone-walled, about 16 m wide (the map's width, not
+ * surveyed); its water about 1.2 m below the street (an estimate from photographs, not a survey). Before it, Okazaki's
+ * verge was a park lawn, where the true-light repaint paints water. At 2.1 m the near bank hid the water from the car.
+ */
+const KYOTO_CANAL = { width: 16, depth: 1.2,
+  points: ([[35.01203, 135.78698], [35.01203, 135.78619], [35.01202, 135.78483], [35.01202, 135.78285], [35.01202, 135.78222],
+    [35.01203, 135.78175]] as const).map(([lat, lon]) => routeMetres(KYOTO_ORIGIN, lat, lon)) };
 const KYOTO: StreetScene = {
   style: 3,
   districts: [
@@ -243,7 +259,7 @@ const KYOTO: StreetScene = {
     arches: [{ p: 6038, kind: 'heian-torii' }, { p: 3052, kind: 'level-crossing', tracks: 2, gauge: 1.435, reach: [50, 34], station: true }],
     galleries: [{ from: 4160, to: 5100, kind: 'tram-track', side: 1 }],
     // Fallen maple leaves under the maples (`trees`: sectors 8-10, Keage to Okazaki and the great torii).
-    litter: [[4844, 6528]], autumn: true, forestBanks: true },
+    litter: [[4844, 6528]], autumn: true, forestBanks: true, canals: [KYOTO_CANAL] },
   distant: [sky(KYOTO_ORIGIN, 34.9806, 135.7476, 25, (b, random) => buildLandmark(b, 'pagoda-toji', random)),
     sky(KYOTO_ORIGIN, 34.98755, 135.75933, 28, (b, random) => buildLandmark(b, 'kyoto-tower', random), 420),
     // Yasaka's pagoda (Hōkan-ji) rises over Higashiyama's roofs south of the shrine.

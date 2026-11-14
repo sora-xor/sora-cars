@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { crownLight, crownLightGlsl } from '../autumn-foliage';
+import { crownLight, crownLightGlsl, floraLeafGrowth, leafGrowthGlsl } from '../autumn-foliage';
 import { withCanopyGaps } from '../canopy-gaps';
 import { seeded } from './layout';
 
@@ -19,10 +19,10 @@ import { seeded } from './layout';
  * (a volume normal), so a crown shades as a mass, lit on its sun side, rather than as a scatter of planes. A chunk draws
  * all its plants in two batched draws, wood and foliage, each plant tinted (a maple crimson, orange or gold).
  */
-export const FLORA_KIND = { maple: 0, cedar: 1, susuki: 2, willow: 3, pine: 4, grass: 5 } as const;
+export const FLORA_KIND = { maple: 0, cedar: 1, susuki: 2, willow: 3, pine: 4, grass: 5, bush: 6, sward: 7 } as const;
 /** Floats per plant in CityMeshBuilder.flora: kind, x, y, z (chunk frame), yaw, scale, leaf tint r, g, b, seed. */
 export const FLORA_STRIDE = 10;
-const VARIANTS = [5, 3, 2, 2, 3, 2] as const;
+const VARIANTS = [5, 3, 2, 2, 3, 2, 3, 3] as const;
 
 type V3 = THREE.Vector3;
 const TAU = Math.PI * 2;
@@ -31,9 +31,12 @@ const TAU = Math.PI * 2;
 class Part {
   readonly positions: number[] = []; readonly normals: number[] = []; readonly uvs: number[] = []; readonly colors: number[] = [];
   readonly indices: number[] = [];
+  /** Each vertex's leaf centre and whether it grows with distance (w 0; autumn-foliage.ts leafGrowthGlsl). */
+  readonly centres: number[] = [];
   get count(): number { return this.positions.length / 3; }
-  vertex(p: V3, n: V3, u: number, v: number, c: THREE.Color): number {
+  vertex(p: V3, n: V3, u: number, v: number, c: THREE.Color, centre?: V3): number {
     this.positions.push(p.x, p.y, p.z); this.normals.push(n.x, n.y, n.z); this.uvs.push(u, v); this.colors.push(c.r, c.g, c.b);
+    if (centre) this.centres.push(centre.x, centre.y, centre.z, 0); else this.centres.push(p.x, p.y, p.z, 1);
     return this.count - 1;
   }
   geometry(): THREE.BufferGeometry {
@@ -42,6 +45,7 @@ class Part {
     g.setAttribute('normal', new THREE.Float32BufferAttribute(this.normals, 3));
     g.setAttribute('uv', new THREE.Float32BufferAttribute(this.uvs, 2));
     g.setAttribute('color', new THREE.Float32BufferAttribute(this.colors, 3));
+    g.setAttribute('leafCentre', new THREE.Float32BufferAttribute(this.centres, 4));
     g.setIndex(this.indices); g.computeBoundingBox(); g.computeBoundingSphere();
     return g;
   }
@@ -79,17 +83,19 @@ const GRASS_CELLS = [0, 1, 2, 3].map(i => cell(i * 256, 1280, 256));
  * One foliage card: a quad of half-size `size` centred at `c`, facing `facing`, turned `turn` in its plane; its lighting
  * normal blends the card's facing with `volume` (the crown's outward direction at the card).
  */
-function card(part: Part, c: V3, facing: V3, volume: V3, size: number, turn: number, uv: readonly number[], colour: THREE.Color, stretch = 1): void {
+function card(part: Part, c: V3, facing: V3, volume: V3, size: number, turn: number, uv: readonly number[], colour: THREE.Color, stretch = 1,
+  grows = false): void {
   const helper = Math.abs(facing.y) < .95 ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(1, 0, 0);
   const across = new THREE.Vector3().crossVectors(helper, facing).normalize(), up = new THREE.Vector3().crossVectors(facing, across);
   const a = across.clone().multiplyScalar(Math.cos(turn)).addScaledVector(up, Math.sin(turn)).multiplyScalar(size);
   const b = up.clone().multiplyScalar(Math.cos(turn)).addScaledVector(across, -Math.sin(turn)).multiplyScalar(size * stretch);
   const n = facing.clone().multiplyScalar(.35).addScaledVector(volume, .65).normalize();
   const [u0, v0, u1, v1] = uv as [number, number, number, number], base = part.count, p = new THREE.Vector3();
-  part.vertex(p.copy(c).sub(a).sub(b), n, u0, v0, colour);
-  part.vertex(p.copy(c).add(a).sub(b), n, u1, v0, colour);
-  part.vertex(p.copy(c).add(a).add(b), n, u1, v1, colour);
-  part.vertex(p.copy(c).sub(a).add(b), n, u0, v1, colour);
+  const centre = grows ? c : undefined;
+  part.vertex(p.copy(c).sub(a).sub(b), n, u0, v0, colour, centre);
+  part.vertex(p.copy(c).add(a).sub(b), n, u1, v0, colour, centre);
+  part.vertex(p.copy(c).add(a).add(b), n, u1, v1, colour, centre);
+  part.vertex(p.copy(c).sub(a).add(b), n, u0, v1, colour, centre);
   part.indices.push(base, base + 1, base + 2, base, base + 2, base + 3);
 }
 
@@ -144,7 +150,7 @@ function buildMaple(seed: number): { wood: THREE.BufferGeometry; leaves: THREE.B
       facing.set(volume.x * .7 + (random() - .5) * .5, 1.1 + random() * .6, volume.z * .7 + (random() - .5) * .5).normalize();
       const height01 = (c.y - crownBottom) / Math.max(.1, crownTop - crownBottom), outer = Math.min(1, c.clone().sub(centre).setY(0).length() / 3.5);
       colour.setScalar(THREE.MathUtils.clamp(.62 + .3 * height01 + .12 * outer + (random() - .5) * .14, .45, 1.1));
-      card(leaves, c, facing, volume, (.52 + random() * .24) * pad.size, random() * TAU, MAPLE_CELLS[Math.floor(random() * 4)]!, colour);
+      card(leaves, c, facing, volume, (.52 + random() * .24) * pad.size, random() * TAU, MAPLE_CELLS[Math.floor(random() * 4)]!, colour, 1, true);
     }
   }
   return { wood: wood.geometry(), leaves: leaves.geometry() };
@@ -208,14 +214,31 @@ function buildSusuki(seed: number): THREE.BufferGeometry {
  * smooth orange plane (Umagaeshi, lap .12). 6 triangles.
  */
 function buildGrass(seed: number): THREE.BufferGeometry {
-  const random = seeded(seed), leaves = new Part(), colour = new THREE.Color(), facing = new THREE.Vector3(), volume = new THREE.Vector3();
-  const spin = random() * TAU;
+  const leaves = new Part();
+  grassCards(leaves, seeded(seed), seed, 0, 0, 1);
+  return leaves.geometry();
+}
+/** One tuft's three crossed cards at (x, z), `scale` times the usual 0.6 m. */
+function grassCards(leaves: Part, random: () => number, seed: number, x: number, z: number, scale: number): void {
+  const colour = new THREE.Color(), facing = new THREE.Vector3(), volume = new THREE.Vector3(), spin = random() * TAU;
   for (let k = 0; k < 3; k++) {
     const yaw = spin + k / 3 * Math.PI + (random() - .5) * .3;
     facing.set(Math.cos(yaw), 0, Math.sin(yaw));
     volume.set(Math.cos(yaw) * .3, 1, Math.sin(yaw) * .3).normalize();
     colour.setScalar(.85 + random() * .2);
-    card(leaves, new THREE.Vector3((random() - .5) * .1, .3, (random() - .5) * .1), facing, volume, .32, 0, GRASS_CELLS[(seed + k) % 4]!, colour);
+    card(leaves, new THREE.Vector3(x + (random() - .5) * .1, .3 * scale, z + (random() - .5) * .1), facing, volume, .32 * scale, 0, GRASS_CELLS[(seed + k) % 4]!, colour);
+  }
+}
+/**
+ * A sward: four grass tufts of different sizes within about 1.2 m, as one plant, so a bank can stand thick with grass at
+ * a quarter of the instances single tufts would take (a batch culls and draws by the instance; finish pass, round
+ * eleven). 24 triangles.
+ */
+function buildSward(seed: number): THREE.BufferGeometry {
+  const random = seeded(seed), leaves = new Part(), spin = random() * TAU;
+  for (let k = 0; k < 4; k++) {
+    const a = spin + k / 4 * TAU + (random() - .5) * .9, r = k === 0 ? .1 : .32 + random() * .3;
+    grassCards(leaves, random, seed + k, Math.cos(a) * r, Math.sin(a) * r, .75 + random() * .5);
   }
   return leaves.geometry();
 }
@@ -419,6 +442,26 @@ function grassTuft(g: CanvasRenderingContext2D, random: () => number, x0: number
   g.restore();
 }
 
+/**
+ * A low autumn bush about a metre across and 0.8 m tall (instances scale it): seven cards of the maples' leaf clusters
+ * heaped into a mound, lit as one mass and tinted per plant. Azalea and maple scrub turned crimson, orange and gold,
+ * which the repaints crowd along every verge behind the rail (finish pass, round eleven); the plate shrubs beside them
+ * (street.ts) are speckled mounds with no leaves to them. 14 triangles.
+ */
+function buildBush(seed: number): THREE.BufferGeometry {
+  const random = seeded(seed), leaves = new Part(), colour = new THREE.Color(), facing = new THREE.Vector3(), volume = new THREE.Vector3(), c = new THREE.Vector3();
+  for (let k = 0; k < 7; k++) {
+    // One card crowns the mound; the rest ring it lower down, each facing up and out.
+    const a = random() * TAU, r = k === 0 ? 0 : .25 + random() * .3, lift = k === 0 ? .62 : .22 + random() * .4 * (1 - r);
+    c.set(Math.cos(a) * r, lift, Math.sin(a) * r);
+    volume.set(c.x, c.y * 1.4 + .25, c.z).normalize();
+    facing.set(volume.x * .8 + (random() - .5) * .4, .9 + random() * .5, volume.z * .8 + (random() - .5) * .4).normalize();
+    colour.setScalar(THREE.MathUtils.clamp(.6 + .5 * lift + (random() - .5) * .16, .5, 1.1));
+    card(leaves, c, facing, volume, .36 + random() * .12, random() * TAU, MAPLE_CELLS[Math.floor(random() * 4)]!, colour);
+  }
+  return leaves.geometry();
+}
+
 let atlas: THREE.Texture | null = null;
 function floraAtlas(): THREE.Texture {
   if (atlas) return atlas;
@@ -453,6 +496,8 @@ function floraTemplates(): Template[][] {
     Array.from({ length: VARIANTS[3] }, (_, i) => buildWillow(3301 + i * 43)),
     Array.from({ length: VARIANTS[4] }, (_, i) => buildPine(4409 + i * 47)),
     Array.from({ length: VARIANTS[5] }, (_, i) => ({ wood: null, leaves: buildGrass(i) })),
+    Array.from({ length: VARIANTS[6] }, (_, i) => ({ wood: null, leaves: buildBush(5501 + i * 53) })),
+    Array.from({ length: VARIANTS[7] }, (_, i) => ({ wood: null, leaves: buildSward(6607 + i * 59) })),
   ];
 }
 
@@ -468,14 +513,18 @@ function floraMaterials() {
   // as a painted crown, like the authored trees (crownLightGlsl): its own hue through light and shade, where plain
   // lighting paled sunlit maples to peach and sank their shade toward maroon under the dusk sky.
   foliage.onBeforeCompile = shader => {
-    shader.uniforms.soraCrownLight = crownLight;
+    shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraLeafGrowth = floraLeafGrowth;
+    // A maple's leaf cards drawn larger with distance (round thirteen), as the roadside maples' leaves.
+    shader.vertexShader = shader.vertexShader
+      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvoid main() {')
+      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}`);
     shader.fragmentShader = shader.fragmentShader
       .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;')
       .replace('#include <normal_fragment_begin>', THREE.ShaderChunk.normal_fragment_begin.replace('normal *= faceDirection;', ''))
       .replace('#include <opaque_fragment>', `${crownLightGlsl('1.')}
 #include <opaque_fragment>`);
   };
-  foliage.customProgramCacheKey = () => 'period-flora-leaves-v4';
+  foliage.customProgramCacheKey = () => 'period-flora-leaves-v5';
   const depth = withCanopyGaps(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: .5 }));
   return materials = { wood, foliage, depth };
 }

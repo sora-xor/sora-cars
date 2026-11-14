@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { type CityMeshBuilder, type CityMaterialKey, type Vec3, WALL_PATTERN, WINDOW_KIND } from './geometry';
-import { hashInts, seeded, type PeriodDistrict, type PeriodLot } from './layout';
+import { type CityMeshBuilder, type CityMaterialKey, type Vec3, HALL_PLAIN, WALL_PATTERN, WINDOW_KIND } from './geometry';
+import { hashInts, seeded, type PeriodDistrict, type PeriodLot, type PeriodTypology } from './layout';
 import { aviationLight, hangingBanner, neonBlade, neonFor, nobori, noboriFor, rooftopNeon, verticalNeon, vneonFor, windowNeon } from './nightlife';
 import { boxIndex, fasciaTitle, lanternIndex, NEON_COUNTS, neonIndex, neonPrint, pickSign, signIndex, signPrint, printSlice, SIGN_REGIONS, SORA_BOARDS, SORA_NOBORI, SORA_VNEON,
   vneonIndex, type PrintRect, type SignPools } from './signs';
@@ -146,45 +146,114 @@ function shell(x: Context, f: Facade, w: number, d: number, h: number, roof = tr
     b.box('metal', px - .045, px + .045, h - .25, h - .1, -.14, 0, 'b');
     for (let y = 1.6; y < h - .5; y += 2.4) b.box('metal', px - .07, px + .07, y, y + .05, -.16, 0, 'b');
   }
+  if (detail === 2) tinSigns(x, w, d, h);
   if (!flankWindows || h < 7) return;
-  if (detail === 0) { flankGrid(x, f, w, d, h, 0, 1); return; }
-  let advertised = 0;
+  // A low block's flanks take a grid of their own, floor by floor (lowFlankGrid), in place of the stair and toilet windows.
+  const low = h < 10 && LOW_FLANK_GRID.has(x.lot.typology);
+  if (detail === 0) { flankGrid(x, f, w, d, h, null, 1); if (low) lowFlankGrid(x, f, w, d, h, 1); return; }
+  let advertised: FlankBoard | null = null;
   if (h > 11 && d > 9 && random() < .3) {
     // A painted advertisement on the flank that faces oncoming traffic.
     const aw = Math.min(d * .75, 11), ah = aw / 2, y = h - ah - 1 - random() * Math.max(0, h - ah - 6);
     b.print = signPrint('board', pickSign(x.b.signs, 'board', random)); b.colour.set('#c8c2b8');
     b.side('sign', toward * (w / 2 + .03), d / 2 - aw / 2, d / 2 + aw / 2, y, y + ah, toward);
-    advertised = toward;
+    advertised = { side: toward, z0: d / 2 - aw / 2, z1: d / 2 + aw / 2, y0: y, y1: y + ah };
   }
-  // Japanese flanks are mostly blank; a few stair and toilet windows.
+  // Japanese flanks are mostly blank; a few stair and toilet windows. A low block draws its own grid instead: these keep
+  // their draws, so the rest of the building is unchanged.
   for (const s of [-1, 1] as const) {
     const count = Math.floor(random() * 3);
     for (let i = 0; i < count; i++) {
-      const z = d * (.2 + random() * .6), y = 3 + random() * (h - 5);
-      b.window = [random(), f.kind]; b.colour.copy(f.glass);
+      const z = d * (.2 + random() * .6), y = 3 + random() * (h - 5), seed = random();
+      if (low) continue;
+      b.window = [seed, f.kind]; b.colour.copy(f.glass);
       b.side('glass', s * (w / 2 + .02), z - .4, z + .4, y, y + 1.1, s);
     }
   }
   flankGrid(x, f, w, d, h, advertised, detail === 1 ? 1 : .7);
+  if (low) lowFlankGrid(x, f, w, d, h, 1);
 }
 
+/** Blocks of rooms whose low flanks carry windows (lowFlankGrid): apartment blocks, tenant buildings and offices. */
+const LOW_FLANK_GRID: ReadonlySet<PeriodTypology> = new Set(['mansion', 'zakkyo', 'office']);
+/**
+ * A low block's flanks (two or three storeys, under the 10 m where flankGrid's rows begin: most of a town's blocks):
+ * windows floor by floor above the ground floor, aligned to its storeys, about 1.3 m wide every 3 m along the flank,
+ * `keep` of them (all: dropped at random, a flank read as a gap-toothed wall). Blank but for a stray stair window, a
+ * three-storey apartment block's end wall stood as a cream slab
+ * half the height of the frame at Sanjō, where its true-light repaint lights two rows of rooms on it (finish pass,
+ * round sixteen). Corner flats have windows on their end walls. From a stream of the lot's own, so the building and its
+ * street life are unchanged.
+ */
+function lowFlankGrid(x: Context, f: Facade, w: number, d: number, h: number, keep: number): void {
+  const { b, lot } = x, storeys = Math.max(1, lot.storeys), floor = h / storeys, columns = Math.floor((d - 1.6) / 3);
+  if (h < 6 || storeys < 2 || columns < 1) return;
+  const draw = seeded(hashInts(lot.seed, 1986, 983)), shared = f.kind === WINDOW_KIND.office ? .78 : .3;
+  for (const s of [-1, 1] as const) for (let k = 1; k < storeys; k++) {
+    const y = k * floor + Math.min(.9, floor * .3), top = Math.min(y + 1.4, (k + 1) * floor - .45, h - .45);
+    const floorSeed = draw();
+    for (let i = 0; i < columns; i++) {
+      const z = .8 + (d - 1.6) * (i + .5) / columns, seed = floorSeed * shared + draw() * (1 - shared);
+      if ((keep < 1 && draw() > keep) || top - y < .9) continue;
+      b.window = [seed, f.kind]; b.colour.copy(f.glass);
+      b.side('glass', s * (w / 2 + .035), z - .65, z + .65, y, top, s);
+    }
+  }
+}
+
+/**
+ * Tin signs (ホーロー看板) on the flank a low frontage building or shed turns to drivers coming up the road: one to three
+ * tall enamel strips nailed up at head height near the street, and on a deep flank now and then a painted board
+ * above them, one in three of those SORA's, as the sheds and shop flanks of every town wore them in 1986. Bare, a
+ * shed's flank at Nikkō's start filled a fifth of the frame (finish pass, round ten). Chosen by the lot's own seed,
+ * so the building and its street life are as they were. Where a neighbour stands against the flank they are hidden.
+ */
+function tinSigns(x: Context, w: number, d: number, h: number): void {
+  const { b, lot, toward } = x;
+  if (h < 3.4 || h > 10.5 || d < 5) return;
+  const pick = seeded(hashInts(lot.seed, 1986, 733)), face = toward * (w / 2 + .035);
+  if (pick() < .42) return;
+  const strips = 1 + Math.floor(pick() * 2.4);
+  let z = .9 + pick() * 1.2;
+  for (let i = 0; i < strips && z + .5 < d - .6; i++) {
+    const tall = 1.5 + pick() * .3, y = 1.25 + pick() * .5;
+    b.print = signPrint('vertical', pickSign(b.signs, 'vertical', pick)); b.colour.set('#d6d0c4');
+    b.side('sign', face, z, z + tall / 4, y, y + tall, toward);
+    z += tall / 4 + .25 + pick() * .9;
+  }
+  if (d > 7.5 && h > 5 && pick() < .5) {
+    const wide = 2 + pick() * .8, y = Math.min(h - wide / 2 - .5, 3.3 + pick() * .8), from = Math.min(d - wide - .6, z + .4 + pick() * 1.5);
+    if (from > z) {
+      b.print = signPrint('board', pick() < .34 ? SORA_BOARDS[Math.floor(pick() * SORA_BOARDS.length)]! : pickSign(b.signs, 'board', pick)); b.colour.set('#cfc9bd');
+      b.side('sign', face, from, from + wide, y, y + wide / 2, toward);
+    }
+  }
+}
+
+/** A painted advertisement on a flank (shell): its side (-1 or 1) and its rectangle along the flank (z) and up it (y). */
+interface FlankBoard { readonly side: -1 | 1; readonly z0: number; readonly z1: number; readonly y0: number; readonly y1: number }
 /**
  * Down a straight street the flanks that rise above their neighbours are what the camera sees of the far city.
  * Blank, they read as dark slabs where the user's rain-night concept paints layers of lit windows, so they carry
  * windows floor by floor, lit at night like the fronts (offices whole floors at a time): every grid position on the
- * back rows, `keep` of them on the frontage, whose flanks stay mostly blank. `skip` is a flank (-1 or 1) already
- * carrying an advertisement. Their own stream (extra), so the building is unchanged.
+ * back rows, `keep` of them on the frontage, whose flanks stay mostly blank. Their own stream (extra), so the building
+ * is unchanged.
+ * `board`: an advertisement painted on one flank. That flank carried no windows at all, so where a curving road turned
+ * it to the camera it stood as a dark wall two thirds of the frame high under its board (Kanda at night; finish pass,
+ * round fourteen). It takes its windows now around the board, from a stream of the lot's own, so the street life drawn
+ * after it from `extra` is unchanged.
  */
-function flankGrid(x: Context, f: Facade, w: number, d: number, h: number, skip: number, keep: number): void {
+function flankGrid(x: Context, f: Facade, w: number, d: number, h: number, board: FlankBoard | null, keep: number): void {
   const { b, extra } = x, columns = Math.floor((d - 1.6) / 3.4), shared = f.kind === WINDOW_KIND.office ? .78 : .3;
   if (h < 10 || columns < 1) return;
   for (const s of [-1, 1] as const) {
-    if (s === skip) continue;
+    const own = s === board?.side, draw = own ? seeded(hashInts(x.lot.seed, 1986, 977)) : extra;
     for (let y = 3.2; y + 1.4 < h - 1; y += 3.2) {
-      const floorSeed = extra();
+      const floorSeed = draw();
       for (let i = 0; i < columns; i++) {
-        const z = .8 + (d - 1.6) * (i + .5) / columns, seed = floorSeed * shared + extra() * (1 - shared);
-        if (keep < 1 && extra() > keep) continue;
+        const z = .8 + (d - 1.6) * (i + .5) / columns, seed = floorSeed * shared + draw() * (1 - shared);
+        if (keep < 1 && draw() > keep) continue;
+        if (own && z + .7 > board!.z0 - .4 && z - .7 < board!.z1 + .4 && y + 1.4 > board!.y0 - .5 && y < board!.y1 + .5) continue;
         b.window = [seed, f.kind]; b.colour.copy(f.glass);
         b.side('glass', s * (w / 2 + .035), z - .7, z + .7, y, y + 1.4, s);
       }
@@ -539,10 +608,14 @@ function shophouse(x: Context): void {
   const { b, lot, random, detail, toward } = x, w = lot.width, d = lot.depth;
   const style = random(), ground = 3.1 + random() * .35, storey = 2.6 + random() * .3;
   const wall = drift(style < .4 ? colour(random, MORTAR) : style < .6 ? colour(random, COPPER) : style < .82 ? colour(random, TILE_WARM) : colour(random, SHEET), random);
-  b.pattern = style < .4 ? WALL_PATTERN.plain : style < .82 && style >= .6 ? WALL_PATTERN.tile : WALL_PATTERN.seams;
+  b.pattern = style < .4 ? WALL_PATTERN.plain : style < .82 && style >= .6 ? WALL_PATTERN.tile : style < .6 ? WALL_PATTERN.seams : WALL_PATTERN.sheet;
   const f = facade(random, wall, WINDOW_KIND.home), h = ground + storey * (lot.storeys - 1), front = h + .5 + random() * .7;
-  // Kanban-kenchiku: a flat false front over a pitched roof.
+  // Kanban-kenchiku: a flat false front over a pitched roof. Behind a copper front the flanks and back are painted
+  // iron sheet, as such shops' sides were (finish pass, round ten: they stood as clean grey ribbed slabs).
+  const front0 = b.pattern;
+  if (front0 === WALL_PATTERN.seams) b.pattern = WALL_PATTERN.sheet;
   shell(x, f, w, d, h, false, false);
+  b.pattern = front0;
   b.colour.copy(wall); b.box('wall', -w / 2, w / 2, h, front, 0, .15, 'b');
   b.colour.copy(f.trim); b.box('wall', -w / 2 - .05, w / 2 + .05, front - .18, front, -.12, 0, 'bk');
   if (style >= .4 && style < .6 && detail) for (let k = 1; k < 4; k++) b.box('wall', -w / 2, w / 2, h + k * (front - h) / 4, h + k * (front - h) / 4 + .05, -.05, 0, 'bk');
@@ -1056,7 +1129,7 @@ function office(x: Context): void {
   }
   b.colour.set('#3a3632'); b.flat('wall', -w / 2, w / 2, 0, .6, ground - .9, -1);
   b.colour.set('#3a3a3c'); b.box('metal', -2.6, 2.6, ground - 1.4, ground - 1.15, -2.4, 0, 'k');
-  b.colour.set('#ffe6b8'); b.flat('lamp', -2.4, 2.4, -2.2, -.2, ground - 1.41, -1);
+  b.colour.set('#ffe6b8'); b.soffit(-2.4, 2.4, -2.2, -.2, ground - 1.41);
   x.fixtures.push({ position: b.world(new THREE.Vector3(0, ground - 1.5, -1.2)), target: b.world(new THREE.Vector3(0, 0, -3)) });
   // The company name across the top.
   if (random() < .7) {
@@ -1212,7 +1285,7 @@ function pachinko(x: Context): void {
   b.side('wall', -w / 2 + .3, 0, .7, 0, ground - .6, 1); b.side('wall', w / 2 - .3, 0, .7, 0, ground - .6, -1);
   b.flat('wall', -w / 2 + .3, w / 2 - .3, 0, .7, ground - .6, -1);
   b.window = [0, WINDOW_KIND.hall]; b.colour.set('#7a6a5a'); b.front('glass', -w / 2 + .3, w / 2 - .3, 0, ground - .6, .7);
-  b.colour.set('#fff0c8'); b.flat('lamp', -w / 2 + .3, w / 2 - .3, -.8, 0, ground - .61, -1);
+  b.colour.set('#fff0c8'); b.soffit(-w / 2 + .3, w / 2 - .3, -.8, 0, ground - .61);
   x.fixtures.push({ position: b.world(new THREE.Vector3(0, ground - .7, -.8)), target: b.world(new THREE.Vector3(0, 0, -2.6)) });
   verticalSign(x, toward * (w / 2 - .6), 1.2, h + 1.6, 1.3, 1);
   rooftop(x, w, d, h + 2.2, { tank: false });
@@ -1234,7 +1307,7 @@ function station(x: Context): void {
   b.colour.set('#d8d6d0');
   for (const px of [-w * .25, w * .25]) for (const pz of [d * .25, d * .55]) b.box('metal', px - .25, px + .25, 0, canopyY, pz - .25, pz + .25, 'bt');
   b.colour.copy(brand); b.box('metal', -w * .42, w * .42, canopyY, canopyY + .8, d * .05, d * .75, 'b');
-  b.colour.set('#fff6e0'); b.flat('lamp', -w * .4, w * .4, d * .07, d * .73, canopyY - .01, -1);
+  b.colour.set('#fff6e0'); b.soffit(-w * .4, w * .4, d * .07, d * .73, canopyY - .01);
   for (const px of [-w * .25, w * .25]) for (const pz of [d * .25, d * .55]) {
     // Pump islands.
     b.colour.set('#bfbcb4'); b.box('stone', px - 1.4, px + 1.4, 0, .2, pz - .5, pz + .5);
@@ -1247,7 +1320,7 @@ function station(x: Context): void {
   b.colour.copy(f.wall); b.box('wall', -w * .35, w * .1, 0, 3.4, d * .8, d, 'b');
   // The kiosk's glass front: mullions, ceiling tubes and shelves of oil cans and snacks.
   const kz = d * .8 - .02, k0 = -w * .33, k1 = w * .08;
-  b.window = [0, WINDOW_KIND.hall]; b.colour.set('#5a5048'); b.front('glass', k0, k1, .2, 2.6, kz);
+  b.window = [0, HALL_PLAIN]; b.colour.set('#5a5048'); b.front('glass', k0, k1, .2, 2.6, kz);
   b.colour.set('#fff4dc'); b.box('lamp', k0 + .3, k1 - .3, 2.4, 2.46, kz - .3, kz - .24);
   b.colour.set('#3a3c40');
   for (let mx = k0; mx <= k1 + .01; mx += (k1 - k0) / Math.max(2, Math.round((k1 - k0) / 1.3))) b.box('metal', mx - .03, mx + .03, .2, 2.6, kz - .06, kz - .01, 'bkt');
@@ -1564,7 +1637,7 @@ function warehouse(x: Context): void {
   } else if (kind < .75) {
     // Corrugated shed: sliding doors, a dock canopy and the painted name.
     const h = 7 + random() * 3, sheet = drift(colour(random, SHEETS), random), f = facade(random, sheet, WINDOW_KIND.dark);
-    b.pattern = WALL_PATTERN.seams;
+    b.pattern = WALL_PATTERN.sheet;
     f.flank.copy(shade(sheet, .9));
     shell(x, f, w, d, h, false, false);
     b.colour.copy(sheet); b.front('wall', -w / 2, w / 2, 0, h, 0);

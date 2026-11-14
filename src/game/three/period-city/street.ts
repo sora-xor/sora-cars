@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import type { CityMeshBuilder, Vec3 } from './geometry';
-import { hashInts, periodCityPlantingClear, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict, type PeriodSide } from './layout';
+import { CANAL_COPING, canalDistance, hashInts, periodCityPlantingClear, periodCityReach, poseAt, seeded, type PeriodCityLayout, type PeriodDistrict,
+  type PeriodSide } from './layout';
 import { IROHA, neonPrint, NEON_COUNTS, printSlice, signPrint, SORA_BOARDS, SORA_NOBORI } from './signs';
 import { FLORA_KIND } from './flora';
 import { buildRoadStructures } from './road-structures';
@@ -223,7 +224,10 @@ function shoppingLamp(b: CityMeshBuilder, x: number, z: number, banner: number, 
   b.box('metal', x - .55, x + .55, 3.95, 4.02, z - .04, z + .04, 'b');
   // Warm globes bright enough (HDR) for the glow stage's halo, and a far light each (the user's rain-night concept).
   b.colour.setRGB(2, 1.3, .55);
-  for (const dx of [-.5, .5]) { b.cylinder('lamp', x + dx, 3.55, z, .2, .38, 10); b.beacon(x + dx, 3.74, z, 2.2, 1.25, .4, .4); }
+  for (const dx of [-.5, .5]) { b.cylinder('lamp', x + dx, 3.55, z, .2, .38, 14, false); b.beacon(x + dx, 3.74, z, 2.2, 1.25, .4, .4); }
+  // Each globe's dark cap and collar (finish pass, round nine): bare, a near globe stood as a cream blob on the sky.
+  b.colour.set('#2a2a30');
+  for (const dx of [-.5, .5]) { b.cylinder('metal', x + dx, 3.93, z, .235, .07, 10); b.cylinder('metal', x + dx, 3.49, z, .12, .06, 10, false); }
   // Arms toward the road carry the banner across the drivers' view.
   const s = Math.sign(x), near = x - s * .08, far = x - s * .54;
   b.colour.set('#2a2a30');
@@ -237,8 +241,11 @@ function shoppingLamp(b: CityMeshBuilder, x: number, z: number, banner: number, 
  * only the afternoon routes take them (`street.afternoonLeaves`). */
 const LEAF_TONES = ['#a3261b', '#b42d1c', '#c23f1d', '#d9681f', '#7e351c'].map(tone => new THREE.Color(tone));
 const GOLD_LEAF = new THREE.Color('#d9a133');
-/** The leaves share the city's 'ground' material, whose forest-floor scan averages sRGB (107, 89, 68): dividing the
- * leaf colours by that mean (linear) keeps each leaf its own colour on average, with the scan's grain as its veins. */
+/** How large the fallen leaves lie against a real maple leaf's hand's breadth: the repaints strew leaves a third of a
+ * metre across, and at their true size a leaf a few metres ahead spans too few art cells to show its lobes. */
+const LEAF_SPAN = 1.1;
+/** Shrubs share the city's 'ground' material, whose forest-floor scan averages sRGB (107, 89, 68): dividing a colour
+ * by that mean (linear) keeps it its own colour on average, with the scan's grain over it. */
 const GROUND_SCAN_MEAN = new THREE.Color(.147, .100, .058);
 /** A colour on the 'ground' material, compensated for the scan as the leaves are, and varied by `spread`. */
 function groundTone(b: CityMeshBuilder, tone: THREE.Color, random: () => number, spread: number): void {
@@ -263,19 +270,29 @@ const WALKWAY_TOP = .18, WALKWAY_LEAVES = 7;
  */
 function verge(b: CityMeshBuilder, layout: PeriodCityLayout, roadY: number, x: number, z: number, limit = 6,
   groundHeightAt = layout.vegetationGroundHeightAt): number | null {
-  const at = b.world(new THREE.Vector3(x, 0, z)), h = groundHeightAt(at.x, at.z);
+  const at = b.world(new THREE.Vector3(x, 0, z));
+  // Nothing grows in a canal or on its coping (round fifteen: the autumn wood, its bushes and its leaves stood in the
+  // Biwa canal's channel at Okazaki).
+  const canals = layout.street.canals;
+  if (canals?.length && canalDistance(canals, at.x, at.z) < CANAL_COPING + .3) return null;
+  const h = groundHeightAt(at.x, at.z);
   // A newly admitted hillside must not plant through a reserved landmark or a neighbouring building.
   if (h !== null && groundHeightAt !== layout.groundHeightAt && layout.groundHeightAt(at.x, at.z) === null
     && !periodCityPlantingClear(layout, at.x, at.z, 3)) return null;
   return h === null || !Number.isFinite(h) || Math.abs(h - roadY) > limit ? null : h - roadY;
 }
-/** One fallen leaf about a hand across, a broad diamond (one quad: the city's faces are stored unindexed, so a leaf
- * costs 6 vertices) at a random turn, lying `y` above the route frame's road. Leaves twice as long read as confetti
- * beside the repaints' maple leaves. */
+/** A fallen leaf's square against its length as a plain diamond: the maple outline fills the square (materials.ts), and
+ * the diamond the far leaves keep stands in it at the old size. */
+const LEAF_SQUARE = 1.25;
+/** One fallen maple leaf at a random turn, lying `y` above the route frame's road: one square (the city's faces are
+ * stored unindexed, so a leaf costs 6 vertices) out of which the 'leaf' material cuts the outline. Plain diamonds,
+ * as they were, read as confetti beside the repaints' maple leaves, and twice as long more so. */
 function leaf(b: CityMeshBuilder, random: () => number, x: number, y: number, z: number, gold = 0): void {
-  const size = .09 + random() * .08, turn = random() * Math.PI, c = Math.cos(turn) * size, s = Math.sin(turn) * size, pick = random();
-  groundTone(b, pick < gold ? GOLD_LEAF : LEAF_TONES[Math.min(LEAF_TONES.length - 1, Math.floor((pick - gold) / (1 - gold) * LEAF_TONES.length))]!, random, .35);
-  b.face('ground', [[x - c, y, z - s], [x + s * .65, y, z - c * .65], [x + c, y, z + s], [x - s * .65, y, z + c * .65]], [0, 1, 0]);
+  const size = (.09 + random() * .08) * LEAF_SQUARE * LEAF_SPAN, turn = random() * Math.PI * 2, c = Math.cos(turn) * size, s = Math.sin(turn) * size, pick = random();
+  const tone = pick < gold ? GOLD_LEAF : LEAF_TONES[Math.min(LEAF_TONES.length - 1, Math.floor((pick - gold) / (1 - gold) * LEAF_TONES.length))]!;
+  b.colour.copy(tone).multiplyScalar(.825 + random() * .35);
+  // Corners in the leaf's own frame, (-1,-1) (1,-1) (1,1) (-1,1): its stalk toward -y, its middle lobe toward +y.
+  b.face('leaf', [[x - s - c, y, z + c - s], [x + s - c, y, z - c - s], [x + s + c, y, z - c + s], [x - s + c, y, z + c + s]], [0, 1, 0]);
 }
 /** Autumn undergrowth: azalea and maple scrub turned crimson, orange and gold, russet bracken, and a few evergreens. */
 const SHRUB_TONES = ['#8f2a1a', '#b5461c', '#cf7a22', '#b8902c', '#6e4122', '#2d4a2c'].map(tone => new THREE.Color(tone));
@@ -434,6 +451,20 @@ function mapleTint(random: () => number): readonly [number, number, number] {
   for (let i = 0; i < MAPLE_ODDS.length; i++) if ((roll -= MAPLE_ODDS[i]!) < 0) return MAPLE_TINTS[i]!;
   return MAPLE_TINTS[0]!;
 }
+/** Swards (four grass tufts as one plant, flora.ts) to a metre and side of a wooded verge, beside its five single tufts. */
+const SWARDS = 2;
+/** Bushes to a metre and side of a wooded verge: the chance of one, how far beyond the verge's edge its band starts, and
+ * the band's depth (m). */
+const BUSH_BANDS = [[.62, 0, 3], [.3, 3.2, 6.5]] as const;
+/** Bush tints (linear, over the maples' near-white leaf clusters): crimson, vermilion, orange, gold, a deep crimson, and
+ * a few still green; more orange and gold than the crowns, so the scrub stands out under them. */
+const BUSH_TINTS = [[.9, .06, .04], [.92, .16, .03], [.94, .32, .05], [.9, .5, .1], [.5, .04, .03], [.3, .38, .13]] as const;
+const BUSH_ODDS = [.24, .2, .22, .2, .07, .07];
+function bushTint(random: () => number): readonly [number, number, number] {
+  let roll = random();
+  for (let i = 0; i < BUSH_ODDS.length; i++) if ((roll -= BUSH_ODDS[i]!) < 0) return BUSH_TINTS[i]!;
+  return BUSH_TINTS[0]!;
+}
 /** Rows of the autumn wood behind the verge: nearest and farthest offsets beyond the road edge (m), a tree every so many metres. */
 const WOOD_ROWS = [[4.5, 10, 5, 0], [10, 20, 5, 2], [20, 34, 6, 4], [34, 56, 7, 1]] as const;
 /**
@@ -486,6 +517,24 @@ function leafLitter(b: CityMeshBuilder, layout: PeriodCityLayout, from: number, 
         const off = SHOULDER + .3 + tufts() * tufts() * Math.min(12, reach - .5), x = side * (w + off), z = tufts() - .5, y = verge(b, layout, roadY, x, z);
         const shade = .8 + tufts() * .3;
         if (y !== null && clear(off - .3)) b.plant(FLORA_KIND.grass, x, y, z, tufts() * Math.PI * 2, .7 + tufts() * .6, shade, shade * .97, shade * .9, Math.floor(tufts() * 1000));
+      }
+      // Swards between the tufts (finish pass, round eleven): two to a metre, four tufts each, thickest near the road
+      // as the tufts are. The repaints' banks stand thick with golden grass, where ours showed bare litter between a
+      // few tufts. Their own stream.
+      const swards = seeded(hashInts(k, side, 2026, 67));
+      if (reach > SHOULDER + 1.6) for (let n = 0; n < SWARDS; n++) {
+        const off = SHOULDER + .9 + swards() * swards() * Math.min(11, reach - 1.2), x = side * (w + off), z = swards() - .5, y = verge(b, layout, roadY, x, z);
+        const shade = .8 + swards() * .3;
+        if (y !== null && clear(off - .9)) b.plant(FLORA_KIND.sward, x, y, z, swards() * Math.PI * 2, .8 + swards() * .5, shade, shade * .97, shade * .9, Math.floor(swards() * 1000));
+      }
+      // Turned bushes crowd the bank behind the rail, most of them within a few metres of it and some further in
+      // (finish pass, round eleven). Their own stream; beyond a parapet they stand clear of it, on the slope below.
+      const scrub = seeded(hashInts(k, side, 2026, 71)), edge = parapetAt(layout, k, side) ? WALL_FOOT + 1.2 : SHOULDER + .5;
+      for (const [chance, from, span] of BUSH_BANDS) {
+        if (scrub() > chance || reach < edge + from + 1) continue;
+        const off = edge + from + scrub() * Math.min(span, reach - edge - from - .6), x = side * (w + off), z = scrub() - .5;
+        const y = verge(b, layout, roadY, x, z), size = .7 + scrub() * .6;
+        if (y !== null && clear(off - .6)) b.plant(FLORA_KIND.bush, x, y, z, scrub() * Math.PI * 2, size, ...bushTint(scrub), Math.floor(scrub() * 1000));
       }
       // Susuki at the wood's edge.
       if (k % 2 === 1 && reach > 3 && random() < .5) {
