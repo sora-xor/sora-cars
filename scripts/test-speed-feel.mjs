@@ -13,8 +13,13 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(url);
     await page.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
-    await page.evaluate(() => window.advanceTime(0));
+    // On the real roads only Sakura Pass starts on a long straight (the avenue from JNR Nikko station): held throttle
+    // alone reaches 250 km/h there, where Hakone's and Yokohama's first bends come within its first 200 m.
+    await page.evaluate(() => { window.soraCars.setTrack(2); window.advanceTime(0); });
     await page.locator('#start-btn').click();
+    // Cold visual preparation precedes the unchanged three-second countdown.
+    await page.waitForFunction(() => !document.querySelector('.scene-preparation-panel')
+      && document.querySelector('#race-canvas')?.dataset.groundAsset === 'detailed', null, { timeout: 60000 });
     const playerSlot = await page.evaluate(() => JSON.parse(window.render_game_to_text()).playerSlot);
     const advance = frames => page.evaluate(frames => {
       // Draw every frame so camera envelopes run exactly as during gameplay.
@@ -28,8 +33,9 @@ try {
     await page.keyboard.down('ArrowUp');
     await advance(60);
     const slow = await capture('slow');
-    // The driving model's car reaches 250 km/h after about five seconds of throttle.
-    await advance(300);
+    // The stock car reaches 250 km/h after about six seconds of throttle up Nikko's avenue, which climbs (about five on
+    // a level road).
+    await advance(400);
     const fast = await capture('fast');
     assert.ok(fast.cars[playerSlot].speed * 0.108 >= 250, 'capture actual 250+ km/h driving');
     assert.ok(slow.cars[playerSlot].speed < fast.cars[playerSlot].speed);
@@ -57,7 +63,7 @@ try {
     await page.keyboard.up('ArrowDown');
     await page.setViewportSize({ width: 390, height: 844 });
     await page.keyboard.press('KeyR'); await advance(192);
-    await page.keyboard.down('ArrowUp'); await advance(360);
+    await page.keyboard.down('ArrowUp'); await advance(400);
     const mobile = await page.evaluate(() => window.soraCars.state());
     assert.ok(mobile.cars[playerSlot].speed * 0.108 >= 250, 'mobile capture must also show actual high-speed driving');
     await page.screenshot({ path: `${out}/${reducedMotion}-mobile.png` });
@@ -87,9 +93,13 @@ try {
       return result;
     };
   });
+  await page.evaluate(() => window.soraCars.setTrack(2));
   await page.locator('#start-btn').click();
+  await page.waitForFunction(() => !document.querySelector('.scene-preparation-panel')
+    && document.querySelector('#race-canvas')?.dataset.groundAsset === 'detailed', null, { timeout: 60000 });
   await page.keyboard.down('ArrowUp');
-  await page.waitForFunction(() => JSON.parse(window.render_game_to_text()).player.speed * 0.108 >= 250, {}, { timeout: 15000 });
+  // The three-second countdown, then about six seconds up Nikko's avenue.
+  await page.waitForFunction(() => JSON.parse(window.render_game_to_text()).player.speed * 0.108 >= 250, {}, { timeout: 30000 });
   await page.screenshot({ path: `${out}/realtime-fast.png` });
   const samples = await page.evaluate(() => new Promise(resolve => {
     const frames = []; let start;
@@ -113,8 +123,9 @@ try {
   assert.ok(Math.abs(renderedMm / distanceMm - 1) < 0.06, 'visible world keeps pace with physics rather than slowly catching up');
   await page.keyboard.down('Shift');
   await page.waitForFunction(() => JSON.parse(window.render_game_to_text()).player.speed * 0.108 >= 300, {}, { timeout: 3000 });
-  await page.screenshot({ path: `${out}/realtime-boost.png` });
+  // Read the boost state before the screenshot: the race runs in real time, and a slow capture outlasts the battery.
   const boostState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
+  await page.screenshot({ path: `${out}/realtime-boost.png` });
   assert.equal(boostState.drivingSound.boost, true);
   await page.keyboard.up('Shift'); await page.keyboard.up('ArrowUp');
   await page.keyboard.down('ArrowDown');
