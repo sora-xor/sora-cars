@@ -38,6 +38,34 @@ This is source and scheduling compatibility evidence. It does not claim a new
 PCM render, cross-browser DSP bit identity, or publication. Every existing
 download and preview is still independently hashed against its original record.
 
+## November 13 race-mix qualification
+
+`src/game/audio.ts` changed for the race mix: while the driving voices sound the
+music bus plays at four times the slider, the driving voices' output level is
+0.3 instead of 0.64, `musicState` reports `raceMix` and `level`, and `dispose`
+clears the racing flag. Its reviewed hash in `qualification.json` is now
+`2af35017dc0f82f16ce8d8c86a8ed75161bff542d897e3d20fa2208d5d66dbfc`. No audio
+asset, manifest or export record was regenerated; export records keep the source
+hashes of their own export.
+
+The racing flag is written only by `drive` and `stopDrive`. Neither exporter and
+no trace calls them, so the export's music bus writes are unchanged: 0 at
+construction, then the slider, both with the 0.04 s time constant. The change
+adds no import, no runtime export and no graph construction.
+
+Evidence on these exact bytes:
+
+- The schedule comparison against the manifest-pinned October 28 renderer is
+  identical for all 25 complete scores (2,458,397 recorded operations).
+- An independent reviewer, given the diff and not the conclusion, repeated the
+  comparison, added the four street songs through `setScore` (identical), and
+  confirmed the comparison detects the change when it is reached: forcing the
+  racing flag, or adding one `drive` call to the export sequence.
+- `npm run test:music-assets` passes with the new pin.
+
+As before, this is source and scheduling compatibility evidence, not a new PCM
+render. The race mix itself is described in `cutscene-music.md`.
+
 ## Current October 28 corrections
 
 The collection has 26 recordings by **SORA Cars**. The Tokyo title is exactly

@@ -14,7 +14,10 @@ try {
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto(url);
+  // A blank same-origin document: the synthesizer module loads from the dev server without booting
+  // the game, whose 3D scene starves the mid-render steps below in headless Chromium.
+  await page.route(`${url}/audio-test.html`, route => route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>audio</title>' }));
+  await page.goto(`${url}/audio-test.html`);
   const result = await page.evaluate(async () => {
     const { GameAudio } = await import('/src/game/audio.ts');
     const rate = 48000;
@@ -84,6 +87,16 @@ try {
     const cue = await render(1, audio => audio.drive(900, true), [
       { at: 0.3, run: audio => { audio.stopDrive(); audio.cue('finish'); } },
     ]);
+    // The race mix at the shipped sliders (music 30, effects 35): the soundtrack over the car.
+    const song = seconds => audio => { audio.musicEnabled = true; audio.setVolumes(0.3, 0); audio.setTrack(0); audio.scheduleOfflineMusic(seconds); };
+    const menuMusic = await render(16, song(16), []);
+    const raceMusic = await render(16, audio => { song(16)(audio); audio.drive(1400, true, false, { controls: 1 }); }, [
+      { at: 13.5, run: audio => audio.stopDrive() },
+    ]);
+    const raceEngine = await render(4, audio => { audio.setVolumes(0, 0.35); audio.drive(1400, true, false, { controls: 1 }); }, []);
+    const disposed = new GameAudio(new OfflineAudioContext(1, rate, rate));
+    disposed.musicEnabled = true; disposed.setVolumes(0.3, 0.35); disposed.drive(1400, true);
+    const racingLevel = disposed.musicState.level; disposed.dispose();
     const rampEvents = Array.from({ length: 120 }, (_, index) => {
       const at = (index + 1) * 0.045;
       return { at, run: audio => {
@@ -127,6 +140,9 @@ try {
         impactStopRms: Math.max(rms(treeImpact.pcm, 0.4, 0.8), rms(signImpact.pcm, 0.4, 0.8)),
         impactKinds: [treeImpact.states[1].impact, signImpact.states[1].impact],
         finishCueRms: rms(cue.pcm, 0.4, 0.8), finishDriveState: cue.states[1],
+        menuMusicRms: rms(menuMusic.pcm, 8, 13), raceMusicRms: rms(raceMusic.pcm, 8, 13), raceEngineRms: rms(raceEngine.pcm, 1, 4),
+        settledMusicRms: rms(raceMusic.pcm, 15.2, 16), menuMusicLaterRms: rms(menuMusic.pcm, 15.2, 16),
+        racingLevel, disposedRaceMix: disposed.musicState.raceMix,
         rampPeak: peak(ramp.pcm, 0, 6.1), rampStopRms: rms(ramp.pcm, 5.65, 6.1),
         gears: [...new Set(ramp.states.map(state => state.gear))],
         voiceCounts: [...new Set([...ramp.states, ...stress.states].map(state => state.voiceCount))],
@@ -152,6 +168,10 @@ try {
   assert.equal(m.impactStopRms, 0); assert.deepEqual(m.impactKinds, ['tree', 'sign']);
   assert.deepEqual(m.comparedGears, [2, 3], 'same speed in different gears produces different rendered engine notes');
   assert.equal(m.finishDriveState.active, false); assert.ok(m.finishCueRms > 0.01, 'finish cue remains independent of stopped drive bus');
+  assert.ok(m.raceMusicRms > m.menuMusicRms * 3.8 && m.raceMusicRms < m.menuMusicRms * 4.2, 'the sounding engine lifts the soundtrack fourfold');
+  assert.ok(m.raceMusicRms > m.raceEngineRms * 1.5, 'at equal default sliders the soundtrack plays over the engine');
+  assert.ok(m.settledMusicRms > m.menuMusicLaterRms * 0.95 && m.settledMusicRms < m.menuMusicLaterRms * 1.1, 'the music settles to its menu level when the car stops');
+  assert.ok(Math.abs(m.racingLevel - 1.2) < 1e-9); assert.equal(m.disposedRaceMix, false, 'a disposed synthesizer is not left racing');
   assert.deepEqual(m.gears, [1, 2, 3, 4, 5, 6]); assert.ok(m.rampPeak < 0.98, 'driving waveform retains headroom');
   assert.equal(m.voiceCounts.length, 1, 'thousands of updates reuse one fixed voice bank');
   assert.equal(m.rampStopRms, 0); assert.equal(m.stressStopRms, 0); assert.deepEqual(errors, []);

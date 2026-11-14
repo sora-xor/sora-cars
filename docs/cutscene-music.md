@@ -105,15 +105,33 @@ An entrance applies only when a song is selected. Camera cuts and a later narrat
 
 `CutscenePlayer.show` notifies the main application when it draws a dialogue line. The application resolves its direction and score together. Exiting the cutscene restores the full arrangement; starting a race selects that course's existing race song. Music enable/disable and volume remain user controls. The in-scene Music button and M key toggle the score without moving dialogue; its label and pressed state stay synchronized. The dialogue log keeps keyboard focus. Recorded course music retains exclusive ownership of the music output, including already scheduled synth tails. Driving sounds have a separate effects bus.
 
+## Race mix
+
+During a race the soundtrack leads and the car sits under it. `GameAudio` raises the music bus fourfold (+12 dB) while the driving voices sound, and the driving voices play at 0.3 of full level ahead of the player's effects slider. The music swells over about a second as the car starts and settles back to its menu level when the car stops: at a pause, at the finish or after a wreck. Menus, cutscenes and the soundtrack export never drive the car, so their levels are unchanged.
+
+Offline renders at the default sliders (music 30, effects 35), as BS.1770 integrated loudness:
+
+| Source | Level |
+|---|---|
+| Music in menus and cutscenes | −36 LUFS |
+| Music while racing | −24 LUFS |
+| Engine and road while racing | −31 LUFS |
+| The whole race mix | −23 LUFS |
+| Peak of one song and the engine, both sliders at 100 | −4 dBFS |
+
+With both sliders at 100 the densest song and the engine together stay just under full scale by arithmetic (about 0.98), so the mix has no limiter. Before this mix the engine played at −24 LUFS over music at −36, so the car buried the song. The lift multiplies whatever music level the player has set; saved slider preferences are not rewritten.
+
+Recorded street-race songs play through a media element, outside the music bus. `raceSongVolume` in `src/game/race-mix.ts` plays them at four thirds of the music slider, which lands their −16 LUFS masters at the same −24 LUFS. A media element cannot exceed full level, so the top quarter of the slider sounds the same for these songs.
+
 ## Validation and listening
 
 - `npx tsx --test tests/music.test.ts tests/music-cues.test.ts` checks 25 complete MIDI files, note-on/off pairing, independently composed new melodies/harmonies/rhythms, every script position and camera arrangement, authored entrance bounds and landmarks, held dialogue, Back and audio ownership state.
 - `GAME_URL=http://127.0.0.1:5203 node scripts/test-cutscene-music.mjs` renders the real Web Audio synthesizer to PCM for all sixteen themes, compares actual audio before/after a camera change and between the opening/developed premiere, checks crossfade boundaries, and confirms silence under mute and external course music. It also observes actual oscillator scheduling to confirm that a developed entrance skips earlier notes and a late entrance wraps correctly.
-- `npm run test:audio` and `npm run test:external-music` retain the driving-sound and recorded-music regressions.
+- `npm run test:audio` and `npm run test:external-music` retain the driving-sound and recorded-music regressions. The first also renders the race mix to PCM at the default sliders: the fourfold lift, the song over the engine, and the settle when the car stops. It loads the synthesizer on a blank page of the dev server, without starting the game.
 - `npm run assets:music` regenerates the downloadable `.mid` files.
 
 The PCM validation also measures each transition against the same music crossfaded normally, scheduling notes only a moment ahead as the live timer does: a cut leaves about a ninth of a crossfade's level just after the switch; a power-down's treble-to-mid balance falls below half a crossfade's before dead air; a slow swell starts at about a quarter of a crossfade's level and then plays at full level; and a slow fade-out keeps the song playing (about 90% at first, about half midway) before the silence becomes real.
 
 Listening artifacts from the PCM validation are in `output/audio/cutscene-score/`: twelve seconds of each new full song, `jun-premiere-developed.wav` with eight seconds of the completed premiere, `adaptive-score-demo.wav`, a 28-second sequence moving through the garage, deadline, rain, betrayal, Jun's premiere and the final confession, and `story-transitions-demo.wav`, 32 seconds through the sponsor's call, the 2 a.m. power-down, the betrayal swelling out of dead air, Jun's premiere, Ren's silence and the love theme's answer. `report.json` records the measured levels, transitions, cue boundaries and note scheduling checks.
 
-The browser's `render_game_to_text()` exposes `musicState`: title, tempo, cue, narrative, mood, arrangement, five stem levels, requested and actual entry beats, transport beat, transition counts, output ownership and volume. These are presentation values and do not affect race physics, signing or settlement.
+The browser's `render_game_to_text()` exposes `musicState`: title, tempo, cue, narrative, mood, arrangement, five stem levels, requested and actual entry beats, transport beat, transition counts, output ownership, volume, and the race mix (`raceMix`, and `level` as the music bus's gain). These are presentation values and do not affect race physics, signing or settlement.

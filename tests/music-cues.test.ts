@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { GameAudio } from '../src/game/audio';
+import { raceSongVolume } from '../src/game/race-mix';
 import { CHAPTERS, RETRY_SCENE } from '../src/game/story';
 import { resolveStoryShot } from '../src/game/story-scenes';
 import { CUTSCENE_CUE_SHEETS, resolveCutsceneCue } from '../src/game/music-cues';
@@ -154,4 +155,23 @@ test('audio transport holds on repeated dialogue, morphs on an angle and changes
   audio.endCutscene(); assert.equal(audio.musicState.source, 'song'); assert.equal(audio.musicState.cue, null);
   audio.setTrack(1); assert.equal(audio.musicState.title, 'Harbor Signals'); assert.equal(audio.effectsVolume, .63);
   for (const chapter of CHAPTERS) assert.equal(resolveCutsceneCue(chapter.id, 'retry', 0, resolveStoryShot(RETRY_SCENE, 0)).track, 19);
+});
+
+test('the soundtrack leads the race mix while the engine sounds', () => {
+  const audio = new GameAudio(); audio.setVolumes(.25, .35);
+  assert.equal(audio.musicState.level, 0, 'music that is switched off has no level');
+  audio.musicEnabled = true;
+  assert.equal(audio.musicState.raceMix, false); assert.equal(audio.musicState.level, .25);
+  audio.drive(1400, true); assert.equal(audio.musicState.raceMix, true);
+  assert.equal(audio.musicState.level, 1, 'the music comes up fourfold over the engine');
+  audio.drive(1500, true, true, { controls: 33 }); assert.equal(audio.musicState.level, 1);
+  audio.setVolumes(.5, .35); assert.equal(audio.musicState.level, 2, 'the slider still sets the level');
+  audio.setExternalMusic(true); assert.equal(audio.musicState.level, 0, 'a recorded race song owns the music slot');
+  audio.setExternalMusic(false); assert.equal(audio.musicState.level, 2);
+  audio.stopDrive(); assert.equal(audio.musicState.level, .5, 'a pause or the finish settles the music back');
+  audio.drive(900, false); assert.equal(audio.musicState.raceMix, false);
+  audio.drive(Number.NaN, true); assert.equal(audio.musicState.raceMix, false, 'no lift without a sounding engine');
+  assert.equal(audio.musicState.volume, .5); assert.equal(audio.effectsVolume, .35, 'the saved sliders are untouched');
+  // A recorded race song (−16 LUFS master) lands where the lifted synthesized music does.
+  assert.ok(Math.abs(raceSongVolume(.3) - .4) < 1e-9); assert.equal(raceSongVolume(0), 0); assert.equal(raceSongVolume(1), 1);
 });

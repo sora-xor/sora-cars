@@ -22,6 +22,17 @@ export interface DriveAudioState {
 }
 const bounded = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 
+/** The race mix: the soundtrack leads and the car sits under it. Measured at the default sliders
+ * (BS.1770 integrated, offline renders), the engine used to play at −24 LUFS over music at −36.
+ * While the engine sounds the music bus now comes up to about −24 LUFS and the driving voices
+ * play at about −31, so shifts, tyres and impacts still read as driving feedback. */
+const RACE_MUSIC_LIFT = 4;
+/** Output level of the driving voices, ahead of the player's effects slider. */
+const DRIVE_LEVEL = 0.3;
+/** Time constant in seconds of the swell as the car starts and the settle when it stops (pause,
+ * finish): about a second in all, short enough that a cutscene after the finish does not open hot. */
+const RACE_MIX_SECONDS = 0.3;
+
 /** A fixed voice bank: combustion, exhaust, intake, gearbox, turbo and road textures.
  * Every path ends at `bus`, after all filters and envelopes. A stop therefore
  * mutes ongoing loops and pending shift/release tails in the same audio quantum.
@@ -209,7 +220,7 @@ class DriveSynth {
       this.#impactGain.gain.exponentialRampToValueAtTime(0.0001, this.#impactUntil - 0.01);
       this.#impactGain.gain.linearRampToValueAtTime(0, this.#impactUntil);
     }
-    this.#target(this.bus.gain, 0.64, now, was.active ? 0.02 : 0.012);
+    this.#target(this.bus.gain, DRIVE_LEVEL, now, was.active ? 0.02 : 0.012);
     this.#lastSpeed = velocity;
     this.#snapshot = { active: true, gear, rpm: Math.round(rpm), load, boost, tyreSlip: slip, wind,
       offroad, rain, shifting: now < this.#shiftUntil, turboRelease: now < this.#releaseUntil, impact, voiceCount: this.#sources.length };
@@ -266,6 +277,8 @@ export class GameAudio {
   effectsVolume = 0.35;
   musicEnabled = false;
   #externalMusic = false;
+  /** The engine is sounding, so the music plays at its race level. */
+  #racing = false;
   #master: GainNode | null = null;
   #music: GainNode | null = null;
   #effects: GainNode | null = null;
@@ -345,7 +358,12 @@ export class GameAudio {
       entryBeat: this.#entryBeat, requestedEntryBeat: this.#sceneCue?.entryBeat ?? 0,
       transportBeat: Math.round((this.#entryBeat + Math.max(0, (now - this.#start) * this.#score.bpm / 60)) * 100) / 100,
       startedAt: this.#start, transitions: this.#transitions, arrangementChanges: this.#arrangementChanges,
-      transitioning: now < this.#transitionUntil, volume: this.musicVolume, liveLayers: (this.#layer ? 1 : 0) + this.#retiring.length };
+      transitioning: now < this.#transitionUntil, volume: this.musicVolume, liveLayers: (this.#layer ? 1 : 0) + this.#retiring.length,
+      // The music bus's gain target: the slider, lifted while the engine sounds; zero while muted.
+      raceMix: this.#racing, level: this.#musicLevel() };
+  }
+  #musicLevel(): number {
+    return this.musicEnabled && !this.#externalMusic ? this.musicVolume * (this.#racing ? RACE_MUSIC_LIFT : 1) : 0;
   }
   setTrack(index: number): void {
     const score = makeScore(index);
@@ -481,16 +499,23 @@ export class GameAudio {
   setVolumes(music: number, effects: number): void {
     this.musicVolume = Math.max(0, Math.min(1, music)); this.effectsVolume = Math.max(0, Math.min(1, effects)); this.#updateGains();
   }
-  #updateGains(): void {
+  #updateGains(constant = 0.04): void {
     if (!this.context || !this.#music || !this.#effects) return;
-    this.#music.gain.setTargetAtTime(this.musicEnabled && !this.#externalMusic ? this.musicVolume : 0, this.context.currentTime, 0.04);
+    this.#music.gain.setTargetAtTime(this.#musicLevel(), this.context.currentTime, constant);
     this.#effects.gain.setTargetAtTime(this.effectsVolume, this.context.currentTime, 0.04);
+  }
+  /** The music swells as the car starts and settles when it stops; repeated frames change nothing. */
+  #setRacing(racing: boolean): void {
+    if (racing === this.#racing) return;
+    this.#racing = racing; this.#updateGains(RACE_MIX_SECONDS);
   }
   drive(speed: number, active: boolean, boost = false, detail: DriveDetail = {}): void {
     this.#drive?.drive(speed, active, boost, detail);
+    // The same test the driving voices apply before they sound.
+    this.#setRacing(active && Number.isFinite(speed));
   }
   /** Immediately silence all driving voices and cancel queued shift/turbo tails. */
-  stopDrive(): void { this.#drive?.stop(); }
+  stopDrive(): void { this.#drive?.stop(); this.#setRacing(false); }
   cue(kind: 'count' | 'go' | 'finish' | 'click'): void {
     if (!this.context) return;
     const now = this.context.currentTime;
@@ -574,6 +599,6 @@ export class GameAudio {
     this.#fx?.dispose(); this.#fx = null; this.#mix?.disconnect(); this.#bus.forEach(node => node.disconnect()); this.#bus = [];
     this.#music?.disconnect(); this.#effects?.disconnect(); this.#master?.disconnect();
     if (this.context instanceof AudioContext) void this.context.close();
-    this.context = null;
+    this.context = null; this.#racing = false;
   }
 }

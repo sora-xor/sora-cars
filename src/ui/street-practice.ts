@@ -1,5 +1,6 @@
 import './street-practice.css';
 import { GameAudio, type DriveDetail } from '../game/audio';
+import { raceSongVolume } from '../game/race-mix';
 import { STREET_ROUTES, loadStreetRoute, loadStreetRouteMusic, type LoadedStreetRoute } from '../game/street/assets';
 import { streetRouteStyle } from '../game/street/routes';
 import { StreetRaceSession, type StreetRaceState } from '../game/street/session';
@@ -273,7 +274,7 @@ export class StreetPractice {
     } else audio.stopDrive();
     this.#impact = undefined;
     if (!this.#song) return;
-    this.#song.volume = audio.musicVolume;
+    this.#song.volume = raceSongVolume(audio.musicVolume);
     if (this.#lastMusic !== audio.musicEnabled) {
       this.#musicBlocked = false; this.#lastMusic = audio.musicEnabled;
       if (audio.musicEnabled) this.#resyncMusic = true;
