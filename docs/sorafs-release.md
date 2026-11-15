@@ -8,6 +8,26 @@ retained original SoraFS publication. `scripts/prepare-archive-assets.mjs` verif
 those files against the original frozen inventory before generating the exact
 path mapping. Signaling and proof workers are configured separately by players.
 
+## November 15, 2026: publication prerequisites reconciled
+
+Read-only checks on Taira (unit state, `/status`, and the validator's current
+snapshot; record in `output/reviews/native-binding-20261115/sorafs-reconcile-20261115/`):
+
+- All four validators have run `optimizations` a34b1e7a since November 13
+  (14:45 to 15:31 UTC), a build that carries the SoraFS provider-ingest and
+  governed-authority fixes. The November 10 roll of patched build v7b is
+  superseded and must not be resumed.
+- At height 16053 no account or role holds `CanIssueSorafsReplicationOrder`.
+  `CanSetSorafsReservePolicy` and `CanUpsertSorafsProviderCredit` now exist
+  (one holder each).
+- The three providers' capacity declarations are byte-identical to November 10,
+  so they are still full.
+- Both live publications still serve.
+
+Publication still needs provider capacity and a replication-order authority
+(operator decisions), then a fresh package from the current master: the staged
+V2 and V3 packages predate the November 15 commits.
+
 ## November 11, 2026: loading and graphics fix
 
 The original publication and the November 10 loading-feedback publication are
