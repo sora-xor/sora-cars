@@ -1,5 +1,6 @@
 import { withOwnedResources } from './lib/harness-lifecycle.mjs';
 import { admissionCommitment, manifestCommitment } from '../src/chain/certificates.ts';
+import { RULES } from '../src/game/rules.ts';
 import { currentGameFixtures } from './lib/current-game-fixtures.mjs';
 import { AccountAddress } from '@iroha/iroha-js';
 import assert from 'node:assert/strict';
@@ -18,6 +19,7 @@ const generated = JSON.parse(await readFile('src/game/generated/race-v1-kernels.
 open.manifest.profile_id = gameHashLiteralV1(Buffer.from(generated.profile_id, 'hex'));
 open.manifest.application_parameters = Array.from(encodeRaceValueV1('RaceTrackV1', { kind: 'neon_tokyo', value: null }));
 open.manifest.max_participant_data_bytes = 1;
+open.manifest.max_ticks = RULES.maxTicks;
 open.manifest.access = { kind: 'public', public_key: null };
 const network = fixture.network_id, session = open.session_id;
 const key = new Uint8Array(32).fill(27), publicKey = Buffer.from(ed25519.getPublicKey(key)).toString('hex');
@@ -150,10 +152,11 @@ const browser = own('Chromium browser', await chromium.launch({ headless: true }
   await workerPage.waitForFunction(() => typeof window.setupLiveHarness === 'function');
   const proofRecord = { ...structuredClone(raw), manifest_commitment: manifestCommitment(network, session, raw.manifest) };
   await workerPage.evaluate(record => window.setupLiveHarness(record), proofRecord);
-  const terminal = await workerPage.evaluate(() => window.liveHarness.certifiedSnapshot(5400, 2));
+  const terminal = await workerPage.evaluate(ticks => window.liveHarness.certifiedSnapshot(ticks, 2), RULES.maxTicks);
+  assert.equal(terminal.checkpoint.checkpoint.terminal, true, `a braking race is terminal at the ${RULES.maxTicks}-tick limit`);
   await workerPage.locator('summary').filter({ hasText: 'PEER CONNECTION' }).click();
   await workerPage.locator('#live-replay-file').setInputFiles({ name: 'terminal-replay.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(terminal)) });
-  await workerPage.waitForFunction(() => window.liveHarness.messages.some(message => message.includes('tick 5400 matches')));
+  await workerPage.waitForFunction(ticks => window.liveHarness.messages.some(message => message.includes(`tick ${ticks} matches`)), RULES.maxTicks);
   assert.equal(await workerPage.locator('a[href="#/prove"]').count(), 1);
   assert.equal(await workerPage.locator('#live-worker, [data-live="worker"], [data-live="prove-request"]').count(), 0);
   await workerPage.locator('a[href="#/prove"]').scrollIntoViewIfNeeded();

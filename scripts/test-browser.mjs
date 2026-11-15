@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { RULES } from '../src/game/rules.ts';
 
 const url = process.env.GAME_URL ?? 'http://127.0.0.1:5173';
 const out = 'output/browser';
@@ -103,10 +104,10 @@ try {
   // history, the in-race HUD/text state, replay and terminal result rows.
   const tied = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   tied.on('pageerror', error => errors.push(error.message));
-  await tied.addInitScript((rulesHash) => localStorage.setItem('sora-cars:history:v1', JSON.stringify([{
+  await tied.addInitScript(({ rulesHash, maxTicks }) => localStorage.setItem('sora-cars:history:v1', JSON.stringify([{
     version: 1, rules: 'RaceV1', rulesHash, trackId: 0, names: ['ライバル', 'YOU'], skins: [0, 1],
-    inputs: Array.from({ length: 5400 }, () => [2, 2]), savedAt: '2026-09-05T00:00:00Z', source: 'practice',
-  }])), rulesHash);
+    inputs: Array.from({ length: maxTicks }, () => [2, 2]), savedAt: '2026-09-05T00:00:00Z', source: 'practice',
+  }])), { rulesHash, maxTicks: RULES.maxTicks });
   await tied.goto(url);
   await tied.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
   await tied.locator('[data-action="history"]').click();
@@ -115,7 +116,7 @@ try {
   await tied.evaluate(() => window.advanceTime(1000));
   assert.equal(await tied.evaluate(() => JSON.parse(window.render_game_to_text()).position), 1);
   await tied.screenshot({ path: `${out}/tied-replay-hud.png` });
-  await tied.evaluate(() => window.advanceTime(181000));
+  await tied.evaluate(ms => window.advanceTime(ms), RULES.maxTicks / RULES.hz * 1000 + 1000);
   assert.equal(await tied.locator('#app').getAttribute('data-view'), 'results');
   assert.deepEqual(await tied.locator('.result-row > span:first-child').allTextContents(), ['01', '01']);
   assert.match(await tied.locator('.result-title > span').innerText(), /^01/u);

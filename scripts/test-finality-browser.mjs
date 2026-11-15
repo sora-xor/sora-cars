@@ -1,5 +1,6 @@
 import { withOwnedResources } from './lib/harness-lifecycle.mjs';
 import { admissionCommitment, manifestCommitment } from '../src/chain/certificates.ts';
+import { RULES } from '../src/game/rules.ts';
 import { currentGameFixtures } from './lib/current-game-fixtures.mjs';
 import { AccountAddress } from '@iroha/iroha-js';
 import assert from 'node:assert/strict';
@@ -21,6 +22,7 @@ const generated = JSON.parse(await readFile('src/game/generated/race-v1-kernels.
 open.manifest.profile_id = gameHashLiteralV1(Buffer.from(generated.profile_id, 'hex'));
 open.manifest.application_parameters = Array.from(encodeRaceValueV1('RaceTrackV1', { kind: 'neon_tokyo', value: null }));
 open.manifest.max_participant_data_bytes = 1;
+open.manifest.max_ticks = RULES.maxTicks;
 open.manifest.access = { kind: 'public', public_key: null };
 const hash = n => gameHashLiteralV1(new Uint8Array(32).fill(n | 1));
 const commitment = n => 'game384:' + n.toString(16).padStart(2, '0').toUpperCase().repeat(48);

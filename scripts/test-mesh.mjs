@@ -14,14 +14,15 @@ import { NetworkId } from '@iroha/iroha-js/connect-browser';
 import { gameHashLiteralV1 } from '@iroha/iroha-js/game';
 import { raceHashLiteralV1 } from '@iroha/iroha-js/race';
 import { launchChromium } from './lib/browser-launch.mjs';
+import { RULES } from '../src/game/rules.ts';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const origin = process.env.SORA_CARS_TEST_ORIGIN ?? 'http://127.0.0.1:5173';
 const endpoint = new URL(origin);
 assert.ok(['127.0.0.1', 'localhost', '[::1]'].includes(endpoint.hostname) && endpoint.protocol === 'http:' && endpoint.pathname === '/' && !endpoint.search && !endpoint.hash && !endpoint.username && !endpoint.password, 'use a local test origin');
 const targetTick = Number(process.env.SORA_CARS_TEST_TICKS ?? 180);
-if (!Number.isSafeInteger(targetTick) || targetTick < 180 || targetTick > 5400 || targetTick % 6) throw new Error('SORA_CARS_TEST_TICKS must be a multiple of six from 180 through 5400.');
-const fullDuration = targetTick === 5400;
+if (!Number.isSafeInteger(targetTick) || targetTick < 180 || targetTick > RULES.maxTicks || targetTick % 6) throw new Error(`SORA_CARS_TEST_TICKS must be a multiple of six from 180 through ${RULES.maxTicks}.`);
+const fullDuration = targetTick === RULES.maxTicks;
 const timeoutMs = 45_000 + Math.ceil(targetTick / 30 * 2000);
 const headed = process.env.SORA_CARS_TEST_HEADED === '1';
 const channel = process.env.SORA_CARS_TEST_CHANNEL ?? 'default';
@@ -307,7 +308,7 @@ try {
   const lateProtocol = await Promise.all(pages.map(page => page.evaluate(() => ({ errors: globalThis.raceErrors, protocolErrors: globalThis.protocolErrors }))));
   report.protocolErrors = lateProtocol;
   for (const value of lateProtocol) { assert.deepEqual(value.errors, []); assert.deepEqual(value.protocolErrors, []); }
-  report.completed = { contexts: 8, webrtcLinks: 28, certifiedTick: targetTick, eightSignaturesPerCheckpoint: true, identicalReconstructedState: true, authenticatedCosmeticChoices: true, identicalTerminalState: fullDuration, verifiedInputScenario: fullDuration ? 'Simulation-tick boost and drift, then braking from tick 360 through the exact 5400-tick limit.' : 'Simulation-tick throttle, boost and drift through a certified prefix.' };
+  report.completed = { contexts: 8, webrtcLinks: 28, certifiedTick: targetTick, eightSignaturesPerCheckpoint: true, identicalReconstructedState: true, authenticatedCosmeticChoices: true, identicalTerminalState: fullDuration, verifiedInputScenario: fullDuration ? `Simulation-tick boost and drift, then braking from tick 360 through the exact ${RULES.maxTicks}-tick limit.` : 'Simulation-tick throttle, boost and drift through a certified prefix.' };
 } catch (error) {
   failure = error; report.error = { message: error.message, code: error.code, stack: error.stack };
   report.failureSnapshots = await Promise.all(pages.map((page, slot) => step(`slot ${slot}: failure snapshot`, () => page.evaluate(() => ({ status: globalThis.controller?.status, errors: globalThis.raceErrors, protocolErrors: globalThis.protocolErrors, dataset: { ...document.querySelector('#mesh-race')?.dataset }, renderStats: globalThis.getMeshRenderStats?.() })), 5000).then(state => ({ slot, state }), error => ({ slot, error: String(error) }))));
