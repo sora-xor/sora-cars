@@ -10,5 +10,13 @@
   "sameAnnouncedCarBuilds": true,
   "observersHaveGameplayOrWalletKeys": false,
   "authoritativeLedger": false,
+  "screenshotTimeoutMs": 120000,
+  "source": {
+    "revision": "9adc110bd1918266caf6ab00dbe7782259b2702c",
+    "treeChanges": 1,
+    "scriptSha256": "de2a0a6c17a873fe6b43296cfd6cd490c5a83250e7adf0607c05b5b5629403e8",
+    "nativeProfile": "70d464a09bcce749818d3ee8aedd690e4356565e5fadbef11f402a4c1e3244e1"
+  },
+  "origin": "http://127.0.0.1:5186",
   "errors": []
 }
