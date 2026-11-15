@@ -10,6 +10,8 @@ import type { RaceState } from '../game/engine';
 import { RULES } from '../game/rules';
 /** Six-tick batches in a race that runs to the tick limit. */
 const BATCHES = RULES.maxTicks / 6;
+/** The most public input commitments or reveals one race can have: every slot, every batch (10,800 at 8,100 ticks). */
+export const PUBLIC_INPUT_HISTORY_LIMIT = BATCHES * RULES.maxCars;
 import { createInputKey, hex } from '../network/session';
 import type { RaceParticipant, InputKeyPair } from '../network/session';
 
@@ -73,7 +75,7 @@ export function publishCheckpoint(checkpoint: SignedGameCheckpointV1, frontier: 
 export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): GameInputRevealV1[] {
   const values = new Map<string, { encoded: string; reveal: GameInputRevealV1 }>();
   for (const group of groups) {
-    if (group.length > BATCHES * 8) throw new Error('Oversized public reveal history.');
+    if (group.length > PUBLIC_INPUT_HISTORY_LIMIT) throw new Error('Oversized public reveal history.');
     for (const reveal of group) {
       raceControlsFromPayloadV1(reveal.payload);
       const bytes = encodeGameValueV1('GameInputRevealV1', reveal), encoded = hex(bytes);
@@ -82,7 +84,7 @@ export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): G
       const old = values.get(key);
       if (old && old.encoded !== encoded) throw new Error('Conflicting public reveals for the same session slot and interval.');
       if (!old) values.set(key, { encoded, reveal: checked });
-      if (values.size > BATCHES * 8) throw new Error('Oversized public reveal history.');
+      if (values.size > PUBLIC_INPUT_HISTORY_LIMIT) throw new Error('Oversized public reveal history.');
     }
   }
   return [...values.values()].map(value => value.reveal);
@@ -92,7 +94,7 @@ export function mergeRaceReveals(...groups: (readonly GameInputRevealV1[])[]): G
 export function mergeRaceCommitments(...groups: (readonly GameInputCommitmentV1[])[]): GameInputCommitmentV1[] {
   const values = new Map<string, { encoded: string; input: GameInputCommitmentV1 }>();
   for (const group of groups) {
-    if (group.length > BATCHES * 8) throw new Error('Oversized public commitment history.');
+    if (group.length > PUBLIC_INPUT_HISTORY_LIMIT) throw new Error('Oversized public commitment history.');
     for (const input of group) {
       const bytes = encodeGameValueV1('GameInputCommitmentV1', input), encoded = hex(bytes);
       const checked = decodeGameValueV1('GameInputCommitmentV1', bytes) as GameInputCommitmentV1;
@@ -100,7 +102,7 @@ export function mergeRaceCommitments(...groups: (readonly GameInputCommitmentV1[
       const old = values.get(key);
       if (old && old.encoded !== encoded) throw new Error('Conflicting public commitments for the same session slot and interval.');
       if (!old) values.set(key, { encoded, input: checked });
-      if (values.size > BATCHES * 8) throw new Error('Oversized public commitment history.');
+      if (values.size > PUBLIC_INPUT_HISTORY_LIMIT) throw new Error('Oversized public commitment history.');
     }
   }
   return [...values.values()].map(value => value.input);

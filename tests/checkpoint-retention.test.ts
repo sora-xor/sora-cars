@@ -10,7 +10,7 @@ import { prepareRaceTranscript, activeScope, admissionCommitment, inputDigest, i
 import { encodePublicReplayJson, PUBLIC_REPLAY_JSON_LIMIT } from '../src/chain/proof-limits';
 import { buildRaceProverRequest, nativeRaceResult, parseRaceProofBundle } from '../src/chain/proof';
 import { collectAcceptedHistory, settlementResult, validateDrivingProjection } from '../src/chain/history';
-import { checkpointOpenings, mergeRaceReveals, mergeRaceCommitments, recoveryInputs, nativeState, nativeTrack, parseRaceRecord, publishCheckpoint, raceAdmission, raceContext, raceManifest, raceOutcome, stateRoot } from '../src/chain/races';
+import { checkpointOpenings, mergeRaceReveals, mergeRaceCommitments, PUBLIC_INPUT_HISTORY_LIMIT, recoveryInputs, nativeState, nativeTrack, parseRaceRecord, publishCheckpoint, raceAdmission, raceContext, raceManifest, raceOutcome, stateRoot } from '../src/chain/races';
 import { replayConsensusFrontier, simulateNativeReplay } from '../src/network/controller';
 
 // Synthetic application consistency controls: unsigned certificates and invented
@@ -125,7 +125,7 @@ test('checkpoint publication requires matching nonce-bearing openings for the ol
   const inactive = structuredClone(record); inactive.source_record.participants[1]!.dnf_at_tick = 6;
   assert.deepEqual(checkpointOpenings(inactive, cp, null, reveals.slice(0, 1)), [openings![0], null], 'inactive original slot keeps its place');
   assert.deepEqual(mergeRaceReveals(reveals, reveals), reveals, 'reconnect/export deduplicates exact already-public openings');
-  assert.throws(() => mergeRaceReveals(Array(7201).fill(reveals[0])), /Oversized/);
+  assert.throws(() => mergeRaceReveals(Array(PUBLIC_INPUT_HISTORY_LIMIT + 1).fill(reveals[0])), /Oversized/);
   assert.throws(() => mergeRaceReveals(reveals, forged), /Conflicting/);
   assert.throws(() => mergeRaceReveals([{ ...reveals[0]!, payload: Array(4096).fill(1) }]), /twelve bytes/);
   const maximum = Array.from({ length: 10800 }, (_, index) => ({ ...reveals[index % 2]!, slot: index % 8, start_tick: Math.floor(index / 8) * 6 }));
@@ -150,7 +150,7 @@ test('public recovery commitments deduplicate eight slots, reject conflicts and 
   assert.ok(imported.every(value => typeof value.epoch === 'string'), 'export normalizes native u64 counters');
   assert.deepEqual(mergeRaceCommitments(archive, imported), archive, 'actual export/import representation does not duplicate or replace eight retained slots');
   assert.throws(() => mergeRaceCommitments(archive, [{ ...archive[0]!, commitment: commitment(99) }]), /Conflicting/);
-  assert.throws(() => mergeRaceCommitments(Array(7201).fill(archive[0])), /Oversized/);
+  assert.throws(() => mergeRaceCommitments(Array(PUBLIC_INPUT_HISTORY_LIMIT + 1).fill(archive[0])), /Oversized/);
   const maximum = Array.from({ length: 10800 }, (_, index) => ({ ...values[index % 8]!, start_tick: Math.floor(index / 8) * 6 }));
   const retained = mergeRaceCommitments(maximum, maximum);
   assert.equal(retained.length, 10800);

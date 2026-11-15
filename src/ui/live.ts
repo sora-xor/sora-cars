@@ -8,7 +8,7 @@ import type { RaceChainClient } from '../chain/client';
 import { garageInventory, type GarageNft } from '../chain/inventory';
 import { clubItem, type ClubAppearance } from '../game/catalog';
 import type { CarBuild } from '../game/car-builds';
-import { advanceRaceDeadline, assertSameRaceTerms, challengeRace, claimRacePayout, expireRace, forcedRaceInput, gameTrack, inputKeyLiteral, joinRace, newRaceId, newRaceInputKey, openRace, parseRaceList, parseRaceRecord, publishCheckpoint, checkpointOpenings, mergeRaceReveals, mergeRaceCommitments, publishInputCommitment, publishInputReveal, raceInvitation, raceRoster, recoveryInputs, settleRace, checkpointTranscriptRoot, startRace, stakeRaceItem, type RaceRecord } from '../chain/races';
+import { advanceRaceDeadline, assertSameRaceTerms, challengeRace, claimRacePayout, expireRace, forcedRaceInput, gameTrack, inputKeyLiteral, joinRace, newRaceId, newRaceInputKey, openRace, parseRaceList, parseRaceRecord, publishCheckpoint, checkpointOpenings, mergeRaceReveals, mergeRaceCommitments, publishInputCommitment, publishInputReveal, raceInvitation, raceRoster, recoveryInputs, settleRace, checkpointTranscriptRoot, startRace, stakeRaceItem, PUBLIC_INPUT_HISTORY_LIMIT, type RaceRecord } from '../chain/races';
 import { parseRaceProofBundle, raceProofSourceMatches, assertRaceProofSourceUnchanged, type RaceProofBundle } from '../chain/proof';
 import { collectCertifiedSettlement, assertSettlementWalletBinding, settlementExportOrigin, settlementExportRequest, SETTLEMENT_DESCRIPTOR_FILE, settlementVerificationCommand, settlementVerificationTrust, type SettlementVerificationTrust } from '../chain/finality';
 import { selectFinalityDirectory, supportsFinalityDirectoryExport, type SettlementDirectoryExport } from './finality-export';
@@ -379,7 +379,7 @@ export class LiveRacingPanel {
     const verifier = new RaceSpectator(this.#scope(Number(checkpoint.checkpoint.epoch)), { replay, checkpoint, activeSlots: r.participants.map((_, slot) => slot) });
     verifier.close();
     const recovery = file.recovery as { commitments?: unknown[]; reveals?: unknown[] } | undefined;
-    if (recovery && (!Array.isArray(recovery.commitments) || !Array.isArray(recovery.reveals) || recovery.commitments.length > 7200 || recovery.reveals.length > 7200)) throw new Error('Oversized recovery evidence.');
+    if (recovery && (!Array.isArray(recovery.commitments) || !Array.isArray(recovery.reveals) || recovery.commitments.length > PUBLIC_INPUT_HISTORY_LIMIT || recovery.reveals.length > PUBLIC_INPUT_HISTORY_LIMIT)) throw new Error('Oversized recovery evidence.');
     this.#publicInputs = { commitments: mergeRaceCommitments(this.#publicInputs.commitments, this.evidence?.commitments ?? [], this.controller?.session.nativeInputCommitments ?? [], (recovery?.commitments ?? []).map(v => decodeGameValueV1('GameInputCommitmentV1', encodeGameValueV1('GameInputCommitmentV1', v)) as GameInputCommitmentV1)), reveals: mergeRaceReveals(this.#publicInputs.reveals, this.evidence?.revealedInputs ?? [], this.controller?.session.retainedRevealedInputs ?? [], (recovery?.reveals ?? []).map(v => decodeGameValueV1('GameInputRevealV1', encodeGameValueV1('GameInputRevealV1', v)) as GameInputRevealV1)) };
     this.#snapshot = { replay, checkpoint }; this.render();
     this.#host.notify(`Replay at tick ${replay.frames.length} matches every original input-key signature. Ledger finality remains unauthenticated in this browser.`);
