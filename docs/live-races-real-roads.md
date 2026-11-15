@@ -499,8 +499,8 @@ Status on November 16, 2026. RaceV1 qualification stays false
    merge into master (`51562ef`).
 2. Done: the authenticated iroha_js native binding (`73aa032a…`), rebuilt in
    its warm target under the pinned single-job policy. It binds the native tree
-   at `c000f91384` with this change and the re-exported corpus below
-   (`source_tree_sha256` `8bcad0aa…`). The native checkout's HEAD is part of that
+   at `c000f91384` with this change, the re-exported corpus and the proof-test
+   drivers below (`source_tree_sha256` `6e965355…`). The native checkout's HEAD is part of that
    provenance, so the commits below were made without moving it.
 3. Native commits, on `~/dev/iroha` branch `sora-cars/native-real-roads-20261115`
    (signed, not pushed):
@@ -511,6 +511,10 @@ Status on November 16, 2026. RaceV1 qualification stays false
      (`test/fixtures/game_current_proof_v1`), re-exported for the new profile.
      It carries the profile ID, so the chain and settlement tests refused the
      4 November corpus.
+   - `0c7bb67fd3`: proof-test fixtures that drove flat out without steering now
+     brake for bends and steer back to the centre (`careful_control`). On the
+     real roads those cars parked on the verge, and four tests stopped at the tick
+     limit.
 4. Gates that pass:
    - the seven chain and checkpoint tests, and the settlement context;
    - `test-live-ui`, including a full 8,100-tick terminal replay;
@@ -518,7 +522,10 @@ Status on November 16, 2026. RaceV1 qualification stays false
    - `test-spectator`, at load ~275 under a recorded 120 s screenshot deadline
      (`artifacts/spectator-browser.json`);
    - Touring, re-pinned to the edited data-model file with its rules unchanged;
-   - the SDK's corpus tests.
+   - the SDK's corpus tests;
+   - native `iroha_core` execution-proof, captured-merge state and `isi::game`
+     tests: 188 pass, 14 ignored. The registry current-wire test was skipped; it
+     needs an explicitly supplied export folder.
 5. Full `npm test` at load ~220: 772 tests, 763 pass. The 7 failures and 2
    cancellations are all in `live-terms` (a 45 s parent deadline) and
    `native-proof-process` (child processes with 1-3 s deadlines).
@@ -529,9 +536,22 @@ Status on November 16, 2026. RaceV1 qualification stays false
      `output/reviews/native-binding-20261115/quiet-gates/` runs them, plus the
      two timing-bound test files, once the load average stays under 35.
    - Labelled before/after frames of a live race at Hakone's hairpins.
-7. Port to `optimizations`: the engine applies cleanly, while the
-   `iroha_core_privacy` adapter, the data model and iroha_js conflict. Its owner
-   asked for nothing to land in the shared tree while it qualifies a frozen
-   snapshot. A private port branch,
-   `sora-cars/native-real-roads-on-optimizations`, is being prepared outside the
-   shared tree; landing it is the user's call.
+7. Port to `optimizations`: branch `sora-cars/native-real-roads-on-optimizations`
+   on `f06c6ea1f8` (signed, not pushed). Its commits:
+   - `8d242469bd`: the change, three-way merged into the diverged
+     `iroha_core_privacy` adapter.
+   - `dbce2d4ab5`: the ZK inventories.
+   - `aa1e0111e3`: rustfmt of the engine, approved by its owner, Codex. The
+     generated road table carries `#[rustfmt::skip]` and stays byte-exact.
+
+   Checks that pass:
+   - 54 engine and 19 oracle tests;
+   - 44 adapter tests;
+   - the three ZK inventory checkers and the resource contract;
+   - the 11 fastpq inventory tests;
+   - the iroha_js race tests;
+   - eight-car proofs, byte-identical to native's.
+
+   The owner's other landing gate is strict clippy on `iroha_core`, `iroha_cli`
+   and `integration_tests`. Its owner deferred landing while it qualifies a frozen
+   snapshot of the shared tree; when it lands is the user's call.
