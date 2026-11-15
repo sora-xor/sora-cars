@@ -1,4 +1,6 @@
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import { gameHashLiteralV1 } from '@iroha/iroha-js/game';
 import assert from 'node:assert/strict';
 import { once } from 'node:events';
@@ -12,6 +14,15 @@ import { createSignalingRelay } from './signaling.mjs';
 const nativeProfile = JSON.parse(readFileSync(new URL('../src/game/generated/race-v1-kernels.json', import.meta.url), 'utf8')).profile_id;
 const profileId = gameHashLiteralV1(Buffer.from(nativeProfile, 'hex'));
 const origin = process.env.SORA_CARS_TEST_ORIGIN ?? 'http://127.0.0.1:5173';
+// Evidence goes to output/browser/spectator and artifacts/ unless SORA_CARS_TEST_OUTPUT names a folder for both.
+const evidence = process.env.SORA_CARS_TEST_OUTPUT ?? 'output/browser/spectator';
+const reportPath = process.env.SORA_CARS_TEST_OUTPUT ? `${evidence}/spectator-browser.json` : 'artifacts/spectator-browser.json';
+// Screenshots happen after every check. A loaded machine can make them slow; a longer deadline is recorded in the report.
+const screenshotTimeoutMs = Number(process.env.SORA_CARS_TEST_SCREENSHOT_TIMEOUT_MS ?? 30_000);
+assert.ok(Number.isSafeInteger(screenshotTimeoutMs) && screenshotTimeoutMs >= 1_000 && screenshotTimeoutMs <= 600_000, 'SORA_CARS_TEST_SCREENSHOT_TIMEOUT_MS must be 1000-600000');
+const source = { revision: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
+  treeChanges: execFileSync('git', ['status', '--porcelain'], { encoding: 'utf8' }).split('\n').filter(Boolean).length,
+  scriptSha256: createHash('sha256').update(readFileSync(new URL(import.meta.url))).digest('hex'), nativeProfile };
 const relay = createSignalingRelay({ port: 0 });
 await once(relay, 'listening');
 const relayUrl = `ws://127.0.0.1:${relay.address().port}`;
@@ -79,12 +90,12 @@ try {
   }
   for (const o of observed) assert.ok(!o.messages.some(m => m.startsWith('Rejected') || m.startsWith('Feed cannot')), o.messages.join('\n'));
   assert.deepEqual(errors, []);
-  await mkdir('output/browser/spectator', { recursive: true });
-  await watch.screenshot({ path: 'output/browser/spectator/live.png' });
+  await mkdir(evidence, { recursive: true });
+  await watch.screenshot({ path: `${evidence}/live.png`, timeout: screenshotTimeoutMs });
   await late.setViewportSize({ width: 390, height: 844 });
   await late.evaluate(() => window.dispatchEvent(new Event('resize')));
-  await late.screenshot({ path: 'output/browser/spectator/late-mobile.png' });
-  await writeFile('artifacts/spectator-browser.json', JSON.stringify({ passed: true, browserContexts: 4, drivers: 2, observers: 2, lateObserver: true, certifiedTick: 180, realWebRtcAndWebSocket: true, sameCertifiedStatesAndAppearances: true, sameAnnouncedCarBuilds: true, observersHaveGameplayOrWalletKeys: false, authoritativeLedger: false, errors }, null, 2));
+  await late.screenshot({ path: `${evidence}/late-mobile.png`, timeout: screenshotTimeoutMs });
+  await writeFile(reportPath, JSON.stringify({ passed: true, browserContexts: 4, drivers: 2, observers: 2, lateObserver: true, certifiedTick: 180, realWebRtcAndWebSocket: true, sameCertifiedStatesAndAppearances: true, sameAnnouncedCarBuilds: true, observersHaveGameplayOrWalletKeys: false, authoritativeLedger: false, screenshotTimeoutMs, source, origin, errors }, null, 2));
   console.log('Real browser spectator relay passed: two drivers, two read-only observers, late join, exact certified state, authenticated cosmetics and car builds at tick180. No wallet keys or ledger authority.');
 } finally {
   await Promise.all(pages.map(p => p.evaluate(() => { globalThis.controller?.stop(); globalThis.spectator?.close(); }).catch(() => {})));
