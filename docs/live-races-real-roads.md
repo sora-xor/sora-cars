@@ -491,21 +491,47 @@ hashed in `output/reviews/live-real-roads-20261112/current-20261115/`): all
 | Yokohama | 2,158,833 B | 1,778,817 B | 129.0 bits | 17.5 s / 231 ms |
 | Nikkō | 2,157,393 B | 1,776,220 B | 129.0 bits | 14.9 s / 421 ms |
 
-Still to do, in order (RaceV1 qualification stays false until all pass):
+Status on November 16, 2026. RaceV1 qualification stays false
+(`race_profile_is_qualified_v1() == false`). Records are in
+`output/reviews/native-binding-20261115/`.
 
-1. Build the `iroha` CLI from the native tree (the 11-12 build lived in a wiped
-   scratchpad; its stage-1 export was refused for lacking a full-duration
-   eight-car reference on Sakura Pass, since fixed in `kernel_export.rs`) and
-   run `generate:native -- --install` with `SORA_CARS_IROHA_ROOT` set. The
-   kernels and parity fixture in this worktree are temporarily the stage-1
-   export's, for development only.
-2. Rebuild `iroha_js` `dist/` (`npm run build:dist`): only `noritoGameCodecs.js`,
-   `race.js` and `raceOutcomes.js` differ from it, and the 8,100-tick parity
-   cases fail on its 5,400-frame codec bound until then.
-3. Rebuild and re-authenticate the iroha_js native binding: its source check
-   refuses the edited native tree, so chain and checkpoint tests cannot load it.
-4. Full `npm test` against the known-failure baseline; browser gates on a
-   static build (`test-live-ui`, `test-mesh`, `test-spectator`); labelled frames
-   of a live race at Hakone's hairpins.
-5. Merge into master; then port to `~/dev/iroha` `optimizations` with its
-   owner, reconciling the `iroha_core_privacy` adapter and the ZK inventories.
+1. Done: the CLI export (`5d7b6789…`), the `iroha_js` `dist/` rebuild, and the
+   merge into master (`51562ef`).
+2. Done: the authenticated iroha_js native binding (`73aa032a…`), rebuilt in
+   its warm target under the pinned single-job policy. It binds the native tree
+   at `c000f91384` with this change and the re-exported corpus below
+   (`source_tree_sha256` `8bcad0aa…`). The native checkout's HEAD is part of that
+   provenance, so the commits below were made without moving it.
+3. Native commits, on `~/dev/iroha` branch `sora-cars/native-real-roads-20261115`
+   (signed, not pushed):
+   - `259c7ba495`: the qualified November 4 native source. It reproduces that
+     binding's source fingerprint exactly.
+   - `add4d55e5d`: this change's 33 native files.
+   - `ea57df8ed4`: the iroha_js current-proof corpus
+     (`test/fixtures/game_current_proof_v1`), re-exported for the new profile.
+     It carries the profile ID, so the chain and settlement tests refused the
+     4 November corpus.
+4. Gates that pass:
+   - the seven chain and checkpoint tests, and the settlement context;
+   - `test-live-ui`, including a full 8,100-tick terminal replay;
+   - `test-finality-browser`;
+   - `test-spectator`, at load ~275 under a recorded 120 s screenshot deadline
+     (`artifacts/spectator-browser.json`);
+   - Touring, re-pinned to the edited data-model file with its rules unchanged;
+   - the SDK's corpus tests.
+5. Full `npm test` at load ~220: 772 tests, 763 pass. The 7 failures and 2
+   cancellations are all in `live-terms` (a 45 s parent deadline) and
+   `native-proof-process` (child processes with 1-3 s deadlines).
+6. Still open:
+   - `test-mesh` and the real-time phase of `test-speed-feel` need a quiet
+     machine; their page loads and scene preparation ran past their deadlines
+     at load 150-600 on November 15-16.
+     `output/reviews/native-binding-20261115/quiet-gates/` runs them, plus the
+     two timing-bound test files, once the load average stays under 35.
+   - Labelled before/after frames of a live race at Hakone's hairpins.
+7. Port to `optimizations`: the engine applies cleanly, while the
+   `iroha_core_privacy` adapter, the data model and iroha_js conflict. Its owner
+   asked for nothing to land in the shared tree while it qualifies a frozen
+   snapshot. A private port branch,
+   `sora-cars/native-real-roads-on-optimizations`, is being prepared outside the
+   shared tree; landing it is the user's call.
