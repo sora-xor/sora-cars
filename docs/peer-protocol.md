@@ -32,14 +32,20 @@ Public spectator publication is opt-in through `publicFeed`. A no-key `RaceSpect
 
 ## Verification
 
-Run `npm test` for signed protocol, real physics reconciliation, spectator, replay and process-boundary tests. For eight isolated Chromium contexts and all 28 actual WebRTC links:
+Run `npm test` for signed protocol, real physics reconciliation, spectator, replay and process-boundary tests. For eight racers, each in its own Chromium process, and all 28 actual WebRTC links, run `scripts/test-mesh.mjs` against the Vite dev server; its pages import `/src` modules, which the static harness below does not serve:
+
+```sh
+npx vite --port 5183 --strictPort --host 127.0.0.1
+SORA_CARS_TEST_ORIGIN=http://127.0.0.1:5183 node scripts/test-mesh.mjs
+```
+
+Eight contexts in one browser share one GPU process: on November 16 the fourth or fifth race scene missed its 90 s preparation deadline at any machine load, while one browser per racer prepared all eight in seconds. A dev-server reload during the run fails it, and the test checks that its sources did not change, so run it while no one is editing the tree. This transport test does not qualify the native proof relation or prove testnet deployment.
+
+The static harness serves `tests/mesh-harness.html` without development reloads:
 
 ```sh
 node scripts/mesh-test-server.mjs
-SORA_CARS_TEST_ORIGIN=http://127.0.0.1:5175 node scripts/test-mesh.mjs
 ```
-
-The static harness avoids development reloads changing an active protocol test. This transport test does not qualify the native proof relation or prove testnet deployment.
 
 `npm run test:dispute-mesh` uses four real browser participants and six WebRTC
 connections. One participant withholds its tick-18 checkpoint after accepted

@@ -95,7 +95,7 @@ const report = {
   launchDiagnostics: [], scenePreparation: { mode: 'sequential', observations: [] },
   scope: {
     accounts: 'Eight synthetic nonspendable labels with fixed Ed25519 test-only gameplay keys.',
-    intendedBrowserContexts: 8, intendedWebRTCLinks: 28, nativeGeneratedPhysics: true, productionRenderer: true,
+    intendedBrowserContexts: 8, intendedBrowserProcesses: 8, intendedWebRTCLinks: 28, nativeGeneratedPhysics: true, productionRenderer: true,
     ledgerRosterAuthenticated: false, nftOwnershipVerified: false, nativeProofVerified: false,
     nativeHostBindingQualified: false, nativeCodecParityQualified: false,
     inputDrivenPresentationControls: true, visualInspectionCompleted: false,
@@ -136,7 +136,7 @@ function verifyCheckpoint(certificate, tick) {
   for (const { slot, signature } of signatures) assert.ok(ed25519.verify(Buffer.from(signature, 'hex'), message, ed25519.getPublicKey(keys[slot]), { zip215: false }), `checkpoint ${tick}, slot ${slot}`);
 }
 let browser, failure;
-const contexts = [], pages = [], signals = [], readiness = [];
+const contexts = [], pages = [], signals = [], readiness = [], peerBrowsers = [];
 try {
   // This GameCheckpointV1 path uses the installed SDK's canonical JavaScript
   // codec and purpose-separated direct signature frame. It does not invoke the native host or
@@ -179,7 +179,18 @@ try {
       .catch(error => report.cleanupErrors.push(String(error)));
   }
   for (const slot of slots) {
-    const context = await browser.newContext({ viewport: { width: 1280, height: 800 } }); contexts.push(context);
+    // Each peer runs in its own browser process, as eight players would. Eight contexts in one browser share one GPU
+    // process, and every live scene keeps rendering while the next one prepares: on November 15-16 each scene took
+    // about 30 s longer than the last, so the fourth or fifth missed its 90 s deadline at load 22 as at 250. With one
+    // browser per peer all eight prepared in 4-51 s. As with the first launch, a launch never races a deadline.
+    let peerBrowser = browser;
+    if (slot) {
+      await appendFile(resolve(output, 'stages.ndjson'), `${JSON.stringify({ at: new Date().toISOString(), label: `slot ${slot}: launch own browser`, phase: 'start' })}\n`);
+      peerBrowser = await launchChromium(launchOptions); peerBrowsers.push(peerBrowser);
+      await appendFile(resolve(output, 'stages.ndjson'), `${JSON.stringify({ at: new Date().toISOString(), label: `slot ${slot}: launch own browser`, phase: 'complete' })}\n`);
+      assert.equal(peerBrowser.version(), report.chromiumVersion, 'every peer runs the same browser build');
+    }
+    const context = await peerBrowser.newContext({ viewport: { width: 1280, height: 800 } }); contexts.push(context);
     context.setDefaultTimeout(15_000);
     const page = await context.newPage(); pages.push(page);
     page.on('pageerror', error => report.browserErrors.push({ slot, type: 'pageerror', message: error.message }));
@@ -308,16 +319,19 @@ try {
   const lateProtocol = await Promise.all(pages.map(page => page.evaluate(() => ({ errors: globalThis.raceErrors, protocolErrors: globalThis.protocolErrors }))));
   report.protocolErrors = lateProtocol;
   for (const value of lateProtocol) { assert.deepEqual(value.errors, []); assert.deepEqual(value.protocolErrors, []); }
-  report.completed = { contexts: 8, webrtcLinks: 28, certifiedTick: targetTick, eightSignaturesPerCheckpoint: true, identicalReconstructedState: true, authenticatedCosmeticChoices: true, identicalTerminalState: fullDuration, verifiedInputScenario: fullDuration ? `Simulation-tick boost and drift, then braking from tick 360 through the exact ${RULES.maxTicks}-tick limit.` : 'Simulation-tick throttle, boost and drift through a certified prefix.' };
+  report.completed = { contexts: 8, browserProcesses: 1 + peerBrowsers.length, webrtcLinks: 28, certifiedTick: targetTick, eightSignaturesPerCheckpoint: true, identicalReconstructedState: true, authenticatedCosmeticChoices: true, identicalTerminalState: fullDuration, verifiedInputScenario: fullDuration ? `Simulation-tick boost and drift, then braking from tick 360 through the exact ${RULES.maxTicks}-tick limit.` : 'Simulation-tick throttle, boost and drift through a certified prefix.' };
 } catch (error) {
   failure = error; report.error = { message: error.message, code: error.code, stack: error.stack };
-  report.failureSnapshots = await Promise.all(pages.map((page, slot) => step(`slot ${slot}: failure snapshot`, () => page.evaluate(() => ({ status: globalThis.controller?.status, errors: globalThis.raceErrors, protocolErrors: globalThis.protocolErrors, dataset: { ...document.querySelector('#mesh-race')?.dataset }, renderStats: globalThis.getMeshRenderStats?.() })), 5000).then(state => ({ slot, state }), error => ({ slot, error: String(error) }))));
+  report.failureSnapshots = await Promise.all(pages.map((page, slot) => step(`slot ${slot}: failure snapshot`, () => page.evaluate(() => ({ status: globalThis.controller?.status, appearances: globalThis.controller?.appearances, errors: globalThis.raceErrors, protocolErrors: globalThis.protocolErrors, dataset: { ...document.querySelector('#mesh-race')?.dataset }, renderStats: globalThis.getMeshRenderStats?.() })), 5000).then(state => ({ slot, state }), error => ({ slot, error: String(error) }))));
 } finally {
   // Normal lifecycle calls only; an observation timeout never proves exit.
   for (const [slot, page] of pages.entries()) await step(`slot ${slot}: stop owned controller`, () => page.evaluate(() => globalThis.controller?.stop()), 5000).catch(error => report.cleanupErrors.push(String(error)));
   for (const [slot, context] of contexts.entries()) await step(`slot ${slot}: close owned context`, () => context.close(), 5000).catch(error => report.cleanupErrors.push(String(error)));
+  // Eight browsers close at once. At load ~210 that took 10.5-11.4 s each, and past 15 s at ~200-370, so allow 60 s.
+  await Promise.all(peerBrowsers.map((peerBrowser, index) => step(`slot ${index + 1}: close own browser`, () => peerBrowser.close(), 60_000)
+    .catch(error => report.cleanupErrors.push(String(error)))));
   if (browser) {
-    try { await step('close owned browser', () => browser.close(), 15_000); report.ownedBrowserClosure = 'playwright-close-completed'; }
+    try { await step('close owned browser', () => browser.close(), 60_000); report.ownedBrowserClosure = 'playwright-close-completed'; }
     catch (error) { report.cleanupErrors.push(String(error)); report.ownedBrowserClosure = 'closure-unconfirmed'; }
   }
   try { report.sourcesAfter = sourcePins(); assert.deepEqual(report.sourcesAfter, sourcesBefore, 'sources changed during browser evidence capture'); }
