@@ -8,6 +8,8 @@ import { emptyAppearance, type ClubAppearance } from '../game/catalog';
 import type { CarBuild } from '../game/car-builds';
 
 const MAX_PACKET_BYTES = 32 * 1024;
+/** Delay before each racer repeats its signed appearance and car on a newly opened channel (#attach). */
+const ANNOUNCE_REPEAT_MS = 1000;
 interface Signal {
   v: 1; scope: string; from: number; to: number;
   description: RTCSessionDescriptionInit; signature: string;
@@ -63,10 +65,19 @@ export class RaceMesh {
   #attach(slot: number, channel: RTCDataChannel): void {
     if (channel.label !== 'sora-cars-v1' || this.#channels.has(slot)) { channel.close(); return; }
     this.#channels.set(slot, channel);
-    channel.addEventListener('open', () => {
+    // Announce this racer's signed cosmetics and car when the channel opens, then once more a second later. A channel the
+    // other peer created is already open when its datachannel event arrives, and sending there is allowed. In
+    // eight-browser runs on November 16 (Chrome 157) the offering peer sometimes never received the first message its
+    // answering peer sent as the channel opened: sent, never delivered, the channel open at both ends, no error.
+    // The packets are identical, so a peer that already has them is unchanged by the repeat.
+    const announce = (): void => {
+      if (channel.readyState !== 'open') return;
       channel.send(JSON.stringify(this.#appearance));
       if (this.#build) channel.send(JSON.stringify(this.#build));
-    }, { once: true });
+    };
+    const opened = (): void => { announce(); setTimeout(announce, ANNOUNCE_REPEAT_MS); };
+    if (channel.readyState === 'open') opened();
+    else channel.addEventListener('open', opened, { once: true });
     channel.addEventListener('message', (event: MessageEvent<unknown>) => {
       try {
         if (typeof event.data !== 'string' || new TextEncoder().encode(event.data).byteLength > MAX_PACKET_BYTES) throw new Error('Oversized or non-text peer message.');
