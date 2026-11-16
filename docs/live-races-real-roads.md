@@ -543,6 +543,8 @@ Status on November 16, 2026. RaceV1 qualification stays false
    - `dbce2d4ab5`: the ZK inventories.
    - `aa1e0111e3`: rustfmt of the engine, approved by its owner, Codex. The
      generated road table carries `#[rustfmt::skip]` and stays byte-exact.
+   - `504f52a393`: checked conversions that strict clippy asked for in the new
+     road-table tests.
 
    Checks that pass:
    - 54 engine and 19 oracle tests;
@@ -552,6 +554,12 @@ Status on November 16, 2026. RaceV1 qualification stays false
    - the iroha_js race tests;
    - eight-car proofs, byte-identical to native's.
 
-   The owner's other landing gate is strict clippy on `iroha_core`, `iroha_cli`
-   and `integration_tests`. Its owner deferred landing while it qualifies a frozen
-   snapshot of the shared tree; when it lands is the user's call.
+   Under strict clippy (`--all-targets -D warnings`) the engine, the data model,
+   `iroha_core_privacy`, `iroha_core` and `integration_tests` pass. The run
+   allows only the dead-code and unused-import errors that `f06c6ea1f8` already
+   has in `iroha_core` files this branch leaves alone. `iroha_cli` does not
+   compile at `f06c6ea1f8` itself (a syntax error in `gov/anonymous_ballot.rs`,
+   which the owner is fixing), so the branch's one-line change there is not yet
+   compiled. None of the branch's files fail `cargo fmt --check`. Its owner
+   deferred landing while it qualifies a frozen snapshot of the shared tree;
+   when it lands is the user's call.
