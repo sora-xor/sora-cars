@@ -348,8 +348,8 @@ rails.
    - TS rules, bots and drawing; run the focused tests, then the full
      `npm test` (8–24 min), comparing its failure names against the
      18-failure baseline.
-   - Browser checks on a static build: `test-live-ui`, `test-mesh`,
-     `test-spectator`.
+   - Browser checks: `test-live-ui`, `test-spectator`, and `test-mesh` on
+     the Vite dev server (its pages import `/src` modules).
    - Labelled before | after frames of a live race at Hakone's hairpins.
 7. **Calibration.** Run the reference keyboard drivers (rookie and regular)
    and the bots on all three roads: finish times within 8,100 ticks, rain
@@ -520,7 +520,19 @@ Status on November 16, 2026. RaceV1 qualification stays false
    - `test-live-ui`, including a full 8,100-tick terminal replay;
    - `test-finality-browser`;
    - `test-spectator`, at load ~275 under a recorded 120 s screenshot deadline
-     (`artifacts/spectator-browser.json`);
+     (`artifacts/spectator-browser.json`), and again at load ~200 with
+     `73f323e`;
+   - `test-mesh`: eight racers, each in its own browser, 28 WebRTC links, 180
+     ticks, and eight signatures on each of 248 checkpoints (`059288c` with
+     `73f323e`, at load 36 rising to 760). The full race
+     (`SORA_CARS_TEST_TICKS=8100`) also passed at load ~600: 8,100 ticks in
+     4 min 54 s, an identical terminal state on all eight, and 10,808
+     checkpoints verified;
+   - `test-speed-feel` with its real-time phase (`2bd56c3`): boost to
+     302.7 km/h, braking and the silent pause, with drawn travel within 1% of
+     the physics. It started at load 22, and load was ~80 during the run;
+   - `live-terms` and `native-proof-process` run on their own at load ~75: 13
+     of 13;
    - Touring, re-pinned to the edited data-model file with its rules unchanged;
    - the SDK's corpus tests;
    - native `iroha_core` execution-proof, captured-merge state and `isi::game`
@@ -528,14 +540,24 @@ Status on November 16, 2026. RaceV1 qualification stays false
      needs an explicitly supplied export folder.
 5. Full `npm test` at load ~220: 772 tests, 763 pass. The 7 failures and 2
    cancellations are all in `live-terms` (a 45 s parent deadline) and
-   `native-proof-process` (child processes with 1-3 s deadlines).
-6. Still open:
-   - `test-mesh` and the real-time phase of `test-speed-feel` need a quiet
-     machine; their page loads and scene preparation ran past their deadlines
-     at load 150-600 on November 15-16.
-     `output/reviews/native-binding-20261115/quiet-gates/` runs them, plus the
-     two timing-bound test files, once the load average stays under 35.
-   - Labelled before/after frames of a live race at Hakone's hairpins.
+   `native-proof-process` (child processes with 1-3 s deadlines). Run on their
+   own, both files pass (item 4).
+6. Found and fixed on November 16 (records in `quiet-gates/`,
+   `mesh-ab-20261116/` and `hakone-hairpins/` under that folder):
+   - `test-mesh` was never held back by load. Its eight contexts in one browser
+     shared one GPU process, and each scene took about 30 s longer to prepare
+     than the last. The fourth or fifth always missed the 90 s deadline, at load
+     22 as at 250. `059288c` gives each racer its own browser, and all eight
+     prepare in 4-13 s.
+   - That exposed a Chrome 157 data-channel race. The racer that created a
+     channel sometimes never received the answering racer's first message,
+     its signed appearance, though the channel was open at both ends. Four of
+     five runs lost one. `73f323e` repeats each racer's appearance and car a
+     second after the channel opens.
+   - Labelled before/after frames of a live race at Hakone's hairpins:
+     `hakone-hairpins/hakone-hairpins-before-after.png`. At 2,392 and 2,428 m
+     the build before `51562ef` (`929d9ee`) drew RaceV1's straight. Master
+     draws the right-hand hairpin (K = -6,646) with the same field of cars.
 7. Port to `optimizations`: branch `sora-cars/native-real-roads-on-optimizations`
    on `f06c6ea1f8` (signed, not pushed). Its commits:
    - `8d242469bd`: the change, three-way merged into the diverged
