@@ -84,6 +84,51 @@ export function crownLightGlsl(amount: string, translucent = true): string {
   `;
 }
 
+/**
+ * Dusk on the autumn crowns (finish pass, round eighteen): 0 by day and by night, up to 1 in a dusk's afterglow (world.ts
+ * sets it for a valley route's maples). At Akechidaira's dusk the maples stood as saturated red masses, where the
+ * repaint draws lit palmate leaves, orange-red, gold where the light catches them and crimson beneath: the painted crown
+ * light is off at dusk (world.ts mapleLight), and every leaf took the same deep red.
+ * x the dusk's share (world.ts sets it each frame); y how much a leaf's facing the afterglow counts; z the gold's green
+ * against its red (linear); w the gain of the most lit leaves, the least lit taking .45 of it. At 1.5 the crowns stayed
+ * darker than the repaint's (warm crown pixels' OKLab L median .37, a fifth under .3, against .51 and 3%); 2.5 gives .44
+ * and 6%; at 2.7 the far crown by the rest house turned yellow-orange.
+ */
+export const crownDusk = { value: new THREE.Vector4(0, .25, .32, 2.5) };
+
+/**
+ * GLSL for just before `#include <opaque_fragment>` of a crown's lit material, after crownLightGlsl where both apply: at
+ * dusk (`amount`, a GLSL float; `shape` the vec4 uniform crownDusk) a red or orange leaf is relit by how squarely it faces
+ * the afterglow (the key, the first directional light) and the open sky above, leaf by leaf (`leaf`, a GLSL float 0-1 of
+ * the leaf's own): leaves facing them lighter and warmer, through orange to gold, those beneath and turned away deeper
+ * crimson. The leaf keeps its red channel's light (lamps included), so a lit leaf brightens as it turns gold instead of
+ * browning at crimson's luminance (round twelve's olive-brown leaves). `keep` (a GLSL vec3) is light left as it is: the
+ * amber of a far lamp's glow on the leaves round its window (world.ts), which relit drew a red ring round the head.
+ */
+export function crownDuskGlsl(amount: string, shape: string, leaf: string, keep = 'vec3(0.)'): string {
+  return `
+  if (${amount} > 0. && ${leaf} >= 0. && diffuseColor.g < diffuseColor.r * .62) {
+    float soraFacing = 0.;
+#if NUM_DIR_LIGHTS > 0
+    soraFacing = dot(normal, directionalLights[0].direction);
+#endif
+    float soraSky = dot(normal, normalize((viewMatrix * vec4(0., 1., 0., 0.)).xyz));
+    float soraLit = clamp(.42 + ${shape}.y * soraFacing + .25 * soraSky + (${leaf} - .5) * .5, 0., 1.);
+    // Green against red: crimson beneath, the tree's own tone a step warmer through the middle, gold where it is lit.
+    float soraRed = diffuseColor.r, soraGreen = diffuseColor.g / max(soraRed, 1e-4);
+    soraGreen = mix(soraGreen * .45, soraGreen + .1, smoothstep(.12, .78, soraLit));
+    soraGreen = mix(soraGreen, max(soraGreen, ${shape}.z), smoothstep(.8, 1., soraLit));
+    vec3 soraHue = vec3(1., soraGreen, diffuseColor.b / max(soraRed, 1e-4) * mix(.6, 1., soraLit)), soraKeep = ${keep};
+    outgoingLight = mix(outgoingLight, max(outgoingLight.r - soraKeep.r, 0.) * mix(${shape}.w * .45, ${shape}.w, soraLit) * soraHue + soraKeep,
+      ${amount});
+  }`;
+}
+
+/** GLSL for a leaf material's vertex shader, after `#include <begin_vertex>`: `vSoraLeaf`, a value 0-1 of each maple leaf's
+ * own from its stalk (the `leafCentre` attribute, w 0), and -1 on any other plant (w 1, or no attribute), which
+ * crownDuskGlsl leaves alone. Declare `varying float vSoraLeaf`. */
+export const LEAF_HASH_GLSL = 'vSoraLeaf = leafCentre.w < .5 ? fract(sin(dot(leafCentre.xyz, vec3(12.9898, 78.233, 37.719))) * 43758.5453) : -1.;';
+
 /** GLSL (where crownLightGlsl goes): the key light through a red or orange crown's leaves, on its side turned away;
  * `strength` the share of the key it passes. */
 export function crownTranslucencyGlsl(amount: string, strength = .75): string {

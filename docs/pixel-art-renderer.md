@@ -1862,3 +1862,70 @@ The user: "Keep going". Sheet `output/finish-20261111/review/26-water-ripple-gli
 **Still open.** The repaint's glitter is warmer toward the low sun (orange among the pink); ours takes the sky straight above each cell, which at sunrise is violet-pink. A sun-path term (glints brighter and warmer toward the sun's bearing) would need the key light's direction in the composite.
 
 Tests: `tests/finish-pass-lights.test.ts` (defaults, water cells only, the upward sky search, never darker than the mirror, the uniform), `tests/pixel-art-surfaces.test.ts` (the composite stays within WebGL 2's guaranteed uniform vectors).
+
+## Finish pass, eighteenth round — November 16, 2026 (Akechidaira's far ranges and maple crowns)
+
+A review of the retained matched sheets, made while closing the remaining work, found two gaps still material at Irohazaka's Akechidaira at dusk (lap 0.97; `output/finish-20261114/r18-look/sheet.png`): the far land drew as one flat lavender cone, and the maples as saturated red masses. The user asked not to reopen every earlier "keep improving" turn as a job of its own, so this is one round aimed at those two. Sheets: `output/finish-20261116/r18/` (`01-akechidaira.png` before | after | target, `02-far-land.png`, `03-maple-crowns.png`, `04-other-scenes.png`; the frames are in `frames/`).
+- Before is the round-seventeen frame, captured from the unchanged code at the start of the round in the round's own worktree, where nothing else changed the scene (two untouched runs there differed in 0.01% of pixels).
+- The other pairs are two variants of one capture run (`tmp/pixel-art/r18/ab-regress.json`; the round's probes, prototypes and measures are beside it). It switches the round off: `foliageWarmKeep` 0, `world.crownDuskOn` false, the far land's `duskShare` 0 and its relief 0.
+- In such a run the "before" cars still reflect the "after" world: the car reflection probe fills one face per frame of the render clock, which a frozen capture does not advance. That shows only on the car bodies.
+
+**The far land.**
+- What it was: a probe put the camera at heading 338 with Nantai-san 3.9 km away at bearing 326, 17 degrees up. Hiding the far land removed the cone (`output/finish-20261114/r18-look/layers.png`), so the cone is the real mountain in the elevation grid.
+- Why it was pale: the day haze (`#7a6c9c` over 3 km) took 74% of the cone's colour, and at dusk that haze graded lighter than the sky's blue (OKLab L .47-.50, hue 293-301). The repaint paints the mountain's body dark navy-violet (L .27-.37, hue 280-293) and the ranges behind it paler.
+- Dusk (`FarLandPlan.dusk`, Irohazaka only). As the afterglow fades (daylight .75 to .55, giving way to the night's land below .4):
+  - the haze darkens to `#4e4068` and thins to 7 km;
+  - the ridges deepen to `#2c2c46`;
+  - the near wooded slopes' tint goes .6 of the way to the night's. At the day's tint they stood lighter than the cone behind them.
+  - The cone now measures L .30-.37, hue 293-296.
+- Relief (`FarLandPlan.relief`): spurs and gullies down each slope's fall line, 60 m across and nine times as long. A spur stands lighter and a gully darker by .45 of the slope's light (`RELIEF_DEPTH`, `RELIEF_STREAK`).
+  - The fall line is a new vertex attribute from the elevation grid (`landSlope`).
+  - The streaks are value noise along four fixed directions, blended by how near each lies to the fall line. One noise turned to follow the fall line swirls on a far cone, where a degree's turn moves the pattern by tens of metres.
+  - None on gentle ground, none beyond 9-16 km.
+- Snow: a dusting above 2,200 m that lies in the gullies, the spurs bare rock nearly to the top. The grid's Nantai summit is 2,463 m; Nyohō-san and Ōmanago carry a little too.
+  - Real? The Utsunomiya observatory's normal first snow on Nantai-san falls in early November: 2024's came on 7 November, three days late, and 2023's on 25 October. That is when the climb's maples finish. The route research has it as possible but unconfirmed for late October.
+- Prototypes, in one run: haze `#2e2a52` to `#5a4670` over 3-9 km, ridges `#24224c` to `#2a2858`. The saturated ones read vivid blue-purple (chroma .14-.16 against the repaint's .10), because the dusk grade doubles a far colour's chroma, so the kept colours are greyer.
+- By day the relief and snow change Irohazaka's far ranges only lightly: Umagaeshi 0.20% of pixels, the bends 0.15%, the maples frame 0.50%, Kurokamidaira 0.18%.
+
+**The maple crowns.**
+- Green clumps. At dusk the dark half of every crown (local L under .3, under a violet sky) was redrawn by the foliage stage's night clump tones as dark green clumps, and the crown beside the lamp as olive. Refine rounds 3-4 made those tones for the rain-night concept's dark green street trees.
+  - Now a saturated crimson or red-orange canopy keeps its own colours (`foliageWarmKeep`, linework.ts `warmCanopy`: OKLab hue 10-45, chroma over .28 of its lightness).
+  - Lamp-lit street trees and night cherries are warm too, but amber and paler, and keep their tones. Shijō and Kanda measured hue 42-59 at .23-.29 of their lightness, the maples hue 22-35 at .29-.41.
+- One red. The debug views showed the scene drawing the crowns orange-red with lit tops (hue 30-35), and the grade taking them to one saturated red (hue 26-29, chroma .19). The painted crown light (gold tips) is off at dusk, so every leaf took the same deep red.
+- Dusk light (`crownDusk`, autumn-foliage.ts `crownDuskGlsl`).
+  - At dusk each maple leaf is relit by how squarely it faces the afterglow (the key) and the open sky, plus a value of its own from its stalk (`LEAF_HASH_GLSL`, from `leafCentre`).
+  - Leaves facing the light turn lighter and go through orange to gold; those beneath and turned away stay crimson.
+  - A leaf keeps its red channel's light, so a lit leaf brightens as it turns gold instead of browning at crimson's luminance (round twelve's olive-brown).
+  - The amber of a far lamp's glow on the leaves round its window (round fourteen) is kept out of it: relit, it ringed the lamp head red.
+  - Both crown systems take it, on maple leaves only (`leafCentre.w` 0); grass, susuki and bushes keep their colours.
+  - Gain 2.5, the least lit leaves taking .45 of it. At 1.5 the crowns stayed darker than the repaint's; at 2.7 the far crown by the rest house turned yellow-orange.
+  - Warm crown pixels in the top of the frame, OKLab L p10/median/p90: .29/.35/.63 before, .32/.44/.66 after, .35/.51/.68 in the repaint. Darker than L .3: 17%, 6%, 3%.
+- Valley routes only (`sunHeight`). On Kyoto's torii avenue, lit by its lamps at a later dusk, the crowns turned ochre-brown where its repaint keeps them red.
+
+**Tried and dropped** (each in one capture run):
+- Per-leaf tone (±28% of each leaf's vertex colour), dark leaf rims and a darker crown interior: the crowns mottled but stayed one red mass, and the darkened leaves turned green (the clump tones above).
+- The painted crown light at dusk: the lit crowns went orange-brown.
+- Other ways to brighten the crowns, none of which broke up the mass: the full sun share on the valley's crowns (`crownLight.z` 1), more orange tones per tree, and four times the crowns' glow.
+- Relief at .7 and 100 m streaks: harder bands, no more structure.
+
+**Not drawn: the repaint's valley lights.**
+- Its lit town under the mountain is not in this view. Chūgūshi and Kegon lie at bearing 283, ten degrees beyond the frame's left edge (the view spans 293-22), and Nikko lies behind the camera (bearing 79).
+- The First Irohazaka across the gorge is in view, but whether it was lit in 1986 is unconfirmed.
+
+**Checks.**
+- Pixels changed, before | after in one run:
+  - Kyoto's torii avenue 0.12% (the green specks in its maples) and Shijō 68 pixels (a lamp-lit tree's edge).
+  - Aizu's Iimoriyama 0.24% (its maples' green specks) and its moat 0.02%.
+  - Nara Park 28 pixels: seven art cells in its maples, dark green clump tones before, their own dark red now.
+- Tokyo's Kanda night and its moat are pixel-identical.
+- A-B-A flicker at 25 m/s on Akechidaira, before and after: the road 3.99% and 4.00% of its pixels, the upper frame (crowns and sky) 4.87% and 4.91%, the mountain's side 5.02% and 5.04%.
+- Captures had no console or page errors.
+
+**Still open.**
+- In this frame the big maple hides most of Nantai-san's summit and the right-hand crowns hide the Nyohō range, so the repaint's layered ranges show only on the cone's flanks.
+- The crowns are still denser than the repaint's open lattice of leaf clusters with sky between.
+- Kyoto's and Aizu's dusk crowns keep their old light.
+
+Tests: `tests/finish-pass-lights.test.ts`.
+- Far land: the dusk haze, relief and snow by hour, with their A/B switch; every grid vertex's fall line runs downhill round the highest summit; Nara's and Aizu's land is unchanged.
+- Crowns: the warm-crown window; the dusk light's defaults, valley gate and maple-only hash; the lamp glow kept out of the relight.

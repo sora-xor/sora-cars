@@ -7,7 +7,7 @@ import { FarLand } from '../src/game/three/period-city/far-land';
 import { streetScene } from '../src/game/three/period-city/street-scenes';
 import { CityMeshBuilder, HALL_BAY, HALL_PLAIN, hallGlazing, ROUND_LAMP, WALL_PATTERN, WINDOW_KIND } from '../src/game/three/period-city/geometry';
 import { MAPLE_LEAF_GLSL } from '../src/game/three/maple-leaf-glsl';
-import { floraLeafGrowth, leafGrowthGlsl, roadsideLeafGrowth } from '../src/game/three/autumn-foliage';
+import { crownDusk, crownDuskGlsl, floraLeafGrowth, LEAF_HASH_GLSL, leafGrowthGlsl, roadsideLeafGrowth } from '../src/game/three/autumn-foliage';
 import { FLORA_KIND, floraMeshes } from '../src/game/three/period-city/flora';
 import { terrainAutumnFinish, terrainAutumnGolden, terrainGroundGlare } from '../src/game/three/terrain';
 
@@ -325,8 +325,8 @@ test('maple leaves grow about their stalks with distance, in both crown systems,
   const [scenery, world, flora] = await Promise.all([source('game/three/scenery.ts'), source('game/three/world.ts'), source('game/three/period-city/flora.ts')]);
   assert.ok(scenery.includes("geometry.setAttribute('leafCentre', new THREE.Float32BufferAttribute(Array.from({ length: leafVertices },")
     && scenery.includes('() => [position.x, position.y, position.z, maple ? 0 : 1]).flat(), 4));'));
-  assert.ok(world.includes("shader.uniforms.soraLeafGrowth = roadsideLeafGrowth;") && world.includes("`#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}`"));
-  assert.ok(flora.includes("shader.uniforms.soraLeafGrowth = floraLeafGrowth;") && flora.includes("'period-flora-leaves-v5'"));
+  assert.ok(world.includes("shader.uniforms.soraLeafGrowth = roadsideLeafGrowth;") && world.includes("`#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}\\n${LEAF_HASH_GLSL}`"));
+  assert.ok(flora.includes("shader.uniforms.soraLeafGrowth = floraLeafGrowth;") && flora.includes("'period-flora-leaves-v6'"));
   // Shadows keep the leaves' true size: the depth materials never take the growth.
   assert.ok(!flora.slice(flora.indexOf('const depth = withCanopyGaps('), flora.indexOf('return materials = {')).includes('leafGrowth'));
 });
@@ -343,7 +343,7 @@ test('far lamp heads open small windows through the roadside crowns, placed as t
   // Only lit lamps, nearest first; a lamp closing in shuts its window gradually.
   assert.ok(world.includes('if (this.lampWindowsOn && this.lampIntensityNow > 0) {'));
   assert.ok(world.includes('* THREE.MathUtils.smoothstep(depth, LAMP_WINDOW_NEAR, LAMP_WINDOW_FULL));'));
-  assert.ok(world.includes(':sora-maple-light-v7'));
+  assert.ok(world.includes(':sora-maple-light-v8'));
 });
 
 test('a warm lamp halo over warm, saturated ground keeps its chroma instead of greying', async () => {
@@ -379,4 +379,93 @@ test('open water carries ripple glints of the sky over its mirror of the bank, n
   assert.ok(surfaces.includes('if (texelFetch(resolvedData, up, 0).w >= .5) { open = texelFetch(resolvedColor, up, 0).rgb; break; }'));
   assert.ok(surfaces.includes('reflection = max(reflection, open * waterGlint.y);'), 'brighter than the mirror, never darker');
   assert.ok(surfaces.includes('compositeUniforms.waterGlint.value.set(Math.max(0, o.waterGlint), Math.max(0, o.waterGlintLight));'));
+});
+
+test('round eighteen: Akechidaira’s far ranges darken at dusk, with spurs, gullies and the first snow', () => {
+  const luminance = (c: THREE.Color) => .2126 * c.r + .7152 * c.g + .0722 * c.b;
+  const landOf = (id: string) => streetScene(id)!.distant.find(item => item.land)!.land!;
+  const plan = landOf('irohazaka-1986');
+  assert.deepEqual(plan.dusk, { haze: '#4e4068', ridge: '#2c2c46', metres: 7000 });
+  assert.deepEqual(plan.relief, { snow: 2200 });
+  // The dusk haze is darker than the day's, and the dusk ridges darker still: near ranges dark, far ones paler.
+  const colour = (hex: string) => new THREE.Color(hex);
+  assert.ok(luminance(colour(plan.dusk!.ridge)) < luminance(colour(plan.dusk!.haze)));
+  assert.ok(luminance(colour(plan.dusk!.haze)) < luminance(colour(plan.haze!.away)));
+  const land = new FarLand(plan), mesh = land.group.children[0] as THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>;
+  const u = mesh.material.uniforms;
+  // By day the plan's own haze; at Akechidaira's dusk (daylight .52) the dusk's in full; at night none of it.
+  land.update(1);
+  assert.equal(u.farHaze.value, 3000);
+  land.update(.52);
+  assert.equal(u.farHaze.value, 7000);
+  assert.equal(u.hazeColour.value.getHexString(), colour('#4e4068').getHexString());
+  assert.equal(u.farRidgeAway.value.getHexString(), colour('#2c2c46').getHexString());
+  assert.equal(u.farRidge.value.w, 1);
+  const duskTint = luminance(u.landTint.value), duskSnow = luminance(u.farSnow.value);
+  land.duskShare = 0;
+  land.update(.52);
+  assert.equal(u.farHaze.value, 3000, 'duskShare 0 keeps the day haze (A/B)');
+  assert.ok(luminance(u.landTint.value) > duskTint && luminance(u.farSnow.value) > duskSnow, 'the near land and the snow darken at dusk');
+  land.duskShare = 1;
+  land.update(.2);
+  assert.equal(u.farHaze.value, 3000, 'the night keeps its own land');
+  // The relief: spurs and gullies 60 m across, snow above 2,200 m.
+  assert.deepEqual(u.farRelief.value.toArray(), [.45, 2200, 1, 60]);
+  // Each vertex's fall line runs downhill: round the grid's highest vertex, every neighbour two cells out slopes away from it.
+  const position = mesh.geometry.getAttribute('position'), slope = mesh.geometry.getAttribute('landSlope'), cols = plan.grid.cols;
+  assert.equal(slope.itemSize, 2);
+  let top = 0;
+  for (let i = 0; i < position.count; i++) if (position.getY(i) > position.getY(top)) top = i;
+  for (const step of [2 * cols, -2 * cols, 2, -2]) {
+    const j = top + step, dx = position.getX(j) - position.getX(top), dz = position.getZ(j) - position.getZ(top);
+    assert.ok(slope.getX(j) * dx + slope.getY(j) * dz > 0, `neighbour ${step} slopes away from the summit`);
+  }
+  // Streaks blend four fixed directions by the fall line (one turned noise swirls on a far cone); snow lies in the gullies.
+  const glsl = mesh.material.fragmentShader;
+  assert.ok(glsl.includes('float w = pow(abs(dot(fall, along)), 8.) + 1e-4;'));
+  assert.ok(glsl.includes('float line = farRelief.y + (streak - .5) * 520.'));
+  assert.ok(glsl.includes('if (farRelief.x > 0. && steep > .04) {') && glsl.includes('if (farRelief.z > 0.) {'));
+  land.dispose();
+  // Plans without a dusk or relief keep their land: Nara's and Aizu's.
+  for (const id of ['nara-1986', 'aizu-wakamatsu-1986']) {
+    const other = new FarLand(landOf(id)), ou = (other.group.children[0] as THREE.Mesh<THREE.BufferGeometry, THREE.ShaderMaterial>).material.uniforms;
+    other.update(.5);
+    assert.equal(ou.farRelief.value.x, 0, id);
+    assert.equal(ou.farRelief.value.z, 0, id);
+    assert.equal(ou.farHaze.value, landOf(id).haze?.metres ?? 9000, id);
+    other.dispose();
+  }
+});
+
+test('round eighteen: autumn crowns keep their own colours in the clump tones and are relit leaf by leaf at dusk', async () => {
+  const [linework, world, flora] = await Promise.all([source('game/three/pixel-art/linework.ts'), source('game/three/world.ts'),
+    source('game/three/period-city/flora.ts')]);
+  // The night clump tones (dark greens, lamp-lit olive) skip a red or orange crown: Akechidaira's maples took green clumps.
+  assert.ok(linework.includes('foliageWarmKeep: 1,') && linework.includes('uniform float foliageWarmKeep;'));
+  assert.ok(linework.includes('chroma > .06 && chroma > .28 * lab.x && abs(hueArc(atan(lab.z, lab.y), radians(27.5))) < radians(17.5)'));
+  assert.ok(linework.includes('if (warmCanopy(light)) { dark = false; lit = 0.; }'));
+  assert.ok(linework.includes('if (light.x >= foliageTone.z || warmCanopy(light)) break;'));
+  // The window: saturated crimson and red-orange count (Akechidaira's and Kyoto's maples: hue 22-35, chroma .29-.41 of
+  // lightness); a cherry's pink, olive and green do not, nor the amber, paler light of lamp-lit street trees (Shijō and
+  // Kanda: hue 42-59, .23-.29) and night cherries (.16).
+  const warm = (L: number, C: number, hue: number) => C > .06 && C > .28 * L && Math.abs(((hue - 27.5 + 540) % 360) - 180) < 17.5;
+  assert.ok(warm(.35, .136, 29) && warm(.29, .117, 27) && warm(.25, .086, 25));
+  assert.ok(!warm(.5, .12, 355) && !warm(.3, .08, 95) && !warm(.445, .117, 51) && !warm(.49, .128, 45.2) && !warm(.77, .119, 24));
+  // The dusk light: on by world.ts in the afterglow (daylight .75 to .55, back off below .4), maple leaves only.
+  assert.deepEqual(crownDusk.value.toArray(), [0, .25, .32, 2.5]);
+  assert.ok(world.includes('THREE.MathUtils.smoothstep(daylight, 0.25, 0.4) * (1 - THREE.MathUtils.smoothstep(daylight, 0.55, 0.75)) : 0;'));
+  // Only on a valley route (its sunHeight): Kyoto's lamp-lit avenue turned ochre-brown under it.
+  assert.ok(world.includes('crownDusk.value.x = this.momiji && this.crownDuskOn && mood.lowSunElevation !== undefined'));
+  const glsl = crownDuskGlsl('amount', 'shape', 'leaf');
+  assert.ok(glsl.includes('if (amount > 0. && leaf >= 0. && diffuseColor.g < diffuseColor.r * .62) {'));
+  // A lit leaf keeps its red channel's light as it turns gold (no browning), and gold only at the top of the light.
+  assert.ok(glsl.includes('max(outgoingLight.r - soraKeep.r, 0.) * mix(shape.w * .45, shape.w, soraLit) * soraHue + soraKeep'));
+  // The amber of a far lamp's glow on the leaves round its window is kept out of it (relit, it ringed the head red).
+  assert.ok(glsl.includes('soraKeep = vec3(0.);') && crownDuskGlsl('a', 's', 'l', 'soraLampAdd').includes('soraKeep = soraLampAdd;'));
+  assert.ok(world.includes('totalEmissiveRadiance += soraLampAdd;'));
+  assert.ok(glsl.includes('soraGreen = mix(soraGreen, max(soraGreen, shape.z), smoothstep(.8, 1., soraLit));'));
+  // A value of each leaf's own from its stalk; -1 (left alone) on any plant that is not a maple.
+  assert.equal(LEAF_HASH_GLSL, 'vSoraLeaf = leafCentre.w < .5 ? fract(sin(dot(leafCentre.xyz, vec3(12.9898, 78.233, 37.719))) * 43758.5453) : -1.;');
+  assert.ok(world.includes("${crownDuskGlsl('soraCrownDusk.x * soraMapleLeaves', 'soraCrownDusk', 'vSoraLeaf', 'soraLampAdd')}"));
+  assert.ok(flora.includes("${crownDuskGlsl('soraCrownDusk.x', 'soraCrownDusk', 'vSoraLeaf')}"));
 });

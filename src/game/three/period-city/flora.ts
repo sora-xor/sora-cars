@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { crownLight, crownLightGlsl, floraLeafGrowth, leafGrowthGlsl } from '../autumn-foliage';
+import { crownDusk, crownDuskGlsl, crownLight, crownLightGlsl, floraLeafGrowth, LEAF_HASH_GLSL, leafGrowthGlsl } from '../autumn-foliage';
 import { withCanopyGaps } from '../canopy-gaps';
 import { seeded } from './layout';
 
@@ -514,17 +514,20 @@ function floraMaterials() {
   // lighting paled sunlit maples to peach and sank their shade toward maroon under the dusk sky.
   foliage.onBeforeCompile = shader => {
     shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraLeafGrowth = floraLeafGrowth;
+    // Dusk on the maples, card by card (round eighteen: autumn-foliage.ts crownDuskGlsl).
+    shader.uniforms.soraCrownDusk = crownDusk;
     // A maple's leaf cards drawn larger with distance (round thirteen), as the roadside maples' leaves.
     shader.vertexShader = shader.vertexShader
-      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvoid main() {')
-      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}`);
+      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvarying float vSoraLeaf;\nvoid main() {')
+      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}\n${LEAF_HASH_GLSL}`);
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;')
+      .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;\nuniform vec4 soraCrownDusk;\nvarying float vSoraLeaf;')
       .replace('#include <normal_fragment_begin>', THREE.ShaderChunk.normal_fragment_begin.replace('normal *= faceDirection;', ''))
       .replace('#include <opaque_fragment>', `${crownLightGlsl('1.')}
+${crownDuskGlsl('soraCrownDusk.x', 'soraCrownDusk', 'vSoraLeaf')}
 #include <opaque_fragment>`);
   };
-  foliage.customProgramCacheKey = () => 'period-flora-leaves-v5';
+  foliage.customProgramCacheKey = () => 'period-flora-leaves-v6';
   const depth = withCanopyGaps(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: .5 }));
   return materials = { wood, foliage, depth };
 }

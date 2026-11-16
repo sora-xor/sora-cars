@@ -225,6 +225,12 @@ export interface LineworkOptions {
   /** 1: the top cells of each clump take one step up (moonlit clump tops); 0: flat clumps. */
   foliageToneLift: number;
   /**
+   * Finish pass, round eighteen: 1 keeps a saturated red or orange canopy (the autumn maples) out of the clump tones,
+   * which are the night street trees' dark greens and lamp-lit olive. At Akechidaira's dusk the maples' shaded leaves
+   * were redrawn as dark green clumps, and those beside a lamp as olive. 0 tones every dark canopy (A/B).
+   */
+  foliageWarmKeep: number;
+  /**
    * Refine round 3, perforated wires: thin geometry against the sky is drawn
    * as a continuous 1-cell stair line. A sky-owned cell that some nearer
    * geometry covers by at least wireCover (the resolve's sky fraction) and
@@ -258,6 +264,7 @@ export const LINEWORK_DEFAULTS: LineworkOptions = {
   glowStable: 1, glowKeySpecular: 14, glowKeyLift: 1, glowRampCells: 5, glowWarmKeep: 1,
   lampHeadMid: 40, lampHeadFar: 80, lampHeadTierBand: 4,
   foliageTones: 1, foliageToneCells: 6, foliageToneMax: 0.3, foliageLampReach: 5, foliageLampGlint: 0, foliageToneFar: 45, foliageToneLift: 1,
+  foliageWarmKeep: 1,
   wireConnect: 1, wireCover: 0.2,
 };
 
@@ -1362,6 +1369,7 @@ uniform vec4 foliageTone;        // x: 1 clump tones; y: clump size (cells); z: 
 uniform float foliageLampReach;  // m
 uniform float foliageToneFar;    // m: clump tones only nearer (thinning from 0.7 x)
 uniform float foliageToneLift;   // 1: a clump's top cells take a step up
+uniform float foliageWarmKeep;   // 1: a saturated red or orange canopy keeps its own colours (round eighteen)
 uniform mat4 foliageViewProjection; // this frame's projection x view (clump centres to cells)
 uniform int foliageLampCount;
 uniform vec4 foliageLamp[${MAX_LAMP_HEADS}]; // street-lamp heads (world xyz)
@@ -1479,6 +1487,16 @@ vec2 skyAround(ivec2 cell) {
   }
   return vec2(L < 0. ? 9. : L, warm);
 }
+/**
+ * An autumn crown (round eighteen): its smoothed light a saturated crimson or red-orange (OKLab hue 10-45 degrees, chroma
+ * over .06 and over .28 of its lightness). Lamplight turns a street tree's leaves and a cherry's blossom warm too, but
+ * amber and paler: Akechidaira's and Kyoto's maples measured hue 22-35 at .29-.41 of their lightness, the lamp-lit trees
+ * of Shijō and Kanda 42-59 at .23-.29. The clump tones' greens and olive belong to those.
+ */
+bool warmCanopy(vec3 lab) {
+  float chroma = length(lab.yz);
+  return foliageWarmKeep > .5 && chroma > .06 && chroma > .28 * lab.x && abs(hueArc(atan(lab.z, lab.y), radians(27.5))) < radians(17.5);
+}
 int toneEntry(int family, int s) { return foliageTones[family * 5 + s]; }
 float toneL(int family, int s) {
   return foliageExact > .5 ? foliageToneL[family * 5 + s] : texelFetch(paletteLab, ivec2(toneEntry(family, s), 0), 0).x;
@@ -1588,6 +1606,8 @@ void main() {
     bool dark = light.x < foliageTone.z;
     // Far crowns keep the render's dark mass, thinning out clump by clump.
     if (artHash01(clumpId(p, level) + ivec3(0, 0, 3313)) >= 1. - smoothstep(.7 * foliageToneFar, foliageToneFar, depth)) { dark = false; lit = 0.; }
+    // An autumn crown keeps its crimson shade and its lamp-lit reds (round eighteen).
+    if (warmCanopy(light)) { dark = false; lit = 0.; }
     vec2 sky = dark || lit > .25 ? skyAround(cell) : vec2(9., 0.);
     // Toned where the sky around is cool (night, the violet dusk), or where
     // no sky shows and the key is cool; lamp-lit crowns everywhere.
@@ -1631,7 +1651,7 @@ void main() {
           ivec2 c = cell + CROSS[k];
           if (!canopy(c) || depthAt(c) >= depth * .85) continue;
           vec3 light = canopyLight(c, depthAt(c));
-          if (light.x >= foliageTone.z) break;
+          if (light.x >= foliageTone.z || warmCanopy(light)) break;
           vec2 sky = skyAround(cell);
           if (sky.x < 8. ? sky.y < .5 : keyLight.y < .5) outImage = toneTexel(bodyTone(c, sky.x < 8. ? sky.x - .03 : 9.));
           break;
@@ -1817,6 +1837,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
     keyLightDirection: lineUniforms.keyLightDirection, keyLight: lineUniforms.keyLight, keyLightScreen: lineUniforms.keyLightScreen,
     foliageMask: { value: glowSeeds[0].texture as THREE.Texture }, foliageMaskReady: { value: 0 },
     foliageTone: { value: new THREE.Vector4() }, foliageLampReach: { value: 6 }, foliageToneFar: { value: 45 }, foliageToneLift: { value: 1 }, foliageViewProjection: { value: new THREE.Matrix4() }, foliageLampCount: { value: 0 },
+    foliageWarmKeep: { value: 1 },
     foliageLamp: { value: Array.from({ length: MAX_LAMP_HEADS }, () => new THREE.Vector4()) },
     foliageTones: { value: [...FOLIAGE_TONES.navy, ...FOLIAGE_TONES.teal, ...FOLIAGE_TONES.olive].map(entry) },
     foliageToneColours: { value: toneColours.map(hex => { const c = new THREE.Color(hex).getRGB({ r: 0, g: 0, b: 0 }, THREE.SRGBColorSpace);
@@ -1993,6 +2014,7 @@ export function createLinework(shared: PixelArtSharedUniforms, palette: PixelPal
       foliageUniforms.foliageLampReach.value = Math.max(0.5, o.foliageLampReach);
       foliageUniforms.foliageToneFar.value = Math.max(1, o.foliageToneFar);
       foliageUniforms.foliageToneLift.value = o.foliageToneLift > 0 ? 1 : 0;
+      foliageUniforms.foliageWarmKeep.value = o.foliageWarmKeep > 0 ? 1 : 0;
     },
   };
 }

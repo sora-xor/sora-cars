@@ -59,7 +59,7 @@ import { streetScene, type StreetScene } from './period-city/street-scenes';
 import { setPeriodCityGolden } from './period-city/materials';
 import { periodCityForestVegetationGround, type PeriodLocals } from './period-city/layout';
 import { SIGN_REGIONS } from './period-city/signs';
-import { crownLight, crownLightGlsl, crownTranslucencyGlsl, leafGrowthGlsl, roadsideLeafGrowth } from './autumn-foliage';
+import { crownDusk, crownDuskGlsl, crownLight, crownLightGlsl, crownTranslucencyGlsl, LEAF_HASH_GLSL, leafGrowthGlsl, roadsideLeafGrowth } from './autumn-foliage';
 import { CarFleet, plateTexture, raceNumberTexture } from './period-cars/fleet';
 import { pavingUniforms } from './paving-joints';
 import { compileFor, materialTextures, shadowCasterBatches, waitForShaderPrograms, type ReadyShaderProgram } from './shader-warmup';
@@ -236,15 +236,18 @@ function mapleCrownLight(material: THREE.MeshStandardMaterial, amount: { value: 
     shader.uniforms.soraLampWindows = lampWindows; shader.uniforms.soraLampWindowCount = lampWindowCount;
     shader.uniforms.soraLampAspect = lampWindowAspect; shader.uniforms.soraLampWindowLight = lampWindowLight;
     shader.uniforms.soraLampWindowReach = lampWindowReach;
+    // Dusk on the maples, leaf by leaf (round eighteen: autumn-foliage.ts crownDuskGlsl).
+    shader.uniforms.soraCrownDusk = crownDusk;
     shader.vertexShader = shader.vertexShader
-      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvarying vec4 vSoraClip;\nvoid main() {')
-      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}`)
+      .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvarying vec4 vSoraClip;\nvarying float vSoraLeaf;\nvoid main() {')
+      .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}\n${LEAF_HASH_GLSL}`)
       .replace('#include <project_vertex>', '#include <project_vertex>\nvSoraClip = gl_Position;');
     shader.fragmentShader = shader.fragmentShader
       .replace('void main() {', `uniform vec3 soraCrownLight; uniform float soraMapleLight; uniform float soraMapleLeaves;
 uniform vec4 soraLampWindows[${LAMP_WINDOWS}]; uniform int soraLampWindowCount; uniform float soraLampAspect; uniform vec3 soraLampWindowLight;
-uniform float soraLampWindowReach;
+uniform float soraLampWindowReach; uniform vec4 soraCrownDusk;
 varying vec4 vSoraClip;
+varying float vSoraLeaf;
 void main() {
   // Lamp windows (LAMP_WINDOWS): the leaves between the camera and a far lamp head, from 30% of its distance in, open
   // round it so it shows over the foliage.
@@ -261,12 +264,14 @@ void main() {
   }`)
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
   // Lit by the lamp as its leaves turn amber toward the head: their own colour, and the lamp's beside it.
-  totalEmissiveRadiance += (diffuseColor.rgb * .55 + vec3(.32, .2, .07)) * soraLampWindowLight * soraLampGlow * soraLampGlow;`)
+  vec3 soraLampAdd = (diffuseColor.rgb * .55 + vec3(.32, .2, .07)) * soraLampWindowLight * soraLampGlow * soraLampGlow;
+  totalEmissiveRadiance += soraLampAdd;`)
       .replace('#include <opaque_fragment>', `${crownTranslucencyGlsl('soraMapleLeaves * soraCrownLight.z', 1)}
   if (soraMapleLight > 0.) ${crownLightGlsl('soraMapleLight', false)}
+  ${crownDuskGlsl('soraCrownDusk.x * soraMapleLeaves', 'soraCrownDusk', 'vSoraLeaf', 'soraLampAdd')}
   #include <opaque_fragment>`);
   };
-  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v7`;
+  material.customProgramCacheKey = () => `${baseKey()}:sora-maple-light-v8`;
 }
 
 /**
@@ -698,6 +703,8 @@ export class RaceWorld {
   private readonly lampFarLights = new MovingFarLights(40);
   /** Lamp windows through the roadside crowns (LAMP_WINDOWS): false for A/B captures. */
   lampWindowsOn = true;
+  /** Dusk on the autumn crowns (autumn-foliage.ts crownDusk): false for A/B captures. */
+  crownDuskOn = true;
   /** The lamp's light on the leaves round each window (LAMP_WINDOW_LIGHT times this; 0 for A/B captures). */
   lampWindowGlow = 1;
   /** Its reach in window radii (LAMP_WINDOW_GLOW), for A/B captures. */
@@ -1766,6 +1773,12 @@ export class RaceWorld {
     // The painted crown light only by day: at dusk it held the lamp-lit crowns under its highlight ceiling, darker than
     // the repaints' lamp-lit reds (Kyoto's torii avenue).
     this.mapleLight.value = this.momiji ? THREE.MathUtils.smoothstep(daylight, 0.55, 0.8) : 0;
+    // Round eighteen: at dusk the autumn crowns are relit leaf by leaf (autumn-foliage.ts crownDusk), from the afterglow
+    // (daylight .75 to .55) until the night's light takes over below .4. Only on a valley route (its sunHeight), whose
+    // crowns the afterglow lights: under Kyoto's lamp-lit dusk the avenue's crowns turned ochre-brown, where its repaint
+    // keeps them red.
+    crownDusk.value.x = this.momiji && this.crownDuskOn && mood.lowSunElevation !== undefined
+      ? THREE.MathUtils.smoothstep(daylight, 0.25, 0.4) * (1 - THREE.MathUtils.smoothstep(daylight, 0.55, 0.75)) : 0;
     for (const tone of this.blossomTones) tone.emissiveIntensity = crownGlow;
     setPeriodCityLighting(upperLit, groundLit, windowGain, windowLights('cool', dusk, morning),
       windowLights('signs', dusk, morning) * PERIOD_SIGN_GAIN, THREE.MathUtils.lerp(1, PERIOD_SUNRISE_LAMPS, morning) * Math.max(lampsOn, this.goldenLamps * golden),

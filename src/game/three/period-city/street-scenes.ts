@@ -107,6 +107,13 @@ const IROHAZAKA_LAND: FarLandPlan = {
   autumn: .6, canopy: true, dayGain: 2.5,
   // The ranges across the Daiya valley as blue-violet masses (its true-light repaints), not the pale lavender of the haze.
   ridges: { away: '#3f3a72', toward: '#4c3866', metres: 1200 },
+  // At Akechidaira's dusk (finish pass, round eighteen) Nantai-san stands dark navy-violet against the afterglow, the
+  // Nyohō range behind it paler, as the repaint paints its ranges; the day's pale haze washed the cone lavender.
+  dusk: { haze: '#4e4068', ridge: '#2c2c46', metres: 7000 },
+  // Spurs and gullies down the volcanoes' flanks, and the first snow on Nantai-san, Nyohō-san and Ōmanago above about
+  // 2,200 m (the grid's Nantai summit is 2,463 m): the Utsunomiya observatory's normal first snow on Nantai-san falls in
+  // early November (2024's on 7 November, three days late; 2023's on 25 October), as the maples on the climb finish.
+  relief: { snow: 2200 },
 };
 const IROHAZAKA: StreetScene = {
   style: 2, terrain: 'slope',
