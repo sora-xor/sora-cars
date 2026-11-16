@@ -93,6 +93,18 @@ try {
       return result;
     };
   });
+  // Real-time captures read the drawn race canvas inside the page. A Playwright screenshot waits on the compositor while
+  // the race keeps running (16 s at load ~400 carried the car off Nikko's avenue before the boost and brake checks); a
+  // canvas read blocks the page instead, and the game clamps each frame to 0.1 s, so a capture costs at most 0.1 s of race.
+  const captureRaceCanvas = async name => {
+    const capture = await page.evaluate(() => {
+      const before = performance.now(), dataUrl = document.querySelector('#race-canvas').toDataURL('image/png');
+      return { dataUrl, ms: performance.now() - before, tick: JSON.parse(window.render_game_to_text()).tick };
+    });
+    await writeFile(`${out}/${name}.png`, Buffer.from(capture.dataUrl.slice(capture.dataUrl.indexOf(',') + 1), 'base64'));
+    return { name, ms: capture.ms, tick: capture.tick };
+  };
+  const captures = [];
   await page.evaluate(() => window.soraCars.setTrack(2));
   await page.locator('#start-btn').click();
   await page.waitForFunction(() => !document.querySelector('.scene-preparation-panel')
@@ -100,7 +112,7 @@ try {
   await page.keyboard.down('ArrowUp');
   // The three-second countdown, then about six seconds up Nikko's avenue.
   await page.waitForFunction(() => JSON.parse(window.render_game_to_text()).player.speed * 0.108 >= 250, {}, { timeout: 30000 });
-  await page.screenshot({ path: `${out}/realtime-fast.png` });
+  captures.push(await captureRaceCanvas('realtime-fast'));
   const samples = await page.evaluate(() => new Promise(resolve => {
     const frames = []; let start;
     const sample = now => {
@@ -123,9 +135,9 @@ try {
   assert.ok(Math.abs(renderedMm / distanceMm - 1) < 0.06, 'visible world keeps pace with physics rather than slowly catching up');
   await page.keyboard.down('Shift');
   await page.waitForFunction(() => JSON.parse(window.render_game_to_text()).player.speed * 0.108 >= 300, {}, { timeout: 3000 });
-  // Read the boost state before the screenshot: the race runs in real time, and a slow capture outlasts the battery.
+  // Read the boost state before the capture: the race runs in real time.
   const boostState = await page.evaluate(() => JSON.parse(window.render_game_to_text()));
-  await page.screenshot({ path: `${out}/realtime-boost.png` });
+  captures.push(await captureRaceCanvas('realtime-boost'));
   assert.equal(boostState.drivingSound.boost, true);
   await page.keyboard.up('Shift'); await page.keyboard.up('ArrowUp');
   await page.keyboard.down('ArrowDown');
@@ -143,6 +155,6 @@ try {
   await context.close();
   await video.saveAs(`${out}/realtime-driving.webm`);
   assert.deepEqual(errors, []);
-  await writeFile(`${out}/report.json`, JSON.stringify({ runs, errors, realtime: { samples, cadence, seconds, ticks, distanceMm, expectedMm, renderedMm, boostKmh: boostState.player.speed * 0.108 }, checks: ['Actual 250+ km/h acceleration, boost and brake', 'Identical normal/reduced-motion physics', 'Desktop and mobile capture', '60 motion frames at 30 FPS', 'Real-time interpolation path: displayed and simulated travel agree with speedometer, 300+ km/h boost, braking and silent pause'] }, null, 2));
+  await writeFile(`${out}/report.json`, JSON.stringify({ runs, errors, realtime: { samples, cadence, seconds, ticks, distanceMm, expectedMm, renderedMm, boostKmh: boostState.player.speed * 0.108, captures }, checks: ['Actual 250+ km/h acceleration, boost and brake', 'Identical normal/reduced-motion physics', 'Desktop and mobile capture', '60 motion frames at 30 FPS', 'Real-time interpolation path: displayed and simulated travel agree with speedometer, 300+ km/h boost, braking and silent pause'] }, null, 2));
   console.log('Speed presentation: acceleration, boost, braking, reduced-motion parity, mobile and real-time driving checks passed.');
 } finally { await browser.close(); }
