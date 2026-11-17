@@ -674,7 +674,9 @@ function instantiate(template: Template, { flag, emblem, strip, number }: CarDec
       for (const copies of thrown.values()) for (const geometry of copies) geometry.dispose();
     },
   };
-  car.setAppearance(colours?.paint ?? '#e8e5d9');
+  // A car made to a build wears that build's paint from the start, the factory car's standard colour included: the
+  // garage's turntable shows it as made. The race's fleet has no build and is painted by the world every frame.
+  car.setAppearance(build ? buildColours(build).paint : '#e8e5d9');
   car.setDamage!(0);
   return car;
 }

@@ -67,6 +67,40 @@
 .hero-copy .eyebrow .ui-bilingual > span { font-size: 10px; }
 .story-menu .body-copy { font-size: 14px; }
 @media(max-width:700px) { .hero-actions { gap: 15px; flex-wrap: nowrap; } .hero-actions .primary { font-size: 12px; padding: 13px 15px; } .hero-actions .text-button { font-size: 10px; } .hero-actions small { font-size: 7px; } .hero-copy .eyebrow .ui-bilingual > span { font-size: 8px; } }
+/* At phone width the circuit picker (circuit, practice field, street runs) is taller than the room under the hero, and
+   pinned to the bottom it sat on the start button. The home screen becomes one column between the header and the
+   footer instead: the hero first, the picker after it (at the bottom when there is room), scrolling on short phones. */
+@media(max-width:700px) {
+  #app[data-view='home'] #screen { position: absolute; inset: 108px 0 51px; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding: clamp(12px, 4.5svh, 40px) 8% 24px; overflow: hidden auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #5a405e transparent; }
+  #app[data-view='home'] .hero-copy, #app[data-view='home'] .circuit-picker { position: relative; inset: auto; flex: none; }
+  #app[data-view='home'] .hero-copy { align-self: flex-start; }
+  #app[data-view='home'] .hero-side { top: clamp(12px, 4.5svh, 40px); }
+  #app[data-view='home'] .circuit-picker { align-self: flex-end; width: min(100%, 340px); }
+}
+/* Landscape phones leave a short band between the header and the footer: the 640px minimum height made the page scroll,
+   the start button sat below the fold and the vertical tagline ran over the picker. The hero and the picker sit side by
+   side and scroll together; the title takes one line, the tagline and the edition stamp step aside, and on the
+   shortest screens the description and then the eyebrow give way, so the start button stays in view. */
+@media (orientation: landscape) and (max-height: 500px) {
+  #app[data-view='home'] { min-height: 0; }
+  #app[data-view='home'] #screen { position: absolute; inset: 74px 0 49px; display: grid; grid-template-columns: minmax(0, 1fr) min(36%, 280px); align-items: start; column-gap: 5%; padding: 10px 7% 16px; overflow: hidden auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #5a405e transparent; }
+  #app[data-view='home'] .hero-copy, #app[data-view='home'] .circuit-picker { position: relative; inset: auto; max-width: none; width: auto; align-self: start; }
+  #app[data-view='home'] .hero-copy .eyebrow { margin-bottom: 8px; }
+  #app[data-view='home'] .hero-copy h1 { font-size: clamp(40px, min(15svh, 7.2vw), 96px); white-space: nowrap; }
+  #app[data-view='home'] .hero-copy h1 br { display: none; }
+  #app[data-view='home'] .hero-copy h1 em { margin: 0 0 0 .22em; }
+  #app[data-view='home'] .hero-japanese, #app[data-view='home'] .hero-description { margin-top: 8px; }
+  #app[data-view='home'] .hero-actions { margin-top: 12px; }
+  #app[data-view='home'] .hero-actions .primary { padding: 10px 15px; }
+  #app[data-view='home'] .story-home-link { margin-top: 14px; }
+  #app[data-view='home'] .hero-side, #app[data-view='home'] .edition-stamp { display: none; }
+}
+@media (orientation: landscape) and (max-height: 409px) { #app[data-view='home'] .hero-description { display: none; } }
+@media (orientation: landscape) and (max-height: 340px) { #app[data-view='home'] .hero-copy .eyebrow { display: none; } }
+/* Between 701 and 800px wide the header and footer kept their tall sizes; landscape phones take the short ones that
+   wider short screens already use. At 700px and below the header's second row (the menu) stays. */
+@media (orientation: landscape) and (max-height: 500px) and (min-width: 701px) and (max-width: 800px) { .header { height: 74px; } .header nav button { padding: 28px 0; } .footer { height: 49px; } }
+@media (orientation: landscape) and (max-height: 500px) and (max-width: 700px) { #app[data-view='home'] #screen { inset: 108px 0 51px; } }
 
 /* SORA custom works: an illustrated collection shelf, Japanese first. */
 .garage-shop-link{display:block;margin-top:14px;background:none;border:0;border-bottom:1px solid var(--ink);padding:8px 0;font-weight:750;font-size:16px;color:var(--ink);cursor:pointer;text-align:left}.garage-shop-link small{display:block;font-size:10px;letter-spacing:.08em;margin-top:5px}

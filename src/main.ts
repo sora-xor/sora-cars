@@ -258,6 +258,8 @@ function setView(next: View, shopChapter: number | null = null): void {
   presentation.reset(); previousView = view; view = next; paused = false; controls = 0; touch.clear();
   if (next !== 'room') live.deactivate();
   if (!['room', 'race', 'results', 'cutscene', 'pit'].includes(next)) history.replaceState(null, '', `#/${next === 'home' ? '' : next === 'shop' && shopChapter !== null ? `shop/story/${shopChapter}` : next}`);
+  // Each view opens at its top: #screen scrolls on the phone home screen, and views that hide its overflow must not inherit that offset.
+  if (previousView !== view) screen.scrollTop = 0;
   root.dataset.view = view; if (view === 'street') { history.replaceState(null, '', `#/street/${streetRoute}`); street.resize(); } else renderer.resize();
   document.querySelector<HTMLElement>('#race-tools')!.hidden = view !== 'race' || localScenePreparing;
   document.querySelector<HTMLElement>('#touch-controls')!.hidden = view !== 'race' || localScenePreparing || replay !== null || spectator !== null;

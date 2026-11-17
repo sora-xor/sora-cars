@@ -93,6 +93,16 @@ try {
     return names;
   });
   check('the factory car carries no kit, number, banner or neon', !factory.some(name => /^Kit|Racing number|banner|Neon/.test(name)), factory.filter(name => /^Kit|Racing number|banner|Neon/.test(name)).join());
+  // Made to a build, it wears that build's standard colour as loaded (紫 MURASAKI here): the garage's turntable shows the
+  // model as it comes, with no race to repaint it, and drew every factory car in the fleet's off-white.
+  const factoryPaint = await page.evaluate(async () => {
+    const lab = window.carLab;
+    await lab.show([lab.stock(3)]);
+    const colours = new Set();
+    lab.models()[0].group.traverse(o => { if (o.isMesh) for (const material of [o.material].flat()) if (material.name === 'Primary') colours.add(`#${material.color.getHexString()}`); });
+    return [...colours];
+  });
+  check('the factory car in a standard colour is painted that colour', factoryPaint.join() === '#9672df', factoryPaint.join());
 
   // A rival grid: varied builds on every body, drawn together.
   await page.evaluate(async () => { const lab = window.carLab; await lab.show(Array.from({ length: 8 }, (_, i) => lab.rival(i * 7 + 3, 1))); lab.view('three'); });

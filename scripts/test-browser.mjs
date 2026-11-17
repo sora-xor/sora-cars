@@ -179,6 +179,26 @@ try {
   assert.match(await tied.locator('.result-title > span').innerText(), /^01/u);
   await tied.screenshot({ path: `${out}/tied-replay-results.png` });
 
+  // On a phone's home screen nothing may sit on the start button or keep it out of view, the circuit picker keeps clear of
+  // the hero, and the page itself does not scroll. Upright, the picker (pinned to the bottom) used to cover the button's
+  // right side; in landscape the page scrolled with the button below the fold and the vertical tagline over the picker.
+  const homeProblems = () => {
+    const start = document.querySelector('#start-btn'), r = start.getBoundingClientRect(), problems = [];
+    for (const fx of [0.05, 0.5, 0.95]) for (const fy of [0.15, 0.5, 0.85]) {
+      const hit = document.elementFromPoint(r.left + r.width * fx, r.top + r.height * fy);
+      if (!hit || !start.contains(hit)) problems.push(`start button at ${fx},${fy} is under ${hit?.className || hit?.tagName || 'nothing (off screen)'}`);
+    }
+    const hero = document.querySelector('.hero-copy').getBoundingClientRect(), title = document.querySelector('.hero-copy h1'), picker = document.querySelector('.circuit-picker').getBoundingClientRect();
+    const heroRight = Math.max(hero.right, title.getBoundingClientRect().left + title.scrollWidth);
+    if (Math.min(hero.bottom, picker.bottom) > Math.max(hero.top, picker.top) && Math.min(heroRight, picker.right) > Math.max(hero.left, picker.left)) problems.push('the circuit picker overlaps the hero');
+    const side = document.querySelector('.hero-side');
+    if (side.getClientRects().length) {
+      const s = side.getBoundingClientRect();
+      if (Math.min(s.bottom, picker.bottom) > Math.max(s.top, picker.top) && Math.min(s.right, picker.right) > Math.max(s.left, picker.left)) problems.push('the vertical tagline overlaps the circuit picker');
+    }
+    if (document.documentElement.scrollHeight > innerHeight) problems.push(`the page scrolls by ${document.documentElement.scrollHeight - innerHeight}px`);
+    return problems;
+  };
   const mobile = await openPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
   await mobile.emulateMedia({ reducedMotion: 'reduce' });
   mobile.on('pageerror', error => errors.push(error.message));
@@ -186,6 +206,7 @@ try {
   await mobile.evaluate(() => window.advanceTime(200));
   await mobile.screenshot({ path: `${out}/mobile-home.png` });
   assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth), 390);
+  assert.deepEqual(await mobile.evaluate(homeProblems), []);
   await mobile.locator('#start-btn').tap();
   await sceneReady(mobile);
   await mobile.evaluate(() => window.advanceTime(3100));
@@ -196,7 +217,15 @@ try {
   await mobile.mouse.up();
   assert.ok(await mobile.evaluate(() => window.soraCars.state().cars[6].speed) > 0);
   await mobile.screenshot({ path: `${out}/mobile-race.png` });
+  // The same phone on its side: the home screen fits between the header and the footer, start button in view.
+  const landscape = await openPage({ viewport: { width: 844, height: 390 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
+  await landscape.emulateMedia({ reducedMotion: 'reduce' });
+  landscape.on('pageerror', error => errors.push(error.message));
+  await landscape.goto(url); await landscape.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
+  await landscape.evaluate(() => window.advanceTime(200));
+  await landscape.screenshot({ path: `${out}/landscape-home.png` });
+  assert.deepEqual(await landscape.evaluate(homeProblems), []);
   assert.deepEqual(blocked, [{ method: 'POST', url: walletSession }], 'no other step tried to reach a remote host');
   assert.deepEqual(errors, [], 'browser console and page errors');
-  console.log('Browser checks passed: Japanese/English interface, offline wallet dialog, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch.');
+  console.log('Browser checks passed: Japanese/English interface, offline wallet dialog, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch, phone home upright and in landscape.');
 } finally { await Promise.all(browsers.map(browser => browser.close())); }
