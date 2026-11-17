@@ -211,10 +211,48 @@ limits (`ideal-race-times.txt`):
 Live races would therefore last about as long as local races on the same
 roads.
 
-Calibration still to do: rain and oil. Rain's 15/16 damping lets lateral
-velocity build higher (195 mm/tick against 126), so with this force rain
-would add cornering authority. Scaling the bend force in the wet, or keeping
-rain's steering cut, needs checking with the reference keyboard drivers.
+Rain's 15/16 damping lets lateral velocity build higher (195 mm/tick against
+126), so with this force rain would add cornering authority. Measured on
+November 17 against the bundled native kernels
+(`npx tsx scripts/race-weather-check.ts`; results in
+`output/reviews/master-20261117/racev1-weather/`):
+
+- Rain does add cornering authority. On a straight road with no wind, a held
+  wheel settles at 119 mm/tick of lateral speed in the dry and 180 in the rain
+  (×1.51). A held drift settles at 189 and 280 (×1.48). This holds at 1,000,
+  1,600 and 2,200 mm/tick. A car can therefore hold about 23% more corner
+  speed in the wet.
+- A driver can exploit it. The stock bot plans bends for the dry wheel, so the
+  weather does not change its times: Hakone 179.8 s dry and 180.1 s in constant
+  rain. The same bot, planning bends for the wet wheel while it rains, is
+  faster and touches the rails no more often:
+
+  | Road | Share of the race in rain | Stock bot | Rain-planning bot |
+  | --- | --- | --- | --- |
+  | Hakone, constant rain | all | 180.1 s | 151.8 s |
+  | Hakone, real schedule | a quarter | 180.0 s | 172.8 s |
+  | Yokohama, real schedule | a half | 138.0 s | 133.9 s |
+  | Nikkō, real schedule | a quarter | 84.1 s | 82.8 s |
+
+- Every driver finishes inside 8,100 ticks (270 s). The slowest was a bot that
+  sees the race 12 ticks late, plans bends at 75% of the dry wheel and never
+  drifts or boosts. On Hakone it needs 247 s (median of eight cars on the real
+  schedule); its slowest car took 253 s in constant rain. It grinds the rails:
+  220 contacts for eight cars.
+- Oil never sent the stock bots into a rail. For the slow bot, 11–16 of a
+  Hakone race's 220–245 rail contacts came within 3 s of an oil patch.
+
+Rain should not make cars faster. Either fix changes RaceV1's rules. That
+means a new rules hash and profile, new kernels, parity fixtures, proofs and
+SDK corpus, a re-authenticated binding, and a rebased `optimizations` port:
+
+- scale the bend push in the wet by at least the authority ratio (×1.5 gives
+  the dry corner speeds back, and more makes the wet slower); or
+- give rain the dry lateral damping and keep its steering cut, so a held wheel
+  settles lower in the wet.
+
+Nothing is changed yet. The choice belongs to the user and the native rules
+owner.
 
 ## Decision 4: race length
 
@@ -491,7 +529,7 @@ hashed in `output/reviews/live-real-roads-20261112/current-20261115/`): all
 | Yokohama | 2,158,833 B | 1,778,817 B | 129.0 bits | 17.5 s / 231 ms |
 | Nikkō | 2,157,393 B | 1,776,220 B | 129.0 bits | 14.9 s / 421 ms |
 
-Status on November 16, 2026. RaceV1 qualification stays false
+Status on November 17, 2026. RaceV1 qualification stays false
 (`race_profile_is_qualified_v1() == false`). Records are in
 `output/reviews/native-binding-20261115/`.
 
@@ -541,7 +579,8 @@ Status on November 16, 2026. RaceV1 qualification stays false
 5. Full `npm test` at load ~220: 772 tests, 763 pass. The 7 failures and 2
    cancellations are all in `live-terms` (a 45 s parent deadline) and
    `native-proof-process` (child processes with 1-3 s deadlines). Run on their
-   own, both files pass (item 4).
+   own, both files pass (item 4). On November 17, at `8c60770` and load ~30–50,
+   all 774 tests passed in 11.7 minutes.
 6. Found and fixed on November 16 (records in `quiet-gates/`,
    `mesh-ab-20261116/` and `hakone-hairpins/` under that folder):
    - `test-mesh` was never held back by load. Its eight contexts in one browser
@@ -584,4 +623,10 @@ Status on November 16, 2026. RaceV1 qualification stays false
    which the owner is fixing), so the branch's one-line change there is not yet
    compiled. None of the branch's files fail `cargo fmt --check`. Its owner
    deferred landing while it qualifies a frozen snapshot of the shared tree;
-   when it lands is the user's call.
+   when it lands is the user's call. By 10:50 on November 17, `optimizations`
+   was 69 commits past `f06c6ea1f8`, and its owner was still committing, so
+   the branch needs a rebase and its checks again before it lands.
+8. Calibration (step 7 of "Order of work and checks"), measured on November
+   17: every driver finishes inside 8,100 ticks, but rain adds cornering
+   authority and is worth about 7 s on Hakone to a driver who exploits it
+   ("Decision 3"). Fixing it changes the rules and waits for a decision.
