@@ -1,19 +1,59 @@
-import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile, readFile } from 'node:fs/promises';
-import { RULES } from '../src/game/rules.ts';
+import { launchChromium } from './lib/browser-launch.mjs';
+import { RULES, TRACKS } from '../src/game/rules.ts';
+import { TAIRA_TORII_URL } from '../src/chain/taira.ts';
 
 const url = process.env.GAME_URL ?? 'http://127.0.0.1:5173';
 const out = 'output/browser';
 const { rules_hash: rulesHash } = JSON.parse(await readFile(new URL('../src/game/generated/race-v1-kernels.json', import.meta.url), 'utf8'));
 await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ headless: true });
-const errors = [];
+const errors = [], browsers = [];
+// No step may reach a remote host. Every request to a non-local host is recorded and aborted, and no WebSocket
+// reaches any server: a remote one is closed, and Vite's own is answered here, so another session saving a file
+// cannot reload a page mid-run (as scripts/test-steering-direction.mjs does).
+const localHosts = new Set(['localhost', '127.0.0.1', '[::1]']), blocked = [];
+const walletSession = `${TAIRA_TORII_URL}/v1/connect/session`;
+async function isolate(target) {
+  await target.route(request => !localHosts.has(request.hostname), route => {
+    blocked.push({ method: route.request().method(), url: route.request().url() });
+    return route.abort();
+  });
+  await target.routeWebSocket(() => true, socket => {
+    if (localHosts.has(new URL(socket.url()).hostname)) { socket.send(JSON.stringify({ type: 'connected' })); return; }
+    blocked.push({ method: 'WEBSOCKET', url: socket.url() }); socket.close();
+  });
+}
+async function openPage(options) {
+  // The 3D race scene needs the GPU path: in Playwright's headless shell it never finishes preparing (as in
+  // scripts/test-steering-direction.mjs). Each page also gets its own browser, as scripts/test-mesh.mjs gives each
+  // racer: pages in one browser share its GPU process while the earlier pages keep drawing their scenes, and there
+  // the third page's race scene did not finish preparing within three minutes.
+  const browser = await launchChromium({ headless: true, channel: 'chromium', args: process.platform === 'darwin' ? ['--use-angle=metal'] : [] });
+  browsers.push(browser);
+  const target = await browser.newPage(options);
+  // Other sessions load this machine heavily (load averages of 300+): a slow page load, click or screenshot is
+  // waited for, never accepted as a different result.
+  target.setDefaultTimeout(120_000);
+  await isolate(target);
+  return target;
+}
+// A race or replay first prepares its 3D scene in real time; until then the manual clock cannot move it.
+const sceneReady = target => target.waitForFunction(() => {
+  const state = JSON.parse(window.render_game_to_text());
+  return state.mode === 'race' && state.graphics.status === 'ready' && !state.graphics.preparing;
+}, null, { timeout: 180_000, polling: 100 });
 try {
-  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const page = await openPage({ viewport: { width: 1440, height: 900 } });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   page.on('pageerror', error => errors.push(error.message));
-  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  page.on('console', message => {
+    if (message.type() !== 'error') return;
+    // Chromium logs the wallet registration the test aborted as a failed load. That is the cause of the
+    // no-connection dialog checked below, not a page fault; any other failed load still counts.
+    if (message.text() === 'Failed to load resource: net::ERR_FAILED' && message.location().url === walletSession) return;
+    errors.push(message.text());
+  });
   await page.goto(url);
   await page.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
   assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).music), true, 'music is enabled on a fresh page');
@@ -21,10 +61,17 @@ try {
   assert.equal(await page.locator('html').getAttribute('lang'), 'ja');
   assert.match(await page.locator('#race-canvas').getAttribute('aria-label'), /^アーケードレース画面 \/ /u);
   await page.screenshot({ path: `${out}/home.png` });
+  // The wallet button pairs over Iroha Connect: it registers a session with the release's Taira Torii first.
+  // With that request blocked, the dialog must end on its Japanese/English no-connection state, with no QR code.
   await page.locator('[data-action="wallet"]').click();
-  await page.waitForFunction(() => document.querySelector('#dialog-body h2')?.textContent?.includes('STILL AT THE START.'));
-  assert.equal(await page.locator('#dialog-body h2 [lang="ja"]').textContent(), '接続の準備をしよう。');
-  assert.match(await page.locator('#dialog-body p [lang="ja"]').last().textContent(), /ウォレット接続には/u);
+  await page.waitForFunction(() => document.querySelector('#dialog-body h2')?.textContent?.includes('CONNECTION UNAVAILABLE.'));
+  assert.deepEqual(blocked, [{ method: 'POST', url: walletSession }], 'the wallet attempted only its Taira Connect registration, which the test blocked');
+  assert.equal(await page.locator('#dialog-body h2 [lang="ja"]').textContent(), '接続できませんでした。');
+  assert.equal(await page.locator('#dialog-body p [lang="ja"]').first().textContent(), 'ウォレット接続を完了できませんでした。再試行するか、設定から別のTaira接続先を選んでください。');
+  assert.equal(await page.locator('#dialog-body p [lang="ja"]').last().textContent(), '操作を完了できませんでした。詳細をご確認ください。');
+  assert.equal(await page.locator('#dialog-body .fine-print [lang="en"]').textContent(), 'Failed to fetch', 'the dialog reports the blocked request');
+  assert.equal(await page.locator('#dialog-body [data-action="wallet"] [lang="ja"]').textContent(), 'もう一度接続する');
+  assert.equal(await page.locator('.wallet-qr').count(), 0, 'no pairing QR code without a connection');
   await page.screenshot({ path: `${out}/wallet-unavailable-japanese.png` });
   await page.locator('.dialog-close').click();
   await page.locator('[data-action="garage"]').click();
@@ -46,7 +93,13 @@ try {
   assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).music), true);
   await page.screenshot({ path: `${out}/sound-system.png` });
   await page.locator('.brand').click();
+  // Practice now runs the driving model on the real roads, with no auto-steer. Hakone's road bends within metres of
+  // its grid, so throttle alone puts the car on the rail there; only Sakura Pass starts on a long straight (as
+  // scripts/test-speed-feel.mjs notes). Pick it on the home screen so the controls act from straight-line running.
+  for (let step = 0; step < 2; step++) await page.locator('[data-action="track-next"]').click();
+  assert.equal(await page.evaluate(() => JSON.parse(window.render_game_to_text()).track), TRACKS[2].name);
   await page.locator('#start-btn').click();
+  await sceneReady(page);
   assert.equal(await page.locator('.race-start-hint [lang="ja"]').first().textContent(), '加速');
   await page.evaluate(() => window.advanceTime(3100));
   await page.keyboard.down('ArrowUp');
@@ -91,8 +144,11 @@ try {
   await page.screenshot({ path: `${out}/results.png` });
   const result = await page.evaluate(() => window.soraCars.state());
   await page.locator('[data-action="watch-last"]').click();
+  await sceneReady(page);
   assert.equal(await page.locator('.replay-controls [lang="ja"]').first().textContent(), '練習のリプレイ');
-  await page.evaluate(() => window.advanceTime(181000));
+  // Practice runs on the driving model, whose Arcade races may last ARCADE_REAL_MAX_TICKS: replay past that limit.
+  const replayTicks = await page.evaluate(async () => (await import('/src/game/drive/course.ts')).ARCADE_REAL_MAX_TICKS);
+  await page.evaluate(ms => window.advanceTime(ms), replayTicks / RULES.hz * 1000 + 1000);
   assert.deepEqual(await page.evaluate(() => window.soraCars.state()), result, 'replay reproduces complete race');
   await page.locator('.brand').click();
   await page.locator('[data-action="history"]').click();
@@ -102,7 +158,7 @@ try {
 
   // A complete equal-distance timeout must remain a shared first place through
   // history, the in-race HUD/text state, replay and terminal result rows.
-  const tied = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  const tied = await openPage({ viewport: { width: 1440, height: 900 } });
   tied.on('pageerror', error => errors.push(error.message));
   await tied.addInitScript(({ rulesHash, maxTicks }) => localStorage.setItem('sora-cars:history:v1', JSON.stringify([{
     version: 1, rules: 'RaceV1', rulesHash, trackId: 0, names: ['ライバル', 'YOU'], skins: [0, 1],
@@ -113,6 +169,7 @@ try {
   await tied.locator('[data-action="history"]').click();
   assert.equal((await tied.locator('.history-rank').innerText()).split('/')[0].trim(), '01');
   await tied.locator('[data-action="replay-0"]').click();
+  await sceneReady(tied);
   await tied.evaluate(() => window.advanceTime(1000));
   assert.equal(await tied.evaluate(() => JSON.parse(window.render_game_to_text()).position), 1);
   await tied.screenshot({ path: `${out}/tied-replay-hud.png` });
@@ -122,7 +179,7 @@ try {
   assert.match(await tied.locator('.result-title > span').innerText(), /^01/u);
   await tied.screenshot({ path: `${out}/tied-replay-results.png` });
 
-  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
+  const mobile = await openPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
   await mobile.emulateMedia({ reducedMotion: 'reduce' });
   mobile.on('pageerror', error => errors.push(error.message));
   await mobile.goto(url); await mobile.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
@@ -130,6 +187,7 @@ try {
   await mobile.screenshot({ path: `${out}/mobile-home.png` });
   assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth), 390);
   await mobile.locator('#start-btn').tap();
+  await sceneReady(mobile);
   await mobile.evaluate(() => window.advanceTime(3100));
   assert.equal(await mobile.locator('#touch-controls').isVisible(), true);
   const gas = await mobile.locator('[data-control="throttle"]').boundingBox();
@@ -138,6 +196,7 @@ try {
   await mobile.mouse.up();
   assert.ok(await mobile.evaluate(() => window.soraCars.state().cars[6].speed) > 0);
   await mobile.screenshot({ path: `${out}/mobile-race.png` });
+  assert.deepEqual(blocked, [{ method: 'POST', url: walletSession }], 'no other step tried to reach a remote host');
   assert.deepEqual(errors, [], 'browser console and page errors');
-  console.log('Browser checks passed: Japanese/English interface, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch.');
-} finally { await browser.close(); }
+  console.log('Browser checks passed: Japanese/English interface, offline wallet dialog, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch.');
+} finally { await Promise.all(browsers.map(browser => browser.close())); }
