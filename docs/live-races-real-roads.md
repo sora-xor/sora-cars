@@ -657,7 +657,9 @@ Using the November 15 real-roads port as the reference, the candidate verifies
 lookup sums using the occupied table rows and releases prover buffers after
 their last use. The node checks the circuit's lookup-table length before
 allocating proof counts. The RaceV1 replay helpers enforce the 128-bit parameter
-target. The standard profile uses 87 queries and 20 uncredited grinding bits.
+target. Validation also rejects FRI parameters that would fold beyond the remaining degree bound.
+The estimator counts each full fold, including one that lands below the stopping cap.
+The standard profile uses 87 queries and 20 uncredited grinding bits.
 
 For the same eight-car replay binding, throttle 55 and seed 1, both engines
 produced the same encoded proof on all three tracks at one and sixteen threads.
@@ -665,11 +667,12 @@ Three paired 16-thread runs per track gave these median peak resident sizes.
 
 | Road | Encoded proof bytes | Reference MiB | Candidate MiB |
 | --- | ---: | ---: | ---: |
-| Hakone | 1,776,673 | 1,631 | 1,446 |
-| Yokohama | 1,773,564 | 1,633 | 1,446 |
-| Nikkō | 1,773,894 | 1,638 | 1,440 |
+| Hakone | 1,776,673 | 1,637 | 1,450 |
+| Yokohama | 1,773,564 | 1,634 | 1,446 |
+| Nikkō | 1,773,894 | 1,633 | 1,451 |
 
-Load averages ran from 383 to 668, too variable for a latency claim. The node
+On the frozen `e54be37fa5` engine, median peak RSS fell by 182–188 MiB.
+Load averages ran from 709 to 1,001, too variable for a latency claim. The node
 also commits to its actual source bytes when deriving the profile. The
 fixed-binding comparison therefore measures the engine separately from the
 new profile's export, SDK authentication and settlement checks. Per-run
