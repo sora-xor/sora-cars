@@ -119,5 +119,14 @@
   .scene-preparation-cover {
     background-position: 46% center;
   }
-  .home-download { right: 16px; bottom: 66px; }
+}
+
+/* The phone home menu scrolls between a fixed header and footer. Loading and
+   retry controls share that flow with the hero and the circuit controls. */
+@media (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
+  .home-download { position: static; width: 100%; flex: none; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .home-download { grid-column: 2; grid-row: 1; margin-bottom: 14px; }
 }

@@ -10,13 +10,17 @@ const errors = [], checks = [], captures = [];
 const state = page => page.evaluate(() => JSON.parse(window.render_game_to_text()));
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  page.setDefaultTimeout(120_000);
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.goto(url);
   await page.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
   await page.locator('#start-btn').click();
-  await page.waitForFunction(() => !document.querySelector('.scene-preparation-panel')
-    && document.querySelector('#race-canvas')?.dataset.groundAsset === 'detailed', null, { timeout: 60000 });
+  const ready = () => page.waitForFunction(() => {
+    const graphics = JSON.parse(window.render_game_to_text()).graphics;
+    return graphics.status === 'ready' && !graphics.preparing;
+  }, null, { timeout: 180_000, polling: 100 });
+  await ready();
   await page.evaluate(() => window.advanceTime(3200));
   await page.keyboard.down('ArrowUp');
   await page.evaluate(() => window.advanceTime(2200));
@@ -47,7 +51,10 @@ try {
   checks.push('Pause silences every driving layer; resumed driving restarts normally.');
   // Exercise update -> fixed tick -> finishSession -> remainder of same update.
   // Calling the finishPractice helper would bypass the original failure.
-  await page.evaluate(() => window.advanceTime(185000));
+  await page.waitForFunction(() => {
+    window.advanceTime(10_000);
+    return JSON.parse(window.render_game_to_text()).mode === 'results';
+  }, null, { timeout: 120_000, polling: 50 });
   const finished = await state(page);
   assert.equal(finished.mode, 'results');
   assert.equal(finished.drivingSound.active, false);
@@ -67,6 +74,7 @@ try {
     await page.locator('.pause-panel [data-action="home"]').click();
     await page.evaluate(track => window.soraCars.setTrack(track), track);
     await page.locator('#start-btn').click();
+    await ready();
     await page.evaluate(() => window.advanceTime(3200));
     await page.keyboard.down('ArrowUp');
     await page.evaluate(ms => window.advanceTime(ms), track === 1 ? 12400 : 4200);

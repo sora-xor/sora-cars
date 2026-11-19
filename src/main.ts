@@ -514,7 +514,7 @@ function draw(): void {
     if (!loadingNote) {
       loadingNote = document.createElement('div'); loadingNote.className = `scene-load-status${view === 'home' ? ' home-download' : ''}`;
       loadingNote.innerHTML = `${sceneDownloadMarkup()}<p class="scene-load-message" role="status"></p><button class="text-button" data-action="scene-reload" hidden>再試行 / RELOAD & RETRY ↻</button>`;
-      loadingHost.append(loadingNote);
+      loadingHost.insertBefore(loadingNote, view === 'home' ? screen.querySelector('.circuit-picker') : null);
     }
     const message = loadingNote.querySelector('.scene-load-message')!, retry = loadingNote.querySelector<HTMLButtonElement>('button')!;
     if (message.textContent !== (state.status === 'failed' ? state.message : '')) message.textContent = state.status === 'failed' ? state.message : '';

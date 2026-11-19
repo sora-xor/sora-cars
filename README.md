@@ -552,14 +552,13 @@ It is local practice and is not an admitted staked-race profile.
 
 ## Driving and weather
 
-The pixel-art routes now include native tree and sign collisions, oil slicks,
-scheduled rain and changing crosswinds. Wet roads and oil reduce grip; solid
-objects slow the car and trigger foliage or sign effects. These rules come from
-the same Rust circuit exported to the browser and included in result proofs.
+Live Arcade races use the real-road RaceV1 rules. Trees stand beyond the guard
+rails. Hitting a sign costs speed, oil changes steering, and each track has
+scheduled rain and crosswinds. The browser runs kernels exported from the
+same native rules used in result proofs.
 
 The locally synthesized engine has six gears, exhaust pulses, intake and gearbox
-layers, turbo spool/release, tyre scrub, gravel, wind, rain and distinct tree/sign
-impacts. Every driving layer stops at the finish, pause, restart countdown,
+layers, turbo spool/release, tyre scrub, gravel, wind, rain and impact sounds. Every driving layer stops at the finish, pause, restart countdown,
 dispute and cutscene transitions. Leaving the driving screen supplies neutral
 online inputs. The original MIDI soundtrack continues independently.
 
@@ -609,8 +608,8 @@ while preserving supplied checkpoints, accepted/finalized history and source-rec
 binding. Its composed security qualification remains false. See
 [native browser generation](docs/native-browser-generation.md) for the separate
 Stock and Touring export procedures and their source checks.
-At 180 seconds, eligible distance leaders win if nobody finished; exact ties
-split the prize. Consensus forfeits rank below eligible racers.
+At the 270-second Stock race limit, eligible distance leaders win if nobody
+finished. Exact ties split the prize. Consensus forfeits rank below eligible racers.
 
 **Live XOR racing is disabled while native proof and deployment qualification is incomplete.** Endpoint reports are not independently authenticated finality. The release must pass the complete proof, resource, four-validator and wallet gates before any live staked game is enabled.
 

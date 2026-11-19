@@ -155,6 +155,7 @@ try {
   assert.equal(await page.locator('.history-row').count(), 1);
   await page.screenshot({ path: `${out}/history.png` });
   await writeFile(`${out}/state.json`, JSON.stringify({ accelerating, steering, boosted, braking, result }, null, 2));
+  await page.close();
 
   // A complete equal-distance timeout must remain a shared first place through
   // history, the in-race HUD/text state, replay and terminal result rows.
@@ -178,6 +179,7 @@ try {
   assert.deepEqual(await tied.locator('.result-row > span:first-child').allTextContents(), ['01', '01']);
   assert.match(await tied.locator('.result-title > span').innerText(), /^01/u);
   await tied.screenshot({ path: `${out}/tied-replay-results.png` });
+  await tied.close();
 
   // On a phone's home screen nothing may sit on the start button or keep it out of view, the circuit picker keeps clear of
   // the hero, and the page itself does not scroll. Upright, the picker (pinned to the bottom) used to cover the button's
@@ -189,12 +191,15 @@ try {
       if (!hit || !start.contains(hit)) problems.push(`start button at ${fx},${fy} is under ${hit?.className || hit?.tagName || 'nothing (off screen)'}`);
     }
     const hero = document.querySelector('.hero-copy').getBoundingClientRect(), title = document.querySelector('.hero-copy h1'), picker = document.querySelector('.circuit-picker').getBoundingClientRect();
-    const heroRight = Math.max(hero.right, title.getBoundingClientRect().left + title.scrollWidth);
-    if (Math.min(hero.bottom, picker.bottom) > Math.max(hero.top, picker.top) && Math.min(heroRight, picker.right) > Math.max(hero.left, picker.left)) problems.push('the circuit picker overlaps the hero');
+    const overlaps = (a, b) => a.bottom > b.top && b.bottom > a.top && a.right > b.left && b.right > a.left;
+    const heroBounds = { top: hero.top, bottom: hero.bottom, left: hero.left, right: Math.max(hero.right, title.getBoundingClientRect().left + title.scrollWidth) };
+    if (overlaps(heroBounds, picker)) problems.push('the circuit picker overlaps the hero');
+    const download = document.querySelector('.home-download')?.getBoundingClientRect();
+    if (download && (overlaps(download, heroBounds) || overlaps(download, picker))) problems.push('the download panel overlaps the hero or circuit picker');
     const side = document.querySelector('.hero-side');
     if (side.getClientRects().length) {
       const s = side.getBoundingClientRect();
-      if (Math.min(s.bottom, picker.bottom) > Math.max(s.top, picker.top) && Math.min(s.right, picker.right) > Math.max(s.left, picker.left)) problems.push('the vertical tagline overlaps the circuit picker');
+      if (overlaps(s, picker)) problems.push('the vertical tagline overlaps the circuit picker');
     }
     if (document.documentElement.scrollHeight > innerHeight) problems.push(`the page scrolls by ${document.documentElement.scrollHeight - innerHeight}px`);
     return problems;
@@ -217,14 +222,40 @@ try {
   await mobile.mouse.up();
   assert.ok(await mobile.evaluate(() => window.soraCars.state().cars[6].speed) > 0);
   await mobile.screenshot({ path: `${out}/mobile-race.png` });
-  // The same phone on its side: the home screen fits between the header and the footer, start button in view.
+  await mobile.close();
+  // Refuse the car model locally so the game's actual failure message and retry action are present.
   const landscape = await openPage({ viewport: { width: 844, height: 390 }, isMobile: true, hasTouch: true, deviceScaleFactor: 1 });
   await landscape.emulateMedia({ reducedMotion: 'reduce' });
   landscape.on('pageerror', error => errors.push(error.message));
-  await landscape.goto(url); await landscape.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
-  await landscape.evaluate(() => window.advanceTime(200));
+  const modelRequest = '**/sora-ae86/ae86.glb';
+  await landscape.route(modelRequest, route => route.fulfill({ status: 404, body: 'Model unavailable' }));
+  await landscape.goto(url);
+  const retry = landscape.locator('.home-download [data-action="scene-reload"]');
+  await retry.waitFor();
+  await landscape.waitForFunction(() => document.fonts.status === 'loaded');
+  for (const [width, height] of [[844, 390], [390, 844], [360, 560]]) {
+    await landscape.setViewportSize({ width, height });
+    await landscape.locator('#screen').evaluate(screen => { screen.scrollTop = 0; });
+    assert.deepEqual(await landscape.evaluate(homeProblems), [], `failed download at ${width}×${height}`);
+    await landscape.screenshot({ path: `${out}/home-download-failed-${width}x${height}.png` });
+    // Below-the-fold controls live in #screen. A trial tap scrolls each into view and hit-tests it.
+    for (const selector of ['.hero-actions [data-action="lobby"]', '.story-home-link', '[data-action="scene-reload"]', '[data-action="track-prev"]', '.street-entry']) {
+      await landscape.locator(selector).tap({ trial: true });
+    }
+  }
+  // Navigating from the bottom of the scroller opens the next view at its top.
+  assert.ok(await landscape.locator('#screen').evaluate(screen => screen.scrollTop > 0));
+  await landscape.locator('nav [data-action="story"]').tap();
+  assert.equal(await landscape.locator('#screen').evaluate(screen => screen.scrollTop), 0);
+  await landscape.locator('.brand').tap();
+  await landscape.setViewportSize({ width: 844, height: 390 });
+  await landscape.unroute(modelRequest);
+  await Promise.all([landscape.waitForEvent('domcontentloaded'), retry.tap()]);
+  await landscape.waitForFunction(() => window.soraCars && document.fonts.status === 'loaded');
   await landscape.screenshot({ path: `${out}/landscape-home.png` });
-  assert.deepEqual(await landscape.evaluate(homeProblems), []);
+  await landscape.locator('#start-btn').tap();
+  await sceneReady(landscape);
+  await landscape.locator('[data-control="throttle"]').tap({ trial: true });
   assert.deepEqual(blocked, [{ method: 'POST', url: walletSession }], 'no other step tried to reach a remote host');
   assert.deepEqual(errors, [], 'browser console and page errors');
   console.log('Browser checks passed: Japanese/English interface, offline wallet dialog, desktop controls, boost/brake/drift, pause, eight cars, exact replay/ties, MIDI assets/playback toggle, garage, history, mobile touch, phone home upright and in landscape.');

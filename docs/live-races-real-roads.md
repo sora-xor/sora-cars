@@ -1,10 +1,11 @@
 # Live races on the real 1986 roads: feasibility and plan
 
-Status (2026-11-15): approved by the user as recommended (2026-11-12);
-implementation in progress, not qualified (see "Implementation" at the end). The prototype and measurements in
-the feasibility sections were built outside both repositories; their evidence
-is in `output/reviews/live-real-roads-20261112/` in this worktree, which git
-ignores, so copy it out before the worktree is removed.
+Status on November 19, 2026. Local and live Arcade races now draw the same real
+roads. RaceV1 still requires release qualification. The feasibility study below
+describes the November 12 baseline. “Implementation” records the subsequent
+changes and tests, and “Decision 3” records the November 19 rain decision.
+The original prototype measurements are in the git-ignored directory
+`output/reviews/live-real-roads-20261112/`.
 
 ## Summary
 
@@ -251,8 +252,25 @@ SDK corpus, a re-authenticated binding, and a rebased `optimizations` port:
 - give rain the dry lateral damping and keep its steering cut, so a held wheel
   settles lower in the wet.
 
-Nothing is changed yet. The choice belongs to the user and the native rules
-owner.
+**November 19 decision.** At the user's request, Claude Fable 5.2 xhigh reviewed
+the measurements and recommended keeping the current rain rules for the proof-engine
+candidate. This preserves the fixed inputs used to compare proof bytes and timing.
+
+The offline dry-damping trial keeps the steering cut, uses 14/16 damping in rain,
+and retains 15/16 on oil. Reproduce the trial with
+`npx tsx scripts/race-weather-check.ts --dry-damping`. The stock mirror reproduced
+all six steering measurements and all 24 race summaries from the native baseline.
+At 1,000, 1,600 and 2,200 mm/tick, a held wheel settled at 84 mm/tick in rain
+(119 dry), and a held drift at 140 (189 dry). The rain-planning driver's median
+in constant rain was 210.0 s on Hakone, 204.2 s on Yokohama and 89.5 s on Nikkō.
+All eight cars in every trial finished. Even the slowest 12-tick-delayed driver
+finished Hakone in 252.8 s, inside the 260 s calibration target.
+
+The trial missed the rail-contact criterion. On Yokohama in constant rain the
+rain-planning field hit the rail 78 times, up from one. A separate trial that
+doubled the wet bend push left all eight cars unfinished in two fields.
+Both alternatives remain offline. Any future rules change needs a handling
+calibration that passes on all three roads before its profile rotates.
 
 ## Decision 4: race length
 
@@ -629,4 +647,32 @@ Status on November 17, 2026. RaceV1 qualification stays false
 8. Calibration (step 7 of "Order of work and checks"), measured on November
    17: every driver finishes inside 8,100 ticks, but rain adds cornering
    authority and is worth about 7 s on Hakone to a driver who exploits it
-   ("Decision 3"). Fixing it changes the rules and waits for a decision.
+   (“Decision 3”). The November 19 calibration above records why the proof-engine
+   candidate keeps the current rain handling.
+
+
+### November 19 proof-engine candidate
+
+Using the November 15 real-roads port as the reference, the candidate verifies
+lookup sums using the occupied table rows and releases prover buffers after
+their last use. The node checks the circuit's lookup-table length before
+allocating proof counts. The RaceV1 replay helpers enforce the 128-bit parameter
+target. The standard profile uses 87 queries and 20 uncredited grinding bits.
+
+For the same eight-car replay binding, throttle 55 and seed 1, both engines
+produced the same encoded proof on all three tracks at one and sixteen threads.
+Three paired 16-thread runs per track gave these median peak resident sizes.
+
+| Road | Encoded proof bytes | Reference MiB | Candidate MiB |
+| --- | ---: | ---: | ---: |
+| Hakone | 1,776,673 | 1,631 | 1,446 |
+| Yokohama | 1,773,564 | 1,633 | 1,446 |
+| Nikkō | 1,773,894 | 1,638 | 1,440 |
+
+Load averages ran from 383 to 668, too variable for a latency claim. The node
+also commits to its actual source bytes when deriving the profile. The
+fixed-binding comparison therefore measures the engine separately from the
+new profile's export, SDK authentication and settlement checks. Per-run
+measurements and profile evidence are under
+`output/reviews/execution-stark-20261119/`. The protocol specification records
+the remaining round-by-round soundness argument and independent review.

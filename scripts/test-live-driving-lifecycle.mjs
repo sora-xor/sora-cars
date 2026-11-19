@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createServer } from 'vite';
-import { chromium } from 'playwright';
+import { launchChromium } from './lib/browser-launch.mjs';
+import { RULES } from '../src/game/rules.ts';
 
 const output = process.env.SORA_CARS_TEST_OUTPUT ?? 'output/browser/live-driving-lifecycle';
 const paths = ['src/main.ts', 'src/game/audio.ts', 'src/game/renderer.ts', 'src/ui/live.ts',
@@ -15,11 +16,11 @@ const server = await createServer({ cacheDir: 'node_modules/.vite-live-driving-l
   server: { host: '127.0.0.1', port: 0, strictPort: false, hmr: false } });
 await server.listen();
 const origin = `http://127.0.0.1:${server.httpServer.address().port}`;
-const browser = await chromium.launch({ headless: true });
+const browser = await launchChromium({ channel: 'chromium', headless: true, args: process.platform === 'darwin' ? ['--use-angle=metal'] : [] });
 let importReplacements = 0, transformedMain = null, rewrittenMain = null, failure = null;
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-  page.setDefaultTimeout(15000);
+  page.setDefaultTimeout(120_000);
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
   await page.addInitScript(origin => {
@@ -53,7 +54,7 @@ try {
     }
     await route.continue();
   });
-  await page.goto(origin);
+  await page.goto(origin, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => window.lifecycleLive && window.soraCars && document.fonts.status === 'loaded');
   await page.locator('#start-btn').click(); // Actual user activation unlocks the real AudioContext.
   await page.evaluate(() => { window.advanceTime(1); window.lifecycleLive.begin(); });
@@ -83,14 +84,23 @@ try {
 
   for (const kind of ['tree', 'sign']) {
     const contact = await page.evaluate(kind => window.lifecycleLive.contact(kind), kind);
-    assert.ok(contact.contacts.some(event => event.slot === 0 && event.kind === kind));
-    assert.equal(contact.car.speed, kind === 'tree' ? 350 : 780, 'genuine generated collision penalty');
+    assert.ok(contact.car.progress >= contact.object.progress);
+    assert.ok(Math.abs(contact.car.x) <= 6520);
+    if (kind === 'tree') {
+      assert.ok(Math.abs(contact.object.x) > 6520);
+      assert.deepEqual(contact.contacts, []);
+    } else {
+      assert.equal(contact.contacts.length, 1);
+      assert.deepEqual(contact.contacts[0], { tick: contact.tick - 1, slot: 0, kind, objectId: contact.object.id });
+    }
+    const vergeLoss = Math.abs(contact.car.x) > RULES.roadHalf ? 90 : 0;
+    assert.equal(contact.car.speed, 1040 - vergeLoss - (kind === 'sign' ? 260 : 0));
     await advance(1);
-    assert.equal((await state()).drivingSound.impact, kind, 'native host.state contact reaches actual main audio');
+    assert.equal((await state()).drivingSound.impact, kind === 'sign' ? 'sign' : null, 'native host.state contact reaches actual main audio');
     await snapshot(`native-${kind}-audio`);
   }
   await page.evaluate(() => window.lifecycleLive.begin()); await advance(100);
-  checks.push('Native-generated tree/sign transition contacts pass through actual host.state and main into distinct real synthesizer impact states; these explicit transition fixtures are not authenticated network inputs.');
+  checks.push('Passing a trackside tree leaves impact audio silent. A native sign collision reaches the synthesizer through host.state.');
 
   await page.evaluate(() => window.lifecycleGamepad(true));
   assert.equal(await captureInput(), 1, 'gamepad throttle reaches the actual live input provider while racing');

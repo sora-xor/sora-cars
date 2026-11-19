@@ -198,15 +198,32 @@ test('disposing before validation runs performs no transport and publishes no la
   assert.deepEqual(f.calls, []); assert.equal(c.state.phase, 'disposed');
 });
 
-test('operation deadline bounds a transport that ignores abort and native closure that never resolves', async () => {
-  let pollSignal: AbortSignal | undefined; let cancelSignal: AbortSignal | undefined;
+test('operation deadline bounds a transport that ignores abort and native closure that never resolves', async t => {
+  t.mock.timers.enable({ apis: ['setTimeout'] });
+  const running = deferred<void>(), polling = deferred<AbortSignal>(), closing = deferred<AbortSignal>();
   const f = fixtureClient({
-    async status(options) { pollSignal = options!.signal; return new Promise(() => {}); },
-    async cancel(options) { cancelSignal = options!.signal; return new Promise(() => {}); },
+    async status(options) { polling.resolve(options!.signal!); return new Promise(() => {}); },
+    async cancel(options) { closing.resolve(options!.signal!); return new Promise(() => {}); },
   });
-  const c = controller(f.client, { operationTimeoutMs: 40, cleanupTimeoutMs: 20 }); const began = Date.now();
-  await assert.rejects(c.start(inputs()), { name: 'TimeoutError' });
-  assert.ok(Date.now() - began < 500); assert.equal(pollSignal?.aborted, true); assert.equal(cancelSignal?.aborted, true);
+  const c = new FinalizedProofController({
+    origin, client: f.client,
+    limits: { pollIntervalMs: 1, operationTimeoutMs: 40, cleanupTimeoutMs: 20 },
+    onState(state) { if (state.phase === 'running') running.resolve(); },
+  });
+  const rejected = assert.rejects(c.start(inputs()), { name: 'TimeoutError' });
+  await running.promise;
+  t.mock.timers.tick(1);
+  const pollSignal = await polling.promise;
+  t.mock.timers.tick(38);
+  assert.equal(pollSignal.aborted, false);
+  t.mock.timers.tick(1);
+  const cancelSignal = await closing.promise;
+  assert.equal(pollSignal.aborted, true);
+  t.mock.timers.tick(19);
+  assert.equal(cancelSignal.aborted, false);
+  t.mock.timers.tick(1);
+  await rejected;
+  assert.equal(cancelSignal.aborted, true);
   assert.equal(c.state.phase, 'failed'); assert.equal(c.state.closureRequested, true);
   await c.dispose();
 });

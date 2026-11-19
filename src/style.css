@@ -71,11 +71,17 @@
    pinned to the bottom it sat on the start button. The home screen becomes one column between the header and the
    footer instead: the hero first, the picker after it (at the bottom when there is room), scrolling on short phones. */
 @media(max-width:700px) {
+  #app[data-view='home'] { min-height: 0; }
   #app[data-view='home'] #screen { position: absolute; inset: 108px 0 51px; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; padding: clamp(12px, 4.5svh, 40px) 8% 24px; overflow: hidden auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #5a405e transparent; }
   #app[data-view='home'] .hero-copy, #app[data-view='home'] .circuit-picker { position: relative; inset: auto; flex: none; }
   #app[data-view='home'] .hero-copy { align-self: flex-start; }
   #app[data-view='home'] .hero-side { top: clamp(12px, 4.5svh, 40px); }
   #app[data-view='home'] .circuit-picker { align-self: flex-end; width: min(100%, 340px); }
+}
+@media (orientation: portrait) and (max-height: 620px) and (max-width: 700px) {
+  #app[data-view='home'] .hero-copy h1 { font-size: clamp(40px, 12.5vw, 64px); white-space: nowrap; }
+  #app[data-view='home'] .hero-copy h1 br { display: none; }
+  #app[data-view='home'] .hero-copy h1 em { margin: 0 0 0 .22em; }
 }
 /* Landscape phones leave a short band between the header and the footer: the 640px minimum height made the page scroll,
    the start button sat below the fold and the vertical tagline ran over the picker. The hero and the picker sit side by
@@ -85,6 +91,8 @@
   #app[data-view='home'] { min-height: 0; }
   #app[data-view='home'] #screen { position: absolute; inset: 74px 0 49px; display: grid; grid-template-columns: minmax(0, 1fr) min(36%, 280px); align-items: start; column-gap: 5%; padding: 10px 7% 16px; overflow: hidden auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #5a405e transparent; }
   #app[data-view='home'] .hero-copy, #app[data-view='home'] .circuit-picker { position: relative; inset: auto; max-width: none; width: auto; align-self: start; }
+  #app[data-view='home'] .hero-copy { grid-column: 1; grid-row: 1 / span 2; }
+  #app[data-view='home'] .circuit-picker { grid-column: 2; }
   #app[data-view='home'] .hero-copy .eyebrow { margin-bottom: 8px; }
   #app[data-view='home'] .hero-copy h1 { font-size: clamp(40px, min(15svh, 7.2vw), 96px); white-space: nowrap; }
   #app[data-view='home'] .hero-copy h1 br { display: none; }
