@@ -679,3 +679,33 @@ new profile's export, SDK authentication and settlement checks. Per-run
 measurements and profile evidence are under
 `output/reviews/execution-stark-20261119/`. The protocol specification records
 the remaining round-by-round soundness argument and independent review.
+
+### November 20 paired game and native candidate
+
+| Component | Signed commit | Local branch |
+| --- | --- | --- |
+| SORA CARS | `18b55a09d7` | `codex/race-proof-game-candidate-20261119` |
+| Native CLI and SDK | `371f95f6e6` | `codex/race-proof-native-20261119` |
+| Iroha integration | `2789643916` | `codex/race-proof-real-roads-integration-20261119` |
+
+The paired game authenticates its native SDK and uses Stock profile
+`d0061f99990bea3327c8aa7a107470377a7c1aa300639d0108ffa2dd1da23b87`.
+All 21 native and browser race traces matched tick for tick. The public proof worker
+reproduced the complete 562,760-byte native proof and 133-byte outcome, and a
+separate CLI invocation verified the same result. All eight integration checks
+passed, including CLI compilation and all 11 proof-backend inventory tests.
+
+The packed-browser and SDK checks use the corrected expectations in signed
+test commit `6ee4cb6fc5`. The SDK returns numbers for signed integers within
+JavaScript’s safe integer range and also accepts canonical decimal strings as
+inputs. The two corrected assertions and 12 boundary cases checked that behavior
+against the authenticated build. The qualification flag remains false pending
+independent protocol review, supported-target checks, four-validator settlement
+and finality, and deployed-wallet qualification.
+
+The paired game passed all 775 tests, with zero skips and cancellations. The
+production build, desktop and phone browser tests, live UI, browser finality
+and self-contained static bundle also passed. The static bundle transferred
+49,836,980 bytes on cold startup against its 64 MiB budget. The local report
+records the exact hashes, mock-wallet scope and fixture paths.
+[Verification report](../output/reviews/execution-stark-20261119/README.md)
