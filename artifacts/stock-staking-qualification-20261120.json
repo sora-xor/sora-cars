@@ -381,6 +381,101 @@
     "air_max_tick_eight_player_cases": 3,
     "cases_sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
   },
+  "controller_induction": {
+    "revision": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "proofs": {
+      "StockRows.lean": {
+        "sha256": "9137b2a0a17142653b8ea9acab45cdc4c270717740a02754a346b245514e2f55",
+        "theorems": [
+          "roundTrip",
+          "completeRegisters",
+          "gridValid",
+          "railBounds",
+          "railIdentity",
+          "finishMatches",
+          "paddingHolds",
+          "endPreserves",
+          "contactGuard",
+          "shiftMatches",
+          "oneSlow",
+          "pairPreserves",
+          "orderedContacts",
+          "initialPairs",
+          "paddedExecution",
+          "selectedRow",
+          "layout",
+          "liveCountNonzero",
+          "terminalBoundary",
+          "checkpointBeforeTick",
+          "sameTickOnly",
+          "activeGateWord",
+          "selectedWord",
+          "smallPinUnique",
+          "embeddedExecution",
+          "initialPairsLive",
+          "liveAndFrozenCar",
+          "rangesAlongRun",
+          "allPairsAndCommit",
+          "inactiveProgressIrrelevant",
+          "pairProgressAlong",
+          "fullPublicState",
+          "contactDivisionAndBound",
+          "contactScratchBound"
+        ]
+      },
+      "StockMotion.lean": {
+        "sha256": "f31d7d965ac2bdd3ffcfbb5da74e6c52c80b3b56c6f9f81637869b49da383015",
+        "theorems": [
+          "objectIndices",
+          "roadIndexInRange",
+          "withinMatches",
+          "oilMatches",
+          "dryDamping",
+          "velocityMatches",
+          "windSign",
+          "driftMatches",
+          "vergeMatches",
+          "impactMatches",
+          "activeCarMove",
+          "forceBudget",
+          "activeBounds"
+        ]
+      },
+      "StockTick.lean": {
+        "sha256": "f55a418098c4d7c3c6237bcc9d3f7538e0a78d518c671f8e1ec8e65eed54eb51",
+        "theorems": [
+          "equalLiveMotion",
+          "boundedMotion",
+          "coreMovedBounds",
+          "contactsRelated",
+          "fullTickMatches",
+          "fullTickBound",
+          "reachableValid",
+          "wholeTrace"
+        ]
+      },
+      "StockEncoding.lean": {
+        "sha256": "f4098ab4763ad8454bb9351715b45c92fee3e94a66e95581e504ea53633a10a0",
+        "theorems": [
+          "physicalInjective",
+          "wordFromWire"
+        ]
+      }
+    },
+    "sources_sha256": {
+      "crates/iroha_core/src/execution_proofs/race.rs": "ec56177cd0a43b090805b99a62edcce397cf8a9973f397a33a91a41411672768",
+      "crates/iroha_core/src/execution_proofs/environment.rs": "63be9cf121fe8de7c8fdb424942b0fb304eb7c2d5580492fca3f2053b01a766e",
+      "crates/iroha_core/src/execution_proofs/proof.rs": "3d34666fdbfe4563a5111b31a1b38e5c245c4bec94422bb7d3261897ce91c13e",
+      "crates/iroha_data_model/src/execution_proofs.rs": "77a2a5310931928985110ec0cec7f56301c0c84ba7299f31f8277f19e500f0ed",
+      "crates/iroha_execution_stark/src/games/race_v1.rs": "d87fb9b4e044caee5d28cb527ce398fe300514f8b8ec921bc81e195f993d7852",
+      "crates/iroha_execution_stark/src/games/race_v1_roads.rs": "d707cb96e91afd2f934653c1660fe8e81153891681197e5770cf3aa23cce0bf2",
+      "crates/iroha_execution_stark/src/circuit.rs": "bff11213be6a2bca538956a301570744840c3a8a59ef05475a248a8791fc8366",
+      "crates/iroha_execution_stark/src/trace.rs": "e4c185154e554da393ac3782d3e09993745efb89a4fec6a8c8af189a34e6b011",
+      "crates/iroha_execution_stark/src/air.rs": "a845c35c0c4b26d2d4be127eae8523e9c575d8581fbe1d339b915583218ea5f4",
+      "crates/iroha_execution_stark/src/verifier.rs": "959cb0e68b9631d13667d96b20a7018c3550b21e171041a292725f73aed24d94"
+    }
+  },
   "integer_gadget_checks": {
     "signed_native": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
     "events": {
@@ -763,6 +858,30 @@
     "protocol/controller/cases.tsv": {
       "bytes": 22770,
       "sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+    },
+    "protocol/controller/induction/check.py": {
+      "bytes": 8952,
+      "sha256": "e18de99b9744a199d3651771e82632dfaae1d9cc33e80c638e2ef77429944c04"
+    },
+    "protocol/controller/induction/checked.json": {
+      "bytes": 10131,
+      "sha256": "5013a15e0451ba583f356d59102baeffe1ed3ce698a52e776e0f148fecd01570"
+    },
+    "protocol/controller/induction/fable-disposition.md": {
+      "bytes": 3668,
+      "sha256": "f888df2b12690080c93a4dc97e8acc8c794983d007001ac843a30eb28a0da2d9"
+    },
+    "protocol/controller/induction/fable-math-input.json": {
+      "bytes": 1672,
+      "sha256": "5d45782f0b5587c3ff1a0c398c9b5dc1fc0823df5217b20717f41d8c3c0e9065"
+    },
+    "protocol/controller/induction/fable-math-receipt.json": {
+      "bytes": 4345,
+      "sha256": "74f4e83a77cea709febb1ee0444302499b643d074af2cb72e160c019a0cda9ef"
+    },
+    "protocol/controller/induction/kernel.log": {
+      "bytes": 4436,
+      "sha256": "fde2588f4a3b99c40869f61111c8936fb43f1212aae82438ba28412e90d7995e"
     },
     "protocol/controller/provenance.json": {
       "bytes": 2018,
