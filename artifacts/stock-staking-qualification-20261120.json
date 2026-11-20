@@ -1,0 +1,629 @@
+{
+  "review_date": "2026-11-20",
+  "report": "docs/live-staking-qualification-20261120.md",
+  "decision": {
+    "live_xor_staking_qualified": false,
+    "native_stock_profile": "d0061f99990bea3327c8aa7a107470377a7c1aa300639d0108ffa2dd1da23b87",
+    "race_rules": "751b7f51a39b8aea6062e29694e0f1bccaf3b68e63b13e44dfd60d0c2eb0b6b9",
+    "native_qualification_flag": false,
+    "native_positive_stake_admission": "Join refused before custody",
+    "immutable_verification_tariff": "MissingTariff for every profile, including zero-stake settlement",
+    "cryptographic_claim": "Conditional bounds for one fixed false engine statement under a classical framed random oracle. Independent release audit outstanding.",
+    "public_taira_matches_game_genesis": false,
+    "public_settlement_for_candidate": false,
+    "released_android_connect_handler_found": false,
+    "released_wallet_funded_settlement_verified": false,
+    "desktop_source_pairing_denial_verified": true,
+    "desktop_normal_settlement_consent": false,
+    "desktop_settlement_blockers": [
+      "524288-byte UI frame limit",
+      "The maintained wallet lacks a compatible typed game settlement and fee review"
+    ],
+    "signed_game_with_relay_regression": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "signed_browser_sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "signed_desktop_test_successor": "9958f2fc48893df2f2c603932f5c76804297531d",
+    "public_game_deployed_by_this_review": false
+  },
+  "native_commit": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+  "cli_sha256": "c519444e9d21769495a23833e7be3c0f39bc77749d5ed3c6b5a077caa0784696",
+  "stock": {
+    "players": 8,
+    "ticks": 8100,
+    "checkpoints": 1350,
+    "winners": [
+      0,
+      1
+    ],
+    "request_bytes": 1379060,
+    "request_sha256": "85527babe76943b79f2f7abd8bb7f07a52b8b83182cb1c53c0dab376f02c6b76",
+    "proof_bytes": 2719196,
+    "proof_sha256": "6d690d4f27bf3bdbf3c7e5209e5be0d67a2f4a3c190956ea023d3faf3aaa9587",
+    "inner_stark_bytes": 1775284,
+    "profile": "hash:D0061F99990BEA3327C8AA7A107470377A7C1AA300639D0108FFA2DD1DA23B87#A48A"
+  },
+  "prove_verify_runs": [
+    {
+      "threads": 16,
+      "prove_exit": 0,
+      "prove_seconds": 67.935,
+      "verify_exit": 0,
+      "verify_seconds": 15.926
+    },
+    {
+      "threads": 2,
+      "prove_exit": 0,
+      "prove_seconds": 167.897,
+      "verify_exit": 0,
+      "verify_seconds": 4.224
+    },
+    {
+      "threads": 1,
+      "prove_exit": 0,
+      "prove_seconds": 369.626,
+      "verify_exit": 0,
+      "verify_seconds": 5.429
+    }
+  ],
+  "inner_proof_verifiers": {
+    "aarch64-apple-darwin": {
+      "binary_sha256": "0ab387fdd050d89414242559e640343133429d4d5b55cc7df02a24093fb10cec",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    },
+    "aarch64-unknown-linux-musl": {
+      "binary_sha256": "adea23aa7c927542e2bf452310a2b421d92b2c32a07af9f752d1c3153288e606",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    },
+    "x86_64-unknown-linux-musl": {
+      "binary_sha256": "ee88fc0183361d06dbf39420a0bd768d7c33001d4c6e5d3c77b9e2dae7201d67",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    }
+  },
+  "signed_game_successor": {
+    "successor": "37291e0c2c33041c18205559044572a82d0594ca",
+    "parent": "18b55a09d79132a02393ff41ee66ac5ac6e63d8d",
+    "production_build": {
+      "entry_script": "index-BZ6UCrEU.js",
+      "bytes": 5145225,
+      "sha256": "2e02f00fdf194b06df149b29bf283a97c7e67194b0b2c0512eb37209b87838a3"
+    },
+    "published": false
+  },
+  "first_transport_successor_tests": {
+    "tests": 776,
+    "pass": 776,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "final_paired_game": {
+    "game": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "build": {
+      "exit": 0,
+      "entry": "index-DHMKhm3p.js",
+      "bytes": 5146254,
+      "sha256": "697b1d0ed84ffe83781fc4ed0650e6d2cbcffa60aec34f162f8ae94c6745a71d"
+    },
+    "started_utc": "2026-11-20T07:00:21.921222+00:00",
+    "ended_utc": "2026-11-20T07:25:08.844772+00:00",
+    "exit": 0,
+    "test_files": 100,
+    "counts": {
+      "tests": 776,
+      "pass": 776,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  "browser_sdk_interoperability": {
+    "game": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "sdk_tests": 107,
+    "game_wallet_checks": 15,
+    "game_wallet_ui_checks": 4,
+    "large_frame_signed": false,
+    "large_frame_submitted": false
+  },
+  "stock_sdk_tests": {
+    "tests": 105,
+    "pass": 105,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "custody_tests": {
+    "frozen_commit": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "pass": 14,
+    "total": 14,
+    "funded_settlement_exercised": false
+  },
+  "metering": {
+    "immutable_tariff_installed": false,
+    "rejection_work_gas": 128,
+    "passed": 6,
+    "valid_full_proof_cli": {
+      "debug_binary_sha256": "c519444e9d21769495a23833e7be3c0f39bc77749d5ed3c6b5a077caa0784696",
+      "proof_sha256": "6d690d4f27bf3bdbf3c7e5209e5be0d67a2f4a3c190956ea023d3faf3aaa9587",
+      "threads": 2,
+      "runs": [
+        {
+          "elapsed_seconds": 12.710535,
+          "user_cpu_seconds": 4.031098,
+          "system_cpu_seconds": 0.093627,
+          "maximum_resident_bytes": 82853888,
+          "canonical_outcome_verified": true
+        },
+        {
+          "elapsed_seconds": 12.018262,
+          "user_cpu_seconds": 4.158513,
+          "system_cpu_seconds": 0.059504999999999995,
+          "maximum_resident_bytes": 84754432,
+          "canonical_outcome_verified": true
+        },
+        {
+          "elapsed_seconds": 10.012745,
+          "user_cpu_seconds": 4.142748,
+          "system_cpu_seconds": 0.049277999999999995,
+          "maximum_resident_bytes": 82870272,
+          "canonical_outcome_verified": true
+        }
+      ]
+    }
+  },
+  "complete_record_benchmark": {
+    "source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "api": "iroha_core::execution_proofs::verify_game_proof_for_history_v1",
+    "fixture": {
+      "profile": "d0061f99990bea3327c8aa7a107470377a7c1aa300639d0108ffa2dd1da23b87",
+      "track": "NeonTokyo",
+      "players": 8,
+      "ticks": 8100,
+      "accepted_through": 8100,
+      "observation_height": 1,
+      "stake": 0,
+      "liability": 0,
+      "signed_checkpoint": 8100,
+      "checkpoint_signatures": 8,
+      "forced_rows": 1350,
+      "certified_rows": 0,
+      "archived_anchors": 1349,
+      "retained_states": 1350,
+      "commitments": 0,
+      "reveals": 0,
+      "resources": 0,
+      "items": 0,
+      "record_frame_bytes": 438053,
+      "transcript_frame_bytes": 249810,
+      "evidence_frame_bytes": 249831,
+      "stark_bytes": 1775284
+    },
+    "limits": {
+      "max_batches": 1350,
+      "max_archived_anchors": 1349,
+      "max_prefix_hash_bytes": 925937,
+      "max_history_encoded_bytes": 557581,
+      "max_transcript_encoded_bytes": 249939,
+      "max_record_encoded_bytes": 4751885
+    },
+    "hardware": "Apple M4 Max",
+    "threads": 2,
+    "passes": [
+      {
+        "run": 1,
+        "accepted": true,
+        "wall_s": 37.951753,
+        "user_s": 7.317244,
+        "system_s": 0.093205,
+        "cumulative_process_peak_rss_bytes": 62357504
+      },
+      {
+        "run": 2,
+        "accepted": true,
+        "wall_s": 32.216979,
+        "user_s": 7.131888,
+        "system_s": 0.076028,
+        "cumulative_process_peak_rss_bytes": 66256896
+      },
+      {
+        "run": 3,
+        "accepted": true,
+        "wall_s": 32.180741,
+        "user_s": 7.024234,
+        "system_s": 0.079472,
+        "cumulative_process_peak_rss_bytes": 68403200
+      }
+    ],
+    "tariff_derivable": false
+  },
+  "controller": {
+    "passed_histories": 96,
+    "distinct_control_and_register_history_digests": 93,
+    "track_roster_pairs": 24,
+    "sweep_histories_covering_all_64_masks": 24,
+    "ticks_range": [
+      1200,
+      8100
+    ],
+    "max_tick_terminations": 48,
+    "terminal_two_player_removals": 3,
+    "car_tick_transitions": 2774520,
+    "totals_across_test_executions": {
+      "ticks": 604836,
+      "checkpoints": 100806,
+      "dry": 405852,
+      "wet": 198984,
+      "negative_wind": 219198,
+      "zero_wind": 155148,
+      "positive_wind": 230490,
+      "dnf_events": 21,
+      "finish_crossings": 192,
+      "rail_car_rows": 36199,
+      "verge_car_rows": 97446,
+      "oil_car_rows": 22056,
+      "speed_ge_2400": 259925,
+      "energy_lt_25": 745629,
+      "contact_at_1800": 20691,
+      "measured_slot0_contact": 2574
+    },
+    "air_passes": 9,
+    "air_physical_ticks": 51336,
+    "air_checkpoint_rows": 8556,
+    "air_domain_rows": 73728,
+    "air_max_tick_eight_player_cases": 3,
+    "cases_sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+  },
+  "four_validator_fixture_input": {
+    "genesis_commit_qc_checked": false,
+    "genesis_header_hash": "f4b7aece4335d77d8c4954560f0296090ab6fa90630d912e7406ab47da80b0a3",
+    "network_id": "hash:F4B7AECE4335D77D8C4954560F0296090AB6FA90630D912E7406AB47DA80B0A3#DB6A",
+    "status": "verified signed genesis input",
+    "trusted_fixture_genesis_public_key": "ed01204164BF554923ECE1FD412D241036D863A6AE430476C898248B8237D77534CFC4",
+    "verified_genesis_block_signature": true,
+    "verified_genesis_transactions": 9,
+    "verified_peer_input_copies": 4,
+    "verified_public_bls_pop_count": 4
+  },
+  "public_taira": {
+    "observed_utc": "2026-11-20T05:57:22.883278+00:00",
+    "genesis": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+    "height": 16561,
+    "execution_transport_ready": false,
+    "profiles": [
+      {
+        "maximum_proof_bytes": 4194304,
+        "profile_id": "hash:FA4825E275FCECCEE58677461735BFD8CB7AA94FAA7094424EFFDB78CC038F37#A127",
+        "qualified": false,
+        "relation": {
+          "kind": "race_v1",
+          "value": null
+        },
+        "rules_hash": "hash:6E4EB15B6DE811994EC894D8B128B2828F83274940A272355F73D01BE2380401#288E",
+        "target_soundness_bits": 128,
+        "version": 1
+      }
+    ],
+    "commit_certificate": {
+      "live_status_revision": "4852600b1defa2e361d3d3d5ca92732b43281c83",
+      "height": 16555,
+      "endpoint_block_hash": "hash:69DB34D18AE996B38F87DE81A1C4FA8711E9DC171BCC3D3B8F788C9C4F83B087#C9C3",
+      "committee_members": 4,
+      "verified_under_offered_committee": true,
+      "independently_authenticated_mandate_at_height": false,
+      "game_settlement_verified": false
+    }
+  },
+  "released_android_wallets": [
+    {
+      "package": "jp.co.soramitsu.sora",
+      "version": "3.8.5.3",
+      "apk_sha256": "4bc0a85cae7e5bf081ad98eddad660e725b80db8915838b49e305036198400d8",
+      "browsable_iroha_connect_query": "No activities found"
+    },
+    {
+      "package": "jp.co.soramitsu.sora.communitytesting",
+      "version": "3.8.6.0",
+      "apk_sha256": "86ec3e6ec539750775db9a40224f6c158cb62f43b165c1e705d92fe27e44d3c9",
+      "browsable_iroha_connect_query": "No activities found"
+    }
+  ],
+  "desktop_wallet_source": {
+    "wallet_version": "2.0.1",
+    "wallet_source": "595dcdeb73c71ace7e04990d9e1932968323180f",
+    "wire_frame_bytes": 2720025,
+    "source_wallet_ui_frame_limit": 524288,
+    "source_wallet_rejected_exact_game_frame": true,
+    "unsigned_payload_sha256": "d1f381b733c6cbf8e743765d532783e90fc9b124640dcc545a89c2b9191cbbb2",
+    "transaction_signature_returned": false
+  },
+  "desktop_pairing_ui": {
+    "source_wallet": "9958f2fc48893df2f2c603932f5c76804297531d",
+    "normal_production_renderer": true,
+    "chromium_sandbox_enabled": true,
+    "disposable_profile": true,
+    "pairing_dialog_visible": true,
+    "pairing_denied": true,
+    "submitted": false
+  },
+  "mobile_bridge": {
+    "source": "b7e763cfa659de39dcc64855bf844d711fef3d03",
+    "abi": 23,
+    "library_sha256": "c5f7f7ccdebfe74ed75bbe7838a3ad22303e364aba248dcc73a46df8c4136994",
+    "swift_underlying_native_open_network": "hash:97104D6D499469597764A276572BAE26750622EAC20556942A93F6842122B595#D2D3",
+    "swift_underlying_native_aead_bytes": 2719909,
+    "gradle_exit": 0,
+    "suites": [
+      {
+        "name": "org.hyperledger.iroha.android.connect.ConnectWalletRequestTests",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "org.hyperledger.iroha.sdk.connect.ConnectWalletRequestTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "local_evidence_root": "output/reviews/live-staking-qualification-20261120",
+  "receipts": {
+    "custody/results.json": {
+      "bytes": 5933,
+      "sha256": "8c10009dc5d1332a3d01f75a301004ef24c6153bc6d7aa5c658ab089217c51bc"
+    },
+    "fable-common-agreement-input.json": {
+      "bytes": 2069,
+      "sha256": "11536e3dc9c6d7a869f6faa8c0ae408279c2339c64510d3d52a88f301667b474"
+    },
+    "fable-common-agreement-original.json": {
+      "bytes": 12021,
+      "sha256": "eed9f7c5f44df0351d40014e4db7ad62ab979b67f32c46cc9876511b388bb88e"
+    },
+    "fable-compiler-input.json": {
+      "bytes": 2922,
+      "sha256": "4747de0920d23e40118c8c3055a89096d6df1980df60f0f4652f4ffe63f6a86a"
+    },
+    "fable-compiler-original.json": {
+      "bytes": 9208,
+      "sha256": "43deb9675b72e2475cc50c232e8698a1654f31955f328940d2358a9644bff0d0"
+    },
+    "fable-input.json": {
+      "bytes": 2628,
+      "sha256": "624df7a28e2eb23538d814309ad3b717c8d709d429370f2702b9ce6976af0e72"
+    },
+    "fable-original.json": {
+      "bytes": 12303,
+      "sha256": "3c3d1e4627d2899f9ef1a64dc96cec9bac16271c53ada2c2e5893fdc19a6688c"
+    },
+    "full-native-cli/measurements.json": {
+      "bytes": 1773,
+      "sha256": "65e3741331c753c38e96eb6088fd139d86f955e033849a5b5ea008a2f821fa70"
+    },
+    "linux-engine/native-checkpoint-report.json": {
+      "bytes": 1816,
+      "sha256": "246be6081d776d359d06a6ea005529b783c5ec02f1ffca47cc0772a003ce7cdf"
+    },
+    "metering/history/measurements.log": {
+      "bytes": 961,
+      "sha256": "c606893662781180bf251be8fa40b5d0ff02fb26368c9b992b45a3c160b59fd2"
+    },
+    "metering/history/provenance.json": {
+      "bytes": 2754,
+      "sha256": "e8a9dab7c0c139ba06b16d100a4ad9938590b51f294b294e175949d7e5539491"
+    },
+    "metering/history/results.json": {
+      "bytes": 2169,
+      "sha256": "656a5d5c663bc9e03f27f20930a8eb0baa23b6a69d3f00a5cd7644b496d6f4a9"
+    },
+    "metering/results.json": {
+      "bytes": 2639,
+      "sha256": "87ea1f0345669f398f02bfdb00434a0ae3e44d71ea6f7c14395f24d2ad4270ec"
+    },
+    "network/attempt-4/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "26d192d6a22c86621a29cb71fc21545731e978f6c7463277de6c85d0a93e8d6b"
+    },
+    "network/attempt-4/candidate-observations/signed-genesis.wire.nrt": {
+      "bytes": 25502,
+      "sha256": "9474d022f693ca52c18afae22d17e0018a0fc6490c06132ad4fb32d259de9c78"
+    },
+    "network/bootstrap-attempts-1-2.json": {
+      "bytes": 1909,
+      "sha256": "384a44774c7486cda35f5c02ee9b97b00cc3a18fce57604cfd84f3e124bb2817"
+    },
+    "network/prior-and-offline-evidence.json": {
+      "bytes": 1405,
+      "sha256": "f20eeff00deb612cf12061f7c42c562046246986fdd0a18a2317865eba31b57c"
+    },
+    "protocol/air-sources.tsv": {
+      "bytes": 1287,
+      "sha256": "59dc151af7586315c6824d3d404b17d68c79c370a48860bc7276fafa8e0984c3"
+    },
+    "protocol/compiler-accounting.md": {
+      "bytes": 8356,
+      "sha256": "cdb29001d6bef27a99f7d255a078071511bbbf04b1df6911517b7e7930ad33f8"
+    },
+    "protocol/compiler_accounting.py": {
+      "bytes": 1574,
+      "sha256": "a4e3d740204e89c83e475e9d8bd363b5df58e79ed9dbcb37100ce1a469dee083"
+    },
+    "protocol/controller/cases.tsv": {
+      "bytes": 22770,
+      "sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+    },
+    "protocol/controller/provenance.json": {
+      "bytes": 2018,
+      "sha256": "1bf01a3f1e6a456567215fbeac71ce657ee184ea39f6ab36b111bde58a428f89"
+    },
+    "protocol/controller/summary.json": {
+      "bytes": 1008,
+      "sha256": "48f399def2ae4eee280e4489bdd5cff481b5479cb2e921dc097985ee64ad8dd9"
+    },
+    "protocol/fable-air-input.json": {
+      "bytes": 3166,
+      "sha256": "7fb6b6d789b249d474bce4ad68133f144ec7d9377cafc961cef90f2ecd4ea067"
+    },
+    "protocol/fable-air-receipt.json": {
+      "bytes": 9647,
+      "sha256": "93184538c1faa305ba5741d07a9912c6bd4a8f089cfc2d2c710f3262b2a8206f"
+    },
+    "protocol/fable-air.md": {
+      "bytes": 9733,
+      "sha256": "b0a2cc153fd02d517844f80a5141c85284280be8b2dd704e08fbc6e0ab5d0649"
+    },
+    "protocol/research-report-links.json": {
+      "bytes": 3147,
+      "sha256": "a2d96290a1dca13c04ba97dabd556dba782748ea59571636ec870120a750f242"
+    },
+    "protocol/shapes.tsv": {
+      "bytes": 36942,
+      "sha256": "a7b7fce917e45da4c58562dd09af0f64e9e4ff1526abaf7aa59f080863daae64"
+    },
+    "protocol/structural-checks.json": {
+      "bytes": 2141,
+      "sha256": "5b8248e7e0228980a80e2efd17e4a948e328b48b8f138e7536ee59361f39f836"
+    },
+    "protocol/summary.json": {
+      "bytes": 2871,
+      "sha256": "77ccb892dd345583e27e970f6f99faad5dedbe2d0a98caf606d75e9b865f2fa3"
+    },
+    "protocol/weighted-bounds.json": {
+      "bytes": 113394,
+      "sha256": "d069a9cd2d3c344b7a92d9249879d69e600f6e6e395ef793c2caa2379e6f7cdf"
+    },
+    "protocol/weighted_bounds.py": {
+      "bytes": 2219,
+      "sha256": "6187345efbe2ba69da3ab286c868af93f52c8da7a4a5d32a999894a4487d9a6b"
+    },
+    "qualification-decisions.json": {
+      "bytes": 1320,
+      "sha256": "e5ed8c6c01adfb2144f5a516ca221f5e46b636fe10fbd13784b30166e3d0a0ce"
+    },
+    "sdk-full-history/roundtrip.json": {
+      "bytes": 443,
+      "sha256": "dcfcbca17f5ebbc6c7f70d2e43c16886604a18d19e5aed5404be3094df15ee3a"
+    },
+    "sdk-full-history/worker/chromium-worker.json": {
+      "bytes": 854,
+      "sha256": "0ae593e583bba8aac2774bc22dac820953152d6af881d42047e4e861cba52d4f"
+    },
+    "sdk-full-history/worker/provenance.json": {
+      "bytes": 2853,
+      "sha256": "9ca12e794c32de8c06575e2b64c0e71958712a1b769b8f0cffe7fa7ab16b6472"
+    },
+    "sdk-full-history/worker/sdk-test-results.json": {
+      "bytes": 3452,
+      "sha256": "c53fbc296bad421690f5db354a96b5a8e1263b4b9c238e876d085ad4dd1d12a9"
+    },
+    "taira/final-public-comparison.json": {
+      "bytes": 2378,
+      "sha256": "ab62ba71c17c2529356167cdd4ee117502caf79c90143714a91e570aee717e38"
+    },
+    "taira/iroha.bridge.finality.bundle.response": {
+      "bytes": 57112,
+      "sha256": "e0abc14458f9d102cbf8dfd6bea05ae4b3a6eec5b052007f8fe358816e79b4c2"
+    },
+    "taira/iroha.bridge.finality.proof.response": {
+      "bytes": 57002,
+      "sha256": "ee48669f2b800442989a5ab262a781be98fa8a2e257849b80f6a4e54ca64d6e2"
+    },
+    "taira/verification/candidate-check.json": {
+      "bytes": 2762,
+      "sha256": "d06985aa68a723461315a17e9f393ce0cc52bef60bcd7b54bedc42dc03d17aff"
+    },
+    "wallet/android-full-relayed-frame-wire.log": {
+      "bytes": 444,
+      "sha256": "07ac95fd0d162cbad20dcfbdb4d3279d61b24cc3cbdbefb34f1d085d26af16d7"
+    },
+    "wallet/android-release-device.json": {
+      "bytes": 1422,
+      "sha256": "93e63ae5fb2691aaf6c5fde423427a9e76f3b8ee2f354783963375c69006627f"
+    },
+    "wallet/browser-connect/game-final/unit-complete.json": {
+      "bytes": 539,
+      "sha256": "04e7021c935ac48fbf24c085bdcbabb2cd6d212de65bf161263a0bdc860521e7"
+    },
+    "wallet/browser-connect/game-final/unit-complete.log": {
+      "bytes": 76799,
+      "sha256": "0d8a2de2f0411715f2ba59155ea094551decf24cc300a9b9be9ddd9462b270aa"
+    },
+    "wallet/browser-connect/results.json": {
+      "bytes": 3026,
+      "sha256": "89ecf9a79642f26438c71de5de4a9cb7719e3bab6e5b9215bc348da394153f01"
+    },
+    "wallet/desktop-relayed-envelope.json": {
+      "bytes": 547,
+      "sha256": "670d6cbea8dd9ace7b55c0eb325e97eb6edb7e5aeeea2014e3f91b9819f87629"
+    },
+    "wallet/full-settlement.json": {
+      "bytes": 1683,
+      "sha256": "e39fdfec4d5c9dd24868cf057c0c37c009d2ea2829d7f1b8d34a53425a504dbd"
+    },
+    "wallet/game-relay-paired/native-vectors/qualification.json": {
+      "bytes": 3408,
+      "sha256": "2c62ef92b7fcc1fa863a5769d513d609522545c8231c3b9f4174143b1a1bfa93"
+    },
+    "wallet/game-relay-primary/native-vectors/qualification.json": {
+      "bytes": 3300,
+      "sha256": "bbbecb5611cd38ba492cd07d7c3766e9ab3aef0f5545cd415feb5ba690bbcb09"
+    },
+    "wallet/packaged-wallet-metadata.json": {
+      "bytes": 2045,
+      "sha256": "b892daecf0b1126b1ca5b1c37aaada3525239e3d7731e6ab5fb9cb2dddb401e4"
+    },
+    "wallet/signed-successor.json": {
+      "bytes": 1825,
+      "sha256": "22e030c765efb52edda10e35724449cb154d41b0d0ee93f38f53a24e2ff7928e"
+    },
+    "wallet/source-wallet-abi-candidate.json": {
+      "bytes": 640,
+      "sha256": "17eb1b51707ea002a0e3a1ffc56defe78332d4d7e5943b43bc3de427deb4ef82"
+    },
+    "wallet/source-wallet-abi-wallet.json": {
+      "bytes": 581,
+      "sha256": "94a55724220d334bce106c266258c1d4d67d10831494f9e87e5edda799ab1eb3"
+    },
+    "wallet/source-wallet-full-frame.json": {
+      "bytes": 752,
+      "sha256": "72ef6145604b8f2ed493f0cda2ec437b05a11eeffd5b3e7f8296f933e9a50148"
+    },
+    "wallet/source-wallet-normal-ui.json": {
+      "bytes": 2222,
+      "sha256": "ec3c6aca85b563b00f4b3be5b8e94234b4ef25c42cb1874b4fd1067294594c62"
+    },
+    "wallet/successor-mobile-gradle.log": {
+      "bytes": 1519,
+      "sha256": "318f7fe8df6d2c03f94b2a5ed3ff3b634a69ed249c80d366763c0df8c9a3e859"
+    },
+    "wallet/successor-mobile-receipt.json": {
+      "bytes": 843,
+      "sha256": "d68bedf5c62b91308acb50375a4cabfc020d95f63bb73ab072608acdd54d9e27"
+    },
+    "wallet/torii-wire.json": {
+      "bytes": 1008,
+      "sha256": "dc908cfb78ce5b5b514ec6a0c4635e89901e0479eb0ce5adb7f083dfb02b93c7"
+    },
+    "wallet/wallet-capture.json": {
+      "bytes": 2155,
+      "sha256": "73393be4c2ae38ea6d82896ae5673febcf2b6e807fcb1cd8bd2500b176d450c3"
+    },
+    "wallet/wallet-gate-candidate.json": {
+      "bytes": 896,
+      "sha256": "da6c0ffdd670692ed80ec6d5eeecbad785622615052a887f20fe93c07973fe76"
+    },
+    "wallet/wallet-gate-maintained.json": {
+      "bytes": 1098,
+      "sha256": "54be8f70fd4c199a76353b92110e605d4a96b7b218c1f00a75cf1d46cb42a68f"
+    },
+    "wallet/wallet-onboarding-tests.log": {
+      "bytes": 479,
+      "sha256": "ba48b4c08d51ddbf8bd6c5dc6b5292c7c46a5e47bbb2539f96b87462ce2f1ea6"
+    }
+  }
+}

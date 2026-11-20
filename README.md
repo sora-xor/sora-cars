@@ -611,7 +611,7 @@ Stock and Touring export procedures and their source checks.
 At the 270-second Stock race limit, eligible distance leaders win if nobody
 finished. Exact ties split the prize. Consensus forfeits rank below eligible racers.
 
-**Live XOR racing is disabled while native proof and deployment qualification is incomplete.** Endpoint reports are not independently authenticated finality. The release must pass the complete proof, resource, four-validator and wallet gates before any live staked game is enabled.
+**Live XOR racing is disabled.** The signed validator requires a calibrated verification tariff before it will settle a Stock race, including a zero-stake race. Public Taira also reports a different genesis and profile from the signed game. The November 20 report records the full-race proof, protocol analysis, validator checks and wallet results. [Staking qualification report](docs/live-staking-qualification-20261120.md)
 
 ## Music
 
