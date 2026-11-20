@@ -561,6 +561,18 @@
     "next_fixture_signed_cadence_ms": 10000,
     "authenticated_transport_deadline_ms": 300000
   },
+  "four_validator_sixth_run_genesis_finality": {
+    "block_hash": "c3db8ad6ed5dce19b70f0fae8d10e0200ce4d14160d37b19958d47b57c55ed7b",
+    "execution_post_state_root": "f9a04d165211bda50fd03c1a9c7b35a354824ad881ad638962f0de7f2e75758b",
+    "four_read_only_canonical_kura_stores_checked": true,
+    "full_local_wsv_checkpoint_hash": "3bede06e4ee655f515014ee3f5277ecc6d02672c12d1b9cfe6e512ac001f00a3",
+    "genesis_authorized_committee_threshold": 3,
+    "height": 1,
+    "network_id": "hash:C3DB8AD6ED5DCE19B70F0FAE8D10E0200CE4D14160D37B19958D47B57C55ED7B#FEB7",
+    "public_qc_against_test_genesis_verified": true,
+    "verified_executed_block_wire_hash": "e0bb34ddf07446fff5de7bf5133bd14917ca0361a5a51fb149621ff4b325e3ad",
+    "verified_peer_count": 4
+  },
   "public_taira": {
     "observed_utc": "2026-11-20T05:57:22.883278+00:00",
     "genesis": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
@@ -826,6 +838,22 @@
     "network/attempt-5/outcome.json": {
       "bytes": 1041,
       "sha256": "1a2a8d74f7f88c6e1ef9c279df0b17e098b4bc1544744a2654a2e45e100719d6"
+    },
+    "network/attempt-6/candidate-observations/genesis-independent-cold-verified.json": {
+      "bytes": 688,
+      "sha256": "896a302aaa435f9dcb2de0c12c81ecc12b705b4a4607c8e3a66aacc480422083"
+    },
+    "network/attempt-6/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "6709136f7df7f9c8c808a51f06a58614dbe5e14f5f14866dccc8a658ba6ffbe3"
+    },
+    "network/attempt-6/candidate-observations/signed-genesis-timing.json": {
+      "bytes": 335,
+      "sha256": "b6c9ba6f3e4f8e736b5bd4060bb23905fe6e984dfe40d68d839e9e6d16215cf4"
+    },
+    "network/attempt-6/candidate-observations/signed-genesis.wire.nrt": {
+      "bytes": 25503,
+      "sha256": "f255cda1e1733318ca786aff4921ff3e75aec567da525721573b378583f303cf"
     },
     "network/bootstrap-attempts-1-2.json": {
       "bytes": 1909,
