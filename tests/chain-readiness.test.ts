@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { nftMarketProfileIdV1 } from '@iroha/iroha-js/nft';
 import { RaceChainClient, checkWalletTransactionTransport } from '../src/chain/client';
-import { CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1, NetworkId } from '@iroha/iroha-js/connect-browser';
+import { NetworkId } from '@iroha/iroha-js/connect-browser';
 import { EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 } from '@iroha/iroha-js/game';
 import { TAIRA_NETWORK_ID } from '../src/chain/taira';
 import { RACE_PROFILE_ID } from '../src/game/environment';
@@ -31,7 +31,8 @@ test('endpoint qualification cannot enable staking in the unqualified bundled re
 
 test('large wallet frames refresh public V1 game capabilities on the pinned network', async () => {
   const network = NetworkId.parse(TAIRA_NETWORK_ID);
-  const ordinaryPayload = 64_000 - CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1;
+  // A 63,528-byte payload occupies exactly 64,000 bytes on Torii's wallet-facing wire.
+  const ordinaryPayload = 63_528;
   const report = { version: 1, native_game_sessions: true, enabled: true, profiles: [],
     network_id: TAIRA_NETWORK_ID, execution_transport_ready: true };
   let current: Record<string, unknown> = report;
