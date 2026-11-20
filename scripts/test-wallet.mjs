@@ -77,7 +77,7 @@ const settlementPayloadBytes = buildBrowserInstructionTransactionPayload({ netwo
   instructions: [buildGameInstructionV1('SettleGameSessionV1', fixture.settlement)], feePayment, creationTimeMs: 1n, ttlMs: 120_000 }).length;
 assert.ok(settlementPayloadBytes > 64_000, 'retain the actual large-proof fixture; do not pad or replace it');
 assert.ok(settlementPayloadBytes <= 4 * 1024 * 1024, 'the retained proof must fit the advertised large-transaction corridor');
-const state = { profileQualified: true, marketQualified: true, saleOwner: custody, quote, holdNft: false, pendingReads: [], nftReads: 0, transportChecks: 0, holdRegistration: false, pendingRegistrations: [], connectedSids: [], wrongApprovalNetwork: false, corruptSignature: false, transportReady: false, signed: [], submitted: [], errors: [] };
+const state = { profileQualified: true, marketQualified: true, saleOwner: custody, quote, holdNft: false, pendingReads: [], nftReads: 0, capabilityReads: 0, holdRegistration: false, pendingRegistrations: [], connectedSids: [], wrongApprovalNetwork: false, corruptSignature: false, transportReady: true, signed: [], submitted: [], errors: [] };
 const sessions = new Map();
 const json = (response, value, status = 200) => { response.writeHead(status, { 'content-type': 'application/json' }); response.end(JSON.stringify(value)); };
 async function body(request) { const chunks = []; let size = 0; for await (const chunk of request) { size += chunk.length; assert.ok(size <= 4 * 1024 * 1024 + 4096); chunks.push(chunk); } return Buffer.concat(chunks); }
@@ -95,10 +95,9 @@ const server = own('Vite server', await createServer({ cacheDir: 'node_modules/.
     if (url.pathname !== '/fixture' && !url.pathname.startsWith('/v1/')) return next();
     void (async () => {
       if (url.pathname === '/fixture') return json(response, fixture);
-      if (url.pathname === '/v1/games/capabilities') return json(response, { version: 1, enabled: true, native_game_sessions: true, network_id: network.toString(), execution_transport_ready: true, profiles: [{ profile_id: fixture.config.profileId, qualified: state.profileQualified }] });
-      if (url.pathname === '/v1/connect/status') {
-        state.transportChecks++;
-        return json(response, { enabled: true, policy: { frame_max_bytes: state.transportReady ? 4 * 1024 * 1024 + 4096 : 64000, session_buffer_max_bytes: state.transportReady ? 8 * 1024 * 1024 : 262144 } });
+      if (url.pathname === '/v1/games/capabilities') {
+        state.capabilityReads++;
+        return json(response, { version: 1, enabled: true, native_game_sessions: true, network_id: network.toString(), execution_transport_ready: state.transportReady, profiles: [{ profile_id: fixture.config.profileId, qualified: state.profileQualified }] });
       }
       if (url.pathname === '/v1/nft-offers/capabilities') return json(response, { version: 1, network_id: network.toString(), protocol_id: nftMarketProfileIdV1(), native_nft_market: true, qualified: state.marketQualified });
       if (url.pathname === `/v1/nft-offers/${encodeURIComponent(offer.offer_id)}`) return json(response, state.quote);
@@ -236,10 +235,10 @@ const results = [];
     assert.equal(reported.capability.execution_transport_ready, true);
     assert.match(reported.reason, localQualification);
     assert.equal(await page.evaluate(() => window.connectHarness.canStake), false);
-    const reads = state.nftReads, transportChecks = state.transportChecks;
+    const reads = state.nftReads, capabilityReads = state.capabilityReads;
     for (const operation of ['open', 'join', 'settle']) await rejects(operation, localQualification);
     assert.equal(state.nftReads, reads, 'unqualified joins stop before NFT ownership reads');
-    assert.equal(state.transportChecks, transportChecks, 'unqualified settlement stops before large-proof transport preflight');
+    assert.equal(state.capabilityReads, capabilityReads, 'unqualified settlement stops before large-proof transport preflight');
   }
   results.push('endpoint profile and transport readiness remain reports; the bundled unqualified release rejects open, join and settlement before wallet signing');
   await rejects('openForeignProfile', /Session profile differs from this release/);
@@ -280,10 +279,11 @@ const results = [];
     for (const ready of [false, true]) {
       state.transportReady = ready;
       await page.evaluate(() => window.connectHarness.probe());
+      const reads = state.capabilityReads;
       await rejects('settle', localQualification);
+      assert.equal(state.capabilityReads, reads, 'local qualification prevents a transport preflight for the complete retained proof');
       assert.equal(await page.evaluate(() => window.connectHarness.canStake), false);
     }
-    assert.equal(state.transportChecks, 0, 'local qualification prevents even a transport-status request for the complete retained proof');
     results.push('a complete retained proof remains unsigned and unsubmitted regardless of advertised Connect corridor capacity');
   }
   await page.evaluate(() => window.connectHarness.disconnect());
