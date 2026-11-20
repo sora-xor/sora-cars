@@ -1,7 +1,7 @@
 import {
   createConnectSessionPreview, registerConnectSession, createConnectAppSession,
   NetworkId,
-  validateConnectTransactionTransportStatus,
+  CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1,
 } from '@iroha/iroha-js/connect-browser';
 import type { BrowserConnectAppSession, BrowserConnectApproval } from '@iroha/iroha-js/connect-browser';
 import {
@@ -12,7 +12,7 @@ import {
 import type { BrowserFeePayment } from '@iroha/iroha-js/transaction-codec';
 import { ToriiBrowserClient } from '@iroha/iroha-js/torii-browser';
 import type { ToriiBrowserExplorerOwnedDomainOptions } from '@iroha/iroha-js/torii-browser';
-import { buildGameInstructionV1, encodeGameValueV1, decodeGameValueV1 } from '@iroha/iroha-js/game';
+import { buildGameInstructionV1, encodeGameValueV1, decodeGameValueV1, EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 } from '@iroha/iroha-js/game';
 import type { GameInstructionPayloadsV1, JoinGameSessionV1 } from '@iroha/iroha-js/game';
 import {
   buildBrowserOwnedNftTransferPayloadV1, buildNftMarketInstructionV1,
@@ -89,6 +89,37 @@ export async function boundedJson(fetchImpl: typeof fetch, url: string, maximumB
   return JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes));
 }
 
+async function readRaceCapability(fetchImpl: typeof fetch, toriiUrl: string, network: NetworkId | null, profileId?: string): Promise<RaceCapability> {
+  const raw = await boundedJson(
+    (url, init) => fetchImpl(url, { ...init, cache: 'no-store', credentials: 'omit' }),
+    `${toriiUrl}/v1/games/capabilities`,
+  );
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error(japaneseMessage('Malformed native racing capability response.'));
+  const value = raw as Record<string, unknown>;
+  if (value.version !== 1 || typeof value.enabled !== 'boolean' || value.native_game_sessions !== true || !Array.isArray(value.profiles) || value.profiles.length > 64 || typeof value.network_id !== 'string') throw new Error(japaneseMessage('The node does not advertise the native game-session V1 interface.'));
+  if (!network) throw new Error(japaneseMessage('This build has no release-pinned Taira network identity; signing remains disabled.'));
+  if (NetworkId.parse(value.network_id).toString() !== network.toString()) throw new Error(japaneseMessage('Endpoint network identity differs from this release.'));
+  const profiles = value.profiles;
+  const descriptor = profiles.find((p: unknown) => p && typeof p === 'object' && (p as { profile_id?: unknown }).profile_id === profileId) as { qualified?: unknown } | undefined;
+  return { ...value, proof_qualified: descriptor?.qualified === true && profileId === RACE_PROFILE_ID, execution_transport_ready: value.execution_transport_ready === true } as RaceCapability;
+}
+
+// Native V1 reserves 4 KiB above the canonical payload limit for transaction framing.
+const EXECUTION_FRAME_LIMIT = EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 + 4096;
+const ORDINARY_FRAME_LIMIT = 64_000;
+
+export async function checkWalletTransactionTransport(payloadBytes: number, fetchImpl: typeof fetch, toriiUrl: string, network: NetworkId): Promise<void> {
+  const frameBytes = payloadBytes + CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1;
+  if (!Number.isSafeInteger(payloadBytes) || payloadBytes < 1 || payloadBytes > EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 || frameBytes > EXECUTION_FRAME_LIMIT) {
+    throw new RangeError('ウォレット取引のサイズが範囲外です。 / Wallet transaction size is outside the supported range.');
+  }
+  if (frameBytes <= ORDINARY_FRAME_LIMIT) return;
+  const capability = await readRaceCapability(fetchImpl, toriiUrl, network);
+  if (!capability.enabled || !capability.execution_transport_ready) {
+    throw new Error(japaneseMessage('This endpoint cannot yet carry complete execution proof transactions.'));
+  }
+}
+
 /** Wallet keys remain inside the wallet. Torii supplies transport, never transaction bytes to sign. */
 export class RaceChainClient {
   readonly config: ChainConfig;
@@ -123,15 +154,7 @@ export class RaceChainClient {
   async probe(): Promise<Readonly<ChainState>> {
     this.#update({ phase: 'checking', reason: null, capability: null });
     try {
-      const raw = await boundedJson(this.#fetch, `${this.config.toriiUrl}/v1/games/capabilities`);
-      if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error(japaneseMessage('Malformed native racing capability response.'));
-      const value = raw as Record<string, unknown>;
-      if (value.version !== 1 || typeof value.enabled !== 'boolean' || value.native_game_sessions !== true || !Array.isArray(value.profiles) || value.profiles.length > 64 || typeof value.network_id !== 'string') throw new Error(japaneseMessage('The node does not advertise the native game-session V1 interface.'));
-      if (!this.#network) throw new Error(japaneseMessage('This build has no release-pinned Taira network identity; signing remains disabled.'));
-      if (NetworkId.parse(value.network_id).toString() !== this.#network.toString()) throw new Error(japaneseMessage('Endpoint network identity differs from this release.'));
-      const profiles = value.profiles;
-      const descriptor = profiles.find((p: unknown) => p && typeof p === 'object' && (p as { profile_id?: unknown }).profile_id === this.config.profileId) as { qualified?: unknown } | undefined;
-      const capability = { ...value, proof_qualified: descriptor?.qualified === true && this.config.profileId === RACE_PROFILE_ID, execution_transport_ready: value.execution_transport_ready === true } as RaceCapability;
+      const capability = await readRaceCapability(this.#fetch, this.config.toriiUrl, this.#network, this.config.profileId);
       const reason = !RELEASE_PROOF_QUALIFIED
         ? 'このアプリに同梱された実行証明は暗号学的な安全性の審査が未完了です。XORを賭ける対戦は無効です。 / This app’s bundled execution proof is not cryptographically qualified. XOR stakes are disabled.'
         : !capability.enabled || !capability.proof_qualified
@@ -263,9 +286,7 @@ export class RaceChainClient {
     this.#transaction = transaction;
     this.#update({ phase: 'signing', reason: null, transactionHash: null });
     try {
-      if (payloadBytes.byteLength > 64_000) {
-        validateConnectTransactionTransportStatus(await boundedJson(this.#fetch, `${this.config.toriiUrl}/v1/connect/status`), payloadBytes.byteLength);
-      }
+      await checkWalletTransactionTransport(payloadBytes.byteLength, this.#fetch, this.config.toriiUrl, this.#network);
       if (generation !== this.#generation || session !== this.#session || approval !== this.#approval) throw new Error(japaneseMessage('Wallet session changed during signing.'));
       const signature = await session.signTransaction(payloadBytes);
       if (generation !== this.#generation) throw new Error(japaneseMessage('Wallet session changed during signing.'));

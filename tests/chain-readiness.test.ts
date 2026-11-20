@@ -1,7 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { nftMarketProfileIdV1 } from '@iroha/iroha-js/nft';
-import { RaceChainClient } from '../src/chain/client';
+import { RaceChainClient, checkWalletTransactionTransport } from '../src/chain/client';
+import { CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1, NetworkId } from '@iroha/iroha-js/connect-browser';
+import { EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 } from '@iroha/iroha-js/game';
 import { TAIRA_NETWORK_ID } from '../src/chain/taira';
 import { RACE_PROFILE_ID } from '../src/game/environment';
 import provenance from '../src/game/generated/provenance.json';
@@ -25,6 +27,43 @@ test('endpoint qualification cannot enable staking in the unqualified bundled re
     assert.equal(state.capability?.proof_qualified, qualified);
     assert.equal(state.capability?.execution_transport_ready, execution_transport_ready);
   }
+});
+
+test('large wallet frames refresh public V1 game capabilities on the pinned network', async () => {
+  const network = NetworkId.parse(TAIRA_NETWORK_ID);
+  const ordinaryPayload = 64_000 - CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1;
+  const report = { version: 1, native_game_sessions: true, enabled: true, profiles: [],
+    network_id: TAIRA_NETWORK_ID, execution_transport_ready: true };
+  let current: Record<string, unknown> = report;
+  let reads = 0;
+  const fetchImpl: typeof fetch = async (url, init) => {
+    reads++;
+    assert.equal(String(url), `${endpoint}/v1/games/capabilities`);
+    assert.equal(init?.method ?? 'GET', 'GET');
+    assert.equal(init?.credentials, 'omit');
+    assert.equal(init?.cache, 'no-store');
+    assert.deepEqual([...new Headers(init?.headers)], [['accept', 'application/json']]);
+    return Response.json(current);
+  };
+  const check = (size: number) => checkWalletTransactionTransport(size, fetchImpl, endpoint, network);
+  await check(ordinaryPayload);
+  assert.equal(reads, 0);
+  await check(ordinaryPayload + 1);
+  await check(EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1);
+  assert.equal(reads, 2);
+  for (const invalidSize of [0, -1, 0.5, NaN, Infinity, Number.MAX_SAFE_INTEGER, EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 + 1]) {
+    await assert.rejects(check(invalidSize), RangeError);
+  }
+  assert.equal(reads, 2);
+  for (const change of [
+    { execution_transport_ready: false }, { execution_transport_ready: undefined },
+    { execution_transport_ready: 'true' }, { enabled: false }, { native_game_sessions: false },
+    { version: 2 }, { profiles: null }, { network_id: RACE_PROFILE_ID }, { network_id: 'invalid' },
+  ]) {
+    current = { ...report, ...change };
+    await assert.rejects(check(ordinaryPayload + 1));
+  }
+  assert.equal(reads, 11);
 });
 
 test('an unqualified race release still attempts a network-bound wallet connection', async () => {
