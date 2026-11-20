@@ -185,6 +185,67 @@
     "rust_extraction_sha256": "3bad581f0b2ccef0d6a6e6d016bc6a0281d61bfaad29b4704573208371310161",
     "scope": "Successful checked decimal arithmetic and the signed payout functions extracted verbatim. This test carries no ledger funds."
   },
+  "winner_ranking": {
+    "revision": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "native_sources_sha256": {
+      "crates/iroha_core/src/execution_proofs/race.rs": "ec56177cd0a43b090805b99a62edcce397cf8a9973f397a33a91a41411672768",
+      "crates/iroha_core/src/execution_proofs/environment.rs": "63be9cf121fe8de7c8fdb424942b0fb304eb7c2d5580492fca3f2053b01a766e",
+      "crates/iroha_core/src/execution_proofs/game_binding.rs": "f2ccfc765fc10cb83ef8cda272bd5899e7e6d54acad6a4128e8c1bb9de2e5a73",
+      "crates/iroha_core/src/execution_proofs/proof.rs": "3d34666fdbfe4563a5111b31a1b38e5c245c4bec94422bb7d3261897ce91c13e",
+      "crates/iroha_core/src/execution_proofs/proof_tests.rs": "803079588962188282d2ade24faa0dac7863a4818bc3e6790d6d9cfdca2111df"
+    },
+    "native_economic_excerpt_sha256": "08cb322c1f3e64251fa13e36cf040bc06d692393a6aa056a2b1440c6e6901624",
+    "resolved_rlibs_sha256": {
+      "libiroha_data_model-b0c09341e821dd1a.rlib": "b8599f8ac1668bceecfd004228ebc7fe0b45d43e753a898e9b8dd94329adb320",
+      "libiroha_execution_stark-74f578534bce2369.rlib": "7e35961f7be815c20cea126eef7f0e7c1622be8f0bd130be15900d607b818884",
+      "libthiserror-1970069e6c330e75.rlib": "e497fe0fb3311155889f7b5cd0ace9fe36e3dbdfc9af84230b6ade6af6737f94"
+    },
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_sha256": "a88c6d265c51dcadedce72d2744e6afac215d2977e7ebf5f1d474d0f75b9e1b7",
+    "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+    "theorems": [
+      "progressOrder",
+      "rankMatches",
+      "performanceBounds",
+      "rankOrdersEligibility",
+      "rankOrdersPerformance",
+      "sortedRanks",
+      "eligibleMem",
+      "takeWhileIsFilter",
+      "eligibleOrdered",
+      "finishEqual",
+      "noFinishAfter",
+      "sameRunning",
+      "firstBest",
+      "isBestIffFirst",
+      "selectionExact",
+      "rejectionExact",
+      "selectionSublist",
+      "winningSlotIff",
+      "winnerSlotsStrict",
+      "physicalAgreement",
+      "updatePreserves",
+      "removalPersists",
+      "economicWinnerIff",
+      "exactEventWrites",
+      "completeRemovalTable",
+      "representsSignedProgress",
+      "fasterFinish",
+      "finishedBeatsUnfinished",
+      "furtherProgress",
+      "emptyExactlyNoEligible"
+    ],
+    "normal_core_trajectories": 63,
+    "positive_projection_totals": {
+      "cases": 1587,
+      "changed_winners": 783,
+      "refunds": 42,
+      "tied_winners": 21,
+      "sole_unfinished": 21,
+      "finished_winners": 1503,
+      "cap_progress": 21
+    }
+  },
   "metering": {
     "immutable_tariff_installed": false,
     "rejection_work_gas": 128,
@@ -373,6 +434,37 @@
     "cold_replay_exercised": false,
     "seven_part_artifact_present": false,
     "private_configuration_exported": false
+  },
+  "four_validator_fifth_run": {
+    "source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "expected_committee_threshold": 3,
+    "source_harness": "transport-timeout-harness",
+    "disposition": "retiring the 500 ms signed-cadence fixture after one observed full four-leader rotation with six reciprocal links",
+    "retirement_decided_utc": "2026-11-20T09:39:59.224967+00:00",
+    "full_mesh_leader_indices_by_view": {
+      "15": 0,
+      "16": 1,
+      "17": 2,
+      "18": 3
+    },
+    "highest_observed_view": 19,
+    "maximum_reported_committed_block_height": 0,
+    "maximum_observed_prepare_signers": 2,
+    "maximum_observed_commit_signers": 0,
+    "oldest_observed_ingress_item_ms": 514262,
+    "shared_execution_prefixes": [
+      "a3be22fdfaa7"
+    ],
+    "observed_unsafe_proposal_counts": [
+      0
+    ],
+    "funded_open_attempted": false,
+    "settlement_attempted": false,
+    "settlement_receipt_present": false,
+    "committed_genesis_finality_verified": false,
+    "cold_rejoin_on_committed_height": false,
+    "next_fixture_signed_cadence_ms": 10000,
+    "authenticated_transport_deadline_ms": 300000
   },
   "public_taira": {
     "observed_utc": "2026-11-20T05:57:22.883278+00:00",
@@ -624,6 +716,22 @@
       "bytes": 1326,
       "sha256": "a02a6e3c869d1e6ce12e0fb6196d7c8291fe30880884f3d03ad34b2d66a3f568"
     },
+    "network/attempt-5/candidate-observations/full-mesh-reciprocal-sockets.json": {
+      "bytes": 903,
+      "sha256": "97f95e355087607bcec1b8cea94717d0fb4f251c41765fe1ef5ac33f60143bd3"
+    },
+    "network/attempt-5/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "2415432033d2b95c7fee7b55b7568d615d3b2f439ba0640e3bd19e6af39a21b9"
+    },
+    "network/attempt-5/candidate-observations/timeout-threshold-formation-and-installation-view-17.json": {
+      "bytes": 7471,
+      "sha256": "f0affc8742de61bc9fea8cf4ba57d5156f47e71a71fd0f53e0ef53d38db0097e"
+    },
+    "network/attempt-5/outcome.json": {
+      "bytes": 1041,
+      "sha256": "1a2a8d74f7f88c6e1ef9c279df0b17e098b4bc1544744a2654a2e45e100719d6"
+    },
     "network/bootstrap-attempts-1-2.json": {
       "bytes": 1909,
       "sha256": "384a44774c7486cda35f5c02ee9b97b00cc3a18fce57604cfd84f3e124bb2817"
@@ -699,6 +807,18 @@
     "protocol/settlement-fields/values.json": {
       "bytes": 6700,
       "sha256": "0cb4aad0fcd46c56fad0d37974481f610421e55fb2be62546bfbf0f7a413e115"
+    },
+    "protocol/settlement-fields/winners/checked.json": {
+      "bytes": 2436,
+      "sha256": "c6d937a57f989f2d6e5c0df39f15410ec65668ef37820c01db8a4068b2a97885"
+    },
+    "protocol/settlement-fields/winners/kernel.log": {
+      "bytes": 2327,
+      "sha256": "df353ebb8cf6f0f48965cdae6210fd025613a70f574df1922843450e20f5519c"
+    },
+    "protocol/settlement-fields/winners/native.tsv": {
+      "bytes": 2358,
+      "sha256": "0ba47e50b579bd256a9249bddaaedcaea3ec136482f77941ef1c866b2419c6ad"
     },
     "protocol/shapes.tsv": {
       "bytes": 36942,
