@@ -24,6 +24,11 @@
     "signed_game_with_relay_regression": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
     "signed_browser_sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
     "signed_desktop_test_successor": "9958f2fc48893df2f2c603932f5c76804297531d",
+    "signed_mobile_bridge_test_successor": "e10a36c4eeffa69c07a30addc37727011db7c989",
+    "mobile_rust_tests": {
+      "inspection_and_finalization_passed": 13,
+      "signed_transaction_fixtures_passed": 5
+    },
     "public_game_deployed_by_this_review": false
   },
   "native_commit": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
@@ -627,6 +632,10 @@
       "bytes": 211,
       "sha256": "0b04e2cadcf05aa0ac655e3ed97a1767c05e9771c859815d43aa22deb8f4e88f"
     },
+    "network/offline-positive-finality-reopen.log": {
+      "bytes": 442,
+      "sha256": "bc5e04e4c164b3b99430f51536584860d9a3f886610baf38373565397b71b578"
+    },
     "network/prior-and-offline-evidence.json": {
       "bytes": 1405,
       "sha256": "f20eeff00deb612cf12061f7c42c562046246986fdd0a18a2317865eba31b57c"
@@ -683,6 +692,14 @@
       "bytes": 3147,
       "sha256": "a2d96290a1dca13c04ba97dabd556dba782748ea59571636ec870120a750f242"
     },
+    "protocol/settlement-fields/inspect.rs": {
+      "bytes": 5489,
+      "sha256": "014ee2a96ce7ec1a0445aa5436f4d017bc812e730d98abcf34f70d2ea41451af"
+    },
+    "protocol/settlement-fields/values.json": {
+      "bytes": 6700,
+      "sha256": "0cb4aad0fcd46c56fad0d37974481f610421e55fb2be62546bfbf0f7a413e115"
+    },
     "protocol/shapes.tsv": {
       "bytes": 36942,
       "sha256": "a7b7fce917e45da4c58562dd09af0f64e9e4ff1526abaf7aa59f080863daae64"
@@ -704,8 +721,8 @@
       "sha256": "6187345efbe2ba69da3ab286c868af93f52c8da7a4a5d32a999894a4487d9a6b"
     },
     "qualification-decisions.json": {
-      "bytes": 1441,
-      "sha256": "c586ad7a6d54868ee0df6de75cc52b4d44363cd1540e2379d7adb00f7a01b3ce"
+      "bytes": 1634,
+      "sha256": "9b02b678d9ea7f9b1e41e0b84067561b969bfa2636e36da7fd1ec3244f59432e"
     },
     "sdk-full-history/roundtrip.json": {
       "bytes": 443,
@@ -842,6 +859,14 @@
     "wallet/source-wallet-normal-ui.json": {
       "bytes": 2222,
       "sha256": "ec3c6aca85b563b00f4b3be5b8e94234b4ef25c42cb1874b4fd1067294594c62"
+    },
+    "wallet/successor-mobile-bridge-scaffold-tests.log": {
+      "bytes": 120709,
+      "sha256": "f92ab4b8100cd4c2bffcacdf9c0a4b97fe2ca8c26c3595519a9febba65d67e10"
+    },
+    "wallet/successor-mobile-bridge-signed-fixtures.log": {
+      "bytes": 119069,
+      "sha256": "89b7fb2c6b3242f73fe2543c7344e60e60e875bf4002a61d4d357ea6b1c3117c"
     },
     "wallet/successor-mobile-gradle.log": {
       "bytes": 1519,
