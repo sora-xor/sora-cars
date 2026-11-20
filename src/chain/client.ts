@@ -107,9 +107,11 @@ async function readRaceCapability(fetchImpl: typeof fetch, toriiUrl: string, net
 // Native V1 reserves 4 KiB above the canonical payload limit for transaction framing.
 const EXECUTION_FRAME_LIMIT = EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 + 4096;
 const ORDINARY_FRAME_LIMIT = 64_000;
+// Torii checks its re-encoded frame before forwarding. Its 32 SID octets each carry an eight-byte length.
+const TORII_SIGNING_FRAME_OVERHEAD = 472;
 
 export async function checkWalletTransactionTransport(payloadBytes: number, fetchImpl: typeof fetch, toriiUrl: string, network: NetworkId): Promise<void> {
-  const frameBytes = payloadBytes + CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1;
+  const frameBytes = payloadBytes + Math.max(CONNECT_SIGN_REQUEST_TX_FRAME_OVERHEAD_V1, TORII_SIGNING_FRAME_OVERHEAD);
   if (!Number.isSafeInteger(payloadBytes) || payloadBytes < 1 || payloadBytes > EXECUTION_PROOF_MAX_ENVELOPE_BYTES_V1 || frameBytes > EXECUTION_FRAME_LIMIT) {
     throw new RangeError('ウォレット取引のサイズが範囲外です。 / Wallet transaction size is outside the supported range.');
   }
