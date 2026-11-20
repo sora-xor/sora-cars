@@ -13,7 +13,10 @@ const u64 = value => { const b = Buffer.alloc(8); b.writeBigUInt64LE(BigInt(valu
 const field = value => Buffer.concat([u64(value.length), bytes(value)]);
 const structure = values => Buffer.concat(values.map(field));
 const variant = (tag, body) => Buffer.concat([u32(tag), field(body)]);
-const walletSignature = signature => structure([Buffer.of(0), field(signature)]);
+function walletSignature(signature, canonical) {
+  if (!canonical) return structure([Buffer.of(0), field(signature)]);
+  return structure([u32(0), Buffer.concat([u64(signature.length), fixedArray(signature, true)])]);
+}
 export function fields(buffer) {
   let offset = 0; const result = [];
   while (offset < buffer.length) {
@@ -53,7 +56,7 @@ function approvalPreimage(preview, walletPublicKey, accountId, relayToken) {
 }
 function approval(preview, walletPublicKey, account, relayToken, canonical) {
   const signature = ed25519.sign(approvalPreimage(preview, walletPublicKey, account.accountId, relayToken), account.privateKey);
-  const body = structure([fixedArray(walletPublicKey, canonical), field(bytes(account.accountId)), Buffer.of(0), Buffer.of(0), walletSignature(signature)]);
+  const body = structure([fixedArray(walletPublicKey, canonical), field(bytes(account.accountId)), Buffer.of(0), Buffer.of(0), walletSignature(signature, canonical)]);
   return frame(preview, 1, variant(0, variant(1, body)), canonical);
 }
 function deriveKeys(preview, privateKey) {
@@ -100,7 +103,7 @@ export function createTestWallet(preview, account, relayToken) {
       return { seq, txBytes };
     },
     signed: (seq, signature) => {
-      const payload = Buffer.concat([u32(3), field(walletSignature(signature))]);
+      const payload = Buffer.concat([u32(3), field(walletSignature(signature, canonical))]);
       const cipher = createCipheriv('chacha20-poly1305', keys.wallet, nonce(seq), { authTagLength: 16 });
       cipher.setAAD(aad(preview, 1, seq));
       const ciphertext = Buffer.concat([cipher.update(envelope(structure([u64(seq), payload]))), cipher.final(), cipher.getAuthTag()]);
