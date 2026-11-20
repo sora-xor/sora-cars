@@ -10,6 +10,8 @@
     "immutable_verification_tariff": "MissingTariff for every profile, including zero-stake settlement",
     "cryptographic_claim": "Conditional bounds for one fixed false engine statement under a classical framed random oracle. Independent release audit outstanding.",
     "public_taira_matches_game_genesis": false,
+    "public_taira_header_anchored_finality_through": 16555,
+    "public_taira_strict_original_genesis_pins_verified": false,
     "public_settlement_for_candidate": false,
     "released_android_connect_handler_found": false,
     "released_wallet_funded_settlement_verified": false,
@@ -286,6 +288,32 @@
     "verified_peer_input_copies": 4,
     "verified_public_bls_pop_count": 4
   },
+  "four_validator_fourth_run": {
+    "candidate": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "started_utc": "2026-11-20T06:59:06.110265+00:00",
+    "ended_utc": "2026-11-20T08:02:52.020523+00:00",
+    "validator_sha256": "bc720dd5a201c77eb24fe583c601281bb420d7d1ee37247d7eb1d950d03b148d",
+    "private_test_endpoints": 4,
+    "genesis_input_header_hash": "f4b7aece4335d77d8c4954560f0296090ab6fa90630d912e7406ab47da80b0a3",
+    "independently_verified_genesis_transactions": 9,
+    "independently_verified_genesis_validator_bls_pops": 4,
+    "verified_genesis_role_signature": true,
+    "signed_genesis_input_copies": 4,
+    "reachable_torii_peers": 4,
+    "staged_consensus_context": "9d5d07a5964c267fe6c50a27e9ce5eeedcbbbdc558549a1cd1b9819a6375db3d",
+    "confirmed_public_quorum_certificate": false,
+    "committed_block_height": 0,
+    "handshake_deadline_ms": 30000,
+    "recurring_expirations": 34,
+    "authenticated_pairs": 1,
+    "retired_after_observation": true,
+    "retirement_reason": "No height-one finality after 15 minutes, 34 local handshake deadline failures and only one authenticated peer pair. All four test processes received graceful termination before the next isolated fixture.",
+    "funded_join_attempted": false,
+    "settlement_attempted": false,
+    "cold_replay_exercised": false,
+    "seven_part_artifact_present": false,
+    "private_configuration_exported": false
+  },
   "public_taira": {
     "observed_utc": "2026-11-20T05:57:22.883278+00:00",
     "genesis": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
@@ -305,7 +333,7 @@
         "version": 1
       }
     ],
-    "commit_certificate": {
+    "target_certificate_in_isolation": {
       "live_status_revision": "4852600b1defa2e361d3d3d5ca92732b43281c83",
       "height": 16555,
       "endpoint_block_hash": "hash:69DB34D18AE996B38F87DE81A1C4FA8711E9DC171BCC3D3B8F788C9C4F83B087#C9C3",
@@ -313,6 +341,86 @@
       "verified_under_offered_committee": true,
       "independently_authenticated_mandate_at_height": false,
       "game_settlement_verified": false
+    },
+    "contiguous_header_anchored_verification": {
+      "scope": "native contiguous public Taira certificate chain, assuming genesis header selection from the signed October 23 application observation",
+      "first_height": 1,
+      "last_height": 16555,
+      "target_header_hash": "69db34d18ae996b38f87de81a1c4fa8711e9dc171bcc3d3b8f788c9c4f83b087",
+      "source_page_groups": 262,
+      "bytes_of_input": 321823391,
+      "elapsed_s": 1449.256,
+      "heights_per_epoch": {
+        "0": 3600,
+        "1": 3600,
+        "2": 3600,
+        "3": 3600,
+        "4": 2155
+      },
+      "equal_to_signed_genesis_roster_heights": 16555,
+      "certified_epoch_boundaries": [
+        {
+          "height": "3600",
+          "block_hash": "5fb722732a2a477046e44d0175786b98fcf07fbb661835fb7d038b9ee2ea6617",
+          "epoch": "0",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "1",
+          "selection_anchor": "bfa1eef0d1475098b22be8268a7354b4d6d865263863d506d1f9c5fc6518acd1"
+        },
+        {
+          "height": "7200",
+          "block_hash": "c4de8cf3abbed1dde7362ecc15f96de941a288c14ad61d4bad0c66747785e159",
+          "epoch": "1",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "2",
+          "selection_anchor": "87f3ef7a2d401721107fb6227e6d2153257ce4050411db04eb395cfc8688b0af"
+        },
+        {
+          "height": "10800",
+          "block_hash": "9c4bf2bf4d61c57977d1b653b4bf77bec996ae7315faa0d498e26ba7896ae00b",
+          "epoch": "2",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "3",
+          "selection_anchor": "98cc1b54818a3020d240158578afa1a9dfa11afbef1aa8fa1b5bbe22031ae663"
+        },
+        {
+          "height": "14400",
+          "block_hash": "f32ea99395ee3e0f9b42c8e9a187be0919f2914c3496253d07335e373014b019",
+          "epoch": "3",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "4",
+          "selection_anchor": "802514c496765cc7d0e3e5107f83ea87fbdf3afaf371f131d38d3e737cfb9e2d"
+        }
+      ],
+      "local_final_checkpoint_sha256": "9a7493d4a4e53524d54795fd93d76f9ac04e9a4497785ffc7bd1b29b4987da7d",
+      "decision_ledger_sha256": "40231dd09684aff1fc4d6072266612f8fc8e1a5dff428284f013ba3d4106efb1",
+      "page_ledger_sha256": "37aecfbb88878ea322be807eb346529d62d2596f1ef2040c4bb6d8c992873272",
+      "last_entry_sha256": "dd127eaacd3804863d84384404fb6a8ca69ff9eb2a528777fadd35f2147cfca3",
+      "independent_signed_genesis_original_policy_satisfied": false,
+      "game_settlement_verified": false,
+      "libraries": {
+        "iroha_data_model": {
+          "name": "libiroha_data_model-a66eb8003f5c35ae.rlib",
+          "sha256": "04b24edac4d099d962dd425a8a960a69c530a6ba4c46f6a10dff302f65b2d199"
+        },
+        "norito": {
+          "name": "libnorito-622dcb577a08fe4f.rlib",
+          "sha256": "1aa4c7750ebfa4e5f7c856d19d9d91cf18098ab64e5bc4a260402a65725d4943"
+        }
+      },
+      "rust_source_sha256": "eb7cf288b3a86ddd2e035acfc3975b8fae32642dbb4671cf502e94c1c59c78ba"
     }
   },
   "released_android_wallets": [
@@ -370,6 +478,17 @@
         "skipped": "0"
       }
     ]
+  },
+  "swift_native_wallet_interoperability": {
+    "abi": 23,
+    "aead_bytes": 2719909,
+    "exact_unsigned_bytes": 2719809,
+    "language": "Swift",
+    "network_id_hex": "97104D6D499469597764A276572BAE26750622EAC20556942A93F6842122B595",
+    "sdk_scope": "Swift client of the signed native C ABI via its shipped header",
+    "sha256": "d1f381b733c6cbf8e743765d532783e90fc9b124640dcc545a89c2b9191cbbb2",
+    "signed_transaction": false,
+    "wallet_egress_bytes": 2720281
   },
   "local_evidence_root": "output/reviews/live-staking-qualification-20261120",
   "receipts": {
@@ -433,9 +552,17 @@
       "bytes": 25502,
       "sha256": "9474d022f693ca52c18afae22d17e0018a0fc6490c06132ad4fb32d259de9c78"
     },
+    "network/attempt-4/outcome.json": {
+      "bytes": 1326,
+      "sha256": "a02a6e3c869d1e6ce12e0fb6196d7c8291fe30880884f3d03ad34b2d66a3f568"
+    },
     "network/bootstrap-attempts-1-2.json": {
       "bytes": 1909,
       "sha256": "384a44774c7486cda35f5c02ee9b97b00cc3a18fce57604cfd84f3e124bb2817"
+    },
+    "network/native-funded-admission-refusal.log": {
+      "bytes": 211,
+      "sha256": "0b04e2cadcf05aa0ac655e3ed97a1767c05e9771c859815d43aa22deb8f4e88f"
     },
     "network/prior-and-offline-evidence.json": {
       "bytes": 1405,
@@ -502,8 +629,8 @@
       "sha256": "6187345efbe2ba69da3ab286c868af93f52c8da7a4a5d32a999894a4487d9a6b"
     },
     "qualification-decisions.json": {
-      "bytes": 1320,
-      "sha256": "e5ed8c6c01adfb2144f5a516ca221f5e46b636fe10fbd13784b30166e3d0a0ce"
+      "bytes": 1441,
+      "sha256": "c586ad7a6d54868ee0df6de75cc52b4d44363cd1540e2379d7adb00f7a01b3ce"
     },
     "sdk-full-history/roundtrip.json": {
       "bytes": 443,
@@ -536,6 +663,50 @@
     "taira/verification/candidate-check.json": {
       "bytes": 2762,
       "sha256": "d06985aa68a723461315a17e9f393ce0cc52bef60bcd7b54bedc42dc03d17aff"
+    },
+    "taira/verification/prefix-ledger/16555.checkpoint.nrt": {
+      "bytes": 119770,
+      "sha256": "9a7493d4a4e53524d54795fd93d76f9ac04e9a4497785ffc7bd1b29b4987da7d"
+    },
+    "taira/verification/prefix-ledger/complete.json": {
+      "bytes": 3364,
+      "sha256": "2f538bc72a582e234eeeaf1c7b507b643cd5e9d92125118d9ea1bf0a88c4bc48"
+    },
+    "taira/verification/prefix-ledger/decisions.tsv": {
+      "bytes": 2489085,
+      "sha256": "40231dd09684aff1fc4d6072266612f8fc8e1a5dff428284f013ba3d4106efb1"
+    },
+    "taira/verification/prefix-ledger/independent-check.log": {
+      "bytes": 406,
+      "sha256": "fef535f119584a508e4a45a259d5b8a842763f3e65cb6a3f59ab1c8c27c4ba92"
+    },
+    "taira/verification/prefix-ledger/input-manifest.tsv": {
+      "bytes": 29639,
+      "sha256": "282d6047d3306c43bb19e29b682bc9ae0e0af781dc4d8467236aca41faf12ad2"
+    },
+    "taira/verification/public-interval-check.json": {
+      "bytes": 5188,
+      "sha256": "445074f5c24a7359ccb95cbe734020252e54389d720c22dbfc03a9e0a0a86931"
+    },
+    "taira/verification/publication-survey.json": {
+      "bytes": 5733,
+      "sha256": "f4335604c28817473dae03f571e28c80819d21bcf8408968065abc431d80d5ba"
+    },
+    "taira/verification/published-anchors.json": {
+      "bytes": 4698,
+      "sha256": "4ed08ebb9967db231d748266663e15e64f17571b10e17181cd5aea0d4f234fe4"
+    },
+    "taira/verification/published-commit-signatures.txt": {
+      "bytes": 453,
+      "sha256": "ff1a298d29728c3f01416e9ce0b406f9c57fc6a1ea3485b224921f5ae6977d1d"
+    },
+    "taira/verification/reader-source-comparison.json": {
+      "bytes": 3140,
+      "sha256": "ee7712a7245fd62f627131605f04445e93fe26a036a4fe3bc3775feffecf73ff"
+    },
+    "wallet/SwiftWalletReceipt.swift": {
+      "bytes": 2851,
+      "sha256": "73b2294559c41be1cb549b3b07a6926cbcc091db5dbe6993c2198e4775b8f160"
     },
     "wallet/android-full-relayed-frame-wire.log": {
       "bytes": 444,
@@ -605,9 +776,17 @@
       "bytes": 843,
       "sha256": "d68bedf5c62b91308acb50375a4cabfc020d95f63bb73ab072608acdd54d9e27"
     },
+    "wallet/swift-wallet-native.json": {
+      "bytes": 422,
+      "sha256": "634529f079c21b82a9493bdd5fe02bffc9449a5407f19a9b8b7926175bedbaea"
+    },
     "wallet/torii-wire.json": {
       "bytes": 1008,
       "sha256": "dc908cfb78ce5b5b514ec6a0c4635e89901e0479eb0ce5adb7f083dfb02b93c7"
+    },
+    "wallet/typed-review-contracts.json": {
+      "bytes": 6669,
+      "sha256": "518df4e01fcc9ea66b4cba4cfbbddc0d02f15230c1a86d0e0490d50091a8ce0f"
     },
     "wallet/wallet-capture.json": {
       "bytes": 2155,
