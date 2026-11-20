@@ -1,5 +1,6 @@
 {
   "review_date": "2026-11-20",
+  "closeout_date_nzdt": "2026-11-21",
   "report": "docs/live-staking-qualification-20261120.md",
   "decision": {
     "live_xor_staking_qualified": false,
@@ -7,6 +8,15 @@
     "race_rules": "751b7f51a39b8aea6062e29694e0f1bccaf3b68e63b13e44dfd60d0c2eb0b6b9",
     "native_qualification_flag": false,
     "native_positive_stake_admission": "Join refused before custody",
+    "native_positive_stake_admission_evidence": "focused Core test on the signed candidate",
+    "local_finalized_heights_verified_after_shutdown_in_all_four_stores": [
+      1,
+      2,
+      3
+    ],
+    "local_funded_open_replicated_durable_admission": true,
+    "local_game_transaction_committed": false,
+    "local_validator_shutdown": "native fail-stop during validation at height 4, followed by managed shutdown",
     "immutable_verification_tariff": "MissingTariff for every profile, including zero-stake settlement",
     "cryptographic_claim": "Conditional bounds for one fixed false engine statement under a classical framed random oracle. Independent release audit outstanding.",
     "public_taira_matches_game_genesis": false,
@@ -573,6 +583,63 @@
     "verified_executed_block_wire_hash": "e0bb34ddf07446fff5de7bf5133bd14917ca0361a5a51fb149621ff4b325e3ad",
     "verified_peer_count": 4
   },
+  "four_validator_final_result": {
+    "closed_utc": "2026-11-20T12:19:10.737078+00:00",
+    "qualification_decision": "NO-GO",
+    "settlement_protocol_blocker": "MissingTariff precedes all native Stock settlements on the frozen source, including zero stake. Positive-stake Join is disabled before its asset debit.",
+    "current_candidate": {
+      "private_local_four_validator_runs": {
+        "run_5": {
+          "authenticated_p2p_pairs": 6,
+          "required_committee_signers": 3,
+          "voter_count": 4,
+          "largest_prepare_pool": 2,
+          "highest_view_observed": 19,
+          "maximum_reported_committed_height": 0,
+          "view_16_timeout_forming_signers": 3,
+          "view_17_installing_peers": 4,
+          "independent_timeout_BLS_verification": false
+        },
+        "run_6": {
+          "signed_local_cadence_ms": 10000,
+          "authenticated_transport_deadline_ms": 300000,
+          "genesis_authority_and_four_peer_pops_verified": true,
+          "authenticated_p2p_pairs": 6,
+          "verified_committed_heights": [
+            1,
+            2,
+            3
+          ],
+          "verified_stores_per_height": 4,
+          "actual_commit_signatures_in_each_quorum": 3,
+          "terminal_active_height": 4,
+          "terminal_active_view": 1,
+          "retained_h4_qc": false,
+          "funded_open_hash": "51d3a0c02190b9240acac49e6ba974ceb128faa5c2a33bd0b98812d316e5db99",
+          "verified_durable_queue_plan_peers": 4,
+          "admission_attestations": 2,
+          "global_funded_open_commit": false,
+          "first_process_exit": 1,
+          "other_managed_process_exits": [
+            0,
+            0,
+            0
+          ],
+          "status": "finalized ordinary blocks then encountered a native fail-stop during active height four"
+        }
+      },
+      "committed_game_receipt": false,
+      "authenticated_settlement_commit_qc": false,
+      "positive_stake_debit_or_payout": false,
+      "live_funded_join_refusal_observed": false,
+      "live_zero_stake_settlement_refusal_observed": false,
+      "cold_rejoin_at_committed_height_observed": false,
+      "complete_seven_part_transport": false,
+      "committed_chain_reverified_with_all_daemons_stopped": true,
+      "funded_open_admitted_to_durable_local_queue": true,
+      "direct_funded_wallet_balance_after_shutdown": null
+    }
+  },
   "public_taira": {
     "observed_utc": "2026-11-20T05:57:22.883278+00:00",
     "genesis": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
@@ -839,6 +906,18 @@
       "bytes": 1041,
       "sha256": "1a2a8d74f7f88c6e1ef9c279df0b17e098b4bc1544744a2654a2e45e100719d6"
     },
+    "network/attempt-6/candidate-observations/cold-reopened-chain.json": {
+      "bytes": 4044,
+      "sha256": "71bd7e7ce469909d76566ecd79b5223501d698b0c92b8e2e785fcbbc8a31d41b"
+    },
+    "network/attempt-6/candidate-observations/funded-open-certified-queue-plan.json": {
+      "bytes": 1121,
+      "sha256": "c4d528ea60ad39fc30b1d4d76bab338a0a8a63950a19ad66ef4865a3490f094e"
+    },
+    "network/attempt-6/candidate-observations/funded-open-same-wire-retry-outcome.json": {
+      "bytes": 106,
+      "sha256": "2b6d3e1dbd16a7a591778ca19c8a389fcc3d9173d5aef0363e852c0d385c0428"
+    },
     "network/attempt-6/candidate-observations/genesis-independent-cold-verified.json": {
       "bytes": 688,
       "sha256": "896a302aaa435f9dcb2de0c12c81ecc12b705b4a4607c8e3a66aacc480422083"
@@ -855,9 +934,21 @@
       "bytes": 25503,
       "sha256": "f255cda1e1733318ca786aff4921ff3e75aec567da525721573b378583f303cf"
     },
+    "network/attempt-6/candidate-observations/terminal-validator-failure.json": {
+      "bytes": 3555,
+      "sha256": "a5ea0e459a703b582336295a2679d51c49072393623fb45634303c77bec74640"
+    },
+    "network/attempt-6/outcome.json": {
+      "bytes": 6383,
+      "sha256": "534debd6003737a05a7e14d9a8787530ef69477d76c5bd432162be037d07fa12"
+    },
     "network/bootstrap-attempts-1-2.json": {
       "bytes": 1909,
       "sha256": "384a44774c7486cda35f5c02ee9b97b00cc3a18fce57604cfd84f3e124bb2817"
+    },
+    "network/final-qualification.json": {
+      "bytes": 12014,
+      "sha256": "10dd6bc9d852fe08c4a33d746d5a7ee84405e5c7d8c6963bf681676e17b4381c"
     },
     "network/native-funded-admission-refusal.log": {
       "bytes": 211,
@@ -988,8 +1079,8 @@
       "sha256": "6187345efbe2ba69da3ab286c868af93f52c8da7a4a5d32a999894a4487d9a6b"
     },
     "qualification-decisions.json": {
-      "bytes": 1634,
-      "sha256": "9b02b678d9ea7f9b1e41e0b84067561b969bfa2636e36da7fd1ec3244f59432e"
+      "bytes": 2021,
+      "sha256": "7c5136f753ab65a56442593c7c7726b17add0719429fd687bc099dbdb71a9651"
     },
     "sdk-full-history/roundtrip.json": {
       "bytes": 443,
