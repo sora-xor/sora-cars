@@ -142,6 +142,44 @@
     "total": 14,
     "funded_settlement_exercised": false
   },
+  "payout_arithmetic": {
+    "native_source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "game_source_sha256": "95f8ebb42d6f3b8086ea921ff854e28c3076a3d65cfdb7c2b3c0ed1e65287b7b",
+    "numeric_source_sha256": "55cc73c1df542cbf26b2906c22507f129b9225b9cb847d5e469cfcc45f1b41aa",
+    "validator_cargo_fingerprint": "irohad-df5e049b1a77c028",
+    "validator_library_sha256": {
+      "libiroha_primitives-b63daa2417157c62.rlib": "bea2ad67a7a49d777e28fc53e6e1ee04e16c95f7e84b60e9bd7d593327c27d5f",
+      "libiroha_data_model-b0c09341e821dd1a.rlib": "b8599f8ac1668bceecfd004228ebc7fe0b45d43e753a898e9b8dd94329adb320"
+    },
+    "scale_min": 0,
+    "scale_max": 28,
+    "stock_recipient_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "base_amounts_in_quantum_units": [
+      "0",
+      "1",
+      "9",
+      "257",
+      "9999999999999999999999999999"
+    ],
+    "each_possible_division_remainder_tested": true,
+    "winner_checks": 5220,
+    "refund_checks": 1160,
+    "eight_slot_admission_capacity_checks": 145,
+    "kernel_checked": true,
+    "lean_version": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_source_sha256": "ebc966e1132f2704bb52c303b48bab13052135f49bee8d36cda7e3df67130b99",
+    "rust_extraction_sha256": "3bad581f0b2ccef0d6a6e6d016bc6a0281d61bfaad29b4704573208371310161",
+    "scope": "Successful checked decimal arithmetic and the signed payout functions extracted verbatim. This test carries no ledger funds."
+  },
   "metering": {
     "immutable_tariff_installed": false,
     "rejection_work_gas": 128,
@@ -276,6 +314,23 @@
     "air_domain_rows": 73728,
     "air_max_tick_eight_player_cases": 3,
     "cases_sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+  },
+  "integer_gadget_checks": {
+    "signed_native": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "events": {
+      "cmp": 3816,
+      "limb": 6039,
+      "select": 1764,
+      "forced": 540,
+      "annotation": 576,
+      "trunc": 216,
+      "quotient": 684,
+      "floor": 360,
+      "wind": 108
+    },
+    "kernel_checked_theorems": 27,
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_proof_sha256": "e7b8843cb069ef96f52a1532168fbbadbfdfe046560b96a2f7e80e32e21c466b"
   },
   "four_validator_fixture_input": {
     "genesis_commit_qc_checked": false,
@@ -492,6 +547,14 @@
   },
   "local_evidence_root": "output/reviews/live-staking-qualification-20261120",
   "receipts": {
+    "custody/arithmetic-results.json": {
+      "bytes": 1453,
+      "sha256": "219af6915c35fbace5823da5c3e3de58abb4020afd3190e75661565693f02f3a"
+    },
+    "custody/check_arithmetic.py": {
+      "bytes": 4993,
+      "sha256": "1d8359a50304b81586ca871356ecd4940c4cae081b19a311ff4ba4bf7a3608bb"
+    },
     "custody/results.json": {
       "bytes": 5933,
       "sha256": "8c10009dc5d1332a3d01f75a301004ef24c6153bc6d7aa5c658ab089217c51bc"
@@ -603,6 +666,18 @@
     "protocol/fable-air.md": {
       "bytes": 9733,
       "sha256": "b0a2cc153fd02d517844f80a5141c85284280be8b2dd704e08fbc6e0ab5d0649"
+    },
+    "protocol/integer-gadgets/check.py": {
+      "bytes": 9381,
+      "sha256": "21f3dbb5a0de5b0f6e5f00d07ab14360678bdc29939c052aef9bf0e156d83153"
+    },
+    "protocol/integer-gadgets/checked.json": {
+      "bytes": 5767,
+      "sha256": "b009adc964de2e5ffe6dc5e455ef261db53ca1ec0e68e4020999fbe9a080676d"
+    },
+    "protocol/integer-gadgets/lean-kernel.log": {
+      "bytes": 2054,
+      "sha256": "a82325aaf3fb80a643bd19c8a129a21d167d4dee063d4d653cdf32cd1e2398a9"
     },
     "protocol/research-report-links.json": {
       "bytes": 3147,
