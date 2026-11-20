@@ -10,9 +10,9 @@ import { createServer } from 'vite';
 import { WebSocketServer } from 'ws';
 import { chromium } from 'playwright';
 import { createHash } from 'node:crypto';
-import { ed25519 } from '@noble/curves/ed25519';
+import { ed25519, x25519 } from '@noble/curves/ed25519';
 import { AccountAddress } from '@iroha/iroha-js/address';
-import { NetworkId } from '@iroha/iroha-js/connect-browser';
+import { NetworkId, createConnectSessionPreview } from '@iroha/iroha-js/connect-browser';
 import { buildGameInstructionV1, decodeGameValueV1, encodeGameValueV1, gameHashLiteralV1 } from '@iroha/iroha-js/game';
 import { decodeRaceFrameV1 } from '@iroha/iroha-js/race';
 import { nftContentHashV1, nftMarketProfileIdV1, nftSaleOfferHashV1, buildNftMarketInstructionV1 } from '@iroha/iroha-js/nft';
@@ -172,7 +172,25 @@ function canonicalEntryHash(payload) {
 }
 await server.listen();
 const port = server.httpServer.address().port, origin = `http://127.0.0.1:${port}`, browser = own('Chromium browser', await chromium.launch({ headless: true }), resource => resource.close());
-const results = [];
+// Public deterministic vectors from iroha_torii_shared at 371f95f6e68fbde48bf63726194e91f2838ec9f4.
+async function verifyNativeWalletFrames() {
+  const appKey = Buffer.alloc(32, 0x33), signer = Buffer.alloc(32, 0x77);
+  const preview = createConnectSessionPreview({
+    networkId: NetworkId.fromBytes(Buffer.alloc(32, 0xa5)), nonce: Buffer.alloc(16, 0x11),
+    appKeyPair: { privateKey: appKey, publicKey: x25519.getPublicKey(appKey) }, node: 'https://connect.test.invalid',
+  });
+  const accountId = AccountAddress.fromAccount({ publicKey: ed25519.getPublicKey(signer), algorithm: 'ed25519' }).toI105();
+  const wallet = createTestWallet(preview, { accountId, privateKey: signer }, 'relay-token');
+  const nativeRequest = await readFile(new URL('./fixtures/connect-rust-sign-request.nrt', import.meta.url));
+  const request = wallet.request(nativeRequest);
+  assert.deepEqual(request.txBytes, Buffer.from([0xaa, 0xbb, 0xcc]));
+  assert.equal(request.seq, 2);
+  const digest = data => createHash('sha256').update(data).digest('hex');
+  assert.equal(digest(wallet.approve()), 'ef58c095d13d954acb8e59dcd337e592994b6661582755af7ad5e06d8d6a9835');
+  assert.equal(digest(wallet.signed(request.seq, ed25519.sign(request.txBytes, signer))), '44e65880744dcb81753c5f23e4bb12bbaed31f50a87bc513a40982f65658ae85');
+}
+await verifyNativeWalletFrames();
+const results = ['native Torii signing request decrypted and canonical approval and signing response matched the signed-source Rust vectors'];
   const page = await browser.newPage(); page.on('pageerror', error => state.errors.push(error.message));
   await page.goto(`${origin}/tests/connect-harness.html`); await page.waitForFunction(() => !!window.connectHarness);
   const holdRegistration = async () => {
