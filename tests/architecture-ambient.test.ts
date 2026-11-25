@@ -253,7 +253,7 @@ test('ambient material retains custom hooks, uniforms and the spotlight guard wh
     assert.match(shader.fragmentShader, /clearcoatSpecularIndirect \*= enclosureVisibility/);
     assert.match(shader.fragmentShader, /sheenSpecularIndirect \*= enclosureVisibility/);
     assert.doesNotMatch(shader.fragmentShader, /reflectedLight\.direct(?:Diffuse|Specular) \*= enclosureVisibility/);
-    assert.match(material.customProgramCacheKey(), /source-paint-v2.*sora-architecture-ambient-v1.*sora-spotlight-early-out-v1/);
+    assert.match(material.customProgramCacheKey(), /source-paint-v2.*sora-architecture-ambient-v1.*sora-spotlight-early-out-v2/);
     assert.equal(f.material.onBeforeCompile, sourceHook); assert.equal(f.material.customProgramCacheKey(), sourceKey);
   });
 });

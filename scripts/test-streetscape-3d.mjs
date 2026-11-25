@@ -79,7 +79,7 @@ try{
   // Enter Tokyo once to begin its route-specific concrete/soil texture loads.
   draw(fixtures.find(fixture=>fixture.mode==='street'&&!fixture.part));
   const gl=world.renderer.getContext(),debug=gl.getExtension('WEBGL_debug_renderer_info');
-  const programs=world.renderer.info.programs??[],guarded=programs.filter(program=>program.cacheKey.includes('sora-spotlight-early-out-v1'));
+  const programs=world.renderer.info.programs??[],guarded=programs.filter(program=>program.cacheKey.includes('sora-spotlight-early-out-v2'));
   const spotlightPrograms={total:programs.length,guarded:guarded.length,guardedWithCompiledSource:guarded.filter(program=>(gl.getShaderSource(program.fragmentShader)??'').includes('if ( directLight.visible ) { RE_Direct(')).length};
   return {assets:{...canvas.dataset},lighting:world.scene.environment.name,gpu:debug?gl.getParameter(debug.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER),spotlightPrograms,fixtures:fixtures.map(({state,...f})=>({...f,tick:state.tick})),nativeRuns};
  });

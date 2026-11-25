@@ -883,10 +883,16 @@ export class RaceWorld {
     // The existing 1.72 m twin tubes are visible geometry. Their small,
     // road-facing radiance can form shaped reflections in car clearcoat using
     // Three's LTC area-light BRDF, without a texture or another scene render.
+    // Only the classic city's shopfronts light them: the period city's fixtures
+    // are never merchandise bays, so there they stay dark for the whole race.
+    // A dark area light still compiles its LTC integrals into every lit
+    // material, which cost nearly a fifth of a 1080p frame's GPU time, so the
+    // period city's scene leaves the two tubes out.
     for (let i = 0; i < 2; i++) {
       const light = new THREE.RectAreaLight('#ffd29a', 0, 1.72, 0.14);
       light.name = `SORA shop fluorescent area light ${i + 1}`;
-      this.shopAreaLights.push(light); this.scene.add(light);
+      this.shopAreaLights.push(light);
+      if (this.classicCity) this.scene.add(light);
     }
     for (let i = 0; i < 2; i++) {
       const light = new THREE.SpotLight('#ffedc3', 18, 32, 0.35, 0.7, 2);

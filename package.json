@@ -65,6 +65,7 @@
     "@iroha/iroha-js": "file:../iroha-sora-cars-native/javascript/iroha_js",
     "@noble/curves": "^1.9.7",
     "@noble/hashes": "^1.8.0",
+    "meshoptimizer": "^1.0.1",
     "qrcode": "^1.5.4",
     "three": "^0.186.0"
   },
