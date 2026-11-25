@@ -73,9 +73,10 @@ test('each draw selects its level and restores the full draw range afterwards', 
   mesh.position.set(0, 0, -300); mesh.updateMatrixWorld(true); camera.updateMatrixWorld(true);
   const renderer = { getRenderTarget: () => ({ height: 940 }), getDrawingBufferSize: (v: THREE.Vector2) => v.set(1920, 1080) } as unknown as THREE.WebGLRenderer;
   const scene = new THREE.Scene(), material = mesh.material as THREE.Material;
-  mesh.onBeforeRender(renderer, scene, camera, geometry, material, null);
+  const group = new THREE.Group();
+  mesh.onBeforeRender(renderer, scene, camera, geometry, material, group);
   assert.deepEqual({ ...geometry.drawRange }, { start: levels.at(-1)!.start, count: levels.at(-1)!.count });
-  mesh.onAfterRender(renderer, scene, camera, geometry, material, null);
+  mesh.onAfterRender(renderer, scene, camera, geometry, material, group);
   assert.deepEqual({ ...geometry.drawRange }, { start: 0, count: levels[0]!.count });
   assert.deepEqual([earlier, later], [1, 1]);
 });
