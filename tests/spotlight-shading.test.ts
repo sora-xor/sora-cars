@@ -5,6 +5,8 @@ import { installSpotlightEarlyOut } from '../src/game/three/spotlight-shading';
 
 const directCall = 'RE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
 const guard = `if ( directLight.visible ) { ${directCall} }`;
+const rectAreaCall = 'RE_Direct_RectArea( rectAreaLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+const rectAreaGuard = `if ( rectAreaLight.color != vec3( 0.0 ) ) { ${rectAreaCall} }`;
 
 function fixture() {
   const calls: unknown[][] = [];
@@ -23,7 +25,7 @@ function fixture() {
   return { renderer, submit, shader };
 }
 
-test('spotlight guard preserves the entire Three light chunk except the one BRDF call', () => {
+test('light guards preserve the entire Three light chunk except the spot BRDF and rect area calls', () => {
   const f = fixture(), material = new THREE.MeshPhysicalMaterial({ clearcoat: 1, sheen: 1 });
   const original = THREE.ShaderChunk.lights_fragment_begin;
   installSpotlightEarlyOut(f.renderer);
@@ -31,11 +33,15 @@ test('spotlight guard preserves the entire Three light chunk except the one BRDF
   const shader = f.shader();
   material.onBeforeCompile(shader, f.renderer);
   assert.equal(shader.fragmentShader.split(guard).length, 2);
-  assert.equal(shader.fragmentShader.replace(guard, directCall), original);
-  const start = original.indexOf('#if ( NUM_SPOT_LIGHTS > 0 )');
-  const end = original.indexOf('#pragma unroll_loop_end', start);
-  assert.ok(shader.fragmentShader.indexOf(guard) > start);
-  assert.ok(shader.fragmentShader.indexOf(guard) < end + guard.length);
+  assert.equal(shader.fragmentShader.split(rectAreaGuard).length, 2);
+  assert.equal(shader.fragmentShader.replace(guard, directCall).replace(rectAreaGuard, rectAreaCall), original);
+  // Each guard sits inside its own light loop.
+  for (const [marker, guarded] of [['#if ( NUM_SPOT_LIGHTS > 0 )', guard], ['#if ( NUM_RECT_AREA_LIGHTS > 0 )', rectAreaGuard]] as const) {
+    const start = shader.fragmentShader.indexOf(marker);
+    const end = shader.fragmentShader.indexOf('#pragma unroll_loop_end', start);
+    const at = shader.fragmentShader.indexOf(guarded);
+    assert.ok(start >= 0 && at > start && at < end, marker);
+  }
   assert.equal(THREE.ShaderChunk.lights_fragment_begin, original);
 });
 
@@ -58,7 +64,7 @@ test('late materials preserve their existing hooks and keys, decorate once, and 
   f.submit(material);
   assert.equal(material.version, version);
   assert.equal(material.onBeforeCompile, compile);
-  assert.equal(material.customProgramCacheKey(), 'existing-material-variant:sora-spotlight-early-out-v1');
+  assert.equal(material.customProgramCacheKey(), 'existing-material-variant:sora-spotlight-early-out-v2');
   const shader = f.shader();
   material.onBeforeCompile(shader, f.renderer);
   assert.equal(compiled, 1);
@@ -91,15 +97,15 @@ test('distinct original default hooks retain distinct keys and custom keys remai
   assert.notEqual(keys[0], keys[1]);
   installSpotlightEarlyOut(f.renderer);
   f.submit(first); f.submit(second);
-  assert.equal(first.customProgramCacheKey(), `${keys[0]}:sora-spotlight-early-out-v1`);
-  assert.equal(second.customProgramCacheKey(), `${keys[1]}:sora-spotlight-early-out-v1`);
+  assert.equal(first.customProgramCacheKey(), `${keys[0]}:sora-spotlight-early-out-v2`);
+  assert.equal(second.customProgramCacheKey(), `${keys[1]}:sora-spotlight-early-out-v2`);
   assert.notEqual(first.customProgramCacheKey(), second.customProgramCacheKey());
 
   const dynamic = new THREE.MeshStandardMaterial();
   dynamic.userData.shaderVariant = 'dry';
   dynamic.customProgramCacheKey = function () { return `wet-road:${this.userData.shaderVariant}`; };
   f.submit(dynamic);
-  assert.equal(dynamic.customProgramCacheKey(), 'wet-road:dry:sora-spotlight-early-out-v1');
+  assert.equal(dynamic.customProgramCacheKey(), 'wet-road:dry:sora-spotlight-early-out-v2');
   dynamic.userData.shaderVariant = 'wet';
-  assert.equal(dynamic.customProgramCacheKey(), 'wet-road:wet:sora-spotlight-early-out-v1');
+  assert.equal(dynamic.customProgramCacheKey(), 'wet-road:wet:sora-spotlight-early-out-v2');
 });

@@ -3,21 +3,36 @@ import * as THREE from 'three';
 const installed = new WeakSet<THREE.WebGLRenderer>();
 const decorators = new WeakMap<THREE.WebGLRenderer, (material: THREE.Material) => void>();
 const directCall = 'RE_Direct( directLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+const rectAreaCall = 'RE_Direct_RectArea( rectAreaLight, geometryPosition, geometryNormal, geometryViewDir, geometryClearcoatNormal, material, reflectedLight );';
+/** Program cache suffix of the guarded light chunk. */
+export const LIGHT_EARLY_OUT_KEY = 'sora-spotlight-early-out-v2';
+
+/** Guard the one call inside the loop that starts at `marker`; null if the layout no longer matches. */
+function guardLoop(source: string, marker: string, call: string, condition: string): string | null {
+  const start = source.indexOf(marker);
+  const end = source.indexOf('#pragma unroll_loop_end', start);
+  if (start < 0 || end < 0) return null;
+  const loop = source.slice(start, end);
+  if (loop.split(call).length !== 2) return null;
+  return source.slice(0, start) + loop.replace(call, `if ( ${condition} ) { ${call} }`) + source.slice(end);
+}
 
 /** Skip the physical BRDF only when Three has already found exactly zero spot
  * illumination. The light's attenuation, cookies and shadows stay unchanged.
  * This saves the many out-of-range street/shop/headlight fragment evaluations.
+ *
+ * Rect area lights get the same exact skip while their colour is zero: their
+ * LTC integrals (two or three per light) ran for every lit fragment even with
+ * the shop tubes dark, which they always are beside the period city's fixtures.
+ * The condition is one uniform for the whole draw, so no fragments diverge.
  */
 export function installSpotlightEarlyOut(renderer: THREE.WebGLRenderer): void {
   if (installed.has(renderer)) return;
   const source = THREE.ShaderChunk.lights_fragment_begin;
-  const start = source.indexOf('#if ( NUM_SPOT_LIGHTS > 0 )');
-  const end = source.indexOf('#pragma unroll_loop_end', start);
-  const spots = source.slice(start, end);
   // Retain Three's default shading if a future shader layout no longer matches.
-  if (start < 0 || end < 0 || spots.split(directCall).length !== 2) return;
-  const guarded = source.slice(0, start) + spots.replace(directCall,
-    `if ( directLight.visible ) { ${directCall} }`) + source.slice(end);
+  const spots = guardLoop(source, '#if ( NUM_SPOT_LIGHTS > 0 )', directCall, 'directLight.visible');
+  if (spots === null) return;
+  const guarded = guardLoop(spots, '#if ( NUM_RECT_AREA_LIGHTS > 0 )', rectAreaCall, 'rectAreaLight.color != vec3( 0.0 )') ?? spots;
   installed.add(renderer);
 
   const materials = new WeakSet<THREE.Material>();
@@ -35,7 +50,7 @@ export function installSpotlightEarlyOut(renderer: THREE.WebGLRenderer): void {
       }
     };
     material.customProgramCacheKey = function () {
-      return `${defaultKey ?? key.call(this)}:sora-spotlight-early-out-v1`;
+      return `${defaultKey ?? key.call(this)}:${LIGHT_EARLY_OUT_KEY}`;
     };
     material.needsUpdate = true;
   };
