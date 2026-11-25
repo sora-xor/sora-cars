@@ -20,6 +20,15 @@ import { seeded } from './layout';
  * all its plants in two batched draws, wood and foliage, each plant tinted (a maple crimson, orange or gold).
  */
 export const FLORA_KIND = { maple: 0, cedar: 1, susuki: 2, willow: 3, pine: 4, grass: 5, bush: 6, sward: 7 } as const;
+
+/**
+ * Round nineteen: the share of the spot lights (the street lamps' pools, shop lights, headlights) that plants other than
+ * the maples take (susuki, grass, bushes, conifers; 1 as before). Under a 480 cd lamp pool 6 m up, a tawny susuki plume
+ * or a golden bank reached the crowns' highlight cap and drew as a cream-white clump brighter than the lamp heads at
+ * Iimoriyama's and Akechidaira's dusk (Codex's review), where the repaints keep the roadside plants dark and warm. The
+ * maples keep their lamp light: the repaints light the leaves round each lamp.
+ */
+export const floraPlantSpot = { value: .35 };
 /** Floats per plant in CityMeshBuilder.flora: kind, x, y, z (chunk frame), yaw, scale, leaf tint r, g, b, seed. */
 export const FLORA_STRIDE = 10;
 const VARIANTS = [5, 3, 2, 2, 3, 2, 3, 3] as const;
@@ -516,18 +525,29 @@ function floraMaterials() {
     shader.uniforms.soraCrownLight = crownLight; shader.uniforms.soraLeafGrowth = floraLeafGrowth;
     // Dusk on the maples, card by card (round eighteen: autumn-foliage.ts crownDuskGlsl).
     shader.uniforms.soraCrownDusk = crownDusk;
+    shader.uniforms.soraPlantSpot = floraPlantSpot;
     // A maple's leaf cards drawn larger with distance (round thirteen), as the roadside maples' leaves.
     shader.vertexShader = shader.vertexShader
       .replace('void main() {', 'attribute vec4 leafCentre;\nuniform vec3 soraLeafGrowth;\nvarying float vSoraLeaf;\nvoid main() {')
       .replace('#include <begin_vertex>', `#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}\n${LEAF_HASH_GLSL}`);
     shader.fragmentShader = shader.fragmentShader
-      .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;\nuniform vec4 soraCrownDusk;\nvarying float vSoraLeaf;')
+      .replace('#include <common>', '#include <common>\nuniform vec3 soraCrownLight;\nuniform vec4 soraCrownDusk;\nuniform float soraPlantSpot;\nvarying float vSoraLeaf;')
+      // Round nineteen: the plants' share of the spot lights, through the spot light lookup (a macro round the lights
+      // include, which stays in place for the spot light early-out, spotlight-shading.ts).
+      .replace('#include <lights_pars_begin>', `#include <lights_pars_begin>
+#if NUM_SPOT_LIGHTS > 0
+void soraPlantSpotInfo( const in SpotLight spot, const in vec3 position, out IncidentLight incident ) {
+  getSpotLightInfo( spot, position, incident );
+  if ( vSoraLeaf < 0. ) incident.color *= soraPlantSpot;
+}
+#endif`)
+      .replace('#include <lights_fragment_begin>', '#define getSpotLightInfo( a, b, c ) soraPlantSpotInfo( a, b, c )\n#include <lights_fragment_begin>\n#undef getSpotLightInfo')
       .replace('#include <normal_fragment_begin>', THREE.ShaderChunk.normal_fragment_begin.replace('normal *= faceDirection;', ''))
       .replace('#include <opaque_fragment>', `${crownLightGlsl('1.')}
 ${crownDuskGlsl('soraCrownDusk.x', 'soraCrownDusk', 'vSoraLeaf')}
 #include <opaque_fragment>`);
   };
-  foliage.customProgramCacheKey = () => 'period-flora-leaves-v6';
+  foliage.customProgramCacheKey = () => 'period-flora-leaves-v7';
   const depth = withCanopyGaps(new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, map, alphaTest: .5 }));
   return materials = { wood, foliage, depth };
 }

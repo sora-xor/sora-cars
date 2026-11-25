@@ -1929,3 +1929,47 @@ A review of the retained matched sheets, made while closing the remaining work, 
 Tests: `tests/finish-pass-lights.test.ts`.
 - Far land: the dusk haze, relief and snow by hour, with their A/B switch; every grid vertex's fall line runs downhill round the highest summit; Nara's and Aizu's land is unchanged.
 - Crowns: the warm-crown window; the dusk light's defaults, valley gate and maple-only hash; the lamp glow kept out of the relight.
+
+## Finish pass, nineteenth round — November 24, 2026 (with Codex: wet streaks, a fuller sky, lamp-lit plants, ad balloons)
+
+The user: "keep going and improve the graphics, work with codex astra6.2 ultra". Codex (`gpt-6.2-astra`, ultra reasoning) reviewed twenty NOW | TARGET pairs from a fresh survey (`output/finish-20261124/survey/`, `pairs/`) and ranked six gaps; its critique is `output/finish-20261124/codex-critique.md`. Claude built items 1 and 2 and two of its flags, Codex wrote one sky attempt in a worktree of its own, and every change was judged on before | after | target sheets, each pair two variants of one capture run; the final sheets, every option of the round off and on across all twenty scenes, are `output/finish-20261124/final2/sheet-*.png`. Codex's ranking, for the record:
+1. wet streets broken into vertical gold bands with black troughs;
+2. the sky repeating in horizontal shelves;
+3. building flanks without the scale of occupied floors (grouped bays, sills, casings);
+4. maple crowns packed solid, hiding the branches that give them depth;
+5. sunrise lighting the sky better than the ground (no broad warm patches between shadows on dry asphalt);
+6. the cars' tail lamps dimmer inside the lens than the streaks they cast.
+Flags: plants that read as lamps (Iimoriyama, Akechidaira), Hakone's ad balloon reading as a second moon, Iimoriyama's parked car, the roof roundels' night self-emission.
+
+**Wet road** (`surfaces.ts`: `wetWaveStreak` 5 to 3.5, `wetStreakVariety` .5 to .2; `wetTroughMirror` added, left at 0; sheets `ab-wet*/`, the decisive one `ab-wet4/`).
+- Codex's diagnosis (confirmed in the code): the composite searches up to 200 rows for the brightest reflection, and at `wetColumnFade` 3.5 a column keeps 91% of its source halfway down. Every lit window or shop interior above 0.15-0.4 stretched nearly undimmed to the frame's foot, and an unlit stone inside a column kept only the trough share (0.03): broad gold bars beside black holes.
+- Its plan had three controls: higher column thresholds and a stronger fade for the road and pavements (not water), a trough mirror (an unlit stone body inside a column keeping a capped, navy share of the cell's own dy 0 reflection), and Claude added thinner streaks. All three together went into the first final capture; Codex's review of it called Tokyo's office street, Tokyo dusk and Aizu's castle moat worse, four scenes the same, Horikawa better, and asked for the controls one at a time.
+- One capture run, each control alone, six scenes (`ab-wet4/`):
+  - **Spacing** (3.5 cells, slow octave .2): many thin streaks. Kanda, Shijō, Aizu, Horikawa and Tokyo dusk came closer to their repaints, which all carry many thin streaks; Tokyo's office street spread more gold over its road. Kept.
+  - **Thresholds** (road .25 / .7, fade 2; Codex's first .5 / 1.4 / 1.2 the same way, harder): darkened Tokyo's office street and moat toward their repaints, but stripped the dusk roads (Shijō, Aizu, Horikawa, Tokyo dusk) of gold their repaints carry, and thinned Kanda's. Dropped: the two darker Tokyo repaints are the exception, and nothing in the hour or the street tells them from Kanda's.
+  - **Trough mirror** (.3): hard to see at race size, and the most road flicker of the three (below). Left in the code at 0, after Codex's review fixed two faults in it: it also fired wherever the stones' own mirror share was 0 (`wetStoneMirror` 0), and any positive share re-toned the existing gold trough navy even with a black local sample.
+- Road flicker at 25 m/s (A-B-A share of road pixels; old, spacing, thresholds, trough, all three): Tokyo's office street 4.45 / 4.55 / 4.63 / 4.64 / 4.83; Horikawa 1.74 / 1.90 / 1.84 / 2.14 / 2.23; Aizu's castle 2.58 / 2.56 / 2.41 / 2.56 / 2.41; Shijō 3.02 / 3.03 / 3.22 / 3.23 / 3.27; Tokyo dusk 2.38 / 2.39 / 2.09 / 2.40 / 2.10; Kanda 3.64 / 3.53 / 3.62 / 3.74 / 3.67.
+- The streak spacing is shared with open water's ripple streaks (`waveDash.z`), which thin with it.
+- Tried and dropped earlier in the round: `wetReflectionWarmth` 0 and `wetStoneRamp` 0 (source hues kept: little visible change); duty .6 with one octave at 5 cells (denser gold bars).
+
+**The sky** (`painted-sky.ts` `skyRacePopcornFill` .7, `racePopcornFill` on the sky handle; sheets `ab-sky/`, `ab-sky2/`).
+- Codex's bank breakup (`skyRaceBankBreakup`, a seam-periodic field displacing and thinning whole strata; written and checked headlessly in its own worktree, 0 pixel-identical) was applied and captured at .65 and 1. It did break the bands, but it thinned the clouds, and every target has *more* cloud than ours. Not kept.
+- Full-size crops showed the real gap: the repaints pack the sky with small cloudlets to the top of the frame. Ours left long open gaps between a few large strata blobs, and above about 21 degrees (where the popcorn stopped) a smooth sheet, Nikkō's "smooth pink ceiling".
+- The fill lowers the popcorn's cluster gate (.35-.6 of the cluster field at 0, .16-.41 at .7), keeps more lobes per cluster (.9 to .95) and lifts the popcorn's ceiling from .36 rad to about .47, the top of the race frame. Lobes thin out over the last .06 rad below that ceiling, so it never cuts one in a straight line (Codex's review: at the cut the height envelope was still at 83%). 0 is the earlier sky exactly.
+- Pixels changed, fill .7 against 0 in one run: Shijō 8.8%, Tokyo sunrise 8.1%, Tokyo dusk 7.3%, Hakone night 7.1% (faint dark lobes, invisible at a glance).
+- Still open: our lobes are larger and blobbier than the repaints' cloudlets, and Aizu's repaint glows orange-red under the deck toward the low sun. Codex's second attempt (cloudlet scale) was cut off by a usage limit before it changed the shader.
+
+**Lamp-lit plants** (`period-city/flora.ts` `floraPlantSpot` .35; sheets `probe-plants/`, `ab-plants/`).
+- Isolated by switching light groups off in one run: the street lamps' spot pools (480 cd, 6 m up) lit the tawny susuki and the golden banks to the crowns' highlight cap, a cream-white clump brighter than the lamp heads. Headlights and shop lights made no difference.
+- Plants other than the maples (cards with `leafCentre.w` 1: susuki, grass, bushes, conifers) take .35 of every spot light. The maples keep theirs: the repaints light the leaves round each lamp.
+- Done through the spot light lookup: a macro round `#include <lights_fragment_begin>` routes `getSpotLightInfo` through `soraPlantSpotInfo`, so the include line stays in place for `spotlight-shading.ts`'s early-out.
+- Pixels changed: Iimoriyama 3.3%, Akechidaira 1.7%, Irohazaka's maples 0, Nara Park by day 0.03%. Shares .2 and .55 compared in the same run: .55 left Iimoriyama's bush glowing yellow, .2 sank the lamp-side banks nearly to silhouettes.
+
+**Ad balloons** (`period-city/sky.ts` `BALLOON_RADIUS` 2, `BALLOON_CROWN_GLOW` .05, `BALLOON_UNDER_GLOW` .6).
+- At night a 6 m white globe, glowing evenly all over, hung over Hakone like a second moon. Now 4 m (real ones were about 2.5 m), lit from the roof floodlights below: the belly at .6 of the old even glow, the crown nearly dark. Geometry, so no in-run A/B: compare the survey frame with the final one.
+
+**Seen, not changed.** Tokyo dusk's glowing white block is the Akasaka Prince (1982) in the far skyline (`skyline.ts`): five overlapping folds, each lit at 55% with floor-high bands of cool white at twice white, read as one mottled white cube with a halo. The Hotel New Otani's blue-lit sky lounge beside it is right for 1986.
+
+**Codex's final review** (`output/finish-20261124/codex-review.md`; it reran the focused tests and `tsc`): keep the plants at .35, the balloon and the sky fill; retune the road (above). Code fixes taken from it: the trough mirror's predicate and toning (above), the sky ceiling's taper, and the balloon's world-space normal through `transformNormalByInverseViewMatrix` (`inverseTransformDirection` is deprecated in three r185+). Its next two gaps: short crosswise breaks inside the near shop reflections with distant lamp gold carried toward the camera (isolate the shop emitters with `shopSlotLimit` 0 first), and smaller warm cloud clusters over larger violet bodies with the low sun's orange-red under the deck.
+
+Tests: `tests/finish-pass-r19.test.ts` (the streak spacing and the unchanged column thresholds, the trough mirror's predicate, cap and toning, the balloon's size and floodlit glow, the plants' spot share and its macro, the popcorn fill, its taper and its 0 path); `tests/finish-pass-lights.test.ts` (the flora material's cache key); the uniform budget test in `tests/pixel-art-surfaces.test.ts`.

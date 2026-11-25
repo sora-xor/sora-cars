@@ -326,7 +326,7 @@ test('maple leaves grow about their stalks with distance, in both crown systems,
   assert.ok(scenery.includes("geometry.setAttribute('leafCentre', new THREE.Float32BufferAttribute(Array.from({ length: leafVertices },")
     && scenery.includes('() => [position.x, position.y, position.z, maple ? 0 : 1]).flat(), 4));'));
   assert.ok(world.includes("shader.uniforms.soraLeafGrowth = roadsideLeafGrowth;") && world.includes("`#include <begin_vertex>${leafGrowthGlsl('soraLeafGrowth')}\\n${LEAF_HASH_GLSL}`"));
-  assert.ok(flora.includes("shader.uniforms.soraLeafGrowth = floraLeafGrowth;") && flora.includes("'period-flora-leaves-v6'"));
+  assert.ok(flora.includes("shader.uniforms.soraLeafGrowth = floraLeafGrowth;") && flora.includes("'period-flora-leaves-v7'"));
   // Shadows keep the leaves' true size: the depth materials never take the growth.
   assert.ok(!flora.slice(flora.indexOf('const depth = withCanopyGaps('), flora.indexOf('return materials = {')).includes('leafGrowth'));
 });

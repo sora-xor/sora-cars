@@ -18,6 +18,8 @@ const PLACE = 460;
  * far either side: in the narrow sky between the street's buildings, high in the frame.
  */
 const LEAD = 340, ALTITUDE = 92, WANDER = 32;
+/** An ad balloon's radius (m), and its night glow on the crown and the underside (x the balloon's emissive strength). */
+export const BALLOON_RADIUS = 2, BALLOON_CROWN_GLOW = .05, BALLOON_UNDER_GLOW = .6;
 const BALLOON_DISTRICTS: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'office', 'residential', 'harbour', 'onsen']);
 const SEARCHLIGHT_DISTRICTS: ReadonlySet<PeriodDistrict> = new Set(['kanda', 'harbour', 'onsen']);
 
@@ -133,16 +135,22 @@ export class PeriodSky {
       return { anchor: roof(lot), height: 38 + random() * 12, phase: random() * 100, yaw: lot.yaw };
     });
     const count = Math.max(1, this.balloons.length);
-    // A little larger than life (real ones were about 2.5 m), so balloon and banner read from far down the road.
-    const ball = new THREE.SphereGeometry(3, 16, 12), rope = new THREE.CylinderGeometry(.05, .05, 1, 4), cloth = new THREE.PlaneGeometry(1, 1, 1, 8);
+    // A little larger than life (real ones were about 2.5 m), so balloon and banner read from far down the road. Round
+    // nineteen: 4 m across, was 6 m; at night the 6 m white globe, glowing evenly, read as a second moon over Hakone.
+    const ball = new THREE.SphereGeometry(BALLOON_RADIUS, 16, 12), rope = new THREE.CylinderGeometry(.05, .05, 1, 4), cloth = new THREE.PlaneGeometry(1, 1, 1, 8);
     rope.translate(0, .5, 0); cloth.translate(0, -.5, 0);
     this.geometries.push(ball, rope, cloth);
     const skin = new THREE.MeshStandardMaterial({ roughness: .35, metalness: 0, emissive: '#ffffff', emissiveIntensity: 0 });
-    // The glow follows each balloon's own colour.
+    // The glow follows each balloon's own colour, and comes from the floodlights on the roof below (round nineteen): the
+    // underside lit, the crown dark against the night sky, rather than a globe lit evenly all over like the moon.
     skin.onBeforeCompile = shader => {
-      shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance = diffuseColor.rgb * emissive.r;');
+      shader.fragmentShader = shader.fragmentShader.replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
+      {
+        float below = -transformNormalByInverseViewMatrix(normal, viewMatrix).y;
+        totalEmissiveRadiance = diffuseColor.rgb * emissive.r * mix(${BALLOON_CROWN_GLOW.toFixed(2)}, ${BALLOON_UNDER_GLOW.toFixed(2)}, smoothstep(-.3, .85, below));
+      }`);
     };
-    skin.customProgramCacheKey = () => 'period-sky-balloons-v1';
+    skin.customProgramCacheKey = () => 'period-sky-balloons-v2';
     const line = new THREE.MeshBasicMaterial({ color: '#2a2a2e' });
     const atlas = browser ? neonAtlasTexture(emblemUrl).texture : new THREE.Texture();
     const banner = new THREE.MeshStandardMaterial({ map: atlas, side: THREE.DoubleSide, roughness: .9, emissive: '#ffffff', emissiveIntensity: 0 });
@@ -244,7 +252,7 @@ export class PeriodSky {
       const top = this.position.set(balloon.anchor.x + sway(0) * 1.6, balloon.anchor.y + balloon.height + sway(1) * .5, balloon.anchor.z + sway(2) * 1.6);
       this.spheres.setMatrixAt(i, this.matrix.compose(top, this.rotation.identity(), this.scale.set(1, 1.08, 1)));
       // The tether from the roof to the balloon's foot.
-      const foot = top.clone().setY(top.y - 3), rope = foot.clone().sub(balloon.anchor), length = rope.length();
+      const foot = top.clone().setY(top.y - BALLOON_RADIUS * 1.08), rope = foot.clone().sub(balloon.anchor), length = rope.length();
       this.rotation.setFromUnitVectors(this.up, rope.normalize());
       this.tethers.setMatrixAt(i, this.matrix.compose(balloon.anchor, this.rotation, this.scale.set(1, length, 1)));
       // The banner hangs along the rope below the balloon, facing the street.

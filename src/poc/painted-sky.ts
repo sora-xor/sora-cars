@@ -142,6 +142,11 @@ export function createPaintedSky() {
   // A late-day route's sunlit afternoon, 0-1 (setRacingSky): the low sun's warm cloud bodies and thinner dark banks
   // (raceStyle y, w) belong to it, not to the afterglow after sunset (finish pass, November 12).
   const raceAfternoon = { value: 0 };
+  // Round nineteen: how far the popcorn fills the sky, 0 (as before: about half the sky in clusters, none above about 21
+  // degrees) .. 1. Every repaint packs its sky with small cloudlets to the top of the frame, where ours left long open
+  // gaps between a few large strata blobs and a smooth ceiling above them (Codex's review; its bank breakup only thinned
+  // the clouds further and was not kept).
+  const racePopcornFill = { value: .7 };
   let ridgeColour = '';
   let evaluatedDaylight = NaN, evaluatedNight = '', evaluatedStars = NaN;
   // Tokyo's daylight changes every frame: allocation-free.
@@ -205,6 +210,7 @@ export function createPaintedSky() {
       skyRaceCity: raceCity, skyRaceSkyline: raceSkyline, skyRaceGolden: raceGolden,
       skyRaceDawn: raceDawn, skyRaceDawnToward: raceDawnToward, skyRaceRidge: raceRidge, skyRaceGoldenAway: raceGoldenAway,
       skyRaceStyle: raceStyle, skyRaceGlow: raceGlow, skyRaceAfternoon: raceAfternoon,
+      skyRacePopcornFill: racePopcornFill,
     },
     vertexShader: /* glsl */`
       void main() {
@@ -239,6 +245,7 @@ export function createPaintedSky() {
       uniform vec4 skyRaceStyle; // the clouds' painted style (finish pass): x per-cluster tone, y warm bodies, z dark shade, w thin strata in the low sun
       uniform float skyRaceGlow; // the glow low over the horizon in the golden hours (finish pass): 1 on, 0 off
       uniform float skyRaceAfternoon; // a late-day route's sunlit afternoon, not its afterglow (finish pass)
+      uniform float skyRacePopcornFill; // round nineteen: 0 as before .. 1 popcorn clusters over most of the sky, to the frame's top
       const float PI = 3.14159265359;
 
       const vec3 SUN_DISC = vec3(.996, .949, .773), SUN_HALO = vec3(.988, .722, .467), SUN_HALO_OUTER = vec3(.961, .592, .420);
@@ -508,7 +515,11 @@ ${gradient}
           float group = lattice(vec2(id.x / 8., id.y / 3.) + 5.3, 64.);
           float lift = (id.y + .5) / 180.;
           float band = smoothstep(.012, .04, lift) * (1. - smoothstep(.42, .62, lift));
-          float keep = band * smoothstep(.35, .6, group) * .9;
+          // Round nineteen: the fill lowers the cluster gate (more of the sky in clusters) and keeps more lobes in each.
+          float fill = clamp(skyRacePopcornFill, 0., 1.);
+          float keep = band * smoothstep(.35 - .27 * fill, .6 - .27 * fill, group) * mix(.9, .97, fill);
+          // Lobes thin out before the fill's ceiling (racePopcorn), so none is cut by it in a straight line (Codex's review).
+          if (fill > 0.) keep *= 1. - smoothstep(mix(.36, .52, fill) - .07, mix(.36, .52, fill) - .012, lift);
           if (sparse > 0.) {
             // Sunrise (R3; sunrise-wide): the low sky is smooth strata (no
             // popcorn under ~4 degrees), the halo's strata keep the sky
@@ -537,7 +548,8 @@ ${gradient}
       }
       vec3 racePopcorn(vec3 sky, vec2 angular, float cellAngle, float sunward, float nearSun) {
         float amount = smoothstep(.3, .8, skyRaceCloud.x);
-        if (amount <= 0. || angular.y < .008 || angular.y > .36) return sky;
+        // Round nineteen: with the fill, up to about 30 degrees, the top of the race frame (the band fades out above .42).
+        if (amount <= 0. || angular.y < .008 || angular.y > mix(.36, .52, clamp(skyRacePopcornFill, 0., 1.))) return sky;
         float lobeHash, cluster;
         float field = popcornField(angular, lobeHash, cluster);
         if (field <= 0.) return sky;
@@ -1035,6 +1047,8 @@ ${strata}
     raceStyle,
     /** Inspection (A/B captures): the golden hours' glow low over the horizon; 0 restores the plain band. */
     raceGlow,
+    /** Inspection (A/B captures): round nineteen's popcorn fill; 0 restores the earlier sky. */
+    racePopcornFill,
     setEnabled(enabled: boolean) { mesh.visible = enabled; },
     /**
      * Draw after the opaque scene with a depth test at the far plane, so only
