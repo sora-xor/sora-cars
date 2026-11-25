@@ -1,15 +1,19 @@
 // Calibration probe for live RaceV1 races on the real roads (docs/live-races-real-roads.md, "Calibration still to do:
-// rain and oil"). Measurement only: it runs the bundled native kernels unchanged and only swaps the weather schedule
-// (and, for the steering probe, the bend table) that the kernel runtime reads each tick.
-// Run: npx tsx scripts/race-weather-check.ts [out-dir]   (default output/race-weather-check)
+// rain and oil"). By default the probe uses the published kernels. --dry-damping tests an offline alternative.
+// Run: npx tsx scripts/race-weather-check.ts [out-dir] [--dry-damping]
 import { mkdirSync, writeFileSync } from 'node:fs';
 import generated from '../src/game/generated/race-v1-kernels.json';
-import { botControl, copyRace, createRace, raceFinished, speedForBendsAhead, stepRace, type RaceState } from '../src/game/engine';
-import { environmentContacts } from '../src/game/environment';
+import { botControl, copyRace, createRace, raceFinished, speedForBendsAhead, stepRace as stepNativeRace, type RaceState } from '../src/game/engine';
+import { stepTunedRace, STOCK_TUNE } from '../src/game/tuned-engine';
+import { environmentAt, environmentContacts } from '../src/game/environment';
 import { HELD_WHEEL_PUSH, bendForce } from '../src/game/race-roads';
 import { CONTROL as C, RULES, TRACKS } from '../src/game/rules';
 
-const out = process.argv[2] ?? 'output/race-weather-check';
+const args = process.argv.slice(2);
+const dryDamping = args.includes('--dry-damping');
+const paths = args.filter(arg => arg !== '--dry-damping');
+if (paths.length > 1 || paths.some(path => path.startsWith('--'))) throw new Error('Usage: race-weather-check.ts [out-dir] [--dry-damping]');
+const out = paths[0] ?? (dryDamping ? 'output/race-weather-dry-damping' : 'output/race-weather-check');
 mkdirSync(out, { recursive: true });
 type Env = (typeof generated.environment)[number] & { road: number[] };
 const envs = generated.environment as Env[];
@@ -26,6 +30,19 @@ const rainingAt = (trackId: number, tick: number): boolean => {
   const e = envs[trackId]!; return e.rain_pattern[Math.floor(tick / e.rain_ticks) % e.rain_pattern.length] === 1;
 };
 const RAIL = 6520;
+const rainTune = { ...STOCK_TUNE, wetDamping: STOCK_TUNE.dryDamping };
+const oilPatches = TRACKS.map(track => environmentAt(track.id, 0).objects.filter(object => object.kind === 'oil'));
+function stepRace(state: RaceState, inputs: readonly number[]): void {
+  if (!dryDamping || !rainingAt(state.trackId, state.tick)) {
+    stepNativeRace(state, inputs);
+    return;
+  }
+  // Apply dry damping only to rain. The stock mirror keeps oil's 15/16 damping on an oil patch.
+  const tunes = state.cars.map(car => oilPatches[state.trackId]!.some(patch =>
+    Math.abs(car.progress - patch.progress) <= patch.halfLength && Math.abs(car.x - patch.x) <= patch.halfWidth,
+  ) ? STOCK_TUNE : rainTune);
+  stepTunedRace(state, inputs, tunes);
+}
 
 // ---- A. Steering authority: the steady lateral speed a held wheel (or drift) reaches, on a straight road. ----
 function authority(weather: Weather, extra: number, speedTarget: number): { plateau: number; peak: number; ticksTo90: number; contacts: number } {
@@ -149,7 +166,8 @@ setWeather('scheduled');
 
 const report = { generatedAt: new Date().toISOString(), rules: RULES, heldWheelPush: HELD_WHEEL_PUSH, authority: authorityRows, races: raceRows,
   notes: [
-    'Kernels are the bundled native RaceV1 kernels (src/game/generated/race-v1-kernels.json), unchanged.',
+    dryDamping ? 'Offline dry-damping candidate: wet ticks use the stock TypeScript mirror with 14/16 damping except on oil. No generated kernels change.'
+      : 'Kernels are the bundled native RaceV1 kernels (src/game/generated/race-v1-kernels.json), unchanged.',
     'Weather is forced by swapping the rain/wind schedule the kernel runtime reads; the steering probe also swaps the bend table for zeros (a straight road) and turns wind off.',
     'rain-aware bot = engine.ts botControl planning bends for the held-wheel push scaled by the measured rain/dry plateau ratio while it rains.',
     'rookie = the bot seeing the race 6 or 12 ticks late, planning bends at 75% of the held wheel, never drifting or boosting.',

@@ -10,6 +10,8 @@ import { runNativeProofProcess, NATIVE_PROCESS_LIMITS } from '../scripts/native-
 const generic = currentGameFixtures();
 const vector = (name: string) => generic.vectors.find((v: { name: string }) => v.name === name)!.value;
 const request = vector('RaceProverRequestV1');
+// I/O tests exercise real child startup and pipes. The timeout boundary is tested separately.
+const fixtureIoTimeoutMs = 30_000;
 async function privateDirectory<T>(callback: (directory: string) => Promise<T>): Promise<T> {
   const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'sora-worker-boundary-test-'));
   try { return await callback(directory); } finally { await fs.rm(directory, { recursive: true, force: true }); }
@@ -19,28 +21,68 @@ test('actual native subprocess waits for inherited stdout to close after its par
   await privateDirectory(async directory => {
     const lateWriter = "setTimeout(() => process.stdout.write(JSON.stringify({ drained: true })), 80)";
     const parent = `require('node:child_process').spawn(process.execPath, ['-e', ${JSON.stringify(lateWriter)}], { stdio: ['ignore', process.stdout, process.stderr] }); process.exit(0);`;
-    const output = await runNativeProofProcess(process.execPath, ['-e', parent], directory, 3000);
+    const output = await runNativeProofProcess(process.execPath, ['-e', parent], directory, fixtureIoTimeoutMs);
     assert.deepEqual(JSON.parse(output), { drained: true });
   });
 });
 
-for (const termBehavior of ['ignore', 'exit-zero'] as const) test(`actual subprocess timeout fails and reaps a child that will ${termBehavior}`, async () => {
+test('the process timeout is armed at launch before any child readiness signal', { timeout: 30_000 }, async t => {
   await privateDirectory(async directory => {
-    const program = `require('node:fs').writeFileSync('pid', String(process.pid)); process.on('SIGTERM', () => { ${termBehavior === 'exit-zero' ? 'process.exit(0);' : ''} }); setInterval(() => {}, 10);`;
-    const start = Date.now();
-    await assert.rejects(runNativeProofProcess(process.execPath, ['-e', program], directory, 1000, { terminateGraceMs: 50, reapGraceMs: 1000 }), { code: 'NATIVE_PROCESS_TIMEOUT' });
-    assert.ok(Date.now() - start < 4000, 'timeout and forced termination must be bounded');
-    const pid = Number(await fs.readFile(path.join(directory, 'pid'), 'utf8'));
-    assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' });
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    const operation = runNativeProofProcess(process.execPath, ['-e', 'setInterval(() => {}, 1000)'], directory, 1);
+    t.mock.timers.tick(1);
+    await assert.rejects(operation, { code: 'NATIVE_PROCESS_TIMEOUT' });
+  });
+});
+
+// The child creates the marker after installing its handler. Arm the watcher before
+// spawning/signalling so process startup and OS scheduling do not race the test clock.
+async function nextMarker(directory: string, pattern: RegExp): Promise<RegExpMatchArray> {
+  for await (const event of fs.watch(directory, { signal: AbortSignal.timeout(30_000) })) {
+    const match = event.filename?.match(pattern);
+    if (match) return match;
+  }
+  throw new Error('Child marker watcher closed unexpectedly.');
+}
+
+for (const termBehavior of ['ignore', 'exit-zero'] as const) test(`actual subprocess timeout fails and reaps a child that will ${termBehavior}`, { timeout: 90_000 }, async t => {
+  await privateDirectory(async directory => {
+    const program = `const { writeFileSync } = require('node:fs');
+      process.on('SIGTERM', () => { writeFileSync('handled', ''); ${termBehavior === 'exit-zero' ? 'process.exit(0);' : ''} });
+      writeFileSync('ready-' + process.pid, ''); setInterval(() => {}, 1000);`;
+    t.mock.timers.enable({ apis: ['setTimeout'] });
+    const ready = nextMarker(directory, /^ready-(\d+)$/);
+    const outcome = runNativeProofProcess(process.execPath, ['-e', program], directory, 1000, { terminateGraceMs: 50, reapGraceMs: 1000 })
+      .then(() => undefined, (error: NodeJS.ErrnoException) => error);
+    try {
+      const pid = Number((await ready)[1]);
+      t.mock.timers.tick(999);
+      assert.doesNotThrow(() => process.kill(pid, 0));
+      const handled = nextMarker(directory, /^handled$/);
+      t.mock.timers.tick(1);
+      await handled;
+      if (termBehavior === 'ignore') {
+        t.mock.timers.tick(49);
+        assert.doesNotThrow(() => process.kill(pid, 0), 'SIGKILL must wait for the termination grace');
+        t.mock.timers.tick(1);
+      }
+      assert.equal((await outcome)?.code, 'NATIVE_PROCESS_TIMEOUT');
+      assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' });
+    } finally {
+      // Even if the fixture fails before readiness, terminate the detached child.
+      t.mock.timers.tick(1000);
+      t.mock.timers.tick(50);
+      t.mock.timers.tick(1000);
+    }
   });
 });
 
 test('actual child output limits terminate the process, and process overrides can only tighten bounds', async () => {
   await privateDirectory(async directory => {
-    await assert.rejects(runNativeProofProcess(process.execPath, ['-e', "process.stdout.write('x'.repeat(2048)); setInterval(() => {}, 10)"], directory, 3000, { outputBytes: 1024, terminateGraceMs: 50, reapGraceMs: 1000 }), /output exceeded/);
+    await assert.rejects(runNativeProofProcess(process.execPath, ['-e', "process.stdout.write('x'.repeat(2048)); setInterval(() => {}, 10)"], directory, fixtureIoTimeoutMs, { outputBytes: 1024 }), /output exceeded/);
     await assert.rejects(runNativeProofProcess(process.execPath, ['-e', ''], directory, NATIVE_PROCESS_LIMITS.timeoutMs + 1), /Invalid native timeout/);
     await assert.rejects(runNativeProofProcess(process.execPath, ['-e', ''], directory, 1000, { outputBytes: NATIVE_PROCESS_LIMITS.outputBytes + 1 }), /Invalid native output/);
-    const inspection = JSON.parse(await runNativeProofProcess(process.execPath, ['-e', 'process.stdout.write(JSON.stringify({ env: process.env, cwd: process.cwd() }))'], directory, 3000));
+    const inspection = JSON.parse(await runNativeProofProcess(process.execPath, ['-e', 'process.stdout.write(JSON.stringify({ env: process.env, cwd: process.cwd() }))'], directory, fixtureIoTimeoutMs));
     // macOS may add this encoding hint after spawn; it is not a forwarded
     // parent variable or a home/configuration/custody path.
     if (process.platform === 'darwin' && inspection.env.__CF_USER_TEXT_ENCODING !== undefined) { assert.match(inspection.env.__CF_USER_TEXT_ENCODING, /^0x[0-9A-Fa-f]+:0x[0-9A-Fa-f]+:0x[0-9A-Fa-f]+$/); delete inspection.env.__CF_USER_TEXT_ENCODING; }

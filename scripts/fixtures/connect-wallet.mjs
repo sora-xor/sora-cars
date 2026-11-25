@@ -13,7 +13,10 @@ const u64 = value => { const b = Buffer.alloc(8); b.writeBigUInt64LE(BigInt(valu
 const field = value => Buffer.concat([u64(value.length), bytes(value)]);
 const structure = values => Buffer.concat(values.map(field));
 const variant = (tag, body) => Buffer.concat([u32(tag), field(body)]);
-const walletSignature = signature => structure([Buffer.of(0), field(signature)]);
+function walletSignature(signature, canonical) {
+  if (!canonical) return structure([Buffer.of(0), field(signature)]);
+  return structure([u32(0), Buffer.concat([u64(signature.length), fixedArray(signature, true)])]);
+}
 export function fields(buffer) {
   let offset = 0; const result = [];
   while (offset < buffer.length) {
@@ -37,7 +40,9 @@ export function compactFields(buffer) {
   }
   return result;
 }
-const frame = (preview, seq, kind) => structure([preview.sidBytes, u32(1), u64(seq), kind]);
+// Torii emits each fixed-array octet as a length-prefixed field. Older direct SDK peers use raw octets.
+const fixedArray = (value, canonical) => canonical ? structure(Array.from(value, octet => Buffer.of(octet))) : bytes(value);
+const frame = (preview, seq, kind, canonical) => structure([fixedArray(preview.sidBytes, canonical), u32(1), u64(seq), kind]);
 const tagged = (tag, value) => Buffer.concat([u16(Buffer.byteLength(tag)), bytes(tag), field(value)]);
 function approvalPreimage(preview, walletPublicKey, accountId, relayToken) {
   const network = preview.networkId.toBytes();
@@ -49,9 +54,10 @@ function approvalPreimage(preview, walletPublicKey, accountId, relayToken) {
     tagged('relay_auth', sha256(Buffer.concat([bytes('iroha-connect|relay-auth|v1'), preview.sidBytes, bytes(relayToken)]))),
   ]);
 }
-function approval(preview, walletPublicKey, account, relayToken) {
+function approval(preview, walletPublicKey, account, relayToken, canonical) {
   const signature = ed25519.sign(approvalPreimage(preview, walletPublicKey, account.accountId, relayToken), account.privateKey);
-  return frame(preview, 1, variant(0, variant(1, structure([walletPublicKey, field(bytes(account.accountId)), Buffer.of(0), Buffer.of(0), walletSignature(signature)]))));
+  const body = structure([fixedArray(walletPublicKey, canonical), field(bytes(account.accountId)), Buffer.of(0), Buffer.of(0), walletSignature(signature, canonical)]);
+  return frame(preview, 1, variant(0, variant(1, body)), canonical);
 }
 function deriveKeys(preview, privateKey) {
   const shared = x25519.getSharedSecret(privateKey, preview.appKeyPair.publicKey);
@@ -72,11 +78,13 @@ function envelope(payload) {
 }
 export function createTestWallet(preview, account, relayToken) {
   const privateKey = new Uint8Array(32).fill(0x55), publicKey = x25519.getPublicKey(privateKey), keys = deriveKeys(preview, privateKey);
+  let canonical;
   return {
-    approve: (boundPreview = preview) => approval(boundPreview, publicKey, account, relayToken),
+    approve: (boundPreview = preview) => approval(boundPreview, publicKey, account, relayToken, canonical),
     request: data => {
       const [sid, dir, sequence, kind] = fields(data);
-      assert.deepEqual(sid, preview.sidBytes); assert.equal(dir.readUInt32LE(), 0);
+      canonical ??= sid.length !== preview.sidBytes.length;
+      assert.deepEqual(sid, fixedArray(preview.sidBytes, canonical)); assert.equal(dir.readUInt32LE(), 0);
       if (kind.readUInt32LE() === 0) return null;
       assert.equal(kind.readUInt32LE(), 1);
       const [cipherDirection, ciphertextField] = fields(fields(kind.subarray(4))[0]);
@@ -95,11 +103,11 @@ export function createTestWallet(preview, account, relayToken) {
       return { seq, txBytes };
     },
     signed: (seq, signature) => {
-      const payload = Buffer.concat([u32(3), field(walletSignature(signature))]);
+      const payload = Buffer.concat([u32(3), field(walletSignature(signature, canonical))]);
       const cipher = createCipheriv('chacha20-poly1305', keys.wallet, nonce(seq), { authTagLength: 16 });
       cipher.setAAD(aad(preview, 1, seq));
       const ciphertext = Buffer.concat([cipher.update(envelope(structure([u64(seq), payload]))), cipher.final(), cipher.getAuthTag()]);
-      return frame(preview, seq, variant(1, structure([u32(1), field(ciphertext)])));
+      return frame(preview, seq, variant(1, structure([u32(1), field(ciphertext)])), canonical);
     },
   };
 }

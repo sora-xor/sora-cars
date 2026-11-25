@@ -1,4 +1,5 @@
 import { LiveRacingPanel as ProductionLiveRacingPanel } from '../src/ui/live';
+import { RACE_RAIL_MM } from '../src/game/race-roads';
 import { botControl, copyRace, createRace, raceFinished, stepRace, type ReplayV1 } from '../src/game/engine';
 import { environmentAt, environmentContacts, RACE_PROFILE_ID, RACE_RULES_HASH } from '../src/game/environment';
 import type { MultiplayerPhase, MultiplayerRaceController } from '../src/network/controller';
@@ -54,9 +55,9 @@ export class LiveRacingPanel extends ProductionLiveRacingPanel {
         // simulation restored by begin/finish. Events come from the real kernel.
         state = createRace(0, 2); state.tick = baseline.tick + (kind === 'tree' ? 6 : 12);
         const object = environmentAt(state.trackId, state.tick).objects.find(object => object.kind === kind)!;
-        Object.assign(state.cars[0]!, { progress: object.progress - 500, x: object.x, speed: 1000 });
+        Object.assign(state.cars[0]!, { progress: object.progress - 500, x: kind === 'tree' ? Math.sign(object.x) * RACE_RAIL_MM : object.x, speed: 1000 });
         stepRace(state, [1, 0]); host.state(copyRace(state), copyRace(state));
-        return { object, contacts: environmentContacts(state), car: { ...state.cars[0]! } };
+        return { object, tick: state.tick, contacts: environmentContacts(state), car: { ...state.cars[0]! } };
       },
       finish: () => {
         restoreBaseline();

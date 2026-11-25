@@ -38,8 +38,13 @@ interface LiveTermsHarness {
 }
 declare global { interface Window { liveTermsHarness: LiveTermsHarness } }
 
+const scenarioTimeoutMs = 45_000;
+// Seven sequential browser scenarios, plus fixture/browser startup and teardown.
+const suiteTimeoutMs = (7 + 2) * scenarioTimeoutMs;
+
 /** Actual production panel and DOM, with an explicit fake node/wallet and controlled reply order. */
-test('live terms remain reviewed across asynchronous node replies and room navigation', { timeout: 45_000 }, async t => {
+test('live terms remain reviewed across asynchronous node replies and room navigation', { timeout: suiteTimeoutMs }, async t => {
+  const scenario = (name: string, run: () => Promise<void>) => t.test(name, { timeout: scenarioTimeoutMs }, run);
   const raw = lobby();
   const html = `<!doctype html><html><body><div id="app"><main id="screen"></main><dialog id="dialog"></dialog></div><script type="module">
 import { LiveRacingPanel } from '/src/ui/live.ts';
@@ -76,7 +81,7 @@ window.liveTermsHarness = { admission: ready => { client.canStake = ready; }, re
     await page.waitForFunction(() => window.liveTermsHarness.view().finished === 1);
   }
   try {
-    await t.test('loss of release readiness blocks both a new review and an already-reviewed creation', async () => {
+    await scenario('loss of release readiness blocks both a new review and an already-reviewed creation', async () => {
       const p = await page();
       await p.evaluate(() => window.liveTermsHarness.reviewCreate());
       await p.waitForFunction(() => window.liveTermsHarness.view().finished === 1);
@@ -91,7 +96,7 @@ window.liveTermsHarness = { admission: ready => { client.canStake = ready; }, re
       assert.equal(view.sent.length, 0); assert.equal(view.errors.length, 2); assert.match(view.errors[1]!, /must be ready/);
       await p.close();
     });
-    await t.test('wrong denomination cannot appear as a joinable XOR room', async () => {
+    await scenario('wrong denomination cannot appear as a joinable XOR room', async () => {
       const p = await page();
       await p.evaluate(id => window.liveTermsHarness.open(id), raw.session_id);
       await p.waitForFunction(() => window.liveTermsHarness.view().requests === 1);
@@ -100,7 +105,7 @@ window.liveTermsHarness = { admission: ready => { client.canStake = ready; }, re
       const view = await p.evaluate(() => window.liveTermsHarness.view()); assert.equal(view.shown, 0); assert.equal(view.id, null); assert.match(view.errors.join(), /XOR asset pinned/);
       await p.close();
     });
-    await t.test('same-revision stake changes never replace the displayed or signed amount', async () => {
+    await scenario('same-revision stake changes never replace the displayed or signed amount', async () => {
       const p = await page(); await openInitial(p);
       assert.match(await p.locator('.session-equipment').textContent() ?? '', /一時装備。/);
       assert.match(await p.locator('.session-equipment [lang="en"]').allTextContents().then(rows => rows.join(' ')), /Equipment is separate from wagers/);
@@ -127,7 +132,7 @@ window.liveTermsHarness = { admission: ready => { client.canStake = ready; }, re
       const sent = afterJoin.sent as { JoinGameSessionV1: { expected_stake: string; resources: unknown[] } }[];
       assert.equal(sent[0]!.JoinGameSessionV1.expected_stake, '1'); assert.deepEqual(sent[0]!.JoinGameSessionV1.resources, []); await p.close();
     });
-    await t.test('late open cannot override a newer room', async () => {
+    await scenario('late open cannot override a newer room', async () => {
       // The manifest commitment binds the session id, so a distinct room carries its own commitment.
       const p = await page(), second = { ...raw, session_id: hash(45), manifest_commitment: manifestCommitment(fixture.network_id, hash(45), raw.manifest) };
       await p.evaluate(([a, b]) => { window.liveTermsHarness.open(a!); window.liveTermsHarness.open(b!); }, [raw.session_id, second.session_id]);
@@ -138,21 +143,21 @@ window.liveTermsHarness = { admission: ready => { client.canStake = ready; }, re
       await p.waitForFunction(() => window.liveTermsHarness.view().finished === 2);
       const view = await p.evaluate(() => window.liveTermsHarness.view()); assert.equal(view.id, second.session_id); assert.equal(view.shown, 1); await p.close();
     });
-    await t.test('leaving the room invalidates an in-flight open', async () => {
+    await scenario('leaving the room invalidates an in-flight open', async () => {
       const p = await page(); await p.evaluate(id => window.liveTermsHarness.open(id), raw.session_id);
       await p.waitForFunction(() => window.liveTermsHarness.view().requests === 1);
       await p.evaluate(value => { window.liveTermsHarness.deactivate(); window.liveTermsHarness.resolve(0, value); }, raw);
       await p.waitForFunction(() => window.liveTermsHarness.view().finished === 1);
       const view = await p.evaluate(() => window.liveTermsHarness.view()); assert.equal(view.shown, 0); assert.equal(view.id, null); await p.close();
     });
-    await t.test('client replacement discards old node replies', async () => {
+    await scenario('client replacement discards old node replies', async () => {
       const p = await page(); await p.evaluate(id => window.liveTermsHarness.open(id), raw.session_id);
       await p.waitForFunction(() => window.liveTermsHarness.view().requests === 1);
       await p.evaluate(value => { window.liveTermsHarness.switchClient(); window.liveTermsHarness.resolve(0, value); }, raw);
       await p.waitForFunction(() => window.liveTermsHarness.view().finished === 1);
       const view = await p.evaluate(() => window.liveTermsHarness.view()); assert.equal(view.shown, 0); assert.equal(view.id, null); await p.close();
     });
-    await t.test('a different current network cannot sign a previously displayed room', async () => {
+    await scenario('a different current network cannot sign a previously displayed room', async () => {
       const p = await page(); await openInitial(p);
       await p.evaluate(network => { window.liveTermsHarness.switchClient(network); window.liveTermsHarness.join(); }, hash(53));
       await p.waitForFunction(() => window.liveTermsHarness.view().finished === 2);

@@ -1,0 +1,1266 @@
+{
+  "review_date": "2026-11-20",
+  "closeout_date_nzdt": "2026-11-21",
+  "report": "docs/live-staking-qualification-20261120.md",
+  "decision": {
+    "live_xor_staking_qualified": false,
+    "native_stock_profile": "d0061f99990bea3327c8aa7a107470377a7c1aa300639d0108ffa2dd1da23b87",
+    "race_rules": "751b7f51a39b8aea6062e29694e0f1bccaf3b68e63b13e44dfd60d0c2eb0b6b9",
+    "native_qualification_flag": false,
+    "native_positive_stake_admission": "Join refused before custody",
+    "native_positive_stake_admission_evidence": "focused Core test on the signed candidate",
+    "local_finalized_heights_verified_after_shutdown_in_all_four_stores": [
+      1,
+      2,
+      3
+    ],
+    "local_funded_open_replicated_durable_admission": true,
+    "local_game_transaction_committed": false,
+    "local_validator_shutdown": "native fail-stop during validation at height 4, followed by managed shutdown",
+    "immutable_verification_tariff": "MissingTariff for every profile, including zero-stake settlement",
+    "cryptographic_claim": "Conditional bounds for one fixed false engine statement under a classical framed random oracle. Independent release audit outstanding.",
+    "public_taira_matches_game_genesis": false,
+    "public_taira_header_anchored_finality_through": 16555,
+    "public_taira_strict_original_genesis_pins_verified": false,
+    "public_settlement_for_candidate": false,
+    "released_android_connect_handler_found": false,
+    "released_wallet_funded_settlement_verified": false,
+    "desktop_source_pairing_denial_verified": true,
+    "desktop_normal_settlement_consent": false,
+    "desktop_settlement_blockers": [
+      "524288-byte UI frame limit",
+      "The maintained wallet lacks a compatible typed game settlement and fee review"
+    ],
+    "signed_game_with_relay_regression": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "signed_browser_sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "signed_desktop_test_successor": "9958f2fc48893df2f2c603932f5c76804297531d",
+    "signed_mobile_bridge_test_successor": "e10a36c4eeffa69c07a30addc37727011db7c989",
+    "mobile_rust_tests": {
+      "inspection_and_finalization_passed": 13,
+      "signed_transaction_fixtures_passed": 5
+    },
+    "public_game_deployed_by_this_review": false
+  },
+  "native_commit": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+  "cli_sha256": "c519444e9d21769495a23833e7be3c0f39bc77749d5ed3c6b5a077caa0784696",
+  "stock": {
+    "players": 8,
+    "ticks": 8100,
+    "checkpoints": 1350,
+    "winners": [
+      0,
+      1
+    ],
+    "request_bytes": 1379060,
+    "request_sha256": "85527babe76943b79f2f7abd8bb7f07a52b8b83182cb1c53c0dab376f02c6b76",
+    "proof_bytes": 2719196,
+    "proof_sha256": "6d690d4f27bf3bdbf3c7e5209e5be0d67a2f4a3c190956ea023d3faf3aaa9587",
+    "inner_stark_bytes": 1775284,
+    "profile": "hash:D0061F99990BEA3327C8AA7A107470377A7C1AA300639D0108FFA2DD1DA23B87#A48A"
+  },
+  "prove_verify_runs": [
+    {
+      "threads": 16,
+      "prove_exit": 0,
+      "prove_seconds": 67.935,
+      "verify_exit": 0,
+      "verify_seconds": 15.926
+    },
+    {
+      "threads": 2,
+      "prove_exit": 0,
+      "prove_seconds": 167.897,
+      "verify_exit": 0,
+      "verify_seconds": 4.224
+    },
+    {
+      "threads": 1,
+      "prove_exit": 0,
+      "prove_seconds": 369.626,
+      "verify_exit": 0,
+      "verify_seconds": 5.429
+    }
+  ],
+  "inner_proof_verifiers": {
+    "aarch64-apple-darwin": {
+      "binary_sha256": "0ab387fdd050d89414242559e640343133429d4d5b55cc7df02a24093fb10cec",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    },
+    "aarch64-unknown-linux-musl": {
+      "binary_sha256": "adea23aa7c927542e2bf452310a2b421d92b2c32a07af9f752d1c3153288e606",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    },
+    "x86_64-unknown-linux-musl": {
+      "binary_sha256": "ee88fc0183361d06dbf39420a0bd768d7c33001d4c6e5d3c77b9e2dae7201d67",
+      "result": "verified NeonTokyo Stock checkpoint circuit, 8 players, 8100 ticks, 1775284 bytes"
+    }
+  },
+  "signed_game_successor": {
+    "successor": "37291e0c2c33041c18205559044572a82d0594ca",
+    "parent": "18b55a09d79132a02393ff41ee66ac5ac6e63d8d",
+    "production_build": {
+      "entry_script": "index-BZ6UCrEU.js",
+      "bytes": 5145225,
+      "sha256": "2e02f00fdf194b06df149b29bf283a97c7e67194b0b2c0512eb37209b87838a3"
+    },
+    "published": false
+  },
+  "first_transport_successor_tests": {
+    "tests": 776,
+    "pass": 776,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "final_paired_game": {
+    "game": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "build": {
+      "exit": 0,
+      "entry": "index-DHMKhm3p.js",
+      "bytes": 5146254,
+      "sha256": "697b1d0ed84ffe83781fc4ed0650e6d2cbcffa60aec34f162f8ae94c6745a71d"
+    },
+    "started_utc": "2026-11-20T07:00:21.921222+00:00",
+    "ended_utc": "2026-11-20T07:25:08.844772+00:00",
+    "exit": 0,
+    "test_files": 100,
+    "counts": {
+      "tests": 776,
+      "pass": 776,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  },
+  "browser_sdk_interoperability": {
+    "game": "04e0ff727bb4b3db17cc58badb671b5017965f7e",
+    "sdk": "7667e62b72bb48d3891269d39e69fc4437f43439",
+    "sdk_tests": 107,
+    "game_wallet_checks": 15,
+    "game_wallet_ui_checks": 4,
+    "large_frame_signed": false,
+    "large_frame_submitted": false
+  },
+  "stock_sdk_tests": {
+    "tests": 105,
+    "pass": 105,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "custody_tests": {
+    "frozen_commit": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "pass": 14,
+    "total": 14,
+    "funded_settlement_exercised": false
+  },
+  "payout_arithmetic": {
+    "native_source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "game_source_sha256": "95f8ebb42d6f3b8086ea921ff854e28c3076a3d65cfdb7c2b3c0ed1e65287b7b",
+    "numeric_source_sha256": "55cc73c1df542cbf26b2906c22507f129b9225b9cb847d5e469cfcc45f1b41aa",
+    "validator_cargo_fingerprint": "irohad-df5e049b1a77c028",
+    "validator_library_sha256": {
+      "libiroha_primitives-b63daa2417157c62.rlib": "bea2ad67a7a49d777e28fc53e6e1ee04e16c95f7e84b60e9bd7d593327c27d5f",
+      "libiroha_data_model-b0c09341e821dd1a.rlib": "b8599f8ac1668bceecfd004228ebc7fe0b45d43e753a898e9b8dd94329adb320"
+    },
+    "scale_min": 0,
+    "scale_max": 28,
+    "stock_recipient_counts": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "base_amounts_in_quantum_units": [
+      "0",
+      "1",
+      "9",
+      "257",
+      "9999999999999999999999999999"
+    ],
+    "each_possible_division_remainder_tested": true,
+    "winner_checks": 5220,
+    "refund_checks": 1160,
+    "eight_slot_admission_capacity_checks": 145,
+    "kernel_checked": true,
+    "lean_version": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_source_sha256": "ebc966e1132f2704bb52c303b48bab13052135f49bee8d36cda7e3df67130b99",
+    "rust_extraction_sha256": "3bad581f0b2ccef0d6a6e6d016bc6a0281d61bfaad29b4704573208371310161",
+    "scope": "Successful checked decimal arithmetic and the signed payout functions extracted verbatim. This test carries no ledger funds."
+  },
+  "winner_ranking": {
+    "revision": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "native_sources_sha256": {
+      "crates/iroha_core/src/execution_proofs/race.rs": "ec56177cd0a43b090805b99a62edcce397cf8a9973f397a33a91a41411672768",
+      "crates/iroha_core/src/execution_proofs/environment.rs": "63be9cf121fe8de7c8fdb424942b0fb304eb7c2d5580492fca3f2053b01a766e",
+      "crates/iroha_core/src/execution_proofs/game_binding.rs": "f2ccfc765fc10cb83ef8cda272bd5899e7e6d54acad6a4128e8c1bb9de2e5a73",
+      "crates/iroha_core/src/execution_proofs/proof.rs": "3d34666fdbfe4563a5111b31a1b38e5c245c4bec94422bb7d3261897ce91c13e",
+      "crates/iroha_core/src/execution_proofs/proof_tests.rs": "803079588962188282d2ade24faa0dac7863a4818bc3e6790d6d9cfdca2111df"
+    },
+    "native_economic_excerpt_sha256": "08cb322c1f3e64251fa13e36cf040bc06d692393a6aa056a2b1440c6e6901624",
+    "resolved_rlibs_sha256": {
+      "libiroha_data_model-b0c09341e821dd1a.rlib": "b8599f8ac1668bceecfd004228ebc7fe0b45d43e753a898e9b8dd94329adb320",
+      "libiroha_execution_stark-74f578534bce2369.rlib": "7e35961f7be815c20cea126eef7f0e7c1622be8f0bd130be15900d607b818884",
+      "libthiserror-1970069e6c330e75.rlib": "e497fe0fb3311155889f7b5cd0ace9fe36e3dbdfc9af84230b6ade6af6737f94"
+    },
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_sha256": "a88c6d265c51dcadedce72d2744e6afac215d2977e7ebf5f1d474d0f75b9e1b7",
+    "rustc": "rustc 1.93.1 (01f6ddf75 2026-02-11)",
+    "theorems": [
+      "progressOrder",
+      "rankMatches",
+      "performanceBounds",
+      "rankOrdersEligibility",
+      "rankOrdersPerformance",
+      "sortedRanks",
+      "eligibleMem",
+      "takeWhileIsFilter",
+      "eligibleOrdered",
+      "finishEqual",
+      "noFinishAfter",
+      "sameRunning",
+      "firstBest",
+      "isBestIffFirst",
+      "selectionExact",
+      "rejectionExact",
+      "selectionSublist",
+      "winningSlotIff",
+      "winnerSlotsStrict",
+      "physicalAgreement",
+      "updatePreserves",
+      "removalPersists",
+      "economicWinnerIff",
+      "exactEventWrites",
+      "completeRemovalTable",
+      "representsSignedProgress",
+      "fasterFinish",
+      "finishedBeatsUnfinished",
+      "furtherProgress",
+      "emptyExactlyNoEligible"
+    ],
+    "normal_core_trajectories": 63,
+    "positive_projection_totals": {
+      "cases": 1587,
+      "changed_winners": 783,
+      "refunds": 42,
+      "tied_winners": 21,
+      "sole_unfinished": 21,
+      "finished_winners": 1503,
+      "cap_progress": 21
+    }
+  },
+  "metering": {
+    "immutable_tariff_installed": false,
+    "rejection_work_gas": 128,
+    "passed": 6,
+    "valid_full_proof_cli": {
+      "debug_binary_sha256": "c519444e9d21769495a23833e7be3c0f39bc77749d5ed3c6b5a077caa0784696",
+      "proof_sha256": "6d690d4f27bf3bdbf3c7e5209e5be0d67a2f4a3c190956ea023d3faf3aaa9587",
+      "threads": 2,
+      "runs": [
+        {
+          "elapsed_seconds": 12.710535,
+          "user_cpu_seconds": 4.031098,
+          "system_cpu_seconds": 0.093627,
+          "maximum_resident_bytes": 82853888,
+          "canonical_outcome_verified": true
+        },
+        {
+          "elapsed_seconds": 12.018262,
+          "user_cpu_seconds": 4.158513,
+          "system_cpu_seconds": 0.059504999999999995,
+          "maximum_resident_bytes": 84754432,
+          "canonical_outcome_verified": true
+        },
+        {
+          "elapsed_seconds": 10.012745,
+          "user_cpu_seconds": 4.142748,
+          "system_cpu_seconds": 0.049277999999999995,
+          "maximum_resident_bytes": 82870272,
+          "canonical_outcome_verified": true
+        }
+      ]
+    }
+  },
+  "complete_record_benchmark": {
+    "source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "api": "iroha_core::execution_proofs::verify_game_proof_for_history_v1",
+    "fixture": {
+      "profile": "d0061f99990bea3327c8aa7a107470377a7c1aa300639d0108ffa2dd1da23b87",
+      "track": "NeonTokyo",
+      "players": 8,
+      "ticks": 8100,
+      "accepted_through": 8100,
+      "observation_height": 1,
+      "stake": 0,
+      "liability": 0,
+      "signed_checkpoint": 8100,
+      "checkpoint_signatures": 8,
+      "forced_rows": 1350,
+      "certified_rows": 0,
+      "archived_anchors": 1349,
+      "retained_states": 1350,
+      "commitments": 0,
+      "reveals": 0,
+      "resources": 0,
+      "items": 0,
+      "record_frame_bytes": 438053,
+      "transcript_frame_bytes": 249810,
+      "evidence_frame_bytes": 249831,
+      "stark_bytes": 1775284
+    },
+    "limits": {
+      "max_batches": 1350,
+      "max_archived_anchors": 1349,
+      "max_prefix_hash_bytes": 925937,
+      "max_history_encoded_bytes": 557581,
+      "max_transcript_encoded_bytes": 249939,
+      "max_record_encoded_bytes": 4751885
+    },
+    "hardware": "Apple M4 Max",
+    "threads": 2,
+    "passes": [
+      {
+        "run": 1,
+        "accepted": true,
+        "wall_s": 37.951753,
+        "user_s": 7.317244,
+        "system_s": 0.093205,
+        "cumulative_process_peak_rss_bytes": 62357504
+      },
+      {
+        "run": 2,
+        "accepted": true,
+        "wall_s": 32.216979,
+        "user_s": 7.131888,
+        "system_s": 0.076028,
+        "cumulative_process_peak_rss_bytes": 66256896
+      },
+      {
+        "run": 3,
+        "accepted": true,
+        "wall_s": 32.180741,
+        "user_s": 7.024234,
+        "system_s": 0.079472,
+        "cumulative_process_peak_rss_bytes": 68403200
+      }
+    ],
+    "tariff_derivable": false
+  },
+  "controller": {
+    "passed_histories": 96,
+    "distinct_control_and_register_history_digests": 93,
+    "track_roster_pairs": 24,
+    "sweep_histories_covering_all_64_masks": 24,
+    "ticks_range": [
+      1200,
+      8100
+    ],
+    "max_tick_terminations": 48,
+    "terminal_two_player_removals": 3,
+    "car_tick_transitions": 2774520,
+    "totals_across_test_executions": {
+      "ticks": 604836,
+      "checkpoints": 100806,
+      "dry": 405852,
+      "wet": 198984,
+      "negative_wind": 219198,
+      "zero_wind": 155148,
+      "positive_wind": 230490,
+      "dnf_events": 21,
+      "finish_crossings": 192,
+      "rail_car_rows": 36199,
+      "verge_car_rows": 97446,
+      "oil_car_rows": 22056,
+      "speed_ge_2400": 259925,
+      "energy_lt_25": 745629,
+      "contact_at_1800": 20691,
+      "measured_slot0_contact": 2574
+    },
+    "air_passes": 9,
+    "air_physical_ticks": 51336,
+    "air_checkpoint_rows": 8556,
+    "air_domain_rows": 73728,
+    "air_max_tick_eight_player_cases": 3,
+    "cases_sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+  },
+  "controller_induction": {
+    "revision": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "proofs": {
+      "StockRows.lean": {
+        "sha256": "9137b2a0a17142653b8ea9acab45cdc4c270717740a02754a346b245514e2f55",
+        "theorems": [
+          "roundTrip",
+          "completeRegisters",
+          "gridValid",
+          "railBounds",
+          "railIdentity",
+          "finishMatches",
+          "paddingHolds",
+          "endPreserves",
+          "contactGuard",
+          "shiftMatches",
+          "oneSlow",
+          "pairPreserves",
+          "orderedContacts",
+          "initialPairs",
+          "paddedExecution",
+          "selectedRow",
+          "layout",
+          "liveCountNonzero",
+          "terminalBoundary",
+          "checkpointBeforeTick",
+          "sameTickOnly",
+          "activeGateWord",
+          "selectedWord",
+          "smallPinUnique",
+          "embeddedExecution",
+          "initialPairsLive",
+          "liveAndFrozenCar",
+          "rangesAlongRun",
+          "allPairsAndCommit",
+          "inactiveProgressIrrelevant",
+          "pairProgressAlong",
+          "fullPublicState",
+          "contactDivisionAndBound",
+          "contactScratchBound"
+        ]
+      },
+      "StockMotion.lean": {
+        "sha256": "f31d7d965ac2bdd3ffcfbb5da74e6c52c80b3b56c6f9f81637869b49da383015",
+        "theorems": [
+          "objectIndices",
+          "roadIndexInRange",
+          "withinMatches",
+          "oilMatches",
+          "dryDamping",
+          "velocityMatches",
+          "windSign",
+          "driftMatches",
+          "vergeMatches",
+          "impactMatches",
+          "activeCarMove",
+          "forceBudget",
+          "activeBounds"
+        ]
+      },
+      "StockTick.lean": {
+        "sha256": "f55a418098c4d7c3c6237bcc9d3f7538e0a78d518c671f8e1ec8e65eed54eb51",
+        "theorems": [
+          "equalLiveMotion",
+          "boundedMotion",
+          "coreMovedBounds",
+          "contactsRelated",
+          "fullTickMatches",
+          "fullTickBound",
+          "reachableValid",
+          "wholeTrace"
+        ]
+      },
+      "StockEncoding.lean": {
+        "sha256": "f4098ab4763ad8454bb9351715b45c92fee3e94a66e95581e504ea53633a10a0",
+        "theorems": [
+          "physicalInjective",
+          "wordFromWire"
+        ]
+      }
+    },
+    "sources_sha256": {
+      "crates/iroha_core/src/execution_proofs/race.rs": "ec56177cd0a43b090805b99a62edcce397cf8a9973f397a33a91a41411672768",
+      "crates/iroha_core/src/execution_proofs/environment.rs": "63be9cf121fe8de7c8fdb424942b0fb304eb7c2d5580492fca3f2053b01a766e",
+      "crates/iroha_core/src/execution_proofs/proof.rs": "3d34666fdbfe4563a5111b31a1b38e5c245c4bec94422bb7d3261897ce91c13e",
+      "crates/iroha_data_model/src/execution_proofs.rs": "77a2a5310931928985110ec0cec7f56301c0c84ba7299f31f8277f19e500f0ed",
+      "crates/iroha_execution_stark/src/games/race_v1.rs": "d87fb9b4e044caee5d28cb527ce398fe300514f8b8ec921bc81e195f993d7852",
+      "crates/iroha_execution_stark/src/games/race_v1_roads.rs": "d707cb96e91afd2f934653c1660fe8e81153891681197e5770cf3aa23cce0bf2",
+      "crates/iroha_execution_stark/src/circuit.rs": "bff11213be6a2bca538956a301570744840c3a8a59ef05475a248a8791fc8366",
+      "crates/iroha_execution_stark/src/trace.rs": "e4c185154e554da393ac3782d3e09993745efb89a4fec6a8c8af189a34e6b011",
+      "crates/iroha_execution_stark/src/air.rs": "a845c35c0c4b26d2d4be127eae8523e9c575d8581fbe1d339b915583218ea5f4",
+      "crates/iroha_execution_stark/src/verifier.rs": "959cb0e68b9631d13667d96b20a7018c3550b21e171041a292725f73aed24d94"
+    }
+  },
+  "integer_gadget_checks": {
+    "signed_native": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "events": {
+      "cmp": 3816,
+      "limb": 6039,
+      "select": 1764,
+      "forced": 540,
+      "annotation": 576,
+      "trunc": 216,
+      "quotient": 684,
+      "floor": 360,
+      "wind": 108
+    },
+    "kernel_checked_theorems": 27,
+    "lean": "Lean (version 4.30.0, arm64-apple-darwin24.6.0, commit d024af099ca4bf2c86f649261ebf59565dc8c622, Release)",
+    "lean_proof_sha256": "e7b8843cb069ef96f52a1532168fbbadbfdfe046560b96a2f7e80e32e21c466b"
+  },
+  "four_validator_fixture_input": {
+    "genesis_commit_qc_checked": false,
+    "genesis_header_hash": "f4b7aece4335d77d8c4954560f0296090ab6fa90630d912e7406ab47da80b0a3",
+    "network_id": "hash:F4B7AECE4335D77D8C4954560F0296090AB6FA90630D912E7406AB47DA80B0A3#DB6A",
+    "status": "verified signed genesis input",
+    "trusted_fixture_genesis_public_key": "ed01204164BF554923ECE1FD412D241036D863A6AE430476C898248B8237D77534CFC4",
+    "verified_genesis_block_signature": true,
+    "verified_genesis_transactions": 9,
+    "verified_peer_input_copies": 4,
+    "verified_public_bls_pop_count": 4
+  },
+  "four_validator_fourth_run": {
+    "candidate": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "started_utc": "2026-11-20T06:59:06.110265+00:00",
+    "ended_utc": "2026-11-20T08:02:52.020523+00:00",
+    "validator_sha256": "bc720dd5a201c77eb24fe583c601281bb420d7d1ee37247d7eb1d950d03b148d",
+    "private_test_endpoints": 4,
+    "genesis_input_header_hash": "f4b7aece4335d77d8c4954560f0296090ab6fa90630d912e7406ab47da80b0a3",
+    "independently_verified_genesis_transactions": 9,
+    "independently_verified_genesis_validator_bls_pops": 4,
+    "verified_genesis_role_signature": true,
+    "signed_genesis_input_copies": 4,
+    "reachable_torii_peers": 4,
+    "staged_consensus_context": "9d5d07a5964c267fe6c50a27e9ce5eeedcbbbdc558549a1cd1b9819a6375db3d",
+    "confirmed_public_quorum_certificate": false,
+    "committed_block_height": 0,
+    "handshake_deadline_ms": 30000,
+    "recurring_expirations": 34,
+    "authenticated_pairs": 1,
+    "retired_after_observation": true,
+    "retirement_reason": "No height-one finality after 15 minutes, 34 local handshake deadline failures and only one authenticated peer pair. All four test processes received graceful termination before the next isolated fixture.",
+    "funded_join_attempted": false,
+    "settlement_attempted": false,
+    "cold_replay_exercised": false,
+    "seven_part_artifact_present": false,
+    "private_configuration_exported": false
+  },
+  "four_validator_fifth_run": {
+    "source": "371f95f6e68fbde48bf63726194e91f2838ec9f4",
+    "expected_committee_threshold": 3,
+    "source_harness": "transport-timeout-harness",
+    "disposition": "retiring the 500 ms signed-cadence fixture after one observed full four-leader rotation with six reciprocal links",
+    "retirement_decided_utc": "2026-11-20T09:39:59.224967+00:00",
+    "full_mesh_leader_indices_by_view": {
+      "15": 0,
+      "16": 1,
+      "17": 2,
+      "18": 3
+    },
+    "highest_observed_view": 19,
+    "maximum_reported_committed_block_height": 0,
+    "maximum_observed_prepare_signers": 2,
+    "maximum_observed_commit_signers": 0,
+    "oldest_observed_ingress_item_ms": 514262,
+    "shared_execution_prefixes": [
+      "a3be22fdfaa7"
+    ],
+    "observed_unsafe_proposal_counts": [
+      0
+    ],
+    "funded_open_attempted": false,
+    "settlement_attempted": false,
+    "settlement_receipt_present": false,
+    "committed_genesis_finality_verified": false,
+    "cold_rejoin_on_committed_height": false,
+    "next_fixture_signed_cadence_ms": 10000,
+    "authenticated_transport_deadline_ms": 300000
+  },
+  "four_validator_sixth_run_genesis_finality": {
+    "block_hash": "c3db8ad6ed5dce19b70f0fae8d10e0200ce4d14160d37b19958d47b57c55ed7b",
+    "execution_post_state_root": "f9a04d165211bda50fd03c1a9c7b35a354824ad881ad638962f0de7f2e75758b",
+    "four_read_only_canonical_kura_stores_checked": true,
+    "full_local_wsv_checkpoint_hash": "3bede06e4ee655f515014ee3f5277ecc6d02672c12d1b9cfe6e512ac001f00a3",
+    "genesis_authorized_committee_threshold": 3,
+    "height": 1,
+    "network_id": "hash:C3DB8AD6ED5DCE19B70F0FAE8D10E0200CE4D14160D37B19958D47B57C55ED7B#FEB7",
+    "public_qc_against_test_genesis_verified": true,
+    "verified_executed_block_wire_hash": "e0bb34ddf07446fff5de7bf5133bd14917ca0361a5a51fb149621ff4b325e3ad",
+    "verified_peer_count": 4
+  },
+  "four_validator_final_result": {
+    "closed_utc": "2026-11-20T12:19:10.737078+00:00",
+    "qualification_decision": "NO-GO",
+    "settlement_protocol_blocker": "MissingTariff precedes all native Stock settlements on the frozen source, including zero stake. Positive-stake Join is disabled before its asset debit.",
+    "current_candidate": {
+      "private_local_four_validator_runs": {
+        "run_5": {
+          "authenticated_p2p_pairs": 6,
+          "required_committee_signers": 3,
+          "voter_count": 4,
+          "largest_prepare_pool": 2,
+          "highest_view_observed": 19,
+          "maximum_reported_committed_height": 0,
+          "view_16_timeout_forming_signers": 3,
+          "view_17_installing_peers": 4,
+          "independent_timeout_BLS_verification": false
+        },
+        "run_6": {
+          "signed_local_cadence_ms": 10000,
+          "authenticated_transport_deadline_ms": 300000,
+          "genesis_authority_and_four_peer_pops_verified": true,
+          "authenticated_p2p_pairs": 6,
+          "verified_committed_heights": [
+            1,
+            2,
+            3
+          ],
+          "verified_stores_per_height": 4,
+          "actual_commit_signatures_in_each_quorum": 3,
+          "terminal_active_height": 4,
+          "terminal_active_view": 1,
+          "retained_h4_qc": false,
+          "funded_open_hash": "51d3a0c02190b9240acac49e6ba974ceb128faa5c2a33bd0b98812d316e5db99",
+          "verified_durable_queue_plan_peers": 4,
+          "admission_attestations": 2,
+          "global_funded_open_commit": false,
+          "first_process_exit": 1,
+          "other_managed_process_exits": [
+            0,
+            0,
+            0
+          ],
+          "status": "finalized ordinary blocks then encountered a native fail-stop during active height four"
+        }
+      },
+      "committed_game_receipt": false,
+      "authenticated_settlement_commit_qc": false,
+      "positive_stake_debit_or_payout": false,
+      "live_funded_join_refusal_observed": false,
+      "live_zero_stake_settlement_refusal_observed": false,
+      "cold_rejoin_at_committed_height_observed": false,
+      "complete_seven_part_transport": false,
+      "committed_chain_reverified_with_all_daemons_stopped": true,
+      "funded_open_admitted_to_durable_local_queue": true,
+      "direct_funded_wallet_balance_after_shutdown": null
+    }
+  },
+  "public_taira": {
+    "observed_utc": "2026-11-20T05:57:22.883278+00:00",
+    "genesis": "hash:4978D0BD15FC32B834672B27BBD8A03653B1DF060A1EEE7E9374D29AF3886D91#6774",
+    "height": 16561,
+    "execution_transport_ready": false,
+    "profiles": [
+      {
+        "maximum_proof_bytes": 4194304,
+        "profile_id": "hash:FA4825E275FCECCEE58677461735BFD8CB7AA94FAA7094424EFFDB78CC038F37#A127",
+        "qualified": false,
+        "relation": {
+          "kind": "race_v1",
+          "value": null
+        },
+        "rules_hash": "hash:6E4EB15B6DE811994EC894D8B128B2828F83274940A272355F73D01BE2380401#288E",
+        "target_soundness_bits": 128,
+        "version": 1
+      }
+    ],
+    "target_certificate_in_isolation": {
+      "live_status_revision": "4852600b1defa2e361d3d3d5ca92732b43281c83",
+      "height": 16555,
+      "endpoint_block_hash": "hash:69DB34D18AE996B38F87DE81A1C4FA8711E9DC171BCC3D3B8F788C9C4F83B087#C9C3",
+      "committee_members": 4,
+      "verified_under_offered_committee": true,
+      "independently_authenticated_mandate_at_height": false,
+      "game_settlement_verified": false
+    },
+    "contiguous_header_anchored_verification": {
+      "scope": "native contiguous public Taira certificate chain, assuming genesis header selection from the signed October 23 application observation",
+      "first_height": 1,
+      "last_height": 16555,
+      "target_header_hash": "69db34d18ae996b38f87de81a1c4fa8711e9dc171bcc3d3b8f788c9c4f83b087",
+      "source_page_groups": 262,
+      "bytes_of_input": 321823391,
+      "elapsed_s": 1449.256,
+      "heights_per_epoch": {
+        "0": 3600,
+        "1": 3600,
+        "2": 3600,
+        "3": 3600,
+        "4": 2155
+      },
+      "equal_to_signed_genesis_roster_heights": 16555,
+      "certified_epoch_boundaries": [
+        {
+          "height": "3600",
+          "block_hash": "5fb722732a2a477046e44d0175786b98fcf07fbb661835fb7d038b9ee2ea6617",
+          "epoch": "0",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "1",
+          "selection_anchor": "bfa1eef0d1475098b22be8268a7354b4d6d865263863d506d1f9c5fc6518acd1"
+        },
+        {
+          "height": "7200",
+          "block_hash": "c4de8cf3abbed1dde7362ecc15f96de941a288c14ad61d4bad0c66747785e159",
+          "epoch": "1",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "2",
+          "selection_anchor": "87f3ef7a2d401721107fb6227e6d2153257ce4050411db04eb395cfc8688b0af"
+        },
+        {
+          "height": "10800",
+          "block_hash": "9c4bf2bf4d61c57977d1b653b4bf77bec996ae7315faa0d498e26ba7896ae00b",
+          "epoch": "2",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "3",
+          "selection_anchor": "98cc1b54818a3020d240158578afa1a9dfa11afbef1aa8fa1b5bbe22031ae663"
+        },
+        {
+          "height": "14400",
+          "block_hash": "f32ea99395ee3e0f9b42c8e9a187be0919f2914c3496253d07335e373014b019",
+          "epoch": "3",
+          "authority_generation": "0",
+          "authority_id": "8c51fe3166d1f6980c895cf3a868c5b99cfb898f89583da3630cc39980e3c24b",
+          "members": "4",
+          "signed_genesis_roster_match": "true",
+          "next_epoch_on_boundary": "4",
+          "selection_anchor": "802514c496765cc7d0e3e5107f83ea87fbdf3afaf371f131d38d3e737cfb9e2d"
+        }
+      ],
+      "local_final_checkpoint_sha256": "9a7493d4a4e53524d54795fd93d76f9ac04e9a4497785ffc7bd1b29b4987da7d",
+      "decision_ledger_sha256": "40231dd09684aff1fc4d6072266612f8fc8e1a5dff428284f013ba3d4106efb1",
+      "page_ledger_sha256": "37aecfbb88878ea322be807eb346529d62d2596f1ef2040c4bb6d8c992873272",
+      "last_entry_sha256": "dd127eaacd3804863d84384404fb6a8ca69ff9eb2a528777fadd35f2147cfca3",
+      "independent_signed_genesis_original_policy_satisfied": false,
+      "game_settlement_verified": false,
+      "libraries": {
+        "iroha_data_model": {
+          "name": "libiroha_data_model-a66eb8003f5c35ae.rlib",
+          "sha256": "04b24edac4d099d962dd425a8a960a69c530a6ba4c46f6a10dff302f65b2d199"
+        },
+        "norito": {
+          "name": "libnorito-622dcb577a08fe4f.rlib",
+          "sha256": "1aa4c7750ebfa4e5f7c856d19d9d91cf18098ab64e5bc4a260402a65725d4943"
+        }
+      },
+      "rust_source_sha256": "eb7cf288b3a86ddd2e035acfc3975b8fae32642dbb4671cf502e94c1c59c78ba"
+    }
+  },
+  "released_android_wallets": [
+    {
+      "package": "jp.co.soramitsu.sora",
+      "version": "3.8.5.3",
+      "apk_sha256": "4bc0a85cae7e5bf081ad98eddad660e725b80db8915838b49e305036198400d8",
+      "browsable_iroha_connect_query": "No activities found"
+    },
+    {
+      "package": "jp.co.soramitsu.sora.communitytesting",
+      "version": "3.8.6.0",
+      "apk_sha256": "86ec3e6ec539750775db9a40224f6c158cb62f43b165c1e705d92fe27e44d3c9",
+      "browsable_iroha_connect_query": "No activities found"
+    }
+  ],
+  "desktop_wallet_source": {
+    "wallet_version": "2.0.1",
+    "wallet_source": "595dcdeb73c71ace7e04990d9e1932968323180f",
+    "wire_frame_bytes": 2720025,
+    "source_wallet_ui_frame_limit": 524288,
+    "source_wallet_rejected_exact_game_frame": true,
+    "unsigned_payload_sha256": "d1f381b733c6cbf8e743765d532783e90fc9b124640dcc545a89c2b9191cbbb2",
+    "transaction_signature_returned": false
+  },
+  "desktop_pairing_ui": {
+    "source_wallet": "9958f2fc48893df2f2c603932f5c76804297531d",
+    "normal_production_renderer": true,
+    "chromium_sandbox_enabled": true,
+    "disposable_profile": true,
+    "pairing_dialog_visible": true,
+    "pairing_denied": true,
+    "submitted": false
+  },
+  "mobile_bridge": {
+    "source": "b7e763cfa659de39dcc64855bf844d711fef3d03",
+    "abi": 23,
+    "library_sha256": "c5f7f7ccdebfe74ed75bbe7838a3ad22303e364aba248dcc73a46df8c4136994",
+    "swift_underlying_native_open_network": "hash:97104D6D499469597764A276572BAE26750622EAC20556942A93F6842122B595#D2D3",
+    "swift_underlying_native_aead_bytes": 2719909,
+    "gradle_exit": 0,
+    "suites": [
+      {
+        "name": "org.hyperledger.iroha.android.connect.ConnectWalletRequestTests",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "org.hyperledger.iroha.sdk.connect.ConnectWalletRequestTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "swift_native_wallet_interoperability": {
+    "abi": 23,
+    "aead_bytes": 2719909,
+    "exact_unsigned_bytes": 2719809,
+    "language": "Swift",
+    "network_id_hex": "97104D6D499469597764A276572BAE26750622EAC20556942A93F6842122B595",
+    "sdk_scope": "Swift client of the signed native C ABI via its shipped header",
+    "sha256": "d1f381b733c6cbf8e743765d532783e90fc9b124640dcc545a89c2b9191cbbb2",
+    "signed_transaction": false,
+    "wallet_egress_bytes": 2720281
+  },
+  "local_evidence_root": "output/reviews/live-staking-qualification-20261120",
+  "receipts": {
+    "custody/arithmetic-results.json": {
+      "bytes": 1453,
+      "sha256": "219af6915c35fbace5823da5c3e3de58abb4020afd3190e75661565693f02f3a"
+    },
+    "custody/check_arithmetic.py": {
+      "bytes": 4993,
+      "sha256": "1d8359a50304b81586ca871356ecd4940c4cae081b19a311ff4ba4bf7a3608bb"
+    },
+    "custody/results.json": {
+      "bytes": 5933,
+      "sha256": "8c10009dc5d1332a3d01f75a301004ef24c6153bc6d7aa5c658ab089217c51bc"
+    },
+    "fable-common-agreement-input.json": {
+      "bytes": 2069,
+      "sha256": "11536e3dc9c6d7a869f6faa8c0ae408279c2339c64510d3d52a88f301667b474"
+    },
+    "fable-common-agreement-original.json": {
+      "bytes": 12021,
+      "sha256": "eed9f7c5f44df0351d40014e4db7ad62ab979b67f32c46cc9876511b388bb88e"
+    },
+    "fable-compiler-input.json": {
+      "bytes": 2922,
+      "sha256": "4747de0920d23e40118c8c3055a89096d6df1980df60f0f4652f4ffe63f6a86a"
+    },
+    "fable-compiler-original.json": {
+      "bytes": 9208,
+      "sha256": "43deb9675b72e2475cc50c232e8698a1654f31955f328940d2358a9644bff0d0"
+    },
+    "fable-input.json": {
+      "bytes": 2628,
+      "sha256": "624df7a28e2eb23538d814309ad3b717c8d709d429370f2702b9ce6976af0e72"
+    },
+    "fable-original.json": {
+      "bytes": 12303,
+      "sha256": "3c3d1e4627d2899f9ef1a64dc96cec9bac16271c53ada2c2e5893fdc19a6688c"
+    },
+    "full-native-cli/measurements.json": {
+      "bytes": 1773,
+      "sha256": "65e3741331c753c38e96eb6088fd139d86f955e033849a5b5ea008a2f821fa70"
+    },
+    "linux-engine/native-checkpoint-report.json": {
+      "bytes": 1816,
+      "sha256": "246be6081d776d359d06a6ea005529b783c5ec02f1ffca47cc0772a003ce7cdf"
+    },
+    "metering/history/measurements.log": {
+      "bytes": 961,
+      "sha256": "c606893662781180bf251be8fa40b5d0ff02fb26368c9b992b45a3c160b59fd2"
+    },
+    "metering/history/provenance.json": {
+      "bytes": 2754,
+      "sha256": "e8a9dab7c0c139ba06b16d100a4ad9938590b51f294b294e175949d7e5539491"
+    },
+    "metering/history/results.json": {
+      "bytes": 2169,
+      "sha256": "656a5d5c663bc9e03f27f20930a8eb0baa23b6a69d3f00a5cd7644b496d6f4a9"
+    },
+    "metering/results.json": {
+      "bytes": 2639,
+      "sha256": "87ea1f0345669f398f02bfdb00434a0ae3e44d71ea6f7c14395f24d2ad4270ec"
+    },
+    "network/attempt-4/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "26d192d6a22c86621a29cb71fc21545731e978f6c7463277de6c85d0a93e8d6b"
+    },
+    "network/attempt-4/candidate-observations/signed-genesis.wire.nrt": {
+      "bytes": 25502,
+      "sha256": "9474d022f693ca52c18afae22d17e0018a0fc6490c06132ad4fb32d259de9c78"
+    },
+    "network/attempt-4/outcome.json": {
+      "bytes": 1326,
+      "sha256": "a02a6e3c869d1e6ce12e0fb6196d7c8291fe30880884f3d03ad34b2d66a3f568"
+    },
+    "network/attempt-5/candidate-observations/full-mesh-reciprocal-sockets.json": {
+      "bytes": 903,
+      "sha256": "97f95e355087607bcec1b8cea94717d0fb4f251c41765fe1ef5ac33f60143bd3"
+    },
+    "network/attempt-5/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "2415432033d2b95c7fee7b55b7568d615d3b2f439ba0640e3bd19e6af39a21b9"
+    },
+    "network/attempt-5/candidate-observations/timeout-threshold-formation-and-installation-view-17.json": {
+      "bytes": 7471,
+      "sha256": "f0affc8742de61bc9fea8cf4ba57d5156f47e71a71fd0f53e0ef53d38db0097e"
+    },
+    "network/attempt-5/outcome.json": {
+      "bytes": 1041,
+      "sha256": "1a2a8d74f7f88c6e1ef9c279df0b17e098b4bc1544744a2654a2e45e100719d6"
+    },
+    "network/attempt-6/candidate-observations/cold-reopened-chain.json": {
+      "bytes": 4044,
+      "sha256": "71bd7e7ce469909d76566ecd79b5223501d698b0c92b8e2e785fcbbc8a31d41b"
+    },
+    "network/attempt-6/candidate-observations/funded-open-certified-queue-plan.json": {
+      "bytes": 1121,
+      "sha256": "c4d528ea60ad39fc30b1d4d76bab338a0a8a63950a19ad66ef4865a3490f094e"
+    },
+    "network/attempt-6/candidate-observations/funded-open-same-wire-retry-outcome.json": {
+      "bytes": 106,
+      "sha256": "2b6d3e1dbd16a7a591778ca19c8a389fcc3d9173d5aef0363e852c0d385c0428"
+    },
+    "network/attempt-6/candidate-observations/genesis-independent-cold-verified.json": {
+      "bytes": 688,
+      "sha256": "896a302aaa435f9dcb2de0c12c81ecc12b705b4a4607c8e3a66aacc480422083"
+    },
+    "network/attempt-6/candidate-observations/genesis-input-signatures.json": {
+      "bytes": 542,
+      "sha256": "6709136f7df7f9c8c808a51f06a58614dbe5e14f5f14866dccc8a658ba6ffbe3"
+    },
+    "network/attempt-6/candidate-observations/signed-genesis-timing.json": {
+      "bytes": 335,
+      "sha256": "b6c9ba6f3e4f8e736b5bd4060bb23905fe6e984dfe40d68d839e9e6d16215cf4"
+    },
+    "network/attempt-6/candidate-observations/signed-genesis.wire.nrt": {
+      "bytes": 25503,
+      "sha256": "f255cda1e1733318ca786aff4921ff3e75aec567da525721573b378583f303cf"
+    },
+    "network/attempt-6/candidate-observations/terminal-validator-failure.json": {
+      "bytes": 3555,
+      "sha256": "a5ea0e459a703b582336295a2679d51c49072393623fb45634303c77bec74640"
+    },
+    "network/attempt-6/outcome.json": {
+      "bytes": 6383,
+      "sha256": "534debd6003737a05a7e14d9a8787530ef69477d76c5bd432162be037d07fa12"
+    },
+    "network/bootstrap-attempts-1-2.json": {
+      "bytes": 1909,
+      "sha256": "384a44774c7486cda35f5c02ee9b97b00cc3a18fce57604cfd84f3e124bb2817"
+    },
+    "network/final-qualification.json": {
+      "bytes": 12014,
+      "sha256": "10dd6bc9d852fe08c4a33d746d5a7ee84405e5c7d8c6963bf681676e17b4381c"
+    },
+    "network/native-funded-admission-refusal.log": {
+      "bytes": 211,
+      "sha256": "0b04e2cadcf05aa0ac655e3ed97a1767c05e9771c859815d43aa22deb8f4e88f"
+    },
+    "network/offline-positive-finality-reopen.log": {
+      "bytes": 442,
+      "sha256": "bc5e04e4c164b3b99430f51536584860d9a3f886610baf38373565397b71b578"
+    },
+    "network/prior-and-offline-evidence.json": {
+      "bytes": 1405,
+      "sha256": "f20eeff00deb612cf12061f7c42c562046246986fdd0a18a2317865eba31b57c"
+    },
+    "protocol/air-sources.tsv": {
+      "bytes": 1287,
+      "sha256": "59dc151af7586315c6824d3d404b17d68c79c370a48860bc7276fafa8e0984c3"
+    },
+    "protocol/compiler-accounting.md": {
+      "bytes": 8356,
+      "sha256": "cdb29001d6bef27a99f7d255a078071511bbbf04b1df6911517b7e7930ad33f8"
+    },
+    "protocol/compiler_accounting.py": {
+      "bytes": 1574,
+      "sha256": "a4e3d740204e89c83e475e9d8bd363b5df58e79ed9dbcb37100ce1a469dee083"
+    },
+    "protocol/controller/cases.tsv": {
+      "bytes": 22770,
+      "sha256": "b942e476ad14973decd6f1f001d294f98da1ca76a5f58d4bba5b5340371fbf03"
+    },
+    "protocol/controller/induction/check.py": {
+      "bytes": 8952,
+      "sha256": "e18de99b9744a199d3651771e82632dfaae1d9cc33e80c638e2ef77429944c04"
+    },
+    "protocol/controller/induction/checked.json": {
+      "bytes": 10131,
+      "sha256": "5013a15e0451ba583f356d59102baeffe1ed3ce698a52e776e0f148fecd01570"
+    },
+    "protocol/controller/induction/fable-disposition.md": {
+      "bytes": 3668,
+      "sha256": "f888df2b12690080c93a4dc97e8acc8c794983d007001ac843a30eb28a0da2d9"
+    },
+    "protocol/controller/induction/fable-math-input.json": {
+      "bytes": 1672,
+      "sha256": "5d45782f0b5587c3ff1a0c398c9b5dc1fc0823df5217b20717f41d8c3c0e9065"
+    },
+    "protocol/controller/induction/fable-math-receipt.json": {
+      "bytes": 4345,
+      "sha256": "74f4e83a77cea709febb1ee0444302499b643d074af2cb72e160c019a0cda9ef"
+    },
+    "protocol/controller/induction/kernel.log": {
+      "bytes": 4436,
+      "sha256": "fde2588f4a3b99c40869f61111c8936fb43f1212aae82438ba28412e90d7995e"
+    },
+    "protocol/controller/provenance.json": {
+      "bytes": 2018,
+      "sha256": "1bf01a3f1e6a456567215fbeac71ce657ee184ea39f6ab36b111bde58a428f89"
+    },
+    "protocol/controller/summary.json": {
+      "bytes": 1008,
+      "sha256": "48f399def2ae4eee280e4489bdd5cff481b5479cb2e921dc097985ee64ad8dd9"
+    },
+    "protocol/fable-air-input.json": {
+      "bytes": 3166,
+      "sha256": "7fb6b6d789b249d474bce4ad68133f144ec7d9377cafc961cef90f2ecd4ea067"
+    },
+    "protocol/fable-air-receipt.json": {
+      "bytes": 9647,
+      "sha256": "93184538c1faa305ba5741d07a9912c6bd4a8f089cfc2d2c710f3262b2a8206f"
+    },
+    "protocol/fable-air.md": {
+      "bytes": 9733,
+      "sha256": "b0a2cc153fd02d517844f80a5141c85284280be8b2dd704e08fbc6e0ab5d0649"
+    },
+    "protocol/integer-gadgets/check.py": {
+      "bytes": 9381,
+      "sha256": "21f3dbb5a0de5b0f6e5f00d07ab14360678bdc29939c052aef9bf0e156d83153"
+    },
+    "protocol/integer-gadgets/checked.json": {
+      "bytes": 5767,
+      "sha256": "b009adc964de2e5ffe6dc5e455ef261db53ca1ec0e68e4020999fbe9a080676d"
+    },
+    "protocol/integer-gadgets/lean-kernel.log": {
+      "bytes": 2054,
+      "sha256": "a82325aaf3fb80a643bd19c8a129a21d167d4dee063d4d653cdf32cd1e2398a9"
+    },
+    "protocol/research-report-links.json": {
+      "bytes": 3147,
+      "sha256": "a2d96290a1dca13c04ba97dabd556dba782748ea59571636ec870120a750f242"
+    },
+    "protocol/settlement-fields/inspect.rs": {
+      "bytes": 5489,
+      "sha256": "014ee2a96ce7ec1a0445aa5436f4d017bc812e730d98abcf34f70d2ea41451af"
+    },
+    "protocol/settlement-fields/values.json": {
+      "bytes": 6700,
+      "sha256": "0cb4aad0fcd46c56fad0d37974481f610421e55fb2be62546bfbf0f7a413e115"
+    },
+    "protocol/settlement-fields/winners/checked.json": {
+      "bytes": 2436,
+      "sha256": "c6d937a57f989f2d6e5c0df39f15410ec65668ef37820c01db8a4068b2a97885"
+    },
+    "protocol/settlement-fields/winners/kernel.log": {
+      "bytes": 2327,
+      "sha256": "df353ebb8cf6f0f48965cdae6210fd025613a70f574df1922843450e20f5519c"
+    },
+    "protocol/settlement-fields/winners/native.tsv": {
+      "bytes": 2358,
+      "sha256": "0ba47e50b579bd256a9249bddaaedcaea3ec136482f77941ef1c866b2419c6ad"
+    },
+    "protocol/shapes.tsv": {
+      "bytes": 36942,
+      "sha256": "a7b7fce917e45da4c58562dd09af0f64e9e4ff1526abaf7aa59f080863daae64"
+    },
+    "protocol/structural-checks.json": {
+      "bytes": 2141,
+      "sha256": "5b8248e7e0228980a80e2efd17e4a948e328b48b8f138e7536ee59361f39f836"
+    },
+    "protocol/summary.json": {
+      "bytes": 2871,
+      "sha256": "77ccb892dd345583e27e970f6f99faad5dedbe2d0a98caf606d75e9b865f2fa3"
+    },
+    "protocol/weighted-bounds.json": {
+      "bytes": 113394,
+      "sha256": "d069a9cd2d3c344b7a92d9249879d69e600f6e6e395ef793c2caa2379e6f7cdf"
+    },
+    "protocol/weighted_bounds.py": {
+      "bytes": 2219,
+      "sha256": "6187345efbe2ba69da3ab286c868af93f52c8da7a4a5d32a999894a4487d9a6b"
+    },
+    "qualification-decisions.json": {
+      "bytes": 2021,
+      "sha256": "7c5136f753ab65a56442593c7c7726b17add0719429fd687bc099dbdb71a9651"
+    },
+    "sdk-full-history/roundtrip.json": {
+      "bytes": 443,
+      "sha256": "dcfcbca17f5ebbc6c7f70d2e43c16886604a18d19e5aed5404be3094df15ee3a"
+    },
+    "sdk-full-history/worker/chromium-worker.json": {
+      "bytes": 854,
+      "sha256": "0ae593e583bba8aac2774bc22dac820953152d6af881d42047e4e861cba52d4f"
+    },
+    "sdk-full-history/worker/provenance.json": {
+      "bytes": 2853,
+      "sha256": "9ca12e794c32de8c06575e2b64c0e71958712a1b769b8f0cffe7fa7ab16b6472"
+    },
+    "sdk-full-history/worker/sdk-test-results.json": {
+      "bytes": 3452,
+      "sha256": "c53fbc296bad421690f5db354a96b5a8e1263b4b9c238e876d085ad4dd1d12a9"
+    },
+    "taira/final-public-comparison.json": {
+      "bytes": 2378,
+      "sha256": "ab62ba71c17c2529356167cdd4ee117502caf79c90143714a91e570aee717e38"
+    },
+    "taira/iroha.bridge.finality.bundle.response": {
+      "bytes": 57112,
+      "sha256": "e0abc14458f9d102cbf8dfd6bea05ae4b3a6eec5b052007f8fe358816e79b4c2"
+    },
+    "taira/iroha.bridge.finality.proof.response": {
+      "bytes": 57002,
+      "sha256": "ee48669f2b800442989a5ab262a781be98fa8a2e257849b80f6a4e54ca64d6e2"
+    },
+    "taira/verification/candidate-check.json": {
+      "bytes": 2762,
+      "sha256": "d06985aa68a723461315a17e9f393ce0cc52bef60bcd7b54bedc42dc03d17aff"
+    },
+    "taira/verification/prefix-ledger/16555.checkpoint.nrt": {
+      "bytes": 119770,
+      "sha256": "9a7493d4a4e53524d54795fd93d76f9ac04e9a4497785ffc7bd1b29b4987da7d"
+    },
+    "taira/verification/prefix-ledger/complete.json": {
+      "bytes": 3364,
+      "sha256": "2f538bc72a582e234eeeaf1c7b507b643cd5e9d92125118d9ea1bf0a88c4bc48"
+    },
+    "taira/verification/prefix-ledger/decisions.tsv": {
+      "bytes": 2489085,
+      "sha256": "40231dd09684aff1fc4d6072266612f8fc8e1a5dff428284f013ba3d4106efb1"
+    },
+    "taira/verification/prefix-ledger/independent-check.log": {
+      "bytes": 406,
+      "sha256": "fef535f119584a508e4a45a259d5b8a842763f3e65cb6a3f59ab1c8c27c4ba92"
+    },
+    "taira/verification/prefix-ledger/input-manifest.tsv": {
+      "bytes": 29639,
+      "sha256": "282d6047d3306c43bb19e29b682bc9ae0e0af781dc4d8467236aca41faf12ad2"
+    },
+    "taira/verification/public-interval-check.json": {
+      "bytes": 5188,
+      "sha256": "445074f5c24a7359ccb95cbe734020252e54389d720c22dbfc03a9e0a0a86931"
+    },
+    "taira/verification/publication-survey.json": {
+      "bytes": 5733,
+      "sha256": "f4335604c28817473dae03f571e28c80819d21bcf8408968065abc431d80d5ba"
+    },
+    "taira/verification/published-anchors.json": {
+      "bytes": 4698,
+      "sha256": "4ed08ebb9967db231d748266663e15e64f17571b10e17181cd5aea0d4f234fe4"
+    },
+    "taira/verification/published-commit-signatures.txt": {
+      "bytes": 453,
+      "sha256": "ff1a298d29728c3f01416e9ce0b406f9c57fc6a1ea3485b224921f5ae6977d1d"
+    },
+    "taira/verification/reader-source-comparison.json": {
+      "bytes": 3140,
+      "sha256": "ee7712a7245fd62f627131605f04445e93fe26a036a4fe3bc3775feffecf73ff"
+    },
+    "wallet/SwiftWalletReceipt.swift": {
+      "bytes": 2851,
+      "sha256": "73b2294559c41be1cb549b3b07a6926cbcc091db5dbe6993c2198e4775b8f160"
+    },
+    "wallet/android-full-relayed-frame-wire.log": {
+      "bytes": 444,
+      "sha256": "07ac95fd0d162cbad20dcfbdb4d3279d61b24cc3cbdbefb34f1d085d26af16d7"
+    },
+    "wallet/android-release-device.json": {
+      "bytes": 1422,
+      "sha256": "93e63ae5fb2691aaf6c5fde423427a9e76f3b8ee2f354783963375c69006627f"
+    },
+    "wallet/browser-connect/game-final/unit-complete.json": {
+      "bytes": 539,
+      "sha256": "04e7021c935ac48fbf24c085bdcbabb2cd6d212de65bf161263a0bdc860521e7"
+    },
+    "wallet/browser-connect/game-final/unit-complete.log": {
+      "bytes": 76799,
+      "sha256": "0d8a2de2f0411715f2ba59155ea094551decf24cc300a9b9be9ddd9462b270aa"
+    },
+    "wallet/browser-connect/results.json": {
+      "bytes": 3026,
+      "sha256": "89ecf9a79642f26438c71de5de4a9cb7719e3bab6e5b9215bc348da394153f01"
+    },
+    "wallet/desktop-relayed-envelope.json": {
+      "bytes": 547,
+      "sha256": "670d6cbea8dd9ace7b55c0eb325e97eb6edb7e5aeeea2014e3f91b9819f87629"
+    },
+    "wallet/full-settlement.json": {
+      "bytes": 1683,
+      "sha256": "e39fdfec4d5c9dd24868cf057c0c37c009d2ea2829d7f1b8d34a53425a504dbd"
+    },
+    "wallet/game-relay-paired/native-vectors/qualification.json": {
+      "bytes": 3408,
+      "sha256": "2c62ef92b7fcc1fa863a5769d513d609522545c8231c3b9f4174143b1a1bfa93"
+    },
+    "wallet/game-relay-primary/native-vectors/qualification.json": {
+      "bytes": 3300,
+      "sha256": "bbbecb5611cd38ba492cd07d7c3766e9ab3aef0f5545cd415feb5ba690bbcb09"
+    },
+    "wallet/packaged-wallet-metadata.json": {
+      "bytes": 2045,
+      "sha256": "b892daecf0b1126b1ca5b1c37aaada3525239e3d7731e6ab5fb9cb2dddb401e4"
+    },
+    "wallet/signed-successor.json": {
+      "bytes": 1825,
+      "sha256": "22e030c765efb52edda10e35724449cb154d41b0d0ee93f38f53a24e2ff7928e"
+    },
+    "wallet/source-wallet-abi-candidate.json": {
+      "bytes": 640,
+      "sha256": "17eb1b51707ea002a0e3a1ffc56defe78332d4d7e5943b43bc3de427deb4ef82"
+    },
+    "wallet/source-wallet-abi-wallet.json": {
+      "bytes": 581,
+      "sha256": "94a55724220d334bce106c266258c1d4d67d10831494f9e87e5edda799ab1eb3"
+    },
+    "wallet/source-wallet-full-frame.json": {
+      "bytes": 752,
+      "sha256": "72ef6145604b8f2ed493f0cda2ec437b05a11eeffd5b3e7f8296f933e9a50148"
+    },
+    "wallet/source-wallet-normal-ui.json": {
+      "bytes": 2222,
+      "sha256": "ec3c6aca85b563b00f4b3be5b8e94234b4ef25c42cb1874b4fd1067294594c62"
+    },
+    "wallet/successor-mobile-bridge-scaffold-tests.log": {
+      "bytes": 120709,
+      "sha256": "f92ab4b8100cd4c2bffcacdf9c0a4b97fe2ca8c26c3595519a9febba65d67e10"
+    },
+    "wallet/successor-mobile-bridge-signed-fixtures.log": {
+      "bytes": 119069,
+      "sha256": "89b7fb2c6b3242f73fe2543c7344e60e60e875bf4002a61d4d357ea6b1c3117c"
+    },
+    "wallet/successor-mobile-gradle.log": {
+      "bytes": 1519,
+      "sha256": "318f7fe8df6d2c03f94b2a5ed3ff3b634a69ed249c80d366763c0df8c9a3e859"
+    },
+    "wallet/successor-mobile-receipt.json": {
+      "bytes": 843,
+      "sha256": "d68bedf5c62b91308acb50375a4cabfc020d95f63bb73ab072608acdd54d9e27"
+    },
+    "wallet/swift-wallet-native.json": {
+      "bytes": 422,
+      "sha256": "634529f079c21b82a9493bdd5fe02bffc9449a5407f19a9b8b7926175bedbaea"
+    },
+    "wallet/torii-wire.json": {
+      "bytes": 1008,
+      "sha256": "dc908cfb78ce5b5b514ec6a0c4635e89901e0479eb0ce5adb7f083dfb02b93c7"
+    },
+    "wallet/typed-review-contracts.json": {
+      "bytes": 6669,
+      "sha256": "518df4e01fcc9ea66b4cba4cfbbddc0d02f15230c1a86d0e0490d50091a8ce0f"
+    },
+    "wallet/wallet-capture.json": {
+      "bytes": 2155,
+      "sha256": "73393be4c2ae38ea6d82896ae5673febcf2b6e807fcb1cd8bd2500b176d450c3"
+    },
+    "wallet/wallet-gate-candidate.json": {
+      "bytes": 896,
+      "sha256": "da6c0ffdd670692ed80ec6d5eeecbad785622615052a887f20fe93c07973fe76"
+    },
+    "wallet/wallet-gate-maintained.json": {
+      "bytes": 1098,
+      "sha256": "54be8f70fd4c199a76353b92110e605d4a96b7b218c1f00a75cf1d46cb42a68f"
+    },
+    "wallet/wallet-onboarding-tests.log": {
+      "bytes": 479,
+      "sha256": "ba48b4c08d51ddbf8bd6c5dc6b5292c7c46a5e47bbb2539f96b87462ce2f1ea6"
+    }
+  }
+}
