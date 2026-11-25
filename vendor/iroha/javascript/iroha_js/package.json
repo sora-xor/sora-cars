@@ -1,0 +1,387 @@
+{
+  "name": "@iroha/iroha-js",
+  "version": "0.0.3",
+  "description": "Node.js SDK for interacting with Hyperledger Iroha via Norito payloads and Torii APIs.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
+    "./nft": {
+      "types": "./nft.d.ts",
+      "browser": "./dist/nft.js",
+      "import": "./dist/nft.js"
+    },
+    "./address": {
+      "browser": "./dist/public/address.js",
+      "import": "./dist/public/address.js",
+      "types": "./address.d.ts"
+    },
+    "./browser": {
+      "browser": "./dist/browser.js",
+      "import": "./dist/browser.js",
+      "types": "./browser.d.ts"
+    },
+    "./kagemusha": {
+      "browser": "./dist/kagemusha.js",
+      "import": "./dist/kagemusha.js",
+      "types": "./kagemusha.d.ts"
+    },
+    "./privacy-capabilities": {
+      "browser": "./dist/privacyCapabilities.js",
+      "import": "./dist/privacyCapabilities.js",
+      "types": "./privacy-capabilities.d.ts"
+    },
+    "./bootle-lantern-issuance": {
+      "browser": "./dist/bootleLanternIssuance.js",
+      "import": "./dist/bootleLanternIssuance.js",
+      "types": "./bootle-lantern-issuance.d.ts"
+    },
+    "./atomic-private-settlement": {
+      "browser": "./dist/atomicPrivateSettlement.js",
+      "import": "./dist/atomicPrivateSettlement.js",
+      "types": "./atomic-private-settlement.d.ts"
+    },
+    "./transaction-codec": {
+      "browser": "./dist/public/transactionCodec.js",
+      "import": "./dist/public/transactionCodec.js",
+      "types": "./transaction-codec.d.ts"
+    },
+    "./contract-payload": {
+      "browser": "./dist/contractPayload.js",
+      "import": "./dist/contractPayload.js",
+      "types": "./contract-payload.d.ts"
+    },
+    "./smart-contract-deployment": {
+      "browser": "./dist/smartContractDeployment.js",
+      "import": "./dist/smartContractDeployment.js",
+      "types": "./smart-contract-deployment.d.ts"
+    },
+    "./normalizers": {
+      "browser": "./dist/public/normalizers.js",
+      "import": "./dist/public/normalizers.js",
+      "types": "./normalizers.d.ts"
+    },
+    "./blake2b": {
+      "browser": "./dist/blake2b.js",
+      "import": "./dist/blake2b.js",
+      "types": "./blake2b.d.ts"
+    },
+    "./ivm-artifact": {
+      "browser": "./dist/ivmArtifact.js",
+      "import": "./dist/ivmArtifact.js",
+      "types": "./ivm-artifact.d.ts"
+    },
+    "./instruction-builders": {
+      "import": "./dist/instructionBuilders.js",
+      "types": "./instruction-builders.d.ts"
+    },
+    "./torii": {
+      "import": "./dist/toriiClient.js",
+      "types": "./torii.d.ts"
+    },
+    "./torii-browser": {
+      "import": "./dist/toriiBrowserClient.js",
+      "browser": "./dist/toriiBrowserClient.js",
+      "types": "./torii-browser.d.ts"
+    },
+    "./sumeragi-typed": {
+      "browser": "./dist/sumeragiTyped.js",
+      "import": "./dist/sumeragiTyped.js",
+      "types": "./sumeragi-typed.d.ts"
+    },
+    "./norito": {
+      "import": "./dist/public/norito.js",
+      "types": "./norito.d.ts"
+    },
+    "./canonical-request": {
+      "browser": "./dist/canonicalRequest.js",
+      "import": "./dist/canonicalRequest.js",
+      "types": "./canonical-request.d.ts"
+    },
+    "./sccp": {
+      "import": "./dist/sccp.js",
+      "types": "./sccp.d.ts"
+    },
+    "./sorafs": {
+      "import": "./dist/public/sorafs.js",
+      "types": "./sorafs.d.ts"
+    },
+    "./crypto": {
+      "browser": "./dist/public/crypto.browser.js",
+      "import": "./dist/public/crypto.js",
+      "types": "./crypto.d.ts"
+    },
+    "./connect-browser": {
+      "import": "./dist/connect.browser.js",
+      "types": "./connect.browser.d.ts"
+    },
+    "./nexus-app": {
+      "browser": "./dist/nexusApp.js",
+      "import": "./dist/nexusApp.js",
+      "types": "./nexus-app.d.ts"
+    },
+    "./kotodama-compiler": {
+      "types": "./kotodama-compiler.d.ts",
+      "browser": "./dist/kotodamaCompiler/browser.js",
+      "import": "./dist/kotodamaCompiler/index.js"
+    },
+    "./race": {
+      "browser": "./dist/race.js",
+      "import": "./dist/race.js",
+      "types": "./race.d.ts"
+    },
+    "./classed-race": {
+      "types": "./classed-race.d.ts",
+      "browser": "./dist/classedRace.js",
+      "import": "./dist/classedRace.js"
+    },
+    "./game": {
+      "types": "./game.d.ts",
+      "browser": "./dist/game.js",
+      "import": "./dist/game.js"
+    },
+    "./game-proof-worker": {
+      "types": "./game-proof-worker.d.ts",
+      "browser": "./dist/gameProofWorker.js",
+      "import": "./dist/gameProofWorker.js"
+    },
+    "./game-replay": {
+      "types": "./game-replay.d.ts",
+      "browser": "./dist/gameReplay.js",
+      "import": "./dist/gameReplay.js"
+    },
+    "./game-certificates": {
+      "types": "./game-certificates.d.ts",
+      "browser": "./dist/gameCertificates.js",
+      "import": "./dist/gameCertificates.js"
+    },
+    "./game-settlement": {
+      "types": "./game-settlement.d.ts",
+      "browser": "./dist/gameSettlement.js",
+      "import": "./dist/gameSettlement.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "address": [
+        "./address.d.ts"
+      ],
+      "browser": [
+        "./browser.d.ts"
+      ],
+      "kagemusha": [
+        "./kagemusha.d.ts"
+      ],
+      "privacy-capabilities": [
+        "./privacy-capabilities.d.ts"
+      ],
+      "bootle-lantern-issuance": [
+        "./bootle-lantern-issuance.d.ts"
+      ],
+      "atomic-private-settlement": [
+        "./atomic-private-settlement.d.ts"
+      ],
+      "transaction-codec": [
+        "./transaction-codec.d.ts"
+      ],
+      "contract-payload": [
+        "./contract-payload.d.ts"
+      ],
+      "smart-contract-deployment": [
+        "./smart-contract-deployment.d.ts"
+      ],
+      "normalizers": [
+        "./normalizers.d.ts"
+      ],
+      "blake2b": [
+        "./blake2b.d.ts"
+      ],
+      "ivm-artifact": [
+        "./ivm-artifact.d.ts"
+      ],
+      "instruction-builders": [
+        "./instruction-builders.d.ts"
+      ],
+      "torii": [
+        "./torii.d.ts"
+      ],
+      "torii-browser": [
+        "./torii-browser.d.ts"
+      ],
+      "sumeragi-typed": [
+        "./sumeragi-typed.d.ts"
+      ],
+      "norito": [
+        "./norito.d.ts"
+      ],
+      "canonical-request": [
+        "./canonical-request.d.ts"
+      ],
+      "sccp": [
+        "./sccp.d.ts"
+      ],
+      "sorafs": [
+        "./sorafs.d.ts"
+      ],
+      "crypto": [
+        "./crypto.d.ts"
+      ],
+      "connect-browser": [
+        "./connect.browser.d.ts"
+      ],
+      "nexus-app": [
+        "./nexus-app.d.ts"
+      ],
+      "kotodama-compiler": [
+        "./kotodama-compiler.d.ts"
+      ],
+      "race": [
+        "./race.d.ts"
+      ],
+      "classed-race": [
+        "./classed-race.d.ts"
+      ],
+      "game": [
+        "game.d.ts"
+      ],
+      "game-proof-worker": [
+        "./game-proof-worker.d.ts"
+      ],
+      "game-replay": [
+        "./game-replay.d.ts"
+      ],
+      "game-certificates": [
+        "./game-certificates.d.ts"
+      ],
+      "game-settlement": [
+        "./game-settlement.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "eslint --max-warnings=0 src scripts recipes test --ext .js,.mjs",
+    "lint:test": "npm run lint && npm test",
+    "build:native": "node ./scripts/build-native.mjs && node ./scripts/copy-native.mjs",
+    "build:dist": "node ./scripts/build-dist.mjs",
+    "bundle:check": "node ./scripts/bundle-size-check.mjs",
+    "test": "npm run build:native && node ./scripts/run-test-profile.mjs unit",
+    "test:dist": "npm run build:dist && node ./scripts/run-test-profile.mjs unit",
+    "test:native-provenance": "node ./scripts/run-test-profile.mjs native-provenance",
+    "test:sorafs-native": "node ./scripts/run-test-profile.mjs sorafs-native",
+    "test:heavy": "node ./scripts/run-test-profile.mjs heavy",
+    "test:pack-install": "node ./scripts/package-install-smoke.mjs",
+    "check:changelog": "node ./scripts/check-changelog.mjs",
+    "release:update-docs": "node ./scripts/update-release-docs.mjs",
+    "release:provenance": "node ./scripts/record-release-provenance.mjs",
+    "release:verify": "node ./scripts/verify-release-tarball.mjs",
+    "fixtures:axt": "node ./scripts/refresh-axt-fixtures.mjs",
+    "release:matrix": "node ./scripts/release-matrix.mjs",
+    "release:publish": "npm publish --access public --provenance",
+    "prepublishOnly": "npm run check:changelog && npm run build:dist && npm run lint:test && npm run bundle:check && npm run test:pack-install && npm run release:provenance",
+    "test:integration": "node ./scripts/run_integration.mjs",
+    "test:integration:qualification": "node ./scripts/run_integration.mjs --qualification",
+    "report:bundle-size": "node ./scripts/report-bundle-size.mjs"
+  },
+  "keywords": [
+    "iroha",
+    "norito",
+    "blockchain",
+    "sdk"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperledger-iroha/iroha.git",
+    "directory": "javascript/iroha_js"
+  },
+  "bugs": {
+    "url": "https://github.com/hyperledger-iroha/iroha/issues"
+  },
+  "homepage": "https://github.com/hyperledger-iroha/iroha/tree/master/javascript/iroha_js",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "browser.d.ts",
+    "kagemusha.d.ts",
+    "address.d.ts",
+    "normalizers.d.ts",
+    "blake2b.d.ts",
+    "instruction-builders.d.ts",
+    "torii.d.ts",
+    "torii-browser.d.ts",
+    "norito.d.ts",
+    "sccp.d.ts",
+    "sorafs.d.ts",
+    "crypto.d.ts",
+    "index.d.ts",
+    "repo-agreement.d.ts",
+    "privacy-capabilities.d.ts",
+    "bootle-lantern-issuance.d.ts",
+    "atomic-private-settlement.d.ts",
+    "canonical-request.d.ts",
+    "ivm-artifact.d.ts",
+    "transaction-codec.d.ts",
+    "contract-payload.d.ts",
+    "smart-contract-deployment.d.ts",
+    "sumeragi-typed.d.ts",
+    "connect.browser.d.ts",
+    "nexus-app.d.ts",
+    "kotodama-compiler.d.ts",
+    "operator-request.d.ts",
+    "package.json",
+    "native/iroha_js_host.checksums.json",
+    "dist",
+    "recipes/iso_bridge_builder.mjs",
+    "recipes/nexus_app_transfer.mjs",
+    "race.d.ts",
+    "classed-race.d.ts",
+    "game.d.ts",
+    "game-resources.d.ts",
+    "nft.d.ts",
+    "game-proof-worker.d.ts",
+    "game-replay.d.ts",
+    "game-inputs.d.ts",
+    "game-certificates.d.ts",
+    "game-settlement.d.ts",
+    "verify-pinned-native.mjs"
+  ],
+  "browser": {
+    "./dist/authenticatedBlockProofs.js": "./dist/authenticatedBlockProofs.browser.js",
+    "./dist/crypto.js": "./dist/crypto.browser.js",
+    "./dist/cryptoHash.js": "./dist/cryptoHash.browser.js",
+    "./dist/native.js": "./dist/native.browser.js",
+    "./dist/address.js": "./dist/address.browser.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "sideEffects": false,
+  "license": "Apache-2.0",
+  "private": false,
+  "dependencies": {
+    "@noble/ciphers": "^1.2.0",
+    "@noble/curves": "^1.4.0",
+    "@noble/hashes": "^1.5.0",
+    "@scure/bip39": "^2.2.0",
+    "buffer": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "esbuild": "0.28.1",
+    "eslint": "^8.57.0",
+    "typescript": "^5.8.3"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
+  },
+  "bin": {
+    "iroha-verify-pinned": "./verify-pinned-native.mjs"
+  }
+}

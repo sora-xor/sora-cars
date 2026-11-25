@@ -1,0 +1,17 @@
+{
+  "scope": "Exact copies from retained native producer deadline N0 evidence: synthetic zero-funded ForcedReveal prestate, all-forfeit boundary, no driving. Request has native binary parity; report has native JSON provenance, not a binary report fixture. No deployed finality, full lifecycle, settlement or composed-security qualification.",
+  "files": [
+    {
+      "file": "request.nrt",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-street-producer-bundle-attempt-3/exports/producer-deadline-n0/request.nrt",
+      "sha256": "6196e370dcc1d81e74d24088cd84d58b091ca558a7b1ac024a8a8d9f3958ee53",
+      "bytes": 218
+    },
+    {
+      "file": "report.json",
+      "source": "/Users/takemiyamakoto/dev/sora-cars/output/qualification/native-street-producer-bundle-attempt-3/exports/producer-deadline-n0/prover-report.json",
+      "sha256": "cb2bb4e0b4ccd4129d9fd7e10e1fe8698ce88a3dd3012d4990ad5f72ce38b2c7",
+      "bytes": 1692
+    }
+  ]
+}

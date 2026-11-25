@@ -509,16 +509,14 @@ bounded result from full Street, authenticated history and security qualificatio
 
 ## Run locally
 
-The SDK currently links to the isolated sibling
-`../iroha-sora-cars-native/javascript/iroha_js`. That checkout must be present.
-Generate its distribution before building the app; Node-side SDK tests also
-require its authenticated native binding build. The maintained `../iroha`
-checkout has not received these changes yet.
+The locked npm dependency contains the Stock proof SDK, its native-produced wire and proof fixtures, and the source inputs checked by the parity tests. A fresh game checkout builds the JavaScript distribution during installation.
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
+
+`npm test` builds the native Node addon used by the Node-side address and transaction codecs on its first run. Install Git, Rustup with `rustup toolchain install 1.93.1`, and your platform’s C/C++ build tools. `npm run prepare:native` runs the same preparation explicitly. It initializes the pinned public Iroha source submodule, fetches locked Cargo dependencies, builds offline, and verifies the published addon. Later test runs reuse the verified addon. Cargo caches intermediates in `output/build/iroha-js-native` by default and accepts an absolute `CARGO_TARGET_DIR` for an existing build lane. See the [SDK source record](vendor/iroha/README.sora-cars.md).
 
 Open the local Vite address and choose **走り出そう / START YOUR ENGINE**. Practice needs no wallet. Use W/A/S/D or the arrow keys, Space to drift and Shift or X to boost. Gamepads use the left stick, R2 gas, L2 brake, A boost and B drift. Touch controls appear on mobile.
 
@@ -602,7 +600,7 @@ npm test
 ```
 
 The generator rejects a CLI whose embedded source identities differ from the
-sibling checkout. Parity checks include exact terminal standings and winners.
+explicitly selected full Iroha checkout. Parity checks include exact terminal standings and winners.
 Stock's adapter now uses the generic bounded-integer execution-STARK engine
 while preserving supplied checkpoints, accepted/finalized history and source-record
 binding. Its composed security qualification remains false. See

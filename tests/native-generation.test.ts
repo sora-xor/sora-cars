@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, mkdir, writeFile, readFile, rm, chmod, access } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { generateNative, nativeGenerationOptions, validateNativeExports } from '../scripts/generate-native.mjs';
 import { nativeSourceRoot } from '../scripts/lib/native-source-root.mjs';
@@ -136,9 +137,11 @@ test('native export preserves invalid native output and rejects installation aft
   assert.equal(JSON.parse(await readFile(join(options.evidenceDir, 'report.json'), 'utf8')).commands.length, 2);
 });
 
-test('native source checks follow the isolated SDK checkout and reject relative overrides', () => {
-  if (process.env.SORA_CARS_IROHA_ROOT === undefined) assert.match(nativeSourceRoot(), /\/iroha-sora-cars-native\/?$/);
-  else assert.equal(nativeSourceRoot(), resolve(process.env.SORA_CARS_IROHA_ROOT));
+test('native source checks follow the installed SDK and reject relative overrides', () => {
+  if (process.env.SORA_CARS_IROHA_ROOT === undefined) {
+    const installedGame = fileURLToPath(import.meta.resolve('@iroha/iroha-js/game'));
+    assert.equal(resolve(nativeSourceRoot(), 'javascript/iroha_js/dist/game.js'), installedGame);
+  } else assert.equal(nativeSourceRoot(), resolve(process.env.SORA_CARS_IROHA_ROOT));
   assert.equal(nativeSourceRoot('/selected/native/../native'), '/selected/native');
   assert.throws(() => nativeSourceRoot('../iroha'), /absolute/);
   assert.throws(() => nativeSourceRoot(''), /absolute/);

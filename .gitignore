@@ -4,6 +4,7 @@ dist/
 .vite/
 .vite-temp/
 *.tsbuildinfo
+/vendor/iroha/javascript/iroha_js/native/
 
 # Test reports and coverage
 test-results/

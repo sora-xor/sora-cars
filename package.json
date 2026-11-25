@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare": "node vendor/iroha/javascript/iroha_js/scripts/build-dist.mjs",
+    "prepare:native": "node scripts/prepare-native-sdk.mjs",
+    "pretest": "npm run prepare:native",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
@@ -62,7 +65,7 @@
     "check:drive": "tsx scripts/drive-check.ts"
   },
   "dependencies": {
-    "@iroha/iroha-js": "file:../iroha-sora-cars-native/javascript/iroha_js",
+    "@iroha/iroha-js": "file:vendor/iroha/javascript/iroha_js",
     "@noble/curves": "^1.9.7",
     "@noble/hashes": "^1.8.0",
     "meshoptimizer": "^1.0.1",

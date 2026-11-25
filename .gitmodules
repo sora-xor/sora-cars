@@ -1,0 +1,4 @@
+[submodule "iroha-js-native"]
+	path = vendor/iroha-js-native
+	url = https://github.com/hyperledger-iroha/iroha.git
+	shallow = true

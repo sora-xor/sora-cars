@@ -1,0 +1,97 @@
+{
+  "compiled_selected_sources": [
+    {
+      "bytes": 9929,
+      "path": "tests/game_v1_codec.rs",
+      "sha256": "f65eccd558f47f856057fcdd6554a7e15ce550122acb0e5cab5fdfe87a318d3b"
+    },
+    {
+      "bytes": 23757,
+      "path": "tests/game_v1_codec/semantic.rs",
+      "sha256": "1e69ca7abd1cf4970703f965461dfe87b7c2b5ca3d17d5657918326108245140"
+    },
+    {
+      "bytes": 4920,
+      "path": "tests/game_v1_codec/corpus.rs",
+      "sha256": "513be803307f179fd89fb76202c7163417776205b6cfe9a4741502fc35de75f6"
+    },
+    {
+      "bytes": 10110,
+      "path": "tests/game_v1_codec/corpus_shared.rs",
+      "sha256": "3ab805c46404e7ab871513da6ce3eb997367d75af53c550417b42eca0ad74421"
+    },
+    {
+      "bytes": 29347,
+      "path": "src/game.rs",
+      "sha256": "98e537537747166ab78a577985d6609b00c6c0521c0e9108a449e75d1d7e9091"
+    },
+    {
+      "bytes": 20926,
+      "path": "src/game_resources.rs",
+      "sha256": "fa5ac9ca9ec7864a9cc2924169fe88fb914892cd53c73e65fe4e8e9e27969458"
+    },
+    {
+      "bytes": 32065,
+      "path": "src/isi/game.rs",
+      "sha256": "aba463fa92948c38031ca3655cf94d4f8d869db93a20c49ab77db93311e360dc"
+    },
+    {
+      "bytes": 21800,
+      "path": "src/execution_proofs.rs",
+      "sha256": "77a2a5310931928985110ec0cec7f56301c0c84ba7299f31f8277f19e500f0ed"
+    },
+    {
+      "bytes": 30557,
+      "path": "src/execution_proofs/game_bundle.rs",
+      "sha256": "1f53ac205e73d0d87179651a3fc754b31b062062f3720c34c314ec2aec4dc5f3"
+    },
+    {
+      "bytes": 36624,
+      "path": "src/game_certificates.rs",
+      "sha256": "1ed680512ea26ab194c73feee437c7f0ede13ef12901ea04806af456b431aacd"
+    },
+    {
+      "bytes": 14871,
+      "path": "src/game_certificates/gameplay.rs",
+      "sha256": "e0c536f970387aed78ef024aedbd71bbd1fc1ce926880091041d50f74ee14a5a"
+    },
+    {
+      "bytes": 6407,
+      "path": "src/game_certificates/history.rs",
+      "sha256": "1adf85cb3b03ada716bf821cb460543cacaef7bc9e9409ac73beff92be8e1786"
+    },
+    {
+      "bytes": 34724,
+      "path": "src/game_certificates/history/transcript.rs",
+      "sha256": "8dcf8e992e4466781b00cddcf46591a1177f072e02e0f9a2fe49b3a9608af015"
+    },
+    {
+      "bytes": 5304,
+      "path": "src/game_certificates/invitation.rs",
+      "sha256": "0136d49e08fa55b09f107769a71f47c47b71ba5e55363485ff5fcf0613b1d4de"
+    },
+    {
+      "bytes": 31816,
+      "path": "src/game_certificates/lifecycle.rs",
+      "sha256": "8f17d5351deb07749f61774b8065345f81984b97a045420a55ca93acfb8306a7"
+    }
+  ],
+  "executable_bytes": 226426016,
+  "executable_path": "/Users/takemiyamakoto/dev/.iroha-port-targets/race-proof-native/debug/deps/iroha_data_model_group_02-adb3ea70f9c0490e",
+  "executable_sha256": "2592df4d1f037b3075f33ccb482fe8c37fd7a67de4f8bae364b4abe5ecf00264",
+  "exporter_test": "export_canonical_game_wire_fixtures_from_semantic_seed",
+  "files": [
+    {
+      "bytes": 352132,
+      "name": "fixtures.json",
+      "sha256": "03c0de64ba1e691a261a397ac1dc9517b72a968c70c98536bd3fb56a52bcba19"
+    }
+  ],
+  "fixture_source": "compiled typed semantic constructors; no browser expected bytes",
+  "native_parity_claimed": false,
+  "profile_activated": false,
+  "schema": "iroha.game.current-wire.provenance.v1",
+  "security_qualification": false,
+  "source_inventory_scope": "selected model and test sources; qualification owner must bind full source and build dependencies",
+  "test_only": true
+}

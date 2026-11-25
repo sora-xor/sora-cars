@@ -5,6 +5,7 @@ import { createServer } from 'node:http';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { resolve, isAbsolute } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { nativeSourceRoot } from './lib/native-source-root.mjs';
 import { build } from 'esbuild';
 import { chromium } from 'playwright';
 import { ed25519 } from '@noble/curves/ed25519';
@@ -12,7 +13,7 @@ import { AccountAddress } from '@iroha/iroha-js/address';
 import { NetworkId } from '@iroha/iroha-js/connect-browser';
 
 const root = resolve(import.meta.dirname, '..');
-const nativeRoot = resolve(root, '../iroha-sora-cars-native');
+const nativeRoot = nativeSourceRoot();
 const sdkRoot = resolve(nativeRoot, 'javascript/iroha_js');
 const bindingDir = resolve(sdkRoot, 'native');
 assert.ok(process.env.IROHA_JS_NATIVE_DIR === undefined ||

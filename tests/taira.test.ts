@@ -1,12 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { nativeSourceRoot } from '../scripts/lib/native-source-root.mjs';
 import { NetworkId, createConnectSessionPreview } from '@iroha/iroha-js/connect-browser';
 import { RaceChainClient } from '../src/chain/client';
 import { releaseNetworkId, TAIRA_NETWORK_ID, TAIRA_TORII_URL } from '../src/chain/taira';
 
 test('unconfigured app builds bind Connect to the native public Taira genesis identity', () => {
-  const deployment = JSON.parse(readFileSync(new URL('../../iroha/configs/soranexus/taira/explorer.runtime-config.json', import.meta.url), 'utf8'));
+  const deployment = JSON.parse(readFileSync(join(nativeSourceRoot(), 'configs/soranexus/taira/explorer.runtime-config.json'), 'utf8'));
   assert.equal(TAIRA_NETWORK_ID, deployment.networkId);
   assert.equal(TAIRA_TORII_URL, deployment.toriiBaseUrl);
   for (const override of [undefined, '']) {
@@ -21,7 +23,7 @@ test('unconfigured app builds bind Connect to the native public Taira genesis id
 });
 
 test('a replacement endpoint cannot change the bundled network binding', async () => {
-  const foreign = JSON.parse(readFileSync(new URL('../../iroha/javascript/iroha_js/test/fixtures/game-v1-codec.json', import.meta.url), 'utf8')).network_id;
+  const foreign = JSON.parse(readFileSync(join(nativeSourceRoot(), 'javascript/iroha_js/test/fixtures/game-v1-codec.json'), 'utf8')).network_id;
   assert.notEqual(foreign, TAIRA_NETWORK_ID);
   const client = new RaceChainClient({ toriiUrl: 'https://alternative.example', networkId: releaseNetworkId(), fetchImpl: async () => Response.json({ version: 1, enabled: true, native_game_sessions: true, network_id: foreign, profiles: [] }) });
   await client.probe();

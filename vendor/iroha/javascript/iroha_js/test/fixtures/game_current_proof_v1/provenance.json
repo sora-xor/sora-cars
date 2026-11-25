@@ -1,0 +1,407 @@
+{
+  "accepted_through_tick": 12,
+  "compiled_selected_sources": [
+    {
+      "bytes": 15281,
+      "path": "crates/iroha_core/src/execution_proofs/game_binding.rs",
+      "role": "stock-profile",
+      "sha256": "f2ccfc765fc10cb83ef8cda272bd5899e7e6d54acad6a4128e8c1bb9de2e5a73"
+    },
+    {
+      "bytes": 36624,
+      "path": "crates/iroha_data_model/src/game_certificates.rs",
+      "role": "stock-profile",
+      "sha256": "1ed680512ea26ab194c73feee437c7f0ede13ef12901ea04806af456b431aacd"
+    },
+    {
+      "bytes": 6407,
+      "path": "crates/iroha_data_model/src/game_certificates/history.rs",
+      "role": "stock-profile",
+      "sha256": "1adf85cb3b03ada716bf821cb460543cacaef7bc9e9409ac73beff92be8e1786"
+    },
+    {
+      "bytes": 34724,
+      "path": "crates/iroha_data_model/src/game_certificates/history/transcript.rs",
+      "role": "stock-profile",
+      "sha256": "8dcf8e992e4466781b00cddcf46591a1177f072e02e0f9a2fe49b3a9608af015"
+    },
+    {
+      "bytes": 31816,
+      "path": "crates/iroha_data_model/src/game_certificates/lifecycle.rs",
+      "role": "stock-profile",
+      "sha256": "8f17d5351deb07749f61774b8065345f81984b97a045420a55ca93acfb8306a7"
+    },
+    {
+      "bytes": 14871,
+      "path": "crates/iroha_data_model/src/game_certificates/gameplay.rs",
+      "role": "stock-profile",
+      "sha256": "e0c536f970387aed78ef024aedbd71bbd1fc1ce926880091041d50f74ee14a5a"
+    },
+    {
+      "bytes": 30557,
+      "path": "crates/iroha_data_model/src/execution_proofs/game_bundle.rs",
+      "role": "stock-profile",
+      "sha256": "1f53ac205e73d0d87179651a3fc754b31b062062f3720c34c314ec2aec4dc5f3"
+    },
+    {
+      "bytes": 2661,
+      "path": "crates/iroha_crypto/src/sha3_384.rs",
+      "role": "stock-profile",
+      "sha256": "68df417212fb126d312440b81ba171351468123f3747f80376d3bcc772818f23"
+    },
+    {
+      "bytes": 139540,
+      "path": "crates/iroha_crypto/src/lib.rs",
+      "role": "stock-profile",
+      "sha256": "0abaf3365686e40ccbc871e1061ba3f1b3af48978176bcaf61036a0ed39b69c0"
+    },
+    {
+      "bytes": 68297,
+      "path": "crates/iroha_crypto/src/signature/mod.rs",
+      "role": "stock-profile",
+      "sha256": "18d8bc87eca9284b9786fe5f323af1f3ae92fc34c4cdc5080eff38495c3ebabe"
+    },
+    {
+      "bytes": 81928,
+      "path": "crates/iroha_crypto/src/signature/ed25519.rs",
+      "role": "stock-profile",
+      "sha256": "400351f3a0337b1b40a560b33b3aaf4b8b77080ca93e4b1a2d449b41fa81a7dc"
+    },
+    {
+      "bytes": 26499,
+      "path": "crates/iroha_core/src/execution_proofs/race.rs",
+      "role": "stock-profile",
+      "sha256": "ec56177cd0a43b090805b99a62edcce397cf8a9973f397a33a91a41411672768"
+    },
+    {
+      "bytes": 8985,
+      "path": "crates/iroha_core/src/execution_proofs/environment.rs",
+      "role": "stock-profile",
+      "sha256": "63be9cf121fe8de7c8fdb424942b0fb304eb7c2d5580492fca3f2053b01a766e"
+    },
+    {
+      "bytes": 7866,
+      "path": "crates/iroha_core/src/execution_proofs/environment_air.rs",
+      "role": "stock-profile",
+      "sha256": "aacaca1d942908b2c41c357fbe7cec747b1c8da94b40aaf705bc60bb189fd1f7"
+    },
+    {
+      "bytes": 45688,
+      "path": "crates/iroha_core/src/execution_proofs/integer_air.rs",
+      "role": "stock-profile",
+      "sha256": "1a5c4b233641943bbcf08faa5f987ce9385438bc71cbc4cd9ca6f1b558ee85cb"
+    },
+    {
+      "bytes": 20203,
+      "path": "crates/iroha_core/src/execution_proofs/integer_air/weighted.rs",
+      "role": "stock-profile",
+      "sha256": "88dbc69ba8c82a4412794fbda24d53d92c9410a0b1be0d97dfbbc7e0aa94d982"
+    },
+    {
+      "bytes": 21622,
+      "path": "crates/iroha_core/src/execution_proofs/race_air.rs",
+      "role": "stock-profile",
+      "sha256": "bcd344f1d844a3cf615e96aa14663bc0209ab16a306d25fca2ef8fbd7922d7d9"
+    },
+    {
+      "bytes": 56659,
+      "path": "crates/iroha_core/src/execution_proofs/proof.rs",
+      "role": "stock-profile",
+      "sha256": "3d34666fdbfe4563a5111b31a1b38e5c245c4bec94422bb7d3261897ce91c13e"
+    },
+    {
+      "bytes": 1836,
+      "path": "crates/iroha_core/src/execution_proofs/record_binding.rs",
+      "role": "stock-profile",
+      "sha256": "7e065d4bbbfd13cb5e87694ae3a33b08026dd2856c52522cb7e80c7726a5c6b2"
+    },
+    {
+      "bytes": 55441,
+      "path": "crates/iroha_core/src/execution_proofs/guarded/accepted_history.rs",
+      "role": "stock-profile",
+      "sha256": "f15c1566bcbb3fab7ecafb175f2ed266d9de890431b06c66853785f9f5756d34"
+    },
+    {
+      "bytes": 29347,
+      "path": "crates/iroha_data_model/src/game.rs",
+      "role": "stock-profile",
+      "sha256": "98e537537747166ab78a577985d6609b00c6c0521c0e9108a449e75d1d7e9091"
+    },
+    {
+      "bytes": 11423,
+      "path": "crates/iroha_data_model/src/game_retention.rs",
+      "role": "stock-profile",
+      "sha256": "29c082c23a6f05ca906144e7b3d55ce8e671b09906478afc95e7f11f39255137"
+    },
+    {
+      "bytes": 20926,
+      "path": "crates/iroha_data_model/src/game_resources.rs",
+      "role": "stock-profile",
+      "sha256": "fa5ac9ca9ec7864a9cc2924169fe88fb914892cd53c73e65fe4e8e9e27969458"
+    },
+    {
+      "bytes": 21800,
+      "path": "crates/iroha_data_model/src/execution_proofs.rs",
+      "role": "stock-profile",
+      "sha256": "77a2a5310931928985110ec0cec7f56301c0c84ba7299f31f8277f19e500f0ed"
+    },
+    {
+      "bytes": 37813,
+      "path": "crates/iroha_core/src/execution_proofs/poseidon2.rs",
+      "role": "stock-profile",
+      "sha256": "9aad7c0defb7352b590b8eafa421dd0e8c38cf0940bfa56b3b206f49d37a7b48"
+    },
+    {
+      "bytes": 5885,
+      "path": "crates/iroha_core/src/execution_proofs/poseidon2_constants.rs",
+      "role": "stock-profile",
+      "sha256": "d2f0c4f1aed8bfb516ff4bf16beec08d69603c9031cc1e25ec1de670063cdaa1"
+    },
+    {
+      "bytes": 128258,
+      "path": "crates/iroha_core/src/privacy_engines/transparent_stark.rs",
+      "role": "stock-profile",
+      "sha256": "e4bc85b30f3a9cf9a56a5f45c44b19c37bae9865795125fad8f558e7b2ef471c"
+    },
+    {
+      "bytes": 27986,
+      "path": "crates/fastpq_isi/src/params.rs",
+      "role": "stock-profile",
+      "sha256": "a760177d05cd9efab983772837cfe1bfe7a541b24cbd7334ebe633a5f0b585b1"
+    },
+    {
+      "bytes": 16126,
+      "path": "crates/fastpq_isi/src/poseidon.rs",
+      "role": "stock-profile",
+      "sha256": "1cf89ff798f7b029462b278429aa44e36eb4cf61ef7032e8fb2813bed4dabb84"
+    },
+    {
+      "bytes": 76595,
+      "path": "crates/fastpq_isi/src/poseidon_digest384.rs",
+      "role": "stock-profile",
+      "sha256": "a68097db8ce8eecb5cac420297144fd20984274d62bd67e9b57801ea780058e7"
+    },
+    {
+      "bytes": 1632,
+      "path": "crates/fastpq_isi/src/assets/poseidon_goldilocks_width3_v1.bin",
+      "role": "stock-profile",
+      "sha256": "7b30fe50faeddb74a7433bc65a43b7c6b46484b36eab5a65869e08894166dfde"
+    },
+    {
+      "bytes": 57395,
+      "path": "crates/iroha_core/src/execution_proofs/stark/transparent_stark.rs",
+      "role": "stock-profile",
+      "sha256": "f39239c7a85496af6bd42bee1d6d0815d48bcc17aa70546b589c5dd4a819734b"
+    },
+    {
+      "bytes": 10762,
+      "path": "crates/iroha_core/src/execution_proofs/stark/fft.rs",
+      "role": "stock-profile",
+      "sha256": "f4b37049590deb7fc5d34a347fb3698ce586712597b6517a464b9591d58db502"
+    },
+    {
+      "bytes": 204987,
+      "path": "crates/iroha_core/src/execution_proofs/stark/aggregate_stark.rs",
+      "role": "stock-profile",
+      "sha256": "ded7b1c215fc0b7e110db352db146b82e6721dc16c779777b9d1ed9612ca3947"
+    },
+    {
+      "bytes": 142478,
+      "path": "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark.rs",
+      "role": "stock-profile",
+      "sha256": "1b19d2e07d4053e3bf9e2f13e63fd0c13aa5f81f4184a827027b38d45418a486"
+    },
+    {
+      "bytes": 5879,
+      "path": "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_deep_air.rs",
+      "role": "stock-profile",
+      "sha256": "50aeb650ca5860f6ed8fc5981e2813155a9ee2b2cc4f95d2ea0f2343e6b32248"
+    },
+    {
+      "bytes": 16280,
+      "path": "crates/iroha_core/src/execution_proofs/stark/proof_managed_note_stark_execution_fixed.rs",
+      "role": "stock-profile",
+      "sha256": "572deae5b8eae7167e610d63613f52afffcc313a9b2babf3f0894fb03b98c75e"
+    },
+    {
+      "bytes": 40115,
+      "path": "crates/iroha_execution_stark/src/lib.rs",
+      "role": "stock-profile",
+      "sha256": "1daa78ed2a6ead45be848e7bfef87c486b21d3e9921b2aa7ddfb803dc298955f"
+    },
+    {
+      "bytes": 17928,
+      "path": "crates/iroha_execution_stark/src/air.rs",
+      "role": "stock-profile",
+      "sha256": "a845c35c0c4b26d2d4be127eae8523e9c575d8581fbe1d339b915583218ea5f4"
+    },
+    {
+      "bytes": 63307,
+      "path": "crates/iroha_execution_stark/src/circuit.rs",
+      "role": "stock-profile",
+      "sha256": "bff11213be6a2bca538956a301570744840c3a8a59ef05475a248a8791fc8366"
+    },
+    {
+      "bytes": 16172,
+      "path": "crates/iroha_execution_stark/src/field.rs",
+      "role": "stock-profile",
+      "sha256": "a73a9a4521a34551f70be613fc1f45c9defb2989993f8541126c8604a8163279"
+    },
+    {
+      "bytes": 15665,
+      "path": "crates/iroha_execution_stark/src/fri.rs",
+      "role": "stock-profile",
+      "sha256": "9b97db7268bfc3ed3adfb5ea231602e972d36cb44c7386ca37eb50fe9c7fd7f8"
+    },
+    {
+      "bytes": 4633,
+      "path": "crates/iroha_execution_stark/src/hash.rs",
+      "role": "stock-profile",
+      "sha256": "c445786e1d12f362756a1cc315db9a480bddc5a3a29091ae2a0a1bbf0354000e"
+    },
+    {
+      "bytes": 7135,
+      "path": "crates/iroha_execution_stark/src/merkle.rs",
+      "role": "stock-profile",
+      "sha256": "9c1719cf2ee9d799452ec9fc5dda674bbabf54e62cfa34eb7853dc356f596453"
+    },
+    {
+      "bytes": 11605,
+      "path": "crates/iroha_execution_stark/src/ntt.rs",
+      "role": "stock-profile",
+      "sha256": "104c977fa047f6255cea90f6004b2c42174690f665fcd5b4e0e2679616bd9c79"
+    },
+    {
+      "bytes": 25612,
+      "path": "crates/iroha_execution_stark/src/params.rs",
+      "role": "stock-profile",
+      "sha256": "fe192820539aa3dbf456206ab025828d7f325110e88798cb01c6396390f67385"
+    },
+    {
+      "bytes": 25217,
+      "path": "crates/iroha_execution_stark/src/proof.rs",
+      "role": "stock-profile",
+      "sha256": "5e0fb0809c04e9c6409662d7d61c3e2a8d417236e94018c8e1523bead8ed72e1"
+    },
+    {
+      "bytes": 36558,
+      "path": "crates/iroha_execution_stark/src/prover.rs",
+      "role": "stock-profile",
+      "sha256": "f1963d65fb1a866f02789745481f6db6caacfb71802a6c69eb26e8a4429f8035"
+    },
+    {
+      "bytes": 13768,
+      "path": "crates/iroha_execution_stark/src/trace.rs",
+      "role": "stock-profile",
+      "sha256": "e4c185154e554da393ac3782d3e09993745efb89a4fec6a8c8af189a34e6b011"
+    },
+    {
+      "bytes": 9769,
+      "path": "crates/iroha_execution_stark/src/transcript.rs",
+      "role": "stock-profile",
+      "sha256": "9bf0bfa47c92a77ea6bc6342530db84ae465cf0766fd1f1dcd4ad5c7870f7123"
+    },
+    {
+      "bytes": 18828,
+      "path": "crates/iroha_execution_stark/src/verifier.rs",
+      "role": "stock-profile",
+      "sha256": "959cb0e68b9631d13667d96b20a7018c3550b21e171041a292725f73aed24d94"
+    },
+    {
+      "bytes": 129,
+      "path": "crates/iroha_execution_stark/src/games/mod.rs",
+      "role": "stock-profile",
+      "sha256": "ab90d2aef1b913c1b858fb968ab83568d063d9fdabb2c3980263ada8afc32ebc"
+    },
+    {
+      "bytes": 60869,
+      "path": "crates/iroha_execution_stark/src/games/race_v1.rs",
+      "role": "stock-profile",
+      "sha256": "d87fb9b4e044caee5d28cb527ce398fe300514f8b8ec921bc81e195f993d7852"
+    },
+    {
+      "bytes": 21756,
+      "path": "crates/iroha_execution_stark/src/games/race_v1_roads.rs",
+      "role": "stock-profile",
+      "sha256": "d707cb96e91afd2f934653c1660fe8e81153891681197e5770cf3aa23cce0bf2"
+    },
+    {
+      "bytes": 90543,
+      "path": "crates/iroha_core/src/execution_proofs/proof_tests.rs",
+      "role": "exporter-or-model",
+      "sha256": "803079588962188282d2ade24faa0dac7863a4818bc3e6790d6d9cfdca2111df"
+    },
+    {
+      "bytes": 11213,
+      "path": "crates/iroha_core/src/execution_proofs/proof_tests/current_proof_export.rs",
+      "role": "exporter-or-model",
+      "sha256": "884069b25012d1ec49b69d51f31cb266cfda564392bf90c8840e97cd9939cc71"
+    }
+  ],
+  "cryptographic_computation_verified": true,
+  "entropy": "test-only deterministic prover entropy",
+  "executable_bytes": 1501509424,
+  "executable_path": "/Users/takemiyamakoto/dev/.iroha-port-targets/race-proof-native-tests/debug/deps/iroha_core-5b5ccf30289d5165",
+  "executable_sha256": "13e7c81b293552a78a0618d4851d06edd2401b437bfef1361981fa34cc9be3a0",
+  "exporter_test": "execution_proofs::proof::tests::genuine_stock_proof_rejects_rebound_revision_pending_frontier_and_economics",
+  "files": [
+    {
+      "bytes": 562760,
+      "name": "proof.nrt",
+      "sha256": "a1696dd2ffbb29f59c1ce75ac9d318aa713cd752f38afdd28dbf3c7ee8bfbfa3"
+    },
+    {
+      "bytes": 1815,
+      "name": "request.nrt",
+      "sha256": "552d439b29f851545af2bb4ba670a3f8fd5129a9d1941bb573b7ebbad1ff7462"
+    },
+    {
+      "bytes": 133,
+      "name": "outcome.nrt",
+      "sha256": "12bcab6c5d9c51873588ad0046faf5932b4536f2c7a551d4763cacd9eda0354e"
+    },
+    {
+      "bytes": 1394,
+      "name": "record.nrt",
+      "sha256": "95af3421be80c6dff749699086ddcde2b02531d73f0ae32db7372166865ec928"
+    },
+    {
+      "bytes": 49,
+      "name": "binding.nrt",
+      "sha256": "32a088fe3f7bdb663f105f205f0565870287c6a615fff215fd7851c456ed7e52"
+    },
+    {
+      "bytes": 10194767,
+      "name": "fixtures.json",
+      "sha256": "97abda9a13f1963b888b327ef1e6c6eda3416196fea0419d43a9c7a339e1a8dc"
+    },
+    {
+      "bytes": 5674706,
+      "name": "semantic-values.json",
+      "sha256": "0ea3d076c17d8cafa60bec169a18fd9a2cace5858d84049479cffa644b348222"
+    }
+  ],
+  "finalized_ledger_inclusion_verified": false,
+  "full_race": false,
+  "funded_settlement": false,
+  "history_checked_against_supplied_record": true,
+  "ledger_execution_performed": false,
+  "ledger_origin_authenticated": false,
+  "native_browser_parity_claimed": false,
+  "network_id": "hash:97104D6D499469597764A276572BAE26750622EAC20556942A93F6842122B595#D2D3",
+  "physical_ticks": 6,
+  "players": 2,
+  "profile_activated": false,
+  "profile_id": "hash:D0061F99990BEA3327C8AA7A107470377A7C1AA300639D0108FFA2DD1DA23B87#A48A",
+  "profile_qualified": false,
+  "record_mutation_rejections_passed": true,
+  "schema": "iroha.game.current-proof.provenance.v1",
+  "security_qualification": false,
+  "session_id": "hash:CF969B09346F659A2E72ED4F37B734BB3A82AD6E0A36DDA0FCD58BABA78E0597#68BC",
+  "source": "synthetic local complete record; actual newly generated native proof",
+  "source_inventory_scope": "complete compiled stock profile catalog plus test exporter sources; qualification owner binds full build and dependencies",
+  "source_proof_encoding": "canonical compact bare ExecutionProofEnvelopeV1",
+  "source_proof_file": "proof.nrt",
+  "source_proof_sha256": "a1696dd2ffbb29f59c1ce75ac9d318aa713cd752f38afdd28dbf3c7ee8bfbfa3",
+  "test_only": true
+}

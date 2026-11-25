@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict';
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { setTimeout as delay } from 'node:timers/promises';
+import { join } from 'node:path';
+import { nativeSourceRoot } from './lib/native-source-root.mjs';
 import { createServer } from 'vite';
 import { WebSocketServer } from 'ws';
 import { chromium } from 'playwright';
@@ -10,7 +12,7 @@ import { AccountAddress } from '@iroha/iroha-js/address';
 import { NetworkId } from '@iroha/iroha-js/connect-browser';
 import { createTestWallet } from './fixtures/connect-wallet.mjs';
 
-const deployment = JSON.parse(await readFile('../iroha/configs/soranexus/taira/explorer.runtime-config.json', 'utf8'));
+const deployment = JSON.parse(await readFile(join(nativeSourceRoot(), 'configs/soranexus/taira/explorer.runtime-config.json'), 'utf8'));
 const privateKey = new Uint8Array(32).fill(91), publicKey = ed25519.getPublicKey(privateKey);
 const account = { privateKey, publicKey, accountId: AccountAddress.fromAccount({ algorithm: 'ed25519', publicKey }).toI105() };
 const evidence = process.env.SORA_CARS_TEST_OUTPUT ?? 'output/browser/taira-connect/ui';
