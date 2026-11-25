@@ -1,7 +1,7 @@
 import { isAbsolute, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-/** The SDK, native-generated proof fixtures and network configuration share one source checkout. */
+/** Resolve the retained SDK inputs or an explicitly selected full Iroha checkout. */
 export function nativeSourceRoot(override = process.env.SORA_CARS_IROHA_ROOT) {
   if (override !== undefined) {
     if (!isAbsolute(override)) throw new Error('SORA_CARS_IROHA_ROOT must be an explicit absolute checkout path.');

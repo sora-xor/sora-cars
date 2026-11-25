@@ -31,9 +31,10 @@ function matchesPin() {
 if (matchesPin()) {
   console.log(`Using verified native SDK binding from ${pin}.`);
 } else {
-  if (!existsSync(join(source, '.git'))) {
-    execFileSync('git', ['submodule', 'update', '--init', '--depth', '1', '--', submodule], { cwd: root, stdio: 'inherit' });
+  if (existsSync(join(source, '.git')) && output('git', ['status', '--porcelain'], source)) {
+    throw new Error(`Preserve your changes in ${submodule} before preparing the pinned native SDK.`);
   }
+  execFileSync('git', ['submodule', 'update', '--init', '--checkout', '--depth', '1', '--filter=blob:none', '--', submodule], { cwd: root, stdio: 'inherit' });
   if (output('git', ['rev-parse', 'HEAD'], source) !== pin || output('git', ['status', '--porcelain'], source)) {
     throw new Error(`Native SDK build requires a clean ${submodule} at ${pin}.`);
   }
