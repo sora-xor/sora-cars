@@ -1,0 +1,4 @@
+# The Rust 1.93 strip step can misalign the Mach-O string table in a cdylib.
+# Keep the original link output for the local Node addon that dyld loads.
+[profile.dev.package.iroha_js_host]
+strip = "none"
